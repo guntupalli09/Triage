@@ -1,0 +1,8 @@
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+jinja2==3.1.2
+python-multipart==0.0.6
+stripe==7.0.0
+openai>=1.12.0,<2.0.0
+python-docx==1.1.0
+PyPDF2==3.0.1

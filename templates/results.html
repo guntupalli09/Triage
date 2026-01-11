@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - Contract Risk Triage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-5xl mx-auto px-4 py-12">
+        <!-- Header -->
+        <div class="mb-8">
+            <a href="/" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium mb-4 inline-block">
+                ← Back to Upload
+            </a>
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">Analysis Results</h1>
+            <p class="text-gray-600">Contract: <span class="font-medium">{{ filename }}</span></p>
+        </div>
+
+        <!-- Overall Risk Badge -->
+        <div class="mb-8">
+            {% if overall_risk == "high" %}
+            <div class="bg-red-50 border-2 border-red-300 rounded-lg p-6">
+                <div class="flex items-center mb-2">
+                    <svg class="h-6 w-6 text-red-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-2xl font-bold text-red-900">High Risk Indicators Detected</span>
+                </div>
+                <p class="text-red-800">This contract contains high-risk indicators that may require careful review and negotiation.</p>
+            </div>
+            {% elif overall_risk == "medium" %}
+            <div class="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-6">
+                <div class="flex items-center mb-2">
+                    <svg class="h-6 w-6 text-yellow-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-2xl font-bold text-yellow-900">Medium Risk Indicators Detected</span>
+                </div>
+                <p class="text-yellow-800">This contract contains medium-risk indicators that may warrant review.</p>
+            </div>
+            {% else %}
+            <div class="bg-green-50 border-2 border-green-300 rounded-lg p-6">
+                <div class="flex items-center mb-2">
+                    <svg class="h-6 w-6 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-2xl font-bold text-green-900">Low Risk Indicators</span>
+                </div>
+                <p class="text-green-800">Few risk indicators detected. Standard review recommended.</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Executive Summary</h2>
+            <ul class="space-y-3">
+                {% for bullet in summary_bullets %}
+                <li class="flex items-start">
+                    <svg class="h-5 w-5 text-indigo-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-gray-700">{{ bullet }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Top Issues -->
+        {% if top_issues %}
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Detected Risk Indicators</h2>
+            <div class="space-y-6">
+                {% for issue in top_issues %}
+                <div class="border-l-4 {% if issue.severity == 'high' %}border-red-500{% elif issue.severity == 'medium' %}border-yellow-500{% else %}border-blue-500{% endif %} pl-6 py-2">
+                    <div class="flex items-center mb-2">
+                        <h3 class="text-lg font-semibold text-gray-900">{{ issue.title }}</h3>
+                        <span class="ml-3 px-2 py-1 text-xs font-medium rounded {% if issue.severity == 'high' %}bg-red-100 text-red-800{% elif issue.severity == 'medium' %}bg-yellow-100 text-yellow-800{% else %}bg-blue-100 text-blue-800{% endif %}">
+                            {{ issue.severity|upper }}
+                        </span>
+                    </div>
+                    {% if issue.clause_number %}
+                    <div class="mb-2">
+                        <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                            Clause: {{ issue.clause_number }}
+                        </span>
+                    </div>
+                    {% endif %}
+                    <div class="space-y-2 text-gray-700">
+                        {% if issue.matched_keywords %}
+                        <div>
+                            <p class="font-medium text-sm text-gray-600 mb-1">Why This Was Flagged:</p>
+                            <p class="text-sm">
+                                <span class="font-mono text-xs bg-gray-100 px-2 py-1 rounded">
+                                    Matched keywords: {{ issue.matched_keywords|join(", ") }}
+                                </span>
+                            </p>
+                        </div>
+                        {% endif %}
+                        <div>
+                            <p class="font-medium text-sm text-gray-600 mb-1">Why This May Matter:</p>
+                            <p>{{ issue.why_it_matters }}</p>
+                        </div>
+                        <div>
+                            <p class="font-medium text-sm text-gray-600 mb-1">Commonly Negotiated:</p>
+                            <p>{{ issue.negotiation_consideration }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Possible Missing Sections -->
+        {% if possible_missing_sections %}
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Possible Missing Sections</h2>
+            <p class="text-gray-600 mb-4 text-sm">These sections are commonly included in commercial contracts and may be worth considering:</p>
+            <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {% for section in possible_missing_sections %}
+                <li class="flex items-start">
+                    <svg class="h-5 w-5 text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-gray-700">{{ section }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <!-- Statistics -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Analysis Statistics</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-gray-900">{{ findings_count }}</div>
+                    <div class="text-sm text-gray-600 mt-1">Total Findings</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-red-600">{{ rule_counts.get('high', 0) }}</div>
+                    <div class="text-sm text-gray-600 mt-1">High Risk</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-yellow-600">{{ rule_counts.get('medium', 0) }}</div>
+                    <div class="text-sm text-gray-600 mt-1">Medium Risk</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hardcoded Disclaimer -->
+        <div class="bg-red-50 border-2 border-red-300 rounded-lg p-6 mb-8">
+            <div class="flex">
+                <svg class="h-6 w-6 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                    <h3 class="text-lg font-bold text-red-900 mb-2">Legal Disclaimer</h3>
+                    <p class="text-red-800 font-medium mb-2">
+                        This tool provides automated risk triage, not legal advice.
+                    </p>
+                    <p class="text-red-700 text-sm">
+                        The analysis provided is for informational purposes only and does not constitute legal advice. 
+                        This tool may indicate potential risk areas but does not determine legality, enforceability, or safety. 
+                        Always consult with qualified legal counsel before signing any contract. 
+                        The absence of detected risks does not guarantee a contract is safe to sign.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Negative Guarantees -->
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">What This Tool Does NOT Do</h2>
+            <ul class="space-y-2 text-gray-700 text-sm">
+                <li class="flex items-start">
+                    <svg class="h-5 w-5 text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>Does not determine enforceability of contract terms</span>
+                </li>
+                <li class="flex items-start">
+                    <svg class="h-5 w-5 text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>Does not identify jurisdiction-specific legality</span>
+                </li>
+                <li class="flex items-start">
+                    <svg class="h-5 w-5 text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>Does not replace legal counsel or provide legal advice</span>
+                </li>
+                <li class="flex items-start">
+                    <svg class="h-5 w-5 text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>Does not declare terms "safe to sign" or "illegal"</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center text-gray-500 text-sm space-y-1">
+            <p>Contract Risk Triage Tool - Automated Risk Analysis</p>
+            <p class="text-xs">Rule Engine Version {{ rule_engine_version }}</p>
+        </div>
+    </div>
+</body>
+</html>
