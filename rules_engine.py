@@ -306,6 +306,71 @@ class RuleEngine:
                 rationale="Work product ownership language can effectively transfer IP even if assignment wording is indirect.",
                 pattern=r"\b(work\s+product|deliverables?)\b.*?\b(owned\s+by|shall\s+be\s+the\s+property\s+of)\b",
             ),
+            Rule(
+                rule_id="H_ATTFEE_01",
+                rule_name="one_way_attorneys_fees",
+                title="One-way attorneys' fees",
+                severity=Severity.HIGH,
+                rationale="One-sided fee-shifting clauses can dramatically increase downside risk by forcing one party to pay all legal costs regardless of outcome.",
+                anchors=[r"\battorneys['\s]?fees?\b", r"\blegal\s+fees?\b", r"\bcosts?\s+and\s+expenses?\b"],
+                nearby=[
+                    r"\bshall\s+pay\b",
+                    r"\bprevailing\s+party\b",
+                    r"\breceiving\s+party\b.*\bshall\s+pay\b",
+                    r"\bdisclosing\s+party\b.*\bshall\s+pay\b",
+                ],
+                window=400,
+                aliases=["one_way_attorneys_fees", "unilateral_fee_shifting"],
+            ),
+            Rule(
+                rule_id="H_LOL_CARVEOUT_01",
+                rule_name="liability_cap_carveout",
+                title="Liability cap carve-outs may negate protection",
+                severity=Severity.HIGH,
+                rationale="Liability caps that exclude indemnity, confidentiality, or IP claims often negate the practical benefit of the cap entirely.",
+                anchors=[r"\blimitation\s+of\s+liability\b", r"\bliability\s+cap\b"],
+                nearby=[
+                    r"\bexcept\s+for\b.*\b(indemnif\w+|confidential|intellectual\s+property|IP)\b",
+                    r"\bexcluding\b.*\b(indemnif\w+|confidential|intellectual\s+property|IP)\b",
+                    r"\bshall\s+not\s+apply\s+to\b.*\b(indemnif\w+|confidential|intellectual\s+property|IP)\b",
+                    r"\bnot\s+apply\s+to\b.*\b(indemnif\w+|confidential|intellectual\s+property|IP)\b",
+                ],
+                window=450,
+                aliases=["liability_cap_carveout", "cap_exclusion"],
+            ),
+            Rule(
+                rule_id="H_ASSIGN_CHANGE_CTRL_01",
+                rule_name="assignment_change_control",
+                title="Assignment restricted on change of control",
+                severity=Severity.HIGH,
+                rationale="Restrictions on assignment during a merger, acquisition, or change of control can block fundraising or exits.",
+                anchors=[r"\bmay\s+not\s+assign\b", r"\bassignment\s+prohibited\b", r"\bshall\s+not\s+assign\b"],
+                nearby=[
+                    r"\bchange\s+of\s+control\b",
+                    r"\bmerger\b",
+                    r"\bacquisition\b",
+                    r"\bsale\s+of\s+assets\b",
+                    r"\breorganization\b",
+                ],
+                window=400,
+                aliases=["assignment_change_control", "anti_assignment_mna"],
+            ),
+            Rule(
+                rule_id="H_PUBLICITY_01",
+                rule_name="publicity_rights",
+                title="Publicity or disclosure rights",
+                severity=Severity.HIGH,
+                rationale="Publicity clauses may allow one party to disclose the relationship or use branding without consent.",
+                anchors=[r"\bpress\s+release\b", r"\bpublic\s+announcement\b", r"\buse\s+of\s+name\b", r"\buse\s+of\s+logo\b"],
+                nearby=[
+                    r"\bmay\s+disclose\b",
+                    r"\bpermitted\s+to\b",
+                    r"\bwithout\s+consent\b",
+                    r"\bwithout\s+prior\s+written\s+consent\b",
+                ],
+                window=350,
+                aliases=["publicity_rights", "disclosure_of_relationship"],
+            ),
             # ---------------- MEDIUM ----------------
             Rule(
                 rule_id="M_CONF_01",
@@ -398,6 +463,66 @@ class RuleEngine:
                 ],
                 window=400,
                 aliases=["no_bond_injunction", "injunctive_relief_no_bond", "equitable_relief_no_bond", "no_bond_requirement"],
+            ),
+            Rule(
+                rule_id="M_AUDIT_01",
+                rule_name="audit_rights",
+                title="Audit or inspection rights",
+                severity=Severity.MEDIUM,
+                rationale="Audit rights can impose operational burden and expose sensitive internal systems.",
+                anchors=[r"\baudit\b", r"\binspect\b", r"\bexamine\s+records\b"],
+                nearby=[
+                    r"\bupon\s+notice\b",
+                    r"\bduring\s+normal\s+business\s+hours\b",
+                    r"\bwith\s+reasonable\s+notice\b",
+                ],
+                window=350,
+                aliases=["audit_rights", "inspection_rights"],
+            ),
+            Rule(
+                rule_id="M_TERM_NOTICE_01",
+                rule_name="termination_notice_window",
+                title="Short termination or notice windows",
+                severity=Severity.MEDIUM,
+                rationale="Short or strict notice windows can lead to accidental renewals or unintended termination.",
+                anchors=[r"\bterminate\b", r"\bnotice\b"],
+                nearby=[
+                    r"\b(?:at\s+least\s+)?(?:10|15|20|30)\s+days?\b",
+                    r"\b(?:at\s+least\s+)?(?:ten|fifteen|twenty|thirty)\s+days?\b",
+                    r"\bless\s+than\s+\d+\s+days\b",
+                ],
+                window=300,
+                aliases=["termination_notice_window", "short_notice_period"],
+            ),
+            Rule(
+                rule_id="M_SURVIVAL_SCOPE_01",
+                rule_name="survival_clause_scope",
+                title="Overbroad survival of obligations",
+                severity=Severity.MEDIUM,
+                rationale="Survival clauses that extend many obligations beyond termination can create indefinite exposure.",
+                anchors=[r"\bshall\s+survive\s+termination\b", r"\bsurvive\s+the\s+termination\b"],
+                nearby=[
+                    r"\bincluding\s+but\s+not\s+limited\s+to\b",
+                    r"\bsections?\s+\d+\s+and\s+\d+\b",
+                    r"\ball\s+obligations?\b",
+                ],
+                window=400,
+                aliases=["survival_clause_scope", "post_termination_obligations"],
+            ),
+            Rule(
+                rule_id="M_WAIVER_DEFENSE_01",
+                rule_name="waiver_of_defenses",
+                title="Waiver of defenses or rights",
+                severity=Severity.MEDIUM,
+                rationale="Clauses waiving defenses can remove legal safeguards and shift risk unexpectedly.",
+                anchors=[r"\bwaives?\s+any\s+defenses?\b", r"\birrevocably\s+waives?\b"],
+                nearby=[
+                    r"\bregardless\s+of\s+fault\b",
+                    r"\bwithout\s+limitation\b",
+                    r"\ball\s+defenses?\b",
+                ],
+                window=350,
+                aliases=["waiver_of_defenses", "rights_waiver"],
             ),
             # ---------------- LOW ----------------
             Rule(
@@ -556,6 +681,30 @@ class RuleEngine:
         
         if "M_EQUIT_NOBOND_01" in rule_ids:
             recommendations.append("Bond requirement for equitable relief (You may want to confirm whether equitable relief provisions require posting a bond or other security)")
+        
+        if "H_ATTFEE_01" in rule_ids:
+            recommendations.append("Mutual attorneys' fees / fee-shifting (You may want to confirm whether fee-shifting applies to both parties or only one)")
+        
+        if "H_LOL_CARVEOUT_01" in rule_ids:
+            recommendations.append("Liability cap scope (You may want to confirm which categories are included in the liability cap and which are excluded)")
+        
+        if "H_ASSIGN_CHANGE_CTRL_01" in rule_ids:
+            recommendations.append("Assignment rights on change of control (You may want to confirm whether assignment is permitted in connection with mergers, acquisitions, or change of control)")
+        
+        if "H_PUBLICITY_01" in rule_ids:
+            recommendations.append("Publicity and disclosure controls (You may want to confirm whether either party can disclose the relationship or use branding without consent)")
+        
+        if "M_AUDIT_01" in rule_ids:
+            recommendations.append("Audit rights scope and limitations (You may want to confirm the scope, frequency, and notice requirements for any audit or inspection rights)")
+        
+        if "M_TERM_NOTICE_01" in rule_ids:
+            recommendations.append("Termination notice requirements (You may want to confirm the notice period required for termination and any renewal windows)")
+        
+        if "M_SURVIVAL_SCOPE_01" in rule_ids:
+            recommendations.append("Survival clause scope (You may want to confirm which obligations survive termination and for how long)")
+        
+        if "M_WAIVER_DEFENSE_01" in rule_ids:
+            recommendations.append("Waiver of defenses scope (You may want to confirm whether any defenses or rights are waived and the scope of such waivers)")
         
         # Combine baseline with rule-based recommendations (limit total)
         all_recommendations = baseline + recommendations

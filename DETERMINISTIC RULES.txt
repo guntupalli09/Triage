@@ -1,0 +1,820 @@
+HIGH-RISK DETERMINISTIC RULES
+
+Clauses that routinely cause material downside, asymmetric exposure, or founder-level risk.
+
+1. Unilateral Indemnification
+
+Risk Level: High
+Clause Type: Indemnity
+
+Trigger Patterns
+
+Key phrases: indemnify, hold harmless, defend
+
+Proximity: indemnify within ±50 words of all claims, any and all, arising out of
+
+Asymmetry trigger: indemnity obligations appear for only one party
+
+Why This Is Risky
+Creates open-ended liability for third-party claims without reciprocal protection.
+
+Common Negotiation Outcome
+Mutual indemnity or limitation to specific claim categories.
+
+Notes for Automation
+
+High regex reliability
+
+False positives when indemnity is mutual but poorly structured
+
+2. Unlimited Liability Clause
+
+Risk Level: High
+Clause Type: Liability
+
+Trigger Patterns
+
+Key phrases: unlimited liability, without limitation, no cap
+
+Proximity: liability within ±40 words of not limited
+
+Why This Is Risky
+Removes financial predictability and breaks standard risk-reward alignment.
+
+Common Negotiation Outcome
+Introduce liability caps tied to fees paid.
+
+Notes for Automation
+
+Very regex-friendly
+
+Rare false positives
+
+3. Liability Cap Exclusions Too Broad
+
+Risk Level: High
+Clause Type: Liability
+
+Trigger Patterns
+
+Key phrases: except for, shall not apply to
+
+Proximity: exclusions referencing confidentiality, IP, indemnification, data, security together
+
+Why This Is Risky
+Effectively nullifies the liability cap by excluding all realistic claim types.
+
+Common Negotiation Outcome
+Narrow exclusions or apply super-cap instead of full carve-out.
+
+Notes for Automation
+
+Requires proximity logic
+
+Medium false-positive risk if exclusions are limited
+
+4. Assignment Without Consent
+
+Risk Level: High
+Clause Type: Assignment
+
+Trigger Patterns
+
+Key phrases: may assign without consent, freely assignable
+
+Proximity: assignment within ±30 words of without consent
+
+Why This Is Risky
+Allows counterparty to transfer obligations to unknown or risky entities.
+
+Common Negotiation Outcome
+Consent required except for corporate restructuring.
+
+Notes for Automation
+
+High signal
+
+Low false positives
+
+5. IP Ownership Reassignment
+
+Risk Level: High
+Clause Type: Intellectual Property
+
+Trigger Patterns
+
+Key phrases: all right title and interest, hereby assigns
+
+Proximity: work product, deliverables, developed under this agreement
+
+Why This Is Risky
+Can unintentionally transfer core IP or future inventions.
+
+Common Negotiation Outcome
+Limit assignment to specific deliverables; retain background IP.
+
+Notes for Automation
+
+Extremely high value rule
+
+Must distinguish license vs assignment language
+
+6. Perpetual Confidentiality Obligation
+
+Risk Level: High
+Clause Type: Confidentiality
+
+Trigger Patterns
+
+Key phrases: in perpetuity, forever, no time limitation
+
+Proximity: confidential within ±40 words
+
+Why This Is Risky
+Creates indefinite compliance burden and future exposure.
+
+Common Negotiation Outcome
+Fixed term (e.g., 2–5 years).
+
+Notes for Automation
+
+Regex-friendly
+
+Low false positives
+
+7. Broad Definition of Confidential Information
+
+Risk Level: High
+Clause Type: Confidentiality
+
+Trigger Patterns
+
+Key phrases: including but not limited to, all information
+
+Proximity: whether oral written electronic in definition section
+
+Why This Is Risky
+Expands confidentiality scope beyond reasonable control or tracking.
+
+Common Negotiation Outcome
+Limit to marked or identified information.
+
+Notes for Automation
+
+Needs definition-section detection
+
+Moderate false positives
+
+8. No Termination for Convenience
+
+Risk Level: High
+Clause Type: Termination
+
+Trigger Patterns
+
+Key phrases: no right to terminate, only for cause
+
+Proximity: termination within ±50 words
+
+Why This Is Risky
+Locks parties into unfavorable agreements.
+
+Common Negotiation Outcome
+Add termination for convenience with notice.
+
+Notes for Automation
+
+Clear pattern
+
+Low false positives
+
+9. One-Way Limitation of Remedies
+
+Risk Level: High
+Clause Type: Remedies
+
+Trigger Patterns
+
+Key phrases: sole and exclusive remedy
+
+Proximity: remedy language applies to only one party
+
+Why This Is Risky
+Removes leverage and recovery options asymmetrically.
+
+Common Negotiation Outcome
+Make mutual or remove exclusivity.
+
+Notes for Automation
+
+Requires party-role detection
+
+Medium complexity
+
+10. Injunctive Relief Carve-Out (One-Sided)
+
+Risk Level: High
+Clause Type: Remedies
+
+Trigger Patterns
+
+Key phrases: injunctive relief, equitable relief
+
+Proximity: applies only to one party
+
+Why This Is Risky
+Allows immediate court action bypassing dispute resolution.
+
+Common Negotiation Outcome
+Make mutual or narrow scope.
+
+Notes for Automation
+
+High signal
+
+Requires asymmetry check
+
+MEDIUM-RISK DETERMINISTIC RULES
+
+Clauses that create friction, operational risk, or negotiation leverage.
+
+11. Automatic Renewal
+
+Risk Level: Medium
+Clause Type: Term
+
+Trigger Patterns
+
+Key phrases: automatically renew, renewal term
+
+Proximity: unless terminated
+
+Why This Is Risky
+Creates silent contract extensions.
+
+Common Negotiation Outcome
+Require explicit renewal.
+
+Notes for Automation
+
+Simple regex
+
+Low false positives
+
+12. Broad Audit Rights
+
+Risk Level: Medium
+Clause Type: Audit
+
+Trigger Patterns
+
+Key phrases: audit, inspect records
+
+Proximity: upon reasonable notice missing
+
+Why This Is Risky
+Operational disruption and confidentiality exposure.
+
+Common Negotiation Outcome
+Limit scope, frequency, and notice.
+
+Notes for Automation
+
+Medium signal
+
+Context needed
+
+13. Publicity Rights Without Consent
+
+Risk Level: Medium
+Clause Type: Publicity
+
+Trigger Patterns
+
+Key phrases: use name logo, marketing purposes
+
+Proximity: missing prior written consent
+
+Why This Is Risky
+Loss of brand control.
+
+Common Negotiation Outcome
+Consent-based usage.
+
+Notes for Automation
+
+Easy regex
+
+Very low false positives
+
+14. Unilateral Amendment Rights
+
+Risk Level: Medium
+Clause Type: Amendment
+
+Trigger Patterns
+
+Key phrases: may amend, unilaterally
+
+Proximity: without written consent
+
+Why This Is Risky
+Allows silent contract changes.
+
+Common Negotiation Outcome
+Require mutual written amendment.
+
+Notes for Automation
+
+High reliability
+
+15. Payment Terms With No Dispute Window
+
+Risk Level: Medium
+Clause Type: Payment
+
+Trigger Patterns
+
+Key phrases: payable upon receipt, no right to withhold
+
+Proximity: absence of dispute language
+
+Why This Is Risky
+Forces payment even for disputed services.
+
+Common Negotiation Outcome
+Add dispute resolution window.
+
+Notes for Automation
+
+Medium confidence
+
+Needs section awareness
+
+LOW-RISK DETERMINISTIC RULES
+
+Clauses usually acceptable but worth visibility.
+
+16. Governing Law Clause Present
+
+Risk Level: Low
+Clause Type: Governing Law
+
+Trigger Patterns
+
+Key phrases: governed by, laws of
+
+Why This Is Risky
+Impacts enforcement logistics, not substantive rights.
+
+Common Negotiation Outcome
+Neutral jurisdiction.
+
+Notes for Automation
+
+Informational only
+
+17. Notice Delivery Strictness
+
+Risk Level: Low
+Clause Type: Notices
+
+Trigger Patterns
+
+Key phrases: only upon receipt, certified mail
+
+Proximity: exclusion of email
+
+Why This Is Risky
+Creates technical compliance traps.
+
+Common Negotiation Outcome
+Allow electronic notice.
+
+Notes for Automation
+
+Low severity
+
+High false positives acceptable
+
+18. Survival Clause Overbreadth
+
+Risk Level: Low
+Clause Type: Survival
+
+Trigger Patterns
+
+Key phrases: shall survive termination
+
+Proximity: applies to all provisions
+
+Why This Is Risky
+Extends obligations unnecessarily.
+
+Common Negotiation Outcome
+Limit to specific sections.
+
+Notes for Automation
+
+Good explainability
+
+FINAL SYSTEM NOTES
+
+These rules are triage-grade, not legal judgment
+
+Every rule is:
+
+Deterministic
+
+Auditable
+
+Regex-implementable
+
+Explainable without LLM hallucination
+
+If your system does not include at least 80% of the High-Risk section, it is not production-ready.
+
+If you want:
+
+Regex examples
+
+Clause-section detection logic
+
+Confidence scoring without probability
+
+Rule priority ordering
+
+False-positive suppression strategies
+
+Say so and specify the engine (Python, Rust, SQL, JS).
+
+give me atleast 50 of them so that my tool is effecient for most of the cases
+
+Below is a production-grade expansion to 55 deterministic rules.
+
+This is not fluff.
+This is the actual surface area in-house counsel scans when triaging NDAs and MSAs fast.
+
+All rules satisfy:
+
+Deterministic (textual presence / structure)
+
+Regex + proximity friendly
+
+Common in real contracts
+
+Asymmetric or hidden business risk
+
+Suitable for automated triage, not advice
+
+HIGH-RISK DETERMINISTIC RULES (1–25)
+
+These are non-negotiable flags. Missing these = your tool is weak.
+
+1. Unilateral Indemnification
+
+(already covered earlier — included for completeness)
+
+2. Unlimited Liability
+3. Liability Cap Rendered Meaningless by Carve-Outs
+4. IP Assignment of All Work Product
+5. Assignment Without Consent
+6. Perpetual Confidentiality
+7. Overbroad Confidential Information Definition
+8. One-Way Injunctive Relief
+9. Sole and Exclusive Remedy (One-Sided)
+10. No Termination for Convenience
+11. Indemnity Includes “Defense Costs”
+
+Risk Level: High
+Clause Type: Indemnity
+
+Trigger Patterns
+
+defend, attorneys’ fees, costs of defense
+
+Within ±20 words of indemnify
+
+Why Risky
+Obligates immediate payment before liability is proven.
+
+Negotiation Outcome
+Remove defense obligation or require final adjudication.
+
+Automation Notes
+High regex confidence.
+
+12. Indemnity Covers “Any Breach”
+
+Trigger
+
+indemnify for any breach
+
+Risk
+Turns contract breach into third-party liability exposure.
+
+13. IP Infringement Indemnity Without Knowledge Standard
+
+Trigger
+
+infringement without knowingly or willful
+
+Risk
+Strict liability for unknown IP claims.
+
+14. Confidentiality Applies to Residual Knowledge
+
+Trigger
+
+residuals, memory, unaided memory
+
+Risk
+Destroys trade-secret protection asymmetrically.
+
+15. Confidentiality Includes Information “Whether or Not Marked”
+
+Trigger
+
+whether or not marked confidential
+
+Risk
+Impossible compliance standard.
+
+16. No Carve-Out for Independently Developed Information
+
+Trigger
+
+Missing independently developed
+
+Risk
+Blocks parallel innovation.
+
+17. Non-Compete or Non-Solicit in NDA/MSA
+
+Trigger
+
+non-compete, non-solicit, restrain
+
+Risk
+Commercial NDAs should not restrict business activity.
+
+18. Work-Made-for-Hire Language
+
+Trigger
+
+work made for hire
+
+Risk
+Silent IP ownership transfer.
+
+19. Background IP Not Explicitly Reserved
+
+Trigger
+
+IP assignment section missing background IP
+
+Risk
+Accidental loss of pre-existing assets.
+
+20. Confidentiality Obligation Survives “Indefinitely”
+
+Trigger
+
+survive indefinitely
+
+Risk
+Permanent compliance risk.
+
+21. Broad “Equitable Relief Without Bond”
+
+Trigger
+
+without posting bond
+
+Risk
+Lowers barrier to injunctive action.
+
+22. One-Way Attorneys’ Fees
+
+Trigger
+
+prevailing party applies to one party
+
+Risk
+Asymmetric litigation pressure.
+
+23. Waiver of Consequential Damages (One-Way)
+
+Trigger
+
+waive consequential damages applies only to one party
+
+24. Confidentiality Covers “Existence of Agreement”
+
+Trigger
+
+existence of this agreement
+
+Risk
+Blocks fundraising and disclosures.
+
+25. No Cure Period for Breach
+
+Trigger
+
+immediate termination without cure
+
+Risk
+Zero recovery window.
+
+MEDIUM-RISK DETERMINISTIC RULES (26–45)
+
+Operational, leverage, or future-pain clauses.
+
+26. Automatic Renewal
+27. Renewal with Price Increase Tied to Renewal
+
+Trigger
+
+renewal + increase
+
+28. Audit Rights Without Scope Limitation
+29. Audit Rights Without Confidentiality Protection
+30. Publicity Rights Without Consent
+31. Unilateral Amendment Rights
+32. Payment Due “Regardless of Dispute”
+33. Late Fees with No Cap
+
+Trigger
+
+late fee + missing % cap
+
+34. Interest Accrues at Undefined Rate
+35. Broad Force Majeure Including Financial Hardship
+
+Trigger
+
+financial condition, market conditions
+
+36. Subcontracting Without Responsibility
+
+Trigger
+
+subcontract without remain responsible
+
+37. Data Use Rights Beyond Purpose
+
+Trigger
+
+use data for any purpose
+
+38. No Data Deletion Obligation
+
+Trigger
+
+Missing return or destroy
+
+39. Survival Clause Applies to “All Provisions”
+40. Assignment Allowed in Change of Control Only One-Way
+41. Insurance Requirements Undefined
+
+Trigger
+
+insurance without limits
+
+42. SLA Credits as Sole Remedy
+
+Trigger
+
+service credits are sole remedy
+
+43. Broad Compliance with “All Laws”
+
+Trigger
+
+all applicable laws
+
+Risk
+Unbounded obligation.
+
+44. No Limitation on Confidentiality Disclosures to Affiliates
+45. Termination Fees or Early Exit Penalties
+LOW-RISK / VISIBILITY RULES (46–55)
+
+Not deal-breakers, but important signals.
+
+46. Governing Law Clause Present
+47. Venue / Forum Selection Clause
+48. Notice Requires Physical Delivery Only
+49. No Electronic Signatures Allowed
+50. Entire Agreement Clause
+51. Waiver Must Be in Writing
+52. No Third-Party Beneficiaries Clause
+53. Headings Have No Interpretive Effect
+54. Counterparts Clause
+55. Severability Clause
+
+Section 1: Liability & Indemnity (Rules 1-10)
+Liability_Cap_Absent: No numerical limit or "fees paid" reference in the liability section.
+
+Liability_Cap_Low: A fixed cap (e.g., $10,000) that is disproportionately low for the contract value.
+
+Indemnity_Direct_Claims: Indemnification covering "all claims" rather than just "third-party claims."
+
+Indemnity_Uncapped: Indemnity obligations specifically excluded from the general liability cap.
+
+Gross_Negligence_Exclusion: Failure to exclude "gross negligence" or "willful misconduct" from the cap.
+
+Consequential_Damages_Waiver_Absent: Missing the standard waiver for indirect/punitive damages.
+
+IP_Infringement_Indemnity_Missing: No protection if the provider's tool gets the user sued for patent/copyright infringement.
+
+Indemnity_Control_Absent: The indemnifying party is denied the right to control the legal defense.
+
+Data_Breach_Liability_Uncapped: Unlimited financial exposure specifically for data security incidents.
+
+Personal_Liability_Founders: Language attempting to pierce the corporate veil to hold individuals liable.
+
+Section 2: Intellectual Property & Data (Rules 11-20)
+Work_For_Hire_Aggressive: Use of "Work Made for Hire" applied to core platform technology.
+
+Feedback_License_Unrestricted: "Feedback" ownership granted to the counterparty without a license back.
+
+Data_Ownership_Client: Client claiming ownership of "aggregated" or "anonymized" metadata.
+
+IP_Assignment_Pre_Payment: IP transfers to the buyer before the final invoice is paid.
+
+Trademark_Usage_Grant: Unrestricted right to use the other party's name/logo in PR.
+
+Background_IP_Transfer: Failure to explicitly reserve "Background IP" or "Pre-existing Works."
+
+Source_Code_Escrow_Trigger: Mandatory source code deposit into escrow.
+
+Open_Source_Warranty_Strict: Warranty that "no open source" is used (virtually impossible to meet).
+
+Derivative_Works_Ownership: Counterparty claims ownership of any "derivative works" created by you.
+
+Knowledge_Transfer_Mandate: Obligation to train the counterparty's team on internal "know-how."
+
+Section 3: Financial & Payment Terms (Rules 21-30)
+Net_60_Plus: Payment terms exceeding 60 days (e.g., Net 90, Net 120).
+
+Late_Fee_Prohibited: Explicit clause stating no interest or late fees may be charged.
+
+Most_Favored_Nation_Pricing: Requirement to match the lowest price given to any other client.
+
+Audit_Rights_Internal: Right to audit internal payroll or sensitive financial records.
+
+Audit_Cost_Shift: Requirement for the provider to pay for the audit if any minor discrepancy is found.
+
+Taxes_Gross_Up: Obligation to pay the counterparty's taxes or withholding amounts.
+
+Travel_Expenses_Non_Reimbursable: Explicit ban on charging for reasonable travel/out-of-pocket costs.
+
+Set_Off_Rights: Client's right to withhold payment based on unrelated disputed claims.
+
+Price_Freeze_Duration: Multi-year prohibition on increasing SaaS or service fees.
+
+Currency_Risk_Shift: Requirement to be paid in a volatile currency with no exchange-rate protection.
+
+Section 4: Termination & Term (Rules 31-40)
+Evergreen_Automatic_Renewal: Renewal occurs without any affirmative action.
+
+Termination_For_Convenience_Unilateral: Only the client can walk away without cause.
+
+Termination_Notice_Long: Requirement for >90 days notice to end a contract.
+
+Cure_Period_Short: Less than 10 days to fix a "material breach" before termination.
+
+Post_Term_Support_Free: Requirement to provide "transition services" at no additional cost.
+
+Survival_Clause_Broad: Confidentiality or IP terms that "survive indefinitely."
+
+Suspension_Right_Absent: Provider cannot pause services if the client stops paying.
+
+Non_Solicit_Employees: Prohibition on hiring any staff from the counterparty.
+
+Non_Solicit_Liquidated_Damages: Heavy fixed-fee penalties for hiring staff (e.g., 200% of salary).
+
+Termination_Fee: Liquidated damages or penalties for ending a contract early.
+
+Section 5: Confidentiality & Compliance (Rules 41-50)
+Residuals_Clause_Absent: No protection for "general knowledge" retained in memory.
+
+Confidentiality_Definition_Narrow: Only "marked" documents are considered confidential.
+
+Disclosure_Mandatory_Government: No requirement to notify the owner if a subpoena is received.
+
+Return_Of_Data_Physical: Requirement to physically return (not delete) data in an era of cloud storage.
+
+Insurance_Requirements_Extreme: Mandatory coverage levels (e.g., $10M+) that exceed the contract value.
+
+Foreign_Governing_Law: Jurisdiction in a country or state that is high-friction (e.g., Delaware to Dubai).
+
+Equitable_Relief_Unilateral: Only one party has the right to seek an injunction.
+
+Force_Majeure_Exclusion: Excluding "pandemics" or "cyberattacks" from Force Majeure.
+
+Assignment_Restriction_Strict: Prohibition on assigning the contract during a merger or acquisition (M&A).
+
+Entire_Agreement_Conflict: Language that makes "Purchase Orders" supersede the Master Agreement.
