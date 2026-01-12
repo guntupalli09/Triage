@@ -1,4 +1,4 @@
-# Contract Risk Triage Tool
+# Triage AI — Contract Risk Intelligence
 
 A production-ready system for automated risk triage of commercial contracts (NDAs and MSAs). This tool uses a deterministic rule engine to detect risk indicators, combined with an LLM layer that provides contextual explanations of detected risks. It is designed for founders, CEOs, and legal teams who need rapid, auditable risk assessment before contract review.
 
