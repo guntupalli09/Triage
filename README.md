@@ -21,53 +21,7 @@ The system follows a **neural-symbolic architecture** that strictly separates de
 
 This architecture solves the "legal hallucination problem" by ensuring all risk detection is deterministic, auditable, and version-controlled.
 
-## Quick Start
 
-### Prerequisites
-
-- Python 3.8+
-- Stripe account (for payments)
-- OpenAI API key (for explanations, optional)
-
-### Installation
-
-```bash
-# Clone the repository
-git clone <repository-url>
-cd Triage
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Configure environment
-cp .env.example .env
-# Edit .env with your API keys
-```
-
-### Running Locally
-
-```bash
-# Start the server
-uvicorn main:app --reload
-
-# Open browser to http://localhost:8000
-```
-
-For development mode (bypassing Stripe), set `DEV_MODE=true` in `.env`.
-
-### Stripe Webhook Testing
-
-```bash
-# Install Stripe CLI
-# https://stripe.com/docs/stripe-cli
-
-# Forward webhooks to local server
-stripe listen --forward-to localhost:8000/stripe-webhook
-```
 
 ## Safety-First Philosophy
 
