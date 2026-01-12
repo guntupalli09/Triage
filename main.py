@@ -153,9 +153,23 @@ else:
 APP_HMAC_SECRET = os.getenv("APP_HMAC_SECRET", "dev_secret_change_me")
 
 # BASE_URL: Read from environment, strip trailing slash, with safe defaults
+# MUST include protocol (http:// or https://) for absolute URLs
 BASE_URL_RAW = os.getenv("BASE_URL", "").strip()
 if BASE_URL_RAW:
     BASE_URL = BASE_URL_RAW.rstrip("/")
+    # Validate that BASE_URL includes protocol (required for absolute URLs)
+    if not BASE_URL.startswith(("http://", "https://")):
+        logger.error(
+            f"BASE_URL must include protocol (http:// or https://). "
+            f"Current value: '{BASE_URL}'. This will cause redirect errors."
+        )
+        # Auto-fix: assume https:// for production URLs
+        if not BASE_URL.startswith("localhost"):
+            BASE_URL = f"https://{BASE_URL}"
+            logger.warning(f"Auto-corrected BASE_URL to: {BASE_URL}")
+        else:
+            BASE_URL = f"http://{BASE_URL}"
+            logger.warning(f"Auto-corrected BASE_URL to: {BASE_URL}")
 else:
     # Safe default: allow localhost only if BASE_URL is missing (for local dev)
     BASE_URL = "http://localhost:8000"
@@ -164,26 +178,53 @@ else:
         "This will break on mobile/external devices. Set BASE_URL for production."
     )
 
-# Development mode: bypasses Stripe payment for testing
-# Production-safe default: missing DEV_MODE = False (production mode)
+# DEV_MODE: Runtime flag for demo/production mode
+# Read ONLY from environment variable - no inference from domain/host
+# DEV_MODE=true: Demo mode (Stripe OFF, OpenAI OPTIONAL)
+# DEV_MODE=false: Production mode (Stripe REQUIRED, OpenAI REQUIRED)
 DEV_MODE_RAW = os.getenv("DEV_MODE", "false").strip().lower()
-DEV_MODE = DEV_MODE_RAW in ("true", "1", "yes")
+DEV_MODE = DEV_MODE_RAW == "true"
 
-stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
-STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
+# Stripe configuration
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "").strip()
+STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "").strip()
 
-# REQUIRED startup log to prevent confusion
-logger.info(f"Application started in DEV_MODE={DEV_MODE} (from env: '{DEV_MODE_RAW}')")
+# Enforce production requirements when DEV_MODE=false
+if not DEV_MODE:
+    # Production mode: Stripe is REQUIRED
+    if not STRIPE_SECRET_KEY:
+        raise ValueError(
+            "STRIPE_SECRET_KEY is required in production mode (DEV_MODE=false). "
+            "Set DEV_MODE=true for demo mode or configure Stripe keys."
+        )
+    if not STRIPE_WEBHOOK_SECRET:
+        raise ValueError(
+            "STRIPE_WEBHOOK_SECRET is required in production mode (DEV_MODE=false). "
+            "Set DEV_MODE=true for demo mode or configure Stripe webhook secret."
+        )
+    # Production mode: OpenAI is REQUIRED
+    if not OPENAI_API_KEY:
+        raise ValueError(
+            "OPENAI_API_KEY is required in production mode (DEV_MODE=false). "
+            "Set DEV_MODE=true for demo mode or configure OpenAI API key."
+        )
+    stripe.api_key = STRIPE_SECRET_KEY
+    stripe_status = "ON"
+    openai_status = "REQUIRED"
+    mode_label = "PROD"
+else:
+    # Demo mode: Stripe is OFF, OpenAI is OPTIONAL
+    stripe.api_key = STRIPE_SECRET_KEY if STRIPE_SECRET_KEY else ""
+    stripe_status = "OFF"
+    openai_status = "OPTIONAL"
+    mode_label = "DEMO"
+    if not OPENAI_API_KEY:
+        logger.warning("OpenAI API key not configured in demo mode - LLM evaluation will be skipped")
+
+# REQUIRED startup log - explicit mode declaration
+logger.info(f"Mode={mode_label} | Stripe={stripe_status} | OpenAI={openai_status}")
 logger.info(f"Application BASE_URL set to: {BASE_URL}")
 logger.info(f"BASE_URL will be used for all redirects (Stripe success/cancel URLs and internal redirects)")
-
-# Warn if BASE_URL is localhost in production mode (but don't crash)
-if BASE_URL.startswith("http://localhost") or BASE_URL.startswith("https://localhost"):
-    if not DEV_MODE:
-        logger.warning(
-            "BASE_URL is set to localhost but DEV_MODE=false. "
-            "This will break on mobile/external devices. Set BASE_URL to your public URL."
-        )
 
 MAX_UPLOAD_BYTES = 10 * 1024 * 1024  # 10MB
 ALLOWED_EXTENSIONS = {".pdf", ".docx", ".txt"}
@@ -233,6 +274,34 @@ def verify_token(token: str) -> Optional[str]:
     return None
 
 
+def get_base_url(request: Request) -> str:
+    """
+    Get BASE_URL dynamically from request or fall back to environment variable.
+    
+    Priority:
+    1. Use BASE_URL from environment (for stable production domains)
+    2. Dynamically construct from request headers (for Vercel preview deployments)
+    
+    This solves the Vercel preview URL problem where each deployment gets a new URL.
+    """
+    # If BASE_URL is explicitly set in environment, use it (for stable domains)
+    if BASE_URL and BASE_URL != "http://localhost:8000":
+        return BASE_URL
+    
+    # Otherwise, construct from request (works for Vercel preview URLs)
+    scheme = request.url.scheme
+    host = request.headers.get("host", request.url.hostname)
+    
+    # Vercel sets x-forwarded-proto header
+    if request.headers.get("x-forwarded-proto"):
+        scheme = request.headers.get("x-forwarded-proto")
+    
+    # Construct absolute URL
+    dynamic_base = f"{scheme}://{host}".rstrip("/")
+    logger.debug(f"Using dynamic BASE_URL from request: {dynamic_base}")
+    return dynamic_base
+
+
 def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
     ext = os.path.splitext(filename.lower())[1]
     if ext == ".txt":
@@ -258,6 +327,15 @@ def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
     raise ValueError("Unsupported file type")
 
 
+@app.get("/config")
+async def get_config():
+    """Expose runtime configuration to frontend (safe, no secrets)."""
+    return {
+        "dev_mode": DEV_MODE,
+        "stripe_enabled": not DEV_MODE and bool(STRIPE_SECRET_KEY),
+    }
+
+
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     cleanup_expired_sessions()
@@ -266,12 +344,13 @@ async def index(request: Request):
         {
             "request": request,
             "current_year": datetime.now().year,
+            "dev_mode": DEV_MODE,
         }
     )
 
 
 @app.post("/upload")
-async def upload_contract(file: UploadFile = File(...)):
+async def upload_contract(request: Request, file: UploadFile = File(...)):
     cleanup_expired_sessions()
 
     if not file.filename:
@@ -304,7 +383,9 @@ async def upload_contract(file: UploadFile = File(...)):
     # DEV_MODE=true: DEMO/DEV MODE → SKIP Stripe payment
     logger.info(f"Upload endpoint: DEV_MODE={DEV_MODE}, checking payment requirement...")
     if DEV_MODE:
-        redirect_url = f"{BASE_URL}/results?token={token}"
+        # Use dynamic BASE_URL to handle Vercel preview URLs
+        current_base_url = get_base_url(request)
+        redirect_url = f"{current_base_url}/results?token={token}"
         logger.info(f"DEV_MODE enabled: bypassing Stripe payment - redirecting to: {redirect_url}")
         session_store[app_session_id] = {
             "paid": True,  # Mark as paid in dev mode
@@ -316,13 +397,18 @@ async def upload_contract(file: UploadFile = File(...)):
         return RedirectResponse(url=redirect_url, status_code=303)
 
     # DEV_MODE=false: PRODUCTION MODE → REQUIRE Stripe payment
-    logger.info("DEV_MODE=false: Production mode - requiring Stripe payment")
+    # (Stripe key validation already enforced at startup, but double-check for safety)
     if not stripe.api_key:
-        raise HTTPException(status_code=500, detail="Stripe is not configured. Required in production mode.")
+        raise HTTPException(
+            status_code=500, 
+            detail="Stripe is not configured. Required in production mode (DEV_MODE=false)."
+        )
 
     # Create Stripe Checkout Session and map it back via client_reference_id
-    success_url = f"{BASE_URL}/results?token={token}"
-    cancel_url = f"{BASE_URL}/"
+    # Use dynamic BASE_URL to handle Vercel preview URLs
+    current_base_url = get_base_url(request)
+    success_url = f"{current_base_url}/results?token={token}"
+    cancel_url = f"{current_base_url}/"
     logger.info(f"Creating Stripe checkout with success_url: {success_url}, cancel_url: {cancel_url}")
     try:
         checkout = stripe.checkout.Session.create(
@@ -364,6 +450,11 @@ async def upload_contract(file: UploadFile = File(...)):
 
 @app.post("/stripe-webhook")
 async def stripe_webhook(request: Request):
+    # In demo mode, webhooks should not be called, but handle gracefully
+    if DEV_MODE:
+        logger.warning("Stripe webhook called in DEV_MODE - ignoring")
+        return {"status": "ignored", "reason": "DEV_MODE enabled"}
+    
     if not STRIPE_WEBHOOK_SECRET:
         raise HTTPException(status_code=500, detail="Stripe webhook secret not configured")
 

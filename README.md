@@ -47,6 +47,72 @@ Current version: **1.0.3**
 
 All analyses include the rule engine version for auditability and reproducibility.
 
+## Runtime Configuration (DEV_MODE)
+
+The application supports two runtime modes controlled by the `DEV_MODE` environment variable:
+
+### Demo Mode (`DEV_MODE=true`)
+- **Stripe**: Disabled (no payment required)
+- **OpenAI**: Optional (LLM evaluation skipped if key not provided)
+- **Use Case**: Product demos, testing, development
+- **Behavior**: Analysis runs immediately after upload, no checkout flow
+
+### Production Mode (`DEV_MODE=false`)
+- **Stripe**: Required (payment flow enabled)
+- **OpenAI**: Required (startup error if key missing)
+- **Use Case**: Real customer transactions
+- **Behavior**: Full payment flow before analysis
+
+### Configuration
+
+Set `DEV_MODE` in your environment variables:
+```bash
+# Demo mode
+DEV_MODE=true
+
+# Production mode
+DEV_MODE=false
+```
+
+**Important**: 
+- Mode is determined **only** by the `DEV_MODE` environment variable
+- No inference from domain, hostname, or environment name
+- Changes take effect on server restart (no redeploy needed)
+- Startup logs clearly indicate the active mode: `Mode=DEMO | Stripe=OFF | OpenAI=OPTIONAL` or `Mode=PROD | Stripe=ON | OpenAI=REQUIRED`
+
+### BASE_URL Configuration (Vercel/Deployment)
+
+**For Vercel deployments**, the application automatically detects the current deployment URL from request headers. This solves the problem of changing preview URLs on each deployment.
+
+**Options:**
+
+1. **Don't set BASE_URL** (Recommended for Vercel):
+   - The app will automatically use the current deployment URL
+   - Works with preview deployments, production, and custom domains
+   - No need to update environment variables on each deploy
+
+2. **Set BASE_URL for stable domains**:
+   - Use a stable domain like `triage-gamma.vercel.app` or your custom domain
+   - Format: `BASE_URL=https://triage-gamma.vercel.app` (include `https://`)
+   - This overrides automatic detection
+
+**Priority:**
+- If `BASE_URL` is set in environment → uses that (for stable domains)
+- If `BASE_URL` is not set → automatically detects from request (for preview URLs)
+
+### Required Environment Variables
+
+**Production Mode (`DEV_MODE=false`)**:
+- `STRIPE_SECRET_KEY` (required)
+- `STRIPE_WEBHOOK_SECRET` (required)
+- `OPENAI_API_KEY` (required)
+- `BASE_URL` (optional - auto-detected from request if not set)
+
+**Demo Mode (`DEV_MODE=true`)**:
+- `OPENAI_API_KEY` (optional - LLM evaluation skipped if missing)
+- `BASE_URL` (optional - auto-detected from request if not set)
+- Stripe keys not required
+
 ## License
 
 This is a production MVP. Customize as needed for your use case.
