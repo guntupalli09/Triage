@@ -14,6 +14,7 @@ import hmac
 import hashlib
 import logging
 import secrets
+import re
 from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Dict, Optional
@@ -48,9 +49,11 @@ else:
 
 import stripe
 from fastapi import FastAPI, File, UploadFile, Request, HTTPException
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, Response
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.cors import CORSMiddleware
+from xhtml2pdf import pisa
 
 from PyPDF2 import PdfReader
 from docx import Document
@@ -192,6 +195,9 @@ session_store: Dict[str, Dict] = {}
 templates = Jinja2Templates(directory="templates")
 app = FastAPI(title="Contract Risk Triage Tool", version="1.0.0")
 
+# Mount static files directory
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -255,7 +261,13 @@ def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     cleanup_expired_sessions()
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "current_year": datetime.now().year,
+        }
+    )
 
 
 @app.post("/upload")
@@ -555,9 +567,194 @@ async def results(request: Request, token: str):
                 "findings_count": len(findings_dict),
                 "rule_counts": rule_counts,
                 "rule_engine_version": analysis.get("version", "1.0.3"),
+                "current_year": datetime.now().year,
+                "token": token,  # Pass token for PDF download
             },
         )
 
     except Exception as e:
         logger.error(f"Analysis failed: {e}")
         raise HTTPException(status_code=500, detail="Analysis failed")
+
+
+def sanitize_filename(filename: str) -> str:
+    """Sanitize filename for PDF download - remove extension and special chars."""
+    # Remove file extension
+    name_without_ext = Path(filename).stem
+    # Remove spaces, slashes, and special characters
+    # Keep only alphanumeric, underscores, and hyphens
+    sanitized = re.sub(r'[^a-zA-Z0-9_-]', '_', name_without_ext)
+    # Remove multiple consecutive underscores
+    sanitized = re.sub(r'_+', '_', sanitized)
+    # Remove leading/trailing underscores
+    sanitized = sanitized.strip('_')
+    # Limit length
+    if len(sanitized) > 50:
+        sanitized = sanitized[:50]
+    return sanitized
+
+
+@app.get("/download-pdf")
+async def download_pdf(request: Request, token: str):
+    """Generate and download a branded PDF report of the analysis."""
+    cleanup_expired_sessions()
+    
+    app_session_id = verify_token(token)
+    if not app_session_id:
+        raise HTTPException(status_code=400, detail="Invalid or expired token")
+    
+    if app_session_id not in session_store:
+        raise HTTPException(status_code=404, detail="Session not found or expired")
+    
+    entry = session_store[app_session_id]
+    
+    # Check if payment is confirmed (or DEV_MODE)
+    if not entry.get("paid") and not DEV_MODE:
+        raise HTTPException(status_code=402, detail="Payment required")
+    
+    contract_text = entry.get("text", "")
+    if not contract_text:
+        raise HTTPException(status_code=500, detail="Contract text missing")
+    
+    # Reuse existing analysis (do NOT rerun)
+    try:
+        analysis = rule_engine.analyze(contract_text)
+        findings = analysis["findings"]
+        overall_risk = analysis["overall_risk"]
+        
+        findings_dict = [
+            {
+                "rule_id": f.rule_id,
+                "rule_name": f.rule_name,
+                "title": f.title,
+                "severity": f.severity.value,
+                "rationale": f.rationale,
+                "matched_excerpt": f.matched_excerpt,
+                "position": f.position,
+                "context": f.context,
+                "clause_number": f.clause_number,
+                "matched_keywords": f.matched_keywords,
+                "aliases": f.aliases,
+            }
+            for f in findings
+        ]
+        
+        # Get LLM result (reuse if available, otherwise create fallback)
+        llm_result = llm_evaluator.evaluate(findings=findings_dict, overall_risk=overall_risk)
+        if not llm_result:
+            llm_result = llm_evaluator.create_fallback_response(findings=findings_dict, overall_risk=overall_risk)
+        
+        # Build enhanced issues (same logic as results endpoint)
+        findings_lookup = {}
+        for finding in findings_dict:
+            key = finding.get("rule_name", "")
+            if key not in findings_lookup:
+                findings_lookup[key] = []
+            findings_lookup[key].append(finding)
+        
+        llm_issues_map = {}
+        for issue in llm_result.get("top_issues", []):
+            issue_title = issue.get("title", "").lower()
+            llm_issues_map[issue_title] = issue
+        
+        all_enhanced_issues = []
+        seen_rule_ids = set()
+        
+        for finding in findings_dict:
+            rule_id = finding.get("rule_id", "")
+            if rule_id in seen_rule_ids:
+                continue
+            seen_rule_ids.add(rule_id)
+            
+            finding_title = finding.get("title", "").lower()
+            llm_issue = None
+            for llm_title, llm_data in llm_issues_map.items():
+                if finding_title in llm_title or llm_title in finding_title:
+                    llm_issue = llm_data
+                    break
+            
+            if llm_issue:
+                enhanced_issue = llm_issue.copy()
+                enhanced_issue["severity"] = finding.get("severity", llm_issue.get("severity", "low"))
+            else:
+                enhanced_issue = {
+                    "title": finding.get("title", ""),
+                    "severity": finding.get("severity", "low"),
+                    "why_it_matters": finding.get("rationale", "This may indicate increased contractual risk."),
+                    "negotiation_consideration": "Commonly negotiated; consider clarifying scope, caps, and mutuality.",
+                }
+            
+            if finding.get("clause_number"):
+                enhanced_issue["clause_number"] = finding.get("clause_number")
+            if finding.get("matched_keywords"):
+                enhanced_issue["matched_keywords"] = finding.get("matched_keywords")
+            if finding.get("matched_excerpt"):
+                enhanced_issue["matched_excerpt"] = finding.get("matched_excerpt")
+            
+            all_enhanced_issues.append(enhanced_issue)
+        
+        # Sort by severity
+        severity_order = {"high": 0, "medium": 1, "low": 2}
+        all_enhanced_issues.sort(key=lambda x: (severity_order.get(x.get("severity", "low"), 9), x.get("title", "")))
+        
+        # Generate filename
+        original_filename = entry.get("filename", "document")
+        sanitized_name = sanitize_filename(original_filename)
+        date_str = datetime.utcnow().strftime("%Y-%m-%d")
+        pdf_filename = f"TriageAI_ContractRiskReport_{sanitized_name}_{date_str}.pdf"
+        
+        # Get logo path (absolute path for PDF generation)
+        logo_path = Path(__file__).parent / "static" / "branding" / "triage-logo-primary.png"
+        if logo_path.exists():
+            # Use absolute file path for xhtml2pdf
+            logo_absolute = str(logo_path.absolute())
+        else:
+            logo_absolute = None
+            logger.warning(f"Logo not found at {logo_path}")
+        
+        # Get rule counts for PDF (same as results page)
+        rule_counts = analysis.get("rule_counts", {"high": 0, "medium": 0, "low": 0})
+        
+        # Render PDF template
+        html_content = templates.get_template("pdf_report.html").render(
+            {
+                "request": request,
+                "filename": original_filename,
+                "date_generated": datetime.utcnow().strftime("%B %d, %Y"),
+                "overall_risk": llm_result.get("overall_risk", overall_risk),
+                "summary_bullets": llm_result.get("summary_bullets", []),
+                "top_issues": all_enhanced_issues,
+                "findings_count": len(findings_dict),
+                "rule_counts": rule_counts,
+                "rule_engine_version": analysis.get("version", "1.0.3"),
+                "current_year": datetime.now().year,
+                "logo_path": logo_absolute,
+            }
+        )
+        
+        # Generate PDF using xhtml2pdf
+        pdf_buffer = io.BytesIO()
+        pisa_status = pisa.CreatePDF(
+            html_content,
+            dest=pdf_buffer,
+            encoding='utf-8'
+        )
+        
+        if pisa_status.err:
+            logger.error(f"PDF generation error: {pisa_status.err}")
+            raise HTTPException(status_code=500, detail="PDF generation failed")
+        
+        pdf_bytes = pdf_buffer.getvalue()
+        
+        # Return PDF as downloadable response
+        return Response(
+            content=pdf_bytes,
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": f'attachment; filename="{pdf_filename}"'
+            }
+        )
+        
+    except Exception as e:
+        logger.error(f"PDF generation failed: {e}")
+        raise HTTPException(status_code=500, detail="PDF generation failed")

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: letter;
+            margin: 0.75in 0.75in 1in 0.75in;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #0F172A;
+            line-height: 1.6;
+            font-size: 11pt;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Header styling - appears on every page */
+        .pdf-header {
+            height: 50px;
+            background: #FFFFFF;
+            border-bottom: 1px solid #E5E7EB;
+            padding: 0.5rem 0;
+            margin-bottom: 1rem;
+            display: table;
+            width: 100%;
+        }
+        
+        .pdf-header-content {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        
+        .pdf-header-logo {
+            height: 28px;
+            width: auto;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.75rem;
+        }
+        
+        .pdf-header-text {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 9pt;
+            font-weight: 600;
+            color: #0F172A;
+        }
+        
+        /* Footer styling - appears on every page */
+        .pdf-footer {
+            height: 45px;
+            background: #FFFFFF;
+            border-top: 1px solid #E5E7EB;
+            padding: 0.5rem 0;
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 8pt;
+            color: #6B7280;
+        }
+        
+        .pdf-footer p {
+            margin: 0.15rem 0;
+        }
+        
+        .logo {
+            max-width: 120px;
+            margin: 0 auto 2rem;
+        }
+        
+        .cover-title {
+            font-size: 32pt;
+            font-weight: 800;
+            color: #0F172A;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cover-subtitle {
+            font-size: 14pt;
+            color: #6B7280;
+            margin-bottom: 2rem;
+        }
+        
+        .cover-meta {
+            font-size: 11pt;
+            color: #4B5563;
+            margin: 1rem 0;
+        }
+        
+        .risk-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14pt;
+            margin-top: 1.5rem;
+        }
+        
+        .risk-badge-high {
+            background: #FEE2E2;
+            color: #991B1B;
+            border: 2px solid #DC2626;
+        }
+        
+        .risk-badge-medium {
+            background: #FEF3C7;
+            color: #92400E;
+            border: 2px solid #D97706;
+        }
+        
+        .risk-badge-low {
+            background: #D1FAE5;
+            color: #065F46;
+            border: 2px solid #16A34A;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        /* Section spacing */
+        .section-with-header {
+            margin-top: 0;
+        }
+        
+        h1 {
+            font-size: 24pt;
+            font-weight: 800;
+            color: #0F172A;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid #FF7A18;
+            padding-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-size: 18pt;
+            font-weight: 700;
+            color: #0F172A;
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        h3 {
+            font-size: 14pt;
+            font-weight: 600;
+            color: #0F172A;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .summary-section {
+            background: #F8FAFC;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #FF7A18;
+            margin: 1rem 0;
+        }
+        
+        .summary-bullets {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .summary-bullets li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .summary-bullets li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #FF7A18;
+            font-weight: bold;
+            font-size: 14pt;
+        }
+        
+        .finding-card {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border-left: 4px solid;
+            border-radius: 4px;
+            background: #FFFFFF;
+            page-break-inside: avoid;
+        }
+        
+        /* Risk finding structure - enforce order */
+        .finding-title-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .finding-title {
+            flex: 1;
+            margin: 0;
+        }
+        
+        .finding-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 9pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        
+        .finding-section-label {
+            font-size: 10pt;
+            font-weight: 600;
+            color: #4B5563;
+            margin-top: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .finding-high {
+            border-left-color: #DC2626;
+            background: #FEF2F2;
+        }
+        
+        .finding-medium {
+            border-left-color: #D97706;
+            background: #FFFBEB;
+        }
+        
+        .finding-low {
+            border-left-color: #3B82F6;
+            background: #EFF6FF;
+        }
+        
+        .finding-severity {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 9pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        
+        .severity-high {
+            background: #DC2626;
+            color: white;
+        }
+        
+        .severity-medium {
+            background: #D97706;
+            color: white;
+        }
+        
+        .severity-low {
+            background: #3B82F6;
+            color: white;
+        }
+        
+        .matched-excerpt {
+            background: #1F2937;
+            color: #F9FAFB;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            line-height: 1.5;
+            margin: 0.75rem 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .disclaimer-section {
+            background: #FEF3C7;
+            border: 2px solid #FCD34D;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        
+        .footer {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid #E5E7EB;
+            text-align: center;
+            font-size: 9pt;
+            color: #6B7280;
+        }
+        
+        .note {
+            font-style: italic;
+            color: #6B7280;
+            font-size: 10pt;
+            margin: 0.5rem 0;
+        }
+        
+        /* Risk Heat Summary styling */
+        .risk-heat-summary {
+            background: #F8FAFC;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .risk-heat-grid {
+            width: 100%;
+            margin: 1rem 0;
+        }
+        
+        .risk-heat-grid table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .risk-heat-grid td {
+            text-align: center;
+            padding: 1rem;
+            vertical-align: middle;
+        }
+        
+        .risk-heat-item {
+            text-align: center;
+        }
+        
+        .risk-heat-count {
+            font-size: 32pt;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .risk-heat-label {
+            font-size: 11pt;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .risk-heat-high .risk-heat-count {
+            color: #DC2626;
+        }
+        
+        .risk-heat-medium .risk-heat-count {
+            color: #D97706;
+        }
+        
+        .risk-heat-low .risk-heat-count {
+            color: #16A34A;
+        }
+        
+        .risk-heat-note {
+            text-align: center;
+            font-size: 10pt;
+            color: #4B5563;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+        
+        /* Coverage and privacy sections */
+        .coverage-section {
+            background: #F8FAFC;
+            border-left: 4px solid #FF7A18;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .privacy-section {
+            background: #F8FAFC;
+            border-left: 4px solid #6B7280;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- REPORT TITLE PAGE -->
+    <!-- Header -->
+    <div class="pdf-header">
+        <div class="pdf-header-content">
+            {% if logo_path %}
+            <img src="{{ logo_path }}" alt="Triage AI Logo" class="pdf-header-logo" />
+            {% endif %}
+            <span class="pdf-header-text">Triage AI — Contract Risk Intelligence</span>
+        </div>
+    </div>
+    
+    <div class="section-with-header">
+        <h1 style="font-size: 28pt; margin-top: 0; border-bottom: none; padding-bottom: 0;">Contract Risk Triage Report</h1>
+        
+        <div class="cover-meta" style="margin: 1.5rem 0;">
+            <p><strong>Contract:</strong> {{ filename }}</p>
+            <p><strong>Date Generated:</strong> {{ date_generated }}</p>
+        </div>
+        
+        <div class="risk-badge risk-badge-{{ overall_risk }}" style="margin: 2rem 0;">
+            {% if overall_risk == "high" %}
+                High Risk Indicators Detected
+            {% elif overall_risk == "medium" %}
+                Medium Risk Indicators Detected
+            {% else %}
+                Low Risk Indicators
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="pdf-footer">
+        <p>© {{ current_year }} Triage AI — Contract Risk Intelligence</p>
+        <p>Automated contract risk triage. Not legal advice.</p>
+    </div>
+    
+    <!-- EXECUTIVE SUMMARY -->
+    <!-- Header -->
+    <div class="page-break">
+        <div class="pdf-header">
+            <div class="pdf-header-content">
+                {% if logo_path %}
+                <img src="{{ logo_path }}" alt="Triage AI Logo" class="pdf-header-logo" />
+                {% endif %}
+                <span class="pdf-header-text">Triage AI — Contract Risk Intelligence</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section-with-header">
+        <h1>Executive Summary</h1>
+        
+        <div class="summary-section">
+            <h2>Overall Risk Assessment</h2>
+            <p>
+                {% if overall_risk == "high" %}
+                    This contract contains <strong>high-risk indicators</strong> that may require careful review and negotiation. 
+                    The analysis identified {{ findings_count }} risk finding(s) across multiple categories.
+                {% elif overall_risk == "medium" %}
+                    This contract contains <strong>medium-risk indicators</strong> that may warrant review. 
+                    The analysis identified {{ findings_count }} risk finding(s).
+                {% else %}
+                    This contract shows <strong>low risk indicators</strong>. 
+                    The analysis identified {{ findings_count }} risk finding(s). Standard review recommended.
+                {% endif %}
+            </p>
+        </div>
+        
+        {% if summary_bullets %}
+        <h2>Key Findings</h2>
+        <ul class="summary-bullets">
+            {% for bullet in summary_bullets %}
+            <li>{{ bullet }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+        <p class="note">
+            This report highlights commonly negotiated contract risk patterns for review. 
+            It is not a substitute for legal counsel.
+        </p>
+    </div>
+    
+    <!-- Footer -->
+    <div class="pdf-footer">
+        <p>© {{ current_year }} Triage AI — Contract Risk Intelligence</p>
+        <p>Automated contract risk triage. Not legal advice.</p>
+    </div>
+    
+    <!-- RISK HEAT SUMMARY -->
+    <!-- Header -->
+    <div class="page-break">
+        <div class="pdf-header">
+            <div class="pdf-header-content">
+                {% if logo_path %}
+                <img src="{{ logo_path }}" alt="Triage AI Logo" class="pdf-header-logo" />
+                {% endif %}
+                <span class="pdf-header-text">Triage AI — Contract Risk Intelligence</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section-with-header">
+        <h1>Risk Heat Summary</h1>
+        
+        <div class="risk-heat-summary">
+            <div class="risk-heat-grid">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="risk-heat-item risk-heat-high">
+                                <div class="risk-heat-count">{{ rule_counts.get('high', 0) }}</div>
+                                <div class="risk-heat-label" style="color: #DC2626;">High Risk</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="risk-heat-item risk-heat-medium">
+                                <div class="risk-heat-count">{{ rule_counts.get('medium', 0) }}</div>
+                                <div class="risk-heat-label" style="color: #D97706;">Medium Risk</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="risk-heat-item risk-heat-low">
+                                <div class="risk-heat-count">{{ rule_counts.get('low', 0) }}</div>
+                                <div class="risk-heat-label" style="color: #16A34A;">Low Risk</div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <p class="risk-heat-note">
+                Primary risk concentration is observed in the highest-severity categories identified below.
+            </p>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="pdf-footer">
+        <p>© {{ current_year }} Triage AI — Contract Risk Intelligence</p>
+        <p>Automated contract risk triage. Not legal advice.</p>
+    </div>
+    
+    <!-- DETAILED FINDINGS -->
+    {% if top_issues %}
+    <!-- Header -->
+    <div class="page-break">
+        <div class="pdf-header">
+            <div class="pdf-header-content">
+                {% if logo_path %}
+                <img src="{{ logo_path }}" alt="Triage AI Logo" class="pdf-header-logo" />
+                {% endif %}
+                <span class="pdf-header-text">Triage AI — Contract Risk Intelligence</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section-with-header">
+        <h1>Detailed Risk Findings</h1>
+        
+        {% for issue in top_issues %}
+        <div class="finding-card finding-{{ issue.severity }}">
+            <!-- Risk Title + Severity Badge -->
+            <div class="finding-title-row">
+                <h2 class="finding-title">{{ issue.title }}</h2>
+                <span class="finding-badge severity-{{ issue.severity }}">{{ issue.severity|upper }}</span>
+            </div>
+            
+            {% if issue.clause_number %}
+            <p style="margin: 0.5rem 0; font-size: 10pt; color: #6B7280;"><strong>Clause:</strong> {{ issue.clause_number }}</p>
+            {% endif %}
+            
+            <!-- Why This Was Flagged -->
+            {% if issue.matched_keywords %}
+            <div class="finding-section-label">Why This Was Flagged</div>
+            <p style="margin: 0 0 0.75rem 0;">
+                <span style="font-family: 'Courier New', monospace; font-size: 9pt; background: #F3F4F6; padding: 0.25rem 0.5rem; border-radius: 3px;">
+                    Matched keywords: {{ issue.matched_keywords|join(", ") }}
+                </span>
+            </p>
+            {% endif %}
+            
+            <!-- Why This May Matter -->
+            <div class="finding-section-label">Why This May Matter</div>
+            <p style="margin: 0 0 0.75rem 0;">{{ issue.why_it_matters }}</p>
+            
+            <!-- Matched Excerpt -->
+            {% if issue.matched_excerpt %}
+            <div class="finding-section-label">Matched Excerpt</div>
+            <div class="matched-excerpt">{{ issue.matched_excerpt }}</div>
+            {% endif %}
+            
+            <!-- Commonly Negotiated -->
+            <div class="finding-section-label">Commonly Negotiated</div>
+            <p style="margin: 0;">{{ issue.negotiation_consideration }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Footer -->
+    <div class="pdf-footer">
+        <p>© {{ current_year }} Triage AI — Contract Risk Intelligence</p>
+        <p>Automated contract risk triage. Not legal advice.</p>
+    </div>
+    {% endif %}
+    
+    <!-- RELIABILITY & DISCLAIMER -->
+    <!-- Header -->
+    <div class="page-break">
+        <div class="pdf-header">
+            <div class="pdf-header-content">
+                {% if logo_path %}
+                <img src="{{ logo_path }}" alt="Triage AI Logo" class="pdf-header-logo" />
+                {% endif %}
+                <span class="pdf-header-text">Triage AI — Contract Risk Intelligence</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section-with-header">
+        <h1>Analysis Methodology & Disclaimer</h1>
+        
+        <h2>How This Analysis Works</h2>
+        <ol>
+            <li><strong>Deterministic Engine Flags Patterns:</strong> Our rule engine uses regex and proximity matching to detect exact clause patterns. Every finding includes matched excerpts for full transparency and auditability.</li>
+            <li><strong>LLM Explains Implications:</strong> AI explains why detected patterns may matter and suggests negotiation levers. The LLM never invents risks—it only explains what the deterministic engine found.</li>
+            <li><strong>Triage Report for Review:</strong> This report highlights risk indicators, matched excerpts, and suggested negotiation points. Review with qualified legal counsel before signing.</li>
+        </ol>
+        
+        <h2>Why This Analysis Is Reliable</h2>
+        <ul>
+            <li><strong>Deterministic first-pass</strong> prevents hallucinations about clause presence. All risk detection is rule-based and auditable.</li>
+            <li><strong>Matched excerpts shown</strong> for every finding, so you can verify exactly what triggered each rule.</li>
+            <li><strong>Version-controlled rules</strong> (Rule Engine Version {{ rule_engine_version }}) ensure consistent, reproducible analysis.</li>
+        </ul>
+        
+        <div class="coverage-section">
+            <h2>Rule Coverage Statement</h2>
+            <p>
+                This analysis is based on a predefined set of deterministic risk rules designed to surface commonly negotiated contract risk patterns. 
+                The absence of a detected risk does not imply that no risk exists. The rule engine focuses on specific, commonly negotiated clause patterns 
+                and may not detect all potential risks in a contract.
+            </p>
+        </div>
+        
+        <div class="privacy-section">
+            <h2>Data Handling & Privacy</h2>
+            <p>
+                Uploaded documents are processed transiently for analysis purposes only. Documents are not used for training machine learning models, 
+                are not shared with third parties, and are not persisted by default beyond the analysis session. All processing occurs in-memory and 
+                is subject to standard session expiration policies.
+            </p>
+        </div>
+        
+        <div class="disclaimer-section">
+            <h2>Legal Disclaimer</h2>
+            <p><strong>This report is not legal advice.</strong></p>
+            <p>
+                The analysis provided is for informational purposes only and does not constitute legal advice. 
+                This tool may indicate potential risk areas but does not determine legality, enforceability, or safety. 
+                Always consult with qualified legal counsel before signing any contract. 
+                The absence of detected risks does not guarantee a contract is safe to sign.
+            </p>
+        </div>
+        
+        <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #E5E7EB; text-align: center; font-size: 9pt; color: #6B7280;">
+            <p style="margin: 0.25rem 0;">Rule Engine Version {{ rule_engine_version }}</p>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="pdf-footer">
+        <p>© {{ current_year }} Triage AI — Contract Risk Intelligence</p>
+        <p>Automated contract risk triage. Not legal advice.</p>
+    </div>
+</body>
+</html>

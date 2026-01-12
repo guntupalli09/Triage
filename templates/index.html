@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contract Risk Triage Tool</title>
+    <title>Triage AI — Contract Risk Intelligence</title>
+    <meta name="description" content="Automated contract risk triage for NDAs and MSAs using deterministic rules and AI-assisted synthesis.">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/branding/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/branding/favicon-16.png">
+    <!-- TODO: Add apple-touch-icon.png to /static/branding/ -->
+    <link rel="apple-touch-icon" href="/static/branding/apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -39,6 +44,26 @@
             animation: fadeIn 0.4s ease-out;
         }
         
+        /* Logo blending - remove white background using multiply blend mode */
+        .logo-container {
+            display: inline-block;
+            background: var(--bg-soft);
+            border-radius: 20px;
+            padding: 12px 16px;
+            position: relative;
+            /* Create isolation context for blend mode */
+            isolation: isolate;
+        }
+        
+        .logo-blended {
+            display: block;
+            /* Multiply blend mode: white (1.0) * light-gray (0.97) = light-gray (matches background) */
+            /* Orange colors get darker but remain visible */
+            mix-blend-mode: multiply;
+            /* Slight adjustment to maintain orange vibrancy */
+            filter: brightness(1.02) contrast(1.05);
+        }
+        
         /* Gradient text with glow */
         .gradient-text {
             background: linear-gradient(90deg, #FF7A18, #F2541B);
@@ -49,28 +74,29 @@
             filter: drop-shadow(0 0 8px rgba(255, 122, 24, 0.2));
         }
         
-        /* Premium card with hover lift */
+        /* Premium card with hover lift - blended borders */
         .premium-card {
             background: #FFFFFF;
-            border: 1px solid var(--card-border);
+            border: 1px solid rgba(229, 231, 235, 0.5);
             border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
             transition: all 0.2s ease;
         }
         
         .premium-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.06);
+            border-color: rgba(229, 231, 235, 0.8);
         }
         
-        /* Upload area styling */
+        /* Upload area styling - blended borders */
         .upload-area {
-            border: 2px dashed var(--card-border);
+            border: 2px dashed rgba(229, 231, 235, 0.6);
             transition: all 0.2s ease;
         }
         
         .upload-area:hover {
-            border-color: var(--primary-orange);
+            border-color: rgba(255, 122, 24, 0.4);
             background-color: rgba(255, 122, 24, 0.02);
         }
         
@@ -144,13 +170,22 @@
 </head>
 <body class="min-h-screen">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <!-- Logo Header -->
+        <div class="flex justify-center mb-10 fade-in">
+            <a href="/" class="logo-container transition-transform hover:scale-105">
+                <img src="/static/branding/triage-logo-primary.png" alt="Triage AI logo" class="h-30 sm:h-24 w-auto logo-blended" />
+            </a>
+        </div>
+
         <!-- Hero Section -->
         <div class="text-center mb-12 hero-section">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] mb-4 tracking-tight">
-                Contract Risk
-                <span class="gradient-text tracking-wide">Triage</span>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] mb-3 tracking-tight">
+                Triage <span class="gradient-text tracking-wide">AI</span>
             </h1>
-            <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed mt-4">
+            <p class="text-lg sm:text-xl font-medium text-gray-600 max-w-2xl mx-auto leading-relaxed mb-4">
+                Contract Risk Intelligence
+            </p>
+            <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed mt-4">
                 Automated risk analysis for commercial NDAs and MSAs. 
                 Get instant insights on potential risk indicators before signing.
             </p>
@@ -187,12 +222,12 @@
                         <div class="relative w-56 file-preview-card premium-card p-6">
                             <!-- Action buttons -->
                             <div class="absolute top-3 right-3 flex space-x-2">
-                                <button type="button" id="refreshFile" class="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-[#FF7A18] hover:border-[#FF7A18] transition-all shadow-sm" title="Change file">
+                                <button type="button" id="refreshFile" class="w-8 h-8 rounded-lg bg-white border border-gray-200/60 flex items-center justify-center text-gray-500 hover:text-[#FF7A18] hover:border-[#FF7A18] transition-all shadow-sm" title="Change file">
                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                     </svg>
                                 </button>
-                                <button type="button" id="removeFile" class="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-red-600 hover:border-red-300 transition-all shadow-sm" title="Remove file">
+                                <button type="button" id="removeFile" class="w-8 h-8 rounded-lg bg-white border border-gray-200/60 flex items-center justify-center text-gray-500 hover:text-red-600 hover:border-red-300 transition-all shadow-sm" title="Remove file">
                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
@@ -201,7 +236,7 @@
                             
                             <!-- Document thumbnail -->
                             <div class="flex justify-center mb-4">
-                                <div class="w-36 h-44 bg-gray-50 border border-gray-200 rounded-lg shadow-sm flex items-center justify-center">
+                                <div class="w-36 h-44 bg-gray-50 border border-gray-200/60 rounded-lg shadow-sm flex items-center justify-center">
                                     <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
@@ -298,6 +333,14 @@
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="mt-16 pt-8 border-t border-gray-200/50 fade-in">
+            <div class="text-center text-gray-500 text-sm space-y-1">
+                <p class="font-medium">© {{ current_year }} Triage AI — Contract Risk Intelligence</p>
+                <p class="text-xs">Automated contract risk triage. Not legal advice.</p>
+            </div>
+        </footer>
     </div>
 
     <script>
