@@ -105,7 +105,7 @@ The tool helps founders:
 - Delay business development
 
 **With tool**:
-- Upload all 5 NDAs → $49 total
+- Upload all 5 NDAs → $19 each ($95 total)
 - 4 are low-risk → sign as-is
 - 1 is high-risk → send to lawyer ($500)
 - **Savings**: $2,000
@@ -122,7 +122,7 @@ The tool helps founders:
 - Still unclear what matters most
 
 **With tool**:
-- Upload MSA → $49
+- Upload MSA → $19
 - Get instant assessment
 - See 3 high-risk issues flagged
 - Focus negotiation on those issues

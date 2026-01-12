@@ -4,69 +4,168 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analysis Results - Contract Risk Triage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        :root {
+            --primary-orange: #FF7A18;
+            --primary-orange-dark: #F2541B;
+            --navy: #0F172A;
+            --bg-soft: #F8FAFC;
+            --card-border: #E5E7EB;
+        }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-soft);
+            letter-spacing: -0.01em;
+        }
+        
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        /* Premium card */
+        .premium-card {
+            background: #FFFFFF;
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Risk badge styling */
+        .risk-badge-high {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.05));
+            border-left: 4px solid #DC2626;
+        }
+        
+        .risk-badge-medium {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.05));
+            border-left: 4px solid #D97706;
+        }
+        
+        .risk-badge-low {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(22, 163, 74, 0.05));
+            border-left: 4px solid #16A34A;
+        }
+        
+        /* Issue card with left border */
+        .issue-card {
+            border-left: 4px solid;
+            transition: all 0.2s ease;
+        }
+        
+        .issue-card:hover {
+            transform: translateX(4px);
+        }
+        
+        .issue-card-high {
+            border-left-color: #DC2626;
+            background: rgba(239, 68, 68, 0.02);
+        }
+        
+        .issue-card-medium {
+            border-left-color: #D97706;
+            background: rgba(245, 158, 11, 0.02);
+        }
+        
+        .issue-card-low {
+            border-left-color: #3B82F6;
+            background: rgba(59, 130, 246, 0.02);
+        }
+        
+        /* Back link styling */
+        .back-link {
+            color: var(--primary-orange);
+            transition: all 0.2s ease;
+        }
+        
+        .back-link:hover {
+            color: var(--primary-orange-dark);
+            transform: translateX(-2px);
+        }
+        
+        /* Statistics number */
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
         }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <div class="max-w-5xl mx-auto px-4 py-12">
+<body class="min-h-screen">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!-- Header -->
-        <div class="mb-8">
-            <a href="/" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium mb-4 inline-block">
-                ← Back to Upload
+        <div class="mb-8 fade-in">
+            <a href="/" class="back-link text-sm font-semibold mb-4 inline-flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to Upload
             </a>
-            <h1 class="text-4xl font-bold text-gray-900 mb-2">Analysis Results</h1>
-            <p class="text-gray-600">Contract: <span class="font-medium">{{ filename }}</span></p>
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-[#0F172A] mb-2 tracking-tight">Analysis Results</h1>
+            <p class="text-gray-600">Contract: <span class="font-semibold text-[#0F172A]">{{ filename }}</span></p>
         </div>
 
         <!-- Overall Risk Badge -->
-        <div class="mb-8">
+        <div class="mb-8 fade-in">
             {% if overall_risk == "high" %}
-            <div class="bg-red-50 border-2 border-red-300 rounded-lg p-6">
+            <div class="risk-badge-high rounded-xl p-6 premium-card">
                 <div class="flex items-center mb-2">
-                    <svg class="h-6 w-6 text-red-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="h-7 w-7 text-red-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                     </svg>
                     <span class="text-2xl font-bold text-red-900">High Risk Indicators Detected</span>
                 </div>
-                <p class="text-red-800">This contract contains high-risk indicators that may require careful review and negotiation.</p>
+                <p class="text-red-800 leading-relaxed">This contract contains high-risk indicators that may require careful review and negotiation.</p>
             </div>
             {% elif overall_risk == "medium" %}
-            <div class="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-6">
+            <div class="risk-badge-medium rounded-xl p-6 premium-card">
                 <div class="flex items-center mb-2">
-                    <svg class="h-6 w-6 text-yellow-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="h-7 w-7 text-amber-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
                     </svg>
-                    <span class="text-2xl font-bold text-yellow-900">Medium Risk Indicators Detected</span>
+                    <span class="text-2xl font-bold text-amber-900">Medium Risk Indicators Detected</span>
                 </div>
-                <p class="text-yellow-800">This contract contains medium-risk indicators that may warrant review.</p>
+                <p class="text-amber-800 leading-relaxed">This contract contains medium-risk indicators that may warrant review.</p>
             </div>
             {% else %}
-            <div class="bg-green-50 border-2 border-green-300 rounded-lg p-6">
+            <div class="risk-badge-low rounded-xl p-6 premium-card">
                 <div class="flex items-center mb-2">
-                    <svg class="h-6 w-6 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="h-7 w-7 text-green-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                     </svg>
                     <span class="text-2xl font-bold text-green-900">Low Risk Indicators</span>
                 </div>
-                <p class="text-green-800">Few risk indicators detected. Standard review recommended.</p>
+                <p class="text-green-800 leading-relaxed">Few risk indicators detected. Standard review recommended.</p>
             </div>
             {% endif %}
         </div>
 
         <!-- Executive Summary -->
-        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">Executive Summary</h2>
-            <ul class="space-y-3">
+        <div class="premium-card p-6 sm:p-8 mb-8 fade-in">
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-6">Executive Summary</h2>
+            <ul class="space-y-4">
                 {% for bullet in summary_bullets %}
                 <li class="flex items-start">
-                    <svg class="h-5 w-5 text-indigo-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="h-5 w-5 text-[#FF7A18] mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                     </svg>
-                    <span class="text-gray-700">{{ bullet }}</span>
+                    <span class="text-gray-700 leading-relaxed">{{ bullet }}</span>
                 </li>
                 {% endfor %}
             </ul>
@@ -74,42 +173,42 @@
 
         <!-- Top Issues -->
         {% if top_issues %}
-        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Detected Risk Indicators</h2>
+        <div class="premium-card p-6 sm:p-8 mb-8 fade-in">
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-6">Detected Risk Indicators</h2>
             <div class="space-y-6">
                 {% for issue in top_issues %}
-                <div class="border-l-4 {% if issue.severity == 'high' %}border-red-500{% elif issue.severity == 'medium' %}border-yellow-500{% else %}border-blue-500{% endif %} pl-6 py-2">
-                    <div class="flex items-center mb-2">
-                        <h3 class="text-lg font-semibold text-gray-900">{{ issue.title }}</h3>
-                        <span class="ml-3 px-2 py-1 text-xs font-medium rounded {% if issue.severity == 'high' %}bg-red-100 text-red-800{% elif issue.severity == 'medium' %}bg-yellow-100 text-yellow-800{% else %}bg-blue-100 text-blue-800{% endif %}">
+                <div class="issue-card {% if issue.severity == 'high' %}issue-card-high{% elif issue.severity == 'medium' %}issue-card-medium{% else %}issue-card-low{% endif %} pl-6 pr-4 py-4 rounded-lg">
+                    <div class="flex items-center mb-3 flex-wrap gap-2">
+                        <h3 class="text-lg font-semibold text-[#0F172A]">{{ issue.title }}</h3>
+                        <span class="px-3 py-1 text-xs font-semibold rounded-full {% if issue.severity == 'high' %}bg-red-100 text-red-800{% elif issue.severity == 'medium' %}bg-amber-100 text-amber-800{% else %}bg-blue-100 text-blue-800{% endif %}">
                             {{ issue.severity|upper }}
                         </span>
                     </div>
                     {% if issue.clause_number %}
-                    <div class="mb-2">
-                        <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                    <div class="mb-3">
+                        <span class="text-xs font-semibold text-gray-600 bg-gray-100 px-2.5 py-1 rounded-md">
                             Clause: {{ issue.clause_number }}
                         </span>
                     </div>
                     {% endif %}
-                    <div class="space-y-2 text-gray-700">
+                    <div class="space-y-3 text-gray-700">
                         {% if issue.matched_keywords %}
                         <div>
-                            <p class="font-medium text-sm text-gray-600 mb-1">Why This Was Flagged:</p>
+                            <p class="font-semibold text-sm text-gray-600 mb-1">Why This Was Flagged:</p>
                             <p class="text-sm">
-                                <span class="font-mono text-xs bg-gray-100 px-2 py-1 rounded">
+                                <span class="font-mono text-xs bg-gray-100 px-2.5 py-1 rounded-md">
                                     Matched keywords: {{ issue.matched_keywords|join(", ") }}
                                 </span>
                             </p>
                         </div>
                         {% endif %}
                         <div>
-                            <p class="font-medium text-sm text-gray-600 mb-1">Why This May Matter:</p>
-                            <p>{{ issue.why_it_matters }}</p>
+                            <p class="font-semibold text-sm text-gray-600 mb-1">Why This May Matter:</p>
+                            <p class="leading-relaxed">{{ issue.why_it_matters }}</p>
                         </div>
                         <div>
-                            <p class="font-medium text-sm text-gray-600 mb-1">Commonly Negotiated:</p>
-                            <p>{{ issue.negotiation_consideration }}</p>
+                            <p class="font-semibold text-sm text-gray-600 mb-1">Commonly Negotiated:</p>
+                            <p class="leading-relaxed">{{ issue.negotiation_consideration }}</p>
                         </div>
                     </div>
                 </div>
@@ -120,16 +219,16 @@
 
         <!-- Possible Missing Sections -->
         {% if possible_missing_sections %}
-        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">Possible Missing Sections</h2>
-            <p class="text-gray-600 mb-4 text-sm">These sections are commonly included in commercial contracts and may be worth considering:</p>
+        <div class="premium-card p-6 sm:p-8 mb-8 fade-in">
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-4">Possible Missing Sections</h2>
+            <p class="text-gray-600 mb-5 text-sm leading-relaxed">These sections are commonly included in commercial contracts and may be worth considering:</p>
             <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {% for section in possible_missing_sections %}
                 <li class="flex items-start">
                     <svg class="h-5 w-5 text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                     </svg>
-                    <span class="text-gray-700">{{ section }}</span>
+                    <span class="text-gray-700 leading-relaxed">{{ section }}</span>
                 </li>
                 {% endfor %}
             </ul>
@@ -137,36 +236,95 @@
         {% endif %}
 
         <!-- Statistics -->
-        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">Analysis Statistics</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-gray-900">{{ findings_count }}</div>
-                    <div class="text-sm text-gray-600 mt-1">Total Findings</div>
+        <div class="premium-card p-6 sm:p-8 mb-8 fade-in">
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-6">Analysis Statistics</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <div class="stat-number text-[#0F172A] mb-2">{{ findings_count }}</div>
+                    <div class="text-sm font-medium text-gray-600">Total Findings</div>
                 </div>
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-red-600">{{ rule_counts.get('high', 0) }}</div>
-                    <div class="text-sm text-gray-600 mt-1">High Risk</div>
+                <div class="text-center p-4 bg-red-50 rounded-lg">
+                    <div class="stat-number text-red-600 mb-2">{{ rule_counts.get('high', 0) }}</div>
+                    <div class="text-sm font-medium text-gray-600">High Risk</div>
                 </div>
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-yellow-600">{{ rule_counts.get('medium', 0) }}</div>
-                    <div class="text-sm text-gray-600 mt-1">Medium Risk</div>
+                <div class="text-center p-4 bg-amber-50 rounded-lg">
+                    <div class="stat-number text-amber-600 mb-2">{{ rule_counts.get('medium', 0) }}</div>
+                    <div class="text-sm font-medium text-gray-600">Medium Risk</div>
                 </div>
             </div>
         </div>
 
-        <!-- Hardcoded Disclaimer -->
-        <div class="bg-red-50 border-2 border-red-300 rounded-lg p-6 mb-8">
+        <!-- How It Works Section -->
+        <div class="premium-card p-6 sm:p-8 mb-8 fade-in">
+            <h2 class="text-xl font-bold text-[#0F172A] mb-4">How This Analysis Works</h2>
+            <div class="space-y-4">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FF7A18] bg-opacity-10 flex items-center justify-center mr-3 mt-0.5">
+                        <span class="text-[#FF7A18] font-bold text-sm">1</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-[#0F172A] mb-1">Deterministic Engine Flags Patterns</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">Our rule engine detected exact clause patterns using regex and proximity matching. Every finding above includes matched excerpts for full transparency.</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FF7A18] bg-opacity-10 flex items-center justify-center mr-3 mt-0.5">
+                        <span class="text-[#FF7A18] font-bold text-sm">2</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-[#0F172A] mb-1">LLM Explains Implications</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">AI explained why detected patterns may matter and suggested negotiation levers. The LLM never invented risks—it only explained what the deterministic engine found.</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FF7A18] bg-opacity-10 flex items-center justify-center mr-3 mt-0.5">
+                        <span class="text-[#FF7A18] font-bold text-sm">3</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-[#0F172A] mb-1">Triage Report for Review</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">This report highlights risk indicators, matched excerpts, and suggested negotiation points. Review with qualified legal counsel before signing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why This Is Reliable Section -->
+        <div class="premium-card p-6 sm:p-8 mb-8 fade-in">
+            <h2 class="text-xl font-bold text-[#0F172A] mb-4">Why This Analysis Is Reliable</h2>
+            <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start">
+                    <svg class="h-5 w-5 text-[#FF7A18] mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="leading-relaxed"><strong class="text-[#0F172A]">Deterministic first-pass</strong> prevents hallucinations about clause presence. All risk detection is rule-based and auditable.</span>
+                </li>
+                <li class="flex items-start">
+                    <svg class="h-5 w-5 text-[#FF7A18] mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="leading-relaxed"><strong class="text-[#0F172A]">Matched excerpts shown</strong> for every finding above, so you can verify exactly what triggered each rule.</span>
+                </li>
+                <li class="flex items-start">
+                    <svg class="h-5 w-5 text-[#FF7A18] mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="leading-relaxed"><strong class="text-[#0F172A]">Version-controlled rules</strong> (Rule Engine Version {{ rule_engine_version }}) ensure consistent, reproducible analysis.</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Legal Disclaimer -->
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-8 fade-in">
             <div class="flex">
-                <svg class="h-6 w-6 text-red-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="h-6 w-6 text-amber-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
                 </svg>
                 <div>
-                    <h3 class="text-lg font-bold text-red-900 mb-2">Legal Disclaimer</h3>
-                    <p class="text-red-800 font-medium mb-2">
+                    <h3 class="text-lg font-bold text-amber-900 mb-2">Legal Disclaimer</h3>
+                    <p class="text-amber-800 font-semibold mb-2 leading-relaxed">
                         This tool provides automated risk triage, not legal advice.
                     </p>
-                    <p class="text-red-700 text-sm">
+                    <p class="text-amber-700 text-sm leading-relaxed">
                         The analysis provided is for informational purposes only and does not constitute legal advice. 
                         This tool may indicate potential risk areas but does not determine legality, enforceability, or safety. 
                         Always consult with qualified legal counsel before signing any contract. 
@@ -177,39 +335,39 @@
         </div>
 
         <!-- Negative Guarantees -->
-        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
-            <h2 class="text-xl font-bold text-gray-900 mb-4">What This Tool Does NOT Do</h2>
-            <ul class="space-y-2 text-gray-700 text-sm">
+        <div class="premium-card p-6 sm:p-8 mb-8 fade-in">
+            <h2 class="text-xl font-bold text-[#0F172A] mb-4">What This Tool Does NOT Do</h2>
+            <ul class="space-y-3 text-gray-700">
                 <li class="flex items-start">
-                    <svg class="h-5 w-5 text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="h-5 w-5 text-gray-400 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                     </svg>
-                    <span>Does not determine enforceability of contract terms</span>
+                    <span class="leading-relaxed">Does not determine enforceability of contract terms</span>
                 </li>
                 <li class="flex items-start">
-                    <svg class="h-5 w-5 text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="h-5 w-5 text-gray-400 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                     </svg>
-                    <span>Does not identify jurisdiction-specific legality</span>
+                    <span class="leading-relaxed">Does not identify jurisdiction-specific legality</span>
                 </li>
                 <li class="flex items-start">
-                    <svg class="h-5 w-5 text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="h-5 w-5 text-gray-400 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                     </svg>
-                    <span>Does not replace legal counsel or provide legal advice</span>
+                    <span class="leading-relaxed">Does not replace legal counsel or provide legal advice</span>
                 </li>
                 <li class="flex items-start">
-                    <svg class="h-5 w-5 text-gray-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="h-5 w-5 text-gray-400 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                     </svg>
-                    <span>Does not declare terms "safe to sign" or "illegal"</span>
+                    <span class="leading-relaxed">Does not declare terms "safe to sign" or "illegal"</span>
                 </li>
             </ul>
         </div>
 
         <!-- Footer -->
-        <div class="text-center text-gray-500 text-sm space-y-1">
-            <p>Contract Risk Triage Tool - Automated Risk Analysis</p>
+        <div class="text-center text-gray-500 text-sm space-y-1 fade-in">
+            <p class="font-medium">Contract Risk Triage Tool - Automated Risk Analysis</p>
             <p class="text-xs">Rule Engine Version {{ rule_engine_version }}</p>
         </div>
     </div>

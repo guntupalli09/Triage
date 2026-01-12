@@ -43,12 +43,16 @@ def _normalize_title(title: str) -> str:
 class LLMEvaluator:
     def __init__(self, api_key: Optional[str] = None, model: Optional[str] = None):
         self.api_key = api_key or os.getenv("OPENAI_API_KEY")
+        # Strip whitespace in case .env file has spaces
+        if self.api_key:
+            self.api_key = self.api_key.strip()
         self.model = model or os.getenv("OPENAI_MODEL", "gpt-4o-mini")
         self.client: Optional[OpenAI] = None
 
         if self.api_key:
             try:
                 self.client = OpenAI(api_key=self.api_key)
+                logger.info("OpenAI client initialized successfully")
             except Exception as e:
                 logger.error(f"Failed to initialize OpenAI client: {e}")
 

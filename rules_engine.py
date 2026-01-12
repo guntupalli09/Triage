@@ -212,6 +212,25 @@ class RuleEngine:
         self.rules: List[Rule] = self._build_rules()
         self.version = RULE_ENGINE_VERSION
 
+    def _compute_overall_risk(self, findings: List[Finding], counts: Dict[str, int]) -> str:
+        """
+        Compute overall risk level from findings.
+        
+        Policy (MANDATORY):
+        - overall_risk = "high" if any finding.severity == "high"
+        - else overall_risk = "medium" if count(medium) >= 2
+        - else overall_risk = "low"
+        
+        This policy ensures that a single high-risk finding elevates the entire assessment,
+        while multiple medium-risk findings also warrant elevated attention.
+        """
+        if counts["high"] > 0:
+            return "high"
+        elif counts["medium"] >= 2:
+            return "medium"
+        else:
+            return "low"
+
     def _build_rules(self) -> List[Rule]:
         return [
             # ---------------- HIGH ----------------
@@ -358,6 +377,28 @@ class RuleEngine:
                 rationale="Broad injunctive relief provisions can bypass standard dispute resolution safeguards.",
                 pattern=r"\binjunctive\s+relief\b|\bequitable\s+relief\b",
             ),
+            Rule(
+                rule_id="M_EQUIT_NOBOND_01",
+                rule_name="equitable_relief_without_bond",
+                title="Equitable relief without bond requirement",
+                severity=Severity.MEDIUM,
+                rationale="Equitable relief (injunctions, specific performance) without a bond requirement can expose you to immediate enforcement without financial safeguards typically required by courts.",
+                anchors=[
+                    r"\binjunctive\s+relief\b",
+                    r"\bequitable\s+relief\b",
+                    r"\bspecific\s+performance\b",
+                ],
+                nearby=[
+                    r"\bwithout\s+(?:the\s+)?(?:requirement\s+of\s+)?posting\s+(?:a\s+)?bond\b",
+                    r"\bwithout\s+(?:a\s+)?bond\b",
+                    r"\bno\s+bond\s+shall\s+be\s+required\b",
+                    r"\bno\s+bond\s+is\s+required\b",
+                    r"\bnot\s+required\s+to\s+post\s+(?:a\s+)?bond\b",
+                    r"\bwithout\s+posting\s+(?:a\s+)?bond\s+(?:or\s+other\s+security)?\b",
+                ],
+                window=400,
+                aliases=["no_bond_injunction", "injunctive_relief_no_bond", "equitable_relief_no_bond", "no_bond_requirement"],
+            ),
             # ---------------- LOW ----------------
             Rule(
                 rule_id="L_LATEFEE_01",
@@ -444,15 +485,25 @@ class RuleEngine:
             # Update chunk offset for next iteration
             chunk_offset += len(chunk) + 1  # +1 for newline separator
 
-        # Deduplicate by rule_id to prevent inflated counts
-        # Keep only the first occurrence of each rule_id
+        # Deduplicate by (rule_id, clause_number) to prevent inflated counts
+        # If clause_number exists, use (rule_id, clause_number) as key; otherwise use (rule_id, None)
+        # Keep the "best" match: prefer longer matched_excerpt, or earliest position
         deduped: List[Finding] = []
-        seen_rule_ids = set()
+        seen_keys: Dict[Tuple[str, Optional[str]], Finding] = {}
+        
         for f in findings:
-            if f.rule_id in seen_rule_ids:
-                continue
-            seen_rule_ids.add(f.rule_id)
-            deduped.append(f)
+            key = (f.rule_id, f.clause_number)
+            if key in seen_keys:
+                # Keep the better match: longer excerpt or earlier position
+                existing = seen_keys[key]
+                if len(f.matched_excerpt) > len(existing.matched_excerpt) or (
+                    len(f.matched_excerpt) == len(existing.matched_excerpt) and f.position < existing.position
+                ):
+                    seen_keys[key] = f
+            else:
+                seen_keys[key] = f
+        
+        deduped = list(seen_keys.values())
 
         # Sort by severity then stable by rule_id
         rank = {Severity.HIGH: 0, Severity.MEDIUM: 1, Severity.LOW: 2}
@@ -462,12 +513,7 @@ class RuleEngine:
         for f in deduped:
             counts[f.severity.value] += 1
 
-        if counts["high"] > 0:
-            overall = "high"
-        elif counts["medium"] >= 2:
-            overall = "medium"
-        else:
-            overall = "low"
+        overall = self._compute_overall_risk(deduped, counts)
 
         return {
             "findings": deduped,
@@ -475,3 +521,42 @@ class RuleEngine:
             "rule_counts": counts,
             "version": self.version,
         }
+
+    def build_missing_sections(self, findings: List[Finding]) -> List[str]:
+        """
+        Build rule-based recommendations for possible missing sections.
+        
+        This is a conservative, deterministic recommender that suggests sections
+        based on triggered rules. Phrased as "You may want to confirm..." to avoid
+        legal advice claims.
+        """
+        recommendations = []
+        rule_ids = {f.rule_id for f in findings}
+        
+        # Baseline recommendations (always shown)
+        baseline = [
+            "Limitation of liability (confirm it exists and covers key categories)",
+            "Indemnification scope (confirm it is mutual and reasonably capped)",
+            "Termination / term (confirm notice windows and renewal terms)",
+            "IP ownership / license scope (confirm no unintended assignment)",
+        ]
+        
+        # Rule-based recommendations
+        if "H_LOL_01" in rule_ids or "H_INDEM_01" in rule_ids:
+            recommendations.append("Explicit liability cap / limitation of liability clause (You may want to confirm whether liability is capped and which categories are included)")
+        
+        if "H_IP_01" in rule_ids or "H_IP_WORK_PRODUCT_01" in rule_ids:
+            recommendations.append("License-back / IP carve-out / ownership clarification (You may want to confirm whether you retain rights to pre-existing IP and general knowledge)")
+        
+        if "H_INDEM_ONEWAY_01" in rule_ids:
+            recommendations.append("Mutual indemnity / indemnity cap / scope limitation (You may want to confirm whether indemnification obligations are mutual and reasonably scoped)")
+        
+        if "M_CONF_01" in rule_ids:
+            recommendations.append("Confidentiality term + survival limits (You may want to confirm whether confidentiality obligations have a defined term or expiration)")
+        
+        if "M_EQUIT_NOBOND_01" in rule_ids:
+            recommendations.append("Bond requirement for equitable relief (You may want to confirm whether equitable relief provisions require posting a bond or other security)")
+        
+        # Combine baseline with rule-based recommendations (limit total)
+        all_recommendations = baseline + recommendations
+        return all_recommendations[:6]  # Max 6 recommendations
