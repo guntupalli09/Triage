@@ -1,117 +1,134 @@
 # Triage AI — Contract Risk Intelligence
 
-A production-ready system for automated risk triage of commercial contracts (NDAs and MSAs). This tool uses a deterministic rule engine to detect risk indicators, combined with an LLM layer that provides contextual explanations of detected risks. It is designed for founders, CEOs, and legal teams who need rapid, auditable risk assessment before contract review.
+A production-ready system for automated risk triage of commercial contracts (NDAs and MSAs). Uses a deterministic rule engine for risk detection, combined with an LLM layer for contextual explanations. Designed for founders, CEOs, and legal teams who need rapid, auditable risk assessment.
+
+## Quick Start
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Set environment variables (see Configuration below)
+# Run the application
+uvicorn main:app --reload
+```
 
 ## What This System Does
 
-The Contract Risk Triage Tool analyzes uploaded contract documents using a deterministic rule engine that identifies common risk patterns through regex and proximity-based pattern matching. Detected risks are then explained by an LLM layer that provides business-focused context—not legal advice—about why these patterns may matter. The system produces structured reports with severity classifications (high, medium, low), matched excerpts, clause numbers where possible, and suggested negotiation considerations.
+Analyzes uploaded contract documents using deterministic pattern matching to identify common risk indicators. Detected risks are explained by an LLM layer that provides business-focused context—not legal advice. Produces structured reports with severity classifications, matched excerpts, and suggested negotiation considerations.
 
-## What This System Does NOT Do
+**See**: [What This Tool Is NOT](docs/use_cases/what_this_tool_is_not.md) for explicit limitations and non-claims.
 
-This tool does not provide legal advice, determine enforceability, identify jurisdiction-specific legality, or replace qualified legal counsel. It does not declare contracts "safe to sign" or "illegal." It does not use LLMs for risk detection—all risk identification is deterministic and auditable. The system is designed for triage and awareness, not final legal decisions.
+## System Architecture
 
-## High-Level Architecture
+**Neural-Symbolic Architecture with Deterministic Control Plane**:
+- **Deterministic Rule Engine**: All risk detection is rule-based (no LLM involvement)
+- **LLM Explanation Layer**: Only explains pre-identified findings (never sees contract text)
+- **Hard Boundaries**: Architectural guards prevent LLM from inventing risks
+- **Safe Failure Modes**: System works even if LLM is unavailable
 
-The system follows a **neural-symbolic architecture** that strictly separates deterministic detection from AI-assisted explanation:
+**See**: [Architecture Documentation](docs/architecture/) for detailed system design.
 
-1. **Deterministic Rule Engine**: Regex and proximity-based pattern matching identifies risk indicators without any LLM involvement
-2. **LLM Explainer Layer**: Receives only the detected findings (never the full contract) and provides business-focused explanations
-3. **Strict Boundaries**: Architectural assertions prevent the LLM from inventing risks or seeing contract text
-4. **Safe Failure Modes**: If the LLM fails, the system falls back to rule-engine-only results
+## Testing
 
-This architecture solves the "legal hallucination problem" by ensuring all risk detection is deterministic, auditable, and version-controlled.
+**Test Results**: 57/59 tests passing (96.6% pass rate)
 
+```bash
+# Run all tests
+pytest tests/ -v
 
+# Quick summary
+pytest tests/ --tb=no -q
+```
 
-## Safety-First Philosophy
-
-This system is built on three core principles:
-
-1. **Determinism First**: All risk detection is rule-based and auditable. No LLM is used for detection.
-2. **Bounded LLM Usage**: LLMs only explain pre-identified risks. They never see full contract text and cannot invent new risks.
-3. **Conservative Language**: The system uses phrases like "may indicate risk" and "commonly negotiated," never "safe to sign" or "illegal."
+**See**: [Test Results & Coverage](docs/testing/test_results.md) for detailed test documentation.
 
 ## Documentation
 
 Comprehensive documentation is available in the `/docs` directory:
 
+### Core Documentation
 - **[Architecture Overview](docs/architecture/architecture_overview.md)**: System design and component interactions
-- **[Rules Engine](docs/rules_engine/rules_engine_overview.md)**: How deterministic detection works
-- **[LLM Layer](docs/llm_layer/llm_role_and_limits.md)**: LLM boundaries and safety guarantees
-- **[Testing Strategy](docs/testing/testing_strategy.md)**: How we ensure consistency and accuracy
-- **[Original Contribution](docs/contribution/original_technical_contribution.md)**: Technical innovation and differentiation
+- **[Neural-Symbolic Design](docs/architecture/neural_symbolic_design.md)**: Deterministic control plane architecture
+- **[Data Flow](docs/architecture/data_flow.md)**: How data moves through the system
 
-## Rule Engine Version
+### Rules Engine
+- **[Rules Engine Overview](docs/rules_engine/rules_engine_overview.md)**: How deterministic detection works
+- **[Rule Structure](docs/rules_engine/rule_structure.md)**: Rule format and patterns
+- **[Rule Categories](docs/rules_engine/rule_categories.md)**: Types of rules and examples
+- **[Versioning Strategy](docs/rules_engine/versioning_strategy.md)**: Ruleset versioning and changelog
 
-Current version: **1.0.3**
+### LLM Layer
+- **[LLM Role & Limits](docs/llm_layer/llm_role_and_limits.md)**: LLM boundaries and safety guarantees
+- **[Hallucination Prevention](docs/llm_layer/hallucination_prevention.md)**: How we prevent LLM from inventing risks
+- **[Prompt Strategy](docs/llm_layer/prompt_strategy.md)**: LLM prompt design
 
-All analyses include the rule engine version for auditability and reproducibility.
+### Testing & Quality
+- **[Testing Strategy](docs/testing/testing_strategy.md)**: Testing philosophy and approach
+- **[Test Results](docs/testing/test_results.md)**: Detailed test coverage and results
+- **[Regression Policy](docs/testing/regression_policy.md)**: How we prevent breaking changes
+- **[Known Limitations](docs/testing/known_limitations.md)**: Current limitations and edge cases
 
-## Runtime Configuration (DEV_MODE)
+### Safety & Compliance
+- **[Auditability](docs/compliance/auditability.md)**: How analyses are auditable
+- **[Data Privacy](docs/compliance/data_privacy.md)**: Data handling and privacy
+- **[Security Posture](docs/compliance/security_posture.md)**: Security measures
+- **[Legal Disclaimer](docs/compliance/legal_disclaimer.md)**: Legal boundaries
 
-The application supports two runtime modes controlled by the `DEV_MODE` environment variable:
+### Use Cases
+- **[For Founders](docs/use_cases/founders.md)**: How founders can use this tool
+- **[For Freelancers](docs/use_cases/freelancers.md)**: Freelancer use cases
+- **[Enterprise Review](docs/use_cases/enterprise_review.md)**: Enterprise deployment
+- **[What This Tool Is NOT](docs/use_cases/what_this_tool_is_not.md)**: Explicit limitations
 
-### Demo Mode (`DEV_MODE=true`)
-- **Stripe**: Disabled (no payment required)
-- **OpenAI**: Optional (LLM evaluation skipped if key not provided)
-- **Use Case**: Product demos, testing, development
-- **Behavior**: Analysis runs immediately after upload, no checkout flow
+### Technical Details
+- **[Original Contribution](docs/contribution/original_technical_contribution.md)**: Technical innovation
+- **[Why Determinism Matters](docs/contribution/why_determinism_matters.md)**: Design philosophy
+- **[Comparison to AI Wrappers](docs/contribution/comparison_to_ai_wrappers.md)**: How this differs
 
-### Production Mode (`DEV_MODE=false`)
-- **Stripe**: Required (payment flow enabled)
-- **OpenAI**: Required (startup error if key missing)
-- **Use Case**: Real customer transactions
-- **Behavior**: Full payment flow before analysis
+## Configuration
 
-### Configuration
+### Runtime Modes (DEV_MODE)
 
-Set `DEV_MODE` in your environment variables:
+The application supports two runtime modes:
+
+**Demo Mode** (`DEV_MODE=true`):
+- Stripe disabled (no payment required)
+- OpenAI optional (LLM skipped if key missing)
+- Use for demos, testing, development
+
+**Production Mode** (`DEV_MODE=false`):
+- Stripe required (payment flow enabled)
+- OpenAI required (startup error if missing)
+- Use for real customer transactions
+
+Set in environment variables:
 ```bash
-# Demo mode
-DEV_MODE=true
-
-# Production mode
-DEV_MODE=false
+DEV_MODE=true   # Demo mode
+DEV_MODE=false  # Production mode
 ```
 
-**Important**: 
-- Mode is determined **only** by the `DEV_MODE` environment variable
-- No inference from domain, hostname, or environment name
-- Changes take effect on server restart (no redeploy needed)
-- Startup logs clearly indicate the active mode: `Mode=DEMO | Stripe=OFF | OpenAI=OPTIONAL` or `Mode=PROD | Stripe=ON | OpenAI=REQUIRED`
 
-### BASE_URL Configuration (Vercel/Deployment)
+**See**: [Architecture Documentation](docs/architecture/) for detailed configuration options.
 
-**For Vercel deployments**, the application automatically detects the current deployment URL from request headers. This solves the problem of changing preview URLs on each deployment.
+## Rule Engine
 
-**Options:**
+- **Version**: 1.0.3 (see `rules/version.json`)
+- **Coverage**: Commercial NDAs and MSAs
+- **Detection**: Regex and proximity-based pattern matching
+- **Anchoring**: All findings include exact text positions (start_index, end_index, exact_snippet)
+- **Suppression**: Deterministic false-positive suppression layer
 
-1. **Don't set BASE_URL** (Recommended for Vercel):
-   - The app will automatically use the current deployment URL
-   - Works with preview deployments, production, and custom domains
-   - No need to update environment variables on each deploy
+**See**: [Rules Engine Documentation](docs/rules_engine/) for detailed rule design, structure, and examples.
 
-2. **Set BASE_URL for stable domains**:
-   - Use a stable domain like `triage-gamma.vercel.app` or your custom domain
-   - Format: `BASE_URL=https://triage-gamma.vercel.app` (include `https://`)
-   - This overrides automatic detection
+## Safety & Legal Defensibility
 
-**Priority:**
-- If `BASE_URL` is set in environment → uses that (for stable domains)
-- If `BASE_URL` is not set → automatically detects from request (for preview URLs)
+- **Non-Advisory**: Uses "may indicate" language, never "safe to sign" or "illegal"
+- **Auditable**: Every finding includes ruleset version, matched excerpts, and position anchors
+- **Reproducible**: Same contract + same version = same output
+- **LLM Lockdown**: Hard boundaries prevent LLM from seeing contract text or inventing risks
 
-### Required Environment Variables
-
-**Production Mode (`DEV_MODE=false`)**:
-- `STRIPE_SECRET_KEY` (required)
-- `STRIPE_WEBHOOK_SECRET` (required)
-- `OPENAI_API_KEY` (required)
-- `BASE_URL` (optional - auto-detected from request if not set)
-
-**Demo Mode (`DEV_MODE=true`)**:
-- `OPENAI_API_KEY` (optional - LLM evaluation skipped if missing)
-- `BASE_URL` (optional - auto-detected from request if not set)
-- Stripe keys not required
+**See**: [Compliance Documentation](docs/compliance/) for detailed safety and legal defensibility measures.
 
 ## License
 

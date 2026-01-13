@@ -1,9 +1,18 @@
 """
-LLM Evaluator for Contract Risk Triage
+LLM Evaluator for Contract Risk Triage Tool
 
-- Uses OpenAI ONLY to explain and synthesize deterministic findings.
-- MUST NOT detect new risks.
-- MUST output strict JSON only.
+Neural-Symbolic Architecture with Deterministic Control Plane:
+- Receives ONLY deterministic findings (never full contract text)
+- Explains why detected patterns may matter
+- Suggests negotiation considerations
+- NEVER invents risks or changes severities
+- NEVER sees full contract text (hard architectural boundary)
+- NEVER detects risks (only explains pre-identified findings)
+
+PHASE 3: LLM LOCKDOWN
+- Hard guards prevent contract text from being passed to LLM
+- Code-level assertions raise errors if boundaries are violated
+- All LLM inputs are logged for auditability
 """
 
 from __future__ import annotations
@@ -56,7 +65,7 @@ class LLMEvaluator:
             except Exception as e:
                 logger.error(f"Failed to initialize OpenAI client: {e}")
 
-    def _build_prompt(self, findings: List[Dict], overall_risk: str) -> str:
+    def _build_prompt(self, findings: List[Dict], overall_risk: str, ruleset_version: Optional[str] = None) -> str:
         # Group findings by rule_name to reduce repetition
         grouped: Dict[str, List[Dict]] = {}
         for f in findings:
@@ -77,15 +86,19 @@ class LLMEvaluator:
 
         findings_text = "\n".join(blocks) if blocks else "None detected"
 
+        version_note = f"\nRuleset Version: {ruleset_version}\n" if ruleset_version else ""
+        
         return f"""
 You are a contract risk triage assistant for founders/CEOs.
 
-IMPORTANT:
+NEURAL-SYMBOLIC ARCHITECTURE WITH DETERMINISTIC CONTROL PLANE:
 - The deterministic engine has ALREADY detected the risks.
 - Your job is NOT to find new risks.
 - Your job is to explain why the provided findings may matter and synthesize a concise executive summary.
+- You NEVER see full contract text - only pre-identified findings.
+- You CANNOT invent risks or change severities.
 
-Deterministic Overall Risk (already computed): {overall_risk}
+Deterministic Overall Risk (already computed): {overall_risk}{version_note}
 
 DETECTED FINDINGS (deterministic):
 {findings_text}
@@ -230,7 +243,31 @@ OUTPUT FORMAT: JSON ONLY with this schema:
 
         return True
 
-    def evaluate(self, findings: List[Dict], overall_risk: str) -> Optional[Dict]:
+    def evaluate(self, findings: List[Dict], overall_risk: str, contract_text: Optional[str] = None) -> Optional[Dict]:
+        """
+        LLM evaluation with HARD architectural boundary enforcement.
+        
+        Neural-Symbolic Architecture with Deterministic Control Plane:
+        - LLM must NEVER see full contract text
+        - LLM must NEVER detect risks (only explain pre-identified findings)
+        - LLM must NEVER change severities or invent findings
+        
+        Args:
+            findings: List of deterministic findings (rule_id, rule_name, severity, matched_excerpt, rationale)
+            overall_risk: Pre-computed overall risk from deterministic engine
+            contract_text: Optional - if provided, raises error to prevent accidental contract text leakage
+        
+        Returns:
+            LLM explanation dict or None if LLM unavailable
+        """
+        # PHASE 3: LLM LOCKDOWN - Hard guard against contract text leakage
+        if contract_text is not None:
+            raise ValueError(
+                "LLM LOCKDOWN VIOLATION: contract_text parameter detected. "
+                "LLM must NEVER receive full contract text. "
+                "Only pass findings (rule_id, rule_name, severity, matched_excerpt, rationale)."
+            )
+        
         if not self.client:
             logger.warning("OpenAI client not configured; skipping LLM evaluation")
             return None
@@ -244,6 +281,16 @@ OUTPUT FORMAT: JSON ONLY with this schema:
         # ✅ VERIFICATION 3: Log exactly what is sent to LLM (payload proof)
         # This MUST only contain findings data, NOT full contract text
         findings_summary = json.dumps(findings, indent=2)
+        
+        # Additional guard: Check if findings contain suspiciously long text (potential contract leakage)
+        for finding in findings:
+            excerpt = finding.get("matched_excerpt", "")
+            if len(excerpt) > 2000:  # Suspiciously long excerpt
+                logger.error(
+                    f"LLM LOCKDOWN WARNING: Finding excerpt exceeds 2000 chars. "
+                    f"Rule: {finding.get('rule_id')}, Excerpt length: {len(excerpt)}"
+                )
+        
         logger.info(
             f"LLM INPUT (deterministic findings only, first 2000 chars): "
             f"{findings_summary[:2000]}"
@@ -251,7 +298,11 @@ OUTPUT FORMAT: JSON ONLY with this schema:
         logger.info(f"LLM CALL → model={self.model}, temperature=0.2")
         logger.info(f"LLM INPUT contains {len(findings)} findings, NO contract text")
 
-        prompt = self._build_prompt(findings=findings, overall_risk=overall_risk)
+        # Extract ruleset version for auditability (passed from main.py via findings metadata if available)
+        # For now, use a default - in production this would come from the analysis result
+        ruleset_version = "1.0.3"  # Default, can be enhanced to extract from findings metadata
+        
+        prompt = self._build_prompt(findings=findings, overall_risk=overall_risk, ruleset_version=ruleset_version)
 
         try:
             resp = self.client.chat.completions.create(

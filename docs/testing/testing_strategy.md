@@ -8,6 +8,14 @@ The Contract Risk Triage Tool uses a **deterministic-first testing approach** th
 - **Golden fixtures**: Known contracts with expected outputs
 - **Rule validation**: Each rule tested independently
 
+## Current Test Status
+
+**Last Updated**: 2026-01-14  
+**Total Tests**: 59  
+**Pass Rate**: 96.6% (57 passed, 2 failed)
+
+See [Test Results Documentation](test_results.md) for detailed coverage and results.
+
 ## Test Categories
 
 ### 1. Unit Tests (Rules Engine)

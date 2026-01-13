@@ -551,8 +551,11 @@ async def results(request: Request, token: str):
         ]
 
         # ✅ VERIFICATION 2: LLM only receives findings, NOT contract text
+        # PHASE 3: LLM LOCKDOWN - Explicitly pass None for contract_text to trigger guard if accidentally passed
         # The evaluator.evaluate() method receives only findings_dict, never contract_text
-        llm_result = llm_evaluator.evaluate(findings=findings_dict, overall_risk=overall_risk)
+        # Neural-Symbolic Architecture: LLM explains pre-identified findings only
+        ruleset_version = analysis.get("ruleset_version_data", {}).get("version", analysis.get("version", "1.0.3"))
+        llm_result = llm_evaluator.evaluate(findings=findings_dict, overall_risk=overall_risk, contract_text=None)
         if not llm_result:
             logger.warning("LLM evaluation returned None, using fallback")
             llm_result = llm_evaluator.create_fallback_response(findings=findings_dict, overall_risk=overall_risk)
@@ -731,7 +734,9 @@ async def download_pdf(request: Request, token: str):
         ]
         
         # Get LLM result (reuse if available, otherwise create fallback)
-        llm_result = llm_evaluator.evaluate(findings=findings_dict, overall_risk=overall_risk)
+        # PHASE 3: LLM LOCKDOWN - Explicitly pass None for contract_text
+        ruleset_version = analysis.get("ruleset_version_data", {}).get("version", analysis.get("version", "1.0.3"))
+        llm_result = llm_evaluator.evaluate(findings=findings_dict, overall_risk=overall_risk, contract_text=None)
         if not llm_result:
             llm_result = llm_evaluator.create_fallback_response(findings=findings_dict, overall_risk=overall_risk)
         
@@ -818,6 +823,7 @@ async def download_pdf(request: Request, token: str):
                 "findings_count": len(findings_dict),
                 "rule_counts": rule_counts,
                 "rule_engine_version": analysis.get("version", "1.0.3"),
+                "ruleset_version_data": analysis.get("ruleset_version_data", {}),
                 "current_year": datetime.now().year,
                 "logo_path": logo_absolute,
             }

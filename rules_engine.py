@@ -5,13 +5,20 @@ Deterministic Rule Engine for Contract Risk Triage
 - Designed for Commercial NDAs / MSAs triage (not legal advice).
 - Produces auditable findings with matched excerpts.
 - Conservative detection: false positives acceptable, silence not acceptable.
+
+Neural-Symbolic Architecture with Deterministic Control Plane:
+- All risk detection is deterministic and rule-based
+- LLM layer ONLY explains pre-identified findings
+- LLM NEVER sees full contract text or invents risks
 """
 
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass
 from enum import Enum
+from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Iterable
 
 
@@ -23,14 +30,29 @@ class Severity(str, Enum):
 
 @dataclass
 class Finding:
+    """
+    Clause-level anchored finding with exact position tracking.
+    
+    Neural-Symbolic Architecture: All findings are anchored to exact text positions
+    for full auditability and reproducibility.
+    
+    All findings must have:
+    - start_index, end_index: Exact character positions in original text
+    - exact_snippet: The exact matched text (not excerpt with context)
+    - surrounding_context: ±200 chars around match for display
+    """
     rule_id: str
     rule_name: str
     title: str
     severity: Severity
     rationale: str
-    matched_excerpt: str
-    position: int
-    context: str
+    matched_excerpt: str  # Display excerpt with context
+    position: int  # Start position (kept for backward compatibility)
+    context: str  # Surrounding context (±200 chars)
+    # Clause-level anchoring fields (MANDATORY for enterprise trust)
+    start_index: int  # Exact start character position in original text
+    end_index: int  # Exact end character position in original text
+    exact_snippet: str  # Exact matched text (no context, no ellipsis)
     clause_number: Optional[str] = None
     matched_keywords: List[str] = None
     aliases: List[str] = None
@@ -40,6 +62,11 @@ class Finding:
             self.matched_keywords = []
         if self.aliases is None:
             self.aliases = []
+        # Validate anchoring fields are set
+        assert isinstance(self.start_index, int), "start_index must be int"
+        assert isinstance(self.end_index, int), "end_index must be int"
+        assert isinstance(self.exact_snippet, str) and len(self.exact_snippet) > 0, "exact_snippet must be non-empty string"
+        assert self.start_index <= self.end_index, "start_index must be <= end_index"
 
 
 @dataclass(frozen=True)
@@ -195,8 +222,23 @@ def _proximity_spans(
     return sorted(set(spans))
 
 
-# Rule Engine Version - for transparency and trust
-RULE_ENGINE_VERSION = "1.0.3"
+# Rule Engine Version - loaded from rules/version.json for transparency and trust
+def _load_ruleset_version() -> Dict:
+    """Load ruleset version metadata from version.json file."""
+    version_path = Path(__file__).parent / "rules" / "version.json"
+    if version_path.exists():
+        try:
+            with open(version_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e:
+            # Fallback to hardcoded version if file read fails
+            return {"version": "1.0.3", "released": "2026-01-14", "scope": "Commercial NDAs and MSAs", "changes": []}
+    else:
+        # Fallback if version.json doesn't exist
+        return {"version": "1.0.3", "released": "2026-01-14", "scope": "Commercial NDAs and MSAs", "changes": []}
+
+_RULESET_VERSION_DATA = _load_ruleset_version()
+RULE_ENGINE_VERSION = _RULESET_VERSION_DATA.get("version", "1.0.3")
 
 
 class RuleEngine:
@@ -231,6 +273,89 @@ class RuleEngine:
         else:
             return "low"
 
+    def _apply_suppression_rules(self, findings: List[Finding], text: str) -> Tuple[List[Finding], Dict[str, str]]:
+        """
+        Apply deterministic false-positive suppression rules.
+        
+        Suppression is explicit, deterministic, and explainable.
+        NO probabilistic logic. NO ML.
+        
+        Rules:
+        - If indemnity clause contains "to the extent required by law" → downgrade severity
+        - If IP assignment contains "excluding pre-existing IP" → suppress assignment risk
+        - Record WHY suppression happened for auditability
+        
+        Returns:
+        - (suppressed_findings, suppression_reasons_dict)
+        """
+        suppressed = []
+        suppression_reasons = {}
+        
+        for finding in findings:
+            # Get context around the finding for suppression checks
+            context_start = max(0, finding.start_index - 300)
+            context_end = min(len(text), finding.end_index + 300)
+            context = text[context_start:context_end].lower()
+            
+            suppressed_finding = finding
+            reason = None
+            
+            # Suppression Rule 1: Indemnity with "to the extent required by law"
+            if finding.rule_id == "H_INDEM_01" and "to the extent required by law" in context:
+                # Downgrade severity instead of suppressing
+                suppressed_finding = Finding(
+                    rule_id=finding.rule_id,
+                    rule_name=finding.rule_name,
+                    title=finding.title,
+                    severity=Severity.MEDIUM,  # Downgrade from HIGH to MEDIUM
+                    rationale=finding.rationale + " Note: Limited by 'to the extent required by law' language.",
+                    matched_excerpt=finding.matched_excerpt,
+                    position=finding.position,
+                    context=finding.context,
+                    start_index=finding.start_index,
+                    end_index=finding.end_index,
+                    exact_snippet=finding.exact_snippet,
+                    clause_number=finding.clause_number,
+                    matched_keywords=finding.matched_keywords,
+                    aliases=finding.aliases,
+                )
+                reason = "Downgraded severity: indemnity limited by 'to the extent required by law'"
+            
+            # Suppression Rule 2: IP assignment with "excluding pre-existing IP"
+            if finding.rule_id in ("H_IP_01", "H_IP_WORK_PRODUCT_01") and ("excluding pre-existing" in context or "excluding pre existing" in context or "excludes pre-existing" in context):
+                # Suppress entirely (no finding)
+                reason = "Suppressed: IP assignment excludes pre-existing IP"
+                suppression_reasons[f"{finding.rule_id}_{finding.start_index}"] = reason
+                continue  # Skip this finding
+            
+            # Suppression Rule 3: Liability cap with explicit carve-out language
+            if finding.rule_id == "H_LOL_CARVEOUT_01" and "except as required by applicable law" in context:
+                # Downgrade severity
+                suppressed_finding = Finding(
+                    rule_id=finding.rule_id,
+                    rule_name=finding.rule_name,
+                    title=finding.title,
+                    severity=Severity.MEDIUM,
+                    rationale=finding.rationale + " Note: Carve-out may be required by law.",
+                    matched_excerpt=finding.matched_excerpt,
+                    position=finding.position,
+                    context=finding.context,
+                    start_index=finding.start_index,
+                    end_index=finding.end_index,
+                    exact_snippet=finding.exact_snippet,
+                    clause_number=finding.clause_number,
+                    matched_keywords=finding.matched_keywords,
+                    aliases=finding.aliases,
+                )
+                reason = "Downgraded severity: carve-out may be required by applicable law"
+            
+            if reason:
+                suppression_reasons[f"{finding.rule_id}_{finding.start_index}"] = reason
+            
+            suppressed.append(suppressed_finding)
+        
+        return suppressed, suppression_reasons
+
     def _build_rules(self) -> List[Rule]:
         return [
             # ---------------- HIGH ----------------
@@ -248,7 +373,7 @@ class RuleEngine:
                     r"\bnotwithstanding\b.*\blimitation\s+of\s+liability\b",
                     r"\bnot\s+be\s+limited\b",
                 ],
-                window=400,
+                window=300,  # Reduced from 400 to avoid false positives in separate sentences
                 aliases=["uncapped_indemnification", "unlimited_indemnity", "no_limit_indemnification"],
             ),
             Rule(
@@ -312,14 +437,8 @@ class RuleEngine:
                 title="One-way attorneys' fees",
                 severity=Severity.HIGH,
                 rationale="One-sided fee-shifting clauses can dramatically increase downside risk by forcing one party to pay all legal costs regardless of outcome.",
-                anchors=[r"\battorneys['\s]?fees?\b", r"\blegal\s+fees?\b", r"\bcosts?\s+and\s+expenses?\b"],
-                nearby=[
-                    r"\bshall\s+pay\b",
-                    r"\bprevailing\s+party\b",
-                    r"\breceiving\s+party\b.*\bshall\s+pay\b",
-                    r"\bdisclosing\s+party\b.*\bshall\s+pay\b",
-                ],
-                window=400,
+                # Match attorneys' fees - handle apostrophe explicitly
+                pattern=r"\battorneys?['\s]?fees?\b|\battorney['\s]?s\s+fees?\b|\blegal\s+fees?\b",
                 aliases=["one_way_attorneys_fees", "unilateral_fee_shifting"],
             ),
             Rule(
@@ -378,7 +497,7 @@ class RuleEngine:
                 title="Confidentiality may be perpetual / indefinite",
                 severity=Severity.MEDIUM,
                 rationale="Indefinite confidentiality can create long-term compliance burden and uncertainty around retention and disclosure.",
-                pattern=r"\b(confidentiality|non[-\s]?disclosure)\b.*?\b(perpetual|in\s+perpetuity|indefinite(ly)?|no\s+expiration)\b",
+                pattern=r"\b(confidential(ity|ly)?|non[-\s]?disclosure)\b.*?\b(perpetual|in\s+perpetuity|indefinite(ly)?|no\s+expiration)\b",
                 aliases=["perpetual_confidentiality", "indefinite_confidentiality", "no_expiration_confidentiality"],
             ),
             Rule(
@@ -392,6 +511,7 @@ class RuleEngine:
                     r"\bunless\b.*\bnotice\b",
                     r"\bprior\s+written\s+notice\b",
                     r"\bnot\s+to\s+renew\b",
+                    r"\bunless\s+terminated\b",  # Added to catch "automatically renews...unless terminated"
                 ],
                 window=400,
             ),
@@ -475,6 +595,7 @@ class RuleEngine:
                     r"\bupon\s+notice\b",
                     r"\bduring\s+normal\s+business\s+hours\b",
                     r"\bwith\s+reasonable\s+notice\b",
+                    r"\brecords?\b",  # Added to catch "inspect records" even without explicit notice
                 ],
                 window=350,
                 aliases=["audit_rights", "inspection_rights"],
@@ -531,7 +652,8 @@ class RuleEngine:
                 title="Late fees / high interest",
                 severity=Severity.LOW,
                 rationale="Penalty terms can increase costs if payment timing slips.",
-                pattern=r"\b(late\s+fee|interest)\b.*?\b(\d{2,}%|\d+\.\d+%)\b",
+                # Match interest rates and late fees - simple pattern matching percentages
+                pattern=r"(late\s+fee|late\s+payments?|interest).*?\d+%|\d+%.*?(per\s+annum|per\s+year|interest)",
             ),
             Rule(
                 rule_id="L_BROADDEF_01",
@@ -553,6 +675,30 @@ class RuleEngine:
         ]
 
     def analyze(self, text: str) -> Dict:
+        """
+        Analyze contract text using deterministic rule engine.
+        
+        Neural-Symbolic Architecture: This method is the deterministic control plane.
+        All risk detection happens here - LLM never participates in detection.
+        
+        Process:
+        1. Chunk text for efficient processing
+        2. Apply all rules (pattern or proximity matching)
+        3. Extract clause-level anchors (start_index, end_index, exact_snippet)
+        4. Deduplicate findings by (rule_id, clause_number)
+        5. Apply false-positive suppression rules
+        6. Compute overall risk from suppressed findings
+        7. Return findings with ruleset version metadata
+        
+        Returns:
+            Dict with:
+            - findings: List[Finding] (with clause-level anchoring)
+            - overall_risk: "high" | "medium" | "low"
+            - rule_counts: Dict[str, int] by severity
+            - version: str (ruleset version)
+            - ruleset_version_data: Dict (full version metadata)
+            - suppression_log: Dict[str, str] (audit trail of suppressions)
+        """
         chunks = _chunk_text(text)
 
         findings: List[Finding] = []
@@ -562,10 +708,15 @@ class RuleEngine:
                 if rule.pattern:
                     for m in _find_all(rule.pattern, chunk):
                         s, e = m.span()
-                        absolute_pos = chunk_offset + s
+                        absolute_start = chunk_offset + s
+                        absolute_end = chunk_offset + e
                         ex = _excerpt(chunk, s, e)
                         matched_text = m.group(0)
-                        clause_num = _extract_clause_number(text, absolute_pos)
+                        # Get surrounding context (±200 chars)
+                        context_start = max(0, absolute_start - 200)
+                        context_end = min(len(text), absolute_end + 200)
+                        surrounding_context = text[context_start:context_end]
+                        clause_num = _extract_clause_number(text, absolute_start)
                         keywords = _extract_matched_keywords(matched_text, rule.pattern)
                         findings.append(
                             Finding(
@@ -575,8 +726,12 @@ class RuleEngine:
                                 severity=rule.severity,
                                 rationale=rule.rationale,
                                 matched_excerpt=ex,
-                                position=absolute_pos,
-                                context=ex,
+                                position=absolute_start,  # Kept for backward compatibility
+                                context=surrounding_context,
+                                # Clause-level anchoring (MANDATORY)
+                                start_index=absolute_start,
+                                end_index=absolute_end,
+                                exact_snippet=matched_text,
                                 clause_number=clause_num,
                                 matched_keywords=keywords,
                                 aliases=rule.aliases or [],
@@ -586,11 +741,18 @@ class RuleEngine:
                     assert rule.anchors and rule.nearby
                     spans = _proximity_spans(rule.anchors, rule.nearby, chunk, rule.window)
                     for (s, e) in spans:
-                        absolute_pos = chunk_offset + s
+                        absolute_start = chunk_offset + s
+                        absolute_end = chunk_offset + e
                         ex = _excerpt(chunk, s, e)
+                        # Extract exact matched snippet from chunk
+                        exact_matched = chunk[s:e] if s < len(chunk) and e <= len(chunk) else chunk[max(0, s):min(len(chunk), e)]
+                        # Get surrounding context (±200 chars)
+                        context_start = max(0, absolute_start - 200)
+                        context_end = min(len(text), absolute_end + 200)
+                        surrounding_context = text[context_start:context_end]
                         # For proximity matches, extract keywords from context
                         context_text = chunk[max(0, s-100):min(len(chunk), e+100)]
-                        clause_num = _extract_clause_number(text, absolute_pos)
+                        clause_num = _extract_clause_number(text, absolute_start)
                         keywords = _extract_matched_keywords(context_text)
                         findings.append(
                             Finding(
@@ -600,8 +762,12 @@ class RuleEngine:
                                 severity=rule.severity,
                                 rationale=rule.rationale,
                                 matched_excerpt=ex,
-                                position=absolute_pos,
-                                context=ex,
+                                position=absolute_start,  # Kept for backward compatibility
+                                context=surrounding_context,
+                                # Clause-level anchoring (MANDATORY)
+                                start_index=absolute_start,
+                                end_index=absolute_end,
+                                exact_snippet=exact_matched,
                                 clause_number=clause_num,
                                 matched_keywords=keywords,
                                 aliases=rule.aliases or [],
@@ -634,17 +800,27 @@ class RuleEngine:
         rank = {Severity.HIGH: 0, Severity.MEDIUM: 1, Severity.LOW: 2}
         deduped.sort(key=lambda x: (rank.get(x.severity, 9), x.rule_id))
 
+        # Phase 5: False-positive suppression layer (deterministic, explainable)
+        suppressed_findings, suppression_reasons = self._apply_suppression_rules(deduped, text)
+        
+        # Log suppressions for auditability
+        if suppression_reasons:
+            for finding_id, reason in suppression_reasons.items():
+                logger.info(f"SUPPRESSION: {finding_id} - {reason}")
+
         counts = {"high": 0, "medium": 0, "low": 0}
-        for f in deduped:
+        for f in suppressed_findings:
             counts[f.severity.value] += 1
 
-        overall = self._compute_overall_risk(deduped, counts)
+        overall = self._compute_overall_risk(suppressed_findings, counts)
 
         return {
-            "findings": deduped,
+            "findings": suppressed_findings,
             "overall_risk": overall,
             "rule_counts": counts,
             "version": self.version,
+            "ruleset_version_data": _RULESET_VERSION_DATA,
+            "suppression_log": suppression_reasons,  # Audit trail
         }
 
     def build_missing_sections(self, findings: List[Finding]) -> List[str]:
