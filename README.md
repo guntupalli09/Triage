@@ -1,6 +1,10 @@
 # Triage AI — Contract Risk Intelligence
 
-A production-ready system for automated risk triage of commercial contracts (NDAs and MSAs). Uses a deterministic rule engine for risk detection, combined with an LLM layer for contextual explanations. Designed for founders, CEOs, and legal teams who need rapid, auditable risk assessment.
+A deterministic contract risk triage system designed to surface commonly negotiated risk indicators in standardized agreements such as NDAs, MSAs, and similar contracts.
+
+- Triage AI uses a versioned, rule-based engine for risk detection and a constrained LLM layer for contextual explanation only, ensuring reproducible, auditable outputs.
+
+- The system is designed as a first-pass risk triage tool for founders, executives, and legal teams who need rapid visibility into potential contract risk areas prior to detailed legal review.
 
 ## Quick Start
 
@@ -49,6 +53,7 @@ Comprehensive documentation is available in the `/docs` directory:
 
 ### Core Documentation
 - **[Architecture Overview](docs/architecture/architecture_overview.md)**: System design and component interactions
+- **[Architecture & Future Roadmap](docs/architecture/ARCHITECTURE_AND_FUTURE_ROADMAP.md)**: Enterprise multi-layer architecture and governance framework
 - **[Neural-Symbolic Design](docs/architecture/neural_symbolic_design.md)**: Deterministic control plane architecture
 - **[Data Flow](docs/architecture/data_flow.md)**: How data moves through the system
 
