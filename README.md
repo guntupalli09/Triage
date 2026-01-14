@@ -93,27 +93,6 @@ Comprehensive documentation is available in the `/docs` directory:
 
 ## Configuration
 
-### Runtime Modes (DEV_MODE)
-
-The application supports two runtime modes:
-
-**Demo Mode** (`DEV_MODE=true`):
-- Stripe disabled (no payment required)
-- OpenAI optional (LLM skipped if key missing)
-- Use for demos, testing, development
-
-**Production Mode** (`DEV_MODE=false`):
-- Stripe required (payment flow enabled)
-- OpenAI required (startup error if missing)
-- Use for real customer transactions
-
-Set in environment variables:
-```bash
-DEV_MODE=true   # Demo mode
-DEV_MODE=false  # Production mode
-```
-
-
 **See**: [Architecture Documentation](docs/architecture/) for detailed configuration options.
 
 ## Rule Engine
@@ -137,7 +116,11 @@ DEV_MODE=false  # Production mode
 
 ## License
 
-This is a production MVP. Customize as needed for your use case.
+This project is provided as a reference implementation of a deterministic contract risk triage system.
+
+It is intended for evaluation, research, and controlled deployment use cases.  
+Users are responsible for reviewing, testing, and validating any modifications prior to production use.
+
 
 ## Support
 
