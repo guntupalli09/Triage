@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification provisions may expose parties to significant risks without protection against third-party claims or liabilities.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not adequately cover potential damages, leaving parties vulnerable in case of significant breaches.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The lack of audit rights can hinder the ability to verify compliance with confidentiality obligations, increasing risk of misuse of confidential information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "High Late Fee Interest Rate",
+      "severity": "MEDIUM",
+      "rationale": "An 18% per annum late fee may be deemed excessive and could lead to financial strain or disputes.",
+      "evidence_quote": "Late payments shall accrue interest at a rate of 18% per annum."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "HIGH",
+      "rationale": "The absence of IP provisions leaves intellectual property rights unaddressed, risking ownership disputes or unauthorized use of proprietary information.",
+      "evidence_quote": "No intellectual property provisions apply."
+    }
+  ],
+  "executed": true
+}

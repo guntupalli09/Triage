@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetual Obligation",
+      "severity": "HIGH",
+      "rationale": "The obligations to maintain confidentiality are perpetual, which may impose indefinite liability on the parties and limit future business flexibility.",
+      "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
+    },
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "The limitation of liability clause states that neither party's liability shall be limited, which can expose both parties to significant financial risk.",
+      "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
+    },
+    {
+      "risk_title": "Ownership of Work Product",
+      "severity": "MEDIUM",
+      "rationale": "Company A retains exclusive ownership of all work products, which may limit Company B's rights and potential future use of its own contributions.",
+      "evidence_quote": "All work product and deliverables created hereunder shall be owned exclusively by Company A."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause could lead to significant financial exposure for one party if the other breaches the agreement.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit, arising out of any breach of this Agreement."
+    }
+  ],
+  "executed": true
+}

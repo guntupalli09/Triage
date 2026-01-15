@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "No Indemnification Obligations",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification may expose parties to significant financial risk if a breach occurs, as there is no liability protection.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid can be risky as it may not cover significant damages arising from breaches or disputes.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "Lack of IP provisions could lead to disputes over ownership and usage rights of intellectual property created during the agreement.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "No Late Fees",
+      "severity": "LOW",
+      "rationale": "Absence of late fees might lead to cash flow issues without penalties for delayed payments, but it is a lower risk.",
+      "evidence_quote": "No late fees apply."
+    }
+  ],
+  "executed": true
+}

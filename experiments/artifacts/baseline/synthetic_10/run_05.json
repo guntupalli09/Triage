@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "Absence of indemnification obligations increases risk exposure, as parties may not be protected from third-party claims arising from breaches.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability Clause",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not cover all potential damages, posing a risk to the parties if significant losses occur.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The absence of audit rights may prevent one party from verifying compliance with confidentiality obligations, increasing trust issues.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "HIGH",
+      "rationale": "Lack of IP provisions may lead to disputes over ownership and usage rights of confidential information shared during the agreement.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "Automatic Renewal Clause",
+      "severity": "MEDIUM",
+      "rationale": "Automatic renewals without clear termination procedures may result in unintended ongoing obligations, complicating contract management.",
+      "evidence_quote": "This Agreement automatically renews for additional terms unless terminated by either party."
+    }
+  ],
+  "executed": true
+}

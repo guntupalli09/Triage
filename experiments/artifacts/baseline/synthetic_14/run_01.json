@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations may leave a party vulnerable to potential claims and liabilities arising from the contract.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not adequately protect parties from significant losses incurred due to breach or negligence.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "Lack of audit rights may hinder a party's ability to verify compliance with confidentiality obligations.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The absence of intellectual property clauses may lead to disputes regarding ownership and use of proprietary information.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "Payment Late Fees",
+      "severity": "LOW",
+      "rationale": "While late fees are common, a 5% fee may be seen as excessive depending on the context, potentially leading to disputes.",
+      "evidence_quote": "A late fee of 5% shall apply to all overdue payments."
+    }
+  ],
+  "executed": true
+}

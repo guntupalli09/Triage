@@ -1,0 +1,65 @@
+{
+  "findings": [
+    {
+      "rule_id": "M_AUDIT_01",
+      "rule_name": "audit_rights",
+      "title": "Audit or inspection rights",
+      "severity": "medium",
+      "rationale": "Audit rights can impose operational burden and expose sensitive internal systems.",
+      "matched_excerpt": "...9. AUDIT RIGHTS The Disclosing Party may audit the Receiving Party's records upon reasonable notice during normal business hours....",
+      "exact_snippet": "AUDIT",
+      "start_index": 853,
+      "end_index": 858,
+      "position": 853,
+      "context": "\n\n6. INTELLECTUAL PROPERTY\nNo intellectual property provisions apply.\n\n7. ATTORNEYS' FEES\nEach party shall bear its own attorneys' fees.\n\n8. RENEWAL\nThis Agreement may be renewed by mutual written consent.\n\n9. AUDIT RIGHTS\nThe Disclosing Party may audit the Receiving Party's records upon reasonable notice during normal business hours.\n\n10. LATE FEES\nNo late fees apply.\n\n11. GOVERNING LAW\nThis Agreement",
+      "clause_number": "3",
+      "matched_keywords": [],
+      "aliases": [
+        "audit_rights",
+        "inspection_rights"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...11. GOVERNING LAW This Agreement is governed by applicable law....",
+      "exact_snippet": "governed by applicable law",
+      "start_index": 1050,
+      "end_index": 1076,
+      "position": 1050,
+      "context": "consent.\n\n9. AUDIT RIGHTS\nThe Disclosing Party may audit the Receiving Party's records upon reasonable notice during normal business hours.\n\n10. LATE FEES\nNo late fees apply.\n\n11. GOVERNING LAW\nThis Agreement is governed by applicable law.\n\n12. DEFINITIONS\nConfidential Information means information marked as confidential.\n\nThis Agreement is executed on 2024-01-01.\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    }
+  ],
+  "overall_risk": "low",
+  "rule_counts": {
+    "high": 0,
+    "medium": 1,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

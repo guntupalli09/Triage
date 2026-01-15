@@ -1,0 +1,20 @@
+NON-DISCLOSURE AGREEMENT
+
+This Non-Disclosure Agreement ("Agreement") is entered into on 2024-01-01 between Company A ("Disclosing Party") and Company B ("Receiving Party").
+
+1. Definition of Confidential Information
+Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party to the Receiving Party, whether orally, in writing, or in any other form.
+
+2. Obligations
+The Receiving Party agrees to hold and maintain the Confidential Information in strict confidence and to take all reasonable precautions to protect such Confidential Information.
+
+3. Term
+This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties.
+
+4. Return of Information
+Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party.
+
+5. Governing Law
+This Agreement shall be governed by the laws of the State of California.
+
+IN WITNESS WHEREOF, the parties have executed this Agreement.

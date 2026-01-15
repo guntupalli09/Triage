@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Term",
+      "severity": "HIGH",
+      "rationale": "An indefinite term may lead to perpetual obligations without a clear exit strategy, increasing potential liabilities.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination."
+    },
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "MEDIUM",
+      "rationale": "Absence of indemnification provisions exposes parties to potential liabilities without recourse for damages.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not cover potential damages, leading to unaddressed risks.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The absence of audit rights may prevent monitoring compliance with confidentiality obligations, increasing risk of misuse.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "HIGH",
+      "rationale": "Lack of IP provisions may result in uncertainty over ownership and use of intellectual property created during the agreement.",
+      "evidence_quote": "No intellectual property provisions apply."
+    }
+  ],
+  "executed": true
+}

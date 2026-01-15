@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Clarity in Confidential Information Definition",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of Confidential Information may lead to disputes over what is protected, potentially causing misunderstandings and increased liability.",
+      "evidence_quote": "\"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information."
+    },
+    {
+      "risk_title": "Length of NDA Duration",
+      "severity": "MEDIUM",
+      "rationale": "A five-year duration for confidentiality obligations may be considered excessive, especially if the information becomes outdated, leading to potential legal complications.",
+      "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
+    },
+    {
+      "risk_title": "Injunctive Relief Without Bond Requirement",
+      "severity": "HIGH",
+      "rationale": "Allowing injunctive relief without posting bond increases risk for the Receiving Party, as it could lead to significant financial and operational burdens.",
+      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
+    },
+    {
+      "risk_title": "Assignment Restrictions",
+      "severity": "MEDIUM",
+      "rationale": "Restricting assignment without consent may hinder business operations, especially in cases of mergers or acquisitions, complicating future business transitions.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party, except in connection with a change of control transaction."
+    }
+  ],
+  "executed": true
+}

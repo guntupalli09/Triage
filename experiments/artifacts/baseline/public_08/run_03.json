@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetual Obligations",
+      "severity": "HIGH",
+      "rationale": "The indefinite duration of confidentiality obligations can lead to unforeseen liabilities and complications for both parties in the long term.",
+      "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
+    },
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "The lack of a limitation on liability exposes both parties to potentially significant financial risks in case of breaches or claims.",
+      "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
+    },
+    {
+      "risk_title": "Intellectual Property Assignment",
+      "severity": "MEDIUM",
+      "rationale": "The automatic assignment of rights to Company A could disadvantage Company B, especially if they invest significant resources in the development of work products.",
+      "evidence_quote": "The receiving party hereby assigns all right, title, and interest in such work product."
+    },
+    {
+      "risk_title": "Indemnification Without Limits",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause without limits may result in significant financial exposure for the indemnifying party in case of claims.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit."
+    }
+  ],
+  "executed": true
+}

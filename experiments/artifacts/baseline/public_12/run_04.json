@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Long Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "A five-year duration for non-disclosure may hinder future business flexibility and could be excessive, potentially leading to disputes about what constitutes confidential information over time.",
+      "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
+    },
+    {
+      "risk_title": "Lack of Financial Damages Clause",
+      "severity": "HIGH",
+      "rationale": "The stipulation that monetary damages may be inadequate for breach could lead to unexpected costs and legal challenges, as it emphasizes non-monetary remedies.",
+      "evidence_quote": "The parties acknowledge that monetary damages may be inadequate for breach of this Agreement."
+    },
+    {
+      "risk_title": "Restrictive Assignment Clause",
+      "severity": "MEDIUM",
+      "rationale": "The restriction on assignment may limit the ability of either party to transfer obligations or rights, which could affect business continuity and partnerships.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Inadequate Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "The five-year duration may not be sufficient for certain types of confidential information, which could lead to potential misuse after expiration.",
+      "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
+    },
+    {
+      "risk_title": "Injunctive Relief without Security",
+      "severity": "HIGH",
+      "rationale": "Allowing injunctive relief without posting bond increases risk for the Receiving Party, as it may lead to unfair enforcement of confidentiality obligations.",
+      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
+    },
+    {
+      "risk_title": "Restrictions on Assignment",
+      "severity": "MEDIUM",
+      "rationale": "The restriction on assignment could hinder business operations or partnerships, particularly during mergers or acquisitions.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party, except in connection with a change of control transaction."
+    }
+  ],
+  "executed": true
+}

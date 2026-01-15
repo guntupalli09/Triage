@@ -1,0 +1,17 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Duration of Confidentiality",
+      "severity": "HIGH",
+      "rationale": "The indefinite duration of the confidentiality obligation may pose a risk as it can lead to perpetual liability for the Receiving Party, potentially impacting future business operations.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
+    },
+    {
+      "risk_title": "No Specific Return Timeline",
+      "severity": "MEDIUM",
+      "rationale": "The lack of a specific timeline for the return of confidential information could lead to delays or misunderstandings regarding the obligation to return such information.",
+      "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
+    }
+  ],
+  "executed": true
+}

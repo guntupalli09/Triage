@@ -1,0 +1,81 @@
+{
+  "findings": [
+    {
+      "rule_id": "M_EQUIT_NOBOND_01",
+      "rule_name": "equitable_relief_without_bond",
+      "title": "Equitable relief without bond requirement",
+      "severity": "medium",
+      "rationale": "Equitable relief (injunctions, specific performance) without a bond requirement can expose you to immediate enforcement without financial safeguards typically required by courts.",
+      "matched_excerpt": "...acknowledge that monetary damages may be inadequate for breach of this Agreement. Therefore, the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security....",
+      "exact_snippet": "injunctive relief",
+      "start_index": 709,
+      "end_index": 726,
+      "position": 709,
+      "context": "e (5) years from the date of execution.\n\n4. REMEDIES\nThe parties acknowledge that monetary damages may be inadequate for breach of this Agreement. Therefore, the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security.\n\n5. ASSIGNMENT\nNeither party may assign this Agreement without the prior written consent of the other party, except in connection with a change of control",
+      "clause_number": "5",
+      "matched_keywords": [],
+      "aliases": [
+        "no_bond_injunction",
+        "injunctive_relief_no_bond",
+        "equitable_relief_no_bond",
+        "no_bond_requirement"
+      ]
+    },
+    {
+      "rule_id": "M_INJUNCT_01",
+      "rule_name": "injunctive_relief",
+      "title": "Broad injunctive relief language",
+      "severity": "medium",
+      "rationale": "Broad injunctive relief provisions can bypass standard dispute resolution safeguards.",
+      "matched_excerpt": "...acknowledge that monetary damages may be inadequate for breach of this Agreement. Therefore, the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security....",
+      "exact_snippet": "injunctive relief",
+      "start_index": 709,
+      "end_index": 726,
+      "position": 709,
+      "context": "e (5) years from the date of execution.\n\n4. REMEDIES\nThe parties acknowledge that monetary damages may be inadequate for breach of this Agreement. Therefore, the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security.\n\n5. ASSIGNMENT\nNeither party may assign this Agreement without the prior written consent of the other party, except in connection with a change of control",
+      "clause_number": "5",
+      "matched_keywords": [],
+      "aliases": []
+    },
+    {
+      "rule_id": "L_BROADDEF_01",
+      "rule_name": "broad_definitions",
+      "title": "Broad definitions may expand obligations",
+      "severity": "low",
+      "rationale": "Overly broad defined terms can expand confidentiality or scope beyond what you expect.",
+      "matched_excerpt": "...1. CONFIDENTIAL INFORMATION \"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information....",
+      "exact_snippet": "means all information disclosed by one party to the other, including",
+      "start_index": 109,
+      "end_index": 177,
+      "position": 109,
+      "context": "STANDARD NDA TEMPLATE\n\nBETWEEN Company A AND Company B\n\n1. CONFIDENTIAL INFORMATION\n\"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information.\n\n2. NON-DISCLOSURE\nThe Receiving Party shall not disclose any Confidential Information to any third par",
+      "clause_number": "5",
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "medium",
+  "rule_counts": {
+    "high": 0,
+    "medium": 2,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

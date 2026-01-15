@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Waiver",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations may expose parties to unforeseen liabilities without recourse.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not adequately protect against significant damages.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "Lack of audit rights limits oversight and may lead to misuse of confidential information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Confidential Information Definition",
+      "severity": "LOW",
+      "rationale": "The definition of confidential information may be too broad or vague, risking unintentional disclosures.",
+      "evidence_quote": "Confidential Information means all non-public information disclosed by one party to the other."
+    }
+  ],
+  "executed": true
+}

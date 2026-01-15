@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Duration of Confidentiality",
+      "severity": "HIGH",
+      "rationale": "An indefinite duration for confidentiality obligations can lead to perpetual liability and challenges in managing long-term obligations, which may be unreasonable for the Receiving Party.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
+    },
+    {
+      "risk_title": "Broad Definition of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "A broad definition of confidential information can create ambiguity, leading to potential disputes over what is considered confidential and what is not.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party to the Receiving Party."
+    },
+    {
+      "risk_title": "Return of Information Obligation",
+      "severity": "MEDIUM",
+      "rationale": "The obligation to return all confidential information can be burdensome and may not account for information that is inadvertently retained by the Receiving Party.",
+      "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
+    },
+    {
+      "risk_title": "Governing Law Limitation",
+      "severity": "LOW",
+      "rationale": "Specifying a single governing law may create jurisdictional challenges for the Receiving Party, particularly if they are located in a different state or country.",
+      "evidence_quote": "This Agreement shall be governed by the laws of the State of California."
+    }
+  ],
+  "executed": true
+}

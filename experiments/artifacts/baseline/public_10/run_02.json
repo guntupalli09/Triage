@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Term",
+      "severity": "HIGH",
+      "rationale": "An indefinite term may pose risks related to the ongoing obligations and liabilities without a clear end, potentially leading to prolonged exposure to confidential information.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
+    },
+    {
+      "risk_title": "Lack of Limitation on Use",
+      "severity": "MEDIUM",
+      "rationale": "The absence of explicit limitations on how the Receiving Party can use Confidential Information could lead to misuse or unintended disclosures.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party..."
+    },
+    {
+      "risk_title": "Return of Information Obligation",
+      "severity": "MEDIUM",
+      "rationale": "The requirement to return all Confidential Information may create a risk if the Receiving Party does not have adequate processes for compliance.",
+      "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
+    }
+  ],
+  "executed": true
+}

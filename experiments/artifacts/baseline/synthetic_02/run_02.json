@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "No Indemnification Obligations",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations increases the risk for the Receiving Party, as they may not be protected against claims arising from the Disclosing Party's breaches.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Unlimited Liability Clause",
+      "severity": "HIGH",
+      "rationale": "The limitation of liability clause is absent, exposing both parties to potentially unlimited financial liability for breaches or damages.",
+      "evidence_quote": "No event shall be limited by the limitation of liability clause."
+    },
+    {
+      "risk_title": "Lack of Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The absence of audit rights limits the Receiving Party's ability to verify compliance with the NDA terms, which may lead to potential misuse of Confidential Information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The lack of intellectual property provisions may lead to unclear ownership of any developments or inventions that arise during the term of the agreement.",
+      "evidence_quote": "No intellectual property provisions apply."
+    }
+  ],
+  "executed": true
+}

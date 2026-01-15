@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Duration of Confidentiality",
+      "severity": "HIGH",
+      "rationale": "The agreement's indefinite duration may expose the Receiving Party to perpetual obligations, which can create uncertainty and potential legal liabilities regarding the management of confidential information.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
+    },
+    {
+      "risk_title": "Lack of Limitation on Liability",
+      "severity": "MEDIUM",
+      "rationale": "The NDA does not specify any limitations on liability for breaches, which could expose the Receiving Party to significant financial penalties without clear boundaries.",
+      "evidence_quote": "The Receiving Party agrees to hold and maintain the Confidential Information in strict confidence."
+    },
+    {
+      "risk_title": "Unclear Definition of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of Confidential Information could lead to ambiguity about what is protected, increasing the risk of unintentional breaches.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party."
+    }
+  ],
+  "executed": true
+}

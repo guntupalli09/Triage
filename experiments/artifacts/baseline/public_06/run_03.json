@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Clarity on Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The definition of 'Confidential Information' is broad and may lead to disputes over what is considered confidential.",
+      "evidence_quote": "\"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information."
+    },
+    {
+      "risk_title": "Injunctive Relief Without Bond",
+      "severity": "HIGH",
+      "rationale": "Allowing injunctive relief without posting bond could expose the Receiving Party to significant risk and liability without any financial recourse.",
+      "evidence_quote": "Therefore, the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
+    },
+    {
+      "risk_title": "Assignment Restrictions",
+      "severity": "MEDIUM",
+      "rationale": "Restrictions on assignment without consent may limit business flexibility and complicate potential mergers or acquisitions.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party, except in connection with a change of control transaction."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,81 @@
+{
+  "findings": [
+    {
+      "rule_id": "M_RENEW_01",
+      "rule_name": "auto_renewal",
+      "title": "Auto-renewal may lock you in",
+      "severity": "medium",
+      "rationale": "Auto-renewal terms may require notice within a specific window to avoid renewal.",
+      "matched_excerpt": "...8. RENEWAL This Agreement shall automatically renew for additional one-year terms unless either party provides written notice of non-renewal at least 30 days prior to expiration....",
+      "exact_snippet": "automatically renew",
+      "start_index": 814,
+      "end_index": 833,
+      "position": 814,
+      "context": "mited to the total fees paid hereunder.\n\n6. INTELLECTUAL PROPERTY\nNo intellectual property provisions apply.\n\n7. ATTORNEYS' FEES\nEach party shall bear its own attorneys' fees.\n\n8. RENEWAL\nThis Agreement shall automatically renew for additional one-year terms unless either party provides written notice of non-renewal at least 30 days prior to expiration.\n\n9. AUDIT RIGHTS\nNo audit rights are granted under this Agreeme",
+      "clause_number": "3",
+      "matched_keywords": [],
+      "aliases": []
+    },
+    {
+      "rule_id": "M_TERM_NOTICE_01",
+      "rule_name": "termination_notice_window",
+      "title": "Short termination or notice windows",
+      "severity": "medium",
+      "rationale": "Short or strict notice windows can lead to accidental renewals or unintended termination.",
+      "matched_excerpt": "...8. RENEWAL This Agreement shall automatically renew for additional one-year terms unless either party provides written notice of non-renewal at least 30 days prior to expiration....",
+      "exact_snippet": "notice",
+      "start_index": 901,
+      "end_index": 907,
+      "position": 901,
+      "context": "rty provisions apply.\n\n7. ATTORNEYS' FEES\nEach party shall bear its own attorneys' fees.\n\n8. RENEWAL\nThis Agreement shall automatically renew for additional one-year terms unless either party provides written notice of non-renewal at least 30 days prior to expiration.\n\n9. AUDIT RIGHTS\nNo audit rights are granted under this Agreement.\n\n10. LATE FEES\nNo late fees apply.\n\n11. GOVERNING LAW\nThis Agreement i",
+      "clause_number": "3",
+      "matched_keywords": [],
+      "aliases": [
+        "termination_notice_window",
+        "short_notice_period"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...11. GOVERNING LAW This Agreement is governed by applicable law....",
+      "exact_snippet": "governed by applicable law",
+      "start_index": 1097,
+      "end_index": 1123,
+      "position": 1097,
+      "context": "ides written notice of non-renewal at least 30 days prior to expiration.\n\n9. AUDIT RIGHTS\nNo audit rights are granted under this Agreement.\n\n10. LATE FEES\nNo late fees apply.\n\n11. GOVERNING LAW\nThis Agreement is governed by applicable law.\n\n12. DEFINITIONS\nConfidential Information means information marked as confidential.\n\nThis Agreement is executed on 2024-01-01.\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    }
+  ],
+  "overall_risk": "medium",
+  "rule_counts": {
+    "high": 0,
+    "medium": 2,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

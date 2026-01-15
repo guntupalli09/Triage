@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Duration of Confidentiality Obligations",
+      "severity": "HIGH",
+      "rationale": "The perpetual nature of the confidentiality obligations may create long-term liability without clear end dates, which can be burdensome for the parties involved.",
+      "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
+    },
+    {
+      "risk_title": "Unlimited Indemnification",
+      "severity": "HIGH",
+      "rationale": "The clause requires indemnification without limit, which could expose a party to significant financial risk in case of any breach.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit, arising out of any breach of this Agreement."
+    },
+    {
+      "risk_title": "No Limitation on Liability",
+      "severity": "HIGH",
+      "rationale": "The absence of liability limitation exposes parties to unlimited financial liability, which can be particularly risky in case of significant damages.",
+      "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
+    },
+    {
+      "risk_title": "One-sided Intellectual Property Rights",
+      "severity": "MEDIUM",
+      "rationale": "The clause grants exclusive ownership of work product to one party, which may be seen as unfair and could deter collaboration.",
+      "evidence_quote": "All work product and deliverables created hereunder shall be owned exclusively by Company A."
+    }
+  ],
+  "executed": true
+}

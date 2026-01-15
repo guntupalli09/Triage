@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "No Indemnification Obligations",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations may expose parties to unmitigated risks from third-party claims or damages arising from the use of confidential information.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to total fees paid may not sufficiently cover potential damages, leaving parties vulnerable to significant financial loss.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "Lack of Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The absence of intellectual property provisions may lead to ambiguity regarding ownership and use of intellectual property created during the agreement.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "Unclear Confidential Information Definition",
+      "severity": "LOW",
+      "rationale": "The definition of confidential information being restricted to marked information may lead to misunderstandings about what is protected.",
+      "evidence_quote": "Confidential Information means information marked as confidential."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetual Obligations",
+      "severity": "HIGH",
+      "rationale": "The obligation to maintain confidentiality indefinitely can create long-term liabilities and may not be reasonable, especially if the information becomes obsolete.",
+      "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
+    },
+    {
+      "risk_title": "Unlimited Indemnification",
+      "severity": "HIGH",
+      "rationale": "Indemnifying without limit exposes a party to potentially high costs and liabilities, which could be detrimental in case of significant breaches.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit."
+    },
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability is standard in contracts to protect parties from excessive claims; an unlimited liability clause poses substantial risk.",
+      "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
+    },
+    {
+      "risk_title": "Ownership of Deliverables",
+      "severity": "MEDIUM",
+      "rationale": "Assigning all rights to Company A may deter potential partnerships or collaborations, as Company B loses control over created deliverables.",
+      "evidence_quote": "All work product and deliverables created hereunder shall be owned exclusively by Company A."
+    },
+    {
+      "risk_title": "Recovery of Attorneys' Fees",
+      "severity": "MEDIUM",
+      "rationale": "The prevailing party's right to recover attorneys' fees may discourage parties from pursuing legitimate claims due to fear of incurring additional costs.",
+      "evidence_quote": "The prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party."
+    }
+  ],
+  "executed": true
+}

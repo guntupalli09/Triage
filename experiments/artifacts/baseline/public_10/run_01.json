@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Duration of Confidentiality",
+      "severity": "HIGH",
+      "rationale": "An indefinite term for confidentiality obligations can create ongoing liabilities and challenges for the Receiving Party, especially if information becomes outdated or irrelevant.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
+    },
+    {
+      "risk_title": "Lack of Specificity in Confidential Information Definition",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of Confidential Information may lead to ambiguity, making it difficult for the Receiving Party to understand what is protected.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party to the Receiving Party."
+    },
+    {
+      "risk_title": "No Limitation on Liability for Breach",
+      "severity": "HIGH",
+      "rationale": "The absence of limitations on liability for breaches of the NDA could expose the Receiving Party to significant financial risk.",
+      "evidence_quote": "The Agreement does not specify limitations on liability for breaches."
+    },
+    {
+      "risk_title": "Obligations on Return of Information",
+      "severity": "MEDIUM",
+      "rationale": "The requirement to return all Confidential Information upon termination could be challenging if the Receiving Party has integrated such information into their systems.",
+      "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
+    }
+  ],
+  "executed": true
+}

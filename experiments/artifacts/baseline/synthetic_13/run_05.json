@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Waiver",
+      "severity": "HIGH",
+      "rationale": "No indemnification obligations may expose a party to unforeseen liabilities or losses without recourse.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to total fees paid can leave a party vulnerable to significant losses exceeding fee amounts.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "Lack of audit rights can prevent monitoring compliance with the NDA, increasing risk of misuse of confidential information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "High Late Fees",
+      "severity": "MEDIUM",
+      "rationale": "An 18% interest rate on late payments may discourage timely payment and lead to financial strain.",
+      "evidence_quote": "Late payments shall accrue interest at a rate of 18% per annum."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "Absence of IP provisions could lead to disputes over ownership of developed ideas or materials.",
+      "evidence_quote": "No intellectual property provisions apply."
+    }
+  ],
+  "executed": true
+}

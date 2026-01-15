@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations can expose parties to significant risks without recourse for damages resulting from breaches or negligence.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limitations on Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to total fees paid may not adequately protect against significant damages, especially in high-stakes situations.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The absence of intellectual property clauses may lead to disputes over ownership and usage rights of proprietary information.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "Limited Audit Rights",
+      "severity": "LOW",
+      "rationale": "While audit rights exist, they are limited to reasonable notice and normal business hours, potentially restricting oversight.",
+      "evidence_quote": "The Disclosing Party may audit the Receiving Party's records upon reasonable notice during normal business hours."
+    }
+  ],
+  "executed": true
+}

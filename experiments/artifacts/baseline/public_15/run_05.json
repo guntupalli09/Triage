@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Long Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "A five-year duration may be excessive, especially if the information is not sensitive for that long, potentially limiting future business opportunities.",
+      "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
+    },
+    {
+      "risk_title": "Inadequate Remedies for Breach",
+      "severity": "HIGH",
+      "rationale": "The reliance on injunctive relief without the need for bond may lead to a lack of deterrence against breaches.",
+      "evidence_quote": "Therefore, the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
+    },
+    {
+      "risk_title": "Restrictive Assignment Clause",
+      "severity": "MEDIUM",
+      "rationale": "The restriction on assignment could hinder business flexibility, particularly during mergers or acquisitions.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
+    }
+  ],
+  "executed": true
+}

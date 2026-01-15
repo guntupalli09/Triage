@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations exposes both parties to potential liabilities without recourse, which can lead to significant financial risks.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid can be risky, as it may not cover substantial damages that arise from breaches or negligence.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The lack of audit rights may prevent one party from verifying compliance with the terms of the NDA, increasing the risk of misuse of confidential information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Automatic Renewal",
+      "severity": "MEDIUM",
+      "rationale": "Automatic renewal without clear termination clauses can lead to unintended obligations and complications if one party wishes to exit the agreement.",
+      "evidence_quote": "This Agreement automatically renews for additional terms unless terminated by either party."
+    },
+    {
+      "risk_title": "Absence of Intellectual Property Provisions",
+      "severity": "HIGH",
+      "rationale": "Without provisions addressing intellectual property, there may be disputes regarding ownership of created materials or information, leading to potential legal conflicts.",
+      "evidence_quote": "No intellectual property provisions apply."
+    }
+  ],
+  "executed": true
+}

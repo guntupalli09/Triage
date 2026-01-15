@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "No Indemnification Obligations",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification creates a risk for the Receiving Party in case of breaches related to the disclosed information.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid can expose the Receiving Party to significant risks if damages exceed this amount.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights Granted",
+      "severity": "MEDIUM",
+      "rationale": "Lack of audit rights may prevent the Disclosing Party from ensuring compliance with confidentiality obligations.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "High Late Fees",
+      "severity": "LOW",
+      "rationale": "An 18% per annum interest rate on late payments may deter timely payments but is not uncommon in contracts.",
+      "evidence_quote": "Late payments shall accrue interest at a rate of 18% per annum."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "HIGH",
+      "rationale": "The absence of IP provisions may expose the Disclosing Party's proprietary information to unauthorized use or disclosure.",
+      "evidence_quote": "No intellectual property provisions apply."
+    }
+  ],
+  "executed": true
+}

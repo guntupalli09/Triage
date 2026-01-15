@@ -1,0 +1,65 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_LOL_01",
+      "rule_name": "liability_uncapped_or_weakened",
+      "title": "Liability may be uncapped or cap may be weakened",
+      "severity": "high",
+      "rationale": "If liability is not capped (or key categories are carved out), downside risk can exceed expected exposure.",
+      "matched_excerpt": "...5. LIMITATION OF LIABILITY No event shall be limited by the limitation of liability clause. Liability shall not be limited under any circumstances....",
+      "exact_snippet": "LIMITATION OF LIABILITY",
+      "start_index": 535,
+      "end_index": 558,
+      "position": 535,
+      "context": "l Confidential Information.\n\n3. TERM\nThis Agreement shall remain in effect for three (3) years from the date of execution.\n\n4. INDEMNIFICATION\nNo indemnification obligations apply under this Agreement.\n\n5. LIMITATION OF LIABILITY\nNo event shall be limited by the limitation of liability clause. Liability shall not be limited under any circumstances.\n\n6. INTELLECTUAL PROPERTY\nNo intellectual property provisions apply.\n\n7.",
+      "clause_number": "3",
+      "matched_keywords": [
+        "shall not be limited und",
+        "LIABILITY"
+      ],
+      "aliases": []
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...11. GOVERNING LAW This Agreement is governed by applicable law....",
+      "exact_snippet": "governed by applicable law",
+      "start_index": 1018,
+      "end_index": 1044,
+      "position": 1018,
+      "context": "es.\n\n8. RENEWAL\nThis Agreement may be renewed by mutual written consent.\n\n9. AUDIT RIGHTS\nNo audit rights are granted under this Agreement.\n\n10. LATE FEES\nNo late fees apply.\n\n11. GOVERNING LAW\nThis Agreement is governed by applicable law.\n\n12. DEFINITIONS\nConfidential Information means information marked as confidential.\n\nThis Agreement is executed on 2024-01-01.\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 1,
+    "medium": 0,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

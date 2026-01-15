@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Duration of Confidentiality",
+      "severity": "HIGH",
+      "rationale": "The indefinite duration may expose the Receiving Party to perpetual obligations, which could be burdensome and legally problematic if the information is no longer sensitive.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
+    },
+    {
+      "risk_title": "Lack of Specificity in Confidential Information Definition",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of Confidential Information may lead to ambiguity, increasing the risk of unintentional breaches or disputes regarding what is protected.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party to the Receiving Party."
+    },
+    {
+      "risk_title": "Obligations Without Clear Limits",
+      "severity": "MEDIUM",
+      "rationale": "The Receiving Party's obligations to protect Confidential Information are vague and may lead to inconsistent interpretations and expectations.",
+      "evidence_quote": "The Receiving Party agrees to hold and maintain the Confidential Information in strict confidence and to take all reasonable precautions to protect such Confidential Information."
+    }
+  ],
+  "executed": true
+}

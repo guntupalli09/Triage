@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations may expose a party to significant risks without recourse for damages or legal costs resulting from breaches or third-party claims.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid can leave a party vulnerable to substantial losses that exceed the fees, especially in cases of serious breaches.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The lack of intellectual property provisions may lead to disputes over ownership and usage rights of intellectual property created during the agreement.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "No Attorneys' Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "Each party bearing its own attorneys' fees may deter legal action for breaches, as the financial burden can be significant, discouraging enforcement of rights.",
+      "evidence_quote": "Each party shall bear its own attorneys' fees."
+    },
+    {
+      "risk_title": "Audit Rights Limitations",
+      "severity": "LOW",
+      "rationale": "Audit rights are limited to reasonable notice and normal business hours, which may restrict the Disclosing Party's ability to effectively monitor compliance.",
+      "evidence_quote": "The Disclosing Party may audit the Receiving Party's records upon reasonable notice during normal business hours."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "HIGH",
+      "rationale": "The obligation to maintain confidentiality in perpetuity may impose indefinite liability and restrict future business opportunities.",
+      "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
+    },
+    {
+      "risk_title": "Indemnification Without Limit",
+      "severity": "HIGH",
+      "rationale": "The indemnification clause without limit could expose a party to significant financial risk from claims, damages, or losses.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit."
+    },
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "The clause stating that liability is not limited can create substantial financial exposure for both parties in the event of a breach.",
+      "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
+    },
+    {
+      "risk_title": "Ownership of Work Product",
+      "severity": "MEDIUM",
+      "rationale": "The assignment of all rights to Company A may limit the other party's ability to use any jointly developed work products.",
+      "evidence_quote": "All work product and deliverables created hereunder shall be owned exclusively by Company A."
+    },
+    {
+      "risk_title": "Prevailing Party Attorneys' Fees",
+      "severity": "MEDIUM",
+      "rationale": "The obligation to pay attorneys' fees to the prevailing party could deter a party from pursuing legitimate claims due to cost concerns.",
+      "evidence_quote": "The prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,88 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_INDEM_ONEWAY_01",
+      "rule_name": "one_way_indemnity",
+      "title": "One-way indemnification obligation",
+      "severity": "high",
+      "rationale": "Indemnification obligations that apply to only one party can create asymmetric risk exposure.",
+      "matched_excerpt": "...4. INDEMNIFICATION The Receiving Party shall indemnify the Disclosing Party to the extent required by law for all claims arising from breach of this Agreement....",
+      "exact_snippet": "indemnify",
+      "start_index": 499,
+      "end_index": 508,
+      "position": 499,
+      "context": "o maintain the confidentiality of all Confidential Information.\n\n3. TERM\nThis Agreement shall remain in effect for three (3) years from the date of execution.\n\n4. INDEMNIFICATION\nThe Receiving Party shall indemnify the Disclosing Party to the extent required by law for all claims arising from breach of this Agreement.\n\n5. LIMITATION OF LIABILITY\nLimitation of liability shall not apply to indemnification, c",
+      "clause_number": "3",
+      "matched_keywords": [
+        "INDEMNIFICATION",
+        "indemnify"
+      ],
+      "aliases": []
+    },
+    {
+      "rule_id": "H_LOL_CARVEOUT_01",
+      "rule_name": "liability_cap_carveout",
+      "title": "Liability cap carve-outs may negate protection",
+      "severity": "high",
+      "rationale": "Liability caps that exclude indemnity, confidentiality, or IP claims often negate the practical benefit of the cap entirely.",
+      "matched_excerpt": "...5. LIMITATION OF LIABILITY Limitation of liability shall not apply to indemnification, confidentiality, or intellectual property claims....",
+      "exact_snippet": "LIMITATION OF LIABILITY",
+      "start_index": 617,
+      "end_index": 640,
+      "position": 617,
+      "context": "ee (3) years from the date of execution.\n\n4. INDEMNIFICATION\nThe Receiving Party shall indemnify the Disclosing Party to the extent required by law for all claims arising from breach of this Agreement.\n\n5. LIMITATION OF LIABILITY\nLimitation of liability shall not apply to indemnification, confidentiality, or intellectual property claims.\n\n6. INTELLECTUAL PROPERTY\nNo intellectual property provisions apply.\n\n7. ATTORNEYS'",
+      "clause_number": "3",
+      "matched_keywords": [
+        "shall not apply to indemnification",
+        "LIABILITY",
+        "confidential"
+      ],
+      "aliases": [
+        "liability_cap_carveout",
+        "cap_exclusion"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...11. GOVERNING LAW This Agreement is governed by applicable law....",
+      "exact_snippet": "governed by applicable law",
+      "start_index": 1089,
+      "end_index": 1115,
+      "position": 1089,
+      "context": "es.\n\n8. RENEWAL\nThis Agreement may be renewed by mutual written consent.\n\n9. AUDIT RIGHTS\nNo audit rights are granted under this Agreement.\n\n10. LATE FEES\nNo late fees apply.\n\n11. GOVERNING LAW\nThis Agreement is governed by applicable law.\n\n12. DEFINITIONS\nConfidential Information means information marked as confidential.\n\nThis Agreement is executed on 2024-01-01.\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 2,
+    "medium": 0,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

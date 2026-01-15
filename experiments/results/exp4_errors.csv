@@ -1,0 +1,20 @@
+issue_id,doc_id,system,type,description,mitigation
+ERR-0001,synthetic_01,hybrid,false_positive,1 false positive(s) detected,Review suppression rules or add new suppression patterns
+ERR-0002,synthetic_02,hybrid,false_positive,1 false positive(s) detected,Review suppression rules or add new suppression patterns
+ERR-0003,synthetic_03,hybrid,false_positive,1 false positive(s) detected,Review suppression rules or add new suppression patterns
+ERR-0004,synthetic_04,hybrid,false_positive,1 false positive(s) detected,Review suppression rules or add new suppression patterns
+ERR-0005,synthetic_04,hybrid,false_negative,1 false negative(s) - expected rules not detected,Review rule patterns or add new rules
+ERR-0006,synthetic_05,hybrid,false_positive,1 false positive(s) detected,Review suppression rules or add new suppression patterns
+ERR-0007,synthetic_05,hybrid,false_negative,1 false negative(s) - expected rules not detected,Review rule patterns or add new rules
+ERR-0008,synthetic_06,hybrid,false_positive,1 false positive(s) detected,Review suppression rules or add new suppression patterns
+ERR-0009,synthetic_06,hybrid,false_negative,1 false negative(s) - expected rules not detected,Review rule patterns or add new rules
+ERR-0010,synthetic_07,hybrid,false_positive,1 false positive(s) detected,Review suppression rules or add new suppression patterns
+ERR-0011,synthetic_07,hybrid,false_negative,1 false negative(s) - expected rules not detected,Review rule patterns or add new rules
+ERR-0012,synthetic_08,hybrid,false_positive,1 false positive(s) detected,Review suppression rules or add new suppression patterns
+ERR-0013,synthetic_08,hybrid,false_negative,1 false negative(s) - expected rules not detected,Review rule patterns or add new rules
+ERR-0014,synthetic_09,hybrid,false_positive,1 false positive(s) detected,Review suppression rules or add new suppression patterns
+ERR-0015,synthetic_10,hybrid,false_positive,1 false positive(s) detected,Review suppression rules or add new suppression patterns
+ERR-0016,synthetic_11,hybrid,false_positive,1 false positive(s) detected,Review suppression rules or add new suppression patterns
+ERR-0017,synthetic_12,hybrid,false_positive,1 false positive(s) detected,Review suppression rules or add new suppression patterns
+ERR-0018,synthetic_13,hybrid,false_positive,1 false positive(s) detected,Review suppression rules or add new suppression patterns
+ERR-0019,synthetic_14,hybrid,false_positive,1 false positive(s) detected,Review suppression rules or add new suppression patterns

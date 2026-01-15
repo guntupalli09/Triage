@@ -1,0 +1,20 @@
+STANDARD NDA TEMPLATE
+
+BETWEEN Company A AND Company B
+
+1. CONFIDENTIAL INFORMATION
+"Confidential Information" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information.
+
+2. NON-DISCLOSURE
+The Receiving Party shall not disclose any Confidential Information to any third party without the prior written consent of the Disclosing Party.
+
+3. DURATION
+This Agreement shall remain in effect for a period of five (5) years from the date of execution.
+
+4. REMEDIES
+The parties acknowledge that monetary damages may be inadequate for breach of this Agreement. Therefore, the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security.
+
+5. ASSIGNMENT
+Neither party may assign this Agreement without the prior written consent of the other party, except in connection with a change of control transaction.
+
+Governing Law: Delaware

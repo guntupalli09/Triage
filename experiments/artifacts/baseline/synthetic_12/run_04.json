@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations may leave the Receiving Party vulnerable to liability without recourse.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "Lack of intellectual property provisions may lead to misuse or misappropriation of proprietary information.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not cover potential damages, exposing the Disclosing Party to risks.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "Absence of Late Fees",
+      "severity": "LOW",
+      "rationale": "Not having late fees may encourage delayed payments without financial repercussions.",
+      "evidence_quote": "No late fees apply."
+    }
+  ],
+  "executed": true
+}

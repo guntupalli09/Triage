@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "No Indemnification Provisions",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations increases the risk of liability for one party without recourse, potentially leading to significant financial exposure.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to total fees paid may not adequately protect against significant damages, leading to potential financial losses.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The lack of audit rights limits oversight and transparency, increasing the risk of non-compliance or misuse of confidential information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Automatic Renewal Clause",
+      "severity": "LOW",
+      "rationale": "Automatic renewal could lead to unwanted prolonged obligations if either party fails to provide timely notice, potentially resulting in unintended commitments.",
+      "evidence_quote": "This Agreement shall automatically renew for additional one-year terms unless either party provides written notice of non-renewal."
+    }
+  ],
+  "executed": true
+}

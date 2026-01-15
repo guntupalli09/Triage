@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "HIGH",
+      "rationale": "The obligation to maintain confidentiality indefinitely may limit future business opportunities and complicate the ability to use similar information elsewhere.",
+      "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
+    },
+    {
+      "risk_title": "Unlimited Indemnification",
+      "severity": "HIGH",
+      "rationale": "The provision for unlimited indemnification could expose a party to significant financial risk without clear boundaries on liability.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit."
+    },
+    {
+      "risk_title": "No Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "The absence of a limitation on liability can lead to substantial financial exposure in case of breaches or disputes.",
+      "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
+    },
+    {
+      "risk_title": "Intellectual Property Assignment",
+      "severity": "MEDIUM",
+      "rationale": "The automatic assignment of all rights to Company A may restrict the other party's ability to use their own contributions in future projects.",
+      "evidence_quote": "The receiving party hereby assigns all right, title, and interest in such work product."
+    },
+    {
+      "risk_title": "Attorneys' Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "The provision for recovering attorneys' fees may deter parties from pursuing legitimate claims due to potential high costs.",
+      "evidence_quote": "The prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,29 @@
+MUTUAL NON-DISCLOSURE AGREEMENT
+
+This Mutual Non-Disclosure Agreement is made between Company A and Company B.
+
+CONFIDENTIAL INFORMATION
+Each party may disclose confidential information to the other party. Confidential Information includes, without limitation, all technical, business, financial, and proprietary information.
+
+OBLIGATIONS
+Each party agrees to:
+(a) Hold the other party's Confidential Information in strict confidence;
+(b) Not disclose such information to any third party without prior written consent;
+(c) Use such information solely for the purpose of evaluating potential business opportunities.
+
+TERM
+The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties.
+
+INDEMNIFICATION
+Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit, arising out of any breach of this Agreement.
+
+LIMITATION OF LIABILITY
+Notwithstanding any other provision, neither party's liability shall be limited under this Agreement.
+
+INTELLECTUAL PROPERTY
+All work product and deliverables created hereunder shall be owned exclusively by Company A. The receiving party hereby assigns all right, title, and interest in such work product.
+
+ATTORNEYS' FEES
+The prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party.
+
+This Agreement is governed by the laws of New York.

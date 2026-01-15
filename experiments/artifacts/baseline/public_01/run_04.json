@@ -1,0 +1,17 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Term of Agreement",
+      "severity": "HIGH",
+      "rationale": "An indefinite term may pose a risk as it can lead to uncertainty regarding the obligations of the Receiving Party and the potential for perpetual liability.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
+    },
+    {
+      "risk_title": "Lack of Clarity on Information Return",
+      "severity": "MEDIUM",
+      "rationale": "The requirement to return all Confidential Information upon termination may be vague, leading to disputes over what constitutes 'all' information.",
+      "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
+    }
+  ],
+  "executed": true
+}

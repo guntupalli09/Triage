@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetual Obligations",
+      "severity": "HIGH",
+      "rationale": "The indefinite term for confidentiality obligations can create ongoing exposure to liability and obligations without a clear end, making it difficult to manage risk over time.",
+      "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
+    },
+    {
+      "risk_title": "Unlimited Indemnification",
+      "severity": "HIGH",
+      "rationale": "Indemnification without limits can lead to significant financial exposure for a party, as they may be responsible for all claims without a cap on liability.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit."
+    },
+    {
+      "risk_title": "No Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "The absence of liability limitations opens the door for potentially unlimited damages, increasing financial risk for both parties.",
+      "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
+    },
+    {
+      "risk_title": "Intellectual Property Assignment",
+      "severity": "MEDIUM",
+      "rationale": "The assignment of all rights in work product exclusively to one party may discourage innovation from the other party and create potential disputes over ownership.",
+      "evidence_quote": "All work product and deliverables created hereunder shall be owned exclusively by Company A."
+    },
+    {
+      "risk_title": "Attorneys' Fees",
+      "severity": "MEDIUM",
+      "rationale": "The provision allowing recovery of attorneys' fees can deter parties from pursuing legitimate claims due to potential financial burdens.",
+      "evidence_quote": "The prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party."
+    }
+  ],
+  "executed": true
+}

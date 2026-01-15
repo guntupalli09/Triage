@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Limitation on Duration",
+      "severity": "MEDIUM",
+      "rationale": "The NDA remains in effect for five years, which may not adequately cover the longevity of the confidential information's relevance or potential misuse.",
+      "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
+    },
+    {
+      "risk_title": "Inadequate Remedies for Breach",
+      "severity": "HIGH",
+      "rationale": "The clause allows for injunctive relief without posting a bond, which may favor the Disclosing Party disproportionately and expose the Receiving Party to significant risk.",
+      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
+    },
+    {
+      "risk_title": "Restrictions on Assignment",
+      "severity": "MEDIUM",
+      "rationale": "The inability to assign the agreement without consent may hinder the parties' ability to adapt to business changes, potentially leading to operational risks.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
+    }
+  ],
+  "executed": true
+}
