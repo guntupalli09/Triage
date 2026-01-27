@@ -1,3 +1,4 @@
+# Production dependencies
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
 jinja2==3.1.2
@@ -7,8 +8,14 @@ openai>=1.12.0,<2.0.0
 python-docx==1.1.0
 PyPDF2==3.0.1
 xhtml2pdf==0.2.15
-pytest>=7.4.0
-pytest-asyncio>=0.21.0
 python-dotenv>=1.0.0
-scipy>=1.11.0
-numpy>=1.24.0
+
+# Development/Testing dependencies (not needed for Vercel deployment)
+# Install with: pip install -r requirements-dev.txt
+# pytest>=7.4.0
+# pytest-asyncio>=0.21.0
+
+# Experimental dependencies (only needed for experiments/ directory)
+# Install with: pip install scipy numpy
+# scipy>=1.11.0
+# numpy>=1.24.0

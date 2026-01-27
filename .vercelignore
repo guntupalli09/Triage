@@ -1,0 +1,68 @@
+# Exclude large directories that aren't needed for production
+experiments/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Exclude test files
+tests/
+*.test.py
+*_test.py
+
+# Exclude documentation (keep only essential docs)
+docs/
+*.md
+!README.md
+
+# Exclude research/paper files
+IEEE paper/
+Submission/
+*.pdf
+*.docx
+*.tex
+*.eps
+*.bst
+*.cls
+
+# Exclude development files
+.git/
+.gitignore
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Exclude large data files (experiments have 1800+ JSON files)
+experiments/**/*.json
+experiments/**/*.txt
+!rules/version.json
+
+# Exclude build artifacts
+build/
+dist/
+*.egg-info/
+
+# Exclude environment files (Vercel uses its own env vars)
+.env
+.env.local
+.env.*.local
+
+# Exclude setup scripts
+setup-*.ps1
+setup-*.sh
+Makefile
+
+# Exclude checklist/documentation files
+*_CHECKLIST.md
+*_SETUP.md
+*_FIX.md
+STRIPE_*.md
+DETERMINISTIC*.txt
+*.txt
+!requirements*.txt
+
+# Exclude static assets that aren't needed (if using CDN)
+# static/branding/  # Uncomment if you want to exclude images
