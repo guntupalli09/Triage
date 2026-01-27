@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "The two-year duration for confidentiality may not be sufficient for certain sensitive information, potentially exposing both parties to risks if information surfaces after the period.",
+      "evidence_quote": "Confidentiality obligations shall continue for two (2) years after termination of discussions."
+    },
+    {
+      "risk_title": "Broad Definition of Confidential Information",
+      "severity": "HIGH",
+      "rationale": "The vague and broad definition of 'Confidential Information' may lead to disputes over what is protected, possibly resulting in unintentional disclosures.",
+      "evidence_quote": "Confidential Information means all proprietary information disclosed by one party to the other."
+    },
+    {
+      "risk_title": "No Specific Details on Return or Destruction",
+      "severity": "MEDIUM",
+      "rationale": "The lack of specific procedures or timelines for the return or destruction of confidential information could lead to mishandling or retention of sensitive data.",
+      "evidence_quote": "Return or destroy all Confidential Information upon request."
+    }
+  ],
+  "executed": true
+}

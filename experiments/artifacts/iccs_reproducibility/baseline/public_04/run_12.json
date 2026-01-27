@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Confidential Information Definition",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of Confidential Information could lead to disputes over what constitutes confidential data, potentially exposing either party to unintended breaches.",
+      "evidence_quote": "Confidential Information includes all proprietary information, trade secrets, business plans, financial data, and technical information disclosed by either party."
+    },
+    {
+      "risk_title": "Obligations Duration",
+      "severity": "HIGH",
+      "rationale": "The obligations last for three years, which may be insufficient for highly sensitive information that requires longer protection, increasing the risk of exposure.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution, after which the obligations shall terminate."
+    },
+    {
+      "risk_title": "Return or Destroy Clause",
+      "severity": "MEDIUM",
+      "rationale": "The requirement to return or destroy Confidential Information may not cover all scenarios, potentially leaving loopholes for misuse after termination.",
+      "evidence_quote": "Upon termination, each party shall return or destroy all Confidential Information received from the other party."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "Specifying Texas as the governing law may limit jurisdictional flexibility and could pose challenges if parties are located elsewhere.",
+      "evidence_quote": "Governing Law: Texas"
+    }
+  ],
+  "executed": true
+}

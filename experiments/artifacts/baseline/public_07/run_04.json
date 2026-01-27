@@ -1,22 +1,22 @@
 {
   "findings": [
     {
-      "risk_title": "Indefinite Duration of Confidentiality",
+      "risk_title": "Indefinite Term of Agreement",
       "severity": "HIGH",
-      "rationale": "The agreement's indefinite duration may expose the Receiving Party to perpetual obligations, which can create uncertainty and potential legal liabilities regarding the management of confidential information.",
+      "rationale": "An indefinite term may expose the Disclosing Party to continuous risk of information leakage without a clear endpoint for obligations.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
     },
     {
-      "risk_title": "Lack of Limitation on Liability",
+      "risk_title": "Lack of Specificity in Confidential Information",
       "severity": "MEDIUM",
-      "rationale": "The NDA does not specify any limitations on liability for breaches, which could expose the Receiving Party to significant financial penalties without clear boundaries.",
-      "evidence_quote": "The Receiving Party agrees to hold and maintain the Confidential Information in strict confidence."
+      "rationale": "The broad definition of Confidential Information may lead to disputes regarding what is considered confidential, potentially complicating enforcement.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party."
     },
     {
-      "risk_title": "Unclear Definition of Confidential Information",
+      "risk_title": "Obligations on Receiving Party",
       "severity": "MEDIUM",
-      "rationale": "The broad definition of Confidential Information could lead to ambiguity about what is protected, increasing the risk of unintentional breaches.",
-      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party."
+      "rationale": "While the Receiving Party is required to maintain confidentiality, the lack of specified penalties for breaches may weaken enforcement.",
+      "evidence_quote": "The Receiving Party agrees to hold and maintain the Confidential Information in strict confidence."
     }
   ],
   "executed": true

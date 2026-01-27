@@ -1,16 +1,28 @@
 {
   "findings": [
     {
-      "risk_title": "Indefinite Duration of Confidentiality",
+      "risk_title": "Indefinite Term Duration",
       "severity": "HIGH",
-      "rationale": "The indefinite duration of the confidentiality obligation may pose a risk as it can lead to perpetual liability for the Receiving Party, potentially impacting future business operations.",
+      "rationale": "An indefinite duration may expose Company B to perpetual obligations, making it difficult to manage ongoing liabilities and risks associated with confidential information.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
     },
     {
-      "risk_title": "No Specific Return Timeline",
+      "risk_title": "No Limitations on Confidential Information",
       "severity": "MEDIUM",
-      "rationale": "The lack of a specific timeline for the return of confidential information could lead to delays or misunderstandings regarding the obligation to return such information.",
+      "rationale": "The broad definition of Confidential Information could lead to the Receiving Party unintentionally breaching the agreement by disclosing information that may not be critical.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party to the Receiving Party."
+    },
+    {
+      "risk_title": "Return of Information Requirement",
+      "severity": "MEDIUM",
+      "rationale": "The obligation to return all Confidential Information upon termination could create logistical challenges and potential liability if all information cannot be returned.",
       "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
+    },
+    {
+      "risk_title": "Governing Law Specification",
+      "severity": "LOW",
+      "rationale": "The choice of California law might present risks if the Receiving Party is not familiar with this jurisdiction's laws, but it is a common practice in contracts.",
+      "evidence_quote": "This Agreement shall be governed by the laws of the State of California."
     }
   ],
   "executed": true

@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Excessive Liability on Licensee",
+      "severity": "HIGH",
+      "rationale": "The Licensee bears unlimited liability for indemnification and potential breaches, posing significant financial risk.",
+      "evidence_quote": "Licensor's liability is unlimited for indemnification obligations and breaches of intellectual property provisions."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Indefinite confidentiality obligations may limit the Licensee's future business operations and require ongoing compliance.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely after termination."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory binding arbitration may limit the Licensee's options for dispute resolution and could be costly.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under AAA Commercial Arbitration Rules."
+    },
+    {
+      "risk_title": "Limited Termination Rights",
+      "severity": "MEDIUM",
+      "rationale": "The requirement of 60 days notice for Licensee to terminate may hinder immediate exit from unfavorable conditions.",
+      "evidence_quote": "Licensee requires 60 days notice to terminate."
+    }
+  ],
+  "executed": true
+}

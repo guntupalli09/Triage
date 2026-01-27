@@ -1,0 +1,46 @@
+{
+  "findings": [
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...10. GOVERNING LAW This Agreement is governed by Massachusetts state law....",
+      "exact_snippet": "governed by Massachusetts state law",
+      "start_index": 1170,
+      "end_index": 1205,
+      "position": 1170,
+      "context": "e performed in a professional and workmanlike manner.\n\n9. DISPUTE RESOLUTION\nDisputes shall be resolved through mediation followed by binding arbitration if mediation fails.\n\n10. GOVERNING LAW\nThis Agreement is governed by Massachusetts state law.\n\n11. ATTORNEYS' FEES\nEach party is responsible for its own attorneys' fees.\n\n12. MODIFICATIONS\nThis Agreement may only be modified in writing signed by both parties.\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    }
+  ],
+  "overall_risk": "low",
+  "rule_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

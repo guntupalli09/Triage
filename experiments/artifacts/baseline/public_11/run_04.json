@@ -1,28 +1,34 @@
 {
   "findings": [
     {
-      "risk_title": "Perpetual Obligation",
+      "risk_title": "Perpetual Obligations",
       "severity": "HIGH",
-      "rationale": "The obligations to maintain confidentiality are perpetual, which may impose indefinite liability on the parties and limit future business flexibility.",
+      "rationale": "The obligations to maintain confidentiality in perpetuity could lead to indefinite liability and restrict future business opportunities.",
       "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
     },
     {
-      "risk_title": "Unlimited Liability",
+      "risk_title": "Unlimited Indemnification",
       "severity": "HIGH",
-      "rationale": "The limitation of liability clause states that neither party's liability shall be limited, which can expose both parties to significant financial risk.",
+      "rationale": "The indemnification clause lacks limits, which could expose a party to significant financial risk in case of breaches.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit."
+    },
+    {
+      "risk_title": "Unrestricted Liability",
+      "severity": "HIGH",
+      "rationale": "The limitation of liability clause is absent, which can result in substantial financial exposure.",
       "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
     },
     {
-      "risk_title": "Ownership of Work Product",
+      "risk_title": "Intellectual Property Assignment",
       "severity": "MEDIUM",
-      "rationale": "Company A retains exclusive ownership of all work products, which may limit Company B's rights and potential future use of its own contributions.",
+      "rationale": "The clause assigns all rights to Company A, which may limit the receiving party's rights to any creations or contributions.",
       "evidence_quote": "All work product and deliverables created hereunder shall be owned exclusively by Company A."
     },
     {
-      "risk_title": "Indemnification Clause",
+      "risk_title": "Attorney's Fees Recovery",
       "severity": "MEDIUM",
-      "rationale": "The indemnification clause could lead to significant financial exposure for one party if the other breaches the agreement.",
-      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit, arising out of any breach of this Agreement."
+      "rationale": "The clause allows recovery of attorney's fees for the prevailing party, which could discourage parties from pursuing legitimate claims.",
+      "evidence_quote": "The prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party."
     }
   ],
   "executed": true

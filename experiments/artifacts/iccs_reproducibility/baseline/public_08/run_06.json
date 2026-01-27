@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unclear Definition of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The term 'Confidential Information' is broad and may cause ambiguity regarding what is protected, potentially leading to disputes.",
+      "evidence_quote": "\"Confidential Information\" means all proprietary or confidential information disclosed by one party to the other, whether in oral, written, or electronic form."
+    },
+    {
+      "risk_title": "Length of Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "A five-year confidentiality term may be excessive, especially if the information loses value over time, potentially hindering future business dealings.",
+      "evidence_quote": "This Agreement shall remain in effect for five (5) years."
+    },
+    {
+      "risk_title": "Lack of Specific Security Measures",
+      "severity": "MEDIUM",
+      "rationale": "The term 'reasonable security measures' is vague, which may lead to inadequate protection of confidential information.",
+      "evidence_quote": "Implement reasonable security measures"
+    }
+  ],
+  "executed": true
+}

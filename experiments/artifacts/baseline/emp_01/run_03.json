@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "The indefinite nature of the confidentiality obligation may restrict the employee's future opportunities and creates long-term liability without clear boundaries.",
+      "evidence_quote": "Employee agrees to maintain confidentiality of all proprietary information indefinitely, even after termination of employment."
+    },
+    {
+      "risk_title": "Two-Year Non-Compete Clause",
+      "severity": "MEDIUM",
+      "rationale": "A two-year non-compete period may significantly limit the employee's ability to find new employment in their field, which could be seen as overly restrictive.",
+      "evidence_quote": "Employee agrees not to compete with Employer for a period of 2 years after termination, within a 50-mile radius."
+    },
+    {
+      "risk_title": "At-Will Termination Clause",
+      "severity": "MEDIUM",
+      "rationale": "The at-will termination clause allows either party to terminate the agreement with short notice, which may create job insecurity for the employee.",
+      "evidence_quote": "Either party may terminate this Agreement at will, with or without cause, upon 2 weeks written notice."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee's obligation to indemnify the employer without limitation could expose the employee to significant financial risk.",
+      "evidence_quote": "Employee shall indemnify Employer against all claims, losses, and expenses without limitation arising from Employee's actions."
+    },
+    {
+      "risk_title": "Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Binding arbitration may limit the employee's ability to seek traditional legal remedies and could disadvantage them in disputes.",
+      "evidence_quote": "All disputes shall be resolved through binding arbitration in accordance with AAA rules."
+    },
+    {
+      "risk_title": "Attorney Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "The provision allowing the employer to recover attorney fees could deter the employee from pursuing legitimate claims due to potential financial burden.",
+      "evidence_quote": "Employer shall be entitled to recover all attorneys' fees and costs in any action to enforce this Agreement."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to the total fees paid can expose Licensee to significant unmitigated risks, especially in cases of negligence or breach.",
+      "evidence_quote": "Each party's liability is limited to the total fees paid under this Agreement."
+    },
+    {
+      "risk_title": "Warranties and Disclaimers",
+      "severity": "HIGH",
+      "rationale": "The 'as-is' provision may leave the Licensee without recourse if the Software fails to perform as expected.",
+      "evidence_quote": "Licensor provides the Software 'as-is' with no warranties, express or implied."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at the license fee may not sufficiently cover potential damages from negligence.",
+      "evidence_quote": "Each party shall indemnify the other for claims arising from its own negligence, capped at the license fee amount."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "A two-year confidentiality obligation may not be sufficient for certain sensitive information, increasing the risk of disclosure.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 2 years."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "Specifying Illinois law may not favor the Licensee if they are located in a different jurisdiction.",
+      "evidence_quote": "This Agreement is subject to Illinois state law."
+    }
+  ],
+  "executed": true
+}

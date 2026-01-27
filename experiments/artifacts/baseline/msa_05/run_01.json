@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability for Indemnification Claims",
+      "severity": "HIGH",
+      "rationale": "The Provider's unlimited liability for indemnification claims poses a significant financial risk to the Provider, as it does not limit potential exposure.",
+      "evidence_quote": "Provider's liability for indemnification claims is unlimited."
+    },
+    {
+      "risk_title": "Client's Immediate Termination Rights",
+      "severity": "MEDIUM",
+      "rationale": "The Client's ability to terminate the agreement immediately without cause can lead to operational uncertainty and potential loss of revenue for the Provider.",
+      "evidence_quote": "Client may terminate immediately."
+    },
+    {
+      "risk_title": "Confidentiality in Perpetuity",
+      "severity": "MEDIUM",
+      "rationale": "The perpetual nature of the confidentiality obligation may expose the Provider to long-term risks regarding the use and protection of sensitive information.",
+      "evidence_quote": "Confidentiality survives termination and continues in perpetuity."
+    },
+    {
+      "risk_title": "Binding Arbitration for Disputes",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory binding arbitration can limit the Provider's options for dispute resolution and may result in unfavorable outcomes.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration."
+    },
+    {
+      "risk_title": "Payment Terms and Late Fees",
+      "severity": "LOW",
+      "rationale": "Payment terms of net 45 days with accruing interest may indicate cash flow risks for the Provider if payments are delayed.",
+      "evidence_quote": "Payment is due net 45 days. Interest accrues on overdue amounts at 1.5% per month."
+    }
+  ],
+  "executed": true
+}

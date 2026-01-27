@@ -1,0 +1,17 @@
+{
+  "findings": [
+    {
+      "risk_title": "Duration of Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "A two-year confidentiality obligation may not be sufficient for sensitive information, especially in industries with longer information lifecycle risks.",
+      "evidence_quote": "Confidentiality obligations shall continue for two (2) years after termination of discussions."
+    },
+    {
+      "risk_title": "Unclear Scope of Confidential Information",
+      "severity": "HIGH",
+      "rationale": "The broad definition of 'Confidential Information' could lead to disputes over what is protected, potentially exposing parties to unintended liabilities.",
+      "evidence_quote": "Confidential Information means all proprietary information disclosed by one party to the other, including technical data, business strategies, customer information, and financial information."
+    }
+  ],
+  "executed": true
+}

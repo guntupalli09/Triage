@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Limitations",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification is limited to $750,000, which may not fully cover significant claims, exposing the Client to potential financial risk.",
+      "evidence_quote": "Provider agrees to indemnify Client for third-party claims arising from Provider's gross negligence, up to a maximum of $750,000 per claim."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Capping the liability at the total contract value may leave the Client underprotected in case of substantial losses.",
+      "evidence_quote": "Provider's liability is capped at the total contract value, except for indemnification obligations which are unlimited."
+    },
+    {
+      "risk_title": "No Warranties Provided",
+      "severity": "HIGH",
+      "rationale": "The 'as-is' clause without warranties may expose the Client to risks related to service quality and performance issues.",
+      "evidence_quote": "Provider provides services on an 'as-is' basis with no warranties, express or implied."
+    },
+    {
+      "risk_title": "Long Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "A 6-year confidentiality obligation may be burdensome and potentially restrict the Provider's subsequent business activities.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 6 years."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations could expose a party to significant financial risk in case of breaches or legal issues arising from the agreement.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not adequately protect parties from substantial damages, especially in high-stakes situations.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The lack of audit rights restricts transparency and accountability, making it difficult to verify compliance with confidentiality obligations.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Absence of Intellectual Property Provisions",
+      "severity": "HIGH",
+      "rationale": "Not addressing intellectual property rights can lead to disputes over ownership and use of proprietary information.",
+      "evidence_quote": "No intellectual property provisions apply."
+    }
+  ],
+  "executed": true
+}

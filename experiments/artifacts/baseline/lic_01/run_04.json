@@ -1,0 +1,47 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability Clause",
+      "severity": "HIGH",
+      "rationale": "Licensor's unlimited liability places substantial financial risk on the Licensee, as they could be liable for unforeseen damages.",
+      "evidence_quote": "Licensor's liability is unlimited and not subject to any limitation of liability clause."
+    },
+    {
+      "risk_title": "Indemnification Obligations",
+      "severity": "HIGH",
+      "rationale": "The Licensee is required to indemnify the Licensor without limitation, which could lead to significant financial exposure for the Licensee.",
+      "evidence_quote": "Licensee shall indemnify Licensor against all claims, losses, and expenses without limitation arising from Licensee's use of the Software."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 60-day notice period may not be sufficient for the Licensee to adjust to termination, potentially disrupting business operations.",
+      "evidence_quote": "Either party may terminate with 60 days written notice."
+    },
+    {
+      "risk_title": "Dispute Resolution Method",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the Licensee's options for dispute resolution and could lead to unfavorable outcomes.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under AAA rules."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations that survive termination in perpetuity may impose ongoing obligations on the Licensee without clear end dates.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue in perpetuity."
+    },
+    {
+      "risk_title": "No Ownership Rights",
+      "severity": "LOW",
+      "rationale": "The Licensee's lack of ownership interest could limit their control over the use of the Software.",
+      "evidence_quote": "Licensee receives no ownership interest."
+    },
+    {
+      "risk_title": "Warranties Disclaimers",
+      "severity": "LOW",
+      "rationale": "The broad disclaimers of warranties could leave the Licensee without recourse if the Software fails to meet their needs.",
+      "evidence_quote": "Licensor disclaims all warranties, express or implied, including merchantability and fitness for a particular purpose."
+    }
+  ],
+  "executed": true
+}

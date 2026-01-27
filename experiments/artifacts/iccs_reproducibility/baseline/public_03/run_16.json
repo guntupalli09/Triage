@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of clear definition of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The term 'Confidential Information' is broad and may lead to disputes over what constitutes confidential data.",
+      "evidence_quote": "\"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information."
+    },
+    {
+      "risk_title": "Duration of confidentiality obligation",
+      "severity": "LOW",
+      "rationale": "While a five-year term may be standard, it could be too short for certain sensitive information, risking premature disclosure.",
+      "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
+    },
+    {
+      "risk_title": "Injunctive relief without bond",
+      "severity": "HIGH",
+      "rationale": "Allowing injunctive relief without requiring a bond may expose the Receiving Party to significant risk if the injunction is later found to be unwarranted.",
+      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
+    },
+    {
+      "risk_title": "Assignment restrictions",
+      "severity": "MEDIUM",
+      "rationale": "Restrictions on assignment without consent may hinder business operations, especially during mergers or acquisitions.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party, except in connection with a change of control transaction."
+    }
+  ],
+  "executed": true
+}

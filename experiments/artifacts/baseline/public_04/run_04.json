@@ -1,21 +1,21 @@
 {
   "findings": [
     {
-      "risk_title": "Indefinite Term",
+      "risk_title": "Indefinite Term of Confidentiality",
       "severity": "HIGH",
-      "rationale": "An indefinite term can lead to perpetual obligations, increasing liability and risk of non-compliance over time.",
+      "rationale": "The agreement's indefinite term could expose the Receiving Party to perpetual obligations, potentially leading to unforeseen liabilities or difficulties in managing long-term confidentiality.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
     },
     {
-      "risk_title": "Broad Definition of Confidential Information",
+      "risk_title": "Lack of Specificity in Confidential Information",
       "severity": "MEDIUM",
-      "rationale": "A broad definition may lead to uncertainty regarding what information is covered, potentially leading to disputes.",
-      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party..."
+      "rationale": "The broad definition of Confidential Information may lead to ambiguity, making it difficult for the Receiving Party to understand their obligations and what information is protected.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party to the Receiving Party."
     },
     {
       "risk_title": "Return of Information Obligations",
       "severity": "MEDIUM",
-      "rationale": "The obligation to return information may not cover all scenarios, potentially leaving the Disclosing Party at risk if information is not returned properly.",
+      "rationale": "The requirement to return all Confidential Information upon termination could pose a risk if the Receiving Party inadvertently fails to comply or retains copies.",
       "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
     }
   ],

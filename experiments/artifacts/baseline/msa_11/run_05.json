@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to fees paid in the last 6 months may not cover significant damages, exposing the Client to financial risk.",
+      "evidence_quote": "Provider's liability is limited to the fees paid in the 6 months preceding the claim."
+    },
+    {
+      "risk_title": "Indemnification Scope",
+      "severity": "MEDIUM",
+      "rationale": "Indemnification is only to the extent required by applicable law, which may not provide sufficient protection in all scenarios.",
+      "evidence_quote": "Provider shall indemnify Client to the extent required by applicable law for third-party claims."
+    },
+    {
+      "risk_title": "Dispute Resolution Process",
+      "severity": "MEDIUM",
+      "rationale": "Requiring negotiation before litigation may prolong resolution and increase costs for the Client.",
+      "evidence_quote": "Disputes shall be resolved through negotiation, then litigation if negotiation fails."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A 3-year confidentiality obligation may not be sufficient depending on the nature of the information shared.",
+      "evidence_quote": "Confidentiality obligations survive termination for 3 years."
+    },
+    {
+      "risk_title": "Warranties Disclaimer",
+      "severity": "MEDIUM",
+      "rationale": "Disclaiming all warranties except those specifically stated could leave the Client without recourse for defects or issues.",
+      "evidence_quote": "Provider disclaims all warranties, express or implied, except as specifically stated."
+    }
+  ],
+  "executed": true
+}

@@ -3,31 +3,31 @@
     {
       "risk_title": "Perpetual Term",
       "severity": "HIGH",
-      "rationale": "An indefinite term may create long-term obligations without a clear end, increasing risk exposure for both parties.",
+      "rationale": "An indefinite term can lead to ongoing obligations without clear end dates, potentially exposing the parties to long-term risk without the ability to reassess the agreement.",
       "evidence_quote": "This Agreement shall remain in effect in perpetuity with no expiration date."
     },
     {
       "risk_title": "No Indemnification",
-      "severity": "HIGH",
-      "rationale": "Lack of indemnification provisions can leave a party vulnerable to claims and liabilities arising from the other party's actions.",
+      "severity": "MEDIUM",
+      "rationale": "Lack of indemnification provisions may leave parties vulnerable to liability claims arising from breaches of the agreement or third-party claims.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limited Liability",
-      "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid may not adequately protect parties from significant claims, especially in cases of gross negligence.",
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to fees paid can expose parties to significant risks, especially if damages exceed the total fees, leaving insufficient recourse for affected parties.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "Absence of audit rights may hinder one party's ability to verify compliance with confidentiality obligations, increasing risk of data misuse.",
+      "rationale": "The absence of audit rights limits the ability of parties to verify compliance with the terms, increasing the risk of undisclosed breaches or misuses of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "Without IP provisions, ownership and usage rights of confidential information are unclear, potentially leading to disputes.",
+      "rationale": "Without intellectual property protections, parties may face risks related to the misappropriation or unauthorized use of intellectual property shared during the agreement.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The indemnification clause places unlimited liability on the Provider, which may expose them to significant financial risk without defined limits.",
+      "evidence_quote": "Provider shall indemnify Client against all claims, losses, and expenses without limitation."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not adequately protect the Provider against larger claims or damages that could arise.",
+      "evidence_quote": "In no event shall Provider's liability exceed the total fees paid under this Agreement."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 30-day notice period for termination may not provide sufficient time for the Provider to mitigate losses or transition responsibilities.",
+      "evidence_quote": "Either party may terminate with 30 days written notice."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A 2-year confidentiality period may be insufficient for certain types of sensitive information, potentially exposing the Client's intellectual property.",
+      "evidence_quote": "Both parties agree to maintain confidentiality of proprietary information for a period of 2 years after termination."
+    },
+    {
+      "risk_title": "Governing Law Jurisdiction",
+      "severity": "LOW",
+      "rationale": "Governing law in California may lead to complications for Providers located in different states, potentially increasing legal costs.",
+      "evidence_quote": "This Agreement shall be governed by the laws of the State of California."
+    }
+  ],
+  "executed": true
+}

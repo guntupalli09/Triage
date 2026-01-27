@@ -677,7 +677,7 @@ class RuleEngine:
             ),
         ]
 
-    def analyze(self, text: str) -> Dict:
+    def analyze(self, text: str, suppression_enabled: bool = True) -> Dict:
         """
         Analyze contract text using deterministic rule engine.
         
@@ -689,9 +689,15 @@ class RuleEngine:
         2. Apply all rules (pattern or proximity matching)
         3. Extract clause-level anchors (start_index, end_index, exact_snippet)
         4. Deduplicate findings by (rule_id, clause_number)
-        5. Apply false-positive suppression rules
-        6. Compute overall risk from suppressed findings
+        5. Apply false-positive suppression rules (if enabled)
+        6. Compute overall risk from findings
         7. Return findings with ruleset version metadata
+        
+        Args:
+            text: Contract text to analyze
+            suppression_enabled: If True, apply false-positive suppression rules.
+                                If False, return all findings without suppression.
+                                Default: True (production behavior)
         
         Returns:
             Dict with:
@@ -700,7 +706,7 @@ class RuleEngine:
             - rule_counts: Dict[str, int] by severity
             - version: str (ruleset version)
             - ruleset_version_data: Dict (full version metadata)
-            - suppression_log: Dict[str, str] (audit trail of suppressions)
+            - suppression_log: Dict[str, str] (audit trail of suppressions, empty if disabled)
         """
         chunks = _chunk_text(text)
 
@@ -804,12 +810,18 @@ class RuleEngine:
         deduped.sort(key=lambda x: (rank.get(x.severity, 9), x.rule_id))
 
         # Phase 5: False-positive suppression layer (deterministic, explainable)
-        suppressed_findings, suppression_reasons = self._apply_suppression_rules(deduped, text)
-        
-        # Log suppressions for auditability
-        if suppression_reasons:
-            for finding_id, reason in suppression_reasons.items():
-                logger.info(f"SUPPRESSION: {finding_id} - {reason}")
+        if suppression_enabled:
+            suppressed_findings, suppression_reasons = self._apply_suppression_rules(deduped, text)
+            
+            # Log suppressions for auditability
+            if suppression_reasons:
+                for finding_id, reason in suppression_reasons.items():
+                    logger.info(f"SUPPRESSION: {finding_id} - {reason}")
+        else:
+            # Suppression disabled: use all findings without suppression
+            suppressed_findings = deduped
+            suppression_reasons = {}
+            logger.info("Suppression disabled: all findings returned without suppression")
 
         counts = {"high": 0, "medium": 0, "low": 0}
         for f in suppressed_findings:

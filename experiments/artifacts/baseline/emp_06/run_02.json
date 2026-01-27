@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The indemnification clause requires the employee to cover all claims, potentially exposing them to significant financial liability.",
+      "evidence_quote": "Employee shall indemnify Employer for all claims arising from Employee's breach of this Agreement, up to $100,000."
+    },
+    {
+      "risk_title": "Long Non-Compete Duration",
+      "severity": "MEDIUM",
+      "rationale": "A 12-month non-compete period may limit the employee's future employment opportunities excessively, which can lead to disputes.",
+      "evidence_quote": "Employee agrees not to work for competitors for 12 months after termination within a 25-mile radius."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "A confidentiality obligation lasting 5 years post-termination is lengthy and could hinder the employee's ability to work in the industry.",
+      "evidence_quote": "Employee must maintain confidentiality of all proprietary information for a period of 5 years after termination."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Mandating binding arbitration may limit legal recourse for the employee, which can be unfavorable for resolving disputes.",
+      "evidence_quote": "Disputes shall be resolved through binding arbitration."
+    },
+    {
+      "risk_title": "Employer's Right to Attorneys' Fees",
+      "severity": "MEDIUM",
+      "rationale": "The clause allowing the employer to recover attorneys' fees may deter the employee from pursuing valid claims due to financial risk.",
+      "evidence_quote": "Employer shall be entitled to recover reasonable attorneys' fees in any enforcement action."
+    }
+  ],
+  "executed": true
+}

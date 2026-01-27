@@ -3,26 +3,32 @@
     {
       "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations may expose a party to significant legal and financial risks in case of breaches or third-party claims.",
+      "rationale": "The absence of indemnification obligations may leave parties unprotected against claims arising from breaches or third-party actions, increasing potential liability.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
       "risk_title": "Limitation of Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid can be risky if damages exceed the fees, potentially leaving a party unprotected against significant claims.",
+      "rationale": "Limiting liability to only fees paid may not adequately protect against significant breaches, exposing parties to greater financial risk.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
-      "severity": "MEDIUM",
-      "rationale": "The absence of IP provisions can lead to disputes over ownership and use of proprietary information, potentially harming both parties.",
+      "severity": "HIGH",
+      "rationale": "The lack of intellectual property provisions may lead to disputes over ownership and use of IP created or shared during the term of the agreement.",
       "evidence_quote": "No intellectual property provisions apply."
     },
     {
-      "risk_title": "Limited Duration of Agreement",
+      "risk_title": "No Attorneys' Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "Each party bearing its own attorneys' fees may deter parties from pursuing legitimate claims due to the financial burden of legal costs.",
+      "evidence_quote": "Each party shall bear its own attorneys' fees."
+    },
+    {
+      "risk_title": "Short Renewal Clause",
       "severity": "LOW",
-      "rationale": "A three-year term may not adequately protect sensitive information if the relationship or projects extend beyond this period.",
-      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution."
+      "rationale": "A renewal by mutual consent may create uncertainty about the continuity of the agreement, potentially leading to lapses in confidentiality.",
+      "evidence_quote": "This Agreement may be renewed by mutual written consent."
     }
   ],
   "executed": true

@@ -1,22 +1,22 @@
 {
   "findings": [
     {
-      "risk_title": "Indefinite Duration of Confidentiality",
+      "risk_title": "Indefinite Term of Confidentiality",
       "severity": "HIGH",
-      "rationale": "An indefinite duration for confidentiality obligations can create uncertainty and potential liability for the Receiving Party, as it may limit their ability to use their own information or engage with other parties.",
+      "rationale": "The indefinite duration of the confidentiality obligations may create long-term liabilities and uncertainties for the Receiving Party, potentially leading to compliance challenges.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
     },
     {
-      "risk_title": "Vague Definition of Confidential Information",
+      "risk_title": "Lack of Limitation on Confidential Information",
       "severity": "MEDIUM",
-      "rationale": "A broad definition of Confidential Information may lead to ambiguity regarding what is protected, potentially exposing the Receiving Party to unintentional breaches.",
+      "rationale": "The definition of Confidential Information is broad and may encompass information that is not critical or sensitive, leading to potential overreach in obligations.",
       "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party to the Receiving Party."
     },
     {
-      "risk_title": "Limited Recourse for Breach",
+      "risk_title": "Return of Information Clause",
       "severity": "MEDIUM",
-      "rationale": "The absence of specific recourse or penalties for breach of confidentiality obligations may lead to a lack of accountability and enforcement issues.",
-      "evidence_quote": "The Receiving Party agrees to hold and maintain the Confidential Information in strict confidence..."
+      "rationale": "The requirement to return all Confidential Information may not account for situations where information is stored in a manner that is not easily retrievable.",
+      "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
     }
   ],
   "executed": true

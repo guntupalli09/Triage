@@ -1,0 +1,39 @@
+MASTER SERVICE AGREEMENT
+
+This Master Service Agreement ("Agreement") is entered into between Service Provider ("Provider") and Client Company ("Client").
+
+1. SERVICES
+Provider agrees to provide the services described in attached Statements of Work.
+
+2. PAYMENT TERMS
+Payment is due within 30 days of invoice date.
+
+3. INTELLECTUAL PROPERTY
+All work product and deliverables shall be owned by Client. Provider hereby assigns all rights, title, and interest in the work product to Client.
+
+4. INDEMNIFICATION
+Provider shall indemnify Client against all claims, losses, and expenses without limitation.
+
+5. LIMITATION OF LIABILITY
+In no event shall Provider's liability exceed the total fees paid under this Agreement.
+
+6. TERM AND TERMINATION
+Either party may terminate with 30 days written notice.
+
+7. CONFIDENTIALITY
+Both parties agree to maintain confidentiality of proprietary information for a period of 2 years after termination.
+
+8. WARRANTIES
+Provider warrants that services will be performed in a professional manner.
+
+9. DISPUTE RESOLUTION
+Disputes shall be resolved through binding arbitration.
+
+10. GOVERNING LAW
+This Agreement shall be governed by the laws of the State of California.
+
+11. ATTORNEYS' FEES
+In the event of any dispute, Client shall be entitled to recover reasonable attorneys' fees and costs.
+
+12. MODIFICATIONS
+This Agreement may only be modified in writing signed by both parties.

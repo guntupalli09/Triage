@@ -1,0 +1,145 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_INDEM_01",
+      "rule_name": "unlimited_indemnification",
+      "title": "Potentially unlimited indemnification",
+      "severity": "high",
+      "rationale": "Indemnity obligations may be uncapped, which can expose you to costs far beyond the contract value.",
+      "matched_excerpt": "...5. LIMITATION OF LIABILITY Notwithstanding any other provision, Provider's liability for indemnification claims is unlimited....",
+      "exact_snippet": "indemnification",
+      "start_index": 756,
+      "end_index": 771,
+      "position": 756,
+      "context": " hold harmless Client from any and all claims, without limitation, arising from Provider's performance of services.\n\n5. LIMITATION OF LIABILITY\nNotwithstanding any other provision, Provider's liability for indemnification claims is unlimited.\n\n6. TERM AND TERMINATION\nClient may terminate immediately. Provider requires 30 days notice.\n\n7. CONFIDENTIALITY\nConfidentiality survives termination and continues in perpe",
+      "clause_number": "1.5",
+      "matched_keywords": [
+        "unlimited",
+        "LIABILITY"
+      ],
+      "aliases": [
+        "uncapped_indemnification",
+        "unlimited_indemnity",
+        "no_limit_indemnification"
+      ]
+    },
+    {
+      "rule_id": "M_CONF_01",
+      "rule_name": "indefinite_confidentiality",
+      "title": "Confidentiality may be perpetual / indefinite",
+      "severity": "medium",
+      "rationale": "Indefinite confidentiality can create long-term compliance burden and uncertainty around retention and disclosure.",
+      "matched_excerpt": "...7. CONFIDENTIALITY Confidentiality survives termination and continues in perpetuity....",
+      "exact_snippet": "CONFIDENTIALITY Confidentiality survives termination and continues in perpetuity",
+      "start_index": 888,
+      "end_index": 968,
+      "position": 888,
+      "context": "F LIABILITY\nNotwithstanding any other provision, Provider's liability for indemnification claims is unlimited.\n\n6. TERM AND TERMINATION\nClient may terminate immediately. Provider requires 30 days notice.\n\n7. CONFIDENTIALITY\nConfidentiality survives termination and continues in perpetuity.\n\n8. WARRANTIES\nProvider warrants that all services will meet industry standards and comply with specifications.\n\n9. DISPUTE RESOLUTION\nAll disputes must be resolved through binding arbitrati",
+      "clause_number": null,
+      "matched_keywords": [
+        "CONFIDENTIAL"
+      ],
+      "aliases": [
+        "perpetual_confidentiality",
+        "indefinite_confidentiality",
+        "no_expiration_confidentiality"
+      ]
+    },
+    {
+      "rule_id": "M_TERM_NOTICE_01",
+      "rule_name": "termination_notice_window",
+      "title": "Short termination or notice windows",
+      "severity": "medium",
+      "rationale": "Short or strict notice windows can lead to accidental renewals or unintended termination.",
+      "matched_excerpt": "...6. TERM AND TERMINATION Client may terminate immediately. Provider requires 30 days notice....",
+      "exact_snippet": "terminate",
+      "start_index": 828,
+      "end_index": 837,
+      "position": 828,
+      "context": "ng from Provider's performance of services.\n\n5. LIMITATION OF LIABILITY\nNotwithstanding any other provision, Provider's liability for indemnification claims is unlimited.\n\n6. TERM AND TERMINATION\nClient may terminate immediately. Provider requires 30 days notice.\n\n7. CONFIDENTIALITY\nConfidentiality survives termination and continues in perpetuity.\n\n8. WARRANTIES\nProvider warrants that all services will mee",
+      "clause_number": "1.5",
+      "matched_keywords": [],
+      "aliases": [
+        "termination_notice_window",
+        "short_notice_period"
+      ]
+    },
+    {
+      "rule_id": "M_TERM_NOTICE_01",
+      "rule_name": "termination_notice_window",
+      "title": "Short termination or notice windows",
+      "severity": "medium",
+      "rationale": "Short or strict notice windows can lead to accidental renewals or unintended termination.",
+      "matched_excerpt": "...6. TERM AND TERMINATION Client may terminate immediately. Provider requires 30 days notice....",
+      "exact_snippet": "notice",
+      "start_index": 877,
+      "end_index": 883,
+      "position": 877,
+      "context": "IMITATION OF LIABILITY\nNotwithstanding any other provision, Provider's liability for indemnification claims is unlimited.\n\n6. TERM AND TERMINATION\nClient may terminate immediately. Provider requires 30 days notice.\n\n7. CONFIDENTIALITY\nConfidentiality survives termination and continues in perpetuity.\n\n8. WARRANTIES\nProvider warrants that all services will meet industry standards and comply with specifica",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "termination_notice_window",
+        "short_notice_period"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...10. GOVERNING LAW This Agreement is governed by California law, without regard to conflict of law principles....",
+      "exact_snippet": "governed by California law",
+      "start_index": 1227,
+      "end_index": 1253,
+      "position": 1227,
+      "context": "s will meet industry standards and comply with specifications.\n\n9. DISPUTE RESOLUTION\nAll disputes must be resolved through binding arbitration in accordance with AAA rules.\n\n10. GOVERNING LAW\nThis Agreement is governed by California law, without regard to conflict of law principles.\n\n11. ATTORNEYS' FEES\nClient is entitled to recover all attorneys' fees and costs in any action to enforce this Agreement.\n\n12. MODIFICATIONS\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    },
+    {
+      "rule_id": "L_LATEFEE_01",
+      "rule_name": "late_fees_interest",
+      "title": "Late fees / high interest",
+      "severity": "low",
+      "rationale": "Penalty terms can increase costs if payment timing slips.",
+      "matched_excerpt": "...2. PAYMENT TERMS Payment is due net 45 days. Interest accrues on overdue amounts at 1.5% per month....",
+      "exact_snippet": "Interest accrues on overdue amounts at 1.5%",
+      "start_index": 293,
+      "end_index": 336,
+      "position": 293,
+      "context": " Service Provider (\"Provider\") and Client Company (\"Client\").\n\n1. SERVICES\nProvider agrees to provide the services described in attached Statements of Work.\n\n2. PAYMENT TERMS\nPayment is due net 45 days. Interest accrues on overdue amounts at 1.5% per month.\n\n3. INTELLECTUAL PROPERTY\nAll deliverables and work product become the exclusive property of Client upon payment. Provider waives all moral rights.\n\n4. INDEMNIFICATION\nProvider shall de",
+      "clause_number": "1.5",
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 1,
+    "medium": 3,
+    "low": 2
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

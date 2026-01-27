@@ -1,27 +1,27 @@
 {
   "findings": [
     {
-      "risk_title": "No Indemnification Obligations",
+      "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "Absence of indemnification can expose parties to significant financial risk in case of breaches or legal claims.",
+      "rationale": "The absence of indemnification obligations may expose parties to significant liabilities without recourse, increasing financial risk.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Unlimited Liability Clause",
+      "risk_title": "Unlimited Liability",
       "severity": "HIGH",
-      "rationale": "Having no limit on liability can lead to potentially catastrophic financial exposure for the parties involved.",
+      "rationale": "The clause stating that liability shall not be limited under any circumstances poses a high financial risk for both parties.",
       "evidence_quote": "No event shall be limited by the limitation of liability clause."
     },
     {
-      "risk_title": "Lack of Audit Rights",
+      "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "Without audit rights, it may be difficult to ensure compliance with the confidentiality obligations.",
+      "rationale": "The lack of audit rights limits oversight and accountability, potentially allowing misuse of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "The absence of intellectual property provisions could lead to disputes regarding ownership and usage of ideas or inventions.",
+      "rationale": "The absence of provisions addressing intellectual property may lead to disputes regarding ownership of ideas or inventions developed during the agreement.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

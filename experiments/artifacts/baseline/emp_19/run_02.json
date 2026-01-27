@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Extended Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "A 2.5-year confidentiality obligation post-termination could hinder the employee's ability to find new work or start a competing business.",
+      "evidence_quote": "Confidentiality obligations continue for 2.5 years after termination of employment."
+    },
+    {
+      "risk_title": "Broad Non-Compete Clause",
+      "severity": "HIGH",
+      "rationale": "The non-compete clause may restrict the employee’s future employment opportunities for a significant duration in the same geographic area.",
+      "evidence_quote": "Employee may not work for direct competitors for 1 year after termination within the same geographic region."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability for either party to terminate the agreement with only 45 days notice introduces uncertainty and instability.",
+      "evidence_quote": "Either party may terminate for convenience with 45 days written notice."
+    },
+    {
+      "risk_title": "Indemnification Limitations",
+      "severity": "MEDIUM",
+      "rationale": "Limiting indemnification to the annual contract value may leave parties exposed to greater losses due to breaches.",
+      "evidence_quote": "Each party indemnifies the other for its own breach, capped at the annual contract value."
+    }
+  ],
+  "executed": true
+}

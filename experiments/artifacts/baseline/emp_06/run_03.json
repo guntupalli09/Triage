@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Assignment",
+      "severity": "HIGH",
+      "rationale": "The clause assigns all rights of inventions to the employer, potentially limiting the employee's ability to benefit from their own work.",
+      "evidence_quote": "All inventions and work product created by Employee during employment shall be assigned to Employer."
+    },
+    {
+      "risk_title": "Long Confidentiality Period",
+      "severity": "MEDIUM",
+      "rationale": "A 5-year confidentiality obligation after termination may be excessively restrictive and could hinder the employee's future employment opportunities.",
+      "evidence_quote": "Employee must maintain confidentiality of all proprietary information for a period of 5 years after termination."
+    },
+    {
+      "risk_title": "Non-Compete Duration and Radius",
+      "severity": "HIGH",
+      "rationale": "A 12-month non-compete clause within a 25-mile radius is highly restrictive and could significantly limit the employee's employment options post-termination.",
+      "evidence_quote": "Employee agrees not to work for competitors for 12 months after termination within a 25-mile radius."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The employee is required to indemnify the employer for claims, which could expose the employee to significant financial liability.",
+      "evidence_quote": "Employee shall indemnify Employer for all claims arising from Employee's breach of this Agreement, up to $100,000."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Binding arbitration may limit the employee's ability to seek a fair legal remedy, as it often favors employers in dispute resolutions.",
+      "evidence_quote": "Disputes shall be resolved through binding arbitration."
+    },
+    {
+      "risk_title": "Attorney's Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "The employer's entitlement to recover attorneys' fees may deter the employee from pursuing legitimate claims due to fear of incurring additional costs.",
+      "evidence_quote": "Employer shall be entitled to recover reasonable attorneys' fees in any enforcement action."
+    }
+  ],
+  "executed": true
+}

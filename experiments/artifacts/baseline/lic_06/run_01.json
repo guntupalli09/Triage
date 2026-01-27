@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Revocable License",
+      "severity": "HIGH",
+      "rationale": "The license is revocable, which could jeopardize the Licensee's ability to continue using the software without notice.",
+      "evidence_quote": "Licensor grants Licensee a non-exclusive, revocable license to use the Software for evaluation purposes only."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may expose the Licensee to significant losses without recourse from the Licensor.",
+      "evidence_quote": "Licensor's liability is limited to the amount of any license fees actually paid by Licensee."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The Licensee is required to indemnify the Licensor, which could lead to significant financial and legal exposure for the Licensee.",
+      "evidence_quote": "Licensee shall indemnify Licensor to the extent required by law for claims arising from Licensee's use of the Software."
+    },
+    {
+      "risk_title": "As-Is Warranty",
+      "severity": "MEDIUM",
+      "rationale": "Providing the software 'as-is' with no warranties may leave the Licensee without support or recourse for defects.",
+      "evidence_quote": "Licensor provides the Software 'as-is' with no warranties during the evaluation period."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 7-day notice for termination could lead to abrupt disruption in access to software for the Licensee.",
+      "evidence_quote": "Either party may terminate this evaluation license with 7 days written notice."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A one-year confidentiality obligation post-termination may limit the Licensee's ability to use similar software freely.",
+      "evidence_quote": "Confidentiality obligations continue for 1 year after termination of the evaluation period."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "In perpetuity confidentiality",
+      "severity": "HIGH",
+      "rationale": "The requirement for confidentiality in perpetuity may be overly restrictive and could lead to potential legal challenges over time.",
+      "evidence_quote": "Employee agrees to maintain confidentiality of all financial information and trade secrets in perpetuity."
+    },
+    {
+      "risk_title": "Broad indemnification clause",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause places significant financial responsibility on the Employee, which could be a risk if claims arise.",
+      "evidence_quote": "Employee agrees to indemnify Employer for claims arising from Employee's breach of this Agreement, up to a maximum of $200,000."
+    },
+    {
+      "risk_title": "Length of non-compete",
+      "severity": "MEDIUM",
+      "rationale": "A 15-month non-compete period may be seen as excessive, potentially limiting the Employee's future employment opportunities.",
+      "evidence_quote": "Employee may not work for competitors or solicit Employer's clients for 15 months after termination."
+    },
+    {
+      "risk_title": "Jurisdiction for disputes",
+      "severity": "LOW",
+      "rationale": "Specifying Virginia courts for dispute resolution may limit options for the Employee and impose travel burdens.",
+      "evidence_quote": "Any disputes shall be resolved in the courts of the State of Virginia."
+    }
+  ],
+  "executed": true
+}

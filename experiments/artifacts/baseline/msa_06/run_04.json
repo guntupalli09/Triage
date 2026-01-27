@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of a cap on liability for indemnification claims exposes the provider to potentially significant financial risk.",
+      "evidence_quote": "Provider's liability for indemnification claims is unlimited and not subject to any cap."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 60-day notice requirement for the provider may limit flexibility and could lead to operational challenges.",
+      "evidence_quote": "Provider requires 60 days notice."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations that survive termination indefinitely may create long-term obligations that are difficult to manage.",
+      "evidence_quote": "Confidentiality survives termination and continues in perpetuity."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the parties' ability to pursue legal remedies through the courts.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under AAA rules."
+    },
+    {
+      "risk_title": "Attorney's Fees Recovery",
+      "severity": "LOW",
+      "rationale": "While allowing recovery of attorney's fees is generally favorable, it may incentivize litigation over amicable resolutions.",
+      "evidence_quote": "Client is entitled to recover all attorneys' fees and costs in any action to enforce this Agreement."
+    }
+  ],
+  "executed": true
+}

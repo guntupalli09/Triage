@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Detailed Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "The agreement does not specify detailed obligations or exceptions for handling Confidential Information, which may lead to misinterpretation or misuse.",
+      "evidence_quote": "Each party agrees to maintain the confidentiality of the other party's Confidential Information and to use such information solely for the purpose of evaluating potential business opportunities."
+    },
+    {
+      "risk_title": "Limited Duration of Confidentiality",
+      "severity": "HIGH",
+      "rationale": "The three-year term for confidentiality may be insufficient for certain types of sensitive information, potentially exposing parties to risks after expiration.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution, after which the obligations shall terminate."
+    },
+    {
+      "risk_title": "Ambiguity in Return of Materials",
+      "severity": "MEDIUM",
+      "rationale": "The clause lacks clarity on the process and timeline for returning or destroying materials, which may lead to disputes.",
+      "evidence_quote": "Upon termination, each party shall return or destroy all Confidential Information received from the other party."
+    },
+    {
+      "risk_title": "Jurisdiction Limitation",
+      "severity": "LOW",
+      "rationale": "The governing law is limited to Texas, which may create challenges for parties operating in multiple jurisdictions.",
+      "evidence_quote": "Governing Law: Texas"
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Revocable License",
+      "severity": "HIGH",
+      "rationale": "The license is revocable, which means the Licensee could lose access to the Software at any time, potentially disrupting operations.",
+      "evidence_quote": "Licensor grants Licensee a non-exclusive, revocable license to use the Software for evaluation and testing purposes only."
+    },
+    {
+      "risk_title": "No Ownership Rights",
+      "severity": "MEDIUM",
+      "rationale": "The Licensee does not gain any ownership rights, which may limit their ability to leverage the Software after the evaluation period.",
+      "evidence_quote": "Licensor retains all ownership rights. Licensee receives no ownership interest in the Software."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "HIGH",
+      "rationale": "The limitation of liability caps potential damages to fees paid, which may not cover losses incurred due to Software issues.",
+      "evidence_quote": "Licensor's liability is limited to the amount of any fees actually paid by Licensee, if any."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification requirement places a financial burden on the Licensee for claims arising from their use of the Software.",
+      "evidence_quote": "Licensee shall indemnify Licensor to the extent required by applicable law for claims arising from Licensee's evaluation use."
+    },
+    {
+      "risk_title": "Warranties and Disclaimers",
+      "severity": "HIGH",
+      "rationale": "The 'as-is' provision means the Licensee assumes all risks with no warranties, which could result in significant issues if the Software is faulty.",
+      "evidence_quote": "Licensor provides the Software 'as-is' with no warranties during the evaluation period."
+    },
+    {
+      "risk_title": "Short Confidentiality Period",
+      "severity": "MEDIUM",
+      "rationale": "The confidentiality obligations lasting only 6 months post-termination may lead to exposure of sensitive information after this period.",
+      "evidence_quote": "Confidentiality obligations continue for 6 months after termination of the evaluation period."
+    }
+  ],
+  "executed": true
+}

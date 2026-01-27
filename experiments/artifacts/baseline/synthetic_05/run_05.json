@@ -3,26 +3,20 @@
     {
       "risk_title": "Lack of Audit Rights",
       "severity": "HIGH",
-      "rationale": "The absence of audit rights may prevent the Disclosing Party from verifying compliance with the confidentiality obligations, increasing the risk of unauthorized disclosures.",
+      "rationale": "The absence of audit rights limits the Disclosing Party's ability to verify compliance with confidentiality obligations, potentially increasing the risk of undisclosed breaches.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "The lack of specific provisions regarding intellectual property may lead to misunderstandings or misuse of proprietary information, which can affect business interests.",
+      "rationale": "The absence of specific intellectual property provisions may lead to disputes regarding ownership and use of ideas or inventions developed during the agreement.",
       "evidence_quote": "No intellectual property provisions apply."
     },
     {
       "risk_title": "Indemnification Limitations",
       "severity": "MEDIUM",
-      "rationale": "While indemnification is included, it is only to the extent required by law, which may limit the Disclosing Party's recourse in case of breaches.",
-      "evidence_quote": "The Receiving Party shall indemnify the Disclosing Party to the extent required by law."
-    },
-    {
-      "risk_title": "Limited Duration of Agreement",
-      "severity": "MEDIUM",
-      "rationale": "The three-year term may not provide sufficient protection for long-term projects or sensitive information, leading to potential exposure after expiration.",
-      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution."
+      "rationale": "While indemnification is provided, it is limited to claims arising from breaches, which may not cover all potential liabilities.",
+      "evidence_quote": "The Receiving Party shall indemnify the Disclosing Party to the extent required by law for all claims arising from breach of this Agreement."
     }
   ],
   "executed": true

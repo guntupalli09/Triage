@@ -1,27 +1,27 @@
 {
   "findings": [
     {
-      "risk_title": "Lack of Indemnification Provisions",
+      "risk_title": "No Indemnification Obligations",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations may expose the Disclosing Party to significant financial risk if there is a breach of confidentiality.",
+      "rationale": "The absence of indemnification provisions may expose the parties to significant liability without recourse for damages or losses incurred.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
       "risk_title": "Limited Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to total fees paid could result in inadequate compensation for damages incurred by the Disclosing Party in the event of a breach.",
+      "rationale": "Limiting liability to total fees paid can leave parties exposed to substantial losses that exceed the fees, especially in cases of negligence.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The lack of audit rights may hinder the ability to verify compliance with the terms of the NDA, increasing the risk of undisclosed breaches.",
+      "rationale": "The absence of audit rights can prevent one party from verifying compliance with the confidentiality obligations, increasing the risk of misuse of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "HIGH",
-      "rationale": "The absence of intellectual property protections could lead to unauthorized use or disclosure of proprietary information shared under the NDA.",
+      "rationale": "Excluding intellectual property provisions can lead to disputes regarding ownership or use of developed ideas, especially in collaborative environments.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

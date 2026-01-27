@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unilateral Termination Rights",
+      "severity": "HIGH",
+      "rationale": "Licensor can terminate the agreement immediately without notice for Licensee's breach, which may lead to sudden operational disruptions for the Licensee.",
+      "evidence_quote": "Licensor may terminate immediately upon Licensee's breach."
+    },
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "Licensor’s unlimited liability for indemnification could expose Licensee to significant financial risk if claims arise.",
+      "evidence_quote": "Licensor's liability is unlimited for indemnification obligations."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Indefinite confidentiality obligations could limit Licensee's future business activities and relationships.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely after termination."
+    },
+    {
+      "risk_title": "Exclusive Jurisdiction Clause",
+      "severity": "MEDIUM",
+      "rationale": "The requirement for disputes to be resolved in California could lead to increased legal costs and inconvenience for the Licensee.",
+      "evidence_quote": "parties consent to exclusive jurisdiction in California courts."
+    },
+    {
+      "risk_title": "Indemnification Without Limitation",
+      "severity": "HIGH",
+      "rationale": "Licensee’s obligation to indemnify Licensor for all claims could result in substantial liabilities for the Licensee.",
+      "evidence_quote": "Licensee shall defend, indemnify, and hold harmless Licensor from all claims, without limitation."
+    }
+  ],
+  "executed": true
+}

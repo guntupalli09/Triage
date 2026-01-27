@@ -1,27 +1,27 @@
 {
   "findings": [
     {
-      "risk_title": "Indemnification Waiver",
+      "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations may expose parties to risks without recourse for damages or losses incurred due to breaches.",
+      "rationale": "The absence of indemnification obligations may expose parties to significant liabilities without recourse for damages caused by breaches or negligence.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
       "risk_title": "Limitation of Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to total fees paid may not cover significant damages, potentially leaving parties vulnerable to large losses.",
+      "rationale": "Limiting liability to fees paid may not adequately protect against significant damages, especially in cases of gross negligence or willful misconduct.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The lack of audit rights may hinder the ability to verify compliance with confidentiality obligations, increasing the risk of misuse of confidential information.",
+      "rationale": "The lack of audit rights may prevent a party from verifying compliance with the confidentiality obligations, increasing the risk of misuse of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
-      "risk_title": "Lack of Intellectual Property Provisions",
+      "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "The absence of intellectual property protections may lead to risks regarding ownership and use of proprietary information shared under the agreement.",
+      "rationale": "The absence of intellectual property provisions raises concerns about ownership and use of intellectual property created during the partnership.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

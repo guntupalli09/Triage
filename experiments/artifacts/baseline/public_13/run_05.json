@@ -1,10 +1,22 @@
 {
   "findings": [
     {
-      "risk_title": "Indefinite Duration of Confidentiality",
+      "risk_title": "Indefinite Term Duration",
       "severity": "HIGH",
-      "rationale": "An indefinite confidentiality obligation can pose significant risks, as it may lead to perpetual restrictions on the Receiving Party's ability to use general knowledge or experience gained during the relationship.",
+      "rationale": "The agreement remains in effect indefinitely, which may expose the Disclosing Party to prolonged risk of information misuse.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
+    },
+    {
+      "risk_title": "Lack of Specificity in Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The definition of Confidential Information is broad, potentially making it difficult to enforce and increasing the risk of misuse.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party to the Receiving Party."
+    },
+    {
+      "risk_title": "Return of Information Clause",
+      "severity": "MEDIUM",
+      "rationale": "While there is a clause for the return of information, it may not specify the process for ensuring compliance, creating potential for risk.",
+      "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
     }
   ],
   "executed": true

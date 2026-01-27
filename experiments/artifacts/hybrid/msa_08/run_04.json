@@ -1,0 +1,128 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_INDEM_01",
+      "rule_name": "unlimited_indemnification",
+      "title": "Potentially unlimited indemnification",
+      "severity": "high",
+      "rationale": "Indemnity obligations may be uncapped, which can expose you to costs far beyond the contract value.",
+      "matched_excerpt": "...5. LIMITATION OF LIABILITY Notwithstanding any other provision, Provider's liability is unlimited for indemnification and confidentiality breaches....",
+      "exact_snippet": "indemnification",
+      "start_index": 758,
+      "end_index": 773,
+      "position": 758,
+      "context": "hall indemnify, defend, and hold harmless Client from all claims, losses, and expenses, without limit.\n\n5. LIMITATION OF LIABILITY\nNotwithstanding any other provision, Provider's liability is unlimited for indemnification and confidentiality breaches.\n\n6. TERM AND TERMINATION\nThis Agreement may be terminated by either party with 30 days written notice.\n\n7. CONFIDENTIALITY\nConfidentiality obligations are perpetua",
+      "clause_number": null,
+      "matched_keywords": [
+        "unlimited",
+        "LIABILITY",
+        "confidential"
+      ],
+      "aliases": [
+        "uncapped_indemnification",
+        "unlimited_indemnity",
+        "no_limit_indemnification"
+      ]
+    },
+    {
+      "rule_id": "H_IP_01",
+      "rule_name": "broad_ip_assignment",
+      "title": "Broad IP assignment / ownership transfer language",
+      "severity": "high",
+      "rationale": "Assignment language may transfer ownership of work product or IP rather than granting a limited license.",
+      "matched_excerpt": "...3. INTELLECTUAL PROPERTY All work product created under this Agreement shall be assigned to Client. Provider hereby assigns all right, title, and interest....",
+      "exact_snippet": "hereby assigns all right, title, and interest",
+      "start_index": 477,
+      "end_index": 522,
+      "position": 477,
+      "context": "all pay Provider within 20 days of invoice date. A late fee of 5% applies to overdue amounts.\n\n3. INTELLECTUAL PROPERTY\nAll work product created under this Agreement shall be assigned to Client. Provider hereby assigns all right, title, and interest.\n\n4. INDEMNIFICATION\nProvider shall indemnify, defend, and hold harmless Client from all claims, losses, and expenses, without limit.\n\n5. LIMITATION OF LIABILITY\nNotwithstanding any other provisi",
+      "clause_number": null,
+      "matched_keywords": [
+        "assign"
+      ],
+      "aliases": []
+    },
+    {
+      "rule_id": "M_CONF_01",
+      "rule_name": "indefinite_confidentiality",
+      "title": "Confidentiality may be perpetual / indefinite",
+      "severity": "medium",
+      "rationale": "Indefinite confidentiality can create long-term compliance burden and uncertainty around retention and disclosure.",
+      "matched_excerpt": "...7. CONFIDENTIALITY Confidentiality obligations are perpetual and survive termination indefinitely....",
+      "exact_snippet": "CONFIDENTIALITY Confidentiality obligations are perpetual",
+      "start_index": 909,
+      "end_index": 966,
+      "position": 909,
+      "context": "other provision, Provider's liability is unlimited for indemnification and confidentiality breaches.\n\n6. TERM AND TERMINATION\nThis Agreement may be terminated by either party with 30 days written notice.\n\n7. CONFIDENTIALITY\nConfidentiality obligations are perpetual and survive termination indefinitely.\n\n8. WARRANTIES\nProvider provides services on an 'as-is' basis with no express or implied warranties.\n\n9. DISPUTE RESOLUTION\nAny disputes shall be resolve",
+      "clause_number": null,
+      "matched_keywords": [
+        "CONFIDENTIAL",
+        "perpetual"
+      ],
+      "aliases": [
+        "perpetual_confidentiality",
+        "indefinite_confidentiality",
+        "no_expiration_confidentiality"
+      ]
+    },
+    {
+      "rule_id": "M_TERM_NOTICE_01",
+      "rule_name": "termination_notice_window",
+      "title": "Short termination or notice windows",
+      "severity": "medium",
+      "rationale": "Short or strict notice windows can lead to accidental renewals or unintended termination.",
+      "matched_excerpt": "...6. TERM AND TERMINATION This Agreement may be terminated by either party with 30 days written notice....",
+      "exact_snippet": "notice",
+      "start_index": 898,
+      "end_index": 904,
+      "position": 898,
+      "context": "anding any other provision, Provider's liability is unlimited for indemnification and confidentiality breaches.\n\n6. TERM AND TERMINATION\nThis Agreement may be terminated by either party with 30 days written notice.\n\n7. CONFIDENTIALITY\nConfidentiality obligations are perpetual and survive termination indefinitely.\n\n8. WARRANTIES\nProvider provides services on an 'as-is' basis with no express or implied wa",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "termination_notice_window",
+        "short_notice_period"
+      ]
+    },
+    {
+      "rule_id": "L_LATEFEE_01",
+      "rule_name": "late_fees_interest",
+      "title": "Late fees / high interest",
+      "severity": "low",
+      "rationale": "Penalty terms can increase costs if payment timing slips.",
+      "matched_excerpt": "...2. PAYMENT TERMS Client shall pay Provider within 20 days of invoice date. A late fee of 5% applies to overdue amounts....",
+      "exact_snippet": "late fee of 5%",
+      "start_index": 325,
+      "end_index": 339,
+      "position": 325,
+      "context": "nd Client Company (\"Client\").\n\n1. SERVICES\nProvider agrees to provide the services described in attached Statements of Work.\n\n2. PAYMENT TERMS\nClient shall pay Provider within 20 days of invoice date. A late fee of 5% applies to overdue amounts.\n\n3. INTELLECTUAL PROPERTY\nAll work product created under this Agreement shall be assigned to Client. Provider hereby assigns all right, title, and interest.\n\n4. INDEMNI",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 2,
+    "medium": 2,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

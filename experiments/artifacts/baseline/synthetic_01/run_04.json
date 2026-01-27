@@ -3,25 +3,25 @@
     {
       "risk_title": "Indemnification Without Limit",
       "severity": "HIGH",
-      "rationale": "The Receiving Party's obligation to indemnify without limit could expose them to significant financial liability, especially in cases of breach.",
-      "evidence_quote": "The Receiving Party shall indemnify, defend, and hold harmless the Disclosing Party from and against all claims, losses, and damages, without limit."
+      "rationale": "The indemnification clause places unlimited liability on the Receiving Party for breaches, which can lead to significant financial exposure.",
+      "evidence_quote": "The Receiving Party shall indemnify, defend, and hold harmless the Disclosing Party from and against all claims, losses, and damages, without limit, arising from any breach of this Agreement."
     },
     {
-      "risk_title": "No Audit Rights",
+      "risk_title": "Lack of Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The absence of audit rights may prevent the Disclosing Party from verifying compliance, potentially increasing the risk of undisclosed breaches.",
+      "rationale": "The absence of audit rights limits the Disclosing Party's ability to verify compliance with confidentiality obligations, increasing risk of undisclosed breaches.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "Limited Liability Clause",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid could leave significant losses unaddressed, especially if a breach leads to substantial damages.",
+      "rationale": "Limiting liability to total fees paid may not adequately cover potential damages resulting from breaches, especially if the fees are low.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
-      "severity": "LOW",
-      "rationale": "The lack of intellectual property provisions may lead to misunderstandings about ownership and use of proprietary information shared.",
+      "severity": "MEDIUM",
+      "rationale": "The lack of intellectual property provisions may lead to misunderstandings regarding ownership and use of created materials or ideas.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations exposes both parties to potential financial liabilities without recourse, increasing risk in case of disputes or breaches.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "A clause stating that no event shall be limited by the limitation of liability clause could lead to unforeseen financial burdens for the parties involved.",
+      "evidence_quote": "No event shall be limited by the limitation of liability clause."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The lack of audit rights may hinder the ability to verify compliance with the agreement, increasing the risk of undisclosed breaches or misuse of confidential information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Absence of Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "Without intellectual property provisions, there is a risk that proprietary information may not be adequately protected, leading to potential misuse or loss of competitive advantage.",
+      "evidence_quote": "No intellectual property provisions apply."
+    }
+  ],
+  "executed": true
+}

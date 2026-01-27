@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to a small amount could expose the client to significant financial risk in case of a serious issue.",
+      "evidence_quote": "Provider's liability is limited to the amount paid in the 12 months preceding the claim, except for gross negligence or willful misconduct."
+    },
+    {
+      "risk_title": "Indemnification Scope",
+      "severity": "MEDIUM",
+      "rationale": "The vague language regarding indemnification may lead to disputes over the extent of obligations.",
+      "evidence_quote": "Each party shall indemnify the other to the extent required by applicable law."
+    },
+    {
+      "risk_title": "Termination Clause",
+      "severity": "MEDIUM",
+      "rationale": "Immediate termination upon material breach could lead to abrupt service disruptions.",
+      "evidence_quote": "Either party may terminate immediately upon material breach."
+    },
+    {
+      "risk_title": "Warranties Disclaimer",
+      "severity": "HIGH",
+      "rationale": "The broad disclaimer of warranties may leave the client without recourse for unfulfilled expectations.",
+      "evidence_quote": "Provider disclaims all warranties except as expressly stated herein."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "Specifying a particular jurisdiction may create complications if the parties are located elsewhere.",
+      "evidence_quote": "This Agreement shall be governed by the laws of the State of New York."
+    }
+  ],
+  "executed": true
+}

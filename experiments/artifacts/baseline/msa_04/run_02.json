@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitations on Liability",
+      "severity": "MEDIUM",
+      "rationale": "Capping liability could expose a party to significant losses that exceed the cap, especially in cases of severe negligence or misconduct.",
+      "evidence_quote": "Liability is capped at the greater of $1,000,000 or the annual contract value, except for indemnification obligations."
+    },
+    {
+      "risk_title": "Warranties Disclaimer",
+      "severity": "HIGH",
+      "rationale": "Providing services on an 'as-is' basis with no warranties increases risk for the client, as they may receive substandard services without recourse.",
+      "evidence_quote": "Provider provides services on an 'as-is' basis with no warranties."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability to terminate for convenience with only 90 days notice can create uncertainty and impact project continuity.",
+      "evidence_quote": "Either party may terminate for convenience with 90 days written notice."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "While confidentiality is critical, a 5-year term may not be sufficient depending on the nature of the information.",
+      "evidence_quote": "Confidentiality obligations continue for 5 years after termination."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping mutual indemnification at the annual contract value could leave a party exposed to claims exceeding this value.",
+      "evidence_quote": "each party indemnifies the other for claims arising from its own negligence, capped at the annual contract value."
+    }
+  ],
+  "executed": true
+}

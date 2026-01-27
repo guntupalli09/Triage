@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetual Term",
+      "severity": "HIGH",
+      "rationale": "An indefinite term can lead to ongoing obligations without an exit strategy, increasing potential liability and complicating future negotiations.",
+      "evidence_quote": "This Agreement shall remain in effect in perpetuity with no expiration date."
+    },
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "MEDIUM",
+      "rationale": "Absence of indemnification provisions may expose parties to greater liability, as there is no protection against potential claims arising from breaches.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid could be problematic if damages exceed those fees, leaving parties vulnerable to significant losses.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The absence of audit rights limits the ability to verify compliance with the NDA, increasing the risk of undisclosed breaches.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "HIGH",
+      "rationale": "Lack of intellectual property provisions can lead to disputes over ownership and usage rights of any created or shared materials.",
+      "evidence_quote": "No intellectual property provisions apply."
+    }
+  ],
+  "executed": true
+}

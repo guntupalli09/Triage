@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Assignment",
+      "severity": "HIGH",
+      "rationale": "The clause assigns all rights of intellectual property created during employment to the employer, which could limit the employee's future opportunities and ownership.",
+      "evidence_quote": "All work product, inventions, and intellectual property created by Employee during employment shall become the exclusive property of Employer."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "This clause requires the employee to indemnify the employer from all claims, which may expose the employee to significant financial liability.",
+      "evidence_quote": "Employee shall defend, indemnify, and hold harmless Employer from all claims, without limitation, arising from Employee's actions or breach of this Agreement."
+    },
+    {
+      "risk_title": "At-Will Termination",
+      "severity": "MEDIUM",
+      "rationale": "The at-will termination clause allows the employer to terminate the employee without cause, which creates job insecurity.",
+      "evidence_quote": "Employer may terminate at will. Employee requires 3 weeks notice to terminate."
+    },
+    {
+      "risk_title": "Mandatory Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory binding arbitration may limit the employee's ability to seek redress through the court system, potentially favoring the employer.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration."
+    },
+    {
+      "risk_title": "Non-Compete Duration",
+      "severity": "MEDIUM",
+      "rationale": "A two-year non-compete clause may restrict the employee's ability to find work in their field after termination, impacting their career.",
+      "evidence_quote": "Employee shall not engage in competitive business activities or solicit Employer's customers for 2 years following termination."
+    }
+  ],
+  "executed": true
+}

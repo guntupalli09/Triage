@@ -1,0 +1,108 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_INDEM_01",
+      "rule_name": "unlimited_indemnification",
+      "title": "Potentially unlimited indemnification",
+      "severity": "high",
+      "rationale": "Indemnity obligations may be uncapped, which can expose you to costs far beyond the contract value.",
+      "matched_excerpt": "...6. LIMITATION OF LIABILITY Licensor's liability is unlimited for indemnification obligations and breaches of intellectual property provisions....",
+      "exact_snippet": "indemnification",
+      "start_index": 1030,
+      "end_index": 1045,
+      "position": 1030,
+      "context": "end, indemnify, and hold harmless Licensor from all claims, without limitation, arising from Licensee's distribution or use of the Software.\n\n6. LIMITATION OF LIABILITY\nLicensor's liability is unlimited for indemnification obligations and breaches of intellectual property provisions.\n\n7. CONFIDENTIALITY\nConfidentiality obligations are perpetual and continue indefinitely after termination.\n\n8. WARRANTIES AND DISC",
+      "clause_number": null,
+      "matched_keywords": [
+        "unlimited",
+        "LIABILITY"
+      ],
+      "aliases": [
+        "uncapped_indemnification",
+        "unlimited_indemnity",
+        "no_limit_indemnification"
+      ]
+    },
+    {
+      "rule_id": "M_CONF_01",
+      "rule_name": "indefinite_confidentiality",
+      "title": "Confidentiality may be perpetual / indefinite",
+      "severity": "medium",
+      "rationale": "Indefinite confidentiality can create long-term compliance burden and uncertainty around retention and disclosure.",
+      "matched_excerpt": "...7. CONFIDENTIALITY Confidentiality obligations are perpetual and continue indefinitely after termination....",
+      "exact_snippet": "CONFIDENTIALITY Confidentiality obligations are perpetual",
+      "start_index": 1111,
+      "end_index": 1168,
+      "position": 1111,
+      "context": "rising from Licensee's distribution or use of the Software.\n\n6. LIMITATION OF LIABILITY\nLicensor's liability is unlimited for indemnification obligations and breaches of intellectual property provisions.\n\n7. CONFIDENTIALITY\nConfidentiality obligations are perpetual and continue indefinitely after termination.\n\n8. WARRANTIES AND DISCLAIMERS\nLicensor warrants that the Software does not infringe any third-party intellectual property rights.\n\n9. DISPUTE RES",
+      "clause_number": null,
+      "matched_keywords": [
+        "CONFIDENTIAL",
+        "perpetual"
+      ],
+      "aliases": [
+        "perpetual_confidentiality",
+        "indefinite_confidentiality",
+        "no_expiration_confidentiality"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...11. GOVERNING LAW This Agreement is governed by California law, and parties consent to exclusive jurisdiction in California courts....",
+      "exact_snippet": "governed by California law",
+      "start_index": 1646,
+      "end_index": 1672,
+      "position": 1646,
+      "context": "mmercial Arbitration Rules.\n\n10. ATTORNEYS' FEES\nLicensor shall be entitled to recover all attorneys' fees, court costs, and expenses from Licensee in any enforcement action.\n\n11. GOVERNING LAW\nThis Agreement is governed by California law, and parties consent to exclusive jurisdiction in California courts.\n\nThis Agreement is effective as of September 1, 2024.\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    },
+    {
+      "rule_id": "L_LATEFEE_01",
+      "rule_name": "late_fees_interest",
+      "title": "Late fees / high interest",
+      "severity": "low",
+      "rationale": "Penalty terms can increase costs if payment timing slips.",
+      "matched_excerpt": "...3. PAYMENT TERMS Licensee shall pay royalties of 15% of gross revenue from Software sales, due monthly. Late payments accrue interest at 2% per month....",
+      "exact_snippet": "15% of gross revenue from Software sales, due monthly. Late payments accrue interest",
+      "start_index": 555,
+      "end_index": 639,
+      "position": 555,
+      "context": "WNERSHIP\nAll intellectual property rights in the Software and any modifications shall be owned by Licensor. Licensee assigns all such rights to Licensor.\n\n3. PAYMENT TERMS\nLicensee shall pay royalties of 15% of gross revenue from Software sales, due monthly. Late payments accrue interest at 2% per month.\n\n4. TERM AND TERMINATION\nLicensor may terminate immediately upon Licensee's breach. Licensee requires 60 days notice to terminate.\n\n5. INDEMNIFICATION\nLicensee shall defend, inde",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 1,
+    "medium": 1,
+    "low": 2
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Joint Ownership of Intellectual Property",
+      "severity": "HIGH",
+      "rationale": "Joint ownership may complicate the ability to exploit or license intellectual property, leading to disputes over usage rights.",
+      "evidence_quote": "All intellectual property developed under this Agreement shall be jointly owned by both parties."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to the total contract value may not adequately cover potential damages in case of a serious breach.",
+      "evidence_quote": "Neither party's liability shall exceed the total contract value."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at $500,000 may expose the Client to significant financial risk in case of large third-party claims.",
+      "evidence_quote": "Provider agrees to indemnify Client for third-party claims arising from Provider's breach... up to a maximum of $500,000."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "A 60-day notice period may not provide sufficient time for either party to adjust to the termination of services.",
+      "evidence_quote": "This Agreement may be terminated by mutual written consent or upon 60 days notice."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A 3-year confidentiality obligation may not be sufficient for certain sensitive information, potentially leading to risk of disclosure.",
+      "evidence_quote": "Confidential information must be kept confidential for 3 years after termination."
+    }
+  ],
+  "executed": true
+}

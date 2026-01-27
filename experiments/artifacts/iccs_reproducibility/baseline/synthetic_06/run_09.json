@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "No Indemnification Provisions",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations increases risk exposure for both parties in case of breaches or legal claims.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The lack of audit rights may limit the ability of one party to verify compliance with the contract terms, leading to potential misuse of confidential information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Limited Duration",
+      "severity": "MEDIUM",
+      "rationale": "The fixed term of three years may not provide adequate protection for sensitive information that requires longer confidentiality.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution."
+    }
+  ],
+  "executed": true
+}

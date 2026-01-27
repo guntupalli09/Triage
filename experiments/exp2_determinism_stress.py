@@ -8,7 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from experiments.config import DATA_DIR, STRESS_ARTIFACTS, RUNS_PER_DOC_EXP2, STRESS_TEST_DOCS
-from experiments.utils_io import get_doc_ids, read_text, save_json
+from experiments.utils_io import get_doc_ids, read_text, save_json, find_doc_file
 from experiments.run_hybrid import run_hybrid_engine
 from experiments.metrics import compute_variance_count
 
@@ -35,8 +35,8 @@ def run_experiment_2():
     for doc_id in selected:
         print(f"\nProcessing {doc_id}...")
         
-        text_path = DATA_DIR / f"{doc_id}.txt"
-        if not text_path.exists():
+        text_path = find_doc_file(DATA_DIR, doc_id, ".txt")
+        if not text_path:
             print(f"  Skipping {doc_id}: text file not found")
             continue
         

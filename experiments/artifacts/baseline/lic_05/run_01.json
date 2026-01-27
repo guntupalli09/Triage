@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "High Indemnification Burden on Licensee",
+      "severity": "HIGH",
+      "rationale": "Licensee is required to indemnify Licensor from all claims, which could lead to significant financial liability depending on the nature of claims arising from software use.",
+      "evidence_quote": "Licensee shall defend, indemnify, and hold harmless Licensor from all claims, without limitation, arising from Licensee's use of the Software."
+    },
+    {
+      "risk_title": "Unlimited Liability for Certain Claims",
+      "severity": "HIGH",
+      "rationale": "Licensor’s unlimited liability for indemnification and IP claims could expose the Licensee to unforeseen financial risks.",
+      "evidence_quote": "Licensor's liability is unlimited for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Severe Payment Terms",
+      "severity": "MEDIUM",
+      "rationale": "A late payment interest rate of 18% per annum is high and could create financial stress for the Licensee if payments are missed.",
+      "evidence_quote": "Late payments accrue interest at 18% per annum."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations that survive termination indefinitely may restrict the Licensee's future business activities.",
+      "evidence_quote": "Confidentiality obligations are perpetual and survive termination indefinitely."
+    },
+    {
+      "risk_title": "Dispute Resolution Exclusivity",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration could limit the Licensee's options for legal recourse and may be less favorable than court proceedings.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of JAMS."
+    }
+  ],
+  "executed": true
+}

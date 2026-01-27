@@ -1,0 +1,35 @@
+EMPLOYMENT AGREEMENT
+
+This Employment Agreement ("Agreement") is entered into between Employer Company ("Employer") and Employee Name ("Employee").
+
+1. POSITION AND DUTIES
+Employee agrees to serve as Senior Software Engineer and perform duties as assigned by Employer.
+
+2. COMPENSATION
+Employee shall receive an annual salary of $150,000, payable in bi-weekly installments.
+
+3. INTELLECTUAL PROPERTY
+All inventions, discoveries, and work product created by Employee during employment shall be the exclusive property of Employer. Employee hereby assigns all rights, title, and interest in such work product to Employer.
+
+4. CONFIDENTIALITY AND NON-DISCLOSURE
+Employee agrees to maintain confidentiality of all proprietary information indefinitely, even after termination of employment.
+
+5. NON-COMPETE AND NON-SOLICITATION
+Employee agrees not to compete with Employer for a period of 2 years after termination, within a 50-mile radius.
+
+6. TERM AND TERMINATION
+Either party may terminate this Agreement at will, with or without cause, upon 2 weeks written notice.
+
+7. INDEMNIFICATION
+Employee shall indemnify Employer against all claims, losses, and expenses without limitation arising from Employee's actions.
+
+8. DISPUTE RESOLUTION
+All disputes shall be resolved through binding arbitration in accordance with AAA rules.
+
+9. ATTORNEYS' FEES
+Employer shall be entitled to recover all attorneys' fees and costs in any action to enforce this Agreement.
+
+10. GOVERNING LAW
+This Agreement is governed by the laws of the State of California.
+
+This Agreement is effective as of January 1, 2024.

@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Indemnification Liability",
+      "severity": "HIGH",
+      "rationale": "Licensee's obligation to indemnify Licensor without limitation can lead to significant financial exposure for the Licensee, especially in the event of substantial claims.",
+      "evidence_quote": "Licensee shall defend, indemnify, and hold harmless Licensor from all claims, damages, and expenses, without limitation."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations that survive termination indefinitely can create ongoing legal responsibilities and potential liabilities for the Licensee.",
+      "evidence_quote": "Confidentiality obligations are perpetual and survive termination without any time limitation."
+    },
+    {
+      "risk_title": "Exclusive Jurisdiction Clause",
+      "severity": "MEDIUM",
+      "rationale": "The exclusive jurisdiction in California may restrict the Licensee's options for resolving disputes and could lead to increased costs and complexities.",
+      "evidence_quote": "This Agreement is governed by California law, and parties submit to exclusive jurisdiction in California courts."
+    },
+    {
+      "risk_title": "High Upfront Payment Requirement",
+      "severity": "MEDIUM",
+      "rationale": "The requirement for a significant upfront payment within a short timeframe poses a cash flow risk for the Licensee.",
+      "evidence_quote": "Licensee shall pay upfront license fees of $200,000, due within 10 days."
+    },
+    {
+      "risk_title": "Material Breach Termination",
+      "severity": "MEDIUM",
+      "rationale": "The Licensor's ability to terminate immediately upon a material breach without a chance for remedy could jeopardize the Licensee's investment.",
+      "evidence_quote": "Licensor may terminate immediately upon Licensee's material breach."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "LOW",
+      "rationale": "Requiring binding arbitration may limit the Licensee's ability to seek redress in court, which could be problematic in certain disputes.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of the International Chamber of Commerce."
+    }
+  ],
+  "executed": true
+}

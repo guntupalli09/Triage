@@ -1,0 +1,44 @@
+{
+  "findings": [
+    {
+      "rule_id": "M_NONCOMP_01",
+      "rule_name": "non_compete_non_solicit",
+      "title": "Non-compete / non-solicit style restriction",
+      "severity": "medium",
+      "rationale": "Restrictive covenants can limit future business activity; enforceability varies and is commonly negotiated.",
+      "matched_excerpt": "...5. NON-COMPETE AND NON-SOLICITATION No non-compete restrictions apply....",
+      "exact_snippet": "NON-COMPETE",
+      "start_index": 631,
+      "end_index": 642,
+      "position": 631,
+      "context": " receives a non-exclusive license to use work product created during employment.\n\n4. CONFIDENTIALITY AND NON-DISCLOSURE\nConfidentiality obligations continue for 2 years after termination of employment.\n\n5. NON-COMPETE AND NON-SOLICITATION\nNo non-compete restrictions apply.\n\n6. TERM AND TERMINATION\nEither party may terminate this Agreement with 2 weeks written notice.\n\n7. INDEMNIFICATION\nEmployee shall indemn",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "low",
+  "rule_counts": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

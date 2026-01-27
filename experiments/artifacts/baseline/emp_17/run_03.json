@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Broad Intellectual Property Rights",
+      "severity": "HIGH",
+      "rationale": "The employer receives a worldwide, perpetual license to all content created, which may limit the employee's future opportunities and ownership of their work.",
+      "evidence_quote": "Provider grants Employer a worldwide, perpetual license to use all content and work product created during employment."
+    },
+    {
+      "risk_title": "Long Confidentiality Obligation",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations lasting 2 years after termination could restrict the employee's ability to work in the industry.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 2 years."
+    },
+    {
+      "risk_title": "Non-Compete Clause Duration",
+      "severity": "MEDIUM",
+      "rationale": "A 12-month non-compete clause may significantly hinder the employee's ability to find new employment in the same field.",
+      "evidence_quote": "Employee may not compete within the same market for 12 months after termination."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "LOW",
+      "rationale": "Capping indemnification at the annual salary could expose the employee to greater liability without adequate financial protection.",
+      "evidence_quote": "each party indemnifies the other for its own negligence, capped at annual salary."
+    },
+    {
+      "risk_title": "Dispute Resolution Process",
+      "severity": "LOW",
+      "rationale": "Requiring mediation before litigation could prolong dispute resolution and increase costs for both parties.",
+      "evidence_quote": "Disputes shall be resolved through mediation, then litigation if mediation fails."
+    }
+  ],
+  "executed": true
+}

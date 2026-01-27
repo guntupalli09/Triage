@@ -1,0 +1,39 @@
+MASTER SERVICE AGREEMENT
+
+This Master Service Agreement ("Agreement") is entered into between Service Provider ("Provider") and Client Company ("Client").
+
+1. SERVICES
+Provider agrees to provide the services described in attached Statements of Work.
+
+2. PAYMENT TERMS
+Payment is due within 40 days of invoice date. Late payments incur interest at 1% per month.
+
+3. INTELLECTUAL PROPERTY
+Provider grants Client a worldwide, perpetual, non-exclusive license to use deliverables for Client's internal business purposes.
+
+4. INDEMNIFICATION
+Mutual indemnification: each party indemnifies the other for claims arising from its own breach, capped at the annual contract value.
+
+5. LIMITATION OF LIABILITY
+Each party's liability is limited to the total fees paid in the 24 months preceding the claim.
+
+6. TERM AND TERMINATION
+This Agreement may be terminated by either party with 45 days written notice for convenience.
+
+7. CONFIDENTIALITY
+Confidentiality obligations continue for 2 years after termination of this Agreement.
+
+8. WARRANTIES
+Provider warrants that services will be performed in a professional and workmanlike manner.
+
+9. DISPUTE RESOLUTION
+Disputes shall be resolved through direct negotiation between the parties' authorized representatives.
+
+10. GOVERNING LAW
+This Agreement is governed by the laws of the State of Nevada.
+
+11. ATTORNEYS' FEES
+Each party shall pay its own attorneys' fees and costs in connection with any dispute.
+
+12. MODIFICATIONS
+This Agreement may only be modified in writing signed by both parties.

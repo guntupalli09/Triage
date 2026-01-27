@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification provisions may expose parties to significant liabilities without recourse, particularly in cases of third-party claims arising from the use of confidential information.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid can result in substantial losses for either party that are not covered, especially in cases of gross negligence or misconduct.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The absence of audit rights prevents one party from verifying compliance with the confidentiality obligations, creating a risk of misuse of confidential information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Confidential Information Definition",
+      "severity": "LOW",
+      "rationale": "The definition of Confidential Information may be too broad or vague, leading to potential disputes over what constitutes confidential data.",
+      "evidence_quote": "Confidential Information means all non-public information disclosed by one party to the other."
+    }
+  ],
+  "executed": true
+}

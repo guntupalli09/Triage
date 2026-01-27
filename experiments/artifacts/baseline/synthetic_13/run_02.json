@@ -1,33 +1,33 @@
 {
   "findings": [
     {
-      "risk_title": "No Indemnification Obligations",
+      "risk_title": "No Indemnification Provisions",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification provisions could expose parties to significant liabilities without recourse, increasing financial risk in case of breaches or claims.",
+      "rationale": "The absence of indemnification obligations may expose parties to significant liability without recourse, especially in cases of breach or misuse of confidential information.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
-    },
-    {
-      "risk_title": "Limited Liability",
-      "severity": "MEDIUM",
-      "rationale": "Limiting liability to total fees paid may not sufficiently protect against significant damages that could arise, potentially leaving a party vulnerable.",
-      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The lack of audit rights prevents a party from verifying compliance with confidentiality obligations, increasing the risk of misuse of confidential information.",
+      "rationale": "The lack of audit rights limits the ability of one party to verify compliance with confidentiality obligations, potentially leading to misuse of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
-      "risk_title": "High Late Payment Fees",
-      "severity": "LOW",
-      "rationale": "An 18% per annum interest rate on late payments may be considered excessive, potentially leading to disputes over payment terms.",
+      "risk_title": "Limitations on Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not adequately protect parties in cases of significant damages resulting from breaches, which could lead to financial losses.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "High Late Fees",
+      "severity": "MEDIUM",
+      "rationale": "An 18% interest rate on late payments is considerably high, which may create financial strain and discourage timely payments.",
       "evidence_quote": "Late payments shall accrue interest at a rate of 18% per annum."
     },
     {
-      "risk_title": "Lack of Intellectual Property Provisions",
-      "severity": "MEDIUM",
-      "rationale": "Absence of intellectual property provisions may lead to disputes over ownership and use of intellectual property developed during the contract period.",
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "LOW",
+      "rationale": "The absence of IP provisions may lead to confusion regarding ownership and usage rights of any intellectual property developed during the agreement.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

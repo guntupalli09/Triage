@@ -1,22 +1,28 @@
 {
   "findings": [
     {
-      "risk_title": "Indefinite Duration of Confidentiality",
+      "risk_title": "Indefinite Term of Agreement",
       "severity": "HIGH",
-      "rationale": "An indefinite term may expose the Receiving Party to perpetual obligations, which can be burdensome and may lead to unforeseen liabilities.",
+      "rationale": "An indefinite term can expose the Disclosing Party to prolonged obligations and potential liabilities without a clear endpoint.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
     },
     {
-      "risk_title": "No Specific Return Timeline",
+      "risk_title": "Ambiguous Definition of Confidential Information",
       "severity": "MEDIUM",
-      "rationale": "The absence of a specified timeline for the return of Confidential Information can lead to delays and potential misuse of sensitive information.",
+      "rationale": "The broad definition may lead to disputes over what constitutes Confidential Information, increasing the risk of unintentional disclosures.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party to the Receiving Party."
+    },
+    {
+      "risk_title": "No Specific Return Process",
+      "severity": "MEDIUM",
+      "rationale": "Lack of detail on the return process for Confidential Information may lead to misunderstandings or non-compliance.",
       "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
     },
     {
-      "risk_title": "Broad Definition of Confidential Information",
-      "severity": "MEDIUM",
-      "rationale": "A broad definition may lead to ambiguity and disputes regarding what constitutes confidential information, potentially exposing the Receiving Party to unexpected liabilities.",
-      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party."
+      "risk_title": "Governing Law Limitation",
+      "severity": "LOW",
+      "rationale": "Specifying a single jurisdiction for governing law may limit legal options and create challenges if disputes arise in other locations.",
+      "evidence_quote": "This Agreement shall be governed by the laws of the State of California."
     }
   ],
   "executed": true

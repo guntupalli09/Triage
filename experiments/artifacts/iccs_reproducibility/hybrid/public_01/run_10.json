@@ -1,0 +1,46 @@
+{
+  "findings": [
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...5. Governing Law This Agreement shall be governed by the laws of the State of California....",
+      "exact_snippet": "governed by the laws",
+      "start_index": 914,
+      "end_index": 934,
+      "position": 914,
+      "context": "elationship between the parties.\n\n4. Return of Information\nUpon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party.\n\n5. Governing Law\nThis Agreement shall be governed by the laws of the State of California.\n\nIN WITNESS WHEREOF, the parties have executed this Agreement.",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    }
+  ],
+  "overall_risk": "low",
+  "rule_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

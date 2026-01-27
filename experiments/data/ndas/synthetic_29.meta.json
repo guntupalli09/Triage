@@ -1,0 +1,19 @@
+{
+  "id": "synthetic_29",
+  "type": "synthetic",
+  "synthetic": true,
+  "created_date": "2026-01-17",
+  "variants": {
+    "confidentiality_term": "limited",
+    "indemnification_clause": "capped",
+    "liability_clause": "carveout",
+    "ip_clause": "license",
+    "attorneys_fees_clause": "mutual",
+    "renewal_clause": "auto_renewal_terminated",
+    "audit_clause": "inspect_records",
+    "late_fees_clause": "reasonable_interest",
+    "governing_law_clause": "none",
+    "definitions_clause": "specific",
+    "confidentiality_obligations": "standard"
+  }
+}

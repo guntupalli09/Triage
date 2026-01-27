@@ -1,0 +1,35 @@
+EMPLOYMENT AGREEMENT
+
+This Employment Agreement ("Agreement") is entered into between Employer Company ("Employer") and Employee Name ("Employee").
+
+1. POSITION AND DUTIES
+Employee agrees to serve as Security Engineer and perform duties as assigned by Employer.
+
+2. COMPENSATION
+Employee shall receive an annual salary of $170,000, payable monthly, plus security clearance bonuses.
+
+3. INTELLECTUAL PROPERTY
+All security methodologies, tools, and intellectual property developed by Employee during employment shall be owned by Employer. Employee assigns all such rights to Employer.
+
+4. CONFIDENTIALITY AND NON-DISCLOSURE
+Employee agrees to maintain strict confidentiality of all security protocols, vulnerabilities, and proprietary systems indefinitely, without expiration.
+
+5. NON-COMPETE AND NON-SOLICITATION
+Employee shall not work for competitors or disclose security information for 3 years following termination.
+
+6. TERM AND TERMINATION
+Employer may terminate immediately upon security breach. Employee requires 60 days notice to terminate.
+
+7. INDEMNIFICATION
+Employee shall indemnify Employer for all claims, damages, and expenses, without limitation, arising from Employee's security work or breach of confidentiality.
+
+8. DISPUTE RESOLUTION
+All disputes must be resolved through binding arbitration under the rules of the International Chamber of Commerce.
+
+9. ATTORNEYS' FEES
+Employer shall be entitled to recover all attorneys' fees, court costs, and expenses from Employee in any enforcement or breach action.
+
+10. GOVERNING LAW
+This Agreement is governed by California law, and parties submit to exclusive jurisdiction in California courts.
+
+This Agreement is effective as of August 1, 2025.

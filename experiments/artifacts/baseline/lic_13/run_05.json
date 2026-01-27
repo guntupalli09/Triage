@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "Licensor's unlimited liability for indemnification places significant financial risk on Licensee without any cap on potential claims.",
+      "evidence_quote": "Notwithstanding any limitation of liability clause, Licensor's liability for indemnification is unlimited."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Perpetual confidentiality obligations may expose Licensee to ongoing risks of non-compliance without a clear end date.",
+      "evidence_quote": "Confidentiality obligations are perpetual and survive termination without any time limitation."
+    },
+    {
+      "risk_title": "High Upfront Payment Terms",
+      "severity": "MEDIUM",
+      "rationale": "An upfront payment of $200,000 due within 10 days may strain the Licensee's cash flow and financial stability.",
+      "evidence_quote": "Licensee shall pay upfront license fees of $200,000, due within 10 days."
+    },
+    {
+      "risk_title": "Dispute Resolution via Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit Licensee's options for legal recourse and can be costly and time-consuming.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of the International Chamber of Commerce."
+    },
+    {
+      "risk_title": "Attorney Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "Licensor's ability to recover all attorneys' fees from Licensee in disputes may deter Licensee from pursuing legitimate claims.",
+      "evidence_quote": "In any action to enforce this Agreement, Licensor shall recover all attorneys' fees, costs, and expenses from Licensee."
+    }
+  ],
+  "executed": true
+}

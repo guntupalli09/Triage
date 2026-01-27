@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to the total contract value may expose a party to significant risk if damages exceed this amount, especially in cases of negligence or misconduct.",
+      "evidence_quote": "Each party's liability is limited to the total contract value, except for indemnification obligations."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability to terminate the agreement for convenience with only 45 days notice may lead to sudden disruptions and financial unpredictability for either party.",
+      "evidence_quote": "Either party may terminate for convenience with 45 days written notice."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification obligations at the annual contract value may leave parties underprotected against significant claims arising from negligence or misconduct.",
+      "evidence_quote": "Each party shall indemnify the other for claims arising from its own gross negligence or willful misconduct, capped at annual contract value."
+    },
+    {
+      "risk_title": "Warranties Limitation",
+      "severity": "LOW",
+      "rationale": "The warranty only covers performance per the Statement of Work, which may limit recourse for issues outside its scope.",
+      "evidence_quote": "Provider warrants that services will be performed in accordance with the Statement of Work."
+    }
+  ],
+  "executed": true
+}

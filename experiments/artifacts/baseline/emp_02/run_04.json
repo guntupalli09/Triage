@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Ownership",
+      "severity": "MEDIUM",
+      "rationale": "The agreement allows the employer to use the employee's work product, which could lead to disputes over ownership and rights if not clearly defined.",
+      "evidence_quote": "Employer receives a license to use work product created during employment."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee is required to indemnify the employer for claims arising from gross negligence, which could expose the employee to significant financial liability.",
+      "evidence_quote": "Employee shall indemnify Employer to the extent required by applicable law for claims arising from Employee's gross negligence."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "The confidentiality obligations extending for 2 years post-termination may be excessive and could hinder the employee's future employment opportunities.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination of employment."
+    },
+    {
+      "risk_title": "Dispute Resolution Process",
+      "severity": "MEDIUM",
+      "rationale": "The requirement to resolve disputes through mediation followed by litigation can prolong the resolution process and increase costs.",
+      "evidence_quote": "Disputes shall be resolved through mediation, then litigation if mediation fails."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "The contract is governed by New York law, which may not be favorable to the employee depending on their location and the nature of disputes.",
+      "evidence_quote": "This Agreement is subject to New York state law."
+    }
+  ],
+  "executed": true
+}

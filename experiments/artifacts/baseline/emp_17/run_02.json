@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Rights",
+      "severity": "HIGH",
+      "rationale": "The employer retains a worldwide, perpetual license to all work products, which may limit the employee's future opportunities and ownership over their creations.",
+      "evidence_quote": "Provider grants Employer a worldwide, perpetual license to use all content and work product created during employment."
+    },
+    {
+      "risk_title": "Non-Compete Clause",
+      "severity": "MEDIUM",
+      "rationale": "The 12-month non-compete period may restrict the employee's ability to find new employment in the same industry, which could impact their career and livelihood.",
+      "evidence_quote": "Employee may not compete within the same market for 12 months after termination."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "The 2-year confidentiality obligation after termination may be overly lengthy, potentially hindering the employee's future work opportunities.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 2 years."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification is limited to the annual salary, which may not cover potential damages or losses incurred from negligence.",
+      "evidence_quote": "each party indemnifies the other for its own negligence, capped at annual salary."
+    },
+    {
+      "risk_title": "Dispute Resolution Process",
+      "severity": "LOW",
+      "rationale": "While mediation is a less adversarial approach, the transition to litigation may lead to increased costs and time for both parties.",
+      "evidence_quote": "Disputes shall be resolved through mediation, then litigation if mediation fails."
+    }
+  ],
+  "executed": true
+}

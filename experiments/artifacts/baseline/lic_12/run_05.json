@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Termination with Short Notice",
+      "severity": "MEDIUM",
+      "rationale": "A 30-day termination notice may disrupt business operations, especially if the Licensee relies heavily on the software.",
+      "evidence_quote": "Either party may terminate this Agreement with 30 days written notice for any reason."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to the total fees paid in the last 12 months could expose the Licensee to significant losses in case of serious breaches.",
+      "evidence_quote": "Each party's liability is limited to the total fees paid in the 12 months preceding the claim."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "Confidentiality obligations lasting only 18 months post-termination may not adequately protect sensitive information in the long term.",
+      "evidence_quote": "Confidentiality obligations continue for 18 months after termination."
+    }
+  ],
+  "executed": true
+}

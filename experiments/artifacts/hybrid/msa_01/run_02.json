@@ -1,0 +1,99 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_IP_01",
+      "rule_name": "broad_ip_assignment",
+      "title": "Broad IP assignment / ownership transfer language",
+      "severity": "high",
+      "rationale": "Assignment language may transfer ownership of work product or IP rather than granting a limited license.",
+      "matched_excerpt": "...3. INTELLECTUAL PROPERTY All work product and deliverables shall be owned by Client. Provider hereby assigns all rights, title, and interest in the work product to Client....",
+      "exact_snippet": "hereby assigns all rights, title, and interest",
+      "start_index": 406,
+      "end_index": 452,
+      "position": 406,
+      "context": "s described in attached Statements of Work.\n\n2. PAYMENT TERMS\nPayment is due within 30 days of invoice date.\n\n3. INTELLECTUAL PROPERTY\nAll work product and deliverables shall be owned by Client. Provider hereby assigns all rights, title, and interest in the work product to Client.\n\n4. INDEMNIFICATION\nProvider shall indemnify Client against all claims, losses, and expenses without limitation.\n\n5. LIMITATION OF LIABILITY\nIn no event shall Provi",
+      "clause_number": null,
+      "matched_keywords": [
+        "assign"
+      ],
+      "aliases": []
+    },
+    {
+      "rule_id": "H_IP_WORK_PRODUCT_01",
+      "rule_name": "ip_assignment_work_product",
+      "title": "IP ownership via work product language",
+      "severity": "high",
+      "rationale": "Work product ownership language can effectively transfer IP even if assignment wording is indirect.",
+      "matched_excerpt": "...3. INTELLECTUAL PROPERTY All work product and deliverables shall be owned by Client. Provider hereby assigns all rights, title, and interest in the work product to Client....",
+      "exact_snippet": "work product and deliverables shall be owned by",
+      "start_index": 341,
+      "end_index": 388,
+      "position": 341,
+      "context": "y (\"Client\").\n\n1. SERVICES\nProvider agrees to provide the services described in attached Statements of Work.\n\n2. PAYMENT TERMS\nPayment is due within 30 days of invoice date.\n\n3. INTELLECTUAL PROPERTY\nAll work product and deliverables shall be owned by Client. Provider hereby assigns all rights, title, and interest in the work product to Client.\n\n4. INDEMNIFICATION\nProvider shall indemnify Client against all claims, losses, and expenses without",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    },
+    {
+      "rule_id": "M_TERM_NOTICE_01",
+      "rule_name": "termination_notice_window",
+      "title": "Short termination or notice windows",
+      "severity": "medium",
+      "rationale": "Short or strict notice windows can lead to accidental renewals or unintended termination.",
+      "matched_excerpt": "...6. TERM AND TERMINATION Either party may terminate with 30 days written notice....",
+      "exact_snippet": "terminate",
+      "start_index": 752,
+      "end_index": 761,
+      "position": 752,
+      "context": "claims, losses, and expenses without limitation.\n\n5. LIMITATION OF LIABILITY\nIn no event shall Provider's liability exceed the total fees paid under this Agreement.\n\n6. TERM AND TERMINATION\nEither party may terminate with 30 days written notice.\n\n7. CONFIDENTIALITY\nBoth parties agree to maintain confidentiality of proprietary information for a period of 2 years after termination.\n\n8. WARRANTIES\nProvider wa",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "termination_notice_window",
+        "short_notice_period"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...10. GOVERNING LAW This Agreement shall be governed by the laws of the State of California....",
+      "exact_snippet": "governed by the laws",
+      "start_index": 1137,
+      "end_index": 1157,
+      "position": 1137,
+      "context": ". WARRANTIES\nProvider warrants that services will be performed in a professional manner.\n\n9. DISPUTE RESOLUTION\nDisputes shall be resolved through binding arbitration.\n\n10. GOVERNING LAW\nThis Agreement shall be governed by the laws of the State of California.\n\n11. ATTORNEYS' FEES\nIn the event of any dispute, Client shall be entitled to recover reasonable attorneys' fees and costs.\n\n12. MODIFICATIONS\nThis Agreement ma",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 2,
+    "medium": 1,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

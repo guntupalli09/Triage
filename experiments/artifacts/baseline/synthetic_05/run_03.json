@@ -1,28 +1,22 @@
 {
   "findings": [
     {
-      "risk_title": "Lack of Intellectual Property Provisions",
+      "risk_title": "Lack of Audit Rights",
       "severity": "HIGH",
-      "rationale": "The absence of intellectual property provisions could lead to disputes over ownership and use of intellectual property, potentially resulting in significant financial and operational risks.",
-      "evidence_quote": "No intellectual property provisions apply."
-    },
-    {
-      "risk_title": "No Audit Rights",
-      "severity": "MEDIUM",
-      "rationale": "The lack of audit rights may prevent the Disclosing Party from verifying compliance with confidentiality obligations, increasing the risk of unauthorized disclosure.",
+      "rationale": "The absence of audit rights may prevent the Disclosing Party from verifying compliance with confidentiality obligations, increasing the risk of misuse of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
-      "risk_title": "Indemnification Scope",
+      "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "Indemnification being limited to legal requirements may not sufficiently protect the Disclosing Party from all potential breaches, leading to unanticipated liabilities.",
-      "evidence_quote": "The Receiving Party shall indemnify the Disclosing Party to the extent required by law."
+      "rationale": "The lack of intellectual property provisions can lead to uncertainty regarding the ownership and use of any intellectual property developed during the agreement.",
+      "evidence_quote": "No intellectual property provisions apply."
     },
     {
-      "risk_title": "Renewal Uncertainty",
-      "severity": "LOW",
-      "rationale": "The need for mutual written consent for renewal may create uncertainty and operational challenges when trying to maintain ongoing confidentiality past the initial term.",
-      "evidence_quote": "This Agreement may be renewed by mutual written consent."
+      "risk_title": "Indemnification Limitations",
+      "severity": "MEDIUM",
+      "rationale": "Indemnification being limited to requirements by law may not fully protect the Disclosing Party against all potential claims arising from breaches.",
+      "evidence_quote": "The Receiving Party shall indemnify the Disclosing Party to the extent required by law."
     }
   ],
   "executed": true

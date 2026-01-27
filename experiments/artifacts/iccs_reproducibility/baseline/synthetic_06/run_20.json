@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations increases the risk for the Receiving Party, as they may have limited recourse in the event of legal claims arising from the use of Confidential Information.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "Without audit rights, the Disclosing Party has limited ability to ensure compliance with confidentiality obligations, which may lead to misuse of Confidential Information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability Exclusion",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability can expose parties to significant risks if there are breaches or disputes, particularly as it does not fully cover indemnification.",
+      "evidence_quote": "Limitation of liability shall not apply to indemnification, except as required by applicable law."
+    }
+  ],
+  "executed": true
+}

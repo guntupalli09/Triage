@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Undefined Scope of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The definition of 'Confidential Information' is broad and could lead to disputes over what constitutes confidential material.",
+      "evidence_quote": "\"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information."
+    },
+    {
+      "risk_title": "Lengthy Duration of Agreement",
+      "severity": "MEDIUM",
+      "rationale": "A five-year duration may be excessive and could lead to issues if circumstances change, making the agreement less relevant.",
+      "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
+    },
+    {
+      "risk_title": "Injunctive Relief Without Security",
+      "severity": "HIGH",
+      "rationale": "Allowing injunctive relief without requiring security could expose the Receiving Party to significant risk if the claim is later found to be unmeritorious.",
+      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
+    },
+    {
+      "risk_title": "Assignment Restrictions",
+      "severity": "MEDIUM",
+      "rationale": "Restricting assignment without consent may limit flexibility for both parties in future transactions or restructuring.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
+    }
+  ],
+  "executed": true
+}

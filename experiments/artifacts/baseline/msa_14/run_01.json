@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Capping liability may expose parties to significant financial risk if damages exceed the cap.",
+      "evidence_quote": "Each party's liability is capped at the greater of $500,000 or the annual contract value."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "Mutual indemnification may lead to disputes over negligence and financial responsibility.",
+      "evidence_quote": "Mutual indemnification: each party indemnifies the other for its own negligence, up to $1,000,000 per claim."
+    },
+    {
+      "risk_title": "No Warranties",
+      "severity": "HIGH",
+      "rationale": "Providing services 'as-is' without warranties increases the risk of dissatisfaction and potential disputes.",
+      "evidence_quote": "Provider provides services 'as-is' with no warranties except as expressly stated."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 60-day notice period may not be sufficient for strategic business planning or mitigation of losses.",
+      "evidence_quote": "This Agreement may be terminated by either party with 60 days written notice for any reason."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations lasting 4 years may be excessive and difficult to manage.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 4 years."
+    }
+  ],
+  "executed": true
+}

@@ -1,28 +1,34 @@
 {
   "findings": [
     {
-      "risk_title": "Lack of Indemnification",
+      "risk_title": "Indemnification Clause Absence",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations exposes parties to potential financial loss due to third-party claims without any recourse for compensation.",
+      "rationale": "The absence of indemnification obligations may expose a party to unforeseen liabilities without recourse for damages or defense.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Unlimited Liability",
+      "risk_title": "Limitation of Liability Clause",
       "severity": "HIGH",
-      "rationale": "The clause allowing unlimited liability could lead to significant financial exposure for one or both parties in case of a breach.",
+      "rationale": "The statement that no event shall be limited by the limitation of liability clause can lead to excessive financial exposure for both parties.",
       "evidence_quote": "No event shall be limited by the limitation of liability clause."
     },
     {
-      "risk_title": "No Audit Rights",
+      "risk_title": "Lack of Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The lack of audit rights prevents one party from verifying compliance, which could lead to misuse of confidential information.",
+      "rationale": "The absence of audit rights limits transparency and oversight, potentially allowing misuse of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "Without intellectual property provisions, there is a risk of unauthorized use or ownership disputes regarding any intellectual property developed or shared.",
+      "rationale": "The lack of intellectual property provisions may lead to disputes over ownership and usage rights of shared information.",
       "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "No Late Fees",
+      "severity": "LOW",
+      "rationale": "Absence of late fees may result in delayed payments with no financial penalty, which could affect cash flow.",
+      "evidence_quote": "No late fees apply."
     }
   ],
   "executed": true

@@ -1,0 +1,41 @@
+NON-DISCLOSURE AGREEMENT
+
+This Agreement is entered into between Company A ("Disclosing Party") and Company B ("Receiving Party").
+
+1. CONFIDENTIAL INFORMATION
+Confidential Information means all non-public information disclosed by one party to the other.
+
+2. OBLIGATIONS
+The Receiving Party agrees to maintain the confidentiality of all Confidential Information.
+
+3. TERM
+This Agreement shall remain in effect indefinitely and shall survive termination.
+
+4. INDEMNIFICATION
+The Receiving Party shall indemnify, defend, and hold harmless the Disclosing Party from and against all claims, losses, and damages, without limit, arising from any breach of this Agreement.
+
+5. LIMITATION OF LIABILITY
+Limitation of liability shall not apply to indemnification, confidentiality, or intellectual property claims.
+
+6. INTELLECTUAL PROPERTY
+All work product and deliverables created hereunder shall be assigned to the Disclosing Party. The Receiving Party hereby assigns all right, title, and interest in such work product.
+
+7. ATTORNEYS' FEES
+The Receiving Party shall pay all attorneys' fees and costs incurred by the Disclosing Party in enforcing this Agreement.
+
+8. RENEWAL
+This Agreement automatically renews for additional terms unless terminated by either party.
+
+9. AUDIT RIGHTS
+The Disclosing Party may inspect all records related to compliance with this Agreement.
+
+10. LATE FEES
+A late fee of 5% shall apply to all overdue payments.
+
+11. GOVERNING LAW
+This Agreement shall be governed by the laws of the State of California. The parties agree to exclusive jurisdiction in California courts.
+
+12. DEFINITIONS
+Confidential Information means, including but not limited to, all technical data, business plans, customer information, financial information, and any other proprietary information.
+
+This Agreement is executed on 2024-01-01.

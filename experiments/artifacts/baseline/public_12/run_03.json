@@ -1,21 +1,21 @@
 {
   "findings": [
     {
-      "risk_title": "Inadequate Duration of Confidentiality",
+      "risk_title": "Duration of Confidentiality",
       "severity": "MEDIUM",
-      "rationale": "A five-year duration may be insufficient for certain types of confidential information, especially in rapidly evolving industries.",
+      "rationale": "A fixed duration of five years may be insufficient for certain types of confidential information, potentially exposing sensitive data after the NDA expires.",
       "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
     },
     {
-      "risk_title": "Limited Remedies for Breach",
+      "risk_title": "Injunctive Relief Without Bond",
       "severity": "HIGH",
-      "rationale": "The reliance on injunctive relief without monetary damages may leave the Disclosing Party vulnerable if a breach occurs.",
-      "evidence_quote": "The parties acknowledge that monetary damages may be inadequate for breach of this Agreement."
+      "rationale": "Allowing injunctive relief without posting bond can create a risk of unfair advantage, as it may enable one party to act without financial accountability.",
+      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
     },
     {
-      "risk_title": "Restrictions on Assignment",
+      "risk_title": "Assignment Restrictions",
       "severity": "MEDIUM",
-      "rationale": "Prohibiting assignment without consent may limit flexibility in business transactions and complicate future partnerships.",
+      "rationale": "Restrictions on assignment may limit flexibility for both parties and could complicate future business arrangements or transactions.",
       "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
     }
   ],

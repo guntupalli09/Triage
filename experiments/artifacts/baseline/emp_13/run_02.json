@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetual License on Intellectual Property",
+      "severity": "HIGH",
+      "rationale": "The Employer's perpetual and exclusive license to all work product may limit the Employee's ability to leverage their own creations in future employment.",
+      "evidence_quote": "Provider grants Employer a perpetual, exclusive license to use all work product created during employment for Employer's business purposes."
+    },
+    {
+      "risk_title": "Long-term Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations that extend for three years post-termination may hinder the Employee's future employment opportunities.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 3 years."
+    },
+    {
+      "risk_title": "Restrictive Non-Compete Clause",
+      "severity": "HIGH",
+      "rationale": "The one-year non-compete clause could severely restrict the Employee's ability to find new employment in their field after leaving the company.",
+      "evidence_quote": "Employee may not compete within the same industry for 1 year after termination."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at annual compensation may expose the Employee to significant financial risk in case of negligence.",
+      "evidence_quote": "each party indemnifies the other for its own negligence, capped at annual compensation."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability for either party to terminate the agreement for convenience with only 30 days notice may lead to job insecurity for the Employee.",
+      "evidence_quote": "Either party may terminate for convenience with 30 days written notice."
+    }
+  ],
+  "executed": true
+}

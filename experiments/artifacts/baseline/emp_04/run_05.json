@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Ownership",
+      "severity": "HIGH",
+      "rationale": "Joint ownership of work product can lead to disputes over rights and usage, particularly regarding commercial exploitation.",
+      "evidence_quote": "Work product created during employment is jointly owned by Employer and Employee, with Employer receiving an exclusive license for business use."
+    },
+    {
+      "risk_title": "Long-Term Confidentiality Obligation",
+      "severity": "MEDIUM",
+      "rationale": "A 3-year confidentiality obligation post-termination may be overly burdensome and limit future employment opportunities for the employee.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 3 years."
+    },
+    {
+      "risk_title": "Non-Compete Clause Duration",
+      "severity": "MEDIUM",
+      "rationale": "A 1-year non-compete can restrict the employee's ability to find work in their field, which may be viewed as overly restrictive.",
+      "evidence_quote": "Employee may not compete within the same industry for 1 year after termination, within Employer's primary market area."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at annual compensation may leave parties exposed to significant liabilities beyond their compensation level.",
+      "evidence_quote": "Mutual indemnification: each party indemnifies the other for its own negligence, capped at annual compensation."
+    }
+  ],
+  "executed": true
+}

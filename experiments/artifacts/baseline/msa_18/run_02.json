@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "Provider's liability being unlimited poses a significant risk, as they could incur substantial financial obligations without any cap, potentially leading to severe financial strain.",
+      "evidence_quote": "Provider's liability is unlimited and not subject to any cap, including for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "Perpetual confidentiality obligations may limit the Provider's future business opportunities and could lead to legal challenges if not managed properly.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely, without any time limitation."
+    },
+    {
+      "risk_title": "Termination Notice Requirement",
+      "severity": "MEDIUM",
+      "rationale": "The 60-day notice requirement for Provider to terminate can create uncertainty and may limit Provider's flexibility in exiting the agreement.",
+      "evidence_quote": "Provider requires 60 days written notice to terminate."
+    },
+    {
+      "risk_title": "Mandatory Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory binding arbitration may limit the ability of either party to seek relief in court, potentially affecting the outcome of disputes.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration in accordance with the rules of the International Chamber of Commerce."
+    },
+    {
+      "risk_title": "Attorney Fees Recovery",
+      "severity": "LOW",
+      "rationale": "The clause allowing Client to recover attorneys' fees could deter Provider from pursuing legitimate disputes due to potential financial repercussions.",
+      "evidence_quote": "Client shall be entitled to recover all attorneys' fees, costs, and expenses from Provider."
+    }
+  ],
+  "executed": true
+}

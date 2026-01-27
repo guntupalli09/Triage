@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Duration Flexibility",
+      "severity": "MEDIUM",
+      "rationale": "The fixed term of four years may not adapt to changing business needs or relationships.",
+      "evidence_quote": "This Agreement shall remain in effect for four (4) years from the date of execution."
+    },
+    {
+      "risk_title": "Unclear Scope of Confidential Information",
+      "severity": "HIGH",
+      "rationale": "The broad definition of confidential information may lead to disputes over what is covered.",
+      "evidence_quote": "All non-public information disclosed by either party, including but not limited to technical specifications, business plans, financial data, and customer lists."
+    },
+    {
+      "risk_title": "Injunctive Relief as Sole Remedy",
+      "severity": "MEDIUM",
+      "rationale": "Limiting remedies to injunctive relief may not adequately compensate for damages incurred from breach.",
+      "evidence_quote": "The non-breaching party shall be entitled to seek injunctive relief."
+    }
+  ],
+  "executed": true
+}

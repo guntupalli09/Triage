@@ -1,27 +1,27 @@
 {
   "findings": [
     {
-      "risk_title": "No Indemnification Provisions",
+      "risk_title": "No Indemnification Obligations",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations may expose a party to significant liability without recourse for damages or claims arising from breaches or misuse of information.",
+      "rationale": "The absence of indemnification obligations may expose parties to risks without recourse for breaches or violations.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Liability Limitation",
+      "risk_title": "Limited Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to total fees paid may not adequately protect against potential damages, especially in cases of gross negligence or willful misconduct.",
+      "rationale": "Limiting liability to fees paid may not adequately protect against significant damages or losses.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
-      "risk_title": "Lack of Intellectual Property Provisions",
+      "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "The absence of intellectual property protections may lead to unauthorized use or disclosure of proprietary information without legal recourse.",
+      "rationale": "The absence of intellectual property provisions could lead to disputes over ownership and use of created or shared IP.",
       "evidence_quote": "No intellectual property provisions apply."
     },
     {
       "risk_title": "No Late Fees",
       "severity": "LOW",
-      "rationale": "Not including late fees may incentivize delays in payment but poses minimal risk compared to other contractual obligations.",
+      "rationale": "The lack of late fees may encourage delayed payments, potentially impacting cash flow.",
       "evidence_quote": "No late fees apply."
     }
   ],

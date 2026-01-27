@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Length of Confidentiality Obligation",
+      "severity": "MEDIUM",
+      "rationale": "A five-year duration for confidentiality may be excessive, potentially leading to complications in enforcement or changes in business circumstances.",
+      "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
+    },
+    {
+      "risk_title": "Injunctive Relief without Bond",
+      "severity": "HIGH",
+      "rationale": "Allowing injunctive relief without posting a bond can expose the Receiving Party to significant risk, as they may face legal actions without adequate financial protection.",
+      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
+    },
+    {
+      "risk_title": "Assignment Restrictions",
+      "severity": "MEDIUM",
+      "rationale": "Restricting assignment without consent may limit business flexibility and future transactions, potentially complicating mergers or acquisitions.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Without Limitation",
+      "severity": "HIGH",
+      "rationale": "The clause requires the Provider to indemnify the Client against all claims without limitation, which can lead to significant financial exposure for the Provider.",
+      "evidence_quote": "Provider shall indemnify Client against all claims, losses, and expenses without limitation."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "The limitation of liability clause caps the Provider's liability to the fees paid, which may not be sufficient to cover potential damages or losses incurred by the Client.",
+      "evidence_quote": "In no event shall Provider's liability exceed the total fees paid under this Agreement."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "The confidentiality obligation lasts only 2 years after termination, which may not be adequate for sensitive information that requires longer protection.",
+      "evidence_quote": "Both parties agree to maintain confidentiality of proprietary information for a period of 2 years after termination."
+    },
+    {
+      "risk_title": "Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "The requirement for binding arbitration may limit the parties' options for resolving disputes, potentially favoring the Client.",
+      "evidence_quote": "Disputes shall be resolved through binding arbitration."
+    }
+  ],
+  "executed": true
+}

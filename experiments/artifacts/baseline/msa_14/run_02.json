@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Warranties",
+      "severity": "HIGH",
+      "rationale": "The provider offers services 'as-is' with limited warranties, which increases the risk of client dissatisfaction and financial loss due to potential service failures.",
+      "evidence_quote": "Provider provides services 'as-is' with no warranties except as expressly stated."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Capping liability at $500,000 or the annual contract value may not adequately cover potential damages, which poses a financial risk to the client.",
+      "evidence_quote": "Each party's liability is capped at the greater of $500,000 or the annual contract value."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 60-day notice period for termination may limit the client's ability to react quickly to unsatisfactory performance or changes in business needs.",
+      "evidence_quote": "This Agreement may be terminated by either party with 60 days written notice for any reason."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification is limited to $1,000,000 per claim, which may not be sufficient to cover severe negligence or damages.",
+      "evidence_quote": "each party indemnifies the other for its own negligence, up to $1,000,000 per claim."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "The choice of Florida state law may present risks if the client is located in a jurisdiction with different legal interpretations or protections.",
+      "evidence_quote": "This Agreement is governed by Florida state law."
+    }
+  ],
+  "executed": true
+}

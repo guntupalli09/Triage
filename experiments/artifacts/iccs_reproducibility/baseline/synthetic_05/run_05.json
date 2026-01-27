@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "HIGH",
+      "rationale": "The absence of audit rights may prevent the Disclosing Party from verifying compliance with confidentiality obligations, increasing the risk of unauthorized disclosure.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Indemnification Scope",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause refers to claims arising from breach but does not specify limits, which could lead to significant liability for the Receiving Party.",
+      "evidence_quote": "The Receiving Party shall indemnify the Disclosing Party to the extent required by law for all claims arising from breach of this Agreement."
+    },
+    {
+      "risk_title": "Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The lack of provisions regarding intellectual property may lead to disputes over ownership and usage rights of information shared under the NDA.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "Limited Liability Protection",
+      "severity": "MEDIUM",
+      "rationale": "The limitation of liability does not apply to indemnification, confidentiality, or intellectual property claims, potentially leaving parties exposed to significant risk.",
+      "evidence_quote": "Limitation of liability shall not apply to indemnification, confidentiality, or intellectual property claims."
+    }
+  ],
+  "executed": true
+}

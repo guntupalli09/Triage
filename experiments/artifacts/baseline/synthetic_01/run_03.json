@@ -1,9 +1,9 @@
 {
   "findings": [
     {
-      "risk_title": "Indemnification Without Limit",
+      "risk_title": "Unlimited Indemnification",
       "severity": "HIGH",
-      "rationale": "The Receiving Party's unlimited indemnification obligation could lead to significant financial exposure in case of a breach.",
+      "rationale": "The Receiving Party's obligation to indemnify without limit may expose it to significant financial liability.",
       "evidence_quote": "The Receiving Party shall indemnify, defend, and hold harmless the Disclosing Party from and against all claims, losses, and damages, without limit, arising from any breach of this Agreement."
     },
     {
@@ -13,16 +13,16 @@
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
-      "risk_title": "Limited Intellectual Property Provisions",
-      "severity": "MEDIUM",
-      "rationale": "The lack of intellectual property provisions may expose the parties to risks regarding the use and ownership of confidential information.",
-      "evidence_quote": "No intellectual property provisions apply."
-    },
-    {
       "risk_title": "Limited Liability Clause",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid may not adequately address potential damages from breaches, leading to inadequate protection.",
+      "rationale": "Limiting liability to total fees paid may not adequately protect the Receiving Party from substantial claims.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "Lack of Intellectual Property Provisions",
+      "severity": "LOW",
+      "rationale": "The absence of specific intellectual property provisions may lead to misunderstandings regarding ownership of shared information.",
+      "evidence_quote": "No intellectual property provisions apply."
     }
   ],
   "executed": true

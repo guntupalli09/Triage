@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Without Limits",
+      "severity": "HIGH",
+      "rationale": "The indemnification clause places potentially unlimited liability on the Receiving Party, which can expose them to significant financial risk without a cap.",
+      "evidence_quote": "The Receiving Party shall indemnify, defend, and hold harmless the Disclosing Party from and against all claims, losses, and damages, without limit."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The absence of audit rights limits the Receiving Party's ability to verify compliance with the NDA, potentially allowing for misuse of confidential information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability Clause",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not adequately protect the Receiving Party from substantial losses incurred due to breaches or misuse of confidential information.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "Lack of Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The absence of IP provisions could lead to ambiguity regarding ownership and usage rights of any intellectual property developed during the agreement.",
+      "evidence_quote": "No intellectual property provisions apply."
+    }
+  ],
+  "executed": true
+}

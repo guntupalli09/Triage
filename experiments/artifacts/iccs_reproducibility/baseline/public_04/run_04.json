@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Undefined Duration of Confidentiality Obligations",
+      "severity": "HIGH",
+      "rationale": "The obligation to maintain confidentiality may extend indefinitely if not explicitly stated, risking perpetual liability for the parties involved.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution, after which the obligations shall terminate."
+    },
+    {
+      "risk_title": "Lack of Specificity in Confidential Information Definition",
+      "severity": "MEDIUM",
+      "rationale": "Broad definitions of confidential information can lead to disputes about what is protected, increasing the risk of unintentional disclosure.",
+      "evidence_quote": "Confidential Information includes all proprietary information, trade secrets, business plans, financial data, and technical information disclosed by either party."
+    },
+    {
+      "risk_title": "Return of Materials Clause Ambiguity",
+      "severity": "MEDIUM",
+      "rationale": "The requirement to return or destroy confidential materials may lack clarity regarding processes, potentially leading to non-compliance.",
+      "evidence_quote": "Upon termination, each party shall return or destroy all Confidential Information received from the other party."
+    }
+  ],
+  "executed": true
+}

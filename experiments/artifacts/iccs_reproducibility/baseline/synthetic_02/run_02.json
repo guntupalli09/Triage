@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations may expose the parties to significant financial risks in case of breaches or claims arising under the agreement.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "The clause stating that liability shall not be limited under any circumstances can lead to unpredictable financial exposure for both parties.",
+      "evidence_quote": "No event shall be limited by the limitation of liability clause."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The absence of intellectual property provisions may lead to disputes over ownership and usage of any IP developed during the term of the agreement.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "Without audit rights, there may be limited ability to verify compliance with terms, increasing the risk of undisclosed breaches.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Short Confidentiality Term",
+      "severity": "LOW",
+      "rationale": "The three-year term for confidentiality may not be sufficient depending on the nature of the confidential information shared.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution."
+    }
+  ],
+  "executed": true
+}

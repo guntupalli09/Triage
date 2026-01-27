@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to the total license fees paid may leave parties vulnerable to significant losses not covered by the agreement.",
+      "evidence_quote": "Each party's liability is limited to the total license fees paid in the preceding calendar year."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at $750,000 may not cover the full extent of potential claims, exposing parties to financial risk.",
+      "evidence_quote": "Mutual indemnification: each party indemnifies the other for claims arising from its own breach, capped at $750,000 per claim."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability to terminate for convenience with only 30 days notice could disrupt business operations unexpectedly.",
+      "evidence_quote": "Either party may terminate for convenience with 30 days written notice."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "Specifying a single jurisdiction for governing law may limit options for dispute resolution and may not be favorable for all parties.",
+      "evidence_quote": "Virginia law governs this Agreement."
+    }
+  ],
+  "executed": true
+}

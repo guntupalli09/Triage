@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Ambiguous Definitions",
+      "severity": "MEDIUM",
+      "rationale": "The term 'Confidential Information' is broad and may lead to disputes over what is considered confidential, potentially exposing parties to unintended disclosures.",
+      "evidence_quote": "\"Confidential Information\" means all proprietary or confidential information disclosed by one party to the other, whether in oral, written, or electronic form."
+    },
+    {
+      "risk_title": "Limited Duration of Agreement",
+      "severity": "MEDIUM",
+      "rationale": "The five-year term for confidentiality obligations may not be sufficient for certain types of confidential information, leaving parties vulnerable after the term ends.",
+      "evidence_quote": "This Agreement shall remain in effect for five (5) years. Confidentiality obligations shall survive termination."
+    },
+    {
+      "risk_title": "Lack of Specific Security Measures",
+      "severity": "HIGH",
+      "rationale": "The phrase 'implement reasonable security measures' is vague, leading to uncertainty about the adequacy of protections for confidential information.",
+      "evidence_quote": "Implement reasonable security measures"
+    },
+    {
+      "risk_title": "Governing Law Limitation",
+      "severity": "LOW",
+      "rationale": "Specifying Massachusetts as the governing law may limit legal recourse options for parties located in different jurisdictions, potentially creating enforcement difficulties.",
+      "evidence_quote": "Governing Law: Massachusetts"
+    }
+  ],
+  "executed": true
+}

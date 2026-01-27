@@ -1,28 +1,22 @@
 {
   "findings": [
     {
-      "risk_title": "Lack of Indemnification",
+      "risk_title": "No Indemnification Obligations",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations may expose the parties to significant liability without recourse.",
+      "rationale": "The absence of indemnification provisions may expose parties to significant liability without recourse for damages caused by breaches or negligence.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limitation of Liability",
+      "risk_title": "Limited Liability Clause",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to total fees paid may not adequately protect against significant damages.",
+      "rationale": "Limiting liability to fees paid can leave parties vulnerable to significant losses exceeding the fees, especially in cases of gross negligence or willful misconduct.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The absence of audit rights may limit oversight and verification of compliance with the agreement.",
+      "rationale": "The lack of audit rights may hinder the ability to ensure compliance with the confidentiality obligations, increasing the risk of misuse of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
-    },
-    {
-      "risk_title": "No Attorneys' Fees Recovery",
-      "severity": "LOW",
-      "rationale": "Each party bearing its own attorneys' fees may discourage enforcement of rights due to potential costs.",
-      "evidence_quote": "Each party shall bear its own attorneys' fees."
     }
   ],
   "executed": true

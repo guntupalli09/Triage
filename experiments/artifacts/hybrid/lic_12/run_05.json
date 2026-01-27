@@ -1,0 +1,47 @@
+{
+  "findings": [
+    {
+      "rule_id": "M_TERM_NOTICE_01",
+      "rule_name": "termination_notice_window",
+      "title": "Short termination or notice windows",
+      "severity": "medium",
+      "rationale": "Short or strict notice windows can lead to accidental renewals or unintended termination.",
+      "matched_excerpt": "...4. TERM AND TERMINATION Either party may terminate this Agreement with 30 days written notice for any reason....",
+      "exact_snippet": "terminate",
+      "start_index": 643,
+      "end_index": 652,
+      "position": 643,
+      "context": "see receives no ownership interest or assignment rights.\n\n3. PAYMENT TERMS\nLicensee shall pay monthly subscription fees of $3,000, due on the first of each month.\n\n4. TERM AND TERMINATION\nEither party may terminate this Agreement with 30 days written notice for any reason.\n\n5. INDEMNIFICATION\nMutual indemnification: each party indemnifies the other for its own breach, capped at annual subscription fees.\n\n6",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "termination_notice_window",
+        "short_notice_period"
+      ]
+    }
+  ],
+  "overall_risk": "low",
+  "rule_counts": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

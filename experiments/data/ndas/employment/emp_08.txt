@@ -1,0 +1,35 @@
+EMPLOYMENT AGREEMENT
+
+This Employment Agreement ("Agreement") is entered into between Employer Company ("Employer") and Employee Name ("Employee").
+
+1. POSITION AND DUTIES
+Employee agrees to serve as Senior Data Analyst and perform duties as assigned by Employer.
+
+2. COMPENSATION
+Employee shall receive an annual salary of $145,000, payable monthly.
+
+3. INTELLECTUAL PROPERTY
+All intellectual property developed by Employee in the course of employment shall be owned by Employer. Employee assigns all such rights to Employer.
+
+4. CONFIDENTIALITY AND NON-DISCLOSURE
+Employee agrees to maintain confidentiality of all trade secrets and proprietary information in perpetuity.
+
+5. NON-COMPETE AND NON-SOLICITATION
+Employee may not compete with Employer for 2 years after termination within the same geographic market.
+
+6. TERM AND TERMINATION
+Employer may terminate for cause immediately. Employee may terminate with 30 days notice.
+
+7. INDEMNIFICATION
+Employee agrees to indemnify Employer for all legal costs resulting from Employee's breach, capped at $300,000.
+
+8. DISPUTE RESOLUTION
+Any disputes shall be resolved exclusively in the courts of New Jersey.
+
+9. ATTORNEYS' FEES
+The prevailing party in any legal action shall recover reasonable attorneys' fees.
+
+10. GOVERNING LAW
+New Jersey law governs this Agreement.
+
+This Agreement is effective as of August 1, 2024.

@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Scope",
+      "severity": "HIGH",
+      "rationale": "The lack of limitations on indemnification may expose the Provider to significant financial liabilities without recourse.",
+      "evidence_quote": "Provider shall indemnify Client against all claims, losses, and expenses without limitation."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Capping liability to fees paid may not cover potential damages, which could leave the Client exposed in severe cases.",
+      "evidence_quote": "In no event shall Provider's liability exceed the total fees paid under this Agreement."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "A 30-day termination notice may not provide sufficient time for either party to adjust or mitigate impacts of termination.",
+      "evidence_quote": "Either party may terminate with 30 days written notice."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "MEDIUM",
+      "rationale": "Specifying a single jurisdiction (California) could lead to challenges for parties located elsewhere, affecting enforceability.",
+      "evidence_quote": "This Agreement shall be governed by the laws of the State of California."
+    },
+    {
+      "risk_title": "Dispute Resolution Method",
+      "severity": "MEDIUM",
+      "rationale": "Binding arbitration may limit the parties' options for recourse and could lead to unforeseen costs.",
+      "evidence_quote": "Disputes shall be resolved through binding arbitration."
+    }
+  ],
+  "executed": true
+}

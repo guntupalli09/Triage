@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "Provider's liability being unlimited poses a significant risk as it exposes them to potentially catastrophic financial consequences without any cap.",
+      "evidence_quote": "Provider's liability is unlimited and not subject to any cap, including for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Indefinite confidentiality obligations may lead to ongoing responsibilities that can be burdensome and difficult to manage for the Provider.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely, without any time limitation."
+    },
+    {
+      "risk_title": "Termination Notice Requirement",
+      "severity": "MEDIUM",
+      "rationale": "The requirement for a 60-day written notice for Provider to terminate may limit their flexibility and ability to exit the agreement swiftly if needed.",
+      "evidence_quote": "Provider requires 60 days written notice to terminate."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the Provider's options for legal recourse and can be unfavorable in certain disputes.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration in accordance with the rules of the International Chamber of Commerce."
+    },
+    {
+      "risk_title": "Client's Right to Terminate Without Cause",
+      "severity": "HIGH",
+      "rationale": "Client's ability to terminate the agreement at any time without cause creates instability for the Provider's business planning and revenue.",
+      "evidence_quote": "Client may terminate this Agreement at any time with or without cause."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Ownership of Modifications",
+      "severity": "HIGH",
+      "rationale": "Licensee may lose rights to any modifications made to the software, which can limit their ability to leverage their own enhancements.",
+      "evidence_quote": "All modifications and derivative works created by Licensee shall be owned by Licensor."
+    },
+    {
+      "risk_title": "Unlimited Indemnification",
+      "severity": "HIGH",
+      "rationale": "Licensee's obligation to indemnify Licensor without limitation can expose them to significant financial risks.",
+      "evidence_quote": "Licensee agrees to indemnify Licensor for all claims, damages, and expenses, without limitation."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Licensor's unlimited liability for indemnification may create a risk of disproportionate financial burden on Licensee.",
+      "evidence_quote": "Notwithstanding any limitation of liability, Licensor's liability for indemnification is unlimited."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 45-day notice period for termination may be insufficient for Licensee to find alternatives, creating operational risks.",
+      "evidence_quote": "This Agreement may be terminated by either party with 45 days written notice for convenience."
+    },
+    {
+      "risk_title": "Survival of Confidentiality Obligations",
+      "severity": "LOW",
+      "rationale": "Although confidentiality obligations survive termination, a 4-year duration may be longer than necessary, leading to possible compliance challenges.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 4 years."
+    }
+  ],
+  "executed": true
+}

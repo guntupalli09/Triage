@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to total contract value could expose parties to significant risks, especially in cases of severe negligence or misconduct.",
+      "evidence_quote": "Each party's liability is limited to the total contract value, except for indemnification obligations."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "Allowing termination for convenience with only 45 days' notice may lead to sudden disruptions and financial instability for either party.",
+      "evidence_quote": "Either party may terminate for convenience with 45 days written notice."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A 5-year confidentiality obligation may not be sufficient for certain sensitive information, increasing the risk of inadvertent disclosures.",
+      "evidence_quote": "Confidentiality obligations continue for 5 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at annual contract value may leave parties vulnerable to claims that exceed this amount.",
+      "evidence_quote": "Each party shall indemnify the other for claims arising from its own gross negligence or willful misconduct, capped at annual contract value."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,38 @@
+SOFTWARE LICENSING AGREEMENT
+
+This Software Licensing Agreement ("Agreement") is entered into between Licensor Company ("Licensor") and Licensee Company ("Licensee").
+
+1. GRANT OF LICENSE
+Licensor grants Licensee a perpetual, worldwide, non-exclusive license to use, modify, and create derivative works from the Software for Licensee's internal operations.
+
+2. INTELLECTUAL PROPERTY OWNERSHIP
+All modifications, enhancements, and derivative works created by Licensee shall become the exclusive property of Licensor. Licensee hereby irrevocably assigns all such rights to Licensor.
+
+3. PAYMENT TERMS
+Licensee shall pay annual license and maintenance fees of $80,000, due on the anniversary date. Overdue payments incur a late fee of 5% plus interest at 2% per month.
+
+4. TERM AND TERMINATION
+Licensor may terminate immediately upon Licensee's breach. Licensee requires 60 days notice to terminate.
+
+5. INDEMNIFICATION
+Licensee shall indemnify Licensor for all claims, losses, damages, and expenses, without limitation, arising from Licensee's modifications or use of the Software.
+
+6. LIMITATION OF LIABILITY
+Licensor's liability is unlimited for indemnification, confidentiality, and intellectual property claims, and is not subject to any cap.
+
+7. CONFIDENTIALITY
+Confidentiality obligations are perpetual and continue indefinitely, without any expiration or time limitation.
+
+8. WARRANTIES AND DISCLAIMERS
+Licensor warrants that the Software will substantially conform to the specifications in the documentation provided to Licensee.
+
+9. DISPUTE RESOLUTION
+All disputes must be resolved through mandatory binding arbitration under AAA Commercial Arbitration Rules.
+
+10. ATTORNEYS' FEES
+Licensor shall be entitled to recover all attorneys' fees, court costs, and expenses from Licensee in any action to enforce or interpret this Agreement.
+
+11. GOVERNING LAW
+This Agreement is governed by California law, and the parties consent to exclusive jurisdiction in California courts.
+
+This Agreement is effective as of March 1, 2025.

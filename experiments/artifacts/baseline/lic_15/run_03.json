@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Irrevocable Assignment of Rights",
+      "severity": "HIGH",
+      "rationale": "The Licensee assigns all rights to modifications and derivative works to the Licensor, which may limit the Licensee's ability to use their own developments.",
+      "evidence_quote": "Licensee hereby irrevocably assigns all such rights to Licensor."
+    },
+    {
+      "risk_title": "Unlimited Liability for Licensor",
+      "severity": "HIGH",
+      "rationale": "Licensor's unlimited liability for indemnification and other claims poses a significant risk to the Licensee, as it exposes them to potentially high unforeseen costs.",
+      "evidence_quote": "Licensor's liability is unlimited for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "The indefinite nature of the confidentiality obligations could create challenges for the Licensee in managing their own information disclosure and operational flexibility.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely, without any expiration or time limitation."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the Licensee's options for dispute resolution and potentially lead to unfavorable outcomes due to the lack of judicial oversight.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration under AAA Commercial Arbitration Rules."
+    },
+    {
+      "risk_title": "Attorney's Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "The provision allowing Licensor to recover attorneys' fees could discourage the Licensee from pursuing legitimate claims due to potential cost burdens.",
+      "evidence_quote": "Licensor shall be entitled to recover all attorneys' fees, court costs, and expenses from Licensee."
+    }
+  ],
+  "executed": true
+}

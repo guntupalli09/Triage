@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to fees paid in the past 24 months can expose a party to significant losses in case of a major claim.",
+      "evidence_quote": "Each party's liability is limited to the total fees paid in the 24 months preceding the claim."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at the annual contract value may leave a party vulnerable to large claims exceeding this limit.",
+      "evidence_quote": "each party indemnifies the other for claims arising from its own breach, capped at the annual contract value."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 45-day notice for termination may limit flexibility for urgent changes in business circumstances.",
+      "evidence_quote": "This Agreement may be terminated by either party with 45 days written notice for convenience."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "Confidentiality lasting for 2 years post-termination may not align with industry standards for sensitive information.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "Choosing the laws of Nevada may create jurisdictional challenges if the parties are located elsewhere.",
+      "evidence_quote": "This Agreement is governed by the laws of the State of Nevada."
+    }
+  ],
+  "executed": true
+}

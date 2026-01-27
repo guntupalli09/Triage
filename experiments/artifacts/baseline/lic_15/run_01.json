@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Assignment",
+      "severity": "HIGH",
+      "rationale": "The assignment of all modifications and derivative works to the Licensor may limit the Licensee's ability to utilize their own developments, posing a significant risk to the Licensee's interests.",
+      "evidence_quote": "All modifications, enhancements, and derivative works created by Licensee shall become the exclusive property of Licensor."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The Licensee's obligation to indemnify the Licensor for all claims without limitation poses a substantial financial risk, especially in cases of unforeseen legal issues.",
+      "evidence_quote": "Licensee shall indemnify Licensor for all claims, losses, damages, and expenses, without limitation."
+    },
+    {
+      "risk_title": "Unlimited Liability for Certain Claims",
+      "severity": "HIGH",
+      "rationale": "Licensor's unlimited liability for indemnification and other critical areas increases exposure to significant financial losses for the Licensee.",
+      "evidence_quote": "Licensor's liability is unlimited for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Indefinite confidentiality obligations can be burdensome, as they require ongoing compliance without a defined endpoint, potentially leading to liability for inadvertent disclosures.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely, without any expiration or time limitation."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the Licensee's options for legal recourse in disputes, potentially leading to unfavorable outcomes compared to court proceedings.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration under AAA Commercial Arbitration Rules."
+    },
+    {
+      "risk_title": "Governing Law and Jurisdiction",
+      "severity": "MEDIUM",
+      "rationale": "The requirement for disputes to be resolved under California law may present challenges for Licensees located in other jurisdictions, including increased travel costs and complexity.",
+      "evidence_quote": "This Agreement is governed by California law, and the parties consent to exclusive jurisdiction in California courts."
+    }
+  ],
+  "executed": true
+}

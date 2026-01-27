@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "Indefinite confidentiality obligations can lead to unreasonable restrictions on the employee's future employment opportunities and personal projects.",
+      "evidence_quote": "Employee agrees to maintain strict confidentiality of all proprietary information, trade secrets, and business strategies indefinitely, without any time limitation."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The employee's broad indemnification responsibility could expose them to significant financial liability for claims arising from their work, regardless of fault.",
+      "evidence_quote": "Employee shall defend, indemnify, and hold harmless Employer from any and all claims, damages, losses, and expenses, without limitation."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the employee's options for resolving disputes and could favor the employer in a dispute resolution context.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration under the rules of the American Arbitration Association."
+    },
+    {
+      "risk_title": "3-Year Non-Compete Clause",
+      "severity": "MEDIUM",
+      "rationale": "A 3-year non-compete clause may significantly restrict the employee's ability to find new employment in their field after leaving the company.",
+      "evidence_quote": "Employee shall not engage in any competitive business activity or solicit Employer's employees or customers for a period of 3 years following termination."
+    },
+    {
+      "risk_title": "Termination Without Cause",
+      "severity": "HIGH",
+      "rationale": "The employer's ability to terminate the agreement at any time without cause poses a risk to the employee's job security.",
+      "evidence_quote": "Employer may terminate this Agreement at any time, with or without cause."
+    },
+    {
+      "risk_title": "Employer's Recovery of Attorneys' Fees",
+      "severity": "MEDIUM",
+      "rationale": "The provision allowing the employer to recover attorneys' fees could discourage the employee from asserting claims due to fear of incurring costs.",
+      "evidence_quote": "In any action to enforce this Agreement, Employer shall be entitled to recover all attorneys' fees, court costs, and expenses from Employee."
+    }
+  ],
+  "executed": true
+}

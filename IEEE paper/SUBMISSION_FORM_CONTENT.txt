@@ -1,0 +1,34 @@
+================================================================================
+ICCS 2026 SUBMISSION FORM CONTENT
+================================================================================
+
+TITLE:
+--------------------------------------------------------------------------------
+Deterministic Execution Frameworks for Hybrid Symbolic--Probabilistic Computational Pipelines
+
+--------------------------------------------------------------------------------
+
+ABSTRACT:
+--------------------------------------------------------------------------------
+LLM-containing computational pipelines face a fundamental reproducibility challenge: stochastic components introduce non-determinism that prevents identical inputs from producing identical outputs across repeated executions. This paper presents a deterministic execution framework for hybrid symbolic--probabilistic pipelines that enforces execution invariance by isolating deterministic modules from stochastic components. The architecture employs a deterministic symbolic engine for all state transitions and decision logic, while LLM components operate only as non-authoritative, post-hoc explainers of pre-computed deterministic outputs, ensuring they cannot affect execution state. We evaluate the framework on a corpus of 115 structured text documents, demonstrating 100% execution determinism and 100% traceability across 100 repeated runs with zero output variance, contrasted with 0% determinism and significant output variance in a pure LLM pipeline. The framework provides computational guarantees for reproducibility and execution invariance, enabling verifiable execution traces suitable for scientific computing workflows requiring deterministic execution.
+
+--------------------------------------------------------------------------------
+
+KEYWORDS (one per line):
+--------------------------------------------------------------------------------
+deterministic computation
+reproducible systems
+hybrid architectures
+symbolic--probabilistic systems
+execution traceability
+LLM pipelines
+computational reproducibility
+execution invariance
+
+================================================================================
+INSTRUCTIONS:
+- Copy the TITLE exactly as shown above
+- Copy the ABSTRACT exactly as shown above (plain text, no HTML)
+- Copy each KEYWORD on a separate line in the keywords field
+- All fields are required (marked with red asterisk)
+================================================================================

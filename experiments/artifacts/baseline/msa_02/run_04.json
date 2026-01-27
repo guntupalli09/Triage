@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Liability Clause",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to past payments may expose the Client to significant risks and losses that exceed those amounts, particularly in cases of negligence or misconduct.",
+      "evidence_quote": "Provider's liability is limited to the amount paid in the 12 months preceding the claim, except for gross negligence or willful misconduct."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification obligation may create financial exposure for both parties, especially if the applicable law is broad and unclear about the extent of indemnification required.",
+      "evidence_quote": "Each party shall indemnify the other to the extent required by applicable law."
+    },
+    {
+      "risk_title": "Dispute Resolution Process",
+      "severity": "MEDIUM",
+      "rationale": "Requiring mediation before arbitration can prolong resolution and increase costs, which may be a disadvantage for the Client in urgent situations.",
+      "evidence_quote": "Disputes shall be resolved through mediation, then arbitration if mediation fails."
+    },
+    {
+      "risk_title": "Warranties Disclaimer",
+      "severity": "MEDIUM",
+      "rationale": "The broad disclaimer of warranties may leave the Client without recourse if the services provided do not meet expectations or specifications.",
+      "evidence_quote": "Provider disclaims all warranties except as expressly stated herein."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "While confidentiality obligations are important, the indefinite duration may be impractical and could lead to complications in long-term business relationships.",
+      "evidence_quote": "Confidentiality obligations survive termination indefinitely."
+    }
+  ],
+  "executed": true
+}

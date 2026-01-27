@@ -1,0 +1,39 @@
+MASTER SERVICE AGREEMENT
+
+This Master Service Agreement ("Agreement") is entered into between Service Provider ("Provider") and Client Company ("Client").
+
+1. SERVICES
+Provider agrees to provide the services described in attached Statements of Work.
+
+2. PAYMENT TERMS
+Payment is due within 15 days. Late payments incur a 2% monthly fee.
+
+3. INTELLECTUAL PROPERTY
+Provider retains ownership of pre-existing intellectual property. Client receives a non-exclusive license to use deliverables.
+
+4. INDEMNIFICATION
+Each party shall indemnify the other to the extent required by applicable law.
+
+5. LIMITATION OF LIABILITY
+Provider's liability is limited to the amount paid in the 12 months preceding the claim, except for gross negligence or willful misconduct.
+
+6. TERM AND TERMINATION
+Either party may terminate immediately upon material breach.
+
+7. CONFIDENTIALITY
+Confidentiality obligations survive termination indefinitely.
+
+8. WARRANTIES
+Provider disclaims all warranties except as expressly stated herein.
+
+9. DISPUTE RESOLUTION
+Disputes shall be resolved through mediation, then arbitration if mediation fails.
+
+10. GOVERNING LAW
+This Agreement shall be governed by the laws of the State of New York.
+
+11. ATTORNEYS' FEES
+Each party shall bear its own attorneys' fees.
+
+12. MODIFICATIONS
+This Agreement may only be modified in writing signed by both parties.

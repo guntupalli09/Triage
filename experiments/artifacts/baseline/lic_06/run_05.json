@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Revocable License",
+      "severity": "HIGH",
+      "rationale": "The non-exclusive, revocable nature of the license may lead to loss of access to the software without adequate notice or recourse.",
+      "evidence_quote": "Licensor grants Licensee a non-exclusive, revocable license to use the Software for evaluation purposes only."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may leave the Licensee exposed to significant losses beyond that amount.",
+      "evidence_quote": "Licensor's liability is limited to the amount of any license fees actually paid by Licensee."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The Licensee's obligation to indemnify the Licensor could result in substantial costs for the Licensee, especially for third-party claims.",
+      "evidence_quote": "Licensee shall indemnify Licensor to the extent required by law for claims arising from Licensee's use of the Software."
+    },
+    {
+      "risk_title": "No Warranties",
+      "severity": "HIGH",
+      "rationale": "Providing the software 'as-is' with no warranties exposes the Licensee to risks related to software performance and security.",
+      "evidence_quote": "Licensor provides the Software 'as-is' with no warranties during the evaluation period."
+    },
+    {
+      "risk_title": "Short Term for Termination",
+      "severity": "MEDIUM",
+      "rationale": "A 7-day termination notice period may not provide sufficient time for the Licensee to transition or mitigate impacts from software loss.",
+      "evidence_quote": "Either party may terminate this evaluation license with 7 days written notice."
+    }
+  ],
+  "executed": true
+}

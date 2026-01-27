@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "This clause exposes the Provider to potentially unlimited financial liability, which could be catastrophic in the event of a significant claim.",
+      "evidence_quote": "Provider's liability is unlimited for indemnification and confidentiality breaches."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Indefinite confidentiality obligations may pose a risk of compliance and enforcement issues over time, particularly as business needs evolve.",
+      "evidence_quote": "Confidentiality obligations are perpetual and survive termination indefinitely."
+    },
+    {
+      "risk_title": "As-Is Warranty Disclaimer",
+      "severity": "MEDIUM",
+      "rationale": "Providing services on an 'as-is' basis may leave the Client vulnerable to receiving subpar services without recourse for issues that arise.",
+      "evidence_quote": "Provider provides services on an 'as-is' basis with no express or implied warranties."
+    },
+    {
+      "risk_title": "Jurisdiction Limitation",
+      "severity": "LOW",
+      "rationale": "Limiting dispute resolution to a specific jurisdiction may create logistical challenges and increased costs for either party if located elsewhere.",
+      "evidence_quote": "Any disputes shall be resolved exclusively in the courts of Delaware."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations may expose a party to liability without recourse, increasing financial risk.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The lack of audit rights limits the ability to verify compliance with the NDA, which may lead to undiscovered breaches.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Limited Term",
+      "severity": "MEDIUM",
+      "rationale": "A fixed term of three years may be insufficient for ongoing relationships, risking exposure to confidential information after expiration.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution."
+    }
+  ],
+  "executed": true
+}

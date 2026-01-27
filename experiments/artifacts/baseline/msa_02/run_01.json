@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Obligation",
+      "severity": "MEDIUM",
+      "rationale": "Indemnification clauses can expose parties to significant liabilities, especially if not clearly defined in terms of scope and limits.",
+      "evidence_quote": "Each party shall indemnify the other to the extent required by applicable law."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability can pose risks to the Client if significant damages arise, particularly in cases of gross negligence or willful misconduct.",
+      "evidence_quote": "Provider's liability is limited to the amount paid in the 12 months preceding the claim, except for gross negligence or willful misconduct."
+    },
+    {
+      "risk_title": "Non-Exclusive License",
+      "severity": "MEDIUM",
+      "rationale": "A non-exclusive license may limit the Client's ability to protect their interests and could lead to competitive disadvantages.",
+      "evidence_quote": "Client receives a non-exclusive license to use deliverables."
+    },
+    {
+      "risk_title": "Survival of Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Indefinite confidentiality obligations can lead to challenges in managing data, especially if the terms are not clearly defined.",
+      "evidence_quote": "Confidentiality obligations survive termination indefinitely."
+    },
+    {
+      "risk_title": "Modification Clause",
+      "severity": "LOW",
+      "rationale": "Requiring written modifications can lead to operational rigidity and may hinder timely updates to the agreement.",
+      "evidence_quote": "This Agreement may only be modified in writing signed by both parties."
+    }
+  ],
+  "executed": true
+}

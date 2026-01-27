@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetual Term",
+      "severity": "HIGH",
+      "rationale": "The lack of an expiration date may lead to indefinite obligations and liabilities, posing a risk to both parties' future operations and responsibilities.",
+      "evidence_quote": "This Agreement shall remain in effect in perpetuity with no expiration date."
+    },
+    {
+      "risk_title": "No Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations can expose one party to significant risks and liabilities without recourse for losses or damages.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not adequately protect against substantial damages that could arise from breaches or failures.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The lack of audit rights may prevent effective monitoring of compliance, increasing the risk of undisclosed breaches or misuse of confidential information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The absence of intellectual property provisions may lead to misunderstandings regarding ownership and use of intellectual property, increasing the risk of disputes.",
+      "evidence_quote": "No intellectual property provisions apply."
+    }
+  ],
+  "executed": true
+}

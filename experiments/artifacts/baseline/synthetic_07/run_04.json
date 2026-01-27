@@ -3,31 +3,31 @@
     {
       "risk_title": "Perpetual Term",
       "severity": "HIGH",
-      "rationale": "The agreement has no expiration date, which may lead to indefinite obligations and challenges in termination.",
+      "rationale": "An indefinite duration may lead to ongoing obligations and potential liabilities without a clear end, complicating exit strategies.",
       "evidence_quote": "This Agreement shall remain in effect in perpetuity with no expiration date."
     },
     {
       "risk_title": "No Indemnification",
-      "severity": "MEDIUM",
-      "rationale": "Lack of indemnification obligations may expose parties to liability without recourse.",
+      "severity": "HIGH",
+      "rationale": "Absence of indemnification provisions increases vulnerability to claims or damages arising from breaches.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
       "risk_title": "Limited Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid may not adequately protect against significant damages.",
+      "rationale": "Limiting liability to fees paid may not adequately protect against significant claims or losses.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The absence of audit rights can hinder transparency and accountability.",
+      "rationale": "Lack of audit rights may prevent the disclosing party from verifying compliance with the confidentiality obligations.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "Lack of IP provisions may lead to disputes over ownership and use of intellectual property.",
+      "rationale": "The absence of intellectual property clauses may lead to disputes over ownership and use of proprietary information.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

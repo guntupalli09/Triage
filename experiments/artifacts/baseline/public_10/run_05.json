@@ -1,22 +1,22 @@
 {
   "findings": [
     {
-      "risk_title": "Indefinite Term",
+      "risk_title": "Indefinite Duration of Confidentiality",
       "severity": "HIGH",
-      "rationale": "An indefinite term may pose a risk as it can lead to perpetual obligations without clear endpoints, potentially causing compliance issues or unintentional breaches.",
+      "rationale": "An indefinite term for confidentiality obligations could lead to perpetual liability for the Receiving Party, which is uncommon and may pose operational risks.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
     },
     {
-      "risk_title": "Return of Information Clause",
+      "risk_title": "Lack of Limitation on Liability",
       "severity": "MEDIUM",
-      "rationale": "The obligation to return all confidential information may lead to disputes over what constitutes 'all' information and the process for doing so, especially if records are inadvertently not returned.",
-      "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
+      "rationale": "The absence of any limitation on liability for breach of confidentiality could expose the Receiving Party to significant financial risk.",
+      "evidence_quote": "The Receiving Party agrees to hold and maintain the Confidential Information in strict confidence..."
     },
     {
-      "risk_title": "Broad Definition of Confidential Information",
+      "risk_title": "Unclear Definition of Confidential Information",
       "severity": "MEDIUM",
-      "rationale": "A broad definition can create ambiguity, making it difficult for the Receiving Party to understand their obligations and potentially leading to unintentional breaches.",
-      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party."
+      "rationale": "A broad definition of Confidential Information can lead to ambiguity and potential misuse, as it may include information that is not truly proprietary.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party..."
     }
   ],
   "executed": true

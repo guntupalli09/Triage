@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "The clause stating that the Provider's liability for indemnification claims is unlimited poses a significant risk, as it exposes the Provider to potentially unlimited financial obligations.",
+      "evidence_quote": "Provider's liability for indemnification claims is unlimited."
+    },
+    {
+      "risk_title": "Confidentiality in Perpetuity",
+      "severity": "MEDIUM",
+      "rationale": "The perpetual nature of the confidentiality obligation may create challenges for the Provider, as it extends their liability indefinitely without clear termination conditions.",
+      "evidence_quote": "Confidentiality survives termination and continues in perpetuity."
+    },
+    {
+      "risk_title": "30 Days Notice for Provider Termination",
+      "severity": "MEDIUM",
+      "rationale": "The requirement for the Provider to give 30 days notice before termination could create cash flow issues or operational challenges if the Provider needs to exit the contract quickly.",
+      "evidence_quote": "Provider requires 30 days notice."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "LOW",
+      "rationale": "Requiring disputes to be resolved through binding arbitration may limit the Provider's options for legal recourse, which could be a disadvantage if the Client is uncooperative.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration in accordance with AAA rules."
+    }
+  ],
+  "executed": true
+}

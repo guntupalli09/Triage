@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Ownership",
+      "severity": "HIGH",
+      "rationale": "Licensee loses ownership of modifications, which may deter innovation and investment in the software.",
+      "evidence_quote": "All modifications and derivative works created by Licensee shall be owned by Licensor."
+    },
+    {
+      "risk_title": "Unlimited Indemnification",
+      "severity": "HIGH",
+      "rationale": "Licensee may face unlimited financial liability for claims arising from their modifications, posing significant risk.",
+      "evidence_quote": "Licensee agrees to indemnify Licensor for all claims, damages, and expenses, without limitation."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 45-day notice period may not provide sufficient time for transition, impacting operations.",
+      "evidence_quote": "This Agreement may be terminated by either party with 45 days written notice."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Unlimited liability for indemnification places the Licensee at considerable financial risk in case of disputes.",
+      "evidence_quote": "Notwithstanding any limitation of liability, Licensor's liability for indemnification is unlimited."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations lasting 4 years may limit Licensee’s ability to use similar technology post-agreement.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 4 years."
+    },
+    {
+      "risk_title": "Dispute Resolution Process",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory mediation followed by arbitration may limit the Licensee's options for resolving disputes.",
+      "evidence_quote": "Disputes shall be resolved through mediation, then binding arbitration if mediation is unsuccessful."
+    }
+  ],
+  "executed": true
+}

@@ -80,31 +80,65 @@ def characterize_errors():
                 })
                 issue_id += 1
         
-        # Check synthetic truth for FP/FN
-        truth_path = DATA_DIR / f"{doc_id}.truth.json"
-        if truth_path.exists() and hybrid_runs:
+        # Check synthetic truth for FP/FN (check all contract type directories)
+        from experiments.config import DATA_BASE_DIR
+        truth_path = None
+        for contract_dir in [DATA_BASE_DIR / "ndas", DATA_BASE_DIR / "msas", DATA_BASE_DIR / "employment", DATA_BASE_DIR / "licensing"]:
+            potential_path = contract_dir / f"{doc_id}.truth.json"
+            if potential_path.exists():
+                truth_path = potential_path
+                break
+        if truth_path and truth_path.exists() and hybrid_runs:
             truth = load_json(truth_path)
             fp, fn = compute_fp_fn_hybrid(hybrid_runs[0], truth)
             
             if fp > 0:
+                # Enhanced FP categorization
+                fp_rules = []
+                truth_absent = set(truth.get("expected_rule_ids_absent", []))
+                if hybrid_runs:
+                    findings = hybrid_runs[0].get("findings", [])
+                    for f in findings:
+                        if f.get("rule_id") in truth_absent:
+                            fp_rules.append(f.get("rule_id"))
+                
+                fp_category = "conservative_pattern" if fp_rules else "unknown"
+                fp_examples = ", ".join(fp_rules[:3]) if fp_rules else "N/A"
+                
                 issues.append({
                     "issue_id": f"ERR-{issue_id:04d}",
                     "doc_id": doc_id,
                     "system": "hybrid",
                     "type": "false_positive",
-                    "description": f"{fp} false positive(s) detected",
-                    "mitigation": "Review suppression rules or add new suppression patterns"
+                    "category": fp_category,
+                    "description": f"{fp} false positive(s) detected. Rules: {fp_examples}",
+                    "example_rules": fp_rules[:5],  # Up to 5 examples
+                    "mitigation": "Review suppression rules or add new suppression patterns. Consider context-aware matching."
                 })
                 issue_id += 1
             
             if fn > 0:
+                # Enhanced FN categorization
+                truth_present = set(truth.get("expected_rule_ids_present", []))
+                if hybrid_runs:
+                    findings = hybrid_runs[0].get("findings", [])
+                    detected_rules = {f.get("rule_id") for f in findings}
+                    missing_rules = truth_present - detected_rules
+                else:
+                    missing_rules = truth_present
+                
+                fn_category = "pattern_mismatch" if missing_rules else "unknown"
+                fn_examples = ", ".join(list(missing_rules)[:3]) if missing_rules else "N/A"
+                
                 issues.append({
                     "issue_id": f"ERR-{issue_id:04d}",
                     "doc_id": doc_id,
                     "system": "hybrid",
                     "type": "false_negative",
-                    "description": f"{fn} false negative(s) - expected rules not detected",
-                    "mitigation": "Review rule patterns or add new rules"
+                    "category": fn_category,
+                    "description": f"{fn} false negative(s) - expected rules not detected. Missing: {fn_examples}",
+                    "missing_rules": list(missing_rules),
+                    "mitigation": "Review rule patterns for linguistic variants. Consider expanding pattern coverage or adding aliases."
                 })
                 issue_id += 1
     

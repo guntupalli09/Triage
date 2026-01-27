@@ -3,25 +3,25 @@
     {
       "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations could expose parties to significant liability without recourse for damages caused by the other party.",
+      "rationale": "The absence of indemnification obligations can leave parties vulnerable to claims or damages arising from breaches or third-party claims.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limited Liability",
+      "risk_title": "Limitation of Liability",
       "severity": "MEDIUM",
-      "rationale": "Capping liability to fees paid may not be sufficient to cover potential damages, which can lead to significant financial exposure.",
+      "rationale": "Limiting liability to total fees paid can expose parties to significant risks, especially for breaches that may lead to substantial damages.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The lack of audit rights limits a party's ability to verify compliance with the agreement, increasing the risk of breaches going undetected.",
+      "rationale": "Without audit rights, a party cannot verify compliance with confidentiality obligations, increasing the risk of misuse of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "HIGH",
-      "rationale": "The absence of intellectual property provisions could lead to disputes over ownership and use of proprietary information shared.",
+      "rationale": "The absence of intellectual property provisions may lead to disputes regarding ownership and use of proprietary information shared during the agreement.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

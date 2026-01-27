@@ -3,20 +3,20 @@
     {
       "risk_title": "Indefinite Term",
       "severity": "HIGH",
-      "rationale": "An indefinite term can lead to perpetual obligations, making it difficult for the Receiving Party to manage long-term liabilities and increasing exposure to potential disputes.",
+      "rationale": "An indefinite term can create ongoing obligations for the Receiving Party, potentially leading to difficulties in compliance and exposure to liability if the confidential information is misused.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
     },
     {
-      "risk_title": "Lack of Specificity in Confidential Information",
+      "risk_title": "Return of Information Clause",
       "severity": "MEDIUM",
-      "rationale": "The broad definition of Confidential Information may lead to ambiguity, resulting in disputes over what information is covered under the NDA.",
-      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party."
+      "rationale": "The requirement to return all Confidential Information upon termination may be burdensome and could lead to disputes regarding what constitutes 'all' information.",
+      "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
     },
     {
-      "risk_title": "Return of Information Obligations",
+      "risk_title": "Governing Law",
       "severity": "MEDIUM",
-      "rationale": "The obligation to return all Confidential Information may create logistical challenges and potential non-compliance risks if not managed properly.",
-      "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
+      "rationale": "The choice of governing law may introduce risks if the laws of California differ significantly from those of the Receiving Party's jurisdiction, impacting legal enforceability.",
+      "evidence_quote": "This Agreement shall be governed by the laws of the State of California."
     }
   ],
   "executed": true

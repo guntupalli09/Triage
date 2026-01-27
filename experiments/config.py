@@ -20,14 +20,27 @@ except ImportError:
 
 # Paths
 EXPERIMENTS_DIR = Path(__file__).parent
-DATA_DIR = EXPERIMENTS_DIR / "data" / "ndas"
+DATA_BASE_DIR = EXPERIMENTS_DIR / "data"
+DATA_DIR = DATA_BASE_DIR / "ndas"  # Default for backward compatibility
 ARTIFACTS_DIR = EXPERIMENTS_DIR / "artifacts"
 RESULTS_DIR = EXPERIMENTS_DIR / "results"
 
-# Dataset
-NUM_PUBLIC_NDAS = 15
-NUM_SYNTHETIC_NDAS = 15
-TOTAL_DOCS = 30
+# Dataset - Multiple contract types (EXPANDED FOR 80%+ ACCEPTANCE)
+NUM_PUBLIC_NDAS = 30  # Expanded from 15
+NUM_SYNTHETIC_NDAS = 30  # Expanded from 15
+NUM_SYNTHETIC_MSAS = 20  # Expanded from 5
+NUM_SYNTHETIC_EMPLOYMENT = 20  # Expanded from 5
+NUM_SYNTHETIC_LICENSING = 15  # NEW contract type
+NUM_SYNTHETIC_PURCHASE = 15  # NEW contract type (for Phase 2)
+TOTAL_DOCS = NUM_PUBLIC_NDAS + NUM_SYNTHETIC_NDAS  # 60 NDAs
+TOTAL_DOCS_EXPANDED = TOTAL_DOCS + NUM_SYNTHETIC_MSAS + NUM_SYNTHETIC_EMPLOYMENT + NUM_SYNTHETIC_LICENSING  # 115 total (Phase 1)
+TOTAL_DOCS_FULL = TOTAL_DOCS_EXPANDED + NUM_SYNTHETIC_PURCHASE  # 130 total (Phase 2)
+
+# Contract type directories
+NDA_DIR = DATA_BASE_DIR / "ndas"
+MSA_DIR = DATA_BASE_DIR / "msas"
+EMPLOYMENT_DIR = DATA_BASE_DIR / "employment"
+LICENSING_DIR = DATA_BASE_DIR / "licensing"
 
 # Run counts
 RUNS_PER_DOC_EXP1 = 5

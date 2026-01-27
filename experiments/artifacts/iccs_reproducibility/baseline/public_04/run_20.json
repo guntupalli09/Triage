@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Undefined Duration for Confidentiality Obligations",
+      "severity": "HIGH",
+      "rationale": "The agreement lacks clarity on the duration of confidentiality obligations beyond termination, potentially exposing sensitive information indefinitely.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution, after which the obligations shall terminate."
+    },
+    {
+      "risk_title": "Limited Scope of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The definition of Confidential Information may be too broad, leading to potential disputes about what is covered and what is not.",
+      "evidence_quote": "Confidential Information includes all proprietary information, trade secrets, business plans, financial data, and technical information disclosed by either party."
+    },
+    {
+      "risk_title": "No Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The absence of an indemnification clause may leave parties vulnerable to liability for breaches of confidentiality by the other party.",
+      "evidence_quote": "Each party agrees to maintain the confidentiality of the other party's Confidential Information and to use such information solely for the purpose of evaluating potential business opportunities."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Undefined Scope of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of 'Confidential Information' may lead to ambiguity regarding what is protected, potentially causing disputes.",
+      "evidence_quote": "All non-public information disclosed by either party, including but not limited to technical specifications, business plans, financial data, and customer lists."
+    },
+    {
+      "risk_title": "Lack of Time Limit on Confidentiality Obligations",
+      "severity": "HIGH",
+      "rationale": "While the agreement has a term of four years, there is no specified duration for confidentiality obligations, which may expose parties indefinitely.",
+      "evidence_quote": "This Agreement shall remain in effect for four (4) years from the date of execution."
+    },
+    {
+      "risk_title": "Potential for Irreparable Harm",
+      "severity": "HIGH",
+      "rationale": "The mention of irreparable harm without clear remedies could lead to challenges in enforcement and compensation.",
+      "evidence_quote": "Breach of this Agreement may cause irreparable harm."
+    },
+    {
+      "risk_title": "Governing Law Considerations",
+      "severity": "MEDIUM",
+      "rationale": "The choice of Delaware law may pose risks for parties unfamiliar with its legal landscape or if disputes arise.",
+      "evidence_quote": "Governing Law: Delaware"
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitations on Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to the total fees paid may expose a party to significant risks, especially in cases of breach or negligence, as damages could exceed the fees.",
+      "evidence_quote": "Each party's liability is limited to the total fees paid under this Agreement."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification obligations at the license fee amount may not provide sufficient protection against large claims or damages.",
+      "evidence_quote": "Each party shall indemnify the other for claims arising from its own negligence, capped at the license fee amount."
+    },
+    {
+      "risk_title": "As-Is Warranty",
+      "severity": "HIGH",
+      "rationale": "Providing the Software 'as-is' without warranties exposes the Licensee to potential functionality issues or defects without recourse.",
+      "evidence_quote": "Licensor provides the Software 'as-is' with no warranties, express or implied."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "A confidentiality obligation lasting only 2 years may not be sufficient for protecting sensitive information, especially for long-term projects.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 2 years."
+    }
+  ],
+  "executed": true
+}

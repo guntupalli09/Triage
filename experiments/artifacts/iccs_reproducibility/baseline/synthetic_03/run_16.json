@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations can expose a party to significant legal risks without recourse for damages incurred due to breaches or other liabilities.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to total fees paid may not adequately protect against potential damages or losses that exceed this amount, posing financial risks.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The lack of audit rights limits the ability to verify compliance or detect breaches, increasing the risk of undiscovered violations.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    }
+  ],
+  "executed": true
+}

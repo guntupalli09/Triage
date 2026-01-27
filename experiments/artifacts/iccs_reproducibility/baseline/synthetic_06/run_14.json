@@ -1,0 +1,17 @@
+{
+  "findings": [
+    {
+      "risk_title": "No Indemnification Obligations",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification may expose parties to unmitigated risks, particularly if confidential information is misused or if there are breaches of the agreement.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "Lack of audit rights can hinder the ability to ensure compliance with the NDA, potentially allowing for misuse of confidential information without detection.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    }
+  ],
+  "executed": true
+}

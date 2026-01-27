@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Duration Clarity",
+      "severity": "MEDIUM",
+      "rationale": "The agreement states that obligations terminate after three years, which may cause uncertainty regarding ongoing confidentiality responsibilities post-term.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution, after which the obligations shall terminate."
+    },
+    {
+      "risk_title": "Potential Ambiguity in Confidential Information Scope",
+      "severity": "MEDIUM",
+      "rationale": "The definition of Confidential Information is broad, which may lead to disputes over what constitutes confidential data.",
+      "evidence_quote": "Confidential Information includes all proprietary information, trade secrets, business plans, financial data, and technical information disclosed by either party."
+    },
+    {
+      "risk_title": "No Specific Penalties for Breach",
+      "severity": "HIGH",
+      "rationale": "The absence of defined penalties for breaches of confidentiality can lead to difficulties in enforcement and accountability.",
+      "evidence_quote": "Each party agrees to maintain the confidentiality of the other party's Confidential Information."
+    }
+  ],
+  "executed": true
+}

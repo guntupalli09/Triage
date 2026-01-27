@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations may expose parties to liability without recourse for damages incurred due to breaches or negligence.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not cover significant damages, potentially leaving parties vulnerable in case of serious breaches.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The lack of audit rights can hinder the ability to ensure compliance with confidentiality obligations and protect against potential misuse of information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The absence of intellectual property provisions may lead to disputes over ownership and usage rights of developed ideas or materials.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "Attorney Fees Responsibility",
+      "severity": "LOW",
+      "rationale": "The requirement for the Receiving Party to pay attorneys' fees may deter them from enforcing their rights, potentially leading to unaddressed breaches.",
+      "evidence_quote": "The Receiving Party shall pay all attorneys' fees and costs incurred by the Disclosing Party in enforcing this Agreement."
+    }
+  ],
+  "executed": true
+}

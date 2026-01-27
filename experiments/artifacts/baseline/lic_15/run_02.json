@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Assignment",
+      "severity": "HIGH",
+      "rationale": "The Licensee irrevocably assigns all rights to modifications and derivative works to the Licensor, which may limit the Licensee's ability to utilize their own developments.",
+      "evidence_quote": "Licensee hereby irrevocably assigns all such rights to Licensor."
+    },
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "Licensor's unlimited liability for indemnification poses a significant financial risk to the Licensee in case of claims arising from modifications or use of the Software.",
+      "evidence_quote": "Licensor's liability is unlimited for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Perpetual confidentiality obligations can lead to ongoing responsibilities for the Licensee, potentially restricting their future operations indefinitely.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory binding arbitration could limit the Licensee's options for dispute resolution, potentially leading to unfavorable outcomes.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration under AAA Commercial Arbitration Rules."
+    },
+    {
+      "risk_title": "Attorneys' Fees Recovery",
+      "severity": "LOW",
+      "rationale": "The Licensor's ability to recover attorneys' fees may deter the Licensee from pursuing legitimate claims, although this is a common practice in contracts.",
+      "evidence_quote": "Licensor shall be entitled to recover all attorneys' fees, court costs, and expenses from Licensee."
+    }
+  ],
+  "executed": true
+}

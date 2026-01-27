@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "The clause allows for unlimited liability, which exposes the Provider to potentially significant financial risks without any cap on damages.",
+      "evidence_quote": "Provider's liability is unlimited and not subject to any cap, including for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Indefinite Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "Perpetual confidentiality obligations could pose a risk of long-term liability and burdens on the Provider, limiting their future opportunities.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely, without any time limitation."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "The requirement of 60 days written notice for termination by the Provider may limit flexibility and responsiveness to changing circumstances.",
+      "evidence_quote": "Provider requires 60 days written notice to terminate."
+    },
+    {
+      "risk_title": "Mandatory Arbitration",
+      "severity": "LOW",
+      "rationale": "Mandatory arbitration may limit the Provider's options for dispute resolution and could lead to increased costs and time.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration in accordance with the rules of the International Chamber of Commerce."
+    }
+  ],
+  "executed": true
+}

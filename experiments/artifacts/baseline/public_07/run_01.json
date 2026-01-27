@@ -1,22 +1,16 @@
 {
   "findings": [
     {
-      "risk_title": "Indefinite Term of Agreement",
+      "risk_title": "Indefinite Duration of Confidentiality",
       "severity": "HIGH",
-      "rationale": "An indefinite term can lead to perpetual obligations without a clear endpoint, increasing the risk of unintentional breaches over time.",
+      "rationale": "An indefinite term may expose the Receiving Party to long-term liabilities and obligations, which can be difficult to manage and may lead to unintentional breaches over time.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
     },
     {
-      "risk_title": "Lack of Specificity in Obligations",
+      "risk_title": "Lack of Specificity in Confidential Information",
       "severity": "MEDIUM",
-      "rationale": "The term 'reasonable precautions' is vague and could lead to differing interpretations, potentially exposing the Receiving Party to liability if confidentiality is breached.",
-      "evidence_quote": "to take all reasonable precautions to protect such Confidential Information."
-    },
-    {
-      "risk_title": "Return of Information Obligation",
-      "severity": "MEDIUM",
-      "rationale": "The requirement to return all Confidential Information could be burdensome and may lead to disputes regarding what constitutes 'all' information.",
-      "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
+      "rationale": "The broad definition of Confidential Information can lead to ambiguity and potential disputes over what is considered confidential, increasing the risk of inadvertent disclosures.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party to the Receiving Party."
     }
   ],
   "executed": true

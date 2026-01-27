@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "The five-year term may not be sufficient for certain sensitive information, potentially exposing it to risk after the term expires.",
+      "evidence_quote": "This Agreement shall remain in effect for five (5) years."
+    },
+    {
+      "risk_title": "Lack of Defined Consequences for Breach",
+      "severity": "HIGH",
+      "rationale": "The agreement does not specify the consequences or penalties for breaching confidentiality, which may lead to difficulties in enforcement.",
+      "evidence_quote": "The Receiving Party agrees to: Maintain the confidentiality of all Confidential Information"
+    },
+    {
+      "risk_title": "Broad Definition of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The vague definition of 'Confidential Information' may lead to disputes over what is protected, increasing the risk of unintentional disclosure.",
+      "evidence_quote": "\"Confidential Information\" means all proprietary or confidential information disclosed by one party to the other"
+    }
+  ],
+  "executed": true
+}

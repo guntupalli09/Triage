@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Liability Clause",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to prior payments may expose the client to significant losses without adequate recourse in cases of negligence or misconduct.",
+      "evidence_quote": "Provider's liability is limited to the amount paid in the 12 months preceding the claim, except for gross negligence or willful misconduct."
+    },
+    {
+      "risk_title": "Indemnification Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Indemnification can lead to unexpected costs and liabilities, especially if the scope is not clearly defined.",
+      "evidence_quote": "Each party shall indemnify the other to the extent required by applicable law."
+    },
+    {
+      "risk_title": "Disclaiming All Warranties",
+      "severity": "MEDIUM",
+      "rationale": "Disclaiming all warranties may leave the client without recourse for defective services or deliverables.",
+      "evidence_quote": "Provider disclaims all warranties except as expressly stated herein."
+    },
+    {
+      "risk_title": "Indefinite Confidentiality Obligations",
+      "severity": "LOW",
+      "rationale": "Indefinite confidentiality may impose ongoing obligations that could be burdensome or impractical for the client.",
+      "evidence_quote": "Confidentiality obligations survive termination indefinitely."
+    }
+  ],
+  "executed": true
+}

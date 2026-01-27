@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "Provider's liability being unlimited poses significant financial risk to them, especially in cases of indemnification or intellectual property claims where costs can be substantial.",
+      "evidence_quote": "Provider's liability is unlimited and not subject to any cap, including for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Indefinite confidentiality obligations may lead to challenges in managing information and could impact the Provider's ability to use similar knowledge in other projects.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely, without any time limitation."
+    },
+    {
+      "risk_title": "Client's Termination Rights",
+      "severity": "MEDIUM",
+      "rationale": "Client can terminate the agreement at any time without cause, potentially leaving the Provider at risk of sudden termination and financial loss.",
+      "evidence_quote": "Client may terminate this Agreement at any time with or without cause."
+    },
+    {
+      "risk_title": "Mandatory Arbitration",
+      "severity": "LOW",
+      "rationale": "Mandatory arbitration may limit the Provider's options for recourse in disputes, but it can also lead to quicker resolutions.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration in accordance with the rules of the International Chamber of Commerce."
+    },
+    {
+      "risk_title": "Exclusive Jurisdiction",
+      "severity": "LOW",
+      "rationale": "The requirement for disputes to be settled in California may create logistical challenges for the Provider if they are located elsewhere.",
+      "evidence_quote": "This Agreement is governed by California law, and the parties consent to exclusive jurisdiction in California courts."
+    }
+  ],
+  "executed": true
+}

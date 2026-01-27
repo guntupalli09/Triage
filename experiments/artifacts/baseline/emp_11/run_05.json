@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Clause Risk",
+      "severity": "HIGH",
+      "rationale": "The Employee is responsible for indemnifying the Employer for claims arising from willful misconduct, which could expose the Employee to significant financial liability.",
+      "evidence_quote": "Employee shall indemnify Employer to the extent required by applicable law for claims arising from Employee's willful misconduct."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "The confidentiality obligations last for 2 years after termination, which may be excessive and could limit the Employee's future employment opportunities.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination of employment."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "The 2 weeks written notice for termination may not provide sufficient time for either party to secure a replacement or prepare for the transition.",
+      "evidence_quote": "Either party may terminate this Agreement with 2 weeks written notice."
+    }
+  ],
+  "executed": true
+}

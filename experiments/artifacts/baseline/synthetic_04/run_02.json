@@ -1,34 +1,28 @@
 {
   "findings": [
     {
-      "risk_title": "No Indemnification Obligations",
+      "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification provisions may expose one party to liability without recourse, increasing risk in case of breaches or third-party claims.",
+      "rationale": "The absence of indemnification obligations can expose a party to significant financial risk without recourse for damages incurred due to breaches by the other party.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limited Liability",
+      "risk_title": "Limitation of Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid can create significant exposure if damages exceed this amount, leaving a party vulnerable in high-stakes situations.",
+      "rationale": "Limiting liability to total fees paid may not adequately protect against substantial damages, especially if the breach causes significant harm.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The lack of audit rights limits the ability to verify compliance with confidentiality obligations, increasing the risk of misuse of confidential information.",
+      "rationale": "The lack of audit rights prevents one party from verifying compliance with the NDA, increasing the risk of undisclosed breaches.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "HIGH",
-      "rationale": "The absence of intellectual property provisions may lead to disputes over ownership and use of intellectual property developed during the agreement.",
+      "rationale": "Absence of intellectual property provisions can lead to potential disputes regarding ownership and use of shared information, risking both parties' assets.",
       "evidence_quote": "No intellectual property provisions apply."
-    },
-    {
-      "risk_title": "Unilateral Attorneys' Fees",
-      "severity": "MEDIUM",
-      "rationale": "Requiring only the Receiving Party to pay attorneys' fees can deter the Receiving Party from enforcing rights, increasing risk for the Disclosing Party.",
-      "evidence_quote": "The Receiving Party shall pay all attorneys' fees and costs incurred by the Disclosing Party in enforcing this Agreement."
     }
   ],
   "executed": true

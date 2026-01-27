@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Ownership of Work Product",
+      "severity": "HIGH",
+      "rationale": "The employer retains ownership of all work products, which may limit the employee's ability to use their own creations in future roles.",
+      "evidence_quote": "Work product created during employment is owned by Employer, with Employee receiving a royalty-free license for personal portfolio use."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "The confidentiality obligations lasting four years post-termination may be excessive and could hinder the employee's future employment opportunities.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 4 years."
+    },
+    {
+      "risk_title": "Non-Compete Duration",
+      "severity": "HIGH",
+      "rationale": "An 18-month non-compete clause may significantly restrict the employee's ability to find new employment in their field.",
+      "evidence_quote": "Employee may not work for direct competitors for 18 months after termination."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at the employee's annual salary may limit recourse in cases of significant negligence by the employer.",
+      "evidence_quote": "each party indemnifies the other for its own negligence, capped at annual salary."
+    },
+    {
+      "risk_title": "Dispute Resolution Process",
+      "severity": "LOW",
+      "rationale": "The vague requirement for good faith negotiation may lead to ambiguity in resolving disputes effectively.",
+      "evidence_quote": "Disputes shall be resolved through good faith negotiation."
+    }
+  ],
+  "executed": true
+}

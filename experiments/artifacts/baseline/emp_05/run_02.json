@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "The obligation to maintain confidentiality indefinitely may expose the employee to prolonged liability and restrict future employment opportunities.",
+      "evidence_quote": "Employee agrees to maintain strict confidentiality of all proprietary information, trade secrets, and business strategies indefinitely, without any time limitation."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee is required to indemnify the employer without limitation, which could lead to significant financial exposure for the employee.",
+      "evidence_quote": "Employee shall defend, indemnify, and hold harmless Employer from any and all claims, damages, losses, and expenses, without limitation."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration can limit the employee's options for dispute resolution, potentially favoring the employer in case of conflicts.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration under the rules of the American Arbitration Association."
+    },
+    {
+      "risk_title": "Employer's Termination Rights",
+      "severity": "MEDIUM",
+      "rationale": "The employer's ability to terminate the agreement at any time, with or without cause, creates job insecurity for the employee.",
+      "evidence_quote": "Employer may terminate this Agreement at any time, with or without cause."
+    },
+    {
+      "risk_title": "Lengthy Non-Compete Clause",
+      "severity": "MEDIUM",
+      "rationale": "A 3-year non-compete period may significantly limit the employee's future employment options and career growth.",
+      "evidence_quote": "Employee shall not engage in any competitive business activity or solicit Employer's employees or customers for a period of 3 years following termination."
+    },
+    {
+      "risk_title": "Exclusive Governing Law",
+      "severity": "LOW",
+      "rationale": "The exclusivity of California law may pose a risk for employees located outside California, complicating legal proceedings.",
+      "evidence_quote": "This Agreement is governed by California law, and the parties consent to exclusive jurisdiction in California courts."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Vague Indemnification Limits",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification is capped at the annual contract value, which may not cover significant claims, exposing both parties to potential financial losses.",
+      "evidence_quote": "each party indemnifies the other for claims arising from its own breach, capped at the annual contract value."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to fees paid in the last 24 months may leave parties vulnerable to larger claims that exceed this amount.",
+      "evidence_quote": "Each party's liability is limited to the total fees paid in the 24 months preceding the claim."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "A 45-day notice period for termination may not provide sufficient time for parties to transition or mitigate impacts of contract termination.",
+      "evidence_quote": "This Agreement may be terminated by either party with 45 days written notice for convenience."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "MEDIUM",
+      "rationale": "The choice of Nevada law may be unfavorable to one party if they are not familiar with its legal environment, leading to potential disputes.",
+      "evidence_quote": "This Agreement is governed by the laws of the State of Nevada."
+    },
+    {
+      "risk_title": "No Provision for Attorneys' Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "Each party bears its own attorneys' fees, which may discourage legitimate claims due to the financial burden of legal costs.",
+      "evidence_quote": "Each party shall pay its own attorneys' fees and costs in connection with any dispute."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unilateral Termination",
+      "severity": "HIGH",
+      "rationale": "The Client can terminate the agreement immediately, creating a risk for the Provider as they may lose business without sufficient notice.",
+      "evidence_quote": "Client may terminate immediately upon written notice. Provider requires 45 days notice."
+    },
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "The Provider has unlimited liability for certain claims, which poses a significant financial risk if issues arise.",
+      "evidence_quote": "Provider's liability is unlimited for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "The indefinite nature of confidentiality obligations could lead to compliance difficulties for the Provider over time.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely after termination."
+    },
+    {
+      "risk_title": "Attorney's Fees Responsibility",
+      "severity": "MEDIUM",
+      "rationale": "The requirement for the Provider to cover the Client's attorney fees in enforcement actions may pose a financial burden.",
+      "evidence_quote": "Client shall be entitled to recover all attorneys' fees, court costs, and expenses from Provider in any enforcement action."
+    }
+  ],
+  "executed": true
+}

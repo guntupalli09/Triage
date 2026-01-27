@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification limit of $150,000 could expose either party to significant financial risk if a claim exceeds this amount.",
+      "evidence_quote": "Each party shall indemnify the other for claims arising from its own breach, capped at $150,000 per claim."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "A 2-year confidentiality obligation post-termination may not be sufficient to protect sensitive information, especially in fast-paced industries.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "No Non-Compete Clause",
+      "severity": "LOW",
+      "rationale": "While the absence of a non-compete clause may attract talent, it also allows for potential competition from the employee immediately after leaving.",
+      "evidence_quote": "No non-compete restrictions apply to this position."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "A 30-day notice period for termination may not provide sufficient time for an employer to mitigate risks associated with losing key personnel.",
+      "evidence_quote": "This Agreement may be terminated by either party with 30 days written notice."
+    }
+  ],
+  "executed": true
+}

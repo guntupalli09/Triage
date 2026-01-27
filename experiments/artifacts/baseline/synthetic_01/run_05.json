@@ -3,19 +3,25 @@
     {
       "risk_title": "Indemnification Without Limit",
       "severity": "HIGH",
-      "rationale": "The Receiving Party's unlimited indemnification obligation may expose them to significant financial liability without clear boundaries.",
-      "evidence_quote": "The Receiving Party shall indemnify, defend, and hold harmless the Disclosing Party from and against all claims, losses, and damages, without limit, arising from any breach of this Agreement."
+      "rationale": "The Receiving Party's unlimited indemnification could expose them to unforeseen liabilities, significantly increasing financial risk.",
+      "evidence_quote": "The Receiving Party shall indemnify, defend, and hold harmless the Disclosing Party from and against all claims, losses, and damages, without limit."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "Lack of audit rights prevents the Disclosing Party from verifying compliance with the NDA, increasing the risk of misuse of confidential information.",
+      "rationale": "The lack of audit rights may hinder the Receiving Party's ability to verify compliance with confidentiality, potentially leading to misuse of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
-      "risk_title": "Intellectual Property Provisions Missing",
+      "risk_title": "Limited Liability",
       "severity": "MEDIUM",
-      "rationale": "The absence of intellectual property provisions may lead to disputes over ownership and usage of created works, especially if confidential information is involved.",
+      "rationale": "Limiting liability to fees paid could result in inadequate compensation for the Disclosing Party in case of significant breaches.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "LOW",
+      "rationale": "Absence of intellectual property provisions may lead to ambiguity in ownership and usage rights of shared confidential information.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

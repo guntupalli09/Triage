@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "An indefinite confidentiality obligation may hinder the employee's future employment opportunities and could lead to disputes over what constitutes proprietary information.",
+      "evidence_quote": "Employee agrees to maintain confidentiality of all proprietary information indefinitely, even after termination of employment."
+    },
+    {
+      "risk_title": "Two-Year Non-Compete Clause",
+      "severity": "MEDIUM",
+      "rationale": "A two-year non-compete clause may restrict the employee's ability to find new employment and could be viewed as overly restrictive depending on jurisdiction.",
+      "evidence_quote": "Employee agrees not to compete with Employer for a period of 2 years after termination, within a 50-mile radius."
+    },
+    {
+      "risk_title": "Employer Indemnification Requirement",
+      "severity": "HIGH",
+      "rationale": "The indemnification clause places a significant burden on the employee, potentially exposing them to substantial financial liability for actions taken within the scope of their employment.",
+      "evidence_quote": "Employee shall indemnify Employer against all claims, losses, and expenses without limitation arising from Employee's actions."
+    },
+    {
+      "risk_title": "At-Will Termination Clause",
+      "severity": "MEDIUM",
+      "rationale": "An at-will termination clause allows either party to terminate the agreement with little notice, which may create job security concerns for the employee.",
+      "evidence_quote": "Either party may terminate this Agreement at will, with or without cause, upon 2 weeks written notice."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Requiring binding arbitration may limit the employee's ability to seek recourse through the courts, which can be seen as unfavorable to the employee.",
+      "evidence_quote": "All disputes shall be resolved through binding arbitration in accordance with AAA rules."
+    }
+  ],
+  "executed": true
+}

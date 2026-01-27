@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Term of Agreement",
+      "severity": "HIGH",
+      "rationale": "An indefinite term may pose a risk as it could lead to perpetual obligations without clear exit strategies, potentially trapping parties in ongoing confidentiality obligations.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship."
+    },
+    {
+      "risk_title": "Limited Exceptions to Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The narrow definition of exceptions to confidential information may expose the recipient to liability for inadvertently disclosing information that might fall into a gray area.",
+      "evidence_quote": "Confidential Information does not include information that: - Is publicly available - Was already known to Recipient - Is independently developed by Recipient."
+    },
+    {
+      "risk_title": "Governing Law Jurisdiction",
+      "severity": "MEDIUM",
+      "rationale": "The choice of California law may lead to complications if the parties are located in different jurisdictions or if there are differing interpretations of confidentiality obligations.",
+      "evidence_quote": "This Agreement is governed by California law."
+    }
+  ],
+  "executed": true
+}

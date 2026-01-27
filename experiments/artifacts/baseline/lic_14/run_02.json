@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Revocable License",
+      "severity": "HIGH",
+      "rationale": "The license is revocable, which means that the Licensee could lose access to the software at any time, impacting their operations.",
+      "evidence_quote": "Licensor grants Licensee a non-exclusive, revocable license to use the Software for evaluation and testing purposes only."
+    },
+    {
+      "risk_title": "Limitations on Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not adequately protect the Licensee from potential losses or damages incurred from using the software.",
+      "evidence_quote": "Licensor's liability is limited to the amount of any fees actually paid by Licensee, if any."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The Licensee is required to indemnify the Licensor, which may expose the Licensee to significant financial risk without clear limits.",
+      "evidence_quote": "Licensee shall indemnify Licensor to the extent required by applicable law for claims arising from Licensee's evaluation use."
+    },
+    {
+      "risk_title": "No Warranties",
+      "severity": "HIGH",
+      "rationale": "The 'as-is' provision indicates that the Licensor offers no warranties, potentially exposing the Licensee to risks associated with software defects.",
+      "evidence_quote": "Licensor provides the Software 'as-is' with no warranties during the evaluation period."
+    },
+    {
+      "risk_title": "Short Confidentiality Period",
+      "severity": "MEDIUM",
+      "rationale": "A 6-month confidentiality obligation may not be sufficient for protecting sensitive information shared during the evaluation.",
+      "evidence_quote": "Confidentiality obligations continue for 6 months after termination of the evaluation period."
+    }
+  ],
+  "executed": true
+}

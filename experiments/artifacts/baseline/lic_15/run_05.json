@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability for Licensor",
+      "severity": "HIGH",
+      "rationale": "The limitation of liability clause allows the Licensor to have unlimited liability for certain claims, which poses a significant financial risk for the Licensee.",
+      "evidence_quote": "Licensor's liability is unlimited for indemnification, confidentiality, and intellectual property claims, and is not subject to any cap."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Indefinite confidentiality obligations may expose the Licensee to ongoing responsibilities without a clear end, potentially resulting in unanticipated liabilities.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely, without any expiration or time limitation."
+    },
+    {
+      "risk_title": "Indemnification Without Limitation",
+      "severity": "HIGH",
+      "rationale": "The indemnification clause places the burden of all claims onto the Licensee, which could lead to significant financial exposure without a cap.",
+      "evidence_quote": "Licensee shall indemnify Licensor for all claims, losses, damages, and expenses, without limitation, arising from Licensee's modifications or use of the Software."
+    },
+    {
+      "risk_title": "Mandatory Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the Licensee's ability to seek remedies in court, which can be a disadvantage in disputes.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration under AAA Commercial Arbitration Rules."
+    },
+    {
+      "risk_title": "Termination Conditions Favor Licensor",
+      "severity": "MEDIUM",
+      "rationale": "The Licensor can terminate the agreement immediately upon breach, which may leave the Licensee with little recourse or time to remedy the situation.",
+      "evidence_quote": "Licensor may terminate immediately upon Licensee's breach."
+    }
+  ],
+  "executed": true
+}

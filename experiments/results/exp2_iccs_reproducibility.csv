@@ -1,0 +1,16 @@
+doc_id,hybrid_variance_count,hybrid_distinct_output_sets,hybrid_reproducible,baseline_variance_count,baseline_distinct_output_sets,baseline_has_variance,baseline_executed
+public_01,0,1,True,15,20,True,True
+public_02,0,1,True,1,19,True,True
+public_03,0,1,True,2,19,True,True
+public_04,0,1,True,11,20,True,True
+public_05,0,1,True,4,20,True,True
+public_06,0,1,True,14,20,True,True
+public_07,0,1,True,1,20,True,True
+public_08,0,1,True,8,20,True,True
+synthetic_01,0,1,True,10,17,True,True
+synthetic_02,0,1,True,2,12,True,True
+synthetic_03,0,1,True,8,16,True,True
+synthetic_04,0,1,True,13,17,True,True
+synthetic_05,0,1,True,4,19,True,True
+synthetic_06,0,1,True,3,18,True,True
+synthetic_07,0,1,True,1,17,True,True

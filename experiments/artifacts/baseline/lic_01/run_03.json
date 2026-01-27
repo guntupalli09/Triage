@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "Licensor's liability is unlimited, which poses a significant financial risk to the Licensee in case of any claims or losses.",
+      "evidence_quote": "Licensor's liability is unlimited and not subject to any limitation of liability clause."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The Licensee is required to indemnify the Licensor against all claims without limitation, which could lead to substantial financial exposure.",
+      "evidence_quote": "Licensee shall indemnify Licensor against all claims, losses, and expenses without limitation arising from Licensee's use of the Software."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations that survive termination may impose ongoing responsibilities and liabilities on the Licensee indefinitely.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue in perpetuity."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Binding arbitration may limit the Licensee's ability to pursue claims in a court of law, potentially resulting in less favorable outcomes.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under AAA rules."
+    },
+    {
+      "risk_title": "Attorney's Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "The clause allowing the Licensor to recover attorney's fees could deter the Licensee from pursuing legitimate disputes due to potential high costs.",
+      "evidence_quote": "Licensor shall be entitled to recover all attorneys' fees and costs in any action to enforce this Agreement."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Undefined Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "The duration of confidentiality is limited to four years, which might not be sufficient for some types of sensitive information, potentially leading to risk of exposure after the term.",
+      "evidence_quote": "This Agreement shall remain in effect for four (4) years from the date of execution."
+    },
+    {
+      "risk_title": "Broad Definition of Confidential Information",
+      "severity": "HIGH",
+      "rationale": "The definition of Confidential Information includes a wide range of data, which may lead to ambiguity and potential disputes regarding what constitutes confidential material.",
+      "evidence_quote": "All non-public information disclosed by either party, including but not limited to technical specifications, business plans, financial data, and customer lists."
+    },
+    {
+      "risk_title": "Limited Remedies for Breach",
+      "severity": "MEDIUM",
+      "rationale": "While the agreement mentions injunctive relief, it does not specify other potential remedies or damages, which may limit the non-breaching party's options for recourse.",
+      "evidence_quote": "Breach of this Agreement may cause irreparable harm. The non-breaching party shall be entitled to seek injunctive relief."
+    }
+  ],
+  "executed": true
+}

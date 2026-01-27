@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Ambiguity in Confidential Information Definition",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of 'Confidential Information' may lead to disputes over what constitutes confidential data, increasing the risk of unintentional breaches.",
+      "evidence_quote": "All non-public information disclosed by either party, including but not limited to technical specifications, business plans, financial data, and customer lists."
+    },
+    {
+      "risk_title": "Duration of Confidentiality",
+      "severity": "HIGH",
+      "rationale": "A four-year term may not be sufficient for certain types of sensitive information, potentially exposing parties to risks after the agreement expires.",
+      "evidence_quote": "This Agreement shall remain in effect for four (4) years from the date of execution."
+    },
+    {
+      "risk_title": "Limited Remedies for Breach",
+      "severity": "MEDIUM",
+      "rationale": "While injunctive relief is mentioned, the absence of specific monetary damages may limit recourse and deter enforcement.",
+      "evidence_quote": "The non-breaching party shall be entitled to seek injunctive relief."
+    }
+  ],
+  "executed": true
+}

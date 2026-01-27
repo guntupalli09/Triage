@@ -1,0 +1,17 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "The confidentiality obligations last only three years, which may expose sensitive information after this period.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution, after which the obligations shall terminate."
+    },
+    {
+      "risk_title": "Lack of Consequences for Breach",
+      "severity": "HIGH",
+      "rationale": "The contract does not specify the consequences or remedies available in the event of a breach, which may lead to unaddressed violations.",
+      "evidence_quote": "Each party agrees to maintain the confidentiality of the other party's Confidential Information..."
+    }
+  ],
+  "executed": true
+}

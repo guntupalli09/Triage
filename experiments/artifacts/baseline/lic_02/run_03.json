@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Exclusive License Grant",
+      "severity": "HIGH",
+      "rationale": "An exclusive license could restrict the Licensor's ability to grant further licenses, potentially impacting revenue and market flexibility.",
+      "evidence_quote": "Licensor grants Licensee a perpetual, exclusive license to use the Software for commercial purposes."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to the total license fees may expose a party to significant unforeseen damages that exceed the paid fees.",
+      "evidence_quote": "Each party's liability is limited to the total license fees paid under this Agreement."
+    },
+    {
+      "risk_title": "Indemnification Scope",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause may not specify the extent or limitations, leading to potential disputes over responsibilities.",
+      "evidence_quote": "Each party shall indemnify the other to the extent required by applicable law for third-party claims."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "A 90-day notice period for termination may not provide enough time for parties to adjust or mitigate ongoing commitments.",
+      "evidence_quote": "This Agreement may be terminated by mutual consent or by either party with 90 days notice."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A three-year confidentiality obligation may not align with the nature of the information shared, possibly leading to risks of premature disclosure.",
+      "evidence_quote": "Confidentiality obligations continue for 3 years after termination."
+    }
+  ],
+  "executed": true
+}

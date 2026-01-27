@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations exposes parties to potential liabilities without recourse for damages or losses.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The lack of audit rights means that the Receiving Party cannot verify the compliance of the Disclosing Party with confidentiality obligations.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability Clause",
+      "severity": "MEDIUM",
+      "rationale": "The limitation of liability clause could leave a party exposed to significant damages that are not covered under the agreement.",
+      "evidence_quote": "Limitation of liability shall not apply to indemnification, except as required by applicable law."
+    }
+  ],
+  "executed": true
+}

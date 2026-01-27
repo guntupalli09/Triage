@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "The requirement for indefinite confidentiality can lead to uncertainty about the employee's future professional opportunities and may be overly burdensome.",
+      "evidence_quote": "Employee must maintain strict confidentiality of all proprietary information, customer lists, and business strategies indefinitely."
+    },
+    {
+      "risk_title": "At-Will Termination by Employer",
+      "severity": "MEDIUM",
+      "rationale": "The employer's ability to terminate the employee at will without cause may create job insecurity for the employee.",
+      "evidence_quote": "Employer may terminate at will."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the employee's rights to pursue legal action in court, which can be a disadvantage in disputes.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The indemnification requirement places significant liability on the employee for actions that may arise during their employment.",
+      "evidence_quote": "Employee shall defend, indemnify, and hold harmless Employer from all claims, without limitation."
+    },
+    {
+      "risk_title": "Two-Year Non-Compete Clause",
+      "severity": "MEDIUM",
+      "rationale": "A two-year non-compete can significantly restrict the employee's ability to find new employment in their field.",
+      "evidence_quote": "Employee shall not engage in competitive business activities or solicit Employer's customers for 2 years following termination."
+    },
+    {
+      "risk_title": "Recovery of Attorneys' Fees",
+      "severity": "MEDIUM",
+      "rationale": "The clause allowing the employer to recover attorneys' fees may deter the employee from pursuing legitimate claims due to fear of financial burden.",
+      "evidence_quote": "In any action to enforce this Agreement, Employer shall recover all attorneys' fees and costs from Employee."
+    }
+  ],
+  "executed": true
+}

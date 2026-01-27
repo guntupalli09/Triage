@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Requirement",
+      "severity": "HIGH",
+      "rationale": "Indefinite confidentiality obligations can lead to unreasonable restrictions on the employee's future employment opportunities and may not be enforceable in all jurisdictions.",
+      "evidence_quote": "Employee must maintain strict confidentiality of all research data, proprietary methods, and trade secrets indefinitely, without any time limitation."
+    },
+    {
+      "risk_title": "Termination Without Cause",
+      "severity": "MEDIUM",
+      "rationale": "The employer's ability to terminate the agreement at any time without cause can create job security concerns for the employee.",
+      "evidence_quote": "Employer may terminate this Agreement at any time, with or without cause."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee's obligation to indemnify the employer for any claims or damages may expose the employee to significant financial risk.",
+      "evidence_quote": "Employee shall defend, indemnify, and hold harmless Employer from any and all claims, damages, losses, and expenses, without limitation."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration can limit the employee's options for dispute resolution and may favor the employer in disputes.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of the American Arbitration Association."
+    },
+    {
+      "risk_title": "Recovery of Attorneys' Fees",
+      "severity": "MEDIUM",
+      "rationale": "The clause allowing the employer to recover all attorneys' fees may deter the employee from pursuing valid claims due to potential financial burden.",
+      "evidence_quote": "Employer shall be entitled to recover all attorneys' fees, court costs, and expenses from Employee in any enforcement action."
+    }
+  ],
+  "executed": true
+}

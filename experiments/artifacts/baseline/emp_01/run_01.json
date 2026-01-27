@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "The requirement for the employee to maintain confidentiality indefinitely may impose unreasonable long-term obligations and restrict future employment opportunities.",
+      "evidence_quote": "Employee agrees to maintain confidentiality of all proprietary information indefinitely, even after termination of employment."
+    },
+    {
+      "risk_title": "Non-Compete Duration",
+      "severity": "MEDIUM",
+      "rationale": "A 2-year non-compete clause can significantly limit the employee's ability to find work in their field after leaving the company.",
+      "evidence_quote": "Employee agrees not to compete with Employer for a period of 2 years after termination, within a 50-mile radius."
+    },
+    {
+      "risk_title": "At-Will Termination",
+      "severity": "MEDIUM",
+      "rationale": "The at-will termination clause allows either party to end the agreement without cause, which may lead to job insecurity for the employee.",
+      "evidence_quote": "Either party may terminate this Agreement at will, with or without cause, upon 2 weeks written notice."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee's obligation to indemnify the employer against all claims without limitation can expose the employee to significant financial risk.",
+      "evidence_quote": "Employee shall indemnify Employer against all claims, losses, and expenses without limitation arising from Employee's actions."
+    }
+  ],
+  "executed": true
+}

@@ -3,31 +3,31 @@
     {
       "risk_title": "Perpetual Confidentiality Obligations",
       "severity": "HIGH",
-      "rationale": "The obligation to maintain confidentiality in perpetuity may impose indefinite restrictions on parties, increasing the risk of unintentional breaches over time.",
+      "rationale": "The perpetual nature of confidentiality obligations may expose a party to indefinite risk, limiting their ability to use information freely in the future.",
       "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
     },
     {
-      "risk_title": "Unlimited Indemnification",
+      "risk_title": "Unlimited Indemnification Clause",
       "severity": "HIGH",
-      "rationale": "Indemnifying without limit can expose a party to significant financial liabilities, especially if a breach leads to substantial claims.",
+      "rationale": "An unlimited indemnification clause may result in significant financial exposure for one party, potentially leading to unmanageable liabilities.",
       "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit."
     },
     {
       "risk_title": "No Limitation of Liability",
       "severity": "HIGH",
-      "rationale": "The absence of liability limitations can result in unforeseen financial exposure for either party in case of legal claims.",
+      "rationale": "The absence of liability limitations can lead to excessive financial liabilities for either party, especially in the event of a breach.",
       "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
     },
     {
-      "risk_title": "Intellectual Property Assignment",
+      "risk_title": "One-Sided Intellectual Property Ownership",
       "severity": "MEDIUM",
-      "rationale": "The automatic assignment of rights to Company A may limit the other party's ability to utilize their own contributions, creating potential disputes.",
-      "evidence_quote": "The receiving party hereby assigns all right, title, and interest in such work product."
+      "rationale": "The exclusive ownership of work product by one party may deter collaboration and lead to disputes regarding rights to jointly developed materials.",
+      "evidence_quote": "All work product and deliverables created hereunder shall be owned exclusively by Company A."
     },
     {
       "risk_title": "Recovery of Attorneys' Fees",
       "severity": "MEDIUM",
-      "rationale": "The provision to recover attorneys' fees may deter parties from pursuing legitimate claims due to the fear of incurring additional costs.",
+      "rationale": "The provision for recovery of attorneys' fees may discourage parties from pursuing legitimate claims due to fear of financial repercussions.",
       "evidence_quote": "The prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party."
     }
   ],

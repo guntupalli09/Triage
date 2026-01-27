@@ -1,27 +1,27 @@
 {
   "findings": [
     {
-      "risk_title": "Limited Indemnification",
+      "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations may leave the Receiving Party vulnerable to liability without recourse.",
+      "rationale": "The absence of indemnification obligations may expose parties to liability without recourse, increasing financial risk.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to total fees paid may not cover potential damages, creating a risk for significant losses.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "Lack of intellectual property provisions may lead to misuse or misappropriation of proprietary information.",
+      "rationale": "The absence of intellectual property provisions may lead to disputes over ownership and usage rights of shared information.",
       "evidence_quote": "No intellectual property provisions apply."
     },
     {
-      "risk_title": "Limitation of Liability",
-      "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid may not cover potential damages, exposing the Disclosing Party to risks.",
-      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
-    },
-    {
-      "risk_title": "Absence of Late Fees",
+      "risk_title": "No Late Fees",
       "severity": "LOW",
-      "rationale": "Not having late fees may encourage delayed payments without financial repercussions.",
+      "rationale": "The lack of late fees may encourage delays in payment, but it is a minor risk compared to other factors.",
       "evidence_quote": "No late fees apply."
     }
   ],

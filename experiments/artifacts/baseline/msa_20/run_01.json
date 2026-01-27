@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "The Provider's unlimited liability for indemnification obligations can expose them to significant financial risk without a cap.",
+      "evidence_quote": "Provider's liability is unlimited for indemnification obligations and breaches of confidentiality or intellectual property provisions."
+    },
+    {
+      "risk_title": "Confidentiality in Perpetuity",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations that survive indefinitely can create long-term obligations and risks for the Provider.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue in perpetuity without expiration."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability of either party to terminate for convenience with short notice may create instability and uncertainty in the relationship.",
+      "evidence_quote": "Either party may terminate for convenience with 30 days written notice."
+    },
+    {
+      "risk_title": "Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the Provider's legal recourse and could lead to unfavorable outcomes.",
+      "evidence_quote": "All disputes arising from this Agreement shall be resolved through binding arbitration under AAA Commercial Arbitration Rules."
+    }
+  ],
+  "executed": true
+}

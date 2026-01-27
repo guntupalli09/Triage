@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee is responsible for indemnifying the employer for claims arising from the employee's gross negligence, which could expose the employee to significant financial liability.",
+      "evidence_quote": "Employee shall indemnify Employer to the extent required by applicable law for claims arising from Employee's gross negligence."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "The confidentiality obligations lasting for 2 years post-termination could limit the employee's future opportunities and may be burdensome.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination of employment."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "A 30 days notice period is relatively standard, but it may not provide sufficient time for transition or to secure new employment.",
+      "evidence_quote": "This Agreement may be terminated by either party with 30 days written notice."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "The agreement is governed by New York state law, which may have implications on dispute resolution and enforceability that the employee should understand.",
+      "evidence_quote": "This Agreement is subject to New York state law."
+    }
+  ],
+  "executed": true
+}

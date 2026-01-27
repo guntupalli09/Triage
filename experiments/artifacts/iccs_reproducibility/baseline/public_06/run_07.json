@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations lasting only two years may expose sensitive information to risks after the term ends.",
+      "evidence_quote": "Confidentiality obligations shall continue for two (2) years after termination of discussions."
+    },
+    {
+      "risk_title": "Broad Definition of Confidential Information",
+      "severity": "HIGH",
+      "rationale": "The broad definition may lead to disputes over what constitutes confidential information, potentially allowing for misuse.",
+      "evidence_quote": "Confidential Information means all proprietary information disclosed by one party to the other."
+    },
+    {
+      "risk_title": "Lack of Specificity in Return or Destruction",
+      "severity": "MEDIUM",
+      "rationale": "The obligation to return or destroy information lacks detail on the process, which could lead to non-compliance.",
+      "evidence_quote": "Return or destroy all Confidential Information upon request."
+    }
+  ],
+  "executed": true
+}

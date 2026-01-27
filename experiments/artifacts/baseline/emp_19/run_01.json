@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Joint Ownership of Intellectual Property",
+      "severity": "HIGH",
+      "rationale": "Joint ownership could lead to disputes over usage rights and revenue sharing, complicating future projects and ownership claims.",
+      "evidence_quote": "Work product created during employment is jointly owned, with Employer receiving an exclusive license for business use."
+    },
+    {
+      "risk_title": "Extended Confidentiality Period",
+      "severity": "MEDIUM",
+      "rationale": "A 2.5-year confidentiality obligation post-employment may hinder the employee's future job opportunities and involvement in similar industries.",
+      "evidence_quote": "Confidentiality obligations continue for 2.5 years after termination of employment."
+    },
+    {
+      "risk_title": "Restrictive Non-Compete Clause",
+      "severity": "HIGH",
+      "rationale": "A 1-year non-compete within the same geographic region may severely limit the employee's future employment options.",
+      "evidence_quote": "Employee may not work for direct competitors for 1 year after termination within the same geographic region."
+    },
+    {
+      "risk_title": "Termination Notice Requirement",
+      "severity": "MEDIUM",
+      "rationale": "A 45-day notice for termination could create uncertainty for both parties, leading to potential operational disruptions.",
+      "evidence_quote": "Either party may terminate for convenience with 45 days written notice."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at the annual contract value may expose the parties to significant financial liabilities beyond the cap in case of breach.",
+      "evidence_quote": "Each party indemnifies the other for its own breach, capped at the annual contract value."
+    }
+  ],
+  "executed": true
+}

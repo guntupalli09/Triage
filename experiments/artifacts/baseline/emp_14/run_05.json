@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Clause",
+      "severity": "HIGH",
+      "rationale": "An indefinite confidentiality obligation may overly restrict the employee's future employment opportunities and could be challenged in court for being unreasonable.",
+      "evidence_quote": "Employee must maintain strict confidentiality of all research data, proprietary methods, and trade secrets indefinitely, without any time limitation."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification requirement is broad and could expose the employee to significant financial liability for actions taken during employment.",
+      "evidence_quote": "Employee shall defend, indemnify, and hold harmless Employer from any and all claims, damages, losses, and expenses, without limitation."
+    },
+    {
+      "risk_title": "Employer's Right to Terminate at Any Time",
+      "severity": "MEDIUM",
+      "rationale": "The employer's ability to terminate the agreement at any time without cause creates job security risks for the employee.",
+      "evidence_quote": "Employer may terminate this Agreement at any time, with or without cause."
+    },
+    {
+      "risk_title": "Three-Year Non-Compete Clause",
+      "severity": "HIGH",
+      "rationale": "A three-year non-compete period is significant and may hinder the employee's ability to find new employment in their field.",
+      "evidence_quote": "Employee shall not engage in competitive research or solicit Employer's research partners for 3 years following termination."
+    },
+    {
+      "risk_title": "Mandatory Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration can limit the employee's ability to seek legal recourse in a court, which may be viewed as unfavorable.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of the American Arbitration Association."
+    },
+    {
+      "risk_title": "Recovery of Attorneys' Fees",
+      "severity": "MEDIUM",
+      "rationale": "The clause allowing the employer to recover attorneys' fees may deter the employee from pursuing legitimate claims due to financial risk.",
+      "evidence_quote": "Employer shall be entitled to recover all attorneys' fees, court costs, and expenses from Employee in any enforcement action."
+    }
+  ],
+  "executed": true
+}

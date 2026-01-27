@@ -1,0 +1,38 @@
+SOFTWARE LICENSING AGREEMENT
+
+This Software Licensing Agreement ("Agreement") is entered into between Licensor Company ("Licensor") and Licensee Company ("Licensee").
+
+1. GRANT OF LICENSE
+Licensor grants Licensee a limited, non-transferable license to use the Software for Licensee's internal operations.
+
+2. INTELLECTUAL PROPERTY OWNERSHIP
+All intellectual property rights in the Software remain with Licensor. Licensee acquires no ownership interest.
+
+3. PAYMENT TERMS
+Licensee shall pay monthly license fees of $5,000, due on the first of each month. Late payments incur a 2% monthly fee.
+
+4. TERM AND TERMINATION
+Either party may terminate for convenience with 30 days written notice.
+
+5. INDEMNIFICATION
+Licensee agrees to indemnify Licensor for claims arising from Licensee's breach of this Agreement, up to a maximum of $500,000.
+
+6. LIMITATION OF LIABILITY
+Licensor's liability is capped at the total license fees paid in the preceding 12 months.
+
+7. CONFIDENTIALITY
+Confidentiality obligations survive termination and continue for 5 years.
+
+8. WARRANTIES AND DISCLAIMERS
+Licensor provides the Software 'as-is' with no warranties, except as expressly stated.
+
+9. DISPUTE RESOLUTION
+Any disputes shall be resolved in the courts of the State of Delaware.
+
+10. ATTORNEYS' FEES
+The prevailing party in any dispute shall be entitled to recover reasonable attorneys' fees.
+
+11. GOVERNING LAW
+Delaware law governs this Agreement.
+
+This Agreement is effective as of March 1, 2024.

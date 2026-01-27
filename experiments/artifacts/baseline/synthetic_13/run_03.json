@@ -3,31 +3,25 @@
     {
       "risk_title": "No Indemnification Obligations",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification clauses could expose parties to significant liability without recourse, especially in cases of breach or misuse of confidential information.",
+      "rationale": "The absence of indemnification provisions may expose parties to significant liabilities without recourse, increasing risk in case of breaches or legal claims.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
-    },
-    {
-      "risk_title": "Limitation of Liability",
-      "severity": "MEDIUM",
-      "rationale": "Limiting liability to total fees paid may not provide adequate protection for the parties, especially if damages exceed the fees involved.",
-      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The lack of audit rights limits a party's ability to verify compliance with confidentiality obligations, increasing the risk of unauthorized disclosures.",
+      "rationale": "The lack of audit rights limits the ability to verify compliance with confidentiality obligations, increasing the risk of undisclosed breaches.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "High Late Fees",
       "severity": "MEDIUM",
-      "rationale": "An 18% per annum interest on late payments is substantially high and could lead to financial strain for the parties involved.",
+      "rationale": "An interest rate of 18% per annum for late payments could create financial strain and discourage timely payment, impacting cash flow.",
       "evidence_quote": "Late payments shall accrue interest at a rate of 18% per annum."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "HIGH",
-      "rationale": "The absence of provisions regarding intellectual property may lead to disputes over ownership and use of confidential information.",
+      "rationale": "The absence of intellectual property provisions can leave proprietary information unprotected, increasing the risk of misuse or theft.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

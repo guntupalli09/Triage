@@ -1,0 +1,81 @@
+{
+  "findings": [
+    {
+      "rule_id": "M_NONCOMP_01",
+      "rule_name": "non_compete_non_solicit",
+      "title": "Non-compete / non-solicit style restriction",
+      "severity": "medium",
+      "rationale": "Restrictive covenants can limit future business activity; enforceability varies and is commonly negotiated.",
+      "matched_excerpt": "...5. NON-COMPETE AND NON-SOLICITATION Employee may not compete within the same industry for 1 year after termination, within Employer's service area....",
+      "exact_snippet": "NON-COMPETE",
+      "start_index": 660,
+      "end_index": 671,
+      "position": 660,
+      "context": "ense to use all work product created during employment for Employer's business purposes.\n\n4. CONFIDENTIALITY AND NON-DISCLOSURE\nConfidentiality obligations survive termination and continue for 3 years.\n\n5. NON-COMPETE AND NON-SOLICITATION\nEmployee may not compete within the same industry for 1 year after termination, within Employer's service area.\n\n6. TERM AND TERMINATION\nEither party may terminate for conv",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    },
+    {
+      "rule_id": "M_TERM_NOTICE_01",
+      "rule_name": "termination_notice_window",
+      "title": "Short termination or notice windows",
+      "severity": "medium",
+      "rationale": "Short or strict notice windows can lead to accidental renewals or unintended termination.",
+      "matched_excerpt": "...6. TERM AND TERMINATION Either party may terminate for convenience with 30 days written notice....",
+      "exact_snippet": "terminate",
+      "start_index": 846,
+      "end_index": 855,
+      "position": 846,
+      "context": "ue for 3 years.\n\n5. NON-COMPETE AND NON-SOLICITATION\nEmployee may not compete within the same industry for 1 year after termination, within Employer's service area.\n\n6. TERM AND TERMINATION\nEither party may terminate for convenience with 30 days written notice.\n\n7. INDEMNIFICATION\nMutual indemnification: each party indemnifies the other for its own negligence, capped at annual compensation.\n\n8. DISPUTE RES",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "termination_notice_window",
+        "short_notice_period"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...10. GOVERNING LAW This Agreement is governed by Georgia state law....",
+      "exact_snippet": "governed by Georgia state law",
+      "start_index": 1206,
+      "end_index": 1235,
+      "position": 1206,
+      "context": "e, capped at annual compensation.\n\n8. DISPUTE RESOLUTION\nDisputes shall be resolved through good faith negotiation.\n\n9. ATTORNEYS' FEES\nEach party bears its own legal costs.\n\n10. GOVERNING LAW\nThis Agreement is governed by Georgia state law.\n\nThis Agreement is effective as of January 1, 2025.\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    }
+  ],
+  "overall_risk": "medium",
+  "rule_counts": {
+    "high": 0,
+    "medium": 2,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Broad Definition of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The definition is broad, which may lead to disputes over what constitutes confidential information, potentially exposing both parties to unintentional breaches.",
+      "evidence_quote": "All non-public information disclosed by either party, including but not limited to technical specifications, business plans, financial data, and customer lists."
+    },
+    {
+      "risk_title": "Long Duration of Confidentiality Obligation",
+      "severity": "MEDIUM",
+      "rationale": "A four-year term for confidentiality may be excessive in fast-changing industries, increasing the risk of outdated obligations.",
+      "evidence_quote": "This Agreement shall remain in effect for four (4) years from the date of execution."
+    },
+    {
+      "risk_title": "Injunctive Relief as Sole Remedy",
+      "severity": "HIGH",
+      "rationale": "Limiting remedies to injunctive relief may not provide adequate compensation for damages, increasing the risk for the non-breaching party.",
+      "evidence_quote": "The non-breaching party shall be entitled to seek injunctive relief."
+    }
+  ],
+  "executed": true
+}

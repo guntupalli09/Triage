@@ -3,19 +3,19 @@
     {
       "risk_title": "Indefinite Duration of Confidentiality",
       "severity": "HIGH",
-      "rationale": "The indefinite term of confidentiality may expose the Receiving Party to ongoing obligations without a clear endpoint, making it difficult to manage long-term liabilities.",
+      "rationale": "An indefinite term may expose the Receiving Party to perpetual liability for information they may no longer control or remember, leading to potential legal complications.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
     },
     {
-      "risk_title": "Lack of Termination Conditions",
+      "risk_title": "Ambiguity in Confidential Information Definition",
       "severity": "MEDIUM",
-      "rationale": "The contract does not specify conditions under which the agreement can be terminated, potentially leaving the Receiving Party bound indefinitely.",
-      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
+      "rationale": "The broad definition of Confidential Information could lead to disputes about what is considered confidential, possibly resulting in unintended disclosures.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party to the Receiving Party."
     },
     {
-      "risk_title": "Return of Information Requirement",
+      "risk_title": "Unclear Return Obligations",
       "severity": "MEDIUM",
-      "rationale": "The obligation to return all Confidential Information may pose challenges if the Receiving Party has integrated such information into its systems or processes.",
+      "rationale": "The requirement to return all Confidential Information upon termination may create challenges in compliance, especially if the Receiving Party has integrated the information into their systems.",
       "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
     }
   ],

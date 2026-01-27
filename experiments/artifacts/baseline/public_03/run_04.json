@@ -1,27 +1,27 @@
 {
   "findings": [
     {
-      "risk_title": "Broad Definition of Confidential Information",
+      "risk_title": "Lack of Clarity on Confidential Information",
       "severity": "MEDIUM",
-      "rationale": "The inclusive definition may lead to ambiguity regarding what constitutes confidential information, potentially resulting in disputes.",
+      "rationale": "The definition of 'Confidential Information' is broad and may lead to disputes over what is considered confidential.",
       "evidence_quote": "\"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information."
     },
     {
       "risk_title": "Long Duration of Non-Disclosure",
       "severity": "MEDIUM",
-      "rationale": "A five-year duration may be excessive, potentially limiting the Receiving Party's ability to operate and utilize non-confidential information.",
+      "rationale": "A five-year duration may be excessive, especially for rapidly changing industries, potentially leading to unnecessary restrictions.",
       "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
     },
     {
-      "risk_title": "Injunctive Relief without Bond Requirement",
+      "risk_title": "Injunctive Relief Without Bond",
       "severity": "HIGH",
-      "rationale": "Allowing injunctive relief without posting a bond could lead to unfair advantages for the Disclosing Party, increasing potential liability for the Receiving Party.",
-      "evidence_quote": "Therefore, the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
+      "rationale": "Allowing for injunctive relief without posting a bond may expose the Receiving Party to significant risk if the injunction is later deemed unwarranted.",
+      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
     },
     {
-      "risk_title": "Restrictions on Assignment",
+      "risk_title": "Assignment Restrictions",
       "severity": "MEDIUM",
-      "rationale": "Restricting assignment may hinder business flexibility and growth, particularly in the event of mergers or acquisitions.",
+      "rationale": "The restriction on assignment without consent could complicate business operations, especially during mergers or acquisitions.",
       "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party, except in connection with a change of control transaction."
     }
   ],

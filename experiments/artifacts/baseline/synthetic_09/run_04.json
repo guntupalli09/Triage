@@ -1,27 +1,27 @@
 {
   "findings": [
     {
-      "risk_title": "Lack of Indemnification",
+      "risk_title": "Lack of Indemnification Obligations",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations may leave parties vulnerable to claims without recourse for damages.",
+      "rationale": "The absence of indemnification obligations may leave one party vulnerable to losses caused by the other party's actions.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limitation of Liability",
+      "risk_title": "Limitation of Liability Clause",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid may not adequately protect against significant losses or damages, especially if they exceed fees.",
+      "rationale": "Limiting liability to total fees paid could result in significant financial exposure in case of a breach or negligence.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The lack of audit rights may hinder the ability to ensure compliance and verify the handling of confidential information.",
+      "rationale": "The lack of audit rights may prevent one party from verifying compliance with the agreement, increasing trust and compliance risks.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
-      "risk_title": "No Intellectual Property Provisions",
+      "risk_title": "Lack of Intellectual Property Provisions",
       "severity": "HIGH",
-      "rationale": "The absence of intellectual property provisions may lead to disputes over ownership and usage of created materials.",
+      "rationale": "Absence of IP provisions may lead to disputes over ownership and use of intellectual property created during the contract.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

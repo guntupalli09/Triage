@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Capping liability may expose the parties to significant financial risk in the event of a major issue, as damages could exceed the capped amount.",
+      "evidence_quote": "Each party's liability is capped at the greater of $500,000 or the annual contract value."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Indemnification is limited to $1,000,000 per claim, which may not cover larger claims or damages resulting from severe negligence.",
+      "evidence_quote": "each party indemnifies the other for its own negligence, up to $1,000,000 per claim."
+    },
+    {
+      "risk_title": "As-Is Warranty",
+      "severity": "HIGH",
+      "rationale": "Providing services 'as-is' without warranties exposes the Client to potential performance issues without recourse.",
+      "evidence_quote": "Provider provides services 'as-is' with no warranties except as expressly stated."
+    },
+    {
+      "risk_title": "Termination with Notice",
+      "severity": "MEDIUM",
+      "rationale": "The ability to terminate the Agreement with only 60 days notice may lead to operational disruptions for the non-terminating party.",
+      "evidence_quote": "This Agreement may be terminated by either party with 60 days written notice for any reason."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "Obligations lasting 4 years may be excessive, especially if the information becomes public or irrelevant sooner.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 4 years."
+    }
+  ],
+  "executed": true
+}

@@ -1,28 +1,22 @@
 {
   "findings": [
     {
-      "risk_title": "Undefined Confidential Information",
+      "risk_title": "Inadequate Duration of Confidentiality",
       "severity": "MEDIUM",
-      "rationale": "The broad definition of 'Confidential Information' may lead to ambiguity, potentially resulting in disputes over what is considered confidential.",
-      "evidence_quote": "\"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information."
-    },
-    {
-      "risk_title": "Length of Non-Disclosure Period",
-      "severity": "MEDIUM",
-      "rationale": "A five-year term may be considered excessive, especially in fast-paced industries where information can quickly become outdated.",
+      "rationale": "A five-year duration for confidentiality may not be sufficient for certain sensitive information, potentially exposing parties to risks after expiration.",
       "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
-    },
-    {
-      "risk_title": "Injunctive Relief Without Bond",
-      "severity": "HIGH",
-      "rationale": "Allowing injunctive relief without requiring a bond can expose the Receiving Party to significant risk, as they may be subjected to immediate restrictions without a financial safeguard.",
-      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
     },
     {
       "risk_title": "Restrictions on Assignment",
       "severity": "MEDIUM",
-      "rationale": "Restricting assignment without consent can limit flexibility for both parties, potentially complicating future business transactions or restructuring.",
+      "rationale": "The restriction on assignment without consent could limit business flexibility and hinder future transactions or partnerships.",
       "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
+    },
+    {
+      "risk_title": "Lack of Specific Remedies",
+      "severity": "HIGH",
+      "rationale": "The agreement does not specify what constitutes a breach or the types of injunctive relief available, leading to ambiguity in enforcement.",
+      "evidence_quote": "The parties acknowledge that monetary damages may be inadequate for breach of this Agreement."
     }
   ],
   "executed": true

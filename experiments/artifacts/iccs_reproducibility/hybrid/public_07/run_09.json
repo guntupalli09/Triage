@@ -1,0 +1,44 @@
+{
+  "findings": [
+    {
+      "rule_id": "M_INJUNCT_01",
+      "rule_name": "injunctive_relief",
+      "title": "Broad injunctive relief language",
+      "severity": "medium",
+      "rationale": "Broad injunctive relief provisions can bypass standard dispute resolution safeguards.",
+      "matched_excerpt": "...5. REMEDIES Breach of this Agreement may cause irreparable harm. The non-breaching party shall be entitled to seek injunctive relief....",
+      "exact_snippet": "injunctive relief",
+      "start_index": 750,
+      "end_index": 767,
+      "position": 750,
+      "context": "TERM\nThis Agreement shall remain in effect for four (4) years from the date of execution.\n\n5. REMEDIES\nBreach of this Agreement may cause irreparable harm. The non-breaching party shall be entitled to seek injunctive relief.\n\nGoverning Law: Delaware",
+      "clause_number": "4",
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "low",
+  "rule_counts": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

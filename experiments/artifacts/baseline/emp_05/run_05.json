@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "An indefinite confidentiality requirement can be overly burdensome and may hinder the employee's future employment opportunities.",
+      "evidence_quote": "Employee agrees to maintain strict confidentiality of all proprietary information, trade secrets, and business strategies indefinitely, without any time limitation."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The indemnification clause places significant liability on the employee, which could lead to financial burdens in case of disputes or claims.",
+      "evidence_quote": "Employee shall defend, indemnify, and hold harmless Employer from any and all claims, damages, losses, and expenses, without limitation."
+    },
+    {
+      "risk_title": "Unilateral Termination Rights",
+      "severity": "MEDIUM",
+      "rationale": "The employer's ability to terminate the agreement at any time without cause poses a risk to the employee's job security.",
+      "evidence_quote": "Employer may terminate this Agreement at any time, with or without cause."
+    },
+    {
+      "risk_title": "Mandatory Arbitration Clause",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the employee's ability to seek redress in court, potentially favoring the employer in disputes.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration under the rules of the American Arbitration Association."
+    },
+    {
+      "risk_title": "Extended Non-Compete Duration",
+      "severity": "MEDIUM",
+      "rationale": "A three-year non-compete could significantly restrict the employee's ability to find new employment in their field after leaving the company.",
+      "evidence_quote": "Employee shall not engage in any competitive business activity or solicit Employer's employees or customers for a period of 3 years following termination."
+    }
+  ],
+  "executed": true
+}

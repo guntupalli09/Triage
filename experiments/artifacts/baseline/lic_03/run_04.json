@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Indemnification",
+      "severity": "HIGH",
+      "rationale": "The Licensee's indemnification obligation is capped at $500,000, which may not cover significant claims, exposing Licensor to substantial risk.",
+      "evidence_quote": "Licensee agrees to indemnify Licensor for claims arising from Licensee's breach of this Agreement, up to a maximum of $500,000."
+    },
+    {
+      "risk_title": "One-sided Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "The limitation of liability favors the Licensor, potentially leaving the Licensee vulnerable to losses not covered by the cap.",
+      "evidence_quote": "Licensor's liability is capped at the total license fees paid in the preceding 12 months."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability for either party to terminate for convenience with 30 days notice may disrupt the Licensee's operations without cause.",
+      "evidence_quote": "Either party may terminate for convenience with 30 days written notice."
+    },
+    {
+      "risk_title": "No Warranties Provided",
+      "severity": "HIGH",
+      "rationale": "The 'as-is' provision may leave the Licensee with no recourse for software defects or failures, leading to operational risks.",
+      "evidence_quote": "Licensor provides the Software 'as-is' with no warranties, except as expressly stated."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "The 5-year confidentiality obligation may be inadequate in industries where information sensitivity lasts longer.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 5 years."
+    }
+  ],
+  "executed": true
+}

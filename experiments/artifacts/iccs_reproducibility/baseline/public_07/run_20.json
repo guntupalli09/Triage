@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Ambiguity in Definition of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The term 'Confidential Information' is broad and may lead to disputes regarding what is considered confidential, potentially resulting in unauthorized disclosures.",
+      "evidence_quote": "All non-public information disclosed by either party, including but not limited to technical specifications, business plans..."
+    },
+    {
+      "risk_title": "Lack of Specificity in Remedies",
+      "severity": "HIGH",
+      "rationale": "The agreement does not specify the types of remedies available, which could lead to confusion or inadequate compensation in the event of a breach.",
+      "evidence_quote": "Breach of this Agreement may cause irreparable harm. The non-breaching party shall be entitled to seek injunctive relief."
+    },
+    {
+      "risk_title": "Fixed Term Limit",
+      "severity": "MEDIUM",
+      "rationale": "A fixed term of four years may not adequately protect sensitive information that could remain relevant or sensitive beyond this period.",
+      "evidence_quote": "This Agreement shall remain in effect for four (4) years from the date of execution."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unilateral Termination Rights",
+      "severity": "MEDIUM",
+      "rationale": "Licensor can terminate immediately upon breach, which may lead to unexpected contract termination without adequate recourse for the Licensee.",
+      "evidence_quote": "Licensor may terminate immediately upon breach."
+    },
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "Licensor's unlimited liability poses a high risk as it could lead to significant financial exposure for the Licensee in case of claims.",
+      "evidence_quote": "Licensor's liability is unlimited and not subject to any limitation of liability clause."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "Licensee is required to indemnify Licensor without limitation, potentially exposing them to significant financial risk.",
+      "evidence_quote": "Licensee shall indemnify Licensor against all claims, losses, and expenses without limitation."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations that survive termination may create long-term liability and restrict Licensee's operational flexibility.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue in perpetuity."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory binding arbitration may limit Licensee's ability to seek recourse through traditional legal channels.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under AAA rules."
+    },
+    {
+      "risk_title": "Attorneys' Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "Licensor's entitlement to recover attorneys' fees may deter Licensee from pursuing legitimate claims due to potential financial burden.",
+      "evidence_quote": "Licensor shall be entitled to recover all attorneys' fees and costs in any action to enforce this Agreement."
+    }
+  ],
+  "executed": true
+}

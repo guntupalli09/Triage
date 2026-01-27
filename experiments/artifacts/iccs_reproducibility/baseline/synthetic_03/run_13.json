@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations may expose parties to liability without recourse, especially in case of breaches or third-party claims.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to total fees paid may not cover potential damages, which can pose a significant risk if substantial losses occur.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The absence of audit rights limits oversight and may hinder the ability to verify compliance with the NDA's terms.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    }
+  ],
+  "executed": true
+}

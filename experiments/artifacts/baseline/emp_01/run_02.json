@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "An indefinite confidentiality obligation may restrict the employee's future employment opportunities and could lead to legal challenges regarding enforceability.",
+      "evidence_quote": "Employee agrees to maintain confidentiality of all proprietary information indefinitely, even after termination of employment."
+    },
+    {
+      "risk_title": "Two-Year Non-Compete Clause",
+      "severity": "HIGH",
+      "rationale": "A two-year non-compete clause may significantly limit the employee's ability to find work in their field, which could be seen as overly restrictive.",
+      "evidence_quote": "Employee agrees not to compete with Employer for a period of 2 years after termination, within a 50-mile radius."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause places significant liability on the employee, which could lead to financial burdens in case of claims against the employer.",
+      "evidence_quote": "Employee shall indemnify Employer against all claims, losses, and expenses without limitation arising from Employee's actions."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Requiring binding arbitration for disputes may limit the employee's options for legal recourse and could lead to unfavorable outcomes.",
+      "evidence_quote": "All disputes shall be resolved through binding arbitration in accordance with AAA rules."
+    },
+    {
+      "risk_title": "Employer's Right to Recover Attorneys' Fees",
+      "severity": "MEDIUM",
+      "rationale": "The provision allowing the employer to recover attorneys' fees could discourage the employee from pursuing legitimate claims due to potential financial risk.",
+      "evidence_quote": "Employer shall be entitled to recover all attorneys' fees and costs in any action to enforce this Agreement."
+    }
+  ],
+  "executed": true
+}

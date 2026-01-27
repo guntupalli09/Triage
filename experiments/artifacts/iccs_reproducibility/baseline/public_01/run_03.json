@@ -1,0 +1,17 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Term of Agreement",
+      "severity": "HIGH",
+      "rationale": "An indefinite term can lead to perpetual obligations, creating uncertainty and potential liability for the Receiving Party without a clear end date.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
+    },
+    {
+      "risk_title": "Lack of Jurisdiction Flexibility",
+      "severity": "MEDIUM",
+      "rationale": "The governing law is limited to California, which may disadvantage parties located in different jurisdictions or those who prefer a neutral location for dispute resolution.",
+      "evidence_quote": "This Agreement shall be governed by the laws of the State of California."
+    }
+  ],
+  "executed": true
+}

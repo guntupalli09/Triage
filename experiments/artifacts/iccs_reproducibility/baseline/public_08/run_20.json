@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Clear Definition for 'Confidential Information'",
+      "severity": "MEDIUM",
+      "rationale": "The term 'Confidential Information' is broadly defined, which may lead to ambiguity and disputes about what information is protected.",
+      "evidence_quote": "\"Confidential Information\" means all proprietary or confidential information disclosed by one party to the other, whether in oral, written, or electronic form."
+    },
+    {
+      "risk_title": "Unclear Security Measures",
+      "severity": "MEDIUM",
+      "rationale": "The phrase 'implement reasonable security measures' lacks specificity, which may lead to inadequate protection of confidential information.",
+      "evidence_quote": "\"Implement reasonable security measures\""
+    },
+    {
+      "risk_title": "Long Duration of Confidentiality Obligations",
+      "severity": "HIGH",
+      "rationale": "A five-year term for confidentiality obligations may be excessive, potentially limiting the Receiving Party's future business opportunities.",
+      "evidence_quote": "This Agreement shall remain in effect for five (5) years."
+    },
+    {
+      "risk_title": "Return of Information Requirement",
+      "severity": "LOW",
+      "rationale": "While returning and destroying information is standard, it may pose practical challenges in ensuring complete compliance.",
+      "evidence_quote": "the Receiving Party shall return all Confidential Information and destroy all copies."
+    }
+  ],
+  "executed": true
+}

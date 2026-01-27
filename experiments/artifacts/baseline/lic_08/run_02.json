@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to previous year's fees may leave significant financial exposure for claims that exceed this amount.",
+      "evidence_quote": "Each party's liability is limited to the total license fees paid in the preceding calendar year."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at $750,000 may not cover substantial claims, leaving potential exposure.",
+      "evidence_quote": "Mutual indemnification: each party indemnifies the other for claims arising from its own breach, capped at $750,000 per claim."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "Termination for convenience allows either party to exit the agreement with short notice, which may disrupt business continuity.",
+      "evidence_quote": "Either party may terminate for convenience with 30 days written notice."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A three-year confidentiality obligation may be insufficient for certain sensitive information.",
+      "evidence_quote": "Confidentiality obligations continue for 3 years after termination of this Agreement."
+    }
+  ],
+  "executed": true
+}

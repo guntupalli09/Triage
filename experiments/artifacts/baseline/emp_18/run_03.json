@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Assignment",
+      "severity": "HIGH",
+      "rationale": "The Employee assigns all rights of created intellectual property to the Employer, potentially limiting the Employee's future employment opportunities and ownership of their work.",
+      "evidence_quote": "All intellectual property, code, and technical work product created by Employee during employment shall become the sole and exclusive property of Employer."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligation",
+      "severity": "MEDIUM",
+      "rationale": "The requirement for perpetual confidentiality may be overly burdensome and could lead to legal challenges regarding what constitutes proprietary information.",
+      "evidence_quote": "Employee must maintain strict confidentiality of all proprietary systems, architectures, and trade secrets in perpetuity, without any time limitation."
+    },
+    {
+      "risk_title": "At-Will Termination by Employer",
+      "severity": "HIGH",
+      "rationale": "The ability for the Employer to terminate the Employee at will without cause poses a significant risk to job security.",
+      "evidence_quote": "Employer may terminate at will."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory binding arbitration can limit the Employee's ability to seek redress through the courts and may favor the Employer in disputes.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration under AAA rules."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The Employee is required to indemnify the Employer for all claims, which could expose the Employee to significant financial liability.",
+      "evidence_quote": "Employee shall defend, indemnify, and hold harmless Employer from all claims, without limitation."
+    },
+    {
+      "risk_title": "Attorneys' Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "The provision allowing the Employer to recover attorneys' fees could discourage the Employee from pursuing legitimate claims due to potential financial burden.",
+      "evidence_quote": "In any action to enforce this Agreement, Employer shall recover all attorneys' fees, costs, and expenses from Employee."
+    }
+  ],
+  "executed": true
+}

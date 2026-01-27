@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "The provider's liability for indemnification claims is unlimited, which poses a significant financial risk to the Provider without a cap on potential damages.",
+      "evidence_quote": "Provider's liability for indemnification claims is unlimited and not subject to any cap."
+    },
+    {
+      "risk_title": "Imbalanced Termination Rights",
+      "severity": "MEDIUM",
+      "rationale": "The Client can terminate the agreement immediately, while the Provider must provide 60 days notice, creating an imbalance in termination rights.",
+      "evidence_quote": "Client may terminate immediately. Provider requires 60 days notice."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations that survive termination indefinitely may impose long-term obligations on the Provider, presenting ongoing compliance risks.",
+      "evidence_quote": "Confidentiality survives termination and continues in perpetuity."
+    },
+    {
+      "risk_title": "Attorney's Fees Clause",
+      "severity": "MEDIUM",
+      "rationale": "The clause entitles the Client to recover all attorneys' fees, which could lead to significant costs for the Provider in case of disputes.",
+      "evidence_quote": "Client is entitled to recover all attorneys' fees and costs in any action to enforce this Agreement."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "LOW",
+      "rationale": "Requiring binding arbitration for dispute resolution may limit the Provider's options for legal recourse and could lead to unfavorable outcomes.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under AAA rules."
+    }
+  ],
+  "executed": true
+}

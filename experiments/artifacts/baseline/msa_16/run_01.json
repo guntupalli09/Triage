@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to fees paid may expose the parties to significant losses that exceed this amount, especially in cases of severe breaches.",
+      "evidence_quote": "Each party's liability is limited to the total fees paid under this Agreement in the preceding calendar year."
+    },
+    {
+      "risk_title": "Indemnification Scope",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause may not cover all potential liabilities, particularly if a breach is not clearly defined or if applicable law changes.",
+      "evidence_quote": "Each party shall indemnify the other to the extent required by applicable law for claims arising from its own breach."
+    },
+    {
+      "risk_title": "Ownership of Intellectual Property",
+      "severity": "MEDIUM",
+      "rationale": "Retaining ownership of pre-existing IP may limit the Client's rights and use of deliverables, creating potential disputes over IP usage.",
+      "evidence_quote": "Provider retains ownership of all pre-existing intellectual property."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A 3-year confidentiality obligation may not be sufficient for sensitive information, which could lead to potential leaks.",
+      "evidence_quote": "Confidentiality obligations continue for 3 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "A 90-day notice period may not be sufficient for urgent business needs, potentially leading to delays in necessary changes.",
+      "evidence_quote": "This Agreement may be terminated by mutual written consent or by either party with 90 days notice."
+    }
+  ],
+  "executed": true
+}

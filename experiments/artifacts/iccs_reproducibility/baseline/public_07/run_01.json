@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Undefined Scope of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of 'Confidential Information' may lead to ambiguity and disputes over what is actually protected, potentially exposing parties to unintentional breaches.",
+      "evidence_quote": "All non-public information disclosed by either party, including but not limited to technical specifications, business plans, financial data, and customer lists."
+    },
+    {
+      "risk_title": "Limited Duration of Agreement",
+      "severity": "MEDIUM",
+      "rationale": "A four-year term may not be sufficient for certain types of confidential information, particularly in industries where information can remain sensitive for longer periods.",
+      "evidence_quote": "This Agreement shall remain in effect for four (4) years from the date of execution."
+    },
+    {
+      "risk_title": "Lack of Consequences for Breach",
+      "severity": "HIGH",
+      "rationale": "While remedies are mentioned, the vague language regarding 'irreparable harm' may not provide sufficient deterrent against breaches, increasing risk for both parties.",
+      "evidence_quote": "Breach of this Agreement may cause irreparable harm."
+    },
+    {
+      "risk_title": "Governing Law Jurisdiction",
+      "severity": "MEDIUM",
+      "rationale": "Choosing Delaware as the governing law may lead to unexpected legal interpretations or obligations, especially for parties not familiar with Delaware law.",
+      "evidence_quote": "Governing Law: Delaware"
+    }
+  ],
+  "executed": true
+}

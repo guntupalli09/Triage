@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Termination Clause",
+      "severity": "MEDIUM",
+      "rationale": "The ability to terminate the agreement with 60 days' notice introduces uncertainty and potential disruption for the Licensee.",
+      "evidence_quote": "This Agreement may be terminated by either party with 60 days written notice for any reason."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Capping liability at the greater of $1,000,000 or annual fees may expose the parties to significant losses that are not fully covered.",
+      "evidence_quote": "Each party's liability is limited to the greater of $1,000,000 or the annual license fees."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at annual license fees may leave one party vulnerable to larger claims arising from negligence.",
+      "evidence_quote": "each party indemnifies the other for its own negligence, capped at annual license fees."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "Specifying Massachusetts state law may limit the legal recourse options for parties located in different jurisdictions.",
+      "evidence_quote": "This Agreement is governed by Massachusetts state law."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "The confidentiality obligations lasting only 2 years post-termination may not adequately protect sensitive information.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination."
+    }
+  ],
+  "executed": true
+}

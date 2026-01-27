@@ -1,33 +1,33 @@
 {
   "findings": [
     {
-      "risk_title": "No Indemnification Obligations",
+      "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification creates a risk for the Receiving Party in case of breaches related to the disclosed information.",
+      "rationale": "The absence of indemnification obligations can expose parties to liability without recourse, increasing risk in the event of a breach or dispute.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limited Liability",
+      "risk_title": "Limitations on Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid can expose the Receiving Party to significant risks if damages exceed this amount.",
+      "rationale": "Capping liability to fees paid may not sufficiently cover potential damages, especially in cases of significant breaches.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
-      "risk_title": "No Audit Rights Granted",
+      "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "Lack of audit rights may prevent the Disclosing Party from ensuring compliance with confidentiality obligations.",
+      "rationale": "The absence of audit rights limits transparency and the ability to verify compliance with confidentiality obligations.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "High Late Fees",
-      "severity": "LOW",
-      "rationale": "An 18% per annum interest rate on late payments may deter timely payments but is not uncommon in contracts.",
+      "severity": "MEDIUM",
+      "rationale": "An 18% per annum interest rate on late payments is significantly high, potentially leading to financial strain on the Receiving Party.",
       "evidence_quote": "Late payments shall accrue interest at a rate of 18% per annum."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "HIGH",
-      "rationale": "The absence of IP provisions may expose the Disclosing Party's proprietary information to unauthorized use or disclosure.",
+      "rationale": "The lack of provisions regarding intellectual property can lead to disputes over ownership and usage rights of created materials.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

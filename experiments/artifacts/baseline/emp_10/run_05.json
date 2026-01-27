@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "The employee is required to maintain confidentiality indefinitely, which may prevent them from working in their field after employment ends, creating long-term restrictions.",
+      "evidence_quote": "Employee must maintain strict confidentiality of all proprietary information, customer lists, and business strategies indefinitely."
+    },
+    {
+      "risk_title": "At-Will Termination by Employer",
+      "severity": "MEDIUM",
+      "rationale": "The employer's ability to terminate the employee at will can lead to job insecurity and potential unfair dismissals without cause or notice.",
+      "evidence_quote": "Employer may terminate at will."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the employee's ability to seek justice in a court of law, potentially favoring the employer in disputes.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee is required to indemnify the employer from all claims, which could expose them to significant legal and financial liabilities.",
+      "evidence_quote": "Employee shall defend, indemnify, and hold harmless Employer from all claims, without limitation."
+    },
+    {
+      "risk_title": "Two-Year Non-Compete Clause",
+      "severity": "MEDIUM",
+      "rationale": "A two-year non-compete clause may significantly limit the employee's ability to find new employment in their field after leaving the company.",
+      "evidence_quote": "Employee shall not engage in competitive business activities or solicit Employer's customers for 2 years following termination."
+    },
+    {
+      "risk_title": "Recovery of Attorneys' Fees",
+      "severity": "MEDIUM",
+      "rationale": "A clause allowing the employer to recover attorneys' fees may deter the employee from pursuing legitimate legal claims due to the financial risk involved.",
+      "evidence_quote": "In any action to enforce this Agreement, Employer shall recover all attorneys' fees and costs from Employee."
+    }
+  ],
+  "executed": true
+}

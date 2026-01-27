@@ -1,34 +1,28 @@
 {
   "findings": [
     {
-      "risk_title": "Perpetuity of Confidentiality Obligations",
+      "risk_title": "Perpetual Obligation",
       "severity": "HIGH",
-      "rationale": "The indefinite duration of confidentiality obligations can lead to prolonged restrictions and potential liabilities, which may be burdensome and limit future business opportunities.",
+      "rationale": "The obligation to keep information confidential continues indefinitely, which may create long-term liability without clear end conditions.",
       "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
     },
     {
-      "risk_title": "Unlimited Indemnification",
+      "risk_title": "Unlimited Liability",
       "severity": "HIGH",
-      "rationale": "The lack of limits on indemnification can expose a party to significant financial liabilities without clear boundaries, increasing overall risk.",
-      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit."
+      "rationale": "The limitation of liability clause is absent, exposing both parties to potentially unlimited financial risks.",
+      "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
     },
     {
-      "risk_title": "Unlimited Liability Clause",
-      "severity": "HIGH",
-      "rationale": "By not limiting liability, parties face potentially catastrophic financial exposure, which can impact their operations and financial stability.",
-      "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
+      "risk_title": "Indemnification Without Limits",
+      "severity": "MEDIUM",
+      "rationale": "Indemnification clauses without limits can lead to significant financial exposure for either party in case of breaches.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit, arising out of any breach of this Agreement."
     },
     {
       "risk_title": "Ownership of Work Product",
       "severity": "MEDIUM",
-      "rationale": "The exclusive ownership by Company A may disfavor Company B, limiting their rights to developed work, which could affect collaboration and fairness.",
+      "rationale": "The ownership clause grants exclusive rights to Company A, which may create disputes if the work product is not clearly defined.",
       "evidence_quote": "All work product and deliverables created hereunder shall be owned exclusively by Company A."
-    },
-    {
-      "risk_title": "Recovery of Attorneys' Fees",
-      "severity": "MEDIUM",
-      "rationale": "The provision for attorneys' fees may discourage parties from pursuing legitimate claims due to the financial burden of legal costs.",
-      "evidence_quote": "The prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party."
     }
   ],
   "executed": true

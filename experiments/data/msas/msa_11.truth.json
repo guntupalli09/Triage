@@ -1,0 +1,11 @@
+{
+  "expected_rule_ids_present": [
+    "H_ATTFEE_01",
+    "L_LATEFEE_01"
+  ],
+  "expected_rule_ids_absent": [
+    "H_INDEM_01",
+    "H_IP_01"
+  ],
+  "contract_type": "MSA"
+}

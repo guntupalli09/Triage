@@ -1,0 +1,38 @@
+SOFTWARE LICENSING AGREEMENT
+
+This Software Licensing Agreement ("Agreement") is entered into between Licensor Company ("Licensor") and Licensee Company ("Licensee").
+
+1. GRANT OF LICENSE
+Licensor grants Licensee a non-exclusive, revocable license to use the Software for evaluation and testing purposes only.
+
+2. INTELLECTUAL PROPERTY OWNERSHIP
+Licensor retains all ownership rights. Licensee receives no ownership interest in the Software.
+
+3. PAYMENT TERMS
+No fees apply during the evaluation period. If Licensee purchases a full license, payment terms will be specified separately.
+
+4. TERM AND TERMINATION
+Either party may terminate this evaluation license with 14 days written notice.
+
+5. INDEMNIFICATION
+Licensee shall indemnify Licensor to the extent required by applicable law for claims arising from Licensee's evaluation use.
+
+6. LIMITATION OF LIABILITY
+Licensor's liability is limited to the amount of any fees actually paid by Licensee, if any.
+
+7. CONFIDENTIALITY
+Confidentiality obligations continue for 6 months after termination of the evaluation period.
+
+8. WARRANTIES AND DISCLAIMERS
+Licensor provides the Software 'as-is' with no warranties during the evaluation period.
+
+9. DISPUTE RESOLUTION
+Disputes shall be resolved through good faith discussion between the parties.
+
+10. ATTORNEYS' FEES
+Each party is responsible for its own legal costs.
+
+11. GOVERNING LAW
+This Agreement is subject to Nevada state law.
+
+This Agreement is effective as of February 1, 2025.

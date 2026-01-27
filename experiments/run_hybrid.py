@@ -26,10 +26,8 @@ def run_hybrid_engine(text: str, suppression_enabled: bool = True) -> dict:
     """
     engine = RuleEngine()
     
-    # Note: Current implementation always uses suppression.
-    # For ablation, we would need to modify RuleEngine.analyze() to accept a flag.
-    # For now, we'll note this limitation in results.
-    result = engine.analyze(text)
+    # Pass suppression_enabled parameter to analyze() method
+    result = engine.analyze(text, suppression_enabled=suppression_enabled)
     
     # Convert Finding objects to dicts for JSON serialization
     findings_dict = []

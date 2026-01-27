@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Undefined Scope of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The term 'Confidential Information' is broad and may lead to disputes regarding what is considered confidential, increasing the risk of unintentional disclosures.",
+      "evidence_quote": "Confidential Information includes all proprietary information, trade secrets, business plans, financial data, and technical information disclosed by either party."
+    },
+    {
+      "risk_title": "Limited Duration of Confidentiality Obligations",
+      "severity": "HIGH",
+      "rationale": "The confidentiality obligations only last for three years, which may not be sufficient for protecting sensitive information that could have longer-term implications.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution, after which the obligations shall terminate."
+    },
+    {
+      "risk_title": "Lack of Consequences for Breach",
+      "severity": "MEDIUM",
+      "rationale": "The absence of specified consequences for breaches of confidentiality could lead to challenges in enforcing the agreement and deter compliance.",
+      "evidence_quote": "Each party agrees to maintain the confidentiality of the other party's Confidential Information."
+    }
+  ],
+  "executed": true
+}

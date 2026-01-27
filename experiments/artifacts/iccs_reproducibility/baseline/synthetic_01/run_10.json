@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Without Limit",
+      "severity": "HIGH",
+      "rationale": "The Receiving Party's indemnification obligations are unlimited, which poses a significant financial risk in the event of a breach.",
+      "evidence_quote": "The Receiving Party shall indemnify, defend, and hold harmless the Disclosing Party from and against all claims, losses, and damages, without limit."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The absence of audit rights limits the Disclosing Party's ability to monitor compliance, potentially leading to undiscovered breaches.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to total fees paid may not adequately protect against significant losses, creating potential risk for the Disclosing Party.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "LOW",
+      "rationale": "The absence of intellectual property provisions may lead to ambiguity regarding ownership and use of shared information.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "No Attorneys' Fees Recovery",
+      "severity": "LOW",
+      "rationale": "Each party bearing its own attorneys' fees may deter legal action, impacting the enforcement of rights under the Agreement.",
+      "evidence_quote": "Each party shall bear its own attorneys' fees."
+    }
+  ],
+  "executed": true
+}

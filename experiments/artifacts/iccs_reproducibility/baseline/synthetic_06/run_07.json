@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations exposes the parties to potential financial losses without recourse, which can be a significant risk in case of breaches or claims.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The lack of audit rights limits the ability to verify compliance with the NDA, potentially allowing for misuse of confidential information without consequences.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Limited Confidentiality Definition",
+      "severity": "MEDIUM",
+      "rationale": "The definition of Confidential Information may be too narrow, which could lead to unintentional disclosures of critical information not marked as confidential.",
+      "evidence_quote": "Confidential Information means information marked as confidential."
+    }
+  ],
+  "executed": true
+}

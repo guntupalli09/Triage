@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "Indefinite confidentiality obligations can lead to prolonged liability for the employee, limiting future employment opportunities and creating legal risks if perceived breaches occur.",
+      "evidence_quote": "Employee agrees to maintain strict confidentiality of all security protocols, vulnerabilities, and proprietary systems indefinitely, without expiration."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee's obligation to indemnify the employer for all claims without limitation can expose the employee to significant financial risk.",
+      "evidence_quote": "Employee shall indemnify Employer for all claims, damages, and expenses, without limitation, arising from Employee's security work or breach of confidentiality."
+    },
+    {
+      "risk_title": "Extended Non-Compete Duration",
+      "severity": "MEDIUM",
+      "rationale": "A three-year non-compete clause can significantly restrict the employee's ability to find new employment in the industry, which may not be enforceable in all jurisdictions.",
+      "evidence_quote": "Employee shall not work for competitors or disclose security information for 3 years following termination."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory binding arbitration may limit the employee's ability to seek remedies through the court system, potentially favoring the employer.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of the International Chamber of Commerce."
+    },
+    {
+      "risk_title": "Attorney Fees Recovery Clause",
+      "severity": "MEDIUM",
+      "rationale": "The employer's ability to recover all attorneys' fees from the employee in breach actions can deter the employee from pursuing legitimate claims.",
+      "evidence_quote": "Employer shall be entitled to recover all attorneys' fees, court costs, and expenses from Employee in any enforcement or breach action."
+    }
+  ],
+  "executed": true
+}

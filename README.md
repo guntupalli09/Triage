@@ -53,7 +53,10 @@ Comprehensive documentation is available in the `/docs` directory:
 
 ### Core Documentation
 - **[Architecture Overview](docs/architecture/architecture_overview.md)**: System design and component interactions
-- **[Architecture & Future Roadmap](docs/architecture/ARCHITECTURE_AND_FUTURE_ROADMAP.md)**: Enterprise multi-layer architecture and governance framework
+- **[Architecture & Future Roadmap](docs/architecture/FUTURE_ROADMAP.md)**: Enterprise multi-layer architecture and governance framework
+- **[Enterprise Upgrade Plan](docs/architecture/ENTERPRISE_UPGRADE_PLAN.md)**: Comprehensive plan to transform Triage AI into an industry-leading B2B/B2C platform
+- **[Implementation Checklist](docs/architecture/IMPLEMENTATION_CHECKLIST.md)**: Prioritized checklist for enterprise features
+- **[Quick Start Guide](docs/architecture/QUICK_START_GUIDE.md)**: Step-by-step guide for implementing Phase 1 features
 - **[Neural-Symbolic Design](docs/architecture/neural_symbolic_design.md)**: Deterministic control plane architecture
 - **[Data Flow](docs/architecture/data_flow.md)**: How data moves through the system
 

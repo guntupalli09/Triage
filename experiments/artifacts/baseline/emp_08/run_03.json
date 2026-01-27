@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Rights Assignment",
+      "severity": "HIGH",
+      "rationale": "The assignment of all intellectual property rights to the employer may limit the employee's ability to use their own work in the future, posing a risk to their career.",
+      "evidence_quote": "All intellectual property developed by Employee in the course of employment shall be owned by Employer."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligation",
+      "severity": "MEDIUM",
+      "rationale": "The obligation to maintain confidentiality in perpetuity may be overly burdensome and can lead to legal challenges if the employee inadvertently breaches this obligation.",
+      "evidence_quote": "Employee agrees to maintain confidentiality of all trade secrets and proprietary information in perpetuity."
+    },
+    {
+      "risk_title": "Broad Non-Compete Clause",
+      "severity": "HIGH",
+      "rationale": "The 2-year non-compete clause could significantly restrict the employee's future employment opportunities within the industry.",
+      "evidence_quote": "Employee may not compete with Employer for 2 years after termination within the same geographic market."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The employee's obligation to indemnify the employer for legal costs could result in significant financial liability for the employee.",
+      "evidence_quote": "Employee agrees to indemnify Employer for all legal costs resulting from Employee's breach, capped at $300,000."
+    },
+    {
+      "risk_title": "Exclusive Jurisdiction Clause",
+      "severity": "LOW",
+      "rationale": "Requiring disputes to be resolved exclusively in New Jersey may limit options for the employee and could lead to increased travel and legal costs.",
+      "evidence_quote": "Any disputes shall be resolved exclusively in the courts of New Jersey."
+    }
+  ],
+  "executed": true
+}

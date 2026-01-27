@@ -1,0 +1,10 @@
+{
+  "hybrid_avg_time": 0.005291627109914586,
+  "hybrid_avg_std": 0.0016272108040324641,
+  "hybrid_total_variance": 0,
+  "baseline_avg_time": 7.309361889742423,
+  "baseline_avg_std": 1.0984456758958567,
+  "baseline_total_variance": 84,
+  "baseline_executed_count": 115,
+  "total_documents": 115
+}

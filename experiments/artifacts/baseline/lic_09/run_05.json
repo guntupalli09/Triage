@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Exclusive License Grant",
+      "severity": "HIGH",
+      "rationale": "An exclusive license may limit Licensee's ability to leverage the software or collaborate with other partners, potentially impacting revenue and market opportunities.",
+      "evidence_quote": "Licensor grants Licensee a worldwide, exclusive license to use, distribute, and sublicense the Software in Licensee's designated territory."
+    },
+    {
+      "risk_title": "Indemnification Obligations",
+      "severity": "HIGH",
+      "rationale": "The requirement for Licensee to indemnify Licensor may expose Licensee to significant financial liabilities from third-party claims, especially if broad.",
+      "evidence_quote": "Licensee shall defend, indemnify, and hold harmless Licensor from all claims, without limitation, arising from Licensee's distribution or use of the Software."
+    },
+    {
+      "risk_title": "Unlimited Liability for Licensor",
+      "severity": "HIGH",
+      "rationale": "The limitation of liability clause that allows unlimited liability for indemnification and breaches can lead to disproportionate financial exposure for Licensee.",
+      "evidence_quote": "Licensor's liability is unlimited for indemnification obligations and breaches of intellectual property provisions."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Indefinite confidentiality obligations may restrict Licensee's ability to use certain information in the future, creating potential operational challenges.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely after termination."
+    },
+    {
+      "risk_title": "Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit Licensee's ability to pursue claims in court, potentially affecting their leverage in disputes.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under AAA Commercial Arbitration Rules."
+    },
+    {
+      "risk_title": "Attorneys' Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "The clause that allows Licensor to recover attorneys' fees may discourage Licensee from pursuing valid claims due to fear of incurring additional costs.",
+      "evidence_quote": "Licensor shall be entitled to recover all attorneys' fees, court costs, and expenses from Licensee in any enforcement action."
+    }
+  ],
+  "executed": true
+}

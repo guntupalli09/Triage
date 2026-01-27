@@ -3,25 +3,25 @@
     {
       "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations may expose the parties to significant liability without recourse for damages or legal expenses.",
+      "rationale": "The absence of indemnification obligations may expose parties to liability without coverage, increasing financial risk.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limited Liability",
+      "risk_title": "Limitation of Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to total fees paid could result in substantial losses if a breach occurs, as damages may exceed the fees.",
+      "rationale": "Limiting liability to fees paid may not adequately cover potential damages, creating a risk of unaddressed losses.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "Lack of audit rights may prevent one party from ensuring compliance with confidentiality obligations, increasing the risk of unauthorized disclosures.",
+      "rationale": "The absence of audit rights may hinder the ability to ensure compliance and monitor the use of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "HIGH",
-      "rationale": "The absence of intellectual property provisions may lead to disputes over ownership and use of intellectual property created during the agreement.",
+      "rationale": "Lack of IP provisions could lead to disputes over ownership and usage of intellectual property created during the relationship.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

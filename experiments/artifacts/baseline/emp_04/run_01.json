@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Joint Ownership of Intellectual Property",
+      "severity": "HIGH",
+      "rationale": "The agreement states that work product is jointly owned, which may lead to disputes over ownership and rights to use the intellectual property created.",
+      "evidence_quote": "Work product created during employment is jointly owned by Employer and Employee, with Employer receiving an exclusive license for business use."
+    },
+    {
+      "risk_title": "Extended Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations lasting 3 years post-termination may hinder the employee's future employment opportunities and create uncertainty regarding what information remains confidential.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 3 years."
+    },
+    {
+      "risk_title": "Non-Compete Duration",
+      "severity": "HIGH",
+      "rationale": "A 1-year non-compete clause can significantly restrict the employee's ability to find work in their field after leaving the company, potentially leading to legal challenges.",
+      "evidence_quote": "Employee may not compete within the same industry for 1 year after termination, within Employer's primary market area."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at annual compensation may leave a party exposed to liability beyond what they can recover, increasing financial risk.",
+      "evidence_quote": "Mutual indemnification: each party indemnifies the other for its own negligence, capped at annual compensation."
+    },
+    {
+      "risk_title": "Dispute Resolution Process",
+      "severity": "LOW",
+      "rationale": "The requirement for good faith negotiation may prolong disputes without a clear resolution mechanism, potentially leading to increased costs.",
+      "evidence_quote": "Disputes shall be resolved through good faith negotiation between the parties."
+    }
+  ],
+  "executed": true
+}

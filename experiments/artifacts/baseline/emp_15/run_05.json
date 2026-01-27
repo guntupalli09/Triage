@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification is capped at $150,000, which may not cover potential damages in case of significant breaches, exposing the parties to financial risk.",
+      "evidence_quote": "Each party shall indemnify the other for claims arising from its own breach, capped at $150,000 per claim."
+    },
+    {
+      "risk_title": "Two-Year Confidentiality Obligation",
+      "severity": "MEDIUM",
+      "rationale": "A two-year confidentiality obligation after termination may limit the employee's future opportunities and could lead to disputes over what constitutes confidential information.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "No Non-Compete Clause",
+      "severity": "LOW",
+      "rationale": "While the absence of a non-compete clause may seem favorable for the employee, it could pose a risk to the employer if the employee moves to a direct competitor.",
+      "evidence_quote": "No non-compete restrictions apply to this position."
+    },
+    {
+      "risk_title": "Dispute Resolution Method",
+      "severity": "LOW",
+      "rationale": "Direct negotiation as the sole dispute resolution method may prolong conflicts and does not provide a structured process for resolution, potentially leading to unresolved issues.",
+      "evidence_quote": "Disputes shall be resolved through direct negotiation between the parties."
+    }
+  ],
+  "executed": true
+}

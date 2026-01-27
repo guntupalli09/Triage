@@ -3,32 +3,32 @@
     {
       "risk_title": "No Indemnification Obligations",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification may leave the Disclosing Party vulnerable to losses arising from breaches of confidentiality.",
+      "rationale": "The lack of indemnification could expose the Receiving Party to significant liabilities without recourse.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limited Liability",
+      "risk_title": "Limitations on Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid may not adequately protect against significant damages or losses.",
+      "rationale": "Limiting liability to total fees paid may not cover all potential damages, increasing risk for the Receiving Party.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
-      "risk_title": "Lack of Audit Rights",
+      "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "No audit rights may restrict the Disclosing Party's ability to verify compliance with confidentiality obligations.",
+      "rationale": "Absence of audit rights may prevent the Disclosing Party from ensuring compliance with confidentiality obligations.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
-      "risk_title": "Absence of Intellectual Property Provisions",
+      "risk_title": "Attorneys' Fees Responsibility",
       "severity": "MEDIUM",
-      "rationale": "Not addressing intellectual property rights may lead to disputes regarding ownership of ideas or innovations shared.",
-      "evidence_quote": "No intellectual property provisions apply."
+      "rationale": "Requiring the Receiving Party to pay attorneys' fees could deter them from enforcing their rights due to potential costs.",
+      "evidence_quote": "The Receiving Party shall pay all attorneys' fees and costs incurred by the Disclosing Party in enforcing this Agreement."
     },
     {
-      "risk_title": "Attorney Fees Responsibility",
-      "severity": "LOW",
-      "rationale": "Requiring one party to cover attorney fees may deter them from pursuing valid claims due to potential costs.",
-      "evidence_quote": "The Receiving Party shall pay all attorneys' fees and costs incurred by the Disclosing Party in enforcing this Agreement."
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The absence of intellectual property provisions may lead to disputes over ownership of developed ideas or products.",
+      "evidence_quote": "No intellectual property provisions apply."
     }
   ],
   "executed": true

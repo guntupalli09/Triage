@@ -1,28 +1,28 @@
 {
   "findings": [
     {
-      "risk_title": "Perpetual Obligation",
+      "risk_title": "Perpetual Obligations",
       "severity": "HIGH",
-      "rationale": "The obligation to maintain confidentiality in perpetuity can lead to indefinite liability and complications in future business operations.",
+      "rationale": "The indefinite duration of confidentiality obligations can create long-term liabilities and restrict future business activities.",
       "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
-    },
-    {
-      "risk_title": "Indemnification Without Limit",
-      "severity": "HIGH",
-      "rationale": "Indemnifying without limit exposes a party to potentially significant financial risk due to unforeseen claims or breaches.",
-      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit, arising out of any breach of this Agreement."
     },
     {
       "risk_title": "Unlimited Liability",
       "severity": "HIGH",
-      "rationale": "Limiting liability can protect parties from excessive claims; the absence of limitation presents a substantial financial risk.",
+      "rationale": "The lack of limitation on liability may expose parties to significant financial risks in case of disputes or breaches.",
       "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
     },
     {
-      "risk_title": "Intellectual Property Assignment",
+      "risk_title": "Intellectual Property Ownership",
       "severity": "MEDIUM",
-      "rationale": "Provisions that assign all rights to one party may create conflicts or dissatisfaction regarding ownership of work products.",
+      "rationale": "The unilateral ownership of work product by Company A may lead to disputes over intellectual property rights.",
       "evidence_quote": "All work product and deliverables created hereunder shall be owned exclusively by Company A."
+    },
+    {
+      "risk_title": "Indemnification Without Limit",
+      "severity": "MEDIUM",
+      "rationale": "Indemnification clauses without limits can lead to unforeseen financial exposure for either party.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit."
     }
   ],
   "executed": true

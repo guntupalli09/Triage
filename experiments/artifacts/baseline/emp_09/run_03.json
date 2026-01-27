@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Broad Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "The confidentiality obligations lasting 4 years post-termination may restrict the employee's future opportunities and create legal complexities.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 4 years."
+    },
+    {
+      "risk_title": "Non-Compete Duration",
+      "severity": "HIGH",
+      "rationale": "An 18-month non-compete clause can significantly limit the employee's ability to find new employment in the industry.",
+      "evidence_quote": "Employee may not work for direct competitors for 18 months after termination."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at annual salary may not provide adequate protection for significant claims or losses.",
+      "evidence_quote": "each party indemnifies the other for its own negligence, capped at annual salary."
+    },
+    {
+      "risk_title": "Dispute Resolution Method",
+      "severity": "MEDIUM",
+      "rationale": "Relying solely on good faith negotiation may lead to unresolved disputes and increased legal costs if no formal mediation or arbitration is specified.",
+      "evidence_quote": "Disputes shall be resolved through good faith negotiation."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,39 @@
+MASTER SERVICE AGREEMENT
+
+This Master Service Agreement ("Agreement") is entered into between Service Provider ("Provider") and Client Company ("Client").
+
+1. SERVICES
+Provider agrees to provide the services described in attached Statements of Work.
+
+2. PAYMENT TERMS
+Payment is due within 45 days. Overdue payments accrue interest at 18% per annum.
+
+3. INTELLECTUAL PROPERTY
+All deliverables and work product shall become the sole and exclusive property of Client. Provider assigns all rights to Client.
+
+4. INDEMNIFICATION
+Provider agrees to indemnify Client for all claims, damages, and expenses, without limitation, arising from Provider's performance.
+
+5. LIMITATION OF LIABILITY
+Provider's liability is unlimited and not subject to any limitation of liability clause.
+
+6. TERM AND TERMINATION
+Client may terminate immediately. Provider requires 90 days notice.
+
+7. CONFIDENTIALITY
+Confidentiality obligations are perpetual and continue without time limitation.
+
+8. WARRANTIES
+Provider warrants compliance with all applicable laws, regulations, and industry standards.
+
+9. DISPUTE RESOLUTION
+All disputes must be resolved through mandatory binding arbitration in accordance with JAMS rules.
+
+10. GOVERNING LAW
+This Agreement is governed by Texas law, and parties consent to exclusive jurisdiction in Texas courts.
+
+11. ATTORNEYS' FEES
+In any action to enforce this Agreement, Client shall recover all attorneys' fees, costs, and expenses from Provider.
+
+12. MODIFICATIONS
+This Agreement may only be modified in writing signed by both parties.

@@ -3,31 +3,31 @@
     {
       "risk_title": "Indefinite Term",
       "severity": "HIGH",
-      "rationale": "An indefinite term may lead to uncertainty and potential legal challenges regarding the obligations of the parties over time.",
+      "rationale": "An indefinite term may pose a risk as it can lead to perpetual obligations, creating uncertainty for both parties regarding the duration of their commitments.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination."
     },
     {
       "risk_title": "No Indemnification",
       "severity": "MEDIUM",
-      "rationale": "Absence of indemnification provisions can expose parties to significant liabilities without recourse for damages.",
+      "rationale": "Lack of indemnification provisions can expose a party to potential liabilities without any recourse, increasing financial risk in case of breaches.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
       "risk_title": "Limited Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid may not adequately protect against significant damages that could arise from breaches.",
+      "rationale": "Limiting liability to only fees paid may not adequately protect a party from larger claims, exposing them to greater financial risk.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
-      "risk_title": "Lack of Audit Rights",
-      "severity": "MEDIUM",
-      "rationale": "No audit rights may prevent a party from verifying compliance with the agreement, increasing the risk of breaches.",
+      "risk_title": "No Audit Rights",
+      "severity": "HIGH",
+      "rationale": "The absence of audit rights may hinder the ability to verify compliance, increasing the risk of undisclosed breaches of confidentiality.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
-      "risk_title": "Absence of Intellectual Property Provisions",
-      "severity": "HIGH",
-      "rationale": "Without IP provisions, there is a risk of unaddressed ownership and usage rights, potentially leading to disputes.",
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "Lack of intellectual property provisions can lead to disputes over ownership and use of proprietary information, posing potential legal risks.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

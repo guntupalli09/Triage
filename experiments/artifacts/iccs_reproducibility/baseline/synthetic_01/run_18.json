@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Without Limit",
+      "severity": "HIGH",
+      "rationale": "The Receiving Party's obligation to indemnify without limit may expose them to significant financial liability in case of breaches.",
+      "evidence_quote": "The Receiving Party shall indemnify, defend, and hold harmless the Disclosing Party from and against all claims, losses, and damages, without limit, arising from any breach of this Agreement."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The absence of audit rights limits the ability to verify compliance with confidentiality obligations, increasing risk of undisclosed breaches.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not adequately cover potential damages, putting one party at risk of significant losses.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "LOW",
+      "rationale": "The lack of IP protections may lead to misuse or misappropriation of confidential information, though it may not be critical depending on the context.",
+      "evidence_quote": "No intellectual property provisions apply."
+    }
+  ],
+  "executed": true
+}

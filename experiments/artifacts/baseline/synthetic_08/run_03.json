@@ -3,31 +3,31 @@
     {
       "risk_title": "Indefinite Term",
       "severity": "HIGH",
-      "rationale": "An indefinite term could lead to ongoing obligations without a clear endpoint, increasing potential liabilities for the parties involved.",
+      "rationale": "An indefinite term can create ongoing obligations without a clear end, making it difficult for parties to exit the agreement.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination."
     },
     {
       "risk_title": "No Indemnification",
-      "severity": "HIGH",
-      "rationale": "The absence of indemnification provisions may expose parties to risks associated with third-party claims without recourse.",
+      "severity": "MEDIUM",
+      "rationale": "Lack of indemnification can expose a party to liability without recourse, increasing financial risk.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
       "risk_title": "Limitation of Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid can be risky, especially if damages exceed that amount, leaving parties vulnerable.",
+      "rationale": "Limiting liability to fees paid may not adequately protect against larger potential damages, resulting in significant risk.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The lack of audit rights may hinder the ability to verify compliance with confidentiality obligations, increasing risk of misuse.",
+      "rationale": "Absence of audit rights limits oversight, increasing the risk of non-compliance or misuse of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "The absence of IP provisions may lead to confusion regarding ownership and use of intellectual property created during the agreement.",
+      "rationale": "Lack of intellectual property provisions may lead to ambiguity regarding ownership and use of created works.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

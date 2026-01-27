@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Late Payment Interest Rate",
+      "severity": "MEDIUM",
+      "rationale": "A 1% per month late payment interest may be burdensome and could lead to financial strain on the Client if payments are delayed.",
+      "evidence_quote": "Late payments incur interest at 1% per month."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to the total fees paid in the last 24 months may expose the Client to significant risk if substantial damages occur.",
+      "evidence_quote": "Each party's liability is limited to the total fees paid in the 24 months preceding the claim."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at the annual contract value may not cover potential damages, exposing the Client to financial risk.",
+      "evidence_quote": "each party indemnifies the other for claims arising from its own breach, capped at the annual contract value."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "A 45-day notice period may be insufficient for planning and transitioning if the Agreement is terminated.",
+      "evidence_quote": "This Agreement may be terminated by either party with 45 days written notice for convenience."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A two-year confidentiality obligation post-termination might be too short for certain sensitive information.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "Attorneys' Fees Responsibility",
+      "severity": "LOW",
+      "rationale": "Each party bearing its own attorneys' fees may deter some parties from pursuing valid claims due to cost concerns.",
+      "evidence_quote": "Each party shall pay its own attorneys' fees and costs in connection with any dispute."
+    }
+  ],
+  "executed": true
+}

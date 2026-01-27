@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to the total contract value can expose a party to significant risk, especially in cases of substantial claims or damages that exceed this value.",
+      "evidence_quote": "Each party's liability is limited to the total contract value, except for indemnification obligations."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability to terminate for convenience with only 45 days notice can disrupt business operations and financial planning, especially for long-term commitments.",
+      "evidence_quote": "Either party may terminate for convenience with 45 days written notice."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification obligations at the annual contract value may not cover all potential claims, particularly in cases of serious negligence or misconduct.",
+      "evidence_quote": "Each party shall indemnify the other for claims arising from its own gross negligence or willful misconduct, capped at annual contract value."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "While a 5-year confidentiality obligation is typical, it may not be sufficient for certain sensitive information that requires longer protection.",
+      "evidence_quote": "Confidentiality obligations continue for 5 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "Modification Requirements",
+      "severity": "LOW",
+      "rationale": "Requiring written modifications signed by both parties can create delays and complications in adapting to changing circumstances.",
+      "evidence_quote": "This Agreement may only be modified in writing signed by both parties."
+    }
+  ],
+  "executed": true
+}

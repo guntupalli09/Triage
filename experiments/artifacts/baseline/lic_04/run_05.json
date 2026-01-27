@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetual License Without Clear Limits",
+      "severity": "HIGH",
+      "rationale": "The license is perpetual, which may lead to future disputes about usage rights and modifications without proper oversight.",
+      "evidence_quote": "Licensor grants Licensee a worldwide, perpetual, non-exclusive license to use, modify, and distribute the Software."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Limiting indemnification to annual fees may not adequately protect against significant damages arising from negligence.",
+      "evidence_quote": "each party indemnifies the other for its own negligence, capped at annual license fees."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 60-day termination notice may not provide sufficient time to transition or mitigate impacts of contract termination.",
+      "evidence_quote": "This Agreement may be terminated by either party with 60 days written notice for any reason."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A 2-year confidentiality obligation post-termination may be insufficient for certain sensitive information.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination."
+    },
+    {
+      "risk_title": "Limitation of Liability Clause",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to $1,000,000 or annual fees may expose parties to unaccounted risks beyond this cap.",
+      "evidence_quote": "Each party's liability is limited to the greater of $1,000,000 or the annual license fees."
+    }
+  ],
+  "executed": true
+}

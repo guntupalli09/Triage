@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Term",
+      "severity": "HIGH",
+      "rationale": "An indefinite term can lead to perpetual obligations, potentially exposing a party to ongoing liability without a clear end date.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship."
+    },
+    {
+      "risk_title": "Lack of Limitation on Use",
+      "severity": "MEDIUM",
+      "rationale": "The clause allowing use only for evaluating business opportunities lacks specificity, which may lead to misinterpretation and misuse of confidential information.",
+      "evidence_quote": "Use only for the purpose of evaluating business opportunities"
+    },
+    {
+      "risk_title": "Potential Broad Definition of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The definition of Confidential Information is broad, which could lead to disputes over what is considered confidential.",
+      "evidence_quote": "Confidential Information means all non-public information, whether oral, written, or electronic"
+    },
+    {
+      "risk_title": "Governing Law Jurisdiction",
+      "severity": "LOW",
+      "rationale": "Governing law in California may pose risks if the other party is located elsewhere, leading to jurisdictional complications.",
+      "evidence_quote": "This Agreement is governed by California law."
+    }
+  ],
+  "executed": true
+}

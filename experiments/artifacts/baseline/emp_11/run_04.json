@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Ownership",
+      "severity": "MEDIUM",
+      "rationale": "Employee may lose rights to their own work, potentially leading to disputes over ownership and usage of created work products.",
+      "evidence_quote": "Employer receives a non-exclusive license to use work product created during employment."
+    },
+    {
+      "risk_title": "Indemnification Requirement",
+      "severity": "HIGH",
+      "rationale": "The employee may be held financially responsible for claims arising from their actions, which could lead to significant personal liability.",
+      "evidence_quote": "Employee shall indemnify Employer to the extent required by applicable law for claims arising from Employee's willful misconduct."
+    },
+    {
+      "risk_title": "Short Termination Notice",
+      "severity": "MEDIUM",
+      "rationale": "A 2-week notice period may not provide sufficient time for either party to prepare for the termination of the agreement, leading to operational disruptions.",
+      "evidence_quote": "Either party may terminate this Agreement with 2 weeks written notice."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Audit Rights",
+      "severity": "HIGH",
+      "rationale": "The absence of audit rights limits the ability to verify compliance with the NDA, increasing the risk of undisclosed breaches.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Undefined Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The lack of intellectual property provisions may lead to disputes over ownership of innovations or ideas exchanged under the NDA.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "Indemnification Clause Limitations",
+      "severity": "MEDIUM",
+      "rationale": "Indemnification is limited to legal requirements, which may not cover all potential liabilities, exposing the Disclosing Party to unprotected risks.",
+      "evidence_quote": "The Receiving Party shall indemnify the Disclosing Party to the extent required by law..."
+    },
+    {
+      "risk_title": "No Late Fees Clause",
+      "severity": "LOW",
+      "rationale": "The absence of late fees may encourage delays in fulfilling obligations, but its impact is generally limited.",
+      "evidence_quote": "No late fees apply."
+    }
+  ],
+  "executed": true
+}

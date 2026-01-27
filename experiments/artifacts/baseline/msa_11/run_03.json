@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to fees paid in the past six months could expose the Provider to significant financial risk in case of a major claim.",
+      "evidence_quote": "Provider's liability is limited to the fees paid in the 6 months preceding the claim."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification requirement is broad and may expose the Provider to unforeseen liabilities from third-party claims.",
+      "evidence_quote": "Provider shall indemnify Client to the extent required by applicable law for third-party claims."
+    },
+    {
+      "risk_title": "Warranties Disclaimer",
+      "severity": "MEDIUM",
+      "rationale": "The broad disclaimer of warranties could leave the Client without recourse for issues arising from the Provider's deliverables.",
+      "evidence_quote": "Provider disclaims all warranties, express or implied, except as specifically stated."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "A 30-day notice period for termination may not provide sufficient time for the Client to transition or mitigate impacts.",
+      "evidence_quote": "This Agreement may be terminated by mutual agreement or by either party with 30 days notice."
+    },
+    {
+      "risk_title": "Governing Law Jurisdiction",
+      "severity": "LOW",
+      "rationale": "Specifying Illinois state law may create jurisdictional challenges for parties located in different states.",
+      "evidence_quote": "This Agreement is subject to Illinois state law."
+    }
+  ],
+  "executed": true
+}

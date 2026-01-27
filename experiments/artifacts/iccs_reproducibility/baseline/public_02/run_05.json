@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetuity of Obligations",
+      "severity": "HIGH",
+      "rationale": "Obligations continuing in perpetuity can lead to indefinite liability and uncertainty for both parties, potentially resulting in long-term legal and financial implications.",
+      "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
+    },
+    {
+      "risk_title": "Indemnification Without Limit",
+      "severity": "HIGH",
+      "rationale": "Indemnification without limits can expose a party to significant financial risk in the event of a breach, as it may lead to substantial claims and liabilities.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit, arising out of any breach of this Agreement."
+    },
+    {
+      "risk_title": "Unlimited Liability Clause",
+      "severity": "HIGH",
+      "rationale": "A limitation of liability clause that states neither party's liability shall be limited can result in unbounded financial exposure in case of legal claims.",
+      "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
+    },
+    {
+      "risk_title": "Intellectual Property Assignment",
+      "severity": "MEDIUM",
+      "rationale": "The automatic assignment of rights to Company A for all work products may limit the receiving party's ability to utilize their own contributions in future projects.",
+      "evidence_quote": "The receiving party hereby assigns all right, title, and interest in such work product."
+    },
+    {
+      "risk_title": "Attorneys' Fees Recovery Clause",
+      "severity": "MEDIUM",
+      "rationale": "The clause allowing recovery of attorneys' fees can discourage parties from pursuing legitimate disputes due to fear of incurring additional costs.",
+      "evidence_quote": "The prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party."
+    }
+  ],
+  "executed": true
+}

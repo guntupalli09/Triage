@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Joint Ownership of Intellectual Property",
+      "severity": "MEDIUM",
+      "rationale": "Joint ownership can lead to disputes over usage and licensing rights, complicating the commercialization of developed IP.",
+      "evidence_quote": "All intellectual property developed during the term of this Agreement shall be jointly owned by Provider and Client."
+    },
+    {
+      "risk_title": "Limitation of Liability Clause",
+      "severity": "HIGH",
+      "rationale": "Capping liability at the total contract value can expose the Client to significant financial risk if damages exceed that value.",
+      "evidence_quote": "Provider's liability is capped at the total contract value, except for indemnification obligations which are unlimited."
+    },
+    {
+      "risk_title": "As-Is Warranty Disclaimer",
+      "severity": "HIGH",
+      "rationale": "Providing services on an 'as-is' basis means the Client has limited recourse for subpar service or issues, increasing risk.",
+      "evidence_quote": "Provider provides services on an 'as-is' basis with no warranties, express or implied."
+    },
+    {
+      "risk_title": "Survival of Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations lasting 6 years may be burdensome and could lead to complications in handling sensitive information post-termination.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 6 years."
+    },
+    {
+      "risk_title": "Mandatory Arbitration Clause",
+      "severity": "MEDIUM",
+      "rationale": "Requiring disputes to go through mediation and arbitration can limit the Client's options for legal recourse.",
+      "evidence_quote": "Disputes shall be resolved through mediation, and if unsuccessful, through binding arbitration."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Termination Clause Flexibility",
+      "severity": "MEDIUM",
+      "rationale": "The ability to terminate with 60 days notice for any reason may lead to instability in the business relationship.",
+      "evidence_quote": "This Agreement may be terminated by either party with 60 days written notice for any reason."
+    },
+    {
+      "risk_title": "Limited Liability Cap",
+      "severity": "HIGH",
+      "rationale": "Capping liability at annual license fees can expose a party to significant financial loss in the event of a major issue.",
+      "evidence_quote": "Each party's liability is limited to the greater of $1,000,000 or the annual license fees."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at annual license fees may not adequately protect against larger claims.",
+      "evidence_quote": "each party indemnifies the other for its own negligence, capped at annual license fees."
+    },
+    {
+      "risk_title": "Governing Law Specification",
+      "severity": "LOW",
+      "rationale": "Specifying a particular state's law may lead to jurisdictional complexities if parties are located in different states.",
+      "evidence_quote": "This Agreement is governed by Massachusetts state law."
+    }
+  ],
+  "executed": true
+}

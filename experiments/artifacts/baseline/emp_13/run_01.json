@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetual License for Work Product",
+      "severity": "HIGH",
+      "rationale": "The employer's perpetual and exclusive license to all work products may limit the employee's future opportunities and rights to their own creations.",
+      "evidence_quote": "Provider grants Employer a perpetual, exclusive license to use all work product created during employment for Employer's business purposes."
+    },
+    {
+      "risk_title": "Broad Non-Compete Clause",
+      "severity": "MEDIUM",
+      "rationale": "The one-year non-compete clause may restrict the employee's ability to work in their field post-termination, potentially impacting their career prospects.",
+      "evidence_quote": "Employee may not compete within the same industry for 1 year after termination, within Employer's service area."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability of either party to terminate the agreement for convenience with only 30 days notice could lead to job insecurity for the employee.",
+      "evidence_quote": "Either party may terminate for convenience with 30 days written notice."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "LOW",
+      "rationale": "Capping indemnification at annual compensation may leave the employee exposed to significant liabilities without appropriate recourse.",
+      "evidence_quote": "Mutual indemnification: each party indemnifies the other for its own negligence, capped at annual compensation."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "High Interest on Late Payments",
+      "severity": "HIGH",
+      "rationale": "An 18% per annum interest on late payments can lead to significant financial liability for the Licensee, creating a high-risk situation if payments are delayed.",
+      "evidence_quote": "Late payments accrue interest at 18% per annum."
+    },
+    {
+      "risk_title": "Unlimited Liability for Licensor",
+      "severity": "HIGH",
+      "rationale": "Licensor's unlimited liability for certain claims exposes the Licensee to potential significant financial risks without a cap on damages.",
+      "evidence_quote": "Licensor's liability is unlimited for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Perpetual confidentiality obligations may impose ongoing obligations on the Licensee, which could be burdensome and lead to future compliance risks.",
+      "evidence_quote": "Confidentiality obligations are perpetual and survive termination indefinitely."
+    },
+    {
+      "risk_title": "Arbitration Clause",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the Licensee's options for legal recourse and could result in unfavorable outcomes compared to court proceedings.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of JAMS."
+    },
+    {
+      "risk_title": "Indemnification Responsibilities",
+      "severity": "MEDIUM",
+      "rationale": "The broad indemnification clause requires the Licensee to defend and indemnify Licensor, which could lead to significant unexpected legal costs.",
+      "evidence_quote": "Licensee shall defend, indemnify, and hold harmless Licensor from all claims, without limitation."
+    }
+  ],
+  "executed": true
+}

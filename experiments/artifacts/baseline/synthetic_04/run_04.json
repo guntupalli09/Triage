@@ -3,26 +3,32 @@
     {
       "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations may expose a party to unmitigated risks from third-party claims or breaches, leading to potential financial losses.",
+      "rationale": "The absence of indemnification obligations exposes the parties to significant financial risk in case of breaches or legal disputes.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limited Liability",
+      "risk_title": "Limitation of Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid may not cover potential damages, which could leave a party vulnerable in case of significant claims.",
+      "rationale": "Limiting liability to fees paid can leave parties vulnerable to greater losses, especially in cases of severe breaches.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
-    },
-    {
-      "risk_title": "No Intellectual Property Provisions",
-      "severity": "MEDIUM",
-      "rationale": "The lack of intellectual property provisions may lead to disputes over ownership and use of developed materials or ideas.",
-      "evidence_quote": "No intellectual property provisions apply."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "Without audit rights, there is a risk of non-compliance or mismanagement of confidential information, making it difficult to enforce the agreement.",
+      "rationale": "Lack of audit rights limits oversight and may increase risk of non-compliance with confidentiality obligations.",
       "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The absence of intellectual property provisions may lead to disputes over ownership and use of shared ideas or inventions.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "Attorney Fees Responsibility",
+      "severity": "MEDIUM",
+      "rationale": "Requiring the Receiving Party to pay attorneys' fees can create an imbalance and discourage enforcement of the agreement.",
+      "evidence_quote": "The Receiving Party shall pay all attorneys' fees and costs incurred by the Disclosing Party in enforcing this Agreement."
     }
   ],
   "executed": true

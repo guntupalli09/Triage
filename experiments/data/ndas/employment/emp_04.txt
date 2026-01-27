@@ -1,0 +1,35 @@
+EMPLOYMENT AGREEMENT
+
+This Employment Agreement ("Agreement") is entered into between Employer Company ("Employer") and Employee Name ("Employee").
+
+1. POSITION AND DUTIES
+Employee agrees to serve as Data Scientist and perform duties as assigned by Employer.
+
+2. COMPENSATION
+Employee's compensation includes a base salary of $140,000 and eligibility for annual bonuses.
+
+3. INTELLECTUAL PROPERTY
+Work product created during employment is jointly owned by Employer and Employee, with Employer receiving an exclusive license for business use.
+
+4. CONFIDENTIALITY AND NON-DISCLOSURE
+Confidentiality obligations survive termination and continue for 3 years.
+
+5. NON-COMPETE AND NON-SOLICITATION
+Employee may not compete within the same industry for 1 year after termination, within Employer's primary market area.
+
+6. TERM AND TERMINATION
+This Agreement may be terminated by mutual agreement or by either party with 90 days written notice.
+
+7. INDEMNIFICATION
+Mutual indemnification: each party indemnifies the other for its own negligence, capped at annual compensation.
+
+8. DISPUTE RESOLUTION
+Disputes shall be resolved through good faith negotiation between the parties.
+
+9. ATTORNEYS' FEES
+Each party is responsible for its own legal expenses.
+
+10. GOVERNING LAW
+This Agreement is governed by Massachusetts state law.
+
+This Agreement is effective as of April 10, 2024.

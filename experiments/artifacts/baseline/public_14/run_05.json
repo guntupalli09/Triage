@@ -1,28 +1,34 @@
 {
   "findings": [
     {
-      "risk_title": "Indefinite Duration of Confidentiality Obligations",
+      "risk_title": "Perpetual Confidentiality Obligations",
       "severity": "HIGH",
-      "rationale": "The perpetual nature of the confidentiality obligations may create long-term liability without clear end dates, which can be burdensome for the parties involved.",
+      "rationale": "The indefinite duration of confidentiality obligations may lead to challenges in compliance and potential long-term liabilities.",
       "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
     },
     {
       "risk_title": "Unlimited Indemnification",
       "severity": "HIGH",
-      "rationale": "The clause requires indemnification without limit, which could expose a party to significant financial risk in case of any breach.",
-      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit, arising out of any breach of this Agreement."
+      "rationale": "The requirement for unlimited indemnification exposes a party to potentially significant financial losses without clear limits.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit."
     },
     {
-      "risk_title": "No Limitation on Liability",
+      "risk_title": "No Limitation of Liability",
       "severity": "HIGH",
-      "rationale": "The absence of liability limitation exposes parties to unlimited financial liability, which can be particularly risky in case of significant damages.",
+      "rationale": "The absence of liability limitations increases risk exposure for both parties, particularly in high-stakes situations.",
       "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
     },
     {
-      "risk_title": "One-sided Intellectual Property Rights",
+      "risk_title": "Intellectual Property Ownership",
       "severity": "MEDIUM",
-      "rationale": "The clause grants exclusive ownership of work product to one party, which may be seen as unfair and could deter collaboration.",
+      "rationale": "Exclusive ownership of work product by one party may limit the other party's rights and may lead to disputes over contributions.",
       "evidence_quote": "All work product and deliverables created hereunder shall be owned exclusively by Company A."
+    },
+    {
+      "risk_title": "Recovery of Attorneys' Fees",
+      "severity": "MEDIUM",
+      "rationale": "The prevailing party recovering attorneys' fees may discourage legitimate claims or defenses due to financial concerns.",
+      "evidence_quote": "The prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party."
     }
   ],
   "executed": true

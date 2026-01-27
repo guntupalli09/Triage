@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Assignment",
+      "severity": "HIGH",
+      "rationale": "The employee assigns all rights to inventions and discoveries, which may limit their ability to benefit from their own work and may discourage innovation.",
+      "evidence_quote": "All inventions, discoveries, and intellectual property created by Employee during employment shall be the exclusive property of Employer."
+    },
+    {
+      "risk_title": "Indefinite Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "The requirement for indefinite confidentiality may pose a risk if the employee is unable to disclose information even after leaving the company.",
+      "evidence_quote": "Employee must maintain strict confidentiality of all research data, proprietary methods, and trade secrets indefinitely."
+    },
+    {
+      "risk_title": "Termination Without Cause",
+      "severity": "HIGH",
+      "rationale": "The employer's ability to terminate the agreement without cause may lead to job insecurity for the employee.",
+      "evidence_quote": "Employer may terminate this Agreement at any time, with or without cause."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The indemnification clause places significant liability on the employee for claims arising from their research activities, which could lead to financial risk.",
+      "evidence_quote": "Employee shall defend, indemnify, and hold harmless Employer from any and all claims, damages, losses, and expenses."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Requiring disputes to be resolved through binding arbitration may limit the employee's options for legal recourse.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of the American Arbitration Association."
+    },
+    {
+      "risk_title": "Attorney's Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "The clause allowing the employer to recover attorney's fees may deter the employee from pursuing legitimate claims due to potential financial burden.",
+      "evidence_quote": "Employer shall be entitled to recover all attorneys' fees, court costs, and expenses from Employee in any enforcement action."
+    }
+  ],
+  "executed": true
+}

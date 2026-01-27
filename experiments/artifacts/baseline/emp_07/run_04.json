@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee is required to indemnify the employer for claims arising from gross negligence, which could expose the employee to significant financial liability.",
+      "evidence_quote": "Employee shall indemnify Employer to the extent required by law for claims arising from Employee's gross negligence."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations lasting 18 months post-termination could limit the employee's future opportunities and create potential liabilities if not adhered to.",
+      "evidence_quote": "Confidentiality obligations continue for 18 months after termination."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "A 30-day notice period for termination may not provide sufficient time for the employee to secure new employment, which could lead to financial instability.",
+      "evidence_quote": "This Agreement may be terminated by either party with 30 days written notice."
+    }
+  ],
+  "executed": true
+}

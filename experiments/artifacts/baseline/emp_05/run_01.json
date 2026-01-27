@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "The lack of a time limitation on confidentiality may expose the employee to perpetual obligations, which can be unreasonable and hinder future employment opportunities.",
+      "evidence_quote": "Employee agrees to maintain strict confidentiality of all proprietary information, trade secrets, and business strategies indefinitely, without any time limitation."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee is required to indemnify the employer without limitation, which could lead to significant financial liability for the employee in unforeseen circumstances.",
+      "evidence_quote": "Employee shall defend, indemnify, and hold harmless Employer from any and all claims, damages, losses, and expenses, without limitation."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration can limit the employee's ability to seek redress through the courts, potentially favoring the employer in disputes.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration under the rules of the American Arbitration Association."
+    },
+    {
+      "risk_title": "Termination Without Cause",
+      "severity": "MEDIUM",
+      "rationale": "The employer's ability to terminate the agreement at any time without cause may create job insecurity for the employee.",
+      "evidence_quote": "Employer may terminate this Agreement at any time, with or without cause."
+    },
+    {
+      "risk_title": "Long Non-Compete Period",
+      "severity": "MEDIUM",
+      "rationale": "A 3-year non-compete period may significantly limit the employee's future employment opportunities and is considered excessive in many jurisdictions.",
+      "evidence_quote": "Employee shall not engage in any competitive business activity or solicit Employer's employees or customers for a period of 3 years following termination."
+    },
+    {
+      "risk_title": "Attorney's Fees Responsibility",
+      "severity": "LOW",
+      "rationale": "The provision that the employee must pay the employer's attorney's fees in disputes may deter the employee from pursuing legitimate claims.",
+      "evidence_quote": "In any action to enforce this Agreement, Employer shall be entitled to recover all attorneys' fees, court costs, and expenses from Employee."
+    }
+  ],
+  "executed": true
+}

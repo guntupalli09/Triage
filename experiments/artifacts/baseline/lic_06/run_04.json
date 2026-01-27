@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Revocable License",
+      "severity": "HIGH",
+      "rationale": "The non-exclusive and revocable nature of the license poses a risk to the Licensee, as they may lose access to the software without substantial notice or reason.",
+      "evidence_quote": "Licensor grants Licensee a non-exclusive, revocable license to use the Software for evaluation purposes only."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The requirement for Licensee to indemnify Licensor could expose them to significant financial liability without reciprocal protection, especially if claims arise from software use.",
+      "evidence_quote": "Licensee shall indemnify Licensor to the extent required by law for claims arising from Licensee's use of the Software."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting Licensor's liability to only the fees paid by Licensee restricts recovery options for the Licensee in case of substantial damages or losses.",
+      "evidence_quote": "Licensor's liability is limited to the amount of any license fees actually paid by Licensee."
+    },
+    {
+      "risk_title": "Warranties and Disclaimers",
+      "severity": "HIGH",
+      "rationale": "Providing the software 'as-is' without warranties significantly increases the risk for the Licensee, as they may face issues without any recourse.",
+      "evidence_quote": "Licensor provides the Software 'as-is' with no warranties during the evaluation period."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "A confidentiality obligation lasting only one year after termination may not be sufficient to protect sensitive information for longer-term relationships.",
+      "evidence_quote": "Confidentiality obligations continue for 1 year after termination of the evaluation period."
+    }
+  ],
+  "executed": true
+}

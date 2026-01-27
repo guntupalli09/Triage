@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Ambiguity in Intellectual Property Ownership",
+      "severity": "HIGH",
+      "rationale": "Joint ownership of work product may lead to disputes over rights and usage, particularly if not clearly defined.",
+      "evidence_quote": "Work product created during employment is jointly owned by Employer and Employee, with Employer receiving an exclusive license for business use."
+    },
+    {
+      "risk_title": "Non-Compete Duration",
+      "severity": "MEDIUM",
+      "rationale": "A one-year non-compete clause may limit the Employee's future employment opportunities, which could be seen as overly restrictive.",
+      "evidence_quote": "Employee may not compete within the same industry for 1 year after termination, within Employer's primary market area."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at annual compensation may leave parties exposed to significant claims that exceed this limit.",
+      "evidence_quote": "each party indemnifies the other for its own negligence, capped at annual compensation."
+    },
+    {
+      "risk_title": "Confidentiality Period",
+      "severity": "MEDIUM",
+      "rationale": "A three-year confidentiality obligation post-termination may be seen as excessively long, potentially limiting the Employee's future opportunities.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 3 years."
+    }
+  ],
+  "executed": true
+}

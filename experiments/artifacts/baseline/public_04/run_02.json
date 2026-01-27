@@ -1,15 +1,21 @@
 {
   "findings": [
     {
-      "risk_title": "Indefinite Duration of Confidentiality",
+      "risk_title": "Indefinite Term of Confidentiality",
       "severity": "HIGH",
-      "rationale": "The indefinite term could pose risks for the Receiving Party, as it may create ongoing obligations without a clear end, potentially leading to legal uncertainties.",
+      "rationale": "Indefinite duration of confidentiality may impose perpetual obligations on the Receiving Party, which can lead to unforeseen liabilities and challenges in compliance.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
     },
     {
-      "risk_title": "Lack of Defined Return Process",
+      "risk_title": "Lack of Limitation on Confidential Information",
       "severity": "MEDIUM",
-      "rationale": "The contract states that all Confidential Information must be returned but lacks specifics on the process, which can lead to disputes regarding compliance.",
+      "rationale": "The broad definition of Confidential Information may include information that is not truly proprietary, leading to potential overreach in confidentiality obligations.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party..."
+    },
+    {
+      "risk_title": "Obligations to Return Information",
+      "severity": "LOW",
+      "rationale": "While returning information is standard, lack of clarity on the timeline for return could lead to disputes or delays.",
       "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
     }
   ],

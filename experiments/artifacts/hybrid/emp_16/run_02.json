@@ -1,0 +1,96 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_IP_01",
+      "rule_name": "broad_ip_assignment",
+      "title": "Broad IP assignment / ownership transfer language",
+      "severity": "high",
+      "rationale": "Assignment language may transfer ownership of work product or IP rather than granting a limited license.",
+      "matched_excerpt": "...3. INTELLECTUAL PROPERTY All work product and deliverables created by Employee during employment shall be owned by Employer. Employee assigns all rights, title, and interest to Employer....",
+      "exact_snippet": "assigns all rights, title, and interest",
+      "start_index": 497,
+      "end_index": 536,
+      "position": 497,
+      "context": "shall receive a base salary of $125,000 per year, payable bi-weekly.\n\n3. INTELLECTUAL PROPERTY\nAll work product and deliverables created by Employee during employment shall be owned by Employer. Employee assigns all rights, title, and interest to Employer.\n\n4. CONFIDENTIALITY AND NON-DISCLOSURE\nEmployee agrees to maintain confidentiality of all proprietary testing methods and trade secrets for a period of 4 years after termination.\n\n5.",
+      "clause_number": null,
+      "matched_keywords": [
+        "assign"
+      ],
+      "aliases": []
+    },
+    {
+      "rule_id": "H_IP_WORK_PRODUCT_01",
+      "rule_name": "ip_assignment_work_product",
+      "title": "IP ownership via work product language",
+      "severity": "high",
+      "rationale": "Work product ownership language can effectively transfer IP even if assignment wording is indirect.",
+      "matched_excerpt": "...3. INTELLECTUAL PROPERTY All work product and deliverables created by Employee during employment shall be owned by Employer. Employee assigns all rights, title, and interest to Employer....",
+      "exact_snippet": "work product and deliverables created by Employee during employment shall be owned by",
+      "start_index": 392,
+      "end_index": 477,
+      "position": 392,
+      "context": "erve as Quality Assurance Engineer and perform duties as assigned by Employer.\n\n2. COMPENSATION\nEmployee shall receive a base salary of $125,000 per year, payable bi-weekly.\n\n3. INTELLECTUAL PROPERTY\nAll work product and deliverables created by Employee during employment shall be owned by Employer. Employee assigns all rights, title, and interest to Employer.\n\n4. CONFIDENTIALITY AND NON-DISCLOSURE\nEmployee agrees to maintain confidentiality of all proprietary testing methods and t",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    },
+    {
+      "rule_id": "M_NONCOMP_01",
+      "rule_name": "non_compete_non_solicit",
+      "title": "Non-compete / non-solicit style restriction",
+      "severity": "medium",
+      "rationale": "Restrictive covenants can limit future business activity; enforceability varies and is commonly negotiated.",
+      "matched_excerpt": "...5. NON-COMPETE AND NON-SOLICITATION Employee may not work for competitors for 18 months after termination within a 50-mile radius....",
+      "exact_snippet": "NON-COMPETE",
+      "start_index": 731,
+      "end_index": 742,
+      "position": 731,
+      "context": " interest to Employer.\n\n4. CONFIDENTIALITY AND NON-DISCLOSURE\nEmployee agrees to maintain confidentiality of all proprietary testing methods and trade secrets for a period of 4 years after termination.\n\n5. NON-COMPETE AND NON-SOLICITATION\nEmployee may not work for competitors for 18 months after termination within a 50-mile radius.\n\n6. TERM AND TERMINATION\nEither party may terminate with 2 weeks written noti",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...10. GOVERNING LAW This Agreement is governed by Minnesota state law....",
+      "exact_snippet": "governed by Minnesota state law",
+      "start_index": 1298,
+      "end_index": 1329,
+      "position": 1298,
+      "context": "UTION\nDisputes shall be resolved through binding arbitration.\n\n9. ATTORNEYS' FEES\nEmployer shall be entitled to recover reasonable attorneys' fees in any enforcement action.\n\n10. GOVERNING LAW\nThis Agreement is governed by Minnesota state law.\n\nThis Agreement is effective as of April 1, 2025.\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 2,
+    "medium": 1,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

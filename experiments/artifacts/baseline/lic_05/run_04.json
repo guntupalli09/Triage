@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "High Indemnification Burden on Licensee",
+      "severity": "HIGH",
+      "rationale": "Licensee is required to indemnify Licensor from all claims without limitation, which poses significant financial and legal risk.",
+      "evidence_quote": "Licensee shall defend, indemnify, and hold harmless Licensor from all claims, without limitation, arising from Licensee's use of the Software."
+    },
+    {
+      "risk_title": "Unlimited Liability for Licensor",
+      "severity": "HIGH",
+      "rationale": "Licensor's liability is unlimited for key areas, which could lead to substantial financial exposure for the Licensee.",
+      "evidence_quote": "Licensor's liability is unlimited for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "The perpetual nature of the confidentiality obligations may impose ongoing obligations on Licensee beyond the contract's termination.",
+      "evidence_quote": "Confidentiality obligations are perpetual and survive termination indefinitely."
+    },
+    {
+      "risk_title": "High Interest Rate on Late Payments",
+      "severity": "MEDIUM",
+      "rationale": "An 18% per annum interest rate on late payments is significantly high and could lead to financial strain.",
+      "evidence_quote": "Late payments accrue interest at 18% per annum."
+    },
+    {
+      "risk_title": "One-Sided Attorneys' Fees Provision",
+      "severity": "MEDIUM",
+      "rationale": "The clause allows Licensor to recover all attorneys' fees, which may discourage the Licensee from pursuing valid claims.",
+      "evidence_quote": "In any action to enforce this Agreement, Licensor shall recover all attorneys' fees, costs, and expenses from Licensee."
+    },
+    {
+      "risk_title": "Exclusive Jurisdiction Clause",
+      "severity": "LOW",
+      "rationale": "The exclusive jurisdiction in California may limit Licensee's options for dispute resolution, but generally not a high risk.",
+      "evidence_quote": "parties consent to exclusive jurisdiction in California courts."
+    }
+  ],
+  "executed": true
+}

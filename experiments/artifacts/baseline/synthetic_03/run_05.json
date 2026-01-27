@@ -1,28 +1,28 @@
 {
   "findings": [
     {
-      "risk_title": "Indemnification Waiver",
+      "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations may expose parties to unforeseen liabilities without recourse.",
+      "rationale": "The absence of indemnification obligations may expose parties to significant risks, as there is no recourse for damages caused by breaches or misconduct.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limitation of Liability",
+      "risk_title": "Limited Liability Clause",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid may not adequately protect against significant damages.",
+      "rationale": "Limiting liability to total fees may leave parties vulnerable to significant losses that exceed the fees paid, especially in cases of negligence or willful misconduct.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "Lack of audit rights limits oversight and may lead to misuse of confidential information.",
+      "rationale": "The lack of audit rights restricts the ability to verify compliance with the confidentiality obligations, which may lead to potential misuse of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "Confidential Information Definition",
       "severity": "LOW",
-      "rationale": "The definition of confidential information may be too broad or vague, risking unintentional disclosures.",
-      "evidence_quote": "Confidential Information means all non-public information disclosed by one party to the other."
+      "rationale": "The definition of Confidential Information is somewhat vague, relying on marking rather than a clear criteria, which could lead to disputes about the information's status.",
+      "evidence_quote": "Confidential Information means information marked as confidential."
     }
   ],
   "executed": true

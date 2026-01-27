@@ -1,0 +1,103 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_IP_01",
+      "rule_name": "broad_ip_assignment",
+      "title": "Broad IP assignment / ownership transfer language",
+      "severity": "high",
+      "rationale": "Assignment language may transfer ownership of work product or IP rather than granting a limited license.",
+      "matched_excerpt": "...Y All inventions, discoveries, and work product created by Employee during employment shall be the exclusive property of Employer. Employee hereby assigns all rights, title, and interest in such work product to Employer....",
+      "exact_snippet": "hereby assigns all rights, title, and interest",
+      "start_index": 534,
+      "end_index": 580,
+      "position": 534,
+      "context": "000, payable in bi-weekly installments.\n\n3. INTELLECTUAL PROPERTY\nAll inventions, discoveries, and work product created by Employee during employment shall be the exclusive property of Employer. Employee hereby assigns all rights, title, and interest in such work product to Employer.\n\n4. CONFIDENTIALITY AND NON-DISCLOSURE\nEmployee agrees to maintain confidentiality of all proprietary information indefinitely, even after termination of employm",
+      "clause_number": null,
+      "matched_keywords": [
+        "assign"
+      ],
+      "aliases": []
+    },
+    {
+      "rule_id": "M_CONF_01",
+      "rule_name": "indefinite_confidentiality",
+      "title": "Confidentiality may be perpetual / indefinite",
+      "severity": "medium",
+      "rationale": "Indefinite confidentiality can create long-term compliance burden and uncertainty around retention and disclosure.",
+      "matched_excerpt": "...4. CONFIDENTIALITY AND NON-DISCLOSURE Employee agrees to maintain confidentiality of all proprietary information indefinitely, even after termination of employment....",
+      "exact_snippet": "CONFIDENTIALITY AND NON-DISCLOSURE Employee agrees to maintain confidentiality of all proprietary information indefinitely",
+      "start_index": 618,
+      "end_index": 740,
+      "position": 618,
+      "context": "scoveries, and work product created by Employee during employment shall be the exclusive property of Employer. Employee hereby assigns all rights, title, and interest in such work product to Employer.\n\n4. CONFIDENTIALITY AND NON-DISCLOSURE\nEmployee agrees to maintain confidentiality of all proprietary information indefinitely, even after termination of employment.\n\n5. NON-COMPETE AND NON-SOLICITATION\nEmployee agrees not to compete with Employer for a period of 2 years after termination, within a 50-mile radius.\n\n6. T",
+      "clause_number": null,
+      "matched_keywords": [
+        "CONFIDENTIAL",
+        "indefinite"
+      ],
+      "aliases": [
+        "perpetual_confidentiality",
+        "indefinite_confidentiality",
+        "no_expiration_confidentiality"
+      ]
+    },
+    {
+      "rule_id": "M_NONCOMP_01",
+      "rule_name": "non_compete_non_solicit",
+      "title": "Non-compete / non-solicit style restriction",
+      "severity": "medium",
+      "rationale": "Restrictive covenants can limit future business activity; enforceability varies and is commonly negotiated.",
+      "matched_excerpt": "...5. NON-COMPETE AND NON-SOLICITATION Employee agrees not to compete with Employer for a period of 2 years after termination, within a 50-mile radius....",
+      "exact_snippet": "NON-COMPETE",
+      "start_index": 783,
+      "end_index": 794,
+      "position": 783,
+      "context": "t in such work product to Employer.\n\n4. CONFIDENTIALITY AND NON-DISCLOSURE\nEmployee agrees to maintain confidentiality of all proprietary information indefinitely, even after termination of employment.\n\n5. NON-COMPETE AND NON-SOLICITATION\nEmployee agrees not to compete with Employer for a period of 2 years after termination, within a 50-mile radius.\n\n6. TERM AND TERMINATION\nEither party may terminate this Ag",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...10. GOVERNING LAW This Agreement is governed by the laws of the State of California....",
+      "exact_snippet": "governed by the laws",
+      "start_index": 1477,
+      "end_index": 1497,
+      "position": 1477,
+      "context": "ng arbitration in accordance with AAA rules.\n\n9. ATTORNEYS' FEES\nEmployer shall be entitled to recover all attorneys' fees and costs in any action to enforce this Agreement.\n\n10. GOVERNING LAW\nThis Agreement is governed by the laws of the State of California.\n\nThis Agreement is effective as of January 1, 2024.\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 1,
+    "medium": 2,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

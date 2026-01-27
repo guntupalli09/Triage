@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Length of Non-Compete Clause",
+      "severity": "HIGH",
+      "rationale": "An 18-month non-compete clause may restrict the employee's future employment opportunities excessively, which could be seen as overly broad and unenforceable in some jurisdictions.",
+      "evidence_quote": "Employee may not work for competitors for 18 months after termination within a 50-mile radius."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The employee's indemnification obligation could expose them to significant financial liability, particularly if the amount exceeds their ability to pay or if claims arise from actions beyond their control.",
+      "evidence_quote": "Employee shall indemnify Employer for all claims arising from Employee's breach of this Agreement, up to $250,000."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Requiring disputes to be resolved through binding arbitration may limit the employee's options for legal recourse and could favor the employer in disputes.",
+      "evidence_quote": "Disputes shall be resolved through binding arbitration."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "A four-year confidentiality obligation may be seen as excessive, potentially impacting the employee's ability to work in the same field after employment ends.",
+      "evidence_quote": "Employee agrees to maintain confidentiality of all proprietary testing methods and trade secrets for a period of 4 years after termination."
+    }
+  ],
+  "executed": true
+}

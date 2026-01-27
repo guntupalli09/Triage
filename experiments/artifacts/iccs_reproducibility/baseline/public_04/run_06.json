@@ -1,0 +1,17 @@
+{
+  "findings": [
+    {
+      "risk_title": "Undefined Duration of Obligations",
+      "severity": "MEDIUM",
+      "rationale": "The agreement specifies a term of three years, but does not clarify if confidentiality obligations continue beyond this period, potentially leading to misuse of confidential information after the term.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution, after which the obligations shall terminate."
+    },
+    {
+      "risk_title": "Lack of Clarity on Return of Information",
+      "severity": "MEDIUM",
+      "rationale": "The requirement to return or destroy information may be ambiguous, leading to potential non-compliance and misuse of confidential information.",
+      "evidence_quote": "Upon termination, each party shall return or destroy all Confidential Information received from the other party."
+    }
+  ],
+  "executed": true
+}

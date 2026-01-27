@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unfavorable Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The Licensee bears all responsibility for claims arising from their use of the Software, which may expose them to significant financial liability.",
+      "evidence_quote": "Licensee agrees to indemnify Licensor for all claims, losses, and expenses, without limitation, arising from Licensee's use or modification of the Software."
+    },
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "The limitation of liability clause indicates that the Licensor has unlimited liability for indemnification claims, which could lead to substantial financial exposure for the Licensee.",
+      "evidence_quote": "Licensor's liability is unlimited for indemnification claims and intellectual property breaches."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability for either party to terminate the agreement with 45 days' notice may create uncertainty around the continuity of services.",
+      "evidence_quote": "Either party may terminate for convenience with 45 days written notice."
+    },
+    {
+      "risk_title": "Limited Warranty",
+      "severity": "MEDIUM",
+      "rationale": "The disclaimer of all warranties except as expressly stated may leave the Licensee with limited recourse in case of software defects.",
+      "evidence_quote": "Licensor disclaims all warranties except as expressly stated in the documentation."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "While confidentiality obligations are important, a 5-year duration may be insufficient for certain sensitive information.",
+      "evidence_quote": "Confidentiality obligations continue for 5 years after termination of this Agreement."
+    }
+  ],
+  "executed": true
+}

@@ -1,27 +1,33 @@
 {
   "findings": [
     {
-      "risk_title": "No Indemnification Provisions",
+      "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations increases the risk of liability for one party without recourse, potentially leading to significant financial exposure.",
+      "rationale": "The absence of indemnification means that parties may have limited recourse in case of breaches or claims, exposing them to potential financial losses.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
       "risk_title": "Limitation of Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to total fees paid may not adequately protect against significant damages, leading to potential financial losses.",
+      "rationale": "Limiting liability to total fees paid could leave parties vulnerable to significant claims beyond the fees, which may not adequately cover potential damages.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The lack of audit rights limits oversight and transparency, increasing the risk of non-compliance or misuse of confidential information.",
+      "rationale": "The absence of audit rights may prevent parties from verifying compliance with the agreement, increasing the risk of undisclosed breaches.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
-      "risk_title": "Automatic Renewal Clause",
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "HIGH",
+      "rationale": "Without intellectual property provisions, there is a risk of disputes over ownership or use of intellectual property developed during the agreement.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "Automatic Renewal",
       "severity": "LOW",
-      "rationale": "Automatic renewal could lead to unwanted prolonged obligations if either party fails to provide timely notice, potentially resulting in unintended commitments.",
+      "rationale": "Automatic renewal may lead to unintended extensions of obligations, posing a risk if parties wish to terminate the agreement.",
       "evidence_quote": "This Agreement shall automatically renew for additional one-year terms unless either party provides written notice of non-renewal."
     }
   ],

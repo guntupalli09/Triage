@@ -1,0 +1,85 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_INDEM_01",
+      "rule_name": "unlimited_indemnification",
+      "title": "Potentially unlimited indemnification",
+      "severity": "high",
+      "rationale": "Indemnity obligations may be uncapped, which can expose you to costs far beyond the contract value.",
+      "matched_excerpt": "...6. LIMITATION OF LIABILITY Licensor's liability is unlimited for indemnification claims and intellectual property breaches....",
+      "exact_snippet": "indemnification",
+      "start_index": 1025,
+      "end_index": 1040,
+      "position": 1025,
+      "context": "to indemnify Licensor for all claims, losses, and expenses, without limitation, arising from Licensee's use or modification of the Software.\n\n6. LIMITATION OF LIABILITY\nLicensor's liability is unlimited for indemnification claims and intellectual property breaches.\n\n7. CONFIDENTIALITY\nConfidentiality obligations continue for 5 years after termination of this Agreement.\n\n8. WARRANTIES AND DISCLAIMERS\nLicensor dis",
+      "clause_number": "1.5",
+      "matched_keywords": [
+        "unlimited",
+        "LIABILITY"
+      ],
+      "aliases": [
+        "uncapped_indemnification",
+        "unlimited_indemnity",
+        "no_limit_indemnification"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...11. GOVERNING LAW This Agreement is governed by Arizona state law....",
+      "exact_snippet": "governed by Arizona state law",
+      "start_index": 1556,
+      "end_index": 1585,
+      "position": 1556,
+      "context": "lved through mediation, then arbitration if mediation fails.\n\n10. ATTORNEYS' FEES\nThe prevailing party in any dispute shall be entitled to recover reasonable attorneys' fees.\n\n11. GOVERNING LAW\nThis Agreement is governed by Arizona state law.\n\nThis Agreement is effective as of November 1, 2024.\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    },
+    {
+      "rule_id": "L_LATEFEE_01",
+      "rule_name": "late_fees_interest",
+      "title": "Late fees / high interest",
+      "severity": "low",
+      "rationale": "Penalty terms can increase costs if payment timing slips.",
+      "matched_excerpt": "...3. PAYMENT TERMS Licensee shall pay annual license fees of $60,000, due on the anniversary date. Overdue payments incur interest at 1.5% per month....",
+      "exact_snippet": "interest at 1.5%",
+      "start_index": 660,
+      "end_index": 676,
+      "position": 660,
+      "context": "e shall be owned by Licensor. Licensee hereby assigns all such rights to Licensor.\n\n3. PAYMENT TERMS\nLicensee shall pay annual license fees of $60,000, due on the anniversary date. Overdue payments incur interest at 1.5% per month.\n\n4. TERM AND TERMINATION\nEither party may terminate for convenience with 45 days written notice.\n\n5. INDEMNIFICATION\nLicensee agrees to indemnify Licensor for all claims, losses, and e",
+      "clause_number": "1.5",
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 1,
+    "medium": 0,
+    "low": 2
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

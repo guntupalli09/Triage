@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The indemnification clause can create significant financial liability for the Receiving Party, especially if the breach leads to substantial claims or damages.",
+      "evidence_quote": "The Receiving Party shall indemnify, defend, and hold harmless the Disclosing Party from and against all claims, losses, and damages, without limit, arising from any breach of this Agreement."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid can be risky as it may not cover potential damages that could arise from a breach.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "Lack of audit rights prevents the Disclosing Party from verifying compliance with confidentiality obligations, increasing risk of misuse of confidential information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Lack of Intellectual Property Provisions",
+      "severity": "LOW",
+      "rationale": "The absence of intellectual property provisions may lead to unclear ownership of developed ideas or products during the partnership.",
+      "evidence_quote": "No intellectual property provisions apply."
+    }
+  ],
+  "executed": true
+}

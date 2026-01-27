@@ -1,28 +1,22 @@
 {
   "findings": [
     {
-      "risk_title": "Broad Definition of Confidential Information",
+      "risk_title": "Long Duration of Confidentiality",
       "severity": "MEDIUM",
-      "rationale": "The broad definition of confidential information could lead to challenges in determining what information is protected, potentially resulting in disputes over disclosures.",
-      "evidence_quote": "\"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information."
-    },
-    {
-      "risk_title": "Long Duration of Non-Disclosure",
-      "severity": "MEDIUM",
-      "rationale": "A five-year duration for non-disclosure may be excessive, and may hinder future business opportunities or collaborations once the term expires.",
+      "rationale": "A five-year duration for confidentiality may lead to complications if the information becomes outdated or irrelevant, potentially causing disputes over what information remains confidential.",
       "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
     },
     {
-      "risk_title": "Injunctive Relief Without Bond",
+      "risk_title": "Injunctive Relief Without Security",
       "severity": "HIGH",
-      "rationale": "Allowing injunctive relief without posting a bond increases the risk for the receiving party, as it could lead to significant consequences without adequate financial protection.",
+      "rationale": "Allowing a party to seek injunctive relief without posting bond may expose the other party to undue risk, as it prevents them from having a financial safeguard in case of wrongful claims.",
       "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
     },
     {
-      "risk_title": "Restrictions on Assignment",
+      "risk_title": "Restrictive Assignment Clause",
       "severity": "MEDIUM",
-      "rationale": "The restriction on assignment may hinder the ability of either party to transfer obligations or rights, potentially complicating business operations during changes in ownership.",
-      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party"
+      "rationale": "The restriction on assignment without consent can limit flexibility for both parties in the event of business changes, potentially leading to operational difficulties.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
     }
   ],
   "executed": true

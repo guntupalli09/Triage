@@ -1,0 +1,35 @@
+EMPLOYMENT AGREEMENT
+
+This Employment Agreement ("Agreement") is entered into between Employer Company ("Employer") and Employee Name ("Employee").
+
+1. POSITION AND DUTIES
+Employee agrees to serve as Quality Assurance Engineer and perform duties as assigned by Employer.
+
+2. COMPENSATION
+Employee shall receive a base salary of $125,000 per year, payable bi-weekly.
+
+3. INTELLECTUAL PROPERTY
+All work product and deliverables created by Employee during employment shall be owned by Employer. Employee assigns all rights, title, and interest to Employer.
+
+4. CONFIDENTIALITY AND NON-DISCLOSURE
+Employee agrees to maintain confidentiality of all proprietary testing methods and trade secrets for a period of 4 years after termination.
+
+5. NON-COMPETE AND NON-SOLICITATION
+Employee may not work for competitors for 18 months after termination within a 50-mile radius.
+
+6. TERM AND TERMINATION
+Either party may terminate with 2 weeks written notice.
+
+7. INDEMNIFICATION
+Employee shall indemnify Employer for all claims arising from Employee's breach of this Agreement, up to $250,000.
+
+8. DISPUTE RESOLUTION
+Disputes shall be resolved through binding arbitration.
+
+9. ATTORNEYS' FEES
+Employer shall be entitled to recover reasonable attorneys' fees in any enforcement action.
+
+10. GOVERNING LAW
+This Agreement is governed by Minnesota state law.
+
+This Agreement is effective as of April 1, 2025.

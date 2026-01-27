@@ -1,0 +1,78 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_IP_WORK_PRODUCT_01",
+      "rule_name": "ip_assignment_work_product",
+      "title": "IP ownership via work product language",
+      "severity": "high",
+      "rationale": "Work product ownership language can effectively transfer IP even if assignment wording is indirect.",
+      "matched_excerpt": "...3. INTELLECTUAL PROPERTY Work product created during employment is owned by Employer, with Employee receiving a royalty-free license for personal portfolio use....",
+      "exact_snippet": "Work product created during employment is owned by",
+      "start_index": 396,
+      "end_index": 446,
+      "position": 396,
+      "context": " as Operations Manager and perform duties as assigned by Employer.\n\n2. COMPENSATION\nEmployee's compensation includes a base salary of $125,000 and eligibility for equity grants.\n\n3. INTELLECTUAL PROPERTY\nWork product created during employment is owned by Employer, with Employee receiving a royalty-free license for personal portfolio use.\n\n4. CONFIDENTIALITY AND NON-DISCLOSURE\nConfidentiality obligations survive termination and continue for 4 year",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    },
+    {
+      "rule_id": "M_NONCOMP_01",
+      "rule_name": "non_compete_non_solicit",
+      "title": "Non-compete / non-solicit style restriction",
+      "severity": "medium",
+      "rationale": "Restrictive covenants can limit future business activity; enforceability varies and is commonly negotiated.",
+      "matched_excerpt": "...5. NON-COMPETE AND NON-SOLICITATION Employee may not work for direct competitors for 18 months after termination....",
+      "exact_snippet": "NON-COMPETE",
+      "start_index": 647,
+      "end_index": 658,
+      "position": 647,
+      "context": " by Employer, with Employee receiving a royalty-free license for personal portfolio use.\n\n4. CONFIDENTIALITY AND NON-DISCLOSURE\nConfidentiality obligations survive termination and continue for 4 years.\n\n5. NON-COMPETE AND NON-SOLICITATION\nEmployee may not work for direct competitors for 18 months after termination.\n\n6. TERM AND TERMINATION\nThis Agreement may be terminated by mutual agreement or by either par",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...10. GOVERNING LAW This Agreement is governed by Connecticut state law....",
+      "exact_snippet": "governed by Connecticut state law",
+      "start_index": 1190,
+      "end_index": 1223,
+      "position": 1190,
+      "context": "at annual salary.\n\n8. DISPUTE RESOLUTION\nDisputes shall be resolved through good faith negotiation.\n\n9. ATTORNEYS' FEES\nEach party is responsible for its own legal expenses.\n\n10. GOVERNING LAW\nThis Agreement is governed by Connecticut state law.\n\nThis Agreement is effective as of September 1, 2024.\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 1,
+    "medium": 1,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

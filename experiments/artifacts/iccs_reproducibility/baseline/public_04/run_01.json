@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Term of Agreement",
+      "severity": "MEDIUM",
+      "rationale": "The three-year term may expose the parties to risks of unauthorized use of confidential information after the agreement expires.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution, after which the obligations shall terminate."
+    },
+    {
+      "risk_title": "Ambiguity in Confidential Information Definition",
+      "severity": "HIGH",
+      "rationale": "The broad definition of Confidential Information may lead to disputes over what constitutes confidential data, creating potential for misuse.",
+      "evidence_quote": "Confidential Information includes all proprietary information, trade secrets, business plans, financial data, and technical information disclosed by either party."
+    },
+    {
+      "risk_title": "Obligations Post-Termination",
+      "severity": "MEDIUM",
+      "rationale": "While the contract mentions returning or destroying confidential information, it may lack clarity on enforcement or consequences for non-compliance.",
+      "evidence_quote": "Upon termination, each party shall return or destroy all Confidential Information received from the other party."
+    }
+  ],
+  "executed": true
+}

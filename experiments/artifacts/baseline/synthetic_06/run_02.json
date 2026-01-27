@@ -1,28 +1,22 @@
 {
   "findings": [
     {
-      "risk_title": "Lack of Indemnification",
+      "risk_title": "No Indemnification Obligations",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations could expose the parties to significant liability without recourse for damages incurred due to breaches or legal claims.",
+      "rationale": "Lack of indemnification can expose a party to significant financial risk in case of breaches or legal claims.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The lack of audit rights limits the ability of a party to verify compliance with the confidentiality obligations, potentially increasing the risk of misuse of confidential information.",
+      "rationale": "Absence of audit rights limits the ability to verify compliance with the terms, increasing the risk of undisclosed breaches.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "Limited Term",
       "severity": "MEDIUM",
-      "rationale": "The fixed term of three years may not be sufficient for ongoing projects or relationships, potentially leading to lapses in confidentiality coverage.",
+      "rationale": "A fixed term of three years may lead to a lapse in confidentiality if not renewed, potentially exposing sensitive information.",
       "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution."
-    },
-    {
-      "risk_title": "No Provision for Late Fees",
-      "severity": "LOW",
-      "rationale": "The absence of late fees may lead to non-compliance or delayed payments without financial consequences, which may impact the enforcement of the agreement.",
-      "evidence_quote": "No late fees apply."
     }
   ],
   "executed": true

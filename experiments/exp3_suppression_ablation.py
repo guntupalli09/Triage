@@ -10,7 +10,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from experiments.config import DATA_DIR
-from experiments.utils_io import get_doc_ids, read_text, load_json
+from experiments.utils_io import get_doc_ids, read_text, load_json, find_doc_file
 from experiments.run_hybrid import run_hybrid_engine
 from experiments.metrics import compute_fp_fn_hybrid
 
@@ -19,16 +19,13 @@ def run_experiment_3():
     """
     Run Experiment 3: Suppression ablation.
     
-    NOTE: The current RuleEngine.analyze() method always applies suppression.
-    To properly test suppression ON vs OFF, we would need to modify the core engine
-    to accept a suppression_enabled parameter. Per constraints, we do not modify
-    core logic. This experiment runs with suppression ON and documents the limitation.
+    Tests the impact of false-positive suppression on precision and recall.
+    Runs hybrid engine with suppression ON and OFF to measure differences.
     """
     print("=" * 80)
     print("EXPERIMENT 3: Suppression Ablation")
     print("=" * 80)
-    print("NOTE: Suppression cannot be toggled without modifying core engine.")
-    print("Running with suppression ON only. Limitation documented in results.")
+    print("Testing suppression ON vs OFF to measure impact on FP/FN rates.")
     print("=" * 80)
     
     doc_ids = get_doc_ids(DATA_DIR)
@@ -39,24 +36,27 @@ def run_experiment_3():
     for doc_id in synthetic_ids:
         print(f"\nProcessing {doc_id}...")
         
-        text_path = DATA_DIR / f"{doc_id}.txt"
-        truth_path = DATA_DIR / f"{doc_id}.truth.json"
+        text_path = find_doc_file(DATA_DIR, doc_id, ".txt")
+        truth_path = find_doc_file(DATA_DIR, doc_id, ".truth.json")
         
-        if not text_path.exists() or not truth_path.exists():
-            print(f"  Skipping {doc_id}: missing files")
+        if not text_path or not text_path.exists():
+            print(f"  Skipping {doc_id}: text file not found")
+            continue
+        
+        if not truth_path or not truth_path.exists():
+            print(f"  Skipping {doc_id}: truth file not found")
             continue
         
         text = read_text(text_path)
         truth = load_json(truth_path)
         
-        # Run with suppression ON (only option available)
+        # Run with suppression ON
         result_on = run_hybrid_engine(text, suppression_enabled=True)
         fp_on, fn_on = compute_fp_fn_hybrid(result_on, truth)
         
-        # For OFF, we would need to modify core engine
-        # Documenting as limitation
-        fp_off = None
-        fn_off = None
+        # Run with suppression OFF
+        result_off = run_hybrid_engine(text, suppression_enabled=False)
+        fp_off, fn_off = compute_fp_fn_hybrid(result_off, truth)
         
         results.append({
             "doc_id": doc_id,
@@ -64,7 +64,8 @@ def run_experiment_3():
             "fn_on": fn_on,
             "fp_off": fp_off,
             "fn_off": fn_off,
-            "note": "Suppression OFF not available without core engine modification"
+            "fp_reduction": fp_off - fp_on,  # How many FPs were suppressed
+            "fn_change": fn_off - fn_on,  # Did suppression cause any FNs?
         })
     
     return results

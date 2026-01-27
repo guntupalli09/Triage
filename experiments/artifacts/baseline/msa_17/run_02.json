@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Joint Ownership of Intellectual Property",
+      "severity": "HIGH",
+      "rationale": "Joint ownership may lead to disputes over the use and licensing of intellectual property, potentially limiting the Provider's ability to exploit their own creations.",
+      "evidence_quote": "All intellectual property developed during the term of this Agreement shall be jointly owned by Provider and Client."
+    },
+    {
+      "risk_title": "Unlimited Indemnification Obligations",
+      "severity": "HIGH",
+      "rationale": "The Provider's indemnification obligations are unlimited, which could expose them to significant financial liabilities without a cap.",
+      "evidence_quote": "Provider agrees to indemnify Client for third-party claims arising from Provider's gross negligence, up to a maximum of $750,000 per claim."
+    },
+    {
+      "risk_title": "As-Is Warranties",
+      "severity": "MEDIUM",
+      "rationale": "Providing services on an 'as-is' basis with no warranties may expose the Client to risks related to service quality and performance.",
+      "evidence_quote": "Provider provides services on an 'as-is' basis with no warranties, express or implied."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Capping the Provider's liability at the total contract value could leave the Client vulnerable in case of significant damages arising from the Provider's actions.",
+      "evidence_quote": "Provider's liability is capped at the total contract value, except for indemnification obligations which are unlimited."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A 6-year confidentiality obligation may be considered lengthy and could impact future business opportunities for the Provider.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 6 years."
+    }
+  ],
+  "executed": true
+}

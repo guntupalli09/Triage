@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "High Interest Rate on Overdue Payments",
+      "severity": "HIGH",
+      "rationale": "An 18% per annum interest on overdue payments may create significant financial burden for the Provider, potentially leading to cash flow issues.",
+      "evidence_quote": "Overdue payments accrue interest at 18% per annum."
+    },
+    {
+      "risk_title": "Unlimited Liability of Provider",
+      "severity": "HIGH",
+      "rationale": "Unlimited liability poses a significant risk to the Provider, exposing them to potentially catastrophic financial consequences.",
+      "evidence_quote": "Provider's liability is unlimited and not subject to any limitation of liability clause."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Perpetual confidentiality obligations may impose long-term burdens and risks on the Provider, affecting future opportunities.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue without time limitation."
+    },
+    {
+      "risk_title": "Unequal Termination Rights",
+      "severity": "MEDIUM",
+      "rationale": "The Client's ability to terminate immediately while the Provider requires 90 days' notice may create an imbalance in the relationship.",
+      "evidence_quote": "Client may terminate immediately. Provider requires 90 days notice."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory binding arbitration may limit the Provider's ability to seek traditional legal remedies, potentially disadvantaging them in disputes.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration in accordance with JAMS rules."
+    },
+    {
+      "risk_title": "Attorney's Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "The provision that the Client can recover all attorneys' fees from the Provider may deter the Provider from pursuing legal action, limiting their rights.",
+      "evidence_quote": "Client shall recover all attorneys' fees, costs, and expenses from Provider."
+    }
+  ],
+  "executed": true
+}

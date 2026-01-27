@@ -1,0 +1,108 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_INDEM_01",
+      "rule_name": "unlimited_indemnification",
+      "title": "Potentially unlimited indemnification",
+      "severity": "high",
+      "rationale": "Indemnity obligations may be uncapped, which can expose you to costs far beyond the contract value.",
+      "matched_excerpt": "...6. LIMITATION OF LIABILITY Notwithstanding any limitation of liability clause, Licensor's liability for indemnification is unlimited....",
+      "exact_snippet": "indemnification",
+      "start_index": 1073,
+      "end_index": 1088,
+      "position": 1073,
+      "context": "mages, and expenses, without limitation, arising from Licensee's distribution or use of the Software.\n\n6. LIMITATION OF LIABILITY\nNotwithstanding any limitation of liability clause, Licensor's liability for indemnification is unlimited.\n\n7. CONFIDENTIALITY\nConfidentiality obligations are perpetual and survive termination without any time limitation.\n\n8. WARRANTIES AND DISCLAIMERS\nLicensor warrants that the Softw",
+      "clause_number": null,
+      "matched_keywords": [
+        "unlimited",
+        "LIABILITY"
+      ],
+      "aliases": [
+        "uncapped_indemnification",
+        "unlimited_indemnity",
+        "no_limit_indemnification"
+      ]
+    },
+    {
+      "rule_id": "M_CONF_01",
+      "rule_name": "indefinite_confidentiality",
+      "title": "Confidentiality may be perpetual / indefinite",
+      "severity": "medium",
+      "rationale": "Indefinite confidentiality can create long-term compliance burden and uncertainty around retention and disclosure.",
+      "matched_excerpt": "...7. CONFIDENTIALITY Confidentiality obligations are perpetual and survive termination without any time limitation....",
+      "exact_snippet": "CONFIDENTIALITY Confidentiality obligations are perpetual",
+      "start_index": 1106,
+      "end_index": 1163,
+      "position": 1106,
+      "context": "tation, arising from Licensee's distribution or use of the Software.\n\n6. LIMITATION OF LIABILITY\nNotwithstanding any limitation of liability clause, Licensor's liability for indemnification is unlimited.\n\n7. CONFIDENTIALITY\nConfidentiality obligations are perpetual and survive termination without any time limitation.\n\n8. WARRANTIES AND DISCLAIMERS\nLicensor warrants that the Software will comply with all applicable laws and regulations.\n\n9. DISPUTE RESOL",
+      "clause_number": null,
+      "matched_keywords": [
+        "CONFIDENTIAL",
+        "perpetual"
+      ],
+      "aliases": [
+        "perpetual_confidentiality",
+        "indefinite_confidentiality",
+        "no_expiration_confidentiality"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...11. GOVERNING LAW This Agreement is governed by California law, and parties submit to exclusive jurisdiction in California courts....",
+      "exact_snippet": "governed by California law",
+      "start_index": 1651,
+      "end_index": 1677,
+      "position": 1651,
+      "context": "nternational Chamber of Commerce.\n\n10. ATTORNEYS' FEES\nIn any action to enforce this Agreement, Licensor shall recover all attorneys' fees, costs, and expenses from Licensee.\n\n11. GOVERNING LAW\nThis Agreement is governed by California law, and parties submit to exclusive jurisdiction in California courts.\n\nThis Agreement is effective as of January 1, 2025.\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    },
+    {
+      "rule_id": "L_LATEFEE_01",
+      "rule_name": "late_fees_interest",
+      "title": "Late fees / high interest",
+      "severity": "low",
+      "rationale": "Penalty terms can increase costs if payment timing slips.",
+      "matched_excerpt": "...3. PAYMENT TERMS Licensee shall pay upfront license fees of $200,000, due within 10 days. Late payments accrue interest at 3% per month....",
+      "exact_snippet": "Late payments accrue interest at 3%",
+      "start_index": 582,
+      "end_index": 617,
+      "position": 582,
+      "context": "luding modifications and enhancements, shall be owned by Licensor. Licensee assigns all such rights to Licensor.\n\n3. PAYMENT TERMS\nLicensee shall pay upfront license fees of $200,000, due within 10 days. Late payments accrue interest at 3% per month.\n\n4. TERM AND TERMINATION\nLicensor may terminate immediately upon Licensee's material breach. Licensee requires 90 days notice to terminate.\n\n5. INDEMNIFICATION\nLicensee shall defend, i",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 1,
+    "medium": 1,
+    "low": 2
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

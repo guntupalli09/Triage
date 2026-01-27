@@ -3,25 +3,25 @@
     {
       "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations could expose parties to significant liability without recourse for damages caused by the other party.",
+      "rationale": "The absence of indemnification obligations can expose a party to significant risks if issues arise related to the disclosed information.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limited Liability",
+      "risk_title": "Limitation of Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to the total fees paid may not adequately protect against significant losses, especially in high-stakes situations.",
+      "rationale": "Limiting liability to total fees paid can leave a party vulnerable to greater losses not covered by this limitation.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The absence of audit rights can prevent parties from verifying compliance with the confidentiality obligations, increasing risk of misuse of confidential information.",
+      "rationale": "The lack of audit rights prevents parties from verifying compliance with the confidentiality obligations, increasing the risk of misuse of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "The lack of intellectual property provisions may lead to disputes over ownership and use of intellectual property developed during the agreement.",
+      "rationale": "The absence of IP provisions could lead to disputes regarding the ownership and use of any intellectual property that may be developed during the agreement.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

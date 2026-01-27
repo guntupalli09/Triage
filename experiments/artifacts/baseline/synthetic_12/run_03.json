@@ -3,26 +3,32 @@
     {
       "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations may expose parties to liability without recourse for damages caused by breaches or third-party claims.",
+      "rationale": "The absence of indemnification obligations exposes parties to potential liabilities without recourse, increasing financial risk.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limited Liability",
+      "risk_title": "Limited Liability Clause",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to total fees paid may not adequately protect parties from significant losses resulting from breaches or negligence.",
+      "rationale": "Limiting liability to fees paid can result in significant losses for one party without adequate compensation for damages.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "The absence of intellectual property provisions may lead to disputes over ownership and use of proprietary information shared during the agreement.",
+      "rationale": "The absence of IP provisions can lead to disputes over ownership and use of created intellectual property.",
       "evidence_quote": "No intellectual property provisions apply."
     },
     {
-      "risk_title": "No Late Fees",
+      "risk_title": "One-Sided Attorneys' Fees",
       "severity": "LOW",
-      "rationale": "The lack of late fees may encourage delayed payments without financial consequences, affecting cash flow.",
-      "evidence_quote": "No late fees apply."
+      "rationale": "Each party bearing its own attorneys' fees may discourage disputes, but can also lead to inequitable situations in litigation.",
+      "evidence_quote": "Each party shall bear its own attorneys' fees."
+    },
+    {
+      "risk_title": "Audit Rights",
+      "severity": "LOW",
+      "rationale": "While audit rights are common, they can be perceived as intrusive and may deter collaboration.",
+      "evidence_quote": "The Disclosing Party may inspect all records related to compliance with this Agreement."
     }
   ],
   "executed": true

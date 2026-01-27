@@ -16,7 +16,7 @@ Freelancers face challenges:
 
 ### 1. Affordable Risk Assessment
 
-**Cost**: $19 per analysis (vs. $500-2000 for legal review)
+**Cost**: $5.99 per analysis (vs. $500-2000 for legal review)
 
 **Benefit**: Freelancers can assess contract risk without breaking the bank.
 

@@ -87,6 +87,235 @@ The parties acknowledge that monetary damages may be inadequate for breach of th
 Neither party may assign this Agreement without the prior written consent of the other party, except in connection with a change of control transaction.
 
 Governing Law: Delaware""",
+    
+    """CONFIDENTIALITY AGREEMENT
+
+This Confidentiality Agreement is entered into between {party1} and {party2}.
+
+CONFIDENTIAL INFORMATION
+Confidential Information includes all proprietary information, trade secrets, business plans, financial data, and technical information disclosed by either party.
+
+OBLIGATIONS
+Each party agrees to maintain the confidentiality of the other party's Confidential Information and to use such information solely for the purpose of evaluating potential business opportunities.
+
+TERM
+This Agreement shall remain in effect for three (3) years from the date of execution, after which the obligations shall terminate.
+
+RETURN OF MATERIALS
+Upon termination, each party shall return or destroy all Confidential Information received from the other party.
+
+Governing Law: Texas""",
+
+    """NON-DISCLOSURE AND CONFIDENTIALITY AGREEMENT
+
+BETWEEN {party1} ("Discloser") AND {party2} ("Recipient")
+
+1. DEFINITION
+Confidential Information means all non-public information, whether oral, written, or electronic, disclosed by Discloser to Recipient.
+
+2. CONFIDENTIALITY OBLIGATIONS
+Recipient agrees to:
+- Hold Confidential Information in strict confidence
+- Not disclose to any third party without prior written consent
+- Use only for the purpose of evaluating business opportunities
+- Take reasonable precautions to protect confidentiality
+
+3. TERM
+This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship.
+
+4. EXCEPTIONS
+Confidential Information does not include information that:
+- Is publicly available
+- Was already known to Recipient
+- Is independently developed by Recipient
+
+5. GOVERNING LAW
+This Agreement is governed by California law.""",
+
+    """MUTUAL CONFIDENTIALITY AGREEMENT
+
+This Mutual Confidentiality Agreement is made on {date} between {party1} and {party2}.
+
+PURPOSE
+The parties wish to explore potential business opportunities and may disclose confidential information to each other.
+
+CONFIDENTIAL INFORMATION
+Confidential Information means all proprietary information disclosed by one party to the other, including technical data, business strategies, customer information, and financial information.
+
+OBLIGATIONS
+Each party agrees to:
+(a) Maintain strict confidentiality
+(b) Not use the information for any purpose other than evaluating business opportunities
+(c) Return or destroy all Confidential Information upon request
+
+DURATION
+Confidentiality obligations shall continue for two (2) years after termination of discussions.
+
+Governing Law: New York""",
+
+    """STANDARD CONFIDENTIALITY AGREEMENT
+
+PARTIES: {party1} and {party2}
+
+1. CONFIDENTIAL INFORMATION
+All non-public information disclosed by either party, including but not limited to technical specifications, business plans, financial data, and customer lists.
+
+2. NON-DISCLOSURE
+Neither party shall disclose the other's Confidential Information to any third party without prior written authorization.
+
+3. PERMITTED USE
+Confidential Information may be used solely for the purpose of evaluating potential business relationships between the parties.
+
+4. TERM
+This Agreement shall remain in effect for four (4) years from the date of execution.
+
+5. REMEDIES
+Breach of this Agreement may cause irreparable harm. The non-breaching party shall be entitled to seek injunctive relief.
+
+Governing Law: Delaware""",
+
+    """CONFIDENTIALITY AND NON-DISCLOSURE AGREEMENT
+
+This Agreement is entered into between {party1} and {party2} on {date}.
+
+DEFINITIONS
+"Confidential Information" means all proprietary or confidential information disclosed by one party to the other, whether in oral, written, or electronic form.
+
+OBLIGATIONS
+The Receiving Party agrees to:
+- Maintain the confidentiality of all Confidential Information
+- Not disclose to any third party without written consent
+- Use Confidential Information only for the stated business purpose
+- Implement reasonable security measures
+
+TERM AND SURVIVAL
+This Agreement shall remain in effect for five (5) years. Confidentiality obligations shall survive termination.
+
+RETURN OF INFORMATION
+Upon termination or upon request, the Receiving Party shall return all Confidential Information and destroy all copies.
+
+Governing Law: Massachusetts""",
+
+    """NON-DISCLOSURE AGREEMENT (NDA)
+
+BETWEEN {party1} ("Disclosing Party") AND {party2} ("Receiving Party")
+
+ARTICLE 1 - CONFIDENTIAL INFORMATION
+Confidential Information includes all non-public, proprietary information disclosed by Disclosing Party to Receiving Party, including technical data, business information, financial information, and trade secrets.
+
+ARTICLE 2 - CONFIDENTIALITY OBLIGATIONS
+Receiving Party shall:
+(a) Hold all Confidential Information in strict confidence
+(b) Not disclose to any third party without prior written consent
+(c) Use Confidential Information solely for evaluating business opportunities
+(d) Take reasonable precautions to protect confidentiality
+
+ARTICLE 3 - DURATION
+This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship.
+
+ARTICLE 4 - GOVERNING LAW
+This Agreement is governed by the laws of the State of California.
+
+ARTICLE 5 - ENTIRE AGREEMENT
+This Agreement constitutes the entire agreement between the parties regarding confidentiality.""",
+
+    """MUTUAL NON-DISCLOSURE AGREEMENT
+
+This Mutual Non-Disclosure Agreement is entered into on {date} between {party1} and {party2}.
+
+RECITALS
+The parties wish to explore potential business opportunities and may exchange confidential information.
+
+1. DEFINITION OF CONFIDENTIAL INFORMATION
+Confidential Information means all proprietary information, whether oral, written, or electronic, disclosed by one party to the other.
+
+2. MUTUAL OBLIGATIONS
+Each party agrees to maintain the confidentiality of the other party's Confidential Information and to use such information only for evaluating business opportunities.
+
+3. TERM
+The confidentiality obligations under this Agreement shall continue for three (3) years from the date of execution.
+
+4. EXCEPTIONS
+Confidential Information does not include information that is publicly available or independently developed.
+
+5. RETURN OF MATERIALS
+Upon termination, each party shall return all Confidential Information received from the other party.
+
+Governing Law: Illinois""",
+
+    """CONFIDENTIALITY AGREEMENT
+
+PARTIES: {party1} and {party2}
+DATE: {date}
+
+WHEREAS, the parties wish to explore potential business opportunities;
+WHEREAS, such exploration may require disclosure of confidential information;
+
+NOW, THEREFORE, the parties agree as follows:
+
+1. CONFIDENTIAL INFORMATION
+All non-public information disclosed by either party, including technical data, business strategies, financial information, and customer information.
+
+2. CONFIDENTIALITY OBLIGATIONS
+Each party agrees to:
+- Maintain strict confidentiality
+- Not disclose to third parties without consent
+- Use information solely for stated business purpose
+- Take reasonable security measures
+
+3. DURATION
+This Agreement shall remain in effect for two (2) years from the date of execution.
+
+4. GOVERNING LAW
+This Agreement is governed by the laws of the State of Washington.
+
+IN WITNESS WHEREOF, the parties have executed this Agreement.""",
+
+    """STANDARD NDA TEMPLATE
+
+This Non-Disclosure Agreement is made between {party1} and {party2}.
+
+CONFIDENTIAL INFORMATION
+Confidential Information means all proprietary or confidential information disclosed by one party to the other, whether in oral, written, or electronic form, including but not limited to technical data, business plans, financial information, and customer lists.
+
+OBLIGATIONS
+The Receiving Party agrees to:
+(a) Hold Confidential Information in strict confidence
+(b) Not disclose to any third party without prior written authorization
+(c) Use Confidential Information only for evaluating business opportunities
+(d) Return or destroy Confidential Information upon request
+
+TERM
+This Agreement shall remain in effect for four (4) years from the date of execution.
+
+REMEDIES
+The parties acknowledge that breach of this Agreement may cause irreparable harm, and the non-breaching party shall be entitled to seek injunctive relief.
+
+Governing Law: Colorado""",
+
+    """MUTUAL CONFIDENTIALITY AGREEMENT
+
+BETWEEN {party1} AND {party2}
+
+PREAMBLE
+The parties wish to explore potential business opportunities and may exchange confidential information for this purpose.
+
+1. DEFINITION
+"Confidential Information" means all non-public, proprietary information disclosed by either party to the other.
+
+2. MUTUAL OBLIGATIONS
+Each party agrees to maintain the confidentiality of the other party's Confidential Information and to use such information solely for the stated business purpose.
+
+3. TERM AND SURVIVAL
+This Agreement shall remain in effect indefinitely. Confidentiality obligations shall survive termination of any business relationship.
+
+4. RETURN OF INFORMATION
+Upon termination or upon request, each party shall return all Confidential Information received from the other party.
+
+5. GOVERNING LAW
+This Agreement is governed by the laws of the State of Florida.
+
+EXECUTED on {date}.""",
 ]
 
 

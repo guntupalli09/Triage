@@ -1,0 +1,38 @@
+SOFTWARE LICENSING AGREEMENT
+
+This Software Licensing Agreement ("Agreement") is entered into between Licensor Company ("Licensor") and Licensee Company ("Licensee").
+
+1. GRANT OF LICENSE
+Licensor grants Licensee a worldwide, non-exclusive license to use the Software for Licensee's business operations, including the right to make backup copies.
+
+2. INTELLECTUAL PROPERTY OWNERSHIP
+Licensor retains all ownership rights in the Software. Licensee receives no ownership interest or assignment rights.
+
+3. PAYMENT TERMS
+Licensee shall pay monthly subscription fees of $3,000, due on the first of each month.
+
+4. TERM AND TERMINATION
+Either party may terminate this Agreement with 30 days written notice for any reason.
+
+5. INDEMNIFICATION
+Mutual indemnification: each party indemnifies the other for its own breach, capped at annual subscription fees.
+
+6. LIMITATION OF LIABILITY
+Each party's liability is limited to the total fees paid in the 12 months preceding the claim.
+
+7. CONFIDENTIALITY
+Confidentiality obligations continue for 18 months after termination.
+
+8. WARRANTIES AND DISCLAIMERS
+Licensor warrants that the Software will perform substantially in accordance with the user documentation.
+
+9. DISPUTE RESOLUTION
+Disputes shall be resolved through direct negotiation between authorized representatives.
+
+10. ATTORNEYS' FEES
+Each party bears its own legal expenses.
+
+11. GOVERNING LAW
+This Agreement is subject to Colorado state law.
+
+This Agreement is effective as of December 1, 2024.

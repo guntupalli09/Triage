@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Duration of Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "The two-year limitation on confidentiality obligations may expose parties to risks if sensitive information is disclosed after this period.",
+      "evidence_quote": "Confidentiality obligations shall continue for two (2) years after termination of discussions."
+    },
+    {
+      "risk_title": "Broad Definition of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition may lead to ambiguity and disputes regarding what constitutes confidential information, which can increase the risk of unintended disclosures.",
+      "evidence_quote": "Confidential Information means all proprietary information disclosed by one party to the other."
+    },
+    {
+      "risk_title": "No Specific Remedies for Breach",
+      "severity": "HIGH",
+      "rationale": "The absence of specified remedies for breach of confidentiality may leave parties vulnerable and unclear on the consequences of violations.",
+      "evidence_quote": "Each party agrees to: Maintain strict confidentiality."
+    }
+  ],
+  "executed": true
+}

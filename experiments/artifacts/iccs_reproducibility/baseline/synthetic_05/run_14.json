@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Audit Rights",
+      "severity": "HIGH",
+      "rationale": "Absence of audit rights may limit the Disclosing Party's ability to ensure compliance with confidentiality obligations, increasing the risk of unauthorized disclosures.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Indemnification Scope Ambiguity",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause is vague and could lead to disputes over what claims are covered, potentially resulting in unexpected liabilities.",
+      "evidence_quote": "The Receiving Party shall indemnify the Disclosing Party to the extent required by law for all claims arising from breach of this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The absence of intellectual property provisions may lead to disputes regarding ownership and use of intellectual property derived from the relationship.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "Limited Duration",
+      "severity": "LOW",
+      "rationale": "A term of three years may be insufficient for ongoing relationships, leading to potential exposure of confidential information post-agreement.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution."
+    },
+    {
+      "risk_title": "No Provision for Attorneys' Fees Recovery",
+      "severity": "LOW",
+      "rationale": "Each party bearing its own attorneys' fees may discourage parties from pursuing legal action, thus impacting enforcement of rights under the agreement.",
+      "evidence_quote": "Each party shall bear its own attorneys' fees."
+    }
+  ],
+  "executed": true
+}

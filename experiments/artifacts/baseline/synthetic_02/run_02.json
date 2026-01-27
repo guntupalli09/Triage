@@ -1,27 +1,27 @@
 {
   "findings": [
     {
-      "risk_title": "No Indemnification Obligations",
+      "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations increases the risk for the Receiving Party, as they may not be protected against claims arising from the Disclosing Party's breaches.",
+      "rationale": "The absence of indemnification obligations may expose parties to significant liability without recourse to recover damages.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Unlimited Liability Clause",
+      "risk_title": "Unlimited Liability",
       "severity": "HIGH",
-      "rationale": "The limitation of liability clause is absent, exposing both parties to potentially unlimited financial liability for breaches or damages.",
+      "rationale": "Limiting liability is a standard risk management practice; having no limitations may lead to unforeseen financial exposure.",
       "evidence_quote": "No event shall be limited by the limitation of liability clause."
     },
     {
-      "risk_title": "Lack of Audit Rights",
+      "risk_title": "Absence of Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The absence of audit rights limits the Receiving Party's ability to verify compliance with the NDA terms, which may lead to potential misuse of Confidential Information.",
+      "rationale": "Without audit rights, a party may be unable to verify compliance or detect breaches of the agreement, increasing risk.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "The lack of intellectual property provisions may lead to unclear ownership of any developments or inventions that arise during the term of the agreement.",
+      "rationale": "The lack of provisions regarding intellectual property can lead to disputes over ownership and usage of shared information.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitations on Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to the total license fees can expose a party to significant losses beyond this amount, especially in cases of negligence or misconduct.",
+      "evidence_quote": "Each party's liability is limited to the total license fees paid under this Agreement."
+    },
+    {
+      "risk_title": "Indemnification Scope",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause requires each party to indemnify the other only as required by law, which may not cover all potential liabilities.",
+      "evidence_quote": "Each party shall indemnify the other to the extent required by applicable law for third-party claims."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "A confidentiality obligation lasting only 3 years may not be sufficient for all types of sensitive information, potentially exposing parties to risk after this period.",
+      "evidence_quote": "Confidentiality obligations continue for 3 years after termination."
+    },
+    {
+      "risk_title": "Governing Law Jurisdiction",
+      "severity": "LOW",
+      "rationale": "Specifying New York state law may be a concern for parties located in different jurisdictions, impacting enforceability and legal interpretations.",
+      "evidence_quote": "This Agreement is subject to New York state law."
+    }
+  ],
+  "executed": true
+}

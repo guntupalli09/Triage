@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Liability",
+      "severity": "MEDIUM",
+      "rationale": "The limitation of liability could expose the parties to significant risks in case of substantial claims, as it caps the liability to the contract value.",
+      "evidence_quote": "Each party's liability is limited to the annual contract value, except as required by law."
+    },
+    {
+      "risk_title": "Indemnification Scope",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause only covers claims arising from a party's own breach, which may leave gaps in protection for third-party claims.",
+      "evidence_quote": "Each party indemnifies the other to the extent required by applicable law for claims arising from its own breach."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "A 45-day notice period for termination may not provide sufficient time for either party to adjust or mitigate potential impacts.",
+      "evidence_quote": "Either party may terminate with 45 days written notice for convenience."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "The confidentiality obligations lasting 4 years post-termination may be considered excessive, depending on the nature of the information involved.",
+      "evidence_quote": "Confidentiality obligations continue for 4 years after termination."
+    }
+  ],
+  "executed": true
+}

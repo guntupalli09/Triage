@@ -1,0 +1,9 @@
+{
+  "expected_rule_ids_present": [],
+  "expected_rule_ids_absent": [
+    "H_IP_01",
+    "H_INDEM_01",
+    "H_ATTFEE_01"
+  ],
+  "contract_type": "Employment"
+}

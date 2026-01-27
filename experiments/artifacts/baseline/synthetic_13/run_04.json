@@ -1,33 +1,33 @@
 {
   "findings": [
     {
-      "risk_title": "Lack of Indemnification",
+      "risk_title": "Indemnification Waiver",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification provisions may expose parties to significant risks without protection against third-party claims or liabilities.",
+      "rationale": "The absence of indemnification obligations may expose a party to significant risks arising from breaches or third-party claims without any recourse.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
       "risk_title": "Limitation of Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid may not adequately cover potential damages, leaving parties vulnerable in case of significant breaches.",
+      "rationale": "Limiting liability to fees paid could result in significant losses not being recoverable, especially in cases of gross negligence or willful misconduct.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
-      "risk_title": "No Audit Rights",
+      "risk_title": "Lack of Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The lack of audit rights can hinder the ability to verify compliance with confidentiality obligations, increasing risk of misuse of confidential information.",
+      "rationale": "The absence of audit rights may hinder the ability to verify compliance with the NDA, increasing the risk of undisclosed breaches.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
-      "risk_title": "High Late Fee Interest Rate",
+      "risk_title": "High Late Fees",
       "severity": "MEDIUM",
-      "rationale": "An 18% per annum late fee may be deemed excessive and could lead to financial strain or disputes.",
+      "rationale": "An 18% late fee is considerably high and may lead to financial strain or disputes over payment obligations.",
       "evidence_quote": "Late payments shall accrue interest at a rate of 18% per annum."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "HIGH",
-      "rationale": "The absence of IP provisions leaves intellectual property rights unaddressed, risking ownership disputes or unauthorized use of proprietary information.",
+      "rationale": "The absence of intellectual property provisions may lead to disputes regarding ownership or use of shared ideas and inventions.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

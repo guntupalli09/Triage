@@ -1,0 +1,38 @@
+SOFTWARE LICENSING AGREEMENT
+
+This Software Licensing Agreement ("Agreement") is entered into between Licensor Company ("Licensor") and Licensee Company ("Licensee").
+
+1. GRANT OF LICENSE
+Licensor grants Licensee a limited, non-transferable license to use the Software for a specific number of concurrent users as specified in the license certificate.
+
+2. INTELLECTUAL PROPERTY OWNERSHIP
+All modifications, enhancements, and derivative works created by Licensee shall be owned by Licensor. Licensee hereby assigns all such rights to Licensor.
+
+3. PAYMENT TERMS
+Licensee shall pay annual license fees of $60,000, due on the anniversary date. Overdue payments incur interest at 1.5% per month.
+
+4. TERM AND TERMINATION
+Either party may terminate for convenience with 45 days written notice.
+
+5. INDEMNIFICATION
+Licensee agrees to indemnify Licensor for all claims, losses, and expenses, without limitation, arising from Licensee's use or modification of the Software.
+
+6. LIMITATION OF LIABILITY
+Licensor's liability is unlimited for indemnification claims and intellectual property breaches.
+
+7. CONFIDENTIALITY
+Confidentiality obligations continue for 5 years after termination of this Agreement.
+
+8. WARRANTIES AND DISCLAIMERS
+Licensor disclaims all warranties except as expressly stated in the documentation.
+
+9. DISPUTE RESOLUTION
+Disputes shall be resolved through mediation, then arbitration if mediation fails.
+
+10. ATTORNEYS' FEES
+The prevailing party in any dispute shall be entitled to recover reasonable attorneys' fees.
+
+11. GOVERNING LAW
+This Agreement is governed by Arizona state law.
+
+This Agreement is effective as of November 1, 2024.

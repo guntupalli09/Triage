@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "A four-year duration may be too long for certain types of confidential information, potentially limiting the ability to use or disclose information after the term.",
+      "evidence_quote": "This Agreement shall remain in effect for four (4) years from the date of execution."
+    },
+    {
+      "risk_title": "Broad Definition of Confidential Information",
+      "severity": "HIGH",
+      "rationale": "The encompassing nature of 'Confidential Information' may lead to disputes over what constitutes confidential data, increasing the potential for unintentional breaches.",
+      "evidence_quote": "All non-public information disclosed by either party, including but not limited to technical specifications, business plans, financial data, and customer lists."
+    },
+    {
+      "risk_title": "Injunctive Relief May Be Insufficient",
+      "severity": "MEDIUM",
+      "rationale": "While injunctive relief is mentioned, it may not sufficiently compensate for damages incurred due to breach, leading to unaddressed financial risks.",
+      "evidence_quote": "The non-breaching party shall be entitled to seek injunctive relief."
+    }
+  ],
+  "executed": true
+}

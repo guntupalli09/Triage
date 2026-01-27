@@ -3,25 +3,25 @@
     {
       "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations can expose parties to significant risks without recourse for damages resulting from breaches or negligence.",
+      "rationale": "The absence of indemnification obligations can expose parties to significant liabilities without recourse, especially in cases of breach or misuse of confidential information.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limitations on Liability",
+      "risk_title": "Limitation of Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to total fees paid may not adequately protect against significant damages, especially in high-stakes situations.",
+      "rationale": "Limiting liability to total fees paid can be risky, as it may not cover potential damages arising from breaches of confidentiality or misuse of information.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "The absence of intellectual property clauses may lead to disputes over ownership and usage rights of proprietary information.",
+      "rationale": "The lack of intellectual property provisions may lead to uncertainties regarding ownership and usage rights of shared confidential information, increasing the risk of disputes.",
       "evidence_quote": "No intellectual property provisions apply."
     },
     {
       "risk_title": "Limited Audit Rights",
       "severity": "LOW",
-      "rationale": "While audit rights exist, they are limited to reasonable notice and normal business hours, potentially restricting oversight.",
+      "rationale": "While audit rights exist, they are limited to reasonable notice and normal business hours, potentially restricting the Disclosing Party's ability to verify compliance effectively.",
       "evidence_quote": "The Disclosing Party may audit the Receiving Party's records upon reasonable notice during normal business hours."
     }
   ],

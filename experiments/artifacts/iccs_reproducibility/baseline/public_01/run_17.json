@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Term of Confidentiality",
+      "severity": "HIGH",
+      "rationale": "An indefinite term can lead to perpetual obligations, potentially causing future legal complications or challenges in defining the scope of confidentiality.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
+    },
+    {
+      "risk_title": "Lack of Limitation on Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of Confidential Information may lead to ambiguity and disputes over what constitutes confidential data, increasing the risk of unintentional breaches.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party to the Receiving Party."
+    },
+    {
+      "risk_title": "Return of Information Clause",
+      "severity": "LOW",
+      "rationale": "While the clause mandates return of information, it does not specify how disputes regarding the return will be resolved, which could lead to issues.",
+      "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
+    }
+  ],
+  "executed": true
+}

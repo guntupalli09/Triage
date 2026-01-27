@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Vague Definition of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of 'Confidential Information' may lead to disputes regarding what is protected, potentially exposing the parties to unintentional breaches.",
+      "evidence_quote": "All non-public information disclosed by either party, including but not limited to technical specifications, business plans, financial data, and customer lists."
+    },
+    {
+      "risk_title": "Length of Agreement Term",
+      "severity": "MEDIUM",
+      "rationale": "A four-year term may be considered excessive for certain business relationships, increasing the risk of outdated obligations or misunderstandings over time.",
+      "evidence_quote": "This Agreement shall remain in effect for four (4) years from the date of execution."
+    },
+    {
+      "risk_title": "Limited Remedies for Breach",
+      "severity": "HIGH",
+      "rationale": "The emphasis on injunctive relief may limit the non-breaching party's available remedies, potentially leaving them without sufficient compensation for damages.",
+      "evidence_quote": "The non-breaching party shall be entitled to seek injunctive relief."
+    }
+  ],
+  "executed": true
+}

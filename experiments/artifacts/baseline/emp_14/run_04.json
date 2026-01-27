@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "The requirement for indefinite confidentiality may expose the employee to perpetual risk of liability even after leaving the company.",
+      "evidence_quote": "Employee must maintain strict confidentiality of all research data, proprietary methods, and trade secrets indefinitely, without any time limitation."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause is broad and could require the employee to cover extensive liabilities, potentially leading to significant financial risk.",
+      "evidence_quote": "Employee shall defend, indemnify, and hold harmless Employer from any and all claims, damages, losses, and expenses, without limitation."
+    },
+    {
+      "risk_title": "Employer's Unilateral Termination Right",
+      "severity": "MEDIUM",
+      "rationale": "The employer's ability to terminate the agreement at any time without cause creates job security concerns for the employee.",
+      "evidence_quote": "Employer may terminate this Agreement at any time, with or without cause."
+    },
+    {
+      "risk_title": "Non-Compete Duration",
+      "severity": "MEDIUM",
+      "rationale": "A 3-year non-compete clause could significantly restrict the employee's future employment opportunities.",
+      "evidence_quote": "Employee shall not engage in competitive research or solicit Employer's research partners for 3 years following termination."
+    },
+    {
+      "risk_title": "Arbitration Agreement",
+      "severity": "LOW",
+      "rationale": "Mandatory arbitration may limit the employee's ability to seek recourse through traditional court systems, though it is common in contracts.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of the American Arbitration Association."
+    }
+  ],
+  "executed": true
+}

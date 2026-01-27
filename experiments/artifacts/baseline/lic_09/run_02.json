@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Exclusive License Grant",
+      "severity": "HIGH",
+      "rationale": "An exclusive license may limit Licensee's ability to negotiate with other potential partners and restricts their options in the market.",
+      "evidence_quote": "Licensor grants Licensee a worldwide, exclusive license to use, distribute, and sublicense the Software"
+    },
+    {
+      "risk_title": "Indemnification Obligations",
+      "severity": "HIGH",
+      "rationale": "The requirement for Licensee to indemnify Licensor can expose Licensee to significant financial liabilities without clear limits.",
+      "evidence_quote": "Licensee shall defend, indemnify, and hold harmless Licensor from all claims, without limitation"
+    },
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "Licensor's unlimited liability for indemnification obligations poses a substantial risk to Licensee, as it could lead to unforeseen financial consequences.",
+      "evidence_quote": "Licensor's liability is unlimited for indemnification obligations and breaches of intellectual property provisions"
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Perpetual confidentiality can restrict Licensee's ability to use knowledge or experiences gained, even after the agreement ends.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely after termination"
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration can limit Licensee's ability to pursue legal action in court, potentially disadvantaging them in disputes.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under AAA Commercial Arbitration Rules"
+    },
+    {
+      "risk_title": "Governing Law and Jurisdiction",
+      "severity": "MEDIUM",
+      "rationale": "Exclusive jurisdiction in California may impose logistical and legal challenges for Licensee if they are located elsewhere.",
+      "evidence_quote": "This Agreement is governed by California law, and parties consent to exclusive jurisdiction in California courts"
+    }
+  ],
+  "executed": true
+}

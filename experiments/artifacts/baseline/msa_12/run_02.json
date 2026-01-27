@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "HIGH",
+      "rationale": "Limiting indemnification to the annual contract value may expose a party to significant financial risks in the event of serious claims.",
+      "evidence_quote": "Each party shall indemnify the other for claims arising from its own gross negligence or willful misconduct, capped at annual contract value."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to the total contract value may not cover all potential losses, particularly in cases of severe negligence or misconduct.",
+      "evidence_quote": "Each party's liability is limited to the total contract value, except for indemnification obligations."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability to terminate for convenience with only 45 days notice could result in unexpected disruptions and financial planning challenges.",
+      "evidence_quote": "Either party may terminate for convenience with 45 days written notice."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "A five-year confidentiality obligation may be seen as insufficient in protecting sensitive information depending on the nature of the information involved.",
+      "evidence_quote": "Confidentiality obligations continue for 5 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "Attorney Fees Clause",
+      "severity": "LOW",
+      "rationale": "Each party bearing its own attorney fees may deter parties from pursuing legitimate claims due to cost considerations.",
+      "evidence_quote": "Each party shall pay its own attorneys' fees and costs."
+    }
+  ],
+  "executed": true
+}

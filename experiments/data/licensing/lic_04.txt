@@ -1,0 +1,38 @@
+SOFTWARE LICENSING AGREEMENT
+
+This Software Licensing Agreement ("Agreement") is entered into between Licensor Company ("Licensor") and Licensee Company ("Licensee").
+
+1. GRANT OF LICENSE
+Licensor grants Licensee a worldwide, perpetual, non-exclusive license to use, modify, and distribute the Software.
+
+2. INTELLECTUAL PROPERTY OWNERSHIP
+Licensor retains all ownership rights. Licensee receives a license only, with no assignment of rights.
+
+3. PAYMENT TERMS
+Licensee shall pay annual license fees as specified in Schedule A, due within 45 days of invoice date.
+
+4. TERM AND TERMINATION
+This Agreement may be terminated by either party with 60 days written notice for any reason.
+
+5. INDEMNIFICATION
+Mutual indemnification: each party indemnifies the other for its own negligence, capped at annual license fees.
+
+6. LIMITATION OF LIABILITY
+Each party's liability is limited to the greater of $1,000,000 or the annual license fees.
+
+7. CONFIDENTIALITY
+Confidentiality obligations continue for 2 years after termination.
+
+8. WARRANTIES AND DISCLAIMERS
+Licensor warrants that the Software will substantially conform to the specifications in the documentation.
+
+9. DISPUTE RESOLUTION
+Disputes shall be resolved through good faith negotiation between authorized representatives.
+
+10. ATTORNEYS' FEES
+Each party is responsible for its own legal expenses.
+
+11. GOVERNING LAW
+This Agreement is governed by Massachusetts state law.
+
+This Agreement is effective as of April 1, 2024.

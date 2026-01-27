@@ -1,0 +1,39 @@
+MASTER SERVICE AGREEMENT
+
+This Master Service Agreement ("Agreement") is entered into between Service Provider ("Provider") and Client Company ("Client").
+
+1. SERVICES
+Provider agrees to provide the services described in attached Statements of Work.
+
+2. PAYMENT TERMS
+Payment terms are net 30 days from invoice date. A late payment fee of 4% applies to overdue amounts.
+
+3. INTELLECTUAL PROPERTY
+Provider grants Client a royalty-free, perpetual license to use deliverables for Client's business operations.
+
+4. INDEMNIFICATION
+Mutual indemnification: each party indemnifies the other for its own negligence, up to $1,000,000 per claim.
+
+5. LIMITATION OF LIABILITY
+Each party's liability is capped at the greater of $500,000 or the annual contract value.
+
+6. TERM AND TERMINATION
+This Agreement may be terminated by either party with 60 days written notice for any reason.
+
+7. CONFIDENTIALITY
+Confidentiality obligations survive termination and continue for 4 years.
+
+8. WARRANTIES
+Provider provides services 'as-is' with no warranties except as expressly stated.
+
+9. DISPUTE RESOLUTION
+Disputes shall be resolved through mediation, then arbitration if mediation is unsuccessful.
+
+10. GOVERNING LAW
+This Agreement is governed by Florida state law.
+
+11. ATTORNEYS' FEES
+The prevailing party in any dispute shall recover reasonable attorneys' fees from the non-prevailing party.
+
+12. MODIFICATIONS
+This Agreement may only be modified in writing signed by both parties.

@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "The requirement for perpetual confidentiality may inhibit the employee's future employment opportunities and poses a risk of unintentional breaches.",
+      "evidence_quote": "Employee must maintain strict confidentiality of all proprietary systems, architectures, and trade secrets in perpetuity, without any time limitation."
+    },
+    {
+      "risk_title": "At-Will Termination",
+      "severity": "MEDIUM",
+      "rationale": "The employer's ability to terminate at will without cause can create job security concerns for the employee, impacting morale and retention.",
+      "evidence_quote": "Employer may terminate at will."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee's obligation to indemnify the employer for all claims can expose them to significant financial liability without clear limitations.",
+      "evidence_quote": "Employee shall defend, indemnify, and hold harmless Employer from all claims, without limitation."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the employee's ability to seek redress through traditional court systems, which can be a disadvantage in disputes.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration under AAA rules."
+    },
+    {
+      "risk_title": "Attorney's Fees Responsibility",
+      "severity": "MEDIUM",
+      "rationale": "The clause requiring the employee to pay the employer's attorney's fees in disputes may discourage the employee from pursuing legitimate claims.",
+      "evidence_quote": "Employer shall recover all attorneys' fees, costs, and expenses from Employee."
+    }
+  ],
+  "executed": true
+}

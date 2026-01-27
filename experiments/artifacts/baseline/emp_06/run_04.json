@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Non-Compete Clause",
+      "severity": "MEDIUM",
+      "rationale": "Restricts the employee's ability to work in their field for a year, which may limit their future employment opportunities.",
+      "evidence_quote": "Employee agrees not to work for competitors for 12 months after termination within a 25-mile radius."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee is required to indemnify the employer for claims, which could lead to significant financial liability for the employee.",
+      "evidence_quote": "Employee shall indemnify Employer for all claims arising from Employee's breach of this Agreement, up to $100,000."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "A 5-year confidentiality obligation may be excessive and could hinder the employee's future job prospects.",
+      "evidence_quote": "Employee must maintain confidentiality of all proprietary information for a period of 5 years after termination."
+    },
+    {
+      "risk_title": "Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Binding arbitration may limit the employee's ability to seek traditional legal recourse, potentially reducing their leverage in disputes.",
+      "evidence_quote": "Disputes shall be resolved through binding arbitration."
+    }
+  ],
+  "executed": true
+}

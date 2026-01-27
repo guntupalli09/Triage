@@ -1,0 +1,67 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_LOL_CARVEOUT_01",
+      "rule_name": "liability_cap_carveout",
+      "title": "Liability cap carve-outs may negate protection",
+      "severity": "high",
+      "rationale": "Liability caps that exclude indemnity, confidentiality, or IP claims often negate the practical benefit of the cap entirely.",
+      "matched_excerpt": "...5. LIMITATION OF LIABILITY Each party's liability is limited to the total contract value, except for indemnification obligations....",
+      "exact_snippet": "LIMITATION OF LIABILITY",
+      "start_index": 667,
+      "end_index": 690,
+      "position": 667,
+      "context": "on-exclusive, non-transferable license.\n\n4. INDEMNIFICATION\nEach party shall indemnify the other for claims arising from its own gross negligence or willful misconduct, capped at annual contract value.\n\n5. LIMITATION OF LIABILITY\nEach party's liability is limited to the total contract value, except for indemnification obligations.\n\n6. TERM AND TERMINATION\nEither party may terminate for convenience with 45 days written n",
+      "clause_number": null,
+      "matched_keywords": [
+        "LIABILITY"
+      ],
+      "aliases": [
+        "liability_cap_carveout",
+        "cap_exclusion"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...10. GOVERNING LAW This Agreement is governed by the laws of the State of Washington....",
+      "exact_snippet": "governed by the laws",
+      "start_index": 1237,
+      "end_index": 1257,
+      "position": 1237,
+      "context": "hat services will be performed in accordance with the Statement of Work.\n\n9. DISPUTE RESOLUTION\nDisputes shall be resolved through good faith discussion between the parties.\n\n10. GOVERNING LAW\nThis Agreement is governed by the laws of the State of Washington.\n\n11. ATTORNEYS' FEES\nEach party shall pay its own attorneys' fees and costs.\n\n12. MODIFICATIONS\nThis Agreement may only be modified in writing signed by both pa",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 1,
+    "medium": 0,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

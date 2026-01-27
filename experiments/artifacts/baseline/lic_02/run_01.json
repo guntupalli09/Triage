@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Exclusive License Grant",
+      "severity": "HIGH",
+      "rationale": "An exclusive license could limit the Licensor's ability to monetize the software further, creating potential financial risks.",
+      "evidence_quote": "Licensor grants Licensee a perpetual, exclusive license to use the Software for commercial purposes."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to the total license fees may expose the Licensor to significant risks in the event of a major claim.",
+      "evidence_quote": "Each party's liability is limited to the total license fees paid under this Agreement."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification requirement could result in unexpected liabilities if third-party claims arise.",
+      "evidence_quote": "Each party shall indemnify the other to the extent required by applicable law for third-party claims."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A 3-year confidentiality obligation may not be sufficient for highly sensitive information.",
+      "evidence_quote": "Confidentiality obligations continue for 3 years after termination."
+    },
+    {
+      "risk_title": "Dispute Resolution Process",
+      "severity": "MEDIUM",
+      "rationale": "The mediation and litigation process may lead to prolonged disputes and increased costs.",
+      "evidence_quote": "Disputes shall be resolved through mediation, then litigation if mediation fails."
+    }
+  ],
+  "executed": true
+}

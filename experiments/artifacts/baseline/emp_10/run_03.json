@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality",
+      "severity": "HIGH",
+      "rationale": "Indefinite confidentiality obligations may pose a risk as they can restrict the employee's future employment opportunities and may not be enforceable in all jurisdictions.",
+      "evidence_quote": "Employee must maintain strict confidentiality of all proprietary information, customer lists, and business strategies indefinitely."
+    },
+    {
+      "risk_title": "At-Will Termination",
+      "severity": "MEDIUM",
+      "rationale": "At-will termination allows the employer to terminate the employee without cause, which may create job insecurity for the employee.",
+      "evidence_quote": "Employer may terminate at will."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The broad indemnification requirement places significant liability on the employee for any claims, which could be financially burdensome.",
+      "evidence_quote": "Employee shall defend, indemnify, and hold harmless Employer from all claims, without limitation."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the employee's ability to pursue legal claims in court, potentially reducing their legal protections.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration."
+    },
+    {
+      "risk_title": "Exclusive Jurisdiction",
+      "severity": "MEDIUM",
+      "rationale": "Exclusive jurisdiction in California courts may be inconvenient for employees residing in other states, potentially affecting their access to justice.",
+      "evidence_quote": "parties consent to exclusive jurisdiction in California courts."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,47 @@
+{
+  "findings": [
+    {
+      "rule_id": "M_TERM_NOTICE_01",
+      "rule_name": "termination_notice_window",
+      "title": "Short termination or notice windows",
+      "severity": "medium",
+      "rationale": "Short or strict notice windows can lead to accidental renewals or unintended termination.",
+      "matched_excerpt": "...4. TERM AND TERMINATION Either party may terminate for convenience with 30 days written notice, or immediately upon material breach....",
+      "exact_snippet": "terminate",
+      "start_index": 646,
+      "end_index": 655,
+      "position": 646,
+      "context": "with no ownership or assignment rights.\n\n3. PAYMENT TERMS\nLicensee shall pay per-user license fees as set forth in Schedule B, due within 30 days of invoice date.\n\n4. TERM AND TERMINATION\nEither party may terminate for convenience with 30 days written notice, or immediately upon material breach.\n\n5. INDEMNIFICATION\nMutual indemnification: each party indemnifies the other for claims arising from its own bre",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "termination_notice_window",
+        "short_notice_period"
+      ]
+    }
+  ],
+  "overall_risk": "low",
+  "rule_counts": {
+    "high": 0,
+    "medium": 1,
+    "low": 0
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

@@ -1,22 +1,28 @@
 {
   "findings": [
     {
-      "risk_title": "Limited Duration of Confidentiality",
+      "risk_title": "Undefined Confidential Information",
       "severity": "MEDIUM",
-      "rationale": "The five-year duration may not be sufficient for certain types of sensitive information, potentially exposing the Disclosing Party to risks after the agreement expires.",
+      "rationale": "Not clearly defining what constitutes 'Confidential Information' may lead to disputes over information that is protected, potentially exposing the parties to risks of unintentional disclosure.",
+      "evidence_quote": "\"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information."
+    },
+    {
+      "risk_title": "Potentially Long Duration",
+      "severity": "MEDIUM",
+      "rationale": "A five-year duration for confidentiality obligations may be excessive, particularly if the information loses value or relevance over time, leading to prolonged restrictions on business operations.",
       "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
     },
     {
-      "risk_title": "Inadequate Remedies for Breach",
-      "severity": "HIGH",
-      "rationale": "The focus on injunctive relief without monetary damages may not adequately compensate the Disclosing Party for potential losses, leading to insufficient deterrence against breaches.",
-      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
+      "risk_title": "Limitations on Assignment",
+      "severity": "MEDIUM",
+      "rationale": "The restriction on assignment without consent may hinder business operations or limit the ability to transfer rights in the case of mergers or acquisitions.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party, except in connection with a change of control transaction."
     },
     {
-      "risk_title": "Assignment Restrictions",
-      "severity": "MEDIUM",
-      "rationale": "Restricting assignment may hinder business flexibility and growth, particularly during changes in ownership, which can complicate future transactions.",
-      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party"
+      "risk_title": "Injunctive Relief Without Bond",
+      "severity": "HIGH",
+      "rationale": "Allowing injunctive relief without requiring a bond increases the risk for the Receiving Party, as it can face immediate restrictions without any financial security for the Disclosing Party's claims.",
+      "evidence_quote": "The parties acknowledge that monetary damages may be inadequate for breach of this Agreement. Therefore, the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
     }
   ],
   "executed": true

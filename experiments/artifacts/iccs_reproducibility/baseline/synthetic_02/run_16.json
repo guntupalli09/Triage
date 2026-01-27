@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "No Indemnification Obligations",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification provisions exposes both parties to potential losses without recourse, which can lead to significant financial risk.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "The clause indicating that liability shall not be limited poses a high risk as it could lead to unforeseen and potentially catastrophic financial obligations.",
+      "evidence_quote": "No event shall be limited by the limitation of liability clause."
+    },
+    {
+      "risk_title": "Lack of Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The absence of audit rights may hinder the ability to verify compliance with the NDA, increasing the risk of misuse of confidential information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The lack of intellectual property provisions may lead to disputes over ownership and use of intellectual property created during the agreement.",
+      "evidence_quote": "No intellectual property provisions apply."
+    }
+  ],
+  "executed": true
+}

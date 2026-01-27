@@ -1,0 +1,106 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_INDEM_01",
+      "rule_name": "unlimited_indemnification",
+      "title": "Potentially unlimited indemnification",
+      "severity": "high",
+      "rationale": "Indemnity obligations may be uncapped, which can expose you to costs far beyond the contract value.",
+      "matched_excerpt": "...5. LIMITATION OF LIABILITY Provider's liability is capped at the total contract value, except for indemnification obligations which are unlimited....",
+      "exact_snippet": "indemnification",
+      "start_index": 840,
+      "end_index": 855,
+      "position": 840,
+      "context": "nt for third-party claims arising from Provider's gross negligence, up to a maximum of $750,000 per claim.\n\n5. LIMITATION OF LIABILITY\nProvider's liability is capped at the total contract value, except for indemnification obligations which are unlimited.\n\n6. TERM AND TERMINATION\nEither party may terminate immediately upon material breach by the other party.\n\n7. CONFIDENTIALITY\nConfidentiality obligations survive",
+      "clause_number": null,
+      "matched_keywords": [
+        "unlimited",
+        "LIABILITY"
+      ],
+      "aliases": [
+        "uncapped_indemnification",
+        "unlimited_indemnity",
+        "no_limit_indemnification"
+      ]
+    },
+    {
+      "rule_id": "H_LOL_CARVEOUT_01",
+      "rule_name": "liability_cap_carveout",
+      "title": "Liability cap carve-outs may negate protection",
+      "severity": "high",
+      "rationale": "Liability caps that exclude indemnity, confidentiality, or IP claims often negate the practical benefit of the cap entirely.",
+      "matched_excerpt": "...5. LIMITATION OF LIABILITY Provider's liability is capped at the total contract value, except for indemnification obligations which are unlimited....",
+      "exact_snippet": "LIMITATION OF LIABILITY",
+      "start_index": 745,
+      "end_index": 768,
+      "position": 745,
+      "context": "ing the right to use and license such IP.\n\n4. INDEMNIFICATION\nProvider agrees to indemnify Client for third-party claims arising from Provider's gross negligence, up to a maximum of $750,000 per claim.\n\n5. LIMITATION OF LIABILITY\nProvider's liability is capped at the total contract value, except for indemnification obligations which are unlimited.\n\n6. TERM AND TERMINATION\nEither party may terminate immediately upon mate",
+      "clause_number": null,
+      "matched_keywords": [
+        "LIABILITY"
+      ],
+      "aliases": [
+        "liability_cap_carveout",
+        "cap_exclusion"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...10. GOVERNING LAW This Agreement is governed by Arizona state law....",
+      "exact_snippet": "governed by Arizona state law",
+      "start_index": 1341,
+      "end_index": 1370,
+      "position": 1341,
+      "context": " 'as-is' basis with no warranties, express or implied.\n\n9. DISPUTE RESOLUTION\nDisputes shall be resolved through mediation, and if unsuccessful, through binding arbitration.\n\n10. GOVERNING LAW\nThis Agreement is governed by Arizona state law.\n\n11. ATTORNEYS' FEES\nThe prevailing party in any legal proceeding shall be entitled to recover reasonable attorneys' fees.\n\n12. MODIFICATIONS\nThis Agreement may only be modified in writin",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    },
+    {
+      "rule_id": "L_LATEFEE_01",
+      "rule_name": "late_fees_interest",
+      "title": "Late fees / high interest",
+      "severity": "low",
+      "rationale": "Penalty terms can increase costs if payment timing slips.",
+      "matched_excerpt": "...2. PAYMENT TERMS Payment terms are specified in each Statement of Work. Late payments incur a late fee of 6% of the overdue amount....",
+      "exact_snippet": "Late payments incur a late fee of 6%",
+      "start_index": 320,
+      "end_index": 356,
+      "position": 320,
+      "context": "r\") and Client Company (\"Client\").\n\n1. SERVICES\nProvider agrees to provide the services described in attached Statements of Work.\n\n2. PAYMENT TERMS\nPayment terms are specified in each Statement of Work. Late payments incur a late fee of 6% of the overdue amount.\n\n3. INTELLECTUAL PROPERTY\nAll intellectual property developed during the term of this Agreement shall be jointly owned by Provider and Client, with each party having the rig",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 2,
+    "medium": 0,
+    "low": 2
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

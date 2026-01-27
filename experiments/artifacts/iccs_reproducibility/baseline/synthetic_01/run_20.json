@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Audit Rights",
+      "severity": "HIGH",
+      "rationale": "The absence of audit rights limits oversight and increases the risk of undisclosed breaches of confidentiality or misuse of information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Indemnification Without Limit",
+      "severity": "HIGH",
+      "rationale": "The indemnification clause places unlimited liability on the Receiving Party, which can lead to significant financial risk in case of breaches.",
+      "evidence_quote": "The Receiving Party shall indemnify, defend, and hold harmless the Disclosing Party from and against all claims, losses, and damages, without limit."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The lack of provisions regarding intellectual property may lead to disputes over ownership and rights to use shared information.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "Limited Liability Clause",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not adequately protect against significant damages resulting from breaches, increasing risk exposure.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    }
+  ],
+  "executed": true
+}

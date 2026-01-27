@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetual Confidentiality",
+      "severity": "HIGH",
+      "rationale": "A confidentiality obligation with no expiration can lead to indefinite liability and restrict the Receiving Party's ability to use information after the relationship ends.",
+      "evidence_quote": "This Agreement shall remain in effect in perpetuity with no expiration date."
+    },
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "MEDIUM",
+      "rationale": "The absence of indemnification obligations may expose a party to risks without recourse for damages caused by breaches or misconduct.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The lack of audit rights prevents one party from ensuring compliance with the confidentiality obligations, increasing the risk of misuse of confidential information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The absence of intellectual property provisions may lead to disputes over ownership and usage rights of any creations resulting from the agreement.",
+      "evidence_quote": "No intellectual property provisions apply."
+    }
+  ],
+  "executed": true
+}

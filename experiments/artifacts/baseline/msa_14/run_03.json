@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Limit",
+      "severity": "HIGH",
+      "rationale": "The indemnification is limited to $1,000,000 per claim, which may not cover substantial damages in case of significant negligence.",
+      "evidence_quote": "each party indemnifies the other for its own negligence, up to $1,000,000 per claim."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Capping liability at $500,000 or annual contract value may leave parties exposed to larger claims.",
+      "evidence_quote": "Each party's liability is capped at the greater of $500,000 or the annual contract value."
+    },
+    {
+      "risk_title": "No Warranties",
+      "severity": "MEDIUM",
+      "rationale": "Provider's 'as-is' clause limits recourse for clients if services are inadequate or defective.",
+      "evidence_quote": "Provider provides services 'as-is' with no warranties except as expressly stated."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 60-day notice period for termination may limit flexibility for either party to exit the agreement quickly.",
+      "evidence_quote": "This Agreement may be terminated by either party with 60 days written notice for any reason."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "Confidentiality obligations lasting 4 years may be excessive depending on the nature of the information shared.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 4 years."
+    },
+    {
+      "risk_title": "Dispute Resolution Process",
+      "severity": "LOW",
+      "rationale": "Mediation followed by arbitration may be time-consuming and costly compared to direct litigation.",
+      "evidence_quote": "Disputes shall be resolved through mediation, then arbitration if mediation is unsuccessful."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Limitations",
+      "severity": "MEDIUM",
+      "rationale": "Each party is only indemnified for its own breach, which may leave gaps in protection against third-party claims.",
+      "evidence_quote": "Each party indemnifies the other to the extent required by applicable law for claims arising from its own breach."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to the annual contract value could expose parties to significant losses beyond that amount.",
+      "evidence_quote": "Each party's liability is limited to the annual contract value, except as required by law."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 45-day notice for termination may not provide sufficient time for either party to adjust operations or secure alternatives.",
+      "evidence_quote": "Either party may terminate with 45 days written notice for convenience."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "Confidentiality obligations lasting four years may be excessive or unnecessary depending on the nature of the information.",
+      "evidence_quote": "Confidentiality obligations continue for 4 years after termination."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "Specifying New York state law may bias the agreement in favor of one party, particularly if neither operates there.",
+      "evidence_quote": "This Agreement is subject to New York state law."
+    }
+  ],
+  "executed": true
+}

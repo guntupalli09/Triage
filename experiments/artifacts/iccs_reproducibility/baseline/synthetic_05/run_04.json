@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Audit Rights",
+      "severity": "HIGH",
+      "rationale": "The absence of audit rights can prevent the Disclosing Party from verifying compliance with confidentiality obligations, increasing the risk of misuse of confidential information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Indemnification Clause Ambiguity",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause may create uncertainty regarding the extent and conditions under which the Receiving Party is liable, potentially leading to disputes.",
+      "evidence_quote": "The Receiving Party shall indemnify the Disclosing Party to the extent required by law for all claims arising from breach of this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The lack of specific intellectual property provisions may leave the Disclosing Party vulnerable to unauthorized use or disclosure of its intellectual property.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "Unclear Termination Conditions",
+      "severity": "MEDIUM",
+      "rationale": "The agreement does not specify conditions under which it can be terminated, potentially leading to extended obligations without a clear exit strategy.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution."
+    }
+  ],
+  "executed": true
+}

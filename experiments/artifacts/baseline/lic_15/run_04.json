@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Irrevocable Assignment of Rights",
+      "severity": "HIGH",
+      "rationale": "Licensee assigns all rights to modifications and derivative works, which could limit their ability to leverage improvements made to the software.",
+      "evidence_quote": "Licensee hereby irrevocably assigns all such rights to Licensor."
+    },
+    {
+      "risk_title": "Unlimited Liability for Licensor",
+      "severity": "HIGH",
+      "rationale": "Licensor's unlimited liability for certain claims poses a significant financial risk to the Licensee, especially in cases of indemnification or intellectual property disputes.",
+      "evidence_quote": "Licensor's liability is unlimited for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "The indefinite duration of confidentiality obligations may impose long-term operational challenges and limit the Licensee's ability to use or share their own improvements.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Requiring arbitration for disputes may restrict the Licensee's legal options, potentially leading to unfavorable outcomes in conflict resolution.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration under AAA Commercial Arbitration Rules."
+    },
+    {
+      "risk_title": "Attorney Fees Recovery Clause",
+      "severity": "MEDIUM",
+      "rationale": "Licensor's right to recover attorney fees from the Licensee may create a financial burden if disputes arise, potentially discouraging Licensee from pursuing legitimate claims.",
+      "evidence_quote": "Licensor shall be entitled to recover all attorneys' fees, court costs, and expenses from Licensee."
+    }
+  ],
+  "executed": true
+}

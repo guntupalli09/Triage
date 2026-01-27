@@ -1,0 +1,38 @@
+SOFTWARE LICENSING AGREEMENT
+
+This Software Licensing Agreement ("Agreement") is entered into between Licensor Company ("Licensor") and Licensee Company ("Licensee").
+
+1. GRANT OF LICENSE
+Licensor grants Licensee an exclusive license to use the Software in Licensee's territory for commercial purposes.
+
+2. INTELLECTUAL PROPERTY OWNERSHIP
+All intellectual property rights in the Software, including modifications, shall be owned by Licensor. Licensee assigns all such rights to Licensor.
+
+3. PAYMENT TERMS
+Licensee shall pay a one-time license fee of $250,000, due within 15 days. Late payments accrue interest at 18% per annum.
+
+4. TERM AND TERMINATION
+Licensor may terminate immediately upon Licensee's breach. Licensee requires 90 days notice to terminate.
+
+5. INDEMNIFICATION
+Licensee shall defend, indemnify, and hold harmless Licensor from all claims, without limitation, arising from Licensee's use of the Software.
+
+6. LIMITATION OF LIABILITY
+Licensor's liability is unlimited for indemnification, confidentiality, and intellectual property claims.
+
+7. CONFIDENTIALITY
+Confidentiality obligations are perpetual and survive termination indefinitely.
+
+8. WARRANTIES AND DISCLAIMERS
+Licensor warrants that the Software will perform in accordance with all specifications and applicable laws.
+
+9. DISPUTE RESOLUTION
+All disputes must be resolved through binding arbitration under the rules of JAMS.
+
+10. ATTORNEYS' FEES
+In any action to enforce this Agreement, Licensor shall recover all attorneys' fees, costs, and expenses from Licensee.
+
+11. GOVERNING LAW
+This Agreement is governed by California law, and parties consent to exclusive jurisdiction in California courts.
+
+This Agreement is effective as of May 1, 2024.

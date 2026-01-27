@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "Licensee assumes significant financial risk by agreeing to indemnify Licensor for claims, which could lead to substantial liabilities.",
+      "evidence_quote": "Licensee agrees to indemnify Licensor for claims arising from Licensee's breach of this Agreement, up to a maximum of $500,000."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Capping Licensor's liability to only the total fees paid may leave Licensee exposed to larger potential damages not covered by the agreement.",
+      "evidence_quote": "Licensor's liability is capped at the total license fees paid in the preceding 12 months."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability for either party to terminate the agreement with only 30 days notice may disrupt operations and financial planning.",
+      "evidence_quote": "Either party may terminate for convenience with 30 days written notice."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "While confidentiality obligations are important, a 5-year duration may be seen as limiting, particularly for sensitive information.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 5 years."
+    },
+    {
+      "risk_title": "No Warranties",
+      "severity": "HIGH",
+      "rationale": "Licensor provides the Software 'as-is' without warranties, which could leave the Licensee vulnerable to defects or issues without recourse.",
+      "evidence_quote": "Licensor provides the Software 'as-is' with no warranties, except as expressly stated."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Termination Clause",
+      "severity": "MEDIUM",
+      "rationale": "The agreement allows either party to terminate with 30 days notice, which may lead to sudden loss of services or obligations.",
+      "evidence_quote": "Either party may terminate this Agreement with 30 days written notice for any reason."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to fees paid in the preceding year may not cover potential damages, exposing parties to significant risk.",
+      "evidence_quote": "Each party's liability is limited to the total fees paid in the 12 months preceding the claim."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at annual fees may leave parties under-protected in case of significant breaches.",
+      "evidence_quote": "each party indemnifies the other for its own breach, capped at annual subscription fees."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A confidentiality obligation of 18 months post-termination may not be sufficient for some sensitive information.",
+      "evidence_quote": "Confidentiality obligations continue for 18 months after termination."
+    }
+  ],
+  "executed": true
+}

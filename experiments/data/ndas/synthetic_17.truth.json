@@ -1,0 +1,17 @@
+{
+  "expected_rule_ids_present": [
+    "M_CONF_01",
+    "H_INDEM_01",
+    "H_LOL_01",
+    "H_IP_01",
+    "H_ATTFEE_01",
+    "M_RENEW_01",
+    "M_AUDIT_01",
+    "L_LATEFEE_01",
+    "L_GOVLAW_01",
+    "L_BROADDEF_01"
+  ],
+  "expected_rule_ids_absent": [
+    "H_LOL_CARVEOUT_01"
+  ]
+}

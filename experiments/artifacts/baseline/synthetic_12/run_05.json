@@ -1,28 +1,28 @@
 {
   "findings": [
     {
-      "risk_title": "No Indemnification Obligations",
+      "risk_title": "No Indemnification Provisions",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification can leave a party vulnerable to claims resulting from breaches or negligence, potentially leading to significant financial exposure.",
+      "rationale": "The absence of indemnification obligations may expose a party to significant liability without recourse, potentially leading to financial losses.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limited Liability Clause",
+      "risk_title": "Limited Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid may not adequately protect against substantial damages or losses, especially in cases of gross negligence or willful misconduct.",
+      "rationale": "Limiting liability to total fees may not adequately protect against serious damages, especially in high-stakes agreements.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
-      "risk_title": "No Intellectual Property Provisions",
+      "risk_title": "Lack of Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "The lack of intellectual property provisions may lead to disputes regarding ownership and use of proprietary information, which can create legal risks.",
+      "rationale": "The absence of IP provisions may lead to disputes regarding ownership and use of intellectual property developed during the agreement.",
       "evidence_quote": "No intellectual property provisions apply."
     },
     {
-      "risk_title": "No Attorneys' Fees Recovery",
+      "risk_title": "Absence of Late Fees",
       "severity": "LOW",
-      "rationale": "Each party bearing its own attorneys' fees can discourage parties from pursuing legitimate claims, potentially allowing violations to go unaddressed.",
-      "evidence_quote": "Each party shall bear its own attorneys' fees."
+      "rationale": "Not including late fees may encourage delays in payments, which can affect cash flow and operational stability.",
+      "evidence_quote": "No late fees apply."
     }
   ],
   "executed": true

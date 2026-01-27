@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to fees paid may expose a party to significant risks, especially in cases of negligence or breach causing substantial damages.",
+      "evidence_quote": "Each party's liability is limited to the total fees paid under this Agreement in the preceding calendar year."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification obligation may lead to unexpected costs if a breach occurs, as it requires each party to indemnify the other.",
+      "evidence_quote": "Each party shall indemnify the other to the extent required by applicable law for claims arising from its own breach."
+    },
+    {
+      "risk_title": "Unilateral Ownership of IP",
+      "severity": "MEDIUM",
+      "rationale": "The provider retaining ownership of all pre-existing intellectual property may limit the client's ability to use the deliverables freely.",
+      "evidence_quote": "Provider retains ownership of all pre-existing intellectual property."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A confidentiality obligation that lasts for 3 years post-termination may be excessive, potentially leading to compliance challenges.",
+      "evidence_quote": "Confidentiality obligations continue for 3 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "Modification Restrictions",
+      "severity": "LOW",
+      "rationale": "Restricting modifications to written agreements may hinder necessary adjustments that could arise during the contract term.",
+      "evidence_quote": "This Agreement may only be modified in writing signed by both parties."
+    }
+  ],
+  "executed": true
+}

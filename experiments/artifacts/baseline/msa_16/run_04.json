@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to the fees paid in the preceding year can expose a party to significant losses if a major claim arises.",
+      "evidence_quote": "Each party's liability is limited to the total fees paid under this Agreement in the preceding calendar year."
+    },
+    {
+      "risk_title": "Indemnification Scope",
+      "severity": "MEDIUM",
+      "rationale": "Indemnification is only to the extent required by law, which may not cover all potential claims or liabilities.",
+      "evidence_quote": "Each party shall indemnify the other to the extent required by applicable law for claims arising from its own breach."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 90-day notice for termination may limit flexibility and could be problematic if urgent changes are needed.",
+      "evidence_quote": "This Agreement may be terminated by mutual written consent or by either party with 90 days notice."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A 3-year confidentiality obligation may not be sufficient for sensitive information that requires longer protection.",
+      "evidence_quote": "Confidentiality obligations continue for 3 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "Subjecting the agreement to a specific state law may create jurisdictional issues if parties are in different locations.",
+      "evidence_quote": "This Agreement is subject to Oregon state law."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "The confidentiality obligations only last for two years, which may expose sensitive information if the relationship continues beyond this period.",
+      "evidence_quote": "Confidentiality obligations shall continue for two (2) years after termination of discussions."
+    },
+    {
+      "risk_title": "Ambiguity in Purpose of Use",
+      "severity": "MEDIUM",
+      "rationale": "The clause allows the use of confidential information for evaluating business opportunities, which may lead to misuse if not clearly defined.",
+      "evidence_quote": "Not use the information for any purpose other than evaluating business opportunities."
+    },
+    {
+      "risk_title": "Lack of Detail on Return or Destruction",
+      "severity": "LOW",
+      "rationale": "The agreement mentions the return or destruction of confidential information but does not specify the process or timeline for this action.",
+      "evidence_quote": "Return or destroy all Confidential Information upon request."
+    }
+  ],
+  "executed": true
+}

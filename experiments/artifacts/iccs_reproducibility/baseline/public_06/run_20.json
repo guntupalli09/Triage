@@ -1,0 +1,17 @@
+{
+  "findings": [
+    {
+      "risk_title": "Duration of Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "The two-year duration may be insufficient for certain types of sensitive information, potentially exposing parties to risks if information is misused after the period ends.",
+      "evidence_quote": "Confidentiality obligations shall continue for two (2) years after termination of discussions."
+    },
+    {
+      "risk_title": "Lack of Specificity in Confidential Information Definition",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of Confidential Information may lead to disputes over what is covered, increasing the risk of unintentional breaches.",
+      "evidence_quote": "Confidential Information means all proprietary information disclosed by one party to the other, including technical data, business strategies..."
+    }
+  ],
+  "executed": true
+}

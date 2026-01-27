@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The clause requires the employee to indemnify the employer for claims, which could lead to significant personal financial liability for the employee.",
+      "evidence_quote": "Employee shall indemnify Employer to the extent required by law for claims arising from Employee's gross negligence."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "The 18-month confidentiality obligation after termination may hinder the employee's ability to work in the industry, especially if they have to wait to share knowledge.",
+      "evidence_quote": "Confidentiality obligations continue for 18 months after termination."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "The 30 days written notice for termination may not provide sufficient time for either party to make necessary arrangements, leading to potential operational disruptions.",
+      "evidence_quote": "This Agreement may be terminated by either party with 30 days written notice."
+    },
+    {
+      "risk_title": "Attorney Fees Responsibility",
+      "severity": "LOW",
+      "rationale": "Each party bearing its own attorney fees could be a risk in disputes, as it may discourage legal action due to potential costs.",
+      "evidence_quote": "Each party shall bear its own attorneys' fees."
+    }
+  ],
+  "executed": true
+}

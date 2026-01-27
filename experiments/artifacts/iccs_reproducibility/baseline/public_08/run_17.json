@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Duration of Agreement",
+      "severity": "MEDIUM",
+      "rationale": "The 5-year duration may not be sufficient for certain types of confidential information, potentially exposing the disclosing party to risks after the term ends.",
+      "evidence_quote": "This Agreement shall remain in effect for five (5) years."
+    },
+    {
+      "risk_title": "Ambiguity in Security Measures",
+      "severity": "MEDIUM",
+      "rationale": "The term 'reasonable security measures' is vague and may lead to inadequate protection of confidential information.",
+      "evidence_quote": "Implement reasonable security measures"
+    },
+    {
+      "risk_title": "Governing Law Limitation",
+      "severity": "LOW",
+      "rationale": "The choice of Massachusetts as governing law may not be favorable for parties located elsewhere, potentially complicating legal enforcement.",
+      "evidence_quote": "Governing Law: Massachusetts"
+    }
+  ],
+  "executed": true
+}

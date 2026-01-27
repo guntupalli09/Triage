@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "The five-year duration for confidentiality may not be sufficient for certain types of sensitive information, potentially leading to future exposure after the term ends.",
+      "evidence_quote": "This Agreement shall remain in effect for five (5) years."
+    },
+    {
+      "risk_title": "Ambiguity in Security Measures",
+      "severity": "MEDIUM",
+      "rationale": "The term 'reasonable security measures' is vague and may lead to inadequate protection of confidential information.",
+      "evidence_quote": "Implement reasonable security measures"
+    },
+    {
+      "risk_title": "Return of Information Upon Termination",
+      "severity": "HIGH",
+      "rationale": "The obligation to return and destroy confidential information could be difficult to enforce, leading to potential misuse of sensitive data.",
+      "evidence_quote": "Upon termination or upon request, the Receiving Party shall return all Confidential Information and destroy all copies."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Duration of Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Two years may not be sufficient for certain types of confidential information, potentially exposing the parties to risks of information leakage after the period ends.",
+      "evidence_quote": "Confidentiality obligations shall continue for two (2) years after termination of discussions."
+    },
+    {
+      "risk_title": "Lack of Specificity in Confidential Information Definition",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition may lead to misunderstandings about what constitutes confidential information, increasing the likelihood of disputes.",
+      "evidence_quote": "Confidential Information means all proprietary information disclosed by one party to the other."
+    },
+    {
+      "risk_title": "Return or Destroy Clause Ambiguity",
+      "severity": "LOW",
+      "rationale": "The clause lacks detail on how the return or destruction of confidential information will be verified, which may lead to compliance issues.",
+      "evidence_quote": "Return or destroy all Confidential Information upon request."
+    }
+  ],
+  "executed": true
+}

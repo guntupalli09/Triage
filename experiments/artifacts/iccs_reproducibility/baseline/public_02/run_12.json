@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetual Obligations",
+      "severity": "HIGH",
+      "rationale": "The obligations under this Agreement continue in perpetuity, which may result in indefinite liability and lack of clarity on when obligations cease.",
+      "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
+    },
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "The limitation of liability clause indicates that neither party's liability is limited, exposing both parties to potentially significant financial risk.",
+      "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
+    },
+    {
+      "risk_title": "Indemnification Without Limits",
+      "severity": "MEDIUM",
+      "rationale": "Indemnification clauses without limits can expose a party to unforeseen expenses and liabilities without a cap.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit, arising out of any breach of this Agreement."
+    },
+    {
+      "risk_title": "Intellectual Property Ownership",
+      "severity": "MEDIUM",
+      "rationale": "Exclusive ownership of work product by one party may pose a risk to the other party's rights to use the results of collaboration.",
+      "evidence_quote": "All work product and deliverables created hereunder shall be owned exclusively by Company A."
+    }
+  ],
+  "executed": true
+}

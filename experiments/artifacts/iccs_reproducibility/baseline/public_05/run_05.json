@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Duration of Agreement",
+      "severity": "HIGH",
+      "rationale": "An indefinite term may lead to perpetual obligations, increasing the risk of unintentional breaches and ongoing liabilities for the Recipient.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship."
+    },
+    {
+      "risk_title": "Broad Definition of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The ambiguity in defining what constitutes confidential information may lead to disputes over what can be disclosed or used.",
+      "evidence_quote": "Confidential Information means all non-public information, whether oral, written, or electronic, disclosed by Discloser to Recipient."
+    },
+    {
+      "risk_title": "Limitations on Disclosure",
+      "severity": "MEDIUM",
+      "rationale": "Restrictions on disclosure without written consent could hinder the Recipient's ability to conduct necessary business operations and collaborations.",
+      "evidence_quote": "Not disclose to any third party without prior written consent."
+    }
+  ],
+  "executed": true
+}

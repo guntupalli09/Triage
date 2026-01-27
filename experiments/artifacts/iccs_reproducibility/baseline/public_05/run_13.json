@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Term of Agreement",
+      "severity": "HIGH",
+      "rationale": "An indefinite term may create ongoing obligations that are burdensome and may lead to unforeseen liabilities for the Recipient.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship."
+    },
+    {
+      "risk_title": "Lack of Specificity in Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of Confidential Information may lead to ambiguity and disputes over what constitutes confidential material.",
+      "evidence_quote": "Confidential Information means all non-public information, whether oral, written, or electronic, disclosed by Discloser to Recipient."
+    },
+    {
+      "risk_title": "Potential for Unclear Exceptions",
+      "severity": "MEDIUM",
+      "rationale": "The exceptions to what constitutes Confidential Information may not cover all scenarios, leading to potential misunderstandings or misuse.",
+      "evidence_quote": "Confidential Information does not include information that: Is publicly available, Was already known to Recipient, Is independently developed by Recipient."
+    },
+    {
+      "risk_title": "Governing Law Considerations",
+      "severity": "LOW",
+      "rationale": "Governing law in California may not be favorable to all parties, particularly if they are located elsewhere, leading to jurisdictional challenges.",
+      "evidence_quote": "This Agreement is governed by California law."
+    }
+  ],
+  "executed": true
+}

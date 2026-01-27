@@ -1,0 +1,66 @@
+{
+  "findings": [
+    {
+      "rule_id": "M_CONF_01",
+      "rule_name": "indefinite_confidentiality",
+      "title": "Confidentiality may be perpetual / indefinite",
+      "severity": "medium",
+      "rationale": "Indefinite confidentiality can create long-term compliance burden and uncertainty around retention and disclosure.",
+      "matched_excerpt": "...4. CONFIDENTIALITY AND NON-DISCLOSURE Employee must maintain confidentiality of all trade secrets and proprietary information in perpetuity....",
+      "exact_snippet": "CONFIDENTIALITY AND NON-DISCLOSURE Employee must maintain confidentiality of all trade secrets and proprietary information in perpetuity",
+      "start_index": 615,
+      "end_index": 751,
+      "position": 615,
+      "context": " PROPERTY\nAll intellectual property developed by Employee in the course of employment, including inventions and trade secrets, shall be owned by Employer. Employee assigns all such rights to Employer.\n\n4. CONFIDENTIALITY AND NON-DISCLOSURE\nEmployee must maintain confidentiality of all trade secrets and proprietary information in perpetuity.\n\n5. NON-COMPETE AND NON-SOLICITATION\nEmployee agrees not to work for competitors or solicit Employer's customers for 18 months after termination.\n\n6. TERM AND TERMINATION\nEmployer may terminate",
+      "clause_number": null,
+      "matched_keywords": [
+        "CONFIDENTIAL"
+      ],
+      "aliases": [
+        "perpetual_confidentiality",
+        "indefinite_confidentiality",
+        "no_expiration_confidentiality"
+      ]
+    },
+    {
+      "rule_id": "M_NONCOMP_01",
+      "rule_name": "non_compete_non_solicit",
+      "title": "Non-compete / non-solicit style restriction",
+      "severity": "medium",
+      "rationale": "Restrictive covenants can limit future business activity; enforceability varies and is commonly negotiated.",
+      "matched_excerpt": "...5. NON-COMPETE AND NON-SOLICITATION Employee agrees not to work for competitors or solicit Employer's customers for 18 months after termination....",
+      "exact_snippet": "NON-COMPETE",
+      "start_index": 756,
+      "end_index": 767,
+      "position": 756,
+      "context": " by Employer. Employee assigns all such rights to Employer.\n\n4. CONFIDENTIALITY AND NON-DISCLOSURE\nEmployee must maintain confidentiality of all trade secrets and proprietary information in perpetuity.\n\n5. NON-COMPETE AND NON-SOLICITATION\nEmployee agrees not to work for competitors or solicit Employer's customers for 18 months after termination.\n\n6. TERM AND TERMINATION\nEmployer may terminate for cause immed",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "medium",
+  "rule_counts": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

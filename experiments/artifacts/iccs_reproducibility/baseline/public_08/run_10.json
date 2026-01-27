@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Duration of Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "A five-year duration may be excessive, potentially leading to prolonged liability for the Receiving Party.",
+      "evidence_quote": "This Agreement shall remain in effect for five (5) years."
+    },
+    {
+      "risk_title": "Lack of Specificity in Security Measures",
+      "severity": "MEDIUM",
+      "rationale": "The term 'reasonable security measures' is vague, which may lead to inadequate protection of confidential information.",
+      "evidence_quote": "Implement reasonable security measures"
+    },
+    {
+      "risk_title": "No Limitation on Returned Information",
+      "severity": "HIGH",
+      "rationale": "The requirement to return or destroy all copies could lead to unintentional retention of confidential information.",
+      "evidence_quote": "Upon termination or upon request, the Receiving Party shall return all Confidential Information and destroy all copies."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,39 @@
+MASTER SERVICE AGREEMENT
+
+This Master Service Agreement ("Agreement") is entered into between Service Provider ("Provider") and Client Company ("Client").
+
+1. SERVICES
+Provider agrees to provide the services described in attached Statements of Work.
+
+2. PAYMENT TERMS
+Payment terms are as specified in each Statement of Work.
+
+3. INTELLECTUAL PROPERTY
+All intellectual property developed under this Agreement shall be jointly owned by both parties.
+
+4. INDEMNIFICATION
+Provider agrees to indemnify Client for third-party claims arising from Provider's breach of this Agreement, up to a maximum of $500,000.
+
+5. LIMITATION OF LIABILITY
+Neither party's liability shall exceed the total contract value.
+
+6. TERM AND TERMINATION
+This Agreement may be terminated by mutual written consent or upon 60 days notice.
+
+7. CONFIDENTIALITY
+Confidential information must be kept confidential for 3 years after termination.
+
+8. WARRANTIES
+Provider warrants compliance with all applicable laws and regulations.
+
+9. DISPUTE RESOLUTION
+Any disputes shall be resolved in the courts of the State of Delaware.
+
+10. GOVERNING LAW
+This Agreement is governed by Delaware state law.
+
+11. ATTORNEYS' FEES
+The prevailing party in any dispute shall be entitled to recover reasonable attorneys' fees.
+
+12. MODIFICATIONS
+This Agreement may only be modified in writing signed by both parties.

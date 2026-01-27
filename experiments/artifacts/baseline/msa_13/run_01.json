@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "Provider's unlimited liability for certain claims may expose them to significant financial risk, as there are no caps on potential damages.",
+      "evidence_quote": "Provider's liability is unlimited for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Termination Notice Period Discrepancy",
+      "severity": "MEDIUM",
+      "rationale": "The differing notice periods for termination (immediate for Client, 45 days for Provider) may create an imbalance and potential for disputes.",
+      "evidence_quote": "Client may terminate immediately upon written notice. Provider requires 45 days notice."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Indefinite confidentiality obligations can lead to potential challenges in managing information and obligations over time.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely after termination."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the Provider's options for dispute resolution and could result in unfavorable outcomes.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of the American Arbitration Association."
+    },
+    {
+      "risk_title": "Governing Law and Jurisdiction",
+      "severity": "LOW",
+      "rationale": "The choice of California law and exclusive jurisdiction may create logistical challenges or bias depending on the Provider's location.",
+      "evidence_quote": "This Agreement is governed by California law, and parties submit to exclusive jurisdiction in California courts."
+    }
+  ],
+  "executed": true
+}

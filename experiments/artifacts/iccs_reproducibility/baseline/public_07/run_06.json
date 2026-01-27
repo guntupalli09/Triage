@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Undefined Scope of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The term 'Confidential Information' is broad and vague, which may lead to disputes over what is considered confidential.",
+      "evidence_quote": "All non-public information disclosed by either party, including but not limited to technical specifications, business plans, financial data, and customer lists."
+    },
+    {
+      "risk_title": "Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "The four-year term may be too long or too short depending on the nature of the information, potentially leading to risks in long-term confidentiality.",
+      "evidence_quote": "This Agreement shall remain in effect for four (4) years from the date of execution."
+    },
+    {
+      "risk_title": "Limited Remedies for Breach",
+      "severity": "HIGH",
+      "rationale": "The mention of only injunctive relief may limit the non-breaching party's options for seeking damages, potentially impacting their ability to recover losses.",
+      "evidence_quote": "The non-breaching party shall be entitled to seek injunctive relief."
+    }
+  ],
+  "executed": true
+}

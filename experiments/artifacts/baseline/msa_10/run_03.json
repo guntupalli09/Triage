@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability Clause",
+      "severity": "HIGH",
+      "rationale": "Provider's liability is unlimited, exposing them to significant financial risk without any cap on potential damages.",
+      "evidence_quote": "Provider's liability is unlimited and not subject to any limitation of liability clause."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations without a time limit may lead to indefinite responsibilities that could be burdensome for the Provider.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue without time limitation."
+    },
+    {
+      "risk_title": "Client's Immediate Termination Rights",
+      "severity": "MEDIUM",
+      "rationale": "The ability for the Client to terminate immediately could pose a risk to the Provider's business continuity.",
+      "evidence_quote": "Client may terminate immediately. Provider requires 90 days notice."
+    },
+    {
+      "risk_title": "Indemnification Without Limitation",
+      "severity": "HIGH",
+      "rationale": "Indemnifying the Client for all claims without limitation exposes the Provider to potentially unlimited financial liabilities.",
+      "evidence_quote": "Provider agrees to indemnify Client for all claims, damages, and expenses, without limitation."
+    },
+    {
+      "risk_title": "Mandatory Arbitration Clause",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the Provider's options for legal recourse and could result in less favorable outcomes.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration in accordance with JAMS rules."
+    }
+  ],
+  "executed": true
+}

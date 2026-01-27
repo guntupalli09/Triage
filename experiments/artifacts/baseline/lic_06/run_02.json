@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Revocable License",
+      "severity": "HIGH",
+      "rationale": "The license is revocable, which means the Licensee may lose access to the software at any time, potentially disrupting their operations.",
+      "evidence_quote": "Licensor grants Licensee a non-exclusive, revocable license to use the Software for evaluation purposes only."
+    },
+    {
+      "risk_title": "No Ownership Interest",
+      "severity": "MEDIUM",
+      "rationale": "The Licensee does not gain any ownership rights, which could limit their ability to modify or integrate the software into their systems.",
+      "evidence_quote": "Licensee receives no ownership interest in the Software or any modifications."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to license fees paid could leave the Licensee exposed to significant losses not covered by the Licensor.",
+      "evidence_quote": "Licensor's liability is limited to the amount of any license fees actually paid by Licensee."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The indemnification obligation could impose significant financial liability on the Licensee for claims arising from their use of the software.",
+      "evidence_quote": "Licensee shall indemnify Licensor to the extent required by law for claims arising from Licensee's use of the Software."
+    },
+    {
+      "risk_title": "No Warranties",
+      "severity": "HIGH",
+      "rationale": "Providing the software 'as-is' without warranties exposes the Licensee to potential risks and issues without recourse for defects or failures.",
+      "evidence_quote": "Licensor provides the Software 'as-is' with no warranties during the evaluation period."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A short termination notice period of 7 days may not provide sufficient time for the Licensee to transition or find alternatives.",
+      "evidence_quote": "Either party may terminate this evaluation license with 7 days written notice."
+    }
+  ],
+  "executed": true
+}

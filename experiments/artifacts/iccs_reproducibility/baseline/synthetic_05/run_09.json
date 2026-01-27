@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Intellectual Property Provisions",
+      "severity": "HIGH",
+      "rationale": "Absence of intellectual property clauses may expose the parties to risks regarding ownership and use of proprietary information.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "Without audit rights, there is limited oversight on compliance with confidentiality obligations, increasing the risk of breaches going undetected.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Indemnification Limitations",
+      "severity": "MEDIUM",
+      "rationale": "Indemnification only applies as required by law, which may limit the protection for the Disclosing Party against breaches.",
+      "evidence_quote": "The Receiving Party shall indemnify the Disclosing Party to the extent required by law for all claims arising from breach of this Agreement."
+    }
+  ],
+  "executed": true
+}

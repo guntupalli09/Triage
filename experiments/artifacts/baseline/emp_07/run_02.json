@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Ownership",
+      "severity": "MEDIUM",
+      "rationale": "The Employee retains ownership of pre-existing intellectual property, which may lead to disputes over rights to new work product created during employment.",
+      "evidence_quote": "Employee retains ownership of pre-existing intellectual property. Employer receives a license to use work product."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The requirement for the Employee to indemnify the Employer for claims arising from gross negligence could expose the Employee to significant financial risk.",
+      "evidence_quote": "Employee shall indemnify Employer to the extent required by law for claims arising from Employee's gross negligence."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "A 30-day notice period for termination may not provide sufficient time for either party to mitigate potential disruptions.",
+      "evidence_quote": "This Agreement may be terminated by either party with 30 days written notice."
+    },
+    {
+      "risk_title": "Dispute Resolution Process",
+      "severity": "MEDIUM",
+      "rationale": "The need for mediation followed by litigation could lead to increased costs and time delays in resolving disputes.",
+      "evidence_quote": "Disputes shall be resolved through mediation, then litigation if needed."
+    }
+  ],
+  "executed": true
+}

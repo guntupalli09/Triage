@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "The five-year term may limit protection for sensitive information that requires longer confidentiality, potentially exposing the disclosing party to risks post-termination.",
+      "evidence_quote": "This Agreement shall remain in effect for five (5) years."
+    },
+    {
+      "risk_title": "Lack of Specific Security Measures",
+      "severity": "MEDIUM",
+      "rationale": "The requirement for 'reasonable security measures' is vague, which may lead to inconsistent protection of confidential information.",
+      "evidence_quote": "Implement reasonable security measures"
+    },
+    {
+      "risk_title": "Potential Ambiguity in 'Confidential Information'",
+      "severity": "LOW",
+      "rationale": "The definition of 'Confidential Information' is broad, which could lead to disputes about what is covered under the agreement.",
+      "evidence_quote": "\"Confidential Information\" means all proprietary or confidential information disclosed by one party to the other."
+    }
+  ],
+  "executed": true
+}

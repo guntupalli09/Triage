@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "The provider's unlimited liability for indemnification can expose them to significant financial risks in case of disputes or claims.",
+      "evidence_quote": "Provider's liability is unlimited for indemnification obligations and breaches of confidentiality or intellectual property provisions."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations that survive indefinitely can lead to ongoing compliance burdens and potential legal risks for the provider.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue in perpetuity without expiration."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability for either party to terminate for convenience with short notice can create uncertainty and instability for ongoing projects.",
+      "evidence_quote": "Either party may terminate for convenience with 30 days written notice, or immediately upon material breach."
+    },
+    {
+      "risk_title": "Indemnification Without Limitation",
+      "severity": "HIGH",
+      "rationale": "Indemnification for all claims without limitations can expose the provider to excessive liabilities, especially in cases of third-party claims.",
+      "evidence_quote": "Provider shall indemnify Client for all claims, damages, losses, and expenses, without limitation, resulting from Provider's breach of this Agreement or negligence."
+    }
+  ],
+  "executed": true
+}

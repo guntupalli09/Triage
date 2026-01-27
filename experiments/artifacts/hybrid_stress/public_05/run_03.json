@@ -1,59 +1,17 @@
 {
   "findings": [
     {
-      "rule_id": "H_INDEM_01",
-      "rule_name": "unlimited_indemnification",
-      "title": "Potentially unlimited indemnification",
-      "severity": "high",
-      "rationale": "Indemnity obligations may be uncapped, which can expose you to costs far beyond the contract value.",
-      "matched_excerpt": "...INDEMNIFICATION Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit, arising out of any breach of this Agreement....",
-      "exact_snippet": "hold harmless",
-      "start_index": 800,
-      "end_index": 813,
-      "position": 800,
-      "context": "opportunities.\n\nTERM\nThe obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties.\n\nINDEMNIFICATION\nEach party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit, arising out of any breach of this Agreement.\n\nLIMITATION OF LIABILITY\nNotwithstanding any other provisi",
-      "clause_number": null,
-      "matched_keywords": [
-        "without limit",
-        "INDEMNIFICATION",
-        "indemnify"
-      ],
-      "aliases": [
-        "uncapped_indemnification",
-        "unlimited_indemnity",
-        "no_limit_indemnification"
-      ]
-    },
-    {
-      "rule_id": "H_IP_01",
-      "rule_name": "broad_ip_assignment",
-      "title": "Broad IP assignment / ownership transfer language",
-      "severity": "high",
-      "rationale": "Assignment language may transfer ownership of work product or IP rather than granting a limited license.",
-      "matched_excerpt": "...INTELLECTUAL PROPERTY All work product and deliverables created hereunder shall be owned exclusively by Company A. The receiving party hereby assigns all right, title, and interest in such work product....",
-      "exact_snippet": "hereby assigns all right, title, and interest",
-      "start_index": 1211,
-      "end_index": 1256,
-      "position": 1211,
-      "context": "sion, neither party's liability shall be limited under this Agreement.\n\nINTELLECTUAL PROPERTY\nAll work product and deliverables created hereunder shall be owned exclusively by Company A. The receiving party hereby assigns all right, title, and interest in such work product.\n\nATTORNEYS' FEES\nThe prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party.\n\nThis Agreement is governed",
-      "clause_number": null,
-      "matched_keywords": [
-        "assign"
-      ],
-      "aliases": []
-    },
-    {
       "rule_id": "L_GOVLAW_01",
       "rule_name": "governing_law_venue",
       "title": "Specific governing law or venue",
       "severity": "low",
       "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
-      "matched_excerpt": "...This Agreement is governed by the laws of New York....",
-      "exact_snippet": "governed by the laws",
-      "start_index": 1439,
-      "end_index": 1459,
-      "position": 1439,
-      "context": "ght, title, and interest in such work product.\n\nATTORNEYS' FEES\nThe prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party.\n\nThis Agreement is governed by the laws of New York.",
+      "matched_excerpt": "...5. GOVERNING LAW This Agreement is governed by California law....",
+      "exact_snippet": "governed by California law",
+      "start_index": 870,
+      "end_index": 896,
+      "position": 870,
+      "context": "EXCEPTIONS\nConfidential Information does not include information that:\n- Is publicly available\n- Was already known to Recipient\n- Is independently developed by Recipient\n\n5. GOVERNING LAW\nThis Agreement is governed by California law.",
       "clause_number": null,
       "matched_keywords": [],
       "aliases": [
@@ -61,9 +19,9 @@
       ]
     }
   ],
-  "overall_risk": "high",
+  "overall_risk": "low",
   "rule_counts": {
-    "high": 2,
+    "high": 0,
     "medium": 0,
     "low": 1
   },

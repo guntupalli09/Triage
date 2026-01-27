@@ -1,0 +1,39 @@
+MASTER SERVICE AGREEMENT
+
+This Master Service Agreement ("Agreement") is entered into between Service Provider ("Provider") and Client Company ("Client").
+
+1. SERVICES
+Provider agrees to provide the services described in attached Statements of Work.
+
+2. PAYMENT TERMS
+Payment terms are as set forth in the applicable Statement of Work. Late payments incur a 3% monthly fee.
+
+3. INTELLECTUAL PROPERTY
+Provider grants Client a worldwide, perpetual, exclusive license to use all deliverables for any purpose.
+
+4. INDEMNIFICATION
+Provider shall indemnify Client to the extent required by applicable law for third-party claims.
+
+5. LIMITATION OF LIABILITY
+Provider's liability is limited to the fees paid in the 6 months preceding the claim.
+
+6. TERM AND TERMINATION
+This Agreement may be terminated by mutual agreement or by either party with 30 days notice.
+
+7. CONFIDENTIALITY
+Confidentiality obligations survive termination for 3 years.
+
+8. WARRANTIES
+Provider disclaims all warranties, express or implied, except as specifically stated.
+
+9. DISPUTE RESOLUTION
+Disputes shall be resolved through negotiation, then litigation if negotiation fails.
+
+10. GOVERNING LAW
+This Agreement is subject to Illinois state law.
+
+11. ATTORNEYS' FEES
+The prevailing party in any dispute shall be entitled to recover reasonable attorneys' fees.
+
+12. MODIFICATIONS
+This Agreement may only be modified in writing signed by both parties.

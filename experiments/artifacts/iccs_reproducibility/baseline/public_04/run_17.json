@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "The confidentiality obligations only last for three years, which may expose sensitive information after this period.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution."
+    },
+    {
+      "risk_title": "Lack of Specificity in Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The definition of Confidential Information is broad, potentially leading to disputes over what is considered confidential.",
+      "evidence_quote": "Confidential Information includes all proprietary information, trade secrets, business plans, financial data, and technical information."
+    },
+    {
+      "risk_title": "Obligations upon Termination",
+      "severity": "LOW",
+      "rationale": "The requirement to return or destroy materials may not be enforceable or clear enough, leading to potential issues.",
+      "evidence_quote": "Upon termination, each party shall return or destroy all Confidential Information received from the other party."
+    },
+    {
+      "risk_title": "Governing Law Jurisdiction",
+      "severity": "MEDIUM",
+      "rationale": "The choice of Texas as governing law may not be favorable for all parties, depending on their location and legal strategy.",
+      "evidence_quote": "Governing Law: Texas"
+    }
+  ],
+  "executed": true
+}

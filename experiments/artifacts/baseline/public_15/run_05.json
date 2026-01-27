@@ -1,22 +1,22 @@
 {
   "findings": [
     {
-      "risk_title": "Long Duration of Confidentiality",
+      "risk_title": "Duration of Confidentiality",
       "severity": "MEDIUM",
-      "rationale": "A five-year duration may be excessive, especially if the information is not sensitive for that long, potentially limiting future business opportunities.",
+      "rationale": "The confidentiality obligation lasts for five years, which may be insufficient for certain sensitive information that requires longer protection.",
       "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
     },
     {
-      "risk_title": "Inadequate Remedies for Breach",
+      "risk_title": "Injunctive Relief Without Bond",
       "severity": "HIGH",
-      "rationale": "The reliance on injunctive relief without the need for bond may lead to a lack of deterrence against breaches.",
-      "evidence_quote": "Therefore, the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
+      "rationale": "The ability to seek injunctive relief without posting a bond increases the risk of potential misuse or overreach in enforcement actions.",
+      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
     },
     {
-      "risk_title": "Restrictive Assignment Clause",
+      "risk_title": "Assignment Restrictions",
       "severity": "MEDIUM",
-      "rationale": "The restriction on assignment could hinder business flexibility, particularly during mergers or acquisitions.",
-      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
+      "rationale": "Restricting assignment without consent may lead to operational difficulties if one party needs to transfer rights or obligations due to business changes.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party"
     }
   ],
   "executed": true

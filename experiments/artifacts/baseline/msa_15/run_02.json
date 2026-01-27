@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "Provider's liability for indemnification being unlimited poses a significant financial risk to the Provider if claims arise.",
+      "evidence_quote": "Provider's liability for indemnification is unlimited."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Perpetual confidentiality obligations may impose indefinite responsibilities on the parties, potentially leading to unexpected legal challenges.",
+      "evidence_quote": "Confidentiality obligations are perpetual and survive termination without time limitation."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability to terminate for convenience with just 30 days notice can lead to abrupt changes that affect project continuity.",
+      "evidence_quote": "Either party may terminate for convenience with 30 days written notice."
+    },
+    {
+      "risk_title": "Binding Arbitration Clause",
+      "severity": "MEDIUM",
+      "rationale": "Disputes being resolved exclusively through binding arbitration may limit the parties' ability to seek traditional legal remedies.",
+      "evidence_quote": "Any disputes arising from this Agreement shall be resolved exclusively through binding arbitration."
+    }
+  ],
+  "executed": true
+}

@@ -3,19 +3,19 @@
     {
       "risk_title": "Indefinite Duration of Confidentiality",
       "severity": "HIGH",
-      "rationale": "The agreement remains in effect indefinitely, which could lead to potential liabilities for the Receiving Party long after the business relationship ends.",
+      "rationale": "An indefinite term can lead to challenges in managing information over time and may expose the Receiving Party to perpetual obligations without a clear end point.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
     },
     {
-      "risk_title": "Ambiguous Definition of Confidential Information",
+      "risk_title": "Lack of Specificity in Obligations",
       "severity": "MEDIUM",
-      "rationale": "The broad definition of Confidential Information could lead to disputes over what constitutes confidential material, creating uncertainty for the Receiving Party.",
-      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party..."
+      "rationale": "The term 'reasonable precautions' is vague and may lead to different interpretations, potentially resulting in inadequate protection of confidential information.",
+      "evidence_quote": "to take all reasonable precautions to protect such Confidential Information."
     },
     {
-      "risk_title": "Return of Information Obligation",
+      "risk_title": "Return of Information Requirement",
       "severity": "MEDIUM",
-      "rationale": "The obligation to return all Confidential Information may pose risks if the Receiving Party has difficulty complying or if information is lost.",
+      "rationale": "The requirement to return all confidential information may not account for situations where the Receiving Party has made copies or stored information in a manner that complicates return.",
       "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
     }
   ],

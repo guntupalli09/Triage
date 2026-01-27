@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Ambiguous Definition of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of Confidential Information may lead to disputes regarding what constitutes confidential data, increasing the risk of unintentional breaches.",
+      "evidence_quote": "Confidential Information includes all proprietary information, trade secrets, business plans, financial data, and technical information disclosed by either party."
+    },
+    {
+      "risk_title": "Limited Duration of Obligations",
+      "severity": "MEDIUM",
+      "rationale": "The obligations to maintain confidentiality last only three years, which may not be sufficient for certain types of sensitive information.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution, after which the obligations shall terminate."
+    },
+    {
+      "risk_title": "Lack of Specific Return Procedures",
+      "severity": "LOW",
+      "rationale": "The contract does not specify detailed procedures for returning or destroying Confidential Information, which could lead to non-compliance.",
+      "evidence_quote": "Upon termination, each party shall return or destroy all Confidential Information received from the other party."
+    },
+    {
+      "risk_title": "Governing Law Limitations",
+      "severity": "LOW",
+      "rationale": "The choice of Texas as governing law may limit legal recourse options for parties located in different jurisdictions.",
+      "evidence_quote": "Governing Law: Texas"
+    }
+  ],
+  "executed": true
+}

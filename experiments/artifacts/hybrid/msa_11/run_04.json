@@ -1,0 +1,63 @@
+{
+  "findings": [
+    {
+      "rule_id": "M_TERM_NOTICE_01",
+      "rule_name": "termination_notice_window",
+      "title": "Short termination or notice windows",
+      "severity": "medium",
+      "rationale": "Short or strict notice windows can lead to accidental renewals or unintended termination.",
+      "matched_excerpt": "...6. TERM AND TERMINATION This Agreement may be terminated by mutual agreement or by either party with 30 days notice....",
+      "exact_snippet": "notice",
+      "start_index": 840,
+      "end_index": 846,
+      "position": 840,
+      "context": " LIABILITY\nProvider's liability is limited to the fees paid in the 6 months preceding the claim.\n\n6. TERM AND TERMINATION\nThis Agreement may be terminated by mutual agreement or by either party with 30 days notice.\n\n7. CONFIDENTIALITY\nConfidentiality obligations survive termination for 3 years.\n\n8. WARRANTIES\nProvider disclaims all warranties, express or implied, except as specifically stated.\n\n9. DISPU",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "termination_notice_window",
+        "short_notice_period"
+      ]
+    },
+    {
+      "rule_id": "L_LATEFEE_01",
+      "rule_name": "late_fees_interest",
+      "title": "Late fees / high interest",
+      "severity": "low",
+      "rationale": "Penalty terms can increase costs if payment timing slips.",
+      "matched_excerpt": "...2. PAYMENT TERMS Payment terms are as set forth in the applicable Statement of Work. Late payments incur a 3% monthly fee....",
+      "exact_snippet": "Late payments incur a 3%",
+      "start_index": 333,
+      "end_index": 357,
+      "position": 333,
+      "context": "t Company (\"Client\").\n\n1. SERVICES\nProvider agrees to provide the services described in attached Statements of Work.\n\n2. PAYMENT TERMS\nPayment terms are as set forth in the applicable Statement of Work. Late payments incur a 3% monthly fee.\n\n3. INTELLECTUAL PROPERTY\nProvider grants Client a worldwide, perpetual, exclusive license to use all deliverables for any purpose.\n\n4. INDEMNIFICATION\nProvider shall indemnify Client",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "low",
+  "rule_counts": {
+    "high": 0,
+    "medium": 1,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

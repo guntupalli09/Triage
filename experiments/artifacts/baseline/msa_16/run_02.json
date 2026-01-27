@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Indemnification Scope",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause limits obligations to claims arising from each party's own breach, potentially leaving parties vulnerable to third-party claims.",
+      "evidence_quote": "Each party shall indemnify the other to the extent required by applicable law for claims arising from its own breach."
+    },
+    {
+      "risk_title": "Liability Limitation",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to fees paid in the preceding year may not adequately cover potential damages from breaches or negligence.",
+      "evidence_quote": "Each party's liability is limited to the total fees paid under this Agreement in the preceding calendar year."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "The confidentiality obligations lasting only three years may not be sufficient for certain sensitive information, risking exposure after that period.",
+      "evidence_quote": "Confidentiality obligations continue for 3 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "Attorney Fees Responsibility",
+      "severity": "LOW",
+      "rationale": "Each party bearing its own legal expenses can lead to a situation where one party may not pursue valid claims due to cost concerns.",
+      "evidence_quote": "Each party bears its own legal expenses in connection with any dispute."
+    }
+  ],
+  "executed": true
+}

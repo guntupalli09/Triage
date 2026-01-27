@@ -1,0 +1,47 @@
+{
+  "findings": [
+    {
+      "risk_title": "Late Payment Penalty",
+      "severity": "MEDIUM",
+      "rationale": "A 1% monthly interest on late payments may lead to financial strain if cash flow issues arise for the client.",
+      "evidence_quote": "Late payments incur interest at 1% per month."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "HIGH",
+      "rationale": "Capping indemnification at the annual contract value may leave a party exposed to significant claims exceeding that amount.",
+      "evidence_quote": "each party indemnifies the other for claims arising from its own breach, capped at the annual contract value."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to fees paid in the last 24 months may not adequately cover potential damages from significant breaches.",
+      "evidence_quote": "Each party's liability is limited to the total fees paid in the 24 months preceding the claim."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 45-day notice for termination may not provide sufficient time to adjust operations or find alternative service providers.",
+      "evidence_quote": "This Agreement may be terminated by either party with 45 days written notice for convenience."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "Confidentiality obligations lasting only 2 years may not protect sensitive information shared for longer-term projects.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "MEDIUM",
+      "rationale": "Governing law in Nevada may not be favorable for all parties, especially if one party is located in a different jurisdiction.",
+      "evidence_quote": "This Agreement is governed by the laws of the State of Nevada."
+    },
+    {
+      "risk_title": "Attorneys' Fees Responsibility",
+      "severity": "MEDIUM",
+      "rationale": "Each party bearing its own attorneys' fees may discourage parties from pursuing valid claims due to the cost burden.",
+      "evidence_quote": "Each party shall pay its own attorneys' fees and costs in connection with any dispute."
+    }
+  ],
+  "executed": true
+}

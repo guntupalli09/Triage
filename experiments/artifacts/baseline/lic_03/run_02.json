@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Clause Exposure",
+      "severity": "HIGH",
+      "rationale": "The Licensee is liable for claims up to $500,000, which could lead to significant financial exposure in case of a breach.",
+      "evidence_quote": "Licensee agrees to indemnify Licensor for claims arising from Licensee's breach of this Agreement, up to a maximum of $500,000."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Capping liability at the total fees paid in the last 12 months may not provide adequate protection for the Licensee in case of significant losses.",
+      "evidence_quote": "Licensor's liability is capped at the total license fees paid in the preceding 12 months."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 30-day termination notice may not provide sufficient time for the Licensee to adjust or find alternatives, potentially disrupting operations.",
+      "evidence_quote": "Either party may terminate for convenience with 30 days written notice."
+    },
+    {
+      "risk_title": "Warranties and Disclaimers",
+      "severity": "HIGH",
+      "rationale": "The software is provided 'as-is' with no warranties, which places all risk of software issues on the Licensee.",
+      "evidence_quote": "Licensor provides the Software 'as-is' with no warranties, except as expressly stated."
+    },
+    {
+      "risk_title": "Jurisdictional Risk",
+      "severity": "MEDIUM",
+      "rationale": "Disputes are resolved in Delaware courts, which may not be convenient for all parties and could lead to additional costs.",
+      "evidence_quote": "Any disputes shall be resolved in the courts of the State of Delaware."
+    }
+  ],
+  "executed": true
+}

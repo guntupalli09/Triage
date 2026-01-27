@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Audit Rights",
+      "severity": "HIGH",
+      "rationale": "The absence of audit rights may limit the Disclosing Party's ability to verify compliance, increasing the risk of unauthorized disclosure of Confidential Information.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The lack of intellectual property provisions can lead to disputes over ownership and use of ideas or inventions developed during the term of the agreement.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "Limited Term Duration",
+      "severity": "MEDIUM",
+      "rationale": "A fixed term of three years may not provide sufficient protection for sensitive information, especially if disclosures occur near the end of the term.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution."
+    }
+  ],
+  "executed": true
+}

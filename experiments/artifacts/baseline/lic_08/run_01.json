@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to only the total license fees paid may expose the Licensee to significant financial risks in case of breaches or failures.",
+      "evidence_quote": "Each party's liability is limited to the total license fees paid in the preceding calendar year."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at $750,000 may not be sufficient to cover potential damages from breaches, especially for larger organizations.",
+      "evidence_quote": "each party indemnifies the other for claims arising from its own breach, capped at $750,000 per claim."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability to terminate for convenience with only 30 days notice could disrupt business operations and planning.",
+      "evidence_quote": "Either party may terminate for convenience with 30 days written notice."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "Confidentiality obligations lasting only 3 years may not protect sensitive information adequately if disclosed after that period.",
+      "evidence_quote": "Confidentiality obligations continue for 3 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "Governing Law Jurisdiction",
+      "severity": "LOW",
+      "rationale": "Limiting disputes to Virginia courts may be inconvenient for parties located in other jurisdictions.",
+      "evidence_quote": "Any disputes shall be resolved in the courts of the State of Virginia."
+    }
+  ],
+  "executed": true
+}

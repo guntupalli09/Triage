@@ -1,0 +1,71 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_LOL_CARVEOUT_01",
+      "rule_name": "liability_cap_carveout",
+      "title": "Liability cap carve-outs may negate protection",
+      "severity": "medium",
+      "rationale": "Liability caps that exclude indemnity, confidentiality, or IP claims often negate the practical benefit of the cap entirely. Note: Carve-out may be required by law.",
+      "matched_excerpt": "...5. LIMITATION OF LIABILITY Limitation of liability shall not apply to indemnification, except as required by applicable law....",
+      "exact_snippet": "LIMITATION OF LIABILITY",
+      "start_index": 535,
+      "end_index": 558,
+      "position": 535,
+      "context": "l Confidential Information.\n\n3. TERM\nThis Agreement shall remain in effect for three (3) years from the date of execution.\n\n4. INDEMNIFICATION\nNo indemnification obligations apply under this Agreement.\n\n5. LIMITATION OF LIABILITY\nLimitation of liability shall not apply to indemnification, except as required by applicable law.\n\n6. INTELLECTUAL PROPERTY\nAll work product shall be assigned to the Disclosing Party, excluding",
+      "clause_number": "3",
+      "matched_keywords": [
+        "shall not apply to indemnification",
+        "LIABILITY"
+      ],
+      "aliases": [
+        "liability_cap_carveout",
+        "cap_exclusion"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...11. GOVERNING LAW This Agreement is governed by applicable law....",
+      "exact_snippet": "governed by applicable law",
+      "start_index": 1087,
+      "end_index": 1113,
+      "position": 1087,
+      "context": "es.\n\n8. RENEWAL\nThis Agreement may be renewed by mutual written consent.\n\n9. AUDIT RIGHTS\nNo audit rights are granted under this Agreement.\n\n10. LATE FEES\nNo late fees apply.\n\n11. GOVERNING LAW\nThis Agreement is governed by applicable law.\n\n12. DEFINITIONS\nConfidential Information means information marked as confidential.\n\nThis Agreement is executed on 2024-01-01.\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    }
+  ],
+  "overall_risk": "low",
+  "rule_counts": {
+    "high": 0,
+    "medium": 1,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {
+    "H_IP_WORK_PRODUCT_01_686": "Suppressed: IP assignment excludes pre-existing IP",
+    "H_LOL_CARVEOUT_01_535": "Downgraded severity: carve-out may be required by applicable law"
+  },
+  "suppression_enabled": true
+}

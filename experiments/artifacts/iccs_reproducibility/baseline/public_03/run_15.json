@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Clear Definition of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of Confidential Information may lead to disputes over what constitutes confidential material.",
+      "evidence_quote": "\"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information."
+    },
+    {
+      "risk_title": "Long Duration of Non-Disclosure Obligation",
+      "severity": "MEDIUM",
+      "rationale": "A five-year duration may be excessive and can lead to difficulties in compliance or legal challenges over time.",
+      "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
+    },
+    {
+      "risk_title": "Injunctive Relief Without Bond Requirement",
+      "severity": "HIGH",
+      "rationale": "Allowing injunctive relief without posting bond may expose the Receiving Party to significant risk if the Disclosing Party seeks injunctive relief improperly.",
+      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
+    },
+    {
+      "risk_title": "Assignment Restrictions",
+      "severity": "MEDIUM",
+      "rationale": "The assignment clause limits the ability to transfer rights and obligations, which could hinder business flexibility.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
+    }
+  ],
+  "executed": true
+}

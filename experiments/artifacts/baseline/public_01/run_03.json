@@ -1,21 +1,21 @@
 {
   "findings": [
     {
-      "risk_title": "Indefinite Duration of Confidentiality",
+      "risk_title": "Indefinite Term of Agreement",
       "severity": "HIGH",
-      "rationale": "The agreement's indefinite duration could expose the Receiving Party to long-term obligations and liabilities, making it difficult to manage future risks related to confidentiality.",
+      "rationale": "An indefinite duration may lead to perpetual obligations, potentially causing long-term liability for the Receiving Party without a clear endpoint.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
     },
     {
-      "risk_title": "Absence of Limitation on Damages",
+      "risk_title": "Return of Information Obligation",
       "severity": "MEDIUM",
-      "rationale": "The contract does not specify limitations on damages for breaches of confidentiality, which could lead to excessive liabilities for the Receiving Party.",
-      "evidence_quote": "The Receiving Party agrees to hold and maintain the Confidential Information in strict confidence..."
+      "rationale": "The obligation to return all Confidential Information may be burdensome and could lead to disputes regarding what constitutes 'all' information.",
+      "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
     },
     {
-      "risk_title": "Governing Law Jurisdiction",
-      "severity": "MEDIUM",
-      "rationale": "The choice of California law may not be favorable to the Receiving Party, depending on their location and business practices, potentially leading to jurisdictional challenges.",
+      "risk_title": "Governing Law Clause",
+      "severity": "LOW",
+      "rationale": "The choice of governing law may not be favorable to all parties, potentially leading to jurisdictional challenges or unexpected legal interpretations.",
       "evidence_quote": "This Agreement shall be governed by the laws of the State of California."
     }
   ],

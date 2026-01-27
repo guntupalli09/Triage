@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "The Provider's liability being unlimited for indemnification poses a significant risk, as it may expose them to substantial financial obligations without cap.",
+      "evidence_quote": "Provider's liability is unlimited for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Imbalanced Termination Rights",
+      "severity": "MEDIUM",
+      "rationale": "The Client's ability to terminate immediately while the Provider requires 45 days' notice creates an imbalance in termination rights, potentially leaving the Provider vulnerable.",
+      "evidence_quote": "Client may terminate immediately upon written notice. Provider requires 45 days notice."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Indefinite confidentiality obligations can be burdensome and may lead to unforeseen liabilities or restrictions on the Provider's future business activities.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely after termination."
+    },
+    {
+      "risk_title": "Arbitration Requirement",
+      "severity": "LOW",
+      "rationale": "Mandatory arbitration may limit the Provider's options for dispute resolution and could increase costs, but it is a common practice.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of the American Arbitration Association."
+    },
+    {
+      "risk_title": "Attorney Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "The requirement for the Provider to pay the Client's attorney fees in enforcement actions may deter the Provider from pursuing legitimate disputes.",
+      "evidence_quote": "Client shall be entitled to recover all attorneys' fees, court costs, and expenses from Provider in any enforcement action."
+    }
+  ],
+  "executed": true
+}

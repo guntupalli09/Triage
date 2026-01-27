@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to fees paid may expose parties to significant risks, especially in cases of negligence or breach.",
+      "evidence_quote": "Each party's liability is limited to the total fees paid under this Agreement in the preceding calendar year."
+    },
+    {
+      "risk_title": "Indemnification Scope",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause may not fully protect against third-party claims, leading to potential financial exposure.",
+      "evidence_quote": "Each party shall indemnify the other to the extent required by applicable law for claims arising from its own breach."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "Three years may be insufficient for certain sensitive information, risking potential leaks or misuse.",
+      "evidence_quote": "Confidentiality obligations continue for 3 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "Dispute Resolution Process",
+      "severity": "LOW",
+      "rationale": "Relying on good faith negotiation may lead to prolonged disputes without formal mechanisms for resolution.",
+      "evidence_quote": "Disputes shall be resolved through good faith negotiation between authorized representatives."
+    },
+    {
+      "risk_title": "Attorney's Fees Responsibility",
+      "severity": "LOW",
+      "rationale": "Each party bearing its own legal expenses may discourage claims or defenses due to potential financial burdens.",
+      "evidence_quote": "Each party bears its own legal expenses in connection with any dispute."
+    }
+  ],
+  "executed": true
+}

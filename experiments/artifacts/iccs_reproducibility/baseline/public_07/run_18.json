@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Undefined Scope of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of confidential information may lead to disputes over what is considered confidential, potentially exposing parties to unintended disclosures.",
+      "evidence_quote": "All non-public information disclosed by either party, including but not limited to technical specifications, business plans, financial data, and customer lists."
+    },
+    {
+      "risk_title": "Ambiguous Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "While the term is defined, the duration of confidentiality obligations after the agreement ends is not specified, which could lead to risks of disclosure post-term.",
+      "evidence_quote": "This Agreement shall remain in effect for four (4) years from the date of execution."
+    },
+    {
+      "risk_title": "Limited Remedies for Breach",
+      "severity": "HIGH",
+      "rationale": "The agreement only mentions injunctive relief as a remedy for breach, which may not compensate for all damages suffered by the non-breaching party.",
+      "evidence_quote": "The non-breaching party shall be entitled to seek injunctive relief."
+    },
+    {
+      "risk_title": "Lack of Jurisdiction Specification",
+      "severity": "LOW",
+      "rationale": "While governing law is specified, the lack of jurisdiction can create uncertainty regarding legal proceedings in case of disputes.",
+      "evidence_quote": "Governing Law: Delaware"
+    }
+  ],
+  "executed": true
+}

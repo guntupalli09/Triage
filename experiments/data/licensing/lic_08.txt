@@ -1,0 +1,38 @@
+SOFTWARE LICENSING AGREEMENT
+
+This Software Licensing Agreement ("Agreement") is entered into between Licensor Company ("Licensor") and Licensee Company ("Licensee").
+
+1. GRANT OF LICENSE
+Licensor grants Licensee a limited, non-exclusive license to use the Software for a specific number of users as specified in Schedule B.
+
+2. INTELLECTUAL PROPERTY OWNERSHIP
+Licensor retains all intellectual property rights. Licensee receives a license only, with no ownership or assignment rights.
+
+3. PAYMENT TERMS
+Licensee shall pay per-user license fees as set forth in Schedule B, due within 30 days of invoice date.
+
+4. TERM AND TERMINATION
+Either party may terminate for convenience with 30 days written notice, or immediately upon material breach.
+
+5. INDEMNIFICATION
+Mutual indemnification: each party indemnifies the other for claims arising from its own breach, capped at $750,000 per claim.
+
+6. LIMITATION OF LIABILITY
+Each party's liability is limited to the total license fees paid in the preceding calendar year.
+
+7. CONFIDENTIALITY
+Confidentiality obligations continue for 3 years after termination of this Agreement.
+
+8. WARRANTIES AND DISCLAIMERS
+Licensor warrants that the Software will substantially conform to the documentation provided to Licensee.
+
+9. DISPUTE RESOLUTION
+Any disputes shall be resolved in the courts of the State of Virginia.
+
+10. ATTORNEYS' FEES
+Each party shall pay its own attorneys' fees unless the other party prevails in the dispute.
+
+11. GOVERNING LAW
+Virginia law governs this Agreement.
+
+This Agreement is effective as of August 1, 2024.

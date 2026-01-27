@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "Unlimited liability can expose the Provider to significant financial risk, especially in cases of indemnification which may arise from unforeseen claims.",
+      "evidence_quote": "Provider's liability is unlimited for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Unilateral Termination Rights",
+      "severity": "MEDIUM",
+      "rationale": "The Client's ability to terminate immediately without cause may pose a risk to the Provider's business stability.",
+      "evidence_quote": "Client may terminate immediately upon written notice."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Perpetual confidentiality can lead to ongoing obligations that may impact the Provider's future operations and ability to leverage knowledge.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely after termination."
+    },
+    {
+      "risk_title": "Arbitration Requirement",
+      "severity": "LOW",
+      "rationale": "Mandatory arbitration may limit the Provider's ability to seek legal recourse in a court, which could be unfavorable in certain disputes.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of the American Arbitration Association."
+    }
+  ],
+  "executed": true
+}

@@ -1,27 +1,27 @@
 {
   "findings": [
     {
-      "risk_title": "No Indemnification Obligations",
+      "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations may expose a party to significant financial risk in case of breaches or legal issues arising from the agreement.",
+      "rationale": "The absence of indemnification obligations may expose the parties to financial risks without protection against third-party claims.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Unlimited Liability",
+      "risk_title": "Unrestricted Liability",
       "severity": "HIGH",
-      "rationale": "Allowing liability to remain uncapped can lead to unpredictable financial exposure, especially in cases of serious breaches or damages.",
+      "rationale": "Limitation of liability clauses are critical in contracts; the absence of limits may lead to unlimited financial exposure.",
       "evidence_quote": "No event shall be limited by the limitation of liability clause."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The lack of audit rights limits oversight capabilities, potentially allowing non-compliance or misuse of confidential information without detection.",
+      "rationale": "The lack of audit rights may prevent one party from verifying compliance or misuse of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "The absence of intellectual property provisions may lead to confusion or disputes regarding ownership and use of proprietary information.",
+      "rationale": "The absence of intellectual property provisions may lead to disputes over ownership and use of innovations or ideas.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Inadequate Non-Compete Duration",
+      "severity": "MEDIUM",
+      "rationale": "A 12-month non-compete clause may limit the employee's future job opportunities and could be seen as overly restrictive in certain industries.",
+      "evidence_quote": "Employee may not compete within the same market for 12 months after termination."
+    },
+    {
+      "risk_title": "Broad Intellectual Property License",
+      "severity": "HIGH",
+      "rationale": "Granting a worldwide, perpetual license to the employer for all content created could lead to misuse or overreach regarding the employee's future work.",
+      "evidence_quote": "Provider grants Employer a worldwide, perpetual license to use all content and work product created during employment."
+    },
+    {
+      "risk_title": "Extended Confidentiality Obligation",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations lasting 2 years post-termination may hinder the employee's ability to work in related fields or leverage past experience.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 2 years."
+    },
+    {
+      "risk_title": "Potentially High Indemnification Exposure",
+      "severity": "HIGH",
+      "rationale": "Mutual indemnification for negligence, capped at the employee's salary, may expose the employee to significant liability without adequate protection.",
+      "evidence_quote": "each party indemnifies the other for its own negligence, capped at annual salary."
+    }
+  ],
+  "executed": true
+}

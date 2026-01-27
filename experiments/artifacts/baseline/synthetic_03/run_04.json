@@ -1,28 +1,28 @@
 {
   "findings": [
     {
-      "risk_title": "Lack of Indemnification",
+      "risk_title": "No Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations could expose parties to unmitigated liabilities resulting from breaches or third-party claims.",
+      "rationale": "The absence of indemnification obligations can expose parties to significant liabilities without recourse for damages or losses incurred as a result of breaches or negligence.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limitation of Liability",
+      "risk_title": "Limited Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid may not adequately protect against significant damages that could arise from breaches.",
+      "rationale": "Limiting liability to fees paid may not adequately protect against significant damages or losses, leaving one party vulnerable in case of a breach.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The absence of audit rights may prevent the Receiving Party from verifying compliance with confidentiality obligations.",
+      "rationale": "The lack of audit rights may prevent either party from verifying compliance with the terms of the agreement, increasing the risk of undisclosed breaches.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
-      "risk_title": "Confidential Information Definition",
+      "risk_title": "Lack of Clarity on Confidential Information",
       "severity": "LOW",
-      "rationale": "The definition of Confidential Information may be too vague, leading to potential misunderstandings about what is protected.",
-      "evidence_quote": "Confidential Information means all non-public information disclosed by one party to the other."
+      "rationale": "The definition of Confidential Information may not be comprehensive enough, potentially leading to disputes about what constitutes confidential data.",
+      "evidence_quote": "Confidential Information means information marked as confidential."
     }
   ],
   "executed": true

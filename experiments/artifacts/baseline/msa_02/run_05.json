@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to prior payments may expose the client to significant losses without recourse for larger claims, particularly in cases of gross negligence.",
+      "evidence_quote": "Provider's liability is limited to the amount paid in the 12 months preceding the claim, except for gross negligence or willful misconduct."
+    },
+    {
+      "risk_title": "Indemnification Ambiguity",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause lacks specific obligations and limits, potentially leading to disputes over liability.",
+      "evidence_quote": "Each party shall indemnify the other to the extent required by applicable law."
+    },
+    {
+      "risk_title": "No Warranties",
+      "severity": "MEDIUM",
+      "rationale": "Disclaiming all warranties may leave the client with no recourse for defective services or deliverables.",
+      "evidence_quote": "Provider disclaims all warranties except as expressly stated herein."
+    },
+    {
+      "risk_title": "Termination Clause",
+      "severity": "MEDIUM",
+      "rationale": "Immediate termination upon material breach may lead to abrupt project halts, impacting both parties and requiring clarity on what constitutes a material breach.",
+      "evidence_quote": "Either party may terminate immediately upon material breach."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "Indefinite confidentiality obligations may impose lasting restrictions on the client's future business operations and partnerships.",
+      "evidence_quote": "Confidentiality obligations survive termination indefinitely."
+    }
+  ],
+  "executed": true
+}

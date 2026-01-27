@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Ownership Rights",
+      "severity": "HIGH",
+      "rationale": "The Licensee has no ownership or assignment rights over the Software, potentially limiting their control and ability to use the product as needed.",
+      "evidence_quote": "Licensor retains all intellectual property rights. Licensee receives a license only, with no ownership or assignment rights."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "Either party can terminate the agreement with notice, which may disrupt the Licensee's operations without cause.",
+      "evidence_quote": "Either party may terminate for convenience with 30 days written notice, or immediately upon material breach."
+    },
+    {
+      "risk_title": "Capped Indemnification",
+      "severity": "MEDIUM",
+      "rationale": "Indemnification is capped at $750,000, which may not cover significant damages in case of a breach.",
+      "evidence_quote": "each party indemnifies the other for claims arising from its own breach, capped at $750,000 per claim."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to the total license fees may leave the Licensee exposed to significant risks without adequate recourse.",
+      "evidence_quote": "Each party's liability is limited to the total license fees paid in the preceding calendar year."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations last for 3 years post-termination, which may be too long depending on the context of the information shared.",
+      "evidence_quote": "Confidentiality obligations continue for 3 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "Choice of Jurisdiction",
+      "severity": "MEDIUM",
+      "rationale": "Disputes must be resolved in Virginia, which may be inconvenient for one party, potentially leading to increased costs and complications.",
+      "evidence_quote": "Any disputes shall be resolved in the courts of the State of Virginia."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,128 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_INDEM_01",
+      "rule_name": "unlimited_indemnification",
+      "title": "Potentially unlimited indemnification",
+      "severity": "high",
+      "rationale": "Indemnity obligations may be uncapped, which can expose you to costs far beyond the contract value.",
+      "matched_excerpt": "...4. INDEMNIFICATION Provider shall defend, indemnify, and hold harmless Client from all claims, without limit, arising from Provider's services or breach of this Agreement....",
+      "exact_snippet": "indemnify",
+      "start_index": 611,
+      "end_index": 620,
+      "position": 611,
+      "context": "ERTY\nAll work product and deliverables created by Provider under this Agreement shall be the exclusive property of Client. Provider assigns all rights to Client.\n\n4. INDEMNIFICATION\nProvider shall defend, indemnify, and hold harmless Client from all claims, without limit, arising from Provider's services or breach of this Agreement.\n\n5. LIMITATION OF LIABILITY\nNotwithstanding the limitation of liability cl",
+      "clause_number": null,
+      "matched_keywords": [
+        "without limit",
+        "INDEMNIFICATION",
+        "indemnify"
+      ],
+      "aliases": [
+        "uncapped_indemnification",
+        "unlimited_indemnity",
+        "no_limit_indemnification"
+      ]
+    },
+    {
+      "rule_id": "M_CONF_01",
+      "rule_name": "indefinite_confidentiality",
+      "title": "Confidentiality may be perpetual / indefinite",
+      "severity": "medium",
+      "rationale": "Indefinite confidentiality can create long-term compliance burden and uncertainty around retention and disclosure.",
+      "matched_excerpt": "...7. CONFIDENTIALITY Confidentiality obligations are perpetual and survive termination without time limitation....",
+      "exact_snippet": "CONFIDENTIALITY Confidentiality obligations are perpetual",
+      "start_index": 974,
+      "end_index": 1031,
+      "position": 974,
+      "context": "Notwithstanding the limitation of liability clause, Provider's liability for indemnification is unlimited.\n\n6. TERM AND TERMINATION\nEither party may terminate for convenience with 30 days written notice.\n\n7. CONFIDENTIALITY\nConfidentiality obligations are perpetual and survive termination without time limitation.\n\n8. WARRANTIES\nProvider warrants that services will be performed in a professional manner and comply with all applicable laws.\n\n9. DISPUTE RES",
+      "clause_number": null,
+      "matched_keywords": [
+        "CONFIDENTIAL",
+        "perpetual"
+      ],
+      "aliases": [
+        "perpetual_confidentiality",
+        "indefinite_confidentiality",
+        "no_expiration_confidentiality"
+      ]
+    },
+    {
+      "rule_id": "M_TERM_NOTICE_01",
+      "rule_name": "termination_notice_window",
+      "title": "Short termination or notice windows",
+      "severity": "medium",
+      "rationale": "Short or strict notice windows can lead to accidental renewals or unintended termination.",
+      "matched_excerpt": "...6. TERM AND TERMINATION Either party may terminate for convenience with 30 days written notice....",
+      "exact_snippet": "terminate",
+      "start_index": 916,
+      "end_index": 925,
+      "position": 916,
+      "context": " or breach of this Agreement.\n\n5. LIMITATION OF LIABILITY\nNotwithstanding the limitation of liability clause, Provider's liability for indemnification is unlimited.\n\n6. TERM AND TERMINATION\nEither party may terminate for convenience with 30 days written notice.\n\n7. CONFIDENTIALITY\nConfidentiality obligations are perpetual and survive termination without time limitation.\n\n8. WARRANTIES\nProvider warrants tha",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "termination_notice_window",
+        "short_notice_period"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...10. GOVERNING LAW This Agreement is governed by the laws of the State of Colorado....",
+      "exact_snippet": "governed by the laws",
+      "start_index": 1365,
+      "end_index": 1385,
+      "position": 1365,
+      "context": "sional manner and comply with all applicable laws.\n\n9. DISPUTE RESOLUTION\nAny disputes arising from this Agreement shall be resolved exclusively through binding arbitration.\n\n10. GOVERNING LAW\nThis Agreement is governed by the laws of the State of Colorado.\n\n11. ATTORNEYS' FEES\nIn any action to enforce this Agreement, the prevailing party shall recover all attorneys' fees and costs from the other party.\n\n12. MODIFICA",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    },
+    {
+      "rule_id": "L_LATEFEE_01",
+      "rule_name": "late_fees_interest",
+      "title": "Late fees / high interest",
+      "severity": "low",
+      "rationale": "Penalty terms can increase costs if payment timing slips.",
+      "matched_excerpt": "...2. PAYMENT TERMS Client shall pay Provider monthly in advance based on the service schedule. Late payments incur interest at 2% per month....",
+      "exact_snippet": "Late payments incur interest at 2%",
+      "start_index": 341,
+      "end_index": 375,
+      "position": 341,
+      "context": "y (\"Client\").\n\n1. SERVICES\nProvider agrees to provide the services described in attached Statements of Work.\n\n2. PAYMENT TERMS\nClient shall pay Provider monthly in advance based on the service schedule. Late payments incur interest at 2% per month.\n\n3. INTELLECTUAL PROPERTY\nAll work product and deliverables created by Provider under this Agreement shall be the exclusive property of Client. Provider assigns all rights to Client.\n\n4",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 1,
+    "medium": 2,
+    "low": 2
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

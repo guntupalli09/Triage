@@ -1,0 +1,19 @@
+{
+  "id": "synthetic_18",
+  "type": "synthetic",
+  "synthetic": true,
+  "created_date": "2026-01-17",
+  "variants": {
+    "confidentiality_term": "indefinite",
+    "indemnification_clause": "unlimited",
+    "liability_clause": "carveout",
+    "ip_clause": "broad_assignment",
+    "attorneys_fees_clause": "one_way",
+    "renewal_clause": "auto_renewal_terminated",
+    "audit_clause": "inspect_records",
+    "late_fees_clause": "late_fee",
+    "governing_law_clause": "specific",
+    "definitions_clause": "broad",
+    "confidentiality_obligations": "standard"
+  }
+}

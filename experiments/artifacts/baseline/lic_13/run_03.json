@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Indemnification",
+      "severity": "HIGH",
+      "rationale": "Licensee's obligation to indemnify Licensor without limitation could expose Licensee to significant financial risk from claims arising from the use of the Software.",
+      "evidence_quote": "Licensee shall defend, indemnify, and hold harmless Licensor from all claims, damages, and expenses, without limitation."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "The perpetual nature of the confidentiality obligations could lead to long-term obligations that may be burdensome for the Licensee.",
+      "evidence_quote": "Confidentiality obligations are perpetual and survive termination without any time limitation."
+    },
+    {
+      "risk_title": "High Late Payment Interest",
+      "severity": "MEDIUM",
+      "rationale": "The 3% per month interest on late payments is relatively high and could lead to significant financial liabilities if payments are delayed.",
+      "evidence_quote": "Late payments accrue interest at 3% per month."
+    },
+    {
+      "risk_title": "Termination Notice Requirement",
+      "severity": "LOW",
+      "rationale": "The requirement for 90 days notice to terminate may limit Licensee's flexibility to exit the agreement promptly if needed.",
+      "evidence_quote": "Licensee requires 90 days notice to terminate."
+    },
+    {
+      "risk_title": "Exclusive Jurisdiction",
+      "severity": "LOW",
+      "rationale": "Submitting to exclusive jurisdiction in California could pose logistical challenges or increased costs for Licensee if they are located elsewhere.",
+      "evidence_quote": "parties submit to exclusive jurisdiction in California courts."
+    }
+  ],
+  "executed": true
+}

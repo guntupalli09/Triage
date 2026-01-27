@@ -1,0 +1,47 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Assignment",
+      "severity": "HIGH",
+      "rationale": "The employee assigns all rights to intellectual property created during employment, which may limit their future opportunities and ownership rights.",
+      "evidence_quote": "All intellectual property, code, and technical work product created by Employee during employment shall become the sole and exclusive property of Employer."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "The confidentiality obligation lasts indefinitely, which can lead to challenges for the employee in future employment or projects.",
+      "evidence_quote": "Employee must maintain strict confidentiality of all proprietary systems, architectures, and trade secrets in perpetuity, without any time limitation."
+    },
+    {
+      "risk_title": "At-Will Termination",
+      "severity": "HIGH",
+      "rationale": "The employer can terminate the agreement at will, which provides little job security for the employee.",
+      "evidence_quote": "Employer may terminate at will."
+    },
+    {
+      "risk_title": "Mandatory Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit the employee's ability to seek justice in court, potentially favoring the employer in disputes.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration under AAA rules."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee is required to indemnify the employer from all claims, which could lead to significant financial liability for the employee.",
+      "evidence_quote": "Employee shall defend, indemnify, and hold harmless Employer from all claims, without limitation."
+    },
+    {
+      "risk_title": "Exclusive Jurisdiction",
+      "severity": "MEDIUM",
+      "rationale": "The agreement limits legal proceedings to California courts, which may be inconvenient for the employee if they reside elsewhere.",
+      "evidence_quote": "parties consent to exclusive jurisdiction in California courts."
+    },
+    {
+      "risk_title": "Attorney Fees Responsibility",
+      "severity": "MEDIUM",
+      "rationale": "The employee must cover the employer's attorney fees in disputes, which could deter the employee from pursuing valid claims.",
+      "evidence_quote": "Employer shall recover all attorneys' fees, costs, and expenses from Employee."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Ownership",
+      "severity": "HIGH",
+      "rationale": "The employer claims all rights to intellectual property created by the employee, which can limit the employee's future opportunities and ownership of their work.",
+      "evidence_quote": "All intellectual property developed by Employee in the course of employment shall be owned by Employer."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligation",
+      "severity": "MEDIUM",
+      "rationale": "The obligation to maintain confidentiality in perpetuity can be overly broad and may expose the employee to risks of unintentional breaches.",
+      "evidence_quote": "Employee agrees to maintain confidentiality of all trade secrets and proprietary information in perpetuity."
+    },
+    {
+      "risk_title": "Restrictive Non-Compete Clause",
+      "severity": "HIGH",
+      "rationale": "The non-compete clause restricts the employee's ability to work in their field for two years, which may hinder their career advancement.",
+      "evidence_quote": "Employee may not compete with Employer for 2 years after termination within the same geographic market."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The employee is required to indemnify the employer for legal costs, which can lead to significant financial liability for the employee.",
+      "evidence_quote": "Employee agrees to indemnify Employer for all legal costs resulting from Employee's breach, capped at $300,000."
+    },
+    {
+      "risk_title": "Exclusive Jurisdiction",
+      "severity": "LOW",
+      "rationale": "Disputes being resolved exclusively in New Jersey may limit the employee's options for legal recourse, especially if they are located elsewhere.",
+      "evidence_quote": "Any disputes shall be resolved exclusively in the courts of New Jersey."
+    }
+  ],
+  "executed": true
+}

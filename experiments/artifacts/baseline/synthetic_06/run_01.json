@@ -3,19 +3,19 @@
     {
       "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations may expose parties to unforeseen liabilities without recourse.",
+      "rationale": "The absence of indemnification obligations could expose parties to significant liability without recourse, increasing financial risk.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "Exclusion of audit rights may hinder the ability to verify compliance and protect interests.",
+      "rationale": "The lack of audit rights may prevent one party from verifying compliance with confidentiality obligations, leading to potential misuse of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
-      "risk_title": "Limited Liability Exceptions",
+      "risk_title": "Limited Liability Clauses",
       "severity": "MEDIUM",
-      "rationale": "The limitation of liability clause's exception may lead to significant risks if indemnification is needed.",
+      "rationale": "The limitation of liability clause may leave parties exposed to greater risks, especially in cases of breach of contract.",
       "evidence_quote": "Limitation of liability shall not apply to indemnification, except as required by applicable law."
     }
   ],

@@ -1,16 +1,22 @@
 {
   "findings": [
     {
-      "risk_title": "Indefinite Duration of Confidentiality",
+      "risk_title": "Indefinite Term of Agreement",
       "severity": "HIGH",
-      "rationale": "The indefinite duration may expose the Receiving Party to perpetual obligations, which can create operational challenges and potential liability for ongoing confidentiality breaches.",
+      "rationale": "An indefinite term may pose a risk as it could lead to perpetual obligations and liabilities for the Receiving Party without clear time limits.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
     },
     {
       "risk_title": "Vague Definition of Confidential Information",
       "severity": "MEDIUM",
-      "rationale": "The broad definition of Confidential Information may lead to disputes over what constitutes confidential material, potentially resulting in unintentional breaches.",
+      "rationale": "The broad definition may lead to ambiguity regarding what information is protected, potentially resulting in disputes or unintentional violations.",
       "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party to the Receiving Party."
+    },
+    {
+      "risk_title": "No Limitation on Liability",
+      "severity": "HIGH",
+      "rationale": "The absence of limitations on liability can expose the Receiving Party to significant financial risks in case of a breach.",
+      "evidence_quote": "The Receiving Party agrees to hold and maintain the Confidential Information in strict confidence."
     }
   ],
   "executed": true

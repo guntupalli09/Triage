@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "Provider's unlimited liability for indemnification and other claims can expose them to significant financial risk.",
+      "evidence_quote": "Provider's liability is unlimited for indemnification, confidentiality, and intellectual property claims."
+    },
+    {
+      "risk_title": "Unequal Termination Rights",
+      "severity": "MEDIUM",
+      "rationale": "Client's ability to terminate immediately while Provider requires 45 days notice may create an imbalance in the relationship.",
+      "evidence_quote": "Client may terminate immediately upon written notice. Provider requires 45 days notice."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Indefinite confidentiality obligations may impose ongoing burdens on the Provider beyond the term of the Agreement.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely after termination."
+    },
+    {
+      "risk_title": "Arbitration Requirement",
+      "severity": "LOW",
+      "rationale": "Mandatory arbitration may limit the options for dispute resolution and could be unfavorable for the Provider.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of the American Arbitration Association."
+    }
+  ],
+  "executed": true
+}

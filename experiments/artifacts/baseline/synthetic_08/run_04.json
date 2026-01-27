@@ -1,33 +1,33 @@
 {
   "findings": [
     {
-      "risk_title": "Indefinite Term",
-      "severity": "MEDIUM",
-      "rationale": "An indefinite term may pose a risk as it can lead to perpetual obligations without a clear endpoint, potentially resulting in prolonged liabilities.",
+      "risk_title": "Indefinite Term Duration",
+      "severity": "HIGH",
+      "rationale": "An indefinite term may create ongoing obligations without clear termination, leading to potential legal complications.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination."
     },
     {
-      "risk_title": "No Indemnification",
-      "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations can expose a party to significant risks, as they may have no recourse for damages incurred due to the other party's actions.",
+      "risk_title": "No Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "Absence of indemnification may expose parties to liability without protection against claims from third parties.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limitation of Liability",
-      "severity": "MEDIUM",
-      "rationale": "Limiting liability to total fees paid can be risky, especially if damages exceed those fees, leaving a party vulnerable to significant losses.",
+      "risk_title": "Limitations on Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to fees paid may not adequately protect against significant damages, exposing parties to financial risks.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
-      "severity": "HIGH",
-      "rationale": "The lack of audit rights can prevent a party from verifying compliance or identifying breaches, increasing the risk of undisclosed issues.",
+      "severity": "MEDIUM",
+      "rationale": "Lack of audit rights may hinder transparency and compliance monitoring, increasing risk of misuse of confidential information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
-      "risk_title": "No Intellectual Property Provisions",
+      "risk_title": "Absence of Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "The absence of intellectual property provisions may lead to disputes over ownership and usage rights of any created content or inventions.",
+      "rationale": "Without IP provisions, there may be confusion or conflict over ownership and use of intellectual property derived from the agreement.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

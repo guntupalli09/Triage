@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "HIGH",
+      "rationale": "Capping indemnification at the annual contract value may leave parties exposed to significant liabilities beyond that limit.",
+      "evidence_quote": "each party indemnifies the other for claims arising from its own breach, capped at the annual contract value."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to fees paid in the preceding 24 months may not adequately cover potential damages from a breach.",
+      "evidence_quote": "Each party's liability is limited to the total fees paid in the 24 months preceding the claim."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 45-day notice period for termination may not provide sufficient time to adjust for either party.",
+      "evidence_quote": "This Agreement may be terminated by either party with 45 days written notice for convenience."
+    },
+    {
+      "risk_title": "Governing Law Risk",
+      "severity": "MEDIUM",
+      "rationale": "Governing law in Nevada may not be favorable to all parties, depending on their location and the nature of disputes.",
+      "evidence_quote": "This Agreement is governed by the laws of the State of Nevada."
+    },
+    {
+      "risk_title": "Mutual Attorneys' Fees",
+      "severity": "LOW",
+      "rationale": "Each party bearing its own attorneys' fees may disincentivize pursuing legitimate claims due to cost concerns.",
+      "evidence_quote": "Each party shall pay its own attorneys' fees and costs in connection with any dispute."
+    }
+  ],
+  "executed": true
+}

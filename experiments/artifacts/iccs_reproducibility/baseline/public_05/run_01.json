@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Term Duration",
+      "severity": "HIGH",
+      "rationale": "An indefinite term may lead to perpetual obligations which can be burdensome and create uncertainty for the Recipient.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship."
+    },
+    {
+      "risk_title": "Broad Definition of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The definition encompasses all non-public information, which can lead to ambiguity and potential disputes regarding what constitutes confidential information.",
+      "evidence_quote": "Confidential Information means all non-public information, whether oral, written, or electronic, disclosed by Discloser to Recipient."
+    },
+    {
+      "risk_title": "Limited Exceptions to Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "The exceptions may not sufficiently protect the Recipient, as they are narrowly defined and may not cover all scenarios where disclosure is necessary.",
+      "evidence_quote": "Confidential Information does not include information that: - Is publicly available - Was already known to Recipient - Is independently developed by Recipient."
+    }
+  ],
+  "executed": true
+}

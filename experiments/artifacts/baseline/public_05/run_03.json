@@ -1,33 +1,33 @@
 {
   "findings": [
     {
-      "risk_title": "Perpetual Confidentiality Obligations",
+      "risk_title": "Perpetual Obligations",
       "severity": "HIGH",
-      "rationale": "The obligation to maintain confidentiality in perpetuity may create long-term liabilities and obligations that could be burdensome or unreasonable for either party.",
+      "rationale": "Obligations lasting in perpetuity may expose parties to indefinite liability and risks associated with outdated information or circumstances.",
       "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
     },
     {
-      "risk_title": "Unlimited Indemnification",
+      "risk_title": "Indemnification Without Limit",
       "severity": "HIGH",
-      "rationale": "The indemnification clause without limits could expose a party to significant financial risk in case of a breach or other claims.",
-      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit."
+      "rationale": "Indemnification without limit can lead to significant financial exposure for one party, especially if the breach is severe.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit, arising out of any breach of this Agreement."
     },
     {
       "risk_title": "Unlimited Liability",
       "severity": "HIGH",
-      "rationale": "Limitation of liability clauses are standard in contracts to protect parties from excessive financial loss; the absence of such limits increases exposure.",
+      "rationale": "Limitation of liability clauses are often crucial for risk management; their absence can result in uncontrolled financial exposure.",
       "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
     },
     {
-      "risk_title": "Ownership of Work Product",
+      "risk_title": "Intellectual Property Assignment",
       "severity": "MEDIUM",
-      "rationale": "The exclusive ownership clause may lead to disputes over intellectual property rights, particularly if both parties contribute to the work product.",
-      "evidence_quote": "All work product and deliverables created hereunder shall be owned exclusively by Company A."
+      "rationale": "The assignment of all rights to work products can lead to disputes over ownership and use of created materials.",
+      "evidence_quote": "The receiving party hereby assigns all right, title, and interest in such work product."
     },
     {
       "risk_title": "Attorneys' Fees Recovery",
       "severity": "MEDIUM",
-      "rationale": "The clause allowing for recovery of attorneys' fees may deter parties from pursuing legitimate claims due to potential high costs.",
+      "rationale": "Provision for recovery of attorneys' fees may discourage parties from pursuing legitimate claims due to potential cost burden.",
       "evidence_quote": "The prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party."
     }
   ],

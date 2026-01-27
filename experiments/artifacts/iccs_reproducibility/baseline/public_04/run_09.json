@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Undefined Duration of Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "The contract specifies a term of three years, but does not clarify whether confidentiality obligations continue beyond that period for information disclosed during the term.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution, after which the obligations shall terminate."
+    },
+    {
+      "risk_title": "Lack of Specificity in Confidential Information Definition",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of Confidential Information may lead to ambiguity and potential disputes over what is considered confidential.",
+      "evidence_quote": "Confidential Information includes all proprietary information, trade secrets, business plans, financial data, and technical information disclosed by either party."
+    },
+    {
+      "risk_title": "Ambiguous Return or Destruction of Materials Clause",
+      "severity": "LOW",
+      "rationale": "The clause requires return or destruction of materials but lacks details on the process or timeline, which may lead to misunderstandings.",
+      "evidence_quote": "Upon termination, each party shall return or destroy all Confidential Information received from the other party."
+    }
+  ],
+  "executed": true
+}

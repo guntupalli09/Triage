@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Limit",
+      "severity": "HIGH",
+      "rationale": "The indemnification is capped at $750,000, which may not cover significant claims, exposing the Client to potential financial risk.",
+      "evidence_quote": "Provider agrees to indemnify Client for third-party claims arising from Provider's gross negligence, up to a maximum of $750,000 per claim."
+    },
+    {
+      "risk_title": "No Warranties",
+      "severity": "HIGH",
+      "rationale": "The 'as-is' basis with no warranties means the Client assumes all risks related to the quality and performance of services, which can lead to unforeseen issues.",
+      "evidence_quote": "Provider provides services on an 'as-is' basis with no warranties, express or implied."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Capping liability at the total contract value may not adequately protect the Client in the event of a serious breach or failure.",
+      "evidence_quote": "Provider's liability is capped at the total contract value, except for indemnification obligations which are unlimited."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations lasting 6 years may be excessive and could pose risks in terms of compliance and management of confidential information.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 6 years."
+    },
+    {
+      "risk_title": "Dispute Resolution Process",
+      "severity": "LOW",
+      "rationale": "While mediation and arbitration can be effective, they may limit the Client's options for legal recourse compared to traditional litigation.",
+      "evidence_quote": "Disputes shall be resolved through mediation, and if unsuccessful, through binding arbitration."
+    }
+  ],
+  "executed": true
+}

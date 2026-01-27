@@ -1,0 +1,41 @@
+NON-DISCLOSURE AGREEMENT
+
+This Agreement is entered into between Company A ("Disclosing Party") and Company B ("Receiving Party").
+
+1. CONFIDENTIAL INFORMATION
+Confidential Information means all non-public information disclosed by one party to the other.
+
+2. OBLIGATIONS
+The Receiving Party agrees to maintain the confidentiality of all Confidential Information.
+
+3. TERM
+This Agreement shall remain in effect for three (3) years from the date of execution.
+
+4. INDEMNIFICATION
+The Receiving Party shall indemnify the Disclosing Party to the extent required by law for all claims arising from breach of this Agreement.
+
+5. LIMITATION OF LIABILITY
+No event shall be limited by the limitation of liability clause. Liability shall not be limited under any circumstances.
+
+6. INTELLECTUAL PROPERTY
+All work product shall be assigned to the Disclosing Party, excluding pre-existing intellectual property owned by the Receiving Party.
+
+7. ATTORNEYS' FEES
+The prevailing party shall be entitled to recover attorneys' fees from the non-prevailing party.
+
+8. RENEWAL
+This Agreement shall automatically renew for additional one-year terms unless either party provides written notice of non-renewal at least 30 days prior to expiration.
+
+9. AUDIT RIGHTS
+The Disclosing Party may audit the Receiving Party's records upon reasonable notice during normal business hours.
+
+10. LATE FEES
+Late payments shall accrue interest at a rate of 2% per annum.
+
+11. GOVERNING LAW
+This Agreement is governed by applicable law.
+
+12. DEFINITIONS
+Confidential Information means information marked as confidential.
+
+This Agreement is executed on 2024-01-01.

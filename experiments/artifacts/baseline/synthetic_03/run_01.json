@@ -1,22 +1,28 @@
 {
   "findings": [
     {
-      "risk_title": "Absence of Indemnification",
+      "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The lack of indemnification can expose parties to liability without recourse, increasing the risk of financial loss.",
+      "rationale": "The absence of indemnification obligations may expose parties to unanticipated liabilities without recourse for damages.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limited Liability Clause",
+      "risk_title": "Limited Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid may not cover potential damages, posing a risk if significant issues arise.",
+      "rationale": "Limiting liability to fees paid may not adequately protect parties from significant damages or losses incurred due to breaches.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The absence of audit rights can limit oversight and control over the use of confidential information.",
+      "rationale": "The absence of audit rights limits the ability to ensure compliance with the confidentiality obligations, potentially allowing misuse of information.",
       "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Short Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "A confidentiality term of only three years may not be sufficient for all types of confidential information, increasing the risk of disclosure.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution."
     }
   ],
   "executed": true

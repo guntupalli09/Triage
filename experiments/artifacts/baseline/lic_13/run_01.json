@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "The clause indicates that Licensor has no cap on liability for indemnification, which could expose Licensee to significant financial risk.",
+      "evidence_quote": "Notwithstanding any limitation of liability clause, Licensor's liability for indemnification is unlimited."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "The perpetual nature of the confidentiality obligations may impose ongoing compliance costs and risks to Licensee long after the agreement ends.",
+      "evidence_quote": "Confidentiality obligations are perpetual and survive termination without any time limitation."
+    },
+    {
+      "risk_title": "Unilateral Termination Rights",
+      "severity": "MEDIUM",
+      "rationale": "Licensor's ability to terminate the agreement immediately upon material breach without a cure period poses a risk of abrupt contract termination for Licensee.",
+      "evidence_quote": "Licensor may terminate immediately upon Licensee's material breach."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "LOW",
+      "rationale": "Requiring binding arbitration may limit Licensee's options for dispute resolution, potentially leading to unfavorable outcomes.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of the International Chamber of Commerce."
+    },
+    {
+      "risk_title": "Attorneys' Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "The clause allowing Licensor to recover all attorneys' fees from Licensee may discourage Licensee from pursuing legal action, even if warranted.",
+      "evidence_quote": "In any action to enforce this Agreement, Licensor shall recover all attorneys' fees, costs, and expenses from Licensee."
+    }
+  ],
+  "executed": true
+}

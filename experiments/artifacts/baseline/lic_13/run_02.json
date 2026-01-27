@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "The clause stating that Licensor's liability for indemnification is unlimited could expose Licensee to significant financial risk in the event of large claims.",
+      "evidence_quote": "Licensor's liability for indemnification is unlimited."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Perpetual confidentiality obligations create ongoing compliance requirements, which could lead to unforeseen liabilities or challenges for Licensee.",
+      "evidence_quote": "Confidentiality obligations are perpetual and survive termination."
+    },
+    {
+      "risk_title": "90 Days Notice for Licensee Termination",
+      "severity": "MEDIUM",
+      "rationale": "A 90-day notice period for Licensee to terminate the agreement may restrict Licensee's ability to exit the contract quickly if circumstances change.",
+      "evidence_quote": "Licensee requires 90 days notice to terminate."
+    },
+    {
+      "risk_title": "High Upfront Payment Terms",
+      "severity": "MEDIUM",
+      "rationale": "The requirement for a significant upfront payment of $200,000 poses a liquidity risk for Licensee, especially if the software does not meet expectations.",
+      "evidence_quote": "Licensee shall pay upfront license fees of $200,000, due within 10 days."
+    },
+    {
+      "risk_title": "Binding Arbitration Clause",
+      "severity": "LOW",
+      "rationale": "Mandating binding arbitration can limit Licensee's options for dispute resolution, potentially leading to unfavorable outcomes.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration."
+    },
+    {
+      "risk_title": "Exclusive Jurisdiction Clause",
+      "severity": "LOW",
+      "rationale": "Exclusive jurisdiction in California courts may limit Licensee's ability to seek resolution in a more favorable location.",
+      "evidence_quote": "Parties submit to exclusive jurisdiction in California courts."
+    }
+  ],
+  "executed": true
+}

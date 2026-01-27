@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Broad Intellectual Property Ownership",
+      "severity": "HIGH",
+      "rationale": "The clause allows the employer to claim ownership of all intellectual property created, which could discourage innovation and raise concerns about employee rights.",
+      "evidence_quote": "All intellectual property developed by Employee in the course of employment, including inventions and trade secrets, shall be owned by Employer."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligation",
+      "severity": "MEDIUM",
+      "rationale": "The requirement for perpetual confidentiality may be overly burdensome and could lead to legal complications if the definition of confidential information is vague.",
+      "evidence_quote": "Employee must maintain confidentiality of all trade secrets and proprietary information in perpetuity."
+    },
+    {
+      "risk_title": "Severe Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The indemnification clause places significant financial responsibility on the employee for breaches, which may inhibit employee behavior and lead to disputes.",
+      "evidence_quote": "Employee agrees to indemnify Employer for all legal costs and damages resulting from Employee's breach of this Agreement, up to a maximum of $500,000."
+    },
+    {
+      "risk_title": "Non-Compete Duration",
+      "severity": "MEDIUM",
+      "rationale": "An 18-month non-compete may be seen as overly restrictive, potentially limiting the employee's future employment opportunities.",
+      "evidence_quote": "Employee agrees not to work for competitors or solicit Employer's customers for 18 months after termination."
+    },
+    {
+      "risk_title": "Exclusive Jurisdiction",
+      "severity": "MEDIUM",
+      "rationale": "The requirement to resolve disputes exclusively in Delaware may limit the employee's options for legal recourse and could involve higher costs.",
+      "evidence_quote": "Any disputes shall be resolved exclusively in the courts of Delaware."
+    }
+  ],
+  "executed": true
+}

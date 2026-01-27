@@ -1,28 +1,28 @@
 {
   "findings": [
     {
-      "risk_title": "Indemnification Without Limit",
+      "risk_title": "Indemnification Without Limits",
       "severity": "HIGH",
-      "rationale": "The Receiving Party's obligation to indemnify the Disclosing Party without limit can expose them to significant financial risk from claims or breaches.",
+      "rationale": "The Receiving Party's unlimited indemnification obligation could expose them to substantial financial liability without clear boundaries.",
       "evidence_quote": "The Receiving Party shall indemnify, defend, and hold harmless the Disclosing Party from and against all claims, losses, and damages, without limit."
-    },
-    {
-      "risk_title": "No Intellectual Property Provisions",
-      "severity": "MEDIUM",
-      "rationale": "The absence of provisions addressing intellectual property can lead to disputes over ownership and usage rights of confidential information shared.",
-      "evidence_quote": "No intellectual property provisions apply."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "Lack of audit rights limits the ability to verify compliance with confidentiality obligations, increasing the risk of information misuse.",
+      "rationale": "The absence of audit rights may hinder the Receiving Party's ability to verify compliance with confidentiality obligations.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "Limited Liability Clause",
       "severity": "MEDIUM",
-      "rationale": "The limitation of liability to fees paid may not adequately protect against severe breaches or losses incurred, potentially exposing parties to greater risk.",
+      "rationale": "Limiting liability to fees paid may not sufficiently protect against significant damages arising from breaches.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The lack of intellectual property protections could lead to unauthorized use or disclosure of proprietary information.",
+      "evidence_quote": "No intellectual property provisions apply."
     }
   ],
   "executed": true

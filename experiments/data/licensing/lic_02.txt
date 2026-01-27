@@ -1,0 +1,38 @@
+SOFTWARE LICENSING AGREEMENT
+
+This Software Licensing Agreement ("Agreement") is entered into between Licensor Company ("Licensor") and Licensee Company ("Licensee").
+
+1. GRANT OF LICENSE
+Licensor grants Licensee a perpetual, exclusive license to use the Software for commercial purposes.
+
+2. INTELLECTUAL PROPERTY OWNERSHIP
+Licensor retains ownership of the Software. Licensee receives a license only, with no ownership rights.
+
+3. PAYMENT TERMS
+Licensee shall pay a one-time license fee of $100,000, due upon execution of this Agreement.
+
+4. TERM AND TERMINATION
+This Agreement may be terminated by mutual consent or by either party with 90 days notice.
+
+5. INDEMNIFICATION
+Each party shall indemnify the other to the extent required by applicable law for third-party claims.
+
+6. LIMITATION OF LIABILITY
+Each party's liability is limited to the total license fees paid under this Agreement.
+
+7. CONFIDENTIALITY
+Confidentiality obligations continue for 3 years after termination.
+
+8. WARRANTIES AND DISCLAIMERS
+Licensor warrants that the Software will perform substantially in accordance with the documentation.
+
+9. DISPUTE RESOLUTION
+Disputes shall be resolved through mediation, then litigation if mediation fails.
+
+10. ATTORNEYS' FEES
+Each party shall bear its own attorneys' fees.
+
+11. GOVERNING LAW
+This Agreement is subject to New York state law.
+
+This Agreement is effective as of February 1, 2024.

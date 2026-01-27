@@ -1,33 +1,33 @@
 {
   "findings": [
     {
-      "risk_title": "Perpetual Confidentiality Obligations",
+      "risk_title": "Perpetual Confidentiality Obligation",
       "severity": "HIGH",
-      "rationale": "Perpetual obligations may hinder future business opportunities and create uncertainty for both parties, as they can be bound indefinitely.",
+      "rationale": "The term of confidentiality lasting indefinitely can pose a risk, as it may prevent the parties from using information in the future, potentially impacting their business operations.",
       "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
     },
     {
       "risk_title": "Unlimited Indemnification",
       "severity": "HIGH",
-      "rationale": "Unlimited indemnification can expose a party to significant financial risk in the event of a breach, as there is no cap on potential liabilities.",
+      "rationale": "The clause requiring indemnification without limits can expose a party to significant financial risk, especially if a breach leads to severe claims or damages.",
       "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit."
     },
     {
-      "risk_title": "Uncapped Liability",
+      "risk_title": "No Limitation of Liability",
       "severity": "HIGH",
-      "rationale": "Lack of limitation on liability can lead to unpredictable financial exposure for both parties, especially in cases of negligence or breach.",
+      "rationale": "Excluding limitations on liability can lead to potentially unlimited financial exposure for either party in case of a breach or other claims.",
       "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
     },
     {
-      "risk_title": "Ownership of Work Product",
+      "risk_title": "Intellectual Property Ownership",
       "severity": "MEDIUM",
-      "rationale": "Exclusive ownership of work product by one party may lead to disputes regarding rights to use or modify the deliverables created.",
+      "rationale": "The unilateral assignment of all intellectual property rights to Company A may deter collaboration and innovation from Company B, impacting future business relationships.",
       "evidence_quote": "All work product and deliverables created hereunder shall be owned exclusively by Company A."
     },
     {
       "risk_title": "Recovery of Attorneys' Fees",
       "severity": "MEDIUM",
-      "rationale": "The provision for recovery of attorneys' fees may discourage parties from pursuing legitimate claims due to fear of incurring additional costs.",
+      "rationale": "This clause could discourage a party from bringing legitimate disputes to court if they fear incurring high legal costs, thus impacting their ability to protect their rights.",
       "evidence_quote": "The prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party."
     }
   ],

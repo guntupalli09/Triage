@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "Indefinitely binding confidentiality may hinder the employee's future employment opportunities and could lead to potential legal disputes over interpretation.",
+      "evidence_quote": "Employee agrees to maintain strict confidentiality of all security protocols, vulnerabilities, and proprietary systems indefinitely, without expiration."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee's obligation to indemnify the employer without limitation can expose them to significant financial liability and risk.",
+      "evidence_quote": "Employee shall indemnify Employer for all claims, damages, and expenses, without limitation, arising from Employee's security work or breach of confidentiality."
+    },
+    {
+      "risk_title": "Lengthy Non-Compete Period",
+      "severity": "MEDIUM",
+      "rationale": "A three-year non-compete period can severely restrict the employee's ability to find work in their field, which may lead to disputes.",
+      "evidence_quote": "Employee shall not work for competitors or disclose security information for 3 years following termination."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "MEDIUM",
+      "rationale": "Requiring binding arbitration may limit the employee's ability to seek remedies through courts, potentially favoring the employer.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of the International Chamber of Commerce."
+    },
+    {
+      "risk_title": "Exclusive Jurisdiction Clause",
+      "severity": "LOW",
+      "rationale": "Limiting disputes to California courts may create logistical challenges for employees who reside elsewhere.",
+      "evidence_quote": "This Agreement is governed by California law, and parties submit to exclusive jurisdiction in California courts."
+    }
+  ],
+  "executed": true
+}

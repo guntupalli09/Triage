@@ -1,0 +1,68 @@
+{
+  "findings": [
+    {
+      "rule_id": "M_CONF_01",
+      "rule_name": "indefinite_confidentiality",
+      "title": "Confidentiality may be perpetual / indefinite",
+      "severity": "medium",
+      "rationale": "Indefinite confidentiality can create long-term compliance burden and uncertainty around retention and disclosure.",
+      "matched_excerpt": "...7. CONFIDENTIALITY Confidentiality obligations survive termination and continue in perpetuity....",
+      "exact_snippet": "CONFIDENTIALITY Confidentiality obligations survive termination and continue in perpetuity",
+      "start_index": 945,
+      "end_index": 1035,
+      "position": 945,
+      "context": ", losses, and expenses without limitation arising from Licensee's use of the Software.\n\n6. LIMITATION OF LIABILITY\nLicensor's liability is unlimited and not subject to any limitation of liability clause.\n\n7. CONFIDENTIALITY\nConfidentiality obligations survive termination and continue in perpetuity.\n\n8. WARRANTIES AND DISCLAIMERS\nLicensor disclaims all warranties, express or implied, including merchantability and fitness for a particular purpose.\n\n9. DISPUTE RESOLUTION\nAll disputes must",
+      "clause_number": null,
+      "matched_keywords": [
+        "CONFIDENTIAL"
+      ],
+      "aliases": [
+        "perpetual_confidentiality",
+        "indefinite_confidentiality",
+        "no_expiration_confidentiality"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...11. GOVERNING LAW This Agreement is governed by California law....",
+      "exact_snippet": "governed by California law",
+      "start_index": 1448,
+      "end_index": 1474,
+      "position": 1448,
+      "context": "through binding arbitration under AAA rules.\n\n10. ATTORNEYS' FEES\nLicensor shall be entitled to recover all attorneys' fees and costs in any action to enforce this Agreement.\n\n11. GOVERNING LAW\nThis Agreement is governed by California law.\n\nThis Agreement is effective as of January 1, 2024.\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    }
+  ],
+  "overall_risk": "low",
+  "rule_counts": {
+    "high": 0,
+    "medium": 1,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

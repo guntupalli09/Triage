@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Clear Termination Clause",
+      "severity": "MEDIUM",
+      "rationale": "The absence of a termination clause may lead to prolonged obligations, complicating exit strategies for either party.",
+      "evidence_quote": "This Agreement shall remain in effect for four (4) years from the date of execution."
+    },
+    {
+      "risk_title": "Broad Definition of Confidential Information",
+      "severity": "HIGH",
+      "rationale": "The definition of Confidential Information is overly broad, which may lead to ambiguity and disputes over what is considered confidential.",
+      "evidence_quote": "All non-public information disclosed by either party, including but not limited to technical specifications, business plans, financial data, and customer lists."
+    },
+    {
+      "risk_title": "No Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The absence of an indemnification clause limits protection against potential legal claims arising from breaches of confidentiality.",
+      "evidence_quote": "Breach of this Agreement may cause irreparable harm."
+    },
+    {
+      "risk_title": "Injunctive Relief Only",
+      "severity": "MEDIUM",
+      "rationale": "The remedies are limited to injunctive relief, which may not fully compensate for losses incurred due to a breach.",
+      "evidence_quote": "The non-breaching party shall be entitled to seek injunctive relief."
+    }
+  ],
+  "executed": true
+}

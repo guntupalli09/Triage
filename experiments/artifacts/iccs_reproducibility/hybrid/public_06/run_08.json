@@ -1,0 +1,46 @@
+{
+  "findings": [
+    {
+      "rule_id": "L_BROADDEF_01",
+      "rule_name": "broad_definitions",
+      "title": "Broad definitions may expand obligations",
+      "severity": "low",
+      "rationale": "Overly broad defined terms can expand confidentiality or scope beyond what you expect.",
+      "matched_excerpt": "...CONFIDENTIAL INFORMATION Confidential Information means all proprietary information disclosed by one party to the other, including technical data, business strategies, customer information, and financial information....",
+      "exact_snippet": "means all proprietary information disclosed by one party to the other, including",
+      "start_index": 302,
+      "end_index": 382,
+      "position": 302,
+      "context": "Company A and Company B.\n\nPURPOSE\nThe parties wish to explore potential business opportunities and may disclose confidential information to each other.\n\nCONFIDENTIAL INFORMATION\nConfidential Information means all proprietary information disclosed by one party to the other, including technical data, business strategies, customer information, and financial information.\n\nOBLIGATIONS\nEach party agrees to:\n(a) Maintain strict confidentiality\n(b) Not use the information for any pur",
+      "clause_number": "2",
+      "matched_keywords": [
+        "proprietary"
+      ],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "low",
+  "rule_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

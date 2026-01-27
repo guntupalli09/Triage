@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Joint Ownership of Intellectual Property",
+      "severity": "HIGH",
+      "rationale": "Joint ownership may lead to disputes over usage rights and control of work product, which can complicate future business operations.",
+      "evidence_quote": "Work product created during employment is jointly owned, with Employer receiving an exclusive license for business use."
+    },
+    {
+      "risk_title": "Extended Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality lasting 2.5 years post-termination can hinder the employee's ability to work in the industry, potentially leading to legal disputes.",
+      "evidence_quote": "Confidentiality obligations continue for 2.5 years after termination of employment."
+    },
+    {
+      "risk_title": "Non-Compete Clause Duration",
+      "severity": "MEDIUM",
+      "rationale": "A 1-year non-compete clause may restrict the employee's future employment opportunities, which can lead to dissatisfaction and legal challenges.",
+      "evidence_quote": "Employee may not work for direct competitors for 1 year after termination within the same geographic region."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "Termination for convenience with only 45 days notice may create instability and uncertainty for the employee's job security.",
+      "evidence_quote": "Either party may terminate for convenience with 45 days written notice."
+    }
+  ],
+  "executed": true
+}

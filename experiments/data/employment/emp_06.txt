@@ -1,0 +1,35 @@
+EMPLOYMENT AGREEMENT
+
+This Employment Agreement ("Agreement") is entered into between Employer Company ("Employer") and Employee Name ("Employee").
+
+1. POSITION AND DUTIES
+Employee agrees to serve as Software Engineer and perform duties as assigned by Employer.
+
+2. COMPENSATION
+Employee shall receive a base salary of $130,000 per year, payable bi-weekly.
+
+3. INTELLECTUAL PROPERTY
+All inventions and work product created by Employee during employment shall be assigned to Employer. Employee hereby assigns all rights, title, and interest.
+
+4. CONFIDENTIALITY AND NON-DISCLOSURE
+Employee must maintain confidentiality of all proprietary information for a period of 5 years after termination.
+
+5. NON-COMPETE AND NON-SOLICITATION
+Employee agrees not to work for competitors for 12 months after termination within a 25-mile radius.
+
+6. TERM AND TERMINATION
+Either party may terminate this Agreement with 2 weeks written notice.
+
+7. INDEMNIFICATION
+Employee shall indemnify Employer for all claims arising from Employee's breach of this Agreement, up to $100,000.
+
+8. DISPUTE RESOLUTION
+Disputes shall be resolved through binding arbitration.
+
+9. ATTORNEYS' FEES
+Employer shall be entitled to recover reasonable attorneys' fees in any enforcement action.
+
+10. GOVERNING LAW
+This Agreement is governed by Washington state law.
+
+This Agreement is effective as of June 1, 2024.

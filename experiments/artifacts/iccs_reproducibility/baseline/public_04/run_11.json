@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of clarity on definitions",
+      "severity": "MEDIUM",
+      "rationale": "The term 'Confidential Information' is broad and may lead to disputes over what is considered confidential.",
+      "evidence_quote": "Confidential Information includes all proprietary information, trade secrets, business plans, financial data, and technical information disclosed by either party."
+    },
+    {
+      "risk_title": "Duration of confidentiality obligations",
+      "severity": "HIGH",
+      "rationale": "A fixed term of three years may not be sufficient for certain types of confidential information that require longer protection.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution, after which the obligations shall terminate."
+    },
+    {
+      "risk_title": "Return or destruction of materials",
+      "severity": "MEDIUM",
+      "rationale": "The contract mandates return or destruction but does not specify a method, which could lead to inadequate handling of confidential information.",
+      "evidence_quote": "Upon termination, each party shall return or destroy all Confidential Information received from the other party."
+    },
+    {
+      "risk_title": "Governing law jurisdiction",
+      "severity": "LOW",
+      "rationale": "The choice of Texas may favor one party over the other, depending on their respective locations and legal representation.",
+      "evidence_quote": "Governing Law: Texas"
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Undefined Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The definition of 'Confidential Information' is broad and may lead to ambiguity regarding what is protected, increasing the risk of unintentional disclosure.",
+      "evidence_quote": "\"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information."
+    },
+    {
+      "risk_title": "Lengthy Duration of NDA",
+      "severity": "MEDIUM",
+      "rationale": "A five-year duration may be excessive depending on the nature of the information, potentially leading to ongoing liability and risk of outdated obligations.",
+      "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
+    },
+    {
+      "risk_title": "Injunctive Relief Without Security",
+      "severity": "HIGH",
+      "rationale": "Allowing injunctive relief without requiring a bond may expose the Receiving Party to significant risk if the Disclosing Party seeks relief unjustly.",
+      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
+    },
+    {
+      "risk_title": "Assignment Restrictions",
+      "severity": "MEDIUM",
+      "rationale": "Restricting assignment without consent could hinder business flexibility and complicate future transactions involving either party.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
+    }
+  ],
+  "executed": true
+}

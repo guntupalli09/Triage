@@ -1,0 +1,63 @@
+{
+  "findings": [
+    {
+      "rule_id": "M_TERM_NOTICE_01",
+      "rule_name": "termination_notice_window",
+      "title": "Short termination or notice windows",
+      "severity": "medium",
+      "rationale": "Short or strict notice windows can lead to accidental renewals or unintended termination.",
+      "matched_excerpt": "...4. TERM AND TERMINATION Either party may terminate for convenience with 30 days written notice....",
+      "exact_snippet": "terminate",
+      "start_index": 629,
+      "end_index": 638,
+      "position": 629,
+      "context": " no ownership interest.\n\n3. PAYMENT TERMS\nLicensee shall pay monthly license fees of $5,000, due on the first of each month. Late payments incur a 2% monthly fee.\n\n4. TERM AND TERMINATION\nEither party may terminate for convenience with 30 days written notice.\n\n5. INDEMNIFICATION\nLicensee agrees to indemnify Licensor for claims arising from Licensee's breach of this Agreement, up to a maximum of $500,000.\n\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "termination_notice_window",
+        "short_notice_period"
+      ]
+    },
+    {
+      "rule_id": "L_LATEFEE_01",
+      "rule_name": "late_fees_interest",
+      "title": "Late fees / high interest",
+      "severity": "low",
+      "rationale": "Penalty terms can increase costs if payment timing slips.",
+      "matched_excerpt": "...3. PAYMENT TERMS Licensee shall pay monthly license fees of $5,000, due on the first of each month. Late payments incur a 2% monthly fee....",
+      "exact_snippet": "Late payments incur a 2%",
+      "start_index": 550,
+      "end_index": 574,
+      "position": 550,
+      "context": "lectual property rights in the Software remain with Licensor. Licensee acquires no ownership interest.\n\n3. PAYMENT TERMS\nLicensee shall pay monthly license fees of $5,000, due on the first of each month. Late payments incur a 2% monthly fee.\n\n4. TERM AND TERMINATION\nEither party may terminate for convenience with 30 days written notice.\n\n5. INDEMNIFICATION\nLicensee agrees to indemnify Licensor for claims arising from Lic",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "low",
+  "rule_counts": {
+    "high": 0,
+    "medium": 1,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

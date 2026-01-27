@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Capping liability to the total contract value may expose a party to significant losses beyond that limit.",
+      "evidence_quote": "Each party's liability is limited to the total contract value, except for indemnification obligations."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at annual contract value may not cover all potential claims, especially in case of significant negligence.",
+      "evidence_quote": "Each party shall indemnify the other for claims arising from its own gross negligence or willful misconduct, capped at annual contract value."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 45-day notice period for termination may lead to operational disruptions without sufficient time to adjust.",
+      "evidence_quote": "Either party may terminate for convenience with 45 days written notice."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A 5-year confidentiality obligation may be insufficient for certain types of sensitive information.",
+      "evidence_quote": "Confidentiality obligations continue for 5 years after termination of this Agreement."
+    }
+  ],
+  "executed": true
+}

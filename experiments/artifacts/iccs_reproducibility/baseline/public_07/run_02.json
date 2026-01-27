@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Undefined Duration of Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "The agreement specifies a term of four years, but does not clarify whether confidentiality obligations extend beyond this period, potentially allowing for misuse of information after the term.",
+      "evidence_quote": "This Agreement shall remain in effect for four (4) years from the date of execution."
+    },
+    {
+      "risk_title": "Lack of Specification on Permitted Disclosure",
+      "severity": "HIGH",
+      "rationale": "The clause does not specify the circumstances under which disclosure may be permitted aside from written authorization, leaving room for ambiguity and potential unauthorized disclosures.",
+      "evidence_quote": "Neither party shall disclose the other's Confidential Information to any third party without prior written authorization."
+    },
+    {
+      "risk_title": "Limited Remedies for Breach",
+      "severity": "MEDIUM",
+      "rationale": "The agreement only mentions injunctive relief as a remedy, which may not be sufficient to address all types of damages that could arise from a breach.",
+      "evidence_quote": "The non-breaching party shall be entitled to seek injunctive relief."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Joint Ownership of Intellectual Property",
+      "severity": "HIGH",
+      "rationale": "Shared ownership may create disputes over the use and commercialization of intellectual property developed during the contract term.",
+      "evidence_quote": "Intellectual property developed during the term of this Agreement shall be jointly owned by Provider and Client."
+    },
+    {
+      "risk_title": "Capped Indemnification",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at $250,000 may leave a party exposed to significant liabilities that exceed this limit.",
+      "evidence_quote": "Mutual indemnification: each party indemnifies the other for its own negligence, capped at $250,000 per claim."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid in the past year may not cover all potential damages, especially in high-stakes situations.",
+      "evidence_quote": "Each party's liability is capped at the total fees paid in the preceding 12 months."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The right to terminate for convenience may disrupt ongoing projects and lead to financial instability for the service provider.",
+      "evidence_quote": "Either party may terminate for convenience with 60 days written notice."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "Confidentiality obligations lasting only 2 years may not be sufficient for long-term sensitive information protection.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination."
+    },
+    {
+      "risk_title": "Mediation and Arbitration Clause",
+      "severity": "MEDIUM",
+      "rationale": "Requiring mediation and arbitration may limit the parties' options for legal recourse in case of serious disputes.",
+      "evidence_quote": "Disputes shall be resolved through mediation followed by binding arbitration if mediation fails."
+    }
+  ],
+  "executed": true
+}

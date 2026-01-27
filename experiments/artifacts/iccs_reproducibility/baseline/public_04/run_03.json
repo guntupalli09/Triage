@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnity Clause",
+      "severity": "HIGH",
+      "rationale": "The absence of an indemnity clause may expose parties to liability without protection against third-party claims related to the disclosed information.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution, after which the obligations shall terminate."
+    },
+    {
+      "risk_title": "Unclear Scope of Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of Confidential Information may lead to disputes regarding what constitutes confidential material.",
+      "evidence_quote": "Confidential Information includes all proprietary information, trade secrets, business plans, financial data, and technical information disclosed by either party."
+    },
+    {
+      "risk_title": "Limited Duration of Obligations",
+      "severity": "MEDIUM",
+      "rationale": "The three-year duration for confidentiality obligations may not be sufficient for certain sensitive information that requires longer protection.",
+      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution, after which the obligations shall terminate."
+    },
+    {
+      "risk_title": "No Consequences for Breach Specified",
+      "severity": "MEDIUM",
+      "rationale": "The contract does not outline specific consequences or remedies for breach of confidentiality, which could lead to unaddressed violations.",
+      "evidence_quote": "Each party agrees to maintain the confidentiality of the other party's Confidential Information."
+    }
+  ],
+  "executed": true
+}

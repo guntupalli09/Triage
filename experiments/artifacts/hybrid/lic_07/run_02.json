@@ -1,0 +1,85 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_INDEM_01",
+      "rule_name": "unlimited_indemnification",
+      "title": "Potentially unlimited indemnification",
+      "severity": "high",
+      "rationale": "Indemnity obligations may be uncapped, which can expose you to costs far beyond the contract value.",
+      "matched_excerpt": "...6. LIMITATION OF LIABILITY Notwithstanding any limitation of liability, Licensor's liability for indemnification is unlimited....",
+      "exact_snippet": "indemnification",
+      "start_index": 1033,
+      "end_index": 1048,
+      "position": 1033,
+      "context": "ll claims, damages, and expenses, without limitation, arising from Licensee's modifications to the Software.\n\n6. LIMITATION OF LIABILITY\nNotwithstanding any limitation of liability, Licensor's liability for indemnification is unlimited.\n\n7. CONFIDENTIALITY\nConfidentiality obligations survive termination and continue for 4 years.\n\n8. WARRANTIES AND DISCLAIMERS\nLicensor disclaims all warranties, express or implied",
+      "clause_number": null,
+      "matched_keywords": [
+        "unlimited",
+        "LIABILITY"
+      ],
+      "aliases": [
+        "uncapped_indemnification",
+        "unlimited_indemnity",
+        "no_limit_indemnification"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...11. GOVERNING LAW This Agreement is governed by Florida state law....",
+      "exact_snippet": "governed by Florida state law",
+      "start_index": 1583,
+      "end_index": 1612,
+      "position": 1583,
+      "context": "then binding arbitration if mediation is unsuccessful.\n\n10. ATTORNEYS' FEES\nThe prevailing party in any dispute shall recover reasonable attorneys' fees from the other party.\n\n11. GOVERNING LAW\nThis Agreement is governed by Florida state law.\n\nThis Agreement is effective as of July 1, 2024.\n",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    },
+    {
+      "rule_id": "L_LATEFEE_01",
+      "rule_name": "late_fees_interest",
+      "title": "Late fees / high interest",
+      "severity": "low",
+      "rationale": "Penalty terms can increase costs if payment timing slips.",
+      "matched_excerpt": "...3. PAYMENT TERMS Licensee shall pay annual maintenance fees of $25,000, due on the anniversary date. Late payments incur a 3% monthly fee....",
+      "exact_snippet": "Late payments incur a 3%",
+      "start_index": 609,
+      "end_index": 633,
+      "position": 609,
+      "context": " created by Licensee shall be owned by Licensor. Licensee hereby assigns all such rights to Licensor.\n\n3. PAYMENT TERMS\nLicensee shall pay annual maintenance fees of $25,000, due on the anniversary date. Late payments incur a 3% monthly fee.\n\n4. TERM AND TERMINATION\nThis Agreement may be terminated by either party with 45 days written notice for convenience.\n\n5. INDEMNIFICATION\nLicensee agrees to indemnify Licensor for a",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 1,
+    "medium": 0,
+    "low": 2
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

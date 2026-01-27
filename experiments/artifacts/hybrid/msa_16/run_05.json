@@ -1,0 +1,44 @@
+{
+  "findings": [
+    {
+      "rule_id": "L_LATEFEE_01",
+      "rule_name": "late_fees_interest",
+      "title": "Late fees / high interest",
+      "severity": "low",
+      "rationale": "Penalty terms can increase costs if payment timing slips.",
+      "matched_excerpt": "...2. PAYMENT TERMS Payment is due within 35 days of invoice date. Overdue payments accrue interest at 1.5% per month....",
+      "exact_snippet": "interest at 1.5%",
+      "start_index": 336,
+      "end_index": 352,
+      "position": 336,
+      "context": "ompany (\"Client\").\n\n1. SERVICES\nProvider agrees to provide the services described in attached Statements of Work.\n\n2. PAYMENT TERMS\nPayment is due within 35 days of invoice date. Overdue payments accrue interest at 1.5% per month.\n\n3. INTELLECTUAL PROPERTY\nProvider retains ownership of all pre-existing intellectual property. Client receives a limited, non-exclusive license for deliverables.\n\n4. INDEMNIFICATION\nEa",
+      "clause_number": "1.5",
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "low",
+  "rule_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 1
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

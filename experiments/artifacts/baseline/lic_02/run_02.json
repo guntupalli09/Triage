@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to the total license fees paid may not cover potential damages, leading to significant financial exposure in case of claims.",
+      "evidence_quote": "Each party's liability is limited to the total license fees paid under this Agreement."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 90-day notice period for termination may not provide adequate flexibility for either party to exit the agreement in a timely manner.",
+      "evidence_quote": "This Agreement may be terminated by mutual consent or by either party with 90 days notice."
+    },
+    {
+      "risk_title": "Indemnification Scope",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause depends on applicable law, which may vary and could expose one party to greater risks than anticipated.",
+      "evidence_quote": "Each party shall indemnify the other to the extent required by applicable law for third-party claims."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "While confidentiality obligations for 3 years post-termination are standard, they may not be sufficient in high-stakes industries.",
+      "evidence_quote": "Confidentiality obligations continue for 3 years after termination."
+    }
+  ],
+  "executed": true
+}

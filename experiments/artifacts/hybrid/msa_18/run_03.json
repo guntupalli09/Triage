@@ -1,0 +1,109 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_INDEM_01",
+      "rule_name": "unlimited_indemnification",
+      "title": "Potentially unlimited indemnification",
+      "severity": "high",
+      "rationale": "Indemnity obligations may be uncapped, which can expose you to costs far beyond the contract value.",
+      "matched_excerpt": "...5. LIMITATION OF LIABILITY Provider's liability is unlimited and not subject to any cap, including for indemnification, confidentiality, and intellectual property claims....",
+      "exact_snippet": "indemnification",
+      "start_index": 919,
+      "end_index": 934,
+      "position": 919,
+      "context": ", losses, damages, and expenses, without limitation, arising from Provider's performance of services.\n\n5. LIMITATION OF LIABILITY\nProvider's liability is unlimited and not subject to any cap, including for indemnification, confidentiality, and intellectual property claims.\n\n6. TERM AND TERMINATION\nClient may terminate this Agreement at any time with or without cause. Provider requires 60 days written notice to t",
+      "clause_number": null,
+      "matched_keywords": [
+        "unlimited",
+        "LIABILITY",
+        "confidential"
+      ],
+      "aliases": [
+        "uncapped_indemnification",
+        "unlimited_indemnity",
+        "no_limit_indemnification"
+      ]
+    },
+    {
+      "rule_id": "M_CONF_01",
+      "rule_name": "indefinite_confidentiality",
+      "title": "Confidentiality may be perpetual / indefinite",
+      "severity": "medium",
+      "rationale": "Indefinite confidentiality can create long-term compliance burden and uncertainty around retention and disclosure.",
+      "matched_excerpt": "...7. CONFIDENTIALITY Confidentiality obligations are perpetual and continue indefinitely, without any time limitation....",
+      "exact_snippet": "CONFIDENTIALITY Confidentiality obligations are perpetual",
+      "start_index": 1140,
+      "end_index": 1197,
+      "position": 1140,
+      "context": ", confidentiality, and intellectual property claims.\n\n6. TERM AND TERMINATION\nClient may terminate this Agreement at any time with or without cause. Provider requires 60 days written notice to terminate.\n\n7. CONFIDENTIALITY\nConfidentiality obligations are perpetual and continue indefinitely, without any time limitation.\n\n8. WARRANTIES\nProvider warrants that all services will be performed in accordance with industry best practices and applicable standard",
+      "clause_number": null,
+      "matched_keywords": [
+        "CONFIDENTIAL",
+        "perpetual"
+      ],
+      "aliases": [
+        "perpetual_confidentiality",
+        "indefinite_confidentiality",
+        "no_expiration_confidentiality"
+      ]
+    },
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...10. GOVERNING LAW This Agreement is governed by California law, and the parties consent to exclusive jurisdiction in California courts....",
+      "exact_snippet": "governed by California law",
+      "start_index": 1588,
+      "end_index": 1614,
+      "position": 1588,
+      "context": " standards.\n\n9. DISPUTE RESOLUTION\nAll disputes must be resolved through mandatory binding arbitration in accordance with the rules of the International Chamber of Commerce.\n\n10. GOVERNING LAW\nThis Agreement is governed by California law, and the parties consent to exclusive jurisdiction in California courts.\n\n11. ATTORNEYS' FEES\nIn any action to enforce or interpret this Agreement, Client shall be entitled to recover all ",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    },
+    {
+      "rule_id": "L_LATEFEE_01",
+      "rule_name": "late_fees_interest",
+      "title": "Late fees / high interest",
+      "severity": "low",
+      "rationale": "Penalty terms can increase costs if payment timing slips.",
+      "matched_excerpt": "...2. PAYMENT TERMS Client shall pay Provider according to the payment schedule in the Statement of Work. Interest accrues at 2.5% per month on overdue amounts....",
+      "exact_snippet": "Interest accrues at 2.5%",
+      "start_index": 351,
+      "end_index": 375,
+      "position": 351,
+      "context": "\").\n\n1. SERVICES\nProvider agrees to provide the services described in attached Statements of Work.\n\n2. PAYMENT TERMS\nClient shall pay Provider according to the payment schedule in the Statement of Work. Interest accrues at 2.5% per month on overdue amounts.\n\n3. INTELLECTUAL PROPERTY\nAll deliverables and work product created under this Agreement shall become the sole and exclusive property of Client. Provider hereby irrev",
+      "clause_number": "2.5",
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 1,
+    "medium": 1,
+    "low": 2
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

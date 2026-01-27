@@ -1,0 +1,38 @@
+SOFTWARE LICENSING AGREEMENT
+
+This Software Licensing Agreement ("Agreement") is entered into between Licensor Company ("Licensor") and Licensee Company ("Licensee").
+
+1. GRANT OF LICENSE
+Licensor grants Licensee a non-exclusive, perpetual license to use the Software for Licensee's internal business purposes only.
+
+2. INTELLECTUAL PROPERTY OWNERSHIP
+Licensor retains ownership of the Software. Licensee receives a license only, with no ownership or assignment rights.
+
+3. PAYMENT TERMS
+Licensee shall pay a one-time license fee of $75,000, due upon execution of this Agreement.
+
+4. TERM AND TERMINATION
+This Agreement may be terminated by mutual written consent or by either party with 90 days notice.
+
+5. INDEMNIFICATION
+Each party shall indemnify the other for claims arising from its own negligence, capped at the license fee amount.
+
+6. LIMITATION OF LIABILITY
+Each party's liability is limited to the total fees paid under this Agreement.
+
+7. CONFIDENTIALITY
+Confidentiality obligations survive termination and continue for 2 years.
+
+8. WARRANTIES AND DISCLAIMERS
+Licensor provides the Software 'as-is' with no warranties, express or implied.
+
+9. DISPUTE RESOLUTION
+Disputes shall be resolved through good faith negotiation between the parties.
+
+10. ATTORNEYS' FEES
+Each party is responsible for its own attorneys' fees and costs.
+
+11. GOVERNING LAW
+This Agreement is subject to Illinois state law.
+
+This Agreement is effective as of October 1, 2024.

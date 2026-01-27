@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Assignment",
+      "severity": "HIGH",
+      "rationale": "The blanket assignment of all intellectual property rights to the employer may limit the employee's ability to leverage their own work in the future.",
+      "evidence_quote": "All work product and deliverables created by Employee during employment shall be owned by Employer."
+    },
+    {
+      "risk_title": "Length of Non-Compete Clause",
+      "severity": "MEDIUM",
+      "rationale": "An 18-month non-compete period may be overly restrictive and could limit the employee's future employment opportunities.",
+      "evidence_quote": "Employee may not work for competitors for 18 months after termination within a 50-mile radius."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee is required to indemnify the employer for claims, which could expose them to significant financial liability.",
+      "evidence_quote": "Employee shall indemnify Employer for all claims arising from Employee's breach of this Agreement, up to $250,000."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Requiring disputes to be resolved through binding arbitration may limit the employee's options for legal recourse.",
+      "evidence_quote": "Disputes shall be resolved through binding arbitration."
+    },
+    {
+      "risk_title": "Attorney Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "The clause that allows the employer to recover attorney fees could deter the employee from pursuing legitimate claims.",
+      "evidence_quote": "Employer shall be entitled to recover reasonable attorneys' fees in any enforcement action."
+    }
+  ],
+  "executed": true
+}

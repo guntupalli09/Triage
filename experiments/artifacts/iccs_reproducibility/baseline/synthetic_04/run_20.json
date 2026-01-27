@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "No Indemnification Provisions",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations may expose parties to significant liability without recourse for damages incurred due to breaches or third-party claims.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Limited Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid may not adequately protect against potential claims or damages, exposing parties to higher risk.",
+      "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The lack of intellectual property provisions can lead to disputes over ownership and usage rights of shared information.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The absence of audit rights limits the ability of the Disclosing Party to ensure compliance with the terms of the NDA.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Attorneys' Fees Responsibility",
+      "severity": "LOW",
+      "rationale": "Shifting the burden of attorneys' fees to the Receiving Party may deter them from enforcing their rights, impacting the balance of power.",
+      "evidence_quote": "The Receiving Party shall pay all attorneys' fees and costs incurred by the Disclosing Party in enforcing this Agreement."
+    }
+  ],
+  "executed": true
+}

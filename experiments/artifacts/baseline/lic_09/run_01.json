@@ -1,0 +1,47 @@
+{
+  "findings": [
+    {
+      "risk_title": "Exclusive License Grant",
+      "severity": "HIGH",
+      "rationale": "Granting an exclusive license may restrict Licensee's ability to partner with others, leading to potential lost revenue opportunities.",
+      "evidence_quote": "Licensor grants Licensee a worldwide, exclusive license to use, distribute, and sublicense the Software in Licensee's designated territory."
+    },
+    {
+      "risk_title": "Indemnification Obligations",
+      "severity": "HIGH",
+      "rationale": "The broad indemnification requirement could expose Licensee to significant liabilities without adequate protections.",
+      "evidence_quote": "Licensee shall defend, indemnify, and hold harmless Licensor from all claims, without limitation, arising from Licensee's distribution or use of the Software."
+    },
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "Unlimited liability for indemnification may result in unforeseen financial exposure for Licensee.",
+      "evidence_quote": "Licensor's liability is unlimited for indemnification obligations and breaches of intellectual property provisions."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Perpetual confidentiality may hinder Licensee's ability to use certain information in future business dealings.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue indefinitely after termination."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory arbitration may limit Licensee's legal recourse and could result in unfavorable outcomes.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under AAA Commercial Arbitration Rules."
+    },
+    {
+      "risk_title": "Payment Terms with Late Fees",
+      "severity": "MEDIUM",
+      "rationale": "Late payment penalties can accumulate quickly, potentially leading to financial strain on Licensee.",
+      "evidence_quote": "Late payments accrue interest at 2% per month."
+    },
+    {
+      "risk_title": "Governing Law and Jurisdiction",
+      "severity": "LOW",
+      "rationale": "Jurisdiction in California may be inconvenient and costly for Licensee, but not overly risky.",
+      "evidence_quote": "This Agreement is governed by California law, and parties consent to exclusive jurisdiction in California courts."
+    }
+  ],
+  "executed": true
+}

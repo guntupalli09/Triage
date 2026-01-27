@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Undefined Confidential Information",
+      "severity": "HIGH",
+      "rationale": "The broad definition of 'Confidential Information' could lead to ambiguity, making it difficult to determine what is protected, which increases the risk of unintentional breaches.",
+      "evidence_quote": "\"Confidential Information\" means all proprietary or confidential information disclosed by one party to the other, whether in oral, written, or electronic form."
+    },
+    {
+      "risk_title": "Length of Confidentiality Obligation",
+      "severity": "MEDIUM",
+      "rationale": "A five-year confidentiality obligation may be excessive depending on the nature of the information, potentially hindering business operations or future endeavors.",
+      "evidence_quote": "This Agreement shall remain in effect for five (5) years. Confidentiality obligations shall survive termination."
+    },
+    {
+      "risk_title": "Return and Destruction of Information",
+      "severity": "MEDIUM",
+      "rationale": "The requirement to return and destroy all copies of Confidential Information may not be feasible for all types of information, leading to potential compliance issues.",
+      "evidence_quote": "the Receiving Party shall return all Confidential Information and destroy all copies."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "Specifying Massachusetts as the governing law may create jurisdictional issues if one party is located in another state, potentially complicating legal proceedings.",
+      "evidence_quote": "Governing Law: Massachusetts"
+    }
+  ],
+  "executed": true
+}

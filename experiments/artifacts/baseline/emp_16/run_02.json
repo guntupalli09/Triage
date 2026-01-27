@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Intellectual Property Ownership",
+      "severity": "HIGH",
+      "rationale": "The broad ownership clause may limit the Employee's ability to claim rights over their own work and could discourage innovation.",
+      "evidence_quote": "All work product and deliverables created by Employee during employment shall be owned by Employer."
+    },
+    {
+      "risk_title": "Length of Non-Compete Clause",
+      "severity": "MEDIUM",
+      "rationale": "An 18-month non-compete can significantly hinder the Employee's future employment opportunities.",
+      "evidence_quote": "Employee may not work for competitors for 18 months after termination within a 50-mile radius."
+    },
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The Employee may face substantial financial liability for breaches, which could deter potential legal recourse.",
+      "evidence_quote": "Employee shall indemnify Employer for all claims arising from Employee's breach of this Agreement, up to $250,000."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Requiring binding arbitration may limit the Employee's ability to seek favorable legal remedies in disputes.",
+      "evidence_quote": "Disputes shall be resolved through binding arbitration."
+    },
+    {
+      "risk_title": "Attorney Fees Recovery",
+      "severity": "MEDIUM",
+      "rationale": "The clause allowing the Employer to recover attorneys' fees could discourage the Employee from pursuing legitimate claims.",
+      "evidence_quote": "Employer shall be entitled to recover reasonable attorneys' fees in any enforcement action."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unclear Duration of Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "While the agreement specifies a term of five years, it does not clarify if the obligations continue indefinitely after that period for certain types of information.",
+      "evidence_quote": "This Agreement shall remain in effect for five (5) years. Confidentiality obligations shall survive termination."
+    },
+    {
+      "risk_title": "No Specific Security Measures Defined",
+      "severity": "MEDIUM",
+      "rationale": "The contract states 'reasonable security measures' but does not define what those measures are, which could lead to inconsistent practices and potential breaches.",
+      "evidence_quote": "Implement reasonable security measures"
+    },
+    {
+      "risk_title": "Lack of Clear Consent Process for Disclosure",
+      "severity": "HIGH",
+      "rationale": "The contract allows for third-party disclosures only with written consent but lacks details on how consent should be obtained, which may lead to unauthorized disclosures.",
+      "evidence_quote": "Not disclose to any third party without written consent"
+    }
+  ],
+  "executed": true
+}

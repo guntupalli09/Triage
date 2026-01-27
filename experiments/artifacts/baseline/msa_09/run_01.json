@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Joint Ownership of Intellectual Property",
+      "severity": "HIGH",
+      "rationale": "Joint ownership can lead to disputes over usage rights and potential conflicts between parties regarding the developed intellectual property.",
+      "evidence_quote": "Intellectual property developed during the term of this Agreement shall be jointly owned by Provider and Client."
+    },
+    {
+      "risk_title": "Limitation of Liability Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping liability at fees paid may not cover potential damages, leaving a party exposed in the event of significant loss.",
+      "evidence_quote": "Each party's liability is capped at the total fees paid in the preceding 12 months."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "Termination for convenience may result in instability and uncertainty, as either party can exit the agreement with minimal notice.",
+      "evidence_quote": "Either party may terminate for convenience with 60 days written notice."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at $250,000 may not be sufficient in cases of severe negligence or damages, which can expose the parties to greater risk.",
+      "evidence_quote": "each party indemnifies the other for its own negligence, capped at $250,000 per claim."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A 2-year confidentiality obligation may be insufficient for certain sensitive information that requires longer protection.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination."
+    }
+  ],
+  "executed": true
+}

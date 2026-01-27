@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Undefined Confidential Information",
+      "severity": "HIGH",
+      "rationale": "The broad definition of 'Confidential Information' may lead to ambiguity and disputes regarding what is protected, potentially causing legal issues.",
+      "evidence_quote": "\"Confidential Information\" means all proprietary or confidential information disclosed by one party to the other, whether in oral, written, or electronic form."
+    },
+    {
+      "risk_title": "Termination and Survival Clause",
+      "severity": "MEDIUM",
+      "rationale": "The five-year term for confidentiality may not be adequate for all types of sensitive information, increasing the risk of premature exposure.",
+      "evidence_quote": "This Agreement shall remain in effect for five (5) years. Confidentiality obligations shall survive termination."
+    },
+    {
+      "risk_title": "Return and Destruction of Information",
+      "severity": "MEDIUM",
+      "rationale": "The requirement to return and destroy information may not be enforceable or may lead to inadvertent retention of confidential information.",
+      "evidence_quote": "Upon termination or upon request, the Receiving Party shall return all Confidential Information and destroy all copies."
+    }
+  ],
+  "executed": true
+}

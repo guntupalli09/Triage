@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Without Limitation",
+      "severity": "HIGH",
+      "rationale": "The clause places unlimited liability on the Provider, which could lead to significant financial exposure in case of claims.",
+      "evidence_quote": "Provider shall indemnify Client against all claims, losses, and expenses without limitation."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to fees paid could leave the Provider vulnerable to substantial claims that exceed the total fees.",
+      "evidence_quote": "In no event shall Provider's liability exceed the total fees paid under this Agreement."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "A 30-day notice for termination may not provide sufficient time for the Provider to transition or mitigate potential losses.",
+      "evidence_quote": "Either party may terminate with 30 days written notice."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "MEDIUM",
+      "rationale": "The choice of California law may impose unexpected legal burdens or costs on the Provider if they are not based in this jurisdiction.",
+      "evidence_quote": "This Agreement shall be governed by the laws of the State of California."
+    }
+  ],
+  "executed": true
+}

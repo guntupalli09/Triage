@@ -236,6 +236,66 @@ session_store: Dict[str, Dict] = {}
 templates = Jinja2Templates(directory="templates")
 app = FastAPI(title="Contract Risk Triage Tool", version="1.0.0")
 
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    """Global exception handler to catch unhandled errors and return user-friendly pages."""
+    logger.error(f"Unhandled exception: {exc}", exc_info=True)
+    
+    # If it's an HTTPException, let FastAPI handle it normally
+    if isinstance(exc, HTTPException):
+        raise exc
+    
+    # For other exceptions, return a user-friendly error page
+    return HTMLResponse(
+        content="""
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Error - Triage AI</title>
+            <style>
+                body {
+                    font-family: system-ui, -apple-system, sans-serif;
+                    max-width: 720px;
+                    margin: 40px auto;
+                    padding: 20px;
+                    background: #F8FAFC;
+                }
+                .container {
+                    background: white;
+                    padding: 40px;
+                    border-radius: 12px;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                    text-align: center;
+                }
+                .error-icon {
+                    color: #dc2626;
+                    font-size: 48px;
+                    margin-bottom: 20px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="error-icon">⚠️</div>
+                <h2>Something Went Wrong</h2>
+                <p>We encountered an unexpected error while processing your request.</p>
+                <p style="color: #666; font-size: 14px; margin-top: 20px;">
+                    Please try again. If the problem persists, contact support.
+                </p>
+                <p style="margin-top: 30px;">
+                    <a href="/" style="color: #FF7A18; text-decoration: none; font-weight: 600;">← Back to Home</a>
+                </p>
+            </div>
+        </body>
+        </html>
+        """,
+        status_code=500,
+    )
+
+
 # Mount static files directory
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -423,7 +483,7 @@ async def upload_contract(request: Request, file: UploadFile = File(...)):
                             "name": "Contract Risk Triage",
                             "description": "One-time risk triage before you sign.",
                         },
-                        "unit_amount": 1900,  # $19.00
+                        "unit_amount": 599,  # $5.99
                     },
                     "quantity": 1,
                 }
@@ -471,19 +531,60 @@ async def stripe_webhook(request: Request):
         session = event["data"]["object"]
         app_session_id = session.get("client_reference_id")
         stripe_session_id = session.get("id")
+        payment_status = session.get("payment_status", "")
 
-        if app_session_id and app_session_id in session_store:
-            # Optional sanity check:
-            stored_stripe = session_store[app_session_id].get("stripe_session_id")
-            if stored_stripe and stored_stripe != stripe_session_id:
-                logger.warning("Stripe session id mismatch; refusing to mark paid")
-            else:
-                session_store[app_session_id]["paid"] = True
-                logger.info(f"Marked paid: app_session_id={app_session_id}")
-        else:
-            logger.warning("Webhook received for unknown app_session_id")
+        if not app_session_id:
+            logger.error("Webhook received with no client_reference_id")
+            return {"status": "error", "message": "Missing client_reference_id"}
+
+        if app_session_id not in session_store:
+            logger.warning(f"Webhook received for unknown app_session_id: {app_session_id}")
+            return {"status": "error", "message": "Unknown session"}
+
+        # Idempotency: Check if already marked as paid
+        if session_store[app_session_id].get("paid"):
+            logger.info(f"Webhook received for already-paid session: {app_session_id} (idempotent)")
+            return {"status": "ok", "message": "Already paid"}
+
+        # Verify payment status from Stripe
+        if payment_status != "paid":
+            logger.warning(f"Webhook received but payment_status is '{payment_status}', not 'paid' for session: {app_session_id}")
+            return {"status": "error", "message": f"Payment status is {payment_status}, not paid"}
+
+        # Optional sanity check: verify Stripe session ID matches
+        stored_stripe = session_store[app_session_id].get("stripe_session_id")
+        if stored_stripe and stored_stripe != stripe_session_id:
+            logger.warning(f"Stripe session id mismatch for {app_session_id}: stored={stored_stripe}, webhook={stripe_session_id}")
+            # Still mark as paid if payment_status is "paid" (Stripe is source of truth)
+            # This handles edge cases where session ID might differ
+
+        # Update payment status (idempotent - safe to call multiple times)
+        session_store[app_session_id]["paid"] = True
+        logger.info(f"Marked paid: app_session_id={app_session_id}, stripe_session_id={stripe_session_id}, payment_status={payment_status}")
 
     return {"status": "ok"}
+
+
+@app.get("/api/payment-status")
+async def payment_status(request: Request, token: str):
+    """
+    API endpoint for frontend to poll payment status.
+    Returns JSON with paid status.
+    """
+    cleanup_expired_sessions()
+
+    app_session_id = verify_token(token)
+    if not app_session_id:
+        return {"paid": False, "error": "Invalid or expired token"}
+
+    if app_session_id not in session_store:
+        return {"paid": False, "error": "Session not found or expired"}
+
+    entry = session_store[app_session_id]
+    return {
+        "paid": entry.get("paid", False),
+        "session_id": app_session_id
+    }
 
 
 @app.get("/results", response_class=HTMLResponse)
@@ -501,15 +602,94 @@ async def results(request: Request, token: str):
     # DEV_MODE=false: Require payment confirmation before showing results
     # DEV_MODE=true: Skip payment check (already marked as paid in upload endpoint)
     if not entry.get("paid") and not DEV_MODE:
-        # Payment may not be confirmed yet; show a safe pending page
+        # Payment may not be confirmed yet; show a safe pending page with auto-polling
+        # Escape token for JavaScript (JSON encoding handles quotes and special chars)
+        token_js = json.dumps(token)
         return HTMLResponse(
-            content="""
-            <html><head><meta charset="utf-8"><title>Payment Pending</title></head>
-            <body style="font-family: system-ui; max-width: 720px; margin: 40px auto;">
-              <h2>Payment pending</h2>
-              <p>Your payment has not been confirmed yet. This can take a few seconds.</p>
-              <p>Please refresh this page shortly.</p>
-            </body></html>
+            content=f"""
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Payment Pending - Triage AI</title>
+                <style>
+                    body {{
+                        font-family: system-ui, -apple-system, sans-serif;
+                        max-width: 720px;
+                        margin: 40px auto;
+                        padding: 20px;
+                        background: #F8FAFC;
+                    }}
+                    .container {{
+                        background: white;
+                        padding: 40px;
+                        border-radius: 12px;
+                        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                        text-align: center;
+                    }}
+                    .spinner {{
+                        border: 3px solid #f3f3f3;
+                        border-top: 3px solid #FF7A18;
+                        border-radius: 50%;
+                        width: 40px;
+                        height: 40px;
+                        animation: spin 1s linear infinite;
+                        margin: 20px auto;
+                    }}
+                    @keyframes spin {{
+                        0% {{ transform: rotate(0deg); }}
+                        100% {{ transform: rotate(360deg); }}
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="spinner"></div>
+                    <h2>Payment Processing</h2>
+                    <p>Your payment is being confirmed. This page will automatically refresh...</p>
+                    <p id="status" style="color: #666; font-size: 14px; margin-top: 20px;">Checking payment status...</p>
+                </div>
+                <script>
+                    let pollCount = 0;
+                    const maxPolls = 30; // 30 attempts = ~30 seconds
+                    const token = {token_js};
+                    
+                    function checkPaymentStatus() {{
+                        pollCount++;
+                        document.getElementById('status').textContent = `Checking payment status... (attempt ${{pollCount}}/${{maxPolls}})`;
+                        
+                        fetch(`/api/payment-status?token=${{encodeURIComponent(token)}}`)
+                            .then(response => response.json())
+                            .then(data => {{
+                                if (data.paid) {{
+                                    // Payment confirmed, reload page to show results
+                                    window.location.reload();
+                                }} else if (pollCount >= maxPolls) {{
+                                    // Max polls reached, show manual refresh message
+                                    document.getElementById('status').innerHTML = 
+                                        '<span style="color: #dc2626;">Payment confirmation is taking longer than expected.<br>Please refresh this page manually.</span>';
+                                }} else {{
+                                    // Not paid yet, poll again in 1 second
+                                    setTimeout(checkPaymentStatus, 1000);
+                                }}
+                            }})
+                            .catch(error => {{
+                                console.error('Payment status check failed:', error);
+                                if (pollCount >= maxPolls) {{
+                                    document.getElementById('status').innerHTML = 
+                                        '<span style="color: #dc2626;">Unable to check payment status.<br>Please refresh this page manually.</span>';
+                                }} else {{
+                                    setTimeout(checkPaymentStatus, 1000);
+                                }}
+                            }});
+                    }}
+                    
+                    // Start polling after 500ms delay (give webhook time to arrive)
+                    setTimeout(checkPaymentStatus, 500);
+                </script>
+            </body>
+            </html>
             """,
             status_code=202,
         )
@@ -555,9 +735,17 @@ async def results(request: Request, token: str):
         # The evaluator.evaluate() method receives only findings_dict, never contract_text
         # Neural-Symbolic Architecture: LLM explains pre-identified findings only
         ruleset_version = analysis.get("ruleset_version_data", {}).get("version", analysis.get("version", "1.0.3"))
-        llm_result = llm_evaluator.evaluate(findings=findings_dict, overall_risk=overall_risk, contract_text=None)
-        if not llm_result:
-            logger.warning("LLM evaluation returned None, using fallback")
+        
+        # LLM evaluation with error handling
+        try:
+            llm_result = llm_evaluator.evaluate(findings=findings_dict, overall_risk=overall_risk, contract_text=None)
+            if not llm_result:
+                logger.warning("LLM evaluation returned None, using fallback")
+                llm_result = llm_evaluator.create_fallback_response(findings=findings_dict, overall_risk=overall_risk)
+        except Exception as llm_error:
+            logger.error(f"LLM evaluation failed: {llm_error}", exc_info=True)
+            # Use fallback response if LLM fails
+            logger.info("Using fallback response due to LLM error")
             llm_result = llm_evaluator.create_fallback_response(findings=findings_dict, overall_risk=overall_risk)
 
         # Calculate statistics from deduplicated findings (already deduplicated in rule_engine.analyze)
@@ -648,9 +836,8 @@ async def results(request: Request, token: str):
         all_missing_sections = all_missing_sections[:6]
 
         # Render results
-        return templates.TemplateResponse(
-            "results.html",
-            {
+        try:
+            template_context = {
                 "request": request,
                 "filename": entry.get("filename", "document"),
                 "overall_risk": llm_result.get("overall_risk", overall_risk),
@@ -663,12 +850,67 @@ async def results(request: Request, token: str):
                 "rule_engine_version": analysis.get("version", "1.0.3"),
                 "current_year": datetime.now().year,
                 "token": token,  # Pass token for PDF download
-            },
-        )
+            }
+            logger.info(f"Rendering results template with {len(all_enhanced_issues)} issues, {len(findings_dict)} findings")
+            return templates.TemplateResponse("results.html", template_context)
+        except Exception as template_error:
+            logger.error(f"Template rendering failed: {template_error}", exc_info=True)
+            # Re-raise to be caught by outer exception handler
+            raise
 
+    except HTTPException:
+        # Re-raise HTTP exceptions (they're intentional)
+        raise
     except Exception as e:
-        logger.error(f"Analysis failed: {e}")
-        raise HTTPException(status_code=500, detail="Analysis failed")
+        logger.error(f"Analysis failed: {e}", exc_info=True)
+        # Return a user-friendly error page instead of generic 500
+        return HTMLResponse(
+            content=f"""
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Analysis Error - Triage AI</title>
+                <style>
+                    body {{
+                        font-family: system-ui, -apple-system, sans-serif;
+                        max-width: 720px;
+                        margin: 40px auto;
+                        padding: 20px;
+                        background: #F8FAFC;
+                    }}
+                    .container {{
+                        background: white;
+                        padding: 40px;
+                        border-radius: 12px;
+                        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                        text-align: center;
+                    }}
+                    .error-icon {{
+                        color: #dc2626;
+                        font-size: 48px;
+                        margin-bottom: 20px;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="error-icon">⚠️</div>
+                    <h2>Analysis Error</h2>
+                    <p>We encountered an error while analyzing your contract.</p>
+                    <p style="color: #666; font-size: 14px; margin-top: 20px;">
+                        Please try uploading your contract again. If the problem persists, contact support.
+                    </p>
+                    <p style="margin-top: 30px;">
+                        <a href="/" style="color: #FF7A18; text-decoration: none; font-weight: 600;">← Back to Home</a>
+                    </p>
+                </div>
+            </body>
+            </html>
+            """,
+            status_code=500,
+        )
 
 
 def sanitize_filename(filename: str) -> str:

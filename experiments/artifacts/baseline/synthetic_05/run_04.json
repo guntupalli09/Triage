@@ -3,25 +3,25 @@
     {
       "risk_title": "Lack of Audit Rights",
       "severity": "HIGH",
-      "rationale": "Absence of audit rights may prevent the Disclosing Party from verifying compliance with confidentiality obligations, leading to potential breaches and unmonitored data exposure.",
+      "rationale": "The absence of audit rights may hinder the ability to ensure compliance with confidentiality obligations, increasing the risk of undisclosed breaches.",
       "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Indemnification Limitations",
+      "severity": "MEDIUM",
+      "rationale": "While indemnification is included, it is limited to legal requirements, which may not cover all potential damages or breaches.",
+      "evidence_quote": "The Receiving Party shall indemnify the Disclosing Party to the extent required by law for all claims."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
       "severity": "MEDIUM",
-      "rationale": "The lack of intellectual property provisions could lead to ambiguity regarding ownership and use rights of any shared intellectual property, increasing the risk of disputes.",
+      "rationale": "The lack of intellectual property provisions may expose the parties to risks regarding ownership and use of created materials.",
       "evidence_quote": "No intellectual property provisions apply."
     },
     {
-      "risk_title": "Indemnification Scope",
-      "severity": "MEDIUM",
-      "rationale": "Indemnification limited to claims arising from breach may not cover all potential liabilities, exposing the Disclosing Party to unprotected risks.",
-      "evidence_quote": "The Receiving Party shall indemnify the Disclosing Party to the extent required by law for all claims arising from breach."
-    },
-    {
-      "risk_title": "Self-borne Attorneys' Fees",
+      "risk_title": "Self-Bearing Attorneys' Fees",
       "severity": "LOW",
-      "rationale": "Each party bearing its own attorneys' fees may discourage legal action and limit accountability for breaches, although it is a common practice.",
+      "rationale": "Each party bearing its own attorneys' fees may limit recovery options, but it is a common practice in agreements.",
       "evidence_quote": "Each party shall bear its own attorneys' fees."
     }
   ],

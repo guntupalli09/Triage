@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality",
+      "severity": "HIGH",
+      "rationale": "Indefinite confidentiality obligations may restrict the employee's future employment opportunities and could lead to legal complications if the definitions of confidentiality are not clear.",
+      "evidence_quote": "Employee agrees to maintain strict confidentiality of all security protocols, vulnerabilities, and proprietary systems indefinitely, without expiration."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause places a potentially unlimited financial burden on the employee for any claims, which may not be reasonable or fair in all circumstances.",
+      "evidence_quote": "Employee shall indemnify Employer for all claims, damages, and expenses, without limitation, arising from Employee's security work or breach of confidentiality."
+    },
+    {
+      "risk_title": "Extended Non-Compete Duration",
+      "severity": "MEDIUM",
+      "rationale": "A three-year non-compete period is relatively long and may hinder the employee's ability to find suitable work after their employment ends.",
+      "evidence_quote": "Employee shall not work for competitors or disclose security information for 3 years following termination."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "LOW",
+      "rationale": "While arbitration can be faster, it limits the employee's options for dispute resolution and may favor the employer in disputes.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under the rules of the International Chamber of Commerce."
+    },
+    {
+      "risk_title": "Governing Law Jurisdiction",
+      "severity": "LOW",
+      "rationale": "The requirement for disputes to be resolved in California may create logistical challenges for the employee if they are located elsewhere.",
+      "evidence_quote": "This Agreement is governed by California law, and parties submit to exclusive jurisdiction in California courts."
+    }
+  ],
+  "executed": true
+}

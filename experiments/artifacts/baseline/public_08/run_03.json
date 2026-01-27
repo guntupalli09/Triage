@@ -1,28 +1,34 @@
 {
   "findings": [
     {
-      "risk_title": "Perpetual Obligations",
+      "risk_title": "Indefinite Term of Confidentiality",
       "severity": "HIGH",
-      "rationale": "The indefinite duration of confidentiality obligations can lead to unforeseen liabilities and complications for both parties in the long term.",
+      "rationale": "The perpetual obligation to keep information confidential may pose risks if circumstances change or if the information becomes obsolete.",
       "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
     },
     {
-      "risk_title": "Unlimited Liability",
+      "risk_title": "Unlimited Indemnification",
       "severity": "HIGH",
-      "rationale": "The lack of a limitation on liability exposes both parties to potentially significant financial risks in case of breaches or claims.",
+      "rationale": "The lack of limitations on indemnification could expose a party to significant liabilities without clear boundaries.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit."
+    },
+    {
+      "risk_title": "No Limitation on Liability",
+      "severity": "HIGH",
+      "rationale": "The absence of a liability cap increases financial exposure for both parties, which can lead to severe consequences in case of breaches.",
       "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
     },
     {
       "risk_title": "Intellectual Property Assignment",
       "severity": "MEDIUM",
-      "rationale": "The automatic assignment of rights to Company A could disadvantage Company B, especially if they invest significant resources in the development of work products.",
+      "rationale": "The automatic assignment of rights to Company A may lead to disputes over ownership and usage of created work products.",
       "evidence_quote": "The receiving party hereby assigns all right, title, and interest in such work product."
     },
     {
-      "risk_title": "Indemnification Without Limits",
+      "risk_title": "Attorney Fees Recovery",
       "severity": "MEDIUM",
-      "rationale": "The indemnification clause without limits may result in significant financial exposure for the indemnifying party in case of claims.",
-      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit."
+      "rationale": "The provision allowing recovery of attorneys' fees may discourage parties from pursuing legitimate claims due to potential high costs.",
+      "evidence_quote": "The prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party."
     }
   ],
   "executed": true

@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Joint Ownership of Intellectual Property",
+      "severity": "HIGH",
+      "rationale": "Joint ownership can lead to disputes over usage rights and revenue sharing, complicating future business dealings.",
+      "evidence_quote": "All intellectual property developed under this Agreement shall be jointly owned by both parties."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Capping liability may expose the client to significant financial risk if damages exceed the contract value.",
+      "evidence_quote": "Neither party's liability shall exceed the total contract value."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "HIGH",
+      "rationale": "Limiting indemnification to $500,000 may not cover substantial claims, leaving the client vulnerable.",
+      "evidence_quote": "Provider agrees to indemnify Client for third-party claims arising from Provider's breach of this Agreement, up to a maximum of $500,000."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "LOW",
+      "rationale": "A three-year confidentiality period may be insufficient for sensitive information, risking premature disclosure.",
+      "evidence_quote": "Confidential information must be kept confidential for 3 years after termination."
+    },
+    {
+      "risk_title": "Dispute Resolution Jurisdiction",
+      "severity": "MEDIUM",
+      "rationale": "Choosing a specific jurisdiction for disputes may complicate proceedings if parties are located elsewhere.",
+      "evidence_quote": "Any disputes shall be resolved in the courts of the State of Delaware."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Indemnification",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations may leave parties vulnerable to claims without protection or recourse.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "The clause stating that liability shall not be limited could expose parties to significant financial risks.",
+      "evidence_quote": "No event shall be limited by the limitation of liability clause."
+    },
+    {
+      "risk_title": "Absence of Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "The lack of audit rights may prevent one party from verifying compliance or protecting its interests.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "The absence of IP provisions may lead to disputes over ownership and use of intellectual property.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "No Renewal Terms Defined",
+      "severity": "LOW",
+      "rationale": "While renewal by mutual consent is allowed, lack of specific terms may create confusion in future negotiations.",
+      "evidence_quote": "This Agreement may be renewed by mutual written consent."
+    }
+  ],
+  "executed": true
+}

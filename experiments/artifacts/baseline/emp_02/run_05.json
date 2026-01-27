@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The employee is required to indemnify the employer for claims arising from their gross negligence, which could lead to significant financial liability for the employee.",
+      "evidence_quote": "Employee shall indemnify Employer to the extent required by applicable law for claims arising from Employee's gross negligence."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "The confidentiality obligations extending for 2 years post-termination may limit the employee's future employment opportunities and could be seen as overly restrictive.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination of employment."
+    },
+    {
+      "risk_title": "No Non-Compete Clause",
+      "severity": "LOW",
+      "rationale": "While the absence of a non-compete clause may seem favorable for the employee, it could potentially lead to competition with the employer without any restrictions.",
+      "evidence_quote": "No non-compete restrictions apply."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 30-day notice period for termination may not provide sufficient time for either party to find a suitable replacement or to adjust to the termination.",
+      "evidence_quote": "This Agreement may be terminated by either party with 30 days written notice."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "MEDIUM",
+      "rationale": "Subjecting the agreement to New York state law may pose challenges if the employee is not familiar with the legal landscape or practices in that jurisdiction.",
+      "evidence_quote": "This Agreement is subject to New York state law."
+    }
+  ],
+  "executed": true
+}

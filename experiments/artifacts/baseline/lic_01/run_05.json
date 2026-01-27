@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "The clause stating that Licensor's liability is unlimited poses significant financial risks to the Licensee, as there are no caps on potential damages.",
+      "evidence_quote": "Licensor's liability is unlimited and not subject to any limitation of liability clause."
+    },
+    {
+      "risk_title": "Indemnification Without Limitation",
+      "severity": "HIGH",
+      "rationale": "The Licensee is required to indemnify Licensor against all claims without limitation, which could lead to substantial unanticipated liabilities.",
+      "evidence_quote": "Licensee shall indemnify Licensor against all claims, losses, and expenses without limitation arising from Licensee's use of the Software."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations that survive termination indefinitely may pose challenges for the Licensee in managing information over time.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue in perpetuity."
+    },
+    {
+      "risk_title": "Binding Arbitration Clause",
+      "severity": "MEDIUM",
+      "rationale": "Mandatory binding arbitration may limit the Licensee's options for legal recourse and could be costly in the event of a dispute.",
+      "evidence_quote": "All disputes must be resolved through binding arbitration under AAA rules."
+    },
+    {
+      "risk_title": "Payment Terms Stringency",
+      "severity": "LOW",
+      "rationale": "The requirement for payment within a strict 30-day window may create cash flow issues for the Licensee if not managed properly.",
+      "evidence_quote": "Licensee shall pay an annual license fee of $50,000, due within 30 days of invoice date."
+    }
+  ],
+  "executed": true
+}

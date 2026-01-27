@@ -1,0 +1,49 @@
+{
+  "findings": [
+    {
+      "rule_id": "H_LOL_CARVEOUT_01",
+      "rule_name": "liability_cap_carveout",
+      "title": "Liability cap carve-outs may negate protection",
+      "severity": "high",
+      "rationale": "Liability caps that exclude indemnity, confidentiality, or IP claims often negate the practical benefit of the cap entirely.",
+      "matched_excerpt": "...5. LIMITATION OF LIABILITY Liability is capped at the greater of $1,000,000 or the annual contract value, except for indemnification obligations....",
+      "exact_snippet": "LIMITATION OF LIABILITY",
+      "start_index": 650,
+      "end_index": 673,
+      "position": 650,
+      "context": "r Client's internal business purposes only.\n\n4. INDEMNIFICATION\nMutual indemnification: each party indemnifies the other for claims arising from its own negligence, capped at the annual contract value.\n\n5. LIMITATION OF LIABILITY\nLiability is capped at the greater of $1,000,000 or the annual contract value, except for indemnification obligations.\n\n6. TERM AND TERMINATION\nEither party may terminate for convenience with 9",
+      "clause_number": null,
+      "matched_keywords": [
+        "LIABILITY"
+      ],
+      "aliases": [
+        "liability_cap_carveout",
+        "cap_exclusion"
+      ]
+    }
+  ],
+  "overall_risk": "high",
+  "rule_counts": {
+    "high": 1,
+    "medium": 0,
+    "low": 0
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

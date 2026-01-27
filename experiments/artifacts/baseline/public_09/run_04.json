@@ -1,21 +1,21 @@
 {
   "findings": [
     {
-      "risk_title": "Duration of Confidentiality",
+      "risk_title": "Length of Confidentiality Obligation",
       "severity": "MEDIUM",
-      "rationale": "A five-year duration may be inadequate for certain types of sensitive information, potentially leading to exposure after the agreement expires.",
+      "rationale": "A five-year confidentiality period may be considered lengthy, potentially leading to challenges in enforcing the NDA after such an extended time.",
       "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
     },
     {
       "risk_title": "Injunctive Relief Without Bond",
       "severity": "HIGH",
-      "rationale": "Allowing injunctive relief without posting a bond can lead to misuse of legal remedies, exposing parties to potential financial harm.",
-      "evidence_quote": "The Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
+      "rationale": "Allowing injunctive relief without posting bond can expose the Receiving Party to immediate and potentially unfair restrictions without a financial safeguard.",
+      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
     },
     {
-      "risk_title": "Assignment Restrictions",
+      "risk_title": "Assignment Limitations",
       "severity": "MEDIUM",
-      "rationale": "Restricting assignment may hinder business flexibility, especially during mergers or acquisitions, potentially impacting business operations.",
+      "rationale": "Restricting assignment without consent could hinder business flexibility and may complicate mergers or acquisitions.",
       "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
     }
   ],

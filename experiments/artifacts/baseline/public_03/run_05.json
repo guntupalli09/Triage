@@ -1,28 +1,28 @@
 {
   "findings": [
     {
-      "risk_title": "Broad Definition of Confidential Information",
+      "risk_title": "Undefined Scope of Confidential Information",
       "severity": "MEDIUM",
-      "rationale": "The broad definition may lead to ambiguity in what constitutes confidential information, potentially leading to disputes about disclosures.",
+      "rationale": "The definition of Confidential Information is broad and may lead to disputes over what constitutes confidential material.",
       "evidence_quote": "\"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information."
     },
     {
-      "risk_title": "Long Duration of NDA",
+      "risk_title": "Inadequate Duration for Confidentiality",
       "severity": "MEDIUM",
-      "rationale": "A five-year duration may be excessive, potentially hindering business operations and future collaborations beyond a reasonable timeframe.",
+      "rationale": "A five-year duration may not be sufficient for certain types of sensitive information, potentially exposing parties to risk after the agreement ends.",
       "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
     },
     {
-      "risk_title": "Injunctive Relief Without Bond",
+      "risk_title": "Injunctive Relief Without Bond Requirement",
       "severity": "HIGH",
-      "rationale": "Allowing injunctive relief without requiring a bond poses a risk to the Receiving Party, as it can lead to immediate and potentially unjust restrictions.",
+      "rationale": "Allowing injunctive relief without posting bond could expose the Receiving Party to significant risk if the Disclosing Party makes unfounded claims.",
       "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
     },
     {
-      "risk_title": "Assignment Restrictions",
+      "risk_title": "Restrictions on Assignment",
       "severity": "MEDIUM",
-      "rationale": "The requirement for prior written consent for assignment may limit flexibility in business operations and complicate future transactions.",
-      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
+      "rationale": "Limiting assignment without consent may hinder business operations and flexibility, particularly during mergers or acquisitions.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party, except in connection with a change of control transaction."
     }
   ],
   "executed": true

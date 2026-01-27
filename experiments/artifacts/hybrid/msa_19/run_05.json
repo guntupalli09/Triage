@@ -1,0 +1,62 @@
+{
+  "findings": [
+    {
+      "rule_id": "L_GOVLAW_01",
+      "rule_name": "governing_law_venue",
+      "title": "Specific governing law or venue",
+      "severity": "low",
+      "rationale": "Governing law and venue choices can affect enforcement cost and strategy.",
+      "matched_excerpt": "...10. GOVERNING LAW This Agreement is governed by the laws of the State of Nevada....",
+      "exact_snippet": "governed by the laws",
+      "start_index": 1278,
+      "end_index": 1298,
+      "position": 1278,
+      "context": "ormed in a professional and workmanlike manner.\n\n9. DISPUTE RESOLUTION\nDisputes shall be resolved through direct negotiation between the parties' authorized representatives.\n\n10. GOVERNING LAW\nThis Agreement is governed by the laws of the State of Nevada.\n\n11. ATTORNEYS' FEES\nEach party shall pay its own attorneys' fees and costs in connection with any dispute.\n\n12. MODIFICATIONS\nThis Agreement may only be modified i",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": [
+        "governing_law_and_venue"
+      ]
+    },
+    {
+      "rule_id": "L_LATEFEE_01",
+      "rule_name": "late_fees_interest",
+      "title": "Late fees / high interest",
+      "severity": "low",
+      "rationale": "Penalty terms can increase costs if payment timing slips.",
+      "matched_excerpt": "...2. PAYMENT TERMS Payment is due within 40 days of invoice date. Late payments incur interest at 1% per month....",
+      "exact_snippet": "Late payments incur interest at 1%",
+      "start_index": 312,
+      "end_index": 346,
+      "position": 312,
+      "context": "\"Provider\") and Client Company (\"Client\").\n\n1. SERVICES\nProvider agrees to provide the services described in attached Statements of Work.\n\n2. PAYMENT TERMS\nPayment is due within 40 days of invoice date. Late payments incur interest at 1% per month.\n\n3. INTELLECTUAL PROPERTY\nProvider grants Client a worldwide, perpetual, non-exclusive license to use deliverables for Client's internal business purposes.\n\n4. INDEMNIFICATION\nMutual in",
+      "clause_number": null,
+      "matched_keywords": [],
+      "aliases": []
+    }
+  ],
+  "overall_risk": "low",
+  "rule_counts": {
+    "high": 0,
+    "medium": 0,
+    "low": 2
+  },
+  "version": "1.0.3",
+  "ruleset_version_data": {
+    "version": "1.0.3",
+    "released": "2026-01-14",
+    "scope": "Commercial NDAs and MSAs",
+    "changes": [
+      "Initial deterministic NDA/MSA risk ruleset",
+      "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
+      "Implemented clause-level anchoring and false-positive suppression"
+    ],
+    "rule_count": {
+      "high": 8,
+      "medium": 8,
+      "low": 3
+    }
+  },
+  "suppression_log": {},
+  "suppression_enabled": true
+}

@@ -1,0 +1,17 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Term",
+      "severity": "HIGH",
+      "rationale": "An indefinite term may expose the Disclosing Party to prolonged risks as confidentiality obligations last forever, leading to potential liabilities if the Receiving Party improperly uses the information.",
+      "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
+    },
+    {
+      "risk_title": "Lack of Limitation on Use",
+      "severity": "MEDIUM",
+      "rationale": "The agreement does not specify restrictions on how the Receiving Party may use the Confidential Information, which could lead to misuse or unauthorized application of sensitive information.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party to the Receiving Party."
+    }
+  ],
+  "executed": true
+}

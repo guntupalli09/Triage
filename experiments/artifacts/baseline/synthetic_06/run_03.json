@@ -3,20 +3,20 @@
     {
       "risk_title": "No Indemnification Obligations",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification can expose parties to significant financial risks in case of legal claims arising from the agreement.",
+      "rationale": "The absence of indemnification obligations can expose parties to significant risks related to third-party claims or losses without recourse.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "Lack of audit rights limits the ability to verify compliance with confidentiality obligations, increasing the risk of misuse of confidential information.",
+      "rationale": "Lack of audit rights limits oversight and accountability, potentially allowing misuse of confidential information without detection.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
-      "risk_title": "Limited Duration of Confidentiality",
+      "risk_title": "Limitation of Liability Exception",
       "severity": "MEDIUM",
-      "rationale": "The three-year term may not provide adequate protection for long-term confidential information, potentially leading to exposure after expiration.",
-      "evidence_quote": "This Agreement shall remain in effect for three (3) years from the date of execution."
+      "rationale": "The limitation of liability clause allowing exceptions only for indemnification may lead to unforeseen liabilities that are not adequately managed.",
+      "evidence_quote": "Limitation of liability shall not apply to indemnification, except as required by applicable law."
     }
   ],
   "executed": true

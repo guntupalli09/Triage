@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Without Limitation",
+      "severity": "HIGH",
+      "rationale": "The provider's obligation to indemnify the client without limitation could expose the provider to significant liabilities without a cap.",
+      "evidence_quote": "Provider shall indemnify Client against all claims, losses, and expenses without limitation."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability to total fees paid may not adequately protect the provider in case of significant claims or damages.",
+      "evidence_quote": "In no event shall Provider's liability exceed the total fees paid under this Agreement."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "A 30-day notice period for termination may not be sufficient for planning and transition, potentially leading to service disruption.",
+      "evidence_quote": "Either party may terminate with 30 days written notice."
+    },
+    {
+      "risk_title": "Binding Arbitration for Disputes",
+      "severity": "MEDIUM",
+      "rationale": "Binding arbitration may limit the parties' options for legal recourse and could be unfavorable to one party depending on the circumstances.",
+      "evidence_quote": "Disputes shall be resolved through binding arbitration."
+    },
+    {
+      "risk_title": "Governing Law Jurisdiction",
+      "severity": "LOW",
+      "rationale": "The choice of governing law may not favor the provider if they are not familiar with California law.",
+      "evidence_quote": "This Agreement shall be governed by the laws of the State of California."
+    }
+  ],
+  "executed": true
+}

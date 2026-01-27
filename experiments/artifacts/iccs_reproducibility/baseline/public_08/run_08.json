@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Specificity in Confidential Information Definition",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition may lead to ambiguity regarding what is considered confidential, potentially leading to disputes over obligations.",
+      "evidence_quote": "\"Confidential Information\" means all proprietary or confidential information disclosed by one party to the other, whether in oral, written, or electronic form."
+    },
+    {
+      "risk_title": "Duration of Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "While the term is specified as five years, the duration may not be sufficient for all types of confidential information, especially in rapidly evolving industries.",
+      "evidence_quote": "This Agreement shall remain in effect for five (5) years."
+    },
+    {
+      "risk_title": "Return and Destruction of Confidential Information",
+      "severity": "HIGH",
+      "rationale": "The obligation to return and destroy all copies may not be easy to enforce, leading to potential leaks or misuse of confidential information after termination.",
+      "evidence_quote": "the Receiving Party shall return all Confidential Information and destroy all copies."
+    },
+    {
+      "risk_title": "Governing Law Jurisdiction",
+      "severity": "LOW",
+      "rationale": "The choice of Massachusetts as governing law may create challenges for parties based in different jurisdictions, impacting legal enforcement.",
+      "evidence_quote": "Governing Law: Massachusetts"
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Clause Absence",
+      "severity": "HIGH",
+      "rationale": "The absence of indemnification obligations may expose a party to unforeseen liabilities without recourse.",
+      "evidence_quote": "No indemnification obligations apply under this Agreement."
+    },
+    {
+      "risk_title": "No Audit Rights",
+      "severity": "MEDIUM",
+      "rationale": "Lack of audit rights can limit the ability to verify compliance with the terms of the agreement.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "Limitations on Liability",
+      "severity": "MEDIUM",
+      "rationale": "Limiting liability can prevent recovery for significant damages, particularly in cases of negligence.",
+      "evidence_quote": "Limitation of liability shall not apply to indemnification, except as required by applicable law."
+    }
+  ],
+  "executed": true
+}

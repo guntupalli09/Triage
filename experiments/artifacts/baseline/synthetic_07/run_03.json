@@ -3,31 +3,31 @@
     {
       "risk_title": "Perpetual Term",
       "severity": "HIGH",
-      "rationale": "The lack of an expiration date may create ongoing obligations and potential liabilities indefinitely, which can be burdensome for the Receiving Party.",
+      "rationale": "The agreement has no expiration date, which may lead to indefinite obligations and potential liabilities without opportunity for review or renegotiation.",
       "evidence_quote": "This Agreement shall remain in effect in perpetuity with no expiration date."
     },
     {
       "risk_title": "No Indemnification",
       "severity": "MEDIUM",
-      "rationale": "The absence of indemnification provisions may expose parties to risks without recourse for losses or damages caused by breaches.",
+      "rationale": "The absence of indemnification clauses may expose a party to potential liabilities without any recourse for compensation from the other party.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
       "risk_title": "Limited Liability",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid may not adequately protect against substantial damages, especially in cases of gross negligence or willful misconduct.",
+      "rationale": "Limiting liability to fees paid may not adequately protect parties from significant losses or damages incurred, especially in breach scenarios.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The lack of audit rights may hinder the ability to verify compliance with confidentiality obligations, increasing the risk of misuse of confidential information.",
+      "rationale": "The lack of audit rights may hinder a party's ability to ensure compliance with the agreement, increasing the risk of undisclosed breaches.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
       "risk_title": "No Intellectual Property Provisions",
-      "severity": "HIGH",
-      "rationale": "Absence of intellectual property provisions may lead to disputes regarding ownership and rights to use any IP developed during the relationship.",
+      "severity": "MEDIUM",
+      "rationale": "The absence of provisions regarding intellectual property could lead to misunderstandings or disputes over ownership and use of proprietary information.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

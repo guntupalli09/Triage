@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "HIGH",
+      "rationale": "The obligation to maintain confidentiality in perpetuity may expose parties to long-term risks, especially if the information becomes outdated or irrelevant.",
+      "evidence_quote": "The obligations under this Agreement shall continue in perpetuity and shall survive any termination of discussions between the parties."
+    },
+    {
+      "risk_title": "Unlimited Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "Indemnifying without limit can lead to significant financial exposure for both parties, especially in case of breaches or legal disputes.",
+      "evidence_quote": "Each party shall indemnify and hold harmless the other party from and against all claims, losses, damages, and expenses, without limit."
+    },
+    {
+      "risk_title": "No Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "The absence of liability limitations can lead to unpredictable financial consequences, as parties may be liable for any damages incurred.",
+      "evidence_quote": "Notwithstanding any other provision, neither party's liability shall be limited under this Agreement."
+    },
+    {
+      "risk_title": "Intellectual Property Assignment",
+      "severity": "MEDIUM",
+      "rationale": "Assigning all rights to Company A may create tension or disputes over ownership of work products, especially if contributions are made by both parties.",
+      "evidence_quote": "All work product and deliverables created hereunder shall be owned exclusively by Company A."
+    },
+    {
+      "risk_title": "Cost Recovery of Attorneys' Fees",
+      "severity": "MEDIUM",
+      "rationale": "While providing a means to recover costs, this clause may discourage parties from pursuing legitimate claims due to the potential financial burden of legal fees.",
+      "evidence_quote": "The prevailing party in any dispute shall be entitled to recover all attorneys' fees and costs from the non-prevailing party."
+    }
+  ],
+  "executed": true
+}

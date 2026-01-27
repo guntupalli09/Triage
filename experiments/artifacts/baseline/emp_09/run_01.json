@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Long Confidentiality Period",
+      "severity": "MEDIUM",
+      "rationale": "Confidentiality obligations lasting 4 years after termination may hinder future employment opportunities or lead to potential legal issues if not clearly defined.",
+      "evidence_quote": "Confidentiality obligations survive termination and continue for 4 years."
+    },
+    {
+      "risk_title": "Restrictive Non-Compete Clause",
+      "severity": "HIGH",
+      "rationale": "An 18-month non-compete period can significantly limit the Employee's ability to secure future employment in their field.",
+      "evidence_quote": "Employee may not work for direct competitors for 18 months after termination."
+    },
+    {
+      "risk_title": "Indemnification Limitations",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at the annual salary could leave the Employee exposed to significant legal liabilities.",
+      "evidence_quote": "Mutual indemnification: each party indemnifies the other for its own negligence, capped at annual salary."
+    },
+    {
+      "risk_title": "Governing Law Limitations",
+      "severity": "LOW",
+      "rationale": "Governing the Agreement under Connecticut state law may introduce jurisdictional challenges if either party is located elsewhere.",
+      "evidence_quote": "This Agreement is governed by Connecticut state law."
+    }
+  ],
+  "executed": true
+}

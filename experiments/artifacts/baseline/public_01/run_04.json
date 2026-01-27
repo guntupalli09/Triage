@@ -3,14 +3,26 @@
     {
       "risk_title": "Indefinite Term of Agreement",
       "severity": "HIGH",
-      "rationale": "An indefinite term may pose a risk as it can lead to uncertainty regarding the obligations of the Receiving Party and the potential for perpetual liability.",
+      "rationale": "An indefinite term may lead to perpetual obligations, potentially resulting in unintended liabilities or risks for the Receiving Party.",
       "evidence_quote": "This Agreement shall remain in effect indefinitely and shall survive termination of any business relationship between the parties."
     },
     {
-      "risk_title": "Lack of Clarity on Information Return",
+      "risk_title": "Lack of Specificity in Confidential Information",
       "severity": "MEDIUM",
-      "rationale": "The requirement to return all Confidential Information upon termination may be vague, leading to disputes over what constitutes 'all' information.",
+      "rationale": "Broad definitions of confidential information may lead to ambiguity and disputes regarding what is protected under the agreement.",
+      "evidence_quote": "Confidential Information means all non-public, proprietary or confidential information disclosed by the Disclosing Party to the Receiving Party."
+    },
+    {
+      "risk_title": "Return of Information Obligations",
+      "severity": "MEDIUM",
+      "rationale": "The obligation to return all confidential information may be burdensome and create operational risks if not clearly defined.",
       "evidence_quote": "Upon termination, the Receiving Party shall return all Confidential Information to the Disclosing Party."
+    },
+    {
+      "risk_title": "Governing Law Considerations",
+      "severity": "LOW",
+      "rationale": "The choice of governing law may introduce complexities if the parties are located in different jurisdictions.",
+      "evidence_quote": "This Agreement shall be governed by the laws of the State of California."
     }
   ],
   "executed": true

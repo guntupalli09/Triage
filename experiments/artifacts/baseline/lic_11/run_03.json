@@ -1,0 +1,47 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited License Transferability",
+      "severity": "MEDIUM",
+      "rationale": "The non-transferable license may limit Licensee's ability to adapt or transfer rights, impacting business flexibility.",
+      "evidence_quote": "Licensor grants Licensee a limited, non-transferable license to use the Software"
+    },
+    {
+      "risk_title": "Indemnification Obligations",
+      "severity": "HIGH",
+      "rationale": "The broad indemnification clause may expose Licensee to significant financial liability without clear limits.",
+      "evidence_quote": "Licensee agrees to indemnify Licensor for all claims, losses, and expenses, without limitation"
+    },
+    {
+      "risk_title": "Unlimited Liability for Indemnification",
+      "severity": "HIGH",
+      "rationale": "Unlimited liability for indemnification claims can lead to substantial financial exposure for Licensee.",
+      "evidence_quote": "Licensor's liability is unlimited for indemnification claims and intellectual property breaches."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 45-day notice period may not provide sufficient time for Licensee to adjust operations or find alternatives.",
+      "evidence_quote": "Either party may terminate for convenience with 45 days written notice."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "A 5-year confidentiality obligation may extend liability well beyond the termination of the agreement.",
+      "evidence_quote": "Confidentiality obligations continue for 5 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "Dispute Resolution Process",
+      "severity": "LOW",
+      "rationale": "Mediation followed by arbitration may prolong dispute resolution and incur additional costs.",
+      "evidence_quote": "Disputes shall be resolved through mediation, then arbitration if mediation fails."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "The choice of Arizona state law may not be favorable for Licensee, depending on their location and legal circumstances.",
+      "evidence_quote": "This Agreement is governed by Arizona state law."
+    }
+  ],
+  "executed": true
+}

@@ -1,28 +1,28 @@
 {
   "findings": [
     {
-      "risk_title": "Limited Duration of Confidentiality",
-      "severity": "MEDIUM",
-      "rationale": "The NDA only lasts for five years, which may not provide sufficient protection for sensitive information that could remain valuable or confidential beyond this period.",
-      "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
-    },
-    {
       "risk_title": "Lack of Clarity on Confidential Information",
       "severity": "MEDIUM",
-      "rationale": "The broad definition of 'Confidential Information' could lead to misunderstandings about what is protected, potentially resulting in disputes over disclosures.",
+      "rationale": "The definition of Confidential Information is broad and may lead to disputes over what is actually covered.",
       "evidence_quote": "\"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information."
     },
     {
-      "risk_title": "Injunctive Relief Clause",
+      "risk_title": "Inadequate Duration of NDA",
+      "severity": "MEDIUM",
+      "rationale": "A five-year duration may not be sufficient for certain industries where sensitive information retains value for longer periods.",
+      "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
+    },
+    {
+      "risk_title": "Injunction Relief Without Bond",
       "severity": "HIGH",
-      "rationale": "The ability to seek injunctive relief without posting bond may expose parties to higher risks, as it allows for immediate legal actions without financial safeguards.",
+      "rationale": "The ability to seek injunctive relief without posting bond may expose the Receiving Party to unsubstantiated claims and potential abuse.",
       "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
     },
     {
       "risk_title": "Assignment Restrictions",
-      "severity": "LOW",
-      "rationale": "The restriction on assignment may limit flexibility for both parties, particularly in the event of mergers or acquisitions, but is a common clause in NDAs.",
-      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party, except in connection with a change of control transaction."
+      "severity": "MEDIUM",
+      "rationale": "Restricting assignment without consent can limit flexibility in business operations and might complicate future transactions.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
     }
   ],
   "executed": true

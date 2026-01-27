@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Lack of Audit Rights",
+      "severity": "HIGH",
+      "rationale": "Without audit rights, the Receiving Party may not be held accountable for breaches of confidentiality, increasing the risk of unauthorized disclosures.",
+      "evidence_quote": "No audit rights are granted under this Agreement."
+    },
+    {
+      "risk_title": "No Intellectual Property Provisions",
+      "severity": "MEDIUM",
+      "rationale": "Absence of intellectual property protections may lead to unauthorized use or theft of proprietary information.",
+      "evidence_quote": "No intellectual property provisions apply."
+    },
+    {
+      "risk_title": "Indemnification Limitations",
+      "severity": "MEDIUM",
+      "rationale": "While indemnification exists, it applies 'to the extent required by law,' which may limit liability in certain situations.",
+      "evidence_quote": "The Receiving Party shall indemnify the Disclosing Party to the extent required by law."
+    }
+  ],
+  "executed": true
+}

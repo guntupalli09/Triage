@@ -1,21 +1,21 @@
 {
   "findings": [
     {
-      "risk_title": "Lack of Clarity on Confidential Information",
+      "risk_title": "Duration of Confidentiality",
       "severity": "MEDIUM",
-      "rationale": "The definition of Confidential Information is broad and may lead to disputes over what constitutes confidential data.",
-      "evidence_quote": "\"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information."
+      "rationale": "A five-year duration may be insufficient for certain types of sensitive information, potentially leading to risks after the agreement expires.",
+      "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
     },
     {
-      "risk_title": "Injunctive Relief Clause",
+      "risk_title": "Injunctive Relief Without Bond",
       "severity": "HIGH",
-      "rationale": "The ability to seek injunctive relief without posting a bond could lead to misuse or frivolous claims by the Disclosing Party.",
-      "evidence_quote": "Therefore, the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
+      "rationale": "Allowing the Disclosing Party to seek injunctive relief without posting a bond increases the risk of potential abuse or misuse of this provision.",
+      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
     },
     {
       "risk_title": "Assignment Restrictions",
       "severity": "MEDIUM",
-      "rationale": "The restriction on assignment without consent could limit flexibility for both parties in future transactions or changes.",
+      "rationale": "Restricting assignment without consent may complicate business transactions or restructuring efforts, potentially stalling important changes.",
       "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
     }
   ],

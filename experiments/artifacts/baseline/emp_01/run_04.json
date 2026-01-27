@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indefinite Confidentiality Obligation",
+      "severity": "HIGH",
+      "rationale": "The requirement for the employee to maintain confidentiality indefinitely could lead to unreasonable restrictions on the employee's future employment opportunities.",
+      "evidence_quote": "Employee agrees to maintain confidentiality of all proprietary information indefinitely, even after termination of employment."
+    },
+    {
+      "risk_title": "Long Non-Compete Duration",
+      "severity": "MEDIUM",
+      "rationale": "A 2-year non-compete clause may significantly limit the employee's ability to find work in their field, which could be seen as overly restrictive.",
+      "evidence_quote": "Employee agrees not to compete with Employer for a period of 2 years after termination, within a 50-mile radius."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The indemnification clause requires the employee to cover all claims without limitation, which may expose them to significant financial risk.",
+      "evidence_quote": "Employee shall indemnify Employer against all claims, losses, and expenses without limitation arising from Employee's actions."
+    },
+    {
+      "risk_title": "Binding Arbitration Requirement",
+      "severity": "MEDIUM",
+      "rationale": "Mandating arbitration for dispute resolution may limit the employee's legal recourse and could be perceived as biased in favor of the employer.",
+      "evidence_quote": "All disputes shall be resolved through binding arbitration in accordance with AAA rules."
+    },
+    {
+      "risk_title": "Attorneys' Fees Clause",
+      "severity": "MEDIUM",
+      "rationale": "The employer's entitlement to recover attorneys' fees may deter the employee from pursuing legitimate claims due to fear of financial repercussions.",
+      "evidence_quote": "Employer shall be entitled to recover all attorneys' fees and costs in any action to enforce this Agreement."
+    }
+  ],
+  "executed": true
+}

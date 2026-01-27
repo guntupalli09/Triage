@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "One-sided Indemnification",
+      "severity": "MEDIUM",
+      "rationale": "The indemnification clause requires each party to indemnify the other, which could lead to potential liability without clear limits on exposure.",
+      "evidence_quote": "Each party shall indemnify the other to the extent required by applicable law for third-party claims."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "Limiting liability to the total license fees could leave a party exposed to significant claims that exceed the fee paid.",
+      "evidence_quote": "Each party's liability is limited to the total license fees paid under this Agreement."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "A confidentiality obligation lasting only 3 years may not be sufficient for certain sensitive information.",
+      "evidence_quote": "Confidentiality obligations continue for 3 years after termination."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "The governing law being New York may not be favorable for all parties, depending on their location and legal strategy.",
+      "evidence_quote": "This Agreement is subject to New York state law."
+    }
+  ],
+  "executed": true
+}

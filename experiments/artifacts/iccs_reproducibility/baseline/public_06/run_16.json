@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "risk_title": "Limited Duration of Confidentiality",
+      "severity": "MEDIUM",
+      "rationale": "The two-year duration for confidentiality may not be sufficient to protect sensitive information, especially if the information has long-term value.",
+      "evidence_quote": "Confidentiality obligations shall continue for two (2) years after termination of discussions."
+    },
+    {
+      "risk_title": "Lack of Specificity in Confidential Information",
+      "severity": "MEDIUM",
+      "rationale": "The broad definition of Confidential Information may lead to ambiguity about what is actually protected, potentially resulting in disputes.",
+      "evidence_quote": "Confidential Information means all proprietary information disclosed by one party to the other."
+    },
+    {
+      "risk_title": "No Clear Consequences for Breach",
+      "severity": "HIGH",
+      "rationale": "The absence of specified consequences for breach of confidentiality may lead to insufficient deterrence against unauthorized disclosure of information.",
+      "evidence_quote": "Each party agrees to: Maintain strict confidentiality."
+    }
+  ],
+  "executed": true
+}

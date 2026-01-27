@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "HIGH",
+      "rationale": "The requirement for the employee to maintain confidentiality in perpetuity may limit their future employment opportunities and could be seen as overly restrictive.",
+      "evidence_quote": "Employee must maintain confidentiality of all trade secrets and proprietary information in perpetuity."
+    },
+    {
+      "risk_title": "Broad Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The indemnification clause places a significant financial burden on the employee, potentially exposing them to high legal costs.",
+      "evidence_quote": "Employee agrees to indemnify Employer for all legal costs and damages resulting from Employee's breach of this Agreement, up to a maximum of $500,000."
+    },
+    {
+      "risk_title": "Long Non-Compete Duration",
+      "severity": "MEDIUM",
+      "rationale": "An 18-month non-compete clause could significantly restrict the employee's future job opportunities, which may be hard to enforce in some jurisdictions.",
+      "evidence_quote": "Employee agrees not to work for competitors or solicit Employer's customers for 18 months after termination."
+    },
+    {
+      "risk_title": "Jurisdiction Limitations",
+      "severity": "MEDIUM",
+      "rationale": "The requirement to resolve disputes exclusively in Delaware may disadvantage the employee if they are located elsewhere.",
+      "evidence_quote": "Any disputes shall be resolved exclusively in the courts of Delaware."
+    }
+  ],
+  "executed": true
+}

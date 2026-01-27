@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Ambiguous Intellectual Property Rights",
+      "severity": "MEDIUM",
+      "rationale": "The contract allows the employer to use work products without clear ownership terms, which could lead to disputes over intellectual property rights.",
+      "evidence_quote": "Employer receives a license to use work product created during employment."
+    },
+    {
+      "risk_title": "Limited Indemnification Cap",
+      "severity": "HIGH",
+      "rationale": "Capping indemnification at $150,000 may not cover substantial claims, exposing parties to significant financial risks.",
+      "evidence_quote": "Each party shall indemnify the other for claims arising from its own breach, capped at $150,000 per claim."
+    },
+    {
+      "risk_title": "Post-Termination Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "A 2-year confidentiality obligation post-termination may be excessive, potentially deterring future employment opportunities for the employee.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination of this Agreement."
+    },
+    {
+      "risk_title": "Absence of Non-Compete Clause",
+      "severity": "LOW",
+      "rationale": "While the lack of a non-compete clause may be beneficial for the employee, it could pose a risk for the employer if confidential methods are used elsewhere.",
+      "evidence_quote": "No non-compete restrictions apply to this position."
+    }
+  ],
+  "executed": true
+}

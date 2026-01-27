@@ -3,31 +3,31 @@
     {
       "risk_title": "Lack of Indemnification",
       "severity": "HIGH",
-      "rationale": "The absence of indemnification obligations exposes both parties to potential liabilities without recourse, which can lead to significant financial risks.",
+      "rationale": "The absence of indemnification obligations can expose parties to significant liability without recourse, making it a high-risk factor in the event of breaches or claims.",
       "evidence_quote": "No indemnification obligations apply under this Agreement."
     },
     {
-      "risk_title": "Limited Liability",
+      "risk_title": "Limited Liability Clause",
       "severity": "MEDIUM",
-      "rationale": "Limiting liability to fees paid can be risky, as it may not cover substantial damages that arise from breaches or negligence.",
+      "rationale": "Limiting liability to fees paid can be dangerous as it may not cover potential damages or losses that could arise from breaches of the Agreement.",
       "evidence_quote": "Each party's liability under this Agreement is limited to the total fees paid hereunder."
     },
     {
       "risk_title": "No Audit Rights",
       "severity": "MEDIUM",
-      "rationale": "The lack of audit rights may prevent one party from verifying compliance with the terms of the NDA, increasing the risk of misuse of confidential information.",
+      "rationale": "Without audit rights, a party may not be able to verify compliance with the NDA's terms, increasing the risk of undisclosed breaches.",
       "evidence_quote": "No audit rights are granted under this Agreement."
     },
     {
-      "risk_title": "Automatic Renewal",
+      "risk_title": "Automatic Renewal Clause",
       "severity": "MEDIUM",
-      "rationale": "Automatic renewal without clear termination clauses can lead to unintended obligations and complications if one party wishes to exit the agreement.",
+      "rationale": "Automatic renewal can lead to unintended obligations and liabilities if a party is not vigilant about termination, potentially causing issues with outdated terms.",
       "evidence_quote": "This Agreement automatically renews for additional terms unless terminated by either party."
     },
     {
-      "risk_title": "Absence of Intellectual Property Provisions",
+      "risk_title": "No Intellectual Property Provisions",
       "severity": "HIGH",
-      "rationale": "Without provisions addressing intellectual property, there may be disputes regarding ownership of created materials or information, leading to potential legal conflicts.",
+      "rationale": "The lack of IP provisions can lead to disputes over ownership and use of intellectual property, particularly if confidential information includes such assets.",
       "evidence_quote": "No intellectual property provisions apply."
     }
   ],

@@ -1,22 +1,28 @@
 {
   "findings": [
     {
-      "risk_title": "Long Duration of Confidentiality",
+      "risk_title": "Lack of Clarity on Confidential Information",
       "severity": "MEDIUM",
-      "rationale": "A five-year duration for non-disclosure may hinder future business flexibility and could be excessive, potentially leading to disputes about what constitutes confidential information over time.",
+      "rationale": "The term 'Confidential Information' is broad and may lead to disputes regarding what is included, potentially risking unintended disclosures.",
+      "evidence_quote": "\"Confidential Information\" means all information disclosed by one party to the other, including but not limited to technical data, business plans, customer lists, and financial information."
+    },
+    {
+      "risk_title": "Inadequate Duration of NDA",
+      "severity": "MEDIUM",
+      "rationale": "A five-year duration may be insufficient for certain types of information, increasing the risk of information leakage after the agreement expires.",
       "evidence_quote": "This Agreement shall remain in effect for a period of five (5) years from the date of execution."
     },
     {
-      "risk_title": "Lack of Financial Damages Clause",
+      "risk_title": "Injunctive Relief without Bond",
       "severity": "HIGH",
-      "rationale": "The stipulation that monetary damages may be inadequate for breach could lead to unexpected costs and legal challenges, as it emphasizes non-monetary remedies.",
-      "evidence_quote": "The parties acknowledge that monetary damages may be inadequate for breach of this Agreement."
+      "rationale": "Allowing injunctive relief without requiring a bond may expose the other party to significant financial risk if the court finds in their favor.",
+      "evidence_quote": "the Disclosing Party shall be entitled to seek injunctive relief without posting bond or other security."
     },
     {
       "risk_title": "Restrictive Assignment Clause",
       "severity": "MEDIUM",
-      "rationale": "The restriction on assignment may limit the ability of either party to transfer obligations or rights, which could affect business continuity and partnerships.",
-      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party."
+      "rationale": "The restriction on assignment without consent may hinder business operations or growth, especially during mergers or acquisitions.",
+      "evidence_quote": "Neither party may assign this Agreement without the prior written consent of the other party, except in connection with a change of control transaction."
     }
   ],
   "executed": true

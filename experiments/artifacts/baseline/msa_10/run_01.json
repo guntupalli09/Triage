@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unlimited Liability",
+      "severity": "HIGH",
+      "rationale": "Provider's unlimited liability could expose them to significant financial risk without any cap on potential damages.",
+      "evidence_quote": "Provider's liability is unlimited and not subject to any limitation of liability clause."
+    },
+    {
+      "risk_title": "Perpetual Confidentiality Obligations",
+      "severity": "MEDIUM",
+      "rationale": "Perpetual confidentiality may impose ongoing burdens and risks, especially if the nature of the information changes over time.",
+      "evidence_quote": "Confidentiality obligations are perpetual and continue without time limitation."
+    },
+    {
+      "risk_title": "Inequitable Termination Rights",
+      "severity": "MEDIUM",
+      "rationale": "The asymmetry in termination rights may disadvantage the Provider, leaving them vulnerable to sudden termination.",
+      "evidence_quote": "Client may terminate immediately. Provider requires 90 days notice."
+    },
+    {
+      "risk_title": "High Interest on Overdue Payments",
+      "severity": "MEDIUM",
+      "rationale": "An 18% per annum interest on overdue payments could create significant financial pressure and risk for clients.",
+      "evidence_quote": "Overdue payments accrue interest at 18% per annum."
+    },
+    {
+      "risk_title": "Mandatory Binding Arbitration",
+      "severity": "LOW",
+      "rationale": "Mandatory arbitration may limit the parties' options for dispute resolution, which could be unfavorable for the Provider.",
+      "evidence_quote": "All disputes must be resolved through mandatory binding arbitration in accordance with JAMS rules."
+    }
+  ],
+  "executed": true
+}

@@ -1,0 +1,41 @@
+{
+  "findings": [
+    {
+      "risk_title": "Unclear Intellectual Property Ownership",
+      "severity": "HIGH",
+      "rationale": "Joint ownership of work product may lead to disputes over rights and usage, particularly regarding what constitutes 'work product'.",
+      "evidence_quote": "Work product created during employment is jointly owned, with Employer receiving an exclusive license for business use."
+    },
+    {
+      "risk_title": "Long Confidentiality Period",
+      "severity": "MEDIUM",
+      "rationale": "A 2.5-year confidentiality obligation post-termination may hinder the employee's future employment opportunities.",
+      "evidence_quote": "Confidentiality obligations continue for 2.5 years after termination of employment."
+    },
+    {
+      "risk_title": "Restrictive Non-Compete Clause",
+      "severity": "HIGH",
+      "rationale": "The 1-year non-compete clause within the same geographic region may severely limit the employee's ability to find new employment.",
+      "evidence_quote": "Employee may not work for direct competitors for 1 year after termination within the same geographic region."
+    },
+    {
+      "risk_title": "Termination for Convenience",
+      "severity": "MEDIUM",
+      "rationale": "The ability for either party to terminate the agreement for convenience with only 45 days' notice may create instability.",
+      "evidence_quote": "Either party may terminate for convenience with 45 days written notice."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "MEDIUM",
+      "rationale": "Capping indemnification at the annual contract value may leave one party vulnerable in case of significant breaches.",
+      "evidence_quote": "Each party indemnifies the other for its own breach, capped at the annual contract value."
+    },
+    {
+      "risk_title": "Dispute Resolution Ambiguity",
+      "severity": "LOW",
+      "rationale": "The reliance on 'good faith negotiation' for dispute resolution may lead to ambiguous outcomes without defined processes.",
+      "evidence_quote": "Disputes shall be resolved through good faith negotiation."
+    }
+  ],
+  "executed": true
+}

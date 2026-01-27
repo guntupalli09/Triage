@@ -1,0 +1,35 @@
+{
+  "findings": [
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "MEDIUM",
+      "rationale": "A 60-day notice period for termination may not be sufficient for either party to transition or mitigate impacts, especially in long-term projects.",
+      "evidence_quote": "This Agreement may be terminated by either party with 60 days written notice for any reason."
+    },
+    {
+      "risk_title": "Indemnification Cap",
+      "severity": "HIGH",
+      "rationale": "Capping indemnification at annual license fees limits potential recovery in case of significant damages, which could leave a party exposed.",
+      "evidence_quote": "each party indemnifies the other for its own negligence, capped at annual license fees."
+    },
+    {
+      "risk_title": "Limitation of Liability",
+      "severity": "HIGH",
+      "rationale": "The limitation of liability clause restricts recovery to a fixed amount, potentially undermining the party's ability to recover for substantial losses.",
+      "evidence_quote": "Each party's liability is limited to the greater of $1,000,000 or the annual license fees."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "A 2-year confidentiality obligation may not be sufficient for sensitive information, depending on the nature of the software and business.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "Governing law in Massachusetts might be unfavorable for one party if they are located in a different jurisdiction, affecting enforceability.",
+      "evidence_quote": "This Agreement is governed by Massachusetts state law."
+    }
+  ],
+  "executed": true
+}

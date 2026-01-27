@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "risk_title": "Indemnification Clause",
+      "severity": "HIGH",
+      "rationale": "The indemnification requirement may expose the Employee to significant financial liability for claims, potentially leading to personal financial risk.",
+      "evidence_quote": "Employee shall indemnify Employer to the extent required by applicable law for claims arising from Employee's willful misconduct."
+    },
+    {
+      "risk_title": "Confidentiality Duration",
+      "severity": "MEDIUM",
+      "rationale": "The 2-year confidentiality obligation post-termination may limit the Employee's future employment opportunities and the use of their skills.",
+      "evidence_quote": "Confidentiality obligations continue for 2 years after termination of employment."
+    },
+    {
+      "risk_title": "Termination Notice Period",
+      "severity": "LOW",
+      "rationale": "A 2-week notice period may not provide adequate time for the Employee to secure new employment, creating financial instability.",
+      "evidence_quote": "Either party may terminate this Agreement with 2 weeks written notice."
+    },
+    {
+      "risk_title": "Governing Law",
+      "severity": "LOW",
+      "rationale": "The agreement's adherence to Oregon state law may lead to jurisdictional issues if the Employee resides elsewhere, complicating legal matters.",
+      "evidence_quote": "This Agreement is subject to Oregon state law."
+    }
+  ],
+  "executed": true
+}
