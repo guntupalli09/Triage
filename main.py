@@ -93,9 +93,9 @@ ALLOWED_EXTENSIONS = {".pdf", ".docx", ".txt"}
 
 # Plan limits
 PLAN_LIMITS = {
-    "trial": {"monthly_limit": 10, "batch_max": 3, "playbooks_max": 1, "price": 499, "price_type": "one_time"},
-    "starter": {"monthly_limit": 150, "batch_max": 10, "playbooks_max": 5, "price": 4900, "price_type": "recurring"},
-    "professional": {"monthly_limit": 999999, "batch_max": 50, "playbooks_max": 50, "price": 24900, "price_type": "recurring"},
+    "starter": {"monthly_limit": 10, "batch_max": 3, "playbooks_max": 1, "price": 499, "price_type": "one_time"},
+    "professional": {"monthly_limit": 150, "batch_max": 10, "playbooks_max": 5, "price": 4900, "price_type": "one_time"},
+    "unlimited": {"monthly_limit": 999999, "batch_max": 50, "playbooks_max": 50, "price": 24900, "price_type": "recurring"},
 }
 
 # --- App setup ---
@@ -508,7 +508,7 @@ async def batch_upload_submit(
     db = next(get_db())
     user = require_user(request, db)
 
-    plan = PLAN_LIMITS.get(user.plan, PLAN_LIMITS["free"])
+    plan = PLAN_LIMITS.get(user.plan, {"monthly_limit": 0, "batch_max": 1, "playbooks_max": 0})
     if len(files) > plan["batch_max"]:
         raise HTTPException(status_code=400, detail=f"Batch limit is {plan['batch_max']} files on your plan.")
 
@@ -766,7 +766,7 @@ async def playbooks_list(request: Request):
 async def playbook_new_page(request: Request):
     db = next(get_db())
     user = require_user(request, db)
-    plan = PLAN_LIMITS.get(user.plan, PLAN_LIMITS["free"])
+    plan = PLAN_LIMITS.get(user.plan, {"monthly_limit": 0, "batch_max": 1, "playbooks_max": 0})
     existing = db.query(Playbook).filter(Playbook.user_id == user.id).count()
     if existing >= plan["playbooks_max"]:
         return RedirectResponse(url="/playbooks", status_code=302)
@@ -982,7 +982,7 @@ async def stripe_webhook(request: Request):
         if user_id and plan:
             user = db.query(User).filter(User.id == int(user_id)).first()
             if user:
-                plan_config = PLAN_LIMITS.get(plan, PLAN_LIMITS["trial"])
+                plan_config = PLAN_LIMITS.get(plan, PLAN_LIMITS["starter"])
                 user.plan = plan
                 user.monthly_limit = plan_config["monthly_limit"]
                 user.subscription_status = "active"

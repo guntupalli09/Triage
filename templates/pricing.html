@@ -79,8 +79,8 @@
         </div>
 
         <div class="text-center mb-12 fade-in">
-            <h1 class="text-4xl font-extrabold text-[#0F172A] mb-3">Simple, transparent pricing</h1>
-            <p class="text-lg text-gray-600">Save your legal team hundreds of hours per year.</p>
+            <h1 class="text-4xl font-extrabold text-[#0F172A] mb-3">Catch hidden risks before they cost you</h1>
+            <p class="text-lg text-gray-600">Replace hours of manual review with instant, deterministic contract triage.</p>
         </div>
 
         <!-- Free demo CTA -->
@@ -90,10 +90,10 @@
 
         <!-- Pricing cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in">
-            <!-- Trial -->
+            <!-- Starter -->
             <div class="premium-card p-8 flex flex-col">
-                <h3 class="text-xl font-bold text-[#0F172A] mb-1">Trial</h3>
-                <p class="text-gray-500 text-sm mb-6">See it work on your contracts</p>
+                <h3 class="text-xl font-bold text-[#0F172A] mb-1">Starter</h3>
+                <p class="text-gray-500 text-sm mb-6">See what your team has been missing</p>
                 <div class="mb-6">
                     <span class="text-4xl font-extrabold text-[#0F172A]">$4.99</span>
                     <span class="text-gray-500">one-time</span>
@@ -101,76 +101,72 @@
                 <ul class="space-y-3 mb-8 flex-1">
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        10 contracts
+                        Triage up to 10 contracts instantly
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        1 playbook
+                        Spot high-risk clauses in under 2 minutes
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        PDF reports
+                        Compare against your standard playbook
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Playbook comparison
-                    </li>
-                </ul>
-                {% if user and user.plan == 'trial' %}
-                <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
-                {% else %}
-                <form action="/subscribe/trial" method="post">
-                    <button type="submit" class="w-full py-3 px-6 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:border-[#FF7A18] hover:text-[#FF7A18] transition-all">Start Trial &mdash; $4.99</button>
-                </form>
-                {% endif %}
-            </div>
-
-            <!-- Starter -->
-            <div class="premium-card p-8 flex flex-col relative border-2 border-[#FF7A18]">
-                <div class="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span class="popular-badge text-xs font-bold px-4 py-1 rounded-full">MOST POPULAR</span>
-                </div>
-                <h3 class="text-xl font-bold text-[#0F172A] mb-1">Starter</h3>
-                <p class="text-gray-500 text-sm mb-6">For growing legal teams</p>
-                <div class="mb-6">
-                    <span class="text-4xl font-extrabold text-[#0F172A]">$49</span>
-                    <span class="text-gray-500">/month</span>
-                </div>
-                <ul class="space-y-3 mb-8 flex-1">
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        150 contracts / month
-                    </li>
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        5 playbooks
-                    </li>
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Batch upload (10 files)
-                    </li>
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Playbook comparison
-                    </li>
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Report sharing
+                        Export shareable PDF reports
                     </li>
                 </ul>
                 {% if user and user.plan == 'starter' %}
                 <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
                 {% else %}
                 <form action="/subscribe/starter" method="post">
-                    <button type="submit" class="btn-primary w-full py-3 px-6 rounded-lg">Get Starter &mdash; $49/mo</button>
+                    <button type="submit" class="w-full py-3 px-6 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:border-[#FF7A18] hover:text-[#FF7A18] transition-all">Get Started &mdash; $4.99</button>
                 </form>
                 {% endif %}
             </div>
 
             <!-- Professional -->
-            <div class="premium-card p-8 flex flex-col">
+            <div class="premium-card p-8 flex flex-col relative border-2 border-[#FF7A18]">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                    <span class="popular-badge text-xs font-bold px-4 py-1 rounded-full">MOST POPULAR</span>
+                </div>
                 <h3 class="text-xl font-bold text-[#0F172A] mb-1">Professional</h3>
-                <p class="text-gray-500 text-sm mb-6">Unlimited for serious teams</p>
+                <p class="text-gray-500 text-sm mb-6">Cut first-pass review time by 80%</p>
+                <div class="mb-6">
+                    <span class="text-4xl font-extrabold text-[#0F172A]">$49</span>
+                    <span class="text-gray-500">one-time</span>
+                </div>
+                <ul class="space-y-3 mb-8 flex-1">
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Triage 150 contracts — cover your full pipeline
+                    </li>
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Batch upload 10 files at once — clear backlogs fast
+                    </li>
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        5 playbooks — enforce standards across deal types
+                    </li>
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Share reports with stakeholders in one click
+                    </li>
+                </ul>
+                {% if user and user.plan == 'professional' %}
+                <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
+                {% else %}
+                <form action="/subscribe/professional" method="post">
+                    <button type="submit" class="btn-primary w-full py-3 px-6 rounded-lg">Go Professional &mdash; $49</button>
+                </form>
+                {% endif %}
+            </div>
+
+            <!-- Unlimited -->
+            <div class="premium-card p-8 flex flex-col">
+                <h3 class="text-xl font-bold text-[#0F172A] mb-1">Unlimited</h3>
+                <p class="text-gray-500 text-sm mb-6">Zero bottlenecks, zero surprises</p>
                 <div class="mb-6">
                     <span class="text-4xl font-extrabold text-[#0F172A]">$249</span>
                     <span class="text-gray-500">/month</span>
@@ -178,30 +174,30 @@
                 <ul class="space-y-3 mb-8 flex-1">
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        <strong>Unlimited</strong> contracts
+                        <strong>Unlimited</strong> reviews — never hit a cap
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Unlimited playbooks
+                        Batch upload 50 files — triage an entire deal room
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Batch upload (50 files)
+                        Unlimited playbooks — one for every contract type
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Everything in Starter
+                        Priority processing — results in seconds, not minutes
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Priority support
+                        Everything in Professional
                     </li>
                 </ul>
-                {% if user and user.plan == 'professional' %}
+                {% if user and user.plan == 'unlimited' %}
                 <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
                 {% else %}
-                <form action="/subscribe/professional" method="post">
-                    <button type="submit" class="w-full py-3 px-6 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:border-[#FF7A18] hover:text-[#FF7A18] transition-all">Get Professional &mdash; $249/mo</button>
+                <form action="/subscribe/unlimited" method="post">
+                    <button type="submit" class="w-full py-3 px-6 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:border-[#FF7A18] hover:text-[#FF7A18] transition-all">Go Unlimited &mdash; $249/mo</button>
                 </form>
                 {% endif %}
             </div>
