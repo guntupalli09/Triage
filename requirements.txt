@@ -7,8 +7,9 @@ stripe==7.0.0
 openai>=1.12.0,<2.0.0
 python-docx==1.1.0
 PyPDF2==3.0.1
-xhtml2pdf==0.2.15
+fpdf2>=2.7.0
 python-dotenv>=1.0.0
+sqlalchemy>=2.0.0
 
 # Development/Testing dependencies (not needed for Vercel deployment)
 # Install with: pip install -r requirements-dev.txt

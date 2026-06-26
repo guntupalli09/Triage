@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account — Triage AI</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/branding/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/branding/favicon-16.png">
+    <link rel="apple-touch-icon" href="/static/branding/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary-orange: #FF7A18;
+            --primary-orange-dark: #F2541B;
+            --navy: #0F172A;
+            --bg-soft: #F8FAFC;
+            --card-border: #E5E7EB;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-soft);
+            letter-spacing: -0.01em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in { animation: fadeIn 0.5s ease-out; }
+
+        .logo-container {
+            display: inline-block;
+            background: var(--bg-soft);
+            border-radius: 20px;
+            padding: 12px 16px;
+            isolation: isolate;
+        }
+
+        .logo-blended {
+            display: block;
+            mix-blend-mode: multiply;
+            filter: brightness(1.02) contrast(1.05);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #FF7A18, #F2541B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255, 122, 24, 0.3);
+            filter: drop-shadow(0 0 8px rgba(255, 122, 24, 0.2));
+        }
+
+        .premium-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(229, 231, 235, 0.5);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #FF7A18, #F2541B);
+            color: white;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(255, 122, 24, 0.25);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            box-shadow: 0 4px 16px rgba(255, 122, 24, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active:not(:disabled) {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md mx-auto px-4 py-12">
+        <!-- Logo -->
+        <div class="flex justify-center mb-8 fade-in">
+            <a href="/" class="logo-container transition-transform hover:scale-105">
+                <img src="/static/branding/triage-logo-primary.png" alt="Triage AI logo" class="h-20 sm:h-24 w-auto logo-blended" />
+            </a>
+        </div>
+
+        <!-- Register Card -->
+        <div class="premium-card p-6 sm:p-8 fade-in">
+            <h1 class="text-2xl font-bold text-[#0F172A] text-center mb-6">
+                Create your <span class="gradient-text">Triage AI</span> account
+            </h1>
+
+            {% if error %}
+            <div class="mb-6 rounded-lg bg-red-50 border border-red-200 p-4">
+                <p class="text-sm text-red-700">{{ error }}</p>
+            </div>
+            {% endif %}
+
+            <form action="/register" method="post" class="space-y-5">
+                <div>
+                    <label for="name" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Name</label>
+                    <input type="text" id="name" name="name" required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-[#0F172A] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF7A18] focus:border-transparent transition"
+                        placeholder="Your full name">
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Email</label>
+                    <input type="email" id="email" name="email" required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-[#0F172A] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF7A18] focus:border-transparent transition"
+                        placeholder="you@company.com">
+                </div>
+
+                <div>
+                    <label for="company" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Company <span class="font-normal text-gray-400">(optional)</span></label>
+                    <input type="text" id="company" name="company"
+                        class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-[#0F172A] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF7A18] focus:border-transparent transition"
+                        placeholder="Your company">
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Password</label>
+                    <input type="password" id="password" name="password" required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-[#0F172A] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF7A18] focus:border-transparent transition"
+                        placeholder="Create a password">
+                </div>
+
+                <div>
+                    <label for="confirm_password" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-[#0F172A] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF7A18] focus:border-transparent transition"
+                        placeholder="Confirm your password">
+                </div>
+
+                <button type="submit" class="btn-primary w-full py-3 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF7A18]">
+                    Create Account
+                </button>
+            </form>
+
+            <p class="mt-6 text-center text-sm text-gray-600">
+                Already have an account?
+                <a href="/login" class="font-semibold text-[#FF7A18] hover:text-[#F2541B] transition-colors">Log in</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

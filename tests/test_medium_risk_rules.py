@@ -145,6 +145,121 @@ class TestM_AUDIT_01_AuditRights:
         # May or may not trigger depending on rule specificity
 
 
+class TestM_ARBITRATION_01:
+    """Tests for M_ARBITRATION_01: Mandatory arbitration or class action waiver"""
+
+    def test_true_positive_mandatory_arbitration(self, engine):
+        text = "All disputes shall be settled by mandatory arbitration under the rules of the AAA."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "M_ARBITRATION_01"]
+        assert len(findings) > 0
+        assert findings[0].severity == Severity.MEDIUM
+
+    def test_true_positive_binding_arbitration(self, engine):
+        text = "Any controversy shall be resolved by binding arbitration in New York."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "M_ARBITRATION_01"]
+        assert len(findings) > 0
+
+    def test_true_positive_class_action_waiver(self, engine):
+        text = "Customer waives any right to a class action or jury trial."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "M_ARBITRATION_01"]
+        assert len(findings) > 0
+
+    def test_false_positive_optional_mediation(self, engine):
+        text = "The parties may elect to resolve disputes through mediation."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "M_ARBITRATION_01"]
+        assert len(findings) == 0
+
+
+class TestM_WARRANTY_DISCLAIM_01:
+    """Tests for M_WARRANTY_DISCLAIM_01: Blanket warranty disclaimer"""
+
+    def test_true_positive_as_is(self, engine):
+        text = "The software is provided as-is without warranty of any kind, express or implied."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "M_WARRANTY_DISCLAIM_01"]
+        assert len(findings) > 0
+        assert findings[0].severity == Severity.MEDIUM
+
+    def test_true_positive_disclaims_all_warranties(self, engine):
+        text = "Provider disclaims all warranties, including implied warranties of merchantability."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "M_WARRANTY_DISCLAIM_01"]
+        assert len(findings) > 0
+
+    def test_true_positive_no_warranties(self, engine):
+        text = "There are no implied warranties of fitness for a particular purpose."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "M_WARRANTY_DISCLAIM_01"]
+        assert len(findings) > 0
+
+    def test_false_positive_standard_warranty(self, engine):
+        text = "Provider warrants that the services will be performed in a professional manner."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "M_WARRANTY_DISCLAIM_01"]
+        assert len(findings) == 0
+
+
+class TestM_BREACH_NOTIFY_01:
+    """Tests for M_BREACH_NOTIFY_01: No data breach notification obligation"""
+
+    def test_true_positive_no_obligation_notify(self, engine):
+        text = "Provider shall have no obligation to notify Customer of any security breach affecting personal data."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "M_BREACH_NOTIFY_01"]
+        assert len(findings) > 0
+        assert findings[0].severity == Severity.MEDIUM
+
+    def test_false_positive_will_notify(self, engine):
+        text = "Provider shall notify Customer within 72 hours of any data breach."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "M_BREACH_NOTIFY_01"]
+        assert len(findings) == 0
+
+
+class TestM_FORCE_MAJEURE_01:
+    """Tests for M_FORCE_MAJEURE_01: Overly broad force majeure clause"""
+
+    def test_true_positive_broad_force_majeure(self, engine):
+        text = "Neither party shall be liable for failure to perform due to force majeure, including but not limited to any event beyond the reasonable control of the party."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "M_FORCE_MAJEURE_01"]
+        assert len(findings) > 0
+        assert findings[0].severity == Severity.MEDIUM
+
+    def test_false_positive_narrow_force_majeure(self, engine):
+        text = "Force majeure events are limited to natural disasters, war, and government action."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "M_FORCE_MAJEURE_01"]
+        assert len(findings) == 0
+
+
+class TestM_MFN_01:
+    """Tests for M_MFN_01: Most favored nation clause"""
+
+    def test_true_positive_most_favored_nation(self, engine):
+        text = "Vendor agrees to provide most favored nation pricing to Customer."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "M_MFN_01"]
+        assert len(findings) > 0
+        assert findings[0].severity == Severity.MEDIUM
+
+    def test_true_positive_no_less_favorable(self, engine):
+        text = "Customer shall receive no less favorable terms than those offered to any other customer."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "M_MFN_01"]
+        assert len(findings) > 0
+
+    def test_false_positive_standard_pricing(self, engine):
+        text = "Pricing is set forth in Exhibit A and is subject to annual review."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "M_MFN_01"]
+        assert len(findings) == 0
+
+
 class TestDeterministicRepeatability:
     """Tests for deterministic repeatability for medium-risk rules"""
     

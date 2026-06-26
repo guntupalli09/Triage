@@ -161,20 +161,37 @@
 
         <!-- Header -->
         <div class="mb-8 fade-in">
-            <a href="/" class="back-link text-sm font-semibold mb-4 inline-flex items-center gap-1">
+            <a href="{% if user %}/dashboard{% else %}/{% endif %}" class="back-link text-sm font-semibold mb-4 inline-flex items-center gap-1">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
-                Back to Upload
+                {% if user %}Back to Dashboard{% else %}Back to Upload{% endif %}
             </a>
             <h1 class="text-4xl sm:text-5xl font-extrabold text-[#0F172A] mb-2 tracking-tight">Analysis Results</h1>
             <p class="text-gray-600 mb-4">Contract: <span class="font-semibold text-[#0F172A]">{{ filename }}</span></p>
-            <a href="/download-pdf?token={{ token }}" class="btn-primary inline-flex items-center justify-center gap-2 py-3 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF7A18] transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Download PDF Report
-            </a>
+            <div class="flex gap-3 flex-wrap">
+                {% if contract_id %}
+                <a href="/contract/{{ contract_id }}/pdf" class="btn-primary inline-flex items-center justify-center gap-2 py-3 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF7A18] transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Download PDF
+                </a>
+                <button onclick="shareContract({{ contract_id }})" class="inline-flex items-center gap-2 py-3 px-6 rounded-lg font-semibold border-2 border-gray-200 text-gray-700 hover:border-[#FF7A18] hover:text-[#FF7A18] transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                    </svg>
+                    Share Report
+                </button>
+                {% elif token %}
+                <a href="/download-pdf?token={{ token }}" class="btn-primary inline-flex items-center justify-center gap-2 py-3 px-6 rounded-lg font-semibold transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Download PDF
+                </a>
+                {% endif %}
+            </div>
         </div>
 
         <!-- Overall Risk Badge -->
@@ -270,6 +287,52 @@
                 </div>
                 {% endfor %}
             </div>
+        </div>
+        {% endif %}
+
+        <!-- Playbook Deviations -->
+        {% if deviations and deviations.deviations %}
+        <div class="premium-card p-6 sm:p-8 mb-8 fade-in">
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-2">Playbook Deviations</h2>
+            <p class="text-gray-600 mb-6 text-sm">{{ deviations.deviation_count }} deviation(s) from your standard template</p>
+
+            {% if deviations.added_risk_count > 0 %}
+            <h3 class="text-lg font-semibold text-red-700 mb-3">Additional Risks (not in your template)</h3>
+            <div class="space-y-4 mb-6">
+                {% for d in deviations.deviations if d.deviation_type == 'added_risk' %}
+                <div class="issue-card {% if d.severity == 'high' %}issue-card-high{% elif d.severity == 'medium' %}issue-card-medium{% else %}issue-card-low{% endif %} pl-6 pr-4 py-3 rounded-lg">
+                    <div class="flex items-center gap-2 mb-2">
+                        <h4 class="font-semibold text-[#0F172A]">{{ d.title }}</h4>
+                        <span class="px-2 py-0.5 text-xs font-semibold rounded-full {% if d.severity == 'high' %}bg-red-100 text-red-800{% elif d.severity == 'medium' %}bg-amber-100 text-amber-800{% else %}bg-blue-100 text-blue-800{% endif %}">{{ d.severity|upper }}</span>
+                    </div>
+                    <p class="text-sm text-gray-700">{{ d.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if deviations.missing_protection_count > 0 %}
+            <h3 class="text-lg font-semibold text-amber-700 mb-3">Missing Protections (in your template but not here)</h3>
+            <div class="space-y-4 mb-6">
+                {% for d in deviations.deviations if d.deviation_type == 'missing_protection' %}
+                <div class="pl-6 pr-4 py-3 rounded-lg bg-amber-50 border-l-4 border-amber-400">
+                    <h4 class="font-semibold text-[#0F172A] mb-1">{{ d.title }}</h4>
+                    <p class="text-sm text-gray-700">{{ d.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if deviations.shared_findings %}
+            <details class="mt-4">
+                <summary class="text-sm font-semibold text-gray-600 cursor-pointer hover:text-[#FF7A18]">{{ deviations.shared_findings|length }} shared finding(s) (present in both)</summary>
+                <ul class="mt-2 space-y-1">
+                    {% for s in deviations.shared_findings %}
+                    <li class="text-sm text-gray-600 pl-4">{{ s.title }} — {{ s.severity|upper }}{% if s.severity_changed %} <span class="text-amber-600">(severity differs from template)</span>{% endif %}</li>
+                    {% endfor %}
+                </ul>
+            </details>
+            {% endif %}
         </div>
         {% endif %}
 
@@ -430,5 +493,24 @@
             </div>
         </footer>
     </div>
+
+    {% if contract_id %}
+    <script>
+    function shareContract(contractId) {
+        fetch('/contract/' + contractId + '/share', {method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+            .then(r => r.json())
+            .then(data => {
+                if (data.share_url) {
+                    navigator.clipboard.writeText(data.share_url).then(() => {
+                        alert('Share link copied to clipboard!');
+                    }).catch(() => {
+                        prompt('Copy this share link:', data.share_url);
+                    });
+                }
+            })
+            .catch(() => alert('Failed to generate share link.'));
+    }
+    </script>
+    {% endif %}
 </body>
 </html>
