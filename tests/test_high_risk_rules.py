@@ -273,6 +273,115 @@ class TestH_ATTFEE_01_OneWayAttorneysFees:
         assert len(attfee_findings) >= 0
 
 
+class TestH_UNILATERAL_MOD_01:
+    """Tests for H_UNILATERAL_MOD_01: Unilateral right to modify terms"""
+
+    def test_true_positive_may_modify_at_any_time(self, engine):
+        text = "Provider may modify these terms at any time without prior notice to Customer."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "H_UNILATERAL_MOD_01"]
+        assert len(findings) > 0
+        assert findings[0].severity == Severity.HIGH
+
+    def test_true_positive_reserves_right(self, engine):
+        text = "Company reserves the right to modify pricing and service terms."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "H_UNILATERAL_MOD_01"]
+        assert len(findings) > 0
+
+    def test_true_positive_sole_discretion(self, engine):
+        text = "Vendor may amend the agreement in its sole discretion."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "H_UNILATERAL_MOD_01"]
+        assert len(findings) > 0
+
+    def test_false_positive_mutual_amendment(self, engine):
+        text = "This agreement may only be modified by mutual written consent of both parties."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "H_UNILATERAL_MOD_01"]
+        assert len(findings) == 0
+
+
+class TestH_CONSEQUENTIAL_01:
+    """Tests for H_CONSEQUENTIAL_01: One-sided consequential damages waiver"""
+
+    def test_true_positive_shall_not_be_liable(self, engine):
+        text = "In no event shall Provider be liable for any consequential damages arising under this agreement."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "H_CONSEQUENTIAL_01"]
+        assert len(findings) > 0
+        assert findings[0].severity == Severity.HIGH
+
+    def test_true_positive_indirect_damages(self, engine):
+        text = "Vendor shall not be liable for indirect damages or special damages of any kind."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "H_CONSEQUENTIAL_01"]
+        assert len(findings) > 0
+
+    def test_false_positive_no_damages_mentioned(self, engine):
+        text = "Both parties shall be liable for their obligations under this agreement."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "H_CONSEQUENTIAL_01"]
+        assert len(findings) == 0
+
+
+class TestH_TERM_CONVENIENCE_01:
+    """Tests for H_TERM_CONVENIENCE_01: One-sided termination for convenience"""
+
+    def test_true_positive_terminate_convenience(self, engine):
+        text = "Provider may terminate this agreement for convenience at any time upon 30 days written notice."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "H_TERM_CONVENIENCE_01"]
+        assert len(findings) > 0
+        assert findings[0].severity == Severity.HIGH
+
+    def test_true_positive_without_cause(self, engine):
+        text = "Vendor may terminate this agreement without cause in its sole discretion."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "H_TERM_CONVENIENCE_01"]
+        assert len(findings) > 0
+
+    def test_false_positive_mutual_termination(self, engine):
+        text = "Either party may terminate for material breach with 30 days notice."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "H_TERM_CONVENIENCE_01"]
+        assert len(findings) == 0
+
+
+class TestH_DATA_TERMINATION_01:
+    """Tests for H_DATA_TERMINATION_01: No data return or deletion on termination"""
+
+    def test_true_positive_data_retained(self, engine):
+        text = "Upon termination, Provider shall have no obligation to return or delete Customer data. Data may be retained indefinitely."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "H_DATA_TERMINATION_01"]
+        assert len(findings) > 0
+        assert findings[0].severity == Severity.HIGH
+
+    def test_false_positive_data_returned(self, engine):
+        text = "Upon termination, all data shall be returned to Customer within 30 days."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "H_DATA_TERMINATION_01"]
+        assert len(findings) == 0
+
+
+class TestH_ASYMMETRIC_LIABILITY_01:
+    """Tests for H_ASYMMETRIC_LIABILITY_01: Asymmetric liability cap"""
+
+    def test_true_positive_vendor_cap(self, engine):
+        text = "Provider's aggregate liability shall not exceed the fees paid in the prior 12 months. The maximum liability of the vendor is limited to the contract value."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "H_ASYMMETRIC_LIABILITY_01"]
+        assert len(findings) > 0
+        assert findings[0].severity == Severity.HIGH
+
+    def test_false_positive_no_vendor_mention(self, engine):
+        text = "Each party's aggregate liability shall not exceed the total fees paid under this agreement."
+        result = engine.analyze(text)
+        findings = [f for f in result["findings"] if f.rule_id == "H_ASYMMETRIC_LIABILITY_01"]
+        assert len(findings) == 0
+
+
 class TestDeterministicRepeatability:
     """Tests for deterministic repeatability - same input = same output"""
     

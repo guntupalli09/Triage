@@ -493,6 +493,82 @@ class RuleEngine:
                 window=350,
                 aliases=["publicity_rights", "disclosure_of_relationship"],
             ),
+            Rule(
+                rule_id="H_UNILATERAL_MOD_01",
+                rule_name="unilateral_modification",
+                title="Unilateral right to modify terms",
+                severity=Severity.HIGH,
+                rationale="Language allowing one party to modify terms, pricing, or scope without mutual consent can fundamentally alter the deal post-signing.",
+                pattern=r"\b(may\s+(modify|amend|change|update|revise)\b.*?\b(at\s+any\s+time|in\s+its?\s+(sole\s+)?discretion|without\s+(prior\s+)?(written\s+)?consent|without\s+notice|unilateral))|(\breserves?\s+the\s+right\s+to\s+(modify|amend|change|update|revise)\b)",
+                aliases=["unilateral_amendment", "right_to_modify", "change_terms_unilaterally"],
+            ),
+            Rule(
+                rule_id="H_CONSEQUENTIAL_01",
+                rule_name="consequential_damages_waiver",
+                title="One-sided consequential damages waiver",
+                severity=Severity.HIGH,
+                rationale="Waiver of indirect, consequential, or special damages that applies to only one party removes a critical remedy for the other side.",
+                anchors=[r"\b(consequential|indirect|special|incidental|punitive)\s+damages?\b"],
+                nearby=[
+                    r"\bin\s+no\s+event\b.*\bliable\b",
+                    r"\bshall\s+not\s+be\s+liable\b",
+                    r"\bno\s+liability\b",
+                    r"\bunder\s+no\s+circumstances\b",
+                    r"\bwaive[sd]?\b",
+                    r"\bexclude[sd]?\b",
+                    r"\bnot\s+be\s+responsible\b",
+                ],
+                window=400,
+                aliases=["consequential_damages_exclusion", "indirect_damages_waiver"],
+            ),
+            Rule(
+                rule_id="H_TERM_CONVENIENCE_01",
+                rule_name="one_sided_termination_convenience",
+                title="One-sided termination for convenience",
+                severity=Severity.HIGH,
+                rationale="Termination for convenience rights that apply to only one party allow that party to exit the deal at will while the other remains bound.",
+                anchors=[r"\bterminate\b.*\bconvenience\b", r"\bterminate\b.*\bany\s+reason\b", r"\bterminate\b.*\bwithout\s+cause\b", r"\bterminate\b.*\bno\s+reason\b"],
+                nearby=[
+                    r"\bsole\s+discretion\b",
+                    r"\bat\s+any\s+time\b",
+                    r"\bupon\s+\d+\s+days?\b",
+                    r"\bwritten\s+notice\b",
+                ],
+                window=350,
+                aliases=["termination_for_convenience", "unilateral_termination"],
+            ),
+            Rule(
+                rule_id="H_DATA_TERMINATION_01",
+                rule_name="no_data_portability",
+                title="No data return or deletion on termination",
+                severity=Severity.HIGH,
+                rationale="Absence of data return, export, or deletion obligations on termination can leave your data locked in a vendor's system with no recourse.",
+                anchors=[r"\btermination\b", r"\bexpiration\b"],
+                nearby=[
+                    r"\bdata\b.*\b(retain|retained|retention)\b",
+                    r"\bno\s+obligation\b.*\b(return|delete|destroy)\b",
+                    r"\bshall\s+have\s+no\s+(duty|obligation)\b.*\bdata\b",
+                    r"\bdata\b.*\b(destroyed|deleted)\b.*\b(not|no)\b",
+                ],
+                window=450,
+                aliases=["no_data_return", "data_lock_in", "no_data_deletion"],
+            ),
+            Rule(
+                rule_id="H_ASYMMETRIC_LIABILITY_01",
+                rule_name="asymmetric_liability_cap",
+                title="Asymmetric liability cap",
+                severity=Severity.HIGH,
+                rationale="A liability cap that applies to one party but not the other creates an imbalanced risk allocation that can leave you exposed.",
+                anchors=[r"\b(vendor|provider|supplier|licensor)\b.*\bliabilit(y|ies)\b", r"\bliabilit(y|ies)\b.*\b(vendor|provider|supplier|licensor)\b"],
+                nearby=[
+                    r"\bshall\s+not\s+exceed\b",
+                    r"\blimited\s+to\b",
+                    r"\baggregate\s+liabilit(y|ies)\b",
+                    r"\bmaximum\s+liabilit(y|ies)\b",
+                ],
+                window=400,
+                aliases=["one_sided_liability_cap", "vendor_liability_cap"],
+            ),
             # ---------------- MEDIUM ----------------
             Rule(
                 rule_id="M_CONF_01",
@@ -648,6 +724,91 @@ class RuleEngine:
                 window=350,
                 aliases=["waiver_of_defenses", "rights_waiver"],
             ),
+            Rule(
+                rule_id="M_ARBITRATION_01",
+                rule_name="mandatory_arbitration",
+                title="Mandatory arbitration or class action waiver",
+                severity=Severity.MEDIUM,
+                rationale="Mandatory arbitration clauses remove access to courts, and class action waivers eliminate collective remedies. Both can significantly limit your enforcement options.",
+                pattern=r"\b(mandatory\s+arbitration|binding\s+arbitration|shall\s+be\s+(settled|resolved)\s+by\s+arbitration)\b|\b(waive[sd]?\s+(?:any\s+)?(?:right\s+to\s+)?(?:a\s+)?(?:class\s+action|jury\s+trial))\b",
+                aliases=["binding_arbitration", "class_action_waiver", "jury_trial_waiver"],
+            ),
+            Rule(
+                rule_id="M_WARRANTY_DISCLAIM_01",
+                rule_name="warranty_disclaimer",
+                title="Blanket warranty disclaimer",
+                severity=Severity.MEDIUM,
+                rationale="Broad warranty disclaimers ('AS IS', no implied warranties) shift all quality and fitness risk to the buyer with no recourse for defects.",
+                pattern=r"\b(as[\s-]is|as[\s-]available)\b.*?\b(warrant|guarantee|condition)\b|\b(disclaim|exclude)[sd]?\b.*?\b(all\s+)?warrant(y|ies)\b|\b(without\s+warrant(y|ies)\s+of\s+any\s+kind)\b|\bno\s+(implied\s+)?warrant(y|ies)\b",
+                aliases=["as_is_disclaimer", "no_warranty", "implied_warranty_waiver"],
+            ),
+            Rule(
+                rule_id="M_BREACH_NOTIFY_01",
+                rule_name="no_breach_notification",
+                title="No data breach notification obligation",
+                severity=Severity.MEDIUM,
+                rationale="Absence of a data breach notification requirement means you may not learn about compromises affecting your data until significant damage has occurred.",
+                anchors=[r"\bdata\b", r"\bpersonal\s+(?:data|information)\b", r"\bsecurity\b"],
+                nearby=[
+                    r"\bno\s+obligation\s+to\s+notify\b",
+                    r"\bnot\s+(?:be\s+)?(?:required|obligated)\s+to\s+(?:notify|inform|disclose)\b",
+                    r"\bshall\s+not\s+(?:be\s+required\s+to\s+)?notify\b",
+                ],
+                window=400,
+                aliases=["no_breach_notice", "data_breach_notification"],
+            ),
+            Rule(
+                rule_id="M_INSURANCE_01",
+                rule_name="no_insurance_requirement",
+                title="No minimum insurance requirements",
+                severity=Severity.MEDIUM,
+                rationale="Lack of insurance requirements means the counterparty may not have financial backing to cover claims, leaving indemnity and liability protections hollow.",
+                anchors=[r"\binsurance\b"],
+                nearby=[
+                    r"\bnot\s+required\b",
+                    r"\bno\s+obligation\b",
+                    r"\bwaive[sd]?\b",
+                    r"\bshall\s+maintain\b",
+                    r"\bcommercially?\s+reasonable\b",
+                ],
+                window=350,
+                aliases=["insurance_requirements", "no_insurance"],
+            ),
+            Rule(
+                rule_id="M_FORCE_MAJEURE_01",
+                rule_name="broad_force_majeure",
+                title="Overly broad force majeure clause",
+                severity=Severity.MEDIUM,
+                rationale="Force majeure clauses that include broad catch-alls like 'any event beyond control' or excuse all performance obligations can be used to avoid accountability.",
+                anchors=[r"\bforce\s+majeure\b"],
+                nearby=[
+                    r"\bany\s+(event|cause|circumstance)\s+beyond\b",
+                    r"\bincluding\s+but\s+not\s+limited\s+to\b",
+                    r"\bexcused?\s+from\s+(?:all\s+)?performance\b",
+                    r"\bno\s+liability\b.*\bperformance\b",
+                    r"\bwithout\s+limitation\b",
+                ],
+                window=450,
+                aliases=["force_majeure_scope", "broad_force_majeure"],
+            ),
+            Rule(
+                rule_id="M_SLA_01",
+                rule_name="no_sla_uptime",
+                title="No service level or uptime commitment",
+                severity=Severity.MEDIUM,
+                rationale="Absence of defined service levels, uptime commitments, or remedies for downtime means you have no contractual recourse for service failures.",
+                pattern=r"\b(no\s+(?:service\s+level|SLA|uptime)\s+(?:guarantee|commitment|obligation))\b|\b(does\s+not\s+(?:guarantee|warrant|commit)\b.*?\b(?:availability|uptime|service\s+level))\b|\b(?:availability|uptime)\b.*?\b(as[\s-]is|without\s+(?:any\s+)?guarantee)\b",
+                aliases=["no_sla", "no_uptime_guarantee", "service_level_absent"],
+            ),
+            Rule(
+                rule_id="M_MFN_01",
+                rule_name="most_favored_nation",
+                title="Most favored nation / price protection clause",
+                severity=Severity.MEDIUM,
+                rationale="MFN clauses require you to offer the same or better terms given to any other customer, which can constrain your pricing flexibility and deal structures.",
+                pattern=r"\bmost\s+favored\s+(?:nation|customer|pricing)\b|\bprice\s+protection\b|\b(?:no\s+less\s+favorable|at\s+least\s+as\s+favorable)\s+(?:terms?|pricing|rates?)\b",
+                aliases=["mfn_clause", "price_protection", "most_favored_customer"],
+            ),
             # ---------------- LOW ----------------
             Rule(
                 rule_id="L_LATEFEE_01",
@@ -674,6 +835,39 @@ class RuleEngine:
                 rationale="Governing law and venue choices can affect enforcement cost and strategy.",
                 pattern=r"\bgoverned\s+by\b.*?\blaws?\b|\bexclusive\s+jurisdiction\b",
                 aliases=["governing_law_and_venue"],
+            ),
+            Rule(
+                rule_id="L_COMPLIANCE_01",
+                rule_name="compliance_obligations",
+                title="Regulatory compliance obligations",
+                severity=Severity.LOW,
+                rationale="Anti-bribery, export control, or sanctions compliance obligations can create reporting and operational burdens worth reviewing.",
+                pattern=r"\b(anti[-\s]?bribery|anti[-\s]?corruption|FCPA|export\s+control|sanctions?\s+compliance|trade\s+compliance)\b",
+                aliases=["anti_bribery", "export_control", "sanctions_compliance"],
+            ),
+            Rule(
+                rule_id="L_ESCROW_01",
+                rule_name="source_code_escrow",
+                title="Source code escrow provisions",
+                severity=Severity.LOW,
+                rationale="Source code escrow clauses for critical software dependencies ensure business continuity if the vendor fails, but may carry costs and conditions.",
+                pattern=r"\b(source\s+code\s+escrow|software\s+escrow|escrow\s+agent)\b",
+                aliases=["code_escrow", "software_escrow"],
+            ),
+            Rule(
+                rule_id="L_SUBCONTRACT_01",
+                rule_name="subcontracting_rights",
+                title="Subcontracting without consent",
+                severity=Severity.LOW,
+                rationale="Rights to subcontract without your consent mean unknown third parties may perform critical obligations, affecting quality and security.",
+                anchors=[r"\bsubcontract\w*\b", r"\bsub[-\s]?contract\w*\b"],
+                nearby=[
+                    r"\bwithout\s+(prior\s+)?(written\s+)?consent\b",
+                    r"\bat\s+its?\s+(sole\s+)?discretion\b",
+                    r"\bwithout\s+(?:prior\s+)?(?:approval|notification)\b",
+                ],
+                window=300,
+                aliases=["subcontracting", "third_party_delegation"],
             ),
         ]
 
@@ -896,7 +1090,31 @@ class RuleEngine:
         
         if "M_WAIVER_DEFENSE_01" in rule_ids:
             recommendations.append("Waiver of defenses scope (You may want to confirm whether any defenses or rights are waived and the scope of such waivers)")
-        
+
+        if "H_UNILATERAL_MOD_01" in rule_ids:
+            recommendations.append("Amendment and modification controls (You may want to confirm that changes to terms require mutual written consent)")
+
+        if "H_CONSEQUENTIAL_01" in rule_ids:
+            recommendations.append("Damages remedies (You may want to confirm whether consequential and indirect damages waivers are mutual)")
+
+        if "H_TERM_CONVENIENCE_01" in rule_ids:
+            recommendations.append("Termination rights parity (You may want to confirm whether termination for convenience is available to both parties)")
+
+        if "H_DATA_TERMINATION_01" in rule_ids:
+            recommendations.append("Data portability and exit (You may want to confirm obligations for data return, export, or deletion on termination)")
+
+        if "H_ASYMMETRIC_LIABILITY_01" in rule_ids:
+            recommendations.append("Mutual liability cap (You may want to confirm whether liability caps apply equally to both parties)")
+
+        if "M_ARBITRATION_01" in rule_ids:
+            recommendations.append("Dispute resolution (You may want to confirm the dispute resolution mechanism and whether class action rights are preserved)")
+
+        if "M_WARRANTY_DISCLAIM_01" in rule_ids:
+            recommendations.append("Warranty protections (You may want to confirm whether warranty disclaimers are appropriate for the services or products received)")
+
+        if "M_FORCE_MAJEURE_01" in rule_ids:
+            recommendations.append("Force majeure scope (You may want to confirm that force majeure is narrowly defined and includes termination rights for extended events)")
+
         # Combine baseline with rule-based recommendations (limit total)
         all_recommendations = baseline + recommendations
-        return all_recommendations[:6]  # Max 6 recommendations
+        return all_recommendations[:8]

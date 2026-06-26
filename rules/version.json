@@ -1,15 +1,16 @@
 {
-  "version": "1.0.3",
-  "released": "2026-01-14",
-  "scope": "Commercial NDAs and MSAs",
+  "version": "2.0.0",
+  "released": "2026-06-26",
+  "scope": "Commercial NDAs, MSAs, SaaS Agreements, and Vendor Contracts",
   "changes": [
     "Initial deterministic NDA/MSA risk ruleset",
     "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
-    "Implemented clause-level anchoring and false-positive suppression"
+    "Implemented clause-level anchoring and false-positive suppression",
+    "v2.0: Added 15 rules for SaaS, vendor, and procurement coverage (unilateral modification, consequential damages, termination for convenience, data portability, asymmetric liability, mandatory arbitration, warranty disclaimers, breach notification, insurance, force majeure, SLA, MFN, compliance, escrow, subcontracting)"
   ],
   "rule_count": {
-    "high": 8,
-    "medium": 8,
-    "low": 3
+    "high": 15,
+    "medium": 19,
+    "low": 6
   }
 }
