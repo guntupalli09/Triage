@@ -10,8 +10,9 @@ from pathlib import Path
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 
-DB_PATH = Path(__file__).parent / "data" / "triage.db"
-DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+_default_db_dir = Path("/tmp") if os.getenv("VERCEL") else Path(__file__).parent / "data"
+_default_db_dir.mkdir(parents=True, exist_ok=True)
+DB_PATH = _default_db_dir / "triage.db"
 
 DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{DB_PATH}")
 
