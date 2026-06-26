@@ -19,6 +19,9 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-soft);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            letter-spacing: -0.01em;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -59,9 +62,19 @@
             mix-blend-mode: multiply;
             filter: brightness(1.02) contrast(1.05);
         }
+        .brand-strip {
+            height: 3px;
+            background: linear-gradient(90deg, #FF7A18, #F2541B, #FF7A18);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen pt-1">
+    <div class="brand-strip"></div>
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!-- Header -->
         <div class="flex justify-between items-center mb-12 fade-in">
@@ -205,11 +218,42 @@
 
         <!-- Value comparison -->
         <div class="mt-12 text-center fade-in">
-            <p class="text-gray-500 text-sm">A junior paralegal costs $4,000+/month. Triage AI reviews a contract in under 2 minutes.</p>
+            <p class="text-gray-500 text-sm mb-8">A junior paralegal costs $4,000+/month. Triage AI reviews a contract in under 2 minutes.</p>
+            <div class="flex justify-center gap-8 flex-wrap">
+                <div class="flex items-center gap-2 text-xs text-gray-400">
+                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.351.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    40 Deterministic Rules
+                </div>
+                <div class="flex items-center gap-2 text-xs text-gray-400">
+                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+                    Zero Hallucinations
+                </div>
+                <div class="flex items-center gap-2 text-xs text-gray-400">
+                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    Auditable Results
+                </div>
+                <div class="flex items-center gap-2 text-xs text-gray-400">
+                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V8z" clip-rule="evenodd"/></svg>
+                    Shareable PDF Reports
+                </div>
+            </div>
         </div>
 
-        <footer class="mt-16 pt-8 border-t border-gray-200/50 text-center text-gray-500 text-sm">
-            <p class="font-medium">&copy; {{ current_year }} Triage AI &mdash; Contract Risk Intelligence</p>
+        <footer class="mt-16 pt-8 border-t border-gray-200/50 fade-in">
+            <div class="flex justify-center gap-6 mb-5 flex-wrap">
+                <div class="flex items-center gap-1.5 text-xs text-gray-400">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.351.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    256-bit TLS
+                </div>
+                <div class="flex items-center gap-1.5 text-xs text-gray-400">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+                    Documents Never Stored
+                </div>
+            </div>
+            <div class="text-center text-gray-500 text-sm">
+                <p class="font-medium">&copy; {{ current_year }} Triage AI &mdash; Contract Risk Intelligence</p>
+                <p class="text-xs mt-1">Automated contract risk triage. Not legal advice.</p>
+            </div>
         </footer>
     </div>
 </body>
