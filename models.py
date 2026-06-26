@@ -26,7 +26,7 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     # Subscription
-    plan = Column(String(50), default="free")  # free, starter, professional
+    plan = Column(String(50), default="none")  # none, trial, starter, professional
     stripe_customer_id = Column(String(255), nullable=True)
     stripe_subscription_id = Column(String(255), nullable=True)
     subscription_status = Column(String(50), default="inactive")  # active, inactive, canceled

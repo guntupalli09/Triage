@@ -93,9 +93,9 @@ ALLOWED_EXTENSIONS = {".pdf", ".docx", ".txt"}
 
 # Plan limits
 PLAN_LIMITS = {
-    "free": {"monthly_limit": 3, "batch_max": 3, "playbooks_max": 1, "price_monthly": 0},
-    "starter": {"monthly_limit": 50, "batch_max": 10, "playbooks_max": 5, "price_monthly": 29900},
-    "professional": {"monthly_limit": 500, "batch_max": 25, "playbooks_max": 20, "price_monthly": 99900},
+    "trial": {"monthly_limit": 10, "batch_max": 3, "playbooks_max": 1, "price": 499, "price_type": "one_time"},
+    "starter": {"monthly_limit": 150, "batch_max": 10, "playbooks_max": 5, "price": 4900, "price_type": "recurring"},
+    "professional": {"monthly_limit": 999999, "batch_max": 50, "playbooks_max": 50, "price": 24900, "price_type": "recurring"},
 }
 
 # --- App setup ---
@@ -313,8 +313,8 @@ async def register_submit(
         password_hash=hash_password(password),
         name=name.strip() or None,
         company=company.strip() or None,
-        plan="free",
-        monthly_limit=PLAN_LIMITS["free"]["monthly_limit"],
+        plan="none",
+        monthly_limit=0,
     )
     db.add(user)
     db.commit()
@@ -915,13 +915,16 @@ async def subscribe(request: Request, plan: str):
     db = next(get_db())
     user = require_user(request, db)
 
-    if plan not in PLAN_LIMITS or plan == "free":
+    if plan not in PLAN_LIMITS:
         raise HTTPException(status_code=400, detail="Invalid plan")
+
+    plan_config = PLAN_LIMITS[plan]
 
     if DEV_MODE:
         user.plan = plan
-        user.monthly_limit = PLAN_LIMITS[plan]["monthly_limit"]
+        user.monthly_limit = plan_config["monthly_limit"]
         user.subscription_status = "active"
+        user.contracts_this_month = 0
         db.commit()
         return RedirectResponse(url="/dashboard", status_code=302)
 
@@ -929,20 +932,25 @@ async def subscribe(request: Request, plan: str):
         raise HTTPException(status_code=500, detail="Stripe not configured")
 
     current_base_url = get_base_url(request)
+    is_one_time = plan_config["price_type"] == "one_time"
+
+    line_item = {
+        "price_data": {
+            "currency": "usd",
+            "product_data": {"name": f"Triage AI — {plan.title()} Plan"},
+            "unit_amount": plan_config["price"],
+        },
+        "quantity": 1,
+    }
+    if not is_one_time:
+        line_item["price_data"]["recurring"] = {"interval": "month"}
+
     checkout = stripe.checkout.Session.create(
-        mode="subscription",
+        mode="payment" if is_one_time else "subscription",
         payment_method_types=["card"],
         customer_email=user.email,
         client_reference_id=str(user.id),
-        line_items=[{
-            "price_data": {
-                "currency": "usd",
-                "product_data": {"name": f"Triage AI — {plan.title()} Plan"},
-                "unit_amount": PLAN_LIMITS[plan]["price_monthly"],
-                "recurring": {"interval": "month"},
-            },
-            "quantity": 1,
-        }],
+        line_items=[line_item],
         success_url=f"{current_base_url}/dashboard?upgraded=true",
         cancel_url=f"{current_base_url}/pricing",
         metadata={"plan": plan, "user_id": str(user.id)},
@@ -974,9 +982,11 @@ async def stripe_webhook(request: Request):
         if user_id and plan:
             user = db.query(User).filter(User.id == int(user_id)).first()
             if user:
+                plan_config = PLAN_LIMITS.get(plan, PLAN_LIMITS["trial"])
                 user.plan = plan
-                user.monthly_limit = PLAN_LIMITS.get(plan, PLAN_LIMITS["free"])["monthly_limit"]
+                user.monthly_limit = plan_config["monthly_limit"]
                 user.subscription_status = "active"
+                user.contracts_this_month = 0
                 user.stripe_customer_id = session.get("customer")
                 user.stripe_subscription_id = session.get("subscription")
                 db.commit()
@@ -987,12 +997,62 @@ async def stripe_webhook(request: Request):
         if customer_id:
             user = db.query(User).filter(User.stripe_customer_id == customer_id).first()
             if user:
-                user.plan = "free"
-                user.monthly_limit = PLAN_LIMITS["free"]["monthly_limit"]
+                user.plan = "none"
+                user.monthly_limit = 0
                 user.subscription_status = "canceled"
                 db.commit()
 
     return {"status": "ok"}
+
+
+# ============================================================
+# FREE DEMO (no account required)
+# ============================================================
+
+DEMO_CONTRACT = """MUTUAL NON-DISCLOSURE AGREEMENT
+
+1. Confidentiality. The Receiving Party agrees that all Confidential Information disclosed by the Disclosing Party shall remain confidential in perpetuity and shall not be disclosed to any third party without prior written consent.
+
+2. Indemnification. The Receiving Party shall indemnify, defend, and hold harmless the Disclosing Party from and against any and all claims, damages, losses, and expenses without limit arising from any breach of this Agreement.
+
+3. Intellectual Property. The Receiving Party hereby assigns all right, title, and interest in any work product, inventions, or improvements developed during the term of this Agreement.
+
+4. Limitation of Liability. The limitation of liability set forth herein shall not apply to breaches of confidentiality, indemnification obligations, or intellectual property infringement.
+
+5. Term. This Agreement shall automatically renew for successive one-year periods unless either party provides written notice of non-renewal at least 30 days prior to expiration.
+
+6. Governing Law. This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, and the parties submit to the exclusive jurisdiction of the courts of Delaware.
+
+7. Injunctive Relief. The parties agree that the Disclosing Party shall be entitled to injunctive relief and equitable relief without the requirement of posting a bond or other security in the event of any breach.
+
+8. Attorneys' Fees. In the event of any dispute, the prevailing party shall be entitled to recover reasonable attorneys' fees and costs from the non-prevailing party.
+"""
+
+
+@app.get("/demo", response_class=HTMLResponse)
+async def demo_analysis(request: Request):
+    """Free demo: pre-loaded sample contract analysis, no account needed."""
+    analysis = run_analysis(DEMO_CONTRACT)
+    all_issues = build_enhanced_issues(analysis["findings_dict"], analysis["llm_result"])
+
+    findings_objs = [type('F', (), {"rule_id": f["rule_id"]})() for f in analysis["findings_dict"]]
+    rule_based_sections = rule_engine.build_missing_sections(findings_objs)
+
+    return templates.TemplateResponse("results.html", {
+        "request": request, "user": None,
+        "filename": "Sample NDA (Demo)",
+        "overall_risk": analysis["overall_risk"],
+        "summary_bullets": analysis["llm_result"].get("summary_bullets", []),
+        "top_issues": all_issues,
+        "possible_missing_sections": rule_based_sections[:6],
+        "disclaimer": "This is a demo using a sample contract. Sign up to analyze your own contracts.",
+        "findings_count": len(analysis["findings_dict"]),
+        "rule_counts": analysis["rule_counts"],
+        "rule_engine_version": analysis["version"],
+        "current_year": datetime.now().year,
+        "token": None, "contract_id": None, "deviations": None,
+        "is_demo": True,
+    })
 
 
 # ============================================================

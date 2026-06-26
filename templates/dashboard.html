@@ -226,14 +226,20 @@
         </div>
 
         <!-- Subscription Banner (Free plan only) -->
-        {% if user.plan == 'free' %}
+        {% if user.plan in ('none', 'trial') %}
         <div class="upgrade-banner rounded-xl p-6 mb-8 fade-in">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
-                    <h3 class="font-bold text-[#0F172A] mb-1">Upgrade Your Plan</h3>
-                    <p class="text-sm text-gray-600">You're on the Free plan ({{ user.contracts_this_month }}/{{ user.monthly_limit }} contracts). Upgrade for unlimited analysis.</p>
+                    <h3 class="font-bold text-[#0F172A] mb-1">{% if user.plan == 'none' %}Get Started{% else %}Upgrade Your Plan{% endif %}</h3>
+                    <p class="text-sm text-gray-600">
+                        {% if user.plan == 'none' %}
+                        You haven't purchased a plan yet. Start with a $4.99 trial (10 contracts) or go straight to Starter.
+                        {% else %}
+                        You're on the Trial plan ({{ user.contracts_this_month }}/{{ user.monthly_limit }} contracts used). Upgrade for more volume.
+                        {% endif %}
+                    </p>
                 </div>
-                <a href="/pricing" class="btn-primary py-2.5 px-6 rounded-lg whitespace-nowrap">Upgrade Plan</a>
+                <a href="/pricing" class="btn-primary py-2.5 px-6 rounded-lg whitespace-nowrap">{% if user.plan == 'none' %}View Plans{% else %}Upgrade Plan{% endif %}</a>
             </div>
         </div>
         {% endif %}

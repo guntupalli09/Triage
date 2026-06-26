@@ -202,6 +202,16 @@
             <p class="text-sm text-gray-500 max-w-xl mx-auto mt-2">
                 This tool is designed to highlight commonly negotiated risk patterns, not to replace legal review.
             </p>
+            {% if not user %}
+            <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="/demo" class="inline-flex items-center justify-center gap-2 py-3 px-6 rounded-lg border-2 border-[#FF7A18] text-[#FF7A18] font-semibold hover:bg-[#FF7A18] hover:text-white transition-all">
+                    Try Free Demo
+                </a>
+                <a href="/pricing" class="text-gray-500 hover:text-gray-700 font-medium py-3 px-6">
+                    View Pricing &rarr;
+                </a>
+            </div>
+            {% endif %}
         </div>
 
         <!-- Upload Card -->
