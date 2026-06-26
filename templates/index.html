@@ -170,11 +170,21 @@
 </head>
 <body class="min-h-screen">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <!-- Logo Header -->
-        <div class="flex justify-center mb-10 fade-in">
-            <a href="/" class="logo-container transition-transform hover:scale-105">
-                <img src="/static/branding/triage-logo-primary.png" alt="Triage AI logo" class="h-30 sm:h-24 w-auto logo-blended" />
+        <!-- Header -->
+        <div class="flex justify-between items-start mb-10 fade-in">
+            <a href="{% if user %}/dashboard{% else %}/{% endif %}" class="logo-container transition-transform hover:scale-105">
+                <img src="/static/branding/triage-logo-primary.png" alt="Triage AI logo" class="h-20 sm:h-24 w-auto logo-blended" />
             </a>
+            <div class="flex items-center gap-4 text-sm mt-4">
+                {% if user %}
+                <span class="text-gray-600">{{ user.name or user.email }}</span>
+                <a href="/dashboard" class="text-[#FF7A18] font-semibold">Dashboard</a>
+                <a href="/logout" class="text-gray-500 hover:text-gray-700">Logout</a>
+                {% else %}
+                <a href="/login" class="text-gray-600 hover:text-[#FF7A18] font-medium">Log In</a>
+                <a href="/register" class="btn-primary py-2 px-4 rounded-lg text-sm">Sign Up Free</a>
+                {% endif %}
+            </div>
         </div>
 
         <!-- Hero Section -->
@@ -251,6 +261,18 @@
                         </div>
                     </div>
                 </div>
+
+                {% if user and playbooks %}
+                <div class="mb-6">
+                    <label for="playbook_id" class="block text-sm font-semibold text-[#0F172A] mb-2">Compare against playbook (optional)</label>
+                    <select name="playbook_id" id="playbook_id" class="w-full px-4 py-3 rounded-lg border border-gray-200 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#FF7A18] focus:border-transparent">
+                        <option value="">None — standard analysis only</option>
+                        {% for p in playbooks %}
+                        <option value="{{ p.id }}">{{ p.name }}{% if p.contract_type %} ({{ p.contract_type }}){% endif %}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
 
                 <button type="submit" id="analyzeButton" class="btn-primary w-full py-3.5 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF7A18] disabled:opacity-70 disabled:cursor-not-allowed relative overflow-hidden">
                     <span id="buttonText">Analyze Contract</span>

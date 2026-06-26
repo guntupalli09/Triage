@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batch Results - Triage AI</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/branding/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/branding/favicon-16.png">
+    <link rel="apple-touch-icon" href="/static/branding/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary-orange: #FF7A18;
+            --primary-orange-dark: #F2541B;
+            --navy: #0F172A;
+            --bg-soft: #F8FAFC;
+            --card-border: #E5E7EB;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-soft);
+            letter-spacing: -0.01em;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeIn 0.5s ease-out; }
+        .logo-container {
+            display: inline-block;
+            background: var(--bg-soft);
+            border-radius: 20px;
+            padding: 12px 16px;
+            position: relative;
+            isolation: isolate;
+        }
+        .logo-blended {
+            display: block;
+            mix-blend-mode: multiply;
+            filter: brightness(1.02) contrast(1.05);
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #FF7A18, #F2541B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255, 122, 24, 0.3);
+            filter: drop-shadow(0 0 8px rgba(255, 122, 24, 0.2));
+        }
+        .premium-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(229, 231, 235, 0.5);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #FF7A18, #F2541B);
+            color: white;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(255, 122, 24, 0.25);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 4px 16px rgba(255, 122, 24, 0.35);
+            transform: translateY(-1px);
+        }
+        .btn-primary:active { transform: translateY(0); }
+        .back-link {
+            color: var(--primary-orange);
+            transition: all 0.2s ease;
+        }
+        .back-link:hover {
+            color: var(--primary-orange-dark);
+            transform: translateX(-2px);
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8 fade-in">
+            <a href="/dashboard" class="logo-container transition-transform hover:scale-105">
+                <img src="/static/branding/triage-logo-primary.png" alt="Triage AI logo" class="h-16 sm:h-20 w-auto logo-blended" />
+            </a>
+            <div class="flex items-center gap-4 text-sm">
+                <span class="text-gray-600 font-medium">{{ user.name }}</span>
+                <a href="/logout" class="text-[#FF7A18] hover:text-[#F2541B] font-semibold transition-colors">Logout</a>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <div class="mb-8 fade-in">
+            <a href="/dashboard" class="back-link text-sm font-semibold mb-4 inline-flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to Dashboard
+            </a>
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-[#0F172A] mb-2 tracking-tight">
+                Batch Analysis <span class="gradient-text tracking-wide">Results</span>
+            </h1>
+            <p class="text-gray-600">{{ contracts|length }} contracts analyzed</p>
+            {% if playbook_name %}
+            <p class="text-sm text-gray-500 mt-1">Compared against: <span class="font-semibold text-[#0F172A]">{{ playbook_name }}</span></p>
+            {% endif %}
+        </div>
+
+        <!-- Summary Stats -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 fade-in">
+            <div class="premium-card p-5 text-center">
+                <div class="stat-number text-[#0F172A] mb-2">{{ stats.total }}</div>
+                <div class="text-sm font-medium text-gray-600">Total</div>
+            </div>
+            <div class="premium-card p-5 text-center">
+                <div class="stat-number text-red-600 mb-2">{{ stats.high }}</div>
+                <div class="text-sm font-medium text-gray-600">High Risk</div>
+            </div>
+            <div class="premium-card p-5 text-center">
+                <div class="stat-number text-amber-600 mb-2">{{ stats.medium }}</div>
+                <div class="text-sm font-medium text-gray-600">Medium Risk</div>
+            </div>
+            <div class="premium-card p-5 text-center">
+                <div class="stat-number text-green-600 mb-2">{{ stats.low }}</div>
+                <div class="text-sm font-medium text-gray-600">Low Risk</div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-wrap gap-3 mb-8 fade-in">
+            <a href="/batch/{{ batch_id }}/download-all" class="btn-primary inline-flex items-center gap-2 py-3 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF7A18]">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Download All PDFs
+            </a>
+        </div>
+
+        <!-- Results Table -->
+        <div class="premium-card overflow-hidden mb-8 fade-in">
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b border-gray-100 bg-gray-50/50">
+                            <th class="text-left py-4 px-6 font-semibold text-[#0F172A]">Filename</th>
+                            <th class="text-left py-4 px-4 font-semibold text-[#0F172A]">Risk Level</th>
+                            <th class="text-center py-4 px-4 font-semibold text-[#0F172A]">Findings</th>
+                            {% if playbook_name %}
+                            <th class="text-center py-4 px-4 font-semibold text-[#0F172A]">Deviations</th>
+                            {% endif %}
+                            <th class="text-right py-4 px-6 font-semibold text-[#0F172A]">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-50">
+                        {% for contract in contracts %}
+                        <tr class="hover:bg-gray-50/50 transition-colors">
+                            <td class="py-4 px-6">
+                                <span class="font-medium text-[#0F172A]">{{ contract.filename }}</span>
+                            </td>
+                            <td class="py-4 px-4">
+                                {% if contract.overall_risk == 'high' %}
+                                <span class="inline-flex px-3 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">HIGH</span>
+                                {% elif contract.overall_risk == 'medium' %}
+                                <span class="inline-flex px-3 py-1 text-xs font-semibold rounded-full bg-amber-100 text-amber-800">MEDIUM</span>
+                                {% else %}
+                                <span class="inline-flex px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">LOW</span>
+                                {% endif %}
+                            </td>
+                            <td class="py-4 px-4 text-center text-gray-700">
+                                {{ contract.findings_json|length if contract.findings_json else 0 }}
+                            </td>
+                            {% if playbook_name %}
+                            <td class="py-4 px-4 text-center text-gray-700">
+                                {{ contract.deviations_json|length if contract.deviations_json else 0 }}
+                            </td>
+                            {% endif %}
+                            <td class="py-4 px-6 text-right">
+                                <div class="flex items-center justify-end gap-2">
+                                    <a href="/results/{{ contract.id }}" class="text-[#FF7A18] hover:text-[#F2541B] font-semibold text-xs transition-colors">View</a>
+                                    <a href="/download-pdf/{{ contract.id }}" class="text-gray-500 hover:text-[#0F172A] font-semibold text-xs transition-colors">PDF</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-16 pt-8 border-t border-gray-200/50 fade-in">
+            <div class="text-center text-gray-500 text-sm space-y-1">
+                <p class="font-medium">&copy; {{ current_year }} Triage AI — Contract Risk Intelligence</p>
+                <p class="text-xs">Automated contract risk triage. Not legal advice.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

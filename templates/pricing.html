@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing — Triage AI</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/branding/favicon-32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary-orange: #FF7A18;
+            --primary-orange-dark: #F2541B;
+            --navy: #0F172A;
+            --bg-soft: #F8FAFC;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-soft);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeIn 0.5s ease-out; }
+        .premium-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(229, 231, 235, 0.5);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            transition: all 0.2s ease;
+        }
+        .premium-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #FF7A18, #F2541B);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(255,122,24,0.25);
+        }
+        .btn-primary:hover { box-shadow: 0 4px 16px rgba(255,122,24,0.35); }
+        .popular-badge {
+            background: linear-gradient(90deg, #FF7A18, #F2541B);
+            color: white;
+        }
+        .logo-container {
+            display: inline-block;
+            background: var(--bg-soft);
+            border-radius: 20px;
+            padding: 12px 16px;
+            isolation: isolate;
+        }
+        .logo-blended {
+            display: block;
+            mix-blend-mode: multiply;
+            filter: brightness(1.02) contrast(1.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-12 fade-in">
+            <a href="{% if user %}/dashboard{% else %}/{% endif %}" class="logo-container">
+                <img src="/static/branding/triage-logo-primary.png" alt="Triage AI" class="h-16 w-auto logo-blended" />
+            </a>
+            {% if user %}
+            <div class="flex items-center gap-4 text-sm">
+                <span class="text-gray-600">{{ user.name or user.email }}</span>
+                <a href="/dashboard" class="text-[#FF7A18] font-semibold">Dashboard</a>
+            </div>
+            {% else %}
+            <a href="/login" class="text-[#FF7A18] font-semibold text-sm">Log In</a>
+            {% endif %}
+        </div>
+
+        <div class="text-center mb-12 fade-in">
+            <h1 class="text-4xl font-extrabold text-[#0F172A] mb-3">Simple, transparent pricing</h1>
+            <p class="text-lg text-gray-600">Save your legal team hundreds of hours per year.</p>
+        </div>
+
+        <!-- Pricing cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in">
+            <!-- Free -->
+            <div class="premium-card p-8 flex flex-col">
+                <h3 class="text-xl font-bold text-[#0F172A] mb-1">Free</h3>
+                <p class="text-gray-500 text-sm mb-6">Try it out</p>
+                <div class="mb-6">
+                    <span class="text-4xl font-extrabold text-[#0F172A]">$0</span>
+                    <span class="text-gray-500">/month</span>
+                </div>
+                <ul class="space-y-3 mb-8 flex-1">
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        3 contracts / month
+                    </li>
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        1 playbook
+                    </li>
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Batch upload (3 files)
+                    </li>
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        PDF reports
+                    </li>
+                </ul>
+                {% if user and user.plan == 'free' %}
+                <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
+                {% elif not user %}
+                <a href="/register" class="block text-center py-3 px-6 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:border-[#FF7A18] hover:text-[#FF7A18] transition-all">Get started</a>
+                {% endif %}
+            </div>
+
+            <!-- Starter -->
+            <div class="premium-card p-8 flex flex-col relative border-2 border-[#FF7A18]">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                    <span class="popular-badge text-xs font-bold px-4 py-1 rounded-full">MOST POPULAR</span>
+                </div>
+                <h3 class="text-xl font-bold text-[#0F172A] mb-1">Starter</h3>
+                <p class="text-gray-500 text-sm mb-6">For growing legal teams</p>
+                <div class="mb-6">
+                    <span class="text-4xl font-extrabold text-[#0F172A]">$299</span>
+                    <span class="text-gray-500">/month</span>
+                </div>
+                <ul class="space-y-3 mb-8 flex-1">
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        50 contracts / month
+                    </li>
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        5 playbooks
+                    </li>
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Batch upload (10 files)
+                    </li>
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Playbook comparison
+                    </li>
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Report sharing
+                    </li>
+                </ul>
+                {% if user and user.plan == 'starter' %}
+                <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
+                {% else %}
+                <form action="/subscribe/starter" method="post">
+                    <button type="submit" class="btn-primary w-full py-3 px-6 rounded-lg">Upgrade to Starter</button>
+                </form>
+                {% endif %}
+            </div>
+
+            <!-- Professional -->
+            <div class="premium-card p-8 flex flex-col">
+                <h3 class="text-xl font-bold text-[#0F172A] mb-1">Professional</h3>
+                <p class="text-gray-500 text-sm mb-6">For high-volume teams</p>
+                <div class="mb-6">
+                    <span class="text-4xl font-extrabold text-[#0F172A]">$999</span>
+                    <span class="text-gray-500">/month</span>
+                </div>
+                <ul class="space-y-3 mb-8 flex-1">
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        500 contracts / month
+                    </li>
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        20 playbooks
+                    </li>
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Batch upload (25 files)
+                    </li>
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Everything in Starter
+                    </li>
+                    <li class="flex items-start text-sm text-gray-700">
+                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        Priority support
+                    </li>
+                </ul>
+                {% if user and user.plan == 'professional' %}
+                <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
+                {% else %}
+                <form action="/subscribe/professional" method="post">
+                    <button type="submit" class="py-3 px-6 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:border-[#FF7A18] hover:text-[#FF7A18] transition-all w-full">Upgrade to Professional</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+
+        <footer class="mt-16 pt-8 border-t border-gray-200/50 text-center text-gray-500 text-sm">
+            <p class="font-medium">&copy; {{ current_year }} Triage AI &mdash; Contract Risk Intelligence</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Triage AI</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/branding/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/branding/favicon-16.png">
+    <link rel="apple-touch-icon" href="/static/branding/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary-orange: #FF7A18;
+            --primary-orange-dark: #F2541B;
+            --navy: #0F172A;
+            --bg-soft: #F8FAFC;
+            --card-border: #E5E7EB;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-soft);
+            letter-spacing: -0.01em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in { animation: fadeIn 0.5s ease-out; }
+
+        .logo-container {
+            display: inline-block;
+            background: var(--bg-soft);
+            border-radius: 20px;
+            padding: 12px 16px;
+            position: relative;
+            isolation: isolate;
+        }
+
+        .logo-blended {
+            display: block;
+            mix-blend-mode: multiply;
+            filter: brightness(1.02) contrast(1.05);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #FF7A18, #F2541B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255, 122, 24, 0.3);
+            filter: drop-shadow(0 0 8px rgba(255, 122, 24, 0.2));
+        }
+
+        .premium-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(229, 231, 235, 0.5);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease;
+        }
+
+        .premium-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.06);
+            border-color: rgba(229, 231, 235, 0.8);
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #FF7A18, #F2541B);
+            color: white;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(255, 122, 24, 0.25);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 4px 16px rgba(255, 122, 24, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: #FFFFFF;
+            color: var(--navy);
+            font-weight: 600;
+            border: 1px solid var(--card-border);
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-orange);
+            color: var(--primary-orange);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .risk-badge-high { background-color: #FEE2E2; color: #991B1B; }
+        .risk-badge-medium { background-color: #FEF3C7; color: #92400E; }
+        .risk-badge-low { background-color: #D1FAE5; color: #065F46; }
+
+        .stat-card { text-align: center; }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--navy);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #6B7280;
+            margin-top: 0.5rem;
+        }
+
+        .upgrade-banner {
+            background: linear-gradient(135deg, rgba(255, 122, 24, 0.05), rgba(242, 84, 27, 0.03));
+            border: 1px solid rgba(255, 122, 24, 0.15);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-10 fade-in">
+            <a href="/dashboard" class="logo-container transition-transform hover:scale-105">
+                <img src="/static/branding/triage-logo-primary.png" alt="Triage AI logo" class="h-16 sm:h-20 w-auto logo-blended" />
+            </a>
+            <div class="flex items-center gap-4 text-sm">
+                <span class="text-gray-600 font-medium">{{ user.name or user.email }}</span>
+                <a href="/logout" class="text-gray-500 hover:text-[#FF7A18] font-medium transition-colors">Logout</a>
+            </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 fade-in">
+            <div class="premium-card p-5 stat-card">
+                <div class="stat-value">{{ stats.total_contracts }}</div>
+                <div class="stat-label">Total Contracts</div>
+            </div>
+            <div class="premium-card p-5 stat-card">
+                <div class="stat-value text-red-600">{{ stats.high_risk_count }}</div>
+                <div class="stat-label">High Risk</div>
+            </div>
+            <div class="premium-card p-5 stat-card">
+                <div class="stat-value">{{ stats.contracts_this_month }}<span class="text-base font-medium text-gray-400">/{{ user.monthly_limit }}</span></div>
+                <div class="stat-label">This Month</div>
+            </div>
+            <div class="premium-card p-5 stat-card">
+                <div class="stat-value text-lg gradient-text">{{ user.plan|title }}</div>
+                <div class="stat-label">Current Plan</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 fade-in">
+            <a href="/upload-page" class="btn-primary py-3 px-6 rounded-lg text-center block">Upload Contract</a>
+            <a href="/batch-upload" class="btn-secondary py-3 px-6 rounded-lg text-center block">Batch Upload</a>
+            <a href="/playbooks" class="btn-secondary py-3 px-6 rounded-lg text-center block">Manage Playbooks</a>
+        </div>
+
+        <!-- Recent Contracts Table -->
+        <div class="premium-card p-6 sm:p-8 mb-8 fade-in">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-bold text-[#0F172A]">Recent Contracts</h2>
+                {% if contracts|length > 0 %}
+                <a href="/history" class="text-sm font-semibold text-[#FF7A18] hover:text-[#F2541B] transition-colors">View all &rarr;</a>
+                {% endif %}
+            </div>
+
+            {% if contracts|length > 0 %}
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b border-gray-200/60">
+                            <th class="text-left py-3 px-2 font-semibold text-gray-500 text-xs uppercase tracking-wider">Filename</th>
+                            <th class="text-left py-3 px-2 font-semibold text-gray-500 text-xs uppercase tracking-wider">Date</th>
+                            <th class="text-left py-3 px-2 font-semibold text-gray-500 text-xs uppercase tracking-wider">Risk Level</th>
+                            <th class="text-left py-3 px-2 font-semibold text-gray-500 text-xs uppercase tracking-wider">Playbook</th>
+                            <th class="text-right py-3 px-2 font-semibold text-gray-500 text-xs uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        {% for c in contracts[:20] %}
+                        <tr class="hover:bg-gray-50/50 transition-colors">
+                            <td class="py-3 px-2 font-medium text-[#0F172A] max-w-[200px] truncate">{{ c.filename }}</td>
+                            <td class="py-3 px-2 text-gray-500">{{ c.created_at.strftime('%b %d, %Y') if c.created_at else '' }}</td>
+                            <td class="py-3 px-2">
+                                {% if c.overall_risk == 'high' %}
+                                <span class="px-2.5 py-1 text-xs font-semibold rounded-full risk-badge-high">High</span>
+                                {% elif c.overall_risk == 'medium' %}
+                                <span class="px-2.5 py-1 text-xs font-semibold rounded-full risk-badge-medium">Medium</span>
+                                {% else %}
+                                <span class="px-2.5 py-1 text-xs font-semibold rounded-full risk-badge-low">Low</span>
+                                {% endif %}
+                            </td>
+                            <td class="py-3 px-2 text-gray-500">{{ c.playbook.name if c.playbook else '—' }}</td>
+                            <td class="py-3 px-2 text-right space-x-3">
+                                <a href="/contract/{{ c.id }}" class="text-[#FF7A18] hover:text-[#F2541B] font-medium transition-colors">View</a>
+                                <a href="/contract/{{ c.id }}/share" class="text-gray-400 hover:text-gray-600 font-medium transition-colors">Share</a>
+                                <a href="/contract/{{ c.id }}/pdf" class="text-gray-400 hover:text-gray-600 font-medium transition-colors">PDF</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-12">
+                <svg class="mx-auto h-12 w-12 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <p class="text-gray-500 mb-4">No contracts analyzed yet. Upload your first contract to get started.</p>
+                <a href="/upload-page" class="btn-primary inline-block py-2.5 px-6 rounded-lg">Upload Contract</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Subscription Banner (Free plan only) -->
+        {% if user.plan == 'free' %}
+        <div class="upgrade-banner rounded-xl p-6 mb-8 fade-in">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <h3 class="font-bold text-[#0F172A] mb-1">Upgrade Your Plan</h3>
+                    <p class="text-sm text-gray-600">You're on the Free plan ({{ user.contracts_this_month }}/{{ user.monthly_limit }} contracts). Upgrade for unlimited analysis.</p>
+                </div>
+                <a href="/pricing" class="btn-primary py-2.5 px-6 rounded-lg whitespace-nowrap">Upgrade Plan</a>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Footer -->
+        <footer class="mt-16 pt-8 border-t border-gray-200/50 fade-in">
+            <div class="text-center text-gray-500 text-sm space-y-1">
+                <p class="font-medium">&copy; {{ current_year }} Triage AI — Contract Risk Intelligence</p>
+                <p class="text-xs">Automated contract risk triage. Not legal advice.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
