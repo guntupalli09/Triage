@@ -39,7 +39,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.cors import CORSMiddleware
-from xhtml2pdf import pisa
+from fpdf import FPDF
 from PyPDF2 import PdfReader
 from docx import Document
 from sqlalchemy.orm import Session as DBSession
@@ -645,24 +645,58 @@ async def download_contract_pdf(request: Request, contract_id: int):
     all_issues = build_enhanced_issues(findings_dict, llm_result)
     rule_counts = contract.rule_counts_json or {"high": 0, "medium": 0, "low": 0}
 
-    logo_path = Path(__file__).parent / "static" / "branding" / "triage-logo-primary.png"
-    logo_absolute = str(logo_path.absolute()) if logo_path.exists() else None
+    pdf = FPDF()
+    pdf.set_auto_page_break(auto=True, margin=20)
+    pdf.add_page()
 
-    html_content = templates.get_template("pdf_report.html").render({
-        "request": request, "filename": contract.filename,
-        "date_generated": datetime.utcnow().strftime("%B %d, %Y"),
-        "overall_risk": contract.overall_risk,
-        "summary_bullets": llm_result.get("summary_bullets", []),
-        "top_issues": all_issues, "findings_count": len(findings_dict),
-        "rule_counts": rule_counts,
-        "rule_engine_version": contract.rule_engine_version or "1.0.3",
-        "ruleset_version_data": {}, "current_year": datetime.now().year,
-        "logo_path": logo_absolute,
-    })
+    pdf.set_font("Helvetica", "B", 18)
+    pdf.cell(0, 12, "Triage AI - Contract Risk Report", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_font("Helvetica", "", 10)
+    pdf.cell(0, 6, f"File: {contract.filename}", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 6, f"Date: {datetime.utcnow().strftime('%B %d, %Y')}", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 6, f"Rule Engine: v{contract.rule_engine_version or '2.0.0'}", new_x="LMARGIN", new_y="NEXT")
+    pdf.ln(6)
 
-    pdf_buffer = io.BytesIO()
-    pisa.CreatePDF(html_content, dest=pdf_buffer, encoding='utf-8')
-    pdf_bytes = pdf_buffer.getvalue()
+    risk_label = (contract.overall_risk or "low").upper()
+    pdf.set_font("Helvetica", "B", 14)
+    pdf.cell(0, 10, f"Overall Risk: {risk_label}", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_font("Helvetica", "", 10)
+    pdf.cell(0, 6, f"High: {rule_counts.get('high', 0)}  |  Medium: {rule_counts.get('medium', 0)}  |  Low: {rule_counts.get('low', 0)}", new_x="LMARGIN", new_y="NEXT")
+    pdf.ln(4)
+
+    summary_bullets = llm_result.get("summary_bullets", [])
+    if summary_bullets:
+        pdf.set_font("Helvetica", "B", 12)
+        pdf.cell(0, 8, "Executive Summary", new_x="LMARGIN", new_y="NEXT")
+        pdf.set_font("Helvetica", "", 10)
+        for bullet in summary_bullets:
+            pdf.multi_cell(0, 5, f"  - {bullet}")
+        pdf.ln(4)
+
+    if all_issues:
+        pdf.set_font("Helvetica", "B", 12)
+        pdf.cell(0, 8, "Findings", new_x="LMARGIN", new_y="NEXT")
+        for i, issue in enumerate(all_issues, 1):
+            severity = issue.get("severity", "medium").upper()
+            title = issue.get("title", "Finding")
+            pdf.set_font("Helvetica", "B", 10)
+            pdf.multi_cell(0, 6, f"{i}. [{severity}] {title}")
+            rationale = issue.get("rationale", "")
+            if rationale:
+                pdf.set_font("Helvetica", "", 9)
+                pdf.multi_cell(0, 5, f"   {rationale}")
+            excerpt = issue.get("matched_excerpt", "")
+            if excerpt:
+                pdf.set_font("Helvetica", "I", 8)
+                clean_excerpt = excerpt[:300].encode('latin-1', 'replace').decode('latin-1')
+                pdf.multi_cell(0, 4, f'   "{clean_excerpt}"')
+            pdf.ln(2)
+
+    pdf.ln(6)
+    pdf.set_font("Helvetica", "I", 8)
+    pdf.cell(0, 5, f"(c) {datetime.now().year} Triage AI - Contract Risk Intelligence. Not legal advice.", new_x="LMARGIN", new_y="NEXT")
+
+    pdf_bytes = pdf.output()
 
     safe_name = sanitize_filename(contract.filename)
     date_str = datetime.utcnow().strftime("%Y-%m-%d")
