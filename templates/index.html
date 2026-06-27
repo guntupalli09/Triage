@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triage AI — Contract Risk Intelligence</title>
-    <meta name="description" content="Automated contract risk triage for NDAs and MSAs using deterministic rules and AI-assisted synthesis.">
+    <title>Triage — Deterministic Legal Intelligence</title>
+    <meta name="description" content="Review legal documents using deterministic rules, auditable evidence, and AI-powered explanations — not AI decisions.">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/branding/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/branding/favicon-16.png">
-    <!-- TODO: Add apple-touch-icon.png to /static/branding/ -->
     <link rel="apple-touch-icon" href="/static/branding/apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,24 +14,26 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --primary-orange: #FF7A18;
-            --primary-orange-dark: #F2541B;
             --navy: #0F172A;
-            --bg-soft: #F8FAFC;
-            --card-border: #E5E7EB;
+            --bg: #FAFAFA;
+            --border: #E5E7EB;
+            --accent: #0F172A;
+            --accent-subtle: #334155;
+            --orange: #FF7A18;
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-soft);
+            background-color: var(--bg);
             letter-spacing: -0.01em;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            color: #1E293B;
         }
 
-        .brand-strip {
-            height: 3px;
-            background: linear-gradient(90deg, #FF7A18, #F2541B, #FF7A18);
+        .top-bar {
+            height: 2px;
+            background: var(--navy);
             position: fixed;
             top: 0;
             left: 0;
@@ -40,125 +41,150 @@
             z-index: 50;
         }
 
-        .trust-bar {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #64748B;
-            letter-spacing: 0.02em;
-        }
-
-        .trust-item svg {
-            width: 16px;
-            height: 16px;
-            color: #FF7A18;
-        }
-        
-        /* Hero fade-in animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .hero-section {
-            animation: fadeIn 0.4s ease-out;
-        }
-        
-        /* Logo blending - remove white background using multiply blend mode */
-        .logo-container {
-            display: inline-block;
-            background: var(--bg-soft);
-            border-radius: 20px;
-            padding: 12px 16px;
-            position: relative;
-            /* Create isolation context for blend mode */
-            isolation: isolate;
-        }
-        
-        .logo-blended {
-            display: block;
-            /* Multiply blend mode: white (1.0) * light-gray (0.97) = light-gray (matches background) */
-            /* Orange colors get darker but remain visible */
-            mix-blend-mode: multiply;
-            /* Slight adjustment to maintain orange vibrancy */
-            filter: brightness(1.02) contrast(1.05);
-        }
-        
-        /* Gradient text with glow */
-        .gradient-text {
-            background: linear-gradient(90deg, #FF7A18, #F2541B);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 20px rgba(255, 122, 24, 0.3);
-            filter: drop-shadow(0 0 8px rgba(255, 122, 24, 0.2));
-        }
-        
-        /* Premium card with hover lift - blended borders */
-        .premium-card {
+        .card {
             background: #FFFFFF;
-            border: 1px solid rgba(229, 231, 235, 0.5);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
-            transition: all 0.2s ease;
         }
-        
-        .premium-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.06);
-            border-color: rgba(229, 231, 235, 0.8);
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border: 1px solid var(--border);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #475569;
+            background: #fff;
+            letter-spacing: 0.01em;
         }
-        
-        /* Upload area styling - blended borders */
-        .upload-area {
-            border: 2px dashed rgba(229, 231, 235, 0.6);
-            transition: all 0.2s ease;
+
+        .badge svg {
+            width: 14px;
+            height: 14px;
+            color: #10B981;
         }
-        
-        .upload-area:hover {
-            border-color: rgba(255, 122, 24, 0.4);
-            background-color: rgba(255, 122, 24, 0.02);
-        }
-        
-        /* Primary button with gradient */
+
         .btn-primary {
-            background: linear-gradient(90deg, #FF7A18, #F2541B);
+            background: var(--navy);
             color: white;
             font-weight: 600;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(255, 122, 24, 0.25);
+            transition: all 0.15s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        
+
         .btn-primary:hover:not(:disabled) {
-            box-shadow: 0 4px 16px rgba(255, 122, 24, 0.35);
-            transform: translateY(-1px);
+            background: #1E293B;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
-        
-        .btn-primary:active:not(:disabled) {
-            transform: translateY(0);
+
+        .btn-secondary {
+            border: 1px solid var(--border);
+            color: #475569;
+            font-weight: 500;
+            transition: all 0.15s ease;
         }
-        
-        /* Loading bar shimmer */
-        @keyframes loading-shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+
+        .btn-secondary:hover {
+            border-color: #CBD5E1;
+            color: #1E293B;
         }
-        
+
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #fff;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        .workflow-step .step-num {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: var(--navy);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .workflow-connector {
+            width: 1px;
+            height: 16px;
+            background: var(--border);
+            margin-left: 27px;
+        }
+
+        .finding-card {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: #fff;
+            font-size: 0.8125rem;
+            overflow: hidden;
+        }
+
+        .finding-header {
+            padding: 12px 16px;
+            background: #FEF2F2;
+            border-bottom: 1px solid #FECACA;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .finding-row {
+            padding: 10px 16px;
+            border-bottom: 1px solid #F1F5F9;
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 8px;
+        }
+
+        .finding-row:last-child {
+            border-bottom: none;
+        }
+
+        .finding-label {
+            font-weight: 600;
+            color: #64748B;
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .finding-value {
+            color: #1E293B;
+        }
+
+        .matched-text {
+            background: #FEF3C7;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.75rem;
+        }
+
+        .upload-area {
+            border: 2px dashed #D1D5DB;
+            transition: all 0.15s ease;
+        }
+
+        .upload-area:hover {
+            border-color: #94A3B8;
+            background: #F8FAFC;
+        }
+
         .loading-bar {
             position: absolute;
             bottom: 0;
@@ -168,109 +194,123 @@
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
             animation: loading-shimmer 1.5s ease-in-out infinite;
         }
-        
-        /* File preview animation */
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+
+        @keyframes loading-shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
-        
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
         .file-preview-card {
             animation: scaleIn 0.3s ease-out;
         }
-        
-        /* Section fade-in */
-        .fade-in {
-            animation: fadeIn 0.5s ease-out;
+
+        .section-label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #94A3B8;
         }
-        
-        /* Info section styling */
-        .info-section {
-            background: linear-gradient(135deg, rgba(255, 122, 24, 0.05), rgba(242, 84, 27, 0.03));
-            border: 1px solid rgba(255, 122, 24, 0.15);
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
         }
-        
-        /* Disclaimer styling */
-        .disclaimer-section {
-            background: #FEF3C7;
-            border: 1px solid #FCD34D;
+
+        .check-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #F0FDF4;
+            border: 1px solid #BBF7D0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .check-icon svg {
+            width: 10px;
+            height: 10px;
+            color: #16A34A;
         }
     </style>
 </head>
 <body class="min-h-screen pt-1">
-    <div class="brand-strip"></div>
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="top-bar"></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <!-- Header -->
-        <div class="flex justify-between items-start mb-10 fade-in">
-            <a href="{% if user %}/dashboard{% else %}/{% endif %}" class="logo-container transition-transform hover:scale-105">
-                <img src="/static/branding/triage-logo-primary.png" alt="Triage AI logo" class="h-20 sm:h-24 w-auto logo-blended" />
+        <div class="flex justify-between items-center mb-16">
+            <a href="{% if user %}/dashboard{% else %}/{% endif %}" class="text-xl font-extrabold tracking-tight text-[#0F172A]">
+                TRIAGE
             </a>
-            <div class="flex items-center gap-4 text-sm mt-4">
+            <div class="flex items-center gap-4 text-sm">
                 {% if user %}
-                <span class="text-gray-600">{{ user.name or user.email }}</span>
-                <a href="/dashboard" class="text-[#FF7A18] font-semibold">Dashboard</a>
-                <a href="/logout" class="text-gray-500 hover:text-gray-700">Logout</a>
+                <span class="text-gray-500">{{ user.name or user.email }}</span>
+                <a href="/dashboard" class="text-[#0F172A] font-semibold">Dashboard</a>
+                <a href="/logout" class="text-gray-400 hover:text-gray-600">Logout</a>
                 {% else %}
-                <a href="/login" class="text-gray-600 hover:text-[#FF7A18] font-medium">Log In</a>
+                <a href="/login" class="text-gray-500 hover:text-gray-900 font-medium">Log In</a>
                 <a href="/register" class="btn-primary py-2 px-4 rounded-lg text-sm">Sign Up Free</a>
                 {% endif %}
             </div>
         </div>
 
         <!-- Hero Section -->
-        <div class="text-center mb-12 hero-section">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] mb-3 tracking-tight">
-                Triage <span class="gradient-text tracking-wide">AI</span>
+        <div class="text-center mb-16">
+            <p class="section-label mb-4">The Deterministic Legal Reasoning Engine</p>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] mb-5 tracking-tight leading-[1.1]">
+                Deterministic Legal<br>Intelligence
             </h1>
-            <p class="text-lg sm:text-xl font-medium text-gray-600 max-w-2xl mx-auto leading-relaxed mb-4">
-                Contract Risk Intelligence
+            <p class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-3">
+                Review legal documents using deterministic rules, auditable evidence, and AI-powered explanations — not AI decisions.
             </p>
-            <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed mt-4">
-                Spot high-risk clauses in NDAs, MSAs, SaaS agreements, and vendor contracts — in under 2 minutes. No hallucinations, no guesswork.
+            <p class="text-base text-gray-400 max-w-xl mx-auto leading-relaxed">
+                Every finding is generated from deterministic logic, supported by matched evidence, and presented with complete transparency for attorney review.
             </p>
-            <p class="text-sm text-gray-500 max-w-xl mx-auto mt-2">
-                Designed to highlight commonly negotiated risk patterns, not to replace legal review.
-            </p>
+
             {% if not user %}
             <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-                <a href="/demo" class="inline-flex items-center justify-center gap-2 py-3 px-6 rounded-lg border-2 border-[#FF7A18] text-[#FF7A18] font-semibold hover:bg-[#FF7A18] hover:text-white transition-all">
-                    Try Free Demo
+                <a href="/register" class="btn-primary py-3 px-8 rounded-lg text-sm inline-flex items-center justify-center">
+                    Start Free Review
                 </a>
-                <a href="/pricing" class="text-gray-500 hover:text-gray-700 font-medium py-3 px-6">
-                    View Pricing &rarr;
+                <a href="#how-it-works" class="btn-secondary py-3 px-6 rounded-lg text-sm inline-flex items-center justify-center">
+                    See How It Works
                 </a>
             </div>
             {% endif %}
 
-            <!-- Trust Metrics Bar -->
-            <div class="trust-bar mt-10 pt-8 border-t border-gray-200/50">
-                <div class="trust-item">
-                    <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.351.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    40 Deterministic Rules
-                </div>
-                <div class="trust-item">
+            <!-- Trust Badges -->
+            <div class="flex flex-wrap justify-center gap-3 mt-10">
+                <div class="badge">
                     <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    Zero Hallucinations
+                    Deterministic Rule Engine
                 </div>
-                <div class="trust-item">
-                    <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V8z" clip-rule="evenodd"/></svg>
-                    Auditable Matched Excerpts
+                <div class="badge">
+                    <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    Evidence-Backed Findings
                 </div>
-                <div class="trust-item">
-                    <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    Reproducible Analysis
+                <div class="badge">
+                    <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    Fully Auditable
+                </div>
+                <div class="badge">
+                    <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    Reproducible Every Run
                 </div>
             </div>
         </div>
 
         <!-- Upload Card -->
-        <div class="premium-card p-6 sm:p-8 mb-8 fade-in">
+        <div class="card p-6 sm:p-8 mb-16">
             <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
                 <div class="mb-6">
                     <label for="file" class="block text-sm font-semibold text-[#0F172A] mb-3">
@@ -278,50 +318,38 @@
                     </label>
                     <div id="uploadArea" class="upload-area mt-1 flex justify-center px-6 pt-8 pb-8 rounded-xl cursor-pointer">
                         <div class="space-y-3 text-center">
-                            <svg class="mx-auto h-14 w-14 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                            <svg class="mx-auto h-12 w-12 text-gray-300" stroke="currentColor" fill="none" viewBox="0 0 48 48">
                                 <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
-                            <div class="flex flex-col sm:flex-row items-center justify-center gap-2 text-sm text-gray-600">
-                                <label for="file" class="relative cursor-pointer font-semibold text-[#FF7A18] hover:text-[#F2541B] transition-colors">
+                            <div class="flex flex-col sm:flex-row items-center justify-center gap-2 text-sm text-gray-500">
+                                <label for="file" class="relative cursor-pointer font-semibold text-[#0F172A] hover:text-gray-700 transition-colors">
                                     <span>Upload a file</span>
                                     <input id="file" name="file" type="file" accept=".pdf,.docx,.txt" class="sr-only" required>
                                 </label>
-                                <span class="text-gray-500">or drag and drop</span>
+                                <span>or drag and drop</span>
                             </div>
-                            <p class="text-xs text-gray-500">PDF, DOCX, or TXT up to 10MB</p>
+                            <p class="text-xs text-gray-400">PDF, DOCX, or TXT up to 10MB</p>
                         </div>
                     </div>
-                    
-                    <!-- File Preview Card -->
+
                     <div id="filePreview" class="hidden mt-6 flex justify-center">
-                        <div class="relative w-56 file-preview-card premium-card p-6">
-                            <!-- Action buttons -->
+                        <div class="relative w-56 file-preview-card card p-6">
                             <div class="absolute top-3 right-3 flex space-x-2">
-                                <button type="button" id="refreshFile" class="w-8 h-8 rounded-lg bg-white border border-gray-200/60 flex items-center justify-center text-gray-500 hover:text-[#FF7A18] hover:border-[#FF7A18] transition-all shadow-sm" title="Change file">
-                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                    </svg>
+                                <button type="button" id="refreshFile" class="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:border-gray-300 transition-all" title="Change file">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
                                 </button>
-                                <button type="button" id="removeFile" class="w-8 h-8 rounded-lg bg-white border border-gray-200/60 flex items-center justify-center text-gray-500 hover:text-red-600 hover:border-red-300 transition-all shadow-sm" title="Remove file">
-                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
+                                <button type="button" id="removeFile" class="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-red-500 hover:border-red-200 transition-all" title="Remove file">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                                 </button>
                             </div>
-                            
-                            <!-- Document thumbnail -->
                             <div class="flex justify-center mb-4">
-                                <div class="w-36 h-44 bg-gray-50 border border-gray-200/60 rounded-lg shadow-sm flex items-center justify-center">
-                                    <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                    </svg>
+                                <div class="w-36 h-44 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center">
+                                    <svg class="w-24 h-24 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                                 </div>
                             </div>
-                            
-                            <!-- Filename and size -->
                             <div class="text-center">
                                 <p id="fileName" class="text-sm font-semibold text-[#0F172A] truncate px-2"></p>
-                                <p id="fileSize" class="text-xs text-gray-500 mt-1"></p>
+                                <p id="fileSize" class="text-xs text-gray-400 mt-1"></p>
                             </div>
                         </div>
                     </div>
@@ -330,7 +358,7 @@
                 {% if user and playbooks %}
                 <div class="mb-6">
                     <label for="playbook_id" class="block text-sm font-semibold text-[#0F172A] mb-2">Compare against playbook (optional)</label>
-                    <select name="playbook_id" id="playbook_id" class="w-full px-4 py-3 rounded-lg border border-gray-200 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#FF7A18] focus:border-transparent">
+                    <select name="playbook_id" id="playbook_id" class="w-full px-4 py-3 rounded-lg border border-gray-200 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent">
                         <option value="">None — standard analysis only</option>
                         {% for p in playbooks %}
                         <option value="{{ p.id }}">{{ p.name }}{% if p.contract_type %} ({{ p.contract_type }}){% endif %}</option>
@@ -339,82 +367,139 @@
                 </div>
                 {% endif %}
 
-                <button type="submit" id="analyzeButton" class="btn-primary w-full py-3.5 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF7A18] disabled:opacity-70 disabled:cursor-not-allowed relative overflow-hidden">
-                    <span id="buttonText">Analyze Contract</span>
+                <button type="submit" id="analyzeButton" class="btn-primary w-full py-3.5 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0F172A] disabled:opacity-70 disabled:cursor-not-allowed relative overflow-hidden">
+                    <span id="buttonText">Start Free Review</span>
                     <div id="loadingBar" class="loading-bar hidden"></div>
                 </button>
             </form>
         </div>
 
-        <!-- How It Works Section -->
-        <div class="premium-card p-6 sm:p-8 mb-8 fade-in">
-            <h2 class="text-xl font-bold text-[#0F172A] mb-4">How It Works</h2>
-            <div class="space-y-4">
-                <div class="flex items-start">
-                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FF7A18] bg-opacity-10 flex items-center justify-center mr-3 mt-0.5">
-                        <span class="text-[#FF7A18] font-bold text-sm">1</span>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold text-[#0F172A] mb-1">Deterministic Engine Flags Patterns</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">Our rule engine uses regex and proximity matching to detect exact clause patterns. Every finding includes matched excerpts for full transparency and auditability.</p>
+        <!-- Product Architecture -->
+        <div id="how-it-works" class="mb-16">
+            <p class="section-label mb-3">Architecture</p>
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-2">How Triage Works</h2>
+            <p class="text-sm text-gray-400 mb-8 max-w-lg">The deterministic engine performs all legal analysis. AI never determines legal risk — it explains deterministic findings in clear language.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Workflow -->
+                <div>
+                    <div class="workflow-step"><div class="step-num">1</div>Upload Document</div>
+                    <div class="workflow-connector"></div>
+                    <div class="workflow-step"><div class="step-num">2</div>Parser</div>
+                    <div class="workflow-connector"></div>
+                    <div class="workflow-step"><div class="step-num">3</div>Normalizer</div>
+                    <div class="workflow-connector"></div>
+                    <div class="workflow-step"><div class="step-num">4</div>Deterministic Rule Engine</div>
+                    <div class="workflow-connector"></div>
+                    <div class="workflow-step"><div class="step-num">5</div>Evidence Engine</div>
+                    <div class="workflow-connector"></div>
+                    <div class="workflow-step"><div class="step-num">6</div>Consistency Engine</div>
+                    <div class="workflow-connector"></div>
+                    <div class="workflow-step"><div class="step-num">7</div>Workflow Engine</div>
+                    <div class="workflow-connector"></div>
+                    <div class="workflow-step"><div class="step-num">8</div>LLM Explanation Layer</div>
+                    <div class="workflow-connector"></div>
+                    <div class="workflow-step" style="border-color: #0F172A; background: #F8FAFC;">
+                        <div class="step-num" style="background: #16A34A;">&#10003;</div>
+                        Attorney Review
                     </div>
                 </div>
-                <div class="flex items-start">
-                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FF7A18] bg-opacity-10 flex items-center justify-center mr-3 mt-0.5">
-                        <span class="text-[#FF7A18] font-bold text-sm">2</span>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold text-[#0F172A] mb-1">LLM Explains Implications</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">AI explains why detected patterns may matter and suggests negotiation levers. The LLM never invents risks—it only explains what the deterministic engine found.</p>
-                    </div>
-                </div>
-                <div class="flex items-start">
-                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#FF7A18] bg-opacity-10 flex items-center justify-center mr-3 mt-0.5">
-                        <span class="text-[#FF7A18] font-bold text-sm">3</span>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold text-[#0F172A] mb-1">Triage Report for Review</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">You receive a structured report highlighting risk indicators, matched excerpts, and suggested negotiation points. Review with qualified legal counsel before signing.</p>
+
+                <!-- Sample Finding -->
+                <div>
+                    <p class="section-label mb-3">Sample Finding</p>
+                    <div class="finding-card">
+                        <div class="finding-header">
+                            <span class="font-bold text-red-700 text-sm">High Risk</span>
+                            <span class="text-xs text-red-500 font-mono">LIAB-017</span>
+                        </div>
+                        <div class="finding-row">
+                            <span class="finding-label">Finding</span>
+                            <span class="finding-value font-semibold">Unlimited Liability</span>
+                        </div>
+                        <div class="finding-row">
+                            <span class="finding-label">Matched Text</span>
+                            <span class="finding-value"><span class="matched-text">"...Supplier shall be liable for any and all damages..."</span></span>
+                        </div>
+                        <div class="finding-row">
+                            <span class="finding-label">Reason</span>
+                            <span class="finding-value">Unlimited liability language detected without a corresponding liability cap.</span>
+                        </div>
+                        <div class="finding-row">
+                            <span class="finding-label">Evidence</span>
+                            <span class="finding-value">Matched contractual language shown inline.</span>
+                        </div>
+                        <div class="finding-row">
+                            <span class="finding-label">Confidence</span>
+                            <span class="finding-value font-semibold text-green-700">Deterministic Match</span>
+                        </div>
+                        <div class="finding-row">
+                            <span class="finding-label">Status</span>
+                            <span class="finding-value font-medium text-amber-700">Attorney Review Recommended</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Why This Is Reliable Section -->
-        <div class="premium-card p-6 sm:p-8 mb-8 fade-in">
-            <h2 class="text-xl font-bold text-[#0F172A] mb-4">Why This Is Reliable</h2>
-            <ul class="space-y-3 text-gray-700">
-                <li class="flex items-start">
-                    <svg class="h-5 w-5 text-[#FF7A18] mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                    </svg>
-                    <span class="leading-relaxed"><strong class="text-[#0F172A]">Deterministic first-pass</strong> prevents hallucinations about clause presence. All risk detection is rule-based and auditable.</span>
-                </li>
-                <li class="flex items-start">
-                    <svg class="h-5 w-5 text-[#FF7A18] mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                    </svg>
-                    <span class="leading-relaxed"><strong class="text-[#0F172A]">Matched excerpts shown</strong> for every finding, so you can verify exactly what triggered each rule.</span>
-                </li>
-                <li class="flex items-start">
-                    <svg class="h-5 w-5 text-[#FF7A18] mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                    </svg>
-                    <span class="leading-relaxed"><strong class="text-[#0F172A]">Version-controlled rules</strong> ensure consistent, reproducible analysis across all contracts.</span>
-                </li>
-            </ul>
+        <!-- Why Triage Is Different -->
+        <div class="card p-6 sm:p-8 mb-16">
+            <p class="section-label mb-3">Why Triage Is Different</p>
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-6">Every legal finding is traceable, explainable, and reproducible.</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="check-item">
+                    <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                    <span class="text-sm text-gray-600">Every finding is backed by explicit rules.</span>
+                </div>
+                <div class="check-item">
+                    <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                    <span class="text-sm text-gray-600">Every conclusion includes matched evidence.</span>
+                </div>
+                <div class="check-item">
+                    <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                    <span class="text-sm text-gray-600">Every analysis is reproducible.</span>
+                </div>
+                <div class="check-item">
+                    <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                    <span class="text-sm text-gray-600">No hidden reasoning.</span>
+                </div>
+                <div class="check-item">
+                    <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                    <span class="text-sm text-gray-600">No hallucinated legal conclusions.</span>
+                </div>
+                <div class="check-item">
+                    <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                    <span class="text-sm text-gray-600">AI explains findings but never creates legal decisions.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Platform Vision -->
+        <div class="text-center mb-16">
+            <p class="section-label mb-3">Platform</p>
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-3">Beyond Contract Review</h2>
+            <p class="text-sm text-gray-400 max-w-lg mx-auto mb-8">The deterministic reasoning engine remains the foundation across all legal domains, while AI serves exclusively as an explanatory layer.</p>
+
+            <div class="flex flex-wrap justify-center gap-3">
+                <span class="badge">Contract Review</span>
+                <span class="badge">Immigration</span>
+                <span class="badge">Compliance</span>
+                <span class="badge">Corporate Governance</span>
+                <span class="badge">Regulatory Analysis</span>
+            </div>
         </div>
 
         <!-- Disclaimer -->
-        <div class="disclaimer-section rounded-xl p-6 fade-in">
+        <div class="rounded-xl p-5 mb-16 border border-gray-200 bg-gray-50">
             <div class="flex">
-                <svg class="h-5 w-5 text-amber-600 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                <svg class="h-5 w-5 text-gray-400 mr-3 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                 </svg>
                 <div>
-                    <h3 class="text-sm font-bold text-amber-900 mb-1">Important Disclaimer</h3>
-                    <p class="text-sm text-amber-800 leading-relaxed">
-                        This tool provides automated risk triage, not legal advice. 
+                    <h3 class="text-sm font-semibold text-gray-700 mb-1">Important Disclaimer</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        This tool provides automated risk triage, not legal advice.
                         Always consult with qualified legal counsel before signing any contract.
                     </p>
                 </div>
@@ -422,23 +507,23 @@
         </div>
 
         <!-- Footer -->
-        <footer class="mt-16 pt-8 border-t border-gray-200/50 fade-in">
+        <footer class="pt-8 border-t border-gray-200">
             <div class="flex justify-center gap-6 mb-6 flex-wrap">
                 <div class="flex items-center gap-2 text-xs text-gray-400">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.351.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    256-bit TLS Encryption
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.351.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    256-bit TLS
                 </div>
                 <div class="flex items-center gap-2 text-xs text-gray-400">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
                     Documents Never Stored
                 </div>
                 <div class="flex items-center gap-2 text-xs text-gray-400">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    Rule Engine v2.0
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    Deterministic Engine
                 </div>
             </div>
-            <div class="text-center text-gray-500 text-sm space-y-1">
-                <p class="font-medium">&copy; {{ current_year }} Triage AI — Contract Risk Intelligence</p>
+            <div class="text-center text-gray-400 text-sm space-y-1">
+                <p class="font-medium">&copy; {{ current_year }} Triage — Deterministic Legal Intelligence</p>
                 <p class="text-xs">Automated contract risk triage. Not legal advice.</p>
             </div>
         </footer>
@@ -456,7 +541,6 @@
         const loadingBar = document.getElementById('loadingBar');
         const uploadForm = document.getElementById('uploadForm');
 
-        // Format file size
         function formatFileSize(bytes) {
             if (bytes === 0) return '0 Bytes';
             const k = 1024;
@@ -465,7 +549,6 @@
             return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
         }
 
-        // Show file preview
         function showFilePreview(file) {
             fileName.textContent = file.name;
             fileSize.textContent = formatFileSize(file.size);
@@ -473,35 +556,27 @@
             filePreview.classList.remove('hidden');
         }
 
-        // Hide file preview and restore upload area
         function hideFilePreview() {
             fileInput.value = '';
             uploadArea.classList.remove('hidden');
             filePreview.classList.add('hidden');
         }
 
-        // Handle file selection
         fileInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
-            if (file) {
-                showFilePreview(file);
-            }
+            if (file) showFilePreview(file);
         });
 
-        // Handle remove file button
         removeFileBtn.addEventListener('click', function(e) {
             e.preventDefault();
             hideFilePreview();
         });
 
-        // Handle refresh file button (reopen file picker)
-        const refreshFileBtn = document.getElementById('refreshFile');
-        refreshFileBtn.addEventListener('click', function(e) {
+        document.getElementById('refreshFile').addEventListener('click', function(e) {
             e.preventDefault();
             fileInput.click();
         });
 
-        // Handle form submission with loading animation
         uploadForm.addEventListener('submit', function(e) {
             analyzeButton.disabled = true;
             buttonText.textContent = 'Analyzing…';
