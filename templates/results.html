@@ -14,8 +14,10 @@
     <style>
         :root {
             --navy: #0F172A;
-            --bg: #F8FAFC;
-            --card-border: #E2E8F0;
+            --bg: #FAFAFA;
+            --border: #E5E7EB;
+            --accent: #0F172A;
+            --accent-subtle: #334155;
             --green: #059669;
             --red: #DC2626;
             --amber: #D97706;
@@ -24,15 +26,17 @@
         }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
+            background-color: var(--bg);
             letter-spacing: -0.01em;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: #1E293B;
         }
         .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace; }
         .report-card {
             background: #fff;
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
         }
         .status-pass { color: var(--green); }
         .status-fail { color: var(--red); }
@@ -77,64 +81,64 @@
     <!-- Header -->
     <div class="mb-6 fade-in">
         <div class="flex items-center justify-between mb-6">
-            <a href="{% if user %}/dashboard{% else %}/{% endif %}" class="text-sm font-medium text-slate-500 hover:text-slate-800 inline-flex items-center gap-1 transition-colors">
+            <a href="{% if user %}/dashboard{% else %}/{% endif %}" class="text-sm font-medium text-[#475569] hover:text-[#1E293B] inline-flex items-center gap-1 transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                 {% if user %}Dashboard{% else %}Upload{% endif %}
             </a>
             <div class="flex gap-2">
                 {% if contract_id %}
-                <a href="/contract/{{ contract_id }}/pdf" class="inline-flex items-center gap-1.5 py-2 px-4 rounded-md text-sm font-medium border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors">
+                <a href="/contract/{{ contract_id }}/pdf" class="inline-flex items-center gap-1.5 py-2 px-4 rounded-md text-sm font-medium border border-slate-200 text-[#334155] hover:bg-slate-50 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                     Export PDF
                 </a>
-                <button onclick="shareContract({{ contract_id }})" class="inline-flex items-center gap-1.5 py-2 px-4 rounded-md text-sm font-medium border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors">
+                <button onclick="shareContract({{ contract_id }})" class="inline-flex items-center gap-1.5 py-2 px-4 rounded-md text-sm font-medium border border-slate-200 text-[#334155] hover:bg-slate-50 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
                     Share
                 </button>
                 {% elif token %}
-                <a href="/download-pdf?token={{ token }}" class="inline-flex items-center gap-1.5 py-2 px-4 rounded-md text-sm font-medium border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors">
+                <a href="/download-pdf?token={{ token }}" class="inline-flex items-center gap-1.5 py-2 px-4 rounded-md text-sm font-medium border border-slate-200 text-[#334155] hover:bg-slate-50 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                     Export PDF
                 </a>
                 {% endif %}
             </div>
         </div>
-        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-1">Verification Report</h1>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight mb-1">Verification Report</h1>
     </div>
 
     <!-- Report Metadata -->
     <div class="report-card overflow-hidden mb-6 fade-in">
         <div class="meta-grid">
             <div>
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Contract</div>
-                <div class="text-sm font-semibold text-slate-900 truncate">{{ filename }}</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Contract</div>
+                <div class="text-sm font-semibold text-[#0F172A] truncate">{{ filename }}</div>
             </div>
             <div>
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Analysis ID</div>
-                <div class="text-sm font-semibold text-slate-900 mono">{{ analysis_id }}</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Analysis ID</div>
+                <div class="text-sm font-semibold text-[#0F172A] mono">{{ analysis_id }}</div>
             </div>
             <div>
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Generated</div>
-                <div class="text-sm font-semibold text-slate-900">{{ generated_at }}</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Generated</div>
+                <div class="text-sm font-semibold text-[#0F172A]">{{ generated_at }}</div>
             </div>
             <div>
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Engine</div>
-                <div class="text-sm font-semibold text-slate-900">Triage Deterministic Engine</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Engine</div>
+                <div class="text-sm font-semibold text-[#0F172A]">Triage Deterministic Engine</div>
             </div>
             <div>
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Engine Version</div>
-                <div class="text-sm font-semibold text-slate-900 mono">{{ rule_engine_version }}</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Engine Version</div>
+                <div class="text-sm font-semibold text-[#0F172A] mono">{{ rule_engine_version }}</div>
             </div>
             <div>
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Rules Loaded</div>
-                <div class="text-sm font-semibold text-slate-900">{{ total_rule_count }}</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rules Loaded</div>
+                <div class="text-sm font-semibold text-[#0F172A]">{{ total_rule_count }}</div>
             </div>
             <div>
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Rules Triggered</div>
-                <div class="text-sm font-semibold text-slate-900">{{ findings_count }}</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rules Triggered</div>
+                <div class="text-sm font-semibold text-[#0F172A]">{{ findings_count }}</div>
             </div>
             <div>
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Status</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Status</div>
                 <div class="text-sm font-semibold status-pass">Verification Completed</div>
             </div>
         </div>
@@ -144,7 +148,7 @@
     <div class="report-card p-6 mb-6 fade-in {% if overall_risk == 'high' %}severity-high{% elif overall_risk == 'medium' %}severity-medium{% else %}severity-low{% endif %}" style="border-left-width: 4px;">
         <div class="flex items-start justify-between flex-wrap gap-4">
             <div>
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Verification Status</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-2">Verification Status</div>
                 <div class="flex items-center gap-3 mb-4">
                     <span class="text-2xl font-extrabold {% if overall_risk == 'high' %}text-red-700{% elif overall_risk == 'medium' %}text-amber-700{% else %}text-green-700{% endif %}">
                         {{ overall_risk|upper }} RISK
@@ -152,62 +156,62 @@
                 </div>
             </div>
             <div class="grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
-                <div class="text-slate-500">Engine Integrity</div>
+                <div class="text-[#475569]">Engine Integrity</div>
                 <div class="font-semibold status-pass">Verified</div>
-                <div class="text-slate-500">Evidence Collection</div>
+                <div class="text-[#475569]">Evidence Collection</div>
                 <div class="font-semibold status-pass">Completed</div>
-                <div class="text-slate-500">Consistency Validation</div>
+                <div class="text-[#475569]">Consistency Validation</div>
                 <div class="font-semibold status-pass">Passed</div>
-                <div class="text-slate-500">Attorney Review</div>
-                <div class="font-semibold text-slate-700">Recommended</div>
+                <div class="text-[#475569]">Attorney Review</div>
+                <div class="font-semibold text-[#334155]">Recommended</div>
             </div>
         </div>
     </div>
 
     <!-- Executive Summary -->
     <div class="report-card p-6 mb-6 fade-in">
-        <h2 class="text-lg font-bold text-slate-900 mb-4">Executive Summary</h2>
+        <h2 class="text-lg font-bold text-[#0F172A] mb-4">Executive Summary</h2>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
             <div class="text-center p-3 bg-slate-50 rounded-md">
-                <div class="text-2xl font-extrabold text-slate-900">1</div>
-                <div class="text-xs font-medium text-slate-500 mt-1">Documents Processed</div>
+                <div class="text-2xl font-extrabold text-[#0F172A]">1</div>
+                <div class="text-xs font-medium text-[#475569] mt-1">Documents Processed</div>
             </div>
             <div class="text-center p-3 bg-slate-50 rounded-md">
-                <div class="text-2xl font-extrabold text-slate-900">{{ total_rule_count }}</div>
-                <div class="text-xs font-medium text-slate-500 mt-1">Rules Executed</div>
+                <div class="text-2xl font-extrabold text-[#0F172A]">{{ total_rule_count }}</div>
+                <div class="text-xs font-medium text-[#475569] mt-1">Rules Executed</div>
             </div>
             <div class="text-center p-3 bg-slate-50 rounded-md">
-                <div class="text-2xl font-extrabold text-slate-900">{{ findings_count }}</div>
-                <div class="text-xs font-medium text-slate-500 mt-1">Rules Triggered</div>
+                <div class="text-2xl font-extrabold text-[#0F172A]">{{ findings_count }}</div>
+                <div class="text-xs font-medium text-[#475569] mt-1">Rules Triggered</div>
             </div>
             <div class="text-center p-3 bg-slate-50 rounded-md">
-                <div class="text-2xl font-extrabold text-slate-900">{{ possible_missing_sections|length if possible_missing_sections else 0 }}</div>
-                <div class="text-xs font-medium text-slate-500 mt-1">Missing Sections</div>
+                <div class="text-2xl font-extrabold text-[#0F172A]">{{ possible_missing_sections|length if possible_missing_sections else 0 }}</div>
+                <div class="text-xs font-medium text-[#475569] mt-1">Missing Sections</div>
             </div>
         </div>
         <div class="grid grid-cols-3 gap-4">
             <div class="text-center p-3 bg-red-50 rounded-md">
                 <div class="text-2xl font-extrabold text-red-600">{{ rule_counts.get('high', 0) }}</div>
-                <div class="text-xs font-medium text-slate-500 mt-1">High Risk</div>
+                <div class="text-xs font-medium text-[#475569] mt-1">High Risk</div>
             </div>
             <div class="text-center p-3 bg-amber-50 rounded-md">
                 <div class="text-2xl font-extrabold text-amber-600">{{ rule_counts.get('medium', 0) }}</div>
-                <div class="text-xs font-medium text-slate-500 mt-1">Medium Risk</div>
+                <div class="text-xs font-medium text-[#475569] mt-1">Medium Risk</div>
             </div>
             <div class="text-center p-3 bg-blue-50 rounded-md">
                 <div class="text-2xl font-extrabold text-blue-600">{{ rule_counts.get('low', 0) }}</div>
-                <div class="text-xs font-medium text-slate-500 mt-1">Low Risk</div>
+                <div class="text-xs font-medium text-[#475569] mt-1">Low Risk</div>
             </div>
         </div>
     </div>
 
     <!-- Rule Coverage Dashboard -->
     <div class="report-card p-6 mb-6 fade-in">
-        <h2 class="text-lg font-bold text-slate-900 mb-4">Rule Coverage</h2>
+        <h2 class="text-lg font-bold text-[#0F172A] mb-4">Rule Coverage</h2>
         <div class="category-grid">
             {% for cat, status in rule_categories.items() %}
             <div class="flex items-center justify-between p-3 bg-slate-50 rounded-md border border-slate-100">
-                <span class="text-sm font-medium text-slate-700">{{ cat }}</span>
+                <span class="text-sm font-medium text-[#334155]">{{ cat }}</span>
                 {% if status == "PASS" %}
                 <span class="text-xs font-bold status-pass mono">PASS</span>
                 {% elif status == "WARNING" %}
@@ -223,7 +227,7 @@
     <!-- Findings -->
     {% if top_issues %}
     <div class="mb-6 fade-in">
-        <h2 class="text-lg font-bold text-slate-900 mb-4">Findings</h2>
+        <h2 class="text-lg font-bold text-[#0F172A] mb-4">Findings</h2>
         <div class="space-y-4">
             {% for issue in top_issues %}
             <div class="report-card overflow-hidden {% if issue.severity == 'high' %}severity-high{% elif issue.severity == 'medium' %}severity-medium{% else %}severity-low{% endif %}" style="border-left-width: 3px;">
@@ -234,44 +238,44 @@
                             {{ issue.severity|upper }}
                         </span>
                         {% if issue.rule_id %}
-                        <span class="px-2.5 py-1 text-xs font-medium rounded bg-slate-100 text-slate-600 mono">{{ issue.rule_id }}</span>
+                        <span class="px-2.5 py-1 text-xs font-medium rounded bg-slate-100 text-[#475569] mono">{{ issue.rule_id }}</span>
                         {% endif %}
                         {% if issue.clause_number %}
-                        <span class="px-2.5 py-1 text-xs font-medium rounded bg-slate-100 text-slate-600">Clause {{ issue.clause_number }}</span>
+                        <span class="px-2.5 py-1 text-xs font-medium rounded bg-slate-100 text-[#475569]">Clause {{ issue.clause_number }}</span>
                         {% endif %}
                     </div>
 
-                    <h3 class="text-base font-bold text-slate-900 mb-3">{{ issue.title }}</h3>
+                    <h3 class="text-base font-bold text-[#0F172A] mb-3">{{ issue.title }}</h3>
 
                     <!-- Metadata grid -->
                     <div class="space-y-3 text-sm">
                         {% if issue.rationale %}
                         <div>
-                            <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Reason</div>
-                            <div class="text-slate-700">{{ issue.rationale }}</div>
+                            <div class="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-1">Reason</div>
+                            <div class="text-[#334155]">{{ issue.rationale }}</div>
                         </div>
                         {% endif %}
 
                         {% if issue.matched_excerpt %}
                         <div>
-                            <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Matched Text</div>
+                            <div class="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-1">Matched Text</div>
                             <div class="evidence-block">{{ issue.matched_excerpt }}</div>
                         </div>
                         {% endif %}
 
                         {% if issue.why_it_matters %}
                         <div>
-                            <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Analysis</div>
-                            <div class="text-slate-700">{{ issue.why_it_matters }}</div>
+                            <div class="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-1">Analysis</div>
+                            <div class="text-[#334155]">{{ issue.why_it_matters }}</div>
                         </div>
                         {% endif %}
 
                         {% if issue.matched_keywords %}
                         <div>
-                            <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Matched Keywords</div>
+                            <div class="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-1">Matched Keywords</div>
                             <div class="flex gap-1.5 flex-wrap">
                                 {% for kw in issue.matched_keywords %}
-                                <span class="px-2 py-0.5 text-xs font-medium bg-slate-100 text-slate-600 rounded mono">{{ kw }}</span>
+                                <span class="px-2 py-0.5 text-xs font-medium bg-slate-100 text-[#475569] rounded mono">{{ kw }}</span>
                                 {% endfor %}
                             </div>
                         </div>
@@ -279,19 +283,19 @@
 
                         {% if issue.negotiation_consideration %}
                         <div>
-                            <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Negotiation Recommendation</div>
-                            <div class="text-slate-700">{{ issue.negotiation_consideration }}</div>
+                            <div class="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-1">Negotiation Recommendation</div>
+                            <div class="text-[#334155]">{{ issue.negotiation_consideration }}</div>
                         </div>
                         {% endif %}
 
                         <div class="flex gap-4 pt-2 border-t border-slate-100">
                             <div>
-                                <span class="text-xs text-slate-400">Verification</span>
+                                <span class="text-xs text-[#64748B]">Verification</span>
                                 <span class="text-xs font-semibold status-pass ml-1">Verified</span>
                             </div>
                             <div>
-                                <span class="text-xs text-slate-400">Attorney Action</span>
-                                <span class="text-xs font-semibold text-slate-700 ml-1">Review Recommended</span>
+                                <span class="text-xs text-[#64748B]">Attorney Action</span>
+                                <span class="text-xs font-semibold text-[#334155] ml-1">Review Recommended</span>
                             </div>
                         </div>
                     </div>
@@ -305,8 +309,8 @@
     <!-- Playbook Deviations -->
     {% if deviations and deviations.deviations %}
     <div class="report-card p-6 mb-6 fade-in">
-        <h2 class="text-lg font-bold text-slate-900 mb-1">Playbook Deviations</h2>
-        <p class="text-sm text-slate-500 mb-4">{{ deviations.deviation_count }} deviation(s) from standard template</p>
+        <h2 class="text-lg font-bold text-[#0F172A] mb-1">Playbook Deviations</h2>
+        <p class="text-sm text-[#475569] mb-4">{{ deviations.deviation_count }} deviation(s) from standard template</p>
         {% if deviations.added_risk_count > 0 %}
         <div class="mb-4">
             <h3 class="text-sm font-bold text-red-700 mb-2">Additional Risks</h3>
@@ -314,10 +318,10 @@
                 {% for d in deviations.deviations if d.deviation_type == 'added_risk' %}
                 <div class="p-3 rounded-md {% if d.severity == 'high' %}severity-high{% elif d.severity == 'medium' %}severity-medium{% else %}severity-low{% endif %}" style="border-left-width: 3px;">
                     <div class="flex items-center gap-2 mb-1">
-                        <span class="text-sm font-semibold text-slate-900">{{ d.title }}</span>
+                        <span class="text-sm font-semibold text-[#0F172A]">{{ d.title }}</span>
                         <span class="px-2 py-0.5 text-xs font-bold rounded {% if d.severity == 'high' %}badge-high{% elif d.severity == 'medium' %}badge-medium{% else %}badge-low{% endif %}">{{ d.severity|upper }}</span>
                     </div>
-                    <p class="text-sm text-slate-600">{{ d.description }}</p>
+                    <p class="text-sm text-[#475569]">{{ d.description }}</p>
                 </div>
                 {% endfor %}
             </div>
@@ -329,8 +333,8 @@
             <div class="space-y-2">
                 {% for d in deviations.deviations if d.deviation_type == 'missing_protection' %}
                 <div class="p-3 rounded-md severity-medium" style="border-left-width: 3px;">
-                    <span class="text-sm font-semibold text-slate-900">{{ d.title }}</span>
-                    <p class="text-sm text-slate-600">{{ d.description }}</p>
+                    <span class="text-sm font-semibold text-[#0F172A]">{{ d.title }}</span>
+                    <p class="text-sm text-[#475569]">{{ d.description }}</p>
                 </div>
                 {% endfor %}
             </div>
@@ -338,10 +342,10 @@
         {% endif %}
         {% if deviations.shared_findings %}
         <details class="mt-3">
-            <summary class="text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors">{{ deviations.shared_findings|length }} shared finding(s)</summary>
+            <summary class="text-xs font-semibold text-[#475569] hover:text-[#1E293B] transition-colors">{{ deviations.shared_findings|length }} shared finding(s)</summary>
             <ul class="mt-2 space-y-1">
                 {% for s in deviations.shared_findings %}
-                <li class="text-xs text-slate-600 pl-3 border-l-2 border-slate-200 py-1">{{ s.title }} — <span class="mono">{{ s.severity|upper }}</span></li>
+                <li class="text-xs text-[#475569] pl-3 border-l-2 border-slate-200 py-1">{{ s.title }} — <span class="mono">{{ s.severity|upper }}</span></li>
                 {% endfor %}
             </ul>
         </details>
@@ -351,30 +355,30 @@
 
     <!-- Rule Execution Summary -->
     <div class="report-card p-6 mb-6 fade-in">
-        <h2 class="text-lg font-bold text-slate-900 mb-4">Rule Execution Summary</h2>
+        <h2 class="text-lg font-bold text-[#0F172A] mb-4">Rule Execution Summary</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <div class="p-3 bg-slate-50 rounded-md">
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Rules Loaded</div>
-                <div class="text-lg font-bold text-slate-900 mono">{{ total_rule_count }}</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rules Loaded</div>
+                <div class="text-lg font-bold text-[#0F172A] mono">{{ total_rule_count }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Rules Executed</div>
-                <div class="text-lg font-bold text-slate-900 mono">{{ total_rule_count }}</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rules Executed</div>
+                <div class="text-lg font-bold text-[#0F172A] mono">{{ total_rule_count }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Rules Triggered</div>
-                <div class="text-lg font-bold text-slate-900 mono">{{ findings_count }}</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rules Triggered</div>
+                <div class="text-lg font-bold text-[#0F172A] mono">{{ findings_count }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Rules Passed</div>
-                <div class="text-lg font-bold text-slate-900 mono">{{ total_rule_count - findings_count }}</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rules Passed</div>
+                <div class="text-lg font-bold text-[#0F172A] mono">{{ total_rule_count - findings_count }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Execution Integrity</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Execution Integrity</div>
                 <div class="text-sm font-bold status-pass">Verified</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Deterministic Execution</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Deterministic Execution</div>
                 <div class="text-sm font-bold status-pass">Successful</div>
             </div>
         </div>
@@ -382,7 +386,7 @@
 
     <!-- Execution Pipeline -->
     <div class="report-card p-6 mb-6 fade-in">
-        <h2 class="text-lg font-bold text-slate-900 mb-4">Execution Pipeline</h2>
+        <h2 class="text-lg font-bold text-[#0F172A] mb-4">Execution Pipeline</h2>
         <div class="flex flex-col items-center">
             {% set stages = [
                 ("Parser", "Document text extracted and normalized"),
@@ -399,8 +403,8 @@
                 <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-md border border-slate-100">
                     <svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                     <div class="flex-1">
-                        <div class="text-sm font-semibold text-slate-900">{{ stage_name }}</div>
-                        <div class="text-xs text-slate-500">{{ stage_desc }}</div>
+                        <div class="text-sm font-semibold text-[#0F172A]">{{ stage_name }}</div>
+                        <div class="text-xs text-[#475569]">{{ stage_desc }}</div>
                     </div>
                     <span class="text-xs font-medium status-pass mono">DONE</span>
                 </div>
@@ -415,13 +419,13 @@
     <!-- Recommended Manual Review -->
     {% if possible_missing_sections %}
     <div class="report-card p-6 mb-6 fade-in">
-        <h2 class="text-lg font-bold text-slate-900 mb-2">Recommended Manual Review</h2>
-        <p class="text-sm text-slate-500 mb-4">The deterministic engine did not detect these common provisions. They may be intentionally omitted or require manual verification.</p>
+        <h2 class="text-lg font-bold text-[#0F172A] mb-2">Recommended Manual Review</h2>
+        <p class="text-sm text-[#475569] mb-4">The deterministic engine did not detect these common provisions. They may be intentionally omitted or require manual verification.</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {% for section in possible_missing_sections %}
             <div class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-md">
                 <div class="w-4 h-4 rounded border-2 border-slate-300 flex-shrink-0"></div>
-                <span class="text-sm text-slate-700">{{ section }}</span>
+                <span class="text-sm text-[#334155]">{{ section }}</span>
             </div>
             {% endfor %}
         </div>
@@ -430,30 +434,30 @@
 
     <!-- Document Health -->
     <div class="report-card p-6 mb-6 fade-in">
-        <h2 class="text-lg font-bold text-slate-900 mb-4">Document Health</h2>
+        <h2 class="text-lg font-bold text-[#0F172A] mb-4">Document Health</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <div class="p-3 bg-slate-50 rounded-md">
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Risk Density</div>
-                <div class="text-lg font-bold text-slate-900 mono">{{ findings_count }} / {{ total_rule_count }}</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Risk Density</div>
+                <div class="text-lg font-bold text-[#0F172A] mono">{{ findings_count }} / {{ total_rule_count }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Rule Coverage</div>
-                <div class="text-lg font-bold text-slate-900 mono">{{ ((total_rule_count - findings_count) * 100 / total_rule_count)|round|int }}%</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rule Coverage</div>
+                <div class="text-lg font-bold text-[#0F172A] mono">{{ ((total_rule_count - findings_count) * 100 / total_rule_count)|round|int }}%</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Manual Review Priority</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Manual Review Priority</div>
                 <div class="text-sm font-bold {% if overall_risk == 'high' %}status-fail{% elif overall_risk == 'medium' %}status-warning{% else %}status-pass{% endif %}">{{ overall_risk|upper }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">High Risk Findings</div>
-                <div class="text-lg font-bold {% if rule_counts.get('high', 0) > 0 %}text-red-600{% else %}text-slate-900{% endif %} mono">{{ rule_counts.get('high', 0) }}</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">High Risk Findings</div>
+                <div class="text-lg font-bold {% if rule_counts.get('high', 0) > 0 %}text-red-600{% else %}text-[#0F172A]{% endif %} mono">{{ rule_counts.get('high', 0) }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Missing Provisions</div>
-                <div class="text-lg font-bold text-slate-900 mono">{{ possible_missing_sections|length if possible_missing_sections else 0 }}</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Missing Provisions</div>
+                <div class="text-lg font-bold text-[#0F172A] mono">{{ possible_missing_sections|length if possible_missing_sections else 0 }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
-                <div class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Evidence Completeness</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Evidence Completeness</div>
                 <div class="text-sm font-bold status-pass">Complete</div>
             </div>
         </div>
@@ -461,7 +465,7 @@
 
     <!-- Why This Report Is Trustworthy -->
     <div class="report-card p-6 mb-6 fade-in">
-        <h2 class="text-lg font-bold text-slate-900 mb-4">Report Integrity</h2>
+        <h2 class="text-lg font-bold text-[#0F172A] mb-4">Report Integrity</h2>
         <div class="space-y-2">
             {% set trust_items = [
                 "Every finding is generated by deterministic rules.",
@@ -474,7 +478,7 @@
             {% for item in trust_items %}
             <div class="flex items-start gap-2.5">
                 <svg class="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                <span class="text-sm text-slate-700">{{ item }}</span>
+                <span class="text-sm text-[#334155]">{{ item }}</span>
             </div>
             {% endfor %}
         </div>
@@ -483,14 +487,14 @@
     <!-- Legal Disclaimer -->
     <div class="border border-slate-200 rounded-lg p-6 mb-6 fade-in bg-white">
         <div class="text-center mb-4">
-            <div class="text-sm font-semibold text-slate-900 mb-1">Powered by the Triage Deterministic Engine</div>
-            <div class="text-xs text-slate-500 space-y-0.5">
+            <div class="text-sm font-semibold text-[#0F172A] mb-1">Powered by the Triage Deterministic Engine</div>
+            <div class="text-xs text-[#475569] space-y-0.5">
                 <p>Deterministic rules decide. AI explains.</p>
                 <p>Every finding is evidence-backed. Every conclusion is independently verifiable.</p>
             </div>
         </div>
         <div class="border-t border-slate-100 pt-4">
-            <p class="text-xs text-slate-400 leading-relaxed text-center">
+            <p class="text-xs text-[#64748B] leading-relaxed text-center">
                 This tool provides automated risk triage, not legal advice.
                 The analysis is for informational purposes only and does not constitute legal advice.
                 This tool may indicate potential risk areas but does not determine legality, enforceability, or safety.
@@ -503,20 +507,20 @@
     <!-- Footer -->
     <footer class="pt-4 pb-8 fade-in">
         <div class="flex justify-center gap-5 mb-3 flex-wrap">
-            <div class="flex items-center gap-1.5 text-xs text-slate-400">
+            <div class="flex items-center gap-1.5 text-xs text-[#64748B]">
                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.351.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                 256-bit TLS
             </div>
-            <div class="flex items-center gap-1.5 text-xs text-slate-400">
+            <div class="flex items-center gap-1.5 text-xs text-[#64748B]">
                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
                 Documents Never Stored
             </div>
-            <div class="flex items-center gap-1.5 text-xs text-slate-400">
+            <div class="flex items-center gap-1.5 text-xs text-[#64748B]">
                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                 {{ total_rule_count }} Deterministic Rules
             </div>
         </div>
-        <div class="text-center text-slate-400 text-xs space-y-0.5">
+        <div class="text-center text-[#64748B] text-xs space-y-0.5">
             <p>&copy; {{ current_year }} Triage &mdash; Contract Risk Intelligence</p>
             <p class="mono">Engine v{{ rule_engine_version }}</p>
         </div>
