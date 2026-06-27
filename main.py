@@ -215,6 +215,10 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
                 "negotiation_consideration": "Commonly negotiated; consider clarifying scope, caps, and mutuality.",
             }
 
+        enhanced["rule_id"] = finding.get("rule_id", "")
+        enhanced["rationale"] = finding.get("rationale", "")
+        enhanced["exact_snippet"] = finding.get("exact_snippet", "")
+        enhanced["context"] = finding.get("context", "")
         if finding.get("clause_number"):
             enhanced["clause_number"] = finding["clause_number"]
         if finding.get("matched_keywords"):
@@ -583,6 +587,50 @@ async def batch_upload_submit(
     })
 
 
+RULE_CATEGORY_MAP = {
+    "INDEM": "Indemnification", "LOL": "Liability", "IP": "Intellectual Property",
+    "PERSONAL": "Personal Liability", "ATTFEE": "Attorneys Fees", "ASSIGN": "Assignment",
+    "PUBLICITY": "Publicity", "UNILATERAL": "Unilateral Modification",
+    "CONSEQUENTIAL": "Consequential Damages", "TERM": "Termination", "DATA": "Data Portability",
+    "ASYMMETRIC": "Asymmetric Liability", "CONF": "Confidentiality", "RENEW": "Auto-Renewal",
+    "NONCOMP": "Non-Compete", "DEV": "Development Restrictions", "RESIDUALS": "Residual Rights",
+    "INJUNCT": "Injunctive Relief", "EQUIT": "Equitable Relief", "AUDIT": "Audit Rights",
+    "SURVIVAL": "Survival", "WAIVER": "Waiver of Defenses", "ARBITRATION": "Arbitration",
+    "WARRANTY": "Warranty", "BREACH": "Breach Notification", "INSURANCE": "Insurance",
+    "FORCE": "Force Majeure", "SLA": "Service Levels", "MFN": "Most Favored Nation",
+    "LATEFEE": "Late Fees", "BROADDEF": "Definitions", "GOVLAW": "Governing Law",
+    "COMPLIANCE": "Compliance", "ESCROW": "Escrow", "SUBCONTRACT": "Subcontracting",
+    "LOL_CARVEOUT": "Liability Carveouts", "IP_WORK_PRODUCT": "Work Product IP",
+    "INDEM_ONEWAY": "One-Way Indemnification", "TERM_CONVENIENCE": "Termination for Convenience",
+    "DATA_TERMINATION": "Data on Termination", "ASYMMETRIC_LIABILITY": "Asymmetric Liability",
+    "CONF_SCOPE": "Confidentiality Scope", "TERM_NOTICE": "Termination Notice",
+    "SURVIVAL_SCOPE": "Survival Scope", "WAIVER_DEFENSE": "Waiver of Defenses",
+    "WARRANTY_DISCLAIM": "Warranty Disclaimer", "BREACH_NOTIFY": "Breach Notification",
+    "FORCE_MAJEURE": "Force Majeure", "ASSIGN_CHANGE_CTRL": "Assignment / Change of Control",
+    "UNILATERAL_MOD": "Unilateral Modification",
+}
+
+def _get_rule_category(rule_id: str) -> str:
+    prefix = rule_id.split("_", 1)[1].rsplit("_", 1)[0] if "_" in rule_id else rule_id
+    return RULE_CATEGORY_MAP.get(prefix, prefix.replace("_", " ").title())
+
+def _build_rule_categories(findings_dict, engine):
+    all_categories = {}
+    for rule in engine.rules:
+        cat = _get_rule_category(rule.rule_id)
+        if cat not in all_categories:
+            all_categories[cat] = "PASS"
+    triggered_ids = {f.get("rule_id", "") for f in findings_dict}
+    for f in findings_dict:
+        cat = _get_rule_category(f.get("rule_id", ""))
+        sev = f.get("severity", "low")
+        if sev == "high":
+            all_categories[cat] = "FAIL"
+        elif sev == "medium" and all_categories.get(cat) != "FAIL":
+            all_categories[cat] = "WARNING"
+    return dict(sorted(all_categories.items()))
+
+
 # ============================================================
 # VIEW SINGLE CONTRACT
 # ============================================================
@@ -610,6 +658,16 @@ async def view_contract(request: Request, contract_id: int):
             all_missing.append(s)
     all_missing = all_missing[:6]
 
+    import json as _json
+    version_path = Path(__file__).parent / "rules" / "version.json"
+    try:
+        ruleset_meta = _json.loads(version_path.read_text())
+    except Exception:
+        ruleset_meta = {}
+    total_rule_count = sum(ruleset_meta.get("rule_count", {}).values()) if ruleset_meta.get("rule_count") else len(rule_engine.rules)
+
+    rule_categories = _build_rule_categories(findings_dict, rule_engine)
+
     return templates.TemplateResponse("results.html", {
         "request": request, "user": user,
         "filename": contract.filename,
@@ -620,11 +678,16 @@ async def view_contract(request: Request, contract_id: int):
         "disclaimer": llm_result.get("disclaimer", "This is automated risk triage, not legal advice."),
         "findings_count": len(findings_dict),
         "rule_counts": rule_counts,
-        "rule_engine_version": contract.rule_engine_version or "1.0.3",
+        "rule_engine_version": contract.rule_engine_version or "2.0.0",
         "current_year": datetime.now().year,
         "token": None,
         "contract_id": contract.id,
         "deviations": contract.deviations_json,
+        "total_rule_count": total_rule_count,
+        "rule_categories": rule_categories,
+        "findings_dict": findings_dict,
+        "analysis_id": f"TR-{contract.created_at.year}-{contract.id:06d}" if contract.created_at else f"TR-2026-{contract.id:06d}",
+        "generated_at": contract.created_at.strftime("%Y-%m-%d %I:%M %p UTC") if contract.created_at else "N/A",
     })
 
 
