@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — Triage AI</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/branding/favicon-32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #F8FAFC; }
+        .stat-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div style="height:2px;background:#0F172A;position:fixed;top:0;left:0;right:0;z-index:50"></div>
+
+    <nav class="border-b border-gray-200 bg-white px-6 py-4 mt-0.5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-6">
+                <a href="/dashboard" class="text-lg font-bold text-gray-900">Triage AI</a>
+                <span class="text-sm text-red-600 font-medium bg-red-50 px-2 py-1 rounded">Admin</span>
+            </div>
+            <div class="flex items-center gap-4 text-sm">
+                <a href="/admin/dashboard" class="font-medium text-gray-900">Overview</a>
+                <a href="/admin/users" class="text-gray-600 hover:text-gray-900">Users</a>
+                <a href="/admin/jobs" class="text-gray-600 hover:text-gray-900">Jobs</a>
+                <a href="/dashboard" class="text-gray-600 hover:text-gray-900">Back to App</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 py-8">
+        <h1 class="text-2xl font-bold text-gray-900 mb-6">Admin Dashboard</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+            <div class="stat-card">
+                <div class="text-sm text-gray-500 mb-1">Total Users</div>
+                <div class="text-3xl font-bold text-gray-900">{{ total_users }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="text-sm text-gray-500 mb-1">Active Subscriptions</div>
+                <div class="text-3xl font-bold text-green-600">{{ active_subs }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="text-sm text-gray-500 mb-1">Total Analyses</div>
+                <div class="text-3xl font-bold text-gray-900">{{ total_contracts }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="text-sm text-gray-500 mb-1">Jobs Today</div>
+                <div class="text-3xl font-bold text-blue-600">{{ jobs_today }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="text-sm text-gray-500 mb-1">API Cost (Month)</div>
+                <div class="text-3xl font-bold text-orange-600">${{ "%.2f"|format(api_cost_dollars) }}</div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <a href="/admin/users" class="stat-card hover:border-gray-400 transition-colors">
+                <h3 class="font-semibold text-gray-900 mb-2">Manage Users</h3>
+                <p class="text-sm text-gray-500">View all users, subscription status, and usage statistics.</p>
+            </a>
+            <a href="/admin/jobs" class="stat-card hover:border-gray-400 transition-colors">
+                <h3 class="font-semibold text-gray-900 mb-2">Analysis Jobs</h3>
+                <p class="text-sm text-gray-500">Monitor background jobs, status, and processing times.</p>
+            </a>
+        </div>
+    </main>
+
+    <footer class="text-center text-xs text-gray-400 py-6">
+        &copy; {{ current_year }} Triage AI — Admin Panel
+    </footer>
+</body>
+</html>

@@ -3,6 +3,7 @@ FastAPI app for Contract Risk Triage Tool
 
 Phase 1: User accounts, subscription billing, contract history, batch upload
 Phase 2: Playbook comparison, dashboard, report sharing
+Phase 3: PostgreSQL, Redis sessions, background jobs, admin dashboard
 """
 from __future__ import annotations
 
@@ -11,9 +12,9 @@ import io
 import hmac
 import hashlib
 import json
-import logging
 import secrets
 import re
+import time
 from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
@@ -35,7 +36,7 @@ else:
 
 import stripe
 from fastapi import FastAPI, File, UploadFile, Request, HTTPException, Form, Depends
-from fastapi.responses import HTMLResponse, RedirectResponse, Response
+from fastapi.responses import HTMLResponse, RedirectResponse, Response, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.cors import CORSMiddleware
@@ -43,19 +44,26 @@ from fpdf import FPDF
 from PyPDF2 import PdfReader
 from docx import Document
 from sqlalchemy.orm import Session as DBSession
+from sqlalchemy import func
 
 from rules_engine import RuleEngine
 from evaluator import LLMEvaluator
-from database import get_db, init_db
+from database import get_db, init_db, DATABASE_URL
 from auth import (
     hash_password, verify_password, create_session, get_current_user,
     logout as auth_logout, check_usage_limit,
 )
-from models import User, Contract, Playbook
+from models import User, Contract, Playbook, AnalysisJob, AuditLog, StripeEvent, ApiUsage, Session as SessionModel
 from playbook_engine import PlaybookEngine
+import redis_client
+from triage_logging import setup_logging, get_logger, LogContext, generate_analysis_id
+from triage_logging.startup import print_startup_banner
+from triage_logging.upload import log_file_received, log_text_extracted, log_file_rejected
+from triage_logging.report import log_contract_saved, log_report_generated
+from triage_logging.infrastructure import log_audit_event
 
-logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
+setup_logging()
+logger = get_logger(__name__)
 
 # --- Config ---
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -91,12 +99,16 @@ else:
 MAX_UPLOAD_BYTES = 10 * 1024 * 1024
 ALLOWED_EXTENSIONS = {".pdf", ".docx", ".txt"}
 
-# Plan limits
 PLAN_LIMITS = {
     "starter": {"monthly_limit": 10, "batch_max": 3, "playbooks_max": 1, "price": 499, "price_type": "one_time"},
     "professional": {"monthly_limit": 150, "batch_max": 10, "playbooks_max": 5, "price": 4900, "price_type": "one_time"},
     "unlimited": {"monthly_limit": 999999, "batch_max": 50, "playbooks_max": 50, "price": 24900, "price_type": "recurring"},
 }
+
+# Rate limit config
+RATE_LIMIT_GENERAL = 60  # req/min
+RATE_LIMIT_UPLOAD = 10  # uploads/min per user
+RATE_LIMIT_UPLOAD_IP = 5  # uploads/min per IP (unauthenticated)
 
 # --- App setup ---
 templates = Jinja2Templates(directory="templates")
@@ -114,14 +126,48 @@ rule_engine = RuleEngine()
 llm_evaluator = LLMEvaluator()
 playbook_engine = PlaybookEngine()
 
-# Legacy in-memory session store (for backward compat with unsigned uploads)
 session_store: Dict[str, Dict] = {}
+
+
+def _get_client_ip(request: Request) -> str:
+    forwarded = request.headers.get("x-forwarded-for", "")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    return request.client.host if request.client else ""
+
+
+# --- Rate Limiting Middleware ---
+
+@app.middleware("http")
+async def rate_limit_middleware(request: Request, call_next):
+    if redis_client.is_available():
+        ip = _get_client_ip(request)
+        if not redis_client.rate_limit_check(f"general:{ip}", RATE_LIMIT_GENERAL, 60):
+            return JSONResponse(status_code=429, content={"detail": "Rate limit exceeded"})
+    response = await call_next(request)
+    return response
 
 
 @app.on_event("startup")
 def on_startup():
     init_db()
-    logger.info(f"Mode={'DEMO' if DEV_MODE else 'PROD'} | DB initialized")
+    environment = "Development (DEV_MODE)" if DEV_MODE else "Production"
+    db = next(get_db())
+    try:
+        playbook_count = db.query(Playbook).count()
+    except Exception:
+        playbook_count = 0
+    finally:
+        db.close()
+
+    print_startup_banner(
+        workers=int(os.getenv("WEB_WORKERS", "1")),
+        rule_count=len(rule_engine.rules),
+        playbook_count=playbook_count,
+        environment=environment,
+        database_url=DATABASE_URL,
+        redis_url=os.getenv("REDIS_URL"),
+    )
 
 
 # --- Helpers ---
@@ -131,6 +177,38 @@ def require_user(request: Request, db: DBSession) -> User:
     if not user:
         raise HTTPException(status_code=302, headers={"Location": "/login"})
     return user
+
+
+def require_admin(request: Request, db: DBSession) -> User:
+    user = require_user(request, db)
+    if not user.is_admin:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    return user
+
+
+def log_audit(
+    db: DBSession,
+    user_id: Optional[int],
+    action: str,
+    resource_type: str = "",
+    resource_id: Optional[int] = None,
+    ip_address: str = "",
+    metadata: Optional[Dict] = None,
+):
+    try:
+        entry = AuditLog(
+            user_id=user_id,
+            action=action,
+            resource_type=resource_type,
+            resource_id=resource_id,
+            ip_address=ip_address,
+            metadata_json=metadata,
+        )
+        db.add(entry)
+        db.commit()
+        log_audit_event(f"{action} by user {user_id}")
+    except Exception:
+        pass
 
 
 def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
@@ -150,7 +228,6 @@ def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
 
 
 def run_analysis(contract_text: str) -> Dict:
-    """Run rule engine + LLM evaluation, return full analysis dict."""
     analysis = rule_engine.analyze(contract_text)
     findings = analysis["findings"]
     overall_risk = analysis["overall_risk"]
@@ -183,7 +260,6 @@ def run_analysis(contract_text: str) -> Dict:
 
 
 def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[Dict]:
-    """Build complete list of findings enhanced with LLM explanations."""
     llm_issues_map = {}
     for issue in llm_result.get("top_issues", []):
         llm_issues_map[issue.get("title", "").lower()] = issue
@@ -284,7 +360,10 @@ async def login_submit(request: Request, email: str = Form(...), password: str =
     if not user or not verify_password(password, user.password_hash):
         return templates.TemplateResponse("login.html", {"request": request, "error": "Invalid email or password."})
     response = RedirectResponse(url="/dashboard", status_code=302)
-    create_session(user.id, response)
+    create_session(user.id, response, db=db, request=request)
+    user.last_login_at = datetime.utcnow()
+    db.commit()
+    log_audit(db, user.id, "login", ip_address=_get_client_ip(request))
     return response
 
 
@@ -325,14 +404,19 @@ async def register_submit(
     db.refresh(user)
 
     response = RedirectResponse(url="/dashboard", status_code=302)
-    create_session(user.id, response)
+    create_session(user.id, response, db=db, request=request)
+    log_audit(db, user.id, "register", ip_address=_get_client_ip(request))
     return response
 
 
 @app.get("/logout")
 async def logout_route(request: Request):
+    db = next(get_db())
+    user = get_current_user(request, db)
     response = RedirectResponse(url="/", status_code=302)
-    auth_logout(request, response)
+    auth_logout(request, response, db=db)
+    if user:
+        log_audit(db, user.id, "logout", ip_address=_get_client_ip(request))
     return response
 
 
@@ -416,6 +500,7 @@ async def upload_contract(
 ):
     db = next(get_db())
     user = get_current_user(request, db)
+    ip = _get_client_ip(request)
 
     if not file.filename:
         raise HTTPException(status_code=400, detail="Missing filename")
@@ -423,57 +508,107 @@ async def upload_contract(
     if ext not in ALLOWED_EXTENSIONS:
         raise HTTPException(status_code=400, detail="Only PDF, DOCX, or TXT")
 
+    # Rate limit uploads
+    if user:
+        if not redis_client.rate_limit_check(f"upload:user:{user.id}", RATE_LIMIT_UPLOAD, 60):
+            raise HTTPException(status_code=429, detail="Upload rate limit exceeded")
+    else:
+        if not redis_client.rate_limit_check(f"upload:ip:{ip}", RATE_LIMIT_UPLOAD_IP, 60):
+            raise HTTPException(status_code=429, detail="Upload rate limit exceeded")
+
     file_bytes = await file.read()
     if not file_bytes:
         raise HTTPException(status_code=400, detail="Empty file")
     if len(file_bytes) > MAX_UPLOAD_BYTES:
         raise HTTPException(status_code=400, detail="File too large (max 10MB)")
 
+    log_file_received(file.filename, len(file_bytes))
+
     try:
         contract_text = extract_text_from_file(file_bytes, file.filename)
         if not contract_text or not contract_text.strip():
+            log_file_rejected(file.filename, "Empty after parsing")
             raise HTTPException(status_code=400, detail="File appears empty after parsing")
     except HTTPException:
         raise
     except Exception:
+        log_file_rejected(file.filename, "Parse failure")
         raise HTTPException(status_code=400, detail="Failed to parse document")
 
-    # If user is logged in, save to DB
+    log_text_extracted(len(contract_text))
+
     if user:
         if not check_usage_limit(user):
             raise HTTPException(status_code=402, detail="Monthly contract limit reached. Please upgrade your plan.")
 
-        analysis = run_analysis(contract_text)
+        # Check if Redis + worker are available for async processing
+        use_async = redis_client.is_available() and os.getenv("WORKER_ENABLED", "false").lower() == "true"
 
-        # Playbook comparison
-        deviations = None
-        if playbook_id:
-            playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
-            if playbook and playbook.template_findings_json:
-                comparison = playbook_engine.compare(analysis["findings_dict"], playbook.template_findings_json)
-                deviations = comparison
+        if use_async:
+            analysis_id = generate_analysis_id()
+            job = AnalysisJob(
+                analysis_id=analysis_id,
+                user_id=user.id,
+                status="pending",
+                job_type="single",
+                filename=file.filename,
+                file_size_bytes=len(file_bytes),
+                playbook_id=playbook_id,
+                enqueued_at=datetime.utcnow(),
+            )
+            db.add(job)
+            db.commit()
+            db.refresh(job)
 
-        contract = Contract(
-            user_id=user.id,
-            filename=file.filename,
-            contract_text=contract_text,
-            overall_risk=analysis["overall_risk"],
-            findings_json=analysis["findings_dict"],
-            llm_result_json=analysis["llm_result"],
-            rule_counts_json=analysis["rule_counts"],
-            rule_engine_version=analysis["version"],
-            analysis_completed=True,
-            playbook_id=playbook_id,
-            deviations_json=deviations,
-        )
-        db.add(contract)
-        user.contracts_this_month += 1
-        db.commit()
-        db.refresh(contract)
+            redis_client.store_job_payload(str(job.id), contract_text)
+            redis_client.enqueue_job("analysis", {"job_id": job.id})
+
+            log_audit(db, user.id, "upload", "job", job.id, ip, {"filename": file.filename, "async": True})
+            return JSONResponse({"job_id": job.id, "analysis_id": analysis_id, "status": "pending"})
+
+        # Synchronous fallback
+        start_time = time.perf_counter()
+        analysis_id = generate_analysis_id()
+
+        with LogContext(analysis_id=analysis_id, user_id=user.id):
+            analysis = run_analysis(contract_text)
+
+            deviations = None
+            if playbook_id:
+                playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
+                if playbook and playbook.template_findings_json:
+                    deviations = playbook_engine.compare(analysis["findings_dict"], playbook.template_findings_json)
+
+            duration_ms = int((time.perf_counter() - start_time) * 1000)
+
+            contract = Contract(
+                user_id=user.id,
+                filename=file.filename,
+                contract_text=contract_text,
+                overall_risk=analysis["overall_risk"],
+                findings_json=analysis["findings_dict"],
+                llm_result_json=analysis["llm_result"],
+                rule_counts_json=analysis["rule_counts"],
+                rule_engine_version=analysis["version"],
+                analysis_completed=True,
+                playbook_id=playbook_id,
+                deviations_json=deviations,
+                analysis_duration_ms=duration_ms,
+                file_size_bytes=len(file_bytes),
+                file_type=ext.lstrip("."),
+            )
+            db.add(contract)
+            user.contracts_this_month += 1
+            db.commit()
+            db.refresh(contract)
+
+            log_contract_saved(contract.id)
+            log_report_generated(contract.id, analysis["overall_risk"], len(analysis["findings_dict"]))
+            log_audit(db, user.id, "upload", "contract", contract.id, ip, {"filename": file.filename})
 
         return RedirectResponse(url=f"/contract/{contract.id}", status_code=303)
 
-    # Anonymous flow (legacy: pay-per-use via Stripe)
+    # Anonymous flow (legacy)
     if DEV_MODE:
         app_session_id = secrets.token_urlsafe(18)
         sig = hmac.new(APP_HMAC_SECRET.encode(), app_session_id.encode(), hashlib.sha256).hexdigest()
@@ -486,6 +621,62 @@ async def upload_contract(
         return RedirectResponse(url=f"{current_base_url}/results?token={token}", status_code=303)
 
     raise HTTPException(status_code=401, detail="Please log in or create an account")
+
+
+# ============================================================
+# JOB STATUS API
+# ============================================================
+
+@app.get("/api/job/{job_id}/status")
+async def job_status(request: Request, job_id: int):
+    db = next(get_db())
+    user = require_user(request, db)
+    job = db.query(AnalysisJob).filter(AnalysisJob.id == job_id, AnalysisJob.user_id == user.id).first()
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+    return {
+        "job_id": job.id,
+        "analysis_id": job.analysis_id,
+        "status": job.status,
+        "progress": job.progress,
+        "contract_id": job.contract_id,
+        "error_message": job.error_message,
+    }
+
+
+@app.get("/api/batch/{batch_id}/status")
+async def batch_status(request: Request, batch_id: str):
+    db = next(get_db())
+    user = require_user(request, db)
+    jobs = db.query(AnalysisJob).filter(
+        AnalysisJob.batch_id == batch_id, AnalysisJob.user_id == user.id
+    ).all()
+    if not jobs:
+        raise HTTPException(status_code=404, detail="Batch not found")
+
+    total = len(jobs)
+    completed = sum(1 for j in jobs if j.status == "completed")
+    failed = sum(1 for j in jobs if j.status == "failed")
+    pending = sum(1 for j in jobs if j.status in ("pending", "processing"))
+
+    return {
+        "batch_id": batch_id,
+        "total": total,
+        "completed": completed,
+        "failed": failed,
+        "pending": pending,
+        "jobs": [
+            {
+                "job_id": j.id,
+                "analysis_id": j.analysis_id,
+                "status": j.status,
+                "progress": j.progress,
+                "contract_id": j.contract_id,
+                "filename": j.filename,
+            }
+            for j in jobs
+        ],
+    }
 
 
 # ============================================================
@@ -511,6 +702,7 @@ async def batch_upload_submit(
 ):
     db = next(get_db())
     user = require_user(request, db)
+    ip = _get_client_ip(request)
 
     plan = PLAN_LIMITS.get(user.plan, {"monthly_limit": 0, "batch_max": 1, "playbooks_max": 0})
     if len(files) > plan["batch_max"]:
@@ -528,19 +720,59 @@ async def batch_upload_submit(
             template_findings = playbook.template_findings_json
 
     batch_id = secrets.token_urlsafe(16)
-    contracts = []
+    use_async = redis_client.is_available() and os.getenv("WORKER_ENABLED", "false").lower() == "true"
 
+    if use_async:
+        job_ids = []
+        for f in files:
+            if not f.filename:
+                continue
+            ext = os.path.splitext(f.filename.lower())[1]
+            if ext not in ALLOWED_EXTENSIONS:
+                continue
+            file_bytes = await f.read()
+            if not file_bytes or len(file_bytes) > MAX_UPLOAD_BYTES:
+                continue
+            try:
+                text = extract_text_from_file(file_bytes, f.filename)
+                if not text or not text.strip():
+                    continue
+            except Exception:
+                continue
+
+            analysis_id = generate_analysis_id()
+            job = AnalysisJob(
+                analysis_id=analysis_id,
+                user_id=user.id,
+                status="pending",
+                job_type="batch",
+                batch_id=batch_id,
+                filename=f.filename,
+                file_size_bytes=len(file_bytes),
+                playbook_id=playbook_id,
+                enqueued_at=datetime.utcnow(),
+            )
+            db.add(job)
+            db.commit()
+            db.refresh(job)
+            redis_client.store_job_payload(str(job.id), text)
+            redis_client.enqueue_job("analysis", {"job_id": job.id})
+            job_ids.append(job.id)
+
+        log_audit(db, user.id, "batch_upload", "batch", None, ip, {"batch_id": batch_id, "count": len(job_ids)})
+        return JSONResponse({"batch_id": batch_id, "job_ids": job_ids, "total": len(job_ids)})
+
+    # Synchronous fallback
+    contracts = []
     for f in files:
         if not f.filename:
             continue
         ext = os.path.splitext(f.filename.lower())[1]
         if ext not in ALLOWED_EXTENSIONS:
             continue
-
         file_bytes = await f.read()
         if not file_bytes or len(file_bytes) > MAX_UPLOAD_BYTES:
             continue
-
         try:
             text = extract_text_from_file(file_bytes, f.filename)
             if not text or not text.strip():
@@ -548,12 +780,13 @@ async def batch_upload_submit(
         except Exception:
             continue
 
+        start_time = time.perf_counter()
         analysis = run_analysis(text)
+        duration_ms = int((time.perf_counter() - start_time) * 1000)
 
         deviations = None
         if template_findings:
-            comparison = playbook_engine.compare(analysis["findings_dict"], template_findings)
-            deviations = comparison
+            deviations = playbook_engine.compare(analysis["findings_dict"], template_findings)
 
         contract = Contract(
             user_id=user.id, filename=f.filename, contract_text=text,
@@ -561,15 +794,18 @@ async def batch_upload_submit(
             llm_result_json=analysis["llm_result"], rule_counts_json=analysis["rule_counts"],
             rule_engine_version=analysis["version"], analysis_completed=True,
             playbook_id=playbook_id, deviations_json=deviations, batch_id=batch_id,
+            analysis_duration_ms=duration_ms, file_size_bytes=len(file_bytes),
+            file_type=ext.lstrip("."),
         )
         db.add(contract)
         contracts.append(contract)
 
     user.contracts_this_month += len(contracts)
     db.commit()
-
     for c in contracts:
         db.refresh(c)
+
+    log_audit(db, user.id, "batch_upload", "batch", None, ip, {"batch_id": batch_id, "count": len(contracts)})
 
     batch_stats = {"total": len(contracts), "high": 0, "medium": 0, "low": 0}
     for c in contracts:
@@ -620,7 +856,6 @@ def _build_rule_categories(findings_dict, engine):
         cat = _get_rule_category(rule.rule_id)
         if cat not in all_categories:
             all_categories[cat] = "PASS"
-    triggered_ids = {f.get("rule_id", "") for f in findings_dict}
     for f in findings_dict:
         cat = _get_rule_category(f.get("rule_id", ""))
         sev = f.get("severity", "low")
@@ -760,7 +995,6 @@ async def download_contract_pdf(request: Request, contract_id: int):
     pdf.cell(0, 5, f"(c) {datetime.now().year} Triage AI - Contract Risk Intelligence. Not legal advice.", new_x="LMARGIN", new_y="NEXT")
 
     pdf_bytes = pdf.output()
-
     safe_name = sanitize_filename(contract.filename)
     date_str = datetime.utcnow().strftime("%Y-%m-%d")
 
@@ -787,6 +1021,8 @@ async def create_share_link(request: Request, contract_id: int, password: str = 
     if password:
         contract.share_password_hash = hash_password(password)
     db.commit()
+
+    log_audit(db, user.id, "share", "contract", contract.id, _get_client_ip(request))
 
     share_url = f"{get_base_url(request)}/shared/{contract.share_token}"
     return {"share_url": share_url, "token": contract.share_token}
@@ -906,7 +1142,6 @@ async def playbook_new_submit(
             "error": "Failed to parse template file.", "current_year": datetime.now().year,
         })
 
-    # Pre-analyze the template
     analysis = rule_engine.analyze(template_text)
     template_findings = [
         {"rule_id": f.rule_id, "rule_name": f.rule_name, "title": f.title,
@@ -1023,6 +1258,7 @@ async def subscribe(request: Request, plan: str):
         user.subscription_status = "active"
         user.contracts_this_month = 0
         db.commit()
+        log_audit(db, user.id, "subscribe", "plan", None, _get_client_ip(request), {"plan": plan})
         return RedirectResponse(url="/dashboard", status_code=302)
 
     if not stripe.api_key:
@@ -1072,34 +1308,137 @@ async def stripe_webhook(request: Request):
 
     db = next(get_db())
 
-    if event["type"] == "checkout.session.completed":
-        session = event["data"]["object"]
-        user_id = session.get("client_reference_id")
-        plan = session.get("metadata", {}).get("plan")
-        if user_id and plan:
-            user = db.query(User).filter(User.id == int(user_id)).first()
-            if user:
-                plan_config = PLAN_LIMITS.get(plan, PLAN_LIMITS["starter"])
-                user.plan = plan
-                user.monthly_limit = plan_config["monthly_limit"]
-                user.subscription_status = "active"
-                user.contracts_this_month = 0
-                user.stripe_customer_id = session.get("customer")
-                user.stripe_subscription_id = session.get("subscription")
-                db.commit()
+    # Idempotency check
+    stripe_event_id = event.get("id", "")
+    if stripe_event_id:
+        existing = db.query(StripeEvent).filter(StripeEvent.stripe_event_id == stripe_event_id).first()
+        if existing:
+            return {"status": "duplicate"}
 
-    elif event["type"] == "customer.subscription.deleted":
-        sub = event["data"]["object"]
-        customer_id = sub.get("customer")
-        if customer_id:
-            user = db.query(User).filter(User.stripe_customer_id == customer_id).first()
-            if user:
-                user.plan = "none"
-                user.monthly_limit = 0
-                user.subscription_status = "canceled"
-                db.commit()
+    # Log the event
+    stripe_log = StripeEvent(
+        stripe_event_id=stripe_event_id,
+        event_type=event["type"],
+        payload_json=dict(event),
+        processed=False,
+    )
 
+    try:
+        if event["type"] == "checkout.session.completed":
+            session = event["data"]["object"]
+            user_id = session.get("client_reference_id")
+            plan = session.get("metadata", {}).get("plan")
+            if user_id and plan:
+                user = db.query(User).filter(User.id == int(user_id)).first()
+                if user:
+                    plan_config = PLAN_LIMITS.get(plan, PLAN_LIMITS["starter"])
+                    user.plan = plan
+                    user.monthly_limit = plan_config["monthly_limit"]
+                    user.subscription_status = "active"
+                    user.contracts_this_month = 0
+                    user.stripe_customer_id = session.get("customer")
+                    user.stripe_subscription_id = session.get("subscription")
+                    stripe_log.user_id = user.id
+                    log_audit(db, user.id, "subscribe", "plan", None, "", {"plan": plan, "source": "stripe"})
+
+        elif event["type"] == "customer.subscription.deleted":
+            sub = event["data"]["object"]
+            customer_id = sub.get("customer")
+            if customer_id:
+                user = db.query(User).filter(User.stripe_customer_id == customer_id).first()
+                if user:
+                    user.plan = "none"
+                    user.monthly_limit = 0
+                    user.subscription_status = "canceled"
+                    stripe_log.user_id = user.id
+
+        stripe_log.processed = True
+    except Exception as e:
+        stripe_log.error_message = str(e)[:1000]
+
+    db.add(stripe_log)
+    db.commit()
     return {"status": "ok"}
+
+
+# ============================================================
+# ADMIN DASHBOARD
+# ============================================================
+
+@app.get("/admin/dashboard", response_class=HTMLResponse)
+async def admin_dashboard(request: Request):
+    db = next(get_db())
+    user = require_admin(request, db)
+
+    total_users = db.query(User).count()
+    active_subs = db.query(User).filter(User.subscription_status == "active").count()
+    total_contracts = db.query(Contract).filter(Contract.analysis_completed == True).count()
+
+    today = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
+    jobs_today = db.query(AnalysisJob).filter(AnalysisJob.created_at >= today).count()
+
+    month_start = datetime.utcnow().replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    api_cost_cents = db.query(func.coalesce(func.sum(ApiUsage.estimated_cost_cents), 0)).filter(
+        ApiUsage.created_at >= month_start
+    ).scalar()
+
+    return templates.TemplateResponse("admin_dashboard.html", {
+        "request": request, "user": user,
+        "total_users": total_users,
+        "active_subs": active_subs,
+        "total_contracts": total_contracts,
+        "jobs_today": jobs_today,
+        "api_cost_dollars": api_cost_cents / 100,
+        "current_year": datetime.now().year,
+    })
+
+
+@app.get("/admin/users", response_class=HTMLResponse)
+async def admin_users(request: Request, page: int = 1):
+    db = next(get_db())
+    user = require_admin(request, db)
+
+    per_page = 50
+    total = db.query(User).count()
+    total_pages = max(1, (total + per_page - 1) // per_page)
+    page = max(1, min(page, total_pages))
+
+    users = db.query(User).order_by(User.created_at.desc()).offset((page - 1) * per_page).limit(per_page).all()
+
+    user_stats = []
+    for u in users:
+        contract_count = db.query(Contract).filter(Contract.user_id == u.id, Contract.analysis_completed == True).count()
+        user_stats.append({
+            "user": u,
+            "contract_count": contract_count,
+        })
+
+    return templates.TemplateResponse("admin_users.html", {
+        "request": request, "user": user,
+        "user_stats": user_stats,
+        "page": page, "total_pages": total_pages, "total": total,
+        "current_year": datetime.now().year,
+    })
+
+
+@app.get("/admin/jobs", response_class=HTMLResponse)
+async def admin_jobs(request: Request, page: int = 1):
+    db = next(get_db())
+    user = require_admin(request, db)
+
+    per_page = 50
+    total = db.query(AnalysisJob).count()
+    total_pages = max(1, (total + per_page - 1) // per_page)
+    page = max(1, min(page, total_pages))
+
+    jobs = db.query(AnalysisJob).order_by(AnalysisJob.created_at.desc()).offset((page - 1) * per_page).limit(per_page).all()
+
+    return templates.TemplateResponse("admin_jobs.html", {
+        "request": request, "user": user,
+        "jobs": jobs,
+        "page": page, "total_pages": total_pages, "total": total,
+        "current_year": datetime.now().year,
+    })
 
 
 # ============================================================
@@ -1128,7 +1467,6 @@ DEMO_CONTRACT = """MUTUAL NON-DISCLOSURE AGREEMENT
 
 @app.get("/demo", response_class=HTMLResponse)
 async def demo_analysis(request: Request):
-    """Free demo: pre-loaded sample contract analysis, no account needed."""
     analysis = run_analysis(DEMO_CONTRACT)
     all_issues = build_enhanced_issues(analysis["findings_dict"], analysis["llm_result"])
 
@@ -1175,7 +1513,6 @@ async def get_config():
 
 @app.get("/results", response_class=HTMLResponse)
 async def results_legacy(request: Request, token: str):
-    """Legacy token-based results (for anonymous users)."""
     try:
         session_id, sig = token.rsplit(":", 1)
         expected = hmac.new(APP_HMAC_SECRET.encode(), session_id.encode(), hashlib.sha256).hexdigest()

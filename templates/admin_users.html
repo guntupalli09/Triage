@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Users — Triage AI</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/branding/favicon-32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>body { font-family: 'Inter', sans-serif; background: #F8FAFC; }</style>
+</head>
+<body class="min-h-screen">
+    <div style="height:2px;background:#0F172A;position:fixed;top:0;left:0;right:0;z-index:50"></div>
+
+    <nav class="border-b border-gray-200 bg-white px-6 py-4 mt-0.5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-6">
+                <a href="/dashboard" class="text-lg font-bold text-gray-900">Triage AI</a>
+                <span class="text-sm text-red-600 font-medium bg-red-50 px-2 py-1 rounded">Admin</span>
+            </div>
+            <div class="flex items-center gap-4 text-sm">
+                <a href="/admin/dashboard" class="text-gray-600 hover:text-gray-900">Overview</a>
+                <a href="/admin/users" class="font-medium text-gray-900">Users</a>
+                <a href="/admin/jobs" class="text-gray-600 hover:text-gray-900">Jobs</a>
+                <a href="/dashboard" class="text-gray-600 hover:text-gray-900">Back to App</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 py-8">
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-2xl font-bold text-gray-900">Users ({{ total }})</h1>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <table class="w-full text-sm">
+                <thead class="bg-gray-50 border-b border-gray-200">
+                    <tr>
+                        <th class="text-left px-4 py-3 font-medium text-gray-600">Email</th>
+                        <th class="text-left px-4 py-3 font-medium text-gray-600">Name</th>
+                        <th class="text-left px-4 py-3 font-medium text-gray-600">Plan</th>
+                        <th class="text-left px-4 py-3 font-medium text-gray-600">Status</th>
+                        <th class="text-right px-4 py-3 font-medium text-gray-600">Contracts</th>
+                        <th class="text-left px-4 py-3 font-medium text-gray-600">Last Login</th>
+                        <th class="text-left px-4 py-3 font-medium text-gray-600">Joined</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    {% for item in user_stats %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium">{{ item.user.email }}</td>
+                        <td class="px-4 py-3 text-gray-600">{{ item.user.name or '—' }}</td>
+                        <td class="px-4 py-3">
+                            <span class="px-2 py-0.5 rounded text-xs font-medium
+                                {% if item.user.plan == 'unlimited' %}bg-purple-100 text-purple-700
+                                {% elif item.user.plan == 'professional' %}bg-blue-100 text-blue-700
+                                {% elif item.user.plan == 'starter' %}bg-green-100 text-green-700
+                                {% else %}bg-gray-100 text-gray-600{% endif %}">
+                                {{ item.user.plan }}
+                            </span>
+                        </td>
+                        <td class="px-4 py-3">
+                            {% if item.user.subscription_status == 'active' %}
+                                <span class="text-green-600 font-medium">Active</span>
+                            {% elif item.user.subscription_status == 'canceled' %}
+                                <span class="text-red-600">Canceled</span>
+                            {% else %}
+                                <span class="text-gray-400">Inactive</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-4 py-3 text-right font-mono">{{ item.contract_count }}</td>
+                        <td class="px-4 py-3 text-gray-500">{{ item.user.last_login_at.strftime('%Y-%m-%d') if item.user.last_login_at else '—' }}</td>
+                        <td class="px-4 py-3 text-gray-500">{{ item.user.created_at.strftime('%Y-%m-%d') if item.user.created_at else '—' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if total_pages > 1 %}
+        <div class="flex justify-center gap-2 mt-6">
+            {% if page > 1 %}<a href="/admin/users?page={{ page - 1 }}" class="px-3 py-1 border rounded text-sm hover:bg-gray-50">Prev</a>{% endif %}
+            <span class="px-3 py-1 text-sm text-gray-500">Page {{ page }} of {{ total_pages }}</span>
+            {% if page < total_pages %}<a href="/admin/users?page={{ page + 1 }}" class="px-3 py-1 border rounded text-sm hover:bg-gray-50">Next</a>{% endif %}
+        </div>
+        {% endif %}
+    </main>
+</body>
+</html>
