@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triage — Deterministic Legal Intelligence</title>
-    <meta name="description" content="Review legal documents using deterministic rules, auditable evidence, and AI-powered explanations — not AI decisions.">
+    <title>Triage — The Deterministic Legal Reasoning Engine</title>
+    <meta name="description" content="Review legal documents using deterministic rules, auditable evidence, and AI-powered explanations — not AI decisions. Every conclusion is backed by explicit rules, matched evidence, and reproducible execution.">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/branding/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/branding/favicon-16.png">
     <link rel="apple-touch-icon" href="/static/branding/apple-touch-icon.png">
@@ -16,10 +16,9 @@
         :root {
             --navy: #0F172A;
             --bg: #FAFAFA;
-            --border: #E5E7EB;
+            --border: #E2E8F0;
             --accent: #0F172A;
             --accent-subtle: #334155;
-            --orange: #FF7A18;
         }
 
         body {
@@ -241,14 +240,36 @@
             height: 10px;
             color: #16A34A;
         }
+
+        .signature-statement {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -0.02em;
+            padding: 16px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            display: inline-block;
+        }
+
+        .verification-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
     </style>
 </head>
 <body class="min-h-screen pt-1">
     <div class="top-bar"></div>
 
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <!-- Header -->
-        <div class="flex justify-between items-center mb-16">
+        <div class="flex justify-between items-center mb-20">
             <a href="{% if user %}/dashboard{% else %}/{% endif %}" class="text-xl font-extrabold tracking-tight text-[#0F172A]">
                 TRIAGE
             </a>
@@ -265,31 +286,35 @@
         </div>
 
         <!-- Hero Section -->
-        <div class="text-center mb-16">
-            <p class="section-label mb-4">The Deterministic Legal Reasoning Engine</p>
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] mb-5 tracking-tight leading-[1.1]">
-                Deterministic Legal<br>Intelligence
+        <div class="text-center mb-20">
+            <p class="section-label mb-6 tracking-widest">DETERMINISTIC &middot; EXPLAINABLE &middot; AUDITABLE</p>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] mb-6 tracking-tight leading-[1.08]">
+                The Deterministic Legal<br>Reasoning Engine
             </h1>
             <p class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-3">
-                Review legal documents using deterministic rules, auditable evidence, and AI-powered explanations — not AI decisions.
+                Review legal documents using deterministic rules, auditable evidence, and AI-powered explanations&mdash;not AI decisions.
             </p>
-            <p class="text-base text-gray-400 max-w-xl mx-auto leading-relaxed">
-                Every finding is generated from deterministic logic, supported by matched evidence, and presented with complete transparency for attorney review.
+            <p class="text-base text-gray-400 max-w-xl mx-auto leading-relaxed mb-10">
+                Every conclusion is backed by explicit rules, matched evidence, and reproducible execution.
             </p>
 
+            <div class="flex justify-center mb-10">
+                <p class="signature-statement">Deterministic rules decide. AI explains.</p>
+            </div>
+
             {% if not user %}
-            <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-                <a href="/register" class="btn-primary py-3 px-8 rounded-lg text-sm inline-flex items-center justify-center">
+            <div class="flex flex-col sm:flex-row gap-3 justify-center mb-12">
+                <a href="/register" class="btn-primary py-3.5 px-8 rounded-lg text-sm inline-flex items-center justify-center">
                     Start Free Review
                 </a>
-                <a href="#how-it-works" class="btn-secondary py-3 px-6 rounded-lg text-sm inline-flex items-center justify-center">
+                <a href="#pipeline" class="btn-secondary py-3.5 px-6 rounded-lg text-sm inline-flex items-center justify-center">
                     See How It Works
                 </a>
             </div>
             {% endif %}
 
-            <!-- Trust Badges -->
-            <div class="flex flex-wrap justify-center gap-3 mt-10">
+            <!-- Trust Indicators -->
+            <div class="flex flex-wrap justify-center gap-3">
                 <div class="badge">
                     <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                     Deterministic Rule Engine
@@ -310,7 +335,7 @@
         </div>
 
         <!-- Upload Card -->
-        <div class="card p-6 sm:p-8 mb-16">
+        <div class="card p-6 sm:p-8 mb-24">
             <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
                 <div class="mb-6">
                     <label for="file" class="block text-sm font-semibold text-[#0F172A] mb-3">
@@ -374,13 +399,13 @@
             </form>
         </div>
 
-        <!-- Product Architecture -->
-        <div id="how-it-works" class="mb-16">
+        <!-- Deterministic Execution Pipeline -->
+        <div id="pipeline" class="mb-24">
             <p class="section-label mb-3">Architecture</p>
-            <h2 class="text-2xl font-bold text-[#0F172A] mb-2">How Triage Works</h2>
-            <p class="text-sm text-gray-400 mb-8 max-w-lg">The deterministic engine performs all legal analysis. AI never determines legal risk — it explains deterministic findings in clear language.</p>
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-2">Deterministic Execution Pipeline</h2>
+            <p class="text-sm text-gray-400 mb-10 max-w-lg">The deterministic engine performs every legal analysis. The LLM never determines legal risk&mdash;it only explains deterministic findings in plain language.</p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <!-- Workflow -->
                 <div>
                     <div class="workflow-step"><div class="step-num">1</div>Upload Document</div>
@@ -414,6 +439,10 @@
                             <span class="text-xs text-red-500 font-mono">LIAB-017</span>
                         </div>
                         <div class="finding-row">
+                            <span class="finding-label">Rule ID</span>
+                            <span class="finding-value font-mono text-xs">LIAB-017</span>
+                        </div>
+                        <div class="finding-row">
                             <span class="finding-label">Finding</span>
                             <span class="finding-value font-semibold">Unlimited Liability</span>
                         </div>
@@ -430,8 +459,12 @@
                             <span class="finding-value">Matched contractual language shown inline.</span>
                         </div>
                         <div class="finding-row">
+                            <span class="finding-label">Verification</span>
+                            <span class="finding-value"><span class="verification-badge bg-green-50 text-green-700 border border-green-200">Rule LIAB-017 Successfully Triggered</span></span>
+                        </div>
+                        <div class="finding-row">
                             <span class="finding-label">Confidence</span>
-                            <span class="finding-value font-semibold text-green-700">Deterministic Match</span>
+                            <span class="finding-value font-semibold text-green-700">100% Deterministic Match</span>
                         </div>
                         <div class="finding-row">
                             <span class="finding-label">Status</span>
@@ -443,14 +476,14 @@
         </div>
 
         <!-- Why Triage Is Different -->
-        <div class="card p-6 sm:p-8 mb-16">
+        <div class="card p-8 sm:p-10 mb-24">
             <p class="section-label mb-3">Why Triage Is Different</p>
-            <h2 class="text-2xl font-bold text-[#0F172A] mb-6">Every legal finding is traceable, explainable, and reproducible.</h2>
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-8">Every legal finding is traceable, explainable, and reproducible.</h2>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div class="check-item">
                     <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
-                    <span class="text-sm text-gray-600">Every finding is backed by explicit rules.</span>
+                    <span class="text-sm text-gray-600">Every finding is backed by explicit deterministic rules.</span>
                 </div>
                 <div class="check-item">
                     <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
@@ -458,7 +491,7 @@
                 </div>
                 <div class="check-item">
                     <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
-                    <span class="text-sm text-gray-600">Every analysis is reproducible.</span>
+                    <span class="text-sm text-gray-600">Every analysis produces identical results for identical inputs.</span>
                 </div>
                 <div class="check-item">
                     <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
@@ -472,14 +505,18 @@
                     <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
                     <span class="text-sm text-gray-600">AI explains findings but never creates legal decisions.</span>
                 </div>
+                <div class="check-item sm:col-span-2">
+                    <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                    <span class="text-sm text-gray-600">Every finding can be independently verified by the attorney.</span>
+                </div>
             </div>
         </div>
 
         <!-- Platform Vision -->
-        <div class="text-center mb-16">
+        <div class="text-center mb-24">
             <p class="section-label mb-3">Platform</p>
-            <h2 class="text-2xl font-bold text-[#0F172A] mb-3">Beyond Contract Review</h2>
-            <p class="text-sm text-gray-400 max-w-lg mx-auto mb-8">The deterministic reasoning engine remains the foundation across all legal domains, while AI serves exclusively as an explanatory layer.</p>
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-3">Built for the Future of Legal Workflows</h2>
+            <p class="text-sm text-gray-400 max-w-lg mx-auto mb-8">The deterministic reasoning engine is designed to support multiple legal workflows while maintaining the same principles of explainability, auditability, and reproducibility.</p>
 
             <div class="flex flex-wrap justify-center gap-3">
                 <span class="badge">Contract Review</span>
@@ -523,8 +560,8 @@
                 </div>
             </div>
             <div class="text-center text-gray-400 text-sm space-y-1">
-                <p class="font-medium">&copy; {{ current_year }} Triage — Deterministic Legal Intelligence</p>
-                <p class="text-xs">Automated contract risk triage. Not legal advice.</p>
+                <p class="font-medium">&copy; {{ current_year }} Triage — The Deterministic Legal Reasoning Engine</p>
+                <p class="text-xs">Deterministic rules decide. AI explains.</p>
             </div>
         </footer>
     </div>
