@@ -7,6 +7,10 @@
 __pycache__/
 *.pyc
 
+# Local data
+data/
+*.db
+
 # OS
 .DS_Store
 Thumbs.db
