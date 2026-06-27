@@ -110,13 +110,22 @@ RATE_LIMIT_GENERAL = 60  # req/min
 RATE_LIMIT_UPLOAD = 10  # uploads/min per user
 RATE_LIMIT_UPLOAD_IP = 5  # uploads/min per IP (unauthenticated)
 
+# CORS origins
+_allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "")
+if _allowed_origins_env:
+    ALLOWED_ORIGINS = [o.strip() for o in _allowed_origins_env.split(",") if o.strip()]
+elif DEV_MODE:
+    ALLOWED_ORIGINS = ["*"]
+else:
+    ALLOWED_ORIGINS = ["https://triagecounsel.com", "https://www.triagecounsel.com"]
+
 # --- App setup ---
 templates = Jinja2Templates(directory="templates")
 app = FastAPI(title="Contract Risk Triage Tool", version="2.0.0")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
@@ -127,6 +136,20 @@ llm_evaluator = LLMEvaluator()
 playbook_engine = PlaybookEngine()
 
 session_store: Dict[str, Dict] = {}
+
+FORCE_HTTPS = not DEV_MODE and os.getenv("SECURE_COOKIES", "true").lower() == "true"
+
+
+# --- HTTPS Redirect Middleware ---
+
+@app.middleware("http")
+async def https_redirect_middleware(request: Request, call_next):
+    if FORCE_HTTPS:
+        proto = request.headers.get("x-forwarded-proto", "")
+        if proto == "http":
+            url = request.url.replace(scheme="https")
+            return RedirectResponse(url=str(url), status_code=301)
+    return await call_next(request)
 
 
 def _get_client_ip(request: Request) -> str:
@@ -168,6 +191,60 @@ def on_startup():
         database_url=DATABASE_URL,
         redis_url=os.getenv("REDIS_URL"),
     )
+
+
+# --- Health Check ---
+
+@app.get("/health")
+async def health_check():
+    checks = {"status": "ok", "timestamp": datetime.utcnow().isoformat() + "Z"}
+
+    # DB check
+    try:
+        db = next(get_db())
+        from sqlalchemy import text
+        db.execute(text("SELECT 1"))
+        checks["database"] = "connected"
+        db.close()
+    except Exception as e:
+        checks["database"] = f"error: {e}"
+        checks["status"] = "degraded"
+
+    # Redis check
+    checks["redis"] = "connected" if redis_client.is_available() else "unavailable"
+
+    status_code = 200 if checks["status"] == "ok" else 503
+    return JSONResponse(content=checks, status_code=status_code)
+
+
+# --- Cleanup Tasks ---
+
+@app.on_event("startup")
+def schedule_cleanup():
+    import threading
+
+    def _cleanup_loop():
+        import time as _time
+        while True:
+            _time.sleep(3600)
+            try:
+                db = next(get_db())
+                cutoff = datetime.utcnow()
+                # Expired sessions
+                db.query(SessionModel).filter(SessionModel.expires_at < cutoff).delete()
+                # Failed jobs older than 7 days
+                week_ago = cutoff - timedelta(days=7)
+                db.query(AnalysisJob).filter(
+                    AnalysisJob.status == "failed",
+                    AnalysisJob.created_at < week_ago,
+                ).delete()
+                db.commit()
+                db.close()
+            except Exception:
+                pass
+
+    t = threading.Thread(target=_cleanup_loop, daemon=True)
+    t.start()
 
 
 # --- Helpers ---

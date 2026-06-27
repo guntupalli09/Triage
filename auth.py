@@ -92,7 +92,7 @@ def create_session(
         max_age=SESSION_MAX_AGE,
         httponly=True,
         samesite="lax",
-        secure=os.getenv("SECURE_COOKIES", "false").lower() == "true",
+        secure=os.getenv("SECURE_COOKIES", "true").lower() == "true",
     )
     return token
 

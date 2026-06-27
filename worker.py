@@ -193,9 +193,22 @@ def process_job(job_id: int) -> None:
         db.close()
 
 
+_shutdown = False
+
+
+def _handle_signal(signum, frame):
+    global _shutdown
+    logger.info(f"Worker {WORKER_ID} received signal {signum}, shutting down gracefully...")
+    _shutdown = True
+
+
 def run_worker():
+    import signal
+    signal.signal(signal.SIGTERM, _handle_signal)
+    signal.signal(signal.SIGINT, _handle_signal)
+
     logger.info(f"Worker {WORKER_ID} starting, polling for jobs...")
-    while True:
+    while not _shutdown:
         job_data = redis_client.dequeue_job("analysis")
         if job_data:
             job_id = job_data.get("job_id")
@@ -206,6 +219,7 @@ def run_worker():
                     logger.error(f"Failed to process job {job_id}: {e}")
         else:
             time.sleep(1)
+    logger.info(f"Worker {WORKER_ID} shut down cleanly")
 
 
 # arq worker settings

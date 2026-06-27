@@ -1,0 +1,15 @@
+.git
+.env
+.env.*
+!.env.example
+__pycache__
+*.pyc
+data/
+*.db
+.DS_Store
+experiments/
+tests/
+*.md
+!README.md
+High.docx
+rules/Submission/
