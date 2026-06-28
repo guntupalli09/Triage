@@ -1,11 +1,14 @@
 """
 Authentication utilities: password hashing, session cookies.
+Uses Redis for session storage in production, falls back to in-memory for development.
 """
 from __future__ import annotations
 
 import hashlib
 import hmac
+import json
 import os
+import logging
 import secrets
 from datetime import datetime, timedelta
 from typing import Optional
@@ -15,13 +18,34 @@ from sqlalchemy.orm import Session
 
 from models import User
 
+logger = logging.getLogger(__name__)
+
 SESSION_SECRET = os.getenv("SESSION_SECRET", "dev_session_secret_change_me")
 SESSION_COOKIE = "triage_session"
 SESSION_MAX_AGE = 60 * 60 * 24 * 30  # 30 days
 
-# In-memory session store (maps session_token -> user_id)
-# For production, use Redis or DB-backed sessions
+# Redis-backed sessions for production (survives restarts, shared across workers)
+_redis_client = None
 _sessions: dict[str, dict] = {}
+
+def _get_redis():
+    global _redis_client
+    if _redis_client is not None:
+        return _redis_client
+    redis_url = os.getenv("REDIS_URL")
+    if redis_url:
+        try:
+            import redis
+            _redis_client = redis.from_url(redis_url, decode_responses=True, socket_timeout=5, retry_on_timeout=True)
+            _redis_client.ping()
+            logger.info("Redis session store connected")
+            return _redis_client
+        except Exception as e:
+            logger.warning(f"Redis unavailable, falling back to in-memory sessions: {e}")
+            _redis_client = False
+    else:
+        _redis_client = False
+    return None
 
 
 def hash_password(password: str) -> str:
@@ -39,13 +63,39 @@ def verify_password(password: str, stored: str) -> bool:
         return False
 
 
+def _store_session(token: str, data: dict):
+    r = _get_redis()
+    if r:
+        r.setex(f"session:{token}", SESSION_MAX_AGE, json.dumps(data, default=str))
+    else:
+        _sessions[token] = data
+
+
+def _load_session(token: str) -> Optional[dict]:
+    r = _get_redis()
+    if r:
+        raw = r.get(f"session:{token}")
+        if raw:
+            return json.loads(raw)
+        return None
+    return _sessions.get(token)
+
+
+def _delete_session(token: str):
+    r = _get_redis()
+    if r:
+        r.delete(f"session:{token}")
+    else:
+        _sessions.pop(token, None)
+
+
 def create_session(user_id: int, response: Response) -> str:
     token = secrets.token_urlsafe(32)
-    _sessions[token] = {
+    _store_session(token, {
         "user_id": user_id,
-        "created_at": datetime.utcnow(),
-        "expires_at": datetime.utcnow() + timedelta(seconds=SESSION_MAX_AGE),
-    }
+        "created_at": datetime.utcnow().isoformat(),
+        "expires_at": (datetime.utcnow() + timedelta(seconds=SESSION_MAX_AGE)).isoformat(),
+    })
     response.set_cookie(
         SESSION_COOKIE,
         token,
@@ -59,11 +109,14 @@ def create_session(user_id: int, response: Response) -> str:
 
 def get_current_user(request: Request, db: Session) -> Optional[User]:
     token = request.cookies.get(SESSION_COOKIE)
-    if not token or token not in _sessions:
+    if not token:
         return None
-    session = _sessions[token]
-    if datetime.utcnow() > session["expires_at"]:
-        _sessions.pop(token, None)
+    session = _load_session(token)
+    if not session:
+        return None
+    expires_at = datetime.fromisoformat(session["expires_at"])
+    if datetime.utcnow() > expires_at:
+        _delete_session(token)
         return None
     return db.query(User).filter(User.id == session["user_id"]).first()
 
@@ -71,7 +124,7 @@ def get_current_user(request: Request, db: Session) -> Optional[User]:
 def logout(request: Request, response: Response):
     token = request.cookies.get(SESSION_COOKIE)
     if token:
-        _sessions.pop(token, None)
+        _delete_session(token)
     response.delete_cookie(SESSION_COOKIE)
 
 
