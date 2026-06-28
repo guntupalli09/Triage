@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research — Triage Deterministic Legal Reasoning Engine</title>
+    <meta name="description" content="Peer-reviewed research behind Triage's deterministic legal reasoning engine. Published at ICCS 2026, Springer LNCS. 100% deterministic, reproducible, and auditable.">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/branding/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/branding/favicon-16.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --navy: #0F172A;
+            --bg: #FAFAFA;
+            --border: #E2E8F0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg);
+            letter-spacing: -0.01em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: #1E293B;
+        }
+
+        .top-bar {
+            height: 2px;
+            background: var(--navy);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+        }
+
+        .card {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border: 1px solid var(--border);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #475569;
+            background: #fff;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-primary {
+            background: var(--navy);
+            color: white;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #1E293B;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border);
+            color: #475569;
+            font-weight: 500;
+            transition: all 0.15s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: #CBD5E1;
+            color: #1E293B;
+        }
+
+        .section-label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #94A3B8;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .check-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #F0FDF4;
+            border: 1px solid #BBF7D0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .check-icon svg {
+            width: 10px;
+            height: 10px;
+            color: #16A34A;
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 24px 16px;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            font-family: 'SF Mono', 'Fira Code', 'Inter', monospace;
+        }
+
+        .metric-label {
+            font-size: 0.8125rem;
+            color: #64748B;
+            margin-top: 4px;
+        }
+
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #fff;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        .workflow-step .step-num {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: var(--navy);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .workflow-connector {
+            width: 1px;
+            height: 16px;
+            background: var(--border);
+            margin-left: 27px;
+        }
+    </style>
+</head>
+<body class="min-h-screen pt-1">
+    <div class="top-bar"></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-20">
+            <a href="{% if user %}/dashboard{% else %}/{% endif %}" class="text-xl font-extrabold tracking-tight text-[#0F172A]">
+                TRIAGE
+            </a>
+            <div class="flex items-center gap-4 text-sm">
+                {% if user %}
+                <span class="text-gray-500">{{ user.name or user.email }}</span>
+                <a href="/dashboard" class="text-[#0F172A] font-semibold">Dashboard</a>
+                <a href="/logout" class="text-gray-400 hover:text-gray-600">Logout</a>
+                {% else %}
+                <a href="/login" class="text-gray-500 hover:text-gray-900 font-medium">Log In</a>
+                <a href="/register" class="btn-primary py-2 px-4 rounded-lg text-sm">Sign Up Free</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Page Header -->
+        <div class="mb-16">
+            <a href="/" class="text-sm text-gray-400 hover:text-gray-600 mb-6 inline-flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                Back to home
+            </a>
+            <p class="section-label mb-3 mt-6">Research</p>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] mb-4 tracking-tight leading-tight">
+                The Research Behind Triage
+            </h1>
+            <p class="text-lg text-gray-500 max-w-2xl leading-relaxed">
+                Every legal finding in Triage is backed by peer-reviewed deterministic methods.
+                Our architecture was accepted for presentation at the International Conference
+                on Computational Science (ICCS 2026) and published in Springer LNCS.
+            </p>
+        </div>
+
+        <!-- Credibility Badges -->
+        <div class="flex flex-wrap gap-3 mb-16">
+            <div class="badge">
+                <svg fill="currentColor" viewBox="0 0 20 20" class="w-3.5 h-3.5 text-[#0F172A]"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/></svg>
+                Presented at ICCS 2026
+            </div>
+            <div class="badge">
+                <svg fill="currentColor" viewBox="0 0 20 20" class="w-3.5 h-3.5 text-[#0F172A]"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>
+                Published in Springer LNCS
+            </div>
+            <div class="badge">
+                <svg fill="currentColor" viewBox="0 0 20 20" class="w-3.5 h-3.5 text-[#0F172A]"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                Peer Reviewed
+            </div>
+            <div class="badge">
+                <svg fill="currentColor" viewBox="0 0 20 20" class="w-3.5 h-3.5 text-[#0F172A]"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                Independent Research
+            </div>
+        </div>
+
+        <!-- Paper Citation Card -->
+        <div class="card p-6 sm:p-8 mb-16">
+            <p class="section-label mb-4">ICCS 2026 Paper</p>
+            <h2 class="text-xl font-bold text-[#0F172A] mb-2 leading-snug">
+                Deterministic Execution Frameworks for Hybrid Symbolic&ndash;Probabilistic Computational Pipelines
+            </h2>
+            <p class="text-sm text-gray-500 mb-1">Santhosh Guntupalli</p>
+            <p class="text-sm text-gray-400 mb-6">
+                International Conference on Computational Science (ICCS 2026) &middot; Springer Lecture Notes in Computer Science (LNCS)
+            </p>
+            <div class="rounded-lg bg-gray-50 border border-gray-200 p-4 text-sm text-gray-600 leading-relaxed mb-6">
+                <strong class="text-gray-700">Abstract.</strong>
+                LLM-containing computational pipelines face a fundamental reproducibility challenge: stochastic components
+                introduce non-determinism that prevents identical inputs from producing identical outputs across repeated
+                executions. This paper presents a deterministic execution framework for hybrid symbolic&ndash;probabilistic
+                pipelines that enforces execution invariance by isolating deterministic modules from stochastic components.
+                The architecture employs a deterministic symbolic engine for all state transitions and decision logic, while
+                LLM components operate only as non-authoritative, post-hoc explainers of pre-computed deterministic outputs.
+                We evaluate the framework on a corpus of 115 structured text documents, demonstrating 100% execution
+                determinism and 100% traceability across 300 repeated runs with zero output variance.
+            </div>
+            <p class="text-xs text-gray-400">
+                DOI and Springer page will be available upon publication.
+            </p>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="mb-16">
+            <p class="section-label mb-3">Experimental Results</p>
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-8">Published benchmarks from the ICCS 2026 paper</h2>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="card metric-card">
+                    <div class="metric-value text-green-700">100%</div>
+                    <div class="metric-label">Deterministic Output</div>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-value text-red-600">0%</div>
+                    <div class="metric-label">Pure LLM Determinism</div>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-value text-[#0F172A]">300</div>
+                    <div class="metric-label">Repeated Executions</div>
+                </div>
+                <div class="card metric-card">
+                    <div class="metric-value text-green-700">100%</div>
+                    <div class="metric-label">Traceability Rate</div>
+                </div>
+            </div>
+
+            <!-- Detailed Comparison Table -->
+            <div class="card overflow-hidden">
+                <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+                    <h3 class="text-sm font-bold text-[#0F172A]">Hybrid System vs. Pure LLM Baseline</h3>
+                </div>
+                <div class="divide-y divide-gray-100">
+                    <div class="grid grid-cols-3 px-6 py-3 text-xs font-bold text-gray-400 uppercase tracking-wide">
+                        <span>Metric</span>
+                        <span class="text-center">Triage (Hybrid)</span>
+                        <span class="text-center">Pure LLM</span>
+                    </div>
+                    <div class="grid grid-cols-3 px-6 py-3 text-sm">
+                        <span class="text-gray-600">Determinism Rate</span>
+                        <span class="text-center font-semibold text-green-700">100.0%</span>
+                        <span class="text-center font-semibold text-red-600">0.0%</span>
+                    </div>
+                    <div class="grid grid-cols-3 px-6 py-3 text-sm">
+                        <span class="text-gray-600">Traceability Rate</span>
+                        <span class="text-center font-semibold text-green-700">100.0%</span>
+                        <span class="text-center font-semibold text-red-600">0.0%</span>
+                    </div>
+                    <div class="grid grid-cols-3 px-6 py-3 text-sm">
+                        <span class="text-gray-600">Ungrounded Outputs / Doc</span>
+                        <span class="text-center font-semibold text-green-700">0.00</span>
+                        <span class="text-center font-semibold text-red-600">0.43</span>
+                    </div>
+                    <div class="grid grid-cols-3 px-6 py-3 text-sm">
+                        <span class="text-gray-600">Output Variance (300 runs)</span>
+                        <span class="text-center font-semibold text-green-700">Zero</span>
+                        <span class="text-center font-semibold text-red-600">18.3 distinct sets/doc</span>
+                    </div>
+                    <div class="grid grid-cols-3 px-6 py-3 text-sm">
+                        <span class="text-gray-600">Avg. Execution Time / Doc</span>
+                        <span class="text-center font-semibold text-[#0F172A]">0.41s</span>
+                        <span class="text-center font-semibold text-gray-500">7.3s</span>
+                    </div>
+                    <div class="grid grid-cols-3 px-6 py-3 text-sm">
+                        <span class="text-gray-600">Documents Evaluated</span>
+                        <span class="text-center font-semibold text-[#0F172A]" colspan="2">115</span>
+                        <span class="text-center font-semibold text-[#0F172A]">115</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture -->
+        <div class="mb-16">
+            <p class="section-label mb-3">Architecture</p>
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-3">How the deterministic framework works</h2>
+            <p class="text-sm text-gray-400 mb-8 max-w-2xl">
+                The system enforces a strict separation between deterministic risk detection and probabilistic
+                language generation. The LLM never determines legal risk &mdash; it only explains deterministic
+                findings in plain language.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-4 uppercase tracking-wide">Execution Pipeline</h3>
+                    <div class="workflow-step"><div class="step-num">1</div>Document Ingestion &amp; Normalization</div>
+                    <div class="workflow-connector"></div>
+                    <div class="workflow-step"><div class="step-num">2</div>Deterministic Symbolic Engine</div>
+                    <div class="workflow-connector"></div>
+                    <div class="workflow-step"><div class="step-num">3</div>Context Logic &amp; Suppression</div>
+                    <div class="workflow-connector"></div>
+                    <div class="workflow-step"><div class="step-num">4</div>Deterministic Output (Structured State)</div>
+                    <div class="workflow-connector"></div>
+                    <div class="workflow-step" style="border-color: #94A3B8; border-style: dashed;">
+                        <div class="step-num" style="background: #64748B;">5</div>
+                        LLM Explanation Layer (constrained, non-authoritative)
+                    </div>
+                    <div class="workflow-connector"></div>
+                    <div class="workflow-step" style="border-color: #0F172A; background: #F8FAFC;">
+                        <div class="step-num" style="background: #16A34A;">&#10003;</div>
+                        Attorney Review
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-4 uppercase tracking-wide">Key Design Principles</h3>
+                    <div class="space-y-4">
+                        <div class="card p-4">
+                            <h4 class="text-sm font-semibold text-[#0F172A] mb-1">Deterministic-First</h4>
+                            <p class="text-sm text-gray-500">All risk detection is performed by versioned, rule-based logic. No probabilistic inference, no statistical weighting, no machine-learned parameters.</p>
+                        </div>
+                        <div class="card p-4">
+                            <h4 class="text-sm font-semibold text-[#0F172A] mb-1">LLM Lockdown</h4>
+                            <p class="text-sm text-gray-500">The LLM never sees the full contract. It receives only pre-validated deterministic findings and generates explanations from those.</p>
+                        </div>
+                        <div class="card p-4">
+                            <h4 class="text-sm font-semibold text-[#0F172A] mb-1">Clause Anchoring</h4>
+                            <p class="text-sm text-gray-500">Every finding is tied to exact character offsets and textual excerpts. Reviewers can independently verify each risk indicator.</p>
+                        </div>
+                        <div class="card p-4">
+                            <h4 class="text-sm font-semibold text-[#0F172A] mb-1">Safe Degradation</h4>
+                            <p class="text-sm text-gray-500">If the LLM is unavailable or fails, all deterministic findings remain intact and actionable. The LLM is never a single point of failure.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Deterministic > Probabilistic -->
+        <div class="card p-6 sm:p-8 mb-16">
+            <p class="section-label mb-3">The Core Argument</p>
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-6">Why deterministic execution matters for legal analysis</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-sm font-bold text-red-700 mb-3 uppercase tracking-wide">Pure LLM Systems</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
+                            <span class="text-sm text-gray-600">Different results on every run for the same document</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
+                            <span class="text-sm text-gray-600">Can hallucinate clauses that don't exist in the contract</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
+                            <span class="text-sm text-gray-600">No verifiable reasoning path for auditors</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
+                            <span class="text-sm text-gray-600">Cannot defend past outputs when challenged</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-green-700 mb-3 uppercase tracking-wide">Triage (Deterministic Hybrid)</h3>
+                    <div class="space-y-3">
+                        <div class="check-item">
+                            <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                            <span class="text-sm text-gray-600">Identical outputs guaranteed for identical inputs</span>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                            <span class="text-sm text-gray-600">Zero hallucinated findings &mdash; every risk linked to source text</span>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                            <span class="text-sm text-gray-600">Every decision traceable to a versioned rule ID</span>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                            <span class="text-sm text-gray-600">Historical analyses remain auditable as rules evolve</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="mb-16">
+            <p class="section-label mb-3">FAQ</p>
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-8">Frequently asked questions</h2>
+
+            <div class="space-y-4">
+                <div class="card p-6">
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">What is ICCS?</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">The International Conference on Computational Science (ICCS) is one of the leading conferences in computational science, published through Springer's Lecture Notes in Computer Science (LNCS) series. ICCS 2026 covers advances in computational methods across scientific and engineering domains.</p>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">What does "deterministic" mean in this context?</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Deterministic means the same input always produces the same output. When you upload the same contract twice, Triage produces identical findings every time. Pure LLM systems cannot guarantee this &mdash; they produce different results on different runs, even with identical inputs.</p>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">Does Triage use AI at all?</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Yes. Triage uses AI (LLM) to generate plain-language explanations of findings. However, the AI never decides what is risky &mdash; that is done entirely by the deterministic rule engine. The AI only explains what the deterministic engine has already found.</p>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">How were the 300 repeated runs conducted?</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">15 documents (8 public, 7 synthetic) were each analyzed 20 times across multiple random seeds and computational environments. The hybrid system produced zero output variances across all 300 runs. The pure LLM baseline showed output differences in 100% of cases, with an average of 18.3 distinct output sets per document.</p>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-2">Can I read the full paper?</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">The paper will be available through Springer LNCS upon publication. DOI and direct links will be posted here once available.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center mb-16">
+            <div class="card p-8 sm:p-10">
+                <h2 class="text-xl font-bold text-[#0F172A] mb-3">See the research in action</h2>
+                <p class="text-sm text-gray-500 mb-6 max-w-md mx-auto">Upload a contract and see deterministic, evidence-backed findings &mdash; the same method validated in our ICCS 2026 paper.</p>
+                {% if user %}
+                <a href="/dashboard" class="btn-primary py-3 px-8 rounded-lg text-sm inline-flex items-center justify-center">
+                    Go to Dashboard
+                </a>
+                {% else %}
+                <a href="/register" class="btn-primary py-3 px-8 rounded-lg text-sm inline-flex items-center justify-center">
+                    Start Free Review
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="pt-8 border-t border-gray-200">
+            <div class="flex justify-center gap-6 mb-6 flex-wrap">
+                <div class="flex items-center gap-2 text-xs text-gray-400">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.351.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    256-bit TLS
+                </div>
+                <div class="flex items-center gap-2 text-xs text-gray-400">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+                    Documents Never Stored
+                </div>
+                <div class="flex items-center gap-2 text-xs text-gray-400">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    Deterministic Engine
+                </div>
+            </div>
+            <div class="text-center text-gray-400 text-sm space-y-1">
+                <p class="font-medium">&copy; {{ current_year }} Triage &mdash; The Deterministic Legal Reasoning Engine</p>
+                <p class="text-xs">Deterministic rules decide. AI explains.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
