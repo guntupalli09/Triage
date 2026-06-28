@@ -317,8 +317,8 @@ async def register_submit(
         password_hash=hash_password(password),
         name=name.strip() or None,
         company=company.strip() or None,
-        plan="none",
-        monthly_limit=0,
+        plan="free",
+        monthly_limit=3,
     )
     db.add(user)
     db.commit()
@@ -441,7 +441,14 @@ async def upload_contract(
     # If user is logged in, save to DB
     if user:
         if not check_usage_limit(user):
-            raise HTTPException(status_code=402, detail="Monthly contract limit reached. Please upgrade your plan.")
+            return templates.TemplateResponse("index.html", {
+                "request": request,
+                "error": "Monthly contract limit reached. Please upgrade your plan.",
+                "user": user,
+                "playbooks": db.query(Playbook).filter(Playbook.user_id == user.id).all() if user else [],
+                "current_year": datetime.now().year,
+                "dev_mode": DEV_MODE,
+            })
 
         analysis = run_analysis(contract_text)
 
