@@ -143,14 +143,14 @@ def on_startup():
     from database import DATABASE_URL
     db_type = "PostgreSQL" if "postgresql" in DATABASE_URL else "SQLite"
     redis_url = os.getenv("REDIS_URL")
-    logger.info(f"Triage AI worker ready | mode={'DEMO' if DEV_MODE else 'PROD'} | db={db_type} | redis={'yes' if redis_url else 'no'} | pid={os.getpid()}")
+    logger.info(f"Triage Counsel worker ready | mode={'DEMO' if DEV_MODE else 'PROD'} | db={db_type} | redis={'yes' if redis_url else 'no'} | pid={os.getpid()}")
     if not DEV_MODE and "sqlite" in DATABASE_URL:
         logger.warning("Running production mode with SQLite — use PostgreSQL for reliability")
 
 
 @app.on_event("shutdown")
 def on_shutdown():
-    logger.info(f"Triage AI worker shutting down | pid={os.getpid()}")
+    logger.info(f"Triage Counsel worker shutting down | pid={os.getpid()}")
 
 
 # --- Helpers ---
@@ -749,7 +749,7 @@ async def download_contract_pdf(request: Request, contract_id: int):
     pdf.add_page()
 
     pdf.set_font("Helvetica", "B", 18)
-    pdf.cell(0, 12, "Triage AI - Contract Risk Report", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 12, "Triage Counsel - Contract Risk Report", new_x="LMARGIN", new_y="NEXT")
     pdf.set_font("Helvetica", "", 10)
     pdf.cell(0, 6, f"File: {contract.filename}", new_x="LMARGIN", new_y="NEXT")
     pdf.cell(0, 6, f"Date: {datetime.utcnow().strftime('%B %d, %Y')}", new_x="LMARGIN", new_y="NEXT")
@@ -793,7 +793,7 @@ async def download_contract_pdf(request: Request, contract_id: int):
 
     pdf.ln(6)
     pdf.set_font("Helvetica", "I", 8)
-    pdf.cell(0, 5, f"(c) {datetime.now().year} Triage AI - Contract Risk Intelligence. Not legal advice.", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 5, f"(c) {datetime.now().year} Triage Counsel - Contract Risk Intelligence. Not legal advice.", new_x="LMARGIN", new_y="NEXT")
 
     pdf_bytes = pdf.output()
 
@@ -1084,7 +1084,7 @@ async def subscribe(request: Request, plan: str):
     line_item = {
         "price_data": {
             "currency": "usd",
-            "product_data": {"name": f"Triage AI — {plan.title()} Plan"},
+            "product_data": {"name": f"Triage Counsel — {plan.title()} Plan"},
             "unit_amount": plan_config["price"],
         },
         "quantity": 1,

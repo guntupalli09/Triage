@@ -1,8 +1,8 @@
-# Triage AI — Contract Risk Intelligence
+# Triage Counsel — Contract Risk Intelligence
 
 A deterministic contract risk triage system designed to surface commonly negotiated risk indicators in standardized agreements such as NDAs, MSAs, and similar contracts.
 
-- Triage AI uses a versioned, rule-based engine for risk detection and a constrained LLM layer for contextual explanation only, ensuring reproducible, auditable outputs.
+- Triage Counsel uses a versioned, rule-based engine for risk detection and a constrained LLM layer for contextual explanation only, ensuring reproducible, auditable outputs.
 
 - The system is designed as a first-pass risk triage tool for founders, executives, and legal teams who need rapid visibility into potential contract risk areas prior to detailed legal review.
 
@@ -54,7 +54,7 @@ Comprehensive documentation is available in the `/docs` directory:
 ### Core Documentation
 - **[Architecture Overview](docs/architecture/architecture_overview.md)**: System design and component interactions
 - **[Architecture & Future Roadmap](docs/architecture/FUTURE_ROADMAP.md)**: Enterprise multi-layer architecture and governance framework
-- **[Enterprise Upgrade Plan](docs/architecture/ENTERPRISE_UPGRADE_PLAN.md)**: Comprehensive plan to transform Triage AI into an industry-leading B2B/B2C platform
+- **[Enterprise Upgrade Plan](docs/architecture/ENTERPRISE_UPGRADE_PLAN.md)**: Comprehensive plan to transform Triage Counsel into an industry-leading B2B/B2C platform
 - **[Implementation Checklist](docs/architecture/IMPLEMENTATION_CHECKLIST.md)**: Prioritized checklist for enterprise features
 - **[Quick Start Guide](docs/architecture/QUICK_START_GUIDE.md)**: Step-by-step guide for implementing Phase 1 features
 - **[Neural-Symbolic Design](docs/architecture/neural_symbolic_design.md)**: Deterministic control plane architecture

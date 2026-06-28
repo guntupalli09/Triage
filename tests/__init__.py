@@ -1,2 +1,2 @@
-# Tests for Triage AI - Contract Risk Intelligence
+# Tests for Triage Counsel - Contract Risk Intelligence
 # Deterministic rule engine unit tests
