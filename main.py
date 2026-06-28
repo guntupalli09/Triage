@@ -54,8 +54,15 @@ from auth import (
 from models import User, Contract, Playbook
 from playbook_engine import PlaybookEngine
 
+import uuid
+
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
+logging.basicConfig(
+    level=LOG_LEVEL,
+    format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
+    datefmt="%Y-%m-%dT%H:%M:%S",
+)
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
 
 # --- Config ---
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -102,13 +109,26 @@ PLAN_LIMITS = {
 templates = Jinja2Templates(directory="templates")
 app = FastAPI(title="Contract Risk Triage Tool", version="2.0.0")
 app.mount("/static", StaticFiles(directory="static"), name="static")
+CORS_ORIGINS = os.getenv("CORS_ORIGINS", BASE_URL).split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
+
+from starlette.middleware.base import BaseHTTPMiddleware
+
+class RequestIDMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        request_id = request.headers.get("x-request-id", str(uuid.uuid4())[:8])
+        request.state.request_id = request_id
+        response = await call_next(request)
+        response.headers["x-request-id"] = request_id
+        return response
+
+app.add_middleware(RequestIDMiddleware)
 
 rule_engine = RuleEngine()
 llm_evaluator = LLMEvaluator()
@@ -121,7 +141,12 @@ session_store: Dict[str, Dict] = {}
 @app.on_event("startup")
 def on_startup():
     init_db()
-    logger.info(f"Mode={'DEMO' if DEV_MODE else 'PROD'} | DB initialized")
+    from database import DATABASE_URL
+    db_type = "PostgreSQL" if "postgresql" in DATABASE_URL else "SQLite"
+    redis_url = os.getenv("REDIS_URL")
+    logger.info(f"Triage AI starting | mode={'DEMO' if DEV_MODE else 'PROD'} | db={db_type} | redis={'yes' if redis_url else 'no'} | workers={os.getenv('WEB_WORKERS', 'default')}")
+    if not DEV_MODE and "sqlite" in DATABASE_URL:
+        logger.warning("Running production mode with SQLite — use PostgreSQL for reliability")
 
 
 # --- Helpers ---

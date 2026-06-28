@@ -1,0 +1,20 @@
+.git
+.gitignore
+__pycache__
+*.pyc
+data/
+experiments/
+docs/
+tests/
+IEEE paper/
+Submission/
+rules/Submission/
+*.md
+*.docx
+.env
+.vercelignore
+vercel.json
+setup-github.ps1
+Makefile
+High.docx
+DETERMINISTIC RULES.txt
