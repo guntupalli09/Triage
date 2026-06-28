@@ -140,7 +140,11 @@ session_store: Dict[str, Dict] = {}
 
 @app.on_event("startup")
 def on_startup():
-    init_db()
+    # Schema initialization is handled by gunicorn's on_starting hook (once in
+    # the master process). For local dev (uvicorn without gunicorn), init here.
+    if os.getenv("GUNICORN_ARBITER") is None and not getattr(app.state, "_db_initialized", False):
+        init_db()
+        app.state._db_initialized = True
     from database import DATABASE_URL
     db_type = "PostgreSQL" if "postgresql" in DATABASE_URL else "SQLite"
     redis_url = os.getenv("REDIS_URL")

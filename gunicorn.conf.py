@@ -59,3 +59,12 @@ access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
 # 30s grace period for in-flight requests to complete before SIGKILL.
 # Allows most OpenAI calls to finish rather than dropping them.
 graceful_timeout = 30
+
+
+def when_ready(server):
+    """Run database schema initialization once in the master process
+    (after preload_app), before workers are forked, to avoid race conditions."""
+    import os
+    os.environ["GUNICORN_ARBITER"] = "1"
+    from database import init_db
+    init_db()
