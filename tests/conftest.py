@@ -1,5 +1,5 @@
 """
-Pytest configuration and shared fixtures for Triage AI tests.
+Pytest configuration and shared fixtures for Triage Counsel tests.
 """
 
 import pytest
