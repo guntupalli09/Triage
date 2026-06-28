@@ -1,7 +1,24 @@
 {
-  "name": "TriageCounsel",
+  "name": "Triage Counsel — Deterministic Legal Reasoning Engine",
   "short_name": "TriageCounsel",
+  "description": "Deterministic contract analysis: 40 rules decide, AI explains. Upload any contract and get an auditable risk report in seconds.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#0F172A",
+  "background_color": "#FAFAFA",
   "icons": [
+    {
+      "src": "/static/branding/favicon-16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/branding/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
     {
       "src": "/static/branding/android-chrome-192x192.png",
       "sizes": "192x192",
@@ -11,9 +28,12 @@
       "src": "/static/branding/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/static/branding/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
-  ],
-  "theme_color": "#0F172A",
-  "background_color": "#0F172A",
-  "display": "standalone"
+  ]
 }

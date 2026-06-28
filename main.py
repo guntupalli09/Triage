@@ -1417,34 +1417,57 @@ async def results_legacy(request: Request, token: str):
 
 @app.get("/robots.txt", response_class=Response)
 async def robots_txt(request: Request):
-    base = str(request.base_url).rstrip("/")
-    content = f"""User-agent: *
+    content = """User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin/
 Disallow: /dashboard
+Disallow: /dashboard/
 Disallow: /upload-page
 Disallow: /history
 Disallow: /batch-upload
 Disallow: /playbooks
+Disallow: /playbooks/
 Disallow: /contract/
 Disallow: /shared/
 Disallow: /logout
 Disallow: /login
 Disallow: /register
+Disallow: /private/
+Disallow: /subscribe/
+Disallow: /stripe-webhook
+Disallow: /health
+Disallow: /config
 
-Sitemap: {base}/sitemap.xml
+Host: https://triagecounsel.com
+Sitemap: https://triagecounsel.com/sitemap.xml
 """
     return Response(content=content, media_type="text/plain")
 
 
 @app.get("/sitemap.xml", response_class=Response)
 async def sitemap_xml(request: Request):
-    base = str(request.base_url).rstrip("/")
-    urls = [
-        "/", "/pricing", "/research", "/security", "/faq",
-        "/about", "/contact", "/privacy", "/terms",
+    base = "https://triagecounsel.com"
+    today = datetime.now().strftime("%Y-%m-%d")
+    pages = [
+        ("/",         "1.0",  "weekly"),
+        ("/pricing",  "0.9",  "monthly"),
+        ("/research", "0.8",  "monthly"),
+        ("/security", "0.8",  "monthly"),
+        ("/faq",      "0.8",  "monthly"),
+        ("/about",    "0.8",  "monthly"),
+        ("/contact",  "0.7",  "monthly"),
+        ("/demo",     "0.9",  "weekly"),
+        ("/privacy",  "0.4",  "yearly"),
+        ("/terms",    "0.4",  "yearly"),
     ]
     entries = "\n".join(
-        f"  <url><loc>{base}{u}</loc></url>" for u in urls
+        f"""  <url>
+    <loc>{base}{path}</loc>
+    <lastmod>{today}</lastmod>
+    <changefreq>{freq}</changefreq>
+    <priority>{priority}</priority>
+  </url>""" for path, priority, freq in pages
     )
     xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
