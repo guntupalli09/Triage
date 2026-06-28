@@ -2,12 +2,12 @@
 
 {% block title %}Pricing — Triage Counsel{% endblock %}
 
-{% block meta_description %}Catch hidden risks before they cost you. Replace hours of manual review with instant, deterministic contract triage.{% endblock %}
+{% block meta_description %}Deterministic contract analysis for legal teams. Plans for solo practitioners, growing teams, and firms operating at scale.{% endblock %}
 {% block canonical_url %}https://triagecounsel.com/pricing{% endblock %}
 {% block og_title %}Pricing — Triage Counsel{% endblock %}
-{% block og_description %}Catch hidden risks before they cost you. Replace hours of manual review with instant, deterministic contract triage.{% endblock %}
+{% block og_description %}Deterministic contract analysis for legal teams. Plans for solo practitioners, growing teams, and firms operating at scale.{% endblock %}
 {% block twitter_title %}Pricing — Triage Counsel{% endblock %}
-{% block twitter_description %}Catch hidden risks before they cost you. Replace hours of manual review with instant, deterministic contract triage.{% endblock %}
+{% block twitter_description %}Deterministic contract analysis for legal teams. Plans for solo practitioners, growing teams, and firms operating at scale.{% endblock %}
 
 {% block extra_head %}
 <style>
@@ -22,161 +22,279 @@
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
-    .popular-badge {
-        background: #0F172A;
-        color: white;
+    .billing-toggle {
+        display: inline-flex;
+        background: #F1F5F9;
+        border-radius: 8px;
+        padding: 3px;
+    }
+    .billing-toggle button {
+        padding: 6px 20px;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #64748B;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+    .billing-toggle button.active {
+        background: #FFFFFF;
+        color: #0F172A;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+    .price-monthly, .price-yearly { display: none; }
+    .price-monthly.visible, .price-yearly.visible { display: block; }
+    .recommended-label {
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.025em;
+        color: #0F172A;
+        background: #F1F5F9;
+        padding: 2px 10px;
+        border-radius: 9999px;
+    }
+    .trust-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        text-align: left;
+    }
+    .trust-icon {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        color: #94A3B8;
+        margin-top: 1px;
     }
 </style>
 {% endblock %}
 
 {% block content %}
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="text-center mb-12 fade-in">
-            <h1 class="text-4xl font-extrabold text-[#0F172A] mb-3">Catch hidden risks before they cost you</h1>
-            <p class="text-lg text-gray-600">Replace hours of manual review with instant, deterministic contract triage.</p>
+        <div class="text-center mb-4 fade-in">
+            <h1 class="text-4xl font-extrabold text-[#0F172A] mb-3">Pricing</h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Deterministic contract analysis for solo practitioners, growing teams, and firms operating at scale.</p>
         </div>
 
-        <!-- Free demo CTA -->
-        <div class="text-center mb-12 fade-in">
-            <a href="/demo" class="text-[#0F172A] font-semibold hover:underline">Try a free demo with a sample contract &rarr;</a>
+        <div class="text-center mb-4 fade-in">
+            <a href="/demo" class="text-[#0F172A] font-semibold hover:underline text-sm">Try a free demo with a sample contract &rarr;</a>
+        </div>
+
+        <!-- Billing toggle -->
+        <div class="text-center mb-10 fade-in">
+            <div class="billing-toggle" role="radiogroup" aria-label="Billing period">
+                <button type="button" role="radio" aria-checked="true" class="active" data-period="monthly" onclick="setBilling('monthly')">Monthly</button>
+                <button type="button" role="radio" aria-checked="false" data-period="yearly" onclick="setBilling('yearly')">Yearly</button>
+            </div>
         </div>
 
         <!-- Pricing cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in">
             <!-- Starter -->
-            <div class="premium-card p-8 flex flex-col">
+            <div class="premium-card p-8 flex flex-col"
+                 data-plan="starter"
+                 data-monthly-price="900"
+                 data-yearly-price="8900"
+                 data-stripe-monthly-price-id=""
+                 data-stripe-yearly-price-id="">
                 <h3 class="text-xl font-bold text-[#0F172A] mb-1">Starter</h3>
-                <p class="text-gray-500 text-sm mb-6">See what your team has been missing</p>
+                <p class="text-gray-500 text-sm mb-6">For solo practitioners</p>
                 <div class="mb-6">
-                    <span class="text-4xl font-extrabold text-[#0F172A]">$4.99</span>
-                    <span class="text-gray-500">one-time</span>
+                    <div class="price-monthly visible">
+                        <span class="text-4xl font-extrabold text-[#0F172A]">$9</span>
+                        <span class="text-gray-500">/month</span>
+                    </div>
+                    <div class="price-yearly">
+                        <span class="text-4xl font-extrabold text-[#0F172A]">$89</span>
+                        <span class="text-gray-500">/year</span>
+                        <div class="text-sm text-gray-500 mt-1">$7.42/month &middot; Save $19 annually</div>
+                    </div>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Triage up to 10 contracts instantly
+                        Analyze up to 10 contracts per month
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Spot high-risk clauses in under 2 minutes
+                        Identify high-risk clauses in under two minutes
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Compare against your standard playbook
+                        Standardize review with one playbook template
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Export shareable PDF reports
+                        Generate professional reports ready to share with clients
                     </li>
                 </ul>
                 {% if user and user.plan == 'starter' %}
                 <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
                 {% else %}
                 <form action="/subscribe/starter" method="post">
-                    <button type="submit" class="w-full py-3 px-6 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:border-[#0F172A] hover:text-[#0F172A] transition-all">Get Started &mdash; $4.99</button>
+                    <input type="hidden" name="billing_period" value="monthly" class="billing-period-input">
+                    <button type="submit" class="w-full py-3 px-6 rounded-lg border border-gray-200 text-gray-700 font-semibold hover:border-[#0F172A] hover:text-[#0F172A] transition-all">Start Reviewing Contracts</button>
                 </form>
                 {% endif %}
             </div>
 
             <!-- Professional -->
-            <div class="premium-card p-8 flex flex-col relative border-2 border-[#0F172A]">
+            <div class="premium-card p-8 flex flex-col relative border-2 border-[#0F172A]"
+                 data-plan="professional"
+                 data-monthly-price="4900"
+                 data-yearly-price="47000"
+                 data-stripe-monthly-price-id=""
+                 data-stripe-yearly-price-id="">
                 <div class="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span class="popular-badge text-xs font-bold px-4 py-1 rounded-full">MOST POPULAR</span>
+                    <span class="recommended-label">Recommended</span>
                 </div>
                 <h3 class="text-xl font-bold text-[#0F172A] mb-1">Professional</h3>
-                <p class="text-gray-500 text-sm mb-6">Cut first-pass review time by 80%</p>
+                <p class="text-gray-500 text-sm mb-6">For growing legal teams</p>
                 <div class="mb-6">
-                    <span class="text-4xl font-extrabold text-[#0F172A]">$49</span>
-                    <span class="text-gray-500">one-time</span>
+                    <div class="price-monthly visible">
+                        <span class="text-4xl font-extrabold text-[#0F172A]">$49</span>
+                        <span class="text-gray-500">/month</span>
+                    </div>
+                    <div class="price-yearly">
+                        <span class="text-4xl font-extrabold text-[#0F172A]">$470</span>
+                        <span class="text-gray-500">/year</span>
+                        <div class="text-sm text-gray-500 mt-1">$39.17/month &middot; Save $118 annually</div>
+                    </div>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Triage 150 contracts — cover your full pipeline
+                        Analyze up to 150 contracts per month to cover your full pipeline
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Batch upload 10 files at once — clear backlogs fast
+                        Review multiple contracts simultaneously to eliminate review backlogs
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        5 playbooks — enforce standards across deal types
+                        Standardize review across employment, NDA, procurement, vendor, and licensing agreements
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Share reports with stakeholders in one click
+                        Generate professional reports ready to share with clients and stakeholders
                     </li>
                 </ul>
                 {% if user and user.plan == 'professional' %}
                 <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
                 {% else %}
                 <form action="/subscribe/professional" method="post">
-                    <button type="submit" class="btn-primary w-full py-3 px-6 rounded-lg">Go Professional &mdash; $49</button>
+                    <input type="hidden" name="billing_period" value="monthly" class="billing-period-input">
+                    <button type="submit" class="btn-primary w-full py-3 px-6 rounded-lg">Upgrade to Professional</button>
                 </form>
                 {% endif %}
             </div>
 
-            <!-- Unlimited -->
-            <div class="premium-card p-8 flex flex-col">
-                <h3 class="text-xl font-bold text-[#0F172A] mb-1">Unlimited</h3>
-                <p class="text-gray-500 text-sm mb-6">Zero bottlenecks, zero surprises</p>
+            <!-- Team -->
+            <div class="premium-card p-8 flex flex-col"
+                 data-plan="team"
+                 data-monthly-price="19900"
+                 data-yearly-price="189900"
+                 data-stripe-monthly-price-id=""
+                 data-stripe-yearly-price-id="">
+                <h3 class="text-xl font-bold text-[#0F172A] mb-1">Team</h3>
+                <p class="text-gray-500 text-sm mb-6">For firms operating at scale</p>
                 <div class="mb-6">
-                    <span class="text-4xl font-extrabold text-[#0F172A]">$249</span>
-                    <span class="text-gray-500">/month</span>
+                    <div class="price-monthly visible">
+                        <span class="text-4xl font-extrabold text-[#0F172A]">$199</span>
+                        <span class="text-gray-500">/month</span>
+                    </div>
+                    <div class="price-yearly">
+                        <span class="text-4xl font-extrabold text-[#0F172A]">$1,899</span>
+                        <span class="text-gray-500">/year</span>
+                        <div class="text-sm text-gray-500 mt-1">$158.25/month &middot; Save $489 annually</div>
+                    </div>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        <strong>Unlimited</strong> reviews — never hit a cap
+                        Unlimited contract reviews across your entire firm
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Batch upload 50 files — triage an entire deal room
+                        Triage an entire deal room with batch uploads of up to 50 files
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Unlimited playbooks — one for every contract type
+                        Create a dedicated playbook for every contract type your firm handles
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Priority processing — results in seconds, not minutes
+                        Reduce turnaround time from minutes to seconds with priority processing
                     </li>
                     <li class="flex items-start text-sm text-gray-700">
                         <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Everything in Professional
+                        Everything in Professional, plus expanded capacity
                     </li>
                 </ul>
-                {% if user and user.plan == 'unlimited' %}
+                {% if user and user.plan == 'team' %}
+                <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
+                {% elif user and user.plan == 'unlimited' %}
                 <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
                 {% else %}
-                <form action="/subscribe/unlimited" method="post">
-                    <button type="submit" class="w-full py-3 px-6 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:border-[#0F172A] hover:text-[#0F172A] transition-all">Go Unlimited &mdash; $249/mo</button>
+                <form action="/subscribe/team" method="post">
+                    <input type="hidden" name="billing_period" value="monthly" class="billing-period-input">
+                    <button type="submit" class="w-full py-3 px-6 rounded-lg border border-gray-200 text-gray-700 font-semibold hover:border-[#0F172A] hover:text-[#0F172A] transition-all">Choose Team</button>
                 </form>
                 {% endif %}
             </div>
         </div>
 
-        <!-- Value comparison -->
-        <div class="mt-12 text-center fade-in">
-            <p class="text-gray-500 text-sm mb-8">A junior paralegal costs $4,000+/month. Triage Counsel reviews a contract in under 2 minutes.</p>
-            <div class="flex justify-center gap-8 flex-wrap">
-                <div class="flex items-center gap-2 text-xs text-gray-400">
-                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.351.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    40 Deterministic Rules
-                </div>
-                <div class="flex items-center gap-2 text-xs text-gray-400">
-                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
-                    Zero Hallucinations
-                </div>
-                <div class="flex items-center gap-2 text-xs text-gray-400">
-                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    Auditable Results
-                </div>
-                <div class="flex items-center gap-2 text-xs text-gray-400">
-                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V8z" clip-rule="evenodd"/></svg>
-                    Shareable PDF Reports
+        <!-- Trust section -->
+        <div class="mt-16 fade-in">
+            <div class="max-w-3xl mx-auto">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-5">
+                    <div class="trust-item">
+                        <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                        <span class="text-sm text-gray-600">Deterministic contract analysis backed by published research</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+                        <span class="text-sm text-gray-600">Research foundation published at ICCS 2026</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+                        <span class="text-sm text-gray-600">Auditable clause-level reasoning for every finding</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+                        <span class="text-sm text-gray-600">Professional PDF reports ready for client delivery</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+                        <span class="text-sm text-gray-600">Privacy-first document handling</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21"/></svg>
+                        <span class="text-sm text-gray-600">Purpose-built for legal professionals</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+    function setBilling(period) {
+        document.querySelectorAll('.billing-toggle button').forEach(function(btn) {
+            var isActive = btn.dataset.period === period;
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-checked', isActive);
+        });
+        document.querySelectorAll('.price-monthly').forEach(function(el) {
+            el.classList.toggle('visible', period === 'monthly');
+        });
+        document.querySelectorAll('.price-yearly').forEach(function(el) {
+            el.classList.toggle('visible', period === 'yearly');
+        });
+        document.querySelectorAll('.billing-period-input').forEach(function(input) {
+            input.value = period;
+        });
+    }
+    </script>
 {% endblock %}

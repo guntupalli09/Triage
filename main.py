@@ -100,9 +100,26 @@ ALLOWED_EXTENSIONS = {".pdf", ".docx", ".txt"}
 
 # Plan limits
 PLAN_LIMITS = {
-    "starter": {"monthly_limit": 10, "batch_max": 3, "playbooks_max": 1, "price": 499, "price_type": "one_time"},
-    "professional": {"monthly_limit": 150, "batch_max": 10, "playbooks_max": 5, "price": 4900, "price_type": "one_time"},
-    "unlimited": {"monthly_limit": 999999, "batch_max": 50, "playbooks_max": 50, "price": 24900, "price_type": "recurring"},
+    "starter": {
+        "monthly_limit": 10, "batch_max": 3, "playbooks_max": 1,
+        "monthly_price": 900, "yearly_price": 8900,
+        "stripe_monthly_price_id": "", "stripe_yearly_price_id": "",
+    },
+    "professional": {
+        "monthly_limit": 150, "batch_max": 10, "playbooks_max": 5,
+        "monthly_price": 4900, "yearly_price": 47000,
+        "stripe_monthly_price_id": "", "stripe_yearly_price_id": "",
+    },
+    "team": {
+        "monthly_limit": 999999, "batch_max": 50, "playbooks_max": 50,
+        "monthly_price": 19900, "yearly_price": 189900,
+        "stripe_monthly_price_id": "", "stripe_yearly_price_id": "",
+    },
+    "unlimited": {
+        "monthly_limit": 999999, "batch_max": 50, "playbooks_max": 50,
+        "monthly_price": 19900, "yearly_price": 189900,
+        "stripe_monthly_price_id": "", "stripe_yearly_price_id": "",
+    },
 }
 
 # --- App setup ---
@@ -1067,8 +1084,13 @@ async def subscribe(request: Request, plan: str):
 
     plan_config = PLAN_LIMITS[plan]
 
+    form = await request.form()
+    billing_period = form.get("billing_period", "monthly")
+    if billing_period not in ("monthly", "yearly"):
+        billing_period = "monthly"
+
     if DEV_MODE:
-        user.plan = plan
+        user.plan = plan if plan != "unlimited" else "team"
         user.monthly_limit = plan_config["monthly_limit"]
         user.subscription_status = "active"
         user.contracts_this_month = 0
@@ -1079,28 +1101,33 @@ async def subscribe(request: Request, plan: str):
         raise HTTPException(status_code=500, detail="Stripe not configured")
 
     current_base_url = get_base_url(request)
-    is_one_time = plan_config["price_type"] == "one_time"
+    interval = "month" if billing_period == "monthly" else "year"
+    price_key = f"stripe_{billing_period}_price_id"
+    stripe_price_id = plan_config.get(price_key, "")
+    unit_amount = plan_config[f"{billing_period}_price"]
 
-    line_item = {
-        "price_data": {
-            "currency": "usd",
-            "product_data": {"name": f"Triage Counsel — {plan.title()} Plan"},
-            "unit_amount": plan_config["price"],
-        },
-        "quantity": 1,
-    }
-    if not is_one_time:
-        line_item["price_data"]["recurring"] = {"interval": "month"}
+    if stripe_price_id:
+        line_item = {"price": stripe_price_id, "quantity": 1}
+    else:
+        line_item = {
+            "price_data": {
+                "currency": "usd",
+                "product_data": {"name": f"Triage Counsel — {plan.title()} Plan"},
+                "unit_amount": unit_amount,
+                "recurring": {"interval": interval},
+            },
+            "quantity": 1,
+        }
 
     checkout = stripe.checkout.Session.create(
-        mode="payment" if is_one_time else "subscription",
+        mode="subscription",
         payment_method_types=["card"],
         customer_email=user.email,
         client_reference_id=str(user.id),
         line_items=[line_item],
         success_url=f"{current_base_url}/dashboard?upgraded=true",
         cancel_url=f"{current_base_url}/pricing",
-        metadata={"plan": plan, "user_id": str(user.id)},
+        metadata={"plan": plan, "user_id": str(user.id), "billing_period": billing_period},
     )
     return RedirectResponse(url=checkout.url, status_code=303)
 
