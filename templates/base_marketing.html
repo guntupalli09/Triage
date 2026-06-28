@@ -5,12 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Triage Counsel — The Deterministic Legal Reasoning Engine{% endblock %}</title>
     <meta name="description" content="{% block meta_description %}Review legal documents using deterministic rules, auditable evidence, and AI-powered explanations — not AI decisions.{% endblock %}">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="{% block canonical_url %}https://triagecounsel.com{{ request.url.path if request.url.path != '/' else '' }}/{% endblock %}">
+
+    <!-- Robots -->
+    <meta name="robots" content="{% block robots %}index, follow{% endblock %}">
+    <meta name="googlebot" content="{% block googlebot %}index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1{% endblock %}">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:site_name" content="Triage Counsel">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="{% block og_title %}Triage Counsel — The Deterministic Legal Reasoning Engine{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Review legal documents using deterministic rules, auditable evidence, and AI-powered explanations — not AI decisions.{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}https://triagecounsel.com{{ request.url.path if request.url.path != '/' else '' }}/{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}https://triagecounsel.com/static/branding/triagecounsel-icon-dark-512.png{% endblock %}">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:alt" content="Triage Counsel logo">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}Triage Counsel — The Deterministic Legal Reasoning Engine{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Review legal documents using deterministic rules, auditable evidence, and AI-powered explanations — not AI decisions.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}https://triagecounsel.com/static/branding/triagecounsel-icon-dark-512.png{% endblock %}">
+
+    <!-- App Metadata -->
+    <meta name="application-name" content="Triage Counsel">
+    <meta name="author" content="Triage Counsel">
+    <meta name="creator" content="Triage Counsel">
+    <meta name="publisher" content="Triage Counsel">
+    <meta name="category" content="Legal Technology">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="color-scheme" content="light">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="keywords" content="{% block keywords %}contract analysis, legal tech, deterministic reasoning, contract review, risk assessment, legal AI, contract triage{% endblock %}">
+
+    <!-- Favicon -->
     <link rel="icon" href="/static/branding/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/branding/favicon-16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/branding/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/static/branding/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/static/branding/android-chrome-512x512.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/static/branding/apple-touch-icon.png">
+    <link rel="mask-icon" href="/static/branding/svg/triagecounsel-mark.svg" color="#0F172A">
     <link rel="manifest" href="/static/branding/site.webmanifest">
     <meta name="theme-color" content="#0F172A">
+    <meta name="msapplication-TileColor" content="#0F172A">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Triage Counsel",
+      "url": "https://triagecounsel.com",
+      "logo": "https://triagecounsel.com/static/branding/triagecounsel-icon-dark-512.png",
+      "description": "Deterministic legal reasoning engine for contract analysis. Rules decide, AI explains.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "url": "https://triagecounsel.com/contact"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Triage Counsel",
+      "url": "https://triagecounsel.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://triagecounsel.com/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    {% block json_ld %}{% endblock %}
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
