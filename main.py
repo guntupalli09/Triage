@@ -46,7 +46,7 @@ from sqlalchemy.orm import Session as DBSession
 
 from rules_engine import RuleEngine
 from evaluator import LLMEvaluator
-from database import get_db, init_db
+from database import get_db, check_db_health, check_redis_health
 from auth import (
     hash_password, verify_password, create_session, get_current_user,
     logout as auth_logout, check_usage_limit,
@@ -140,13 +140,17 @@ session_store: Dict[str, Dict] = {}
 
 @app.on_event("startup")
 def on_startup():
-    init_db()
     from database import DATABASE_URL
     db_type = "PostgreSQL" if "postgresql" in DATABASE_URL else "SQLite"
     redis_url = os.getenv("REDIS_URL")
-    logger.info(f"Triage AI starting | mode={'DEMO' if DEV_MODE else 'PROD'} | db={db_type} | redis={'yes' if redis_url else 'no'} | workers={os.getenv('WEB_WORKERS', 'default')}")
+    logger.info(f"Triage AI worker ready | mode={'DEMO' if DEV_MODE else 'PROD'} | db={db_type} | redis={'yes' if redis_url else 'no'} | pid={os.getpid()}")
     if not DEV_MODE and "sqlite" in DATABASE_URL:
         logger.warning("Running production mode with SQLite — use PostgreSQL for reliability")
+
+
+@app.on_event("shutdown")
+def on_shutdown():
+    logger.info(f"Triage AI worker shutting down | pid={os.getpid()}")
 
 
 # --- Helpers ---
@@ -1307,6 +1311,23 @@ async def index(request: Request):
         "request": request, "current_year": datetime.now().year,
         "user": None,
     })
+
+
+@app.get("/health")
+async def health_check():
+    db_ok = check_db_health()
+    redis_ok = check_redis_health()
+    healthy = db_ok and redis_ok
+    status_code = 200 if healthy else 503
+    from fastapi.responses import JSONResponse
+    return JSONResponse(
+        status_code=status_code,
+        content={
+            "status": "ok" if healthy else "degraded",
+            "database": "ok" if db_ok else "unavailable",
+            "redis": "ok" if redis_ok else "unavailable",
+        },
+    )
 
 
 @app.get("/config")

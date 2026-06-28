@@ -53,9 +53,35 @@ proc_name = "triage-web"
 accesslog = "-"
 errorlog = "-"
 loglevel = "info"
-access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s" %(D)s'
+access_log_format = '%(h)s %(t)s "%(r)s" %(s)s %(b)s %(D)sµs %({x-request-id}o)s'
 
 # --- Graceful shutdown ---
-# 30s grace period for in-flight requests to complete before SIGKILL.
-# Allows most OpenAI calls to finish rather than dropping them.
 graceful_timeout = 30
+
+
+# --- Hooks ---
+def on_starting(server):
+    import time
+    import logging
+    _logger = logging.getLogger("gunicorn.error")
+    start = time.monotonic()
+
+    from database import wait_for_db, wait_for_redis, init_db
+    _logger.info("Waiting for PostgreSQL...")
+    wait_for_db()
+    _logger.info("Waiting for Redis...")
+    wait_for_redis()
+    _logger.info("Running database schema initialization...")
+    init_db()
+    elapsed = time.monotonic() - start
+    _logger.info(f"Startup initialization complete in {elapsed:.2f}s")
+
+
+def post_fork(server, worker):
+    import logging
+    logging.getLogger("gunicorn.error").info(f"Worker spawned: pid={worker.pid}")
+
+
+def worker_exit(server, worker):
+    import logging
+    logging.getLogger("gunicorn.error").info(f"Worker exiting: pid={worker.pid}")
