@@ -278,25 +278,20 @@ OUTPUT FORMAT: JSON ONLY with this schema:
             logger.warning("LLM evaluate() called with zero findings - using fallback instead")
             return self.create_fallback_response(findings=[], overall_risk=overall_risk)
 
-        # ✅ VERIFICATION 3: Log exactly what is sent to LLM (payload proof)
-        # This MUST only contain findings data, NOT full contract text
-        findings_summary = json.dumps(findings, indent=2)
-        
-        # Additional guard: Check if findings contain suspiciously long text (potential contract leakage)
+        # Log operational metadata only — never log contract excerpts or context
+        total_tokens = sum(len(f.get("matched_excerpt", "")) + len(f.get("context", "")) for f in findings)
         for finding in findings:
             excerpt = finding.get("matched_excerpt", "")
-            if len(excerpt) > 2000:  # Suspiciously long excerpt
+            if len(excerpt) > 2000:
                 logger.error(
                     f"LLM LOCKDOWN WARNING: Finding excerpt exceeds 2000 chars. "
                     f"Rule: {finding.get('rule_id')}, Excerpt length: {len(excerpt)}"
                 )
-        
+
         logger.info(
-            f"LLM INPUT (deterministic findings only, first 2000 chars): "
-            f"{findings_summary[:2000]}"
+            f"LLM INPUT: findings={len(findings)}, "
+            f"approx_chars={total_tokens}, model={self.model}"
         )
-        logger.info(f"LLM CALL → model={self.model}, temperature=0.2")
-        logger.info(f"LLM INPUT contains {len(findings)} findings, NO contract text")
 
         # Extract ruleset version for auditability (passed from main.py via findings metadata if available)
         # For now, use a default - in production this would come from the analysis result

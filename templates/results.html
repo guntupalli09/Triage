@@ -95,11 +95,11 @@
             </div>
             <div>
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Analysis ID</div>
-                <div class="text-sm font-semibold text-[#0F172A] mono">{{ analysis_id }}</div>
+                <div class="text-sm font-semibold text-[#0F172A] mono">{{ analysis_id|default("N/A") }}</div>
             </div>
             <div>
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Generated</div>
-                <div class="text-sm font-semibold text-[#0F172A]">{{ generated_at }}</div>
+                <div class="text-sm font-semibold text-[#0F172A]">{{ generated_at|default("N/A") }}</div>
             </div>
             <div>
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Engine</div>
@@ -111,7 +111,7 @@
             </div>
             <div>
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rules Loaded</div>
-                <div class="text-sm font-semibold text-[#0F172A]">{{ total_rule_count }}</div>
+                <div class="text-sm font-semibold text-[#0F172A]">{{ total_rule_count|default(0) }}</div>
             </div>
             <div>
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rules Triggered</div>
@@ -157,7 +157,7 @@
                 <div class="text-xs font-medium text-[#475569] mt-1">Documents Processed</div>
             </div>
             <div class="text-center p-3 bg-slate-50 rounded-md">
-                <div class="text-2xl font-extrabold text-[#0F172A]">{{ total_rule_count }}</div>
+                <div class="text-2xl font-extrabold text-[#0F172A]">{{ total_rule_count|default(0) }}</div>
                 <div class="text-xs font-medium text-[#475569] mt-1">Rules Executed</div>
             </div>
             <div class="text-center p-3 bg-slate-50 rounded-md">
@@ -189,7 +189,7 @@
     <div class="report-card p-6 mb-6 fade-in">
         <h2 class="text-lg font-bold text-[#0F172A] mb-4">Rule Coverage</h2>
         <div class="category-grid">
-            {% for cat, status in rule_categories.items() %}
+            {% for cat, status in (rule_categories|default({})).items() %}
             <div class="flex items-center justify-between p-3 bg-slate-50 rounded-md border border-slate-100">
                 <span class="text-sm font-medium text-[#334155]">{{ cat }}</span>
                 {% if status == "PASS" %}
@@ -339,11 +339,11 @@
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <div class="p-3 bg-slate-50 rounded-md">
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rules Loaded</div>
-                <div class="text-lg font-bold text-[#0F172A] mono">{{ total_rule_count }}</div>
+                <div class="text-lg font-bold text-[#0F172A] mono">{{ total_rule_count|default(0) }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rules Executed</div>
-                <div class="text-lg font-bold text-[#0F172A] mono">{{ total_rule_count }}</div>
+                <div class="text-lg font-bold text-[#0F172A] mono">{{ total_rule_count|default(0) }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rules Triggered</div>
@@ -351,7 +351,7 @@
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rules Passed</div>
-                <div class="text-lg font-bold text-[#0F172A] mono">{{ total_rule_count - findings_count }}</div>
+                <div class="text-lg font-bold text-[#0F172A] mono">{{ total_rule_count|default(0) - findings_count }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Execution Integrity</div>
@@ -371,7 +371,7 @@
             {% set stages = [
                 ("Parser", "Document text extracted and normalized"),
                 ("Normalizer", "Text cleaned and structured for analysis"),
-                ("Deterministic Rule Engine", total_rule_count ~ " rules executed against document"),
+                ("Deterministic Rule Engine", total_rule_count|default(0) ~ " rules executed against document"),
                 ("Evidence Engine", "Clause-level evidence anchored to findings"),
                 ("Consistency Engine", "Cross-finding validation completed"),
                 ("Workflow Engine", "Suppression and deduplication applied"),
@@ -418,11 +418,11 @@
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <div class="p-3 bg-slate-50 rounded-md">
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Risk Density</div>
-                <div class="text-lg font-bold text-[#0F172A] mono">{{ findings_count }} / {{ total_rule_count }}</div>
+                <div class="text-lg font-bold text-[#0F172A] mono">{{ findings_count }} / {{ total_rule_count|default(0) }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rule Coverage</div>
-                <div class="text-lg font-bold text-[#0F172A] mono">{{ ((total_rule_count - findings_count) * 100 / total_rule_count)|round|int }}%</div>
+                <div class="text-lg font-bold text-[#0F172A] mono">{% if total_rule_count|default(0) > 0 %}{{ (((total_rule_count - findings_count) * 100) / total_rule_count)|round|int }}%{% else %}N/A{% endif %}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Manual Review Priority</div>
