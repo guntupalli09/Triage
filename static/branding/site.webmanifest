@@ -1,0 +1,19 @@
+{
+  "name": "TriageCounsel",
+  "short_name": "TriageCounsel",
+  "icons": [
+    {
+      "src": "/static/branding/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/branding/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0F172A",
+  "background_color": "#0F172A",
+  "display": "standalone"
+}
