@@ -1,7 +1,7 @@
 {% extends "base_marketing.html" %}
 
-{% block title %}FAQ — Triage{% endblock %}
-{% block meta_description %}Frequently asked questions about Triage's deterministic contract analysis, security, pricing, and how it works.{% endblock %}
+{% block title %}FAQ — Triage Counsel{% endblock %}
+{% block meta_description %}Frequently asked questions about Triage Counsel's deterministic contract analysis, security, pricing, and how it works.{% endblock %}
 
 {% block content %}
 <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
@@ -12,15 +12,15 @@
 
     <div class="space-y-4 fade-in">
         {% set faqs = [
-            ("What is Triage?", "Triage is a deterministic legal reasoning engine that analyzes contracts using 40 rule-based checks. Unlike other AI tools, the rules decide — AI only explains the findings in plain language."),
-            ("How is this different from other AI contract tools?", "Most AI contract tools use large language models to make decisions, which means results can vary between runs and lack audit trails. Triage uses deterministic rules that always produce the same output for the same input. The AI layer only generates explanations — it never influences the findings."),
+            ("What is Triage Counsel?", "Triage Counsel is a deterministic legal reasoning engine that analyzes contracts using 40 rule-based checks. Unlike other AI tools, the rules decide — AI only explains the findings in plain language."),
+            ("How is this different from other AI contract tools?", "Most AI contract tools use large language models to make decisions, which means results can vary between runs and lack audit trails. Triage Counsel uses deterministic rules that always produce the same output for the same input. The AI layer only generates explanations — it never influences the findings."),
             ("Are my documents stored?", "No. Documents are processed in memory and immediately discarded after analysis. We store only the structured analysis results (findings, risk scores, metadata) — never the original file."),
             ("Is my data used to train AI models?", "Never. Your documents are not used for any AI training. The LLM explanation layer receives only extracted clause snippets, not full documents."),
-            ("What file formats are supported?", "Triage accepts PDF and DOCX files. Text is extracted using deterministic parsing before analysis begins."),
+            ("What file formats are supported?", "Triage Counsel accepts PDF and DOCX files. Text is extracted using deterministic parsing before analysis begins."),
             ("What does the free tier include?", "You can analyze your first contract for free with no credit card required. After that, paid plans start at $4.99/month for up to 10 reviews."),
-            ("Can I compare contracts against my own standards?", "Yes. The Playbook feature lets you upload your standard contract templates. When you analyze a new contract, Triage compares it against your playbook and highlights deviations."),
-            ("Is Triage legal advice?", "No. Triage provides informational contract analysis only and does not constitute legal advice. Always consult a qualified attorney for legal guidance."),
-            ("What is the peer-reviewed research behind Triage?", "Triage's architecture was peer-reviewed and accepted at the International Conference on Computational Science (ICCS 2026). The paper details the deterministic rule engine, the LLM explanation layer, and benchmark results against leading AI contract tools."),
+            ("Can I compare contracts against my own standards?", "Yes. The Playbook feature lets you upload your standard contract templates. When you analyze a new contract, Triage Counsel compares it against your playbook and highlights deviations."),
+            ("Is Triage Counsel legal advice?", "No. Triage Counsel provides informational contract analysis only and does not constitute legal advice. Always consult a qualified attorney for legal guidance."),
+            ("What is the peer-reviewed research behind Triage Counsel?", "Triage Counsel's architecture was peer-reviewed and accepted at the International Conference on Computational Science (ICCS 2026). The paper details the deterministic rule engine, the LLM explanation layer, and benchmark results against leading AI contract tools."),
             ("How do I get started?", "Create a free account, upload a contract (PDF or DOCX), and receive your analysis report in seconds. No credit card required for your first review.")
         ] %}
 

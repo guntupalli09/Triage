@@ -1,5 +1,5 @@
 """
-SQLAlchemy models for Triage AI.
+SQLAlchemy models for Triage Counsel.
 """
 from __future__ import annotations
 
