@@ -5,11 +5,11 @@
 {% block extra_head %}
 <style>
     .back-link {
-        color: var(--primary-orange);
+        color: #0F172A;
         transition: all 0.2s ease;
     }
     .back-link:hover {
-        color: var(--primary-orange-dark);
+        color: #1E293B;
         transform: translateX(-2px);
     }
     .stat-number {
@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-<a href="/dashboard" class="hover:text-[#FF7A18] transition-colors">Dashboard</a>
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
 <span class="mx-1">/</span>
 <span>Batch Results</span>
 {% endblock %}
@@ -60,7 +60,7 @@
 
         <!-- Actions -->
         <div class="flex flex-wrap gap-3 mb-8 fade-in">
-            <a href="/batch/{{ batch_id }}/download-all" class="btn-primary inline-flex items-center gap-2 py-3 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF7A18]">
+            <a href="/batch/{{ batch_id }}/download-all" class="btn-primary inline-flex items-center gap-2 py-3 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0F172A]">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
@@ -108,7 +108,7 @@
                             {% endif %}
                             <td class="py-4 px-6 text-right">
                                 <div class="flex items-center justify-end gap-2">
-                                    <a href="/results/{{ contract.id }}" class="text-[#FF7A18] hover:text-[#F2541B] font-semibold text-xs transition-colors">View</a>
+                                    <a href="/results/{{ contract.id }}" class="text-[#0F172A] hover:text-[#1E293B] font-semibold text-xs transition-colors">View</a>
                                     <a href="/download-pdf/{{ contract.id }}" class="text-gray-500 hover:text-[#0F172A] font-semibold text-xs transition-colors">PDF</a>
                                 </div>
                             </td>

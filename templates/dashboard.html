@@ -18,8 +18,8 @@
         margin-top: 0.5rem;
     }
     .upgrade-banner {
-        background: linear-gradient(135deg, rgba(255, 122, 24, 0.05), rgba(242, 84, 27, 0.03));
-        border: 1px solid rgba(255, 122, 24, 0.15);
+        background: #F8FAFC;
+        border: 1px solid #E2E8F0;
     }
 </style>
 {% endblock %}
@@ -57,7 +57,7 @@
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-xl font-bold text-[#0F172A]">Recent Contracts</h2>
                 {% if contracts|length > 0 %}
-                <a href="/history" class="text-sm font-semibold text-[#FF7A18] hover:text-[#F2541B] transition-colors">View all &rarr;</a>
+                <a href="/history" class="text-sm font-semibold text-[#0F172A] hover:text-[#1E293B] transition-colors">View all &rarr;</a>
                 {% endif %}
             </div>
 
@@ -89,7 +89,7 @@
                             </td>
                             <td class="py-3 px-2 text-gray-500">{{ c.playbook.name if c.playbook else '—' }}</td>
                             <td class="py-3 px-2 text-right space-x-3">
-                                <a href="/contract/{{ c.id }}" class="text-[#FF7A18] hover:text-[#F2541B] font-medium transition-colors">View</a>
+                                <a href="/contract/{{ c.id }}" class="text-[#0F172A] hover:text-[#1E293B] font-medium transition-colors">View</a>
                                 <a href="/contract/{{ c.id }}/share" class="text-gray-400 hover:text-gray-600 font-medium transition-colors">Share</a>
                                 <a href="/contract/{{ c.id }}/pdf" class="text-gray-400 hover:text-gray-600 font-medium transition-colors">PDF</a>
                             </td>

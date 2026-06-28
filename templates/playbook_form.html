@@ -9,8 +9,8 @@
         transition: all 0.2s ease;
     }
     .upload-area:hover {
-        border-color: rgba(255, 122, 24, 0.4);
-        background-color: rgba(255, 122, 24, 0.02);
+        border-color: rgba(15, 23, 42, 0.3);
+        background-color: rgba(15, 23, 42, 0.02);
     }
     @keyframes scaleIn {
         from { opacity: 0; transform: scale(0.95); }
@@ -21,9 +21,9 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-<a href="/dashboard" class="hover:text-[#FF7A18] transition-colors">Dashboard</a>
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
 <span class="mx-1">/</span>
-<a href="/playbooks" class="hover:text-[#FF7A18] transition-colors">Playbooks</a>
+<a href="/playbooks" class="hover:text-gray-900 transition-colors">Playbooks</a>
 <span class="mx-1">/</span>
 <span>{% if playbook %}Edit{% else %}New{% endif %}</span>
 {% endblock %}
@@ -54,13 +54,13 @@
                 <!-- Name -->
                 <div class="mb-6">
                     <label for="name" class="block text-sm font-semibold text-[#0F172A] mb-2">Playbook Name <span class="text-red-500">*</span></label>
-                    <input type="text" id="name" name="name" required value="{{ playbook.name if playbook else '' }}" placeholder="e.g., Standard NDA Template" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#FF7A18] focus:border-transparent">
+                    <input type="text" id="name" name="name" required value="{{ playbook.name if playbook else '' }}" placeholder="e.g., Standard NDA Template" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent">
                 </div>
 
                 <!-- Contract Type -->
                 <div class="mb-6">
                     <label for="contract_type" class="block text-sm font-semibold text-[#0F172A] mb-2">Contract Type</label>
-                    <select id="contract_type" name="contract_type" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#FF7A18] focus:border-transparent bg-white">
+                    <select id="contract_type" name="contract_type" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent bg-white">
                         <option value="NDA" {% if playbook and playbook.contract_type == 'NDA' %}selected{% endif %}>NDA</option>
                         <option value="MSA" {% if playbook and playbook.contract_type == 'MSA' %}selected{% endif %}>MSA</option>
                         <option value="SaaS Agreement" {% if playbook and playbook.contract_type == 'SaaS Agreement' %}selected{% endif %}>SaaS Agreement</option>
@@ -72,7 +72,7 @@
                 <!-- Description -->
                 <div class="mb-6">
                     <label for="description" class="block text-sm font-semibold text-[#0F172A] mb-2">Description <span class="text-gray-400 font-normal">(optional)</span></label>
-                    <textarea id="description" name="description" rows="3" placeholder="Describe when this playbook should be used..." class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#FF7A18] focus:border-transparent resize-none">{{ playbook.description if playbook else '' }}</textarea>
+                    <textarea id="description" name="description" rows="3" placeholder="Describe when this playbook should be used..." class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent resize-none">{{ playbook.description if playbook else '' }}</textarea>
                 </div>
 
                 <!-- File Upload -->
@@ -94,7 +94,7 @@
                                 <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                             <div class="flex flex-col sm:flex-row items-center justify-center gap-2 text-sm text-gray-600">
-                                <label for="file" class="relative cursor-pointer font-semibold text-[#FF7A18] hover:text-[#F2541B] transition-colors">
+                                <label for="file" class="relative cursor-pointer font-semibold text-[#0F172A] hover:text-[#1E293B] transition-colors">
                                     <span>Upload a file</span>
                                     <input id="file" name="file" type="file" accept=".pdf,.docx,.txt" class="sr-only" {% if not playbook %}required{% endif %}>
                                 </label>
@@ -128,7 +128,7 @@
                 </div>
 
                 <!-- Submit -->
-                <button type="submit" class="btn-primary w-full py-3.5 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF7A18]">
+                <button type="submit" class="btn-primary w-full py-3.5 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0F172A]">
                     {% if playbook %}Update Playbook{% else %}Create Playbook{% endif %}
                 </button>
             </form>

@@ -9,12 +9,12 @@
         transition: all 0.2s ease;
     }
     .upload-area:hover {
-        border-color: rgba(255, 122, 24, 0.4);
-        background-color: rgba(255, 122, 24, 0.02);
+        border-color: rgba(15, 23, 42, 0.3);
+        background-color: rgba(15, 23, 42, 0.02);
     }
     .upload-area.drag-over {
-        border-color: rgba(255, 122, 24, 0.6);
-        background-color: rgba(255, 122, 24, 0.05);
+        border-color: rgba(15, 23, 42, 0.5);
+        background-color: rgba(15, 23, 42, 0.04);
     }
     @keyframes loading-shimmer {
         0% { transform: translateX(-100%); }
@@ -36,7 +36,7 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-<a href="/dashboard" class="hover:text-[#FF7A18] transition-colors">Dashboard</a>
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
 <span class="mx-1">/</span>
 <span>Batch Upload</span>
 {% endblock %}
@@ -58,7 +58,7 @@
                 <!-- Playbook Selector -->
                 <div class="mb-6">
                     <label for="playbook" class="block text-sm font-semibold text-[#0F172A] mb-2">Compare against playbook:</label>
-                    <select id="playbook" name="playbook_id" class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#FF7A18] focus:border-transparent">
+                    <select id="playbook" name="playbook_id" class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent">
                         <option value="">None</option>
                         {% for playbook in playbooks %}
                         <option value="{{ playbook.id }}">{{ playbook.name }}</option>
@@ -75,7 +75,7 @@
                                 <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                             <div class="flex flex-col sm:flex-row items-center justify-center gap-2 text-sm text-gray-600">
-                                <label for="files" class="relative cursor-pointer font-semibold text-[#FF7A18] hover:text-[#F2541B] transition-colors">
+                                <label for="files" class="relative cursor-pointer font-semibold text-[#0F172A] hover:text-[#1E293B] transition-colors">
                                     <span>Upload files</span>
                                     <input id="files" name="files" type="file" accept=".pdf,.docx,.txt" multiple class="sr-only" required>
                                 </label>
@@ -96,7 +96,7 @@
                 </div>
 
                 <!-- Submit -->
-                <button type="submit" id="analyzeButton" disabled class="btn-primary w-full py-3.5 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF7A18] disabled:opacity-70 disabled:cursor-not-allowed relative overflow-hidden">
+                <button type="submit" id="analyzeButton" disabled class="btn-primary w-full py-3.5 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0F172A] disabled:opacity-70 disabled:cursor-not-allowed relative overflow-hidden">
                     <span id="buttonText">Analyze All (0 contracts)</span>
                     <div id="loadingBar" class="loading-bar hidden"></div>
                 </button>
@@ -106,8 +106,8 @@
         <!-- Progress (hidden until submit) -->
         <div id="progressSection" class="hidden premium-card p-6 sm:p-8 mb-8 fade-in" style="max-width: 56rem; margin-left: auto; margin-right: auto;">
             <div class="text-center">
-                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#FF7A18] bg-opacity-10 mb-4">
-                    <svg class="w-8 h-8 text-[#FF7A18] animate-spin" fill="none" viewBox="0 0 24 24">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
+                    <svg class="w-8 h-8 text-gray-700 animate-spin" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
                     </svg>
