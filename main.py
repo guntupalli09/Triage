@@ -1004,6 +1004,20 @@ async def pricing_page(request: Request):
 
 
 # ============================================================
+# RESEARCH PAGE
+# ============================================================
+
+@app.get("/research", response_class=HTMLResponse)
+async def research_page(request: Request):
+    db = next(get_db())
+    user = get_current_user(request, db)
+    return templates.TemplateResponse("research.html", {
+        "request": request, "user": user,
+        "current_year": datetime.now().year,
+    })
+
+
+# ============================================================
 # STRIPE SUBSCRIPTION
 # ============================================================
 

@@ -274,6 +274,7 @@
                 TRIAGE
             </a>
             <div class="flex items-center gap-4 text-sm">
+                <a href="/research" class="text-gray-500 hover:text-gray-900 font-medium">Research</a>
                 {% if user %}
                 <span class="text-gray-500">{{ user.name or user.email }}</span>
                 <a href="/dashboard" class="text-[#0F172A] font-semibold">Dashboard</a>
@@ -332,6 +333,10 @@
                     Reproducible Every Run
                 </div>
             </div>
+
+            <p class="text-sm text-gray-400 mt-6">
+                Built on <a href="/research" class="text-[#0F172A] font-semibold hover:underline">peer-reviewed research</a> presented at ICCS 2026. Every finding is deterministic, evidence-backed, and independently reproducible.
+            </p>
         </div>
 
         <!-- Upload Card -->
@@ -509,6 +514,106 @@
                     <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
                     <span class="text-sm text-gray-600">Every finding can be independently verified by the attorney.</span>
                 </div>
+            </div>
+        </div>
+
+        <!-- Peer-Reviewed Research -->
+        <div id="research" class="mb-24">
+            <p class="section-label mb-3">Peer-Reviewed Research</p>
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-2">Built on peer-reviewed research presented at ICCS 2026</h2>
+            <p class="text-sm text-gray-400 mb-10 max-w-2xl">
+                Our deterministic legal reasoning engine is based on research accepted for presentation at the
+                International Conference on Computational Science (ICCS 2026), one of the leading conferences
+                in computational science. Unlike conventional LLM systems that produce different answers across
+                repeated runs, our framework combines deterministic rule execution with AI-assisted explanations
+                to produce verifiable, reproducible results.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-10">
+                <!-- Key Guarantees -->
+                <div class="card p-6">
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-4 uppercase tracking-wide">Research-Backed Guarantees</h3>
+                    <div class="space-y-3">
+                        <div class="check-item">
+                            <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                            <span class="text-sm text-gray-600">Deterministic execution &mdash; identical inputs always produce identical outputs</span>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                            <span class="text-sm text-gray-600">Explicit evidence matching &mdash; every finding anchored to source text</span>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                            <span class="text-sm text-gray-600">Fully auditable reasoning &mdash; every decision traceable to a versioned rule</span>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                            <span class="text-sm text-gray-600">Reproducible results &mdash; verified across 300 repeated executions</span>
+                        </div>
+                        <div class="check-item">
+                            <div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+                            <span class="text-sm text-gray-600">Attorney verification &mdash; every finding designed for human review</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Research Metrics -->
+                <div class="card p-6">
+                    <h3 class="text-sm font-bold text-[#0F172A] mb-4 uppercase tracking-wide">Published Research Results</h3>
+                    <div class="space-y-0">
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="text-sm text-gray-500">Repeated Executions Tested</span>
+                            <span class="text-sm font-bold text-[#0F172A] font-mono">300</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="text-sm text-gray-500">Deterministic Output Rate</span>
+                            <span class="text-sm font-bold text-green-700 font-mono">100%</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="text-sm text-gray-500">Pure LLM Determinism Rate</span>
+                            <span class="text-sm font-bold text-red-600 font-mono">0%</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="text-sm text-gray-500">Traceability Rate</span>
+                            <span class="text-sm font-bold text-green-700 font-mono">100%</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="text-sm text-gray-500">Evidence-Backed Findings</span>
+                            <span class="text-sm font-bold text-green-700 font-mono">100%</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3">
+                            <span class="text-sm text-gray-500">Documents Evaluated</span>
+                            <span class="text-sm font-bold text-[#0F172A] font-mono">115</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Credibility Badges -->
+            <div class="flex flex-wrap justify-center gap-3 mb-8">
+                <div class="badge">
+                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-3.5 h-3.5 text-[#0F172A]"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/></svg>
+                    ICCS 2026
+                </div>
+                <div class="badge">
+                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-3.5 h-3.5 text-[#0F172A]"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>
+                    Springer LNCS
+                </div>
+                <div class="badge">
+                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-3.5 h-3.5 text-[#0F172A]"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    Peer Reviewed
+                </div>
+                <div class="badge">
+                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-3.5 h-3.5 text-[#0F172A]"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    Independent Research
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="/research" class="btn-secondary py-3 px-6 rounded-lg text-sm inline-flex items-center gap-2">
+                    Read the research
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
             </div>
         </div>
 
