@@ -1181,6 +1181,16 @@ async def demo_analysis(request: Request):
     findings_objs = [type('F', (), {"rule_id": f["rule_id"]})() for f in analysis["findings_dict"]]
     rule_based_sections = rule_engine.build_missing_sections(findings_objs)
 
+    import json as _json
+    version_path = Path(__file__).parent / "rules" / "version.json"
+    try:
+        ruleset_meta = _json.loads(version_path.read_text())
+    except Exception:
+        ruleset_meta = {}
+    total_rule_count = sum(ruleset_meta.get("rule_count", {}).values()) if ruleset_meta.get("rule_count") else len(rule_engine.rules)
+
+    rule_categories = _build_rule_categories(analysis["findings_dict"], rule_engine)
+
     return templates.TemplateResponse("results.html", {
         "request": request, "user": None,
         "filename": "Sample NDA (Demo)",
@@ -1195,6 +1205,11 @@ async def demo_analysis(request: Request):
         "current_year": datetime.now().year,
         "token": None, "contract_id": None, "deviations": None,
         "is_demo": True,
+        "total_rule_count": total_rule_count,
+        "rule_categories": rule_categories,
+        "findings_dict": analysis["findings_dict"],
+        "analysis_id": f"DEMO-{datetime.now().strftime('%Y%m%d')}",
+        "generated_at": datetime.now().strftime("%Y-%m-%d %I:%M %p UTC"),
     })
 
 
@@ -1344,6 +1359,16 @@ async def results_legacy(request: Request, token: str):
         if not any(s.lower() in e.lower() or e.lower() in s.lower() for e in all_missing):
             all_missing.append(s)
 
+    import json as _json
+    version_path = Path(__file__).parent / "rules" / "version.json"
+    try:
+        ruleset_meta = _json.loads(version_path.read_text())
+    except Exception:
+        ruleset_meta = {}
+    total_rule_count = sum(ruleset_meta.get("rule_count", {}).values()) if ruleset_meta.get("rule_count") else len(rule_engine.rules)
+
+    rule_categories = _build_rule_categories(analysis["findings_dict"], rule_engine)
+
     return templates.TemplateResponse("results.html", {
         "request": request, "user": None,
         "filename": entry.get("filename", "document"),
@@ -1357,6 +1382,11 @@ async def results_legacy(request: Request, token: str):
         "rule_engine_version": analysis["version"],
         "current_year": datetime.now().year,
         "token": token, "contract_id": None, "deviations": None,
+        "total_rule_count": total_rule_count,
+        "rule_categories": rule_categories,
+        "findings_dict": analysis["findings_dict"],
+        "analysis_id": f"TR-{datetime.now().year}-{session_id[:6].upper()}",
+        "generated_at": datetime.now().strftime("%Y-%m-%d %I:%M %p UTC"),
     })
 
 
