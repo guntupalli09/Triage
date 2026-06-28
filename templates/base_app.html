@@ -13,8 +13,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --primary-orange: #FF7A18;
-            --primary-orange-dark: #F2541B;
             --navy: #0F172A;
             --bg-soft: #F8FAFC;
             --card-border: #E5E7EB;
@@ -36,8 +34,8 @@
         .fade-in { animation: fadeIn 0.5s ease-out; }
 
         .brand-strip {
-            height: 3px;
-            background: linear-gradient(90deg, #FF7A18, #F2541B, #FF7A18);
+            height: 2px;
+            background: var(--navy);
             position: fixed;
             top: 0;
             left: 0;
@@ -61,12 +59,7 @@
         }
 
         .gradient-text {
-            background: linear-gradient(90deg, #FF7A18, #F2541B);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 20px rgba(255, 122, 24, 0.3);
-            filter: drop-shadow(0 0 8px rgba(255, 122, 24, 0.2));
+            color: #0F172A;
         }
 
         .premium-card {
@@ -84,15 +77,16 @@
         }
 
         .btn-primary {
-            background: linear-gradient(90deg, #FF7A18, #F2541B);
+            background: var(--navy);
             color: white;
             font-weight: 600;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(255, 122, 24, 0.25);
+            transition: all 0.15s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
         .btn-primary:hover {
-            box-shadow: 0 4px 16px rgba(255, 122, 24, 0.35);
+            background: #1E293B;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             transform: translateY(-1px);
         }
 
@@ -109,8 +103,8 @@
         }
 
         .btn-secondary:hover {
-            border-color: var(--primary-orange);
-            color: var(--primary-orange);
+            border-color: #CBD5E1;
+            color: #1E293B;
             transform: translateY(-1px);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
@@ -136,26 +130,26 @@
             <!-- Right: User info + Nav -->
             <div class="flex items-center gap-6">
                 <nav class="hidden md:flex items-center gap-5 text-sm font-medium">
-                    <a href="/dashboard" class="text-gray-600 hover:text-[#FF7A18] transition-colors">Dashboard</a>
-                    <a href="/upload-page" class="text-gray-600 hover:text-[#FF7A18] transition-colors">New Review</a>
-                    <a href="/history" class="text-gray-600 hover:text-[#FF7A18] transition-colors">Reviews</a>
-                    <a href="/playbooks" class="text-gray-600 hover:text-[#FF7A18] transition-colors">Playbooks</a>
-                    <a href="/pricing" class="text-gray-600 hover:text-[#FF7A18] transition-colors">Pricing</a>
+                    <a href="/dashboard" class="text-gray-600 hover:text-gray-900 transition-colors">Dashboard</a>
+                    <a href="/upload-page" class="text-gray-600 hover:text-gray-900 transition-colors">New Review</a>
+                    <a href="/history" class="text-gray-600 hover:text-gray-900 transition-colors">Reviews</a>
+                    <a href="/playbooks" class="text-gray-600 hover:text-gray-900 transition-colors">Playbooks</a>
+                    <a href="/pricing" class="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
                 </nav>
                 <div class="flex items-center gap-3 text-sm border-l border-gray-200 pl-5">
                     <span class="text-gray-600 font-medium hidden sm:inline">{{ user.name or user.email }}</span>
-                    <a href="/logout" class="text-gray-500 hover:text-[#FF7A18] font-medium transition-colors">Logout</a>
+                    <a href="/logout" class="text-gray-500 hover:text-gray-900 font-medium transition-colors">Logout</a>
                 </div>
             </div>
         </div>
 
         <!-- Mobile Nav -->
         <nav class="flex md:hidden items-center gap-4 mt-4 text-sm font-medium overflow-x-auto pb-1">
-            <a href="/dashboard" class="text-gray-600 hover:text-[#FF7A18] transition-colors whitespace-nowrap">Dashboard</a>
-            <a href="/upload-page" class="text-gray-600 hover:text-[#FF7A18] transition-colors whitespace-nowrap">New Review</a>
-            <a href="/history" class="text-gray-600 hover:text-[#FF7A18] transition-colors whitespace-nowrap">Reviews</a>
-            <a href="/playbooks" class="text-gray-600 hover:text-[#FF7A18] transition-colors whitespace-nowrap">Playbooks</a>
-            <a href="/pricing" class="text-gray-600 hover:text-[#FF7A18] transition-colors whitespace-nowrap">Pricing</a>
+            <a href="/dashboard" class="text-gray-600 hover:text-gray-900 transition-colors whitespace-nowrap">Dashboard</a>
+            <a href="/upload-page" class="text-gray-600 hover:text-gray-900 transition-colors whitespace-nowrap">New Review</a>
+            <a href="/history" class="text-gray-600 hover:text-gray-900 transition-colors whitespace-nowrap">Reviews</a>
+            <a href="/playbooks" class="text-gray-600 hover:text-gray-900 transition-colors whitespace-nowrap">Playbooks</a>
+            <a href="/pricing" class="text-gray-600 hover:text-gray-900 transition-colors whitespace-nowrap">Pricing</a>
         </nav>
     </header>
 
@@ -163,7 +157,7 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
         <nav class="text-xs text-gray-400 font-medium">
             {% block breadcrumbs %}
-            <a href="/dashboard" class="hover:text-[#FF7A18] transition-colors">Dashboard</a>
+            <a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
             {% endblock %}
         </nav>
     </div>

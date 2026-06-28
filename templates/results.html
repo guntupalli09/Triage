@@ -50,9 +50,9 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-<a href="/dashboard" class="hover:text-[#FF7A18] transition-colors">Dashboard</a>
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
 <span class="mx-1">/</span>
-<a href="{% if contract_id %}/contract/{{ contract_id }}{% else %}#{% endif %}" class="hover:text-[#FF7A18] transition-colors">Contract</a>
+<a href="{% if contract_id %}/contract/{{ contract_id }}{% else %}#{% endif %}" class="hover:text-gray-900 transition-colors">Contract</a>
 <span class="mx-1">/</span>
 <span class="text-gray-600">Report</span>
 {% endblock %}
