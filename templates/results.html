@@ -1,83 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verification Report - Triage</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/branding/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/branding/favicon-16.png">
-    <link rel="apple-touch-icon" href="/static/branding/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        :root {
-            --navy: #0F172A;
-            --bg: #FAFAFA;
-            --border: #E5E7EB;
-            --accent: #0F172A;
-            --accent-subtle: #334155;
-            --green: #059669;
-            --red: #DC2626;
-            --amber: #D97706;
-            --blue: #2563EB;
-            --muted: #64748B;
-        }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg);
-            letter-spacing: -0.01em;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            color: #1E293B;
-        }
-        .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace; }
-        .report-card {
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-        }
-        .status-pass { color: var(--green); }
-        .status-fail { color: var(--red); }
-        .status-warning { color: var(--amber); }
-        .severity-high { background: #FEF2F2; border-left: 3px solid var(--red); }
-        .severity-medium { background: #FFFBEB; border-left: 3px solid var(--amber); }
-        .severity-low { background: #EFF6FF; border-left: 3px solid var(--blue); }
-        .badge-high { background: #FEE2E2; color: #991B1B; }
-        .badge-medium { background: #FEF3C7; color: #92400E; }
-        .badge-low { background: #DBEAFE; color: #1E40AF; }
-        .meta-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px; background: var(--card-border); }
-        .meta-grid > div { background: #fff; padding: 12px 16px; }
-        .meta-grid > div:first-child { border-radius: 7px 0 0 0; }
-        .pipeline-line { width: 2px; height: 20px; background: var(--card-border); margin: 0 auto; }
-        .category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
-        details summary { cursor: pointer; list-style: none; }
-        details summary::-webkit-details-marker { display: none; }
-        .evidence-block {
-            background: #F8FAFC;
-            border: 1px solid #E2E8F0;
-            border-radius: 6px;
-            padding: 12px 16px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
-            line-height: 1.6;
-            color: #334155;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-        .top-bar {
-            height: 2px;
-            background: linear-gradient(90deg, #0F172A, #334155, #0F172A);
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fadeIn 0.4s ease-out; }
-    </style>
-</head>
-<body class="min-h-screen">
-<div class="top-bar"></div>
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+{% extends "base_app.html" %}
 
+{% block title %}Verification Report{% endblock %}
+
+{% block extra_head %}
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --green: #059669;
+        --red: #DC2626;
+        --amber: #D97706;
+        --blue: #2563EB;
+        --muted: #64748B;
+    }
+    .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace; }
+    .report-card {
+        background: #fff;
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+    }
+    .status-pass { color: var(--green); }
+    .status-fail { color: var(--red); }
+    .status-warning { color: var(--amber); }
+    .severity-high { background: #FEF2F2; border-left: 3px solid var(--red); }
+    .severity-medium { background: #FFFBEB; border-left: 3px solid var(--amber); }
+    .severity-low { background: #EFF6FF; border-left: 3px solid var(--blue); }
+    .badge-high { background: #FEE2E2; color: #991B1B; }
+    .badge-medium { background: #FEF3C7; color: #92400E; }
+    .badge-low { background: #DBEAFE; color: #1E40AF; }
+    .meta-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px; background: var(--card-border); }
+    .meta-grid > div { background: #fff; padding: 12px 16px; }
+    .meta-grid > div:first-child { border-radius: 7px 0 0 0; }
+    .pipeline-line { width: 2px; height: 20px; background: var(--card-border); margin: 0 auto; }
+    .category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
+    details summary { cursor: pointer; list-style: none; }
+    details summary::-webkit-details-marker { display: none; }
+    .evidence-block {
+        background: #F8FAFC;
+        border: 1px solid #E2E8F0;
+        border-radius: 6px;
+        padding: 12px 16px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 13px;
+        line-height: 1.6;
+        color: #334155;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+</style>
+{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-[#FF7A18] transition-colors">Dashboard</a>
+<span class="mx-1">/</span>
+<a href="{% if contract_id %}/contract/{{ contract_id }}{% else %}#{% endif %}" class="hover:text-[#FF7A18] transition-colors">Contract</a>
+<span class="mx-1">/</span>
+<span class="text-gray-600">Report</span>
+{% endblock %}
+
+{% block content %}
     <!-- Header -->
     <div class="mb-6 fade-in">
         <div class="flex items-center justify-between mb-6">
@@ -503,30 +483,9 @@
             </p>
         </div>
     </div>
+{% endblock %}
 
-    <!-- Footer -->
-    <footer class="pt-4 pb-8 fade-in">
-        <div class="flex justify-center gap-5 mb-3 flex-wrap">
-            <div class="flex items-center gap-1.5 text-xs text-[#64748B]">
-                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.351.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                256-bit TLS
-            </div>
-            <div class="flex items-center gap-1.5 text-xs text-[#64748B]">
-                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
-                Documents Never Stored
-            </div>
-            <div class="flex items-center gap-1.5 text-xs text-[#64748B]">
-                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                {{ total_rule_count }} Deterministic Rules
-            </div>
-        </div>
-        <div class="text-center text-[#64748B] text-xs space-y-0.5">
-            <p>&copy; {{ current_year }} Triage &mdash; Contract Risk Intelligence</p>
-            <p class="mono">Engine v{{ rule_engine_version }}</p>
-        </div>
-    </footer>
-</div>
-
+{% block scripts %}
 {% if contract_id %}
 <script>
 function shareContract(contractId) {
@@ -545,5 +504,4 @@ function shareContract(contractId) {
 }
 </script>
 {% endif %}
-</body>
-</html>
+{% endblock %}

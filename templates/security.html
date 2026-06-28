@@ -1,0 +1,88 @@
+{% extends "base_marketing.html" %}
+
+{% block title %}Security — Triage{% endblock %}
+{% block meta_description %}How Triage protects your documents: 256-bit TLS, zero storage, no AI training, automatic deletion, and full audit trails.{% endblock %}
+
+{% block content %}
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+    <div class="text-center mb-16 fade-in">
+        <p class="section-label mb-3">Security</p>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-[#0F172A] tracking-tight mb-4">Your documents are never stored</h1>
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">Triage is designed from the ground up so that your confidential documents never persist on our servers.</p>
+    </div>
+
+    <div class="space-y-6 fade-in">
+        <div class="card p-8">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-green-50 border border-green-200 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-[#0F172A] mb-1">256-bit TLS Encryption</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">All data in transit is encrypted with TLS 1.3. Every connection between your browser and Triage is secured end-to-end.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-8">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-green-50 border border-green-200 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-[#0F172A] mb-1">Zero Document Storage</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Uploaded documents are processed in memory and immediately discarded. We store only the structured analysis results — never the original file.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-8">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-green-50 border border-green-200 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-[#0F172A] mb-1">No AI Training on Your Data</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Your documents are never used to train AI models. The LLM explanation layer receives only extracted clause text — never full documents.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-8">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-green-50 border border-green-200 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-[#0F172A] mb-1">Deterministic Audit Trail</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Every finding is produced by a deterministic rule with a traceable rule ID. The same document always produces the same results — no probabilistic variance.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-8">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-green-50 border border-green-200 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-[#0F172A] mb-1">Automatic Data Deletion</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Analysis metadata is retained only while your account is active. You can delete any contract record at any time, and all associated data is permanently removed.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-8">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-green-50 border border-green-200 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-[#0F172A] mb-1">Privacy & Compliance</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Session-based authentication with PBKDF2 password hashing and HttpOnly cookies. All passwords are salted and hashed — never stored in plain text.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

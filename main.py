@@ -1174,6 +1174,101 @@ async def demo_analysis(request: Request):
 
 
 # ============================================================
+# MARKETING PAGES
+# ============================================================
+
+@app.get("/security", response_class=HTMLResponse)
+async def security_page(request: Request):
+    db = next(get_db())
+    user = get_current_user(request, db)
+    return templates.TemplateResponse("security.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+    })
+
+
+@app.get("/faq", response_class=HTMLResponse)
+async def faq_page(request: Request):
+    db = next(get_db())
+    user = get_current_user(request, db)
+    return templates.TemplateResponse("faq.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+    })
+
+
+@app.get("/about", response_class=HTMLResponse)
+async def about_page(request: Request):
+    db = next(get_db())
+    user = get_current_user(request, db)
+    return templates.TemplateResponse("about.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+    })
+
+
+@app.get("/contact", response_class=HTMLResponse)
+async def contact_page(request: Request):
+    db = next(get_db())
+    user = get_current_user(request, db)
+    return templates.TemplateResponse("contact.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+    })
+
+
+@app.post("/contact", response_class=HTMLResponse)
+async def contact_submit(request: Request):
+    db = next(get_db())
+    user = get_current_user(request, db)
+    return templates.TemplateResponse("contact.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+        "success": True,
+    })
+
+
+@app.get("/privacy", response_class=HTMLResponse)
+async def privacy_page(request: Request):
+    db = next(get_db())
+    user = get_current_user(request, db)
+    return templates.TemplateResponse("privacy.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+    })
+
+
+@app.get("/terms", response_class=HTMLResponse)
+async def terms_page(request: Request):
+    db = next(get_db())
+    user = get_current_user(request, db)
+    return templates.TemplateResponse("terms.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+    })
+
+
+# ============================================================
+# ERROR HANDLERS
+# ============================================================
+
+from starlette.exceptions import HTTPException as StarletteHTTPException
+
+@app.exception_handler(404)
+async def not_found_handler(request: Request, exc):
+    db = next(get_db())
+    user = get_current_user(request, db)
+    return templates.TemplateResponse("errors/404.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+    }, status_code=404)
+
+
+@app.exception_handler(500)
+async def server_error_handler(request: Request, exc):
+    db = next(get_db())
+    try:
+        user = get_current_user(request, db)
+    except Exception:
+        user = None
+    return templates.TemplateResponse("errors/500.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+    }, status_code=500)
+
+
+# ============================================================
 # LEGACY ROUTES (anonymous/token-based)
 # ============================================================
 
@@ -1183,9 +1278,9 @@ async def index(request: Request):
     user = get_current_user(request, db)
     if user:
         return RedirectResponse(url="/dashboard", status_code=302)
-    return templates.TemplateResponse("index.html", {
+    return templates.TemplateResponse("home.html", {
         "request": request, "current_year": datetime.now().year,
-        "dev_mode": DEV_MODE, "user": None, "playbooks": [],
+        "user": None,
     })
 
 
@@ -1238,3 +1333,45 @@ async def results_legacy(request: Request, token: str):
         "current_year": datetime.now().year,
         "token": token, "contract_id": None, "deviations": None,
     })
+
+
+# ============================================================
+# SEO
+# ============================================================
+
+@app.get("/robots.txt", response_class=Response)
+async def robots_txt(request: Request):
+    base = str(request.base_url).rstrip("/")
+    content = f"""User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /upload-page
+Disallow: /history
+Disallow: /batch-upload
+Disallow: /playbooks
+Disallow: /contract/
+Disallow: /shared/
+Disallow: /logout
+Disallow: /login
+Disallow: /register
+
+Sitemap: {base}/sitemap.xml
+"""
+    return Response(content=content, media_type="text/plain")
+
+
+@app.get("/sitemap.xml", response_class=Response)
+async def sitemap_xml(request: Request):
+    base = str(request.base_url).rstrip("/")
+    urls = [
+        "/", "/pricing", "/research", "/security", "/faq",
+        "/about", "/contact", "/privacy", "/terms",
+    ]
+    entries = "\n".join(
+        f"  <url><loc>{base}{u}</loc></url>" for u in urls
+    )
+    xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{entries}
+</urlset>"""
+    return Response(content=xml, media_type="application/xml")
