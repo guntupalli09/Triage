@@ -1,0 +1,53 @@
+{% extends "base_marketing.html" %}
+
+{% block title %}Privacy Policy — Triage{% endblock %}
+{% block meta_description %}Triage's privacy policy: how we handle your data, what we collect, and your rights.{% endblock %}
+
+{% block content %}
+<section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 fade-in">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight mb-8">Privacy Policy</h1>
+    <p class="text-sm text-gray-400 mb-10">Last updated: January 2026</p>
+
+    <div class="prose-sm space-y-8 text-gray-600 leading-relaxed">
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">1. Information We Collect</h2>
+            <p class="text-sm">We collect information you provide when creating an account (name, email, password) and usage data related to your contract analyses (findings, risk scores, metadata). We do not collect or store the original documents you upload.</p>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">2. Document Handling</h2>
+            <p class="text-sm">Uploaded documents are processed in memory and immediately discarded after analysis. Only the structured analysis results are stored. Original documents are never written to disk, stored in databases, or transmitted to third parties.</p>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">3. How We Use Your Information</h2>
+            <p class="text-sm">Account information is used to provide and maintain your Triage account, process payments, and communicate service updates. Analysis metadata is used solely to display your contract review history and results.</p>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">4. AI and Data Training</h2>
+            <p class="text-sm">Your documents and analysis results are never used to train AI models. The LLM explanation layer receives only extracted clause snippets necessary to generate plain-language explanations.</p>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">5. Data Security</h2>
+            <p class="text-sm">All data in transit is encrypted with 256-bit TLS. Passwords are hashed using PBKDF2 with per-user salts. Sessions are managed with HttpOnly cookies.</p>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">6. Data Retention and Deletion</h2>
+            <p class="text-sm">Analysis records are retained while your account is active. You can delete individual contract records at any time. When you delete your account, all associated data is permanently removed.</p>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">7. Third-Party Services</h2>
+            <p class="text-sm">We use Stripe for payment processing. Stripe receives only the payment information necessary to process your subscription. We do not share document content or analysis results with any third party.</p>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">8. Contact</h2>
+            <p class="text-sm">For privacy-related questions, contact us at <a href="/contact" class="text-[#0F172A] font-medium hover:underline">our contact page</a>.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

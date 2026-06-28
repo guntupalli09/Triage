@@ -1,0 +1,143 @@
+{% extends "base_marketing.html" %}
+
+{% block title %}Triage — The Deterministic Legal Reasoning Engine{% endblock %}
+{% block meta_description %}Review legal documents using deterministic rules, auditable evidence, and AI-powered explanations — not AI decisions.{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 text-center fade-in">
+    <div class="inline-block mb-6">
+        <span class="badge">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            Peer-Reviewed at ICCS 2026
+        </span>
+    </div>
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#0F172A] leading-[1.1] mb-6">
+        Deterministic Rules Decide.<br>
+        <span class="text-gray-400">AI Explains.</span>
+    </h1>
+    <p class="text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+        Upload any contract and get an auditable risk report in seconds. 40 deterministic rules catch what matters — AI only explains why.
+    </p>
+    <div class="flex items-center justify-center gap-4 flex-wrap">
+        <a href="/register" class="btn-primary py-3 px-8 rounded-lg text-base">Start Free Review</a>
+        <a href="/#how-it-works" class="btn-secondary py-3 px-8 rounded-lg text-base">How It Works</a>
+    </div>
+</section>
+
+<!-- Trust bar -->
+<section class="border-y border-gray-200 bg-white py-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-center justify-center gap-8 text-sm text-gray-400">
+            <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.351.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                256-bit TLS Encryption
+            </div>
+            <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+                Documents Never Stored
+            </div>
+            <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                40 Deterministic Rules
+            </div>
+            <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                Peer-Reviewed Research
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section id="how-it-works" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="text-center mb-14">
+        <p class="section-label mb-3">How It Works</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">Three steps to auditable risk analysis</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+        <div class="card p-8 text-center fade-in">
+            <div class="w-12 h-12 rounded-full bg-[#0F172A] text-white flex items-center justify-center text-lg font-bold mx-auto mb-5">1</div>
+            <h3 class="text-lg font-bold text-[#0F172A] mb-2">Upload Your Contract</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">Upload a PDF or DOCX. Triage extracts text using deterministic parsing — no AI involved in extraction.</p>
+        </div>
+        <div class="card p-8 text-center fade-in" style="animation-delay: 0.1s">
+            <div class="w-12 h-12 rounded-full bg-[#0F172A] text-white flex items-center justify-center text-lg font-bold mx-auto mb-5">2</div>
+            <h3 class="text-lg font-bold text-[#0F172A] mb-2">Rules Engine Analyzes</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">40 deterministic rules scan for risk patterns. Every finding is traceable to a specific rule and clause.</p>
+        </div>
+        <div class="card p-8 text-center fade-in" style="animation-delay: 0.2s">
+            <div class="w-12 h-12 rounded-full bg-[#0F172A] text-white flex items-center justify-center text-lg font-bold mx-auto mb-5">3</div>
+            <h3 class="text-lg font-bold text-[#0F172A] mb-2">AI Explains Findings</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">An LLM generates plain-language explanations for each finding. It explains — it never decides.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Why Different -->
+<section class="bg-white border-y border-gray-200 py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14">
+            <p class="section-label mb-3">Why Triage Is Different</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">Deterministic, not probabilistic</h2>
+        </div>
+        <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+            <div>
+                <h3 class="text-lg font-bold text-[#0F172A] mb-4">Other AI Contract Tools</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3 text-sm text-gray-500">
+                        <svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        AI makes the decisions — black box
+                    </li>
+                    <li class="flex items-start gap-3 text-sm text-gray-500">
+                        <svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        Results change between runs
+                    </li>
+                    <li class="flex items-start gap-3 text-sm text-gray-500">
+                        <svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        No audit trail for findings
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-[#0F172A] mb-4">Triage</h3>
+                <ul class="space-y-3">
+                    <li class="check-item text-sm text-gray-600">
+                        <span class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+                        Deterministic rules decide — fully auditable
+                    </li>
+                    <li class="check-item text-sm text-gray-600">
+                        <span class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+                        Same input always produces the same output
+                    </li>
+                    <li class="check-item text-sm text-gray-600">
+                        <span class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+                        Every finding links to rule ID and clause
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Research -->
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="card p-10 sm:p-14 text-center">
+        <p class="section-label mb-3">Peer-Reviewed Research</p>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight mb-4">Published at ICCS 2026</h2>
+        <p class="text-gray-500 max-w-2xl mx-auto mb-8 leading-relaxed">
+            Triage's architecture was peer-reviewed and accepted at the International Conference on Computational Science (ICCS 2026). Read the full paper and benchmarks.
+        </p>
+        <a href="/research" class="btn-primary py-3 px-8 rounded-lg text-sm inline-block">Read the Research</a>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-[#0F172A] py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">Start reviewing contracts today</h2>
+        <p class="text-gray-400 text-lg mb-8">Upload your first contract free. No credit card required.</p>
+        <a href="/register" class="bg-white text-[#0F172A] font-bold py-3 px-8 rounded-lg text-base inline-block hover:bg-gray-100 transition-colors">Start Free Review</a>
+    </div>
+</section>
+{% endblock %}

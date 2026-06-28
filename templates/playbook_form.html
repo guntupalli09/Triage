@@ -1,129 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if playbook %}Edit Playbook{% else %}Create Playbook{% endif %} — Triage AI</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/branding/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/branding/favicon-16.png">
-    <link rel="apple-touch-icon" href="/static/branding/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        :root {
-            --primary-orange: #FF7A18;
-            --primary-orange-dark: #F2541B;
-            --navy: #0F172A;
-            --bg-soft: #F8FAFC;
-            --card-border: #E5E7EB;
-        }
+{% extends "base_app.html" %}
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-soft);
-            letter-spacing: -0.01em;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
+{% block title %}{% if playbook %}Edit Playbook{% else %}Create Playbook{% endif %}{% endblock %}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+{% block extra_head %}
+<style>
+    .upload-area {
+        border: 2px dashed rgba(229, 231, 235, 0.6);
+        transition: all 0.2s ease;
+    }
+    .upload-area:hover {
+        border-color: rgba(255, 122, 24, 0.4);
+        background-color: rgba(255, 122, 24, 0.02);
+    }
+    @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    .file-preview-card { animation: scaleIn 0.3s ease-out; }
+</style>
+{% endblock %}
 
-        .fade-in { animation: fadeIn 0.5s ease-out; }
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-[#FF7A18] transition-colors">Dashboard</a>
+<span class="mx-1">/</span>
+<a href="/playbooks" class="hover:text-[#FF7A18] transition-colors">Playbooks</a>
+<span class="mx-1">/</span>
+<span>{% if playbook %}Edit{% else %}New{% endif %}</span>
+{% endblock %}
 
-        .logo-container {
-            display: inline-block;
-            background: var(--bg-soft);
-            border-radius: 20px;
-            padding: 12px 16px;
-            isolation: isolate;
-        }
-
-        .logo-blended {
-            display: block;
-            mix-blend-mode: multiply;
-            filter: brightness(1.02) contrast(1.05);
-        }
-
-        .gradient-text {
-            background: linear-gradient(90deg, #FF7A18, #F2541B);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 20px rgba(255, 122, 24, 0.3);
-            filter: drop-shadow(0 0 8px rgba(255, 122, 24, 0.2));
-        }
-
-        .premium-card {
-            background: #FFFFFF;
-            border: 1px solid rgba(229, 231, 235, 0.5);
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
-            transition: all 0.2s ease;
-        }
-
-        .btn-primary {
-            background: linear-gradient(90deg, #FF7A18, #F2541B);
-            color: white;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(255, 122, 24, 0.25);
-        }
-
-        .btn-primary:hover:not(:disabled) {
-            box-shadow: 0 4px 16px rgba(255, 122, 24, 0.35);
-            transform: translateY(-1px);
-        }
-
-        .btn-primary:active:not(:disabled) {
-            transform: translateY(0);
-        }
-
-        .upload-area {
-            border: 2px dashed rgba(229, 231, 235, 0.6);
-            transition: all 0.2s ease;
-        }
-
-        .upload-area:hover {
-            border-color: rgba(255, 122, 24, 0.4);
-            background-color: rgba(255, 122, 24, 0.02);
-        }
-
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .file-preview-card { animation: scaleIn 0.3s ease-out; }
-        .brand-strip {
-            height: 3px;
-            background: linear-gradient(90deg, #FF7A18, #F2541B, #FF7A18);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-        }
-    </style>
-</head>
-<body class="min-h-screen pt-1">
-    <div class="brand-strip"></div>
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <!-- Header -->
-        <div class="flex items-center justify-between mb-10 fade-in">
-            <a href="/dashboard" class="logo-container transition-transform hover:scale-105">
-                <img src="/static/branding/triage-logo-primary.png" alt="Triage AI logo" class="h-16 sm:h-20 w-auto logo-blended" />
-            </a>
-            <div class="flex items-center gap-4 text-sm">
-                <span class="text-gray-600 font-medium">{{ user.name }}</span>
-                <a href="/logout" class="text-[#FF7A18] hover:text-[#F2541B] font-semibold transition-colors">Logout</a>
-            </div>
-        </div>
-
+{% block content %}
         <!-- Title -->
         <div class="mb-8 fade-in">
             <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">
@@ -228,30 +133,9 @@
                 </button>
             </form>
         </div>
+{% endblock %}
 
-        <!-- Footer -->
-        <footer class="mt-16 pt-8 border-t border-gray-200/50 fade-in">
-            <div class="flex justify-center gap-6 mb-5 flex-wrap">
-                <div class="flex items-center gap-1.5 text-xs text-gray-400">
-                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.351.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    256-bit TLS
-                </div>
-                <div class="flex items-center gap-1.5 text-xs text-gray-400">
-                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
-                    Documents Never Stored
-                </div>
-                <div class="flex items-center gap-1.5 text-xs text-gray-400">
-                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    40 Deterministic Rules
-                </div>
-            </div>
-            <div class="text-center text-gray-500 text-sm space-y-1">
-                <p class="font-medium">&copy; {{ current_year }} Triage AI — Contract Risk Intelligence</p>
-                <p class="text-xs">Automated contract risk triage. Not legal advice.</p>
-            </div>
-        </footer>
-    </div>
-
+{% block scripts %}
     <script>
         const fileInput = document.getElementById('file');
         const uploadArea = document.getElementById('uploadArea');
@@ -295,5 +179,4 @@
             fileInput.click();
         });
     </script>
-</body>
-</html>
+{% endblock %}
