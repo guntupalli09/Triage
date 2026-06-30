@@ -441,7 +441,7 @@ class RuleEngine:
                 severity=Severity.HIGH,
                 rationale="One-sided fee-shifting clauses can dramatically increase downside risk by forcing one party to pay all legal costs regardless of outcome.",
                 # Match attorneys' fees - handle apostrophe explicitly
-                pattern=r"\battorneys?['\s]?fees?\b|\battorney['\s]?s\s+fees?\b|\blegal\s+fees?\b",
+                pattern=r"\battorneys?['']?\s+fees?\b|\battorneys?['']fees?\b|\battorney['']?s\s+fees?\b|\blegal\s+fees?\b",
                 aliases=["one_way_attorneys_fees", "unilateral_fee_shifting"],
             ),
             Rule(
@@ -1097,6 +1097,16 @@ class RuleEngine:
             - ruleset_version_data: Dict (full version metadata)
             - suppression_log: Dict[str, str] (audit trail of suppressions, empty if disabled)
         """
+        # Normalize Unicode punctuation so regex patterns using ASCII quotes/dashes
+        # match text extracted from PDFs and Word documents (smart quotes, em-dashes, etc.)
+        text = (
+            text
+            .replace("‘", "'").replace("’", "'")   # left/right single quotes → '
+            .replace("“", '"').replace("”", '"')   # left/right double quotes → "
+            .replace("–", "-").replace("—", "-")   # en-dash / em-dash → -
+            .replace("…", "...")                         # ellipsis → ...
+        )
+
         chunks = _chunk_text(text)
 
         findings: List[Finding] = []
