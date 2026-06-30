@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Triage Counsel</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #0f1117; color: #e2e8f0; }
+    .card { background: #1a1d27; border: 1px solid #2d3148; border-radius: 12px; }
+    .badge-none     { background:#334155; color:#94a3b8; }
+    .badge-trial    { background:#1e3a5f; color:#60a5fa; }
+    .badge-starter  { background:#1a3a2a; color:#34d399; }
+    .badge-professional { background:#2d1b4e; color:#a78bfa; }
+    .risk-high   { color: #f87171; }
+    .risk-medium { color: #fbbf24; }
+    .risk-low    { color: #34d399; }
+    .risk-none   { color: #94a3b8; }
+    th { position: sticky; top: 0; background: #1a1d27; z-index: 1; }
+    .scroll-table { max-height: 520px; overflow-y: auto; }
+    input#search { background:#0f1117; border:1px solid #2d3148; color:#e2e8f0; border-radius:8px; padding:6px 12px; width:260px; }
+    input#search:focus { outline:none; border-color:#6366f1; }
+    .stat-up { color: #34d399; }
+    .stat-label { font-size:11px; color:#64748b; text-transform:uppercase; letter-spacing:.06em; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+<!-- Top bar -->
+<div class="flex items-center justify-between px-8 py-4 border-b border-[#2d3148]">
+  <div class="flex items-center gap-3">
+    <span class="text-xl font-bold tracking-tight text-white">⚡ Triage Admin</span>
+    <span class="text-xs bg-indigo-900 text-indigo-300 px-2 py-0.5 rounded-full font-medium">founder view</span>
+  </div>
+  <div class="flex items-center gap-4 text-sm text-slate-400">
+    <span>{{ generated_at }}</span>
+    <a href="/dashboard" class="text-indigo-400 hover:text-indigo-300">← App</a>
+    <a href="/logout" class="text-slate-500 hover:text-red-400">Logout</a>
+  </div>
+</div>
+
+<div class="px-8 py-6 space-y-8 max-w-[1600px] mx-auto">
+
+  <!-- ── HEADLINE STATS ── -->
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+    {% set stats = [
+      ("Total Users",      total_users,         "👤", ""),
+      ("Total Jobs",       total_contracts,     "📄", ""),
+      ("Playbooks",        total_playbooks,     "📋", ""),
+      ("New Users 30d",    new_users_30d,       "🆕", "stat-up"),
+      ("New Jobs 30d",     new_contracts_30d,   "🚀", "stat-up"),
+      ("Active Plans",     (plan_counts.get('starter',0) + plan_counts.get('professional',0)), "💳", ""),
+    ] %}
+    {% for label, val, icon, cls in stats %}
+    <div class="card p-5">
+      <div class="stat-label mb-1">{{ label }}</div>
+      <div class="text-3xl font-bold {{ cls or 'text-white' }}">{{ val }}</div>
+      <div class="text-xl mt-1">{{ icon }}</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- ── CHARTS ROW ── -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="card p-5">
+      <div class="text-sm font-semibold text-slate-300 mb-4">Jobs per Day (last 30 days)</div>
+      <canvas id="jobsChart" height="120"></canvas>
+    </div>
+    <div class="card p-5">
+      <div class="text-sm font-semibold text-slate-300 mb-4">New Signups per Day (last 30 days)</div>
+      <canvas id="usersChart" height="120"></canvas>
+    </div>
+  </div>
+
+  <!-- ── PLAN + RISK BREAKDOWN ── -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Plan breakdown -->
+    <div class="card p-5">
+      <div class="text-sm font-semibold text-slate-300 mb-4">Plan Breakdown</div>
+      <div class="space-y-3">
+        {% set plans = [('none','Free / None','badge-none'), ('trial','Trial','badge-trial'), ('starter','Starter','badge-starter'), ('professional','Professional','badge-professional')] %}
+        {% for key, label, cls in plans %}
+        {% set cnt = plan_counts.get(key, 0) %}
+        {% set pct = ((cnt / total_users * 100) | round(1)) if total_users else 0 %}
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-medium px-2 py-0.5 rounded {{ cls }} w-28 text-center shrink-0">{{ label }}</span>
+          <div class="flex-1 bg-slate-800 rounded-full h-2">
+            <div class="h-2 rounded-full bg-indigo-500" style="width:{{ pct }}%"></div>
+          </div>
+          <span class="text-sm text-slate-300 w-16 text-right">{{ cnt }} <span class="text-slate-500">({{ pct }}%)</span></span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Risk breakdown -->
+    <div class="card p-5">
+      <div class="text-sm font-semibold text-slate-300 mb-4">Risk Distribution (all jobs)</div>
+      <div class="space-y-3">
+        {% set risks = [('high','High','#f87171'), ('medium','Medium','#fbbf24'), ('low','Low','#34d399')] %}
+        {% for key, label, color in risks %}
+        {% set cnt = risk_counts.get(key, 0) %}
+        {% set pct = ((cnt / total_contracts * 100) | round(1)) if total_contracts else 0 %}
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-medium w-16 shrink-0" style="color:{{ color }}">{{ label }}</span>
+          <div class="flex-1 bg-slate-800 rounded-full h-2">
+            <div class="h-2 rounded-full" style="width:{{ pct }}%; background:{{ color }}"></div>
+          </div>
+          <span class="text-sm text-slate-300 w-16 text-right">{{ cnt }} <span class="text-slate-500">({{ pct }}%)</span></span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TOP USERS BY JOBS ── -->
+  <div class="card p-5">
+    <div class="text-sm font-semibold text-slate-300 mb-4">🏆 Top 10 Users by Jobs Run</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+      {% for u in top_users %}
+      <div class="flex items-center gap-3 bg-[#0f1117] rounded-lg px-4 py-2">
+        <span class="text-slate-500 text-xs w-5 text-right">{{ loop.index }}</span>
+        <span class="text-xs text-slate-400 truncate flex-1">{{ u.email }}</span>
+        <span class="text-sm font-semibold text-white w-8 text-right">{{ u.jobs }}</span>
+        <span class="text-xs px-1.5 py-0.5 rounded badge-{{ u.plan }}">{{ u.plan }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- ── USERS TABLE ── -->
+  <div class="card p-5">
+    <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
+      <div class="text-sm font-semibold text-slate-300">All Users ({{ total_users }})</div>
+      <input id="search" type="text" placeholder="Filter by email, company, plan…" oninput="filterTable(this.value)">
+    </div>
+    <div class="scroll-table rounded-lg border border-[#2d3148] overflow-hidden">
+      <table class="w-full text-sm" id="usersTable">
+        <thead>
+          <tr class="text-left text-xs text-slate-500 border-b border-[#2d3148]">
+            <th class="px-4 py-3 font-medium">Email</th>
+            <th class="px-4 py-3 font-medium">Name / Company</th>
+            <th class="px-4 py-3 font-medium text-center">Plan</th>
+            <th class="px-4 py-3 font-medium text-center">Jobs Total</th>
+            <th class="px-4 py-3 font-medium text-center">This Month</th>
+            <th class="px-4 py-3 font-medium text-center">Limit</th>
+            <th class="px-4 py-3 font-medium text-center">Playbooks</th>
+            <th class="px-4 py-3 font-medium text-center">Last Job</th>
+            <th class="px-4 py-3 font-medium text-center">Joined</th>
+          </tr>
+        </thead>
+        <tbody id="usersTbody">
+          {% for u in users_table %}
+          <tr class="border-b border-[#2d3148] hover:bg-[#1e2235] transition-colors user-row"
+              data-search="{{ u.email|lower }} {{ (u.name or '')|lower }} {{ (u.company or '')|lower }} {{ u.plan|lower }}">
+            <td class="px-4 py-3 text-indigo-300 font-medium truncate max-w-[200px]">{{ u.email }}</td>
+            <td class="px-4 py-3 text-slate-400">
+              <div>{{ u.name }}</div>
+              {% if u.company != '—' %}<div class="text-xs text-slate-600">{{ u.company }}</div>{% endif %}
+            </td>
+            <td class="px-4 py-3 text-center">
+              <span class="text-xs px-2 py-0.5 rounded-full font-medium badge-{{ u.plan }}">{{ u.plan }}</span>
+              {% if u.sub_status == 'active' %}
+              <span class="ml-1 text-xs text-green-400">●</span>
+              {% endif %}
+            </td>
+            <td class="px-4 py-3 text-center font-bold {% if u.jobs > 10 %}text-indigo-300{% else %}text-slate-300{% endif %}">{{ u.jobs }}</td>
+            <td class="px-4 py-3 text-center text-slate-300">{{ u.jobs_this_month }}</td>
+            <td class="px-4 py-3 text-center text-slate-500 text-xs">{{ u.monthly_limit }}</td>
+            <td class="px-4 py-3 text-center text-slate-400">{{ u.playbooks }}</td>
+            <td class="px-4 py-3 text-center text-xs {% if u.last_job == 'never' %}text-slate-600{% else %}text-slate-400{% endif %}">{{ u.last_job }}</td>
+            <td class="px-4 py-3 text-center text-xs text-slate-500">{{ u.created_at }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="9" class="px-4 py-8 text-center text-slate-600">No users yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── RECENT JOBS ── -->
+  <div class="card p-5">
+    <div class="text-sm font-semibold text-slate-300 mb-4">Recent Jobs (last 20)</div>
+    <div class="scroll-table rounded-lg border border-[#2d3148] overflow-hidden">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left text-xs text-slate-500 border-b border-[#2d3148]">
+            <th class="px-4 py-3 font-medium">File</th>
+            <th class="px-4 py-3 font-medium">User</th>
+            <th class="px-4 py-3 font-medium text-center">Plan</th>
+            <th class="px-4 py-3 font-medium text-center">Risk</th>
+            <th class="px-4 py-3 font-medium text-right">When</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in recent_list %}
+          <tr class="border-b border-[#2d3148] hover:bg-[#1e2235] transition-colors">
+            <td class="px-4 py-2.5 text-slate-300 truncate max-w-[240px]">{{ r.filename }}</td>
+            <td class="px-4 py-2.5 text-indigo-300 text-xs">{{ r.email }}</td>
+            <td class="px-4 py-2.5 text-center">
+              <span class="text-xs px-1.5 py-0.5 rounded badge-{{ r.plan }}">{{ r.plan }}</span>
+            </td>
+            <td class="px-4 py-2.5 text-center font-semibold risk-{{ r.risk }}">{{ r.risk }}</td>
+            <td class="px-4 py-2.5 text-right text-xs text-slate-500">{{ r.created_at }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5" class="px-4 py-8 text-center text-slate-600">No jobs yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// ── Chart data ──
+const jobDays  = {{ daily_jobs  | tojson }};
+const userDays = {{ daily_users | tojson }};
+
+function sparkChart(id, rawData, color) {
+  // Fill every day in last 30d
+  const map = Object.fromEntries(rawData);
+  const labels = [], data = [];
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const k = d.toISOString().slice(0, 10);
+    labels.push(k.slice(5));   // MM-DD
+    data.push(map[k] || 0);
+  }
+  new Chart(document.getElementById(id), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ data, backgroundColor: color + '99', borderColor: color, borderWidth: 1, borderRadius: 3 }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#475569', font: { size: 10 } }, grid: { color: '#1e293b' } },
+        y: { ticks: { color: '#475569', font: { size: 10 }, precision: 0 }, grid: { color: '#1e293b' }, beginAtZero: true }
+      },
+      responsive: true, maintainAspectRatio: true,
+    }
+  });
+}
+sparkChart('jobsChart',  jobDays,  '#6366f1');
+sparkChart('usersChart', userDays, '#34d399');
+
+// ── Table filter ──
+function filterTable(q) {
+  q = q.toLowerCase();
+  document.querySelectorAll('#usersTable .user-row').forEach(row => {
+    row.style.display = row.dataset.search.includes(q) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
