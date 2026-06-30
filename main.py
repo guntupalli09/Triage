@@ -1452,6 +1452,128 @@ async def results_legacy(request: Request, token: str):
 
 
 # ============================================================
+# ADMIN DASHBOARD
+# ============================================================
+
+ADMIN_EMAIL = "santhosh.guntupalli09@gmail.com"
+
+
+@app.get("/admin", response_class=HTMLResponse)
+async def admin_dashboard(request: Request):
+    db = next(get_db())
+    user = require_user(request, db)
+    if user.email.lower() != ADMIN_EMAIL.lower():
+        raise HTTPException(status_code=403, detail="Forbidden")
+
+    from sqlalchemy import func, cast, Date
+
+    # --- Headline counts ---
+    total_users = db.query(func.count(User.id)).scalar() or 0
+    total_contracts = db.query(func.count(Contract.id)).filter(Contract.analysis_completed == True).scalar() or 0
+    total_playbooks = db.query(func.count(Playbook.id)).scalar() or 0
+
+    # Users in last 30 days
+    thirty_ago = datetime.utcnow() - timedelta(days=30)
+    new_users_30d = db.query(func.count(User.id)).filter(User.created_at >= thirty_ago).scalar() or 0
+    new_contracts_30d = db.query(func.count(Contract.id)).filter(
+        Contract.created_at >= thirty_ago, Contract.analysis_completed == True
+    ).scalar() or 0
+
+    # Plan breakdown
+    plan_counts = dict(
+        db.query(User.plan, func.count(User.id))
+        .group_by(User.plan)
+        .all()
+    )
+
+    # Risk breakdown
+    risk_counts = dict(
+        db.query(Contract.overall_risk, func.count(Contract.id))
+        .filter(Contract.analysis_completed == True)
+        .group_by(Contract.overall_risk)
+        .all()
+    )
+
+    # Users table: each user with job count, playbook count, latest activity
+    users_raw = db.query(User).order_by(User.created_at.desc()).all()
+    users_table = []
+    for u in users_raw:
+        job_count = db.query(func.count(Contract.id)).filter(
+            Contract.user_id == u.id, Contract.analysis_completed == True
+        ).scalar() or 0
+        pb_count = db.query(func.count(Playbook.id)).filter(Playbook.user_id == u.id).scalar() or 0
+        latest = db.query(Contract.created_at).filter(
+            Contract.user_id == u.id, Contract.analysis_completed == True
+        ).order_by(Contract.created_at.desc()).first()
+        users_table.append({
+            "id": u.id,
+            "email": u.email,
+            "name": u.name or "—",
+            "company": u.company or "—",
+            "plan": u.plan or "none",
+            "sub_status": u.subscription_status or "inactive",
+            "jobs": job_count,
+            "playbooks": pb_count,
+            "jobs_this_month": u.contracts_this_month,
+            "monthly_limit": u.monthly_limit,
+            "created_at": u.created_at.strftime("%Y-%m-%d") if u.created_at else "—",
+            "last_job": latest[0].strftime("%Y-%m-%d") if latest else "never",
+        })
+
+    # Daily snapshots: contracts per day for last 30 days
+    daily_jobs = db.query(
+        cast(Contract.created_at, Date).label("day"),
+        func.count(Contract.id).label("cnt")
+    ).filter(
+        Contract.created_at >= thirty_ago,
+        Contract.analysis_completed == True
+    ).group_by("day").order_by("day").all()
+
+    daily_users = db.query(
+        cast(User.created_at, Date).label("day"),
+        func.count(User.id).label("cnt")
+    ).filter(User.created_at >= thirty_ago).group_by("day").order_by("day").all()
+
+    # Recent contracts (last 20)
+    recent_contracts = (
+        db.query(Contract, User)
+        .join(User, Contract.user_id == User.id)
+        .filter(Contract.analysis_completed == True)
+        .order_by(Contract.created_at.desc())
+        .limit(20)
+        .all()
+    )
+    recent_list = [{
+        "filename": c.filename,
+        "risk": c.overall_risk or "—",
+        "email": u.email,
+        "created_at": c.created_at.strftime("%Y-%m-%d %H:%M"),
+        "plan": u.plan or "none",
+    } for c, u in recent_contracts]
+
+    # Top users by job count (leaderboard)
+    top_users = sorted(users_table, key=lambda x: x["jobs"], reverse=True)[:10]
+
+    return templates.TemplateResponse("admin_dashboard.html", {
+        "request": request,
+        "user": user,
+        "total_users": total_users,
+        "total_contracts": total_contracts,
+        "total_playbooks": total_playbooks,
+        "new_users_30d": new_users_30d,
+        "new_contracts_30d": new_contracts_30d,
+        "plan_counts": plan_counts,
+        "risk_counts": risk_counts,
+        "users_table": users_table,
+        "recent_list": recent_list,
+        "top_users": top_users,
+        "daily_jobs": [(str(r.day), r.cnt) for r in daily_jobs],
+        "daily_users": [(str(r.day), r.cnt) for r in daily_users],
+        "generated_at": datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
+    })
+
+
+# ============================================================
 # SEO
 # ============================================================
 
