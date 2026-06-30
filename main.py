@@ -661,6 +661,19 @@ RULE_CATEGORY_MAP = {
     "WARRANTY_DISCLAIM": "Warranty Disclaimer", "BREACH_NOTIFY": "Breach Notification",
     "FORCE_MAJEURE": "Force Majeure", "ASSIGN_CHANGE_CTRL": "Assignment / Change of Control",
     "UNILATERAL_MOD": "Unilateral Modification",
+    # v2.1 additions
+    "AI_TRAINING": "AI / Model Training",
+    "PRICE_ESCAL": "Price Escalation",
+    "DATA_PRIVACY": "Data Privacy",
+    "DATA_PORTABILITY": "Data Portability",
+    "DATA_DELETION": "Data Deletion",
+    "BENCHMARKING": "Benchmarking",
+    "MIN_COMMIT": "Minimum Commitment",
+    "CROSS_BORDER": "Cross-Border Transfers",
+    "USE_RESTRICT": "Use Restrictions",
+    "RENEWAL_PRICE": "Renewal Pricing",
+    "PAYMENT_TERMS": "Payment Terms",
+    "EXPORT_CTRL": "Export Controls",
 }
 
 def _get_rule_category(rule_id: str) -> str:
