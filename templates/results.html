@@ -485,6 +485,34 @@
     </div>
 {% endblock %}
 
+{% block page_footer_nav %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 pt-2">
+    <div class="flex items-center justify-between">
+        <a href="/history" class="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            Back to Reviews
+        </a>
+        <div class="flex items-center gap-3">
+            {% if contract_id %}
+            <button onclick="shareContract({{ contract_id }})" class="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors border border-gray-200 rounded-lg px-3 py-2 hover:border-gray-300">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                Share
+            </button>
+            <a href="/contract/{{ contract_id }}/pdf" class="inline-flex items-center gap-1.5 btn-new-review">
+                Export PDF
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </a>
+            {% elif token %}
+            <a href="/download-pdf?token={{ token }}" class="inline-flex items-center gap-1.5 btn-new-review">
+                Export PDF
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
 {% block scripts %}
 {% if contract_id %}
 <script>
