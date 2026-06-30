@@ -37,29 +37,44 @@
 
         .fade-in { animation: fadeIn 0.5s ease-out; }
 
-        .brand-strip {
-            height: 2px;
-            background: var(--navy);
-            position: fixed;
+        .app-header {
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
             z-index: 50;
-        }
-
-        .logo-container {
-            display: inline-block;
-            background: var(--bg-soft);
-            border-radius: 20px;
-            padding: 12px 16px;
-            position: relative;
-            isolation: isolate;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(229, 231, 235, 0.8);
         }
 
         .logo-blended {
             display: block;
             mix-blend-mode: multiply;
             filter: brightness(1.02) contrast(1.05);
+        }
+
+        .nav-link {
+            position: relative;
+            color: #6B7280;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
+
+        .nav-link:hover { color: #0F172A; }
+
+        .nav-link.active {
+            color: #0F172A;
+            font-weight: 600;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #0F172A;
+            border-radius: 1px;
         }
 
         .gradient-text {
@@ -119,46 +134,45 @@
     </style>
     {% block extra_head %}{% endblock %}
 </head>
-<body class="min-h-screen pt-1">
-    <!-- Brand Strip -->
-    <div class="brand-strip"></div>
-
+<body class="min-h-screen">
     <!-- Application Header -->
-    <header class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-4 fade-in">
-        <div class="flex items-center justify-between">
-            <!-- Logo -->
-            <a href="/dashboard" class="logo-container transition-transform hover:scale-105">
-                <img src="/static/branding/triage-logo-primary.png" alt="Triage Counsel logo" class="h-16 sm:h-20 w-auto logo-blended" />
-            </a>
+    <header class="app-header">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14">
+                <!-- Logo -->
+                <a href="/dashboard" class="flex-shrink-0 hover:opacity-80 transition-opacity">
+                    <img src="/static/branding/triage-logo-primary.png" alt="Triage Counsel" class="h-8 w-auto logo-blended" />
+                </a>
 
-            <!-- Right: User info + Nav -->
-            <div class="flex items-center gap-6">
-                <nav class="hidden md:flex items-center gap-5 text-sm font-medium">
-                    <a href="/dashboard" class="text-gray-600 hover:text-gray-900 transition-colors">Dashboard</a>
-                    <a href="/upload-page" class="text-gray-600 hover:text-gray-900 transition-colors">New Review</a>
-                    <a href="/history" class="text-gray-600 hover:text-gray-900 transition-colors">Reviews</a>
-                    <a href="/playbooks" class="text-gray-600 hover:text-gray-900 transition-colors">Playbooks</a>
-                    <a href="/pricing" class="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-6 text-sm">
+                    <a href="/dashboard" class="nav-link {% if request.path == '/dashboard' %}active{% endif %}">Dashboard</a>
+                    <a href="/upload-page" class="nav-link {% if request.path == '/upload-page' %}active{% endif %}">New Review</a>
+                    <a href="/history" class="nav-link {% if request.path == '/history' %}active{% endif %}">Reviews</a>
+                    <a href="/playbooks" class="nav-link {% if request.path == '/playbooks' %}active{% endif %}">Playbooks</a>
+                    <a href="/pricing" class="nav-link {% if request.path == '/pricing' %}active{% endif %}">Pricing</a>
                 </nav>
-                <div class="flex items-center gap-3 text-sm border-l border-gray-200 pl-5">
-                    <span class="text-gray-600 font-medium hidden sm:inline">{{ user.name or user.email }}</span>
-                    <a href="/logout" class="text-gray-500 hover:text-gray-900 font-medium transition-colors">Logout</a>
+
+                <!-- User + Logout -->
+                <div class="flex items-center gap-3 text-sm">
+                    <span class="text-gray-500 font-medium hidden sm:inline">{{ user.name or user.email }}</span>
+                    <a href="/logout" class="btn-primary py-1.5 px-3.5 rounded-md text-xs">Logout</a>
                 </div>
             </div>
-        </div>
 
-        <!-- Mobile Nav -->
-        <nav class="flex md:hidden items-center gap-4 mt-4 text-sm font-medium overflow-x-auto pb-1">
-            <a href="/dashboard" class="text-gray-600 hover:text-gray-900 transition-colors whitespace-nowrap">Dashboard</a>
-            <a href="/upload-page" class="text-gray-600 hover:text-gray-900 transition-colors whitespace-nowrap">New Review</a>
-            <a href="/history" class="text-gray-600 hover:text-gray-900 transition-colors whitespace-nowrap">Reviews</a>
-            <a href="/playbooks" class="text-gray-600 hover:text-gray-900 transition-colors whitespace-nowrap">Playbooks</a>
-            <a href="/pricing" class="text-gray-600 hover:text-gray-900 transition-colors whitespace-nowrap">Pricing</a>
-        </nav>
+            <!-- Mobile Nav -->
+            <nav class="flex md:hidden items-center gap-4 text-sm font-medium overflow-x-auto py-2 border-t border-gray-100">
+                <a href="/dashboard" class="nav-link whitespace-nowrap">Dashboard</a>
+                <a href="/upload-page" class="nav-link whitespace-nowrap">New Review</a>
+                <a href="/history" class="nav-link whitespace-nowrap">Reviews</a>
+                <a href="/playbooks" class="nav-link whitespace-nowrap">Playbooks</a>
+                <a href="/pricing" class="nav-link whitespace-nowrap">Pricing</a>
+            </nav>
+        </div>
     </header>
 
     <!-- Breadcrumbs -->
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-5 mb-6">
         <nav class="text-xs text-gray-400 font-medium">
             {% block breadcrumbs %}
             <a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
