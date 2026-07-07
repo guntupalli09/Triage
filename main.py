@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import os
 import io
+import zipfile
 import hmac
 import hashlib
 import json
@@ -640,6 +641,34 @@ async def batch_upload_submit(
     })
 
 
+@app.get("/batch/{batch_id}/download-all")
+async def download_batch_pdfs(request: Request, batch_id: str):
+    db = next(get_db())
+    user = require_user(request, db)
+    contracts = db.query(Contract).filter(Contract.batch_id == batch_id, Contract.user_id == user.id).all()
+    if not contracts:
+        raise HTTPException(status_code=404, detail="Batch not found")
+
+    zip_buffer = io.BytesIO()
+    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zf:
+        for contract in contracts:
+            findings_dict = contract.findings_json or []
+            llm_result = contract.llm_result_json or {}
+            all_issues = build_enhanced_issues(findings_dict, llm_result)
+            rule_counts = contract.rule_counts_json or {"high": 0, "medium": 0, "low": 0}
+            pdf_bytes = _build_pdf_bytes(
+                contract.filename, contract.overall_risk, rule_counts,
+                contract.rule_engine_version, llm_result.get("summary_bullets", []), all_issues,
+            )
+            safe_name = sanitize_filename(contract.filename)
+            zf.writestr(f"TriageAI_{safe_name}_{contract.id}.pdf", pdf_bytes)
+
+    return Response(
+        content=zip_buffer.getvalue(), media_type="application/zip",
+        headers={"Content-Disposition": f'attachment; filename="TriageAI_batch_{batch_id}.zip"'},
+    )
+
+
 RULE_CATEGORY_MAP = {
     "INDEM": "Indemnification", "LOL": "Liability", "IP": "Intellectual Property",
     "PERSONAL": "Personal Liability", "ATTFEE": "Attorneys Fees", "ASSIGN": "Assignment",
@@ -761,6 +790,61 @@ async def view_contract(request: Request, contract_id: int):
 # PDF DOWNLOAD (authenticated)
 # ============================================================
 
+def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_engine_version: str,
+                      summary_bullets: list, all_issues: list) -> bytes:
+    pdf = FPDF()
+    pdf.set_auto_page_break(auto=True, margin=20)
+    pdf.add_page()
+
+    pdf.set_font("Helvetica", "B", 18)
+    pdf.cell(0, 12, "Triage Counsel - Contract Risk Report", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_font("Helvetica", "", 10)
+    pdf.cell(0, 6, f"File: {filename}", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 6, f"Date: {datetime.utcnow().strftime('%B %d, %Y')}", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 6, f"Rule Engine: v{rule_engine_version or '2.0.0'}", new_x="LMARGIN", new_y="NEXT")
+    pdf.ln(6)
+
+    risk_label = (overall_risk or "low").upper()
+    pdf.set_font("Helvetica", "B", 14)
+    pdf.cell(0, 10, f"Overall Risk: {risk_label}", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_font("Helvetica", "", 10)
+    pdf.cell(0, 6, f"High: {rule_counts.get('high', 0)}  |  Medium: {rule_counts.get('medium', 0)}  |  Low: {rule_counts.get('low', 0)}", new_x="LMARGIN", new_y="NEXT")
+    pdf.ln(4)
+
+    if summary_bullets:
+        pdf.set_font("Helvetica", "B", 12)
+        pdf.cell(0, 8, "Executive Summary", new_x="LMARGIN", new_y="NEXT")
+        pdf.set_font("Helvetica", "", 10)
+        for bullet in summary_bullets:
+            pdf.multi_cell(0, 5, f"  - {bullet}", new_x="LMARGIN", new_y="NEXT")
+        pdf.ln(4)
+
+    if all_issues:
+        pdf.set_font("Helvetica", "B", 12)
+        pdf.cell(0, 8, "Findings", new_x="LMARGIN", new_y="NEXT")
+        for i, issue in enumerate(all_issues, 1):
+            severity = issue.get("severity", "medium").upper()
+            title = issue.get("title", "Finding")
+            pdf.set_font("Helvetica", "B", 10)
+            pdf.multi_cell(0, 6, f"{i}. [{severity}] {title}", new_x="LMARGIN", new_y="NEXT")
+            rationale = issue.get("rationale", "")
+            if rationale:
+                pdf.set_font("Helvetica", "", 9)
+                pdf.multi_cell(0, 5, f"   {rationale}", new_x="LMARGIN", new_y="NEXT")
+            excerpt = issue.get("matched_excerpt", "")
+            if excerpt:
+                pdf.set_font("Helvetica", "I", 8)
+                clean_excerpt = excerpt[:300].encode('latin-1', 'replace').decode('latin-1')
+                pdf.multi_cell(0, 4, f'   "{clean_excerpt}"', new_x="LMARGIN", new_y="NEXT")
+            pdf.ln(2)
+
+    pdf.ln(6)
+    pdf.set_font("Helvetica", "I", 8)
+    pdf.cell(0, 5, f"(c) {datetime.now().year} Triage Counsel - Contract Risk Intelligence. Not legal advice.", new_x="LMARGIN", new_y="NEXT")
+
+    return bytes(pdf.output())
+
+
 @app.get("/contract/{contract_id}/pdf")
 async def download_contract_pdf(request: Request, contract_id: int):
     db = next(get_db())
@@ -774,60 +858,50 @@ async def download_contract_pdf(request: Request, contract_id: int):
     all_issues = build_enhanced_issues(findings_dict, llm_result)
     rule_counts = contract.rule_counts_json or {"high": 0, "medium": 0, "low": 0}
 
-    pdf = FPDF()
-    pdf.set_auto_page_break(auto=True, margin=20)
-    pdf.add_page()
-
-    pdf.set_font("Helvetica", "B", 18)
-    pdf.cell(0, 12, "Triage Counsel - Contract Risk Report", new_x="LMARGIN", new_y="NEXT")
-    pdf.set_font("Helvetica", "", 10)
-    pdf.cell(0, 6, f"File: {contract.filename}", new_x="LMARGIN", new_y="NEXT")
-    pdf.cell(0, 6, f"Date: {datetime.utcnow().strftime('%B %d, %Y')}", new_x="LMARGIN", new_y="NEXT")
-    pdf.cell(0, 6, f"Rule Engine: v{contract.rule_engine_version or '2.0.0'}", new_x="LMARGIN", new_y="NEXT")
-    pdf.ln(6)
-
-    risk_label = (contract.overall_risk or "low").upper()
-    pdf.set_font("Helvetica", "B", 14)
-    pdf.cell(0, 10, f"Overall Risk: {risk_label}", new_x="LMARGIN", new_y="NEXT")
-    pdf.set_font("Helvetica", "", 10)
-    pdf.cell(0, 6, f"High: {rule_counts.get('high', 0)}  |  Medium: {rule_counts.get('medium', 0)}  |  Low: {rule_counts.get('low', 0)}", new_x="LMARGIN", new_y="NEXT")
-    pdf.ln(4)
-
-    summary_bullets = llm_result.get("summary_bullets", [])
-    if summary_bullets:
-        pdf.set_font("Helvetica", "B", 12)
-        pdf.cell(0, 8, "Executive Summary", new_x="LMARGIN", new_y="NEXT")
-        pdf.set_font("Helvetica", "", 10)
-        for bullet in summary_bullets:
-            pdf.multi_cell(0, 5, f"  - {bullet}")
-        pdf.ln(4)
-
-    if all_issues:
-        pdf.set_font("Helvetica", "B", 12)
-        pdf.cell(0, 8, "Findings", new_x="LMARGIN", new_y="NEXT")
-        for i, issue in enumerate(all_issues, 1):
-            severity = issue.get("severity", "medium").upper()
-            title = issue.get("title", "Finding")
-            pdf.set_font("Helvetica", "B", 10)
-            pdf.multi_cell(0, 6, f"{i}. [{severity}] {title}")
-            rationale = issue.get("rationale", "")
-            if rationale:
-                pdf.set_font("Helvetica", "", 9)
-                pdf.multi_cell(0, 5, f"   {rationale}")
-            excerpt = issue.get("matched_excerpt", "")
-            if excerpt:
-                pdf.set_font("Helvetica", "I", 8)
-                clean_excerpt = excerpt[:300].encode('latin-1', 'replace').decode('latin-1')
-                pdf.multi_cell(0, 4, f'   "{clean_excerpt}"')
-            pdf.ln(2)
-
-    pdf.ln(6)
-    pdf.set_font("Helvetica", "I", 8)
-    pdf.cell(0, 5, f"(c) {datetime.now().year} Triage Counsel - Contract Risk Intelligence. Not legal advice.", new_x="LMARGIN", new_y="NEXT")
-
-    pdf_bytes = pdf.output()
+    pdf_bytes = _build_pdf_bytes(
+        contract.filename, contract.overall_risk, rule_counts,
+        contract.rule_engine_version, llm_result.get("summary_bullets", []), all_issues,
+    )
 
     safe_name = sanitize_filename(contract.filename)
+    date_str = datetime.utcnow().strftime("%Y-%m-%d")
+
+    return Response(
+        content=pdf_bytes, media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="TriageAI_{safe_name}_{date_str}.pdf"'},
+    )
+
+
+@app.get("/download-pdf")
+async def download_pdf_token(request: Request, token: str):
+    """PDF export for anonymous, token-based sessions (legacy pay-per-use flow)."""
+    try:
+        session_id, sig = token.rsplit(":", 1)
+        expected = hmac.new(APP_HMAC_SECRET.encode(), session_id.encode(), hashlib.sha256).hexdigest()
+        if not hmac.compare_digest(sig, expected):
+            raise HTTPException(status_code=400, detail="Invalid token")
+    except HTTPException:
+        raise
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid token")
+
+    if session_id not in session_store:
+        raise HTTPException(status_code=404, detail="Session expired")
+
+    entry = session_store[session_id]
+    if not entry.get("paid") and not DEV_MODE:
+        raise HTTPException(status_code=402, detail="Payment required")
+
+    filename = entry.get("filename", "document")
+    analysis = run_analysis(entry.get("text", ""))
+    all_issues = build_enhanced_issues(analysis["findings_dict"], analysis["llm_result"])
+
+    pdf_bytes = _build_pdf_bytes(
+        filename, analysis["overall_risk"], analysis["rule_counts"],
+        analysis["version"], analysis["llm_result"].get("summary_bullets", []), all_issues,
+    )
+
+    safe_name = sanitize_filename(filename)
     date_str = datetime.utcnow().strftime("%Y-%m-%d")
 
     return Response(
