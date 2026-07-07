@@ -1,0 +1,55 @@
+{% extends "base_app.html" %}
+
+{% block title %}Billing{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1.5">/</span>
+<span class="text-gray-900">Billing</span>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl">
+    <h1 class="text-2xl font-bold text-[#0F172A] mb-6 fade-in">Billing</h1>
+
+    {% if success %}
+    <div class="mb-6 rounded-lg bg-green-50 border border-green-200 p-4">
+        <p class="text-sm text-green-700">{{ success }}</p>
+    </div>
+    {% endif %}
+    {% if error %}
+    <div class="mb-6 rounded-lg bg-red-50 border border-red-200 p-4">
+        <p class="text-sm text-red-700">{{ error }}</p>
+    </div>
+    {% endif %}
+
+    <div class="premium-card p-6 sm:p-8 mb-6 fade-in">
+        <h2 class="text-lg font-bold text-[#0F172A] mb-5">Current Plan</h2>
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <div class="text-xl font-bold gradient-text capitalize">{{ user.plan or 'Free' }}</div>
+                <div class="text-xs text-gray-400 mt-1 capitalize">Status: {{ user.subscription_status or 'inactive' }}</div>
+            </div>
+            <a href="/pricing" class="btn-primary py-2.5 px-6 rounded-lg whitespace-nowrap">
+                {% if user.plan in ('none', 'free') %}View Plans{% else %}Change Plan{% endif %}
+            </a>
+        </div>
+        <div class="border-t border-gray-100 pt-4">
+            <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-500">Contracts this month</span>
+                <span class="font-semibold text-[#0F172A]">{{ user.contracts_this_month }} / {{ user.monthly_limit }}</span>
+            </div>
+        </div>
+    </div>
+
+    {% if user.plan not in ('none', 'free') and user.subscription_status == 'active' %}
+    <div class="premium-card p-6 sm:p-8 fade-in">
+        <h2 class="text-lg font-bold text-[#0F172A] mb-2">Cancel Subscription</h2>
+        <p class="text-sm text-gray-500 mb-5">You'll keep access until the end of your current billing period.</p>
+        <form action="/billing/cancel" method="post" onsubmit="return confirm('Cancel your subscription?');">
+            <button type="submit" class="btn-secondary py-2.5 px-6 rounded-lg font-semibold text-red-600">Cancel Subscription</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

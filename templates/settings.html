@@ -1,0 +1,41 @@
+{% extends "base_app.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1.5">/</span>
+<span class="text-gray-900">Settings</span>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl">
+    <h1 class="text-2xl font-bold text-[#0F172A] mb-6 fade-in">Settings</h1>
+
+    {% if error %}
+    <div class="mb-6 rounded-lg bg-red-50 border border-red-200 p-4">
+        <p class="text-sm text-red-700">{{ error }}</p>
+    </div>
+    {% endif %}
+
+    <div class="premium-card p-6 sm:p-8 mb-6 fade-in">
+        <h2 class="text-lg font-bold text-[#0F172A] mb-2">Account</h2>
+        <p class="text-sm text-gray-500 mb-4">Manage your profile details and password.</p>
+        <a href="/account" class="btn-secondary inline-block py-2.5 px-6 rounded-lg font-semibold">Go to Account</a>
+    </div>
+
+    <div class="premium-card p-6 sm:p-8 mb-6 fade-in">
+        <h2 class="text-lg font-bold text-[#0F172A] mb-2">Billing</h2>
+        <p class="text-sm text-gray-500 mb-4">View your plan, usage, and manage your subscription.</p>
+        <a href="/billing" class="btn-secondary inline-block py-2.5 px-6 rounded-lg font-semibold">Go to Billing</a>
+    </div>
+
+    <div class="premium-card p-6 sm:p-8 fade-in border-red-100">
+        <h2 class="text-lg font-bold text-[#0F172A] mb-2">Delete Account</h2>
+        <p class="text-sm text-gray-500 mb-4">Permanently delete your account and all associated contracts and playbooks. This cannot be undone.</p>
+        <form action="/settings/delete-account" method="post" onsubmit="return confirm('This will permanently delete your account and all data. This cannot be undone. Continue?');">
+            <button type="submit" class="btn-secondary py-2.5 px-6 rounded-lg font-semibold text-red-600">Delete Account</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
