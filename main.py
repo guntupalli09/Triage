@@ -384,6 +384,133 @@ async def logout_route(request: Request):
 
 
 # ============================================================
+# ACCOUNT
+# ============================================================
+
+@app.get("/account", response_class=HTMLResponse)
+async def account_page(request: Request):
+    db = next(get_db())
+    user = require_user(request, db)
+    return templates.TemplateResponse("account.html", {
+        "request": request, "user": user, "error": None, "success": None,
+        "current_year": datetime.now().year,
+    })
+
+
+@app.post("/account", response_class=HTMLResponse)
+async def account_update(request: Request, name: str = Form(""), company: str = Form("")):
+    db = next(get_db())
+    user = require_user(request, db)
+    user.name = name.strip() or None
+    user.company = company.strip() or None
+    db.commit()
+    return templates.TemplateResponse("account.html", {
+        "request": request, "user": user, "error": None, "success": "Profile updated.",
+        "current_year": datetime.now().year,
+    })
+
+
+@app.post("/account/password", response_class=HTMLResponse)
+async def account_change_password(
+    request: Request,
+    current_password: str = Form(...),
+    new_password: str = Form(...),
+    confirm_password: str = Form(...),
+):
+    db = next(get_db())
+    user = require_user(request, db)
+
+    error = None
+    if not verify_password(current_password, user.password_hash):
+        error = "Current password is incorrect."
+    elif new_password != confirm_password:
+        error = "New passwords do not match."
+    elif len(new_password) < 8:
+        error = "New password must be at least 8 characters."
+
+    if error:
+        return templates.TemplateResponse("account.html", {
+            "request": request, "user": user, "error": error, "success": None,
+            "current_year": datetime.now().year,
+        })
+
+    user.password_hash = hash_password(new_password)
+    db.commit()
+    return templates.TemplateResponse("account.html", {
+        "request": request, "user": user, "error": None, "success": "Password updated.",
+        "current_year": datetime.now().year,
+    })
+
+
+# ============================================================
+# BILLING
+# ============================================================
+
+@app.get("/billing", response_class=HTMLResponse)
+async def billing_page(request: Request):
+    db = next(get_db())
+    user = require_user(request, db)
+    return templates.TemplateResponse("billing.html", {
+        "request": request, "user": user, "error": None, "success": None,
+        "current_year": datetime.now().year,
+    })
+
+
+@app.post("/billing/cancel")
+async def billing_cancel(request: Request):
+    db = next(get_db())
+    user = require_user(request, db)
+
+    if user.stripe_subscription_id and stripe.api_key:
+        try:
+            stripe.Subscription.modify(user.stripe_subscription_id, cancel_at_period_end=True)
+        except Exception as e:
+            logger.warning(f"Failed to cancel Stripe subscription for user {user.id}: {e}")
+            return templates.TemplateResponse("billing.html", {
+                "request": request, "user": user, "success": None,
+                "error": "Failed to cancel subscription. Please try again or contact support.",
+                "current_year": datetime.now().year,
+            })
+
+    user.subscription_status = "canceled"
+    db.commit()
+    return templates.TemplateResponse("billing.html", {
+        "request": request, "user": user, "error": None,
+        "success": "Your subscription has been canceled and will not renew.",
+        "current_year": datetime.now().year,
+    })
+
+
+# ============================================================
+# SETTINGS
+# ============================================================
+
+@app.get("/settings", response_class=HTMLResponse)
+async def settings_page(request: Request):
+    db = next(get_db())
+    user = require_user(request, db)
+    return templates.TemplateResponse("settings.html", {
+        "request": request, "user": user, "error": None,
+        "current_year": datetime.now().year,
+    })
+
+
+@app.post("/settings/delete-account")
+async def delete_account(request: Request):
+    db = next(get_db())
+    user = require_user(request, db)
+
+    db.query(Contract).filter(Contract.user_id == user.id).delete()
+    db.query(Playbook).filter(Playbook.user_id == user.id).delete()
+    db.delete(user)
+    db.commit()
+
+    response = RedirectResponse(url="/", status_code=302)
+    auth_logout(request, response)
+    return response
+
+
+# ============================================================
 # DASHBOARD
 # ============================================================
 

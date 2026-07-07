@@ -1,0 +1,75 @@
+{% extends "base_app.html" %}
+
+{% block title %}Account{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1.5">/</span>
+<span class="text-gray-900">Account</span>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl">
+    <h1 class="text-2xl font-bold text-[#0F172A] mb-6 fade-in">Account</h1>
+
+    {% if success %}
+    <div class="mb-6 rounded-lg bg-green-50 border border-green-200 p-4">
+        <p class="text-sm text-green-700">{{ success }}</p>
+    </div>
+    {% endif %}
+    {% if error %}
+    <div class="mb-6 rounded-lg bg-red-50 border border-red-200 p-4">
+        <p class="text-sm text-red-700">{{ error }}</p>
+    </div>
+    {% endif %}
+
+    <div class="premium-card p-6 sm:p-8 mb-6 fade-in">
+        <h2 class="text-lg font-bold text-[#0F172A] mb-5">Profile</h2>
+        <form action="/account" method="post" class="space-y-5">
+            <div>
+                <label for="name" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Name</label>
+                <input type="text" id="name" name="name" value="{{ user.name or '' }}"
+                    class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-[#0F172A] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent transition"
+                    placeholder="Your full name">
+            </div>
+            <div>
+                <label for="company" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Company <span class="font-normal text-gray-400">(optional)</span></label>
+                <input type="text" id="company" name="company" value="{{ user.company or '' }}"
+                    class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-[#0F172A] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent transition"
+                    placeholder="Your company">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">Email</label>
+                <input type="email" value="{{ user.email }}" disabled
+                    class="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-500">
+            </div>
+            <div class="text-xs text-gray-400">
+                Member since {{ user.created_at.strftime('%B %d, %Y') if user.created_at else '—' }}
+            </div>
+            <button type="submit" class="btn-primary py-2.5 px-6 rounded-lg font-semibold">Save Changes</button>
+        </form>
+    </div>
+
+    <div class="premium-card p-6 sm:p-8 fade-in">
+        <h2 class="text-lg font-bold text-[#0F172A] mb-5">Change Password</h2>
+        <form action="/account/password" method="post" class="space-y-5">
+            <div>
+                <label for="current_password" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Current Password</label>
+                <input type="password" id="current_password" name="current_password" required
+                    class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent transition">
+            </div>
+            <div>
+                <label for="new_password" class="block text-sm font-semibold text-[#0F172A] mb-1.5">New Password</label>
+                <input type="password" id="new_password" name="new_password" required
+                    class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent transition">
+            </div>
+            <div>
+                <label for="confirm_password" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Confirm New Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" required
+                    class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent transition">
+            </div>
+            <button type="submit" class="btn-secondary py-2.5 px-6 rounded-lg font-semibold">Update Password</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
