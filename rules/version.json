@@ -1,17 +1,18 @@
 {
-  "version": "2.1.0",
-  "released": "2026-06-30",
-  "scope": "Commercial NDAs, MSAs, SaaS Agreements, Vendor Contracts, and Employment/Contractor Agreements",
+  "version": "3.0.0",
+  "released": "2026-07-07",
+  "scope": "Commercial NDAs, MSAs, SaaS Agreements, Vendor Contracts, Employment/Contractor Agreements, Consumer Terms, Creator/Marketplace Terms, Event/Service Agreements, and Privacy-Adjacent Policies",
   "changes": [
     "Initial deterministic NDA/MSA risk ruleset",
     "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
     "Implemented clause-level anchoring and false-positive suppression",
     "v2.0: Added 15 rules for SaaS, vendor, and procurement coverage (unilateral modification, consequential damages, termination for convenience, data portability, asymmetric liability, mandatory arbitration, warranty disclaimers, breach notification, insurance, force majeure, SLA, MFN, compliance, escrow, subcontracting)",
-    "v2.1: Added 12 rules for broad ICP coverage: AI/ML model training on customer data, unilateral price escalation, personal data processing without protections, data portability rights, data deletion obligations, cross-border data transfers, renewal pricing increases, minimum purchase commitments, benchmarking restrictions, permitted use restrictions, export controls, payment terms"
+    "v2.1: Added 12 rules for broad ICP coverage: AI/ML model training on customer data, unilateral price escalation, personal data processing without protections, data portability rights, data deletion obligations, cross-border data transfers, renewal pricing increases, minimum purchase commitments, benchmarking restrictions, permitted use restrictions, export controls, payment terms",
+    "v3.0: Added 12 broader-audience rules for consumer, creator, freelancer, worker, event, and marketplace terms: stored-card charges, user content licenses, payout deductions, worker classification, refunds, cancellation fees, account suspension, personal data sharing, non-disparagement, media releases, electronic notices, and marketing communications consent"
   ],
   "rule_count": {
-    "high": 18,
-    "medium": 26,
-    "low": 8
+    "high": 22,
+    "medium": 32,
+    "low": 10
   }
 }

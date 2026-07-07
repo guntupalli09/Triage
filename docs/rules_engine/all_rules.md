@@ -1,11 +1,11 @@
-# Triage Rule Reference — v2.1.0
+# Triage Rule Reference — v3.0.0
 
-Complete list of all 52 rules in the deterministic rule engine (18H / 26M / 8L).  
+Complete list of all 64 rules in the deterministic rule engine (22H / 32M / 10L).  
 Rule IDs follow the format `{SEVERITY}_{CATEGORY}_{NUMBER}` where severity is H (High), M (Medium), or L (Low).
 
 ---
 
-## HIGH Severity — 18 rules
+## HIGH Severity — 22 rules
 
 High-severity findings set the Rule Coverage badge to **FAIL** and push the overall contract risk to **HIGH**.
 
@@ -29,10 +29,14 @@ High-severity findings set the Rule Coverage badge to **FAIL** and push the over
 | `H_AI_TRAINING_01` | AI / Model Training | Vendor rights to train AI/ML models on your customer data | Explicitly prohibit use of customer data for model training; require opt-in consent |
 | `H_PRICE_ESCAL_01` | Price Escalation | Unilateral right to increase fees or rates without mutual consent | Cap increases (e.g., CPI or 3–5%); require advance notice; add right to terminate if unacceptable |
 | `H_DATA_PRIVACY_01` | Data Privacy | Personal data processing without GDPR/CCPA protections, DPA reference, or security obligations | Require a signed DPA; specify processing purpose, sub-processor list, and security standards |
+| `H_CARD_AUTH_01` | Automatic Charges | Broad stored-card or automatic future charge authorization | Require clear renewal notice, charge caps, and easy cancellation before future billing |
+| `H_CONTENT_LICENSE_01` | Content License | Perpetual/worldwide/sublicensable rights to user content, reviews, photos, or likeness | Limit to necessary operation of the service; remove perpetual and sublicensable rights |
+| `H_WAGE_DEDUCTION_01` | Wage / Payout Deductions | Unilateral wage, payout, invoice, chargeback, or offset rights | Require itemized notice, dispute rights, and limits tied to documented amounts |
+| `H_CLASSIFICATION_01` | Worker Classification | Independent-contractor terms shifting tax, benefit, or classification risk to the individual | Confirm classification fits the actual relationship; narrow indemnity and tax-shift language |
 
 ---
 
-## MEDIUM Severity — 26 rules
+## MEDIUM Severity — 32 rules
 
 Medium-severity findings set the Rule Coverage badge to **WARNING** (unless a HIGH finding already set it to FAIL) and contribute to a **MEDIUM** overall risk when two or more are present.
 
@@ -63,10 +67,16 @@ Medium-severity findings set the Rule Coverage badge to **WARNING** (unless a HI
 | `M_RENEWAL_PRICE_01` | Renewal Pricing | Uncapped fee increases at renewal (CPI, inflation, or discretionary) | Cap renewal increases (e.g., lesser of CPI or 5%); require 90-day advance notice |
 | `M_MIN_COMMIT_01` | Minimum Commitment | Minimum purchase commitment or take-or-pay obligation | Remove or add minimum usage threshold; negotiate ramp schedule; add force majeure carve-out |
 | `M_USE_RESTRICT_01` | Use Restrictions | Narrow permitted use restrictions limiting routine business activities | Broaden license scope; ensure permitted use covers affiliates and contractors |
+| `M_REFUND_01` | Refund Policy | No-refund, non-refundable, or all-sales-final terms | Add refund rights for non-delivery, cancellation, defects, or unused prepaid periods |
+| `M_CANCEL_FEE_01` | Cancellation Fees | Cancellation fee or strict cancellation notice window | Add reasonable notice, grace periods, and proportional fees |
+| `M_ACCOUNT_SUSPEND_01` | Account Suspension | Account/service/access suspension at sole discretion, without notice, or for any reason | Require notice, cure rights, data export access, and limits for urgent security events |
+| `M_PRIVACY_SHARING_01` | Privacy Sharing | Broad sale, sharing, rental, or disclosure of personal information | Add opt-out rights, purpose limits, and third-party disclosure transparency |
+| `M_NONDISPARAGE_01` | Non-Disparagement | Non-disparagement, gag, or review restriction terms | Preserve truthful reviews, legally protected speech, and good-faith reporting |
+| `M_PHOTO_RELEASE_01` | Media Release | Photo, video, voice, name, or likeness release for marketing/publicity | Limit by channel, duration, territory, and consent withdrawal rights |
 
 ---
 
-## LOW Severity — 8 rules
+## LOW Severity — 10 rules
 
 Low-severity findings set the Rule Coverage badge to **WARNING** and are factored into overall risk only when combined with other findings.
 
@@ -80,6 +90,8 @@ Low-severity findings set the Rule Coverage badge to **WARNING** and are factore
 | `L_SUBCONTRACT_01` | Subcontracting | Subcontracting rights without requiring your consent | Require prior written consent; limit to approved vendor list; add flow-down obligations |
 | `L_EXPORT_CTRL_01` | Export Controls | Export control restrictions (EAR, ITAR, trade compliance) | Confirm internal compliance program covers relevant jurisdictions; add mutual representation |
 | `L_PAYMENT_TERMS_01` | Payment Terms | Short payment windows or unfavorable net-day terms | Negotiate net-30 or net-45; add approval workflow to invoice process |
+| `L_ELECTRONIC_NOTICE_01` | Electronic Notice | Email, portal, or in-app notices deemed received immediately | Add confirmed delivery methods and keep contact information update process clear |
+| `L_COMMUNICATION_CONSENT_01` | Communication Consent | Marketing, SMS, automated call, or promotional communication consent | Require clear opt-out rights and separate transactional from promotional notices |
 
 ---
 
@@ -140,6 +152,19 @@ Low-severity findings set the Rule Coverage badge to **WARNING** and are factore
 | `L_COMPLIANCE_01` | LOW | Compliance |
 | `L_PAYMENT_TERMS_01` | LOW | Payment Terms |
 
+| `H_CARD_AUTH_01` | HIGH | Automatic Charges |
+| `M_CANCEL_FEE_01` | MEDIUM | Cancellation Fees |
+| `H_CLASSIFICATION_01` | HIGH | Worker Classification |
+| `L_COMMUNICATION_CONSENT_01` | LOW | Communication Consent |
+| `H_CONTENT_LICENSE_01` | HIGH | Content License |
+| `L_ELECTRONIC_NOTICE_01` | LOW | Electronic Notice |
+| `M_ACCOUNT_SUSPEND_01` | MEDIUM | Account Suspension |
+| `M_NONDISPARAGE_01` | MEDIUM | Non-Disparagement |
+| `M_PHOTO_RELEASE_01` | MEDIUM | Media Release |
+| `M_PRIVACY_SHARING_01` | MEDIUM | Privacy Sharing |
+| `M_REFUND_01` | MEDIUM | Refund Policy |
+| `H_WAGE_DEDUCTION_01` | HIGH | Wage / Payout Deductions |
+
 ---
 
 ## Severity → Badge mapping
@@ -152,5 +177,5 @@ Low-severity findings set the Rule Coverage badge to **WARNING** and are factore
 
 ---
 
-*Ruleset version: 2.1.0 — released 2026-06-30*  
-*Scope: Commercial NDAs, MSAs, SaaS Agreements, Vendor Contracts, and Employment/Contractor Agreements*
+*Ruleset version: 3.0.0 — released 2026-07-07*  
+*Scope: Commercial NDAs, MSAs, SaaS Agreements, Vendor Contracts, Employment/Contractor Agreements, Consumer Terms, Creator/Marketplace Terms, Event/Service Agreements, and Privacy-Adjacent Policies*
