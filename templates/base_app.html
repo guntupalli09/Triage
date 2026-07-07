@@ -275,6 +275,7 @@
             </nav>
 
             <!-- User info at bottom -->
+            {% if user %}
             <div class="px-5 py-4 border-t border-gray-100 mt-auto">
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
@@ -286,6 +287,11 @@
                     </div>
                 </div>
             </div>
+            {% else %}
+            <div class="px-5 py-4 border-t border-gray-100 mt-auto">
+                <a href="/login" class="text-sm font-semibold text-gray-900">Log in</a>
+            </div>
+            {% endif %}
         </div>
     </div>
 
@@ -328,6 +334,7 @@
                     </a>
 
                     <!-- User dropdown -->
+                    {% if user %}
                     <div class="user-menu" id="userMenu">
                         <button onclick="toggleUserMenu()" class="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-gray-100 transition-colors" aria-haspopup="true">
                             <div class="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
@@ -367,6 +374,9 @@
                             </div>
                         </div>
                     </div>
+                    {% else %}
+                    <a href="/login" class="nav-link">Log in</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

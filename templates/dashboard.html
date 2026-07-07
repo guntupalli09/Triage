@@ -90,7 +90,7 @@
                             <td class="py-3 px-2 text-gray-500">{{ c.playbook.name if c.playbook else '—' }}</td>
                             <td class="py-3 px-2 text-right space-x-3">
                                 <a href="/contract/{{ c.id }}" class="text-[#0F172A] hover:text-[#1E293B] font-medium transition-colors">View</a>
-                                <a href="/contract/{{ c.id }}/share" class="text-gray-400 hover:text-gray-600 font-medium transition-colors">Share</a>
+                                <button onclick="shareContract({{ c.id }})" class="text-gray-400 hover:text-gray-600 font-medium transition-colors">Share</button>
                                 <a href="/contract/{{ c.id }}/pdf" class="text-gray-400 hover:text-gray-600 font-medium transition-colors">PDF</a>
                             </td>
                         </tr>
@@ -127,4 +127,23 @@
             </div>
         </div>
         {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+function shareContract(contractId) {
+    fetch('/contract/' + contractId + '/share', {method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+        .then(r => r.json())
+        .then(data => {
+            if (data.share_url) {
+                navigator.clipboard.writeText(data.share_url).then(() => {
+                    alert('Share link copied to clipboard!');
+                }).catch(() => {
+                    prompt('Copy this share link:', data.share_url);
+                });
+            }
+        })
+        .catch(() => alert('Failed to generate share link.'));
+}
+</script>
 {% endblock %}
