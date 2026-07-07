@@ -569,6 +569,201 @@ class RuleEngine:
                 window=400,
                 aliases=["one_sided_liability_cap", "vendor_liability_cap"],
             ),
+            # ---------------- HIGH (v3.0 broader-audience additions) ----------------
+            Rule(
+                rule_id="H_CARD_AUTH_01",
+                rule_name="stored_payment_card_broad_charges",
+                title="Broad stored-card or automatic charge authorization",
+                severity=Severity.HIGH,
+                rationale="Broad permission to store a payment method and charge future fees can surprise individuals, freelancers, and small businesses with unexpected costs.",
+                anchors=[r"\b(charge|debit|bill)\w*\b", r"\bpayment\s+method\b", r"\bcredit\s+card\b", r"\bcard\s+on\s+file\b"],
+                nearby=[
+                    r"\bautomatically\b",
+                    r"\brecurring\b",
+                    r"\bfrom\s+time\s+to\s+time\b",
+                    r"\bwithout\s+(?:further\s+)?(?:notice|authorization|approval)\b",
+                    r"\bauthori[sz]e\w*\b.*\bfuture\s+charges\b",
+                ],
+                window=400,
+                aliases=["automatic_charges", "stored_card_authorization", "recurring_billing"],
+            ),
+            Rule(
+                rule_id="H_CONTENT_LICENSE_01",
+                rule_name="perpetual_content_license",
+                title="Perpetual license to use your content",
+                severity=Severity.HIGH,
+                rationale="A perpetual, worldwide, sublicensable license to user content can allow long-term use of creative work, likeness, reviews, photos, or uploads beyond the original purpose.",
+                anchors=[r"\b(content|user\s+content|submission|photo|image|review|feedback|likeness)\b"],
+                nearby=[
+                    r"\bperpetual\b",
+                    r"\birrevocable\b",
+                    r"\bworldwide\b",
+                    r"\bsublicensable\b",
+                    r"\broyalty[-\s]?free\b",
+                ],
+                window=500,
+                aliases=["user_content_license", "ugc_license", "likeness_license"],
+            ),
+            Rule(
+                rule_id="H_WAGE_DEDUCTION_01",
+                rule_name="wage_or_payment_deduction",
+                title="Unilateral wage, payout, or invoice deductions",
+                severity=Severity.HIGH,
+                rationale="Terms allowing unilateral deductions, chargebacks, offsets, or withheld payouts can materially affect workers, creators, contractors, and small vendors.",
+                anchors=[r"\b(deduct|deduction|offset|set[-\s]?off|withhold|chargeback)\w*\b"],
+                nearby=[
+                    r"\bwages?\b",
+                    r"\bpay(?:ment|out)?s?\b",
+                    r"\bcompensation\b",
+                    r"\binvoice\w*\b",
+                    r"\bearnings?\b",
+                ],
+                window=400,
+                aliases=["payment_deductions", "chargebacks", "withheld_payouts"],
+            ),
+            Rule(
+                rule_id="H_CLASSIFICATION_01",
+                rule_name="worker_classification_shift",
+                title="Worker classification risk shifted to individual",
+                severity=Severity.HIGH,
+                rationale="Clauses that label a worker as an independent contractor while shifting tax, benefit, and classification responsibility to the individual can create significant employment and tax exposure.",
+                anchors=[r"\bindependent\s+contractor\b", r"\bnot\s+an\s+employee\b"],
+                nearby=[
+                    r"\bresponsible\s+for\s+(?:all\s+)?tax",
+                    r"\bno\s+benefits\b",
+                    r"\bwithholding\b",
+                    r"\bclassification\b",
+                    r"\bindemnif\w+\b.*\b(employee|employment|tax)\b",
+                ],
+                window=500,
+                aliases=["independent_contractor_classification", "misclassification", "tax_withholding_shift"],
+            ),
+
+            # ---------------- MEDIUM (v3.0 broader-audience additions) ----------------
+            Rule(
+                rule_id="M_REFUND_01",
+                rule_name="no_refunds_or_all_sales_final",
+                title="No refund or all-sales-final policy",
+                severity=Severity.MEDIUM,
+                rationale="Strict no-refund language can leave consumers and small buyers without a practical remedy if a product, service, event, or subscription does not meet expectations.",
+                pattern=r"\b(no\s+refunds?|non[-\s]?refundable|all\s+sales\s+final|refunds?\s+will\s+not\s+be\s+provided)\b",
+                aliases=["no_refunds", "all_sales_final", "non_refundable"],
+            ),
+            Rule(
+                rule_id="M_CANCEL_FEE_01",
+                rule_name="cancellation_fees_or_notice",
+                title="Cancellation fee or strict cancellation window",
+                severity=Severity.MEDIUM,
+                rationale="Cancellation fees and short notice windows can create avoidable costs for consumers, freelancers, and small teams if plans change.",
+                anchors=[r"\bcancell?ation\b", r"\bcancel\w*\b"],
+                nearby=[
+                    r"\bfee\b",
+                    r"\bpenalt(y|ies)\b",
+                    r"\bnon[-\s]?refundable\b",
+                    r"\b(?:24|48|72)\s+hours?\b",
+                    r"\b(?:7|14|30)\s+days?\b",
+                ],
+                window=350,
+                aliases=["cancellation_fee", "strict_cancellation_window"],
+            ),
+            Rule(
+                rule_id="M_ACCOUNT_SUSPEND_01",
+                rule_name="unilateral_account_suspension",
+                title="Account suspension or access loss at sole discretion",
+                severity=Severity.MEDIUM,
+                rationale="A broad right to suspend accounts, services, or access at sole discretion can interrupt work, payments, communications, or access to purchased services.",
+                anchors=[r"\bsuspend\w*\b", r"\bterminate\w*\b", r"\bdisable\w*\b", r"\baccess\b"],
+                nearby=[
+                    r"\baccount\b",
+                    r"\bservice\b",
+                    r"\bsole\s+discretion\b",
+                    r"\bwithout\s+notice\b",
+                    r"\bfor\s+any\s+reason\b",
+                ],
+                window=400,
+                aliases=["account_suspension", "access_termination", "sole_discretion_suspension"],
+            ),
+            Rule(
+                rule_id="M_PRIVACY_SHARING_01",
+                rule_name="broad_personal_information_sharing",
+                title="Broad sharing or sale of personal information",
+                severity=Severity.MEDIUM,
+                rationale="Broad rights to sell, share, rent, or disclose personal information can affect privacy expectations for consumers, employees, applicants, and customers.",
+                anchors=[r"\bpersonal\s+(?:information|data)\b", r"\bPII\b"],
+                nearby=[
+                    r"\bsell\w*\b",
+                    r"\bshare\w*\b",
+                    r"\brent\w*\b",
+                    r"\bdisclose\w*\b",
+                    r"\bmarketing\s+partners?\b",
+                    r"\bthird\s+part(?:y|ies)\b",
+                ],
+                window=450,
+                aliases=["personal_info_sharing", "data_sale", "third_party_marketing"],
+            ),
+            Rule(
+                rule_id="M_NONDISPARAGE_01",
+                rule_name="non_disparagement",
+                title="Non-disparagement or review restriction",
+                severity=Severity.MEDIUM,
+                rationale="Non-disparagement and review restrictions can limit honest feedback, public reviews, or discussion of workplace and service experiences.",
+                pattern=r"\bnon[-\s]?disparagement\b|\bshall\s+not\s+disparage\b|\bmay\s+not\s+(?:post|publish|leave)\b.{0,80}\b(review|rating|comment)\b|\bnegative\s+(?:review|rating|comment)\b",
+                aliases=["review_restriction", "non_disparagement", "gag_clause"],
+            ),
+            Rule(
+                rule_id="M_PHOTO_RELEASE_01",
+                rule_name="photo_video_likeness_release",
+                title="Photo, video, voice, or likeness release",
+                severity=Severity.MEDIUM,
+                rationale="Media releases can permit use of a person's image, voice, name, or likeness in marketing or promotional materials beyond the immediate event or service.",
+                anchors=[r"\b(photo|video|image|voice|name|likeness|recording)\b"],
+                nearby=[
+                    r"\brelease\b",
+                    r"\bconsent\b",
+                    r"\bmarketing\b",
+                    r"\bpromotional\b",
+                    r"\badvertising\b",
+                    r"\bpublicity\b",
+                ],
+                window=400,
+                aliases=["media_release", "likeness_release", "photo_release"],
+            ),
+
+            # ---------------- LOW (v3.0 broader-audience additions) ----------------
+            Rule(
+                rule_id="L_ELECTRONIC_NOTICE_01",
+                rule_name="electronic_notice_deemed_received",
+                title="Electronic notice deemed received",
+                severity=Severity.LOW,
+                rationale="Email, portal, or in-app notices deemed received immediately can cause missed deadlines if the address changes or messages are filtered.",
+                anchors=[r"\bnotice\b", r"\bemail\b", r"\belectronic\b", r"\bin[-\s]?app\b", r"\bportal\b"],
+                nearby=[
+                    r"\bdeemed\s+(?:received|given|delivered)\b",
+                    r"\bupon\s+sending\b",
+                    r"\bwhen\s+sent\b",
+                ],
+                window=350,
+                aliases=["electronic_notice", "notice_deemed_received"],
+            ),
+            Rule(
+                rule_id="L_COMMUNICATION_CONSENT_01",
+                rule_name="marketing_communications_consent",
+                title="Marketing or SMS communication consent",
+                severity=Severity.LOW,
+                rationale="Consent to calls, texts, emails, or automated messages can create unwanted communications unless opt-out rights are clear.",
+                anchors=[r"\b(text|SMS|call|email|message|autodial|automated)\w*\b"],
+                nearby=[
+                    r"\bmarketing\b",
+                    r"\bpromotional\b",
+                    r"\bconsent\b",
+                    r"\bopt[-\s]?out\b",
+                    r"\btelephone\s+consumer\s+protection\s+act\b",
+                    r"\bTCPA\b",
+                ],
+                window=350,
+                aliases=["sms_consent", "marketing_emails", "automated_calls"],
+            ),
+
             # ---------------- MEDIUM ----------------
             Rule(
                 rule_id="M_CONF_01",
@@ -1319,6 +1514,24 @@ class RuleEngine:
 
         if "M_FORCE_MAJEURE_01" in rule_ids:
             recommendations.append("Force majeure scope (You may want to confirm that force majeure is narrowly defined and includes termination rights for extended events)")
+
+        if "H_CARD_AUTH_01" in rule_ids:
+            recommendations.append("Billing authorization controls (You may want to confirm future charges require clear notice, renewal reminders, and easy cancellation)")
+
+        if "H_CONTENT_LICENSE_01" in rule_ids or "M_PHOTO_RELEASE_01" in rule_ids:
+            recommendations.append("Content and likeness permissions (You may want to confirm licenses are limited by purpose, duration, channel, and withdrawal rights)")
+
+        if "H_WAGE_DEDUCTION_01" in rule_ids or "H_CLASSIFICATION_01" in rule_ids:
+            recommendations.append("Worker/payment protections (You may want to confirm classification, payout timing, deductions, offsets, and tax responsibilities are clear and fair)")
+
+        if "M_REFUND_01" in rule_ids or "M_CANCEL_FEE_01" in rule_ids:
+            recommendations.append("Refund and cancellation terms (You may want to confirm refund rights, cancellation windows, and fees are reasonable and easy to understand)")
+
+        if "M_ACCOUNT_SUSPEND_01" in rule_ids:
+            recommendations.append("Account access and service continuity (You may want to confirm notice, cure rights, data export access, and appeal paths before suspension)")
+
+        if "M_PRIVACY_SHARING_01" in rule_ids or "L_COMMUNICATION_CONSENT_01" in rule_ids:
+            recommendations.append("Privacy and communications choices (You may want to confirm opt-out rights, purpose limits, and third-party sharing disclosures)")
 
         # Combine baseline with rule-based recommendations (limit total)
         all_recommendations = baseline + recommendations
