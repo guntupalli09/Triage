@@ -1362,6 +1362,15 @@ async def about_page(request: Request):
     })
 
 
+@app.get("/partners", response_class=HTMLResponse)
+async def partners_page(request: Request):
+    db = next(get_db())
+    user = get_current_user(request, db)
+    return templates.TemplateResponse("partners.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+    })
+
+
 @app.get("/contact", response_class=HTMLResponse)
 async def contact_page(request: Request):
     db = next(get_db())
