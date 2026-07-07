@@ -205,7 +205,7 @@ Prompts are versioned with the system:
 - Tested against golden fixtures
 - Validated for language constraints
 
-**Current version**: Aligned with rule engine v1.0.3
+**Current version**: Aligned with rule engine v3.0.0
 
 ## Best Practices
 

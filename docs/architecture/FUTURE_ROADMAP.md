@@ -1,7 +1,7 @@
 # Future Roadmap
 
 **Document Version**: 1.0  
-**Last Updated**: 2026-01-14  
+**Last Updated**: 2026-07-07  
 **Status**: Production Layer (Layer 1) is implemented and frozen. Layers 2-5 are documented as future capabilities.
 
 ## Executive Summary
@@ -96,10 +96,10 @@ The Production Rule Engine is designed for legal defensibility:
 
 ### Current Implementation
 
-- **Ruleset Version**: 1.0.3
-- **Rule Count**: 19 rules (8 HIGH, 8 MEDIUM, 3 LOW severity)
-- **Detection Coverage**: Commercial NDAs and MSAs
-- **Test Coverage**: 57/59 tests passing (96.6% pass rate)
+- **Ruleset Version**: 3.0.0
+- **Rule Count**: 64 rules (22 HIGH, 32 MEDIUM, 10 LOW severity)
+- **Detection Coverage**: Commercial NDAs, MSAs, SaaS Agreements, Vendor Contracts, Employment/Contractor Agreements, Consumer Terms, Creator/Marketplace Terms, Event/Service Agreements, and Privacy-Adjacent Policies
+- **Test Coverage**: 105/105 tests passing (100% pass rate)
 
 **See**: [Rules Engine Overview](rules_engine_overview.md) for detailed implementation documentation.
 

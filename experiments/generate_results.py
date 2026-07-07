@@ -46,7 +46,7 @@ def generate_results_md(exp1_results, exp2_results, exp3_results, exp4_issues, b
     }}
   ],
   "overall_risk": "high",
-  "version": "1.0.3"
+  "version": "3.0.0"
 }}
 ```
 

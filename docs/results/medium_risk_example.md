@@ -86,7 +86,7 @@
 - Medium Risk: 2-3
 - Low Risk: 0-1
 
-**Rule Engine Version**: 1.0.3
+**Rule Engine Version**: 3.0.0
 
 ## Interpretation
 

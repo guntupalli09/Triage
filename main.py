@@ -45,7 +45,7 @@ from PyPDF2 import PdfReader
 from docx import Document
 from sqlalchemy.orm import Session as DBSession
 
-from rules_engine import RuleEngine
+from rules_engine import RuleEngine, RULE_ENGINE_VERSION
 from evaluator import LLMEvaluator
 from database import get_db, check_db_health, check_redis_health
 from auth import (
@@ -225,7 +225,7 @@ def run_analysis(contract_text: str) -> Dict:
         "overall_risk": overall_risk,
         "llm_result": llm_result,
         "rule_counts": analysis.get("rule_counts", {"high": 0, "medium": 0, "low": 0}),
-        "version": analysis.get("version", "1.0.3"),
+        "version": analysis.get("version", RULE_ENGINE_VERSION),
     }
 
 
@@ -1106,7 +1106,7 @@ def _render_shared_report(request: Request, contract: Contract) -> HTMLResponse:
         "disclaimer": llm_result.get("disclaimer", "This is automated risk triage, not legal advice."),
         "findings_count": len(findings_dict),
         "rule_counts": rule_counts,
-        "rule_engine_version": contract.rule_engine_version or "1.0.3",
+        "rule_engine_version": contract.rule_engine_version or RULE_ENGINE_VERSION,
         "current_year": datetime.now().year,
     })
 

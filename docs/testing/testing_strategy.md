@@ -10,9 +10,9 @@ The Contract Risk Triage Tool uses a **deterministic-first testing approach** th
 
 ## Current Test Status
 
-**Last Updated**: 2026-01-14  
-**Total Tests**: 59  
-**Pass Rate**: 96.6% (57 passed, 2 failed)
+**Last Updated**: 2026-07-07  
+**Total Tests**: 105  
+**Pass Rate**: 100% (105 passed, 0 failed)
 
 See [Test Results Documentation](test_results.md) for detailed coverage and results.
 

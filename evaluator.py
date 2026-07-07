@@ -25,6 +25,8 @@ from typing import Dict, List, Optional, Set
 
 from openai import OpenAI
 
+from rules_engine import RULE_ENGINE_VERSION
+
 logger = logging.getLogger(__name__)
 
 
@@ -294,8 +296,7 @@ OUTPUT FORMAT: JSON ONLY with this schema:
         )
 
         # Extract ruleset version for auditability (passed from main.py via findings metadata if available)
-        # For now, use a default - in production this would come from the analysis result
-        ruleset_version = "1.0.3"  # Default, can be enhanced to extract from findings metadata
+        ruleset_version = RULE_ENGINE_VERSION
         
         prompt = self._build_prompt(findings=findings, overall_risk=overall_risk, ruleset_version=ruleset_version)
 

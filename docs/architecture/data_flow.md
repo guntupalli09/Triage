@@ -73,7 +73,7 @@
     "findings": [Finding, ...],
     "overall_risk": "high" | "medium" | "low",
     "rule_counts": {"high": int, "medium": int, "low": int},
-    "version": "1.0.3"
+    "version": "3.0.0"
 }
 ```
 

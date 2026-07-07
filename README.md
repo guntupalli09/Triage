@@ -35,7 +35,7 @@ Analyzes uploaded contract documents using deterministic pattern matching to ide
 
 ## Testing
 
-**Test Results**: 57/59 tests passing (96.6% pass rate)
+**Test Results**: 105/105 tests passing (100% pass rate)
 
 ```bash
 # Run all tests
@@ -100,8 +100,9 @@ Comprehensive documentation is available in the `/docs` directory:
 
 ## Rule Engine
 
-- **Version**: 1.0.3 (see `rules/version.json`)
-- **Coverage**: Commercial NDAs and MSAs
+- **Version**: 3.0.0 (see `rules/version.json`)
+- **Rule Count**: 64 rules (22 HIGH, 32 MEDIUM, 10 LOW)
+- **Coverage**: Commercial NDAs, MSAs, SaaS Agreements, Vendor Contracts, Employment/Contractor Agreements, Consumer Terms, Creator/Marketplace Terms, Event/Service Agreements, and Privacy-Adjacent Policies
 - **Detection**: Regex and proximity-based pattern matching
 - **Anchoring**: All findings include exact text positions (start_index, end_index, exact_snippet)
 - **Suppression**: Deterministic false-positive suppression layer

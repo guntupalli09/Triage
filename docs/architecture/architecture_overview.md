@@ -63,8 +63,8 @@ The Contract Risk Triage Tool uses a **neural-symbolic architecture** that stric
 - Pure algorithmic detection (no AI)
 - Regex pattern matching
 - Proximity-based logic (anchors + nearby patterns)
-- Rule versioning (currently v1.0.3)
-- Deduplication by rule_id
+- Rule versioning (currently v3.0.0)
+- Deduplication by (rule_id, clause_number)
 
 **Output**: List of `Finding` objects with:
 - `rule_id`: Unique identifier

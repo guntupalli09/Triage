@@ -50,7 +50,7 @@ Auditability means that every claim made by the system can be traced back to its
 ### 2. Rule Engine Versioning
 
 **Every analysis includes**:
-- Rule engine version (currently "1.0.3")
+- Rule engine version (currently "3.0.0")
 - Version constant in source code
 - Version history documented
 
@@ -91,7 +91,7 @@ Auditability means that every claim made by the system can be traced back to its
 
 **Input**: Contract file uploaded
 **Timestamp**: 2026-01-11 10:00:00
-**Rule Engine Version**: 1.0.3
+**Rule Engine Version**: 3.0.0
 
 ### Detection Phase
 
@@ -119,7 +119,7 @@ LLM OUTPUT: 3 top_issues, 4 summary bullets
 ### Results Phase
 
 **Output includes**:
-- Rule engine version: 1.0.3
+- Rule engine version: 3.0.0
 - Finding details with rule_ids
 - LLM explanations mapped to findings
 

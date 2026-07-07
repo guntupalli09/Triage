@@ -235,13 +235,13 @@ def _load_ruleset_version() -> Dict:
                 return json.load(f)
         except Exception as e:
             # Fallback to hardcoded version if file read fails
-            return {"version": "1.0.3", "released": "2026-01-14", "scope": "Commercial NDAs and MSAs", "changes": []}
+            return {"version": "3.0.0", "released": "2026-07-07", "scope": "Commercial NDAs, MSAs, SaaS Agreements, Vendor Contracts, Employment/Contractor Agreements, Consumer Terms, Creator/Marketplace Terms, Event/Service Agreements, and Privacy-Adjacent Policies", "changes": []}
     else:
         # Fallback if version.json doesn't exist
-        return {"version": "1.0.3", "released": "2026-01-14", "scope": "Commercial NDAs and MSAs", "changes": []}
+        return {"version": "3.0.0", "released": "2026-07-07", "scope": "Commercial NDAs, MSAs, SaaS Agreements, Vendor Contracts, Employment/Contractor Agreements, Consumer Terms, Creator/Marketplace Terms, Event/Service Agreements, and Privacy-Adjacent Policies", "changes": []}
 
 _RULESET_VERSION_DATA = _load_ruleset_version()
-RULE_ENGINE_VERSION = _RULESET_VERSION_DATA.get("version", "1.0.3")
+RULE_ENGINE_VERSION = _RULESET_VERSION_DATA.get("version", "3.0.0")
 
 
 class RuleEngine:

@@ -21,7 +21,7 @@
     }
   ],
   "overall_risk": "high",
-  "version": "1.0.3"
+  "version": "3.0.0"
 }
 ```
 

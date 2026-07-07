@@ -130,15 +130,15 @@ class Finding:
 
 ## Deduplication
 
-Findings are deduplicated by `rule_id`:
-- Only first occurrence of each rule is kept
+Findings are deduplicated by `(rule_id, clause_number)`:
+- The best match (longer matched excerpt, or earliest position on ties) is kept per key
 - Prevents inflated counts from multiple matches
-- Ensures one finding per risk type per contract
+- Allows the same rule to fire once per distinct clause, while still collapsing repeated hits within a clause
 
 ## Rule Versioning
 
 Rules are versioned as part of the rule engine:
-- Current version: `1.0.3`
+- Current version: `3.0.0`
 - Version included in all analysis results
 - Changes to rules increment version number
 

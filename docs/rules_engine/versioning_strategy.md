@@ -4,7 +4,7 @@
 
 The rule engine uses semantic versioning: `MAJOR.MINOR.PATCH`
 
-- **Current version**: `1.0.3`
+- **Current version**: `3.0.0`
 - **Version constant**: `RULE_ENGINE_VERSION` in `rules_engine.py`
 - **Included in results**: All analysis results include the version
 
@@ -42,7 +42,24 @@ Incremented when:
 
 ## Version History
 
-### 1.0.3 (Current)
+### 3.0.0 (Current)
+
+**Changes**:
+- Added 12 broader-audience rules covering consumer, creator, freelancer, worker, event, and marketplace terms: stored-card charges, user content licenses, payout deductions, worker classification, refunds, cancellation fees, account suspension, personal data sharing, non-disparagement, media releases, electronic notices, and marketing communications consent
+- Expanded scope to Commercial NDAs, MSAs, SaaS Agreements, Vendor Contracts, Employment/Contractor Agreements, Consumer Terms, Creator/Marketplace Terms, Event/Service Agreements, and Privacy-Adjacent Policies
+- Ruleset now totals 64 rules (22 HIGH, 32 MEDIUM, 10 LOW)
+
+### 2.1.0
+
+**Changes**:
+- Added 12 rules for broader ICP coverage: AI/ML model training on customer data, unilateral price escalation, personal data processing without protections, data portability rights, data deletion obligations, cross-border data transfers, renewal pricing increases, minimum purchase commitments, benchmarking restrictions, permitted use restrictions, export controls, payment terms
+
+### 2.0.0
+
+**Changes**:
+- Added 15 rules for SaaS, vendor, and procurement coverage: unilateral modification, consequential damages, termination for convenience, data portability, asymmetric liability, mandatory arbitration, warranty disclaimers, breach notification, insurance, force majeure, SLA, MFN, compliance, escrow, subcontracting
+
+### 1.0.3
 
 **Changes**:
 - Added alias support for rules
@@ -81,7 +98,7 @@ The rule engine version is displayed:
 - In logs (when findings are detected)
 - In API responses (if API endpoints added)
 
-**Format**: "Rule Engine Version 1.0.3"
+**Format**: "Rule Engine Version 3.0.0"
 
 ## Why Versioning Matters
 
