@@ -128,7 +128,7 @@
     <div class="report-card p-6 mb-6 fade-in {% if overall_risk == 'high' %}severity-high{% elif overall_risk == 'medium' %}severity-medium{% else %}severity-low{% endif %}" style="border-left-width: 4px;">
         <div class="flex items-start justify-between flex-wrap gap-4">
             <div>
-                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-2">Verification Status</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-2">Overall Risk Assessment</div>
                 <div class="flex items-center gap-3 mb-4">
                     <span class="text-2xl font-extrabold {% if overall_risk == 'high' %}text-red-700{% elif overall_risk == 'medium' %}text-amber-700{% else %}text-green-700{% endif %}">
                         {{ overall_risk|upper }} RISK
@@ -166,7 +166,7 @@
             </div>
             <div class="text-center p-3 bg-slate-50 rounded-md">
                 <div class="text-2xl font-extrabold text-[#0F172A]">{{ possible_missing_sections|length if possible_missing_sections else 0 }}</div>
-                <div class="text-xs font-medium text-[#475569] mt-1">Missing Sections</div>
+                <div class="text-xs font-medium text-[#475569] mt-1">Provisions Not Detected</div>
             </div>
         </div>
         <div class="grid grid-cols-3 gap-4">
@@ -182,25 +182,6 @@
                 <div class="text-2xl font-extrabold text-blue-600">{{ rule_counts.get('low', 0) }}</div>
                 <div class="text-xs font-medium text-[#475569] mt-1">Low Risk</div>
             </div>
-        </div>
-    </div>
-
-    <!-- Rule Coverage Dashboard -->
-    <div class="report-card p-6 mb-6 fade-in">
-        <h2 class="text-lg font-bold text-[#0F172A] mb-4">Rule Coverage</h2>
-        <div class="category-grid">
-            {% for cat, status in (rule_categories|default({})).items() %}
-            <div class="flex items-center justify-between p-3 bg-slate-50 rounded-md border border-slate-100">
-                <span class="text-sm font-medium text-[#334155]">{{ cat }}</span>
-                {% if status == "PASS" %}
-                <span class="text-xs font-bold status-pass mono">PASS</span>
-                {% elif status == "WARNING" %}
-                <span class="text-xs font-bold status-warning mono">WARNING</span>
-                {% else %}
-                <span class="text-xs font-bold status-fail mono">FAIL</span>
-                {% endif %}
-            </div>
-            {% endfor %}
         </div>
     </div>
 
@@ -243,7 +224,7 @@
                         </div>
                         {% endif %}
 
-                        {% if issue.why_it_matters %}
+                        {% if issue.why_it_matters and issue.why_it_matters != issue.rationale %}
                         <div>
                             <div class="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-1">Analysis</div>
                             <div class="text-[#334155]">{{ issue.why_it_matters }}</div>
@@ -285,6 +266,38 @@
         </div>
     </div>
     {% endif %}
+
+    <!-- Rule Coverage (collapsed reference) -->
+    <div class="report-card p-6 mb-6 fade-in">
+        <details>
+            <summary class="flex items-center justify-between">
+                <span>
+                    <span class="text-lg font-bold text-[#0F172A]">Rule Coverage</span>
+                    <span class="text-sm text-[#64748B] ml-2">{{ rule_categories|default({})|length }} checks executed — expand for the full list</span>
+                </span>
+                <svg class="w-5 h-5 text-[#64748B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <p class="text-xs text-[#64748B] mt-3 mb-4">
+                <span class="font-bold status-pass mono">PASS</span> — no risk pattern detected &nbsp;·&nbsp;
+                <span class="font-bold status-warning mono">WARNING</span> — medium-risk pattern detected &nbsp;·&nbsp;
+                <span class="font-bold status-fail mono">FAIL</span> — high-risk pattern detected
+            </p>
+            <div class="category-grid">
+                {% for cat, status in (rule_categories|default({})).items() %}
+                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-md border border-slate-100">
+                    <span class="text-sm font-medium text-[#334155]">{{ cat }}</span>
+                    {% if status == "PASS" %}
+                    <span class="text-xs font-bold status-pass mono">PASS</span>
+                    {% elif status == "WARNING" %}
+                    <span class="text-xs font-bold status-warning mono">WARNING</span>
+                    {% else %}
+                    <span class="text-xs font-bold status-fail mono">FAIL</span>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </details>
+    </div>
 
     <!-- Playbook Deviations -->
     {% if deviations and deviations.deviations %}
@@ -368,25 +381,30 @@
     <div class="report-card p-6 mb-6 fade-in">
         <h2 class="text-lg font-bold text-[#0F172A] mb-4">Execution Pipeline</h2>
         <div class="flex flex-col items-center">
+            {% set llm_skipped = explanation_source == 'rules_fallback' %}
             {% set stages = [
-                ("Parser", "Document text extracted and normalized"),
-                ("Normalizer", "Text cleaned and structured for analysis"),
-                ("Deterministic Rule Engine", total_rule_count|default(0) ~ " rules executed against document"),
-                ("Evidence Engine", "Clause-level evidence anchored to findings"),
-                ("Consistency Engine", "Cross-finding validation completed"),
-                ("Workflow Engine", "Suppression and deduplication applied"),
-                ("LLM Explanation Layer", "Findings explained for human review"),
-                ("Verification Report Generated", "Report assembled with full audit trail")
+                ("Parser", "Document text extracted and normalized", "DONE"),
+                ("Normalizer", "Text cleaned and structured for analysis", "DONE"),
+                ("Deterministic Rule Engine", total_rule_count|default(0) ~ " rules executed against document", "DONE"),
+                ("Evidence Engine", "Clause-level evidence anchored to findings", "DONE"),
+                ("Consistency Engine", "Cross-finding validation completed", "DONE"),
+                ("Workflow Engine", "Suppression and deduplication applied", "DONE"),
+                ("LLM Explanation Layer", "Explanations unavailable for this run — deterministic rationale shown instead" if llm_skipped else "Findings explained for human review", "SKIPPED" if llm_skipped else "DONE"),
+                ("Verification Report Generated", "Report assembled with full audit trail", "DONE")
             ] %}
-            {% for stage_name, stage_desc in stages %}
+            {% for stage_name, stage_desc, stage_status in stages %}
             <div class="w-full max-w-md">
                 <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-md border border-slate-100">
+                    {% if stage_status == 'DONE' %}
                     <svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    {% else %}
+                    <svg class="w-4 h-4 text-slate-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 9a1 1 0 000 2h4a1 1 0 100-2H8z" clip-rule="evenodd"/></svg>
+                    {% endif %}
                     <div class="flex-1">
                         <div class="text-sm font-semibold text-[#0F172A]">{{ stage_name }}</div>
                         <div class="text-xs text-[#475569]">{{ stage_desc }}</div>
                     </div>
-                    <span class="text-xs font-medium status-pass mono">DONE</span>
+                    <span class="text-xs font-medium mono {% if stage_status == 'DONE' %}status-pass{% else %}text-slate-400{% endif %}">{{ stage_status }}</span>
                 </div>
             </div>
             {% if not loop.last %}
@@ -403,8 +421,8 @@
         <p class="text-sm text-[#475569] mb-4">The deterministic engine did not detect these common provisions. They may be intentionally omitted or require manual verification.</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {% for section in possible_missing_sections %}
-            <div class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-md">
-                <div class="w-4 h-4 rounded border-2 border-slate-300 flex-shrink-0"></div>
+            <div class="flex items-start gap-2 p-2.5 bg-slate-50 rounded-md">
+                <svg class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
                 <span class="text-sm text-[#334155]">{{ section }}</span>
             </div>
             {% endfor %}
@@ -417,12 +435,12 @@
         <h2 class="text-lg font-bold text-[#0F172A] mb-4">Document Health</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <div class="p-3 bg-slate-50 rounded-md">
-                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Risk Density</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rules Triggered</div>
                 <div class="text-lg font-bold text-[#0F172A] mono">{{ findings_count }} / {{ total_rule_count|default(0) }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
-                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rule Coverage</div>
-                <div class="text-lg font-bold text-[#0F172A] mono">{% if total_rule_count|default(0) > 0 %}{{ (((total_rule_count - findings_count) * 100) / total_rule_count)|round|int }}%{% else %}N/A{% endif %}</div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Rules Passed</div>
+                <div class="text-lg font-bold text-[#0F172A] mono">{{ (total_rule_count|default(0)) - findings_count }} / {{ total_rule_count|default(0) }}</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-md">
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Manual Review Priority</div>
@@ -513,23 +531,3 @@
 </div>
 {% endblock %}
 
-{% block scripts %}
-{% if contract_id %}
-<script>
-function shareContract(contractId) {
-    fetch('/contract/' + contractId + '/share', {method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
-        .then(r => r.json())
-        .then(data => {
-            if (data.share_url) {
-                navigator.clipboard.writeText(data.share_url).then(() => {
-                    alert('Share link copied to clipboard!');
-                }).catch(() => {
-                    prompt('Copy this share link:', data.share_url);
-                });
-            }
-        })
-        .catch(() => alert('Failed to generate share link.'));
-}
-</script>
-{% endif %}
-{% endblock %}

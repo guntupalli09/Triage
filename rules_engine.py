@@ -1442,14 +1442,16 @@ class RuleEngine:
         """
         recommendations = []
         rule_ids = {f.rule_id for f in findings}
-        
-        # Baseline recommendations (always shown)
-        baseline = [
-            "Limitation of liability (confirm it exists and covers key categories)",
-            "Indemnification scope (confirm it is mutual and reasonably capped)",
-            "Termination / term (confirm notice windows and renewal terms)",
-            "IP ownership / license scope (confirm no unintended assignment)",
-        ]
+
+        # Baseline recommendations, keyed by topic. A baseline item is only
+        # shown when no rule-based recommendation already covers its topic —
+        # otherwise the report lists near-duplicate entries side by side.
+        baseline_by_topic = {
+            "liability": "Limitation of liability (confirm it exists and covers key categories)",
+            "indemn": "Indemnification scope (confirm it is mutual and reasonably capped)",
+            "termination": "Termination / term (confirm notice windows and renewal terms)",
+            "ip ": "IP ownership / license scope (confirm no unintended assignment)",
+        }
         
         # Rule-based recommendations
         if "H_LOL_01" in rule_ids or "H_INDEM_01" in rule_ids:
@@ -1533,6 +1535,9 @@ class RuleEngine:
         if "M_PRIVACY_SHARING_01" in rule_ids or "L_COMMUNICATION_CONSENT_01" in rule_ids:
             recommendations.append("Privacy and communications choices (You may want to confirm opt-out rights, purpose limits, and third-party sharing disclosures)")
 
-        # Combine baseline with rule-based recommendations (limit total)
-        all_recommendations = baseline + recommendations
+        # Rule-based recommendations are contextual, so they lead; baseline
+        # items fill in only for topics no rule-based entry already covers.
+        covered = " ".join(recommendations).lower()
+        baseline = [text for topic, text in baseline_by_topic.items() if topic not in covered]
+        all_recommendations = recommendations + baseline
         return all_recommendations[:8]

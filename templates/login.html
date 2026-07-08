@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In — Triage AI</title>
+    <title>Log In — Triage Counsel</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" href="/static/branding/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/branding/favicon-16.png">
@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/tailwind.css">
     <style>
         :root {
             --navy: #0F172A;
@@ -123,7 +123,10 @@
                 </div>
 
                 <div>
-                    <label for="password" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Password</label>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label for="password" class="block text-sm font-semibold text-[#0F172A]">Password</label>
+                        <a href="/contact" class="text-xs font-medium text-gray-500 hover:text-[#0F172A] transition-colors">Forgot password?</a>
+                    </div>
                     <input type="password" id="password" name="password" required
                         class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-[#0F172A] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent transition"
                         placeholder="Enter your password">

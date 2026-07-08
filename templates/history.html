@@ -1,6 +1,6 @@
 {% extends "base_app.html" %}
 
-{% block title %}Contract History{% endblock %}
+{% block title %}Reviews{% endblock %}
 
 {% block extra_head %}
 <style>
@@ -41,8 +41,9 @@
         <!-- Title -->
         <div class="mb-8 fade-in">
             <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">
-                Contract <span class="gradient-text">History</span>
+                <span class="gradient-text">Reviews</span>
             </h1>
+            <p class="text-sm text-gray-500 mt-2">Every contract you've analyzed, with its risk level and report.</p>
         </div>
 
         <!-- Search & Filters -->
@@ -83,9 +84,9 @@
                             <td class="py-3.5 px-5 font-medium text-[#0F172A]">{{ contract.filename }}</td>
                             <td class="py-3.5 px-5 text-gray-500">{{ contract.created_at.strftime('%b %d, %Y at %I:%M %p') }}</td>
                             <td class="py-3.5 px-5">
-                                {% if contract.risk_level == 'high' %}
+                                {% if contract.overall_risk == 'high' %}
                                 <span class="badge-high inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold">High</span>
-                                {% elif contract.risk_level == 'medium' %}
+                                {% elif contract.overall_risk == 'medium' %}
                                 <span class="badge-medium inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold">Medium</span>
                                 {% else %}
                                 <span class="badge-low inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold">Low</span>
@@ -124,27 +125,16 @@
                 <svg class="mx-auto h-12 w-12 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                 </svg>
-                <p class="text-gray-500 font-medium">No contracts found.</p>
+                {% if q or (active_filter and active_filter != 'all') %}
+                <p class="text-gray-500 font-medium">No reviews match your search.</p>
+                <a href="/history" class="inline-block mt-4 text-sm font-semibold text-[#0F172A] hover:underline">Clear search and filters</a>
+                {% else %}
+                <p class="text-gray-500 font-medium">No reviews yet. Upload your first contract to get started.</p>
+                <a href="/upload-page" class="btn-primary inline-block mt-5 px-6 py-3 rounded-lg font-semibold">Upload Contract</a>
+                {% endif %}
             </div>
             {% endif %}
         </div>
 {% endblock %}
 
-{% block scripts %}
-<script>
-function shareContract(contractId) {
-    fetch('/contract/' + contractId + '/share', {method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
-        .then(r => r.json())
-        .then(data => {
-            if (data.share_url) {
-                navigator.clipboard.writeText(data.share_url).then(() => {
-                    alert('Share link copied to clipboard!');
-                }).catch(() => {
-                    prompt('Copy this share link:', data.share_url);
-                });
-            }
-        })
-        .catch(() => alert('Failed to generate share link.'));
-}
-</script>
-{% endblock %}
+
