@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}TriageCounsel{% endblock %} — Triage AI</title>
+    <title>{% block title %}TriageCounsel{% endblock %} — Triage Counsel</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" href="/static/branding/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/branding/favicon-16.png">
@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/tailwind.css">
     <style>
         :root {
             --navy: #0F172A;
@@ -414,13 +414,13 @@
                     <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                     </svg>
-                    <span class="font-medium">Documents Never Stored</span>
+                    <span class="font-medium">Your Documents Stay Private</span>
                 </div>
                 <div class="flex items-center gap-2 text-xs text-gray-500">
                     <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
                     </svg>
-                    <span class="font-medium">40 Deterministic Rules</span>
+                    <span class="font-medium">64 Deterministic Rules</span>
                 </div>
             </div>
 
@@ -454,8 +454,61 @@
             document.body.style.overflow = '';
         }
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') { closeMobileDrawer(); document.getElementById('userDropdown').classList.remove('open'); }
+            if (e.key === 'Escape') { closeMobileDrawer(); document.getElementById('userDropdown').classList.remove('open'); closeShareModal(); }
         });
+    </script>
+
+    <!-- Share modal (used by results & history) -->
+    <div id="shareModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle">
+        <div class="absolute inset-0 bg-slate-900/50" onclick="closeShareModal()"></div>
+        <div class="relative bg-white rounded-xl shadow-xl border border-gray-200 w-full max-w-md p-6">
+            <div class="flex items-start justify-between mb-2">
+                <h3 id="shareModalTitle" class="text-lg font-bold text-[#0F172A]">Share this report</h3>
+                <button onclick="closeShareModal()" class="text-gray-400 hover:text-gray-600" aria-label="Close">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <p class="text-sm text-gray-500 mb-4">Anyone with this link can view a read-only copy of the report. No sign-in required.</p>
+            <div class="flex gap-2">
+                <input id="shareUrlInput" type="text" readonly class="flex-1 px-3 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-700 bg-gray-50" onclick="this.select()">
+                <button id="shareCopyBtn" onclick="copyShareUrl()" class="px-4 py-2.5 rounded-lg bg-[#0F172A] text-white text-sm font-semibold hover:bg-[#1E293B] transition-colors whitespace-nowrap">Copy</button>
+            </div>
+            <p id="shareError" class="hidden text-sm text-red-600 mt-3">Couldn’t create the share link. Please try again.</p>
+        </div>
+    </div>
+    <script>
+        function closeShareModal() {
+            var m = document.getElementById('shareModal');
+            if (m) m.classList.add('hidden');
+        }
+        function copyShareUrl() {
+            var input = document.getElementById('shareUrlInput');
+            var btn = document.getElementById('shareCopyBtn');
+            input.select();
+            (navigator.clipboard ? navigator.clipboard.writeText(input.value) : Promise.reject())
+                .catch(function() { document.execCommand('copy'); })
+                .finally(function() {
+                    btn.textContent = 'Copied!';
+                    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+                });
+        }
+        function shareContract(contractId) {
+            var modal = document.getElementById('shareModal');
+            var err = document.getElementById('shareError');
+            err.classList.add('hidden');
+            fetch('/contract/' + contractId + '/share', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (!data.share_url) throw new Error('no url');
+                    document.getElementById('shareUrlInput').value = data.share_url;
+                    modal.classList.remove('hidden');
+                })
+                .catch(function() {
+                    document.getElementById('shareUrlInput').value = '';
+                    modal.classList.remove('hidden');
+                    err.classList.remove('hidden');
+                });
+        }
     </script>
     {% block scripts %}{% endblock %}
 </body>

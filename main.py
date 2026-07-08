@@ -158,7 +158,10 @@ session_store: Dict[str, Dict] = {}
 
 @app.on_event("startup")
 def on_startup():
-    from database import DATABASE_URL
+    from database import DATABASE_URL, init_db
+    # Ensure tables exist regardless of server (gunicorn hooks don't run under
+    # uvicorn or serverless); create_all is a no-op when the schema is present.
+    init_db()
     db_type = "PostgreSQL" if "postgresql" in DATABASE_URL else "SQLite"
     redis_url = os.getenv("REDIS_URL")
     logger.info(f"Triage Counsel worker ready | mode={'DEMO' if DEV_MODE else 'PROD'} | db={db_type} | redis={'yes' if redis_url else 'no'} | pid={os.getpid()}")
@@ -217,8 +220,12 @@ def run_analysis(contract_text: str) -> Dict:
         llm_result = llm_evaluator.evaluate(findings=findings_dict, overall_risk=overall_risk, contract_text=None)
         if not llm_result:
             llm_result = llm_evaluator.create_fallback_response(findings=findings_dict, overall_risk=overall_risk)
+            llm_result["explanation_source"] = "rules_fallback"
+        else:
+            llm_result["explanation_source"] = "llm"
     except Exception:
         llm_result = llm_evaluator.create_fallback_response(findings=findings_dict, overall_risk=overall_risk)
+        llm_result["explanation_source"] = "rules_fallback"
 
     return {
         "findings_dict": findings_dict,
@@ -255,11 +262,13 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
             enhanced = llm_issue.copy()
             enhanced["severity"] = finding.get("severity", llm_issue.get("severity", "low"))
         else:
+            # No LLM explanation for this finding — surface only the
+            # deterministic rationale rather than repeating canned filler text
+            # (identical "analysis"/"negotiation" lines on every finding read
+            # as fake and undermine trust in the report).
             enhanced = {
                 "title": finding.get("title", ""),
                 "severity": finding.get("severity", "low"),
-                "why_it_matters": finding.get("rationale", "This may indicate increased contractual risk."),
-                "negotiation_consideration": "Commonly negotiated; consider clarifying scope, caps, and mutuality.",
             }
 
         enhanced["rule_id"] = finding.get("rule_id", "")
@@ -576,7 +585,7 @@ async def upload_page(request: Request):
     db = next(get_db())
     user = require_user(request, db)
     playbooks = db.query(Playbook).filter(Playbook.user_id == user.id).all()
-    return templates.TemplateResponse("index.html", {
+    return templates.TemplateResponse("upload.html", {
         "request": request, "current_year": datetime.now().year,
         "dev_mode": DEV_MODE, "user": user, "playbooks": playbooks,
     })
@@ -591,33 +600,47 @@ async def upload_contract(
     db = next(get_db())
     user = get_current_user(request, db)
 
+    def upload_error(message: str, status_code: int = 400):
+        """Render the upload page with an inline error instead of a raw JSON
+        response, so a browser form post never dead-ends on an error page."""
+        accepts_html = "text/html" in (request.headers.get("accept") or "")
+        if not accepts_html:
+            raise HTTPException(status_code=status_code, detail=message)
+        playbooks = db.query(Playbook).filter(Playbook.user_id == user.id).all() if user else []
+        return templates.TemplateResponse("upload.html" if user else "index.html", {
+            "request": request, "error": message, "user": user,
+            "playbooks": playbooks, "current_year": datetime.now().year,
+            "dev_mode": DEV_MODE,
+        }, status_code=status_code)
+
     if not file.filename:
-        raise HTTPException(status_code=400, detail="Missing filename")
+        return upload_error("No file selected. Choose a PDF, DOCX, or TXT contract to analyze.")
     ext = os.path.splitext(file.filename.lower())[1]
     if ext not in ALLOWED_EXTENSIONS:
-        raise HTTPException(status_code=400, detail="Only PDF, DOCX, or TXT")
+        return upload_error(f"“{file.filename}” isn’t a supported format. Upload a PDF, DOCX, or TXT file.")
 
     file_bytes = await file.read()
     if not file_bytes:
-        raise HTTPException(status_code=400, detail="Empty file")
+        return upload_error("That file appears to be empty. Choose a different file and try again.")
     if len(file_bytes) > MAX_UPLOAD_BYTES:
-        raise HTTPException(status_code=400, detail="File too large (max 10MB)")
+        return upload_error("That file is larger than the 10MB limit. Try compressing it or splitting the document.")
 
     try:
         contract_text = extract_text_from_file(file_bytes, file.filename)
         if not contract_text or not contract_text.strip():
-            raise HTTPException(status_code=400, detail="File appears empty after parsing")
+            return upload_error("We couldn’t find any text in that document. If it’s a scanned PDF, run OCR first and re-upload.")
     except HTTPException:
         raise
     except Exception:
-        raise HTTPException(status_code=400, detail="Failed to parse document")
+        return upload_error("We couldn’t read that document. Make sure it opens correctly, then try again.")
 
     # If user is logged in, save to DB
     if user:
         if not check_usage_limit(user):
-            return templates.TemplateResponse("index.html", {
+            return templates.TemplateResponse("upload.html", {
                 "request": request,
-                "error": "Monthly contract limit reached. Please upgrade your plan.",
+                "error": "You’ve used all of this month’s reviews on your current plan.",
+                "error_upgrade": True,
                 "user": user,
                 "playbooks": db.query(Playbook).filter(Playbook.user_id == user.id).all() if user else [],
                 "current_year": datetime.now().year,
@@ -693,13 +716,23 @@ async def batch_upload_submit(
     db = next(get_db())
     user = require_user(request, db)
 
+    def batch_error(message: str, status_code: int = 400):
+        """Inline error on the batch page instead of a raw JSON dead end."""
+        if "text/html" not in (request.headers.get("accept") or ""):
+            raise HTTPException(status_code=status_code, detail=message)
+        playbooks = db.query(Playbook).filter(Playbook.user_id == user.id).all()
+        return templates.TemplateResponse("batch_upload.html", {
+            "request": request, "user": user, "playbooks": playbooks,
+            "error": message, "current_year": datetime.now().year,
+        }, status_code=status_code)
+
     plan = PLAN_LIMITS.get(user.plan, {"monthly_limit": 0, "batch_max": 1, "playbooks_max": 0})
     if len(files) > plan["batch_max"]:
-        raise HTTPException(status_code=400, detail=f"Batch limit is {plan['batch_max']} files on your plan.")
+        return batch_error(f"Your plan supports up to {plan['batch_max']} files per batch. Remove some files or upgrade your plan.")
 
     remaining = user.monthly_limit - user.contracts_this_month
     if len(files) > remaining:
-        raise HTTPException(status_code=402, detail=f"Only {remaining} contracts remaining this month.")
+        return batch_error(f"You have {remaining} review{'s' if remaining != 1 else ''} left this month, but selected {len(files)} files. Remove some files or upgrade your plan.", 402)
 
     playbook = None
     template_findings = None
@@ -905,6 +938,7 @@ async def view_contract(request: Request, contract_id: int):
         "token": None,
         "contract_id": contract.id,
         "deviations": contract.deviations_json,
+        "explanation_source": llm_result.get("explanation_source"),
         "total_rule_count": total_rule_count,
         "rule_categories": rule_categories,
         "findings_dict": findings_dict,
@@ -1450,6 +1484,7 @@ async def demo_analysis(request: Request):
         "current_year": datetime.now().year,
         "token": None, "contract_id": None, "deviations": None,
         "is_demo": True,
+        "explanation_source": analysis["llm_result"].get("explanation_source"),
         "total_rule_count": total_rule_count,
         "rule_categories": rule_categories,
         "findings_dict": analysis["findings_dict"],
@@ -1653,6 +1688,7 @@ async def results_legacy(request: Request, token: str):
         "rule_engine_version": analysis["version"],
         "current_year": datetime.now().year,
         "token": token, "contract_id": None, "deviations": None,
+        "explanation_source": analysis["llm_result"].get("explanation_source"),
         "total_rule_count": total_rule_count,
         "rule_categories": rule_categories,
         "findings_dict": analysis["findings_dict"],

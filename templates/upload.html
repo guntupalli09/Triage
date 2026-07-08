@@ -1,0 +1,189 @@
+{% extends "base_app.html" %}
+
+{% block title %}New Review{% endblock %}
+
+{% block extra_head %}
+<style>
+    .upload-area {
+        border: 2px dashed #D1D5DB;
+        transition: all 0.15s ease;
+    }
+    .upload-area:hover, .upload-area.dragging {
+        border-color: #94A3B8;
+        background: #F8FAFC;
+    }
+    .btn-primary {
+        background: #0F172A;
+        color: white;
+        font-weight: 600;
+        transition: all 0.15s ease;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .btn-primary:hover:not(:disabled) {
+        background: #1E293B;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .loading-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+        animation: loading-shimmer 1.5s ease-in-out infinite;
+    }
+    @keyframes loading-shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    .file-preview-card { animation: scaleIn 0.3s ease-out; }
+</style>
+{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1">/</span>
+<span class="text-gray-600">New Review</span>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <!-- Title -->
+    <div class="mb-8 fade-in">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">New Review</h1>
+        <p class="text-sm text-gray-500 mt-2">Upload a contract and get an auditable risk report in about a minute. Findings are produced by 64 deterministic rules — never by AI guesswork.</p>
+    </div>
+
+    {% if error %}
+    <div class="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium flex items-center justify-between gap-4 flex-wrap fade-in">
+        <span>{{ error }}</span>
+        {% if error_upgrade %}
+        <a href="/pricing" class="shrink-0 inline-block px-4 py-2 rounded-md bg-[#0F172A] text-white text-xs font-semibold hover:bg-[#1E293B] transition-colors">Upgrade Plan →</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Upload Card -->
+    <div class="premium-card p-6 sm:p-8 fade-in">
+        <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
+            <div class="mb-6">
+                <div id="uploadArea" class="upload-area mt-1 flex justify-center px-6 pt-10 pb-10 rounded-xl cursor-pointer">
+                    <div class="space-y-3 text-center pointer-events-none">
+                        <svg class="mx-auto h-12 w-12 text-gray-300" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="scale(2)" />
+                        </svg>
+                        <div class="text-sm text-gray-500">
+                            <span class="font-semibold text-[#0F172A]">Choose a file</span>
+                            or drag it here
+                        </div>
+                        <p class="text-xs text-gray-400">PDF, DOCX, or TXT up to 10MB</p>
+                    </div>
+                    <input id="file" name="file" type="file" accept=".pdf,.docx,.txt" class="sr-only" required>
+                </div>
+
+                <div id="filePreview" class="hidden mt-6">
+                    <div class="file-preview-card flex items-center gap-4 p-4 rounded-lg border border-gray-200 bg-gray-50">
+                        <svg class="w-9 h-9 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                        <div class="min-w-0 flex-1">
+                            <p id="fileName" class="text-sm font-semibold text-[#0F172A] truncate"></p>
+                            <p id="fileSize" class="text-xs text-gray-400 mt-0.5"></p>
+                        </div>
+                        <button type="button" id="removeFile" class="shrink-0 w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-red-500 hover:border-red-200 transition-all" title="Remove file" aria-label="Remove file">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {% if playbooks %}
+            <div class="mb-6">
+                <label for="playbook_id" class="block text-sm font-semibold text-[#0F172A] mb-2">Compare against playbook <span class="font-normal text-gray-400">(optional)</span></label>
+                <select name="playbook_id" id="playbook_id" class="w-full px-4 py-3 rounded-lg border border-gray-200 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent">
+                    <option value="">None — standard analysis only</option>
+                    {% for p in playbooks %}
+                    <option value="{{ p.id }}">{{ p.name }}{% if p.contract_type %} ({{ p.contract_type }}){% endif %}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endif %}
+
+            <button type="submit" id="analyzeButton" class="btn-primary w-full py-3.5 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0F172A] disabled:opacity-70 disabled:cursor-not-allowed relative overflow-hidden">
+            <span id="buttonText">Analyze Contract</span>
+                <div id="loadingBar" class="loading-bar hidden"></div>
+            </button>
+            <p id="analyzeHint" class="hidden text-center text-xs text-gray-400 mt-3">Running 64 deterministic rules against your document — this usually takes under a minute. Keep this tab open.</p>
+        </form>
+    </div>
+
+    <!-- Contextual footer -->
+    <div class="flex items-center justify-between mt-6 text-sm text-gray-500 fade-in flex-wrap gap-3">
+        <span>{{ user.contracts_this_month }} of {{ user.monthly_limit }} reviews used this month{% if user.plan in ('none', 'free') or not user.plan %} · <a href="/pricing" class="font-medium text-[#0F172A] hover:underline">Upgrade for more</a>{% endif %}</span>
+        <a href="/batch-upload" class="font-medium text-[#0F172A] hover:underline">Reviewing multiple contracts? Batch upload →</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const fileInput = document.getElementById('file');
+    const uploadArea = document.getElementById('uploadArea');
+    const filePreview = document.getElementById('filePreview');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    const removeFileBtn = document.getElementById('removeFile');
+    const analyzeButton = document.getElementById('analyzeButton');
+    const buttonText = document.getElementById('buttonText');
+    const loadingBar = document.getElementById('loadingBar');
+    const uploadForm = document.getElementById('uploadForm');
+
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    }
+
+    function showFilePreview(file) {
+        fileName.textContent = file.name;
+        fileSize.textContent = formatFileSize(file.size);
+        uploadArea.classList.add('hidden');
+        filePreview.classList.remove('hidden');
+    }
+
+    function hideFilePreview() {
+        fileInput.value = '';
+        uploadArea.classList.remove('hidden');
+        filePreview.classList.add('hidden');
+    }
+
+    uploadArea.addEventListener('click', () => fileInput.click());
+    uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('dragging'); });
+    uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragging'));
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragging');
+        if (e.dataTransfer.files.length) {
+            fileInput.files = e.dataTransfer.files;
+            showFilePreview(e.dataTransfer.files[0]);
+        }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files[0]) showFilePreview(e.target.files[0]);
+    });
+
+    removeFileBtn.addEventListener('click', (e) => { e.preventDefault(); hideFilePreview(); });
+
+    uploadForm.addEventListener('submit', () => {
+        analyzeButton.disabled = true;
+        buttonText.textContent = 'Analyzing…';
+        loadingBar.classList.remove('hidden');
+        document.getElementById('analyzeHint').classList.remove('hidden');
+    });
+</script>
+{% endblock %}

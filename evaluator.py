@@ -339,6 +339,9 @@ OUTPUT FORMAT: JSON ONLY with this schema:
 
     def create_fallback_response(self, findings: List[Dict], overall_risk: str) -> Dict:
         # Rules-only fallback (still usable and safe)
+        # Deterministic rationale already explains each finding; don't fabricate
+        # an "analysis" or a one-size-fits-all negotiation tip — repeating canned
+        # text on every finding reads as filler and erodes trust in the report.
         top_issues = []
         for f in findings[:6]:
             top_issues.append(
@@ -346,7 +349,6 @@ OUTPUT FORMAT: JSON ONLY with this schema:
                     "title": f.get("title") or f.get("rule_name", "Issue"),
                     "severity": f.get("severity", "low"),
                     "why_it_matters": f.get("rationale", "This may indicate increased contractual risk."),
-                    "negotiation_consideration": "Commonly negotiated; consider clarifying scope, caps, and mutuality.",
                 }
             )
 
@@ -362,11 +364,9 @@ OUTPUT FORMAT: JSON ONLY with this schema:
             "overall_risk": overall_risk,
             "summary_bullets": summary[:5],
             "top_issues": top_issues,
-            "possible_missing_sections": [
-                "Limitation of liability (confirm it exists and covers key categories)",
-                "Indemnification scope (confirm it is mutual and reasonably capped)",
-                "Termination / term (confirm notice windows and renewal terms)",
-                "IP ownership / license scope (confirm no unintended assignment)",
-            ][:6],
+            # The rule engine's build_missing_sections() already produces this
+            # list; hardcoding near-duplicates here caused repeated entries in
+            # the "Recommended Manual Review" section of the report.
+            "possible_missing_sections": [],
             "disclaimer": "This is automated risk triage, not legal advice.",
         }

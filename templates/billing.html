@@ -28,7 +28,11 @@
         <div class="flex items-center justify-between mb-4">
             <div>
                 <div class="text-xl font-bold gradient-text capitalize">{{ user.plan or 'Free' }}</div>
+                {% if user.plan in ('none', 'free') or not user.plan %}
+                <div class="text-xs text-gray-400 mt-1">Free plan — no billing required</div>
+                {% else %}
                 <div class="text-xs text-gray-400 mt-1 capitalize">Status: {{ user.subscription_status or 'inactive' }}</div>
+                {% endif %}
             </div>
             <a href="/pricing" class="btn-primary py-2.5 px-6 rounded-lg whitespace-nowrap">
                 {% if user.plan in ('none', 'free') %}View Plans{% else %}Change Plan{% endif %}
