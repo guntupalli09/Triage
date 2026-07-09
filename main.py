@@ -51,7 +51,9 @@ from database import get_db, check_db_health, check_redis_health
 from auth import (
     hash_password, verify_password, create_session, get_current_user,
     logout as auth_logout, check_usage_limit,
+    make_reset_token, verify_reset_token,
 )
+from mailer import send_email
 from models import User, Contract, Playbook
 from playbook_engine import PlaybookEngine
 
@@ -344,7 +346,8 @@ async def login_page(request: Request):
     user = get_current_user(request, next(get_db()))
     if user:
         return RedirectResponse(url="/dashboard", status_code=302)
-    return templates.TemplateResponse("login.html", {"request": request, "error": None})
+    message = "Your password has been updated. Log in with your new password." if request.query_params.get("reset") == "1" else None
+    return templates.TemplateResponse("login.html", {"request": request, "error": None, "message": message})
 
 
 @app.post("/login", response_class=HTMLResponse)
@@ -356,6 +359,80 @@ async def login_submit(request: Request, email: str = Form(...), password: str =
     response = RedirectResponse(url="/dashboard", status_code=302)
     create_session(user.id, response)
     return response
+
+
+@app.get("/forgot-password", response_class=HTMLResponse)
+async def forgot_password_page(request: Request):
+    return templates.TemplateResponse("forgot_password.html", {
+        "request": request, "message": None, "error": None, "dev_reset_link": None,
+    })
+
+
+@app.post("/forgot-password", response_class=HTMLResponse)
+async def forgot_password_submit(request: Request, email: str = Form(...)):
+    db = next(get_db())
+    user = db.query(User).filter(User.email == email.lower().strip()).first()
+
+    dev_reset_link = None
+    if user:
+        token = make_reset_token(user)
+        reset_link = f"{BASE_URL}/reset-password?token={token}"
+        sent = send_email(
+            user.email,
+            "Reset your Triage Counsel password",
+            "We received a request to reset the password for your Triage Counsel account.\n\n"
+            f"Set a new password here (link expires in one hour):\n{reset_link}\n\n"
+            "If you didn't request this, you can ignore this email — your password is unchanged.",
+        )
+        if not sent and DEV_MODE:
+            dev_reset_link = reset_link
+
+    # Same response whether or not the account exists — don't leak which
+    # emails are registered.
+    return templates.TemplateResponse("forgot_password.html", {
+        "request": request,
+        "message": "If an account exists for that email, we've sent a password reset link. It expires in one hour.",
+        "error": None,
+        "dev_reset_link": dev_reset_link,
+    })
+
+
+@app.get("/reset-password", response_class=HTMLResponse)
+async def reset_password_page(request: Request, token: str = ""):
+    db = next(get_db())
+    user = verify_reset_token(token, db)
+    return templates.TemplateResponse("reset_password.html", {
+        "request": request, "token": token, "invalid": user is None, "error": None,
+    })
+
+
+@app.post("/reset-password", response_class=HTMLResponse)
+async def reset_password_submit(
+    request: Request,
+    token: str = Form(...),
+    password: str = Form(...),
+    confirm_password: str = Form(...),
+):
+    db = next(get_db())
+    user = verify_reset_token(token, db)
+    if user is None:
+        return templates.TemplateResponse("reset_password.html", {
+            "request": request, "token": token, "invalid": True, "error": None,
+        })
+    if password != confirm_password:
+        return templates.TemplateResponse("reset_password.html", {
+            "request": request, "token": token, "invalid": False,
+            "error": "Passwords do not match.",
+        })
+    if len(password) < 8:
+        return templates.TemplateResponse("reset_password.html", {
+            "request": request, "token": token, "invalid": False,
+            "error": "Password must be at least 8 characters.",
+        })
+
+    user.password_hash = hash_password(password)
+    db.commit()
+    return RedirectResponse(url="/login?reset=1", status_code=303)
 
 
 @app.get("/register", response_class=HTMLResponse)

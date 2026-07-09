@@ -63,6 +63,43 @@ def verify_password(password: str, stored: str) -> bool:
         return False
 
 
+RESET_TOKEN_MAX_AGE = 60 * 60  # 1 hour
+
+
+def make_reset_token(user: User) -> str:
+    """Stateless, single-use password-reset token.
+
+    The signature covers the user's current password hash, so the token
+    stops verifying the moment the password changes — no token table needed.
+    """
+    expires = int((datetime.utcnow() + timedelta(seconds=RESET_TOKEN_MAX_AGE)).timestamp())
+    payload = f"{user.id}.{expires}"
+    sig = hmac.new(
+        SESSION_SECRET.encode(), f"{payload}.{user.password_hash}".encode(), hashlib.sha256
+    ).hexdigest()[:32]
+    return f"{payload}.{sig}"
+
+
+def verify_reset_token(token: str, db: Session) -> Optional[User]:
+    """Return the user for a valid, unexpired reset token, else None."""
+    try:
+        uid_s, exp_s, sig = token.split(".")
+        uid, expires = int(uid_s), int(exp_s)
+    except (ValueError, AttributeError):
+        return None
+    if expires < int(datetime.utcnow().timestamp()):
+        return None
+    user = db.query(User).filter(User.id == uid).first()
+    if not user:
+        return None
+    expected = hmac.new(
+        SESSION_SECRET.encode(), f"{uid}.{expires}.{user.password_hash}".encode(), hashlib.sha256
+    ).hexdigest()[:32]
+    if not hmac.compare_digest(sig, expected):
+        return None
+    return user
+
+
 def _store_session(token: str, data: dict):
     r = _get_redis()
     if r:
