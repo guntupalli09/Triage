@@ -181,8 +181,19 @@ def on_shutdown():
 def require_user(request: Request, db: DBSession) -> User:
     user = get_current_user(request, db)
     if not user:
-        raise HTTPException(status_code=302, headers={"Location": "/login"})
+        from urllib.parse import quote
+        next_path = request.url.path
+        if request.url.query:
+            next_path += f"?{request.url.query}"
+        raise HTTPException(status_code=302, headers={"Location": f"/login?next={quote(next_path)}"})
     return user
+
+
+def _safe_next(next_path: str) -> str:
+    """Only allow same-site relative redirect targets."""
+    if next_path.startswith("/") and not next_path.startswith("//"):
+        return next_path
+    return "/dashboard"
 
 
 def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
@@ -347,16 +358,22 @@ async def login_page(request: Request):
     if user:
         return RedirectResponse(url="/dashboard", status_code=302)
     message = "Your password has been updated. Log in with your new password." if request.query_params.get("reset") == "1" else None
-    return templates.TemplateResponse("login.html", {"request": request, "error": None, "message": message})
+    return templates.TemplateResponse("login.html", {
+        "request": request, "error": None, "message": message,
+        "next_path": request.query_params.get("next", ""),
+    })
 
 
 @app.post("/login", response_class=HTMLResponse)
-async def login_submit(request: Request, email: str = Form(...), password: str = Form(...)):
+async def login_submit(request: Request, email: str = Form(...), password: str = Form(...), next_path: str = Form("")):
     db = next(get_db())
     user = db.query(User).filter(User.email == email.lower().strip()).first()
     if not user or not verify_password(password, user.password_hash):
-        return templates.TemplateResponse("login.html", {"request": request, "error": "Invalid email or password."})
-    response = RedirectResponse(url="/dashboard", status_code=302)
+        return templates.TemplateResponse("login.html", {
+            "request": request, "error": "Invalid email or password.",
+            "next_path": next_path,
+        })
+    response = RedirectResponse(url=_safe_next(next_path) if next_path else "/dashboard", status_code=302)
     create_session(user.id, response)
     return response
 
@@ -636,6 +653,7 @@ async def dashboard(request: Request):
     return templates.TemplateResponse("dashboard.html", {
         "request": request, "user": user, "contracts": contracts,
         "stats": stats, "current_year": datetime.now().year,
+        "upgraded": request.query_params.get("upgraded") == "true",
     })
 
 
@@ -930,11 +948,11 @@ async def download_batch_pdfs(request: Request, batch_id: str):
                 contract.rule_engine_version, llm_result.get("summary_bullets", []), all_issues,
             )
             safe_name = sanitize_filename(contract.filename)
-            zf.writestr(f"TriageAI_{safe_name}_{contract.id}.pdf", pdf_bytes)
+            zf.writestr(f"TriageCounsel_{safe_name}_{contract.id}.pdf", pdf_bytes)
 
     return Response(
         content=zip_buffer.getvalue(), media_type="application/zip",
-        headers={"Content-Disposition": f'attachment; filename="TriageAI_batch_{batch_id}.zip"'},
+        headers={"Content-Disposition": f'attachment; filename="TriageCounsel_batch_{batch_id}.zip"'},
     )
 
 
@@ -972,6 +990,12 @@ RULE_CATEGORY_MAP = {
     "RENEWAL_PRICE": "Renewal Pricing",
     "PAYMENT_TERMS": "Payment Terms",
     "EXPORT_CTRL": "Export Controls",
+    "EQUIT_NOBOND": "Equitable Relief Bond",
+    "DEV_RESTRICT": "Development Restrictions",
+    "NONDISPARAGE": "Non-Disparagement",
+    "CARD_AUTH": "Card Authorization",
+    "ACCOUNT_SUSPEND": "Account Suspension",
+    "CANCEL_FEE": "Cancellation Fees",
 }
 
 def _get_rule_category(rule_id: str) -> str:
@@ -992,6 +1016,8 @@ def _build_rule_categories(findings_dict, engine):
             all_categories[cat] = "FAIL"
         elif sev == "medium" and all_categories.get(cat) != "FAIL":
             all_categories[cat] = "WARNING"
+        elif sev == "low" and all_categories.get(cat) == "PASS":
+            all_categories[cat] = "NOTICE"
     return dict(sorted(all_categories.items()))
 
 
@@ -1138,7 +1164,7 @@ async def download_contract_pdf(request: Request, contract_id: int):
 
     return Response(
         content=pdf_bytes, media_type="application/pdf",
-        headers={"Content-Disposition": f'attachment; filename="TriageAI_{safe_name}_{date_str}.pdf"'},
+        headers={"Content-Disposition": f'attachment; filename="TriageCounsel_{safe_name}_{date_str}.pdf"'},
     )
 
 
@@ -1176,7 +1202,7 @@ async def download_pdf_token(request: Request, token: str):
 
     return Response(
         content=pdf_bytes, media_type="application/pdf",
-        headers={"Content-Disposition": f'attachment; filename="TriageAI_{safe_name}_{date_str}.pdf"'},
+        headers={"Content-Disposition": f'attachment; filename="TriageCounsel_{safe_name}_{date_str}.pdf"'},
     )
 
 
@@ -1455,7 +1481,7 @@ async def subscribe(request: Request, plan: str):
         user.subscription_status = "active"
         user.contracts_this_month = 0
         db.commit()
-        return RedirectResponse(url="/dashboard", status_code=302)
+        return RedirectResponse(url="/dashboard?upgraded=true", status_code=302)
 
     if not stripe.api_key:
         raise HTTPException(status_code=500, detail="Stripe not configured")

@@ -21,6 +21,7 @@
     .status-pass { color: var(--green); }
     .status-fail { color: var(--red); }
     .status-warning { color: var(--amber); }
+    .status-notice { color: var(--blue); }
     .severity-high { background: #FEF2F2; border-left: 3px solid var(--red); }
     .severity-medium { background: #FFFBEB; border-left: 3px solid var(--amber); }
     .severity-low { background: #EFF6FF; border-left: 3px solid var(--blue); }
@@ -52,7 +53,7 @@
 {% block breadcrumbs %}
 <a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
 <span class="mx-1">/</span>
-<a href="{% if contract_id %}/contract/{{ contract_id }}{% else %}#{% endif %}" class="hover:text-gray-900 transition-colors">Contract</a>
+<a href="/history" class="hover:text-gray-900 transition-colors">Reviews</a>
 <span class="mx-1">/</span>
 <span class="text-gray-600">Report</span>
 {% endblock %}
@@ -61,9 +62,9 @@
     <!-- Header -->
     <div class="mb-6 fade-in">
         <div class="flex items-center justify-between mb-6">
-            <a href="{% if user %}/dashboard{% else %}/{% endif %}" class="text-sm font-medium text-[#475569] hover:text-[#1E293B] inline-flex items-center gap-1 transition-colors">
+            <a href="{% if user %}/history{% else %}/{% endif %}" class="text-sm font-medium text-[#475569] hover:text-[#1E293B] inline-flex items-center gap-1 transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                {% if user %}Dashboard{% else %}Upload{% endif %}
+                {% if user %}Back to Reviews{% else %}Upload{% endif %}
             </a>
             <div class="flex gap-2">
                 {% if contract_id %}
@@ -279,6 +280,7 @@
             </summary>
             <p class="text-xs text-[#64748B] mt-3 mb-4">
                 <span class="font-bold status-pass mono">PASS</span> — no risk pattern detected &nbsp;·&nbsp;
+                <span class="font-bold status-notice mono">NOTICE</span> — low-risk pattern noted &nbsp;·&nbsp;
                 <span class="font-bold status-warning mono">WARNING</span> — medium-risk pattern detected &nbsp;·&nbsp;
                 <span class="font-bold status-fail mono">FAIL</span> — high-risk pattern detected
             </p>
@@ -288,6 +290,8 @@
                     <span class="text-sm font-medium text-[#334155]">{{ cat }}</span>
                     {% if status == "PASS" %}
                     <span class="text-xs font-bold status-pass mono">PASS</span>
+                    {% elif status == "NOTICE" %}
+                    <span class="text-xs font-bold status-notice mono">NOTICE</span>
                     {% elif status == "WARNING" %}
                     <span class="text-xs font-bold status-warning mono">WARNING</span>
                     {% else %}
