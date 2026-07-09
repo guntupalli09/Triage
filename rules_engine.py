@@ -124,31 +124,48 @@ def _excerpt(text: str, start: int, end: int, radius: int = 140) -> str:
     return f"...{text[s:e].strip()}..."
 
 
-def _extract_clause_number(text: str, position: int, window: int = 500) -> Optional[str]:
+# A section heading is a line that begins with a section number followed by a
+# title that does not read like running prose (e.g. "10. ASSIGNMENT",
+# "5.1 Assignment", '2.1 "Proprietary Information"').
+_SECTION_HEADING_RE = re.compile(r'(?m)^[ \t]*(\d+(?:\.\d+)*)\.?[ \t]+(?=[^\sa-z])')
+_EXPLICIT_REF_RE = re.compile(r'\b(?:section|clause|article|paragraph)\s+(\d+(?:\.\d+)*)', re.IGNORECASE)
+
+
+def _extract_clause_number(text: str, position: int, end: Optional[int] = None, window: int = 500) -> Optional[str]:
     """
-    Attempt to extract clause number near the match position.
-    Looks for patterns like: "1.6", "Section 4.2", "§7", "Clause 3.1"
+    Return the number of the section that contains the match at `position`.
+
+    The governing clause is the nearest section heading at or before the
+    match, not whatever number happens to sit near it — a match inside
+    "10. ASSIGNMENT ..." must cite clause 10 even when "9.2 Survival" is
+    closer in character distance. A match whose span opens with only a
+    scrap of the previous sentence before a heading (e.g. "es.\\n\\n8.
+    EQUITABLE RELIEF ...") effectively starts at that heading and cites
+    it. When no heading precedes the match, an explicit inline reference
+    ("Section 4.2") within the match's vicinity is trusted; otherwise
+    return None. A missing citation is better than a wrong one.
     """
-    start = max(0, position - window)
-    end = min(len(text), position + window)
-    context = text[start:end]
-    
-    # Patterns to match clause numbers
-    patterns = [
-        r'\b(?:section|clause|article|paragraph)\s+(\d+(?:\.\d+)*)',
-        r'\b(\d+\.\d+(?:\.\d+)*)\b',  # e.g., 1.6, 4.2.1
-        r'§\s*(\d+(?:\.\d+)*)',
-        r'\((\d+)\)',  # e.g., (1), (2)
-    ]
-    
-    for pattern in patterns:
-        matches = list(re.finditer(pattern, context, re.IGNORECASE))
-        if matches:
-            # Return the closest match to the center of the context
-            center = len(context) // 2
-            closest = min(matches, key=lambda m: abs(m.start() - center))
-            return closest.group(1) if closest.groups() else closest.group(0)
-    
+    if end is not None and end > position:
+        opening = _SECTION_HEADING_RE.search(text, position, min(end, position + 200))
+        # A fragment this short before the heading (stray punctuation or the
+        # tail of the previous sentence) cannot be what the rule matched on;
+        # the substance of the match is the section that opens inside it.
+        if opening and len(text[position:opening.start()].strip()) < 20:
+            return opening.group(1)
+
+    last_heading = None
+    for m in _SECTION_HEADING_RE.finditer(text):
+        if m.start() > position:
+            break
+        last_heading = m
+    if last_heading:
+        return last_heading.group(1)
+
+    nearby = text[max(0, position - window):position + window]
+    explicit = _EXPLICIT_REF_RE.search(nearby)
+    if explicit:
+        return explicit.group(1)
+
     return None
 
 
@@ -1319,7 +1336,7 @@ class RuleEngine:
                         context_start = max(0, absolute_start - 200)
                         context_end = min(len(text), absolute_end + 200)
                         surrounding_context = text[context_start:context_end]
-                        clause_num = _extract_clause_number(text, absolute_start)
+                        clause_num = _extract_clause_number(text, absolute_start, absolute_end)
                         keywords = _extract_matched_keywords(matched_text, rule.pattern)
                         findings.append(
                             Finding(
@@ -1355,7 +1372,7 @@ class RuleEngine:
                         surrounding_context = text[context_start:context_end]
                         # For proximity matches, extract keywords from context
                         context_text = chunk[max(0, s-100):min(len(chunk), e+100)]
-                        clause_num = _extract_clause_number(text, absolute_start)
+                        clause_num = _extract_clause_number(text, absolute_start, absolute_end)
                         keywords = _extract_matched_keywords(context_text)
                         findings.append(
                             Finding(
