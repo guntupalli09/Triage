@@ -289,6 +289,20 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
     return all_issues
 
 
+def display_rule_stats(all_issues: List[Dict]) -> Dict[str, int]:
+    """Severity counts over the deduplicated issue list shown to the user.
+
+    Raw engine counts include multiple matches of the same rule, but the
+    report renders one card per rule — summary tiles must match the cards
+    or the numbers look wrong to the reader.
+    """
+    counts = {"high": 0, "medium": 0, "low": 0}
+    for issue in all_issues:
+        sev = (issue.get("severity") or "low").lower()
+        counts[sev if sev in counts else "low"] += 1
+    return counts
+
+
 def sanitize_filename(filename: str) -> str:
     name_without_ext = Path(filename).stem
     sanitized = re.sub(r'[^a-zA-Z0-9_-]', '_', name_without_ext)
@@ -782,8 +796,26 @@ async def batch_upload_submit(
     user.contracts_this_month += len(contracts)
     db.commit()
 
-    for c in contracts:
-        db.refresh(c)
+    # Post/Redirect/Get: a refresh on the results page must not re-run the
+    # batch (it would re-analyze every file and consume quota again).
+    return RedirectResponse(url=f"/batch/{batch_id}", status_code=303)
+
+
+@app.get("/batch/{batch_id}", response_class=HTMLResponse)
+async def batch_results_page(request: Request, batch_id: str):
+    db = next(get_db())
+    user = require_user(request, db)
+    contracts = db.query(Contract).filter(
+        Contract.batch_id == batch_id, Contract.user_id == user.id
+    ).all()
+    if not contracts:
+        raise HTTPException(status_code=404, detail="Batch not found")
+
+    playbook = None
+    if contracts[0].playbook_id:
+        playbook = db.query(Playbook).filter(
+            Playbook.id == contracts[0].playbook_id, Playbook.user_id == user.id
+        ).first()
 
     batch_stats = {"total": len(contracts), "high": 0, "medium": 0, "low": 0}
     for c in contracts:
@@ -815,7 +847,7 @@ async def download_batch_pdfs(request: Request, batch_id: str):
             findings_dict = contract.findings_json or []
             llm_result = contract.llm_result_json or {}
             all_issues = build_enhanced_issues(findings_dict, llm_result)
-            rule_counts = contract.rule_counts_json or {"high": 0, "medium": 0, "low": 0}
+            rule_counts = display_rule_stats(all_issues)
             pdf_bytes = _build_pdf_bytes(
                 contract.filename, contract.overall_risk, rule_counts,
                 contract.rule_engine_version, llm_result.get("summary_bullets", []), all_issues,
@@ -901,7 +933,7 @@ async def view_contract(request: Request, contract_id: int):
     findings_dict = contract.findings_json or []
     llm_result = contract.llm_result_json or {}
     all_issues = build_enhanced_issues(findings_dict, llm_result)
-    rule_counts = contract.rule_counts_json or {"high": 0, "medium": 0, "low": 0}
+    rule_counts = display_rule_stats(all_issues)
 
     rule_based_sections = rule_engine.build_missing_sections(
         [type('F', (), {"rule_id": f["rule_id"]})() for f in findings_dict]
@@ -931,7 +963,7 @@ async def view_contract(request: Request, contract_id: int):
         "top_issues": all_issues,
         "possible_missing_sections": all_missing,
         "disclaimer": llm_result.get("disclaimer", "This is automated risk triage, not legal advice."),
-        "findings_count": len(findings_dict),
+        "findings_count": len(all_issues),
         "rule_counts": rule_counts,
         "rule_engine_version": contract.rule_engine_version or "2.0.0",
         "current_year": datetime.now().year,
@@ -1017,7 +1049,7 @@ async def download_contract_pdf(request: Request, contract_id: int):
     findings_dict = contract.findings_json or []
     llm_result = contract.llm_result_json or {}
     all_issues = build_enhanced_issues(findings_dict, llm_result)
-    rule_counts = contract.rule_counts_json or {"high": 0, "medium": 0, "low": 0}
+    rule_counts = display_rule_stats(all_issues)
 
     pdf_bytes = _build_pdf_bytes(
         contract.filename, contract.overall_risk, rule_counts,
@@ -1129,7 +1161,7 @@ def _render_shared_report(request: Request, contract: Contract) -> HTMLResponse:
     findings_dict = contract.findings_json or []
     llm_result = contract.llm_result_json or {}
     all_issues = build_enhanced_issues(findings_dict, llm_result)
-    rule_counts = contract.rule_counts_json or {"high": 0, "medium": 0, "low": 0}
+    rule_counts = display_rule_stats(all_issues)
 
     return templates.TemplateResponse("shared_report.html", {
         "request": request, "password_required": False, "password_error": False,
@@ -1138,7 +1170,7 @@ def _render_shared_report(request: Request, contract: Contract) -> HTMLResponse:
         "summary_bullets": llm_result.get("summary_bullets", []),
         "top_issues": all_issues,
         "disclaimer": llm_result.get("disclaimer", "This is automated risk triage, not legal advice."),
-        "findings_count": len(findings_dict),
+        "findings_count": len(all_issues),
         "rule_counts": rule_counts,
         "rule_engine_version": contract.rule_engine_version or "1.0.3",
         "current_year": datetime.now().year,
@@ -1478,8 +1510,8 @@ async def demo_analysis(request: Request):
         "top_issues": all_issues,
         "possible_missing_sections": rule_based_sections[:6],
         "disclaimer": "This is a demo using a sample contract. Sign up to analyze your own contracts.",
-        "findings_count": len(analysis["findings_dict"]),
-        "rule_counts": analysis["rule_counts"],
+        "findings_count": len(all_issues),
+        "rule_counts": display_rule_stats(all_issues),
         "rule_engine_version": analysis["version"],
         "current_year": datetime.now().year,
         "token": None, "contract_id": None, "deviations": None,
@@ -1683,8 +1715,8 @@ async def results_legacy(request: Request, token: str):
         "top_issues": all_issues,
         "possible_missing_sections": all_missing[:6],
         "disclaimer": analysis["llm_result"].get("disclaimer", "This is automated risk triage, not legal advice."),
-        "findings_count": len(analysis["findings_dict"]),
-        "rule_counts": analysis["rule_counts"],
+        "findings_count": len(all_issues),
+        "rule_counts": display_rule_stats(all_issues),
         "rule_engine_version": analysis["version"],
         "current_year": datetime.now().year,
         "token": token, "contract_id": None, "deviations": None,

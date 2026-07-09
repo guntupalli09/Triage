@@ -40,8 +40,8 @@
                     </div>
                 </div>
                 <h3 class="text-lg font-bold text-[#0F172A] mb-1">{{ p.name }}</h3>
-                <span class="text-xs font-medium text-[#0F172A] mb-2">{{ p.contract_type }}</span>
-                <p class="text-sm text-gray-500 leading-relaxed mb-4 flex-1">{{ p.description[:100] }}{% if p.description|length > 100 %}...{% endif %}</p>
+                <span class="text-xs font-medium text-[#0F172A] mb-2">{{ p.contract_type or '' }}</span>
+                <p class="text-sm text-gray-500 leading-relaxed mb-4 flex-1">{{ (p.description or '')[:100] }}{% if (p.description or '')|length > 100 %}...{% endif %}</p>
                 <div class="text-xs text-gray-400 mb-4 space-y-1">
                     <div>Created {{ p.created_at.strftime('%b %d, %Y') }}</div>
                     {% if p.template_findings_json %}
