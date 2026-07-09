@@ -1186,8 +1186,11 @@ async def playbooks_list(request: Request):
     db = next(get_db())
     user = require_user(request, db)
     playbooks = db.query(Playbook).filter(Playbook.user_id == user.id).order_by(Playbook.created_at.desc()).all()
+    plan = PLAN_LIMITS.get(user.plan, {"monthly_limit": 0, "batch_max": 1, "playbooks_max": 0})
     return templates.TemplateResponse("playbooks.html", {
         "request": request, "user": user, "playbooks": playbooks,
+        "playbooks_max": plan.get("playbooks_max", 0),
+        "can_create": len(playbooks) < plan.get("playbooks_max", 0),
         "current_year": datetime.now().year,
     })
 

@@ -19,12 +19,22 @@
                     Upload your standard contract templates. When you analyze a new contract, compare it against your playbook to instantly see deviations.
                 </p>
             </div>
+            {% if can_create %}
             <a href="/playbooks/new" class="btn-primary mt-4 sm:mt-0 px-6 py-3 rounded-lg text-sm inline-flex items-center gap-2 whitespace-nowrap">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                 </svg>
                 Create New Playbook
             </a>
+            {% elif playbooks_max == 0 %}
+            <a href="/pricing" class="btn-primary mt-4 sm:mt-0 px-6 py-3 rounded-lg text-sm inline-flex items-center gap-2 whitespace-nowrap">
+                Upgrade to add playbooks
+            </a>
+            {% else %}
+            <div class="mt-4 sm:mt-0 text-sm text-gray-500 whitespace-nowrap" title="Your plan includes {{ playbooks_max }} playbook{{ 's' if playbooks_max != 1 else '' }}.">
+                Playbook limit reached ({{ playbooks_max }}) — <a href="/pricing" class="font-semibold text-[#0F172A] hover:underline">upgrade for more</a>
+            </div>
+            {% endif %}
         </div>
 
         <!-- Playbooks Grid -->
@@ -63,7 +73,11 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
             </svg>
             <p class="text-gray-500 font-medium mb-1">No playbooks yet.</p>
+            {% if can_create %}
             <p class="text-sm text-gray-400">Create your first playbook by uploading your standard contract template.</p>
+            {% else %}
+            <p class="text-sm text-gray-400">Playbooks let you compare every new contract against your own standard template. <a href="/pricing" class="font-semibold text-[#0F172A] hover:underline">Upgrade your plan</a> to create one.</p>
+            {% endif %}
         </div>
         {% endif %}
 {% endblock %}
