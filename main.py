@@ -54,6 +54,7 @@ from auth import (
 )
 from models import User, Contract, Playbook
 from playbook_engine import PlaybookEngine
+import google_oauth
 
 import uuid
 
@@ -125,6 +126,7 @@ PLAN_LIMITS = {
 
 # --- App setup ---
 templates = Jinja2Templates(directory="templates")
+templates.env.globals["google_signin_enabled"] = google_oauth.is_configured()
 app = FastAPI(title="Contract Risk Triage Tool", version="2.0.0")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 CORS_ORIGINS = os.getenv("CORS_ORIGINS", BASE_URL).split(",")
@@ -403,6 +405,85 @@ async def register_submit(
 async def logout_route(request: Request):
     response = RedirectResponse(url="/", status_code=302)
     auth_logout(request, response)
+    return response
+
+
+# ============================================================
+# GOOGLE SIGN-IN
+# ============================================================
+
+GOOGLE_STATE_COOKIE = "g_oauth_state"
+
+
+@app.get("/auth/google")
+def google_signin_start(request: Request):
+    if not google_oauth.is_configured():
+        return templates.TemplateResponse("login.html", {
+            "request": request, "error": "Google sign-in is not configured.",
+        })
+    state = secrets.token_urlsafe(24)
+    redirect_uri = f"{get_base_url(request)}/auth/google/callback"
+    response = RedirectResponse(url=google_oauth.build_auth_url(redirect_uri, state), status_code=302)
+    response.set_cookie(
+        GOOGLE_STATE_COOKIE, state,
+        max_age=600, httponly=True, samesite="lax",
+        secure=os.getenv("SECURE_COOKIES", "false").lower() == "true",
+    )
+    return response
+
+
+@app.get("/auth/google/callback")
+def google_signin_callback(request: Request, code: str = "", state: str = "", error: str = ""):
+    def fail(message: str):
+        return templates.TemplateResponse("login.html", {"request": request, "error": message})
+
+    if error or not code:
+        return fail("Google sign-in was cancelled.")
+
+    expected_state = request.cookies.get(GOOGLE_STATE_COOKIE, "")
+    if not expected_state or not hmac.compare_digest(expected_state, state):
+        return fail("Sign-in session expired. Please try again.")
+
+    redirect_uri = f"{get_base_url(request)}/auth/google/callback"
+    try:
+        tokens = google_oauth.exchange_code(code, redirect_uri)
+        claims = google_oauth.decode_id_token(tokens["id_token"])
+    except Exception:
+        logger.exception("Google sign-in token exchange failed")
+        return fail("Google sign-in failed. Please try again.")
+
+    if not claims.get("email_verified"):
+        return fail("Your Google account's email address is not verified.")
+    email = claims.get("email", "").lower().strip()
+    google_sub = claims.get("sub", "")
+    if not email or not google_sub:
+        return fail("Google did not return the required account details.")
+
+    db = next(get_db())
+    user = db.query(User).filter(User.google_sub == google_sub).first()
+    if not user:
+        user = db.query(User).filter(User.email == email).first()
+        if user:
+            # Existing email/password account — link it (Google verified the email)
+            user.google_sub = google_sub
+            if not user.name and claims.get("name"):
+                user.name = claims["name"]
+        else:
+            user = User(
+                email=email,
+                password_hash=None,
+                name=claims.get("name"),
+                google_sub=google_sub,
+                plan="free",
+                monthly_limit=3,
+            )
+            db.add(user)
+        db.commit()
+        db.refresh(user)
+
+    response = RedirectResponse(url="/dashboard", status_code=302)
+    response.delete_cookie(GOOGLE_STATE_COOKIE)
+    create_session(user.id, response)
     return response
 
 
