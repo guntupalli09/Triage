@@ -1,6 +1,10 @@
 """
 Transactional email sending.
 
+Note: env vars (RESEND_API_KEY, EMAIL_FROM, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)
+are read at process startup by the hosting platform — a fresh deployment is
+required after changing them in Vercel for the running app to see new values.
+
 Supports two providers, checked in order:
   1. Resend HTTP API  — set RESEND_API_KEY (recommended on Vercel)
   2. Any SMTP server  — set SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD
