@@ -20,7 +20,10 @@ class User(Base):
 
     id = Column(Integer, primary_key=True)
     email = Column(String(255), unique=True, nullable=False, index=True)
-    password_hash = Column(String(255), nullable=False)
+    password_hash = Column(String(255), nullable=True)  # NULL for Google-only accounts
+    google_sub = Column(String(255), unique=True, nullable=True, index=True)
+    reset_token_hash = Column(String(64), nullable=True, index=True)  # sha256 of the emailed token
+    reset_token_expires_at = Column(DateTime, nullable=True)
     name = Column(String(255), nullable=True)
     company = Column(String(255), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)

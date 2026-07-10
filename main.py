@@ -54,6 +54,8 @@ from auth import (
 )
 from models import User, Contract, Playbook
 from playbook_engine import PlaybookEngine
+import google_oauth
+import emailer
 
 import uuid
 
@@ -125,6 +127,7 @@ PLAN_LIMITS = {
 
 # --- App setup ---
 templates = Jinja2Templates(directory="templates")
+templates.env.globals["google_signin_enabled"] = google_oauth.is_configured()
 app = FastAPI(title="Contract Risk Triage Tool", version="2.0.0")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 CORS_ORIGINS = os.getenv("CORS_ORIGINS", BASE_URL).split(",")
@@ -344,7 +347,9 @@ async def login_page(request: Request):
     user = get_current_user(request, next(get_db()))
     if user:
         return RedirectResponse(url="/dashboard", status_code=302)
-    return templates.TemplateResponse("login.html", {"request": request, "error": None})
+    notice = "Your password has been updated. Log in with your new password." \
+        if request.query_params.get("reset") == "success" else None
+    return templates.TemplateResponse("login.html", {"request": request, "error": None, "notice": notice})
 
 
 @app.post("/login", response_class=HTMLResponse)
@@ -404,6 +409,206 @@ async def logout_route(request: Request):
     response = RedirectResponse(url="/", status_code=302)
     auth_logout(request, response)
     return response
+
+
+# ============================================================
+# GOOGLE SIGN-IN
+# ============================================================
+
+GOOGLE_STATE_COOKIE = "g_oauth_state"
+
+
+@app.get("/auth/google")
+def google_signin_start(request: Request):
+    if not google_oauth.is_configured():
+        return templates.TemplateResponse("login.html", {
+            "request": request, "error": "Google sign-in is not configured.",
+        })
+    state = secrets.token_urlsafe(24)
+    redirect_uri = f"{get_base_url(request)}/auth/google/callback"
+    response = RedirectResponse(url=google_oauth.build_auth_url(redirect_uri, state), status_code=302)
+    response.set_cookie(
+        GOOGLE_STATE_COOKIE, state,
+        max_age=600, httponly=True, samesite="lax",
+        secure=os.getenv("SECURE_COOKIES", "false").lower() == "true",
+    )
+    return response
+
+
+@app.get("/auth/google/callback")
+def google_signin_callback(request: Request, code: str = "", state: str = "", error: str = ""):
+    def fail(message: str):
+        return templates.TemplateResponse("login.html", {"request": request, "error": message})
+
+    if error or not code:
+        return fail("Google sign-in was cancelled.")
+
+    expected_state = request.cookies.get(GOOGLE_STATE_COOKIE, "")
+    if not expected_state or not hmac.compare_digest(expected_state, state):
+        return fail("Sign-in session expired. Please try again.")
+
+    redirect_uri = f"{get_base_url(request)}/auth/google/callback"
+    try:
+        tokens = google_oauth.exchange_code(code, redirect_uri)
+        claims = google_oauth.decode_id_token(tokens["id_token"])
+    except Exception:
+        logger.exception("Google sign-in token exchange failed")
+        return fail("Google sign-in failed. Please try again.")
+
+    if not claims.get("email_verified"):
+        return fail("Your Google account's email address is not verified.")
+    email = claims.get("email", "").lower().strip()
+    google_sub = claims.get("sub", "")
+    if not email or not google_sub:
+        return fail("Google did not return the required account details.")
+
+    db = next(get_db())
+    user = db.query(User).filter(User.google_sub == google_sub).first()
+    if not user:
+        user = db.query(User).filter(User.email == email).first()
+        if user:
+            # Existing email/password account — link it (Google verified the email)
+            user.google_sub = google_sub
+            if not user.name and claims.get("name"):
+                user.name = claims["name"]
+        else:
+            user = User(
+                email=email,
+                password_hash=None,
+                name=claims.get("name"),
+                google_sub=google_sub,
+                plan="free",
+                monthly_limit=3,
+            )
+            db.add(user)
+        db.commit()
+        db.refresh(user)
+
+    response = RedirectResponse(url="/dashboard", status_code=302)
+    response.delete_cookie(GOOGLE_STATE_COOKIE)
+    create_session(user.id, response)
+    return response
+
+
+# ============================================================
+# PASSWORD RESET
+# ============================================================
+
+RESET_TOKEN_MAX_AGE = timedelta(hours=1)
+
+
+def _find_user_by_reset_token(db: DBSession, token: str) -> Optional[User]:
+    if not token:
+        return None
+    token_hash = hashlib.sha256(token.encode()).hexdigest()
+    user = db.query(User).filter(User.reset_token_hash == token_hash).first()
+    if not user or not user.reset_token_expires_at:
+        return None
+    if datetime.utcnow() > user.reset_token_expires_at:
+        return None
+    return user
+
+
+@app.get("/forgot-password", response_class=HTMLResponse)
+async def forgot_password_page(request: Request):
+    return templates.TemplateResponse("forgot_password.html", {
+        "request": request, "error": None, "sent": False,
+    })
+
+
+@app.post("/forgot-password", response_class=HTMLResponse)
+def forgot_password_submit(request: Request, email: str = Form(...)):
+    if not emailer.is_configured():
+        return templates.TemplateResponse("forgot_password.html", {
+            "request": request, "sent": False,
+            "error": "Password reset email is temporarily unavailable. Please reach out via the contact page and we'll restore your access.",
+        })
+
+    email = email.lower().strip()
+    db = next(get_db())
+    user = db.query(User).filter(User.email == email).first()
+    if user:
+        token = secrets.token_urlsafe(32)
+        user.reset_token_hash = hashlib.sha256(token.encode()).hexdigest()
+        user.reset_token_expires_at = datetime.utcnow() + RESET_TOKEN_MAX_AGE
+        db.commit()
+        reset_url = f"{get_base_url(request)}/reset-password?token={token}"
+        try:
+            emailer.send_email(
+                to=user.email,
+                subject="Reset your Triage Counsel password",
+                html=(
+                    f'<div style="font-family:sans-serif;max-width:480px;margin:0 auto">'
+                    f'<h2 style="color:#0F172A">Reset your password</h2>'
+                    f'<p>We received a request to reset the password for <strong>{user.email}</strong>.</p>'
+                    f'<p><a href="{reset_url}" style="display:inline-block;background:#0F172A;color:#fff;'
+                    f'padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600">Choose a new password</a></p>'
+                    f'<p style="color:#64748B;font-size:13px">This link expires in 1 hour and can be used once. '
+                    f'If you didn\'t request this, you can safely ignore this email — your password will not change.</p>'
+                    f'</div>'
+                ),
+                text=(
+                    f"We received a request to reset the password for {user.email}.\n\n"
+                    f"Choose a new password: {reset_url}\n\n"
+                    f"This link expires in 1 hour and can be used once. "
+                    f"If you didn't request this, you can safely ignore this email."
+                ),
+            )
+        except Exception:
+            logger.exception(f"Failed to send password reset email to {user.email}")
+            return templates.TemplateResponse("forgot_password.html", {
+                "request": request, "sent": False,
+                "error": "We couldn't send the email. Please try again in a few minutes or reach out via the contact page.",
+            })
+
+    # Same response whether or not the account exists (prevents email enumeration)
+    return templates.TemplateResponse("forgot_password.html", {
+        "request": request, "error": None, "sent": True,
+    })
+
+
+@app.get("/reset-password", response_class=HTMLResponse)
+async def reset_password_page(request: Request, token: str = ""):
+    db = next(get_db())
+    user = _find_user_by_reset_token(db, token)
+    if not user:
+        return templates.TemplateResponse("reset_password.html", {
+            "request": request, "token": None, "error": None,
+        })
+    return templates.TemplateResponse("reset_password.html", {
+        "request": request, "token": token, "error": None,
+    })
+
+
+@app.post("/reset-password", response_class=HTMLResponse)
+async def reset_password_submit(
+    request: Request,
+    token: str = Form(...),
+    password: str = Form(...),
+    confirm_password: str = Form(...),
+):
+    db = next(get_db())
+    user = _find_user_by_reset_token(db, token)
+    if not user:
+        return templates.TemplateResponse("reset_password.html", {
+            "request": request, "token": None, "error": None,
+        })
+
+    error = None
+    if password != confirm_password:
+        error = "Passwords do not match."
+    elif len(password) < 8:
+        error = "Password must be at least 8 characters."
+    if error:
+        return templates.TemplateResponse("reset_password.html", {
+            "request": request, "token": token, "error": error,
+        })
+
+    user.password_hash = hash_password(password)
+    user.reset_token_hash = None
+    user.reset_token_expires_at = None
+    db.commit()
+    return RedirectResponse(url="/login?reset=success", status_code=302)
 
 
 # ============================================================

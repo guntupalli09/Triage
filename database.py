@@ -84,9 +84,42 @@ def wait_for_redis(max_retries: int = 15, delay: float = 2.0):
             time.sleep(delay)
 
 
+def _run_migrations():
+    """In-place migrations for existing tables — create_all only creates missing
+    tables, it never alters columns on tables that already exist."""
+    from sqlalchemy import inspect
+
+    insp = inspect(engine)
+    if "users" not in insp.get_table_names():
+        return
+    cols = {c["name"]: c for c in insp.get_columns("users")}
+
+    with engine.begin() as conn:
+        if "google_sub" not in cols:
+            conn.execute(text("ALTER TABLE users ADD COLUMN google_sub VARCHAR(255)"))
+            conn.execute(text("CREATE UNIQUE INDEX IF NOT EXISTS users_google_sub_idx ON users (google_sub)"))
+            logger.info("Migration applied: users.google_sub column + unique index")
+        if "reset_token_hash" not in cols:
+            conn.execute(text("ALTER TABLE users ADD COLUMN reset_token_hash VARCHAR(64)"))
+            conn.execute(text("CREATE INDEX IF NOT EXISTS users_reset_token_hash_idx ON users (reset_token_hash)"))
+            logger.info("Migration applied: users.reset_token_hash column + index")
+        if "reset_token_expires_at" not in cols:
+            conn.execute(text("ALTER TABLE users ADD COLUMN reset_token_expires_at TIMESTAMP"))
+            logger.info("Migration applied: users.reset_token_expires_at column")
+        # SQLite can't drop NOT NULL without a table rebuild; fresh SQLite DBs
+        # already get the nullable column from the model definition.
+        if not _is_sqlite and "password_hash" in cols and not cols["password_hash"]["nullable"]:
+            conn.execute(text("ALTER TABLE users ALTER COLUMN password_hash DROP NOT NULL"))
+            logger.info("Migration applied: users.password_hash now nullable")
+
+
 def init_db():
     import models  # noqa: F401 — registers all models
     Base.metadata.create_all(bind=engine)
+    try:
+        _run_migrations()
+    except Exception:
+        logger.exception("Schema migration failed — Google sign-in may not work until resolved")
     logger.info(f"Database initialized: {'PostgreSQL' if not _is_sqlite else 'SQLite'}")
 
 
