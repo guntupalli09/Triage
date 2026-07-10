@@ -99,6 +99,13 @@ def _run_migrations():
             conn.execute(text("ALTER TABLE users ADD COLUMN google_sub VARCHAR(255)"))
             conn.execute(text("CREATE UNIQUE INDEX IF NOT EXISTS users_google_sub_idx ON users (google_sub)"))
             logger.info("Migration applied: users.google_sub column + unique index")
+        if "reset_token_hash" not in cols:
+            conn.execute(text("ALTER TABLE users ADD COLUMN reset_token_hash VARCHAR(64)"))
+            conn.execute(text("CREATE INDEX IF NOT EXISTS users_reset_token_hash_idx ON users (reset_token_hash)"))
+            logger.info("Migration applied: users.reset_token_hash column + index")
+        if "reset_token_expires_at" not in cols:
+            conn.execute(text("ALTER TABLE users ADD COLUMN reset_token_expires_at TIMESTAMP"))
+            logger.info("Migration applied: users.reset_token_expires_at column")
         # SQLite can't drop NOT NULL without a table rebuild; fresh SQLite DBs
         # already get the nullable column from the model definition.
         if not _is_sqlite and "password_hash" in cols and not cols["password_hash"]["nullable"]:

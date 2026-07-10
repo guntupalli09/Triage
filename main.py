@@ -55,6 +55,7 @@ from auth import (
 from models import User, Contract, Playbook
 from playbook_engine import PlaybookEngine
 import google_oauth
+import emailer
 
 import uuid
 
@@ -346,7 +347,9 @@ async def login_page(request: Request):
     user = get_current_user(request, next(get_db()))
     if user:
         return RedirectResponse(url="/dashboard", status_code=302)
-    return templates.TemplateResponse("login.html", {"request": request, "error": None})
+    notice = "Your password has been updated. Log in with your new password." \
+        if request.query_params.get("reset") == "success" else None
+    return templates.TemplateResponse("login.html", {"request": request, "error": None, "notice": notice})
 
 
 @app.post("/login", response_class=HTMLResponse)
@@ -485,6 +488,127 @@ def google_signin_callback(request: Request, code: str = "", state: str = "", er
     response.delete_cookie(GOOGLE_STATE_COOKIE)
     create_session(user.id, response)
     return response
+
+
+# ============================================================
+# PASSWORD RESET
+# ============================================================
+
+RESET_TOKEN_MAX_AGE = timedelta(hours=1)
+
+
+def _find_user_by_reset_token(db: DBSession, token: str) -> Optional[User]:
+    if not token:
+        return None
+    token_hash = hashlib.sha256(token.encode()).hexdigest()
+    user = db.query(User).filter(User.reset_token_hash == token_hash).first()
+    if not user or not user.reset_token_expires_at:
+        return None
+    if datetime.utcnow() > user.reset_token_expires_at:
+        return None
+    return user
+
+
+@app.get("/forgot-password", response_class=HTMLResponse)
+async def forgot_password_page(request: Request):
+    return templates.TemplateResponse("forgot_password.html", {
+        "request": request, "error": None, "sent": False,
+    })
+
+
+@app.post("/forgot-password", response_class=HTMLResponse)
+def forgot_password_submit(request: Request, email: str = Form(...)):
+    if not emailer.is_configured():
+        return templates.TemplateResponse("forgot_password.html", {
+            "request": request, "sent": False,
+            "error": "Password reset email is temporarily unavailable. Please reach out via the contact page and we'll restore your access.",
+        })
+
+    email = email.lower().strip()
+    db = next(get_db())
+    user = db.query(User).filter(User.email == email).first()
+    if user:
+        token = secrets.token_urlsafe(32)
+        user.reset_token_hash = hashlib.sha256(token.encode()).hexdigest()
+        user.reset_token_expires_at = datetime.utcnow() + RESET_TOKEN_MAX_AGE
+        db.commit()
+        reset_url = f"{get_base_url(request)}/reset-password?token={token}"
+        try:
+            emailer.send_email(
+                to=user.email,
+                subject="Reset your Triage Counsel password",
+                html=(
+                    f'<div style="font-family:sans-serif;max-width:480px;margin:0 auto">'
+                    f'<h2 style="color:#0F172A">Reset your password</h2>'
+                    f'<p>We received a request to reset the password for <strong>{user.email}</strong>.</p>'
+                    f'<p><a href="{reset_url}" style="display:inline-block;background:#0F172A;color:#fff;'
+                    f'padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600">Choose a new password</a></p>'
+                    f'<p style="color:#64748B;font-size:13px">This link expires in 1 hour and can be used once. '
+                    f'If you didn\'t request this, you can safely ignore this email — your password will not change.</p>'
+                    f'</div>'
+                ),
+                text=(
+                    f"We received a request to reset the password for {user.email}.\n\n"
+                    f"Choose a new password: {reset_url}\n\n"
+                    f"This link expires in 1 hour and can be used once. "
+                    f"If you didn't request this, you can safely ignore this email."
+                ),
+            )
+        except Exception:
+            logger.exception(f"Failed to send password reset email to {user.email}")
+            return templates.TemplateResponse("forgot_password.html", {
+                "request": request, "sent": False,
+                "error": "We couldn't send the email. Please try again in a few minutes or reach out via the contact page.",
+            })
+
+    # Same response whether or not the account exists (prevents email enumeration)
+    return templates.TemplateResponse("forgot_password.html", {
+        "request": request, "error": None, "sent": True,
+    })
+
+
+@app.get("/reset-password", response_class=HTMLResponse)
+async def reset_password_page(request: Request, token: str = ""):
+    db = next(get_db())
+    user = _find_user_by_reset_token(db, token)
+    if not user:
+        return templates.TemplateResponse("reset_password.html", {
+            "request": request, "token": None, "error": None,
+        })
+    return templates.TemplateResponse("reset_password.html", {
+        "request": request, "token": token, "error": None,
+    })
+
+
+@app.post("/reset-password", response_class=HTMLResponse)
+async def reset_password_submit(
+    request: Request,
+    token: str = Form(...),
+    password: str = Form(...),
+    confirm_password: str = Form(...),
+):
+    db = next(get_db())
+    user = _find_user_by_reset_token(db, token)
+    if not user:
+        return templates.TemplateResponse("reset_password.html", {
+            "request": request, "token": None, "error": None,
+        })
+
+    error = None
+    if password != confirm_password:
+        error = "Passwords do not match."
+    elif len(password) < 8:
+        error = "Password must be at least 8 characters."
+    if error:
+        return templates.TemplateResponse("reset_password.html", {
+            "request": request, "token": token, "error": error,
+        })
+
+    user.password_hash = hash_password(password)
+    user.reset_token_hash = None
+    user.reset_token_expires_at = None
+    db.commit()
+    return RedirectResponse(url="/login?reset=success", status_code=302)
 
 
 # ============================================================
