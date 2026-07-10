@@ -1,9 +1,9 @@
 """
 Transactional email sending.
 
-Note: env vars (RESEND_API_KEY, EMAIL_FROM, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)
-are read at process startup by the hosting platform — a fresh deployment is
-required after changing them in Vercel for the running app to see new values.
+Note: env vars are read at process startup — changing .env requires the
+container/process to be recreated (e.g. `docker compose up -d`) before
+the running app sees new values.
 
 Supports two providers, checked in order:
   1. Resend HTTP API  — set RESEND_API_KEY (recommended on Vercel)
@@ -18,6 +18,7 @@ import json
 import logging
 import os
 import smtplib
+import urllib.error
 import urllib.request
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -53,10 +54,21 @@ def _send_via_resend(api_key: str, sender: str, to: str, subject: str, html: str
     req = urllib.request.Request(
         RESEND_ENDPOINT,
         data=payload,
-        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+            # Resend's edge (Cloudflare) blocks urllib's default "Python-urllib/x.y"
+            # User-Agent as a bot signature; a normal-looking UA is required.
+            "User-Agent": "TriageCounsel-Emailer/1.0 (+https://triagecounsel.com)",
+        },
     )
-    with urllib.request.urlopen(req, timeout=10) as resp:
-        resp.read()
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            resp.read()
+    except urllib.error.HTTPError as e:
+        body = e.read().decode(errors="replace")
+        logger.error(f"Resend API error {e.code}: {body}")
+        raise
     logger.info(f"Password email sent via Resend to {to}")
 
 
