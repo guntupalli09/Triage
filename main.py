@@ -170,6 +170,10 @@ def on_startup():
     logger.info(f"Triage Counsel worker ready | mode={'DEMO' if DEV_MODE else 'PROD'} | db={db_type} | redis={'yes' if redis_url else 'no'} | pid={os.getpid()}")
     if not DEV_MODE and "sqlite" in DATABASE_URL:
         logger.warning("Running production mode with SQLite — use PostgreSQL for reliability")
+    # TEMPORARY DIAGNOSTIC — presence/length only, never values; remove after debugging.
+    for var in ("GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "RESEND_API_KEY", "EMAIL_FROM", "DATABASE_URL"):
+        val = os.getenv(var)
+        logger.info(f"ENV_CHECK {var}: present={val is not None} len={len(val) if val else 0}")
 
 
 @app.on_event("shutdown")
