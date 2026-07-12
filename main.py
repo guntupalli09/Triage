@@ -1617,6 +1617,7 @@ async def subscribe(request: Request, plan: str):
         customer_email=user.email,
         client_reference_id=str(user.id),
         line_items=[line_item],
+        allow_promotion_codes=True,
         success_url=f"{current_base_url}/dashboard?upgraded=true",
         cancel_url=f"{current_base_url}/pricing",
         metadata={"plan": plan, "user_id": str(user.id), "billing_period": billing_period},
