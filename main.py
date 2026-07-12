@@ -106,22 +106,26 @@ PLAN_LIMITS = {
     "starter": {
         "monthly_limit": 10, "batch_max": 3, "playbooks_max": 1,
         "monthly_price": 900, "yearly_price": 8900,
-        "stripe_monthly_price_id": "", "stripe_yearly_price_id": "",
+        "stripe_monthly_price_id": os.getenv("STRIPE_STARTER_MONTHLY_PRICE_ID", "").strip(),
+        "stripe_yearly_price_id": os.getenv("STRIPE_STARTER_YEARLY_PRICE_ID", "").strip(),
     },
     "professional": {
         "monthly_limit": 150, "batch_max": 10, "playbooks_max": 5,
         "monthly_price": 4900, "yearly_price": 47000,
-        "stripe_monthly_price_id": "", "stripe_yearly_price_id": "",
+        "stripe_monthly_price_id": os.getenv("STRIPE_PROFESSIONAL_MONTHLY_PRICE_ID", "").strip(),
+        "stripe_yearly_price_id": os.getenv("STRIPE_PROFESSIONAL_YEARLY_PRICE_ID", "").strip(),
     },
     "team": {
         "monthly_limit": 999999, "batch_max": 50, "playbooks_max": 50,
         "monthly_price": 19900, "yearly_price": 189900,
-        "stripe_monthly_price_id": "", "stripe_yearly_price_id": "",
+        "stripe_monthly_price_id": os.getenv("STRIPE_TEAM_MONTHLY_PRICE_ID", "").strip(),
+        "stripe_yearly_price_id": os.getenv("STRIPE_TEAM_YEARLY_PRICE_ID", "").strip(),
     },
     "unlimited": {
         "monthly_limit": 999999, "batch_max": 50, "playbooks_max": 50,
         "monthly_price": 19900, "yearly_price": 189900,
-        "stripe_monthly_price_id": "", "stripe_yearly_price_id": "",
+        "stripe_monthly_price_id": os.getenv("STRIPE_UNLIMITED_MONTHLY_PRICE_ID", "").strip(),
+        "stripe_yearly_price_id": os.getenv("STRIPE_UNLIMITED_YEARLY_PRICE_ID", "").strip(),
     },
 }
 
