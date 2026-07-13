@@ -245,6 +245,13 @@ def run_analysis(contract_text: str) -> Dict:
         "llm_result": llm_result,
         "rule_counts": analysis.get("rule_counts", {"high": 0, "medium": 0, "low": 0}),
         "version": analysis.get("version", "1.0.3"),
+        # Business workflow decision layer, additive to overall_risk: what
+        # should happen to this contract next (ready to send / commercial
+        # review / legal review / blocked by policy), not just how risky it is.
+        "signature_readiness": analysis.get("signature_readiness"),
+        "blocking_findings": analysis.get("blocking_findings", []),
+        "policy_blocked_findings": analysis.get("policy_blocked_findings", []),
+        "non_blocking_findings": analysis.get("non_blocking_findings", []),
     }
 
 

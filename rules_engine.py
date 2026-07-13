@@ -282,6 +282,59 @@ ONE_WAY_RULE_IDS = frozenset({
     "H_INDEM_ONEWAY_01",
 })
 
+
+class SignatureReadiness(str, Enum):
+    """
+    Workflow decision layer, separate from and additive to Severity/
+    overall_risk. Severity answers "how risky is this clause"; this answers
+    "what should happen to this contract next." A contract with a single
+    publicity clause and a contract with uncapped liability + uncapped
+    indemnification can both be overall_risk="high" while needing very
+    different handling — this layer is what makes that distinction.
+    """
+    READY_TO_SEND = "ready_to_send"
+    COMMERCIAL_REVIEW_RECOMMENDED = "commercial_review_recommended"
+    LEGAL_REVIEW_REQUIRED = "legal_review_required"
+    BLOCKED_BY_POLICY = "blocked_by_policy"
+
+
+# Business-policy classification of which HIGH findings are severe enough to
+# require legal counsel before signature, vs. which are worth flagging but
+# fine to route through ordinary commercial negotiation. This is a workflow
+# policy call, not a legal determination — reviewable and adjustable per
+# organization, but it must be explicit and auditable rather than inferred
+# from raw severity counts.
+#
+# A finding only counts toward blocking if its FINAL severity (after
+# suppression/mutuality downgrades) is still HIGH — a downgraded finding
+# (e.g. a mutual attorneys' fee clause, or an indemnity limited "to the
+# extent required by law") has already had its risk contained and should
+# not force legal review on its own.
+
+# Hard policy blockers: exposure most organizations treat as non-negotiable
+# without executive/legal sign-off, regardless of what else is in the contract.
+POLICY_BLOCK_RULE_IDS = frozenset({
+    "H_PERSONAL_01",       # personal liability exposure outside the company
+    "H_DATA_PRIVACY_01",   # personal data processed with no DPA/GDPR/CCPA protections
+    "H_AI_TRAINING_01",    # customer data usable to train third-party AI/ML models
+})
+
+# Other HIGH findings serious enough to warrant legal (not just commercial)
+# review before signature.
+BLOCKING_RULE_IDS = frozenset({
+    "H_INDEM_01",
+    "H_LOL_01",
+    "H_LOL_CARVEOUT_01",
+    "H_INDEM_ONEWAY_01",
+    "H_IP_01",
+    "H_IP_WORK_PRODUCT_01",
+    "H_ASSIGN_CHANGE_CTRL_01",
+    "H_CONSEQUENTIAL_01",
+    "H_ASYMMETRIC_LIABILITY_01",
+    "H_UNILATERAL_MOD_01",
+    "H_PRICE_ESCAL_01",
+}) | POLICY_BLOCK_RULE_IDS
+
 _MUTUAL_RE = re.compile(
     r"\b(either\s+party|either\s+of\s+the\s+parties|both\s+parties|each\s+party|mutual(ly)?|"
     r"reciprocal(ly)?|prevailing\s+party|non-?prevailing\s+party)\b",
@@ -472,6 +525,57 @@ class RuleEngine:
             return "medium"
         else:
             return "low"
+
+    def _compute_workflow_decision(self, findings: List[Finding]) -> Dict:
+        """
+        Business workflow decision layer, additive to (never replacing)
+        overall_risk/severity. Classifies findings as policy-blocking,
+        legal-review-blocking, or non-blocking, and derives a single
+        signature_readiness recommendation from that classification —
+        rather than from raw severity/medium-count thresholds, which treat a
+        publicity clause and uncapped liability as equally "high".
+        """
+        policy_blocked: List[str] = []
+        blocking: List[str] = []
+        non_blocking: List[str] = []
+        seen_policy, seen_blocking, seen_non_blocking = set(), set(), set()
+
+        for f in findings:
+            # Only a still-HIGH-severity finding counts as blocking — a
+            # finding downgraded by suppression/mutuality analysis has
+            # already had its risk contained.
+            is_high = f.severity == Severity.HIGH
+            if is_high and f.rule_id in POLICY_BLOCK_RULE_IDS:
+                if f.rule_id not in seen_policy:
+                    policy_blocked.append(f.rule_id)
+                    seen_policy.add(f.rule_id)
+            elif is_high and f.rule_id in BLOCKING_RULE_IDS:
+                if f.rule_id not in seen_blocking:
+                    blocking.append(f.rule_id)
+                    seen_blocking.add(f.rule_id)
+            else:
+                if f.rule_id not in seen_non_blocking:
+                    non_blocking.append(f.rule_id)
+                    seen_non_blocking.add(f.rule_id)
+
+        if policy_blocked:
+            signature_readiness = SignatureReadiness.BLOCKED_BY_POLICY.value
+        elif blocking:
+            signature_readiness = SignatureReadiness.LEGAL_REVIEW_REQUIRED.value
+        elif non_blocking:
+            signature_readiness = SignatureReadiness.COMMERCIAL_REVIEW_RECOMMENDED.value
+        else:
+            signature_readiness = SignatureReadiness.READY_TO_SEND.value
+
+        return {
+            "signature_readiness": signature_readiness,
+            # blocking_findings includes policy-blocked rule_ids too (a
+            # policy block is still a blocking finding); policy_blocked_findings
+            # additionally isolates which ones triggered the hardest tier.
+            "blocking_findings": policy_blocked + blocking,
+            "policy_blocked_findings": policy_blocked,
+            "non_blocking_findings": non_blocking,
+        }
 
     def _check_required_section(self, rule: Rule, text: str) -> Optional[Finding]:
         """
@@ -1784,14 +1888,21 @@ class RuleEngine:
             counts[f.severity.value] += 1
 
         overall = self._compute_overall_risk(suppressed_findings, counts)
+        workflow = self._compute_workflow_decision(suppressed_findings)
 
         return {
             "findings": suppressed_findings,
-            "overall_risk": overall,
+            "overall_risk": overall,  # Severity signal — unchanged, not replaced.
             "rule_counts": counts,
             "version": self.version,
             "ruleset_version_data": _RULESET_VERSION_DATA,
             "suppression_log": suppression_reasons,  # Audit trail
+            # Business workflow decision layer, additive to overall_risk:
+            # what should happen to this contract next, not just how risky it is.
+            "signature_readiness": workflow["signature_readiness"],
+            "blocking_findings": workflow["blocking_findings"],
+            "policy_blocked_findings": workflow["policy_blocked_findings"],
+            "non_blocking_findings": workflow["non_blocking_findings"],
         }
 
     def build_missing_sections(self, findings: List[Finding]) -> List[str]:
