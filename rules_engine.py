@@ -414,6 +414,65 @@ def _classify_party_direction(clause_text: str) -> Dict[str, str]:
     }
 
 
+def _extract_payment_terms(text: str) -> Dict[str, Optional[object]]:
+    """
+    Extract structured payment terms so a contract-to-cash consumer (e.g.
+    Agree's invoicing) can compare them against an actual invoice
+    configuration, rather than only getting a "Net 30 mentioned" flag.
+
+    Best-effort / first-match extraction — deterministic regex, not NLU.
+    Any field that can't be confidently identified is None rather than guessed.
+    """
+    due_days: Optional[int] = None
+    m = re.search(r"\bnet\s+(\d{1,3})\b", text, re.IGNORECASE)
+    if not m:
+        m = re.search(r"\bdue\s+(?:within|in)\s+(\d{1,3})\s+days?\b", text, re.IGNORECASE)
+    if m:
+        due_days = int(m.group(1))
+
+    currency: Optional[str] = None
+    m = re.search(r"\b(USD|EUR|GBP|CAD|AUD|United\s+States\s+Dollars?)\b", text, re.IGNORECASE)
+    if m:
+        raw = m.group(1).upper()
+        currency = "USD" if "DOLLAR" in raw else raw
+    elif re.search(r"€", text):
+        currency = "EUR"
+    elif re.search(r"£", text):
+        currency = "GBP"
+    elif re.search(r"\$\s?[\d,]", text):
+        currency = "USD"  # heuristic: bare "$" with no explicit code, assume USD
+
+    billing_frequency: Optional[str] = None
+    for pattern, label in (
+        (r"\bmonthly\b", "monthly"),
+        (r"\bquarterly\b", "quarterly"),
+        (r"\bannual(?:ly)?\b|\byearly\b", "annually"),
+        (r"\bweekly\b", "weekly"),
+        (r"\bone[-\s]?time\b", "one_time"),
+        (r"\brecurring\b", "recurring"),
+    ):
+        if re.search(pattern, text, re.IGNORECASE):
+            billing_frequency = label
+            break
+
+    invoice_trigger: Optional[str] = None
+    m = re.search(
+        r"\binvoic\w*\b[^.]{0,60}\b(?:upon|following|after|within)\b[^.]{0,60}"
+        r"\b(activation|delivery|execution|go-live|commencement|acceptance)\b",
+        text,
+        re.IGNORECASE,
+    )
+    if m:
+        invoice_trigger = m.group(1).lower()
+
+    return {
+        "due_days": due_days,
+        "currency": currency,
+        "billing_frequency": billing_frequency,
+        "invoice_trigger": invoice_trigger,
+    }
+
+
 def _find_all(pattern: str, text: str) -> Iterable[re.Match]:
     return re.finditer(pattern, text, flags=re.IGNORECASE | re.DOTALL)
 
@@ -652,6 +711,140 @@ class RuleEngine:
             aliases=rule.aliases or [],
             finding_type=FindingType.EXPECTED_PROTECTION_NOT_FOUND.value,
         )
+
+    def _make_document_finding(
+        self, rule_id: str, rule_name: str, title: str, severity: Severity,
+        rationale: str, text: str, anchor_match: Optional[re.Match],
+    ) -> Finding:
+        """
+        Build a Finding for a document-wide consistency check (conflicting
+        values found in different places in the document, not a single
+        clause) rather than a single regex/proximity match. Anchored to the
+        first occurrence found so it still has a real, auditable position.
+        """
+        if anchor_match is not None:
+            s, e = anchor_match.span()
+        else:
+            s, e = 0, min(1, len(text))
+        return Finding(
+            rule_id=rule_id,
+            rule_name=rule_name,
+            title=title,
+            severity=severity,
+            rationale=rationale,
+            matched_excerpt=_excerpt(text, s, e),
+            position=s,
+            context=text[max(0, s - 200):min(len(text), e + 200)],
+            start_index=s,
+            end_index=max(e, s + 1),
+            exact_snippet=text[s:e] if e > s else "(document-wide inconsistency; no single anchor)",
+            aliases=[],
+            finding_type=FindingType.ADVERSE_LANGUAGE_DETECTED.value,
+        )
+
+    def _check_cross_document_conflicts(self, text: str) -> List[Finding]:
+        """
+        Contract-to-cash correctness checks that require comparing values
+        found in different parts of the document, rather than a single
+        clause — no single regex/proximity match can prove "these two
+        numbers disagree" or "this entity is named two different ways."
+        """
+        findings: List[Finding] = []
+
+        # H_BILLING_CONFLICT_01: multiple distinct "Net X days" payment terms
+        net_days = sorted(set(re.findall(r"\bnet\s+(\d{1,3})\s*days?\b", text, re.IGNORECASE)), key=int)
+        if len(net_days) > 1:
+            findings.append(self._make_document_finding(
+                rule_id="H_BILLING_CONFLICT_01",
+                rule_name="billing_terms_conflict",
+                title="Conflicting payment due-date terms",
+                severity=Severity.HIGH,
+                rationale=(
+                    "The contract states multiple different payment due-date terms "
+                    f"({', '.join('Net ' + d for d in net_days)}), which will not match a "
+                    "single invoice configuration and may prevent successful billing."
+                ),
+                text=text,
+                anchor_match=re.search(r"\bnet\s+\d{1,3}\s*days?\b", text, re.IGNORECASE),
+            ))
+
+        # H_PRICE_CONFLICT_01: multiple distinct total contract price/fee amounts
+        amounts = sorted(set(re.findall(
+            r"\btotal\s+(?:contract\s+)?(?:price|fee|value|amount)\D{0,20}\$\s?([\d,]+(?:\.\d{2})?)",
+            text, re.IGNORECASE,
+        )))
+        if len(amounts) > 1:
+            findings.append(self._make_document_finding(
+                rule_id="H_PRICE_CONFLICT_01",
+                rule_name="price_conflict",
+                title="Conflicting contract price or fee amounts",
+                severity=Severity.HIGH,
+                rationale=(
+                    "The contract states conflicting total price/fee amounts "
+                    f"(${', $'.join(amounts)}), which must be reconciled before invoicing."
+                ),
+                text=text,
+                anchor_match=re.search(
+                    r"\btotal\s+(?:contract\s+)?(?:price|fee|value|amount)\D{0,20}\$\s?[\d,]+(?:\.\d{2})?",
+                    text, re.IGNORECASE,
+                ),
+            ))
+
+        # H_PARTY_IDENTITY_CONFLICT_01: same entity referred to with an
+        # inconsistent legal name/suffix in different places in the document
+        # (e.g. "Acme Corp" in the preamble vs. "Acme Corporation, Inc." in
+        # the signature block) — ambiguous as to which entity is bound.
+        entity_matches = re.findall(
+            r"\b((?:[A-Z][\w&.]*\s+){1,5}[A-Z][\w&.]*),?\s+(?:a|an)\s+[A-Za-z\s]{2,30}?\s+"
+            r"(?:corporation|company|limited liability company|LLC|Inc\.?|Ltd\.?|Corporation)\b",
+            text,
+        )
+        variants_by_root: Dict[str, set] = {}
+        for name in entity_matches:
+            cleaned = name.strip().rstrip(",")
+            first_word = cleaned.split()[0] if cleaned.split() else ""
+            root = re.sub(r"[^a-z0-9]", "", first_word.lower())
+            if not root:
+                continue
+            variants_by_root.setdefault(root, set()).add(cleaned)
+        conflicting = {root: v for root, v in variants_by_root.items() if len(v) > 1}
+        if conflicting:
+            variants = sorted(next(iter(conflicting.values())))
+            findings.append(self._make_document_finding(
+                rule_id="H_PARTY_IDENTITY_CONFLICT_01",
+                rule_name="party_identity_conflict",
+                title="Inconsistent legal entity name for the same party",
+                severity=Severity.HIGH,
+                rationale=(
+                    "The contract refers to what appears to be the same party using "
+                    f"inconsistent legal names ({', '.join(variants)}), creating ambiguity "
+                    "as to which entity is actually bound."
+                ),
+                text=text,
+                anchor_match=re.search(re.escape(variants[0]), text),
+            ))
+
+        # H_SIGNATURE_PARTY_MISSING_01: an execution/signature section exists
+        # ("IN WITNESS WHEREOF") but fewer than two "By:" signature lines are
+        # present — one party's signature block appears to be missing.
+        if re.search(r"\bIN\s+WITNESS\s+WHEREOF\b", text, re.IGNORECASE):
+            by_lines = re.findall(r"\bBy\s*:\s*(?:_{2,}|/s/|\n|[A-Z][a-z]+\s+[A-Z][a-z]+)", text)
+            if len(by_lines) < 2:
+                findings.append(self._make_document_finding(
+                    rule_id="H_SIGNATURE_PARTY_MISSING_01",
+                    rule_name="signature_party_missing",
+                    title="Signature block appears to be missing for one party",
+                    severity=Severity.HIGH,
+                    rationale=(
+                        "The document contains an execution/signature section but fewer than "
+                        "two 'By:' signature lines were found — one party's signature block "
+                        "may be missing, which would prevent full execution."
+                    ),
+                    text=text,
+                    anchor_match=re.search(r"\bIN\s+WITNESS\s+WHEREOF\b", text, re.IGNORECASE),
+                ))
+
+        return findings
 
     def _apply_suppression_rules(self, findings: List[Finding], text: str) -> Tuple[List[Finding], Dict[str, str]]:
         """
@@ -1689,6 +1882,247 @@ class RuleEngine:
                 pattern=r"\bnet\s+\d+\b|\bdue\s+(within|in)\s+\d+\s+days?\b|\bpayment\s+(is\s+)?due\b|\binvoice\w*\s+(within|in)\s+\d+\s+days?\b",
                 aliases=["payment_due", "net_days", "invoice_terms"],
             ),
+
+            # ---------------- Contract-to-cash: payment/invoice configuration ----------------
+            # H_BILLING_CONFLICT_01, H_PRICE_CONFLICT_01, H_PARTY_IDENTITY_CONFLICT_01,
+            # and H_SIGNATURE_PARTY_MISSING_01 are document-wide consistency checks, not
+            # single-clause matches — see RuleEngine._check_cross_document_conflicts().
+            Rule(
+                rule_id="M_PAYMENT_TRIGGER_01",
+                rule_name="invoice_trigger_missing",
+                title="No invoice trigger event specified",
+                severity=Severity.MEDIUM,
+                rationale="Without a defined invoicing trigger (e.g. upon execution, service activation, or delivery), it is unclear when billing may begin, which can cause invoice timing mismatches.",
+                pattern=r"\binvoic\w*\b[^.]{0,40}\b(?:to\s+be\s+determined|TBD|to\s+be\s+agreed)\b",
+                aliases=["invoice_trigger_undefined", "billing_start_undefined"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(invoic\w*|bill\w*|payment)\b"],
+                protective_patterns=[
+                    r"\binvoic\w*\b[^.]{0,60}\b(?:upon|following|after|within)\b[^.]{0,60}"
+                    r"\b(activation|delivery|execution|go-live|commencement|acceptance)\b",
+                    r"\bbilling\s+shall\s+(?:begin|commence)\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_CURRENCY_AMBIGUOUS_01",
+                rule_name="currency_ambiguous",
+                title="Payment currency not specified",
+                severity=Severity.MEDIUM,
+                rationale="Amounts stated without an explicit currency designation are ambiguous and can cause invoicing and payment reconciliation errors, especially in cross-border deals.",
+                pattern=r"\bcurrency\s+(?:to\s+be\s+determined|TBD)\b",
+                aliases=["currency_undefined", "ambiguous_currency"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\$\s?[\d,]+(?:\.\d{2})?"],
+                protective_patterns=[
+                    r"\b(USD|EUR|GBP|CAD|AUD|United\s+States\s+Dollars?)\b",
+                    r"€|£",
+                ],
+            ),
+            Rule(
+                rule_id="M_BILLING_FREQUENCY_01",
+                rule_name="billing_frequency_missing",
+                title="Billing frequency not specified",
+                severity=Severity.MEDIUM,
+                rationale="Fees mentioned without a stated billing frequency (monthly, quarterly, annual, one-time) can't be reliably configured as recurring or one-time invoices.",
+                pattern=r"\bbilling\s+frequency\s+(?:to\s+be\s+determined|TBD)\b",
+                aliases=["billing_cadence_missing", "recurring_billing_undefined"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(fee|payment|invoic\w*|price)\b"],
+                protective_patterns=[
+                    r"\b(monthly|quarterly|annual(?:ly)?|yearly|weekly|one[-\s]?time|recurring|"
+                    r"per\s+month|per\s+year)\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_PRICE_EXHIBIT_MISSING_01",
+                rule_name="price_exhibit_missing",
+                title="Pricing referenced in an exhibit that isn't included",
+                severity=Severity.MEDIUM,
+                rationale="Pricing that is only defined by reference to an exhibit or schedule is unusable for invoicing if that exhibit isn't actually attached or included in the document.",
+                pattern=r"\bpricing\b[^.]{0,60}\bnot\s+attached\b",
+                aliases=["exhibit_pricing_missing", "unattached_pricing_exhibit"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[
+                    r"\b(pricing|fees?|price)\b",
+                    r"\b(exhibit|schedule|appendix)\s+[A-Z0-9]+\b",
+                ],
+                protective_patterns=[
+                    r"\b(exhibit|schedule|appendix)\s+[A-Z0-9]+\b[\s\S]{0,300}\b(exhibit|schedule|appendix)\s+[A-Z0-9]+\b",
+                ],
+                window=350,
+            ),
+            Rule(
+                rule_id="M_EXPENSE_APPROVAL_01",
+                rule_name="expense_approval_missing",
+                title="Reimbursable expenses lack an approval limit",
+                severity=Severity.MEDIUM,
+                rationale="Reimbursable expense language without a pre-approval requirement or cap can result in unbounded, unbudgeted costs.",
+                anchors=[r"\breimburs\w*\b", r"\bexpense\w*\b"],
+                nearby=[r"\bwithout\s+(?:any\s+)?(?:limit|cap|approval)\b"],
+                window=300,
+                aliases=["unbounded_expense_reimbursement", "no_expense_cap"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\breimburs\w*\b|\bexpense\w*\b"],
+                protective_patterns=[
+                    r"\bprior\s+written\s+approval\b",
+                    r"\bnot\s+to\s+exceed\s+\$",
+                    r"\bpre[-\s]?approved\b",
+                    r"\bapproved\s+in\s+advance\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_USAGE_MEASUREMENT_01",
+                rule_name="usage_measurement_missing",
+                title="Usage-based charges lack a measurement method",
+                severity=Severity.MEDIUM,
+                rationale="Usage-based or overage charges without a defined measurement method leave the billing amount effectively undeterminable and disputable.",
+                anchors=[r"\busage\s+charges?\b", r"\boverage\s+(?:fees?|charges?)\b"],
+                nearby=[r"\bsole\s+discretion\b"],
+                window=300,
+                aliases=["undefined_usage_metric", "usage_billing_undefined"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(usage|overage|metered|per[-\s]?unit)\b[^.]{0,20}\b(charge|fee|billing)\b"],
+                protective_patterns=[
+                    r"\bmeasured\s+by\b",
+                    r"\bmetered\b",
+                    r"\bcalculated\s+based\s+on\b",
+                    r"\busage\s+report\b",
+                    r"\bmeter\w*\s+reading\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_DISCOUNT_EXPIRY_01",
+                rule_name="discount_expiry_missing",
+                title="Discount lacks a clear expiration",
+                severity=Severity.MEDIUM,
+                rationale="A discount stated without a clear expiration or duration is ambiguous as to when standard pricing resumes, risking under-billing or customer disputes.",
+                pattern=r"\bdiscount\w*\b[^.]{0,40}\bno\s+expiration\b",
+                aliases=["discount_duration_undefined", "open_ended_discount"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\bdiscount\w*\b"],
+                protective_patterns=[
+                    r"\bdiscount\w*\b[^.]{0,80}\b(expir\w*|through\s+\d{4}|for\s+the\s+first\s+\d+|"
+                    r"for\s+\d+\s+(?:months?|years?)|until\s+\w+\s+\d{1,2},?\s+\d{4})\b",
+                ],
+            ),
+
+            # ---------------- Contract-to-cash: signature & execution defects ----------------
+            Rule(
+                rule_id="M_AUTHORITY_REP_01",
+                rule_name="signatory_authority_missing",
+                title="Signatory title or authority representation missing",
+                severity=Severity.MEDIUM,
+                rationale="A signature block without a stated title or 'duly authorized' representation leaves it unclear whether the signer had authority to bind the entity.",
+                pattern=r"\bTitle\s*:\s*(?:_{2,}|\[\s*\])",
+                aliases=["blank_signatory_title", "signatory_authority_undefined"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\bIN\s+WITNESS\s+WHEREOF\b"],
+                protective_patterns=[r"\bTitle\s*:\s*\S", r"\bduly\s+authorized\b"],
+            ),
+            Rule(
+                rule_id="M_EFFECTIVE_DATE_MISSING_01",
+                rule_name="effective_date_blank",
+                title="Effective Date left blank",
+                severity=Severity.MEDIUM,
+                rationale="A blank or placeholder Effective Date means the contract term, renewal dates, and payment schedule cannot be reliably calculated.",
+                pattern=r"\bEffective\s+Date\s*[:\s]*(?:_{2,}|\[\s*\]|\bTBD\b|\bXX+\b)",
+                aliases=["blank_effective_date", "effective_date_placeholder"],
+            ),
+            Rule(
+                rule_id="M_EXHIBIT_MISSING_01",
+                rule_name="exhibit_referenced_missing",
+                title="Exhibit or schedule referenced but not found",
+                severity=Severity.MEDIUM,
+                rationale="A contract that refers to an exhibit, schedule, or appendix that isn't actually included leaves material terms undefined.",
+                pattern=r"\b(?:exhibit|schedule|appendix)\s+[A-Z0-9]+\b[^.]{0,40}\b(?:not\s+attached|to\s+be\s+provided|forthcoming)\b",
+                aliases=["missing_exhibit", "unattached_schedule"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(?:exhibit|schedule|appendix)\s+[A-Z0-9]+\b"],
+                protective_patterns=[
+                    r"\b(exhibit|schedule|appendix)\s+[A-Z0-9]+\b[\s\S]{0,300}\b(exhibit|schedule|appendix)\s+[A-Z0-9]+\b",
+                ],
+            ),
+            Rule(
+                rule_id="L_COUNTERPARTS_ESIGN_01",
+                rule_name="counterparts_esignature",
+                title="Execution in counterparts / electronic signature language",
+                severity=Severity.LOW,
+                rationale="Counterparts and e-signature language is standard and generally favorable for execution speed, but worth confirming it references a valid e-signature method (e.g. ESIGN/UETA compliant).",
+                pattern=r"\bcounterparts?\b[^.]{0,60}\b(?:execute[sd]?|signed)\b|\belectronic\s+signature\b|\bDocuSign\b|\belectronically\s+executed\b",
+                aliases=["esignature_language", "counterparts_clause"],
+            ),
+
+            # ---------------- Contract-to-cash: termination-to-billing consequences ----------------
+            Rule(
+                rule_id="H_PAYMENT_ACCELERATION_01",
+                rule_name="payment_acceleration",
+                title="Payment obligations accelerate upon termination or breach",
+                severity=Severity.HIGH,
+                rationale="Acceleration clauses that make all remaining fees immediately due upon termination or breach can create a large, unexpected lump-sum payment obligation.",
+                anchors=[r"\bterminat\w*\b", r"\bbreach\w*\b"],
+                nearby=[
+                    r"\baccelerat\w*\b",
+                    r"\bimmediately\s+due\s+and\s+payable\b",
+                    r"\bbecome\s+due\s+and\s+payable\b",
+                ],
+                window=350,
+                aliases=["fee_acceleration_on_termination", "accelerated_payment_obligation"],
+            ),
+            Rule(
+                rule_id="H_POST_TERMINATION_BILLING_01",
+                rule_name="post_termination_billing",
+                title="Billing continues after termination",
+                severity=Severity.HIGH,
+                rationale="Language that continues billing or fee liability after termination or expiration can result in charges for a service that is no longer being provided.",
+                anchors=[r"\btermination\b", r"\bexpir\w*\b"],
+                nearby=[
+                    r"\bcontinue\s+to\s+(?:bill|charge|invoice)\b",
+                    r"\bremain\s+liable\s+for\s+(?:fees|payments|charges)\b",
+                    r"\bshall\s+continue\s+to\s+accrue\b",
+                ],
+                window=350,
+                aliases=["continued_billing_post_termination", "post_termination_fee_liability"],
+            ),
+            Rule(
+                rule_id="M_PREPAID_FEES_REFUND_01",
+                rule_name="prepaid_fees_refund_missing",
+                title="Prepaid fees non-refundable / refund terms unclear on termination",
+                severity=Severity.MEDIUM,
+                rationale="Prepaid fees without pro-rata refund language on early termination mean the customer loses the unused, already-paid portion of the contract.",
+                anchors=[r"\bprepaid\b|\bpre[-\s]paid\b"],
+                nearby=[r"\bnon[-\s]?refundable\b"],
+                window=300,
+                aliases=["prepaid_fees_not_refundable", "no_prorata_refund"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\bprepaid\b|\bpre[-\s]paid\b", r"\btermin\w*\b"],
+                protective_patterns=[
+                    r"\brefund\w*\b[^.]{0,80}\b(?:pro[-\s]?rata|upon\s+termination)\b",
+                    r"\bpro[-\s]?rata\s+refund\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_FINAL_INVOICE_01",
+                rule_name="final_invoice_timing_missing",
+                title="Final invoice timing on termination not specified",
+                severity=Severity.MEDIUM,
+                rationale="Without a defined timeline for issuing a final invoice after termination, billing close-out and reconciliation can be delayed indefinitely.",
+                pattern=r"\bfinal\s+invoice\b[^.]{0,40}\bsole\s+discretion\b",
+                aliases=["final_invoice_undefined", "termination_billing_close_out_missing"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\btermin\w*\b", r"\binvoic\w*\b"],
+                protective_patterns=[r"\bfinal\s+invoice\b"],
+            ),
+            Rule(
+                rule_id="M_EARLY_TERMINATION_FEE_01",
+                rule_name="early_termination_fee",
+                title="Early termination fee or penalty",
+                severity=Severity.MEDIUM,
+                rationale="Early termination fees add a direct cost to exiting the contract before term end and should be confirmed as reasonable and clearly calculated.",
+                anchors=[r"\bearly\s+terminat\w*\b"],
+                nearby=[r"\bfee\b", r"\bpenalt(?:y|ies)\b", r"\bcharge\b"],
+                window=300,
+                aliases=["early_termination_penalty", "termination_charge"],
+            ),
         ]
 
     def analyze(self, text: str, suppression_enabled: bool = True) -> Dict:
@@ -1845,6 +2279,12 @@ class RuleEngine:
             if required_section_finding is not None:
                 findings.append(required_section_finding)
 
+        # Document-wide consistency checks (conflicting values across
+        # different parts of the document, missing signature blocks) — see
+        # _check_cross_document_conflicts for why these can't be single
+        # regex/proximity matches.
+        findings.extend(self._check_cross_document_conflicts(text))
+
         # Deduplicate by (rule_id, clause_number) to prevent inflated counts
         # If clause_number exists, use (rule_id, clause_number) as key; otherwise use (rule_id, None)
         # Keep the "best" match: prefer longer matched_excerpt, or earliest position
@@ -1903,6 +2343,9 @@ class RuleEngine:
             "blocking_findings": workflow["blocking_findings"],
             "policy_blocked_findings": workflow["policy_blocked_findings"],
             "non_blocking_findings": workflow["non_blocking_findings"],
+            # Structured contract-to-cash terms, for comparison against an
+            # actual invoice configuration (not just "Net 30 mentioned").
+            "payment_terms": _extract_payment_terms(text),
         }
 
     def build_missing_sections(self, findings: List[Finding]) -> List[str]:

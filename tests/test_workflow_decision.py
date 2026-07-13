@@ -113,8 +113,8 @@ class TestReadyToSend:
     def test_contract_with_no_findings_is_ready_to_send(self, engine):
         text = (
             "This Agreement is between Acme Corp and Beta Inc for the "
-            "purchase of office chairs. The total price is $5,000, due upon "
-            "delivery."
+            "one-time purchase of office chairs. The total price is $5,000 "
+            "USD, due upon delivery."
         )
         result = engine.analyze(text)
         assert result["findings"] == []

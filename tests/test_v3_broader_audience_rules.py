@@ -14,8 +14,11 @@ def test_v3_rule_inventory_counts_and_version():
     counts = Counter(rule.severity.value for rule in engine.rules)
 
     assert engine.version == "3.0.0"
-    assert len(engine.rules) == 64
-    assert counts == {"high": 22, "medium": 32, "low": 10}
+    # 64 base rules + 16 contract-to-cash rules added for Agree.com
+    # (payment/invoice config, pricing ambiguity, signature/execution
+    # defects, termination-to-billing consequences).
+    assert len(engine.rules) == 80
+    assert counts == {"high": 24, "medium": 45, "low": 11}
 
 
 def test_high_stored_card_authorization_rule():

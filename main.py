@@ -252,6 +252,9 @@ def run_analysis(contract_text: str) -> Dict:
         "blocking_findings": analysis.get("blocking_findings", []),
         "policy_blocked_findings": analysis.get("policy_blocked_findings", []),
         "non_blocking_findings": analysis.get("non_blocking_findings", []),
+        # Structured contract-to-cash terms for comparison against an actual
+        # invoice configuration (due_days, currency, billing_frequency, invoice_trigger).
+        "payment_terms": analysis.get("payment_terms", {}),
     }
 
 
