@@ -59,7 +59,11 @@ class Finding:
     clause_number: Optional[str] = None
     matched_keywords: List[str] = None
     aliases: List[str] = None
-    
+    # For proximity (anchor + nearby) rules: the anchor trigger word, the
+    # actual risky phrase found near it, and the surrounding clause text.
+    # None for direct-pattern rules, where exact_snippet already is the full match.
+    evidence: Optional[Dict[str, str]] = None
+
     def __post_init__(self):
         if self.matched_keywords is None:
             self.matched_keywords = []
@@ -200,14 +204,27 @@ def _find_all(pattern: str, text: str) -> Iterable[re.Match]:
     return re.finditer(pattern, text, flags=re.IGNORECASE | re.DOTALL)
 
 
+@dataclass(frozen=True)
+class ProximityMatch:
+    """Anchor span, matched nearby (risk-phrase) span, and their combined span."""
+    anchor_start: int
+    anchor_end: int
+    nearby_start: int
+    nearby_end: int
+    combined_start: int
+    combined_end: int
+
+
 def _proximity_spans(
     anchors: List[str], nearby: List[str], text: str, window: int
-) -> List[Tuple[int, int]]:
+) -> List[ProximityMatch]:
     """
-    Find spans where an anchor occurs and any 'nearby' occurs within +/- window.
-    Returns spans around the anchor match (auditable anchor-based excerpt).
+    Find spans where an anchor occurs and any 'nearby' (risk-phrase) pattern
+    occurs within +/- window. Returns the anchor span, the matched nearby
+    span, and a combined span covering both — so callers can surface the
+    actual risky language, not just the trigger word.
     """
-    spans: List[Tuple[int, int]] = []
+    matches: List[ProximityMatch] = []
     anchor_matches: List[re.Match] = []
     for a in anchors:
         anchor_matches.extend(list(_find_all(a, text)))
@@ -222,12 +239,26 @@ def _proximity_spans(
         neighborhood = text[left:right]
 
         for n in nearby:
-            if re.search(n, neighborhood, flags=re.IGNORECASE | re.DOTALL):
-                spans.append((a_start, a_end))
+            nm = re.search(n, neighborhood, flags=re.IGNORECASE | re.DOTALL)
+            if nm:
+                n_start = left + nm.start()
+                n_end = left + nm.end()
+                combined_start = min(a_start, n_start)
+                combined_end = max(a_end, n_end)
+                matches.append(
+                    ProximityMatch(a_start, a_end, n_start, n_end, combined_start, combined_end)
+                )
                 break
 
-    # De-dup spans
-    return sorted(set(spans))
+    # De-dup by combined span (the evidence span callers actually anchor on)
+    seen = set()
+    deduped: List[ProximityMatch] = []
+    for pm in sorted(matches, key=lambda m: (m.combined_start, m.combined_end)):
+        key = (pm.combined_start, pm.combined_end)
+        if key not in seen:
+            seen.add(key)
+            deduped.append(pm)
+    return deduped
 
 
 # Rule Engine Version - loaded from rules/version.json for transparency and trust
@@ -1348,12 +1379,18 @@ class RuleEngine:
                 else:
                     assert rule.anchors and rule.nearby
                     spans = _proximity_spans(rule.anchors, rule.nearby, chunk, rule.window)
-                    for (s, e) in spans:
+                    for pm in spans:
+                        # Evidence spans, relative to `chunk`
+                        s, e = pm.combined_start, pm.combined_end
                         absolute_start = chunk_start + s
                         absolute_end = chunk_start + e
                         ex = _excerpt(chunk, s, e)
-                        # Extract exact matched snippet from chunk
-                        exact_matched = chunk[s:e] if s < len(chunk) and e <= len(chunk) else chunk[max(0, s):min(len(chunk), e)]
+                        # exact_snippet covers the FULL evidence span (anchor -> risk
+                        # phrase), not just the anchor trigger word, so readers see the
+                        # actual dangerous language rather than a bare keyword.
+                        exact_matched = chunk[s:e]
+                        anchor_text = chunk[pm.anchor_start:pm.anchor_end]
+                        risk_phrase = chunk[pm.nearby_start:pm.nearby_end]
                         # Get surrounding context (±200 chars)
                         context_start = max(0, absolute_start - 200)
                         context_end = min(len(text), absolute_end + 200)
@@ -1379,6 +1416,11 @@ class RuleEngine:
                                 clause_number=clause_num,
                                 matched_keywords=keywords,
                                 aliases=rule.aliases or [],
+                                evidence={
+                                    "anchor": anchor_text,
+                                    "risk_phrase": risk_phrase,
+                                    "full_clause": surrounding_context,
+                                },
                             )
                         )
         # Deduplicate by (rule_id, clause_number) to prevent inflated counts
