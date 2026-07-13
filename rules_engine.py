@@ -96,26 +96,31 @@ class Rule:
             object.__setattr__(self, 'aliases', [])
 
 
-_WS_RE = re.compile(r"\s+")
-
-
-def _normalize_whitespace(text: str) -> str:
-    return _WS_RE.sub(" ", text).strip()
-
-
-def _chunk_text(raw: str) -> List[str]:
+def _chunk_text(text: str) -> List[Tuple[int, str]]:
     """
-    Preserve some structure by chunking on blank lines. Contracts often separate sections.
-    If blank lines not present, fallback to fixed-size chunks.
-    """
-    raw = raw.replace("\r\n", "\n").replace("\r", "\n")
-    parts = [p.strip() for p in raw.split("\n\n") if p.strip()]
-    if parts:
-        return [_normalize_whitespace(p) for p in parts]
+    Split into (start_offset, substring) chunks on blank lines. Contracts often
+    separate sections this way. If blank lines aren't present, fall back to
+    fixed-size chunks.
 
-    cleaned = _normalize_whitespace(raw)
+    Chunks are verbatim slices of `text` (only outer whitespace is trimmed,
+    tracked via offset) — internal whitespace is never altered. This keeps
+    `chunk_start + match.span()` exactly equal to the position in `text`,
+    so start_index/end_index never drift from the source document.
+    """
+    if "\n\n" in text:
+        chunks: List[Tuple[int, str]] = []
+        pos = 0
+        for part in text.split("\n\n"):
+            stripped = part.strip()
+            if stripped:
+                local_offset = part.find(stripped)
+                chunks.append((pos + local_offset, stripped))
+            pos += len(part) + 2  # +2 for the "\n\n" separator consumed by split
+        if chunks:
+            return chunks
+
     size = 3000
-    return [cleaned[i : i + size] for i in range(0, len(cleaned), size)]
+    return [(i, text[i : i + size]) for i in range(0, len(text), size)]
 
 
 def _excerpt(text: str, start: int, end: int, radius: int = 140) -> str:
@@ -1300,19 +1305,19 @@ class RuleEngine:
             .replace("“", '"').replace("”", '"')   # left/right double quotes → "
             .replace("–", "-").replace("—", "-")   # en-dash / em-dash → -
             .replace("…", "...")                         # ellipsis → ...
+            .replace("\r\n", "\n").replace("\r", "\n")   # normalize line endings once, up front
         )
 
         chunks = _chunk_text(text)
 
         findings: List[Finding] = []
-        chunk_offset = 0
-        for chunk in chunks:
+        for chunk_start, chunk in chunks:
             for rule in self.rules:
                 if rule.pattern:
                     for m in _find_all(rule.pattern, chunk):
                         s, e = m.span()
-                        absolute_start = chunk_offset + s
-                        absolute_end = chunk_offset + e
+                        absolute_start = chunk_start + s
+                        absolute_end = chunk_start + e
                         ex = _excerpt(chunk, s, e)
                         matched_text = m.group(0)
                         # Get surrounding context (±200 chars)
@@ -1344,8 +1349,8 @@ class RuleEngine:
                     assert rule.anchors and rule.nearby
                     spans = _proximity_spans(rule.anchors, rule.nearby, chunk, rule.window)
                     for (s, e) in spans:
-                        absolute_start = chunk_offset + s
-                        absolute_end = chunk_offset + e
+                        absolute_start = chunk_start + s
+                        absolute_end = chunk_start + e
                         ex = _excerpt(chunk, s, e)
                         # Extract exact matched snippet from chunk
                         exact_matched = chunk[s:e] if s < len(chunk) and e <= len(chunk) else chunk[max(0, s):min(len(chunk), e)]
@@ -1376,9 +1381,6 @@ class RuleEngine:
                                 aliases=rule.aliases or [],
                             )
                         )
-            # Update chunk offset for next iteration
-            chunk_offset += len(chunk) + 1  # +1 for newline separator
-
         # Deduplicate by (rule_id, clause_number) to prevent inflated counts
         # If clause_number exists, use (rule_id, clause_number) as key; otherwise use (rule_id, None)
         # Keep the "best" match: prefer longer matched_excerpt, or earliest position
