@@ -221,6 +221,7 @@ def run_analysis(contract_text: str) -> Dict:
             "matched_keywords": f.matched_keywords, "aliases": f.aliases,
             "start_index": f.start_index, "end_index": f.end_index,
             "exact_snippet": f.exact_snippet, "evidence": f.evidence,
+            "party_direction": f.party_direction,
         }
         for f in findings
     ]
@@ -295,6 +296,11 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
             # phrase found near it, and the surrounding clause — not just the
             # bare anchor keyword.
             enhanced["evidence"] = finding["evidence"]
+        if finding.get("party_direction"):
+            # "One-way"/unilateral rules: obligor, beneficiary, applies_to,
+            # and mutuality_status, so the UI never asserts one-sidedness
+            # the engine hasn't actually established.
+            enhanced["party_direction"] = finding["party_direction"]
 
         all_issues.append(enhanced)
 

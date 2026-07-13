@@ -17,7 +17,7 @@ from __future__ import annotations
 import json
 import logging
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import Enum
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Iterable
@@ -63,6 +63,13 @@ class Finding:
     # actual risky phrase found near it, and the surrounding clause text.
     # None for direct-pattern rules, where exact_snippet already is the full match.
     evidence: Optional[Dict[str, str]] = None
+    # For rules whose title claims one-sided/unilateral treatment (see
+    # ONE_WAY_RULE_IDS): who the clause binds vs. who it protects, and
+    # whether that asymmetry is actually established in the text.
+    # Keys: obligor, beneficiary, applies_to, mutuality_status
+    # (mutuality_status in {"mutual", "customer-only", "provider-only", "ambiguous"}).
+    # None for rules that don't claim directionality.
+    party_direction: Optional[Dict[str, str]] = None
 
     def __post_init__(self):
         if self.matched_keywords is None:
@@ -200,6 +207,97 @@ def _extract_matched_keywords(match_text: str, pattern: Optional[str] = None) ->
     return unique_keywords[:5]
 
 
+# Rules whose title/rationale claims one-sided, unilateral, or asymmetric
+# treatment between the two contracting parties. For these — and only
+# these — the engine must establish actual directionality before the
+# "one-way" label is allowed to stick; see _classify_party_direction.
+ONE_WAY_RULE_IDS = frozenset({
+    "H_ATTFEE_01",
+    "H_CONSEQUENTIAL_01",
+    "H_ASYMMETRIC_LIABILITY_01",
+    "H_TERM_CONVENIENCE_01",
+    "H_INDEM_ONEWAY_01",
+})
+
+_MUTUAL_RE = re.compile(
+    r"\b(either\s+party|either\s+of\s+the\s+parties|both\s+parties|each\s+party|mutual(ly)?|"
+    r"reciprocal(ly)?|prevailing\s+party|non-?prevailing\s+party)\b",
+    re.IGNORECASE,
+)
+_PROVIDER_ROLE_RE = re.compile(
+    r"\b(vendor|provider|supplier|licensor|contractor|company|disclosing\s+party)\b",
+    re.IGNORECASE,
+)
+_CUSTOMER_ROLE_RE = re.compile(
+    r"\b(customer|client|licensee|buyer|purchaser|receiving\s+party)\b",
+    re.IGNORECASE,
+)
+
+
+def _classify_party_direction(clause_text: str) -> Dict[str, str]:
+    """
+    Deterministically classify whether a clause establishes one-way treatment
+    between the two contracting parties, based on explicit party-scoping
+    language in the clause text.
+
+    Returns a dict with:
+    - obligor: the party bound by / performing under the clause
+      ("provider" | "customer" | "both_parties" | "unknown")
+    - beneficiary: the party the clause protects or favors
+      ("provider" | "customer" | "both_parties" | "unknown")
+    - applies_to: which party role(s) the clause text names
+      ("provider" | "customer" | "both_parties" | "ambiguous" | "unknown")
+    - mutuality_status: "mutual" | "customer-only" | "provider-only" | "ambiguous"
+
+    This is intentionally conservative: without explicit "either party" /
+    "both parties" / role-only language, the clause is classified "ambiguous"
+    rather than guessed as one-way. A rule may only be reported/labeled as
+    one-way when mutuality_status is "customer-only" or "provider-only".
+    """
+    if _MUTUAL_RE.search(clause_text):
+        return {
+            "obligor": "both_parties",
+            "beneficiary": "both_parties",
+            "applies_to": "both_parties",
+            "mutuality_status": "mutual",
+        }
+
+    provider_hit = _PROVIDER_ROLE_RE.search(clause_text)
+    customer_hit = _CUSTOMER_ROLE_RE.search(clause_text)
+
+    if provider_hit and customer_hit:
+        # Both roles are named without explicit mutual language — could be a
+        # genuinely two-sided clause described per-party, or a one-way clause
+        # that merely mentions the other party. Regex can't disambiguate
+        # reliably, so this stays "ambiguous" rather than asserting either way.
+        return {
+            "obligor": "ambiguous",
+            "beneficiary": "ambiguous",
+            "applies_to": "ambiguous",
+            "mutuality_status": "ambiguous",
+        }
+    if provider_hit:
+        return {
+            "obligor": "provider",
+            "beneficiary": "unknown",
+            "applies_to": "provider",
+            "mutuality_status": "provider-only",
+        }
+    if customer_hit:
+        return {
+            "obligor": "customer",
+            "beneficiary": "unknown",
+            "applies_to": "customer",
+            "mutuality_status": "customer-only",
+        }
+    return {
+        "obligor": "unknown",
+        "beneficiary": "unknown",
+        "applies_to": "unknown",
+        "mutuality_status": "ambiguous",
+    }
+
+
 def _find_all(pattern: str, text: str) -> Iterable[re.Match]:
     return re.finditer(pattern, text, flags=re.IGNORECASE | re.DOTALL)
 
@@ -322,77 +420,81 @@ class RuleEngine:
         Rules:
         - If indemnity clause contains "to the extent required by law" → downgrade severity
         - If IP assignment contains "excluding pre-existing IP" → suppress assignment risk
+        - If a "one-way"/unilateral rule's clause is actually mutual → downgrade
+          severity and strip the one-way framing (see ONE_WAY_RULE_IDS)
         - Record WHY suppression happened for auditability
-        
+
         Returns:
         - (suppressed_findings, suppression_reasons_dict)
         """
         suppressed = []
         suppression_reasons = {}
-        
+
         for finding in findings:
             # Get context around the finding for suppression checks
             context_start = max(0, finding.start_index - 300)
             context_end = min(len(text), finding.end_index + 300)
             context = text[context_start:context_end].lower()
-            
+
             suppressed_finding = finding
             reason = None
-            
+
             # Suppression Rule 1: Indemnity with "to the extent required by law"
             if finding.rule_id == "H_INDEM_01" and "to the extent required by law" in context:
-                # Downgrade severity instead of suppressing
-                suppressed_finding = Finding(
-                    rule_id=finding.rule_id,
-                    rule_name=finding.rule_name,
-                    title=finding.title,
+                # Downgrade severity instead of suppressing. replace() carries
+                # over every other field (including evidence/party_direction)
+                # so downgrading never silently drops anchoring data.
+                suppressed_finding = replace(
+                    finding,
                     severity=Severity.MEDIUM,  # Downgrade from HIGH to MEDIUM
                     rationale=finding.rationale + " Note: Limited by 'to the extent required by law' language.",
-                    matched_excerpt=finding.matched_excerpt,
-                    position=finding.position,
-                    context=finding.context,
-                    start_index=finding.start_index,
-                    end_index=finding.end_index,
-                    exact_snippet=finding.exact_snippet,
-                    clause_number=finding.clause_number,
-                    matched_keywords=finding.matched_keywords,
-                    aliases=finding.aliases,
                 )
                 reason = "Downgraded severity: indemnity limited by 'to the extent required by law'"
-            
+
             # Suppression Rule 2: IP assignment with "excluding pre-existing IP"
             if finding.rule_id in ("H_IP_01", "H_IP_WORK_PRODUCT_01") and ("excluding pre-existing" in context or "excluding pre existing" in context or "excludes pre-existing" in context):
                 # Suppress entirely (no finding)
                 reason = "Suppressed: IP assignment excludes pre-existing IP"
                 suppression_reasons[f"{finding.rule_id}_{finding.start_index}"] = reason
                 continue  # Skip this finding
-            
+
             # Suppression Rule 3: Liability cap with explicit carve-out language
             if finding.rule_id == "H_LOL_CARVEOUT_01" and "except as required by applicable law" in context:
                 # Downgrade severity
-                suppressed_finding = Finding(
-                    rule_id=finding.rule_id,
-                    rule_name=finding.rule_name,
-                    title=finding.title,
+                suppressed_finding = replace(
+                    finding,
                     severity=Severity.MEDIUM,
                     rationale=finding.rationale + " Note: Carve-out may be required by law.",
-                    matched_excerpt=finding.matched_excerpt,
-                    position=finding.position,
-                    context=finding.context,
-                    start_index=finding.start_index,
-                    end_index=finding.end_index,
-                    exact_snippet=finding.exact_snippet,
-                    clause_number=finding.clause_number,
-                    matched_keywords=finding.matched_keywords,
-                    aliases=finding.aliases,
                 )
                 reason = "Downgraded severity: carve-out may be required by applicable law"
-            
+
+            # Suppression Rule 4: "One-way"/unilateral rules whose clause text
+            # actually establishes mutual treatment (e.g. "either party shall
+            # be entitled to attorneys' fees"). A rule titled "one-way" must
+            # not stay HIGH severity with one-way framing when the engine's
+            # own party-direction classification says the clause is mutual.
+            if (
+                finding.rule_id in ONE_WAY_RULE_IDS
+                and finding.party_direction
+                and finding.party_direction.get("mutuality_status") == "mutual"
+            ):
+                suppressed_finding = replace(
+                    suppressed_finding,
+                    severity=Severity.MEDIUM,
+                    rationale=(
+                        suppressed_finding.rationale
+                        + " Note: Clause language ('either party'/'mutual'/'both parties') indicates "
+                        "this obligation applies to both parties, not one-sided as the rule title suggests. "
+                        "Confirm mutuality is intended and consistently drafted."
+                    ),
+                )
+                reason = "Downgraded severity: party-direction analysis found mutual language, not one-way"
+
             if reason:
                 suppression_reasons[f"{finding.rule_id}_{finding.start_index}"] = reason
-            
+
             suppressed.append(suppressed_finding)
-        
+
         return suppressed, suppression_reasons
 
     def _build_rules(self) -> List[Rule]:
@@ -1357,6 +1459,11 @@ class RuleEngine:
                         surrounding_context = text[context_start:context_end]
                         clause_num = _extract_clause_number(text, absolute_start)
                         keywords = _extract_matched_keywords(matched_text, rule.pattern)
+                        party_direction = (
+                            _classify_party_direction(surrounding_context)
+                            if rule.rule_id in ONE_WAY_RULE_IDS
+                            else None
+                        )
                         findings.append(
                             Finding(
                                 rule_id=rule.rule_id,
@@ -1374,6 +1481,7 @@ class RuleEngine:
                                 clause_number=clause_num,
                                 matched_keywords=keywords,
                                 aliases=rule.aliases or [],
+                                party_direction=party_direction,
                             )
                         )
                 else:
@@ -1399,6 +1507,11 @@ class RuleEngine:
                         context_text = chunk[max(0, s-100):min(len(chunk), e+100)]
                         clause_num = _extract_clause_number(text, absolute_start)
                         keywords = _extract_matched_keywords(context_text)
+                        party_direction = (
+                            _classify_party_direction(surrounding_context)
+                            if rule.rule_id in ONE_WAY_RULE_IDS
+                            else None
+                        )
                         findings.append(
                             Finding(
                                 rule_id=rule.rule_id,
@@ -1421,6 +1534,7 @@ class RuleEngine:
                                     "risk_phrase": risk_phrase,
                                     "full_clause": surrounding_context,
                                 },
+                                party_direction=party_direction,
                             )
                         )
         # Deduplicate by (rule_id, clause_number) to prevent inflated counts

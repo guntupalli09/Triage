@@ -239,13 +239,20 @@ class TestH_ATTFEE_01_OneWayAttorneysFees:
     """Tests for H_ATTFEE_01: One-way attorneys' fees"""
     
     def test_true_positive_prevailing_party(self, engine):
-        """True positive: 'prevailing party' with 'attorneys' fees'"""
+        """
+        'Prevailing party' fee-shifting is the standard reciprocal idiom (it
+        doesn't name either side, and whoever wins collects) — it is mutual,
+        not one-way. The rule still fires (still worth flagging/confirming),
+        but party-direction analysis downgrades it from HIGH since the
+        "One-way attorneys' fees" title doesn't apply here.
+        """
         text = "The prevailing party shall be entitled to recover attorneys' fees from the other party."
         result = engine.analyze(text)
         findings = result["findings"]
         attfee_findings = [f for f in findings if f.rule_id == "H_ATTFEE_01"]
         assert len(attfee_findings) > 0
-        assert attfee_findings[0].severity == Severity.HIGH
+        assert attfee_findings[0].severity == Severity.MEDIUM
+        assert attfee_findings[0].party_direction["mutuality_status"] == "mutual"
     
     def test_true_positive_shall_pay_fees(self, engine):
         """True positive: 'shall pay attorneys' fees'"""
