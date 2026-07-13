@@ -31,6 +31,44 @@ class Severity(str, Enum):
     LOW = "low"
 
 
+class RuleClass(str, Enum):
+    """
+    PRESENCE_RISK: the rule detects adverse language that is actually present
+    in the document (e.g. "no obligation to notify"). A regex hit is direct
+    evidence of the claim.
+
+    REQUIRED_SECTION: the rule's title claims to detect the ABSENCE of a
+    protective clause (e.g. "No breach notification obligation"). A regex
+    miss is not evidence of absence — regex can only prove a phrase is
+    present, never that a topic is missing document-wide. These rules run a
+    document-level check (topic relevance + protective-language search)
+    after the normal chunked pass, and are only reported as "protection not
+    found" when the topic is actually in scope for this document and no
+    protective language was found anywhere in it.
+    """
+    PRESENCE_RISK = "presence_risk"
+    REQUIRED_SECTION = "required_section"
+
+
+class FindingType(str, Enum):
+    """
+    Precise, non-interchangeable claims a Finding can make. The report must
+    show which one applies — "adverse language present" and "expected
+    protection absent" are different claims with different evidentiary
+    weight and must never be presented identically.
+    """
+    ADVERSE_LANGUAGE_DETECTED = "adverse_language_detected"
+    EXPECTED_PROTECTION_NOT_FOUND = "expected_protection_not_found"
+    UNABLE_TO_DETERMINE = "unable_to_determine"
+
+
+FINDING_TYPE_LABELS: Dict[str, str] = {
+    FindingType.ADVERSE_LANGUAGE_DETECTED.value: "Adverse language detected",
+    FindingType.EXPECTED_PROTECTION_NOT_FOUND.value: "Expected protection not found",
+    FindingType.UNABLE_TO_DETERMINE.value: "Unable to determine",
+}
+
+
 @dataclass
 class Finding:
     """
@@ -70,6 +108,11 @@ class Finding:
     # (mutuality_status in {"mutual", "customer-only", "provider-only", "ambiguous"}).
     # None for rules that don't claim directionality.
     party_direction: Optional[Dict[str, str]] = None
+    # Which precise claim this finding makes — see FindingType. Defaults to
+    # "adverse_language_detected" since that's what a direct regex/proximity
+    # hit actually proves; REQUIRED_SECTION rules override this when they
+    # report a document-level absence instead.
+    finding_type: str = FindingType.ADVERSE_LANGUAGE_DETECTED.value
 
     def __post_init__(self):
         if self.matched_keywords is None:
@@ -100,11 +143,31 @@ class Rule:
     # Explicit aliases for LLM output validation
     # These are alternative names/titles the LLM might use for this rule
     aliases: List[str] = None
-    
+
+    # PRESENCE_RISK (default): pattern/anchors+nearby above are adverse
+    # language whose presence IS the finding.
+    #
+    # REQUIRED_SECTION: pattern/anchors+nearby above still detect adverse
+    # language if present (e.g. an explicit "no obligation to notify"
+    # clause), but if no adverse language is found, the rule additionally
+    # checks whether the topic is even in scope for this document
+    # (topic_patterns — ALL must match somewhere) and, if so, whether any
+    # protective language for it exists anywhere in the document
+    # (protective_patterns — ANY match suffices). Only when the topic is in
+    # scope AND no protective language is found does the rule report
+    # "expected protection not found" — regex silence alone is never treated
+    # as proof of absence.
+    rule_class: RuleClass = RuleClass.PRESENCE_RISK
+    topic_patterns: Optional[List[str]] = None
+    protective_patterns: Optional[List[str]] = None
+
     def __post_init__(self):
         # Ensure aliases is a list (dataclass frozen=True requires this pattern)
         if self.aliases is None:
             object.__setattr__(self, 'aliases', [])
+        if self.rule_class == RuleClass.REQUIRED_SECTION:
+            assert self.topic_patterns, f"{self.rule_id}: REQUIRED_SECTION rules must define topic_patterns"
+            assert self.protective_patterns, f"{self.rule_id}: REQUIRED_SECTION rules must define protective_patterns"
 
 
 def _chunk_text(text: str) -> List[Tuple[int, str]]:
@@ -410,6 +473,82 @@ class RuleEngine:
         else:
             return "low"
 
+    def _check_required_section(self, rule: Rule, text: str) -> Optional[Finding]:
+        """
+        Document-level absence check for a REQUIRED_SECTION rule that found
+        no adverse language. Only called when the chunked adverse-language
+        pass produced nothing for this rule.
+
+        - Topic not in scope for this document (all of topic_patterns must
+          match somewhere for the topic to be "in scope" — mirrors
+          classify-then-check) -> no finding; the requirement doesn't apply
+          here, which is not the same claim as "protection is missing".
+        - Topic in scope and protective language found anywhere -> no
+          finding; the protection exists.
+        - Topic in scope, no protective language found, but the document is
+          too short/sparse to reliably conclude it's truly absent (rather
+          than just not yet written/extracted) -> "unable to determine".
+        - Topic in scope, no protective language found, document long enough
+          to trust the negative result -> "expected protection not found".
+        """
+        _MIN_RELIABLE_DOC_LENGTH = 150
+
+        topic_in_scope = all(re.search(p, text, re.IGNORECASE | re.DOTALL) for p in rule.topic_patterns)
+        if not topic_in_scope:
+            return None  # requirement doesn't apply to this document; not a finding
+
+        protective_match = None
+        for p in rule.protective_patterns:
+            protective_match = re.search(p, text, re.IGNORECASE | re.DOTALL)
+            if protective_match:
+                break
+        if protective_match is not None:
+            return None  # protective language exists; no finding
+
+        if len(text.strip()) < _MIN_RELIABLE_DOC_LENGTH:
+            return Finding(
+                rule_id=rule.rule_id,
+                rule_name=rule.rule_name,
+                title=rule.title,
+                severity=Severity.LOW,
+                rationale=rule.rationale + " Document is too short to reliably determine whether this protection is truly absent.",
+                matched_excerpt=f"...{text.strip()}...",
+                position=0,
+                context=text,
+                start_index=0,
+                end_index=max(1, len(text)),
+                exact_snippet=text.strip() or "(empty document)",
+                aliases=rule.aliases or [],
+                finding_type=FindingType.UNABLE_TO_DETERMINE.value,
+            )
+
+        # Topic is in scope and no protective language was found anywhere in
+        # the document. Anchor the finding to the first topic mention so it
+        # still has a real, auditable position rather than a fabricated one.
+        anchor_match = None
+        for p in rule.topic_patterns:
+            anchor_match = re.search(p, text, re.IGNORECASE | re.DOTALL)
+            if anchor_match:
+                break
+        anchor_start, anchor_end = anchor_match.span()
+        excerpt = _excerpt(text, anchor_start, anchor_end)
+
+        return Finding(
+            rule_id=rule.rule_id,
+            rule_name=rule.rule_name,
+            title=rule.title,
+            severity=rule.severity,
+            rationale=rule.rationale + " No protective language for this topic was found anywhere in the document.",
+            matched_excerpt=excerpt,
+            position=anchor_start,
+            context=text[max(0, anchor_start - 200):min(len(text), anchor_end + 200)],
+            start_index=anchor_start,
+            end_index=anchor_end,
+            exact_snippet=text[anchor_start:anchor_end],
+            aliases=rule.aliases or [],
+            finding_type=FindingType.EXPECTED_PROTECTION_NOT_FOUND.value,
+        )
+
     def _apply_suppression_rules(self, findings: List[Finding], text: str) -> Tuple[List[Finding], Dict[str, str]]:
         """
         Apply deterministic false-positive suppression rules.
@@ -690,6 +829,12 @@ class RuleEngine:
                 ],
                 window=450,
                 aliases=["no_data_return", "data_lock_in", "no_data_deletion"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(terminat\w+|expir\w+)\b", r"\bdata\b"],
+                protective_patterns=[
+                    r"\b(return\w*|export\w*|delet\w+|destroy\w+)\b[^.]{0,80}\bdata\b",
+                    r"\bdata\b[^.]{0,80}\b(return\w*|export\w*|delet\w+|destroy\w+)\b",
+                ],
             ),
             Rule(
                 rule_id="H_ASYMMETRIC_LIABILITY_01",
@@ -965,6 +1110,13 @@ class RuleEngine:
                 severity=Severity.MEDIUM,
                 rationale="Absence of a residuals clause can restrict use of general knowledge gained during discussions.",
                 pattern=r"\bshall\s+not\s+use\b.*?\bknowledge\b.*?\bretained\b",
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\bconfidential\w*\b"],
+                protective_patterns=[
+                    r"\bresiduals?\b",
+                    r"\bunaided\s+memory\b",
+                    r"\bgeneral\s+knowledge\b[^.]{0,80}\bretain\w*\b",
+                ],
             ),
             Rule(
                 rule_id="M_INJUNCT_01",
@@ -1089,6 +1241,16 @@ class RuleEngine:
                 ],
                 window=400,
                 aliases=["no_breach_notice", "data_breach_notification"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[
+                    r"\b(personal\s+(?:data|information)|PII|data\s+breach|security\s+incident)\b",
+                ],
+                protective_patterns=[
+                    r"\bnotify\b[^.]{0,80}\b(breach|incident|compromise)\b",
+                    r"\b(breach|incident|compromise)\b[^.]{0,80}\bnotify\b",
+                    r"\bwithout\s+undue\s+delay\b[^.]{0,80}\bnotify\b",
+                    r"\bnotify\b[^.]{0,60}\bwithin\s+\d+\s+(hours?|days?)\b",
+                ],
             ),
             Rule(
                 rule_id="M_INSURANCE_01",
@@ -1097,15 +1259,26 @@ class RuleEngine:
                 severity=Severity.MEDIUM,
                 rationale="Lack of insurance requirements means the counterparty may not have financial backing to cover claims, leaving indemnity and liability protections hollow.",
                 anchors=[r"\binsurance\b"],
+                # Adverse language only — genuinely protective phrasing ("shall
+                # maintain", "commercially reasonable ... insurance") used to be
+                # listed here too, which flagged good insurance clauses as risks.
+                # Protective language now lives in protective_patterns below.
                 nearby=[
                     r"\bnot\s+required\b",
                     r"\bno\s+obligation\b",
                     r"\bwaive[sd]?\b",
-                    r"\bshall\s+maintain\b",
-                    r"\bcommercially?\s+reasonable\b",
                 ],
                 window=350,
                 aliases=["insurance_requirements", "no_insurance"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(vendor|provider|supplier|contractor|services?)\b"],
+                protective_patterns=[
+                    r"\bshall\s+maintain\b[^.]{0,80}\binsurance\b",
+                    r"\binsurance\b[^.]{0,80}\bshall\s+maintain\b",
+                    r"\bcommercially?\s+reasonable\b[^.]{0,40}\binsurance\b",
+                    r"\bcertificate\s+of\s+insurance\b",
+                    r"\binsurance\b[^.]{0,60}\$[\d,]+",
+                ],
             ),
             Rule(
                 rule_id="M_FORCE_MAJEURE_01",
@@ -1132,6 +1305,13 @@ class RuleEngine:
                 rationale="Absence of defined service levels, uptime commitments, or remedies for downtime means you have no contractual recourse for service failures.",
                 pattern=r"\b(no\s+(?:service\s+level|SLA|uptime)\s+(?:guarantee|commitment|obligation))\b|\b(does\s+not\s+(?:guarantee|warrant|commit)\b.*?\b(?:availability|uptime|service\s+level))\b|\b(?:availability|uptime)\b.*?\b(as[\s-]is|without\s+(?:any\s+)?guarantee)\b",
                 aliases=["no_sla", "no_uptime_guarantee", "service_level_absent"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(service|platform|software|application|system|SaaS)\b"],
+                protective_patterns=[
+                    r"\b(service\s+level|SLA|uptime)\b[^.]{0,80}\b(guarantee|commitment|%|percent)\b",
+                    r"\d{2}(\.\d+)?\s?%\s+uptime\b",
+                    r"\buptime\b[^.]{0,40}\d{2}(\.\d+)?\s?%",
+                ],
             ),
             Rule(
                 rule_id="M_MFN_01",
@@ -1271,6 +1451,14 @@ class RuleEngine:
                 ],
                 window=500,
                 aliases=["data_export_rights", "portability_on_termination"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(terminat\w+|expir\w+)\b", r"\bdata\b"],
+                protective_patterns=[
+                    r"\bexport\w*\b[^.]{0,60}\bdata\b",
+                    r"\bdata\s+portability\b",
+                    r"\bmigrat\w+\b[^.]{0,60}\bdata\b",
+                    r"\breturn\w*\b[^.]{0,60}\bdata\b",
+                ],
             ),
             Rule(
                 rule_id="M_DATA_DELETION_01",
@@ -1537,6 +1725,22 @@ class RuleEngine:
                                 party_direction=party_direction,
                             )
                         )
+
+        # REQUIRED_SECTION rules: for any such rule that found no adverse
+        # language above, run a document-level absence check instead of
+        # silently producing nothing. This can never happen inside the
+        # per-chunk loop above, because "the topic never appears anywhere in
+        # the document" is not something a chunk-local regex match can prove.
+        adverse_rule_ids_found = {f.rule_id for f in findings}
+        for rule in self.rules:
+            if rule.rule_class != RuleClass.REQUIRED_SECTION:
+                continue
+            if rule.rule_id in adverse_rule_ids_found:
+                continue  # adverse language already found; that's the finding
+            required_section_finding = self._check_required_section(rule, text)
+            if required_section_finding is not None:
+                findings.append(required_section_finding)
+
         # Deduplicate by (rule_id, clause_number) to prevent inflated counts
         # If clause_number exists, use (rule_id, clause_number) as key; otherwise use (rule_id, None)
         # Keep the "best" match: prefer longer matched_excerpt, or earliest position

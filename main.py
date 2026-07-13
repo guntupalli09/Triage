@@ -45,7 +45,7 @@ from PyPDF2 import PdfReader
 from docx import Document
 from sqlalchemy.orm import Session as DBSession
 
-from rules_engine import RuleEngine
+from rules_engine import RuleEngine, FINDING_TYPE_LABELS
 from evaluator import LLMEvaluator
 from database import get_db, check_db_health, check_redis_health
 from auth import (
@@ -222,6 +222,8 @@ def run_analysis(contract_text: str) -> Dict:
             "start_index": f.start_index, "end_index": f.end_index,
             "exact_snippet": f.exact_snippet, "evidence": f.evidence,
             "party_direction": f.party_direction,
+            "finding_type": f.finding_type,
+            "finding_type_label": FINDING_TYPE_LABELS.get(f.finding_type, f.finding_type),
         }
         for f in findings
     ]
@@ -301,6 +303,14 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
             # and mutuality_status, so the UI never asserts one-sidedness
             # the engine hasn't actually established.
             enhanced["party_direction"] = finding["party_direction"]
+        # "Adverse language detected" / "Expected protection not found" /
+        # "Unable to determine" are different claims with different
+        # evidentiary weight — always surface which one this is so the UI
+        # never presents them as the same thing.
+        enhanced["finding_type"] = finding.get("finding_type", "adverse_language_detected")
+        enhanced["finding_type_label"] = finding.get(
+            "finding_type_label", FINDING_TYPE_LABELS.get(enhanced["finding_type"], enhanced["finding_type"])
+        )
 
         all_issues.append(enhanced)
 
