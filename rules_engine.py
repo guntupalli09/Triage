@@ -17,7 +17,7 @@ from __future__ import annotations
 import json
 import logging
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import Enum
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Iterable
@@ -29,6 +29,44 @@ class Severity(str, Enum):
     HIGH = "high"
     MEDIUM = "medium"
     LOW = "low"
+
+
+class RuleClass(str, Enum):
+    """
+    PRESENCE_RISK: the rule detects adverse language that is actually present
+    in the document (e.g. "no obligation to notify"). A regex hit is direct
+    evidence of the claim.
+
+    REQUIRED_SECTION: the rule's title claims to detect the ABSENCE of a
+    protective clause (e.g. "No breach notification obligation"). A regex
+    miss is not evidence of absence — regex can only prove a phrase is
+    present, never that a topic is missing document-wide. These rules run a
+    document-level check (topic relevance + protective-language search)
+    after the normal chunked pass, and are only reported as "protection not
+    found" when the topic is actually in scope for this document and no
+    protective language was found anywhere in it.
+    """
+    PRESENCE_RISK = "presence_risk"
+    REQUIRED_SECTION = "required_section"
+
+
+class FindingType(str, Enum):
+    """
+    Precise, non-interchangeable claims a Finding can make. The report must
+    show which one applies — "adverse language present" and "expected
+    protection absent" are different claims with different evidentiary
+    weight and must never be presented identically.
+    """
+    ADVERSE_LANGUAGE_DETECTED = "adverse_language_detected"
+    EXPECTED_PROTECTION_NOT_FOUND = "expected_protection_not_found"
+    UNABLE_TO_DETERMINE = "unable_to_determine"
+
+
+FINDING_TYPE_LABELS: Dict[str, str] = {
+    FindingType.ADVERSE_LANGUAGE_DETECTED.value: "Adverse language detected",
+    FindingType.EXPECTED_PROTECTION_NOT_FOUND.value: "Expected protection not found",
+    FindingType.UNABLE_TO_DETERMINE.value: "Unable to determine",
+}
 
 
 @dataclass
@@ -59,7 +97,23 @@ class Finding:
     clause_number: Optional[str] = None
     matched_keywords: List[str] = None
     aliases: List[str] = None
-    
+    # For proximity (anchor + nearby) rules: the anchor trigger word, the
+    # actual risky phrase found near it, and the surrounding clause text.
+    # None for direct-pattern rules, where exact_snippet already is the full match.
+    evidence: Optional[Dict[str, str]] = None
+    # For rules whose title claims one-sided/unilateral treatment (see
+    # ONE_WAY_RULE_IDS): who the clause binds vs. who it protects, and
+    # whether that asymmetry is actually established in the text.
+    # Keys: obligor, beneficiary, applies_to, mutuality_status
+    # (mutuality_status in {"mutual", "customer-only", "provider-only", "ambiguous"}).
+    # None for rules that don't claim directionality.
+    party_direction: Optional[Dict[str, str]] = None
+    # Which precise claim this finding makes — see FindingType. Defaults to
+    # "adverse_language_detected" since that's what a direct regex/proximity
+    # hit actually proves; REQUIRED_SECTION rules override this when they
+    # report a document-level absence instead.
+    finding_type: str = FindingType.ADVERSE_LANGUAGE_DETECTED.value
+
     def __post_init__(self):
         if self.matched_keywords is None:
             self.matched_keywords = []
@@ -89,33 +143,58 @@ class Rule:
     # Explicit aliases for LLM output validation
     # These are alternative names/titles the LLM might use for this rule
     aliases: List[str] = None
-    
+
+    # PRESENCE_RISK (default): pattern/anchors+nearby above are adverse
+    # language whose presence IS the finding.
+    #
+    # REQUIRED_SECTION: pattern/anchors+nearby above still detect adverse
+    # language if present (e.g. an explicit "no obligation to notify"
+    # clause), but if no adverse language is found, the rule additionally
+    # checks whether the topic is even in scope for this document
+    # (topic_patterns — ALL must match somewhere) and, if so, whether any
+    # protective language for it exists anywhere in the document
+    # (protective_patterns — ANY match suffices). Only when the topic is in
+    # scope AND no protective language is found does the rule report
+    # "expected protection not found" — regex silence alone is never treated
+    # as proof of absence.
+    rule_class: RuleClass = RuleClass.PRESENCE_RISK
+    topic_patterns: Optional[List[str]] = None
+    protective_patterns: Optional[List[str]] = None
+
     def __post_init__(self):
         # Ensure aliases is a list (dataclass frozen=True requires this pattern)
         if self.aliases is None:
             object.__setattr__(self, 'aliases', [])
+        if self.rule_class == RuleClass.REQUIRED_SECTION:
+            assert self.topic_patterns, f"{self.rule_id}: REQUIRED_SECTION rules must define topic_patterns"
+            assert self.protective_patterns, f"{self.rule_id}: REQUIRED_SECTION rules must define protective_patterns"
 
 
-_WS_RE = re.compile(r"\s+")
-
-
-def _normalize_whitespace(text: str) -> str:
-    return _WS_RE.sub(" ", text).strip()
-
-
-def _chunk_text(raw: str) -> List[str]:
+def _chunk_text(text: str) -> List[Tuple[int, str]]:
     """
-    Preserve some structure by chunking on blank lines. Contracts often separate sections.
-    If blank lines not present, fallback to fixed-size chunks.
-    """
-    raw = raw.replace("\r\n", "\n").replace("\r", "\n")
-    parts = [p.strip() for p in raw.split("\n\n") if p.strip()]
-    if parts:
-        return [_normalize_whitespace(p) for p in parts]
+    Split into (start_offset, substring) chunks on blank lines. Contracts often
+    separate sections this way. If blank lines aren't present, fall back to
+    fixed-size chunks.
 
-    cleaned = _normalize_whitespace(raw)
+    Chunks are verbatim slices of `text` (only outer whitespace is trimmed,
+    tracked via offset) — internal whitespace is never altered. This keeps
+    `chunk_start + match.span()` exactly equal to the position in `text`,
+    so start_index/end_index never drift from the source document.
+    """
+    if "\n\n" in text:
+        chunks: List[Tuple[int, str]] = []
+        pos = 0
+        for part in text.split("\n\n"):
+            stripped = part.strip()
+            if stripped:
+                local_offset = part.find(stripped)
+                chunks.append((pos + local_offset, stripped))
+            pos += len(part) + 2  # +2 for the "\n\n" separator consumed by split
+        if chunks:
+            return chunks
+
     size = 3000
-    return [cleaned[i : i + size] for i in range(0, len(cleaned), size)]
+    return [(i, text[i : i + size]) for i in range(0, len(text), size)]
 
 
 def _excerpt(text: str, start: int, end: int, radius: int = 140) -> str:
@@ -191,18 +270,234 @@ def _extract_matched_keywords(match_text: str, pattern: Optional[str] = None) ->
     return unique_keywords[:5]
 
 
+# Rules whose title/rationale claims one-sided, unilateral, or asymmetric
+# treatment between the two contracting parties. For these — and only
+# these — the engine must establish actual directionality before the
+# "one-way" label is allowed to stick; see _classify_party_direction.
+ONE_WAY_RULE_IDS = frozenset({
+    "H_ATTFEE_01",
+    "H_CONSEQUENTIAL_01",
+    "H_ASYMMETRIC_LIABILITY_01",
+    "H_TERM_CONVENIENCE_01",
+    "H_INDEM_ONEWAY_01",
+})
+
+
+class SignatureReadiness(str, Enum):
+    """
+    Workflow decision layer, separate from and additive to Severity/
+    overall_risk. Severity answers "how risky is this clause"; this answers
+    "what should happen to this contract next." A contract with a single
+    publicity clause and a contract with uncapped liability + uncapped
+    indemnification can both be overall_risk="high" while needing very
+    different handling — this layer is what makes that distinction.
+    """
+    READY_TO_SEND = "ready_to_send"
+    COMMERCIAL_REVIEW_RECOMMENDED = "commercial_review_recommended"
+    LEGAL_REVIEW_REQUIRED = "legal_review_required"
+    BLOCKED_BY_POLICY = "blocked_by_policy"
+
+
+# Business-policy classification of which HIGH findings are severe enough to
+# require legal counsel before signature, vs. which are worth flagging but
+# fine to route through ordinary commercial negotiation. This is a workflow
+# policy call, not a legal determination — reviewable and adjustable per
+# organization, but it must be explicit and auditable rather than inferred
+# from raw severity counts.
+#
+# A finding only counts toward blocking if its FINAL severity (after
+# suppression/mutuality downgrades) is still HIGH — a downgraded finding
+# (e.g. a mutual attorneys' fee clause, or an indemnity limited "to the
+# extent required by law") has already had its risk contained and should
+# not force legal review on its own.
+
+# Hard policy blockers: exposure most organizations treat as non-negotiable
+# without executive/legal sign-off, regardless of what else is in the contract.
+POLICY_BLOCK_RULE_IDS = frozenset({
+    "H_PERSONAL_01",       # personal liability exposure outside the company
+    "H_DATA_PRIVACY_01",   # personal data processed with no DPA/GDPR/CCPA protections
+    "H_AI_TRAINING_01",    # customer data usable to train third-party AI/ML models
+})
+
+# Other HIGH findings serious enough to warrant legal (not just commercial)
+# review before signature.
+BLOCKING_RULE_IDS = frozenset({
+    "H_INDEM_01",
+    "H_LOL_01",
+    "H_LOL_CARVEOUT_01",
+    "H_INDEM_ONEWAY_01",
+    "H_IP_01",
+    "H_IP_WORK_PRODUCT_01",
+    "H_ASSIGN_CHANGE_CTRL_01",
+    "H_CONSEQUENTIAL_01",
+    "H_ASYMMETRIC_LIABILITY_01",
+    "H_UNILATERAL_MOD_01",
+    "H_PRICE_ESCAL_01",
+}) | POLICY_BLOCK_RULE_IDS
+
+_MUTUAL_RE = re.compile(
+    r"\b(either\s+party|either\s+of\s+the\s+parties|both\s+parties|each\s+party|mutual(ly)?|"
+    r"reciprocal(ly)?|prevailing\s+party|non-?prevailing\s+party)\b",
+    re.IGNORECASE,
+)
+_PROVIDER_ROLE_RE = re.compile(
+    r"\b(vendor|provider|supplier|licensor|contractor|company|disclosing\s+party)\b",
+    re.IGNORECASE,
+)
+_CUSTOMER_ROLE_RE = re.compile(
+    r"\b(customer|client|licensee|buyer|purchaser|receiving\s+party)\b",
+    re.IGNORECASE,
+)
+
+
+def _classify_party_direction(clause_text: str) -> Dict[str, str]:
+    """
+    Deterministically classify whether a clause establishes one-way treatment
+    between the two contracting parties, based on explicit party-scoping
+    language in the clause text.
+
+    Returns a dict with:
+    - obligor: the party bound by / performing under the clause
+      ("provider" | "customer" | "both_parties" | "unknown")
+    - beneficiary: the party the clause protects or favors
+      ("provider" | "customer" | "both_parties" | "unknown")
+    - applies_to: which party role(s) the clause text names
+      ("provider" | "customer" | "both_parties" | "ambiguous" | "unknown")
+    - mutuality_status: "mutual" | "customer-only" | "provider-only" | "ambiguous"
+
+    This is intentionally conservative: without explicit "either party" /
+    "both parties" / role-only language, the clause is classified "ambiguous"
+    rather than guessed as one-way. A rule may only be reported/labeled as
+    one-way when mutuality_status is "customer-only" or "provider-only".
+    """
+    if _MUTUAL_RE.search(clause_text):
+        return {
+            "obligor": "both_parties",
+            "beneficiary": "both_parties",
+            "applies_to": "both_parties",
+            "mutuality_status": "mutual",
+        }
+
+    provider_hit = _PROVIDER_ROLE_RE.search(clause_text)
+    customer_hit = _CUSTOMER_ROLE_RE.search(clause_text)
+
+    if provider_hit and customer_hit:
+        # Both roles are named without explicit mutual language — could be a
+        # genuinely two-sided clause described per-party, or a one-way clause
+        # that merely mentions the other party. Regex can't disambiguate
+        # reliably, so this stays "ambiguous" rather than asserting either way.
+        return {
+            "obligor": "ambiguous",
+            "beneficiary": "ambiguous",
+            "applies_to": "ambiguous",
+            "mutuality_status": "ambiguous",
+        }
+    if provider_hit:
+        return {
+            "obligor": "provider",
+            "beneficiary": "unknown",
+            "applies_to": "provider",
+            "mutuality_status": "provider-only",
+        }
+    if customer_hit:
+        return {
+            "obligor": "customer",
+            "beneficiary": "unknown",
+            "applies_to": "customer",
+            "mutuality_status": "customer-only",
+        }
+    return {
+        "obligor": "unknown",
+        "beneficiary": "unknown",
+        "applies_to": "unknown",
+        "mutuality_status": "ambiguous",
+    }
+
+
+def _extract_payment_terms(text: str) -> Dict[str, Optional[object]]:
+    """
+    Extract structured payment terms so a contract-to-cash consumer (e.g.
+    Agree's invoicing) can compare them against an actual invoice
+    configuration, rather than only getting a "Net 30 mentioned" flag.
+
+    Best-effort / first-match extraction — deterministic regex, not NLU.
+    Any field that can't be confidently identified is None rather than guessed.
+    """
+    due_days: Optional[int] = None
+    m = re.search(r"\bnet\s+(\d{1,3})\b", text, re.IGNORECASE)
+    if not m:
+        m = re.search(r"\bdue\s+(?:within|in)\s+(\d{1,3})\s+days?\b", text, re.IGNORECASE)
+    if m:
+        due_days = int(m.group(1))
+
+    currency: Optional[str] = None
+    m = re.search(r"\b(USD|EUR|GBP|CAD|AUD|United\s+States\s+Dollars?)\b", text, re.IGNORECASE)
+    if m:
+        raw = m.group(1).upper()
+        currency = "USD" if "DOLLAR" in raw else raw
+    elif re.search(r"€", text):
+        currency = "EUR"
+    elif re.search(r"£", text):
+        currency = "GBP"
+    elif re.search(r"\$\s?[\d,]", text):
+        currency = "USD"  # heuristic: bare "$" with no explicit code, assume USD
+
+    billing_frequency: Optional[str] = None
+    for pattern, label in (
+        (r"\bmonthly\b", "monthly"),
+        (r"\bquarterly\b", "quarterly"),
+        (r"\bannual(?:ly)?\b|\byearly\b", "annually"),
+        (r"\bweekly\b", "weekly"),
+        (r"\bone[-\s]?time\b", "one_time"),
+        (r"\brecurring\b", "recurring"),
+    ):
+        if re.search(pattern, text, re.IGNORECASE):
+            billing_frequency = label
+            break
+
+    invoice_trigger: Optional[str] = None
+    m = re.search(
+        r"\binvoic\w*\b[^.]{0,60}\b(?:upon|following|after|within)\b[^.]{0,60}"
+        r"\b(activation|delivery|execution|go-live|commencement|acceptance)\b",
+        text,
+        re.IGNORECASE,
+    )
+    if m:
+        invoice_trigger = m.group(1).lower()
+
+    return {
+        "due_days": due_days,
+        "currency": currency,
+        "billing_frequency": billing_frequency,
+        "invoice_trigger": invoice_trigger,
+    }
+
+
 def _find_all(pattern: str, text: str) -> Iterable[re.Match]:
     return re.finditer(pattern, text, flags=re.IGNORECASE | re.DOTALL)
 
 
+@dataclass(frozen=True)
+class ProximityMatch:
+    """Anchor span, matched nearby (risk-phrase) span, and their combined span."""
+    anchor_start: int
+    anchor_end: int
+    nearby_start: int
+    nearby_end: int
+    combined_start: int
+    combined_end: int
+
+
 def _proximity_spans(
     anchors: List[str], nearby: List[str], text: str, window: int
-) -> List[Tuple[int, int]]:
+) -> List[ProximityMatch]:
     """
-    Find spans where an anchor occurs and any 'nearby' occurs within +/- window.
-    Returns spans around the anchor match (auditable anchor-based excerpt).
+    Find spans where an anchor occurs and any 'nearby' (risk-phrase) pattern
+    occurs within +/- window. Returns the anchor span, the matched nearby
+    span, and a combined span covering both — so callers can surface the
+    actual risky language, not just the trigger word.
     """
-    spans: List[Tuple[int, int]] = []
+    matches: List[ProximityMatch] = []
     anchor_matches: List[re.Match] = []
     for a in anchors:
         anchor_matches.extend(list(_find_all(a, text)))
@@ -217,12 +512,26 @@ def _proximity_spans(
         neighborhood = text[left:right]
 
         for n in nearby:
-            if re.search(n, neighborhood, flags=re.IGNORECASE | re.DOTALL):
-                spans.append((a_start, a_end))
+            nm = re.search(n, neighborhood, flags=re.IGNORECASE | re.DOTALL)
+            if nm:
+                n_start = left + nm.start()
+                n_end = left + nm.end()
+                combined_start = min(a_start, n_start)
+                combined_end = max(a_end, n_end)
+                matches.append(
+                    ProximityMatch(a_start, a_end, n_start, n_end, combined_start, combined_end)
+                )
                 break
 
-    # De-dup spans
-    return sorted(set(spans))
+    # De-dup by combined span (the evidence span callers actually anchor on)
+    seen = set()
+    deduped: List[ProximityMatch] = []
+    for pm in sorted(matches, key=lambda m: (m.combined_start, m.combined_end)):
+        key = (pm.combined_start, pm.combined_end)
+        if key not in seen:
+            seen.add(key)
+            deduped.append(pm)
+    return deduped
 
 
 # Rule Engine Version - loaded from rules/version.json for transparency and trust
@@ -276,6 +585,267 @@ class RuleEngine:
         else:
             return "low"
 
+    def _compute_workflow_decision(self, findings: List[Finding]) -> Dict:
+        """
+        Business workflow decision layer, additive to (never replacing)
+        overall_risk/severity. Classifies findings as policy-blocking,
+        legal-review-blocking, or non-blocking, and derives a single
+        signature_readiness recommendation from that classification —
+        rather than from raw severity/medium-count thresholds, which treat a
+        publicity clause and uncapped liability as equally "high".
+        """
+        policy_blocked: List[str] = []
+        blocking: List[str] = []
+        non_blocking: List[str] = []
+        seen_policy, seen_blocking, seen_non_blocking = set(), set(), set()
+
+        for f in findings:
+            # Only a still-HIGH-severity finding counts as blocking — a
+            # finding downgraded by suppression/mutuality analysis has
+            # already had its risk contained.
+            is_high = f.severity == Severity.HIGH
+            if is_high and f.rule_id in POLICY_BLOCK_RULE_IDS:
+                if f.rule_id not in seen_policy:
+                    policy_blocked.append(f.rule_id)
+                    seen_policy.add(f.rule_id)
+            elif is_high and f.rule_id in BLOCKING_RULE_IDS:
+                if f.rule_id not in seen_blocking:
+                    blocking.append(f.rule_id)
+                    seen_blocking.add(f.rule_id)
+            else:
+                if f.rule_id not in seen_non_blocking:
+                    non_blocking.append(f.rule_id)
+                    seen_non_blocking.add(f.rule_id)
+
+        if policy_blocked:
+            signature_readiness = SignatureReadiness.BLOCKED_BY_POLICY.value
+        elif blocking:
+            signature_readiness = SignatureReadiness.LEGAL_REVIEW_REQUIRED.value
+        elif non_blocking:
+            signature_readiness = SignatureReadiness.COMMERCIAL_REVIEW_RECOMMENDED.value
+        else:
+            signature_readiness = SignatureReadiness.READY_TO_SEND.value
+
+        return {
+            "signature_readiness": signature_readiness,
+            # blocking_findings includes policy-blocked rule_ids too (a
+            # policy block is still a blocking finding); policy_blocked_findings
+            # additionally isolates which ones triggered the hardest tier.
+            "blocking_findings": policy_blocked + blocking,
+            "policy_blocked_findings": policy_blocked,
+            "non_blocking_findings": non_blocking,
+        }
+
+    def _check_required_section(self, rule: Rule, text: str) -> Optional[Finding]:
+        """
+        Document-level absence check for a REQUIRED_SECTION rule that found
+        no adverse language. Only called when the chunked adverse-language
+        pass produced nothing for this rule.
+
+        - Topic not in scope for this document (all of topic_patterns must
+          match somewhere for the topic to be "in scope" — mirrors
+          classify-then-check) -> no finding; the requirement doesn't apply
+          here, which is not the same claim as "protection is missing".
+        - Topic in scope and protective language found anywhere -> no
+          finding; the protection exists.
+        - Topic in scope, no protective language found, but the document is
+          too short/sparse to reliably conclude it's truly absent (rather
+          than just not yet written/extracted) -> "unable to determine".
+        - Topic in scope, no protective language found, document long enough
+          to trust the negative result -> "expected protection not found".
+        """
+        _MIN_RELIABLE_DOC_LENGTH = 150
+
+        topic_in_scope = all(re.search(p, text, re.IGNORECASE | re.DOTALL) for p in rule.topic_patterns)
+        if not topic_in_scope:
+            return None  # requirement doesn't apply to this document; not a finding
+
+        protective_match = None
+        for p in rule.protective_patterns:
+            protective_match = re.search(p, text, re.IGNORECASE | re.DOTALL)
+            if protective_match:
+                break
+        if protective_match is not None:
+            return None  # protective language exists; no finding
+
+        if len(text.strip()) < _MIN_RELIABLE_DOC_LENGTH:
+            return Finding(
+                rule_id=rule.rule_id,
+                rule_name=rule.rule_name,
+                title=rule.title,
+                severity=Severity.LOW,
+                rationale=rule.rationale + " Document is too short to reliably determine whether this protection is truly absent.",
+                matched_excerpt=f"...{text.strip()}...",
+                position=0,
+                context=text,
+                start_index=0,
+                end_index=max(1, len(text)),
+                exact_snippet=text.strip() or "(empty document)",
+                aliases=rule.aliases or [],
+                finding_type=FindingType.UNABLE_TO_DETERMINE.value,
+            )
+
+        # Topic is in scope and no protective language was found anywhere in
+        # the document. Anchor the finding to the first topic mention so it
+        # still has a real, auditable position rather than a fabricated one.
+        anchor_match = None
+        for p in rule.topic_patterns:
+            anchor_match = re.search(p, text, re.IGNORECASE | re.DOTALL)
+            if anchor_match:
+                break
+        anchor_start, anchor_end = anchor_match.span()
+        excerpt = _excerpt(text, anchor_start, anchor_end)
+
+        return Finding(
+            rule_id=rule.rule_id,
+            rule_name=rule.rule_name,
+            title=rule.title,
+            severity=rule.severity,
+            rationale=rule.rationale + " No protective language for this topic was found anywhere in the document.",
+            matched_excerpt=excerpt,
+            position=anchor_start,
+            context=text[max(0, anchor_start - 200):min(len(text), anchor_end + 200)],
+            start_index=anchor_start,
+            end_index=anchor_end,
+            exact_snippet=text[anchor_start:anchor_end],
+            aliases=rule.aliases or [],
+            finding_type=FindingType.EXPECTED_PROTECTION_NOT_FOUND.value,
+        )
+
+    def _make_document_finding(
+        self, rule_id: str, rule_name: str, title: str, severity: Severity,
+        rationale: str, text: str, anchor_match: Optional[re.Match],
+    ) -> Finding:
+        """
+        Build a Finding for a document-wide consistency check (conflicting
+        values found in different places in the document, not a single
+        clause) rather than a single regex/proximity match. Anchored to the
+        first occurrence found so it still has a real, auditable position.
+        """
+        if anchor_match is not None:
+            s, e = anchor_match.span()
+        else:
+            s, e = 0, min(1, len(text))
+        return Finding(
+            rule_id=rule_id,
+            rule_name=rule_name,
+            title=title,
+            severity=severity,
+            rationale=rationale,
+            matched_excerpt=_excerpt(text, s, e),
+            position=s,
+            context=text[max(0, s - 200):min(len(text), e + 200)],
+            start_index=s,
+            end_index=max(e, s + 1),
+            exact_snippet=text[s:e] if e > s else "(document-wide inconsistency; no single anchor)",
+            aliases=[],
+            finding_type=FindingType.ADVERSE_LANGUAGE_DETECTED.value,
+        )
+
+    def _check_cross_document_conflicts(self, text: str) -> List[Finding]:
+        """
+        Contract-to-cash correctness checks that require comparing values
+        found in different parts of the document, rather than a single
+        clause — no single regex/proximity match can prove "these two
+        numbers disagree" or "this entity is named two different ways."
+        """
+        findings: List[Finding] = []
+
+        # H_BILLING_CONFLICT_01: multiple distinct "Net X days" payment terms
+        net_days = sorted(set(re.findall(r"\bnet\s+(\d{1,3})\s*days?\b", text, re.IGNORECASE)), key=int)
+        if len(net_days) > 1:
+            findings.append(self._make_document_finding(
+                rule_id="H_BILLING_CONFLICT_01",
+                rule_name="billing_terms_conflict",
+                title="Conflicting payment due-date terms",
+                severity=Severity.HIGH,
+                rationale=(
+                    "The contract states multiple different payment due-date terms "
+                    f"({', '.join('Net ' + d for d in net_days)}), which will not match a "
+                    "single invoice configuration and may prevent successful billing."
+                ),
+                text=text,
+                anchor_match=re.search(r"\bnet\s+\d{1,3}\s*days?\b", text, re.IGNORECASE),
+            ))
+
+        # H_PRICE_CONFLICT_01: multiple distinct total contract price/fee amounts
+        amounts = sorted(set(re.findall(
+            r"\btotal\s+(?:contract\s+)?(?:price|fee|value|amount)\D{0,20}\$\s?([\d,]+(?:\.\d{2})?)",
+            text, re.IGNORECASE,
+        )))
+        if len(amounts) > 1:
+            findings.append(self._make_document_finding(
+                rule_id="H_PRICE_CONFLICT_01",
+                rule_name="price_conflict",
+                title="Conflicting contract price or fee amounts",
+                severity=Severity.HIGH,
+                rationale=(
+                    "The contract states conflicting total price/fee amounts "
+                    f"(${', $'.join(amounts)}), which must be reconciled before invoicing."
+                ),
+                text=text,
+                anchor_match=re.search(
+                    r"\btotal\s+(?:contract\s+)?(?:price|fee|value|amount)\D{0,20}\$\s?[\d,]+(?:\.\d{2})?",
+                    text, re.IGNORECASE,
+                ),
+            ))
+
+        # H_PARTY_IDENTITY_CONFLICT_01: same entity referred to with an
+        # inconsistent legal name/suffix in different places in the document
+        # (e.g. "Acme Corp" in the preamble vs. "Acme Corporation, Inc." in
+        # the signature block) — ambiguous as to which entity is bound.
+        entity_matches = re.findall(
+            r"\b((?:[A-Z][\w&.]*\s+){1,5}[A-Z][\w&.]*),?\s+(?:a|an)\s+[A-Za-z\s]{2,30}?\s+"
+            r"(?:corporation|company|limited liability company|LLC|Inc\.?|Ltd\.?|Corporation)\b",
+            text,
+        )
+        variants_by_root: Dict[str, set] = {}
+        for name in entity_matches:
+            cleaned = name.strip().rstrip(",")
+            first_word = cleaned.split()[0] if cleaned.split() else ""
+            root = re.sub(r"[^a-z0-9]", "", first_word.lower())
+            if not root:
+                continue
+            variants_by_root.setdefault(root, set()).add(cleaned)
+        conflicting = {root: v for root, v in variants_by_root.items() if len(v) > 1}
+        if conflicting:
+            variants = sorted(next(iter(conflicting.values())))
+            findings.append(self._make_document_finding(
+                rule_id="H_PARTY_IDENTITY_CONFLICT_01",
+                rule_name="party_identity_conflict",
+                title="Inconsistent legal entity name for the same party",
+                severity=Severity.HIGH,
+                rationale=(
+                    "The contract refers to what appears to be the same party using "
+                    f"inconsistent legal names ({', '.join(variants)}), creating ambiguity "
+                    "as to which entity is actually bound."
+                ),
+                text=text,
+                anchor_match=re.search(re.escape(variants[0]), text),
+            ))
+
+        # H_SIGNATURE_PARTY_MISSING_01: an execution/signature section exists
+        # ("IN WITNESS WHEREOF") but fewer than two "By:" signature lines are
+        # present — one party's signature block appears to be missing.
+        if re.search(r"\bIN\s+WITNESS\s+WHEREOF\b", text, re.IGNORECASE):
+            by_lines = re.findall(r"\bBy\s*:\s*(?:_{2,}|/s/|\n|[A-Z][a-z]+\s+[A-Z][a-z]+)", text)
+            if len(by_lines) < 2:
+                findings.append(self._make_document_finding(
+                    rule_id="H_SIGNATURE_PARTY_MISSING_01",
+                    rule_name="signature_party_missing",
+                    title="Signature block appears to be missing for one party",
+                    severity=Severity.HIGH,
+                    rationale=(
+                        "The document contains an execution/signature section but fewer than "
+                        "two 'By:' signature lines were found — one party's signature block "
+                        "may be missing, which would prevent full execution."
+                    ),
+                    text=text,
+                    anchor_match=re.search(r"\bIN\s+WITNESS\s+WHEREOF\b", text, re.IGNORECASE),
+                ))
+
+        return findings
+
     def _apply_suppression_rules(self, findings: List[Finding], text: str) -> Tuple[List[Finding], Dict[str, str]]:
         """
         Apply deterministic false-positive suppression rules.
@@ -286,77 +856,81 @@ class RuleEngine:
         Rules:
         - If indemnity clause contains "to the extent required by law" → downgrade severity
         - If IP assignment contains "excluding pre-existing IP" → suppress assignment risk
+        - If a "one-way"/unilateral rule's clause is actually mutual → downgrade
+          severity and strip the one-way framing (see ONE_WAY_RULE_IDS)
         - Record WHY suppression happened for auditability
-        
+
         Returns:
         - (suppressed_findings, suppression_reasons_dict)
         """
         suppressed = []
         suppression_reasons = {}
-        
+
         for finding in findings:
             # Get context around the finding for suppression checks
             context_start = max(0, finding.start_index - 300)
             context_end = min(len(text), finding.end_index + 300)
             context = text[context_start:context_end].lower()
-            
+
             suppressed_finding = finding
             reason = None
-            
+
             # Suppression Rule 1: Indemnity with "to the extent required by law"
             if finding.rule_id == "H_INDEM_01" and "to the extent required by law" in context:
-                # Downgrade severity instead of suppressing
-                suppressed_finding = Finding(
-                    rule_id=finding.rule_id,
-                    rule_name=finding.rule_name,
-                    title=finding.title,
+                # Downgrade severity instead of suppressing. replace() carries
+                # over every other field (including evidence/party_direction)
+                # so downgrading never silently drops anchoring data.
+                suppressed_finding = replace(
+                    finding,
                     severity=Severity.MEDIUM,  # Downgrade from HIGH to MEDIUM
                     rationale=finding.rationale + " Note: Limited by 'to the extent required by law' language.",
-                    matched_excerpt=finding.matched_excerpt,
-                    position=finding.position,
-                    context=finding.context,
-                    start_index=finding.start_index,
-                    end_index=finding.end_index,
-                    exact_snippet=finding.exact_snippet,
-                    clause_number=finding.clause_number,
-                    matched_keywords=finding.matched_keywords,
-                    aliases=finding.aliases,
                 )
                 reason = "Downgraded severity: indemnity limited by 'to the extent required by law'"
-            
+
             # Suppression Rule 2: IP assignment with "excluding pre-existing IP"
             if finding.rule_id in ("H_IP_01", "H_IP_WORK_PRODUCT_01") and ("excluding pre-existing" in context or "excluding pre existing" in context or "excludes pre-existing" in context):
                 # Suppress entirely (no finding)
                 reason = "Suppressed: IP assignment excludes pre-existing IP"
                 suppression_reasons[f"{finding.rule_id}_{finding.start_index}"] = reason
                 continue  # Skip this finding
-            
+
             # Suppression Rule 3: Liability cap with explicit carve-out language
             if finding.rule_id == "H_LOL_CARVEOUT_01" and "except as required by applicable law" in context:
                 # Downgrade severity
-                suppressed_finding = Finding(
-                    rule_id=finding.rule_id,
-                    rule_name=finding.rule_name,
-                    title=finding.title,
+                suppressed_finding = replace(
+                    finding,
                     severity=Severity.MEDIUM,
                     rationale=finding.rationale + " Note: Carve-out may be required by law.",
-                    matched_excerpt=finding.matched_excerpt,
-                    position=finding.position,
-                    context=finding.context,
-                    start_index=finding.start_index,
-                    end_index=finding.end_index,
-                    exact_snippet=finding.exact_snippet,
-                    clause_number=finding.clause_number,
-                    matched_keywords=finding.matched_keywords,
-                    aliases=finding.aliases,
                 )
                 reason = "Downgraded severity: carve-out may be required by applicable law"
-            
+
+            # Suppression Rule 4: "One-way"/unilateral rules whose clause text
+            # actually establishes mutual treatment (e.g. "either party shall
+            # be entitled to attorneys' fees"). A rule titled "one-way" must
+            # not stay HIGH severity with one-way framing when the engine's
+            # own party-direction classification says the clause is mutual.
+            if (
+                finding.rule_id in ONE_WAY_RULE_IDS
+                and finding.party_direction
+                and finding.party_direction.get("mutuality_status") == "mutual"
+            ):
+                suppressed_finding = replace(
+                    suppressed_finding,
+                    severity=Severity.MEDIUM,
+                    rationale=(
+                        suppressed_finding.rationale
+                        + " Note: Clause language ('either party'/'mutual'/'both parties') indicates "
+                        "this obligation applies to both parties, not one-sided as the rule title suggests. "
+                        "Confirm mutuality is intended and consistently drafted."
+                    ),
+                )
+                reason = "Downgraded severity: party-direction analysis found mutual language, not one-way"
+
             if reason:
                 suppression_reasons[f"{finding.rule_id}_{finding.start_index}"] = reason
-            
+
             suppressed.append(suppressed_finding)
-        
+
         return suppressed, suppression_reasons
 
     def _build_rules(self) -> List[Rule]:
@@ -552,6 +1126,12 @@ class RuleEngine:
                 ],
                 window=450,
                 aliases=["no_data_return", "data_lock_in", "no_data_deletion"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(terminat\w+|expir\w+)\b", r"\bdata\b"],
+                protective_patterns=[
+                    r"\b(return\w*|export\w*|delet\w+|destroy\w+)\b[^.]{0,80}\bdata\b",
+                    r"\bdata\b[^.]{0,80}\b(return\w*|export\w*|delet\w+|destroy\w+)\b",
+                ],
             ),
             Rule(
                 rule_id="H_ASYMMETRIC_LIABILITY_01",
@@ -827,6 +1407,13 @@ class RuleEngine:
                 severity=Severity.MEDIUM,
                 rationale="Absence of a residuals clause can restrict use of general knowledge gained during discussions.",
                 pattern=r"\bshall\s+not\s+use\b.*?\bknowledge\b.*?\bretained\b",
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\bconfidential\w*\b"],
+                protective_patterns=[
+                    r"\bresiduals?\b",
+                    r"\bunaided\s+memory\b",
+                    r"\bgeneral\s+knowledge\b[^.]{0,80}\bretain\w*\b",
+                ],
             ),
             Rule(
                 rule_id="M_INJUNCT_01",
@@ -951,6 +1538,16 @@ class RuleEngine:
                 ],
                 window=400,
                 aliases=["no_breach_notice", "data_breach_notification"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[
+                    r"\b(personal\s+(?:data|information)|PII|data\s+breach|security\s+incident)\b",
+                ],
+                protective_patterns=[
+                    r"\bnotify\b[^.]{0,80}\b(breach|incident|compromise)\b",
+                    r"\b(breach|incident|compromise)\b[^.]{0,80}\bnotify\b",
+                    r"\bwithout\s+undue\s+delay\b[^.]{0,80}\bnotify\b",
+                    r"\bnotify\b[^.]{0,60}\bwithin\s+\d+\s+(hours?|days?)\b",
+                ],
             ),
             Rule(
                 rule_id="M_INSURANCE_01",
@@ -959,15 +1556,26 @@ class RuleEngine:
                 severity=Severity.MEDIUM,
                 rationale="Lack of insurance requirements means the counterparty may not have financial backing to cover claims, leaving indemnity and liability protections hollow.",
                 anchors=[r"\binsurance\b"],
+                # Adverse language only — genuinely protective phrasing ("shall
+                # maintain", "commercially reasonable ... insurance") used to be
+                # listed here too, which flagged good insurance clauses as risks.
+                # Protective language now lives in protective_patterns below.
                 nearby=[
                     r"\bnot\s+required\b",
                     r"\bno\s+obligation\b",
                     r"\bwaive[sd]?\b",
-                    r"\bshall\s+maintain\b",
-                    r"\bcommercially?\s+reasonable\b",
                 ],
                 window=350,
                 aliases=["insurance_requirements", "no_insurance"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(vendor|provider|supplier|contractor|services?)\b"],
+                protective_patterns=[
+                    r"\bshall\s+maintain\b[^.]{0,80}\binsurance\b",
+                    r"\binsurance\b[^.]{0,80}\bshall\s+maintain\b",
+                    r"\bcommercially?\s+reasonable\b[^.]{0,40}\binsurance\b",
+                    r"\bcertificate\s+of\s+insurance\b",
+                    r"\binsurance\b[^.]{0,60}\$[\d,]+",
+                ],
             ),
             Rule(
                 rule_id="M_FORCE_MAJEURE_01",
@@ -994,6 +1602,13 @@ class RuleEngine:
                 rationale="Absence of defined service levels, uptime commitments, or remedies for downtime means you have no contractual recourse for service failures.",
                 pattern=r"\b(no\s+(?:service\s+level|SLA|uptime)\s+(?:guarantee|commitment|obligation))\b|\b(does\s+not\s+(?:guarantee|warrant|commit)\b.*?\b(?:availability|uptime|service\s+level))\b|\b(?:availability|uptime)\b.*?\b(as[\s-]is|without\s+(?:any\s+)?guarantee)\b",
                 aliases=["no_sla", "no_uptime_guarantee", "service_level_absent"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(service|platform|software|application|system|SaaS)\b"],
+                protective_patterns=[
+                    r"\b(service\s+level|SLA|uptime)\b[^.]{0,80}\b(guarantee|commitment|%|percent)\b",
+                    r"\d{2}(\.\d+)?\s?%\s+uptime\b",
+                    r"\buptime\b[^.]{0,40}\d{2}(\.\d+)?\s?%",
+                ],
             ),
             Rule(
                 rule_id="M_MFN_01",
@@ -1133,6 +1748,14 @@ class RuleEngine:
                 ],
                 window=500,
                 aliases=["data_export_rights", "portability_on_termination"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(terminat\w+|expir\w+)\b", r"\bdata\b"],
+                protective_patterns=[
+                    r"\bexport\w*\b[^.]{0,60}\bdata\b",
+                    r"\bdata\s+portability\b",
+                    r"\bmigrat\w+\b[^.]{0,60}\bdata\b",
+                    r"\breturn\w*\b[^.]{0,60}\bdata\b",
+                ],
             ),
             Rule(
                 rule_id="M_DATA_DELETION_01",
@@ -1259,6 +1882,247 @@ class RuleEngine:
                 pattern=r"\bnet\s+\d+\b|\bdue\s+(within|in)\s+\d+\s+days?\b|\bpayment\s+(is\s+)?due\b|\binvoice\w*\s+(within|in)\s+\d+\s+days?\b",
                 aliases=["payment_due", "net_days", "invoice_terms"],
             ),
+
+            # ---------------- Contract-to-cash: payment/invoice configuration ----------------
+            # H_BILLING_CONFLICT_01, H_PRICE_CONFLICT_01, H_PARTY_IDENTITY_CONFLICT_01,
+            # and H_SIGNATURE_PARTY_MISSING_01 are document-wide consistency checks, not
+            # single-clause matches — see RuleEngine._check_cross_document_conflicts().
+            Rule(
+                rule_id="M_PAYMENT_TRIGGER_01",
+                rule_name="invoice_trigger_missing",
+                title="No invoice trigger event specified",
+                severity=Severity.MEDIUM,
+                rationale="Without a defined invoicing trigger (e.g. upon execution, service activation, or delivery), it is unclear when billing may begin, which can cause invoice timing mismatches.",
+                pattern=r"\binvoic\w*\b[^.]{0,40}\b(?:to\s+be\s+determined|TBD|to\s+be\s+agreed)\b",
+                aliases=["invoice_trigger_undefined", "billing_start_undefined"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(invoic\w*|bill\w*|payment)\b"],
+                protective_patterns=[
+                    r"\binvoic\w*\b[^.]{0,60}\b(?:upon|following|after|within)\b[^.]{0,60}"
+                    r"\b(activation|delivery|execution|go-live|commencement|acceptance)\b",
+                    r"\bbilling\s+shall\s+(?:begin|commence)\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_CURRENCY_AMBIGUOUS_01",
+                rule_name="currency_ambiguous",
+                title="Payment currency not specified",
+                severity=Severity.MEDIUM,
+                rationale="Amounts stated without an explicit currency designation are ambiguous and can cause invoicing and payment reconciliation errors, especially in cross-border deals.",
+                pattern=r"\bcurrency\s+(?:to\s+be\s+determined|TBD)\b",
+                aliases=["currency_undefined", "ambiguous_currency"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\$\s?[\d,]+(?:\.\d{2})?"],
+                protective_patterns=[
+                    r"\b(USD|EUR|GBP|CAD|AUD|United\s+States\s+Dollars?)\b",
+                    r"€|£",
+                ],
+            ),
+            Rule(
+                rule_id="M_BILLING_FREQUENCY_01",
+                rule_name="billing_frequency_missing",
+                title="Billing frequency not specified",
+                severity=Severity.MEDIUM,
+                rationale="Fees mentioned without a stated billing frequency (monthly, quarterly, annual, one-time) can't be reliably configured as recurring or one-time invoices.",
+                pattern=r"\bbilling\s+frequency\s+(?:to\s+be\s+determined|TBD)\b",
+                aliases=["billing_cadence_missing", "recurring_billing_undefined"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(fee|payment|invoic\w*|price)\b"],
+                protective_patterns=[
+                    r"\b(monthly|quarterly|annual(?:ly)?|yearly|weekly|one[-\s]?time|recurring|"
+                    r"per\s+month|per\s+year)\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_PRICE_EXHIBIT_MISSING_01",
+                rule_name="price_exhibit_missing",
+                title="Pricing referenced in an exhibit that isn't included",
+                severity=Severity.MEDIUM,
+                rationale="Pricing that is only defined by reference to an exhibit or schedule is unusable for invoicing if that exhibit isn't actually attached or included in the document.",
+                pattern=r"\bpricing\b[^.]{0,60}\bnot\s+attached\b",
+                aliases=["exhibit_pricing_missing", "unattached_pricing_exhibit"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[
+                    r"\b(pricing|fees?|price)\b",
+                    r"\b(exhibit|schedule|appendix)\s+[A-Z0-9]+\b",
+                ],
+                protective_patterns=[
+                    r"\b(exhibit|schedule|appendix)\s+[A-Z0-9]+\b[\s\S]{0,300}\b(exhibit|schedule|appendix)\s+[A-Z0-9]+\b",
+                ],
+                window=350,
+            ),
+            Rule(
+                rule_id="M_EXPENSE_APPROVAL_01",
+                rule_name="expense_approval_missing",
+                title="Reimbursable expenses lack an approval limit",
+                severity=Severity.MEDIUM,
+                rationale="Reimbursable expense language without a pre-approval requirement or cap can result in unbounded, unbudgeted costs.",
+                anchors=[r"\breimburs\w*\b", r"\bexpense\w*\b"],
+                nearby=[r"\bwithout\s+(?:any\s+)?(?:limit|cap|approval)\b"],
+                window=300,
+                aliases=["unbounded_expense_reimbursement", "no_expense_cap"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\breimburs\w*\b|\bexpense\w*\b"],
+                protective_patterns=[
+                    r"\bprior\s+written\s+approval\b",
+                    r"\bnot\s+to\s+exceed\s+\$",
+                    r"\bpre[-\s]?approved\b",
+                    r"\bapproved\s+in\s+advance\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_USAGE_MEASUREMENT_01",
+                rule_name="usage_measurement_missing",
+                title="Usage-based charges lack a measurement method",
+                severity=Severity.MEDIUM,
+                rationale="Usage-based or overage charges without a defined measurement method leave the billing amount effectively undeterminable and disputable.",
+                anchors=[r"\busage\s+charges?\b", r"\boverage\s+(?:fees?|charges?)\b"],
+                nearby=[r"\bsole\s+discretion\b"],
+                window=300,
+                aliases=["undefined_usage_metric", "usage_billing_undefined"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(usage|overage|metered|per[-\s]?unit)\b[^.]{0,20}\b(charge|fee|billing)\b"],
+                protective_patterns=[
+                    r"\bmeasured\s+by\b",
+                    r"\bmetered\b",
+                    r"\bcalculated\s+based\s+on\b",
+                    r"\busage\s+report\b",
+                    r"\bmeter\w*\s+reading\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_DISCOUNT_EXPIRY_01",
+                rule_name="discount_expiry_missing",
+                title="Discount lacks a clear expiration",
+                severity=Severity.MEDIUM,
+                rationale="A discount stated without a clear expiration or duration is ambiguous as to when standard pricing resumes, risking under-billing or customer disputes.",
+                pattern=r"\bdiscount\w*\b[^.]{0,40}\bno\s+expiration\b",
+                aliases=["discount_duration_undefined", "open_ended_discount"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\bdiscount\w*\b"],
+                protective_patterns=[
+                    r"\bdiscount\w*\b[^.]{0,80}\b(expir\w*|through\s+\d{4}|for\s+the\s+first\s+\d+|"
+                    r"for\s+\d+\s+(?:months?|years?)|until\s+\w+\s+\d{1,2},?\s+\d{4})\b",
+                ],
+            ),
+
+            # ---------------- Contract-to-cash: signature & execution defects ----------------
+            Rule(
+                rule_id="M_AUTHORITY_REP_01",
+                rule_name="signatory_authority_missing",
+                title="Signatory title or authority representation missing",
+                severity=Severity.MEDIUM,
+                rationale="A signature block without a stated title or 'duly authorized' representation leaves it unclear whether the signer had authority to bind the entity.",
+                pattern=r"\bTitle\s*:\s*(?:_{2,}|\[\s*\])",
+                aliases=["blank_signatory_title", "signatory_authority_undefined"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\bIN\s+WITNESS\s+WHEREOF\b"],
+                protective_patterns=[r"\bTitle\s*:\s*\S", r"\bduly\s+authorized\b"],
+            ),
+            Rule(
+                rule_id="M_EFFECTIVE_DATE_MISSING_01",
+                rule_name="effective_date_blank",
+                title="Effective Date left blank",
+                severity=Severity.MEDIUM,
+                rationale="A blank or placeholder Effective Date means the contract term, renewal dates, and payment schedule cannot be reliably calculated.",
+                pattern=r"\bEffective\s+Date\s*[:\s]*(?:_{2,}|\[\s*\]|\bTBD\b|\bXX+\b)",
+                aliases=["blank_effective_date", "effective_date_placeholder"],
+            ),
+            Rule(
+                rule_id="M_EXHIBIT_MISSING_01",
+                rule_name="exhibit_referenced_missing",
+                title="Exhibit or schedule referenced but not found",
+                severity=Severity.MEDIUM,
+                rationale="A contract that refers to an exhibit, schedule, or appendix that isn't actually included leaves material terms undefined.",
+                pattern=r"\b(?:exhibit|schedule|appendix)\s+[A-Z0-9]+\b[^.]{0,40}\b(?:not\s+attached|to\s+be\s+provided|forthcoming)\b",
+                aliases=["missing_exhibit", "unattached_schedule"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(?:exhibit|schedule|appendix)\s+[A-Z0-9]+\b"],
+                protective_patterns=[
+                    r"\b(exhibit|schedule|appendix)\s+[A-Z0-9]+\b[\s\S]{0,300}\b(exhibit|schedule|appendix)\s+[A-Z0-9]+\b",
+                ],
+            ),
+            Rule(
+                rule_id="L_COUNTERPARTS_ESIGN_01",
+                rule_name="counterparts_esignature",
+                title="Execution in counterparts / electronic signature language",
+                severity=Severity.LOW,
+                rationale="Counterparts and e-signature language is standard and generally favorable for execution speed, but worth confirming it references a valid e-signature method (e.g. ESIGN/UETA compliant).",
+                pattern=r"\bcounterparts?\b[^.]{0,60}\b(?:execute[sd]?|signed)\b|\belectronic\s+signature\b|\bDocuSign\b|\belectronically\s+executed\b",
+                aliases=["esignature_language", "counterparts_clause"],
+            ),
+
+            # ---------------- Contract-to-cash: termination-to-billing consequences ----------------
+            Rule(
+                rule_id="H_PAYMENT_ACCELERATION_01",
+                rule_name="payment_acceleration",
+                title="Payment obligations accelerate upon termination or breach",
+                severity=Severity.HIGH,
+                rationale="Acceleration clauses that make all remaining fees immediately due upon termination or breach can create a large, unexpected lump-sum payment obligation.",
+                anchors=[r"\bterminat\w*\b", r"\bbreach\w*\b"],
+                nearby=[
+                    r"\baccelerat\w*\b",
+                    r"\bimmediately\s+due\s+and\s+payable\b",
+                    r"\bbecome\s+due\s+and\s+payable\b",
+                ],
+                window=350,
+                aliases=["fee_acceleration_on_termination", "accelerated_payment_obligation"],
+            ),
+            Rule(
+                rule_id="H_POST_TERMINATION_BILLING_01",
+                rule_name="post_termination_billing",
+                title="Billing continues after termination",
+                severity=Severity.HIGH,
+                rationale="Language that continues billing or fee liability after termination or expiration can result in charges for a service that is no longer being provided.",
+                anchors=[r"\btermination\b", r"\bexpir\w*\b"],
+                nearby=[
+                    r"\bcontinue\s+to\s+(?:bill|charge|invoice)\b",
+                    r"\bremain\s+liable\s+for\s+(?:fees|payments|charges)\b",
+                    r"\bshall\s+continue\s+to\s+accrue\b",
+                ],
+                window=350,
+                aliases=["continued_billing_post_termination", "post_termination_fee_liability"],
+            ),
+            Rule(
+                rule_id="M_PREPAID_FEES_REFUND_01",
+                rule_name="prepaid_fees_refund_missing",
+                title="Prepaid fees non-refundable / refund terms unclear on termination",
+                severity=Severity.MEDIUM,
+                rationale="Prepaid fees without pro-rata refund language on early termination mean the customer loses the unused, already-paid portion of the contract.",
+                anchors=[r"\bprepaid\b|\bpre[-\s]paid\b"],
+                nearby=[r"\bnon[-\s]?refundable\b"],
+                window=300,
+                aliases=["prepaid_fees_not_refundable", "no_prorata_refund"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\bprepaid\b|\bpre[-\s]paid\b", r"\btermin\w*\b"],
+                protective_patterns=[
+                    r"\brefund\w*\b[^.]{0,80}\b(?:pro[-\s]?rata|upon\s+termination)\b",
+                    r"\bpro[-\s]?rata\s+refund\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_FINAL_INVOICE_01",
+                rule_name="final_invoice_timing_missing",
+                title="Final invoice timing on termination not specified",
+                severity=Severity.MEDIUM,
+                rationale="Without a defined timeline for issuing a final invoice after termination, billing close-out and reconciliation can be delayed indefinitely.",
+                pattern=r"\bfinal\s+invoice\b[^.]{0,40}\bsole\s+discretion\b",
+                aliases=["final_invoice_undefined", "termination_billing_close_out_missing"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\btermin\w*\b", r"\binvoic\w*\b"],
+                protective_patterns=[r"\bfinal\s+invoice\b"],
+            ),
+            Rule(
+                rule_id="M_EARLY_TERMINATION_FEE_01",
+                rule_name="early_termination_fee",
+                title="Early termination fee or penalty",
+                severity=Severity.MEDIUM,
+                rationale="Early termination fees add a direct cost to exiting the contract before term end and should be confirmed as reasonable and clearly calculated.",
+                anchors=[r"\bearly\s+terminat\w*\b"],
+                nearby=[r"\bfee\b", r"\bpenalt(?:y|ies)\b", r"\bcharge\b"],
+                window=300,
+                aliases=["early_termination_penalty", "termination_charge"],
+            ),
         ]
 
     def analyze(self, text: str, suppression_enabled: bool = True) -> Dict:
@@ -1300,19 +2164,19 @@ class RuleEngine:
             .replace("“", '"').replace("”", '"')   # left/right double quotes → "
             .replace("–", "-").replace("—", "-")   # en-dash / em-dash → -
             .replace("…", "...")                         # ellipsis → ...
+            .replace("\r\n", "\n").replace("\r", "\n")   # normalize line endings once, up front
         )
 
         chunks = _chunk_text(text)
 
         findings: List[Finding] = []
-        chunk_offset = 0
-        for chunk in chunks:
+        for chunk_start, chunk in chunks:
             for rule in self.rules:
                 if rule.pattern:
                     for m in _find_all(rule.pattern, chunk):
                         s, e = m.span()
-                        absolute_start = chunk_offset + s
-                        absolute_end = chunk_offset + e
+                        absolute_start = chunk_start + s
+                        absolute_end = chunk_start + e
                         ex = _excerpt(chunk, s, e)
                         matched_text = m.group(0)
                         # Get surrounding context (±200 chars)
@@ -1321,6 +2185,11 @@ class RuleEngine:
                         surrounding_context = text[context_start:context_end]
                         clause_num = _extract_clause_number(text, absolute_start)
                         keywords = _extract_matched_keywords(matched_text, rule.pattern)
+                        party_direction = (
+                            _classify_party_direction(surrounding_context)
+                            if rule.rule_id in ONE_WAY_RULE_IDS
+                            else None
+                        )
                         findings.append(
                             Finding(
                                 rule_id=rule.rule_id,
@@ -1338,17 +2207,24 @@ class RuleEngine:
                                 clause_number=clause_num,
                                 matched_keywords=keywords,
                                 aliases=rule.aliases or [],
+                                party_direction=party_direction,
                             )
                         )
                 else:
                     assert rule.anchors and rule.nearby
                     spans = _proximity_spans(rule.anchors, rule.nearby, chunk, rule.window)
-                    for (s, e) in spans:
-                        absolute_start = chunk_offset + s
-                        absolute_end = chunk_offset + e
+                    for pm in spans:
+                        # Evidence spans, relative to `chunk`
+                        s, e = pm.combined_start, pm.combined_end
+                        absolute_start = chunk_start + s
+                        absolute_end = chunk_start + e
                         ex = _excerpt(chunk, s, e)
-                        # Extract exact matched snippet from chunk
-                        exact_matched = chunk[s:e] if s < len(chunk) and e <= len(chunk) else chunk[max(0, s):min(len(chunk), e)]
+                        # exact_snippet covers the FULL evidence span (anchor -> risk
+                        # phrase), not just the anchor trigger word, so readers see the
+                        # actual dangerous language rather than a bare keyword.
+                        exact_matched = chunk[s:e]
+                        anchor_text = chunk[pm.anchor_start:pm.anchor_end]
+                        risk_phrase = chunk[pm.nearby_start:pm.nearby_end]
                         # Get surrounding context (±200 chars)
                         context_start = max(0, absolute_start - 200)
                         context_end = min(len(text), absolute_end + 200)
@@ -1357,6 +2233,11 @@ class RuleEngine:
                         context_text = chunk[max(0, s-100):min(len(chunk), e+100)]
                         clause_num = _extract_clause_number(text, absolute_start)
                         keywords = _extract_matched_keywords(context_text)
+                        party_direction = (
+                            _classify_party_direction(surrounding_context)
+                            if rule.rule_id in ONE_WAY_RULE_IDS
+                            else None
+                        )
                         findings.append(
                             Finding(
                                 rule_id=rule.rule_id,
@@ -1374,10 +2255,35 @@ class RuleEngine:
                                 clause_number=clause_num,
                                 matched_keywords=keywords,
                                 aliases=rule.aliases or [],
+                                evidence={
+                                    "anchor": anchor_text,
+                                    "risk_phrase": risk_phrase,
+                                    "full_clause": surrounding_context,
+                                },
+                                party_direction=party_direction,
                             )
                         )
-            # Update chunk offset for next iteration
-            chunk_offset += len(chunk) + 1  # +1 for newline separator
+
+        # REQUIRED_SECTION rules: for any such rule that found no adverse
+        # language above, run a document-level absence check instead of
+        # silently producing nothing. This can never happen inside the
+        # per-chunk loop above, because "the topic never appears anywhere in
+        # the document" is not something a chunk-local regex match can prove.
+        adverse_rule_ids_found = {f.rule_id for f in findings}
+        for rule in self.rules:
+            if rule.rule_class != RuleClass.REQUIRED_SECTION:
+                continue
+            if rule.rule_id in adverse_rule_ids_found:
+                continue  # adverse language already found; that's the finding
+            required_section_finding = self._check_required_section(rule, text)
+            if required_section_finding is not None:
+                findings.append(required_section_finding)
+
+        # Document-wide consistency checks (conflicting values across
+        # different parts of the document, missing signature blocks) — see
+        # _check_cross_document_conflicts for why these can't be single
+        # regex/proximity matches.
+        findings.extend(self._check_cross_document_conflicts(text))
 
         # Deduplicate by (rule_id, clause_number) to prevent inflated counts
         # If clause_number exists, use (rule_id, clause_number) as key; otherwise use (rule_id, None)
@@ -1422,14 +2328,24 @@ class RuleEngine:
             counts[f.severity.value] += 1
 
         overall = self._compute_overall_risk(suppressed_findings, counts)
+        workflow = self._compute_workflow_decision(suppressed_findings)
 
         return {
             "findings": suppressed_findings,
-            "overall_risk": overall,
+            "overall_risk": overall,  # Severity signal — unchanged, not replaced.
             "rule_counts": counts,
             "version": self.version,
             "ruleset_version_data": _RULESET_VERSION_DATA,
             "suppression_log": suppression_reasons,  # Audit trail
+            # Business workflow decision layer, additive to overall_risk:
+            # what should happen to this contract next, not just how risky it is.
+            "signature_readiness": workflow["signature_readiness"],
+            "blocking_findings": workflow["blocking_findings"],
+            "policy_blocked_findings": workflow["policy_blocked_findings"],
+            "non_blocking_findings": workflow["non_blocking_findings"],
+            # Structured contract-to-cash terms, for comparison against an
+            # actual invoice configuration (not just "Net 30 mentioned").
+            "payment_terms": _extract_payment_terms(text),
         }
 
     def build_missing_sections(self, findings: List[Finding]) -> List[str]:

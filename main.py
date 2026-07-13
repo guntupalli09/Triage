@@ -45,7 +45,7 @@ from PyPDF2 import PdfReader
 from docx import Document
 from sqlalchemy.orm import Session as DBSession
 
-from rules_engine import RuleEngine
+from rules_engine import RuleEngine, FINDING_TYPE_LABELS
 from evaluator import LLMEvaluator
 from database import get_db, check_db_health, check_redis_health
 from auth import (
@@ -219,6 +219,11 @@ def run_analysis(contract_text: str) -> Dict:
             "matched_excerpt": f.matched_excerpt, "position": f.position,
             "context": f.context, "clause_number": f.clause_number,
             "matched_keywords": f.matched_keywords, "aliases": f.aliases,
+            "start_index": f.start_index, "end_index": f.end_index,
+            "exact_snippet": f.exact_snippet, "evidence": f.evidence,
+            "party_direction": f.party_direction,
+            "finding_type": f.finding_type,
+            "finding_type_label": FINDING_TYPE_LABELS.get(f.finding_type, f.finding_type),
         }
         for f in findings
     ]
@@ -240,6 +245,16 @@ def run_analysis(contract_text: str) -> Dict:
         "llm_result": llm_result,
         "rule_counts": analysis.get("rule_counts", {"high": 0, "medium": 0, "low": 0}),
         "version": analysis.get("version", "1.0.3"),
+        # Business workflow decision layer, additive to overall_risk: what
+        # should happen to this contract next (ready to send / commercial
+        # review / legal review / blocked by policy), not just how risky it is.
+        "signature_readiness": analysis.get("signature_readiness"),
+        "blocking_findings": analysis.get("blocking_findings", []),
+        "policy_blocked_findings": analysis.get("policy_blocked_findings", []),
+        "non_blocking_findings": analysis.get("non_blocking_findings", []),
+        # Structured contract-to-cash terms for comparison against an actual
+        # invoice configuration (due_days, currency, billing_frequency, invoice_trigger).
+        "payment_terms": analysis.get("payment_terms", {}),
     }
 
 
@@ -288,6 +303,24 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
             enhanced["matched_keywords"] = finding["matched_keywords"]
         if finding.get("matched_excerpt"):
             enhanced["matched_excerpt"] = finding["matched_excerpt"]
+        if finding.get("evidence"):
+            # Proximity-rule findings: anchor trigger word, the actual risky
+            # phrase found near it, and the surrounding clause — not just the
+            # bare anchor keyword.
+            enhanced["evidence"] = finding["evidence"]
+        if finding.get("party_direction"):
+            # "One-way"/unilateral rules: obligor, beneficiary, applies_to,
+            # and mutuality_status, so the UI never asserts one-sidedness
+            # the engine hasn't actually established.
+            enhanced["party_direction"] = finding["party_direction"]
+        # "Adverse language detected" / "Expected protection not found" /
+        # "Unable to determine" are different claims with different
+        # evidentiary weight — always surface which one this is so the UI
+        # never presents them as the same thing.
+        enhanced["finding_type"] = finding.get("finding_type", "adverse_language_detected")
+        enhanced["finding_type_label"] = finding.get(
+            "finding_type_label", FINDING_TYPE_LABELS.get(enhanced["finding_type"], enhanced["finding_type"])
+        )
 
         all_issues.append(enhanced)
 
