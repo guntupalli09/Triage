@@ -112,6 +112,22 @@ def _run_migrations():
             conn.execute(text("ALTER TABLE users ALTER COLUMN password_hash DROP NOT NULL"))
             logger.info("Migration applied: users.password_hash now nullable")
 
+        if "contracts" in insp.get_table_names():
+            contract_cols = {c["name"] for c in insp.get_columns("contracts")}
+            json_col_type = "JSON" if not _is_sqlite else "JSON"
+            if "signature_readiness" not in contract_cols:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN signature_readiness VARCHAR(40)"))
+                logger.info("Migration applied: contracts.signature_readiness column")
+            if "payment_terms_json" not in contract_cols:
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN payment_terms_json {json_col_type}"))
+                logger.info("Migration applied: contracts.payment_terms_json column")
+            if "blocking_findings_json" not in contract_cols:
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN blocking_findings_json {json_col_type}"))
+                logger.info("Migration applied: contracts.blocking_findings_json column")
+            if "policy_blocked_findings_json" not in contract_cols:
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN policy_blocked_findings_json {json_col_type}"))
+                logger.info("Migration applied: contracts.policy_blocked_findings_json column")
+
 
 def init_db():
     import models  # noqa: F401 — registers all models

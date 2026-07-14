@@ -925,6 +925,10 @@ async def upload_contract(
             analysis_completed=True,
             playbook_id=playbook_id,
             deviations_json=deviations,
+            signature_readiness=analysis.get("signature_readiness"),
+            payment_terms_json=analysis.get("payment_terms"),
+            blocking_findings_json=analysis.get("blocking_findings"),
+            policy_blocked_findings_json=analysis.get("policy_blocked_findings"),
         )
         db.add(contract)
         user.contracts_this_month += 1
@@ -1031,6 +1035,10 @@ async def batch_upload_submit(
             llm_result_json=analysis["llm_result"], rule_counts_json=analysis["rule_counts"],
             rule_engine_version=analysis["version"], analysis_completed=True,
             playbook_id=playbook_id, deviations_json=deviations, batch_id=batch_id,
+            signature_readiness=analysis.get("signature_readiness"),
+            payment_terms_json=analysis.get("payment_terms"),
+            blocking_findings_json=analysis.get("blocking_findings"),
+            policy_blocked_findings_json=analysis.get("policy_blocked_findings"),
         )
         db.add(contract)
         contracts.append(contract)
@@ -1218,6 +1226,12 @@ async def view_contract(request: Request, contract_id: int):
         "findings_dict": findings_dict,
         "analysis_id": f"TR-{contract.created_at.year}-{contract.id:06d}" if contract.created_at else f"TR-2026-{contract.id:06d}",
         "generated_at": contract.created_at.strftime("%Y-%m-%d %I:%M %p UTC") if contract.created_at else "N/A",
+        # Workflow decision layer + structured payment terms. May be None for
+        # contracts analyzed before this field was persisted.
+        "signature_readiness": contract.signature_readiness,
+        "payment_terms": contract.payment_terms_json,
+        "blocking_findings": contract.blocking_findings_json or [],
+        "policy_blocked_findings": contract.policy_blocked_findings_json or [],
     })
 
 
@@ -1768,6 +1782,10 @@ async def demo_analysis(request: Request):
         "findings_dict": analysis["findings_dict"],
         "analysis_id": f"DEMO-{datetime.now().strftime('%Y%m%d')}",
         "generated_at": datetime.now().strftime("%Y-%m-%d %I:%M %p UTC"),
+        "signature_readiness": analysis.get("signature_readiness"),
+        "payment_terms": analysis.get("payment_terms"),
+        "blocking_findings": analysis.get("blocking_findings", []),
+        "policy_blocked_findings": analysis.get("policy_blocked_findings", []),
     })
 
 
@@ -1972,6 +1990,10 @@ async def results_legacy(request: Request, token: str):
         "findings_dict": analysis["findings_dict"],
         "analysis_id": f"TR-{datetime.now().year}-{session_id[:6].upper()}",
         "generated_at": datetime.now().strftime("%Y-%m-%d %I:%M %p UTC"),
+        "signature_readiness": analysis.get("signature_readiness"),
+        "payment_terms": analysis.get("payment_terms"),
+        "blocking_findings": analysis.get("blocking_findings", []),
+        "policy_blocked_findings": analysis.get("policy_blocked_findings", []),
     })
 
 

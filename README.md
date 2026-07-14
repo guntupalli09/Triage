@@ -35,7 +35,7 @@ Analyzes uploaded contract documents using deterministic pattern matching to ide
 
 ## Testing
 
-**Test Results**: 57/59 tests passing (96.6% pass rate)
+**Test Results**: 194/194 tests passing (100% pass rate)
 
 ```bash
 # Run all tests
@@ -100,11 +100,13 @@ Comprehensive documentation is available in the `/docs` directory:
 
 ## Rule Engine
 
-- **Version**: 1.0.3 (see `rules/version.json`)
-- **Coverage**: Commercial NDAs and MSAs
-- **Detection**: Regex and proximity-based pattern matching
-- **Anchoring**: All findings include exact text positions (start_index, end_index, exact_snippet)
+- **Version**: 4.0.0 (see `rules/version.json`) — 80 rules (24 high, 45 medium, 11 low)
+- **Coverage**: Commercial NDAs, MSAs, SaaS agreements, vendor contracts, consumer/creator/marketplace terms, and contract-to-cash correctness (payment/invoice configuration, pricing ambiguity, signature/execution defects, termination-to-billing consequences)
+- **Detection**: Regex and proximity-based pattern matching, plus document-level required-section and cross-document consistency checks
+- **Anchoring**: All findings include exact text positions (start_index, end_index, exact_snippet) anchored to verbatim source-text slices
 - **Suppression**: Deterministic false-positive suppression layer
+- **Workflow layer**: signature_readiness (ready_to_send / commercial_review_recommended / legal_review_required / blocked_by_policy), additive to severity
+- **Structured extraction**: payment_terms (due_days, currency, billing_frequency, invoice_trigger) for contract-to-cash integrations
 
 **See**: [Rules Engine Documentation](docs/rules_engine/) for detailed rule design, structure, and examples.
 

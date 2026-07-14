@@ -1,18 +1,19 @@
 {
-  "version": "3.0.0",
-  "released": "2026-07-07",
-  "scope": "Commercial NDAs, MSAs, SaaS Agreements, Vendor Contracts, Employment/Contractor Agreements, Consumer Terms, Creator/Marketplace Terms, Event/Service Agreements, and Privacy-Adjacent Policies",
+  "version": "4.0.0",
+  "released": "2026-07-14",
+  "scope": "Commercial NDAs, MSAs, SaaS Agreements, Vendor Contracts, Employment/Contractor Agreements, Consumer Terms, Creator/Marketplace Terms, Event/Service Agreements, Privacy-Adjacent Policies, and Contract-to-Cash (payment/invoice, pricing, execution, and termination-billing) correctness",
   "changes": [
     "Initial deterministic NDA/MSA risk ruleset",
     "Added 8 high-signal rules (attorneys fees, liability cap carveouts, assignment restrictions, etc.)",
     "Implemented clause-level anchoring and false-positive suppression",
     "v2.0: Added 15 rules for SaaS, vendor, and procurement coverage (unilateral modification, consequential damages, termination for convenience, data portability, asymmetric liability, mandatory arbitration, warranty disclaimers, breach notification, insurance, force majeure, SLA, MFN, compliance, escrow, subcontracting)",
     "v2.1: Added 12 rules for broad ICP coverage: AI/ML model training on customer data, unilateral price escalation, personal data processing without protections, data portability rights, data deletion obligations, cross-border data transfers, renewal pricing increases, minimum purchase commitments, benchmarking restrictions, permitted use restrictions, export controls, payment terms",
-    "v3.0: Added 12 broader-audience rules for consumer, creator, freelancer, worker, event, and marketplace terms: stored-card charges, user content licenses, payout deductions, worker classification, refunds, cancellation fees, account suspension, personal data sharing, non-disparagement, media releases, electronic notices, and marketing communications consent"
+    "v3.0: Added 12 broader-audience rules for consumer, creator, freelancer, worker, event, and marketplace terms: stored-card charges, user content licenses, payout deductions, worker classification, refunds, cancellation fees, account suspension, personal data sharing, non-disparagement, media releases, electronic notices, and marketing communications consent",
+    "v4.0: Reliability and product-workflow overhaul for Agree.com — evidence offsets now anchor to verbatim source-text slices (no drift from whitespace normalization); proximity-rule evidence spans cover the full anchor+risk-phrase clause instead of a bare trigger word; one-way/unilateral rules now classify party direction (obligor/beneficiary/applies_to/mutuality_status) and no longer flag fully mutual clauses as one-sided; absence-claiming rules (no SLA, no insurance, no breach notification, etc.) split into PresenceRisk vs RequiredSection, with document-level topic/protective-language checks distinguishing 'adverse language detected' from 'expected protection not found' from 'unable to determine'; added a signature_readiness workflow decision layer (ready_to_send / commercial_review_recommended / legal_review_required / blocked_by_policy), additive to and never replacing severity; added 16 contract-to-cash rules (payment/invoice configuration, pricing ambiguity, signature/execution defects, termination-to-billing consequences) plus structured payment_terms extraction (due_days, currency, billing_frequency, invoice_trigger) for direct comparison against an invoice configuration"
   ],
   "rule_count": {
-    "high": 22,
-    "medium": 32,
-    "low": 10
+    "high": 24,
+    "medium": 45,
+    "low": 11
   }
 }
