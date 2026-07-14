@@ -13,7 +13,7 @@ def test_v3_rule_inventory_counts_and_version():
     engine = RuleEngine()
     counts = Counter(rule.severity.value for rule in engine.rules)
 
-    assert engine.version == "3.0.0"
+    assert engine.version == "4.0.0"
     # 64 base rules + 16 contract-to-cash rules added for Agree.com
     # (payment/invoice config, pricing ambiguity, signature/execution
     # defects, termination-to-billing consequences).

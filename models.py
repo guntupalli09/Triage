@@ -59,6 +59,15 @@ class Contract(Base):
     rule_engine_version = Column(String(20), nullable=True)
     analysis_completed = Column(Boolean, default=False)
 
+    # Workflow decision layer + structured contract-to-cash terms. Persisted
+    # explicitly (not just recomputed from findings_json) so audit history
+    # reflects exactly what was shown at analysis time, even if the
+    # blocking/policy-block rule classification changes in a later release.
+    signature_readiness = Column(String(40), nullable=True)
+    payment_terms_json = Column(JSON, nullable=True)
+    blocking_findings_json = Column(JSON, nullable=True)
+    policy_blocked_findings_json = Column(JSON, nullable=True)
+
     # Playbook comparison
     playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=True)
     deviations_json = Column(JSON, nullable=True)

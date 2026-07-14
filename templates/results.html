@@ -124,6 +124,29 @@
         </div>
     </div>
 
+    {% set readiness_display = {
+        "ready_to_send": {"label": "READY TO SEND", "text_class": "text-green-700", "bg_class": "severity-low", "note": "No blocking findings — this contract can move to signature."},
+        "commercial_review_recommended": {"label": "COMMERCIAL REVIEW RECOMMENDED", "text_class": "text-amber-700", "bg_class": "severity-medium", "note": "Non-blocking findings present — worth a business review before sending."},
+        "legal_review_required": {"label": "LEGAL REVIEW REQUIRED", "text_class": "text-red-700", "bg_class": "severity-high", "note": "One or more findings require legal counsel review before signature."},
+        "blocked_by_policy": {"label": "BLOCKED BY POLICY", "text_class": "text-red-900", "bg_class": "severity-high", "note": "This contract contains terms that require executive/legal sign-off before it can proceed."},
+    } %}
+    {% set readiness = readiness_display.get(signature_readiness) %}
+
+    <!-- Signature Readiness (workflow decision layer) -->
+    <div class="report-card p-6 mb-6 fade-in {{ readiness.bg_class if readiness else '' }}" style="border-left-width: 4px;">
+        <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-2">Signature Readiness</div>
+        {% if readiness %}
+            <div class="text-3xl font-extrabold {{ readiness.text_class }} mb-1">{{ readiness.label }}</div>
+            <div class="text-sm text-[#475569]">{{ readiness.note }}</div>
+            {% if blocking_findings %}
+                <div class="text-sm text-[#475569] mt-2">Blocking findings: <span class="font-semibold mono">{{ blocking_findings|join(", ") }}</span></div>
+            {% endif %}
+        {% else %}
+            <div class="text-2xl font-extrabold text-[#64748B] mb-1">REVIEW STATUS UNAVAILABLE</div>
+            <div class="text-sm text-[#475569]">This analysis predates signature-readiness tracking. Re-run analysis to get a routing recommendation.</div>
+        {% endif %}
+    </div>
+
     <!-- Overall Verification Status -->
     <div class="report-card p-6 mb-6 fade-in {% if overall_risk == 'high' %}severity-high{% elif overall_risk == 'medium' %}severity-medium{% else %}severity-low{% endif %}" style="border-left-width: 4px;">
         <div class="flex items-start justify-between flex-wrap gap-4">
@@ -143,10 +166,40 @@
                 <div class="text-[#475569]">Consistency Validation</div>
                 <div class="font-semibold status-pass">Passed</div>
                 <div class="text-[#475569]">Attorney Review</div>
-                <div class="font-semibold text-[#334155]">Recommended</div>
+                <div class="font-semibold text-[#334155]">
+                    {% if signature_readiness in ("legal_review_required", "blocked_by_policy") %}Required
+                    {% elif signature_readiness == "commercial_review_recommended" %}Optional
+                    {% elif signature_readiness == "ready_to_send" %}Not required
+                    {% else %}Recommended{% endif %}
+                </div>
             </div>
         </div>
     </div>
+
+    {% if payment_terms and (payment_terms.due_days or payment_terms.currency or payment_terms.billing_frequency or payment_terms.invoice_trigger) %}
+    <!-- Verified Commercial Terms -->
+    <div class="report-card p-6 mb-6 fade-in">
+        <h2 class="text-lg font-bold text-[#0F172A] mb-4">Verified Commercial Terms</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Payment Due</div>
+                <div class="text-sm font-semibold text-[#0F172A]">{% if payment_terms.due_days %}Net {{ payment_terms.due_days }}{% else %}Not specified{% endif %}</div>
+            </div>
+            <div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Currency</div>
+                <div class="text-sm font-semibold text-[#0F172A]">{{ payment_terms.currency or "Not specified" }}</div>
+            </div>
+            <div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Billing</div>
+                <div class="text-sm font-semibold text-[#0F172A] capitalize">{{ (payment_terms.billing_frequency or "Not specified")|replace("_", " ") }}</div>
+            </div>
+            <div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Invoice Trigger</div>
+                <div class="text-sm font-semibold text-[#0F172A] capitalize">{{ payment_terms.invoice_trigger or "Not specified" }}</div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 
     <!-- Executive Summary -->
     <div class="report-card p-6 mb-6 fade-in">
