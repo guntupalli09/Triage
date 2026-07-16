@@ -1,6 +1,6 @@
 # Future Work
 
-This document outlines potential enhancements to the Contract Risk Triage Tool. These are **not implemented** but represent logical extensions of the current architecture.
+This document outlines potential enhancements to the Contract Risk TriageCounsel Tool. These are **not implemented** but represent logical extensions of the current architecture.
 
 ## Rule Engine Enhancements
 

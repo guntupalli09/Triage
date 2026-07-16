@@ -2,7 +2,7 @@
 
 ## Security Philosophy
 
-The Contract Risk Triage Tool follows a **minimal attack surface** philosophy: collect minimal data, store it ephemerally, and expose minimal functionality.
+The Contract Risk TriageCounsel Tool follows a **minimal attack surface** philosophy: collect minimal data, store it ephemerally, and expose minimal functionality.
 
 ## Attack Surface
 

@@ -1,5 +1,5 @@
 """
-FastAPI app for Contract Risk Triage Tool
+FastAPI app for Contract Risk TriageCounsel Tool
 
 Phase 1: User accounts, subscription billing, contract history, batch upload
 Phase 2: Playbook comparison, dashboard, report sharing
@@ -132,7 +132,7 @@ PLAN_LIMITS = {
 # --- App setup ---
 templates = Jinja2Templates(directory="templates")
 templates.env.globals["google_signin_enabled"] = google_oauth.is_configured()
-app = FastAPI(title="Contract Risk Triage Tool", version="2.0.0")
+app = FastAPI(title="Contract Risk TriageCounsel Tool", version="2.0.0")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 CORS_ORIGINS = os.getenv("CORS_ORIGINS", BASE_URL).split(",")
 app.add_middleware(

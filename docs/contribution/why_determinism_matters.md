@@ -4,7 +4,7 @@
 
 Determinism means: **same input → same output**.
 
-For the Contract Risk Triage Tool, this means:
+For the Contract Risk TriageCounsel Tool, this means:
 - Same contract → same findings
 - Same rules → same detection
 - No randomness → no variation
@@ -214,7 +214,7 @@ For the Contract Risk Triage Tool, this means:
 ### Acceptable Limitations
 
 These limitations are acceptable because:
-- **Triage tool**: System is first pass, not final analysis
+- **TriageCounsel tool**: System is first pass, not final analysis
 - **False positives OK**: Safer than false negatives
 - **Legal review**: Users should consult lawyers
 

@@ -1,4 +1,4 @@
-# Enterprise Upgrade Plan: Making Triage AI Industry-Leading
+# Enterprise Upgrade Plan: Making TriageCounsel AI Industry-Leading
 
 **Document Version**: 1.0  
 **Last Updated**: 2026-01-14  
@@ -6,7 +6,7 @@
 
 ## Executive Summary
 
-This document outlines a comprehensive upgrade plan to transform Triage AI from a single-user tool into the most efficient contract risk triage platform in the industry. The plan prioritizes features that deliver immediate value to enterprise customers while maintaining the core deterministic architecture that ensures legal defensibility.
+This document outlines a comprehensive upgrade plan to transform TriageCounsel AI from a single-user tool into the most efficient contract risk triage platform in the industry. The plan prioritizes features that deliver immediate value to enterprise customers while maintaining the core deterministic architecture that ensures legal defensibility.
 
 ---
 
@@ -665,7 +665,7 @@ RATE_LIMITS = {
 
 ## Conclusion
 
-This upgrade plan transforms Triage AI from a single-user tool into an enterprise-grade platform that can compete with and exceed existing solutions. The phased approach ensures critical features are delivered first, enabling enterprise sales while building toward market leadership.
+This upgrade plan transforms TriageCounsel AI from a single-user tool into an enterprise-grade platform that can compete with and exceed existing solutions. The phased approach ensures critical features are delivered first, enabling enterprise sales while building toward market leadership.
 
 **Key Success Factors**:
 1. Maintain deterministic architecture (core differentiator)

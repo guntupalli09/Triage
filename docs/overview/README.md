@@ -1,6 +1,6 @@
 # Overview Documentation
 
-This section provides high-level context about the Contract Risk Triage Tool: what problem it solves, its design goals, and its place in the legal-tech ecosystem.
+This section provides high-level context about the Contract Risk TriageCounsel Tool: what problem it solves, its design goals, and its place in the legal-tech ecosystem.
 
 ## Contents
 

@@ -3,7 +3,7 @@
 ## Core Concepts
 
 ```
-Contract Risk Triage Tool
+Contract Risk TriageCounsel Tool
 │
 ├── Architecture
 │   ├── Neural-Symbolic Design
@@ -55,14 +55,14 @@ Contract Risk Triage Tool
 │
 ├── Use Cases
 │   ├── Founders
-│   │   ├── Quick Triage
+│   │   ├── Quick TriageCounsel
 │   │   ├── Risk Prioritization
 │   │   └── Cost Savings
 │   ├── Freelancers
 │   │   ├── Affordable Assessment
 │   │   └── Negotiation Guidance
 │   └── Enterprise
-│       ├── First-Pass Triage
+│       ├── First-Pass TriageCounsel
 │       ├── Standardized Screening
 │       └── Workflow Integration
 │

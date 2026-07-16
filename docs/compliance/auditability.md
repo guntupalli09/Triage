@@ -2,7 +2,7 @@
 
 ## What Is Auditability?
 
-Auditability means that every claim made by the system can be traced back to its source. For the Contract Risk Triage Tool, this means:
+Auditability means that every claim made by the system can be traced back to its source. For the Contract Risk TriageCounsel Tool, this means:
 
 - **Every risk finding** maps to a specific rule with a unique ID
 - **Every rule** is defined in source code

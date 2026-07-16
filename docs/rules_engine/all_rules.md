@@ -1,4 +1,4 @@
-# Triage Rule Reference — v3.0.0
+# TriageCounsel Rule Reference — v3.0.0
 
 Complete list of all 64 rules in the deterministic rule engine (22H / 32M / 10L).  
 Rule IDs follow the format `{SEVERITY}_{CATEGORY}_{NUMBER}` where severity is H (High), M (Medium), or L (Low).

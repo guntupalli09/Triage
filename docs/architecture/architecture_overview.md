@@ -2,7 +2,7 @@
 
 ## High-Level Design
 
-The Contract Risk Triage Tool uses a **neural-symbolic architecture** that strictly separates deterministic risk detection from AI-assisted explanation.
+The Contract Risk TriageCounsel Tool uses a **neural-symbolic architecture** that strictly separates deterministic risk detection from AI-assisted explanation.
 
 ```
 ┌─────────────┐

@@ -6,7 +6,7 @@
 
 ## Executive Summary
 
-This document describes the enterprise-grade, multi-layer architecture of the Triage AI Contract Risk Intelligence system. The **Production Rule Engine (Layer 1)** is fully implemented, deterministic, and **frozen for auditability, enterprise trust, and legal defensibility**. Layers 2-5 describe a proposed governance framework for safe, auditable rule evolution that maintains strict separation between production detection and rule development processes.
+This document describes the enterprise-grade, multi-layer architecture of the TriageCounsel AI Contract Risk Intelligence system. The **Production Rule Engine (Layer 1)** is fully implemented, deterministic, and **frozen for auditability, enterprise trust, and legal defensibility**. Layers 2-5 describe a proposed governance framework for safe, auditable rule evolution that maintains strict separation between production detection and rule development processes.
 
 **Critical Principle**: The production rule engine is immutable within a version. No component can modify production behavior automatically. All rule changes require explicit human approval and versioned deployment.
 

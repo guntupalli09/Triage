@@ -1,6 +1,6 @@
 # Example Rules
 
-This document provides concrete examples of rules in the Contract Risk Triage Tool.
+This document provides concrete examples of rules in the Contract Risk TriageCounsel Tool.
 
 ## Example 1: Unlimited Indemnification (Pattern-Based)
 
