@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The rules engine is the **deterministic detection layer** of the Contract Risk Triage Tool. It uses algorithmic pattern matching to identify risk indicators in commercial contracts without any AI or interpretation.
+The rules engine is the **deterministic detection layer** of the Contract Risk TriageCounsel Tool. It uses algorithmic pattern matching to identify risk indicators in commercial contracts without any AI or interpretation.
 
 ## Core Principle
 

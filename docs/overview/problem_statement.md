@@ -34,7 +34,7 @@ For regulatory and immigration contexts (O-1, EB-1A):
 
 ## The Solution: Neural-Symbolic Architecture
 
-The Contract Risk Triage Tool solves this by separating **detection** (deterministic) from **explanation** (AI-assisted):
+The Contract Risk TriageCounsel Tool solves this by separating **detection** (deterministic) from **explanation** (AI-assisted):
 
 1. **Deterministic Rule Engine**: Uses explicit regex patterns and proximity logic to detect risk indicators. Every finding is traceable to a specific rule with a unique ID.
 

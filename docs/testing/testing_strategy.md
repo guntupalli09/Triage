@@ -2,7 +2,7 @@
 
 ## Testing Philosophy
 
-The Contract Risk Triage Tool uses a **deterministic-first testing approach** that emphasizes:
+The Contract Risk TriageCounsel Tool uses a **deterministic-first testing approach** that emphasizes:
 - **Reproducibility**: Same input → same output
 - **Regression prevention**: Changes don't break existing functionality
 - **Golden fixtures**: Known contracts with expected outputs

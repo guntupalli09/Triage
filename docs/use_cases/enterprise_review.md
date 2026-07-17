@@ -14,7 +14,7 @@ Enterprise legal teams face:
 
 ## How This Tool Helps
 
-### 1. First-Pass Triage
+### 1. First-Pass TriageCounsel
 
 **Workflow**: 
 1. Upload contract to tool

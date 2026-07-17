@@ -2,7 +2,7 @@
 
 ## Privacy-First Design
 
-The Contract Risk Triage Tool is designed with privacy as a core principle. The system minimizes data collection, storage, and retention.
+The Contract Risk TriageCounsel Tool is designed with privacy as a core principle. The system minimizes data collection, storage, and retention.
 
 ## Data Collection
 

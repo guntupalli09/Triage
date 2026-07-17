@@ -1,4 +1,4 @@
-# Deterministic–LLM Hybrid Architectures for Auditable Contract Risk Triage
+# Deterministic–LLM Hybrid Architectures for Auditable Contract Risk TriageCounsel
 
 # **Abstract**
 

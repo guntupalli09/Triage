@@ -25,7 +25,7 @@ Two new ICCS-specific experiments need to be run:
 ### Option 1: Full Run (Recommended)
 
 ```bash
-cd c:\Users\gvksg\Desktop\Triage
+cd c:\Users\gvksg\Desktop\TriageCounsel
 python experiments/run_iccs_full.py
 ```
 
@@ -38,7 +38,7 @@ This will:
 ### Option 2: Quick Test (5 runs per doc)
 
 ```bash
-cd c:\Users\gvksg\Desktop\Triage
+cd c:\Users\gvksg\Desktop\TriageCounsel
 python experiments/run_iccs_experiments_quick.py
 ```
 

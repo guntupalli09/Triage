@@ -2,7 +2,7 @@
 
 ## The Innovation
 
-The Contract Risk Triage Tool represents an **original application of neural-symbolic architecture to legal-tech**, solving the "legal hallucination problem" that plagues pure LLM contract analysis systems.
+The Contract Risk TriageCounsel Tool represents an **original application of neural-symbolic architecture to legal-tech**, solving the "legal hallucination problem" that plagues pure LLM contract analysis systems.
 
 ## The Problem: Legal Hallucination
 

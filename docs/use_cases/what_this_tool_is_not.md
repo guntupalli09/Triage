@@ -1,6 +1,6 @@
 # What This Tool Is NOT
 
-This document explicitly defines what the Contract Risk Triage Tool does NOT do. This clarity is essential for trust, legal safety, and proper use.
+This document explicitly defines what the Contract Risk TriageCounsel Tool does NOT do. This clarity is essential for trust, legal safety, and proper use.
 
 ## NOT Legal Advice
 

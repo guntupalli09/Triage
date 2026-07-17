@@ -22,7 +22,7 @@
 8. **Share used `alert()`/`prompt()`.** Replaced with an accessible modal (read-only URL field, Copy button with "Copied!" feedback, explanation that the link is public read-only, Escape/backdrop close), shared by results and history.
 
 ### Medium
-9. **Brand fragmentation.** Titles/footers mixed *Triage AI*, *TRIAGE*, *Triage Counsel*, *TriageCounsel*. Titles standardized on **Triage Counsel**.
+9. **Brand fragmentation.** Titles/footers mixed *TriageCounsel AI*, *TRIAGE*, *Triage Counsel*, *TriageCounsel*. Titles standardized on **Triage Counsel**.
 10. **Marketing claimed "40 deterministic rules"; the engine ships 64.** Updated everywhere (an understated capability claim is still an inconsistency a buyer will notice next to "Rules Loaded: 64" in the report).
 11. **Results page hierarchy.** The 64-cell PASS/FAIL Rule Coverage grid sat *above* the findings, pushing the product's core value below the fold. Findings now lead; Rule Coverage is a collapsed `<details>` below them with a PASS/WARNING/FAIL legend (the semantics were previously unexplained). "Verification Status: HIGH RISK" relabeled **Overall Risk Assessment**; "Missing Sections" → "Provisions Not Detected"; misleading "Rule Coverage 72%" health stat → "Rules Passed 46/64"; decorative fake checkboxes → warning icons.
 12. **Terminology drift: nav "Reviews" → page "Contract History".** Page retitled **Reviews**; empty states now end with a CTA (Upload Contract, or Clear search when filtered).

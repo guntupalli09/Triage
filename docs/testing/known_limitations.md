@@ -1,6 +1,6 @@
 # Known Limitations
 
-This document explicitly lists known limitations of the Contract Risk Triage Tool. This transparency is essential for trust and proper use.
+This document explicitly lists known limitations of the Contract Risk TriageCounsel Tool. This transparency is essential for trust and proper use.
 
 ## Detection Limitations
 
@@ -218,7 +218,7 @@ This document explicitly lists known limitations of the Contract Risk Triage Too
 
 ## Why These Limitations Are Acceptable
 
-### 1. Triage Tool, Not Final Analysis
+### 1. TriageCounsel Tool, Not Final Analysis
 
 The system is designed as a **first-pass screening tool**, not comprehensive legal analysis. Limitations are acceptable because:
 - Users should consult lawyers for final decisions

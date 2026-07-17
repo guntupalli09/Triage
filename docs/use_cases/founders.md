@@ -14,7 +14,7 @@ Founders face a dilemma:
 
 ## How This Tool Helps
 
-### 1. Quick Triage
+### 1. Quick TriageCounsel
 
 **Before**: Send contract to lawyer → wait days → pay $500-2000
 

@@ -1,7 +1,7 @@
 # PowerShell script to create GitHub repository and push code
 # Run this script after creating the repository on GitHub
 
-$repoName = "Triage"
+$repoName = "TriageCounsel"
 $repoDescription = "Your AI Contract Risk evaluator"
 $githubUsername = Read-Host "Enter your GitHub username"
 
