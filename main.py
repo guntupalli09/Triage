@@ -916,7 +916,6 @@ async def upload_contract(
         contract = Contract(
             user_id=user.id,
             filename=file.filename,
-            contract_text=contract_text,
             overall_risk=analysis["overall_risk"],
             findings_json=analysis["findings_dict"],
             llm_result_json=analysis["llm_result"],
@@ -1030,7 +1029,7 @@ async def batch_upload_submit(
             deviations = comparison
 
         contract = Contract(
-            user_id=user.id, filename=f.filename, contract_text=text,
+            user_id=user.id, filename=f.filename,
             overall_risk=analysis["overall_risk"], findings_json=analysis["findings_dict"],
             llm_result_json=analysis["llm_result"], rule_counts_json=analysis["rule_counts"],
             rule_engine_version=analysis["version"], analysis_completed=True,

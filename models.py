@@ -48,7 +48,11 @@ class Contract(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     filename = Column(String(255), nullable=False)
-    contract_text = Column(Text, nullable=False)
+    # Never populated: the privacy policy promises uploaded documents aren't
+    # retained, so analysis runs on the text in memory and only the
+    # structured results below are persisted. Column kept nullable rather
+    # than dropped to avoid a schema migration; always None going forward.
+    contract_text = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     # Analysis results (stored as JSON for flexibility)

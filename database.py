@@ -113,7 +113,7 @@ def _run_migrations():
             logger.info("Migration applied: users.password_hash now nullable")
 
         if "contracts" in insp.get_table_names():
-            contract_cols = {c["name"] for c in insp.get_columns("contracts")}
+            contract_cols = {c["name"]: c for c in insp.get_columns("contracts")}
             json_col_type = "JSON" if not _is_sqlite else "JSON"
             if "signature_readiness" not in contract_cols:
                 conn.execute(text("ALTER TABLE contracts ADD COLUMN signature_readiness VARCHAR(40)"))
@@ -127,6 +127,15 @@ def _run_migrations():
             if "policy_blocked_findings_json" not in contract_cols:
                 conn.execute(text(f"ALTER TABLE contracts ADD COLUMN policy_blocked_findings_json {json_col_type}"))
                 logger.info("Migration applied: contracts.policy_blocked_findings_json column")
+            # contract_text is no longer written (the privacy policy promises
+            # uploaded documents aren't retained) — drop the NOT NULL constraint
+            # and scrub any rows persisted before this change. SQLite can't drop
+            # NOT NULL without a table rebuild; fresh SQLite DBs already get the
+            # nullable column from the model definition.
+            if not _is_sqlite and "contract_text" in contract_cols and not contract_cols["contract_text"]["nullable"]:
+                conn.execute(text("ALTER TABLE contracts ALTER COLUMN contract_text DROP NOT NULL"))
+                conn.execute(text("UPDATE contracts SET contract_text = NULL WHERE contract_text IS NOT NULL"))
+                logger.info("Migration applied: contracts.contract_text no longer retained (privacy)")
 
 
 def init_db():
