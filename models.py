@@ -41,6 +41,17 @@ class User(Base):
     contracts = relationship("Contract", back_populates="user", order_by="desc(Contract.created_at)")
     playbooks = relationship("Playbook", back_populates="user")
 
+    # Analytics — see analytics_models.py. Registered by class name only
+    # (not imported here) to keep the identity schema decoupled from the
+    # analytics schema; both share the same declarative Base so SQLAlchemy
+    # resolves these once analytics_models has been imported anywhere
+    # (database.init_db() does this at startup).
+    acquisition = relationship(
+        "UserAcquisition", back_populates="user", uselist=False, cascade="all, delete-orphan"
+    )
+    sessions = relationship("UserSession", back_populates="user", cascade="all, delete-orphan")
+    events = relationship("UserEvent", back_populates="user", cascade="all, delete-orphan")
+
 
 class Contract(Base):
     __tablename__ = "contracts"
@@ -81,6 +92,7 @@ class Contract(Base):
 
     user = relationship("User", back_populates="contracts")
     playbook = relationship("Playbook")
+    events = relationship("ContractEvent", back_populates="contract", cascade="all, delete-orphan")
 
     def generate_share_token(self):
         self.share_token = secrets.token_urlsafe(32)
