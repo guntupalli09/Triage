@@ -211,7 +211,10 @@ class TestM_BREACH_NOTIFY_01:
         result = engine.analyze(text)
         findings = [f for f in result["findings"] if f.rule_id == "M_BREACH_NOTIFY_01"]
         assert len(findings) > 0
-        assert findings[0].severity == Severity.MEDIUM
+        # Raised from Medium to High: not learning about a breach promptly
+        # is materially more serious than most Medium-tier findings — the
+        # reviewing party's own regulatory notification clocks depend on it.
+        assert findings[0].severity == Severity.HIGH
 
     def test_false_positive_will_notify(self, engine):
         text = "Provider shall notify Customer within 72 hours of any data breach."

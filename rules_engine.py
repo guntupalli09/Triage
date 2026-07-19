@@ -22,10 +22,26 @@ from enum import Enum
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Iterable
 
+from party_resolver import (
+    PartyRoleMap,
+    VENDOR_ROLE,
+    CUSTOMER_ROLE,
+    UNKNOWN_ROLE,
+    resolve_party_roles,
+)
+
 logger = logging.getLogger(__name__)
 
 
 class Severity(str, Enum):
+    # CRITICAL is reserved for the top tier of the severity framework:
+    # unbounded/asymmetric financial exposure, missing liability-cap
+    # carve-outs, and personal/privacy/security/regulatory exposure that
+    # falls on an individual or triggers statutory liability outside the
+    # ordinary contract-risk envelope. Everything else uses HIGH/MEDIUM/LOW
+    # as before — this is an addition, not a replacement, of the existing
+    # three-tier scale.
+    CRITICAL = "critical"
     HIGH = "high"
     MEDIUM = "medium"
     LOW = "low"
@@ -108,11 +124,36 @@ class Finding:
     # (mutuality_status in {"mutual", "customer-only", "provider-only", "ambiguous"}).
     # None for rules that don't claim directionality.
     party_direction: Optional[Dict[str, str]] = None
+    # Perspective framing relative to the reviewing party (default:
+    # customer — see party_resolver.py). Only set alongside party_direction
+    # for ONE_WAY_RULE_IDS findings. Keys: reviewing_role, beneficiary_role,
+    # favorability ("favorable" | "unfavorable" | "neutral" | "unclear"),
+    # note (human-readable sentence naming the actual contract parties when
+    # resolved). A one-sided clause is not automatically a "risk" — e.g. a
+    # customer-only termination right is favorable to a customer-side
+    # review and unfavorable to the vendor, not a neutral "one-sided" flag.
+    perspective: Optional[Dict[str, str]] = None
+    # Populated only on a synthesized parent finding produced by
+    # _group_related_findings: the rule_ids of the individual findings that
+    # were folded into this one because they share a single underlying root
+    # cause (e.g. one missing SOW/Schedule attachment manifesting as
+    # separately-firing billing-frequency/invoice-trigger/pricing gaps).
+    # None for every other finding.
+    related_findings: Optional[List[str]] = None
     # Which precise claim this finding makes — see FindingType. Defaults to
     # "adverse_language_detected" since that's what a direct regex/proximity
     # hit actually proves; REQUIRED_SECTION rules override this when they
     # report a document-level absence instead.
     finding_type: str = FindingType.ADVERSE_LANGUAGE_DETECTED.value
+    # Deterministic confidence scoring (see _score_confidence) — a
+    # transparent, rule-based classification of how much independent
+    # verification a reader should apply, computed purely from already-known
+    # attributes of this finding (finding_type, evidence span length, party-
+    # direction ambiguity). This is NOT a new detection signal and never
+    # changes which findings are reported, only how they're labeled.
+    confidence: str = "high"
+    confidence_reason: str = ""
+    evidence_quality: str = "bounded"
 
     def __post_init__(self):
         if self.matched_keywords is None:
@@ -170,11 +211,80 @@ class Rule:
             assert self.protective_patterns, f"{self.rule_id}: REQUIRED_SECTION rules must define protective_patterns"
 
 
+def _looks_like_escaped_newlines(text: str) -> bool:
+    """
+    Detect source text that uses literal two-character "\\n" (and "\\r\\n")
+    escape sequences instead of real line breaks — e.g. a JSON/CSV export
+    that was decoded but never unescaped. Real contract text is
+    overwhelmingly multi-line; if there are many literal backslash-n
+    substrings but almost no real newline characters, the document was not
+    properly decoded and clause boundaries are invisible to the chunker.
+    """
+    literal_n = text.count("\\n")
+    real_newlines = text.count("\n")
+    return literal_n >= 10 and real_newlines <= max(2, literal_n // 10)
+
+
+def normalize_contract_text(text: str) -> str:
+    """
+    Deterministic, pure text-level normalization applied once, up front,
+    before chunking or matching. Two responsibilities:
+
+    1. Unicode punctuation normalization (smart quotes/dashes/ellipsis) so
+       regex patterns written with ASCII punctuation still match text
+       extracted from PDFs/Word documents.
+    2. Un-escaping literal "\\n"/"\\r\\n" sequences when the document is
+       clearly using them in place of real line breaks (see
+       _looks_like_escaped_newlines). Without this, _chunk_text() never
+       finds a real "\n\n" paragraph break and silently falls back to blind
+       fixed-size slicing, which is what allows evidence spans to bridge
+       unrelated clauses.
+
+    All downstream position math (start_index/end_index) is relative to the
+    string this function returns, not the raw input — this function must
+    run exactly once, before any offset is recorded.
+    """
+    text = (
+        text
+        .replace("‘", "'").replace("’", "'")   # left/right single quotes -> '
+        .replace("“", '"').replace("”", '"')   # left/right double quotes -> "
+        .replace("–", "-").replace("—", "-")   # en-dash / em-dash -> -
+        .replace("…", "...")                          # ellipsis -> ...
+        .replace("\r\n", "\n").replace("\r", "\n")        # normalize real line endings first
+    )
+    if _looks_like_escaped_newlines(text):
+        text = (
+            text
+            .replace("\\r\\n", "\n")
+            .replace("\\n", "\n")
+            .replace("\\t", "\t")
+        )
+    return text
+
+
+# Matches the start of a TOP-LEVEL numbered section header ("7. PREVAIL'S
+# OBLIGATIONS", "10. INTELLECTUAL PROPERTY") but deliberately NOT a
+# sub-clause ("7.1", "10.2") — \d{1,2}\.\s+ requires whitespace immediately
+# after the single trailing period, which a sub-clause number never has.
+# This keeps all sub-clauses of one section in a single chunk (so rules
+# that legitimately reason about one section, e.g. 7.4-7.6's SLA language,
+# stay together) while still cutting between unrelated top-level sections
+# (so a match can no longer bridge, say, section 7 to section 10).
+_SECTION_BOUNDARY_RE = re.compile(r"\n(?=\d{1,2}\.\s+[A-Z])")
+
+
 def _chunk_text(text: str) -> List[Tuple[int, str]]:
     """
-    Split into (start_offset, substring) chunks on blank lines. Contracts often
-    separate sections this way. If blank lines aren't present, fall back to
-    fixed-size chunks.
+    Split into (start_offset, substring) chunks, preferring real clause
+    structure over blind slicing:
+
+    1. Blank-line ("\n\n") paragraph breaks, if present — contracts often
+       separate sections this way.
+    2. Top-level numbered-section boundaries (see _SECTION_BOUNDARY_RE), if
+       present — handles single-newline documents where every clause is on
+       its own line but sections aren't blank-line separated.
+    3. Fixed-size chunks, only as a last resort when neither structural cue
+       is available.
 
     Chunks are verbatim slices of `text` (only outer whitespace is trimmed,
     tracked via offset) — internal whitespace is never altered. This keeps
@@ -190,6 +300,20 @@ def _chunk_text(text: str) -> List[Tuple[int, str]]:
                 local_offset = part.find(stripped)
                 chunks.append((pos + local_offset, stripped))
             pos += len(part) + 2  # +2 for the "\n\n" separator consumed by split
+        if chunks:
+            return chunks
+
+    boundary_matches = list(_SECTION_BOUNDARY_RE.finditer(text))
+    if boundary_matches:
+        starts = [0] + [m.start() + 1 for m in boundary_matches]  # +1 skips the "\n" itself
+        chunks = []
+        for i, start in enumerate(starts):
+            end = starts[i + 1] if i + 1 < len(starts) else len(text)
+            piece = text[start:end]
+            stripped = piece.strip()
+            if stripped:
+                local_offset = piece.find(stripped)
+                chunks.append((start + local_offset, stripped))
         if chunks:
             return chunks
 
@@ -266,8 +390,69 @@ def _extract_matched_keywords(match_text: str, pattern: Optional[str] = None) ->
             unique_keywords.append(kw)
             if len(unique_keywords) >= 5:  # Max 5 keywords
                 break
-    
+
     return unique_keywords[:5]
+
+
+def _score_confidence(finding: "Finding") -> Dict[str, str]:
+    """
+    Deterministic confidence/evidence-quality scoring.
+
+    Pure function of attributes the finding already carries — finding_type,
+    evidence span length, party-direction ambiguity. This is NOT a new
+    detection mechanism and never changes which findings are reported or
+    their severity; it labels how much independent verification a reader
+    should apply before relying on a given finding, using the same logic
+    every time for the same inputs (fully deterministic, no ML/heuristic
+    randomness).
+
+    - ADVERSE_LANGUAGE_DETECTED: the quoted evidence IS the adverse
+      language — highest confidence.
+    - EXPECTED_PROTECTION_NOT_FOUND: an absence claim, inherently softer
+      than a direct textual match even when correctly gated by a
+      document-wide protective-language search — medium confidence.
+    - UNABLE_TO_DETERMINE: the engine explicitly could not confirm absence
+      (document too short) — low confidence.
+    - Ambiguous party-direction on a directional finding downgrades
+      confidence one level, since the engine could not confirm which party
+      the clause favors from the text alone.
+    - evidence_quality flags spans wide enough that a reader should
+      re-verify the excerpt actually supports the finding at a glance,
+      rather than asserting the span itself is wrong.
+    """
+    span = finding.end_index - finding.start_index
+
+    if finding.finding_type == FindingType.UNABLE_TO_DETERMINE.value:
+        confidence = "low"
+        reason = "Document too short to reliably confirm this protection is absent."
+    elif finding.finding_type == FindingType.EXPECTED_PROTECTION_NOT_FOUND.value:
+        confidence = "medium"
+        reason = (
+            "Absence claim: topic confirmed in scope, no protective language found after a "
+            "full-document search."
+        )
+    else:
+        confidence = "high"
+        reason = "Direct textual match: the quoted evidence is itself the adverse language supporting this finding."
+
+    if finding.party_direction and finding.party_direction.get("mutuality_status") == "ambiguous":
+        confidence = "medium" if confidence == "high" else "low"
+        reason += (
+            " Party-direction analysis found both parties named without conclusively establishing "
+            "which one this clause favors — confirm manually."
+        )
+
+    if finding.related_findings:
+        reason += f" Root-cause parent finding grouping {len(finding.related_findings)} related sub-findings."
+
+    if span > 500:
+        evidence_quality = "wide_span_review_recommended"
+    elif span < 2:
+        evidence_quality = "minimal_span"
+    else:
+        evidence_quality = "bounded"
+
+    return {"confidence": confidence, "confidence_reason": reason, "evidence_quality": evidence_quality}
 
 
 # Rules whose title/rationale claims one-sided, unilateral, or asymmetric
@@ -281,6 +466,34 @@ ONE_WAY_RULE_IDS = frozenset({
     "H_TERM_CONVENIENCE_01",
     "H_INDEM_ONEWAY_01",
 })
+
+
+# Groups of rule_ids whose findings, when 2+ fire on the SAME document,
+# share a single underlying root cause rather than representing
+# independent risks — verified: a document missing SOW 1/Schedule 1
+# independently triggered four separate Medium findings (billing
+# frequency, invoice trigger, price-exhibit, exhibit-missing), all
+# traceable to the one fact that the attachment isn't included. Counting
+# that as four risks inflates the report; _group_related_findings collapses
+# each group into a single parent finding listing the affected sub-topics.
+ROOT_CAUSE_GROUPS: Dict[str, Dict[str, object]] = {
+    "missing_sow_schedule": {
+        "rule_ids": frozenset({
+            "M_BILLING_FREQUENCY_01",
+            "M_EXHIBIT_MISSING_01",
+            "M_PAYMENT_TRIGGER_01",
+            "M_PRICE_EXHIBIT_MISSING_01",
+        }),
+        "rule_name": "missing_sow_schedule_attachment",
+        "title": "SOW / Schedule referenced but not attached — pricing, billing, and deliverables undefined",
+        "rationale": (
+            "The Agreement repeatedly references a Statement of Work and/or Schedule for pricing, billing "
+            "frequency, invoice triggers, and deliverables, but the referenced attachment is not included in "
+            "this document. This is ONE root cause, not several independent risks — attaching the actual SOW/"
+            "Schedule resolves every sub-topic listed below at once."
+        ),
+    },
+}
 
 
 class SignatureReadiness(str, Enum):
@@ -350,7 +563,9 @@ _CUSTOMER_ROLE_RE = re.compile(
 )
 
 
-def _classify_party_direction(clause_text: str) -> Dict[str, str]:
+def _classify_party_direction(
+    clause_text: str, party_map: Optional[PartyRoleMap] = None
+) -> Dict[str, str]:
     """
     Deterministically classify whether a clause establishes one-way treatment
     between the two contracting parties, based on explicit party-scoping
@@ -369,6 +584,19 @@ def _classify_party_direction(clause_text: str) -> Dict[str, str]:
     "both parties" / role-only language, the clause is classified "ambiguous"
     rather than guessed as one-way. A rule may only be reported/labeled as
     one-way when mutuality_status is "customer-only" or "provider-only".
+
+    `party_map`, if provided (see party_resolver.py), supplies regexes built
+    from the CONTRACT'S OWN defined party names (e.g. "Prevail", "Company"),
+    resolved to vendor/customer roles by reading the contract's own
+    recitals — not by matching generic role words. When a role resolves via
+    party_map, its regex is used INSTEAD OF (not in addition to) the generic
+    word list for that role, because the generic list is exactly what
+    misreads a contract whose defined term "Company" denotes the customer
+    (verified: the generic list's inclusion of the bare word "company" as a
+    vendor-role synonym misclassified a real customer-only right as
+    "provider-only"). Falls back to the generic word list only when
+    party_map has no resolution for that role (e.g. it's None, or the
+    contract never defines short party names at all).
     """
     if _MUTUAL_RE.search(clause_text):
         return {
@@ -378,8 +606,11 @@ def _classify_party_direction(clause_text: str) -> Dict[str, str]:
             "mutuality_status": "mutual",
         }
 
-    provider_hit = _PROVIDER_ROLE_RE.search(clause_text)
-    customer_hit = _CUSTOMER_ROLE_RE.search(clause_text)
+    provider_re = (party_map.role_pattern(VENDOR_ROLE) if party_map else None) or _PROVIDER_ROLE_RE
+    customer_re = (party_map.role_pattern(CUSTOMER_ROLE) if party_map else None) or _CUSTOMER_ROLE_RE
+
+    provider_hit = provider_re.search(clause_text)
+    customer_hit = customer_re.search(clause_text)
 
     if provider_hit and customer_hit:
         # Both roles are named without explicit mutual language — could be a
@@ -411,6 +642,127 @@ def _classify_party_direction(clause_text: str) -> Dict[str, str]:
         "beneficiary": "unknown",
         "applies_to": "unknown",
         "mutuality_status": "ambiguous",
+    }
+
+
+def _build_perspective(
+    party_direction: Optional[Dict[str, str]],
+    party_map: Optional[PartyRoleMap],
+    reviewing_role: str = CUSTOMER_ROLE,
+) -> Optional[Dict[str, str]]:
+    """
+    Translate a party_direction result into an explicit favorable/
+    unfavorable framing relative to the reviewing party, naming the actual
+    contract parties when resolved (see party_resolver.py).
+
+    A one-sided clause is not automatically a "risk" to the reviewing
+    party — a customer-only termination-for-convenience right, for
+    example, is favorable to a customer-side review and unfavorable to the
+    vendor. Blanket "one-sided" labeling without this framing was flagged
+    as a defect (a real customer-favorable right was reported identically
+    to a genuinely adverse vendor-only right).
+    """
+    if not party_direction:
+        return None
+
+    status = party_direction.get("mutuality_status")
+    other_role = VENDOR_ROLE if reviewing_role == CUSTOMER_ROLE else CUSTOMER_ROLE
+    reviewer_name = (party_map.name_for_role(reviewing_role) if party_map else None) or (
+        "the customer" if reviewing_role == CUSTOMER_ROLE else "the vendor"
+    )
+    other_name = (party_map.name_for_role(other_role) if party_map else None) or (
+        "the vendor" if reviewing_role == CUSTOMER_ROLE else "the customer"
+    )
+
+    if status == "mutual":
+        return {
+            "reviewing_role": reviewing_role,
+            "beneficiary_role": "both",
+            "favorability": "neutral",
+            "note": f"This applies equally to both {reviewer_name} and {other_name}.",
+        }
+
+    if status == "customer-only":
+        beneficiary_role = CUSTOMER_ROLE
+    elif status == "provider-only":
+        beneficiary_role = VENDOR_ROLE
+    else:
+        return {
+            "reviewing_role": reviewing_role,
+            "beneficiary_role": "unclear",
+            "favorability": "unclear",
+            "note": (
+                "The clause text names both parties without establishing which one this "
+                "specifically favors — confirm manually."
+            ),
+        }
+
+    favorability = "favorable" if beneficiary_role == reviewing_role else "unfavorable"
+    beneficiary_name = reviewer_name if beneficiary_role == reviewing_role else other_name
+    burdened_name = other_name if beneficiary_role == reviewing_role else reviewer_name
+    return {
+        "reviewing_role": reviewing_role,
+        "beneficiary_role": beneficiary_role,
+        "favorability": favorability,
+        "note": (
+            f"This right/obligation applies only to {beneficiary_name}, not {burdened_name} — "
+            f"{favorability} to the reviewing party ({reviewer_name})."
+        ),
+    }
+
+
+# IP-assignment clauses are inherently directional ("X assigns ... TO Y")
+# rather than "mutual vs. one-way obligation" — the generic
+# _classify_party_direction / ONE_WAY_RULE_IDS framework (built around
+# "either party" mutuality language) doesn't fit them. This targets the
+# actual grammatical assignee — a KNOWN party name appearing after "to" —
+# directly. A generic "\bto\s+(\w+)\b" capture is not enough: boilerplate
+# like "assigns, and agrees TO ASSIGN, to Company ..." has a closer,
+# non-party "to <verb>" that a generic capture matches first.
+
+
+def _infer_ip_assignment_perspective(
+    exact_snippet: str, party_map: Optional[PartyRoleMap], reviewing_role: str = CUSTOMER_ROLE
+) -> Optional[Dict[str, str]]:
+    """
+    For an IP-assignment finding (H_IP_01 / H_IP_WORK_PRODUCT_01), determine
+    who the assignment actually runs TO using the contract's own resolved
+    party names, and frame favorability accordingly. An assignment INTO the
+    reviewing party's ownership is favorable, not a risk — verified case:
+    "Prevail hereby ... assigns ... to Company all of its right, title, and
+    interest" transfers IP to the customer, the opposite of a risk to a
+    customer-side review, but the un-directional rule title ("Broad IP
+    assignment") would otherwise report it identically to IP flowing away
+    from the reviewing party.
+    """
+    if not party_map or not party_map.has_resolution():
+        return None
+    known_names = sorted(party_map.name_to_role.keys(), key=len, reverse=True)
+    if not known_names:
+        return None
+    assigns_to_known_party_re = re.compile(
+        r"\bassigns?\b.{0,80}?\bto\s+(" + "|".join(re.escape(n) for n in known_names) + r")\b",
+        re.IGNORECASE | re.DOTALL,
+    )
+    m = assigns_to_known_party_re.search(exact_snippet)
+    if not m:
+        return None
+    assignee_role = party_map.role_of(m.group(1))
+    if assignee_role == UNKNOWN_ROLE:
+        return None
+
+    other_role = VENDOR_ROLE if reviewing_role == CUSTOMER_ROLE else CUSTOMER_ROLE
+    favorability = "favorable" if assignee_role == reviewing_role else "unfavorable"
+    assignee_name = party_map.name_for_role(assignee_role) or m.group(1)
+    reviewer_name = party_map.name_for_role(reviewing_role) or "the reviewing party"
+    return {
+        "reviewing_role": reviewing_role,
+        "beneficiary_role": assignee_role,
+        "favorability": favorability,
+        "note": (
+            f"This assignment transfers ownership TO {assignee_name} — "
+            f"{favorability} to the reviewing party ({reviewer_name})."
+        ),
     }
 
 
@@ -569,16 +921,19 @@ class RuleEngine:
     def _compute_overall_risk(self, findings: List[Finding], counts: Dict[str, int]) -> str:
         """
         Compute overall risk level from findings.
-        
+
         Policy (MANDATORY):
-        - overall_risk = "high" if any finding.severity == "high"
+        - overall_risk = "critical" if any finding.severity == "critical"
+        - else overall_risk = "high" if any finding.severity == "high"
         - else overall_risk = "medium" if count(medium) >= 2
         - else overall_risk = "low"
-        
-        This policy ensures that a single high-risk finding elevates the entire assessment,
-        while multiple medium-risk findings also warrant elevated attention.
+
+        This policy ensures that a single critical- or high-risk finding elevates the entire
+        assessment, while multiple medium-risk findings also warrant elevated attention.
         """
-        if counts["high"] > 0:
+        if counts.get("critical", 0) > 0:
+            return "critical"
+        elif counts["high"] > 0:
             return "high"
         elif counts["medium"] >= 2:
             return "medium"
@@ -600,10 +955,10 @@ class RuleEngine:
         seen_policy, seen_blocking, seen_non_blocking = set(), set(), set()
 
         for f in findings:
-            # Only a still-HIGH-severity finding counts as blocking — a
-            # finding downgraded by suppression/mutuality analysis has
-            # already had its risk contained.
-            is_high = f.severity == Severity.HIGH
+            # Only a still-HIGH-or-CRITICAL-severity finding counts as
+            # blocking — a finding downgraded by suppression/mutuality
+            # analysis has already had its risk contained.
+            is_high = f.severity in (Severity.HIGH, Severity.CRITICAL)
             if is_high and f.rule_id in POLICY_BLOCK_RULE_IDS:
                 if f.rule_id not in seen_policy:
                     policy_blocked.append(f.rule_id)
@@ -846,18 +1201,198 @@ class RuleEngine:
 
         return findings
 
-    def _apply_suppression_rules(self, findings: List[Finding], text: str) -> Tuple[List[Finding], Dict[str, str]]:
+    # A liability-cap clause naming one side by role words alone
+    # ("vendor's liability", "provider's maximum liability") is already
+    # covered by H_ASYMMETRIC_LIABILITY_01's static anchors. This method
+    # covers the case those anchors structurally cannot: a cap stated using
+    # the CONTRACT'S OWN defined party name (e.g. "PREVAIL'S MAXIMUM
+    # LIABILITY ... SHALL IN NO EVENT EXCEED ..."), which requires knowing
+    # which defined name is which role — exactly what party_resolver.py
+    # resolves. Verified: this exact pattern, on a real contract, was
+    # previously undetected entirely (the anchors never matched "Prevail").
+    _CAP_PHRASE_RE = re.compile(
+        r"\b(?:maximum\s+liabilit(?:y|ies)|aggregate\s+liabilit(?:y|ies)\s+(?:shall\s+not\s+exceed|of)|"
+        r"liabilit(?:y|ies)\s+shall\s+(?:in\s+no\s+event\s+)?(?:not\s+)?exceed)\b",
+        re.IGNORECASE,
+    )
+
+    def _check_liability_cap_asymmetry(self, text: str, party_map: Optional[PartyRoleMap]) -> List[Finding]:
+        findings: List[Finding] = []
+        if not party_map or not party_map.has_resolution():
+            return findings
+        vendor_name = party_map.name_for_role(VENDOR_ROLE)
+        customer_name = party_map.name_for_role(CUSTOMER_ROLE)
+        if not vendor_name or not customer_name:
+            return findings
+        vendor_re = re.compile(rf"\b{re.escape(vendor_name)}\b", re.IGNORECASE)
+        customer_re = re.compile(rf"\b{re.escape(customer_name)}\b", re.IGNORECASE)
+
+        for m in self._CAP_PHRASE_RE.finditer(text):
+            # Who does THIS cap belong to? Look at the short span immediately
+            # before the cap phrase for the grammatical subject/possessive
+            # (e.g. "PREVAIL'S MAXIMUM LIABILITY..."), not the whole document
+            # — a document-wide search would find both names somewhere and
+            # never resolve which one this specific cap actually names.
+            subject_window = text[max(0, m.start() - 60) : m.start()]
+            vendor_named = bool(vendor_re.search(subject_window))
+            customer_named = bool(customer_re.search(subject_window))
+            if vendor_named == customer_named:
+                continue  # both or neither named as the subject -> not clearly one-sided from this anchor
+
+            capped_role = VENDOR_ROLE if vendor_named else CUSTOMER_ROLE
+            capped_name = vendor_name if vendor_named else customer_name
+            uncapped_name = customer_name if vendor_named else vendor_name
+
+            # Confirm the OTHER party's liability isn't separately capped
+            # elsewhere in the document — if it is, this is a symmetric
+            # cap stated in two places, not an asymmetric one.
+            other_cap_re = re.compile(
+                rf"\b{re.escape(uncapped_name)}\b.{{0,120}}"
+                rf"\b(?:maximum\s+liabilit(?:y|ies)|liabilit(?:y|ies)\s+shall\s+not\s+exceed)\b"
+                rf"|\b(?:maximum\s+liabilit(?:y|ies)|liabilit(?:y|ies)\s+shall\s+not\s+exceed)\b.{{0,120}}"
+                rf"\b{re.escape(uncapped_name)}\b",
+                re.IGNORECASE | re.DOTALL,
+            )
+            if other_cap_re.search(text):
+                continue
+
+            finding = self._make_document_finding(
+                rule_id="H_ASYMMETRIC_LIABILITY_01",
+                rule_name="asymmetric_liability_cap",
+                title="Asymmetric liability cap",
+                severity=Severity.CRITICAL,
+                rationale=(
+                    f"The liability cap in this clause applies only to {capped_name}'s liability. "
+                    f"{uncapped_name}'s liability is not capped anywhere else in this document, so this "
+                    f"asymmetry favors {capped_name} and leaves {uncapped_name} exposed to uncapped "
+                    "liability while the other side's downside is bounded."
+                ),
+                text=text,
+                anchor_match=m,
+            )
+            # Party direction is already known directly from which name was
+            # found as the cap's subject — no need to run the generic
+            # _classify_party_direction heuristic. Uses the same
+            # "provider"/"customer" labels as _classify_party_direction's
+            # schema (not party_resolver's VENDOR_ROLE="vendor") because
+            # this rule is in ONE_WAY_RULE_IDS, and _apply_suppression_rules
+            # recomputes `perspective` from `party_direction` via
+            # _build_perspective, which matches against that schema's
+            # literal "provider-only"/"customer-only" values.
+            schema_role = "provider" if capped_role == VENDOR_ROLE else "customer"
+            finding = replace(
+                finding,
+                party_direction={
+                    "obligor": schema_role,
+                    "beneficiary": schema_role,
+                    "applies_to": schema_role,
+                    "mutuality_status": f"{schema_role}-only",
+                },
+            )
+            findings.append(finding)
+            break  # one clause, one finding — avoid duplicates from repeated cap-phrase wording
+
+        return findings
+
+    # A finding whose TITLE asserts one-sided/unilateral treatment while
+    # its own RATIONALE states the obligation applies to both parties is
+    # self-contradictory and must never ship as-is — verified: this exact
+    # combination (title "One-sided termination for convenience" next to
+    # rationale text "applies to both parties, not one-sided as the rule
+    # title suggests") shipped in a real report.
+    _CONTRADICTORY_TITLE_RE = re.compile(r"\bone[-\s]?sided\b|\bone[-\s]?way\b|\bunilateral\b", re.IGNORECASE)
+    _CONTRADICTORY_RATIONALE_RE = re.compile(
+        r"\bapplies?\s+(?:equally\s+)?to\s+both\s+parties\b|\bis\s+mutual\b|\bmutually\b|"
+        r"\bboth\s+parties\s+equally\b",
+        re.IGNORECASE,
+    )
+
+    def _detect_contradictions(self, findings: List[Finding]) -> Tuple[List[Finding], Dict[str, str]]:
+        """
+        Deterministic consistency pass, run after suppression: reconciles
+        any finding whose title and rationale contradict each other on
+        directionality. This is a structural safety net, not a fix for a
+        currently-known bug — Suppression Rule 4 in _apply_suppression_rules
+        already reconciles the specific ONE_WAY_RULE_IDS/mutuality case
+        (including the title) at its source. This pass catches the same
+        contradiction pattern from any other source deterministically,
+        rather than relying on every individual rule/suppression author to
+        remember to keep title and rationale in sync.
+        """
+        reconciled: List[Finding] = []
+        contradiction_log: Dict[str, str] = {}
+        for f in findings:
+            if self._CONTRADICTORY_TITLE_RE.search(f.title) and self._CONTRADICTORY_RATIONALE_RE.search(
+                f.rationale
+            ):
+                original_title = f.title
+                new_title = self._CONTRADICTORY_TITLE_RE.sub("Mutual", f.title)
+                contradiction_log[f"{f.rule_id}_{f.start_index}"] = (
+                    f"Title reconciled from '{original_title}' — rationale states the clause is mutual, "
+                    "which contradicted the one-sided/unilateral framing in the original title"
+                )
+                f = replace(f, title=new_title)
+            reconciled.append(f)
+        return reconciled, contradiction_log
+
+    def _group_related_findings(self, findings: List[Finding]) -> List[Finding]:
+        """
+        Collapse findings that share a single underlying root cause (see
+        ROOT_CAUSE_GROUPS) into one parent finding, so the report doesn't
+        count one missing attachment as several independent risks.
+
+        Only collapses when 2+ members of a group actually fired — a
+        single member is left as-is (nothing to group). The parent takes
+        the highest severity and earliest position among its members, so
+        it remains fully anchored/auditable, and lists every folded
+        rule_id in `related_findings` for traceability.
+        """
+        severity_rank = {Severity.CRITICAL: 0, Severity.HIGH: 1, Severity.MEDIUM: 2, Severity.LOW: 3}
+        consumed_ids = set()
+        grouped: List[Finding] = []
+
+        for group_def in ROOT_CAUSE_GROUPS.values():
+            members = [f for f in findings if f.rule_id in group_def["rule_ids"]]
+            if len(members) < 2:
+                continue
+            members_sorted = sorted(members, key=lambda f: (severity_rank.get(f.severity, 9), f.start_index))
+            best = members_sorted[0]
+            sub_bullets = "; ".join(f"{m.title} ({m.rule_id})" for m in members_sorted)
+            parent = replace(
+                best,
+                rule_id=f"GROUP_{group_def['rule_name']}",
+                rule_name=group_def["rule_name"],
+                title=group_def["title"],
+                rationale=f"{group_def['rationale']} Affected sub-topics: {sub_bullets}.",
+                related_findings=[m.rule_id for m in members_sorted],
+            )
+            grouped.append(parent)
+            consumed_ids.update(id(m) for m in members)
+
+        for f in findings:
+            if id(f) not in consumed_ids:
+                grouped.append(f)
+        return grouped
+
+    def _apply_suppression_rules(
+        self, findings: List[Finding], text: str, party_map: Optional[PartyRoleMap] = None
+    ) -> Tuple[List[Finding], Dict[str, str]]:
         """
         Apply deterministic false-positive suppression rules.
-        
+
         Suppression is explicit, deterministic, and explainable.
         NO probabilistic logic. NO ML.
-        
+
         Rules:
         - If indemnity clause contains "to the extent required by law" → downgrade severity
         - If IP assignment contains "excluding pre-existing IP" → suppress assignment risk
         - If a "one-way"/unilateral rule's clause is actually mutual → downgrade
           severity and strip the one-way framing (see ONE_WAY_RULE_IDS)
+        - If attorneys'/legal fees language is part of an indemnification
+          defense-cost provision → suppress (different legal concept)
+        - If a one-sided clause is favorable to the reviewing party →
+          downgrade severity and attach a perspective note instead of
+          reporting it identically to a genuinely adverse one-sided clause
         - Record WHY suppression happened for auditability
 
         Returns:
@@ -914,17 +1449,125 @@ class RuleEngine:
                 and finding.party_direction
                 and finding.party_direction.get("mutuality_status") == "mutual"
             ):
+                # The title itself is rewritten, not just the rationale —
+                # a title still reading "One-sided X" next to a rationale
+                # stating the clause "applies to both parties" is a live
+                # self-contradiction (this exact pattern shipped
+                # previously), not just a nuance buried in body text.
+                reconciled_title = re.sub(
+                    r"\bone[-\s]?sided\b|\bone[-\s]?way\b|\bunilateral\b",
+                    "Mutual",
+                    suppressed_finding.title,
+                    flags=re.IGNORECASE,
+                )
                 suppressed_finding = replace(
                     suppressed_finding,
+                    title=reconciled_title,
                     severity=Severity.MEDIUM,
                     rationale=(
                         suppressed_finding.rationale
                         + " Note: Clause language ('either party'/'mutual'/'both parties') indicates "
-                        "this obligation applies to both parties, not one-sided as the rule title suggests. "
-                        "Confirm mutuality is intended and consistently drafted."
+                        "this obligation applies to both parties — the title has been corrected from "
+                        "one-sided/unilateral framing to reflect this. Confirm mutuality is intended and "
+                        "consistently drafted."
                     ),
                 )
-                reason = "Downgraded severity: party-direction analysis found mutual language, not one-way"
+                reason = "Downgraded severity and corrected title: party-direction analysis found mutual language, not one-way"
+
+            # Suppression Rule 5: "attorneys' fees"/"legal fees" language
+            # that is embedded in an indemnification defense-cost provision
+            # (a party reimbursing legal costs incurred defending against a
+            # THIRD-PARTY claim) is a different legal concept from a
+            # prevailing-party fee-shifting clause (one party pays the
+            # OTHER's litigation costs in a direct two-party dispute
+            # "regardless of outcome") — the latter is what H_ATTFEE_01's
+            # title and rationale actually describe. Verified false
+            # positive: this fired HIGH on a bare "legal fees" match inside
+            # an indemnification clause covering IP-infringement/data-misuse
+            # third-party claims, where no fee-shifting language of any kind
+            # was present.
+            if finding.rule_id == "H_ATTFEE_01" and re.search(
+                r"\b(indemnif\w+|hold\s+harmless|indemnified\s+part(y|ies)|third[-\s]?party\s+claim)\b",
+                context,
+                re.IGNORECASE,
+            ):
+                reason = "Suppressed: attorneys'/legal fees language is part of an indemnification defense-cost provision, not a prevailing-party fee-shifting clause"
+                suppression_reasons[f"{finding.rule_id}_{finding.start_index}"] = reason
+                continue  # Skip this finding — not a fee-shifting clause at all
+
+            # Suppression Rule 6: perspective-aware reframing. A one-sided
+            # clause is not automatically a risk TO THE REVIEWING PARTY —
+            # e.g. a customer-only termination-for-convenience right is
+            # favorable to a customer-side review (verified: this exact
+            # scenario was previously reported identically to a genuinely
+            # adverse vendor-only right, with no perspective distinction at
+            # all). Attach an explicit favorable/unfavorable framing naming
+            # the actual contract parties, and downgrade severity when the
+            # asymmetry actually favors the reviewing party.
+            if finding.rule_id in ONE_WAY_RULE_IDS and suppressed_finding.party_direction:
+                perspective = _build_perspective(suppressed_finding.party_direction, party_map)
+                if perspective:
+                    annotated_rationale = suppressed_finding.rationale + " Perspective: " + perspective["note"]
+                    if perspective["favorability"] == "favorable":
+                        suppressed_finding = replace(
+                            suppressed_finding,
+                            severity=Severity.LOW,
+                            rationale=annotated_rationale,
+                            perspective=perspective,
+                        )
+                        favorable_reason = f"Downgraded severity: {perspective['note']}"
+                        reason = f"{reason}; {favorable_reason}" if reason else favorable_reason
+                    elif perspective["favorability"] == "unfavorable":
+                        suppressed_finding = replace(
+                            suppressed_finding, rationale=annotated_rationale, perspective=perspective
+                        )
+                    else:
+                        suppressed_finding = replace(suppressed_finding, perspective=perspective)
+
+            # Suppression Rule 7: IP-assignment direction. Assignment
+            # clauses are directional, not "one-way vs. mutual" — see
+            # _infer_ip_assignment_perspective. An assignment INTO the
+            # reviewing party's ownership is favorable and downgraded;
+            # verified case: "Prevail hereby ... assigns ... to Company
+            # all of its right, title, and interest" (Study Inventions)
+            # was previously reported as a flat HIGH-severity risk to the
+            # customer, when it in fact transfers IP TO the customer.
+            if finding.rule_id in ("H_IP_01", "H_IP_WORK_PRODUCT_01"):
+                ip_perspective = _infer_ip_assignment_perspective(suppressed_finding.exact_snippet, party_map)
+                if ip_perspective:
+                    annotated_rationale = suppressed_finding.rationale + " Perspective: " + ip_perspective["note"]
+                    if ip_perspective["favorability"] == "favorable":
+                        suppressed_finding = replace(
+                            suppressed_finding,
+                            severity=Severity.LOW,
+                            rationale=annotated_rationale,
+                            perspective=ip_perspective,
+                        )
+                        favorable_reason = f"Downgraded severity: {ip_perspective['note']}"
+                        reason = f"{reason}; {favorable_reason}" if reason else favorable_reason
+                    else:
+                        suppressed_finding = replace(
+                            suppressed_finding, rationale=annotated_rationale, perspective=ip_perspective
+                        )
+
+            # Suppression Rule 8: H_ASYMMETRIC_LIABILITY_01 findings from
+            # the generic-role-word anchors (as opposed to the party-name-
+            # aware _check_liability_cap_asymmetry path, which already
+            # checks this) have no way to confirm the OTHER party isn't
+            # separately capped elsewhere in the document — the anchors
+            # only prove a cap phrase co-occurs with a role word, not that
+            # only one party has one. If a second cap phrase exists
+            # anywhere else in the document, this is likely a symmetric
+            # cap stated per-party, not a proven asymmetry.
+            if (
+                finding.rule_id == "H_ASYMMETRIC_LIABILITY_01"
+                and finding.party_direction
+                and finding.party_direction.get("mutuality_status") not in ("provider-only", "customer-only")
+                and len(self._CAP_PHRASE_RE.findall(text)) >= 2
+            ):
+                reason = "Suppressed: a second liability-cap phrase exists elsewhere in the document — likely a symmetric cap stated per-party, not a proven asymmetry"
+                suppression_reasons[f"{finding.rule_id}_{finding.start_index}"] = reason
+                continue
 
             if reason:
                 suppression_reasons[f"{finding.rule_id}_{finding.start_index}"] = reason
@@ -975,13 +1618,22 @@ class RuleEngine:
                 title="Broad IP assignment / ownership transfer language",
                 severity=Severity.HIGH,
                 rationale="Assignment language may transfer ownership of work product or IP rather than granting a limited license.",
-                pattern=r"\b(assigns?|transfer(s|red)?|hereby\s+assigns?)\b.*?\ball\s+right[s]?,\s*title,\s*and\s+interest\b",
+                # Bounded to 180 chars between the assignment verb and the
+                # "right, title, and interest" phrase so the match stays
+                # inside one assignment sentence instead of an unbounded
+                # DOTALL scan that can bridge into an unrelated clause
+                # elsewhere in the same chunk. The target phrase also allows
+                # a possessive filler ("all OF ITS right, title, and
+                # interest"), which real assignment sentences use and the
+                # original bare "all right(s), title, and interest" pattern
+                # missed.
+                pattern=r"\b(assigns?|transfer(s|red)?|hereby\s+assigns?)\b.{0,180}?\ball\s+(?:of\s+(?:its|his|her|their)\s+)?right[s]?,\s*title,?\s*and\s+interest\b",
             ),
             Rule(
                 rule_id="H_PERSONAL_01",
                 rule_name="personal_liability",
                 title="Potential personal liability exposure",
-                severity=Severity.HIGH,
+                severity=Severity.CRITICAL,
                 rationale="Language may create obligations that extend beyond the company (e.g., personal guarantees or individual responsibility).",
                 anchors=[r"\bpersonally\b", r"\bguarant(y|ee)\b", r"\bguarantor\b"],
                 nearby=[r"\bobligation(s)?\b", r"\bliabilit(y|ies)\b", r"\bresponsible\b"],
@@ -1006,7 +1658,7 @@ class RuleEngine:
                 title="IP ownership via work product language",
                 severity=Severity.HIGH,
                 rationale="Work product ownership language can effectively transfer IP even if assignment wording is indirect.",
-                pattern=r"\b(work\s+product|deliverables?)\b.*?\b(owned\s+by|shall\s+be\s+the\s+property\s+of)\b",
+                pattern=r"\b(work\s+product|deliverables?)\b.{0,200}?\b(owned\s+by|shall\s+be\s+the\s+property\s+of)\b",
             ),
             Rule(
                 rule_id="H_ATTFEE_01",
@@ -1073,7 +1725,7 @@ class RuleEngine:
                 title="Unilateral right to modify terms",
                 severity=Severity.HIGH,
                 rationale="Language allowing one party to modify terms, pricing, or scope without mutual consent can fundamentally alter the deal post-signing.",
-                pattern=r"\b(may\s+(modify|amend|change|update|revise)\b.*?\b(at\s+any\s+time|in\s+its?\s+(sole\s+)?discretion|without\s+(prior\s+)?(written\s+)?consent|without\s+notice|unilateral))|(\breserves?\s+the\s+right\s+to\s+(modify|amend|change|update|revise)\b)",
+                pattern=r"\b(may\s+(modify|amend|change|update|revise)\b.{0,150}?\b(at\s+any\s+time|in\s+its?\s+(sole\s+)?discretion|without\s+(prior\s+)?(written\s+)?consent|without\s+notice|unilateral))|(\breserves?\s+the\s+right\s+to\s+(modify|amend|change|update|revise)\b)",
                 aliases=["unilateral_amendment", "right_to_modify", "change_terms_unilaterally"],
             ),
             Rule(
@@ -1101,14 +1753,35 @@ class RuleEngine:
                 title="One-sided termination for convenience",
                 severity=Severity.HIGH,
                 rationale="Termination for convenience rights that apply to only one party allow that party to exit the deal at will while the other remains bound.",
-                anchors=[r"\bterminate\b.*\bconvenience\b", r"\bterminate\b.*\bany\s+reason\b", r"\bterminate\b.*\bwithout\s+cause\b", r"\bterminate\b.*\bno\s+reason\b"],
+                # The old anchors were themselves unbounded two-part DOTALL
+                # patterns (e.g. "\bterminate\b.*\bany\s+reason\b"), so the
+                # "anchor" alone could already span from one numbered
+                # sub-clause to a completely different one before the
+                # nearby/window search even started (verified: it bridged a
+                # MUTUAL termination-for-breach clause to an unrelated
+                # sub-clause 640+ characters away, misreading a fully
+                # mutual clause as if it were part of the one-sided match).
+                # Anchors require "may terminate" (an entitlement to end
+                # the agreement), not bare "terminate" — the latter also
+                # matches unrelated later references like "...notice(s) to
+                # terminate work on the SOW" (an ancillary consequence of
+                # exercising the right, not a second termination right),
+                # which produced a spurious duplicate finding (verified).
+                # The actual convenience-termination signal is required via
+                # `nearby` within a tight window, so a match stays inside
+                # one sub-clause.
+                anchors=[r"\bmay\s+terminate\b"],
                 nearby=[
+                    r"\bfor\s+convenience\b",
+                    r"\bwithout\s+cause\b",
+                    r"\bfor\s+any\s+reason\b",
+                    r"\bfor\s+no\s+reason\b",
                     r"\bsole\s+discretion\b",
                     r"\bat\s+any\s+time\b",
                     r"\bupon\s+\d+\s+days?\b",
                     r"\bwritten\s+notice\b",
                 ],
-                window=350,
+                window=200,
                 aliases=["termination_for_convenience", "unilateral_termination"],
             ),
             Rule(
@@ -1137,9 +1810,21 @@ class RuleEngine:
                 rule_id="H_ASYMMETRIC_LIABILITY_01",
                 rule_name="asymmetric_liability_cap",
                 title="Asymmetric liability cap",
-                severity=Severity.HIGH,
+                severity=Severity.CRITICAL,
                 rationale="A liability cap that applies to one party but not the other creates an imbalanced risk allocation that can leave you exposed.",
-                anchors=[r"\b(vendor|provider|supplier|licensor)\b.*\bliabilit(y|ies)\b", r"\bliabilit(y|ies)\b.*\b(vendor|provider|supplier|licensor)\b"],
+                # Anchors only recognize generic role words (vendor/
+                # provider/supplier/licensor) — a cap stated using the
+                # contract's own defined party name (e.g. "PREVAIL'S
+                # MAXIMUM LIABILITY...") never matches these at all
+                # (verified: this rule did not fire on a real contract
+                # whose liability cap names only the vendor by its defined
+                # term, missing the single largest financial-exposure term
+                # in the document). See RuleEngine._check_liability_cap_asymmetry
+                # for the party-name-aware document-level check that covers
+                # that case using party_resolver.py; these anchors remain
+                # as the generic-word fallback for contracts that use
+                # role words directly instead of defined names.
+                anchors=[r"\b(vendor|provider|supplier|licensor)\b.{0,120}\bliabilit(y|ies)\b", r"\bliabilit(y|ies)\b.{0,120}\b(vendor|provider|supplier|licensor)\b"],
                 nearby=[
                     r"\bshall\s+not\s+exceed\b",
                     r"\blimited\s+to\b",
@@ -1148,6 +1833,233 @@ class RuleEngine:
                 ],
                 window=400,
                 aliases=["one_sided_liability_cap", "vendor_liability_cap"],
+            ),
+            Rule(
+                rule_id="H_LOL_NO_CARVEOUT_01",
+                rule_name="liability_cap_missing_carveouts",
+                title="Liability cap lacks carve-outs for high-severity claims",
+                severity=Severity.CRITICAL,
+                rationale=(
+                    "A liability cap with no stated exceptions can limit recovery even for indemnification, "
+                    "confidentiality breaches, data-security incidents, gross negligence, willful misconduct, "
+                    "or fraud — categories conventionally carved out of a liability cap. A cap this broad can "
+                    "mean catastrophic harm is still bounded at ordinary contract-value damages."
+                ),
+                # No standalone adverse phrase is meaningful here (a
+                # contract never explicitly states "this cap has no
+                # carve-outs") — this rule is designed to fire through the
+                # REQUIRED_SECTION absence path below. The anchors/nearby
+                # here only catch the rare explicit case.
+                anchors=[r"\bmaximum\s+liabilit(?:y|ies)\b", r"\baggregate\s+liabilit(?:y|ies)\b"],
+                nearby=[r"\bwithout\s+(?:any\s+)?(?:exception|limitation|carve[-\s]?out)\b"],
+                window=200,
+                aliases=["liability_cap_no_exceptions", "cap_missing_carveouts", "uncarved_liability_cap"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[
+                    r"\b(?:maximum\s+liabilit(?:y|ies)|aggregate\s+liabilit(?:y|ies)\s+(?:shall\s+not\s+exceed|of)|"
+                    r"liabilit(?:y|ies)\s+shall\s+(?:in\s+no\s+event\s+)?(?:not\s+)?exceed)\b",
+                ],
+                protective_patterns=[
+                    r"\b(except(?:ion)?s?\s+for|excluding|shall\s+not\s+apply\s+to|does\s+not\s+apply\s+to|other\s+than)\b"
+                    r"(?:[^.]|\.(?=\d)){0,200}"
+                    r"\b(indemnif\w+|confidential\w*|gross\s+negligence|willful\s+misconduct|wilful\s+misconduct|"
+                    r"fraud|data\s+breach|security\s+incident|intellectual\s+property)\b",
+                ],
+            ),
+            Rule(
+                rule_id="H_INDEM_SCOPE_NARROW_01",
+                rule_name="narrow_indemnification_scope",
+                title="Indemnification scope may be too narrow",
+                severity=Severity.HIGH,
+                rationale=(
+                    "An indemnification obligation limited to a short enumerated list of triggers (e.g. IP "
+                    "infringement, unauthorized data use) leaves other major risk categories — data breach, "
+                    "negligence, confidentiality breach, security incidents, regulatory violations — without "
+                    "indemnification coverage, even though those are often the more likely real-world failure modes."
+                ),
+                anchors=[r"\bindemnif\w+\b", r"\bhold\s+harmless\b"],
+                nearby=[r"\bonly\b", r"\bsolely\b", r"\blimited\s+to\b"],
+                window=250,
+                aliases=["narrow_indemnity", "limited_indemnification_scope"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\bindemnif\w+\b"],
+                protective_patterns=[
+                    r"\bindemnif\w+\b(?:[^.]|\.(?=\d)){0,250}\b(?:negligence|data\s+breach|security\s+incident|"
+                    r"confidential\w*\s+(?:breach|information)|regulatory\s+violation|breach\s+of\s+(?:this\s+)?"
+                    r"Agreement)\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_DPA_MISSING_01",
+                rule_name="dpa_execution_missing",
+                title="No Data Processing Agreement (DPA) execution requirement",
+                severity=Severity.MEDIUM,
+                rationale=(
+                    "Referring to GDPR concepts (e.g. Data Controller/Data Processor roles) without requiring "
+                    "execution of a formal Data Processing Agreement leaves subprocessor authorization, audit "
+                    "rights, and breach-assistance obligations unenforceable as distinct contractual commitments."
+                ),
+                anchors=[r"\bData\s+(?:Controller|Processor)\b", r"\bGDPR\b"],
+                nearby=[r"\bno\s+(?:separate\s+)?(?:DPA|data\s+processing\s+agreement)\s+(?:is\s+)?required\b"],
+                window=250,
+                aliases=["missing_dpa", "no_data_processing_agreement"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(?:Data\s+(?:Controller|Processor)|GDPR|personal\s+data)\b"],
+                protective_patterns=[r"\b(?:DPA|Data\s+Processing\s+Agreement)\b"],
+            ),
+            Rule(
+                rule_id="M_BAA_MISSING_01",
+                rule_name="baa_execution_missing",
+                title="No Business Associate Agreement (BAA) execution requirement",
+                severity=Severity.MEDIUM,
+                rationale=(
+                    "A general HIPAA-compliance representation is not the same as a Business Associate "
+                    "Agreement — without a BAA, HIPAA's specific breach-notification, safeguard, and "
+                    "subcontractor flow-down obligations for protected health information are not established."
+                ),
+                anchors=[r"\bHIPAA\b", r"\bprotected\s+health\s+information\b"],
+                nearby=[r"\bno\s+(?:separate\s+)?(?:BAA|business\s+associate\s+agreement)\s+(?:is\s+)?required\b"],
+                window=250,
+                aliases=["missing_baa", "no_business_associate_agreement"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(?:HIPAA|protected\s+health\s+information|PHI)\b"],
+                protective_patterns=[r"\b(?:BAA|Business\s+Associate\s+Agreement)\b"],
+            ),
+            Rule(
+                rule_id="M_SUBPROCESSOR_MISSING_01",
+                rule_name="subprocessor_terms_missing",
+                title="No subprocessor authorization or flow-down terms",
+                severity=Severity.MEDIUM,
+                rationale=(
+                    "A vendor processing personal data without any subprocessor terms (authorization, "
+                    "notice of changes, flow-down of equivalent data-protection obligations) means you have "
+                    "no visibility or contractual control over who else may handle your data."
+                ),
+                anchors=[r"\bsub[-\s]?processor\w*\b", r"\bsub[-\s]?contractor\w*\b"],
+                nearby=[r"\bwithout\s+(?:any\s+)?(?:notice|authorization|consent)\b"],
+                window=250,
+                aliases=["missing_subprocessor_terms", "no_subprocessor_flowdown"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(?:Data\s+Processor|personal\s+data|GDPR)\b"],
+                protective_patterns=[r"\bsub[-\s]?processor\w*\b"],
+            ),
+            Rule(
+                rule_id="M_AUDIT_RIGHTS_CUSTOMER_01",
+                rule_name="customer_audit_rights_missing",
+                title="No customer audit or inspection rights over vendor security practices",
+                severity=Severity.MEDIUM,
+                rationale=(
+                    "A vendor holding your data with no customer-side audit, inspection, or compliance-"
+                    "verification right means you have no contractual mechanism to confirm the security "
+                    "measures, certifications, or subprocessor practices the vendor represents are actually followed."
+                ),
+                anchors=[r"\bsecurity\s+measures?\b", r"\bData\s+Processor\b"],
+                nearby=[r"\bno\s+right\s+to\s+audit\b", r"\baudit\s+rights?\s+(?:are\s+)?(?:waived|excluded)\b"],
+                window=250,
+                aliases=["missing_customer_audit_rights", "no_audit_or_inspection_right"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(?:security\s+measures?|Data\s+Processor|personal\s+data)\b"],
+                protective_patterns=[r"\b(?:audit|inspect\w*)\b"],
+            ),
+            Rule(
+                rule_id="M_DELETION_CERT_MISSING_01",
+                rule_name="deletion_certification_missing",
+                title="No deletion certification on termination",
+                severity=Severity.MEDIUM,
+                rationale=(
+                    "Data return/deletion language without a certification requirement (a written confirmation "
+                    "that deletion actually occurred, e.g. a certificate of destruction) leaves no auditable "
+                    "proof that your data was actually removed from the vendor's systems and backups."
+                ),
+                anchors=[r"\b(?:return|delet\w*|dispos\w*|destroy\w*)\b"],
+                nearby=[r"\bwithout\s+(?:any\s+)?(?:certification|confirmation)\b"],
+                window=250,
+                aliases=["missing_deletion_certification", "no_certificate_of_destruction"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\btermin\w*\b", r"\b(?:return|delet\w*|dispos\w*|destroy\w*)\b.{0,60}\bdata\b"],
+                protective_patterns=[
+                    r"\bcertif\w*\b(?:[^.]|\.(?=\d)){0,120}\b(?:deletion|destruction|dispos\w*)\b",
+                    r"\bcertificate\s+of\s+destruction\b",
+                    r"\bconfirm\w*\s+in\s+writing\b(?:[^.]|\.(?=\d)){0,120}\b(?:delet\w*|destroy\w*)\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_SLA_REMEDY_EXCLUSIVITY_01",
+                rule_name="sla_remedy_exclusivity_undefined",
+                title="SLA service credits: exclusive-remedy and chronic-failure terms undefined",
+                severity=Severity.MEDIUM,
+                rationale=(
+                    "A service-level clause with credits but no statement of whether credits are your SOLE "
+                    "remedy (versus one of several available remedies), and no right to terminate for repeated/"
+                    "chronic SLA failures, can leave you locked into a chronically underperforming service with "
+                    "only small, capped credits and no exit right."
+                ),
+                anchors=[r"\bservice\s+credit\b"],
+                nearby=[r"\bsole\s+and\s+exclusive\s+remedy\b"],
+                window=250,
+                aliases=["sla_exclusive_remedy_undefined", "no_chronic_failure_termination"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\bservice\s+credit\b"],
+                protective_patterns=[
+                    r"\b(?:sole|exclusive)\s+remedy\b",
+                    r"\brepeated\s+failure\b|\bchronic\b|\bconsecutive\s+months?\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_INSURANCE_MINIMUM_MISSING_01",
+                rule_name="insurance_minimum_missing",
+                title="Insurance obligation lacks minimum coverage amounts",
+                severity=Severity.MEDIUM,
+                rationale=(
+                    "An insurance obligation with no stated minimum coverage amount (e.g. '$1,000,000 per "
+                    "occurrence') is effectively unenforceable as a financial backstop — 'adequate' or "
+                    "'commercially reasonable' insurance could mean any amount, including none that would "
+                    "actually cover a material claim."
+                ),
+                anchors=[r"\binsurance\b"],
+                nearby=[r"\bno\s+(?:minimum|specific)\s+(?:coverage\s+)?amount\b"],
+                window=200,
+                aliases=["no_insurance_minimum", "vague_insurance_amount"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\binsurance\b"],
+                protective_patterns=[
+                    r"\binsurance\b(?:[^.]|\.(?=\d)){0,150}\$\s?[\d,]+",
+                    r"\$\s?[\d,]+(?:[^.]|\.(?=\d)){0,150}\binsurance\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_REG_RESPONSIBILITY_UNALLOCATED_01",
+                rule_name="regulatory_responsibility_conditional",
+                title="Regulatory responsibility allocation depends on an unattached SOW",
+                severity=Severity.MEDIUM,
+                rationale=(
+                    "Regulatory obligations that remain with you except to the extent 'expressly transferred' "
+                    "under a Statement of Work mean that, until that SOW is executed and actually names what "
+                    "transfers, you retain ALL regulatory responsibility by default — even for functions the "
+                    "vendor is operationally performing."
+                ),
+                anchors=[r"\bregulatory\s+obligations?\b"],
+                nearby=[
+                    r"\bnot\s+(?:specifically\s+)?(?:and\s+)?expressly\s+transferred\b",
+                    r"\bremain\w*\s+responsible\b",
+                ],
+                window=200,
+                aliases=["conditional_regulatory_allocation", "regulatory_responsibility_default_to_customer"],
+            ),
+            Rule(
+                rule_id="M_DATA_RETURN_CONDITIONAL_01",
+                rule_name="data_return_conditional_on_customer_instruction",
+                title="Data return/deletion depends on customer-initiated instructions, no default",
+                severity=Severity.MEDIUM,
+                rationale=(
+                    "Data return or deletion that only happens after you proactively send written instructions "
+                    "within a deadline — with no stated default if you don't — risks the vendor retaining your "
+                    "data indefinitely by inaction, and can shift the cost of disposal to you."
+                ),
+                anchors=[r"\b(?:return|dispos\w*)\b.{0,120}\b(?:Company|Customer)\s+Data\b"],
+                nearby=[r"\bwritten\s+instructions?\b"],
+                window=200,
+                aliases=["conditional_data_return", "no_default_data_disposition"],
             ),
             # ---------------- HIGH (v3.0 broader-audience additions) ----------------
             Rule(
@@ -1252,7 +2164,17 @@ class RuleEngine:
                 title="Account suspension or access loss at sole discretion",
                 severity=Severity.MEDIUM,
                 rationale="A broad right to suspend accounts, services, or access at sole discretion can interrupt work, payments, communications, or access to purchased services.",
-                anchors=[r"\bsuspend\w*\b", r"\bterminate\w*\b", r"\bdisable\w*\b", r"\baccess\b"],
+                # "terminate" and bare "access" were removed from the anchor
+                # list: they made this rule indistinguishable from ordinary
+                # contract termination language (verified: it fired on
+                # "Company may terminate this Agreement ... at any time
+                # ... for any reason", a termination-for-convenience clause,
+                # with no suspension of any kind involved). Suspension and
+                # termination are different legal concepts — termination
+                # ends the agreement; suspension interrupts access while the
+                # agreement continues — and only the former belongs in a
+                # rule titled "account suspension."
+                anchors=[r"\bsuspend\w*\b", r"\bdisable\w*\b", r"\bdeactivat\w*\b", r"\block(?:s|ed|ing)?\s+(?:out|access)\b"],
                 nearby=[
                     r"\baccount\b",
                     r"\bservice\b",
@@ -1351,7 +2273,7 @@ class RuleEngine:
                 title="Confidentiality may be perpetual / indefinite",
                 severity=Severity.MEDIUM,
                 rationale="Indefinite confidentiality can create long-term compliance burden and uncertainty around retention and disclosure.",
-                pattern=r"\b(confidential(ity|ly)?|non[-\s]?disclosure)\b.*?\b(perpetual|in\s+perpetuity|indefinite(ly)?|no\s+expiration)\b",
+                pattern=r"\b(confidential(ity|ly)?|non[-\s]?disclosure)\b.{0,350}?\b(perpetual|in\s+perpetuity|indefinite(ly)?|no\s+expiration)\b",
                 aliases=["perpetual_confidentiality", "indefinite_confidentiality", "no_expiration_confidentiality"],
             ),
             Rule(
@@ -1375,7 +2297,7 @@ class RuleEngine:
                 title="Non-compete / non-solicit style restriction",
                 severity=Severity.MEDIUM,
                 rationale="Restrictive covenants can limit future business activity; enforceability varies and is commonly negotiated.",
-                pattern=r"\bnon[-\s]?compete\b|\bnon[-\s]?solicit\b|\brestrict(ion|ive)\b.*\bcompeti(t|tion|tor)\b",
+                pattern=r"\bnon[-\s]?compete\b|\bnon[-\s]?solicit\b|\brestrict(ion|ive)\b.{0,150}\bcompeti(t|tion|tor)\b",
             ),
             Rule(
                 rule_id="M_DEV_RESTRICT_01",
@@ -1383,7 +2305,7 @@ class RuleEngine:
                 title="Development restriction tied to confidential information",
                 severity=Severity.MEDIUM,
                 rationale="Restrictions on developing competing or similar products, even when tied to confidential information, can limit future work and are commonly negotiated.",
-                pattern=r"(not\s+to\s+develop|shall\s+not\s+develop|may\s+not\s+develop).*?(compete|substantially\s+similar).*?(based\s+on|derived\s+from)",
+                pattern=r"(not\s+to\s+develop|shall\s+not\s+develop|may\s+not\s+develop).{0,120}?(compete|substantially\s+similar).{0,120}?(based\s+on|derived\s+from)",
                 aliases=["development_restrictions", "product_development_restrictions", "competing_product_restrictions"],
             ),
             Rule(
@@ -1406,9 +2328,17 @@ class RuleEngine:
                 title="No residuals / knowledge carve-out",
                 severity=Severity.MEDIUM,
                 rationale="Absence of a residuals clause can restrict use of general knowledge gained during discussions.",
-                pattern=r"\bshall\s+not\s+use\b.*?\bknowledge\b.*?\bretained\b",
+                pattern=r"\bshall\s+not\s+use\b.{0,100}?\bknowledge\b.{0,100}?\bretained\b",
                 rule_class=RuleClass.REQUIRED_SECTION,
-                topic_patterns=[r"\bconfidential\w*\b"],
+                # "\bconfidential\w*\b" alone matches a bare cover-page/
+                # header banner like "Confidential – Fully Executed" (no
+                # actual confidentiality clause involved), which the
+                # absence-check then anchored the finding to — a real,
+                # correct "no residuals language" result pointing at an
+                # embarrassingly wrong location (verified). "confidential
+                # information" specifically targets the defined term used
+                # throughout an actual confidentiality clause.
+                topic_patterns=[r"\bconfidential\s+information\b"],
                 protective_patterns=[
                     r"\bresiduals?\b",
                     r"\bunaided\s+memory\b",
@@ -1467,13 +2397,25 @@ class RuleEngine:
                 title="Short termination or notice windows",
                 severity=Severity.MEDIUM,
                 rationale="Short or strict notice windows can lead to accidental renewals or unintended termination.",
+                # The old nearby list treated 20 AND 30 days as "short" —
+                # 30 days is a standard, market-typical cure/notice period
+                # (verified: it fired on this exact language in a real
+                # contract's mutual 30-day breach-cure clause and separate
+                # 30-day convenience-termination notice, mislabeling both
+                # as "short" — neither is). Only genuinely short windows
+                # (under 15 days) or an outright absence of notice now
+                # qualify. Window also tightened so a match can't drift
+                # into an adjacent, unrelated sub-clause.
                 anchors=[r"\bterminate\b", r"\bnotice\b"],
                 nearby=[
-                    r"\b(?:at\s+least\s+)?(?:10|15|20|30)\s+days?\b",
-                    r"\b(?:at\s+least\s+)?(?:ten|fifteen|twenty|thirty)\s+days?\b",
-                    r"\bless\s+than\s+\d+\s+days\b",
+                    r"\b(?:[1-9]|1[0-4])\s+days?\b",
+                    r"\b(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen)\s+days?\b",
+                    r"\bless\s+than\s+(?:1[0-4]|[1-9])\s+days?\b",
+                    r"\bwithout\s+(?:any\s+)?(?:prior\s+)?notice\b",
+                    r"\beffective\s+immediately\b",
+                    r"\bimmediately\s+without\s+notice\b",
                 ],
-                window=300,
+                window=200,
                 aliases=["termination_notice_window", "short_notice_period"],
             ),
             Rule(
@@ -1521,14 +2463,20 @@ class RuleEngine:
                 title="Blanket warranty disclaimer",
                 severity=Severity.MEDIUM,
                 rationale="Broad warranty disclaimers ('AS IS', no implied warranties) shift all quality and fitness risk to the buyer with no recourse for defects.",
-                pattern=r"\b(as[\s-]is|as[\s-]available)\b.*?\b(warrant|guarantee|condition)\b|\b(disclaim|exclude)[sd]?\b.*?\b(all\s+)?warrant(y|ies)\b|\b(without\s+warrant(y|ies)\s+of\s+any\s+kind)\b|\bno\s+(implied\s+)?warrant(y|ies)\b",
+                pattern=r"\b(as[\s-]is|as[\s-]available)\b.{0,150}?\b(warrant|guarantee|condition)\b|\b(disclaim|exclude)[sd]?\b.{0,150}?\b(all\s+)?warrant(y|ies)\b|\b(without\s+warrant(y|ies)\s+of\s+any\s+kind)\b|\bno\s+(implied\s+)?warrant(y|ies)\b",
                 aliases=["as_is_disclaimer", "no_warranty", "implied_warranty_waiver"],
             ),
             Rule(
                 rule_id="M_BREACH_NOTIFY_01",
                 rule_name="no_breach_notification",
                 title="No data breach notification obligation",
-                severity=Severity.MEDIUM,
+                # Raised from Medium: for any contract involving regulated
+                # personal data (PHI, financial data, EU personal data),
+                # not knowing about a breach promptly is a materially more
+                # serious gap than most Medium-tier findings in this
+                # ruleset — the reviewing party's own downstream regulatory
+                # notification clocks depend on learning about it quickly.
+                severity=Severity.HIGH,
                 rationale="Absence of a data breach notification requirement means you may not learn about compromises affecting your data until significant damage has occurred.",
                 anchors=[r"\bdata\b", r"\bpersonal\s+(?:data|information)\b", r"\bsecurity\b"],
                 nearby=[
@@ -1600,14 +2548,30 @@ class RuleEngine:
                 title="No service level or uptime commitment",
                 severity=Severity.MEDIUM,
                 rationale="Absence of defined service levels, uptime commitments, or remedies for downtime means you have no contractual recourse for service failures.",
-                pattern=r"\b(no\s+(?:service\s+level|SLA|uptime)\s+(?:guarantee|commitment|obligation))\b|\b(does\s+not\s+(?:guarantee|warrant|commit)\b.*?\b(?:availability|uptime|service\s+level))\b|\b(?:availability|uptime)\b.*?\b(as[\s-]is|without\s+(?:any\s+)?guarantee)\b",
+                pattern=r"\b(no\s+(?:service\s+level|SLA|uptime)\s+(?:guarantee|commitment|obligation))\b|\b(does\s+not\s+(?:guarantee|warrant|commit)\b.{0,100}?\b(?:availability|uptime|service\s+level))\b|\b(?:availability|uptime)\b.{0,100}?\b(as[\s-]is|without\s+(?:any\s+)?guarantee)\b",
                 aliases=["no_sla", "no_uptime_guarantee", "service_level_absent"],
                 rule_class=RuleClass.REQUIRED_SECTION,
                 topic_patterns=[r"\b(service|platform|software|application|system|SaaS)\b"],
+                # The "same sentence" heuristic below is (?:[^.]|\.(?=\d)),
+                # not a bare [^.] character class: a bare [^.] treats the
+                # decimal point INSIDE a percentage like "99.9%" as a
+                # sentence boundary, which made it structurally impossible
+                # for these patterns to ever reach a real uptime percentage
+                # (verified against a real 99.9% SLA clause). "\.(?=\d)"
+                # allows a period through only when it's a decimal point
+                # (followed by a digit), so real sentence periods still
+                # stop the scan. The percentage patterns also no longer
+                # require a trailing \b immediately after "%", since "%" is
+                # a non-word character and is essentially never itself
+                # followed by a word character in real prose (it's
+                # followed by a space, parenthesis, or punctuation) — the
+                # old trailing \b made the "%" alternative effectively
+                # unmatchable.
                 protective_patterns=[
-                    r"\b(service\s+level|SLA|uptime)\b[^.]{0,80}\b(guarantee|commitment|%|percent)\b",
-                    r"\d{2}(\.\d+)?\s?%\s+uptime\b",
-                    r"\buptime\b[^.]{0,40}\d{2}(\.\d+)?\s?%",
+                    r"\b(service\s+level|SLA|uptime)\b(?:[^.]|\.(?=\d)){0,100}"
+                    r"(?:\b(?:guarantee|commitment|percent)\b|\d{1,3}(?:\.\d+)?\s?%)",
+                    r"\d{1,3}(?:\.\d+)?\s?%(?:[^.]|\.(?=\d)){0,60}\b(uptime|availability)\b",
+                    r"\b(uptime|availability)\b(?:[^.]|\.(?=\d)){0,60}\d{1,3}(?:\.\d+)?\s?%",
                 ],
             ),
             Rule(
@@ -1626,8 +2590,25 @@ class RuleEngine:
                 title="Late fees / high interest",
                 severity=Severity.LOW,
                 rationale="Penalty terms can increase costs if payment timing slips.",
-                # Match interest rates and late fees - simple pattern matching percentages
-                pattern=r"(late\s+fee|late\s+payments?|interest).*?\d+%|\d+%.*?(per\s+annum|per\s+year|interest)",
+                # The old pattern used bare "interest" as an anchor, which
+                # is polysemous: "right, title, and interest" (ownership,
+                # extremely common in IP/data clauses) matches the word
+                # "interest" just as well as a financial interest rate
+                # does. Combined with an unbounded DOTALL ".*?", this let
+                # an ownership clause bridge, via document-wide search, to
+                # an unrelated percentage anywhere later in the same chunk
+                # (verified: it fired on "...title, and interest..." to a
+                # later SLA uptime percentage with no financial relationship
+                # between them). This version requires a specific late-fee/
+                # interest-RATE phrase (not bare "interest") tightly bound
+                # to a percentage or a "per annum/year/month" period.
+                pattern=(
+                    r"\blate\s+(?:fees?|payments?|charges?)\b(?:[^.]|\.(?=\d)){0,80}?\d{1,3}(?:\.\d+)?\s?%"
+                    r"|\d{1,3}(?:\.\d+)?\s?%(?:[^.]|\.(?=\d)){0,80}?\bper\s+(?:annum|year|month)\b"
+                    r"|\binterest\s+rate\b(?:[^.]|\.(?=\d)){0,60}?\d{1,3}(?:\.\d+)?\s?%"
+                    r"|\bfinance\s+charges?\b"
+                    r"|\bpenalty\s+interest\b"
+                ),
             ),
             Rule(
                 rule_id="L_BROADDEF_01",
@@ -1635,7 +2616,7 @@ class RuleEngine:
                 title="Broad definitions may expand obligations",
                 severity=Severity.LOW,
                 rationale="Overly broad defined terms can expand confidentiality or scope beyond what you expect.",
-                pattern=r"\bmeans\b.*?\b(including|without\s+limitation)\b",
+                pattern=r"\bmeans\b.{0,150}?\b(including|without\s+limitation)\b",
             ),
             Rule(
                 rule_id="L_GOVLAW_01",
@@ -1643,7 +2624,7 @@ class RuleEngine:
                 title="Specific governing law or venue",
                 severity=Severity.LOW,
                 rationale="Governing law and venue choices can affect enforcement cost and strategy.",
-                pattern=r"\bgoverned\s+by\b.*?\blaws?\b|\bexclusive\s+jurisdiction\b",
+                pattern=r"\bgoverned\s+by\b.{0,80}?\blaws?\b|\bexclusive\s+jurisdiction\b",
                 aliases=["governing_law_and_venue"],
             ),
             Rule(
@@ -1685,7 +2666,7 @@ class RuleEngine:
                 rule_id="H_AI_TRAINING_01",
                 rule_name="ai_model_training_on_data",
                 title="Customer data may be used to train AI/ML models",
-                severity=Severity.HIGH,
+                severity=Severity.CRITICAL,
                 rationale="Vendor rights to train AI or ML models on your data can permanently embed proprietary or sensitive information into third-party systems with no practical remedy.",
                 anchors=[r"\btrain\w*\b", r"\bmachine\s+learning\b", r"\bartificial\s+intelligence\b", r"\bAI\s+model\b", r"\bML\s+model\b"],
                 nearby=[
@@ -1715,22 +2696,46 @@ class RuleEngine:
             Rule(
                 rule_id="H_DATA_PRIVACY_01",
                 rule_name="missing_data_processing_obligations",
-                title="Personal data processing without adequate protections",
-                severity=Severity.HIGH,
-                rationale="Agreements that involve processing personal data but lack references to DPA, GDPR, CCPA, subprocessors, or security measures leave you without contractual protections required by law.",
+                title="Personal data processing without any privacy/security protections",
+                severity=Severity.CRITICAL,
+                rationale="Agreements that involve processing personal data but contain no reference to any data-protection law, security measures, or controller/processor allocation leave you without contractual protections required by law.",
+                # Originally PRESENCE_RISK (fired on the mere proximity of
+                # "personal data" to "process/collect/store/use"), with a
+                # rationale that claimed an ABSENCE ("lack references to
+                # DPA, GDPR, CCPA..."). That mismatch meant the rule could
+                # — and did — fire HIGH on a clause that explicitly quotes
+                # HIPAA and GDPR by name, with cited evidence that directly
+                # contradicts the finding's own claim (verified). Converted
+                # to REQUIRED_SECTION: it now only reports "no protections"
+                # when no privacy-law/security-measure/controller-processor
+                # language exists ANYWHERE in the document. The narrower,
+                # real gaps this contract actually has (no DPA/BAA execution
+                # requirement, no subprocessor terms, no audit rights, no
+                # deletion certification) are covered by their own,
+                # separately-scoped rules — see M_DPA_MISSING_01,
+                # M_BAA_MISSING_01, M_SUBPROCESSOR_MISSING_01,
+                # M_AUDIT_RIGHTS_CUSTOMER_01, M_DELETION_CERT_MISSING_01.
                 anchors=[
                     r"\bpersonal\s+(data|information)\b",
                     r"\bpersonally\s+identifiable\s+information\b",
                     r"\bPII\b",
                 ],
                 nearby=[
-                    r"\bprocess(es|ed|ing)?\b",
-                    r"\bcollect(s|ed|ion)?\b",
-                    r"\bstore(s|d)?\b",
-                    r"\buse(s|d)?\b.*\bpersonal\b",
+                    r"\bwithout\s+(?:any\s+)?restriction\b",
+                    r"\bfor\s+any\s+purpose\b",
+                    r"\bno\s+(?:obligation|duty)\s+to\s+protect\b",
+                    r"\bwithout\s+(?:regard\s+to\s+)?(?:privacy|security)\b",
                 ],
-                window=500,
+                window=300,
                 aliases=["missing_dpa", "gdpr_obligations", "data_processing_without_protection"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\b(personal\s+(data|information)|personally\s+identifiable\s+information|PII)\b"],
+                protective_patterns=[
+                    r"\b(GDPR|CCPA|CPRA|HIPAA)\b",
+                    r"\b(DPA|data\s+processing\s+agreement|data\s+protection\s+(law|act|regulation))\b",
+                    r"\b(security\s+measures?|technical\s+and\s+organi[sz]ational\s+measures?|industry[-\s]?standard\s+security)\b",
+                    r"\bData\s+(Controller|Processor)\b",
+                ],
             ),
 
             # ---------------- MEDIUM (v2.1 additions) ----------------
@@ -1944,10 +2949,16 @@ class RuleEngine:
                 rule_class=RuleClass.REQUIRED_SECTION,
                 topic_patterns=[
                     r"\b(pricing|fees?|price)\b",
-                    r"\b(exhibit|schedule|appendix)\s+[A-Z0-9]+\b",
+                    # (?-i:...) keeps the identifier case-sensitive even
+                    # though this pattern is matched with re.IGNORECASE —
+                    # without it, [A-Z0-9]+ matches ANY letters/digits
+                    # case-insensitively (i.e. effectively any word), which
+                    # let ordinary prose satisfy what was meant to require
+                    # an actual exhibit letter/number label like "A" or "1".
+                    r"\b(exhibit|schedule|appendix)\s+(?-i:[A-Z0-9]+)\b",
                 ],
                 protective_patterns=[
-                    r"\b(exhibit|schedule|appendix)\s+[A-Z0-9]+\b[\s\S]{0,300}\b(exhibit|schedule|appendix)\s+[A-Z0-9]+\b",
+                    r"\b(exhibit|schedule|appendix)\s+(?-i:[A-Z0-9]+)\b[\s\S]{0,300}\b(exhibit|schedule|appendix)\s+(?-i:[A-Z0-9]+)\b",
                 ],
                 window=350,
             ),
@@ -1962,7 +2973,15 @@ class RuleEngine:
                 window=300,
                 aliases=["unbounded_expense_reimbursement", "no_expense_cap"],
                 rule_class=RuleClass.REQUIRED_SECTION,
-                topic_patterns=[r"\breimburs\w*\b|\bexpense\w*\b"],
+                # Bare "expense\w*" put the termination wind-down settlement
+                # clause ("Company shall pay Prevail all direct expenses and
+                # fees for Services completed ... as of the date of
+                # termination") in scope for this rule, which is about
+                # discretionary reimbursable-expense approval limits, a
+                # different concept from a termination cost settlement
+                # (verified false positive). Requiring "reimburs\w*"
+                # specifically targets the actual reimbursement concept.
+                topic_patterns=[r"\breimburs\w*\b"],
                 protective_patterns=[
                     r"\bprior\s+written\s+approval\b",
                     r"\bnot\s+to\s+exceed\s+\$",
@@ -2031,15 +3050,36 @@ class RuleEngine:
             Rule(
                 rule_id="M_EXHIBIT_MISSING_01",
                 rule_name="exhibit_referenced_missing",
-                title="Exhibit or schedule referenced but not found",
+                title="Exhibit, schedule, or SOW referenced but not found",
                 severity=Severity.MEDIUM,
-                rationale="A contract that refers to an exhibit, schedule, or appendix that isn't actually included leaves material terms undefined.",
+                rationale="A contract that refers to an exhibit, schedule, SOW, or appendix that isn't actually included leaves material terms undefined.",
                 pattern=r"\b(?:exhibit|schedule|appendix)\s+[A-Z0-9]+\b[^.]{0,40}\b(?:not\s+attached|to\s+be\s+provided|forthcoming)\b",
-                aliases=["missing_exhibit", "unattached_schedule"],
+                aliases=["missing_exhibit", "unattached_schedule", "missing_sow"],
                 rule_class=RuleClass.REQUIRED_SECTION,
-                topic_patterns=[r"\b(?:exhibit|schedule|appendix)\s+[A-Z0-9]+\b"],
+                # The bare "exhibit N" pattern matched a document's own SEC
+                # filing provenance line ("Source: SEC EDGAR - 8-K, Exhibit
+                # 10.1, Period ...") as if it were a substantive in-contract
+                # cross-reference (verified). Requiring "attached hereto" /
+                # "attached as" / "set forth in" nearby targets an actual
+                # attachment reference instead, and adds SOW/Statement of
+                # Work — the term this contract actually uses for its
+                # missing attachment, which the original pattern omitted.
+                topic_patterns=[
+                    r"\b(?:SOW|Statement\s+of\s+Work|Schedule|Exhibit|Appendix)\s+(?:No\.?\s*)?(?-i:[A-Z0-9]+)\b"
+                    r"(?:[^.]|\.(?=\d)){0,40}\b(?:attached\s+hereto|attached\s+as|set\s+forth\s+in)\b"
+                ],
+                # (?-i:[A-Z0-9]+) keeps the exhibit/SOW identifier
+                # case-sensitive under the module's IGNORECASE match call —
+                # without it, a bare later mention like "the SOW shall be
+                # governed by..." satisfies [A-Z0-9]+ against "shall"
+                # (case-insensitively equivalent to letters), which made
+                # this "protective" check pass even though no second,
+                # actually-numbered SOW/Schedule reference (let alone real
+                # attached content) exists anywhere in the document
+                # (verified false suppression on the real contract).
                 protective_patterns=[
-                    r"\b(exhibit|schedule|appendix)\s+[A-Z0-9]+\b[\s\S]{0,300}\b(exhibit|schedule|appendix)\s+[A-Z0-9]+\b",
+                    r"\b(SOW|Statement\s+of\s+Work|Schedule|exhibit|appendix)\s+(?:No\.?\s*)?(?-i:[A-Z0-9]+)\b"
+                    r"[\s\S]{0,400}\b(SOW|Statement\s+of\s+Work|Schedule|exhibit|appendix)\s+(?:No\.?\s*)?(?-i:[A-Z0-9]+)\b",
                 ],
             ),
             Rule(
@@ -2156,16 +3196,17 @@ class RuleEngine:
             - ruleset_version_data: Dict (full version metadata)
             - suppression_log: Dict[str, str] (audit trail of suppressions, empty if disabled)
         """
-        # Normalize Unicode punctuation so regex patterns using ASCII quotes/dashes
-        # match text extracted from PDFs and Word documents (smart quotes, em-dashes, etc.)
-        text = (
-            text
-            .replace("‘", "'").replace("’", "'")   # left/right single quotes → '
-            .replace("“", '"').replace("”", '"')   # left/right double quotes → "
-            .replace("–", "-").replace("—", "-")   # en-dash / em-dash → -
-            .replace("…", "...")                         # ellipsis → ...
-            .replace("\r\n", "\n").replace("\r", "\n")   # normalize line endings once, up front
-        )
+        # Normalize Unicode punctuation and (if present) literal "\n" escape
+        # sequences so regex patterns match text extracted from PDFs/Word
+        # documents and so _chunk_text() can find real clause boundaries.
+        # See normalize_contract_text() docstring for details.
+        text = normalize_contract_text(text)
+
+        # Resolve the contract's own defined party names to vendor/customer
+        # roles once per document (see party_resolver.py) so party-direction
+        # classification below can use them instead of guessing from
+        # generic role words alone.
+        party_map = resolve_party_roles(text)
 
         chunks = _chunk_text(text)
 
@@ -2179,14 +3220,32 @@ class RuleEngine:
                         absolute_end = chunk_start + e
                         ex = _excerpt(chunk, s, e)
                         matched_text = m.group(0)
-                        # Get surrounding context (±200 chars)
+                        # Get surrounding context (±200 chars, for display)
                         context_start = max(0, absolute_start - 200)
                         context_end = min(len(text), absolute_end + 200)
                         surrounding_context = text[context_start:context_end]
+                        # Party direction uses a MUCH tighter window (±70)
+                        # than the display context: a ±200 window on a real
+                        # two-party contract very often pulls in an
+                        # incidental mention of the OTHER party (e.g. "...
+                        # written notice to Prevail" right after a
+                        # Company-only right), which made a cleanly one-
+                        # sided clause register as "ambiguous" (both roles
+                        # present) purely from window width, not from the
+                        # clause's actual grammar. The window is
+                        # deliberately asymmetric: English SVO clauses state
+                        # WHO holds a right immediately before the verb
+                        # ("Company may terminate..."), while a same-
+                        # sentence mention of the other party is usually the
+                        # ADDRESSEE, further after the match ("...notice to
+                        # Prevail") — so look back further than forward.
+                        party_context_start = max(0, absolute_start - 120)
+                        party_context_end = min(len(text), absolute_end + 20)
+                        party_context = text[party_context_start:party_context_end]
                         clause_num = _extract_clause_number(text, absolute_start)
                         keywords = _extract_matched_keywords(matched_text, rule.pattern)
                         party_direction = (
-                            _classify_party_direction(surrounding_context)
+                            _classify_party_direction(party_context, party_map)
                             if rule.rule_id in ONE_WAY_RULE_IDS
                             else None
                         )
@@ -2225,16 +3284,22 @@ class RuleEngine:
                         exact_matched = chunk[s:e]
                         anchor_text = chunk[pm.anchor_start:pm.anchor_end]
                         risk_phrase = chunk[pm.nearby_start:pm.nearby_end]
-                        # Get surrounding context (±200 chars)
+                        # Get surrounding context (±200 chars, for display)
                         context_start = max(0, absolute_start - 200)
                         context_end = min(len(text), absolute_end + 200)
                         surrounding_context = text[context_start:context_end]
+                        # Party direction uses an asymmetric window — see
+                        # the matching comment in the direct-pattern branch
+                        # above for why (look back further than forward).
+                        party_context_start = max(0, absolute_start - 120)
+                        party_context_end = min(len(text), absolute_end + 20)
+                        party_context = text[party_context_start:party_context_end]
                         # For proximity matches, extract keywords from context
                         context_text = chunk[max(0, s-100):min(len(chunk), e+100)]
                         clause_num = _extract_clause_number(text, absolute_start)
                         keywords = _extract_matched_keywords(context_text)
                         party_direction = (
-                            _classify_party_direction(surrounding_context)
+                            _classify_party_direction(party_context, party_map)
                             if rule.rule_id in ONE_WAY_RULE_IDS
                             else None
                         )
@@ -2285,6 +3350,14 @@ class RuleEngine:
         # regex/proximity matches.
         findings.extend(self._check_cross_document_conflicts(text))
 
+        # Party-name-aware liability cap asymmetry check — see
+        # _check_liability_cap_asymmetry docstring. Skipped when
+        # H_ASYMMETRIC_LIABILITY_01 already fired via the generic-word
+        # anchors above; dedup below would collapse an exact duplicate
+        # anyway, but this avoids the extra work.
+        if "H_ASYMMETRIC_LIABILITY_01" not in {f.rule_id for f in findings}:
+            findings.extend(self._check_liability_cap_asymmetry(text, party_map))
+
         # Deduplicate by (rule_id, clause_number) to prevent inflated counts
         # If clause_number exists, use (rule_id, clause_number) as key; otherwise use (rule_id, None)
         # Keep the "best" match: prefer longer matched_excerpt, or earliest position
@@ -2306,12 +3379,12 @@ class RuleEngine:
         deduped = list(seen_keys.values())
 
         # Sort by severity then stable by rule_id
-        rank = {Severity.HIGH: 0, Severity.MEDIUM: 1, Severity.LOW: 2}
+        rank = {Severity.CRITICAL: 0, Severity.HIGH: 1, Severity.MEDIUM: 2, Severity.LOW: 3}
         deduped.sort(key=lambda x: (rank.get(x.severity, 9), x.rule_id))
 
         # Phase 5: False-positive suppression layer (deterministic, explainable)
         if suppression_enabled:
-            suppressed_findings, suppression_reasons = self._apply_suppression_rules(deduped, text)
+            suppressed_findings, suppression_reasons = self._apply_suppression_rules(deduped, text, party_map)
             
             # Log suppressions for auditability
             if suppression_reasons:
@@ -2323,7 +3396,27 @@ class RuleEngine:
             suppression_reasons = {}
             logger.info("Suppression disabled: all findings returned without suppression")
 
-        counts = {"high": 0, "medium": 0, "low": 0}
+        # Phase 6: Contradiction detection (deterministic consistency
+        # check) — see _detect_contradictions. Always runs, independent of
+        # suppression_enabled: a self-contradictory title/rationale pair is
+        # a report-quality defect, not a suppression decision.
+        suppressed_findings, contradiction_log = self._detect_contradictions(suppressed_findings)
+        if contradiction_log:
+            for finding_id, reason in contradiction_log.items():
+                logger.warning(f"CONTRADICTION RECONCILED: {finding_id} - {reason}")
+
+        # Phase 7: Root-cause grouping — see _group_related_findings /
+        # ROOT_CAUSE_GROUPS. Runs last, after severity/title are final, so
+        # the parent finding's severity reflects any suppression downgrades
+        # already applied to its members.
+        suppressed_findings = self._group_related_findings(suppressed_findings)
+
+        # Phase 8: Deterministic confidence/evidence-quality scoring — see
+        # _score_confidence. Runs last so it reflects final finding_type,
+        # party_direction, and related_findings (post-grouping) state.
+        suppressed_findings = [replace(f, **_score_confidence(f)) for f in suppressed_findings]
+
+        counts = {"critical": 0, "high": 0, "medium": 0, "low": 0}
         for f in suppressed_findings:
             counts[f.severity.value] += 1
 
@@ -2337,6 +3430,7 @@ class RuleEngine:
             "version": self.version,
             "ruleset_version_data": _RULESET_VERSION_DATA,
             "suppression_log": suppression_reasons,  # Audit trail
+            "contradiction_log": contradiction_log,  # Audit trail — see _detect_contradictions
             # Business workflow decision layer, additive to overall_risk:
             # what should happen to this contract next, not just how risky it is.
             "signature_readiness": workflow["signature_readiness"],

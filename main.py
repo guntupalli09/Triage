@@ -243,7 +243,7 @@ def run_analysis(contract_text: str) -> Dict:
         "findings_dict": findings_dict,
         "overall_risk": overall_risk,
         "llm_result": llm_result,
-        "rule_counts": analysis.get("rule_counts", {"high": 0, "medium": 0, "low": 0}),
+        "rule_counts": analysis.get("rule_counts", {"critical": 0, "high": 0, "medium": 0, "low": 0}),
         "version": analysis.get("version", "1.0.3"),
         # Business workflow decision layer, additive to overall_risk: what
         # should happen to this contract next (ready to send / commercial
@@ -324,7 +324,7 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
 
         all_issues.append(enhanced)
 
-    severity_order = {"high": 0, "medium": 1, "low": 2}
+    severity_order = {"critical": 0, "high": 1, "medium": 2, "low": 3}
     all_issues.sort(key=lambda x: (severity_order.get(x.get("severity", "low"), 9), x.get("title", "")))
     return all_issues
 
@@ -336,7 +336,12 @@ def display_rule_stats(all_issues: List[Dict]) -> Dict[str, int]:
     report renders one card per rule — summary tiles must match the cards
     or the numbers look wrong to the reader.
     """
-    counts = {"high": 0, "medium": 0, "low": 0}
+    # "critical" is a distinct top tier (see rules_engine.Severity), not a
+    # variant of "high" — without its own bucket here, a critical finding
+    # would silently fall into the "low" count via the unrecognized-value
+    # fallback below, which is actively misleading for the most severe
+    # findings in the report.
+    counts = {"critical": 0, "high": 0, "medium": 0, "low": 0}
     for issue in all_issues:
         sev = (issue.get("severity") or "low").lower()
         counts[sev if sev in counts else "low"] += 1
@@ -1161,7 +1166,7 @@ def _build_rule_categories(findings_dict, engine):
     for f in findings_dict:
         cat = _get_rule_category(f.get("rule_id", ""))
         sev = f.get("severity", "low")
-        if sev == "high":
+        if sev in ("critical", "high"):
             all_categories[cat] = "FAIL"
         elif sev == "medium" and all_categories.get(cat) != "FAIL":
             all_categories[cat] = "WARNING"
@@ -1239,6 +1244,27 @@ async def view_contract(request: Request, contract_id: int):
 # PDF DOWNLOAD (authenticated)
 # ============================================================
 
+def _truncate_excerpt_for_display(excerpt: str, max_len: int = 300) -> str:
+    """
+    Truncate an evidence excerpt for PDF display without cutting mid-word
+    and without silently hiding that truncation happened.
+
+    The previous behavior (`excerpt[:300]`) cut at an arbitrary character
+    boundary with no indicator — verified on a real report, this cut off
+    before reaching the actual clause language a finding cited as its
+    evidence, with no way for the reader to know text was missing. This
+    truncates at the nearest whitespace boundary at or before max_len (so
+    it never splits a word) and appends how many characters were omitted.
+    """
+    if len(excerpt) <= max_len:
+        return excerpt
+    cut = excerpt.rfind(" ", 0, max_len)
+    if cut == -1 or cut < max_len * 0.6:
+        cut = max_len
+    omitted = len(excerpt) - cut
+    return f"{excerpt[:cut].rstrip()} ... [{omitted} more characters omitted]"
+
+
 def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_engine_version: str,
                       summary_bullets: list, all_issues: list) -> bytes:
     pdf = FPDF()
@@ -1283,7 +1309,8 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
             excerpt = issue.get("matched_excerpt", "")
             if excerpt:
                 pdf.set_font("Helvetica", "I", 8)
-                clean_excerpt = excerpt[:300].encode('latin-1', 'replace').decode('latin-1')
+                displayed_excerpt = _truncate_excerpt_for_display(excerpt)
+                clean_excerpt = displayed_excerpt.encode('latin-1', 'replace').decode('latin-1')
                 pdf.multi_cell(0, 4, f'   "{clean_excerpt}"', new_x="LMARGIN", new_y="NEXT")
             pdf.ln(2)
 
