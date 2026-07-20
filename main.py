@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import os
 import io
+import time
 import zipfile
 import hmac
 import hashlib
@@ -53,9 +54,13 @@ from auth import (
     logout as auth_logout, check_usage_limit,
 )
 from models import User, Contract, Playbook
+from analytics_models import UserAcquisition, UserSession, UserEvent, ContractEvent
 from playbook_engine import PlaybookEngine
 import google_oauth
 import emailer
+import analytics
+from analytics_middleware import AnalyticsMiddleware
+from channel_classifier import CHANNELS as ACQUISITION_CHANNELS
 
 import uuid
 
@@ -153,6 +158,7 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
         response.headers["x-request-id"] = request_id
         return response
 
+app.add_middleware(AnalyticsMiddleware)
 app.add_middleware(RequestIDMiddleware)
 
 rule_engine = RuleEngine()
@@ -402,11 +408,14 @@ async def login_submit(request: Request, email: str = Form(...), password: str =
         return templates.TemplateResponse("login.html", {"request": request, "error": "Invalid email or password."})
     response = RedirectResponse(url="/dashboard", status_code=302)
     create_session(user.id, response)
+    analytics.mark_session_authenticated(request, user)
+    analytics.record_event(request, "login", user=user)
     return response
 
 
 @app.get("/register", response_class=HTMLResponse)
 async def register_page(request: Request):
+    analytics.record_event(request, "signup_started")
     return templates.TemplateResponse("register.html", {"request": request, "error": None})
 
 
@@ -441,6 +450,10 @@ async def register_submit(
     db.commit()
     db.refresh(user)
 
+    analytics.persist_user_acquisition(db, user, request)
+    analytics.mark_session_authenticated(request, user)
+    analytics.record_event(request, "signup_completed", user=user)
+
     response = RedirectResponse(url="/dashboard", status_code=302)
     create_session(user.id, response)
     return response
@@ -448,6 +461,11 @@ async def register_submit(
 
 @app.get("/logout")
 async def logout_route(request: Request):
+    db = next(get_db())
+    current = get_current_user(request, db)
+    if current:
+        analytics.record_event(request, "logout", user=current)
+    analytics.end_session(request)
     response = RedirectResponse(url="/", status_code=302)
     auth_logout(request, response)
     return response
@@ -474,6 +492,11 @@ def google_signin_start(request: Request):
         max_age=600, httponly=True, samesite="lax",
         secure=os.getenv("SECURE_COOKIES", "false").lower() == "true",
     )
+    # Acquisition context (referrer/UTM/landing page/session id) is already
+    # captured by AnalyticsMiddleware's first-touch cookie before we ever
+    # get here, and that cookie rides along through the Google redirect
+    # round-trip since it's scoped to this domain — no extra stash needed.
+    analytics.record_event(request, "google_oauth_redirect")
     return response
 
 
@@ -506,6 +529,7 @@ def google_signin_callback(request: Request, code: str = "", state: str = "", er
 
     db = next(get_db())
     user = db.query(User).filter(User.google_sub == google_sub).first()
+    is_new_user = False
     if not user:
         user = db.query(User).filter(User.email == email).first()
         if user:
@@ -514,6 +538,7 @@ def google_signin_callback(request: Request, code: str = "", state: str = "", er
             if not user.name and claims.get("name"):
                 user.name = claims["name"]
         else:
+            is_new_user = True
             user = User(
                 email=email,
                 password_hash=None,
@@ -525,6 +550,14 @@ def google_signin_callback(request: Request, code: str = "", state: str = "", er
             db.add(user)
         db.commit()
         db.refresh(user)
+
+    analytics.record_event(request, "google_oauth_callback", user=user)
+    # Never lose acquisition info to the OAuth redirect: this persists once,
+    # immutably, using the first-touch cookie captured before Google ever
+    # saw this browser (see google_signin_start above).
+    analytics.persist_user_acquisition(db, user, request)
+    analytics.mark_session_authenticated(request, user)
+    analytics.record_event(request, "signup_completed" if is_new_user else "login", user=user)
 
     response = RedirectResponse(url="/dashboard", status_code=302)
     response.delete_cookie(GOOGLE_STATE_COOKIE)
@@ -788,6 +821,7 @@ async def delete_account(request: Request):
 async def dashboard(request: Request):
     db = next(get_db())
     user = require_user(request, db)
+    analytics.record_event(request, "dashboard_view", user=user)
     contracts = db.query(Contract).filter(
         Contract.user_id == user.id, Contract.analysis_completed == True
     ).order_by(Contract.created_at.desc()).limit(20).all()
@@ -908,7 +942,15 @@ async def upload_contract(
                 "dev_mode": DEV_MODE,
             })
 
+        analytics.record_event(request, "upload_started", user=user, metadata={"filename": file.filename})
+
+        started_at = time.perf_counter()
+        analytics.record_event(request, "analysis_started", user=user, metadata={"filename": file.filename})
         analysis = run_analysis(contract_text)
+        analytics.record_event(request, "analysis_completed", user=user, metadata={
+            "filename": file.filename, "overall_risk": analysis.get("overall_risk"),
+        })
+        processing_time = time.perf_counter() - started_at
 
         # Playbook comparison
         deviations = None
@@ -936,9 +978,22 @@ async def upload_contract(
             policy_blocked_findings_json=analysis.get("policy_blocked_findings"),
         )
         db.add(contract)
+        db.flush()  # assigns contract.id without ending the transaction
+
+        contract_event = analytics.build_contract_event(
+            request, contract_id=contract.id, user_id=user.id,
+            filename=file.filename, file_bytes=file_bytes,
+            status="completed", processing_time=processing_time,
+        )
+        db.add(contract_event)
+
         user.contracts_this_month += 1
         db.commit()
         db.refresh(contract)
+
+        analytics.record_event(request, "upload_completed", user=user, metadata={
+            "contract_id": contract.id, "filename": file.filename, "overall_risk": contract.overall_risk,
+        })
 
         return RedirectResponse(url=f"/contract/{contract.id}", status_code=303)
 
@@ -1364,6 +1419,8 @@ async def download_contract_pdf(request: Request, contract_id: int):
     safe_name = sanitize_filename(contract.filename)
     date_str = datetime.utcnow().strftime("%Y-%m-%d")
 
+    analytics.record_event(request, "download_pdf", user=user, metadata={"contract_id": contract.id})
+
     return Response(
         content=pdf_bytes, media_type="application/pdf",
         headers={"Content-Disposition": f'attachment; filename="TriageAI_{safe_name}_{date_str}.pdf"'},
@@ -1425,6 +1482,8 @@ async def create_share_link(request: Request, contract_id: int, password: str = 
     if password:
         contract.share_password_hash = hash_password(password)
     db.commit()
+
+    analytics.record_event(request, "share_report", user=user, metadata={"contract_id": contract.id})
 
     share_url = f"{get_base_url(request)}/shared/{contract.share_token}"
     return {"share_url": share_url, "token": contract.share_token}
@@ -1564,6 +1623,8 @@ async def playbook_new_submit(
     db.add(playbook)
     db.commit()
 
+    analytics.record_event(request, "playbook_created", user=user, metadata={"playbook_id": playbook.id})
+
     return RedirectResponse(url="/playbooks", status_code=302)
 
 
@@ -1615,6 +1676,7 @@ async def playbook_edit_submit(
                 pass
 
     db.commit()
+    analytics.record_event(request, "playbook_updated", user=user, metadata={"playbook_id": playbook.id})
     return RedirectResponse(url="/playbooks", status_code=302)
 
 
@@ -1638,6 +1700,7 @@ async def playbook_delete(request: Request, playbook_id: int):
 async def pricing_page(request: Request):
     db = next(get_db())
     user = get_current_user(request, db)
+    analytics.record_event(request, "pricing_view", user=user)
     return templates.TemplateResponse("pricing.html", {
         "request": request, "user": user, "plans": PLAN_LIMITS,
         "current_year": datetime.now().year,
@@ -1652,6 +1715,7 @@ async def pricing_page(request: Request):
 async def research_page(request: Request):
     db = next(get_db())
     user = get_current_user(request, db)
+    analytics.record_event(request, "research_view", user=user)
     return templates.TemplateResponse("research.html", {
         "request": request, "user": user,
         "current_year": datetime.now().year,
@@ -1753,6 +1817,9 @@ async def stripe_webhook(request: Request):
                 user.stripe_customer_id = session.get("customer")
                 user.stripe_subscription_id = session.get("subscription")
                 db.commit()
+                analytics.record_event(None, "subscription_started", user_id=user.id, metadata={
+                    "plan": plan, "billing_period": session.get("metadata", {}).get("billing_period"),
+                })
 
     elif event["type"] == "customer.subscription.deleted":
         sub = event["data"]["object"]
@@ -1760,10 +1827,14 @@ async def stripe_webhook(request: Request):
         if customer_id:
             user = db.query(User).filter(User.stripe_customer_id == customer_id).first()
             if user:
+                cancelled_plan = user.plan
                 user.plan = "none"
                 user.monthly_limit = 0
                 user.subscription_status = "canceled"
                 db.commit()
+                analytics.record_event(None, "subscription_cancelled", user_id=user.id, metadata={
+                    "previous_plan": cancelled_plan,
+                })
 
     return {"status": "ok"}
 
@@ -2053,12 +2124,17 @@ async def results_legacy(request: Request, token: str):
 ADMIN_EMAIL = "santhosh.guntupalli09@gmail.com"
 
 
-@app.get("/admin", response_class=HTMLResponse)
-async def admin_dashboard(request: Request):
-    db = next(get_db())
+def require_admin(request: Request, db: DBSession) -> User:
     user = require_user(request, db)
     if user.email.lower() != ADMIN_EMAIL.lower():
         raise HTTPException(status_code=403, detail="Forbidden")
+    return user
+
+
+@app.get("/admin", response_class=HTMLResponse)
+async def admin_dashboard(request: Request):
+    db = next(get_db())
+    user = require_admin(request, db)
 
     from sqlalchemy import func, cast, Date
 
@@ -2166,6 +2242,177 @@ async def admin_dashboard(request: Request):
         "daily_users": [(str(r.day), r.cnt) for r in daily_users],
         "generated_at": datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
     })
+
+
+# ============================================================
+# ADMIN — ACQUISITION & PRODUCT ANALYTICS
+# ============================================================
+
+@app.get("/admin/analytics", response_class=HTMLResponse)
+async def admin_analytics(request: Request, q: str = "", channel: str = ""):
+    db = next(get_db())
+    user = require_admin(request, db)
+
+    from sqlalchemy import func
+
+    def top_n(column, limit: int = 10):
+        rows = (
+            db.query(column, func.count(UserAcquisition.id).label("cnt"))
+            .filter(column.isnot(None), column != "")
+            .group_by(column)
+            .order_by(func.count(UserAcquisition.id).desc())
+            .limit(limit)
+            .all()
+        )
+        return [(value, cnt) for value, cnt in rows]
+
+    top_channels = top_n(UserAcquisition.acquisition_channel)
+    top_referrers = top_n(UserAcquisition.signup_referring_domain)
+    top_landing_pages = top_n(UserAcquisition.landing_page)
+    top_campaigns = top_n(UserAcquisition.utm_campaign)
+    top_countries = top_n(UserAcquisition.signup_country)
+    top_browsers = top_n(UserAcquisition.browser)
+    top_devices = top_n(UserAcquisition.device_type)
+    top_utm_sources = top_n(UserAcquisition.utm_source)
+
+    # --- Acquisition funnel ---
+    total_visitors = db.query(func.count(func.distinct(UserSession.session_id))).scalar() or 0
+    signup_started = db.query(func.count(func.distinct(UserEvent.session_id))).filter(
+        UserEvent.event_type.in_(["signup_started", "google_oauth_redirect"])
+    ).scalar() or 0
+    signup_completed = db.query(func.count(UserAcquisition.id)).scalar() or 0
+
+    upload_counts_by_user = dict(
+        db.query(ContractEvent.user_id, func.count(ContractEvent.id))
+        .filter(ContractEvent.status == "completed", ContractEvent.user_id.isnot(None))
+        .group_by(ContractEvent.user_id)
+        .all()
+    )
+    first_upload_users = sum(1 for c in upload_counts_by_user.values() if c >= 1)
+    second_upload_users = sum(1 for c in upload_counts_by_user.values() if c >= 2)
+
+    subscribed_users = db.query(func.count(func.distinct(UserEvent.user_id))).filter(
+        UserEvent.event_type == "subscription_started"
+    ).scalar() or 0
+
+    funnel = [
+        ("Visitors", total_visitors),
+        ("Signup Started", signup_started),
+        ("Signup Completed", signup_completed),
+        ("First Upload", first_upload_users),
+        ("Second Upload", second_upload_users),
+        ("Subscription", subscribed_users),
+    ]
+
+    # --- Acquisition table: most recent 500, filterable ---
+    acq_query = db.query(UserAcquisition, User).join(User, UserAcquisition.user_id == User.id)
+    if channel:
+        acq_query = acq_query.filter(UserAcquisition.acquisition_channel == channel)
+    if q:
+        like = f"%{q}%"
+        acq_query = acq_query.filter(
+            User.email.ilike(like)
+            | UserAcquisition.utm_source.ilike(like)
+            | UserAcquisition.utm_campaign.ilike(like)
+            | UserAcquisition.signup_referring_domain.ilike(like)
+            | UserAcquisition.signup_country.ilike(like)
+        )
+    rows = acq_query.order_by(UserAcquisition.signup_timestamp.desc()).limit(500).all()
+
+    acquisitions = [{
+        "user_id": u.id,
+        "email": u.email,
+        "signup_date": a.signup_timestamp.strftime("%Y-%m-%d %H:%M") if a.signup_timestamp else "—",
+        "channel": a.acquisition_channel or "Unknown",
+        "country": a.signup_country or "—",
+        "city": a.signup_city or "—",
+        "referrer": a.signup_referring_domain or "Direct",
+        "landing_page": a.landing_page or "—",
+        "utm_source": a.utm_source or "—",
+        "utm_campaign": a.utm_campaign or "—",
+        "browser": a.browser or "—",
+        "os": a.os or "—",
+        "device": a.device_type or "—",
+        "ip": a.signup_ip or a.signup_ipv6 or "—",
+    } for a, u in rows]
+
+    return templates.TemplateResponse("admin_analytics.html", {
+        "request": request, "user": user,
+        "top_channels": top_channels, "top_referrers": top_referrers,
+        "top_landing_pages": top_landing_pages, "top_campaigns": top_campaigns,
+        "top_countries": top_countries, "top_browsers": top_browsers,
+        "top_devices": top_devices, "top_utm_sources": top_utm_sources,
+        "funnel": funnel, "acquisitions": acquisitions,
+        "channel_filter": channel, "q": q, "all_channels": sorted(ACQUISITION_CHANNELS),
+        "generated_at": datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
+    })
+
+
+@app.get("/admin/analytics/user/{target_user_id}", response_class=HTMLResponse)
+async def admin_analytics_user_detail(request: Request, target_user_id: int):
+    db = next(get_db())
+    user = require_admin(request, db)
+
+    target = db.query(User).filter(User.id == target_user_id).first()
+    if not target:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    acquisition = db.query(UserAcquisition).filter(UserAcquisition.user_id == target_user_id).first()
+    sessions = (
+        db.query(UserSession).filter(UserSession.user_id == target_user_id)
+        .order_by(UserSession.started_at.desc()).limit(50).all()
+    )
+    events = (
+        db.query(UserEvent).filter(UserEvent.user_id == target_user_id)
+        .order_by(UserEvent.event_timestamp.desc()).limit(200).all()
+    )
+
+    return templates.TemplateResponse("admin_analytics_user.html", {
+        "request": request, "user": user, "target": target,
+        "acquisition": acquisition, "sessions": sessions, "events": events,
+        "generated_at": datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
+    })
+
+
+@app.get("/admin/analytics/export.csv")
+async def admin_analytics_export_csv(request: Request):
+    db = next(get_db())
+    require_admin(request, db)
+
+    import csv
+    import io
+
+    rows = (
+        db.query(UserAcquisition, User)
+        .join(User, UserAcquisition.user_id == User.id)
+        .order_by(UserAcquisition.signup_timestamp.desc())
+        .all()
+    )
+
+    buffer = io.StringIO()
+    writer = csv.writer(buffer)
+    writer.writerow([
+        "user_id", "email", "signup_timestamp", "acquisition_channel",
+        "signup_country", "signup_region", "signup_city", "signup_referring_domain",
+        "landing_page", "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
+        "browser", "browser_version", "os", "os_version", "device_type",
+        "signup_ip", "signup_ipv6",
+    ])
+    for a, u in rows:
+        writer.writerow([
+            u.id, u.email,
+            a.signup_timestamp.isoformat() if a.signup_timestamp else "",
+            a.acquisition_channel or "", a.signup_country or "", a.signup_region or "", a.signup_city or "",
+            a.signup_referring_domain or "", a.landing_page or "", a.utm_source or "", a.utm_medium or "",
+            a.utm_campaign or "", a.utm_term or "", a.utm_content or "", a.browser or "", a.browser_version or "",
+            a.os or "", a.os_version or "", a.device_type or "", a.signup_ip or "", a.signup_ipv6 or "",
+        ])
+
+    date_str = datetime.utcnow().strftime("%Y%m%d")
+    return Response(
+        content=buffer.getvalue(), media_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="acquisition_export_{date_str}.csv"'},
+    )
 
 
 # ============================================================

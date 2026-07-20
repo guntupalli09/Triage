@@ -12,3 +12,7 @@ python-dotenv>=1.0.0
 sqlalchemy>=2.0.0
 psycopg2-binary>=2.9.0
 redis>=5.0.0
+user-agents>=2.2.0
+# Optional: install geoip2 + set GEOIP_CITY_DB_PATH / GEOIP_ASN_DB_PATH env
+# vars to enable local MaxMind GeoLite2 lookups (see docs/analytics_architecture.md)
+# geoip2>=4.8.0

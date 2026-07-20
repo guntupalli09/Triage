@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ target.email }} — Acquisition Detail — TriageCounsel Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/tailwind.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #0f1117; color: #e2e8f0; }
+    .card { background: #1a1d27; border: 1px solid #2d3148; border-radius: 12px; }
+    .field-label { font-size:11px; color:#64748b; text-transform:uppercase; letter-spacing:.05em; }
+    .field-value { font-size:13px; color:#e2e8f0; word-break: break-word; }
+    .timeline-dot { width:8px; height:8px; border-radius:999px; background:#6366f1; flex-shrink:0; margin-top:5px; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+<div class="flex items-center justify-between px-8 py-4 border-b border-[#2d3148]">
+  <div class="flex items-center gap-3">
+    <span class="text-xl font-bold tracking-tight text-white">⚡ TriageCounsel Admin</span>
+    <span class="text-xs bg-indigo-900 text-indigo-300 px-2 py-0.5 rounded-full font-medium">{{ target.email }}</span>
+  </div>
+  <div class="flex items-center gap-4 text-sm text-slate-400">
+    <span>{{ generated_at }}</span>
+    <a href="/admin/analytics" class="text-indigo-400 hover:text-indigo-300">← Acquisition Analytics</a>
+    <a href="/logout" class="text-slate-500 hover:text-red-400">Logout</a>
+  </div>
+</div>
+
+<div class="px-8 py-6 space-y-8 max-w-[1200px] mx-auto">
+
+  {% if acquisition %}
+  <div class="card p-5">
+    <div class="text-sm font-semibold text-slate-300 mb-4">Signup Acquisition</div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+      {% set fields = [
+        ("Signup Date", acquisition.signup_timestamp.strftime("%Y-%m-%d %H:%M UTC") if acquisition.signup_timestamp else "—"),
+        ("Channel", acquisition.acquisition_channel or "Unknown"),
+        ("Country", acquisition.signup_country or "—"),
+        ("Region", acquisition.signup_region or "—"),
+        ("City", acquisition.signup_city or "—"),
+        ("Timezone", acquisition.signup_timezone or "—"),
+        ("Referrer", acquisition.signup_referrer or "Direct"),
+        ("Referring Domain", acquisition.signup_referring_domain or "—"),
+        ("Landing Page", acquisition.landing_page or "—"),
+        ("Query String", acquisition.query_string or "—"),
+        ("UTM Source", acquisition.utm_source or "—"),
+        ("UTM Medium", acquisition.utm_medium or "—"),
+        ("UTM Campaign", acquisition.utm_campaign or "—"),
+        ("UTM Term", acquisition.utm_term or "—"),
+        ("UTM Content", acquisition.utm_content or "—"),
+        ("Browser", (acquisition.browser or "—") ~ (" " ~ acquisition.browser_version if acquisition.browser_version else "")),
+        ("OS", (acquisition.os or "—") ~ (" " ~ acquisition.os_version if acquisition.os_version else "")),
+        ("Device", acquisition.device_type or "—"),
+        ("Language", acquisition.language or "—"),
+        ("IP", acquisition.signup_ip or acquisition.signup_ipv6 or "—"),
+        ("ISP", acquisition.isp or "—"),
+        ("ASN", acquisition.asn or "—"),
+        ("Session ID", acquisition.session_id or "—"),
+      ] %}
+      {% for label, value in fields %}
+      <div>
+        <div class="field-label">{{ label }}</div>
+        <div class="field-value">{{ value }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+  <div class="card p-5 text-sm text-slate-500">
+    No acquisition record for this user — they signed up before analytics was enabled, or attribution capture failed silently for this signup.
+  </div>
+  {% endif %}
+
+  <div class="card p-5">
+    <div class="text-sm font-semibold text-slate-300 mb-4">Sessions ({{ sessions|length }})</div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-xs">
+        <thead>
+          <tr class="text-left text-slate-500 border-b border-[#2d3148]">
+            <th class="px-3 py-2 font-medium">Started</th>
+            <th class="px-3 py-2 font-medium">Ended</th>
+            <th class="px-3 py-2 font-medium">IP / Country</th>
+            <th class="px-3 py-2 font-medium">Browser / OS / Device</th>
+            <th class="px-3 py-2 font-medium">Landing Page</th>
+            <th class="px-3 py-2 font-medium">Authenticated</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in sessions %}
+          <tr class="border-b border-[#2d3148]">
+            <td class="px-3 py-2 text-slate-400 whitespace-nowrap">{{ s.started_at.strftime("%Y-%m-%d %H:%M") if s.started_at else "—" }}</td>
+            <td class="px-3 py-2 text-slate-400 whitespace-nowrap">{{ s.ended_at.strftime("%Y-%m-%d %H:%M") if s.ended_at else "—" }}</td>
+            <td class="px-3 py-2 text-slate-400">{{ s.ip or "—" }} / {{ s.country or "—" }}</td>
+            <td class="px-3 py-2 text-slate-400">{{ s.browser or "—" }} / {{ s.os or "—" }} / {{ s.device or "—" }}</td>
+            <td class="px-3 py-2 text-slate-400 truncate max-w-[200px]" title="{{ s.landing_page }}">{{ s.landing_page or "—" }}</td>
+            <td class="px-3 py-2">{% if s.is_authenticated %}<span class="text-emerald-400">yes</span>{% else %}<span class="text-slate-600">no</span>{% endif %}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="6" class="px-3 py-6 text-center text-slate-600">No sessions recorded.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card p-5">
+    <div class="text-sm font-semibold text-slate-300 mb-4">Event Timeline ({{ events|length }})</div>
+    <div class="space-y-3 max-h-[600px] overflow-y-auto pr-2">
+      {% for e in events %}
+      <div class="flex items-start gap-3">
+        <div class="timeline-dot"></div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="text-sm font-medium text-slate-200">{{ e.event_type }}</span>
+            <span class="text-xs text-slate-600">{{ e.event_timestamp.strftime("%Y-%m-%d %H:%M:%S") if e.event_timestamp else "—" }}</span>
+          </div>
+          {% if e.page %}<div class="text-xs text-slate-500">{{ e.page }}</div>{% endif %}
+          {% if e.event_metadata %}<div class="text-xs text-slate-600 font-mono truncate">{{ e.event_metadata }}</div>{% endif %}
+        </div>
+      </div>
+      {% else %}
+      <div class="text-xs text-slate-600">No events recorded.</div>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

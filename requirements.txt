@@ -10,6 +10,7 @@ PyPDF2==3.0.1
 fpdf2>=2.7.0
 python-dotenv>=1.0.0
 sqlalchemy>=2.0.0
+user-agents>=2.2.0
 
 # Development/Testing dependencies (not needed for Vercel deployment)
 # Install with: pip install -r requirements-dev.txt

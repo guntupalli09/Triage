@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acquisition Analytics — TriageCounsel Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/tailwind.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #0f1117; color: #e2e8f0; }
+    .card { background: #1a1d27; border: 1px solid #2d3148; border-radius: 12px; }
+    th { position: sticky; top: 0; background: #1a1d27; z-index: 1; }
+    .scroll-table { max-height: 560px; overflow-y: auto; }
+    input#search, select#channel-filter {
+      background:#0f1117; border:1px solid #2d3148; color:#e2e8f0; border-radius:8px; padding:6px 12px;
+    }
+    input#search:focus, select#channel-filter:focus { outline:none; border-color:#6366f1; }
+    .stat-label { font-size:11px; color:#64748b; text-transform:uppercase; letter-spacing:.06em; }
+    .chan-pill { display:inline-block; font-size:11px; padding:2px 8px; border-radius:999px; background:#1e2235; color:#a5b4fc; border:1px solid #2d3148; }
+    .funnel-bar { background: linear-gradient(90deg, #6366f1, #818cf8); border-radius: 6px; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+<div class="flex items-center justify-between px-8 py-4 border-b border-[#2d3148]">
+  <div class="flex items-center gap-3">
+    <span class="text-xl font-bold tracking-tight text-white">⚡ TriageCounsel Admin</span>
+    <span class="text-xs bg-indigo-900 text-indigo-300 px-2 py-0.5 rounded-full font-medium">acquisition analytics</span>
+  </div>
+  <div class="flex items-center gap-4 text-sm text-slate-400">
+    <span>{{ generated_at }}</span>
+    <a href="/admin" class="text-indigo-400 hover:text-indigo-300">← Admin Home</a>
+    <a href="/admin/analytics/export.csv" class="text-emerald-400 hover:text-emerald-300">⬇ Export CSV</a>
+    <a href="/logout" class="text-slate-500 hover:text-red-400">Logout</a>
+  </div>
+</div>
+
+<div class="px-8 py-6 space-y-8 max-w-[1600px] mx-auto">
+
+  <!-- ── FUNNEL ── -->
+  <div class="card p-5">
+    <div class="text-sm font-semibold text-slate-300 mb-4">Acquisition Funnel</div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+      {% set max_val = funnel[0][1] if funnel and funnel[0][1] else 1 %}
+      {% for label, val in funnel %}
+      <div>
+        <div class="stat-label mb-1">{{ label }}</div>
+        <div class="text-2xl font-bold text-white mb-2">{{ val }}</div>
+        <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+          <div class="h-1.5 funnel-bar" style="width:{{ ((val / max_val * 100) if max_val else 0) | round(1) }}%"></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- ── TOP LISTS ── -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    {% set top_lists = [
+      ("Top Channels", top_channels),
+      ("Top Referrers", top_referrers),
+      ("Top Landing Pages", top_landing_pages),
+      ("Top Campaigns", top_campaigns),
+      ("Top Countries", top_countries),
+      ("Top Browsers", top_browsers),
+      ("Top Devices", top_devices),
+      ("Top UTM Sources", top_utm_sources),
+    ] %}
+    {% for title, items in top_lists %}
+    <div class="card p-5">
+      <div class="text-sm font-semibold text-slate-300 mb-3">{{ title }}</div>
+      <div class="space-y-2">
+        {% for value, cnt in items %}
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-slate-400 truncate max-w-[70%]" title="{{ value }}">{{ value }}</span>
+          <span class="text-slate-200 font-semibold">{{ cnt }}</span>
+        </div>
+        {% else %}
+        <div class="text-xs text-slate-600">No data yet.</div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- ── ACQUISITION TABLE ── -->
+  <div class="card p-5">
+    <form method="get" action="/admin/analytics" class="flex items-center justify-between mb-4 flex-wrap gap-3">
+      <div class="text-sm font-semibold text-slate-300">Signups ({{ acquisitions|length }} shown, most recent 500)</div>
+      <div class="flex items-center gap-2">
+        <select id="channel-filter" name="channel" onchange="this.form.submit()">
+          <option value="">All channels</option>
+          {% for c in all_channels %}
+          <option value="{{ c }}" {% if c == channel_filter %}selected{% endif %}>{{ c }}</option>
+          {% endfor %}
+        </select>
+        <input id="search" name="q" type="text" value="{{ q }}" placeholder="Search email, UTM, referrer, country…">
+        <button type="submit" class="text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg">Filter</button>
+      </div>
+    </form>
+    <div class="scroll-table rounded-lg border border-[#2d3148] overflow-hidden">
+      <table class="w-full text-sm" id="acqTable">
+        <thead>
+          <tr class="text-left text-xs text-slate-500 border-b border-[#2d3148]">
+            <th class="px-4 py-3 font-medium">Email</th>
+            <th class="px-4 py-3 font-medium">Signup Date</th>
+            <th class="px-4 py-3 font-medium">Channel</th>
+            <th class="px-4 py-3 font-medium">Country / City</th>
+            <th class="px-4 py-3 font-medium">Referrer</th>
+            <th class="px-4 py-3 font-medium">Landing Page</th>
+            <th class="px-4 py-3 font-medium">UTM Source / Campaign</th>
+            <th class="px-4 py-3 font-medium">Browser / OS</th>
+            <th class="px-4 py-3 font-medium">Device</th>
+          </tr>
+        </thead>
+        <tbody id="acqTbody">
+          {% for a in acquisitions %}
+          <tr class="border-b border-[#2d3148] hover:bg-[#1e2235] transition-colors cursor-pointer"
+              onclick="window.location='/admin/analytics/user/{{ a.user_id }}'">
+            <td class="px-4 py-3 text-indigo-300 font-medium truncate max-w-[180px]">{{ a.email }}</td>
+            <td class="px-4 py-3 text-slate-400 text-xs whitespace-nowrap">{{ a.signup_date }}</td>
+            <td class="px-4 py-3"><span class="chan-pill">{{ a.channel }}</span></td>
+            <td class="px-4 py-3 text-slate-400 text-xs">{{ a.country }} / {{ a.city }}</td>
+            <td class="px-4 py-3 text-slate-400 text-xs truncate max-w-[140px]" title="{{ a.referrer }}">{{ a.referrer }}</td>
+            <td class="px-4 py-3 text-slate-400 text-xs truncate max-w-[140px]" title="{{ a.landing_page }}">{{ a.landing_page }}</td>
+            <td class="px-4 py-3 text-slate-400 text-xs">{{ a.utm_source }} / {{ a.utm_campaign }}</td>
+            <td class="px-4 py-3 text-slate-400 text-xs">{{ a.browser }} / {{ a.os }}</td>
+            <td class="px-4 py-3 text-slate-400 text-xs">{{ a.device }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="9" class="px-4 py-8 text-center text-slate-600">No signups match this filter.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

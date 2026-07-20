@@ -131,6 +131,7 @@ def _run_migrations():
 
 def init_db():
     import models  # noqa: F401 — registers all models
+    import analytics_models  # noqa: F401 — registers acquisition/session/event models
     Base.metadata.create_all(bind=engine)
     try:
         _run_migrations()
