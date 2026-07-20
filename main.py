@@ -1265,6 +1265,28 @@ def _truncate_excerpt_for_display(excerpt: str, max_len: int = 300) -> str:
     return f"{excerpt[:cut].rstrip()} ... [{omitted} more characters omitted]"
 
 
+_PDF_CHAR_TRANSLATIONS = str.maketrans({
+    "‘": "'", "’": "'",   # curly single quotes
+    "“": '"', "”": '"',   # curly double quotes
+    "–": "-", "—": "-",   # en dash, em dash
+    "…": "...",                # ellipsis
+    "•": "-",                  # bullet
+    "\xa0": " ",                    # non-breaking space
+})
+
+
+def _pdf_safe(text: str) -> str:
+    """
+    Make text safe for the core Helvetica PDF font (latin-1 only), which
+    raises FPDFUnicodeEncodingException (a 500) on rule titles/rationale/LLM
+    output containing curly quotes, em/en dashes, ellipses, etc. Common
+    punctuation is transliterated to a plain-ASCII equivalent so the report
+    stays readable; anything else falls back to being dropped.
+    """
+    translated = text.translate(_PDF_CHAR_TRANSLATIONS)
+    return translated.encode("latin-1", "replace").decode("latin-1")
+
+
 def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_engine_version: str,
                       summary_bullets: list, all_issues: list) -> bytes:
     pdf = FPDF()
@@ -1274,7 +1296,7 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
     pdf.set_font("Helvetica", "B", 18)
     pdf.cell(0, 12, "Triage Counsel - Contract Risk Report", new_x="LMARGIN", new_y="NEXT")
     pdf.set_font("Helvetica", "", 10)
-    pdf.cell(0, 6, f"File: {filename}", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 6, f"File: {_pdf_safe(filename)}", new_x="LMARGIN", new_y="NEXT")
     pdf.cell(0, 6, f"Date: {datetime.utcnow().strftime('%B %d, %Y')}", new_x="LMARGIN", new_y="NEXT")
     pdf.cell(0, 6, f"Rule Engine: v{rule_engine_version or '2.0.0'}", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(6)
@@ -1291,7 +1313,7 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
         pdf.cell(0, 8, "Executive Summary", new_x="LMARGIN", new_y="NEXT")
         pdf.set_font("Helvetica", "", 10)
         for bullet in summary_bullets:
-            pdf.multi_cell(0, 5, f"  - {bullet}", new_x="LMARGIN", new_y="NEXT")
+            pdf.multi_cell(0, 5, f"  - {_pdf_safe(bullet)}", new_x="LMARGIN", new_y="NEXT")
         pdf.ln(4)
 
     if all_issues:
@@ -1299,18 +1321,18 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
         pdf.cell(0, 8, "Findings", new_x="LMARGIN", new_y="NEXT")
         for i, issue in enumerate(all_issues, 1):
             severity = issue.get("severity", "medium").upper()
-            title = issue.get("title", "Finding")
+            title = _pdf_safe(issue.get("title", "Finding"))
             pdf.set_font("Helvetica", "B", 10)
             pdf.multi_cell(0, 6, f"{i}. [{severity}] {title}", new_x="LMARGIN", new_y="NEXT")
             rationale = issue.get("rationale", "")
             if rationale:
                 pdf.set_font("Helvetica", "", 9)
-                pdf.multi_cell(0, 5, f"   {rationale}", new_x="LMARGIN", new_y="NEXT")
+                pdf.multi_cell(0, 5, f"   {_pdf_safe(rationale)}", new_x="LMARGIN", new_y="NEXT")
             excerpt = issue.get("matched_excerpt", "")
             if excerpt:
                 pdf.set_font("Helvetica", "I", 8)
                 displayed_excerpt = _truncate_excerpt_for_display(excerpt)
-                clean_excerpt = displayed_excerpt.encode('latin-1', 'replace').decode('latin-1')
+                clean_excerpt = _pdf_safe(displayed_excerpt)
                 pdf.multi_cell(0, 4, f'   "{clean_excerpt}"', new_x="LMARGIN", new_y="NEXT")
             pdf.ln(2)
 
