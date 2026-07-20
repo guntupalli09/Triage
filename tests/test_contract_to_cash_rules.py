@@ -207,10 +207,18 @@ class TestTerminationToBillingConsequences:
 
 class TestPricingAmbiguityRules:
     def test_price_referenced_only_in_unattached_exhibit_flagged(self, engine):
+        # This text also satisfies M_EXHIBIT_MISSING_01's topic (an exhibit
+        # reference with "attached hereto"), so the two fold into one
+        # GROUP_missing_sow_schedule_attachment parent finding — see
+        # ROOT_CAUSE_GROUPS / _group_related_findings. The underlying
+        # M_PRICE_EXHIBIT_MISSING_01 signal is preserved in
+        # related_findings rather than shipping as a second, independently
+        # counted finding for the same root cause.
         text = "Pricing for the Services is set forth in Exhibit A attached hereto, which governs all fees due under this Agreement."
         result = engine.analyze(text)
-        findings = [f for f in result["findings"] if f.rule_id == "M_PRICE_EXHIBIT_MISSING_01"]
-        assert len(findings) == 1
+        grouped = [f for f in result["findings"] if f.rule_id == "GROUP_missing_sow_schedule_attachment"]
+        assert len(grouped) == 1
+        assert "M_PRICE_EXHIBIT_MISSING_01" in grouped[0].related_findings
 
     def test_exhibit_actually_included_does_not_flag(self, engine):
         text = (

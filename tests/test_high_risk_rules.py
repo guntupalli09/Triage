@@ -380,7 +380,10 @@ class TestH_ASYMMETRIC_LIABILITY_01:
         result = engine.analyze(text)
         findings = [f for f in result["findings"] if f.rule_id == "H_ASYMMETRIC_LIABILITY_01"]
         assert len(findings) > 0
-        assert findings[0].severity == Severity.HIGH
+        # Raised to Critical: an asymmetric liability cap is unbounded
+        # financial exposure for whichever party isn't protected by it —
+        # the top severity tier per the recalibrated framework.
+        assert findings[0].severity == Severity.CRITICAL
 
     def test_false_positive_no_vendor_mention(self, engine):
         text = "Each party's aggregate liability shall not exceed the total fees paid under this agreement."
