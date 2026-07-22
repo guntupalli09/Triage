@@ -1,483 +1,859 @@
-# Severity Classification Architecture
+# Severity Classification Architecture — v1.0
 
-Status: **proposed** — this document defines the target architecture. The
-current 117 rules still carry legacy analogy-assigned severities pending the
-migration in §9. Until Phase 5 of that migration completes, `Severity` on
-`Rule` remains the source of truth and this document is not yet enforced.
+Status: **proposed specification**, superseding the earlier draft (git
+history preserves it as `v0`). The current 117 rules still carry legacy
+analogy-assigned severities pending the migration in §12. Until that
+migration completes, `Severity` on `Rule` remains the runtime source of
+truth and this document is not yet enforced.
 
-This is intended as the permanent, versioned standard referenced by every
-future rule contribution. It replaces "classify by analogy to a similar
-rule" with a deterministic, auditable, factor-based scoring system.
-
----
-
-## 1. Is a single CRITICAL/HIGH/MEDIUM/LOW axis sufficient?
-
-**No.** A single ordinal label forces an *implicit, unrecorded* weighting of
-several legally distinct dimensions every time someone assigns it:
-
-- magnitude of exposure if the clause operates as written
-- *what kind* of harm it is (money vs. a waived legal right vs. transferred
-  ownership vs. regulatory/criminal exposure)
-- whether the harm is reversible
-- who bears it (the contracting entity vs. a natural person) and how many
-  parties it can reach
-
-Collapsing all of that into one label at authoring time is exactly the
-"this feels HIGH" problem — the weighting still happens, it just happens
-silently in a reviewer's head instead of on paper. It also can't be audited
-after the fact: a reviewer two years later can't reconstruct *why* a rule
-landed where it did, because the reasoning was never written down anywhere
-but a sentence of prose.
-
-**Proposed architecture: a two-layer model**, closely analogous to CVSS
-(Common Vulnerability Scoring System) in security — the closest existing
-industry precedent for "many independent reviewers must converge on the same
-severity for a large, growing item count, using a documented deterministic
-formula instead of judgment."
-
-- **Layer 1 — Intrinsic Factor Vector.** Every rule is scored on ~10
-  independently-defined, jurisdiction-neutral factors (§2), each on a
-  documented ordinal scale with an explicit definition per level (not "use
-  your judgment").
-- **Layer 2 — Deterministic Aggregation.** A pure function maps the factor
-  vector to one of the four tiers (§4). The four-tier label is *retained* as
-  the public-facing projection (UI badges, `signature_readiness` gating,
-  existing `ONE_WAY_RULE_IDS`/severity-keyed logic all keep working
-  unmodified) — but it becomes a **computed, derived field**, never a
-  directly-authored one. The factor vector, not the tier, is the actual
-  source of truth and the audit trail.
-
-This is a deliberate compromise, not a missed opportunity for something
-"more pure": collapsing the whole system to a continuous score everywhere
-would be more theoretically elegant but would break every existing
-downstream consumer that keys off the four-tier enum for no additional
-rigor — the rigor comes from *how* the tier is computed, not from exposing
-a raw number in the UI.
+This version is not a refinement of v0 — several of v0's factors were
+deleted, redefined, or merged after a 40-clause stress test exposed real
+double-counting and at least one category error. §1 is a full self-critique
+of v0. Nothing from v0 survives here by default; anything that does
+survives because it was re-derived and re-tested, not because it was
+already written down.
 
 ---
 
-## 2. Intrinsic factors
+## 1. Self-critique of the prior proposal
 
-A factor is legitimate here iff it can be determined **from the clause's
-text and general legal doctrine alone** — without reference to the specific
-parties, the specific governing law, market/negotiation dynamics, or
-probabilistic/actuarial estimation (this test is what separates §2 from §3).
+Reviewed against the specific failure modes requested: overlap, hidden
+assumptions, ambiguous definitions, double counting, unintuitive outputs.
 
-Factors are grouped into three **harm tiers** used for weighting in §4.
+**1.1 — PE, RW, and FB double-counted the same fact on personal
+guaranties.** v0 scored an unconditional personal guaranty that waives
+suretyship defenses as PE=3 *and* RW=3 *and* implicitly drove FB up too —
+three factors all reacting to one underlying fact ("this guarantor has no
+way out"). That's not three independent risks, it's one risk read three
+times. **Fix:** RW is redefined to cover only *forum/process* rights
+(the right to notice-and-hearing, a jury, a class, an independent
+arbitrator) — not substantive contract defenses. Waiving a suretyship
+defense is now scored entirely inside PE (which internally encodes
+capped-vs-uncapped), and FB is redefined to apply strictly to the
+*entity's* exposure, never the guarantor's. Each fact is now scored in
+exactly one place.
+
+**1.2 — CR and RS both listed "loss of a license/authorization."** An
+identical example appeared under both Criminal Exposure and Regulatory
+Exposure in v0 — a direct overlap the brief specifically asked me to hunt
+for. **Fix:** CR is now strictly *penal* exposure (fines payable as
+punishment, referral for prosecution, imprisonment exposure). License and
+authorization loss lives entirely in RS.
+
+**1.3 — MC (Trigger Conditionality) was a category error, not a severity
+factor.** On reflection, "does this fire automatically on signature vs.
+require a contingent event" is a *detection-methodology* question — the
+engine already models exactly this distinction via `RuleClass`
+(`PRESENCE_RISK` vs `REQUIRED_SECTION`). Encoding it a second time as a
+severity factor mixed two different layers of the system. **Fix: deleted.**
+Not merged, not renamed — removed, because it didn't measure an
+independent legal fact at all.
+
+**1.4 — The v0 weighting scheme (Tier A/B/C ×4/×2/×1) was asserted, not
+derived, and under-weighted unbounded financial exposure specifically.**
+Stress-testing an uncapped vendor-liability clause (`shall not be limited`)
+against v0's formula produced a WAS that landed **LOW** — a result that is
+flatly wrong by any commercial-lawyer's standard, and wrong in the
+*dangerous* direction (a real top-tier risk scored as noise). This is
+exactly the "unintuitive result" the brief asked me to hunt for and fix,
+and it's the most important thing v0 got wrong. See the Refinement Log
+(§4) for how this was fixed — it required promoting unbounded financial
+exposure to its own ceiling rule rather than trusting the aggregate.
+
+**1.5 — v0 had no factor for unilateral, unconstrained control over a
+fundamental deal term (price, existence, location) short of a rights
+waiver or an uncapped dollar figure.** Landlord relocation rights and
+franchise termination-without-cure — both correctly HIGH in last session's
+rules — scored **LOW** under a naive re-run of v0's formula, because
+neither one waives a forum right, transfers ownership, or states an
+unbounded dollar amount. The harm is real but doesn't fit any of v0's nine
+remaining factors. This surfaced during the stress test, not in the
+original design, and required inventing a new factor (§2, UD) rather than
+patching an existing one — patching REV or OC to also cover this would have
+recreated the overlap problem from §1.1 in a new place.
+
+**1.6 — v0's level definitions used unmeasurable adjectives** ("substantial,"
+"broad," "significant") without defining what makes something substantial.
+Two reviewers could legitimately disagree on whether $50,000 of exposure is
+"substantial." **Fix:** every level in §2 below is now defined by the
+presence or absence of specific, enumerable textual markers (e.g., "any and
+all," a stated dollar cap, "sole and absolute discretion," a defined notice
+period) — the same kind of marker vocabulary the detection regex already
+searches for. A reviewer applies the rubric by checking whether specific
+words appear, not by judging degree.
+
+**1.7 — Mutuality was excluded from v0 entirely, and that was itself a
+mistake — but naively re-adding it as a subjective judgment would have been
+a worse mistake.** Standard mutual at-will employment ("either party may
+terminate at any time") scored as a false positive once UD was introduced
+in §1.5's fix, because unconstrained discretion over the relationship's
+existence, without a mutuality check, flags completely ordinary boilerplate
+as high severity. The fix is not "score mutuality subjectively" — it's
+that the engine *already has* a deterministic, jurisdiction-neutral
+mutuality classifier (`_classify_party_direction` / `party_direction`,
+used today for `ONE_WAY_RULE_IDS`). UD is defined to consume that existing
+output as an input, scoring 0 whenever the discretion is held identically
+by both parties. This is a legitimate intrinsic fact (derivable from clause
+grammar alone) reused from existing deterministic machinery, not a new
+subjective axis.
+
+---
+
+## 2. Intrinsic factors (v1.0)
+
+Litmus test, unchanged from v0 and reaffirmed after stress-testing it
+against 40 clauses: a factor is legitimate **iff it is determinable from
+the clause's text, the contract's own party-direction grammar, and general
+legal doctrine — never from the specific parties' identities, the specific
+governing law, deal size/stakes, or any probability estimate.**
+
+11 factors (down from v0's 10 — one deleted per §1.3, one added per §1.5),
+grouped into three harm tiers. Every entry states what it measures, what it
+explicitly does *not* measure, and why it can't be merged into a neighbor —
+required by the brief for every factor, not just the ones that changed.
 
 ### Tier A — Fundamental rights & personal harm (weight ×4)
 
-| Factor | Scale | Definition |
-|---|---|---|
-| **PE** — Personal Exposure | 0–3 | Does liability/obligation extend to a natural person rather than staying with the contracting entity? 0 = entity only. 1 = personal exposure exists but is capped/conditional. 2 = personal exposure is substantial and largely unconditional. 3 = unconditional, uncapped personal liability (e.g. unlimited personal guaranty). |
-| **RW** — Rights/Procedural Waiver | 0–3 | Does the clause waive a procedural or substantive legal right rather than merely allocate business risk? 0 = no waiver. 1 = waives a negotiable contractual protection (e.g. notice period). 2 = waives a significant statutory protection (e.g. a specific consumer-protection right). 3 = waives a fundamental due-process/procedural right (e.g. confession of judgment, waiver of right to a hearing). |
-| **CR** — Criminal/Quasi-Criminal Exposure | 0–2 | Could the clause's operation, or the underlying non-compliance it governs, expose a party to criminal liability or license revocation? 0 = none. 1 = indirect/regulatory-adjacent (e.g. licensing-board exposure). 2 = direct criminal exposure. Acts as a ceiling factor (§4) — rare, but must exist. |
+**PE — Personal Exposure to a Natural Person**
+- 0: no clause language extends any obligation to a named natural person.
+- 1: a natural person is named as obligor, and the obligation is capped by
+  a stated dollar figure or formula.
+- 2: a natural person is named as obligor, uncapped, but limited to a
+  closed, enumerated list of obligations (e.g., "guarantees Base Rent
+  only").
+- 3: a natural person is named as obligor for "any and all"/unqualified
+  obligations, no stated cap, no closed list — *including* where the
+  clause separately waives defenses to that obligation (per §1.1, that
+  waiver is absorbed into this level, not re-scored under RW).
+- Does NOT measure: whether the person can contest the claim procedurally
+  (RW); the entity's own exposure (FB, by definition excludes personal
+  guarantors).
+- Cannot merge into RW: a capped personal guaranty (PE=1) with no waiver
+  language exists and is common; RW=0 there while PE>0 — the two vary
+  independently, proving they measure different things.
+
+**RW — Waiver of Forum/Process Rights**
+- 0: no waiver of how a dispute gets resolved.
+- 1: waives a negotiable procedural convenience (e.g., objection to venue).
+- 2: replaces court with a *neutral* alternative forum (e.g., ordinary
+  arbitration with a recognized administrator) — a different process, not
+  an eliminated one.
+- 3: eliminates any adversarial process before an adverse consequence
+  attaches (confession of judgment/cognovit — judgment with no hearing at
+  all), **or** stacks jury-trial waiver + class-action waiver + mandatory
+  arbitration together, such that no meaningful avenue to contest a claim
+  remains (see stress test #13 — three individually-moderate waivers
+  compound into something categorically worse than any one alone).
+- Does NOT measure: financial exposure size (FB) or whether a natural
+  person is exposed (PE) — a purely corporate jury-trial waiver scores RW
+  with PE=0.
+- Cannot merge into PE: RW fires identically whether the party bound is an
+  individual or a corporation (jury-trial waivers appear constantly in
+  pure B2B contracts with PE=0 throughout).
+
+**CR — Penal Exposure**
+- 0: none.
+- 1: clause references compliance with a criminal statute, exposure
+  indirect (a representation of compliance only).
+- 2: clause text itself creates or fails to prevent direct criminal
+  exposure (e.g., a provision requiring backdating, or a
+  kickback/structuring arrangement).
+- Does NOT measure: loss of a license or regulatory authorization — that
+  is entirely RS's job after §1.2's fix.
+- Cannot merge into RS: penal liability (fines to the state as punishment,
+  imprisonment) is doctrinally distinct from administrative/regulatory
+  enforcement (fines to a regulator, license loss) even though both stem
+  from statutes — the remedy-holder and the nature of the sanction differ.
 
 ### Tier B — Structural financial & legal exposure (weight ×2)
 
-| Factor | Scale | Definition |
-|---|---|---|
-| **FB** — Financial Boundedness | 0–3 | Is the financial exposure created by the clause bounded by its own terms? 0 = capped at a defined, modest amount. 1 = capped but at a large/uncertain multiple. 2 = cap exists but has broad carve-outs that functionally void it. 3 = facially unlimited (no cap stated). |
-| **RS** — Regulatory/Statutory Exposure | 0–3 | Does the clause's operation, or a gap in it, expose a party to regulatory enforcement, fines, or loss of a required authorization (HIPAA, GDPR, securities, franchise-relationship statutes, etc.)? 0 = none. 3 = direct exposure to a specific, named regulatory regime. |
-| **AT** — Asset/Ownership Transfer | 0–3 | Does the clause transfer *ownership* of an asset (IP, equity, real property, data) rather than merely license, limit, or condition its use? 0 = no transfer. 3 = unconditional, broad ownership transfer. |
+**FB — Financial Boundedness and Certainty (entity-level only)**
+- 0: the entity's monetary obligation or payment right is capped by a
+  stated amount/formula, *and* is not contingent on a fact outside this
+  party's control.
+- 1: capped, but by a large/undefined multiple ("greater of $X or Y×
+  fees").
+- 2: a cap exists elsewhere in the agreement, but this clause's own
+  carve-out ("except for," "notwithstanding the cap") removes it from that
+  cap's coverage.
+- 3: no cap referenced anywhere (structurally uncapped: "unlimited,"
+  "without limit," "any and all claims"), **or** the party's right to be
+  paid at all is made entirely contingent on a third party's independent,
+  uncontrollable decision (e.g., pay-if-paid — see Refinement Log #3,
+  which broadened this factor from pure liability-cap language to also
+  cover payment-contingency, since both are the same underlying legal
+  fact: "is the financial outcome bounded and certain").
+- Does NOT measure: a natural person's guaranty exposure (PE, by
+  definition).
+- Cannot merge into AT: FB concerns the *amount/certainty* of money; AT
+  concerns *title* to an asset. A capped liability clause with a separate
+  broad IP assignment scores FB=0, AT=3 — fully independent in practice.
+
+**RS — Named Regulatory/Statutory Exposure**
+- 0: no named regulatory regime implicated by the clause's own text or its
+  clause_category doctrine.
+- 1: a regime is named for representation/compliance purposes only, no
+  operative obligation tied to it.
+- 2: a regime is named and the clause creates or omits a substantive
+  compliance obligation under it (e.g., GDPR "Data Controller" language
+  with no DPA requirement).
+- 3: a regime is named, the clause's own gap makes non-compliance
+  structural (e.g., PHI handled, no BAA required), and the regime carries
+  direct enforcement authority against a contracting party.
+- Does NOT measure: whether *this contract clause* creates new penal
+  exposure (CR) — a routine FCA certification clause references a heavy
+  statute (RS=3) without itself creating new criminal exposure beyond what
+  the statute already imposes by operation of law (see stress test #34,
+  an explicit example of this distinction being load-bearing).
+- Cannot merge into SC (below): RS is a doctrinal fact ("is a named regime
+  implicated"); SC is a headcount fact ("how many people does this reach
+  per the clause's own defined terms"). Stress test #25 and #33 show these
+  varying independently — a two-party securities representation is RS=3,
+  SC=0; a broad marketing data-share with no named regime is RS=0, SC=3.
+
+**AT — Ownership/Title Transfer**
+- 0: license/use-right language only, no title transfer.
+- 1: transfer limited to specifically enumerated, narrow deliverables.
+- 2: broad transfer language ("all right, title and interest") carved back
+  by an explicit retained-rights or license-back provision.
+- 3: unconditional, broad transfer, no retained rights, no license-back.
+- Does NOT measure: whether the transfer, once made, can practically be
+  undone (REV) — an AT=3 clause with a contractual repurchase option still
+  scores AT=3 (the grant as drafted is unconditional) but would score lower
+  on REV.
+- Cannot merge into FB: an unconditional IP assignment with zero dollars
+  attached scores AT=3, FB=0 (no monetary exposure at all) — the two vary
+  fully independently.
+
+**UD — Unilateral Discretion Over a Fundamental Term**
+*(new in v1.0 — see Refinement Log #2 for why v0 lacked this and what broke
+without it)*
+- Scored 0 by definition whenever the same discretion is held identically
+  by both parties (sourced from the engine's existing deterministic
+  `party_direction` classification — see §1.7). This is not a judgment
+  call; it's a lookup against machinery the engine already computes.
+- 0: no unconstrained unilateral discretion over price, term/existence,
+  scope, or location — changes require mutual agreement or follow an
+  objective external standard (e.g., CPI-indexed).
+- 1: unilateral discretion exists but is bounded by a stated objective
+  formula/ceiling.
+- 2: unbounded discretion, but limited to a single non-existential term
+  (e.g., relocation within the same building; CAM charges with no cap;
+  audit-rights scope).
+- 3: unbounded discretion touching the existence/continuation of the
+  relationship itself, or an economic term whose absence of any
+  procedural *or* financial constraint makes it functionally equivalent
+  (termination "for any reason or no reason"; an earnout payable entirely
+  at the buyer's discretion with no formula).
+- Does NOT measure: whether notice/cure softens the exercise of that
+  discretion (OC, scored separately) or whether the dollar amount at stake
+  is capped (FB, scored separately) — UD fires on the *existence* of
+  unconstrained control; OC and FB determine whether anything constrains
+  how it's actually exercised. See Refinement Log #2 and #4 for why UD
+  needed to combine with *either* OC *or* FB, not just OC, to correctly
+  separate ordinary at-will termination from things like uncapped-earnout
+  buyer discretion.
+- Cannot merge into RW: RW is about *forum* — how a dispute gets resolved.
+  UD is about *deal terms* — who controls what the deal even is. A
+  contract can have UD=3 (unilateral termination) with RW=0 (ordinary court
+  access preserved), or RW=3 (confession of judgment) with UD=0 (no
+  discretion over deal terms at all, just a harsh enforcement mechanism).
 
 ### Tier C — Operational & temporal exposure (weight ×1)
 
-| Factor | Scale | Definition |
-|---|---|---|
-| **REV** — Reversibility | 0–3 | If the harm occurs, can it be remedied (damages, specific performance, cure) or is it structural/irreversible (disclosed trade secret, executed release of unknown claims, entered judgment)? 0 = fully remediable. 3 = structurally irreversible. |
-| **SC** — Scope of Affected Parties | 0–3 | Does the clause's failure mode affect only the signing counterparty, or reach third parties (consumers, employees, the public)? 0 = counterparty only. 3 = broad third-party/public exposure. |
-| **OC** — Operational Continuity Impact | 0–2 | Does the clause remove access to a mission-critical asset/service/premises without a notice or cure window? 0 = notice/cure provided. 2 = no notice or cure required. |
-| **DUR** — Duration/Persistence | 0–2 | Is the obligation/exposure time-bound, or perpetual/unbounded? 0 = defined, bounded term. 2 = perpetual or indefinite. |
-| **MC** — Trigger Conditionality | 0–2 | Does the adverse effect operate automatically/unconditionally upon signature, or only upon a specific, discrete contingent event (default, breach)? 0 = requires a defined contingent event. 2 = automatic/unconditional on signature. This is a structural fact about the text ("is there a gate or not"), not a probability estimate — that distinction is what keeps it out of §3. |
+**REV — Legal Reversibility of Harm**
+- 0: fully compensable by ordinary damages.
+- 1: compensable, but only via a difficult-to-prove remedy (e.g., lost
+  profits).
+- 2: partially irreversible (e.g., a confidential disclosure, once made,
+  cannot be undone, though damages may follow).
+- 3: structurally irreversible (an entered judgment, an executed release of
+  unknown claims, information published to the public domain, equity
+  already diluted, a trained model that has ingested the data).
+- Does NOT measure: whether an asset's *title* moved (AT) — a broad release
+  of claims scores REV=3 with AT=0; the two vary independently (stress
+  test #10 vs. #14).
 
-10 factors total. This intentionally does *not* enumerate "IP ownership,"
-"confidentiality," "data privacy," "litigation exposure," or "termination
-risk" as separate top-level factors from the prompt's example list — each of
-those is a **clause_category** (§5), not an intrinsic-severity factor; their
-actual severity is produced by scoring *that instance* against PE/RW/FB/RS/
-AT/REV/SC/OC/DUR/MC like any other clause. Keeping the factor count near 10
-is deliberate: every additional factor is additional surface for reviewer
-disagreement, and the goal is a rubric two people can apply identically, not
-an exhaustive taxonomy.
+**SC — Structural Breadth of Exposed Persons**
+- 0: only the two contracting parties, per the clause's own defined terms.
+- 1: contracting parties plus a defined, closed class (e.g., named
+  affiliates).
+- 2: contracting parties plus an open-but-role-bounded class ("all Company
+  employees," "all Subcontractors").
+- 3: an unbounded/public class by the clause's own text ("any third
+  party," "the general public," undefined "partners").
+- Does NOT measure: whether a named regulatory regime is implicated (RS) —
+  independence demonstrated in stress test #25/#33.
+
+**OC — Notice/Cure Absence on Adverse Unilateral Action**
+- 0: a specific notice and/or cure period is stated (N/A, scored 0 by
+  convention, for clauses that don't involve an adverse unilateral action
+  at all — this is a textual applicability gate, not a judgment call).
+- 1: "reasonable notice" or similarly undefined notice, no cure period.
+- 2: "immediately," "without notice," "at any time," or silent on notice
+  entirely.
+- Does NOT measure: whether the underlying discretion is one-sided (UD) —
+  a *mutual* right to terminate immediately without notice scores UD=0
+  (per the mutuality gate) but OC=2 independently; OC alone, without UD
+  confirming asymmetry, never reaches a ceiling.
+
+**DUR — Temporal Boundedness**
+- 0: bounded by the Agreement's term or a stated survival period.
+- 1: survives termination, but for a stated, bounded post-termination
+  period.
+- 2: "perpetual," "in perpetuity," "indefinitely," or silent on survival
+  limits for an obligation that logically continues.
+- Does NOT measure: whether the ongoing obligation is itself risky in
+  substance (that's whatever factor the substance triggers — e.g., a
+  perpetual license with unconditional transfer is scored on AT, DUR
+  separately notes only that it never ends).
 
 ---
 
-## 3. Factors deliberately excluded
+## 3. Factors deliberately excluded (reaffirmed after stress-testing)
 
-Each of these fails the litmus test in §2 — they depend on facts external to
-the clause's text and doctrine:
+Unchanged in substance from v0, restated with the stress-test evidence that
+confirms each exclusion was correct rather than convenient:
 
-| Excluded factor | Why |
+| Excluded factor | Confirmed by |
 |---|---|
-| Likelihood of litigation / dispute frequency | Depends on the parties' actual future behavior and market conditions — not a property of the text. Two identical clauses in different deals have identical intrinsic severity but wildly different dispute likelihood. |
-| Bargaining power | Extrinsic to the clause. The same clause is exactly as severe whether a large or small party signed it. |
-| Ease of negotiation | A market/tactical fact, and circular — clauses are "hard to negotiate away" partly *because* the market already treats them as high-severity; using it as an input double-counts the conclusion as a cause. |
-| Estimated dollar damages | Requires case-specific facts (contract value, actual counterparty facts) unknowable at rule-authoring time. **FB** (structural boundedness) is the correct intrinsic proxy — it asks "is there a cap," not "what will the cap cost." |
-| Probability of enforcement | Depends on governing law and court behavior — this is exactly what the Applicability Layer (§6) exists to model separately. Folding it into intrinsic severity would re-couple the two things this architecture is designed to decouple. |
-| Frequency of occurrence in real contracts | A prevalence/telemetry metric — useful for a *different* reporting surface ("how often does this show up"), but not a legal-risk fact about the clause itself. |
-| Contract value / deal size | Extrinsic, per-document, not a property of the rule. |
-| Counterparty sophistication/creditworthiness | Extrinsic. |
-| Governing-law enforceability, statute of limitations | Explicitly modeled in the Jurisdiction layer (§6), never in intrinsic severity. |
+| Likelihood of litigation/enforcement | Stress test #34 (FCA certification): the statute's real-world enforcement risk is identical regardless of this contract's drafting quality — scoring it would attribute background statutory risk to a specific clause that didn't create it. |
+| Bargaining power / ease of negotiation | Never appeared as a necessary input in 40 clauses scored blind to which party had leverage. |
+| Estimated dollar damages | FB (§2) is the correct proxy — "is it bounded," not "what would it cost." Stress test #3 shows FB alone correctly identifies uncapped liability as top-tier without ever estimating a number. |
+| Deal size / commercial stakes | Stress test #40 (assignment-on-change-of-control) is the clearest case: the same clause is existential for a company mid-acquisition and irrelevant for one that never will be — an extrinsic fact about the deal, not the clause. Flagged in §5 as the single most contestable stress-test disagreement precisely because excluding this factor is uncomfortable but principled. |
+| Governing-law enforceability | Modeled entirely in §6 (jurisdiction), confirmed necessary by stress test #17 (non-compete): identical clause text is banned in one state and standard practice in another — conflating that into intrinsic severity would make "severity" silently mean different things depending on which contract you're reading. |
 
 ---
 
-## 4. Scoring model
+## 4. Refinement log (what the stress test actually broke, and how it was fixed)
 
-### 4.1 Ceiling rules (evaluated first, in order — first match wins)
+This is the evidence that the framework was tested to failure and repaired,
+not asserted once and left alone.
 
-A pure weighted sum can "average away" a single catastrophic factor (a 3/3
-on personal exposure diluted by four low scores elsewhere). Real risk
-frameworks (and the existing engine's own `CRITICAL` tier definition)
-already treat certain facts as automatically dispositive regardless of
-anything else — this is made explicit and deterministic rather than left as
-unwritten intuition:
+1. **PE/RW/FB double-counting on personal guaranties** — found while
+   scoring stress test #8 against v0's definitions. Fixed by narrowing RW
+   to forum/process rights only and making FB entity-only (§1.1, §2).
 
-```
-1. CR >= 1                          -> CRITICAL
-2. PE == 3                          -> CRITICAL
-3. RW == 3                          -> CRITICAL
-4. FB == 3 and PE >= 2              -> CRITICAL   (unbounded exposure reaching a person)
-5. AT == 3 and REV == 3             -> HIGH        (irreversible unconditional ownership transfer)
-```
+2. **Landlord relocation and franchise-termination-without-cure scored LOW**
+   — found while re-running last session's HIGH-rated lease/franchise
+   rules through v0's nine factors; none of them fired. Root cause: no
+   factor captured "unconstrained control over a fundamental deal term."
+   Fixed by adding UD (§2) — but UD's first version created a **new** false
+   positive (see #4 below).
 
-If no ceiling rule fires, proceed to 4.2.
+3. **Pay-if-paid scored LOW** (stress test #22) — none of the original
+   factors captured payment-contingency risk; it isn't a liability cap,
+   an ownership transfer, or a rights waiver, it's a distinct fact about
+   whose credit risk a payment obligation rides on. Rather than add a 12th
+   factor for one clause type, FB's definition was broadened (§2) to cover
+   "boundedness *and certainty*" of a monetary outcome, since both a
+   missing cap and an uncontrollable payment contingency are the same
+   underlying question: is the financial result of this clause bounded and
+   knowable. This also correctly pulled lien-adjacent construction clauses
+   into scope without a new factor.
 
-### 4.2 Weighted Aggregate Score (WAS)
+4. **Standard mutual at-will employment scored HIGH** the moment UD was
+   added (stress test #16) — an unconstrained-discretion factor with no
+   mutuality check flags completely ordinary boilerplate. Fixed by gating
+   UD on the engine's existing `party_direction` mutuality classification
+   (§1.7): mutual discretion scores UD=0 by definition. Re-run: at-will
+   boilerplate correctly returns LOW; one-sided lease relocation and
+   franchise termination correctly return HIGH.
 
-```
-WAS = Σ over all factors of (level_i × tier_weight)
-  tier_weight = 4 for Tier A factors, 2 for Tier B, 1 for Tier C
-```
+5. **Earnout-at-buyer's-discretion scored LOW even after UD existed**
+   (stress test #29) — the UD ceiling as first written required pairing
+   with OC (no notice/cure), but earnout discretion isn't a
+   notice-and-cure situation at all; OC is structurally N/A (scored 0) for
+   purely economic discretion clauses, so the ceiling could never fire for
+   an entire category of real risk (uncapped pricing/earnout/MFN-adjacent
+   discretion). Fixed by widening the ceiling to fire on UD=3 paired with
+   **either** OC=2 (procedural: no notice/cure) **or** FB≥2 (substantive:
+   no financial constraint) — unconstrained discretion is severe when
+   nothing, procedural or financial, bounds how it gets exercised.
 
-Maximum possible WAS with the factor set in §2:
-- Tier A: (3 + 3 + 2) × 4 = 32
-- Tier B: (3 + 3 + 3) × 2 = 18
-- Tier C: (3 + 3 + 2 + 2 + 2) × 1 = 12
-- **Max WAS = 62**
+6. **A pattern, not a bug: absence-type findings score systematically
+   lower than presence-type findings** (stress test #28, deadlock
+   mechanism; #35, government flow-down clauses) — both landed LOW under
+   pure intrinsic scoring, consistent with each other. This maps cleanly
+   onto the engine's existing `FindingType` distinction
+   (`ADVERSE_LANGUAGE_DETECTED` vs. `EXPECTED_PROTECTION_NOT_FOUND`), which
+   already treats absence-claims as lower-confidence than presence-claims.
+   Documented here as an intentional, now-twice-observed property of the
+   architecture, not patched away — a missing protective clause is
+   definitionally less certain to matter than adverse language that is
+   actually present, and the two systems (confidence and severity) agree
+   on that independently, which is reassuring rather than coincidental.
 
-### 4.3 Threshold table (initial hypothesis — see §9 for calibration)
-
-| WAS range | % of max | Tier |
-|---|---|---|
-| Ceiling rule fired | — | CRITICAL (or HIGH per rule 5) |
-| 43–62 | ≥70% | HIGH |
-| 22–42 | 35–69% | MEDIUM |
-| 0–21 | <35% | LOW |
-
-These cut points are a **starting hypothesis, not a final answer** — §9
-Phase 3 calibrates them empirically against the existing 117 rules re-scored
-by an attorney reviewer, then freezes them as a versioned constant. Once
-frozen, changing a threshold is a governed, reviewed change (§8.6 golden-set
-regression), not an ad hoc edit.
-
-### 4.4 Final severity
-
-```
-severity_tier = ceiling_result if a ceiling rule fired else band(WAS)
-```
-
-Fully deterministic: the same factor vector always produces the same tier,
-by construction. `severity_derivation` (§5) records *which* rule produced
-it, so the answer to "why is this CRITICAL" is always a one-line lookup, not
-a re-litigation.
+**Deferred, not adopted** (explicitly flagged rather than smuggled into
+v1.0 without full re-testing): a "compound ceiling escalation" rule — when
+two *independently* fired HIGH ceilings coincide on one clause (stress test
+#30, AI training-on-data: `AT/REV` and `RS/SC` both fire from different
+underlying facts) — could arguably escalate to CRITICAL. Left out of v1.0
+because one stress-test observation isn't enough evidence to add a new
+compounding rule; candidate for v1.1 after it's tested against more
+multi-ceiling clauses.
 
 ---
 
-## 5. Rule metadata schema
+## 5. Stress test — 40 clauses
+
+Factor vector shorthand: `PE·RW·CR·FB·RS·AT·UD·REV·SC·OC·DUR`. WAS =
+(PE+RW+CR)×4 + (FB+RS+AT+UD)×2 + (REV+SC+OC+DUR)×1. Ceiling rules (§6)
+checked first; WAS/bands (§6) only apply if no ceiling fires.
+
+| # | Type | Clause | Vector | Ceiling | WAS | Tier | Note |
+|---|---|---|---|---|---|---|---|
+| 1 | NDA | Perpetual confidentiality, mutual, standard exceptions | 0·0·0·0·0·0·0·0·0·0·2 | — | 2 | LOW | Duration alone, nothing else — see §5.1 disagreement with legacy MEDIUM |
+| 2 | NDA | Confidential-info definition lacks public/independent-development carve-out | 0·0·0·0·0·0·0·1·0·0·0 | — | 1 | LOW | Drafting-clarity issue, not a rights/financial fact |
+| 3 | SaaS | Vendor liability "shall not be limited" | 0·0·0·3·0·0·0·1·0·0·0 | FB=3 | — | **HIGH** | Matches legacy H_LOL_01 |
+| 4 | SaaS | Liability capped at 12mo fees, standard carve-outs | 0·0·0·0·0·0·0·1·0·0·0 | — | 1 | LOW | Capped = correctly a non-issue |
+| 5 | MSA | Vendor-only termination for convenience, 30-day notice | 0·0·0·0·0·0·3·1·0·0·0 | — | 7 | LOW | One-sided but constrained by notice — see §5.1 |
+| 6 | MSA | Vendor-only termination for convenience, immediate, sole discretion | 0·0·0·0·0·0·3·1·0·2·0 | UD=3∧OC=2, one-sided | — | **HIGH** | Same clause type as #5, differs only by notice — a distinction legacy's single flat rule can't make |
+| 7 | MSA | Mutual termination for convenience, 30-day notice | 0·0·0·0·0·0·0·1·0·0·0 | — | 1 | LOW | UD=0 via mutuality gate |
+| 8 | Loan | Unlimited personal guaranty, "any and all obligations" | 3·0·0·0·0·0·0·1·0·0·0 | PE=3 | — | **CRITICAL** | |
+| 9 | Loan | Limited personal guaranty, capped at $50,000 | 1·0·0·0·0·0·0·1·0·0·0 | — | 5 | LOW | Capped personal exposure is a real but modest fact |
+| 10 | Loan | Confession of judgment / cognovit | 0·3·0·0·0·0·0·3·0·0·0 | RW=3 | — | **CRITICAL** | |
+| 11 | Loan | Mandatory arbitration, neutral administrator, no other waivers | 0·2·0·0·0·0·0·1·0·0·0 | — | 9 | LOW | Plain arbitration alone is not top-tier |
+| 12 | Loan | Jury-trial waiver only | 0·1·0·0·0·0·0·1·0·0·0 | — | 5 | LOW | |
+| 13 | Loan | Arbitration + jury waiver + class-action waiver, stacked | 0·3·0·0·0·0·0·2·2·0·0 | RW=3 | — | **CRITICAL** | Three moderate waivers compounding into "no meaningful recourse" — RW's level-3 definition earns its keep here |
+| 14 | Employment | Broad invention assignment, no own-time carve-out | 0·0·0·0·0·3·0·3·0·0·0 | AT=3∧REV=3 | — | **HIGH** | Matches legacy |
+| 15 | Employment | Invention assignment with explicit own-time carve-out | 0·0·0·0·0·1·0·1·0·0·0 | — | 3 | LOW | Carve-out does real work |
+| 16 | Employment | Standard mutual at-will disclaimer | 0·0·0·0·0·0·0·0·0·0·0 | — | 0 | LOW | Confirms mutuality gate fix (Refinement #4) |
+| 17 | Employment | Non-compete, 2-year radius, no stated consideration | 0·0·0·0·1·0·0·1·0·0·1 | — | 4 | LOW | Enforceability is jurisdiction-dependent, correctly modeled outside intrinsic severity |
+| 18 | Employment | Severance release, broad, no EEOC/whistleblower carve-out | 0·2·0·0·1·0·0·2·0·0·0 | — | 12 | LOW (boundary) | Right at the LOW/MEDIUM cut line — flagged for Phase-3 review, not force-resolved |
+| 19 | Lease | Personal guaranty of all lease obligations, uncapped, full term | 3·0·0·0·0·0·0·1·0·0·0 | PE=3 | — | **CRITICAL** | |
+| 20 | Lease | CAM charges, landlord sole discretion, no cap anywhere | 0·0·0·3·0·0·2·1·0·0·0 | FB=3 | — | **HIGH** | First pass mis-scored this FB=2 (see text below table) — corrected to FB=3, which is a stronger result than legacy's MEDIUM |
+| 21 | Lease | Rent escalation capped at 3%/year | 0·0·0·0·0·0·0·0·0·0·0 | — | 0 | LOW | Capped = correctly a non-issue |
+| 22 | Construction | Pay-if-paid | 0·0·0·3·0·0·0·2·0·0·0 | FB=3 | — | **HIGH** | Matches legacy after Refinement #3 |
+| 23 | Construction | Lien waiver required before payment received | 0·1·0·2·0·0·0·2·0·0·0 | — | 10 | LOW (boundary) | Flagged for Phase-3 review against legacy MEDIUM |
+| 24 | Construction | Retainage withheld, no release trigger | 0·0·0·2·0·0·0·1·0·0·2 | — | 7 | LOW | |
+| 25 | Procurement | MFN clause | 0·0·0·0·0·0·0·0·0·0·0 | — | 0 | LOW | Correctly a pure commercial term |
+| 26 | Procurement | Unlimited customer audit rights, no notice | 0·0·0·0·0·0·2·1·0·2·0 | — | 7 | LOW | |
+| 27 | Partnership | Capital call default → uncapped dilution penalty | 0·0·0·0·0·3·3·3·0·0·0 | AT=3∧REV=3 | — | **HIGH** | First pass mis-scored AT=2 (see text below table) — corrected; framework recommends *upgrading* legacy MEDIUM |
+| 28 | Partnership | 50/50 ownership, no deadlock mechanism | 0·0·0·0·0·0·0·1·0·0·2 | — | 3 | LOW | Absence-type finding — see Refinement #6 |
+| 29 | M&A | Earnout entirely at buyer's discretion, no formula | 0·0·0·3·0·0·3·2·0·0·0 | UD=3∧FB≥2, one-sided | — | **HIGH** | Only fires after Refinement #5 widened the UD ceiling |
+| 30 | AI | Model training on customer data, no opt-out, "all data" | 0·0·0·0·3·3·2·3·3·0·0 | AT=3∧REV=3 (also RS=3∧SC=3 independently) | — | **HIGH** | Double-ceiling case — candidate for deferred CRITICAL-escalation rule, see Refinement log |
+| 31 | Privacy | Unlimited data retention, no deletion right, regime not named | 0·0·0·0·2·0·0·2·2·0·2 | — | 10 | LOW (boundary) | |
+| 32 | Privacy | Same, but clause explicitly names GDPR | 0·0·0·0·3·0·0·2·2·0·2 | — | 12 | LOW | Possible deferred ceiling (RS=3∧DUR=2), not adopted in v1.0 |
+| 33 | Healthcare | PHI handling, no BAA execution requirement | 0·0·0·0·3·0·0·2·2·0·0 | — | 16 | LOW (boundary) | Just under the MEDIUM cut — flagged, not force-resolved |
+| 34 | Government | FCA certification required, clause itself is routine/ambiguous drafting | 0·0·1·0·3·0·0·2·0·0·0 | — | 12 | LOW | Statutory exposure exists regardless of this clause — see §3 |
+| 35 | Government | Mandatory flow-down clauses omitted (absence-type) | 0·0·0·0·2·0·0·1·0·0·0 | — | 5 | LOW | Absence-type, consistent with #28/#35 pattern |
+| 36 | Consumer | Auto-renewal, 60-day notice, clearly disclosed | 0·0·0·0·0·0·0·0·0·0·0 | — | 0 | LOW | |
+| 37 | Consumer | Auto-renewal, cancel only via certified mail in a 5-day annual window | 0·0·0·0·0·0·2·1·0·0·1 | — | 6 | LOW | Dark pattern, but state auto-renewal statutes are the right layer for this, not intrinsic severity |
+| 38 | Boilerplate | Governing law / exclusive jurisdiction | 0·0·0·0·0·0·0·0·0·0·0 | — | 0 | LOW | |
+| 39 | Boilerplate | Counterparts / e-signature | 0·0·0·0·0·0·0·0·0·0·0 | — | 0 | LOW | |
+| 40 | MSA | Assignment restricted on change of control, no M&A carve-out | 0·0·0·0·0·0·2·1·0·0·0 | — | 5 | LOW | Most contestable disagreement in the set — see §5.1 |
+
+### 5.1 Disagreements worth naming explicitly
+
+- **#1 (perpetual confidentiality, LOW vs. legacy MEDIUM):** recommend
+  **framework wins**. Duration alone, with no personal/financial/rights
+  fact attached, is a compliance-burden item, not a legal-risk item. Legacy
+  MEDIUM likely reflects "this is inconvenient to comply with," which is a
+  different question than "this creates disproportionate exposure."
+- **#5/#6 (termination for convenience, notice-dependent split):**
+  recommend **framework wins and legacy should split into two rules** — a
+  single flat HIGH severity for "termination for convenience" can't
+  distinguish a properly-noticed exit right from an immediate,
+  sole-discretion one, and the distinction is exactly the kind of thing a
+  real negotiator cares about.
+- **#20 (uncapped CAM, HIGH vs. legacy MEDIUM) and #27 (capital-call
+  dilution, HIGH vs. legacy MEDIUM):** recommend **legacy be upgraded**.
+  Both were caught by the framework's ceiling logic once scored correctly,
+  and both involve genuinely unbounded exposure that legacy under-rated.
+- **#18, #23, #33 (severance release, lien waiver, missing BAA — all LOW,
+  legacy MEDIUM, all sitting within a few points of the band boundary):**
+  recommend **neither wins outright — send to Phase-3 attorney
+  calibration.** These are the honest boundary cases the threshold table
+  (§6.3) is not yet confident enough to resolve unilaterally; they're
+  exactly what the golden-set calibration pass exists for.
+- **#40 (assignment-on-change-of-control, LOW vs. legacy HIGH):** the
+  single most contestable result in the set. The framework's answer is
+  principled (the clause only imposes a consent requirement; it doesn't
+  block the transaction outright, waive a right, or create unbounded
+  exposure), but the real-world severity of this clause is famously
+  deal-size-dependent, which is precisely the kind of extrinsic fact §3
+  excludes on purpose. Flagged for the most scrutiny of any row in Phase 3
+  rather than resolved here.
+
+---
+
+## 6. Scoring algorithm
+
+### 6.1 Ceiling rules (checked first, in order; first match wins)
+
+```
+1. CR == 2                                    -> CRITICAL
+2. PE == 3                                    -> CRITICAL
+3. RW == 3                                    -> CRITICAL
+4. FB == 3 and PE == 2                        -> CRITICAL
+5. FB == 3                                    -> HIGH   (floor)
+6. AT == 3 and REV == 3                       -> HIGH   (floor)
+7. RS == 3 and SC == 3                        -> HIGH   (floor)
+8. UD == 3 and (OC == 2 or FB >= 2) and
+   discretion is one-sided (party_direction)  -> HIGH   (floor)
+```
+
+**Hard invariant, stated explicitly and preserved from v0:** CRITICAL is
+**only** reachable through rules 1–4. It is never reachable by aggregate
+score alone. This means every CRITICAL finding has a one-sentence, citable
+reason ("this rule fired because PE==3"), never an opaque "the weighted sum
+happened to be high" — which is the single property that matters most for
+legal defensibility, and stress-testing confirmed it holds (no clause in
+the 40-clause set reached CRITICAL-range WAS without a ceiling firing).
+
+### 6.2 Weighted Aggregate Score (WAS)
+
+```
+WAS = (PE + RW + CR) × 4  +  (FB + RS + AT + UD) × 2  +  (REV + SC + OC + DUR) × 1
+```
+
+### 6.3 Thresholds (derived independently, not fit to legacy — see §7)
+
+Reachable range excluding all ceiling-triggering combinations (PE≤2, RW≤2,
+CR≤1, FB≤2, and UD=3 only paired with OC<2 and FB<2): approximate max ≈ 52.
+
+| WAS | Tier |
+|---|---|
+| Ceiling fired | CRITICAL or HIGH per §6.1 |
+| ≥ 36 (≈70%) | HIGH |
+| 18–35 (≈35–69%) | MEDIUM |
+| 0–17 (< 35%) | LOW |
+
+These are a **first-principles hypothesis**, explicitly not tuned to
+reproduce legacy labels (per §7's mandate). The 40-clause test surfaced
+four boundary cases (§5.1) sitting within a few points of the LOW/MEDIUM
+line — expected, and exactly what the Phase-3 golden-set calibration
+(§12) exists to resolve with actual attorney review, not further
+first-principles guessing.
+
+---
+
+## 7. Threshold calibration methodology (as mandated: framework first, legacy compared after)
+
+1. **Design independently.** §2–§6 were built and stress-tested (§5)
+   entirely from the litmus test in §2, before consulting how any specific
+   legacy rule was labeled.
+2. **Apply to existing rules.** §5's 40 clauses include 11 direct restatements
+   of last-session's rules (guaranty, confession of judgment, CAM,
+   pay-if-paid, lien waiver, retainage, capital call, earnout, at-will,
+   invention assignment, franchise-adjacent termination) plus several
+   pre-v6 rule types (uncapped liability, IP assignment, perpetual
+   confidentiality, non-compete, auto-renewal, governing law,
+   counterparts).
+3. **Compare.** §5.1 lists every disagreement found, in both directions —
+   3 recommend the framework's answer over legacy, 2 recommend legacy be
+   upgraded, 4 are genuine toss-ups deferred to attorney review, 1
+   (assignment-on-change-of-control) is flagged as the most contestable
+   result in the entire set rather than resolved by assertion.
+4. **Recommendation:** the framework should **not** be re-tuned to make
+   these disagreements disappear. Every one of them has a stated,
+   defensible reason. The correct next step is Phase 2/3 of the migration
+   (§12) — full retroactive scoring of all 117 rules by a
+   contributor-plus-attorney pair, using this document's rubric, producing
+   a complete disagreement list like §5.1 but exhaustive rather than
+   representative. This document demonstrates the *method*; running it
+   against all 117 (soon 500+) rules is real review work that shouldn't be
+   simulated here.
+
+---
+
+## 8. Rule metadata schema
+
+Unchanged in structure from v0's design, with `factor_vector` updated to
+the 11-factor set above and `severity_derivation` updated to record which
+of the 8 ceiling rules (or which band) produced the tier:
 
 ```python
 @dataclass(frozen=True)
 class RuleMetadata:
     rule_id: str
-    rule_version: str                 # semver of this rule's definition
+    rule_version: str                  # semver of this rule's definition — MANDATORY
+                                        # purpose: lets a factor_vector change be diffed
+                                        # against a specific prior version during audit.
 
-    # --- Classification (controlled vocabularies, not free text) ---
-    legal_domain: LegalDomain          # Lease | Loan | Employment | MSA | Franchise | ...
-    clause_category: ClauseCategory    # Indemnification | LiabilityCap | IPAssignment |
-                                        # Termination | RightsWaiver | ... — CROSS-CUTS
-                                        # legal_domain (e.g. "Indemnification" appears in
-                                        # MSAs, leases, and M&A alike). Severity correlates
-                                        # with clause_category far more than with
-                                        # legal_domain, which is why §8.2's consistency
-                                        # check groups by this field, not by domain.
-    affected_party_role: PartyRole     # Tenant | Guarantor | Employee | Buyer | Vendor |
-                                        # Any | ContextDependent
-    affected_asset: AssetType          # Money | IP | Data | RealProperty |
-                                        # PersonalRights | Equity | OperationalContinuity
+    legal_domain: LegalDomain          # MANDATORY, controlled vocabulary
+                                        # purpose: practice-area filtering/reporting only —
+                                        # deliberately NOT used in severity or consistency
+                                        # checks (that's clause_category's job, see below).
 
-    # --- Intrinsic scoring (the actual source of truth) ---
-    factor_vector: Dict[str, FactorScore]   # {"PE": FactorScore(level=3, justification="...")}
-    severity_score: int                      # computed WAS
-    severity_tier: Severity                  # computed, never hand-set
-    severity_derivation: SeverityDerivation  # {method: "ceiling"|"band", rule_fired / band}
+    clause_category: ClauseCategory    # MANDATORY, controlled vocabulary, cross-cuts domain
+                                        # purpose: groups doctrinally-identical clauses
+                                        # (e.g. "Indemnification" appears in MSAs, leases,
+                                        # M&A alike) — this is what §9's monotonicity check
+                                        # groups by, since severity correlates with clause
+                                        # doctrine, not practice area.
 
-    # --- Detection (unchanged from today) ---
-    detection: DetectionSpec           # pattern | anchors/nearby | topic/protective — as today
+    affected_party_role: PartyRole     # MANDATORY, controlled vocabulary
+                                        # purpose: supports party_direction-aware UD scoring
+                                        # (§2) and reporting ("show me every rule that can
+                                        # bind a Guarantor").
 
-    # --- Applicability & jurisdiction (§6) ---
-    prerequisite_facts: List[str]      # deterministic gates, e.g. "guarantor is a natural
-                                        # person" — distinct from jurisdiction; these decide
-                                        # whether the rule is IN SCOPE at all, not how
-                                        # severe it is once in scope
-    jurisdiction_profile: List[JurisdictionModifier]   # empty by default, §6
+    affected_asset: AssetType          # MANDATORY, controlled vocabulary
+                                        # purpose: reporting/filtering; also a cross-check —
+                                        # a rule with affected_asset=IP and AT=0 is a schema
+                                        # inconsistency worth flagging (§9.5).
 
-    # --- Explainability & governance ---
-    rationale: str                     # human-readable explanation (exists today)
-    references: List[str]              # statute sections, restatement cites, model-act
-                                        # provisions — required for legal defensibility
-    authored_by: str
-    reviewed_by: str                   # licensed-attorney or domain reviewer sign-off, §7
-    review_date: date
+    factor_vector: Dict[str, FactorScore]  # MANDATORY — the actual source of truth
+                                        # purpose: {"PE": FactorScore(level=3,
+                                        # justification="...")} — every level requires a
+                                        # justification string; a bare integer is a schema
+                                        # violation. This is what makes blind re-scoring
+                                        # (§10.7) checkable at all.
 
-    # --- Compatibility ---
-    legacy_severity: Optional[Severity]  # pre-migration severity, kept permanently (§9)
-    schema_version: str                  # so old rule records can be forward-migrated
-    aliases: List[str]                   # exists today
+    severity_score: int                # MANDATORY, GENERATED — never hand-set
+                                        # purpose: the computed WAS; recomputed by CI on
+                                        # every change (§9.1) and must equal severity_tier's
+                                        # derivation.
+
+    severity_tier: Severity            # MANDATORY, GENERATED — never hand-set
+                                        # purpose: the four-tier public projection (§ "Open
+                                        # question" note below on why this stays 4 tiers).
+
+    severity_derivation: SeverityDerivation  # MANDATORY, GENERATED
+                                        # purpose: {method: "ceiling"|"band", rule_fired:
+                                        # str|None, band: str|None} — the one-line answer
+                                        # to "why is this CRITICAL," required by §6.1's
+                                        # invariant.
+
+    detection: DetectionSpec           # MANDATORY — unchanged from today's pattern/
+                                        # anchors/nearby/topic/protective spec.
+                                        # purpose: detection is orthogonal to severity by
+                                        # design; kept as its own field so a severity-rubric
+                                        # change never requires touching detection regex.
+
+    prerequisite_facts: List[str]      # OPTIONAL (empty list valid)
+                                        # purpose: deterministic scope-gating facts
+                                        # independent of jurisdiction, e.g. "guarantor is a
+                                        # natural person" — decides whether the rule applies
+                                        # at all, not how severe it is once it does.
+
+    jurisdiction_profile: List[JurisdictionModifier]  # OPTIONAL, empty by default
+                                        # purpose: §11's overlay entries; empty means "no
+                                        # jurisdiction-specific data known," a valid and
+                                        # common state, not an error.
+
+    rationale: str                     # MANDATORY
+                                        # purpose: human-readable explanation, exists today,
+                                        # unchanged — the plain-English complement to the
+                                        # factor_vector's justifications.
+
+    references: List[str]              # OPTIONAL but STRONGLY RECOMMENDED for Tier-A
+                                        # ceiling-triggering rules specifically
+                                        # purpose: statute sections/restatement citations —
+                                        # required for legal defensibility of any CRITICAL
+                                        # finding in particular.
+
+    authored_by: str                   # MANDATORY
+    reviewed_by: str                   # MANDATORY — see §10.8 sign-off requirement
+    review_date: date                  # MANDATORY
+                                        # purpose (all three): governance trail — who wrote
+                                        # and who signed off, permanently.
+
+    legacy_severity: Optional[Severity]  # MANDATORY once migration (§12) begins; None
+                                        # before then
+                                        # purpose: permanent historical record — "what was
+                                        # this called before the rearchitecture, and does the
+                                        # new tier disagree" — never deleted, per §7.4.
+
+    schema_version: str                 # MANDATORY
+                                        # purpose: lets old rule records be forward-migrated
+                                        # mechanically when the schema itself changes.
+
+    aliases: List[str]                  # OPTIONAL, unchanged from today.
 ```
 
-Design notes:
+Deliberately **excluded** from this schema, each for a stated reason:
 
-- `factor_vector` stores `{level, justification}` pairs, never bare
-  integers — a level with no textual justification is a schema violation.
-  This is what makes "two independent reviewers reach the same severity"
-  checkable (§7, §8): the justification is what a second reviewer
-  re-derives from, not the number.
-- `clause_category` is deliberately separate from `legal_domain` so the
-  consistency check in §8.2 can compare, e.g., every indemnification clause
-  across every practice area on equal footing, rather than only within one
-  domain's rules.
-- `legacy_severity` is never deleted, even after migration — it's the
-  permanent record of "what this rule used to be called, before the
-  rearchitecture, and why it changed."
-- `confidence` (evidentiary confidence that a *regex match* is real) already
-  exists in the engine (`_score_confidence`) and is correctly **not** part
-  of this schema — that's about match quality, this is about the underlying
-  clause's severity. They must stay separate: a CRITICAL rule with a
-  medium-confidence match is still CRITICAL if it fires; conflating the two
-  would silently downgrade real risks because of an unrelated evidentiary
+- **Confidence** (evidentiary confidence a regex match is real) — already
+  exists (`_score_confidence`) and must stay separate: a CRITICAL rule with
+  a medium-confidence match is still CRITICAL if it fires. Merging the two
+  would silently downgrade real risks over an unrelated evidentiary
   question.
+- **Dispute frequency / telemetry** — a real and useful metric, but for a
+  different reporting surface entirely; including it here would reintroduce
+  exactly the "how often does this actually bite" factor §3 excludes from
+  severity.
+- **A raw numeric-only severity field with no tier** — rejected per the
+  "Open question" resolution carried over from v0: the four-tier label
+  remains the stable public contract for existing consumers
+  (`signature_readiness`, `ONE_WAY_RULE_IDS`); `severity_score` is exposed
+  alongside it for anyone who wants the finer-grained number, not instead
+  of it.
 
 ---
 
-## 6. Jurisdiction architecture
+## 9. Validation rules (CI-enforced)
 
-Severity must stay jurisdiction-neutral (§2's litmus test already enforces
-this at the factor level). Jurisdiction is modeled as a **separate,
-optional overlay**, never as a second severity engine:
+1. **Recomputation check.** `severity_tier` must equal
+   `compute_severity(factor_vector)` exactly; build fails otherwise.
+2. **Cross-rule monotonicity within `clause_category`.** For any two rules
+   A, B sharing a `clause_category`: if every factor level in A is ≥ the
+   corresponding level in B (at least one strictly greater), then
+   `severity(A)` must be ≥ `severity(B)`. Automatic, whole-rulebase version
+   of "why is this HIGH when a strictly worse clause is MEDIUM."
+3. **Duplicate/near-duplicate detection.** Similarity clustering over
+   `rationale` + detection pattern flags candidates for human triage before
+   merge.
+4. **Ceiling-coverage keyword check.** A maintained keyword list scanned
+   against `rationale`; presence of a high-risk term (e.g. "confession of
+   judgment," "unlimited," "criminal") with no corresponding ceiling factor
+   triggered is flagged for manual review — catches under-scoring.
+5. **Schema validation.** Required fields present; every factor level has a
+   non-empty justification; `clause_category`/`legal_domain`/
+   `affected_asset` in their controlled vocabularies; any
+   `jurisdiction_profile` entry carries a real citation.
+6. **Golden-set regression.** A frozen set of attorney-confirmed
+   `(factor_vector → tier)` examples, seeded from §5's 40 clauses plus the
+   Phase-3 (§12) full retroactive pass, must still score correctly after
+   any change to the scoring function or thresholds; any flip requires
+   explicit sign-off.
+7. **Detection-pattern test-coverage lint.** Every `rule_id` maps to at
+   least one positive, one negative, and one messy-formatting test.
+8. **Mutuality-gate sanity check (new, from Refinement #4).** Any rule
+   scoring UD > 0 must have `affected_party_role` set to something other
+   than a symmetric/mutual designation, or the PR is blocked — a structural
+   backstop against reintroducing the mutual-at-will false positive.
+
+---
+
+## 10. Mandatory rule-authoring workflow
+
+1. **Clause identification.** Assign `clause_category` from the controlled
+   taxonomy; propose new categories via a separate taxonomy-governance PR.
+2. **Factor scoring.** Score all 11 factors from §2, each with a
+   justification string tied to specific clause language.
+3. **Automated score computation.** Run `compute_severity()` — the
+   contributor never hand-picks the tier.
+4. **Derivation record auto-generated.**
+5. **Detection pattern authoring.** Unchanged discipline: whitespace/
+   line-wrap-tolerant regex, positive/negative/messy-formatting tests.
+6. **Prerequisite facts & jurisdiction stub.** Declare `prerequisite_facts`;
+   leave `jurisdiction_profile` empty absent a sourced citation.
+7. **Blind re-score gate.** A second contributor, given only `rationale`
+   and clause text (not the first scorer's vector), independently scores
+   all 11 factors. A tier divergence blocks the PR until the *factor
+   definitions* — not the tier — are reconciled.
+8. **Subject-matter/legal sign-off.** `reviewed_by` recorded permanently.
+9. **Automated validation suite passes** (§9).
+10. **Documentation generated, not hand-written**, from the metadata store.
+
+---
+
+## 11. Jurisdiction architecture (reviewed, confirmed correct, one hardening added)
+
+The four-stage pipeline from the prior draft survives the stress test
+unchanged in structure — §5's non-compete example (#17) is direct evidence
+it's necessary: identical clause text is banned in one state and standard
+elsewhere, and intrinsic severity correctly stays constant across both
+because §2's factors never reference governing law.
 
 ```
 Rule
-  │  (pattern/detection + factor_vector + rationale + clause_category)
+  │  (detection + factor_vector + rationale + clause_category)
   ▼
-Intrinsic Severity                              <- §4, always computed,
-  │  same for every document, any governing law     always shown
+Intrinsic Severity                     <- §6, identical for every document,
+  │                                        any governing law, always shown
   ▼
 Applicability Layer  (per-document, deterministic)
-  - resolve the document's governing_law (extracted from a governing-law
-    clause, or explicitly declared by the caller)
+  - resolve governing_law (extracted or declared)
   - look up JurisdictionModifier for (clause_category, governing_law)
-  - absence of an entry is a valid, common state: "no jurisdiction-specific
-    data known" — NOT an error, and NOT treated as "not risky"
+  - absence of an entry is valid ("no jurisdiction-specific data known"),
+    never an error and never "not risky"
   ▼
-Jurisdiction Modifier Table (separately maintained, versioned, keyed by
-  (clause_category, jurisdiction) — never by rule_id, so one modifier entry
-  covers every rule in that clause_category automatically)
-  Each entry expresses ONLY one of a small closed set of effects — it can
-  never re-derive severity from scratch, which is what keeps this table
-  from becoming a second, ungoverned severity system:
-    - enforceability: valid | void | voidable | restricted | unsettled
-    - severity_adjustment: none | -1_tier | +1_tier   (bounded to ±1 band —
-      a jurisdiction fact can nudge severity, never invert CRITICAL to LOW)
-    - statutory_citation: str
-    - note: str
+Jurisdiction Modifier Table (keyed by clause_category × jurisdiction,
+  never by rule_id — one entry covers every rule in that category)
+  - enforceability: valid | void | voidable | restricted | unsettled
+  - severity_adjustment: none | -1_tier | +1_tier   (bounded to ±1 band)
+  - statutory_citation, note
   ▼
 Final Finding
-  - intrinsic_severity        (always present)
-  - jurisdiction_adjusted_severity   (present only when governing_law is
-    known; = intrinsic_severity + severity_adjustment, clamped to ±1 band)
-  - enforceability_status     (surfaced distinctly — see example below)
+  - intrinsic_severity (always present)
+  - jurisdiction_adjusted_severity (present only if governing_law known)
+  - enforceability_status
   - jurisdiction_confidence: known | assumed | unknown
 ```
 
-**Worked example — confession of judgment (`H_LOAN_CONFESSION_JUDGMENT_01`,
-RW=3 → intrinsic CRITICAL via ceiling rule):**
-
-- Governing law = Pennsylvania → modifier entry: `enforceability: valid`
-  (PA permits cognovit notes for commercial debt) → Final Finding: CRITICAL,
-  enforceable, "this is a live, currently-effective risk."
-- Governing law = California → modifier entry: `enforceability: void` →
-  Final Finding: CRITICAL (intrinsic severity is unchanged — the drafting is
-  still bad), enforceability_status = void, with a note explaining the
-  clause is unenforceable *as currently drafted* but that the underlying
-  language should still be removed, particularly since the agreement could
-  be reformed, assigned, or re-drafted under a different governing law.
-- Governing law = unknown/not extracted → Final Finding: CRITICAL,
-  jurisdiction_confidence = unknown, no enforceability claim made.
-
-This is why the split matters: "is this bad drafting" and "does this
-particular fact pattern currently bite" are different questions, and
-conflating them (as a single jurisdiction-aware severity would) hides the
-first question whenever the second one happens to be "no."
+**One hardening added in v1.0, made explicit rather than merely implied:**
+a jurisdiction modifier may change `enforceability_status` and may apply a
+bounded ±1-tier `severity_adjustment`, but it may **never** downward-adjust
+a finding whose intrinsic severity was produced by a §6.1 ceiling rule.
+Confession of judgment in California is `enforceability: void`, but its
+`intrinsic_severity` stays CRITICAL — the drafting is still bad, and the
+same document could be reformed, assigned, or re-drafted under a different
+governing law. A jurisdiction table that could silently turn CRITICAL into
+LOW would reintroduce exactly the subjectivity/inconsistency this whole
+architecture exists to remove, just one layer downstream.
 
 ---
 
-## 7. Mandatory rule-authoring workflow
+## 12. Migration strategy (unchanged in structure, confirmed by §7 as the right calibration mechanism)
 
-This is the standard every future rule — #118 through #1000+ — must follow.
-"Classify by analogy" is retired as an instruction entirely.
+**Phase 0 — Freeze & snapshot.** Tag current ruleset, copy every rule's
+`severity` into permanent `legacy_severity`.
 
-1. **Clause identification.** Assign `clause_category` from the controlled
-   taxonomy. If none fits, that's a separate taxonomy-governance PR first —
-   categories are never invented ad hoc inside a rule PR.
-2. **Factor scoring.** For each of the 10 factors in §2, select a level and
-   write a 1–2 sentence justification tied to the clause language. The
-   schema rejects a bare integer with no justification.
-3. **Automated score computation.** The contributor runs the scoring
-   function (§4) — a pure, unit-tested function of the factor vector. The
-   contributor **never hand-picks** the tier; it is derived, full stop.
-4. **Derivation record auto-generated** (`severity_derivation`) for the
-   audit trail.
-5. **Detection pattern authoring.** Unchanged from current practice:
-   pattern/anchors/topic/protective regex, tolerant of messy
-   whitespace/line-wraps (the existing `\s+`/bounded-DOTALL discipline),
-   with a positive match test, a negative/near-miss test, and a
-   deliberately-mangled-formatting test.
-6. **Prerequisite facts & jurisdiction stub.** Declare `prerequisite_facts`.
-   Leave `jurisdiction_profile` empty unless the contributor has a sourced
-   citation — no speculative jurisdiction claims.
-7. **Blind re-score gate.** A second contributor, given only the rule's
-   `rationale` and clause text (not the first contributor's factor vector),
-   independently scores the same 10 factors. If their computed tier
-   diverges from the original, the PR is blocked until the *factor
-   definitions* are reconciled — never until someone just picks a tier by
-   fiat. This is the literal operationalization of "two independent
-   reviewers reach the same severity."
-8. **Subject-matter/legal sign-off.** `reviewed_by` must be a reviewer with
-   familiarity in that `clause_category`/`legal_domain`; recorded on the
-   rule permanently.
-9. **Automated validation suite passes** (§8).
-10. **Documentation generated, not hand-written.** The rule reference doc
-    and changelog entries are generated from the metadata store at build
-    time. (The current hand-maintained `all_rules.md`, already stale at 117
-    rules, is exactly the failure mode this eliminates — it does not scale
-    to 1,000 rules as prose.)
+**Phase 1 — Additive schema introduction.** Add §8's fields as
+optional/nullable; `analyze()` output unchanged; zero behavioral risk.
+
+**Phase 2 — Retroactive factor scoring.** Score all 117 rules against §2
+via the §10 workflow (contributor + attorney), producing `computed_severity`
+alongside legacy `severity`.
+
+**Phase 3 — Calibration.** Diff `computed_severity` vs. legacy `severity`
+for all 117. Every mismatch root-caused per §7's method — most will
+confirm legacy was analogy-drift (expected), some may reveal §6.3's
+thresholds need adjusting; adjust and freeze, using §5's 40 clauses plus
+this pass as the golden set (§9.6).
+
+**Phase 4 — Shadow mode.** Ship `computed_severity` as a secondary field
+for one release cycle; verify `overall_risk`, `signature_readiness`, and
+`ONE_WAY_RULE_IDS` logic against it before anything user-facing changes.
+
+**Phase 5 — Cutover.** `severity` becomes a generated property of
+`computed_severity`; `legacy_severity` stays permanently.
+
+**Phase 6 — Enforcement.** §9's validation suite becomes a hard CI gate;
+this document becomes the CONTRIBUTING standard; "classify by analogy" is
+removed from any remaining docs/prompts.
+
+**Rollback:** fully additive/reversible through Phase 4; Phase 5 is a
+one-line revert since nothing is deleted.
 
 ---
 
-## 8. Validation rules (CI-enforced, every rule change)
+## 13. Governance
 
-1. **Recomputation check.** Stored `severity_tier` must exactly equal
-   `compute_severity(factor_vector)`; build fails otherwise. (Structurally,
-   `severity_tier` should be a generated/read-only field, not a settable
-   one — this check is the backstop if that's ever bypassed.)
-2. **Cross-rule monotonicity check within `clause_category`.** For any two
-   rules A, B sharing a `clause_category`: if every factor level in A is
-   ≥ the corresponding level in B (with at least one strictly greater),
-   then `severity(A)` must be ≥ `severity(B)`. This is the automatic,
-   whole-rulebase version of "why is this HIGH when a strictly worse clause
-   is MEDIUM" — it catches the inconsistency at PR time instead of relying
-   on someone reading all 1,000 rules.
-3. **Duplicate/near-duplicate detection.** Token- or embedding-similarity
-   clustering over `rationale` + detection pattern flags candidate
-   duplicates for human triage before merge, preventing silent
-   proliferation of near-identical rules with divergent severities.
-4. **Ceiling-coverage keyword check.** A maintained keyword list (e.g.
-   "personal," "confession of judgment," "criminal," "unlimited") scanned
-   against `rationale`; if present but the corresponding ceiling factor
-   (§4.1) wasn't triggered, flag for manual review. A lightweight
-   under-scoring catch, not a substitute for §7.7.
-5. **Schema validation.** Required fields present; factor levels within
-   documented bounds; every factor has a non-empty justification;
-   `clause_category` in the controlled taxonomy; any `jurisdiction_profile`
-   entries carry a real citation.
-6. **Golden-set regression.** A frozen set of attorney-confirmed
-   `(factor_vector → tier)` examples (seeded from the §9 calibration pass)
-   must still score correctly after any change to the scoring function or
-   thresholds. Any tier flip in the golden set requires explicit sign-off —
-   this is what prevents silent rubric drift over years of maintenance.
-7. **Detection-pattern test-coverage lint.** Every `rule_id` must map to at
-   least one positive, one negative, and one messy-formatting test
-   function (extending the discipline already used for the v6.0 rules
-   added this session).
+- This document is versioned (`v1.0` in its title). Changes to §2's factor
+  definitions, §6's ceiling rules, or §6.3's thresholds are themselves
+  governed changes: they require re-running the golden set (§9.6), and any
+  tier flip they cause across existing rules must be individually reviewed
+  and approved, not silently absorbed.
+- No rule's `severity_tier` may be hand-edited under any circumstance;
+  the schema should make the field structurally read-only, with §9.1's CI
+  check as the backstop.
+- `clause_category` and the jurisdiction taxonomy are separately governed
+  vocabularies (their own lightweight PR process) — never extended inline
+  inside a rule-adding PR, to keep the grouping stable enough for §9.2's
+  monotonicity check to mean anything over time.
 
 ---
 
-## 9. Migration strategy for the existing 117 rules
+## 14. Future extensibility guidance
 
-**Phase 0 — Freeze & snapshot.** Tag the current ruleset
-`v6.0.0-legacy-severity`. Copy each rule's current `severity` into a new
-`legacy_severity` field, kept permanently.
-
-**Phase 1 — Additive schema introduction.** Add the §5 metadata fields to
-`Rule` as optional/nullable. `analyze()` output is unchanged; `severity`
-remains authoritative. Zero behavioral risk — pure additive migration.
-
-**Phase 2 — Retroactive factor scoring.** For each of the 117 rules, run
-the §7 workflow (contributor + attorney reviewer) to populate
-`factor_vector` and compute `computed_severity`, stored alongside — but not
-replacing — the legacy `severity`.
-
-**Phase 3 — Calibration.** Diff `computed_severity` against legacy
-`severity` for all 117 rules. Every mismatch gets root-caused: either the
-legacy analogy-based severity was simply wrong (the expected, common case —
-this is the whole point of the rearchitecture), or the §4.3 thresholds need
-adjusting. Iterate the threshold table until remaining mismatches are all
-individually justified, then **freeze** the thresholds as a versioned
-constant and seed the §8.6 golden set from this pass.
-
-**Phase 4 — Shadow mode.** Ship `computed_severity` as a secondary,
-clearly-labeled field for one release cycle. Re-run all existing behavior
-that keys off `severity` today — `overall_risk` aggregation,
-`signature_readiness` gating, `ONE_WAY_RULE_IDS` handling — against
-`computed_severity` in test-only mode to confirm no unexpected downstream
-break before anything user-facing changes.
-
-**Phase 5 — Cutover.** `severity` becomes a generated property
-(`severity = tier_of(computed_severity)`); direct hand-setting is removed.
-`legacy_severity` stays on every rule permanently as the historical record.
-
-**Phase 6 — Enforcement.** Turn on the §8 validation suite as a hard CI
-gate for all new rules; publish this document as the CONTRIBUTING standard;
-remove "classify by analogy" from any remaining docs/prompts.
-
-**Rollback:** every phase through Phase 4 is purely additive/reversible.
-Phase 5's cutover is a one-line revert (repoint `severity` back to
-`legacy_severity`) if regression testing surfaces a problem, since nothing
-is deleted. Full existing regression suite (261+ tests today) plus the new
-golden-set tests must pass at every phase boundary.
-
----
-
-## 10. Comparison: analogy-based vs. factor-vector architecture
-
-| Dimension | Analogy-based (current) | Factor-vector + ceiling/band (proposed) |
-|---|---|---|
-| Consistency | Degrades as rule count grows; no structural guarantee | Enforced structurally (§8.2 monotonicity check); scales flat with rule count |
-| Determinism | Depends on which "similar" rule a reviewer recalls | Pure function of a documented, versioned factor vector |
-| Auditability | "Looked like Rule X" is not a legal justification | Every tier traces to specific factor levels + justification text + derivation record |
-| Reproducibility | Two reviewers may diverge | Two reviewers converge by construction (§7.7 blind re-score gate) |
-| Maintainability | Hand-written changelog/doc tables already stale at 117 rules | Metadata-generated docs/changelog; one scoring function to maintain instead of N ad hoc judgments |
-| Extensibility | Every new practice area re-derives intuition from scratch | New `clause_category` scored once against the same 10 factors; jurisdiction handled orthogonally |
-| Legal defensibility | Not defensible in a client-facing or dispute context | Resembles an actual legal risk memo: magnitude, rights waived, reversibility, regulatory exposure |
-| Implementation complexity | Low upfront, rising hidden cost per rule | Higher upfront (rubric design + retroactive scoring of 117 rules); flat marginal cost thereafter |
-| Contributor onboarding | Fast start, inconsistent output without tribal knowledge | Slower first rule; then mechanical and machine-checkable |
-| Long-term scalability (500–1,000+) | Breaks down — no one holds 1,000 rules' relative severity in their head | Designed for exactly this — the entire point is replacing that mental model with a checkable function |
-
----
-
-## Open question worth surfacing, not resolving here
-
-The four-tier label currently serves two different downstream consumers at
-once: human risk communication (a simple badge) and automated decisioning
-(`signature_readiness` gating keys off `severity` directly today). Those two
-consumers may eventually want different scales — a human badge benefits from
-staying at four tiers forever, while automated gating could use the raw WAS
-score for finer-grained decisions. This document deliberately does **not**
-resolve that now: preserving the four-tier projection as the stable public
-contract while making the factor vector the real source of truth gets all
-the rigor benefits without a breaking change to existing consumers. If
-`signature_readiness` logic outgrows four tiers later, that's a scoped
-follow-up against `severity_score` directly — not a reason to delay this
-migration.
+- **New practice areas** (e.g., insurance, IP licensing/patent
+  prosecution, environmental) need no new severity machinery — only new
+  `clause_category` entries scored against the same 11 factors, per the
+  standard §10 workflow.
+- **New factors** should be added only after a stress-test failure like
+  those in §4 — a factor invented speculatively, without a concrete clause
+  that breaks without it, is exactly the kind of ungrounded addition this
+  document was written to prevent. Two deferred candidates are already on
+  record for the next stress-testing pass: a compound-ceiling escalation
+  rule for simultaneous independent ceiling triggers (§4, deferred), and a
+  possible RS×DUR ceiling for perpetual-plus-named-regime data clauses
+  (§5, row 32).
+- **The four-tier public projection** should stay four tiers for human-
+  facing surfaces indefinitely; `severity_score` (the raw WAS) is already
+  exposed in the schema for any future automated consumer that outgrows
+  four buckets — that's a scoped follow-up against the existing field, not
+  a reason to revisit this document's core design.
