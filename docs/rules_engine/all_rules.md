@@ -1,11 +1,11 @@
 # TriageCounsel Rule Reference — v3.0.0
 
-Complete list of all 64 rules in the deterministic rule engine (22H / 32M / 10L).  
+Complete list of the rules in the deterministic rule engine.  
 Rule IDs follow the format `{SEVERITY}_{CATEGORY}_{NUMBER}` where severity is H (High), M (Medium), or L (Low).
 
 ---
 
-## HIGH Severity — 22 rules
+## HIGH Severity
 
 High-severity findings set the Rule Coverage badge to **FAIL** and push the overall contract risk to **HIGH**.
 
@@ -36,7 +36,7 @@ High-severity findings set the Rule Coverage badge to **FAIL** and push the over
 
 ---
 
-## MEDIUM Severity — 32 rules
+## MEDIUM Severity
 
 Medium-severity findings set the Rule Coverage badge to **WARNING** (unless a HIGH finding already set it to FAIL) and contribute to a **MEDIUM** overall risk when two or more are present.
 
@@ -76,7 +76,7 @@ Medium-severity findings set the Rule Coverage badge to **WARNING** (unless a HI
 
 ---
 
-## LOW Severity — 10 rules
+## LOW Severity
 
 Low-severity findings set the Rule Coverage badge to **WARNING** and are factored into overall risk only when combined with other findings.
 
