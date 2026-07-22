@@ -65,10 +65,16 @@ def wait_for_db(max_retries: int = 30, delay: float = 2.0):
 
 
 def wait_for_redis(max_retries: int = 15, delay: float = 2.0):
+    dev_mode = os.getenv("DEV_MODE", "false").strip().lower() == "true"
     redis_url = os.getenv("REDIS_URL")
     if not redis_url:
-        logger.info("No REDIS_URL configured, skipping Redis wait")
-        return
+        if dev_mode:
+            logger.info("No REDIS_URL configured, skipping Redis wait (development only)")
+            return
+        raise RuntimeError(
+            "REDIS_URL is required in production — sessions must never silently "
+            "fall back to in-memory storage. Set REDIS_URL or DEV_MODE=true."
+        )
     import redis as _redis
     for attempt in range(1, max_retries + 1):
         try:

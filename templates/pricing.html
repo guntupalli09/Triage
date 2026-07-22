@@ -135,6 +135,7 @@
                 <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
                 {% else %}
                 <form action="/subscribe/starter" method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
                     <input type="hidden" name="billing_period" value="monthly" class="billing-period-input">
                     <button type="submit" class="w-full py-3 px-6 rounded-lg border border-gray-200 text-gray-700 font-semibold hover:border-[#0F172A] hover:text-[#0F172A] transition-all">Start Reviewing Contracts</button>
                 </form>
@@ -186,6 +187,7 @@
                 <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
                 {% else %}
                 <form action="/subscribe/professional" method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
                     <input type="hidden" name="billing_period" value="monthly" class="billing-period-input">
                     <button type="submit" class="btn-primary w-full py-3 px-6 rounded-lg">Upgrade to Professional</button>
                 </form>
@@ -240,6 +242,7 @@
                 <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
                 {% else %}
                 <form action="/subscribe/team" method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
                     <input type="hidden" name="billing_period" value="monthly" class="billing-period-input">
                     <button type="submit" class="w-full py-3 px-6 rounded-lg border border-gray-200 text-gray-700 font-semibold hover:border-[#0F172A] hover:text-[#0F172A] transition-all">Choose Team</button>
                 </form>

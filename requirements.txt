@@ -1,16 +1,29 @@
 # Production dependencies
-fastapi==0.104.1
+#
+# fastapi/starlette/jinja2/python-multipart/pypdf are pinned to the newest
+# versions verified compatible with this app (full test suite + manual
+# smoke test of login/register/upload/CSRF/rate-limit/security headers) —
+# see docs/security/soc2_readiness_assessment.md for the pip-audit findings
+# these upgrades resolve and the ones knowingly deferred. See "Dependency
+# upgrade process" in README.md before bumping further.
+fastapi==0.128.0
 uvicorn[standard]==0.24.0
-jinja2==3.1.2
-python-multipart==0.0.6
+starlette==0.49.1
+jinja2==3.1.6
+python-multipart==0.0.32
 stripe==7.0.0
 openai>=1.12.0,<2.0.0
 python-docx==1.1.0
-PyPDF2==3.0.1
+pypdf>=4.0.0            # PyPDF2's successor — same PdfReader API, PyPDF2 3.0.1 is EOL/unpatched
 fpdf2>=2.7.0
 python-dotenv>=1.0.0
 sqlalchemy>=2.0.0
 user-agents>=2.2.0
+
+# Security (see docs/security/soc2_readiness_assessment.md)
+google-auth==2.56.2      # Google OIDC ID token verification (JWKS, signature, issuer, audience, expiry)
+redis==5.0.1             # session store + rate-limit counters; required (fails startup) in production
+limits==5.8.0            # Redis-backed rate limiting (per-IP and per-account)
 
 # Development/Testing dependencies (not needed for Vercel deployment)
 # Install with: pip install -r requirements-dev.txt

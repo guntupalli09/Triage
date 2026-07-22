@@ -1,0 +1,77 @@
+name: Security scans
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Weekly scan to catch newly disclosed CVEs in pinned dependencies even
+    # without a code change.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dependency-audit:
+    name: pip-audit (dependency vulnerabilities)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pip-audit
+        run: pip install pip-audit==2.7.3
+
+      - name: Audit production dependencies
+        # Fails the build on any known vulnerability not explicitly ignored
+        # below. Each --ignore-vuln is a starlette finding that only has a
+        # fix in the 1.x major line, which changes TemplateResponse's
+        # calling convention across ~50 call sites in main.py — tracked as
+        # Phase 2 work. See docs/security/soc2_readiness_assessment.md for
+        # the per-CVE risk assessment and why each is low-impact here.
+        run: |
+          pip-audit -r requirements.txt --strict \
+            --ignore-vuln PYSEC-2026-161 \
+            --ignore-vuln PYSEC-2026-249 \
+            --ignore-vuln PYSEC-2026-248 \
+            --ignore-vuln PYSEC-2026-2281 \
+            --ignore-vuln PYSEC-2026-2280
+
+  secret-scan:
+    name: detect-secrets (secret scanning)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install detect-secrets
+        run: pip install detect-secrets==1.5.0
+
+      - name: Scan for secrets against the committed baseline
+        # `detect-secrets scan --baseline` rewrites the baseline file in
+        # place with whatever it finds, so we diff its `results` (ignoring
+        # the always-changing `generated_at` timestamp) to detect anything
+        # new/changed vs. what's committed. See .secrets.baseline's header
+        # for how to update it after a legitimate change.
+        run: |
+          cp .secrets.baseline /tmp/baseline-before.json
+          detect-secrets scan --baseline .secrets.baseline
+          python3 -c "
+          import json, sys
+          before = json.load(open('/tmp/baseline-before.json'))['results']
+          after = json.load(open('.secrets.baseline'))['results']
+          if before != after:
+              print('New or changed secrets detected that are not in the committed .secrets.baseline.')
+              print('Review the diff; if these are false positives, regenerate the baseline:')
+              print('  detect-secrets scan --baseline .secrets.baseline && detect-secrets audit .secrets.baseline')
+              sys.exit(1)
+          print('No new secrets found.')
+          "

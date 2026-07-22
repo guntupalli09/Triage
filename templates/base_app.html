@@ -213,6 +213,7 @@
     {% block extra_head %}{% endblock %}
 </head>
 <body class="min-h-screen">
+    <script>window.CSRF_TOKEN = {{ csrf_token(request)|tojson }};</script>
 
     <!-- Mobile Drawer -->
     <div class="mobile-drawer" id="mobileDrawer">
@@ -501,7 +502,7 @@
             var modal = document.getElementById('shareModal');
             var err = document.getElementById('shareError');
             err.classList.add('hidden');
-            fetch('/contract/' + contractId + '/share', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+            fetch('/contract/' + contractId + '/share', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRF-Token': window.CSRF_TOKEN } })
                 .then(function(r) { return r.json(); })
                 .then(function(data) {
                     if (!data.share_url) throw new Error('no url');

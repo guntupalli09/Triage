@@ -7,6 +7,11 @@
 # Testing
 pytest>=7.4.0
 pytest-asyncio>=0.21.0
+httpx>=0.25.0,<0.28  # 0.28 dropped the `app=` shortcut TestClient needs on starlette 0.27
+
+# Security tooling (also run in CI — see .github/workflows/security.yml)
+pip-audit==2.7.3
+detect-secrets==1.5.0
 
 # Experimental analysis (only needed for experiments/ directory)
 scipy>=1.11.0

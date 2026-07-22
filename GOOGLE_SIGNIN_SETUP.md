@@ -49,5 +49,8 @@ No manual migration needed. On startup the app applies:
    (3 contracts/month), same as form registration.
 
 Unverified Google emails are rejected. The OAuth flow is CSRF-protected via
-a short-lived `state` cookie, and the ID token's issuer, audience, and
-expiry are validated server-side.
+a short-lived `state` cookie plus a `nonce` round-tripped through a second
+short-lived cookie, and the ID token's signature, issuer, audience, expiry,
+and nonce are all verified server-side using Google's official `google-auth`
+library (`google.oauth2.id_token.verify_oauth2_token`, backed by Google's
+rotating JWKS) — see `google_oauth.py`.

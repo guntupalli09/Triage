@@ -1,23 +1,32 @@
 """
 Google Sign-In (OpenID Connect) helpers.
 
-Standard library only — no extra dependencies. The ID token is fetched
-directly from Google's token endpoint over TLS, so per Google's OIDC docs
-it can be decoded without signature verification; we still validate the
-issuer, audience, and expiry claims.
+ID tokens are verified with Google's official `google-auth` library, which:
+  - fetches Google's published JWKS (with rotation/caching handled internally)
+  - verifies the RS256 signature against the matching key
+  - verifies the issuer (`accounts.google.com` / `https://accounts.google.com`)
+  - verifies the audience matches our OAuth client ID
+  - verifies the token has not expired
+
+We never decode the JWT payload ourselves — signature verification always
+happens first, inside `google.oauth2.id_token.verify_oauth2_token`.
 """
 from __future__ import annotations
 
-import base64
-import json
 import os
-import time
 import urllib.parse
 import urllib.request
+import json
+
+from google.auth.transport import requests as google_requests
+from google.oauth2 import id_token as google_id_token
 
 AUTH_ENDPOINT = "https://accounts.google.com/o/oauth2/v2/auth"
 TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token"
-VALID_ISSUERS = ("https://accounts.google.com", "accounts.google.com")
+
+# Reused across requests: caches Google's JWKS internally between calls so we
+# don't refetch keys on every sign-in.
+_google_auth_request = google_requests.Request()
 
 
 def _client_id() -> str:
@@ -32,13 +41,14 @@ def is_configured() -> bool:
     return bool(_client_id() and _client_secret())
 
 
-def build_auth_url(redirect_uri: str, state: str) -> str:
+def build_auth_url(redirect_uri: str, state: str, nonce: str) -> str:
     params = {
         "client_id": _client_id(),
         "redirect_uri": redirect_uri,
         "response_type": "code",
         "scope": "openid email profile",
         "state": state,
+        "nonce": nonce,
         "prompt": "select_account",
     }
     return f"{AUTH_ENDPOINT}?{urllib.parse.urlencode(params)}"
@@ -62,20 +72,19 @@ def exchange_code(code: str, redirect_uri: str) -> dict:
         return json.loads(resp.read().decode())
 
 
-def _b64url_decode(segment: str) -> bytes:
-    return base64.urlsafe_b64decode(segment + "=" * (-len(segment) % 4))
+def verify_id_token(id_token: str, expected_nonce: str = "") -> dict:
+    """Verify and decode a Google ID token.
 
-
-def decode_id_token(id_token: str) -> dict:
-    """Decode the ID token payload and validate issuer, audience, and expiry."""
-    parts = id_token.split(".")
-    if len(parts) != 3:
-        raise ValueError("Malformed id_token")
-    claims = json.loads(_b64url_decode(parts[1]))
-    if claims.get("iss") not in VALID_ISSUERS:
+    Delegates signature verification (against Google's rotating JWKS),
+    issuer, audience, and expiry checks entirely to `google-auth`. Raises
+    `ValueError` (or a `google.auth.exceptions.GoogleAuthError` subclass,
+    itself a `ValueError`) if any check fails.
+    """
+    claims = google_id_token.verify_oauth2_token(
+        id_token, _google_auth_request, audience=_client_id(),
+    )
+    if claims.get("iss") not in ("accounts.google.com", "https://accounts.google.com"):
         raise ValueError(f"Invalid issuer: {claims.get('iss')}")
-    if claims.get("aud") != _client_id():
-        raise ValueError("id_token audience does not match GOOGLE_CLIENT_ID")
-    if float(claims.get("exp", 0)) < time.time():
-        raise ValueError("id_token expired")
+    if expected_nonce and claims.get("nonce") != expected_nonce:
+        raise ValueError("id_token nonce does not match")
     return claims

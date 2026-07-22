@@ -61,6 +61,7 @@
                 <div class="flex items-center gap-3 pt-3 border-t border-gray-100">
                     <a href="/playbooks/{{ p.id }}/edit" class="text-sm font-medium text-[#0F172A] hover:text-[#1E293B] transition-colors">Edit</a>
                     <form action="/playbooks/{{ p.id }}/delete" method="post" class="inline" onsubmit="return confirm('Are you sure you want to delete this playbook?');">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
                         <button type="submit" class="text-sm font-medium text-gray-400 hover:text-red-600 transition-colors">Delete</button>
                     </form>
                 </div>

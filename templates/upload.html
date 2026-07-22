@@ -70,6 +70,7 @@
     <!-- Upload Card -->
     <div class="premium-card p-6 sm:p-8 fade-in">
         <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
             <div class="mb-6">
                 <div id="uploadArea" class="upload-area mt-1 flex justify-center px-6 pt-10 pb-10 rounded-xl cursor-pointer">
                     <div class="space-y-3 text-center pointer-events-none">

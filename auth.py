@@ -24,28 +24,55 @@ SESSION_SECRET = os.getenv("SESSION_SECRET", "dev_session_secret_change_me")
 SESSION_COOKIE = "triage_session"
 SESSION_MAX_AGE = 60 * 60 * 24 * 30  # 30 days
 
+DEV_MODE = os.getenv("DEV_MODE", "false").strip().lower() == "true"
+SECURE_COOKIES = os.getenv("SECURE_COOKIES", "false").strip().lower() == "true"
+
 # Redis-backed sessions for production (survives restarts, shared across workers)
 _redis_client = None
 _sessions: dict[str, dict] = {}
 
-def _get_redis():
+
+def init_redis_or_fail() -> None:
+    """Establish (and verify) the Redis connection at startup.
+
+    In production this never falls back to in-memory sessions: if
+    REDIS_URL is unset or Redis is unreachable, startup fails outright.
+    In development, a missing/unreachable Redis is allowed — sessions
+    silently fall back to an in-memory dict.
+    """
     global _redis_client
-    if _redis_client is not None:
-        return _redis_client
     redis_url = os.getenv("REDIS_URL")
-    if redis_url:
-        try:
-            import redis
-            _redis_client = redis.from_url(redis_url, decode_responses=True, socket_timeout=5, retry_on_timeout=True)
-            _redis_client.ping()
-            logger.info("Redis session store connected")
-            return _redis_client
-        except Exception as e:
+    if not redis_url:
+        if DEV_MODE:
+            logger.warning("No REDIS_URL configured — using in-memory sessions (development only)")
+            _redis_client = False
+            return
+        raise RuntimeError(
+            "REDIS_URL is required in production. Sessions must never silently "
+            "fall back to in-memory storage outside of DEV_MODE."
+        )
+    try:
+        import redis
+        client = redis.from_url(redis_url, decode_responses=True, socket_timeout=5, retry_on_timeout=True)
+        client.ping()
+        _redis_client = client
+        logger.info("Redis session store connected")
+    except Exception as e:
+        if DEV_MODE:
             logger.warning(f"Redis unavailable, falling back to in-memory sessions: {e}")
             _redis_client = False
-    else:
-        _redis_client = False
-    return None
+            return
+        raise RuntimeError(f"Redis is required in production and is unavailable: {e}") from e
+
+
+def _get_redis():
+    global _redis_client
+    if _redis_client is None:
+        # init_redis_or_fail() wasn't called (e.g. import-time use in tests) —
+        # fall back to the old lazy-connect behavior, but never silently in
+        # production.
+        init_redis_or_fail()
+    return _redis_client or None
 
 
 def hash_password(password: str) -> str:
@@ -102,7 +129,7 @@ def create_session(user_id: int, response: Response) -> str:
         max_age=SESSION_MAX_AGE,
         httponly=True,
         samesite="lax",
-        secure=os.getenv("SECURE_COOKIES", "false").lower() == "true",
+        secure=SECURE_COOKIES,
     )
     return token
 

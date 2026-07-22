@@ -1,5 +1,15 @@
 # Security Posture
 
+> **Note**: This document describes an earlier, pre-accounts version of the
+> product (anonymous pay-per-use, in-memory only, no authentication). The
+> application now has user accounts, Google OAuth, persistent PostgreSQL/Redis
+> storage, CSRF protection, rate limiting, and security headers. For the
+> current, accurate control inventory see
+> [SOC 2 Readiness Assessment](../security/soc2_readiness_assessment.md) and
+> the [README Security section](../../README.md#security). This page is kept
+> for historical context and has not been rewritten for the current
+> architecture.
+
 ## Security Philosophy
 
 The Contract Risk TriageCounsel Tool follows a **minimal attack surface** philosophy: collect minimal data, store it ephemerally, and expose minimal functionality.

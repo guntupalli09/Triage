@@ -14,3 +14,7 @@ Thumbs.db
 # Database
 data/
 *.db
+
+# Test/tooling caches
+.pytest_cache/
+.mypy_cache/

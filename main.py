@@ -42,7 +42,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.cors import CORSMiddleware
 from fpdf import FPDF
-from PyPDF2 import PdfReader
+from pypdf import PdfReader
 from docx import Document
 from sqlalchemy.orm import Session as DBSession
 
@@ -57,6 +57,9 @@ from models import User, Contract, Playbook
 from analytics_models import UserAcquisition, UserSession, UserEvent, ContractEvent
 from playbook_engine import PlaybookEngine
 import google_oauth
+from csrf import CSRFCookieMiddleware, verify_csrf
+from security_headers import SecurityHeadersMiddleware
+from rate_limit import enforce_ip_limit, enforce_account_limit
 import emailer
 import analytics
 from analytics_middleware import AnalyticsMiddleware
@@ -70,9 +73,16 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
     datefmt="%Y-%m-%dT%H:%M:%S",
 )
+import log_redaction
+log_redaction.install()
 logger = logging.getLogger(__name__)
 
 # --- Config ---
+import security_config
+security_config.validate_production_config()
+DEV_MODE = security_config.DEV_MODE
+SECURE_COOKIES = security_config.SECURE_COOKIES
+
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     OPENAI_API_KEY = os.getenv("﻿OPENAI_API_KEY")
@@ -86,8 +96,6 @@ if BASE_URL_RAW:
         BASE_URL = f"https://{BASE_URL}" if "localhost" not in BASE_URL else f"http://{BASE_URL}"
 else:
     BASE_URL = "http://localhost:8000"
-
-DEV_MODE = os.getenv("DEV_MODE", "false").strip().lower() == "true"
 
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "").strip()
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "").strip()
@@ -137,6 +145,7 @@ PLAN_LIMITS = {
 # --- App setup ---
 templates = Jinja2Templates(directory="templates")
 templates.env.globals["google_signin_enabled"] = google_oauth.is_configured()
+templates.env.globals["csrf_token"] = lambda request: getattr(request.state, "csrf_token", "")
 app = FastAPI(title="Contract Risk TriageCounsel Tool", version="2.0.0")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 CORS_ORIGINS = os.getenv("CORS_ORIGINS", BASE_URL).split(",")
@@ -160,6 +169,8 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
 
 app.add_middleware(AnalyticsMiddleware)
 app.add_middleware(RequestIDMiddleware)
+app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(CSRFCookieMiddleware)
 
 rule_engine = RuleEngine()
 llm_evaluator = LLMEvaluator()
@@ -172,9 +183,15 @@ session_store: Dict[str, Dict] = {}
 @app.on_event("startup")
 def on_startup():
     from database import DATABASE_URL, init_db
+    from auth import init_redis_or_fail
     # Ensure tables exist regardless of server (gunicorn hooks don't run under
     # uvicorn or serverless); create_all is a no-op when the schema is present.
     init_db()
+    # Fail closed in production: never silently fall back to in-memory
+    # sessions if Redis is unset/unreachable (gunicorn's on_starting hook
+    # already does this for the Docker/gunicorn path; this covers uvicorn
+    # dev servers and any other ASGI entrypoint).
+    init_redis_or_fail()
     db_type = "PostgreSQL" if "postgresql" in DATABASE_URL else "SQLite"
     redis_url = os.getenv("REDIS_URL")
     logger.info(f"Triage Counsel worker ready | mode={'DEMO' if DEV_MODE else 'PROD'} | db={db_type} | redis={'yes' if redis_url else 'no'} | pid={os.getpid()}")
@@ -400,8 +417,10 @@ async def login_page(request: Request):
     return templates.TemplateResponse("login.html", {"request": request, "error": None, "notice": notice})
 
 
-@app.post("/login", response_class=HTMLResponse)
+@app.post("/login", response_class=HTMLResponse, dependencies=[Depends(verify_csrf)])
 async def login_submit(request: Request, email: str = Form(...), password: str = Form(...)):
+    enforce_ip_limit(request, "login", "10/minute")
+    enforce_account_limit("login", email, "5/minute;20/hour")
     db = next(get_db())
     user = db.query(User).filter(User.email == email.lower().strip()).first()
     if not user or not verify_password(password, user.password_hash):
@@ -419,7 +438,7 @@ async def register_page(request: Request):
     return templates.TemplateResponse("register.html", {"request": request, "error": None})
 
 
-@app.post("/register", response_class=HTMLResponse)
+@app.post("/register", response_class=HTMLResponse, dependencies=[Depends(verify_csrf)])
 async def register_submit(
     request: Request,
     email: str = Form(...),
@@ -428,6 +447,8 @@ async def register_submit(
     name: str = Form(""),
     company: str = Form(""),
 ):
+    enforce_ip_limit(request, "register", "5/minute")
+    enforce_account_limit("register", email, "3/minute;10/hour")
     db = next(get_db())
     email = email.lower().strip()
 
@@ -476,22 +497,23 @@ async def logout_route(request: Request):
 # ============================================================
 
 GOOGLE_STATE_COOKIE = "g_oauth_state"
+GOOGLE_NONCE_COOKIE = "g_oauth_nonce"
 
 
 @app.get("/auth/google")
 def google_signin_start(request: Request):
+    enforce_ip_limit(request, "oauth-start", "20/minute")
     if not google_oauth.is_configured():
         return templates.TemplateResponse("login.html", {
             "request": request, "error": "Google sign-in is not configured.",
         })
     state = secrets.token_urlsafe(24)
+    nonce = secrets.token_urlsafe(24)
     redirect_uri = f"{get_base_url(request)}/auth/google/callback"
-    response = RedirectResponse(url=google_oauth.build_auth_url(redirect_uri, state), status_code=302)
-    response.set_cookie(
-        GOOGLE_STATE_COOKIE, state,
-        max_age=600, httponly=True, samesite="lax",
-        secure=os.getenv("SECURE_COOKIES", "false").lower() == "true",
-    )
+    response = RedirectResponse(url=google_oauth.build_auth_url(redirect_uri, state, nonce), status_code=302)
+    cookie_kwargs = dict(max_age=600, httponly=True, samesite="lax", secure=SECURE_COOKIES)
+    response.set_cookie(GOOGLE_STATE_COOKIE, state, **cookie_kwargs)
+    response.set_cookie(GOOGLE_NONCE_COOKIE, nonce, **cookie_kwargs)
     # Acquisition context (referrer/UTM/landing page/session id) is already
     # captured by AnalyticsMiddleware's first-touch cookie before we ever
     # get here, and that cookie rides along through the Google redirect
@@ -502,6 +524,8 @@ def google_signin_start(request: Request):
 
 @app.get("/auth/google/callback")
 def google_signin_callback(request: Request, code: str = "", state: str = "", error: str = ""):
+    enforce_ip_limit(request, "oauth-callback", "30/minute")
+
     def fail(message: str):
         return templates.TemplateResponse("login.html", {"request": request, "error": message})
 
@@ -511,11 +535,12 @@ def google_signin_callback(request: Request, code: str = "", state: str = "", er
     expected_state = request.cookies.get(GOOGLE_STATE_COOKIE, "")
     if not expected_state or not hmac.compare_digest(expected_state, state):
         return fail("Sign-in session expired. Please try again.")
+    expected_nonce = request.cookies.get(GOOGLE_NONCE_COOKIE, "")
 
     redirect_uri = f"{get_base_url(request)}/auth/google/callback"
     try:
         tokens = google_oauth.exchange_code(code, redirect_uri)
-        claims = google_oauth.decode_id_token(tokens["id_token"])
+        claims = google_oauth.verify_id_token(tokens["id_token"], expected_nonce=expected_nonce)
     except Exception:
         logger.exception("Google sign-in token exchange failed")
         return fail("Google sign-in failed. Please try again.")
@@ -561,6 +586,7 @@ def google_signin_callback(request: Request, code: str = "", state: str = "", er
 
     response = RedirectResponse(url="/dashboard", status_code=302)
     response.delete_cookie(GOOGLE_STATE_COOKIE)
+    response.delete_cookie(GOOGLE_NONCE_COOKIE)
     create_session(user.id, response)
     return response
 
@@ -591,8 +617,10 @@ async def forgot_password_page(request: Request):
     })
 
 
-@app.post("/forgot-password", response_class=HTMLResponse)
+@app.post("/forgot-password", response_class=HTMLResponse, dependencies=[Depends(verify_csrf)])
 def forgot_password_submit(request: Request, email: str = Form(...)):
+    enforce_ip_limit(request, "forgot-password", "5/minute")
+    enforce_account_limit("forgot-password", email, "3/minute;10/hour")
     if not emailer.is_configured():
         return templates.TemplateResponse("forgot_password.html", {
             "request": request, "sent": False,
@@ -655,13 +683,14 @@ async def reset_password_page(request: Request, token: str = ""):
     })
 
 
-@app.post("/reset-password", response_class=HTMLResponse)
+@app.post("/reset-password", response_class=HTMLResponse, dependencies=[Depends(verify_csrf)])
 async def reset_password_submit(
     request: Request,
     token: str = Form(...),
     password: str = Form(...),
     confirm_password: str = Form(...),
 ):
+    enforce_ip_limit(request, "reset-password", "10/minute")
     db = next(get_db())
     user = _find_user_by_reset_token(db, token)
     if not user:
@@ -700,7 +729,7 @@ async def account_page(request: Request):
     })
 
 
-@app.post("/account", response_class=HTMLResponse)
+@app.post("/account", response_class=HTMLResponse, dependencies=[Depends(verify_csrf)])
 async def account_update(request: Request, name: str = Form(""), company: str = Form("")):
     db = next(get_db())
     user = require_user(request, db)
@@ -713,13 +742,14 @@ async def account_update(request: Request, name: str = Form(""), company: str = 
     })
 
 
-@app.post("/account/password", response_class=HTMLResponse)
+@app.post("/account/password", response_class=HTMLResponse, dependencies=[Depends(verify_csrf)])
 async def account_change_password(
     request: Request,
     current_password: str = Form(...),
     new_password: str = Form(...),
     confirm_password: str = Form(...),
 ):
+    enforce_ip_limit(request, "account-password", "10/minute")
     db = next(get_db())
     user = require_user(request, db)
 
@@ -759,8 +789,9 @@ async def billing_page(request: Request):
     })
 
 
-@app.post("/billing/cancel")
+@app.post("/billing/cancel", dependencies=[Depends(verify_csrf)])
 async def billing_cancel(request: Request):
+    enforce_ip_limit(request, "billing-cancel", "10/minute")
     db = next(get_db())
     user = require_user(request, db)
 
@@ -798,7 +829,7 @@ async def settings_page(request: Request):
     })
 
 
-@app.post("/settings/delete-account")
+@app.post("/settings/delete-account", dependencies=[Depends(verify_csrf)])
 async def delete_account(request: Request):
     db = next(get_db())
     user = require_user(request, db)
@@ -886,12 +917,13 @@ async def upload_page(request: Request):
     })
 
 
-@app.post("/upload")
+@app.post("/upload", dependencies=[Depends(verify_csrf)])
 async def upload_contract(
     request: Request,
     file: UploadFile = File(...),
     playbook_id: Optional[int] = Form(None),
 ):
+    enforce_ip_limit(request, "upload", "30/minute")
     db = next(get_db())
     user = get_current_user(request, db)
 
@@ -1027,12 +1059,13 @@ async def batch_upload_page(request: Request):
     })
 
 
-@app.post("/batch-upload")
+@app.post("/batch-upload", dependencies=[Depends(verify_csrf)])
 async def batch_upload_submit(
     request: Request,
     files: List[UploadFile] = File(...),
     playbook_id: Optional[int] = Form(None),
 ):
+    enforce_ip_limit(request, "batch-upload", "15/minute")
     db = next(get_db())
     user = require_user(request, db)
 
@@ -1469,8 +1502,9 @@ async def download_pdf_token(request: Request, token: str):
 # REPORT SHARING
 # ============================================================
 
-@app.post("/contract/{contract_id}/share")
+@app.post("/contract/{contract_id}/share", dependencies=[Depends(verify_csrf)])
 async def create_share_link(request: Request, contract_id: int, password: str = Form("")):
+    enforce_ip_limit(request, "share-create", "20/minute")
     db = next(get_db())
     user = require_user(request, db)
     contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
@@ -1505,8 +1539,10 @@ async def view_shared_report(request: Request, share_token: str):
     return _render_shared_report(request, contract)
 
 
-@app.post("/shared/{share_token}", response_class=HTMLResponse)
+@app.post("/shared/{share_token}", response_class=HTMLResponse, dependencies=[Depends(verify_csrf)])
 async def view_shared_report_auth(request: Request, share_token: str, password: str = Form(...)):
+    enforce_ip_limit(request, "shared-report", "10/minute")
+    enforce_account_limit("shared-report", share_token, "10/minute;30/hour")
     db = next(get_db())
     contract = db.query(Contract).filter(Contract.share_token == share_token).first()
     if not contract:
@@ -1573,7 +1609,7 @@ async def playbook_new_page(request: Request):
     })
 
 
-@app.post("/playbooks/new")
+@app.post("/playbooks/new", dependencies=[Depends(verify_csrf)])
 async def playbook_new_submit(
     request: Request,
     name: str = Form(...),
@@ -1641,7 +1677,7 @@ async def playbook_edit_page(request: Request, playbook_id: int):
     })
 
 
-@app.post("/playbooks/{playbook_id}/edit")
+@app.post("/playbooks/{playbook_id}/edit", dependencies=[Depends(verify_csrf)])
 async def playbook_edit_submit(
     request: Request, playbook_id: int,
     name: str = Form(...), contract_type: str = Form(""),
@@ -1680,7 +1716,7 @@ async def playbook_edit_submit(
     return RedirectResponse(url="/playbooks", status_code=302)
 
 
-@app.post("/playbooks/{playbook_id}/delete")
+@app.post("/playbooks/{playbook_id}/delete", dependencies=[Depends(verify_csrf)])
 async def playbook_delete(request: Request, playbook_id: int):
     db = next(get_db())
     user = require_user(request, db)
@@ -1726,8 +1762,9 @@ async def research_page(request: Request):
 # STRIPE SUBSCRIPTION
 # ============================================================
 
-@app.post("/subscribe/{plan}")
+@app.post("/subscribe/{plan}", dependencies=[Depends(verify_csrf)])
 async def subscribe(request: Request, plan: str):
+    enforce_ip_limit(request, "subscribe", "10/minute")
     db = next(get_db())
     user = require_user(request, db)
 
@@ -1958,7 +1995,7 @@ async def contact_page(request: Request):
     })
 
 
-@app.post("/contact", response_class=HTMLResponse)
+@app.post("/contact", response_class=HTMLResponse, dependencies=[Depends(verify_csrf)])
 async def contact_submit(request: Request):
     db = next(get_db())
     user = get_current_user(request, db)

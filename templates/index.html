@@ -354,6 +354,7 @@
         <!-- Upload Card -->
         <div class="card p-6 sm:p-8 mb-24">
             <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
                 <div class="mb-6">
                     <label for="file" class="block text-sm font-semibold text-[#0F172A] mb-3">
                         Upload Contract Document

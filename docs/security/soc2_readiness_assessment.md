@@ -25,6 +25,69 @@ Biggest blockers:
 
 Estimated engineering effort to become audit-ready: **6-10 weeks** for a small team, excluding company-policy evidence, vendor review, penetration testing, and control observation time required for Type II.
 
+## Phase 1 Implementation Update (2026-07-22)
+
+All ten Phase 1 items from the roadmap below have been implemented. This
+section records what changed and supersedes the corresponding findings
+above (which are left intact as historical record of the original
+assessment).
+
+| # | Item | Status | Where |
+|---|---|---|---|
+| 1 | Google OAuth OIDC verification | ✅ Done | `google_oauth.py` now verifies signature/issuer/audience/expiry via `google-auth`'s JWKS-backed `id_token.verify_oauth2_token`, plus a nonce round-trip. Resolves **C-03**. |
+| 2 | Production secret enforcement | ✅ Done | `security_config.py`, called at import time in `main.py`. Resolves **H-04**. |
+| 3 | Security headers | ✅ Done | `security_headers.py` (HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, CSP). Resolves **H-05**. |
+| 4 | CSRF protection | ✅ Done | `csrf.py` — double-submit cookie + `Depends(verify_csrf)` on every browser POST route except `/stripe-webhook`. Resolves **H-01**. |
+| 5 | Redis-backed rate limiting | ✅ Done | `rate_limit.py` — per-IP and per-account limits on auth/upload/share/OAuth/billing routes. Resolves **H-02**. |
+| 6 | Redis fail-closed in production | ✅ Done | `auth.init_redis_or_fail()` + `database.wait_for_redis()`. Resolves **M-04**. |
+| 7 | Secure cookie enforcement | ✅ Done | `security_config.SECURE_COOKIES`, enforced by item 2's startup check. |
+| 8 | Dependency + secret scanning in CI | ✅ Done | `.github/workflows/security.yml` (pip-audit, detect-secrets), `.github/workflows/tests.yml`. Resolves **H-06** (partially — no SAST/container scanning yet, see Phase 2). |
+| 9 | Dependency pinning / upgrades | ✅ Done | See "Dependency security posture" below. Resolves **M-05**. |
+| 10 | Logging redaction | ✅ Done | `log_redaction.py`, installed on the root logger in `main.py`. |
+
+### Dependency security posture
+
+Upgrading `fastapi`/`starlette` to the newest versions that don't change
+`TemplateResponse`'s calling convention (`fastapi==0.128.0`,
+`starlette==0.49.1`) resolves all but 5 `pip-audit` findings, all of which
+require Starlette's 1.x line (a breaking change to `TemplateResponse` used
+across ~50 call sites in `main.py`, confirmed by direct testing — see
+below). These 5 are explicitly ignored in CI (`.github/workflows/security.yml`)
+with per-CVE justification:
+
+| CVE | Issue | Why it's low-risk here |
+|---|---|---|
+| PYSEC-2026-161, PYSEC-2026-248 | `request.url`/Host-header reconstruction can be spoofed via a malformed path/Host. | The app never trusts `request.url.hostname`; `get_base_url()` uses the production-required, operator-set `BASE_URL` env var (enforced non-empty/https by item 2) instead. |
+| PYSEC-2026-249 | `request.form()` doesn't bound field count/size for `application/x-www-form-urlencoded` bodies (only multipart). | Every POST route is now rate-limited (item 5); a flood is throttled per-IP/per-account before it can be repeated. |
+| PYSEC-2026-2280, PYSEC-2026-2281 | Starlette's class-based `HTTPEndpoint` method dispatch / Windows UNC-path `StaticFiles` SSRF. | The app uses only function-based FastAPI routes (no `HTTPEndpoint` subclasses) and deploys on Linux containers, not Windows. |
+
+**Verification performed**: full `pytest` suite (268 tests) plus a manual
+smoke test (register → upload → view contract → security headers →
+CSRF → rate limiting) were run against `starlette==1.3.1` before reverting
+— it broke immediately with `TypeError: unhashable type: 'dict'` in
+`Jinja2Templates.TemplateResponse`, because 1.x requires the newer
+`TemplateResponse(request, name, context)` argument order instead of the
+`TemplateResponse(name, {"request": request, ...})` form used throughout
+`main.py`. Migrating is straightforward but touches every template
+response call site — tracked as Phase 2 work below.
+
+Also replaced the unmaintained `PyPDF2==3.0.1` with its actively
+maintained successor `pypdf` (same `PdfReader` API, no code changes
+needed beyond the import).
+
+### New/updated Phase 2 items from this round
+- Migrate every `TemplateResponse(name, {...})` call in `main.py` to
+  `TemplateResponse(request, name, {...})`, then upgrade to
+  `starlette>=1.0.1` to close the remaining 5 pip-audit findings above.
+- Replace `@app.on_event("startup"/"shutdown")` with a `lifespan` context
+  manager (currently emits a `DeprecationWarning` under `fastapi==0.128.0`
+  but still functions).
+- Add SAST/container image scanning to CI (dependency + secret scanning
+  only exist today).
+- Tighten the CSP's `script-src`/`style-src` from `'unsafe-inline'` to
+  per-request nonces (see `security_headers.py` docstring for the current,
+  documented exception).
+
 ## SOC 2 Trust Services Criteria Classification
 
 | Area | Status | Repository evidence | Gap summary |
