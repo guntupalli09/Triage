@@ -14,7 +14,7 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type": "Question", "name": "What is Triage Counsel?", "acceptedAnswer": {"@type": "Answer", "text": "Triage Counsel is a deterministic legal reasoning engine that analyzes contracts using 40 rule-based checks. Unlike other AI tools, the rules decide — AI only explains the findings in plain language."}},
+    {"@type": "Question", "name": "What is Triage Counsel?", "acceptedAnswer": {"@type": "Answer", "text": "Triage Counsel is a deterministic legal reasoning engine built for small and mid-sized law firms. It analyzes contracts using 40 rule-based checks — unlike other AI tools, the rules decide, and AI only explains the findings in plain language."}},
     {"@type": "Question", "name": "How is this different from other AI contract tools?", "acceptedAnswer": {"@type": "Answer", "text": "Most AI contract tools use large language models to make decisions, which means results can vary between runs and lack audit trails. Triage Counsel uses deterministic rules that always produce the same output for the same input. The AI layer only generates explanations — it never influences the findings."}},
     {"@type": "Question", "name": "Are my documents stored?", "acceptedAnswer": {"@type": "Answer", "text": "No. Documents are processed in memory and immediately discarded after analysis. We store only the structured analysis results — never the original file."}},
     {"@type": "Question", "name": "Is my data used to train AI models?", "acceptedAnswer": {"@type": "Answer", "text": "Never. Your documents are not used for any AI training. The LLM explanation layer receives only extracted clause snippets, not full documents."}},
@@ -38,7 +38,7 @@
 
     <div class="space-y-4 fade-in">
         {% set faqs = [
-            ("What is Triage Counsel?", "Triage Counsel is a deterministic legal reasoning engine that analyzes contracts using 40 rule-based checks. Unlike other AI tools, the rules decide — AI only explains the findings in plain language."),
+            ("What is Triage Counsel?", "Triage Counsel is a deterministic legal reasoning engine built for small and mid-sized law firms. It analyzes contracts using 40 rule-based checks — unlike other AI tools, the rules decide, and AI only explains the findings in plain language."),
             ("How is this different from other AI contract tools?", "Most AI contract tools use large language models to make decisions, which means results can vary between runs and lack audit trails. Triage Counsel uses deterministic rules that always produce the same output for the same input. The AI layer only generates explanations — it never influences the findings."),
             ("Are my documents stored?", "No. Documents are processed in memory and immediately discarded after analysis. We store only the structured analysis results (findings, risk scores, metadata) — never the original file."),
             ("Is my data used to train AI models?", "Never. Your documents are not used for any AI training. The LLM explanation layer receives only extracted clause snippets, not full documents."),

@@ -4,7 +4,7 @@ A deterministic contract risk triage system designed to surface commonly negotia
 
 - Triage Counsel uses a versioned, rule-based engine for risk detection and a constrained LLM layer for contextual explanation only, ensuring reproducible, auditable outputs.
 
-- The system is designed as a first-pass risk triage tool for founders, executives, and legal teams who need rapid visibility into potential contract risk areas prior to detailed legal review.
+- The system is built for **small and mid-sized law firms** — the core ICP — giving associates and partners rapid, auditable first-pass visibility into contract risk before detailed review. Founders, executives, and in-house legal teams remain supported secondary users.
 
 ## Quick Start
 

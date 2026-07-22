@@ -12,6 +12,16 @@ This document describes the enterprise-grade, multi-layer architecture of the Tr
 
 ---
 
+## ICP & Prioritization
+
+**ICP is locked to small and mid-sized law firms** (see `docs/strategy/icp.md`). When roadmap items below are otherwise comparable in cost/value, prioritize the one that serves that ICP's actual workflow over generic breadth:
+
+- **Favor**: firm-standard playbook depth, batch/volume handling, client-ready reporting, audit-trail/reproducibility features (malpractice defensibility for the individual attorney of record) — these compound directly for a small/mid firm.
+- **Deprioritize relative to the above**: new contract-type coverage aimed at consumer, creator, or marketplace terms, and enterprise-only capabilities (SSO, custom procurement integrations) that this ICP doesn't need.
+- This is a prioritization lens for Layers 2-5 below, not a constraint on Layer 1's frozen rule coverage — existing rules (including the v3.0 broader-audience consumer/creator/marketplace set in `rules/version.json`) stay in production regardless.
+
+---
+
 ## Layer 1 — Production Rule Engine (IMPLEMENTED & FROZEN)
 
 ### Status: Production-Ready, Immutable Per Version
