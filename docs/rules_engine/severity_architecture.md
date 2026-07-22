@@ -431,7 +431,7 @@ checked first; WAS/bands (§6) only apply if no ceiling fires.
 | 26 | Procurement | Unlimited customer audit rights, no notice | 0·0·0·0·0·0·2·1·0·2·0 | — | 7 | LOW | |
 | 27 | Partnership | Capital call default → uncapped dilution penalty | 0·0·0·0·0·3·3·3·0·0·0 | AT=3∧REV=3 | — | **HIGH** | First pass mis-scored AT=2 (see text below table) — corrected; framework recommends *upgrading* legacy MEDIUM |
 | 28 | Partnership | 50/50 ownership, no deadlock mechanism | 0·0·0·0·0·0·0·1·0·0·2 | — | 3 | LOW | Absence-type finding — see Refinement #6 |
-| 29 | M&A | Earnout entirely at buyer's discretion, no formula | 0·0·0·3·0·0·3·2·0·0·0 | UD=3∧FB≥2, one-sided | — | **HIGH** | Only fires after Refinement #5 widened the UD ceiling |
+| 29 | M&A | Earnout metrics nominally formula-based, but final calculation and payment timing left to buyer's own auditors | 0·0·0·2·0·0·3·2·0·0·0 | UD=3∧FB≥2, one-sided | — | **HIGH** | FB=2 (not 3) deliberately — see erratum below the table: this is the row that actually exercises the UD/FB compound ceiling from Refinement #5, since a plain FB=3 vector would fire the simpler FB==3 ceiling first and never reach it |
 | 30 | AI | Model training on customer data, no opt-out, "all data" | 0·0·0·0·3·3·2·3·3·0·0 | AT=3∧REV=3 (also RS=3∧SC=3 independently) | — | **HIGH** | Double-ceiling case — candidate for deferred CRITICAL-escalation rule, see Refinement log |
 | 31 | Privacy | Unlimited data retention, no deletion right, regime not named | 0·0·0·0·2·0·0·2·2·0·2 | — | 10 | LOW (boundary) | |
 | 32 | Privacy | Same, but clause explicitly names GDPR | 0·0·0·0·3·0·0·2·2·0·2 | — | 12 | LOW | Possible deferred ceiling (RS=3∧DUR=2), not adopted in v1.0 |
@@ -443,6 +443,39 @@ checked first; WAS/bands (§6) only apply if no ceiling fires.
 | 38 | Boilerplate | Governing law / exclusive jurisdiction | 0·0·0·0·0·0·0·0·0·0·0 | — | 0 | LOW | |
 | 39 | Boilerplate | Counterparts / e-signature | 0·0·0·0·0·0·0·0·0·0·0 | — | 0 | LOW | |
 | 40 | MSA | Assignment restricted on change of control, no M&A carve-out | 0·0·0·0·0·0·2·1·0·0·0 | — | 5 | LOW | Most contestable disagreement in the set — see §5.1 |
+
+**Erratum (found during implementation, corrected here rather than in a
+silent edit):** row 29 originally scored FB=3, which the implementation's
+unit tests caught as self-contradictory — a plain FB=3 fires ceiling rule 5
+("FB == 3") on its own, before the UD/FB compound rule (rule 8) is ever
+reached, so the original vector didn't actually demonstrate Refinement #5
+as its note claimed. Corrected to FB=2 (a formula nominally exists but is
+undermined by unilateral control over its application), which is the
+genuine motivating case for the compound rule. Tier is unchanged (HIGH
+either way); only the *reason* it fires was wrong. This is exactly the kind
+of inconsistency the regression suite (`tests/test_severity_regression_corpus.py`)
+and unit tests (`tests/test_severity_scoring.py`) exist to catch — it was
+found by running this document's own vectors through the implemented engine,
+not by re-reading prose.
+
+**Implementation addendum (entries 41–43):** when this framework was
+implemented as executable code (`severity_scoring.py`) and the table above
+was converted into `tests/test_severity_regression_corpus.py`, an
+automated coverage check (`test_corpus_exercises_every_ceiling_rule_at_least_once`)
+found that 2 of the 8 ceiling rules — `CR == 2` and `FB == 3 and PE == 2`
+— were never fired by any of the 40 hand-picked clauses above, and that
+`RS == 3 and SC == 3` was *present* in row 30 but never actually
+*recorded*, because row 30's `AT == 3 and REV == 3` combination fires
+first (rules are checked in order, first match wins). Three entries were
+added to close these gaps — a government false-statement clause for
+`CR == 2`, a lease with both unlimited entity liability and a
+capped-but-personal guaranty for `FB == 3 and PE == 2`, and a
+GDPR-controller/broad-third-party-sharing clause with `AT`/`REV` kept
+below 3 so `RS == 3 and SC == 3` is the rule that actually fires. All
+three are corpus growth (architecture doc §14), not framework changes —
+they add test evidence for existing ceiling rules, they don't add, remove,
+or reweight anything. See `tests/test_severity_regression_corpus.py` for
+the exact vectors.
 
 ### 5.1 Disagreements worth naming explicitly
 
