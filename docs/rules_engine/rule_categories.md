@@ -206,6 +206,59 @@ Low-risk rules detect clauses that are **minor concerns** or provide **contextua
 - "Governed by the laws of California..."
 - "Exclusive jurisdiction in New York courts..."
 
+## v6.0: Small/Midsize Law Firm Practice-Area Rules
+
+Added to extend coverage beyond SaaS/vendor contracts into the document types a
+generalist small or midsize firm reviews most often for its business clients.
+See `rules/version.json` for the full changelog.
+
+### Commercial Leases
+
+- **H_LEASE_PERSONAL_GUARANTY_01** (High): Personal guaranty of lease obligations — extends the tenant entity's default exposure to the signer personally.
+- **H_LEASE_ASSIGN_SUBLET_01** (High): Landlord assignment/sublet consent required without a "not unreasonably withheld" standard.
+- **H_LEASE_HOLDOVER_01** (High): Holdover rent penalty of a large multiple (150–200%+) of base rent.
+- **H_LEASE_RELOCATION_01** (High): Landlord right to relocate the tenant, often at its sole discretion.
+- **M_LEASE_CAM_UNCAPPED_01** (Medium): Common area maintenance (CAM) charges with no annual cap.
+- **M_LEASE_ESCALATION_UNCAPPED_01** (Medium): Rent escalation with no stated percentage cap.
+
+### Loans / Promissory Notes / Guaranties
+
+- **H_LOAN_CONFESSION_JUDGMENT_01** (Critical): Confession-of-judgment / cognovit clause — waives notice-and-hearing rights, restricted or banned in many states.
+- **H_LOAN_GUARANTY_WAIVER_01** (Critical): Guaranty that is "absolute and unconditional" and waives standard suretyship defenses (notice, demand, presentment).
+- **M_LOAN_CROSS_DEFAULT_01** (Medium): Default under any other agreement/indebtedness triggers default here too.
+- **M_LOAN_PREPAY_PENALTY_01** (Medium): Penalty or premium for prepaying the loan early.
+- **M_LOAN_RATE_DISCRETION_01** (Medium): Interest rate adjustable at lender's discretion with no defined index/cap.
+
+### Employment Offer Letters / Severance
+
+- **H_EMPLOY_ATWILL_WAIVER_01** (High): Promised/guaranteed continued employment tied to performance or a stated term — can undermine at-will status.
+- **H_EMPLOY_IP_ASSIGN_OVERBROAD_01** (High): Broad "assigns all inventions" clause lacking the statutory own-time carve-out (e.g. California Labor Code §2870-style).
+- **M_EMPLOY_SEVERANCE_RELEASE_01** (Medium): Severance release lacking a carve-out preserving the right to file an EEOC/agency charge or whistleblower protections.
+- **M_EMPLOY_NONSOLICIT_EMPLOYEE_01** (Medium): No-solicit/no-hire covenant covering the other party's employees.
+
+### Franchise / Distribution Agreements
+
+- **H_FRANCHISE_TERMINATION_CAUSE_01** (High): Franchisor termination right with no cure period, often at sole discretion.
+- **M_FRANCHISE_TERRITORY_01** (Medium): No exclusive or protected territory granted to the franchisee.
+
+### M&A / Partnership & Operating Agreements
+
+- **H_MA_INDEM_BASKET_MISSING_01** (High): Indemnification for reps and warranties with no basket, deductible, or minimum-claim threshold.
+- **M_MA_EARNOUT_DISCRETION_01** (Medium): Earn-out payment determination left to the buyer's discretion rather than objective criteria.
+- **M_PARTNERSHIP_DEADLOCK_01** (Medium): Equally-held ownership (e.g. 50/50) with no deadlock-resolution mechanism (buy-sell/shotgun, mediation, tie-breaking vote).
+- **M_PARTNERSHIP_CAPITAL_CALL_01** (Medium): Capital call default triggers a dilution/forfeiture penalty.
+
+### Settlement Agreements
+
+- **H_SETTLEMENT_RELEASE_OVERBROAD_01** (High): Release sweeps in claims "known and unknown" / "unknown and unanticipated."
+- **M_SETTLEMENT_LIQUIDATED_DAMAGES_01** (Medium): Liquidated damages for breach of the settlement stacked on top of the settlement terms.
+
+### Construction Contracts
+
+- **H_CONSTR_PAY_IF_PAID_01** (High): Pay-if-paid clause shifts the owner's non-payment risk onto the subcontractor.
+- **M_CONSTR_LIEN_WAIVER_01** (Medium): Lien waiver required before payment is actually received.
+- **M_CONSTR_RETAINAGE_01** (Medium): Retainage withheld with no defined release trigger (e.g. substantial completion).
+
 ## Severity Logic
 
 Overall risk level is determined by:

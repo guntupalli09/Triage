@@ -13,19 +13,16 @@ def test_v3_rule_inventory_counts_and_version():
     engine = RuleEngine()
     counts = Counter(rule.severity.value for rule in engine.rules)
 
-    assert engine.version == "5.0.0"
-    # 80 rules through v4.0 (see rules/version.json) + 11 rules added in the
-    # v5.0 independent-audit hardening pass: H_LOL_NO_CARVEOUT_01,
-    # H_INDEM_SCOPE_NARROW_01, M_DPA_MISSING_01, M_BAA_MISSING_01,
-    # M_SUBPROCESSOR_MISSING_01, M_AUDIT_RIGHTS_CUSTOMER_01,
-    # M_DELETION_CERT_MISSING_01, M_SLA_REMEDY_EXCLUSIVITY_01,
-    # M_INSURANCE_MINIMUM_MISSING_01, M_REG_RESPONSIBILITY_UNALLOCATED_01,
-    # M_DATA_RETURN_CONDITIONAL_01.
-    assert len(engine.rules) == 91
-    # 5 rules raised to the new CRITICAL tier (H_ASYMMETRIC_LIABILITY_01,
-    # H_LOL_NO_CARVEOUT_01, H_PERSONAL_01, H_DATA_PRIVACY_01,
-    # H_AI_TRAINING_01); M_BREACH_NOTIFY_01 raised Medium -> High.
-    assert counts == {"critical": 5, "high": 22, "medium": 53, "low": 11}
+    assert engine.version == "6.0.0"
+    # 91 rules through v5.0 (see rules/version.json) + 26 rules added in the
+    # v6.0 small/midsize law firm broad-practice expansion pass covering
+    # commercial leases, loans/guaranties, employment offer/severance,
+    # franchise/distribution, M&A/partnership, settlement agreements, and
+    # construction contracts (see tests/test_v6_lawfirm_expansion_rules.py).
+    assert len(engine.rules) == 117
+    # 2 new CRITICAL rules (H_LOAN_CONFESSION_JUDGMENT_01,
+    # H_LOAN_GUARANTY_WAIVER_01); 10 new HIGH; 14 new MEDIUM.
+    assert counts == {"critical": 7, "high": 32, "medium": 67, "low": 11}
 
 
 def test_high_stored_card_authorization_rule():
