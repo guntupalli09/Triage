@@ -57,11 +57,18 @@ previous one found, not an independent study):**
 4. `severity_authoring_bias_and_confidence.md` — whether the family
    pattern is actually an authoring artifact, plus a per-family
    confidence table by sample size
+5. `severity_threshold_v1_1_candidate.md` — a tested, implemented fix
+   proposal responding to #2's finding (`compute_severity(mode="relative")`
+   in `severity_scoring.py`), **not yet the default** and not yet
+   governance-approved. Cuts corpus-wide LOW from 94→49 rules and brings
+   MEDIUM from 0→40, but two families (Administrative, Insurance) remain
+   fully LOW for a specific, already-diagnosed reason — see the doc.
 
 ### How much weight to put on Part B's findings right now
 
-- The scoring *engine* is solid: 353 tests, deterministic, matches its
-  own spec exactly.
+- The scoring *engine* is solid: 361 tests, deterministic, matches its
+  own spec exactly (both the frozen absolute mode and the relative
+  candidate mode).
 - The calibration *findings* are real but should be read at the
   confidence level stated in `severity_authoring_bias_and_confidence.md`
   — 8 of 18 families have n≤4 rules and are explicitly preliminary. The

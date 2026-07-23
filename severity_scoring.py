@@ -162,6 +162,15 @@ class SeverityDerivation:
     ceiling_rule: Optional[str] = None
     band: Optional[str] = None
     framework_version: str = FRAMEWORK_VERSION
+    # Only set when method == "band". "absolute" is the frozen v1.0 default
+    # (architecture doc §6.3, fixed WAS>=18/36 against every rule regardless
+    # of family). "relative" is the v1.1 CANDIDATE mode added after the
+    # family-clustering experiments showed no single absolute threshold
+    # produces comparable behavior across families — see
+    # docs/rules_engine/severity_threshold_v1_1_candidate.md. Not the
+    # default; must be requested explicitly via compute_severity(mode=...).
+    band_mode: Optional[str] = None
+    practical_max: Optional[int] = None
 
 
 # Ceiling rules, architecture doc §6.1, evaluated in this exact order —
@@ -202,7 +211,14 @@ def _weighted_aggregate_score(vector: FactorVector) -> int:
     return sum(vector.level(f) * TIER_WEIGHT[f] for f in Factor)
 
 
-# Thresholds, architecture doc §6.3. Frozen with the rest of v1.0.
+# Thresholds, architecture doc §6.3. Frozen with the rest of v1.0. This is
+# the "absolute" band mode: WAS is compared against a fixed global cutoff
+# regardless of which factors a given rule's clause type can even touch.
+# The family-clustering experiment (docs/rules_engine/
+# severity_family_clustering_experiment.md) found this produces comparable
+# behavior for only 2 of 18 observed practice-area families at T=18 — kept
+# here unchanged as the frozen v1.0 default; see _relative_band below for
+# the v1.1 candidate this finding motivated.
 def _band(was: int) -> tuple:
     if was >= 36:
         return ("HIGH (>=36)", Severity.HIGH)
@@ -211,19 +227,76 @@ def _band(was: int) -> tuple:
     return ("LOW (<18)", Severity.LOW)
 
 
-def compute_severity(vector: FactorVector) -> SeverityDerivation:
+def _practical_max(vector: FactorVector) -> int:
+    """Max WAS achievable if every factor THIS vector already scores
+    non-zero were set to that factor's own maximum level, holding every
+    other factor at 0. This is a re-use of the diagnostic method from
+    scripts/practical_max_experiment.py, promoted into the scoring module
+    because the v1.1 candidate band depends on it at scoring time, not just
+    for after-the-fact analysis.
+
+    Known limitation, carried over honestly from the diagnostic docs
+    (severity_practical_max_experiment.md): a factor's own top level can
+    describe a qualitatively different, more catastrophic fact than a
+    given clause type could ever actually exhibit (e.g. REV=3 means
+    judgment-level irreversibility; a missing-SLA clause touching REV
+    cannot become that no matter how badly drafted). Relative banding
+    inherits this imprecision — it is a genuine improvement on cross-family
+    comparability, not a claim that every rule's practical_max is a
+    perfectly realistic ceiling for that clause type.
+    """
+    touched = [f for f in Factor if vector.level(f) > 0]
+    return sum(FACTOR_MAX_LEVEL[f] * TIER_WEIGHT[f] for f in touched)
+
+
+# v1.1 CANDIDATE, not the default. Same 35%/70% cut points as the frozen
+# v1.0 absolute thresholds (18/36 were originally derived as ~35%/70% of a
+# theoretical ~52-point max — see architecture doc §6.3) but applied against
+# each rule's OWN practical_max instead of one global denominator. This
+# directly targets the family-incomparability finding: a rule is now judged
+# against how severe it is relative to what its own clause type could ever
+# exhibit, not against an absolute number calibrated for a co-occurrence
+# pattern most single-clause-type rules never approach.
+def _relative_band(was: int, practical_max: int) -> tuple:
+    if practical_max == 0:
+        return ("LOW (relative, practical_max=0)", Severity.LOW)
+    pct = was / practical_max
+    if pct >= 0.70:
+        return (f"HIGH (relative, {was}/{practical_max}={pct:.0%})", Severity.HIGH)
+    if pct >= 0.35:
+        return (f"MEDIUM (relative, {was}/{practical_max}={pct:.0%})", Severity.MEDIUM)
+    return (f"LOW (relative, {was}/{practical_max}={pct:.0%})", Severity.LOW)
+
+
+def compute_severity(vector: FactorVector, mode: str = "absolute") -> SeverityDerivation:
     """Pure, deterministic function of a FactorVector -> SeverityDerivation.
-    Same input always produces the same output — no I/O, no randomness, no
-    hidden state. This is the entire scoring pipeline's decision point;
-    every stage before it is extraction/validation, every stage after it is
-    persistence/reporting."""
+    Same input (and same mode) always produces the same output — no I/O, no
+    randomness, no hidden state. This is the entire scoring pipeline's
+    decision point; every stage before it is extraction/validation, every
+    stage after it is persistence/reporting.
+
+    mode="absolute" (default): the frozen v1.0 band (architecture doc
+    §6.3). Ceiling rules are IDENTICAL in both modes — only band-scored
+    (non-ceiling) severity differs between modes. mode="relative" is the
+    v1.1 candidate; see docs/rules_engine/severity_threshold_v1_1_candidate.md
+    before using it for anything beyond comparison analysis.
+    """
+    if mode not in ("absolute", "relative"):
+        raise SeverityScoringError(f"compute_severity: unknown mode '{mode}' (expected 'absolute' or 'relative')")
+
     was = _weighted_aggregate_score(vector)
     ceiling = _evaluate_ceiling_rules(vector)
     if ceiling is not None:
         name, tier = ceiling
         return SeverityDerivation(tier=tier, was=was, method="ceiling", ceiling_rule=name)
+
+    if mode == "relative":
+        pmax = _practical_max(vector)
+        band_label, tier = _relative_band(was, pmax)
+        return SeverityDerivation(tier=tier, was=was, method="band", band=band_label,
+                                   band_mode="relative", practical_max=pmax)
     band_label, tier = _band(was)
-    return SeverityDerivation(tier=tier, was=was, method="band", band=band_label)
+    return SeverityDerivation(tier=tier, was=was, method="band", band=band_label, band_mode="absolute")
 
 
 # ---------------------------------------------------------------------------
