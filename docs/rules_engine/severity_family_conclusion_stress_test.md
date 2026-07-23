@@ -1,10 +1,17 @@
-# Stress-testing "WAS is not comparable across families"
+# Stress-testing the observation that a single WAS threshold does not
+# produce comparable behavior across the observed families
 
 An adversarial attempt to disprove the family-clustering experiment's
-conclusion, per instruction: assume it's wrong, identify alternative
+observation, per instruction: assume it's wrong, identify alternative
 explanations for the observed family-level practical-max variation, and
 test each empirically against the existing 117-rule dataset before
-trusting the original conclusion further.
+placing further weight on the original observation.
+
+Caveat carried through this whole document: this migration has one
+author/reviewer and includes several families with n≤4 rules. See
+`severity_authoring_bias_and_confidence.md` for the per-family
+confidence table and the (inconclusive) session-order bias check — the
+verdicts below should be read alongside that document, not in isolation.
 
 Script: `scripts/family_conclusion_stress_test.py` (reproducible).
 
@@ -90,15 +97,18 @@ not evidence that WAS itself is incomparable.
 **Test**: computed correlation between family rule count and average
 factors touched per band-scored rule.
 
-**Result: partially confirmed, not sufficient alone.**
-Correlation = -0.31 (moderate). Administrative is the clean supporting
-case: 13 rules, 0.85 average factors touched, pmax=3. But Data/Privacy
-has the identical rule count (13) with 2.27 average factors and pmax=12,
-and Construction has only 3 rules yet pmax=21. Family size predicts
-richness only weakly — domain-intrinsic factor-richness differences
-persist even holding rule count roughly constant. Granularity is a real,
-partial contributor (most visible in Administrative specifically) but
-does not account for the cross-family pattern generally.
+**Result: partially supported, not sufficient alone.**
+Correlation = -0.31, a suggestive but not strong association with only
+18 data points (families), which should not be over-read as a robust
+statistical result. Administrative is the clearest supporting case: 13
+rules, 0.85 average factors touched, pmax=3. But Data/Privacy has the
+identical rule count (13) with 2.27 average factors and pmax=12, and
+Construction has only 3 rules yet pmax=21 — evidence consistent with
+family size predicting richness only weakly, since domain-associated
+factor-richness differences persist even holding rule count roughly
+constant. Granularity looks like a genuine, partial contributor (most
+visible in Administrative specifically) but does not appear to account
+for the cross-family pattern generally, within this corpus.
 
 ### D. Reviewer scoring artifacts
 
@@ -131,17 +141,24 @@ Of five alternative explanations, tested against the existing dataset
 rather than argued from priors:
 
 - **A (incomplete factor coverage)** and **E (ontology/batch bias)** are
-  actively falsified — removing the rules each hypothesis predicts should
-  matter changes nothing.
+  falsified within this dataset — removing the rules each hypothesis
+  predicts should matter changes nothing measurable.
 - **C (family definition error)** is falsified by an independent
   reclustering along an unrelated axis, which reproduces the same
   pattern.
-- **B (granularity)** and **D (reviewer artifacts)** both have real,
-  demonstrable partial support, but both are too small in magnitude to
-  account for a gap spanning pmax=3 to pmax=21 across families.
+- **B (granularity)** and **D (reviewer artifacts)** both have partial
+  support consistent with a real but small contribution, not sufficient
+  on their own to account for a gap spanning pmax=3 to pmax=21 across
+  families.
 
-The original conclusion survives this adversarial pass: WAS's achievable
-range genuinely differs by family in a way none of the five alternatives
-explains away, though B and D suggest the specific numbers for a few
+Stated at the appropriate confidence level: within the current 117-rule
+corpus and factor ontology, the observed achievable WAS range differs by
+family in a way none of the five alternatives tested here explains away.
+This is a corpus-level, single-reviewer finding, not a proven general
+property of legal risk — B and D suggest the specific numbers for a few
 individual rules (not the qualitative cross-family pattern) are somewhat
-noisy and would likely shift slightly under a second reviewer's pass.
+noisy and would plausibly shift under a second, independent reviewer's
+pass (Priority 7), and the pattern's evidentiary weight should be read
+alongside the per-family confidence table in
+`severity_authoring_bias_and_confidence.md` — 8 of the 18 families
+carry only Low confidence (n≤4).

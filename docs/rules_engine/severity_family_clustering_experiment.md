@@ -49,41 +49,58 @@ factors maxed to their own ceiling, per the prior experiment's method)
 | 21 | 2 of 18 | 16 of 18 |
 | 24, 36 | 0 of 18 | 18 of 18 |
 
-## Verdict: no, a single global threshold does not work
+## Observation: within this corpus, no single value of T produces
+## comparable behavior across the observed families
 
-There is no value of T that produces sensible, non-degenerate behavior
-across families simultaneously:
+**Revised for calibrated language — see
+`severity_authoring_bias_and_confidence.md` for the confidence level
+attached to each family below; findings for n≤4 families are
+preliminary.**
 
-- **Low T (6–9)**: nearly every family's ceiling already clears the bar
-  — this isn't discrimination, it's saturation. The threshold stops
-  meaningfully separating anything within most families.
-- **Mid T (12)**: roughly half the families get locked out, but for
-  reasons unrelated to actual severity — Lease and Insurance are excluded
-  here specifically because their entire band-scored population sits at
-  exactly practical-max 9, an artifact of how many factors those clause
-  types structurally touch, not because lease/insurance risk is
-  inherently mild.
+Within the 117-rule corpus, no tested value of T produced consistent
+behavior across families simultaneously:
+
+- **Low T (6–9)**: nearly every family's observed ceiling already clears
+  the bar in this corpus — this isn't discrimination, it's saturation.
+  The threshold stops meaningfully separating anything within most
+  families as scored here.
+- **Mid T (12)**: roughly half the families are excluded in this corpus,
+  but for reasons that do not track actual severity as scored — Lease
+  and Insurance (both Medium/Low confidence, n=6 and n=2 respectively)
+  are excluded specifically because every rule in each family's
+  band-scored population happens to sit at exactly practical-max 9 in
+  this dataset, which looks like an artifact of how many factors those
+  rules were scored as touching, not evidence that lease/insurance risk
+  is inherently mild.
 - **High T (18+, i.e. the current threshold)**: only 2 of 18 families
-  (Employment, Construction) have any rule that could ever cross it, at
-  any draft severity. The other 16 are permanently excluded from
-  MEDIUM/HIGH via aggregation, independent of how the specific clause in
-  that family is worded.
+  (Employment, Construction — both Medium/Low confidence, n=5 and n=3)
+  have any rule that reaches it in this corpus. The other 16 families
+  never produce a MEDIUM/HIGH result via aggregation in the current
+  scored dataset, independent of how the specific clause in that family
+  is worded.
 
-No threshold between these extremes produces a stable middle where most
-families get real, meaningful use of the MEDIUM band — the families'
-achievable ranges don't share a common scale to cut at any single point.
+No threshold between these extremes produced a stable middle where most
+families got meaningful use of the MEDIUM band within this corpus — the
+families' observed achievable ranges did not share a common scale at any
+single cut point tested.
 
-## What this actually means
+## What this observation suggests, stated at the appropriate confidence level
 
-WAS is not a comparable quantity across rule families. The same WAS
-number means something different in "Administrative" (whose entire
-practical ceiling tops out at 3, because document-consistency clauses
-structurally cannot touch more than one weight-1 factor) than it does in
-"Employment" or "Construction" (which can stack a weight-4 factor with
-two others and reach into the 20s). The variation isn't primarily in how
-severely a given clause is drafted — it's in how many of the 11 factors
-that clause TYPE can structurally ever touch, which is a property of the
-family, not of any individual rule's severity.
+Within the current rule ontology and this 117-rule corpus, a single
+global WAS threshold does not produce comparable behavior across the
+observed families. The same WAS number appears to mean something
+different in "Administrative" (whose observed practical ceiling across
+13 rules tops out at 3) than in "Employment" or "Construction" (which
+reach into the 20s across 5 and 3 rules respectively, both Medium/Low
+confidence). The variation observed is not primarily explained by how
+severely a given clause was scored — the stress-test experiment found it
+tracks how many of the 11 factors that clause type was scored as
+touching, which appears to be a property of the family as currently
+defined, not of any individual rule's severity. This is an observation
+about the current 117-rule corpus and factor ontology, not a proven
+general property of legal risk — see the stress-test and authoring-bias
+documents for what has and hasn't been ruled out as an alternative
+explanation.
 
 Two families (Lease, Insurance) additionally show **zero internal
 range** — every band-scored rule in each sits at exactly the same

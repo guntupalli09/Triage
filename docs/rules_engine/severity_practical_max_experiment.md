@@ -14,12 +14,17 @@ Method, script, and full data: `scripts/practical_max_experiment.py`
 
 ## Headline result
 
-**Only 3 of the 94 band-scored rules (3.2%) could ever reach WAS≥18 —
-even at the absolute maximum of their own already-identified relevant
-factors.** 91 of 94 (96.8%) are structurally incapable of reaching MEDIUM
-under any scoring of those factors, because the factor *set* itself
-(1–2 factors for most rules) caps the achievable total well below 18
-regardless of the *level* chosen within it.
+**Only 3 of the 94 band-scored rules (3.2%) reached WAS≥18 when their own
+already-identified relevant factors were set to the maximum level each
+factor allows.** 91 of 94 (96.8%) did not reach MEDIUM under this
+best-case re-scoring of the same factors, because the factor *set* each
+rule was scored with (1–2 factors for most rules) caps the achievable
+total well below 18 regardless of the *level* chosen within it. This is
+an observation about the 117 rules as currently scored and the current
+factor ontology, not a proof that no rule of these types could ever be
+drafted severely enough to warrant more factors — see the authoring-bias
+and stress-test documents for what was and wasn't ruled out as an
+alternative explanation.
 
 The 3 exceptions, and the only band-scored rules whose own practical
 ceiling clears 18 at all:
@@ -77,22 +82,28 @@ graduated range because the range is real for that clause type.
 
 ## What this changes about last turn's three hypotheses
 
-This experiment substantially closes a confound left open last turn —
-whether reviewer within-factor conservatism, not just factor-set
-narrowness, explained the low WAS ceiling. It does not: even a
-maximally aggressive re-scoring of the *already-identified* relevant
-factors for each rule still leaves 91/94 band-scored rules unable to
-reach 18. The bottleneck is the **count** of factors a narrowly-drafted,
-single-clause-type detection rule touches at all (median 1–2), not the
-**level** chosen within them.
+This experiment substantially narrows, though does not fully close
+without a second reviewer, a confound left open last turn — whether
+reviewer within-factor conservatism, not just factor-set narrowness,
+explained the low WAS ceiling. Within this corpus it appears not to be
+the dominant driver: even a maximally aggressive re-scoring of the
+*already-identified* relevant factors for each rule still leaves 91/94
+band-scored rules unable to reach 18. The bottleneck observed is the
+**count** of factors a narrowly-drafted, single-clause-type detection
+rule was scored as touching (median 1–2), not the **level** chosen
+within them. (See `severity_authoring_bias_and_confidence.md` for the
+still-open question of whether a second reviewer would score more
+factors per rule.)
 
-This sharpens, rather than overturns, last turn's conclusion: the
-threshold table's implicit assumption of richer multi-factor co-
-occurrence than single-clause-type rules actually produce is the
-dominant, now better-evidenced explanation. Hypothesis 2 (weights too
-low) remains unsupported. Hypothesis 3 (over-reliance on ceilings) is
-confirmed as an effect, not an independent cause: raising within-factor
-scores cannot fix the LOW clustering for the 91 structurally-capped
+This sharpens, rather than overturns, last turn's conclusion, at the
+appropriate confidence level: the threshold table's implicit assumption
+of richer multi-factor co-occurrence than single-clause-type rules
+actually produced in this corpus is a better-evidenced candidate
+explanation than before, though not the only one still standing (see the
+stress-test document). Hypothesis 2 (weights too low) is not supported
+by this data. Hypothesis 3 (over-reliance on ceilings) looks like an
+effect rather than an independent cause: raising within-factor scores
+cannot, by itself, move the 91 rules whose scored factor sets cap
 rules — only a broader factor set per rule or a change to the threshold
 table could, and this document does not recommend either, per
 instruction to analyze before changing anything.
