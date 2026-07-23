@@ -28,9 +28,19 @@ This directly tests two competing explanations for last turn's finding
 No thresholds are used or referenced below -- per instruction, this
 experiment ignores them entirely and reports raw WAS numbers and
 percentages only.
+
+NOTE (added when v1.1 shipped): this script's "current tier" column is
+pinned to mode="absolute" explicitly. This is a historical diagnostic of
+the v1.0 absolute mode's specific flaw -- the flaw this experiment's
+findings directly motivated fixing in v1.1 (see
+docs/rules_engine/severity_v1_1_release_notes.md). Letting it silently
+follow compute_severity's new default would make re-running this script
+misrepresent its own findings, since the tier column would stop being
+"what this experiment was diagnosing" and start being "the now-fixed
+v1.1 result" without anything in the script's output saying so.
 """
 
-from severity_scoring import Factor, FACTOR_MAX_LEVEL, TIER_WEIGHT
+from severity_scoring import Factor, FACTOR_MAX_LEVEL, TIER_WEIGHT, compute_severity
 from scripts.severity_migration_full import FULL_MIGRATION
 
 
@@ -51,10 +61,12 @@ def main():
             zero_touch.append(rule.rule_id)
             continue
         pct = round(100 * actual / pmax, 1)
-        rows.append((rule.rule_id, rule.legacy_severity.value, rule.derivation.tier.value,
+        # Explicitly pinned to mode="absolute" -- see module docstring note.
+        abs_tier = compute_severity(rule.factor_vector, mode="absolute").tier.value
+        rows.append((rule.rule_id, rule.legacy_severity.value, abs_tier,
                       [f.value for f in touched], actual, pmax, pct))
 
-    print(f"{'rule_id':<38}{'legacy':<10}{'new':<10}{'factors':<22}{'actual':<8}{'pmax':<7}{'pct':<8}")
+    print(f"{'rule_id':<38}{'legacy':<10}{'v1.0_abs':<10}{'factors':<22}{'actual':<8}{'pmax':<7}{'pct':<8}")
     for r in sorted(rows, key=lambda x: x[6]):
         print(f"{r[0]:<38}{r[1]:<10}{r[2]:<10}{','.join(r[3]):<22}{r[4]:<8}{r[5]:<7}{r[6]:<8}")
 

@@ -172,10 +172,15 @@ def test_critical_is_never_reachable_through_band_alone():
     assert d.tier != Severity.CRITICAL
 
 
-# --- WAS arithmetic ---
+# --- WAS arithmetic (absolute mode specifically -- WAS itself is mode-
+# independent, but the tier/band label these tests assert are the v1.0
+# absolute-threshold arithmetic, so mode="absolute" is pinned explicitly
+# rather than relying on whatever compute_severity's default happens to be
+# this release. See tests/test_severity_relative_banding.py for the same
+# vectors' behavior under the v1.1 default. ---
 
 def test_was_zero_vector_is_zero():
-    d = compute_severity(zeros())
+    d = compute_severity(zeros(), mode="absolute")
     assert d.was == 0
     assert d.tier == Severity.LOW
     assert d.band == "LOW (<18)"
@@ -185,24 +190,26 @@ def test_was_arithmetic_matches_documented_formula():
     # (PE+RW+CR)*4 + (FB+RS+AT+UD)*2 + (REV+SC+OC+DUR)*1
     # Use PE=1 (below ceiling) to isolate pure WAS arithmetic.
     v = zeros(PE=1, RW=1, CR=1, FB=1, RS=1, AT=1, UD=0, REV=1, SC=1, OC=1, DUR=1)
-    d = compute_severity(v)
+    d = compute_severity(v, mode="absolute")
     expected = (1 + 1 + 1) * 4 + (1 + 1 + 1 + 0) * 2 + (1 + 1 + 1 + 1) * 1
     assert d.was == expected == 22
     assert d.method == "band"
-    assert d.tier == Severity.MEDIUM  # 18 <= 22 < 36
+    assert d.tier == Severity.MEDIUM  # 18 <= 22 < 36 (absolute mode)
 
 
 def test_band_thresholds_exact_boundaries():
     # Vectors below were solved by exhaustive search over the ceiling-free
     # subspace to hit each exact WAS value at the LOW/MEDIUM (17/18) and
     # MEDIUM/HIGH (35/36) boundaries -- see the WAS docstring in
-    # severity_scoring.py for the formula these must satisfy.
+    # severity_scoring.py for the formula these must satisfy. These are the
+    # v1.0 absolute-mode boundaries specifically, pinned explicitly since
+    # v1.1 changed the default mode.
     was_17 = zeros(AT=1, UD=3, REV=3, SC=3, OC=1, DUR=2)
     was_18 = zeros(AT=2, UD=2, REV=3, SC=3, OC=2, DUR=2)
     was_35 = zeros(RW=1, CR=1, FB=1, RS=3, AT=3, UD=3, REV=2, SC=2, OC=1, DUR=2)
     was_36 = zeros(RW=1, CR=1, FB=2, RS=3, AT=3, UD=2, REV=2, SC=2, OC=2, DUR=2)
 
-    d17, d18, d35, d36 = (compute_severity(v) for v in (was_17, was_18, was_35, was_36))
+    d17, d18, d35, d36 = (compute_severity(v, mode="absolute") for v in (was_17, was_18, was_35, was_36))
     assert (d17.was, d17.method, d17.tier) == (17, "band", Severity.LOW)
     assert (d18.was, d18.method, d18.tier) == (18, "band", Severity.MEDIUM)
     assert (d35.was, d35.method, d35.tier) == (35, "band", Severity.MEDIUM)

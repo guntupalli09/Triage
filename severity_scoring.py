@@ -1,17 +1,31 @@
 """
-Severity Framework v1.0 — deterministic scoring engine.
+Severity Framework v1.1 — deterministic scoring engine.
 
-Implements docs/rules_engine/severity_architecture.md exactly as specified.
-That document is FROZEN: factor definitions, ceiling rules, tier weights,
-and WAS thresholds must not change here without a governed framework
-version bump (architecture doc §13). Bugs in this file's arithmetic are
-fair game to fix; changes to what the numbers mean are not.
+Implements docs/rules_engine/severity_architecture.md (v1.0's frozen
+factor definitions, ceiling rules, and tier weights) plus the v1.1
+threshold change adopted per
+docs/rules_engine/severity_v1_1_release_notes.md: band-scored (non-
+ceiling) severity now defaults to RELATIVE banding — WAS compared against
+each rule's own practical_max — instead of the original v1.0 absolute
+18/36 thresholds. The v1.0 absolute thresholds are preserved exactly and
+remain available as a named compatibility mode
+(`compute_severity(vector, mode="absolute")`); nothing about their
+arithmetic changed, only which mode a caller gets when it doesn't specify
+one.
+
+Both the 11 factor definitions and all 8 ceiling rules are still FROZEN
+per the architecture doc and identical in both modes — this release only
+changed how a non-ceiling WAS gets mapped to a tier. Bugs in this file's
+arithmetic are fair game to fix in either mode; changes to what the
+factors or ceiling rules mean are not.
 
 Any issue discovered while using this engine that appears to require
-changing the framework itself (a new factor, a new/changed ceiling rule, a
-different weight or threshold) must NOT be patched here. Record it in
-docs/rules_engine/severity_v2_candidates.md instead (see that file's
-intake format) and leave this module's behavior untouched.
+changing the frozen factors or ceiling rules themselves must NOT be
+patched here. Record it in docs/rules_engine/severity_v2_candidates.md
+instead (see that file's intake format) and leave this module's behavior
+untouched. A further threshold-formula change (beyond choosing which of
+the two existing modes is default) would itself need the same governed
+process this v1.1 release went through, not a direct edit.
 
 Execution flow (architecture doc Task 3):
 
@@ -39,7 +53,7 @@ from typing import Dict, List, Optional
 
 from rules_engine import Severity
 
-FRAMEWORK_VERSION = "1.0.0"
+FRAMEWORK_VERSION = "1.1.0"
 
 
 class Factor(str, Enum):
@@ -162,13 +176,15 @@ class SeverityDerivation:
     ceiling_rule: Optional[str] = None
     band: Optional[str] = None
     framework_version: str = FRAMEWORK_VERSION
-    # Only set when method == "band". "absolute" is the frozen v1.0 default
-    # (architecture doc §6.3, fixed WAS>=18/36 against every rule regardless
-    # of family). "relative" is the v1.1 CANDIDATE mode added after the
-    # family-clustering experiments showed no single absolute threshold
-    # produces comparable behavior across families — see
-    # docs/rules_engine/severity_threshold_v1_1_candidate.md. Not the
-    # default; must be requested explicitly via compute_severity(mode=...).
+    # Only set when method == "band". "relative" is the v1.1 DEFAULT
+    # (compares WAS against each rule's own practical_max — see
+    # docs/rules_engine/severity_v1_1_release_notes.md), adopted after the
+    # family-clustering experiments showed the v1.0 absolute thresholds
+    # produced comparable behavior for only 2 of 18 observed practice-area
+    # families. "absolute" is the original v1.0 fixed WAS>=18/36 threshold
+    # (architecture doc §6.3), preserved exactly and available as a named
+    # compatibility mode via compute_severity(mode="absolute") — e.g. for
+    # reproducing historical v1.0 results or auditing the change itself.
     band_mode: Optional[str] = None
     practical_max: Optional[int] = None
 
@@ -211,14 +227,16 @@ def _weighted_aggregate_score(vector: FactorVector) -> int:
     return sum(vector.level(f) * TIER_WEIGHT[f] for f in Factor)
 
 
-# Thresholds, architecture doc §6.3. Frozen with the rest of v1.0. This is
-# the "absolute" band mode: WAS is compared against a fixed global cutoff
-# regardless of which factors a given rule's clause type can even touch.
-# The family-clustering experiment (docs/rules_engine/
-# severity_family_clustering_experiment.md) found this produces comparable
-# behavior for only 2 of 18 observed practice-area families at T=18 — kept
-# here unchanged as the frozen v1.0 default; see _relative_band below for
-# the v1.1 candidate this finding motivated.
+# Thresholds, architecture doc §6.3. This is the "absolute" band mode: WAS
+# compared against a fixed global cutoff regardless of which factors a
+# given rule's clause type can even touch. This was the v1.0 default; the
+# family-clustering experiment (docs/rules_engine/
+# severity_family_clustering_experiment.md) found it produced comparable
+# behavior for only 2 of 18 observed practice-area families at T=18, which
+# is why v1.1 changed the DEFAULT to _relative_band below. The arithmetic
+# here is unchanged and preserved exactly as a named compatibility mode
+# (compute_severity(mode="absolute")) — this function itself is not what
+# changed in v1.1, only whether compute_severity reaches it by default.
 def _band(was: int) -> tuple:
     if was >= 36:
         return ("HIGH (>=36)", Severity.HIGH)
@@ -249,14 +267,15 @@ def _practical_max(vector: FactorVector) -> int:
     return sum(FACTOR_MAX_LEVEL[f] * TIER_WEIGHT[f] for f in touched)
 
 
-# v1.1 CANDIDATE, not the default. Same 35%/70% cut points as the frozen
-# v1.0 absolute thresholds (18/36 were originally derived as ~35%/70% of a
-# theoretical ~52-point max — see architecture doc §6.3) but applied against
-# each rule's OWN practical_max instead of one global denominator. This
-# directly targets the family-incomparability finding: a rule is now judged
-# against how severe it is relative to what its own clause type could ever
-# exhibit, not against an absolute number calibrated for a co-occurrence
-# pattern most single-clause-type rules never approach.
+# v1.1 DEFAULT band mode, adopted per
+# docs/rules_engine/severity_v1_1_release_notes.md. Same 35%/70% cut points
+# as the original v1.0 absolute thresholds (18/36 were originally derived
+# as ~35%/70% of a theoretical ~52-point max — see architecture doc §6.3)
+# but applied against each rule's OWN practical_max instead of one global
+# denominator. This directly targets the family-incomparability finding: a
+# rule is judged against how severe it is relative to what its own clause
+# type could ever exhibit, not against an absolute number calibrated for a
+# co-occurrence pattern most single-clause-type rules never approach.
 def _relative_band(was: int, practical_max: int) -> tuple:
     if practical_max == 0:
         return ("LOW (relative, practical_max=0)", Severity.LOW)
@@ -268,18 +287,23 @@ def _relative_band(was: int, practical_max: int) -> tuple:
     return (f"LOW (relative, {was}/{practical_max}={pct:.0%})", Severity.LOW)
 
 
-def compute_severity(vector: FactorVector, mode: str = "absolute") -> SeverityDerivation:
+def compute_severity(vector: FactorVector, mode: str = "relative") -> SeverityDerivation:
     """Pure, deterministic function of a FactorVector -> SeverityDerivation.
     Same input (and same mode) always produces the same output — no I/O, no
     randomness, no hidden state. This is the entire scoring pipeline's
     decision point; every stage before it is extraction/validation, every
     stage after it is persistence/reporting.
 
-    mode="absolute" (default): the frozen v1.0 band (architecture doc
-    §6.3). Ceiling rules are IDENTICAL in both modes — only band-scored
-    (non-ceiling) severity differs between modes. mode="relative" is the
-    v1.1 candidate; see docs/rules_engine/severity_threshold_v1_1_candidate.md
-    before using it for anything beyond comparison analysis.
+    mode="relative" (DEFAULT as of v1.1.0): WAS compared against each
+    rule's own practical_max. Adopted per
+    docs/rules_engine/severity_v1_1_release_notes.md after the
+    family-clustering experiments found the v1.0 absolute thresholds
+    produced comparable behavior for only 2 of 18 observed practice-area
+    families. mode="absolute": the original v1.0 fixed WAS>=18/36 band
+    (architecture doc §6.3), preserved exactly, unchanged, and available as
+    a named compatibility mode — e.g. to reproduce historical v1.0 results
+    or audit this release's effect. Ceiling rules are IDENTICAL in both
+    modes; only band-scored (non-ceiling) severity differs between them.
     """
     if mode not in ("absolute", "relative"):
         raise SeverityScoringError(f"compute_severity: unknown mode '{mode}' (expected 'absolute' or 'relative')")

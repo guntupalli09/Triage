@@ -857,6 +857,15 @@ assert len(FULL_MIGRATION) == 117, f"expected 117 scored rules, got {len(FULL_MI
 # observation, not acted on here.
 # ---------------------------------------------------------------------
 FINDINGS = """
+UPDATE (Framework v1.1.0): the headline finding below (#0) was recorded
+under the v1.0 absolute band mode and directly motivated the v1.1
+relative-mode default now shipped in severity_scoring.py. It is kept
+verbatim as the calibration record, not because it still describes
+current behavior -- under the current default, MEDIUM is reached by 40
+of 117 rules, not 0. See docs/rules_engine/severity_v1_1_release_notes.md
+for the current state and docs/rules_engine/severity_migration_report_full_117_v1_0_absolute_archive.md
+for the absolute-mode snapshot this analysis describes.
+
 0. HEADLINE FINDING -- MEDIUM is structurally unreachable via aggregation
    across the real ruleset. 93 of 117 rules (79%) changed tier; 86 of 117
    (74%) downgraded. Of the 94 rules scored via the WAS band path (no

@@ -1,12 +1,14 @@
 # Full Migration Report -- Reviewer 1 (Framework Author) Migration
 
-117/117 rules scored. 93/117 changed tier.
+Framework version: 1.1.0 (band mode: relative, the v1.1 default). "New" severity below reflects the current default. For the historical v1.0 absolute-mode comparison (93/117 changed, 0 MEDIUM results) that motivated the v1.1 threshold change, see docs/rules_engine/severity_v1_1_release_notes.md and the archived report referenced there.
+
+117/117 rules scored. 67/117 changed tier (vs. legacy — a separate question from the v1.0-vs-v1.1 comparison above).
 
 ## Summary
 
-- Unchanged: 24
-- Upgraded (framework > legacy): 7
-- Downgraded (framework < legacy): 86
+- Unchanged: 50
+- Upgraded (framework > legacy): 11
+- Downgraded (framework < legacy): 56
 
 - High confidence: 23
 - Medium confidence: 94
@@ -20,123 +22,125 @@
 | `H_LOL_01` | HIGH | HIGH | No | unchanged | ceiling rule fired: FB == 3 | high | no action |
 | `H_IP_01` | HIGH | HIGH | No | unchanged | ceiling rule fired: AT == 3 and REV == 3 | high | no action |
 | `H_PERSONAL_01` | CRITICAL | CRITICAL | No | unchanged | ceiling rule fired: PE == 3 | high | no action |
-| `H_INDEM_ONEWAY_01` | HIGH | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `H_IP_WORK_PRODUCT_01` | HIGH | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `H_ATTFEE_01` | HIGH | LOW | Yes | downgrade | WAS=5, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `H_LOL_CARVEOUT_01` | HIGH | LOW | Yes | downgrade | WAS=5, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `H_ASSIGN_CHANGE_CTRL_01` | HIGH | LOW | Yes | downgrade | WAS=5, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `H_PUBLICITY_01` | HIGH | LOW | Yes | downgrade | WAS=5, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_INDEM_ONEWAY_01` | HIGH | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_IP_WORK_PRODUCT_01` | HIGH | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_ATTFEE_01` | HIGH | LOW | Yes | downgrade | WAS=5, band=LOW (relative, 5/15=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_LOL_CARVEOUT_01` | HIGH | MEDIUM | Yes | downgrade | WAS=5, band=MEDIUM (relative, 5/9=56%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_ASSIGN_CHANGE_CTRL_01` | HIGH | MEDIUM | Yes | downgrade | WAS=5, band=MEDIUM (relative, 5/9=56%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_PUBLICITY_01` | HIGH | HIGH | No | unchanged | WAS=5, band=HIGH (relative, 5/6=83%) | medium | no action |
 | `H_UNILATERAL_MOD_01` | HIGH | HIGH | No | unchanged | ceiling rule fired: UD == 3 and (OC == 2 or FB >= 2) | high | no action |
-| `H_CONSEQUENTIAL_01` | HIGH | LOW | Yes | downgrade | WAS=5, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_CONSEQUENTIAL_01` | HIGH | MEDIUM | Yes | downgrade | WAS=5, band=MEDIUM (relative, 5/9=56%) | medium | recommend adopting new severity; flag for attorney spot-check |
 | `H_TERM_CONVENIENCE_01` | HIGH | HIGH | No | unchanged | ceiling rule fired: UD == 3 and (OC == 2 or FB >= 2) | high | no action |
-| `H_DATA_TERMINATION_01` | HIGH | LOW | Yes | downgrade | WAS=4, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_DATA_TERMINATION_01` | HIGH | HIGH | No | unchanged | WAS=4, band=HIGH (relative, 4/5=80%) | medium | no action |
 | `H_ASYMMETRIC_LIABILITY_01` | CRITICAL | HIGH | Yes | downgrade | ceiling rule fired: FB == 3 | high | adopt new severity (re-verify factor vector first) |
-| `H_LOL_NO_CARVEOUT_01` | CRITICAL | LOW | Yes | downgrade | WAS=6, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `H_INDEM_SCOPE_NARROW_01` | HIGH | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_DPA_MISSING_01` | MEDIUM | LOW | Yes | downgrade | WAS=5, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_BAA_MISSING_01` | MEDIUM | LOW | Yes | downgrade | WAS=5, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_SUBPROCESSOR_MISSING_01` | MEDIUM | LOW | Yes | downgrade | WAS=4, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_AUDIT_RIGHTS_CUSTOMER_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_DELETION_CERT_MISSING_01` | MEDIUM | LOW | Yes | downgrade | WAS=4, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_SLA_REMEDY_EXCLUSIVITY_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_INSURANCE_MINIMUM_MISSING_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_REG_RESPONSIBILITY_UNALLOCATED_01` | MEDIUM | LOW | Yes | downgrade | WAS=5, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_DATA_RETURN_CONDITIONAL_01` | MEDIUM | LOW | Yes | downgrade | WAS=2, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `H_CARD_AUTH_01` | HIGH | LOW | Yes | downgrade | WAS=7, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `H_CONTENT_LICENSE_01` | HIGH | LOW | Yes | downgrade | WAS=8, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_LOL_NO_CARVEOUT_01` | CRITICAL | MEDIUM | Yes | downgrade | WAS=6, band=MEDIUM (relative, 6/9=67%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_INDEM_SCOPE_NARROW_01` | HIGH | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_DPA_MISSING_01` | MEDIUM | MEDIUM | No | unchanged | WAS=5, band=MEDIUM (relative, 5/9=56%) | medium | no action |
+| `M_BAA_MISSING_01` | MEDIUM | MEDIUM | No | unchanged | WAS=5, band=MEDIUM (relative, 5/9=56%) | medium | no action |
+| `M_SUBPROCESSOR_MISSING_01` | MEDIUM | LOW | Yes | downgrade | WAS=4, band=LOW (relative, 4/12=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_AUDIT_RIGHTS_CUSTOMER_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_DELETION_CERT_MISSING_01` | MEDIUM | MEDIUM | No | unchanged | WAS=4, band=MEDIUM (relative, 4/11=36%) | medium | no action |
+| `M_SLA_REMEDY_EXCLUSIVITY_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_INSURANCE_MINIMUM_MISSING_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_REG_RESPONSIBILITY_UNALLOCATED_01` | MEDIUM | MEDIUM | No | unchanged | WAS=5, band=MEDIUM (relative, 5/9=56%) | medium | no action |
+| `M_DATA_RETURN_CONDITIONAL_01` | MEDIUM | MEDIUM | No | unchanged | WAS=2, band=MEDIUM (relative, 2/5=40%) | medium | no action |
+| `H_CARD_AUTH_01` | HIGH | MEDIUM | Yes | downgrade | WAS=7, band=MEDIUM (relative, 7/11=64%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_CONTENT_LICENSE_01` | HIGH | HIGH | No | unchanged | WAS=8, band=HIGH (relative, 8/8=100%) | medium | no action |
 | `H_WAGE_DEDUCTION_01` | HIGH | HIGH | No | unchanged | ceiling rule fired: FB == 3 | high | no action |
-| `H_CLASSIFICATION_01` | HIGH | LOW | Yes | downgrade | WAS=9, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_REFUND_01` | MEDIUM | LOW | Yes | downgrade | WAS=2, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_CANCEL_FEE_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_CLASSIFICATION_01` | HIGH | MEDIUM | Yes | downgrade | WAS=9, band=MEDIUM (relative, 9/21=43%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_REFUND_01` | MEDIUM | MEDIUM | No | unchanged | WAS=2, band=MEDIUM (relative, 2/3=67%) | medium | no action |
+| `M_CANCEL_FEE_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
 | `M_ACCOUNT_SUSPEND_01` | MEDIUM | HIGH | Yes | upgrade | ceiling rule fired: UD == 3 and (OC == 2 or FB >= 2) | high | adopt new severity |
-| `M_PRIVACY_SHARING_01` | MEDIUM | LOW | Yes | downgrade | WAS=6, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_NONDISPARAGE_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_PHOTO_RELEASE_01` | MEDIUM | LOW | Yes | downgrade | WAS=4, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `L_ELECTRONIC_NOTICE_01` | LOW | LOW | No | unchanged | WAS=1, band=LOW (<18) | medium | no action |
-| `L_COMMUNICATION_CONSENT_01` | LOW | LOW | No | unchanged | WAS=3, band=LOW (<18) | medium | no action |
-| `M_CONF_01` | MEDIUM | LOW | Yes | downgrade | WAS=2, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_RENEW_01` | MEDIUM | LOW | Yes | downgrade | WAS=0, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_NONCOMP_01` | MEDIUM | LOW | Yes | downgrade | WAS=4, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_DEV_RESTRICT_01` | MEDIUM | LOW | Yes | downgrade | WAS=4, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_CONF_SCOPE_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_RESIDUALS_01` | MEDIUM | LOW | Yes | downgrade | WAS=2, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_INJUNCT_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_EQUIT_NOBOND_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_AUDIT_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_TERM_NOTICE_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_SURVIVAL_SCOPE_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_PRIVACY_SHARING_01` | MEDIUM | MEDIUM | No | unchanged | WAS=6, band=MEDIUM (relative, 6/12=50%) | medium | no action |
+| `M_NONDISPARAGE_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_PHOTO_RELEASE_01` | MEDIUM | MEDIUM | No | unchanged | WAS=4, band=MEDIUM (relative, 4/6=67%) | medium | no action |
+| `L_ELECTRONIC_NOTICE_01` | LOW | LOW | No | unchanged | WAS=1, band=LOW (relative, 1/3=33%) | medium | no action |
+| `L_COMMUNICATION_CONSENT_01` | LOW | LOW | No | unchanged | WAS=3, band=LOW (relative, 3/9=33%) | medium | no action |
+| `M_CONF_01` | MEDIUM | HIGH | Yes | upgrade | WAS=2, band=HIGH (relative, 2/2=100%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_RENEW_01` | MEDIUM | LOW | Yes | downgrade | WAS=0, band=LOW (relative, practical_max=0) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_NONCOMP_01` | MEDIUM | MEDIUM | No | unchanged | WAS=4, band=MEDIUM (relative, 4/11=36%) | medium | no action |
+| `M_DEV_RESTRICT_01` | MEDIUM | MEDIUM | No | unchanged | WAS=4, band=MEDIUM (relative, 4/11=36%) | medium | no action |
+| `M_CONF_SCOPE_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_RESIDUALS_01` | MEDIUM | MEDIUM | No | unchanged | WAS=2, band=MEDIUM (relative, 2/5=40%) | medium | no action |
+| `M_INJUNCT_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_EQUIT_NOBOND_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_AUDIT_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_TERM_NOTICE_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_SURVIVAL_SCOPE_01` | MEDIUM | MEDIUM | No | unchanged | WAS=3, band=MEDIUM (relative, 3/5=60%) | medium | no action |
 | `M_WAIVER_DEFENSE_01` | MEDIUM | HIGH | Yes | upgrade | ceiling rule fired: FB == 3 | high | adopt new severity |
-| `M_ARBITRATION_01` | MEDIUM | LOW | Yes | downgrade | WAS=9, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_WARRANTY_DISCLAIM_01` | MEDIUM | LOW | Yes | downgrade | WAS=5, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_BREACH_NOTIFY_01` | HIGH | LOW | Yes | downgrade | WAS=8, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_INSURANCE_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_FORCE_MAJEURE_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_SLA_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_MFN_01` | MEDIUM | LOW | Yes | downgrade | WAS=0, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `L_LATEFEE_01` | LOW | LOW | No | unchanged | WAS=3, band=LOW (<18) | medium | no action |
-| `L_BROADDEF_01` | LOW | LOW | No | unchanged | WAS=1, band=LOW (<18) | medium | no action |
-| `L_GOVLAW_01` | LOW | LOW | No | unchanged | WAS=0, band=LOW (<18) | medium | no action |
-| `L_COMPLIANCE_01` | LOW | LOW | No | unchanged | WAS=9, band=LOW (<18) | medium | no action |
-| `L_ESCROW_01` | LOW | LOW | No | unchanged | WAS=1, band=LOW (<18) | medium | no action |
-| `L_SUBCONTRACT_01` | LOW | LOW | No | unchanged | WAS=5, band=LOW (<18) | medium | no action |
+| `M_ARBITRATION_01` | MEDIUM | MEDIUM | No | unchanged | WAS=9, band=MEDIUM (relative, 9/15=60%) | medium | no action |
+| `M_WARRANTY_DISCLAIM_01` | MEDIUM | MEDIUM | No | unchanged | WAS=5, band=MEDIUM (relative, 5/9=56%) | medium | no action |
+| `M_BREACH_NOTIFY_01` | HIGH | MEDIUM | Yes | downgrade | WAS=8, band=MEDIUM (relative, 8/12=67%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_INSURANCE_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_FORCE_MAJEURE_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_SLA_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_MFN_01` | MEDIUM | LOW | Yes | downgrade | WAS=0, band=LOW (relative, practical_max=0) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `L_LATEFEE_01` | LOW | LOW | No | unchanged | WAS=3, band=LOW (relative, 3/9=33%) | medium | no action |
+| `L_BROADDEF_01` | LOW | LOW | No | unchanged | WAS=1, band=LOW (relative, 1/3=33%) | medium | no action |
+| `L_GOVLAW_01` | LOW | LOW | No | unchanged | WAS=0, band=LOW (relative, practical_max=0) | medium | no action |
+| `L_COMPLIANCE_01` | LOW | MEDIUM | Yes | upgrade | WAS=9, band=MEDIUM (relative, 9/17=53%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `L_ESCROW_01` | LOW | LOW | No | unchanged | WAS=1, band=LOW (relative, 1/3=33%) | medium | no action |
+| `L_SUBCONTRACT_01` | LOW | MEDIUM | Yes | upgrade | WAS=5, band=MEDIUM (relative, 5/9=56%) | medium | recommend adopting new severity; flag for attorney spot-check |
 | `H_AI_TRAINING_01` | CRITICAL | HIGH | Yes | downgrade | ceiling rule fired: AT == 3 and REV == 3 | high | adopt new severity (re-verify factor vector first) |
 | `H_PRICE_ESCAL_01` | HIGH | HIGH | No | unchanged | ceiling rule fired: UD == 3 and (OC == 2 or FB >= 2) | high | no action |
 | `H_DATA_PRIVACY_01` | CRITICAL | HIGH | Yes | downgrade | ceiling rule fired: RS == 3 and SC == 3 | high | adopt new severity (re-verify factor vector first) |
-| `M_DATA_PORTABILITY_01` | MEDIUM | LOW | Yes | downgrade | WAS=2, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_DATA_DELETION_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_CROSS_BORDER_01` | MEDIUM | LOW | Yes | downgrade | WAS=6, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_RENEWAL_PRICE_01` | MEDIUM | LOW | Yes | downgrade | WAS=9, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_MIN_COMMIT_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_BENCHMARKING_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_USE_RESTRICT_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `L_EXPORT_CTRL_01` | LOW | LOW | No | unchanged | WAS=5, band=LOW (<18) | medium | no action |
-| `L_PAYMENT_TERMS_01` | LOW | LOW | No | unchanged | WAS=1, band=LOW (<18) | medium | no action |
-| `M_PAYMENT_TRIGGER_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_CURRENCY_AMBIGUOUS_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_BILLING_FREQUENCY_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_PRICE_EXHIBIT_MISSING_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_EXPENSE_APPROVAL_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_USAGE_MEASUREMENT_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_DISCOUNT_EXPIRY_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_AUTHORITY_REP_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_EFFECTIVE_DATE_MISSING_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_EXHIBIT_MISSING_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `L_COUNTERPARTS_ESIGN_01` | LOW | LOW | No | unchanged | WAS=0, band=LOW (<18) | medium | no action |
-| `H_PAYMENT_ACCELERATION_01` | HIGH | LOW | Yes | downgrade | WAS=5, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `H_POST_TERMINATION_BILLING_01` | HIGH | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_PREPAID_FEES_REFUND_01` | MEDIUM | LOW | Yes | downgrade | WAS=4, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_FINAL_INVOICE_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_EARLY_TERMINATION_FEE_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_DATA_PORTABILITY_01` | MEDIUM | MEDIUM | No | unchanged | WAS=2, band=MEDIUM (relative, 2/3=67%) | medium | no action |
+| `M_DATA_DELETION_01` | MEDIUM | MEDIUM | No | unchanged | WAS=3, band=MEDIUM (relative, 3/5=60%) | medium | no action |
+| `M_CROSS_BORDER_01` | MEDIUM | MEDIUM | No | unchanged | WAS=6, band=MEDIUM (relative, 6/12=50%) | medium | no action |
+| `M_RENEWAL_PRICE_01` | MEDIUM | MEDIUM | No | unchanged | WAS=9, band=MEDIUM (relative, 9/15=60%) | medium | no action |
+| `M_MIN_COMMIT_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_BENCHMARKING_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_USE_RESTRICT_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `L_EXPORT_CTRL_01` | LOW | MEDIUM | Yes | upgrade | WAS=5, band=MEDIUM (relative, 5/9=56%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `L_PAYMENT_TERMS_01` | LOW | LOW | No | unchanged | WAS=1, band=LOW (relative, 1/3=33%) | medium | no action |
+| `M_PAYMENT_TRIGGER_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_CURRENCY_AMBIGUOUS_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_BILLING_FREQUENCY_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_PRICE_EXHIBIT_MISSING_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_EXPENSE_APPROVAL_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_USAGE_MEASUREMENT_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_DISCOUNT_EXPIRY_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_AUTHORITY_REP_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_EFFECTIVE_DATE_MISSING_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_EXHIBIT_MISSING_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `L_COUNTERPARTS_ESIGN_01` | LOW | LOW | No | unchanged | WAS=0, band=LOW (relative, practical_max=0) | medium | no action |
+| `H_PAYMENT_ACCELERATION_01` | HIGH | MEDIUM | Yes | downgrade | WAS=5, band=MEDIUM (relative, 5/11=45%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_POST_TERMINATION_BILLING_01` | HIGH | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_PREPAID_FEES_REFUND_01` | MEDIUM | MEDIUM | No | unchanged | WAS=4, band=MEDIUM (relative, 4/9=44%) | medium | no action |
+| `M_FINAL_INVOICE_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_EARLY_TERMINATION_FEE_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
 | `H_LEASE_PERSONAL_GUARANTY_01` | HIGH | CRITICAL | Yes | upgrade | ceiling rule fired: PE == 3 | high | adopt new severity |
-| `H_LEASE_ASSIGN_SUBLET_01` | HIGH | LOW | Yes | downgrade | WAS=5, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `H_LEASE_HOLDOVER_01` | HIGH | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `H_LEASE_RELOCATION_01` | HIGH | LOW | Yes | downgrade | WAS=5, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_LEASE_ASSIGN_SUBLET_01` | HIGH | MEDIUM | Yes | downgrade | WAS=5, band=MEDIUM (relative, 5/9=56%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_LEASE_HOLDOVER_01` | HIGH | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_LEASE_RELOCATION_01` | HIGH | MEDIUM | Yes | downgrade | WAS=5, band=MEDIUM (relative, 5/9=56%) | medium | recommend adopting new severity; flag for attorney spot-check |
 | `M_LEASE_CAM_UNCAPPED_01` | MEDIUM | HIGH | Yes | upgrade | ceiling rule fired: FB == 3 | high | adopt new severity |
 | `M_LEASE_ESCALATION_UNCAPPED_01` | MEDIUM | HIGH | Yes | upgrade | ceiling rule fired: FB == 3 | high | adopt new severity |
 | `H_LOAN_CONFESSION_JUDGMENT_01` | CRITICAL | CRITICAL | No | unchanged | ceiling rule fired: RW == 3 | high | no action |
 | `H_LOAN_GUARANTY_WAIVER_01` | CRITICAL | CRITICAL | No | unchanged | ceiling rule fired: PE == 3 | high | no action |
-| `M_LOAN_CROSS_DEFAULT_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_LOAN_PREPAY_PENALTY_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_LOAN_RATE_DISCRETION_01` | MEDIUM | LOW | Yes | downgrade | WAS=9, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `H_EMPLOY_ATWILL_WAIVER_01` | HIGH | LOW | Yes | downgrade | WAS=2, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_LOAN_CROSS_DEFAULT_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_LOAN_PREPAY_PENALTY_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_LOAN_RATE_DISCRETION_01` | MEDIUM | MEDIUM | No | unchanged | WAS=9, band=MEDIUM (relative, 9/15=60%) | medium | no action |
+| `H_EMPLOY_ATWILL_WAIVER_01` | HIGH | MEDIUM | Yes | downgrade | WAS=2, band=MEDIUM (relative, 2/5=40%) | medium | recommend adopting new severity; flag for attorney spot-check |
 | `H_EMPLOY_IP_ASSIGN_OVERBROAD_01` | HIGH | HIGH | No | unchanged | ceiling rule fired: AT == 3 and REV == 3 | high | no action |
-| `M_EMPLOY_SEVERANCE_RELEASE_01` | MEDIUM | LOW | Yes | downgrade | WAS=12, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_EMPLOY_NONSOLICIT_EMPLOYEE_01` | MEDIUM | LOW | Yes | downgrade | WAS=4, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_EMPLOY_SEVERANCE_RELEASE_01` | MEDIUM | MEDIUM | No | unchanged | WAS=12, band=MEDIUM (relative, 12/21=57%) | medium | no action |
+| `M_EMPLOY_NONSOLICIT_EMPLOYEE_01` | MEDIUM | MEDIUM | No | unchanged | WAS=4, band=MEDIUM (relative, 4/11=36%) | medium | no action |
 | `H_FRANCHISE_TERMINATION_CAUSE_01` | HIGH | HIGH | No | unchanged | ceiling rule fired: UD == 3 and (OC == 2 or FB >= 2) | high | no action |
-| `M_FRANCHISE_TERRITORY_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `H_MA_INDEM_BASKET_MISSING_01` | HIGH | LOW | Yes | downgrade | WAS=5, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_FRANCHISE_TERRITORY_01` | MEDIUM | LOW | Yes | downgrade | WAS=1, band=LOW (relative, 1/3=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_MA_INDEM_BASKET_MISSING_01` | HIGH | MEDIUM | Yes | downgrade | WAS=5, band=MEDIUM (relative, 5/9=56%) | medium | recommend adopting new severity; flag for attorney spot-check |
 | `M_MA_EARNOUT_DISCRETION_01` | MEDIUM | HIGH | Yes | upgrade | ceiling rule fired: UD == 3 and (OC == 2 or FB >= 2) | high | adopt new severity |
-| `M_PARTNERSHIP_DEADLOCK_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_PARTNERSHIP_DEADLOCK_01` | MEDIUM | MEDIUM | No | unchanged | WAS=3, band=MEDIUM (relative, 3/5=60%) | medium | no action |
 | `M_PARTNERSHIP_CAPITAL_CALL_01` | MEDIUM | HIGH | Yes | upgrade | ceiling rule fired: AT == 3 and REV == 3 | high | adopt new severity |
-| `H_SETTLEMENT_RELEASE_OVERBROAD_01` | HIGH | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_SETTLEMENT_LIQUIDATED_DAMAGES_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `H_SETTLEMENT_RELEASE_OVERBROAD_01` | HIGH | HIGH | No | unchanged | WAS=3, band=HIGH (relative, 3/3=100%) | medium | no action |
+| `M_SETTLEMENT_LIQUIDATED_DAMAGES_01` | MEDIUM | LOW | Yes | downgrade | WAS=3, band=LOW (relative, 3/9=33%) | medium | recommend adopting new severity; flag for attorney spot-check |
 | `H_CONSTR_PAY_IF_PAID_01` | HIGH | HIGH | No | unchanged | ceiling rule fired: FB == 3 | high | no action |
-| `M_CONSTR_LIEN_WAIVER_01` | MEDIUM | LOW | Yes | downgrade | WAS=10, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
-| `M_CONSTR_RETAINAGE_01` | MEDIUM | LOW | Yes | downgrade | WAS=7, band=LOW (<18) | medium | recommend adopting new severity; flag for attorney spot-check |
+| `M_CONSTR_LIEN_WAIVER_01` | MEDIUM | MEDIUM | No | unchanged | WAS=10, band=MEDIUM (relative, 10/21=48%) | medium | no action |
+| `M_CONSTR_RETAINAGE_01` | MEDIUM | MEDIUM | No | unchanged | WAS=7, band=MEDIUM (relative, 7/11=64%) | medium | no action |
 
-**93/117 rules changed tier** under the v1.0 framework.
+**67/117 rules changed tier** under the v1.0 framework.
 
 ## Findings from scoring all 117 rules
+
+(Recorded during v1.0 absolute-mode analysis -- this is the calibration record that led to the v1.1 relative-mode default now shown in the table above, not a re-description of the current default's behavior. See docs/rules_engine/severity_v1_1_release_notes.md for what changed and why.)
 
 
 0. HEADLINE FINDING -- MEDIUM is structurally unreachable via aggregation

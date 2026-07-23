@@ -1,11 +1,23 @@
 # v1.1 candidate: relative band mode
 
-Status: **implemented, tested, NOT the default.** Available via
-`compute_severity(vector, mode="relative")`; the default remains
-`mode="absolute"` (the frozen v1.0 threshold table). This document is the
-proposal and evidence for adopting `relative` as the new default —
-adoption itself requires the sign-off `severity_architecture.md` §13
-already specifies for any threshold change, which has not happened.
+**Status: SUPERSEDED — ADOPTED.** This proposal was accepted;
+`mode="relative"` is now the default as of Framework v1.1.0. See
+`docs/rules_engine/severity_v1_1_release_notes.md` for the authoritative
+release summary. This document is kept as-is for its detailed rationale,
+evidence, and results table, which the release notes summarize but don't
+replace — the "not yet the default" framing below is historical, dating
+to when this was still a proposal.
+
+---
+
+Original status line (historical): **implemented, tested, NOT the
+default.** Available via `compute_severity(vector, mode="relative")`;
+the default at the time was `mode="absolute"` (the frozen v1.0 threshold
+table). This document was the proposal and evidence for adopting
+`relative` as the new default — adoption went through the sign-off
+`severity_architecture.md` §13 specifies for any threshold change (the
+user directing this session, in lieu of a separate attorney/governance
+body which does not yet exist for this project).
 
 ## What changed, and what didn't
 
@@ -117,15 +129,15 @@ this document set. The blind re-score gate (Priority 7,
 likely shift some of these numbers, particularly the Administrative/
 Insurance boundary cases sitting at exactly 33.3%.
 
-## Recommendation
+## Recommendation (adopted)
 
 Relative banding is a substantial, tested, working fix to the specific
 architectural problem the family-clustering experiments found — not a
-patch that hides the symptom. It should be the leading candidate for the
-v1.1 governed threshold change (architecture doc §13's process: record
-in a v2/v1.1 candidates log, re-run the full golden set, get explicit
-sign-off before it becomes the default). It is implemented and tested
-now so that decision can be made on real evidence rather than a
-proposal — but making it the default that feeds the eventual Phase 5
-cutover (`severity_implementation.md` §12) is a decision to make
-explicitly, not a side effect of this session.
+patch that hides the symptom. **This recommendation was accepted**: it
+went through architecture doc §13's process (full golden set re-run,
+explicit sign-off from the user directing this session) and is now the
+Framework v1.1.0 default — see `severity_v1_1_release_notes.md`. Making
+it the default feeding the eventual Phase 5 cutover
+(`severity_implementation.md` §12, still separate — that phase wires
+severity into `rules_engine.py`'s live `Rule.severity` field, which this
+release does not touch) remains a distinct, not-yet-made decision.

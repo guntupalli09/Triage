@@ -161,7 +161,12 @@ def _vector(levels: Dict[str, int]) -> FactorVector:
 
 @pytest.mark.parametrize("entry", CORPUS, ids=lambda e: f"{e.id:02d}_{e.agreement_type}")
 def test_corpus_entry_matches_documented_severity(entry: CorpusEntry):
-    derivation = compute_severity(_vector(entry.levels))
+    # This corpus's expected_tier values are the v1.0 absolute-threshold
+    # tiers documented in architecture doc §5 -- pinned explicitly since
+    # v1.1 changed compute_severity's default mode to "relative". See
+    # test_corpus_relative_mode_is_deterministic below for the same 43
+    # vectors under the v1.1 default.
+    derivation = compute_severity(_vector(entry.levels), mode="absolute")
     assert derivation.tier == entry.expected_tier, (
         f"#{entry.id} ({entry.agreement_type}: {entry.clause}) expected "
         f"{entry.expected_tier.value}, got {derivation.tier.value} (WAS={derivation.was})"
@@ -200,7 +205,7 @@ def test_corpus_exercises_every_ceiling_rule_at_least_once():
     prevent."""
     fired_rules = set()
     for entry in CORPUS:
-        d = compute_severity(_vector(entry.levels))
+        d = compute_severity(_vector(entry.levels), mode="absolute")
         if d.method == "ceiling":
             fired_rules.add(d.ceiling_rule)
     expected = {
@@ -215,3 +220,53 @@ def test_corpus_exercises_every_ceiling_rule_at_least_once():
     }
     missing = expected - fired_rules
     assert not missing, f"ceiling rule(s) never exercised by the corpus: {missing}"
+
+
+# Expected tier under the v1.1 DEFAULT (relative) mode for every corpus
+# entry -- computed once when v1.1 was adopted and hardcoded here so this
+# corpus is a genuine regression guard for the current default, not just
+# the "absolute" compatibility mode tested above. Ceiling-fired entries
+# are identical to expected_tier (ceilings are mode-independent) and are
+# not re-listed; ids not present here are exactly the ceiling-fired ones.
+EXPECTED_RELATIVE_TIER = {
+    1: Severity.HIGH, 2: Severity.LOW, 4: Severity.LOW, 5: Severity.HIGH,
+    7: Severity.LOW, 9: Severity.LOW, 11: Severity.MEDIUM, 12: Severity.LOW,
+    15: Severity.LOW, 16: Severity.LOW, 17: Severity.MEDIUM, 18: Severity.MEDIUM,
+    21: Severity.LOW, 23: Severity.MEDIUM, 24: Severity.MEDIUM, 25: Severity.LOW,
+    26: Severity.MEDIUM, 28: Severity.MEDIUM, 31: Severity.HIGH, 32: Severity.HIGH,
+    33: Severity.HIGH, 34: Severity.HIGH, 35: Severity.MEDIUM, 36: Severity.LOW,
+    37: Severity.MEDIUM, 38: Severity.LOW, 39: Severity.LOW, 40: Severity.MEDIUM,
+}
+
+
+@pytest.mark.parametrize("entry", [e for e in CORPUS if e.id in EXPECTED_RELATIVE_TIER],
+                          ids=lambda e: f"{e.id:02d}_{e.agreement_type}")
+def test_corpus_relative_mode_matches_recorded_v1_1_tier(entry: CorpusEntry):
+    """Locks in the v1.1 default (relative) mode's output for every
+    non-ceiling corpus entry, the same golden-set discipline
+    test_corpus_entry_matches_documented_severity applies to absolute
+    mode. A change here means either an intentional, governed threshold
+    adjustment (update EXPECTED_RELATIVE_TIER deliberately, per
+    architecture doc §13) or an unintended regression -- never a change
+    to accept silently."""
+    derivation = compute_severity(_vector(entry.levels), mode="relative")
+    assert derivation.method == "band", f"#{entry.id} unexpectedly ceiling-fired under relative mode"
+    assert derivation.tier == EXPECTED_RELATIVE_TIER[entry.id], (
+        f"#{entry.id} ({entry.agreement_type}: {entry.clause}) expected "
+        f"{EXPECTED_RELATIVE_TIER[entry.id].value} under v1.1 relative mode, "
+        f"got {derivation.tier.value} (WAS={derivation.was}, pmax={derivation.practical_max})"
+    )
+
+
+def test_ceiling_fired_entries_are_identical_across_both_modes():
+    """Ceiling rules must never depend on band mode -- every corpus entry
+    NOT in EXPECTED_RELATIVE_TIER above is exactly the ceiling-fired set,
+    and both modes must agree on tier for every one of them."""
+    ceiling_ids = {e.id for e in CORPUS} - set(EXPECTED_RELATIVE_TIER)
+    for entry in CORPUS:
+        if entry.id not in ceiling_ids:
+            continue
+        d_abs = compute_severity(_vector(entry.levels), mode="absolute")
+        d_rel = compute_severity(_vector(entry.levels), mode="relative")
+        assert d_abs.method == d_rel.method == "ceiling", f"#{entry.id} expected to be ceiling-fired in both modes"
+        assert d_abs.tier == d_rel.tier == entry.expected_tier

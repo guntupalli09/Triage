@@ -1,7 +1,10 @@
-"""Tests for the v1.1 CANDIDATE relative-banding mode
-(severity_scoring.compute_severity(mode="relative")). This mode is NOT
-the default and must never become the default silently -- these tests
-guard that boundary as much as they test the mode's own behavior."""
+"""Tests for the v1.1 relative-banding mode
+(severity_scoring.compute_severity(mode="relative")), adopted as the
+DEFAULT per docs/rules_engine/severity_v1_1_release_notes.md. The v1.0
+absolute mode is preserved exactly as a named compatibility mode
+(mode="absolute") and must never silently disappear or drift -- these
+tests guard both directions: that relative is really the default now,
+and that absolute still reproduces v1.0 behavior exactly on request."""
 
 import pytest
 
@@ -17,9 +20,20 @@ def zeros(**overrides):
     return FactorVector.from_levels(**overrides)
 
 
-def test_default_mode_is_absolute():
+def test_default_mode_is_relative():
     d = compute_severity(zeros(REV=1))
+    assert d.band_mode == "relative"
+
+
+def test_absolute_mode_available_as_compatibility_mode():
+    # Same vector, explicit mode="absolute" -- must reproduce the original
+    # v1.0 arithmetic exactly (REV=1 alone: WAS=1, well under the fixed 18
+    # threshold -> LOW), proving compatibility mode was preserved, not
+    # merely left in place with drifted behavior.
+    d = compute_severity(zeros(REV=1), mode="absolute")
     assert d.band_mode == "absolute"
+    assert d.band == "LOW (<18)"
+    assert d.tier == Severity.LOW
 
 
 def test_invalid_mode_raises():
