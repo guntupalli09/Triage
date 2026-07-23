@@ -32,6 +32,10 @@ architecture doc below; v1.1 changed only the non-ceiling threshold
 mechanism, via a governed process, not a silent edit.
 
 **Read this first:**
+- `severity_new_rule_workflow.md` — **adding a new rule?** Start here.
+  The concrete, currently-enforced steps (`tests/test_new_rule_severity_gate.py`
+  fails the build if a new rule ships without a scored, consistent
+  factor vector).
 - `severity_v1_1_release_notes.md` — the current, authoritative state:
   what v1.1 changed, why, the evidence, and what's still not done
   (independent second-reviewer sign-off, wiring into the live engine).
@@ -73,6 +77,16 @@ produced — each one responds to what the previous one found):**
    to #2 (superseded by the release notes above, kept for its detailed
    rationale and evidence table)
 
+**Going forward:**
+- `severity_new_rule_workflow.md` — how a new rule actually gets scored
+  and gated
+- `severity_factor_data.py` (code, repo root) — the factor-vector data
+  itself, kept dependency-free from `rules_engine.py` on purpose (see its
+  module docstring)
+- `tests/test_new_rule_severity_gate.py` — the enforcement, with tests
+  proving the gate catches an unscored or mismatched new rule, not just
+  tests that trivially pass against current data
+
 ### How much weight to put on Part B's findings right now
 
 - The scoring *engine* is solid: 391 tests, deterministic, matches its
@@ -91,6 +105,12 @@ produced — each one responds to what the previous one found):**
   numbers, since v1.1 changed how existing single-reviewer vectors are
   interpreted, not who scored them. Treat every calibration conclusion
   as a hypothesis for that review, not a final answer.
+- **New rules are now gated, not automated**: adding a rule to
+  `rules_engine.py` without a scored, consistent factor vector in
+  `severity_factor_data.py` fails the test suite (see
+  `severity_new_rule_workflow.md`). This does not score the factors for
+  you — that's still real analytical work — it stops an unscored or
+  inconsistent severity from shipping silently.
 - **Not yet done, regardless of v1.1**: wiring any of this into
   `rules_engine.py`'s live `Rule.severity` field. This framework still
   runs in parallel to production, exactly as before this release.

@@ -89,7 +89,15 @@ diffused across 16. Not claimed as fully solved; see the candidate doc.
   `compute_severity(vector, mode="relative")` as default
 - `tests/test_severity_relative_banding.py`,
   `tests/test_severity_scoring.py`, `tests/test_severity_regression_corpus.py`
-  — updated/extended for both modes (391 tests passing total)
+  — updated/extended for both modes
+- `severity_factor_data.py` (new) — the factor-vector data extracted into
+  its own module, dependency-free from `rules_engine.py`, so it can be
+  checked against live rules without a circular import
+- `tests/test_new_rule_severity_gate.py` (new) — enforces that any rule
+  added after the 117-rule migration has a scored, consistent factor
+  vector before it can ship; see
+  `docs/rules_engine/severity_new_rule_workflow.md` for the workflow
+  this gate expects contributors to follow
 - `docs/rules_engine/severity_migration_report_full_117.md` — regenerated
   under the new default
 - `docs/rules_engine/severity_migration_report_full_117_v1_0_absolute_archive.md`
