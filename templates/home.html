@@ -144,6 +144,125 @@
     </div>
 </section>
 
+<!-- Engine Validation -->
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="text-center mb-14">
+        <p class="section-label mb-3">Engine Validation</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">Every rule, every release, verified</h2>
+        <p class="text-gray-500 max-w-2xl mx-auto mt-4 leading-relaxed">
+            The rule library isn't a fixed catalog — it grows every release, and every rule added goes through this same check before it ships.
+        </p>
+    </div>
+
+    <div class="card p-8 sm:p-10 max-w-3xl mx-auto">
+        <dl class="divide-y divide-gray-100">
+            <div class="flex items-center justify-between gap-4 py-4 first:pt-0">
+                <div class="flex items-start gap-3">
+                    <span class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+                    <div>
+                        <dt class="text-sm font-semibold text-[#0F172A]">Detection rules in the engine</dt>
+                        <dd class="text-xs text-gray-500 mt-0.5">Every rule maps to a scored, 11-factor severity vector &middot; <span class="font-medium text-gray-600">+5 this release</span></dd>
+                    </div>
+                </div>
+                <span class="text-lg font-bold text-[#0F172A] tabular-nums flex-shrink-0">185</span>
+            </div>
+            <div class="flex items-center justify-between gap-4 py-4">
+                <div class="flex items-start gap-3">
+                    <span class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+                    <div>
+                        <dt class="text-sm font-semibold text-[#0F172A]">Automated tests</dt>
+                        <dd class="text-xs text-gray-500 mt-0.5">Positive, negative, and messy-formatting cases per rule &middot; <span class="font-medium text-gray-600">+11 this release</span></dd>
+                    </div>
+                </div>
+                <span class="text-lg font-bold text-[#0F172A] tabular-nums flex-shrink-0">508</span>
+            </div>
+            <div class="flex items-center justify-between gap-4 py-4">
+                <div class="flex items-start gap-3">
+                    <span class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+                    <div>
+                        <dt class="text-sm font-semibold text-[#0F172A]">Real SEC contracts analyzed</dt>
+                        <dd class="text-xs text-gray-500 mt-0.5">Party-named filings, 4K&ndash;720K characters each, 12 practice areas</dd>
+                    </div>
+                </div>
+                <span class="text-lg font-bold text-[#0F172A] tabular-nums flex-shrink-0">63</span>
+            </div>
+            <div class="flex items-center justify-between gap-4 py-4">
+                <div class="flex items-start gap-3">
+                    <span class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+                    <div>
+                        <dt class="text-sm font-semibold text-[#0F172A]">Engine crashes on real filings</dt>
+                        <dd class="text-xs text-gray-500 mt-0.5">Messy PDF-extracted text, inconsistent formatting, redactions</dd>
+                    </div>
+                </div>
+                <span class="text-lg font-bold text-[#0F172A] tabular-nums flex-shrink-0">0</span>
+            </div>
+            <div class="flex items-center justify-between gap-4 py-4">
+                <div class="flex items-start gap-3">
+                    <span class="flex-shrink-0 w-[18px] h-[18px] rounded-full flex items-center justify-center mt-0.5" style="background:#FFFBEB;border:1px solid #FDE68A;">
+                        <svg class="w-[10px] h-[10px]" style="color:#D97706" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"/></svg>
+                    </span>
+                    <div>
+                        <dt class="text-sm font-semibold text-[#0F172A]">False positives found &amp; fixed</dt>
+                        <dd class="text-xs text-gray-500 mt-0.5">Read against the actual matched clause text, then reverified on the same 63 documents</dd>
+                    </div>
+                </div>
+                <span class="text-lg font-bold text-[#0F172A] tabular-nums flex-shrink-0">12 <span class="text-gray-300 font-medium">/</span> 12</span>
+            </div>
+            <div class="flex items-center justify-between gap-4 py-4">
+                <div class="flex items-start gap-3">
+                    <span class="flex-shrink-0 w-[18px] h-[18px] rounded-full flex items-center justify-center mt-0.5" style="background:#FFFBEB;border:1px solid #FDE68A;">
+                        <svg class="w-[10px] h-[10px]" style="color:#D97706" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"/></svg>
+                    </span>
+                    <div>
+                        <dt class="text-sm font-semibold text-[#0F172A]">Coverage gaps discovered &amp; closed</dt>
+                        <dd class="text-xs text-gray-500 mt-0.5">Real clause types the ruleset didn't yet cover, found via the corpus above</dd>
+                    </div>
+                </div>
+                <span class="text-lg font-bold text-[#0F172A] tabular-nums flex-shrink-0">5 <span class="text-gray-300 font-medium">/</span> 5</span>
+            </div>
+            <div class="flex items-center justify-between gap-4 py-4 last:pb-0">
+                <div class="flex items-start gap-3">
+                    <span class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span>
+                    <div>
+                        <dt class="text-sm font-semibold text-[#0F172A]">Deterministic reproducibility</dt>
+                        <dd class="text-xs text-gray-500 mt-0.5">Same document in, same findings out, every time</dd>
+                    </div>
+                </div>
+                <span class="text-lg font-bold text-[#0F172A] tabular-nums flex-shrink-0">100%</span>
+            </div>
+        </dl>
+    </div>
+
+    <div class="max-w-3xl mx-auto mt-8">
+        <div class="flex items-center justify-between mb-3">
+            <p class="section-label">Rule count by release</p>
+            <p class="text-xs text-gray-400">185 today &mdash; next release already in progress</p>
+        </div>
+        <div class="flex items-end gap-3" style="height:56px">
+            <div class="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+                <div class="w-full rounded-t bg-gray-200" style="height:49%"></div>
+                <span class="text-xs text-gray-400 tabular-nums">91</span>
+                <span class="text-[10px] text-gray-300 uppercase tracking-wide -mt-1">v5.0</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+                <div class="w-full rounded-t bg-gray-200" style="height:63%"></div>
+                <span class="text-xs text-gray-400 tabular-nums">117</span>
+                <span class="text-[10px] text-gray-300 uppercase tracking-wide -mt-1">v6.0</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+                <div class="w-full rounded-t bg-gray-200" style="height:97%"></div>
+                <span class="text-xs text-gray-400 tabular-nums">180</span>
+                <span class="text-[10px] text-gray-300 uppercase tracking-wide -mt-1">v7.0</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+                <div class="w-full rounded-t bg-[#0F172A]" style="height:100%"></div>
+                <span class="text-xs font-semibold text-[#0F172A] tabular-nums">185</span>
+                <span class="text-[10px] text-gray-400 uppercase tracking-wide -mt-1">v7.1</span>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Research -->
 <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
     <div class="card p-10 sm:p-14 text-center">
