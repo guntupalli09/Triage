@@ -10,11 +10,11 @@ from severity_scoring import validate_ruleset
 from scripts.severity_migration_full import FULL_MIGRATION
 
 
-def test_all_117_live_rules_are_scored():
+def test_all_live_rules_are_scored():
     live_ids = {r.rule_id for r in RuleEngine().rules}
     scored_ids = {r.rule_id for r in FULL_MIGRATION}
     assert live_ids == scored_ids
-    assert len(FULL_MIGRATION) == 117
+    assert len(FULL_MIGRATION) == 180
 
 
 def test_no_duplicate_rule_ids():

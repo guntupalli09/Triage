@@ -809,6 +809,350 @@ _add("M_CONSTR_RETAINAGE_01", "PaymentContingency", "Contractor", _vec(
     DUR=(2, "No release trigger means the withholding is open-ended in practice."),
 ))
 
+# ---------------------------------------------------------------------
+# v7.0 batch -- broad small/midsize law firm coverage expansion.
+# Same discipline as the 117-rule migration: every factor read against
+# the rule's own text, not by analogy; zero-level factors get the
+# boilerplate justification via _vec(); no factor inflated to hit a
+# particular severity.
+# ---------------------------------------------------------------------
+
+# -- Real estate purchase & sale --
+
+_add("H_REALESTATE_TITLE_DEFECT_01", "RealEstatePurchase", "Buyer", _vec(
+    FB=(1, "An undisclosed title/survey defect discovered post-closing creates a real but bounded cost (curing the encumbrance or defending title), not an unbounded liability."),
+    REV=(2, "Once closed subject to a title defect, undoing it typically requires a quiet-title action or negotiated cure -- not simply reversible."),
+))
+
+_add("M_REALESTATE_EARNEST_FORFEIT_01", "RealEstatePurchase", "Buyer", _vec(
+    FB=(1, "Forfeiture is bounded to the stated earnest money amount, a defined, calculable figure."),
+    REV=(2, "Money already deposited and forfeited is a real, largely irreversible loss for that specific payment."),
+))
+
+_add("H_REALESTATE_AS_IS_NO_INSPECTION_01", "RealEstatePurchase", "Buyer", _vec(
+    FB=(1, "Post-closing repair costs for undiscovered defects are a real but bounded-in-practice financial risk, not structurally uncapped."),
+    REV=(2, "Once purchased as-is with no inspection, discovered defects are the buyer's to bear with no contractual recourse -- largely irreversible."),
+))
+
+_add("M_REALESTATE_CLOSING_EXTENSION_SOLE_01", "RealEstatePurchase", "Seller", _vec(
+    UD=(2, "Seller's unilateral discretion to extend closing affects timing, a single non-existential term, not price or the existence of the deal itself."),
+    REV=(1, "A delayed closing is a planning/cost inconvenience, ordinarily not a structurally irreversible harm."),
+))
+
+_add("M_REALESTATE_EASEMENT_UNDISCLOSED_01", "RealEstatePurchase", "Buyer", _vec(
+    REV=(2, "An undisclosed easement or encumbrance discovered post-closing is difficult to unwind without renegotiation or litigation against the seller."),
+    SC=(1, "May involve an adjoining landowner or utility holding the easement, beyond just the two contracting parties, but still a narrow, defined class."),
+))
+
+_add("M_REALESTATE_PRORATION_UNDEFINED_01", "RealEstatePurchase", "Mutual", _vec(
+    REV=(1, "An undefined proration method is an administrative closing-statement dispute, ordinarily resolvable."),
+))
+
+_add("H_REALESTATE_SELLER_FINANCING_BALLOON_01", "RealEstatePurchase", "Buyer", _vec(
+    FB=(1, "The accelerated amount is the defined, calculable remaining note balance, not an unbounded figure."),
+    OC=(2, "Acceleration triggers with no stated notice-and-cure period for the missed payment."),
+    REV=(2, "Once accelerated, foreclosure or forfeiture proceedings are difficult to unwind."),
+))
+
+# -- Insurance policies / certificates of insurance --
+
+_add("H_INSURANCE_CLAIMS_MADE_GAP_01", "InsuranceBackstop", "NonInsuredParty", _vec(
+    RS=(1, "Insurance-regulation-adjacent, though no single specifically-named enforcement regime is required by the pattern."),
+    REV=(2, "A claim reported after a claims-made policy lapses with no tail coverage is permanently uninsured -- not a recoverable gap."),
+))
+
+_add("M_INSURANCE_SUBROGATION_WAIVER_MISSING_01", "InsuranceBackstop", "NonInsuredParty", _vec(
+    REV=(1, "A missing subrogation waiver is a risk-of-future-claim fact, not itself a realized loss."),
+))
+
+_add("M_INSURANCE_ADDITIONAL_INSURED_MISSING_01", "InsuranceBackstop", "NonInsuredParty", _vec(
+    REV=(1, "A missing additional-insured endorsement is a coverage-gap risk, not itself a realized loss."),
+))
+
+_add("H_INSURANCE_SELF_INSURANCE_UNCAPPED_01", "InsuranceBackstop", "NonInsuredParty", _vec(
+    FB=(2, "Self-insurance permitted with no minimum net worth or dollar cap means the financial backstop insurance is meant to provide may not exist at all -- a structural undermining of the boundedness the insurance requirement was supposed to guarantee."),
+    REV=(1, "Risk-of-shortfall fact, not a realized loss."),
+))
+
+_add("M_INSURANCE_NOTICE_CANCELLATION_SHORT_01", "InsuranceBackstop", "NonInsuredParty", _vec(
+    OC=(2, "Pattern matches 'without notice'/'no notice' of cancellation to the relying party."),
+    REV=(1, "A lapsed policy discovered late is a coverage-gap risk, ordinarily curable if caught before a claim arises."),
+))
+
+_add("M_INSURANCE_DEDUCTIBLE_UNCAPPED_01", "InsuranceBackstop", "NonInsuredParty", _vec(
+    FB=(1, "An unspecified deductible/retention is a real but not structurally unbounded financial-backstop gap."),
+    REV=(1, "Risk-of-shortfall fact, not a realized loss."),
+))
+
+# -- Lending / financial services --
+
+_add("M_LENDING_TILA_DISCLOSURE_MISSING_01", "LendingCompliance", "Borrower", _vec(
+    RS=(2, "TILA/Regulation Z are specifically named regimes, and the clause's own gap omits a legally required consumer-lending disclosure framework."),
+    REV=(1, "A missing disclosure is a compliance gap, not itself a realized harm."),
+))
+
+_add("H_LENDING_BALLOON_PAYMENT_01", "LendingCompliance", "Borrower", _vec(
+    FB=(1, "The balloon amount is a defined, calculable figure -- bounded, even though large."),
+    REV=(2, "Inability to refinance or pay the balloon at maturity risks default/foreclosure, difficult to unwind once triggered."),
+))
+
+_add("M_LENDING_CROSS_COLLATERAL_01", "LendingCompliance", "Borrower", _vec(
+    FB=(1, "Cross-collateralization broadens the trigger for loss of collateral, but the collateral itself remains a defined, calculable set of assets."),
+    REV=(1, "An ordinary, calculable financial-exposure fact."),
+))
+
+_add("H_LENDING_DEFAULT_INTEREST_PUNITIVE_01", "LendingCompliance", "Borrower", _vec(
+    FB=(2, "A default-rate spike with no stated maximum undermines the boundedness of the borrowing cost -- the rate itself becomes uncapped upon default."),
+    REV=(1, "An unpredictable but ordinarily calculable-after-the-fact financial cost."),
+))
+
+_add("M_LENDING_FINANCIAL_COVENANT_VAGUE_01", "LendingCompliance", "Borrower", _vec(
+    OC=(2, "No stated cure period before a covenant breach is treated as a default."),
+    REV=(1, "A technical covenant default is ordinarily negotiable/waivable by the lender, not structurally irreversible."),
+))
+
+_add("H_LENDING_PERSONAL_PROPERTY_LIEN_ALL_ASSETS_01", "LendingCompliance", "Borrower", _vec(
+    FB=(3, "'All assets, now owned or hereafter acquired,' with no carve-outs, means the borrower's default exposure is not confined to deal-specific collateral but sweeps in its entire balance sheet -- structurally unbounded in scope, the same underlying fact as an uncapped liability clause applied to collateral rather than a damages figure."),
+    REV=(2, "Once a blanket lien is perfected and enforced, unwinding it requires negotiation or bankruptcy proceedings."),
+))
+
+_add("M_LENDING_ACH_AUTODEBIT_UNLIMITED_01", "LendingCompliance", "Borrower", _vec(
+    UD=(2, "Lender's unilateral discretion over debit timing/amount is a single economic term, not the existence of the loan itself."),
+    FB=(2, "An unbounded 'any amount owed' debit authorization undermines certainty over how much can be withdrawn at any time."),
+    REV=(1, "An unauthorized or excessive debit is ordinarily disputable/reversible through the bank."),
+))
+
+# -- Government contracts --
+
+_add("H_GOVCON_TERMINATION_CONVENIENCE_NO_COMP_01", "GovernmentContracting", "Contractor", _vec(
+    FB=(1, "Settlement costs on a terminated-for-convenience contract are a real but calculable-in-principle figure (costs incurred plus reasonable profit), not literally unbounded."),
+    REV=(1, "An inadequate settlement is negotiable/disputable through the contract's claims process."),
+))
+
+_add("M_GOVCON_FLOWDOWN_MISSING_01", "GovernmentContracting", "Subcontractor", _vec(
+    RS=(2, "FAR/DFARS are specifically named regimes, and the clause's own gap omits required flow-down compliance obligations."),
+    REV=(1, "A missing flow-down clause is a compliance gap, not itself a realized violation."),
+))
+
+_add("M_GOVCON_DCAA_AUDIT_UNLIMITED_01", "GovernmentContracting", "Contractor", _vec(
+    DUR=(2, "No stated time limit on audit rights means the obligation to retain records and remain subject to audit is effectively perpetual."),
+    REV=(1, "An ongoing audit-exposure fact, not itself a realized loss."),
+))
+
+_add("M_GOVCON_SMALL_BUSINESS_SUBK_PLAN_MISSING_01", "GovernmentContracting", "Contractor", _vec(
+    REV=(1, "A missing subcontracting plan attachment is a document-completeness gap, correctable by attaching it."),
+))
+
+_add("M_GOVCON_CHANGES_CLAUSE_UNILATERAL_01", "GovernmentContracting", "Contractor", _vec(
+    UD=(2, "Unilateral changes-clause discretion affects scope/price of a specific change, not the existence of the contract itself."),
+    FB=(1, "The cost impact of an unpriced change is real but calculable once the scope is known, not structurally unbounded."),
+))
+
+# -- Healthcare --
+
+_add("H_HEALTHCARE_STARK_KICKBACK_RISK_01", "HealthcareCompliance", "Provider", _vec(
+    CR=(2, "Compensation tied to referral volume/value is the exact fact pattern the Anti-Kickback Statute (a criminal statute) and Stark Law directly prohibit -- the clause's own structure creates the violation risk, not merely a representation gap."),
+    RS=(3, "Stark Law and the Anti-Kickback Statute are specifically named, directly implicated regimes with direct enforcement authority."),
+    REV=(2, "Once a referral-based compensation arrangement has operated, unwinding the resulting liability (repayment, penalties) is difficult."),
+))
+
+_add("M_HEALTHCARE_CREDENTIALING_DELAY_01", "HealthcareCompliance", "Provider", _vec(
+    FB=(1, "Delayed payment pending credentialing is a real but bounded-in-practice cash-flow gap, not an unbounded loss."),
+    REV=(1, "A payment delay is ordinarily recoverable once credentialing completes."),
+))
+
+_add("H_HEALTHCARE_EXCLUSIVE_DEALING_01", "HealthcareCompliance", "Provider", _vec(
+    UD=(2, "Exclusivity restricts scope of practice, a single restrictive term, not the existence of the relationship itself."),
+    RS=(1, "Healthcare-regulatory-adjacent (stark/network-adequacy doctrine), no single specifically-named regime required by the pattern."),
+    REV=(1, "Restricted practice scope is negotiable/terminable, not structurally irreversible."),
+))
+
+_add("M_HEALTHCARE_TERMINATION_WITHOUT_CAUSE_SHORT_01", "HealthcareCompliance", "Provider", _vec(
+    OC=(2, "Pattern matches short (<14-day) or immediate termination language with no meaningful notice."),
+    REV=(1, "Loss of a healthcare engagement is disruptive but ordinarily not structurally irreversible."),
+))
+
+_add("M_HEALTHCARE_LICENSURE_REP_MISSING_01", "HealthcareCompliance", "Facility", _vec(
+    RS=(2, "OIG/federal healthcare program exclusion screening is a specifically named regulatory regime, and the clause's own gap omits an ongoing compliance representation."),
+    REV=(1, "A missing representation is a contractual-gap fact, not itself a realized violation."),
+))
+
+_add("H_HEALTHCARE_PATIENT_DATA_SALE_01", "HealthcareCompliance", "DataSubject", _vec(
+    RS=(3, "HIPAA is directly and specifically implicated by sale/monetization of PHI beyond treatment/payment/operations purposes."),
+    SC=(3, "Patient health information reaches the facility's entire patient population -- an unbounded class by the clause's own scope, not just the two contracting parties."),
+    REV=(2, "Once patient data is sold or licensed to a third party, its further use and disclosure cannot be recalled."),
+))
+
+# -- IP licensing (distinct from assignment) --
+
+_add("H_IPLICENSE_NO_QUALITY_CONTROL_01", "IPLicensing", "Licensor", _vec(
+    RS=(1, "Trademark doctrine (naked-license/abandonment risk) is a specifically-triggered legal consequence, though not a regulatory-enforcement regime in the RS sense -- scored conservatively as regime-adjacent."),
+    REV=(3, "Naked-license abandonment of trademark rights, once triggered by a pattern of uncontrolled use, is doctrinally treated as irretrievable loss of the mark -- the same tier of structural irreversibility as an entered judgment."),
+))
+
+_add("M_IPLICENSE_ROYALTY_AUDIT_MISSING_01", "IPLicensing", "Licensor", _vec(
+    REV=(1, "Inability to verify royalty reporting is a visibility gap, not itself a realized underpayment."),
+))
+
+_add("H_IPLICENSE_PERPETUAL_EXCLUSIVE_NO_TERMINATION_01", "IPLicensing", "Licensor", _vec(
+    DUR=(2, "Perpetual license term, no stated end point."),
+    REV=(2, "No termination right (even for breach) means the licensor cannot recover exclusive rights once granted, short of a separate legal action -- largely irreversible in practice."),
+))
+
+_add("M_IPLICENSE_SUBLICENSE_UNRESTRICTED_01", "IPLicensing", "Licensor", _vec(
+    UD=(2, "Unrestricted sublicensing is licensee discretion over a single term (who else may use the IP), not the existence of the license itself."),
+    SC=(2, "Sublicensees are an open-but-role-bounded class (downstream licensees), broader than the two contracting parties but not fully unbounded."),
+))
+
+_add("H_IPLICENSE_IMPROVEMENTS_ASSIGNED_01", "IPLicensing", "Licensee", _vec(
+    AT=(3, "'Hereby assigns' improvements/modifications back to the licensor -- unconditional, broad transfer with no retained-rights language required by the pattern, the same structural fact as H_IP_01."),
+    REV=(3, "Once assigned, ownership of the licensee's own improvements has moved -- the same structural irreversibility as any other broad IP assignment."),
+))
+
+_add("M_IPLICENSE_TERMINATION_NO_WINDDOWN_01", "IPLicensing", "Licensee", _vec(
+    OC=(2, "'Immediately cease' language with no wind-down/sell-off period is the same no-notice fact pattern as OC's definition."),
+    REV=(1, "Disrupted transition is an operational cost, not structurally irreversible."),
+))
+
+# -- Franchise (deeper coverage) --
+
+_add("H_FRANCHISE_ENCROACHMENT_01", "FranchiseRelationship", "Franchisee", _vec(
+    REV=(1, "Territory dilution from encroachment is a diffuse commercial harm, ordinarily negotiable at renewal -- the same treatment as M_FRANCHISE_TERRITORY_01's identical underlying fact."),
+))
+
+_add("M_FRANCHISE_ROYALTY_AUDIT_ONE_SIDED_01", "FranchiseRelationship", "Franchisor", _vec(
+    UD=(2, "Franchisor's one-sided audit-and-dispute-resolution discretion is a single procedural term, not the existence of the franchise relationship."),
+    REV=(1, "A disputed royalty audit finding is negotiable/litigable, not structurally irreversible."),
+))
+
+_add("H_FRANCHISE_PERSONAL_GUARANTY_UNCAPPED_01", "PersonalGuaranty", "Individual", _vec(
+    PE=(3, "Same fact pattern as every other unconditional personal guaranty in this ruleset: unqualified personal obligation for the franchise entity's obligations, no cap required by the pattern."),
+    REV=(1, "Personal financial exposure, difficult to unwind once incurred."),
+))
+
+_add("M_FRANCHISE_NONCOMPETE_POST_TERM_BROAD_01", "RestrictiveCovenant", "RestrictedParty", _vec(
+    RS=(1, "Restraint-of-trade doctrine implicated generically, same family as other non-compete rules."),
+    REV=(1, "Restricts future business activity, ordinarily negotiable/litigable."),
+    DUR=(1, "Typically time-bounded (even if long), not perpetual."),
+))
+
+_add("M_FRANCHISE_TRANSFER_FEE_UNCAPPED_01", "FeeStructure", "Franchisee", _vec(
+    FB=(1, "An uncapped transfer fee is a real but practically-bounded cost, not literally unlimited."),
+    REV=(1, "Ordinary, calculable financial cost at the time of a sale."),
+))
+
+# -- Settlement (deeper coverage) --
+
+_add("H_SETTLEMENT_STRUCTURED_PAYMENT_ACCELERATION_01", "PaymentContingency", "PayingParty", _vec(
+    FB=(1, "The accelerated amount is the defined, calculable remaining settlement balance."),
+    OC=(2, "Acceleration triggers with no stated notice-and-cure period for a missed payment."),
+    REV=(2, "Once accelerated to a full-balance judgment, unwinding it is difficult."),
+))
+
+_add("M_SETTLEMENT_TAX_CHARACTERIZATION_MISSING_01", "SettlementTerms", "Mutual", _vec(
+    REV=(1, "A missing tax characterization is a documentation gap, correctable by amendment or a later agreed allocation."),
+))
+
+_add("H_SETTLEMENT_MUTUAL_RELEASE_ASYMMETRIC_01", "RemedyElimination", "NonReleasedParty", _vec(
+    REV=(3, "A release, once operative, waives future claims the releasing party doesn't yet know about -- the same structural irreversibility as H_SETTLEMENT_RELEASE_OVERBROAD_01's identical underlying fact (an executed release)."),
+))
+
+_add("M_SETTLEMENT_NONDISPARAGEMENT_PERPETUAL_01", "SpeechRestriction", "Mutual", _vec(
+    DUR=(2, "Pattern requires 'perpetual'/'in perpetuity'/'indefinite'/'no expiration' co-occurring with non-disparagement -- textbook DUR=2, matching M_CONF_01's identical structural pattern."),
+))
+
+_add("M_SETTLEMENT_ENFORCEMENT_FEE_SHIFT_01", "FeeShifting", "LosingParty", _vec(
+    RW=(1, "One-way fee-shifting for enforcement reallocates litigation cost, not access to a forum or adjudicative process -- the same RW=1 treatment as H_ATTFEE_01's identical underlying fact."),
+    REV=(1, "Legal-cost exposure, ordinarily compensable/negotiable."),
+))
+
+# -- Employment (deeper coverage) --
+
+_add("M_EMPLOY_ARBITRATION_CLASS_WAIVER_01", "RightsWaiver", "Employee", _vec(
+    RW=(2, "Arbitration plus a class/collective-action waiver replaces court access with a neutral forum and removes collective recourse -- a significant but not full elimination of adversarial process (no explicit jury-trial waiver required by the pattern, so this stays short of the three-part RW=3 stack)."),
+    REV=(1, "Ordinary dispute-resolution-cost harm."),
+))
+
+_add("H_EMPLOY_COMMISSION_CLAWBACK_01", "PaymentContingency", "Employee", _vec(
+    FB=(3, "A clawback reaching beyond legitimate returns/cancellations (e.g. any account later deemed unprofitable, or departure for any reason) means already-earned commission is never actually certain or bounded -- the same structural fact as H_WAGE_DEDUCTION_01's unilateral-deduction pattern."),
+    REV=(1, "A wrongful clawback is ordinarily disputable/recoverable."),
+))
+
+_add("M_EMPLOY_GARDEN_LEAVE_UNPAID_01", "RestrictiveCovenant", "Employee", _vec(
+    FB=(1, "Reduced pay during garden leave is a real but bounded, calculable income reduction."),
+    DUR=(1, "Extends the practical restriction period, though typically still bounded to a stated notice length."),
+))
+
+_add("H_EMPLOY_FORCED_STOCK_REPURCHASE_01", "OwnershipDilution", "Employee", _vec(
+    AT=(3, "A forced repurchase at a formula price below fair value is, in substance, an unconditional, broad transfer of the employee's own vested equity back to the company with no fair retained value -- the same structural fact as M_PARTNERSHIP_CAPITAL_CALL_01's forced-equity-loss pattern."),
+    REV=(3, "Once repurchased below value, the lost equity value is not recoverable without a separate legal action -- structurally irreversible."),
+))
+
+_add("M_EMPLOY_RELOCATION_MANDATORY_01", "UnilateralDiscretion", "Employer", _vec(
+    UD=(2, "Mandatory relocation to 'any location' at the employer's discretion is the rubric's own canonical UD=2 example (relocation) applied to employment -- a single non-existential term, not the existence of employment itself."),
+    REV=(1, "Relocation disruption is negotiable/compensable, not structurally irreversible."),
+))
+
+_add("M_EMPLOY_PTO_FORFEITURE_01", "PaymentObligation", "Employee", _vec(
+    RS=(1, "State wage-and-hour law treatment of accrued PTO as earned wages is doctrinally implicated but not a single specifically-named federal regime."),
+    FB=(1, "Forfeited PTO is bounded to the calculable accrued-value figure."),
+    REV=(1, "Ordinary, calculable financial loss at termination."),
+))
+
+# -- M&A / partnership (deeper coverage) --
+
+_add("H_MA_MAC_CLAUSE_BROAD_01", "UnilateralDiscretion", "Buyer", _vec(
+    UD=(3, "An overbroad MAC definition gives the buyer unconstrained discretion to walk from a signed deal -- unbounded discretion touching the existence of the transaction itself, the same UD=3 fact pattern as unilateral termination for convenience."),
+    REV=(1, "A terminated deal is a lost-opportunity harm, ordinarily not structurally irreversible for the seller (the business itself is unaffected, just the sale)."),
+))
+
+_add("M_MA_WORKING_CAPITAL_ADJUSTMENT_UNDEFINED_01", "DocumentConsistency", "Mutual", _vec(
+    REV=(1, "An undefined adjustment methodology is a post-closing dispute risk, ordinarily resolvable through negotiation or the agreement's dispute-resolution mechanism."),
+))
+
+_add("H_MA_NONCOMPETE_SELLER_INDEFINITE_01", "RestrictiveCovenant", "Seller", _vec(
+    RS=(1, "Restraint-of-trade doctrine implicated generically, same family as other non-compete rules -- indefinite duration specifically raises enforceability risk under that doctrine."),
+    REV=(1, "Restricts future business activity, ordinarily negotiable/litigable."),
+    DUR=(2, "Pattern requires 'perpetual'/'indefinite'/'no expiration' co-occurring with the seller non-compete -- textbook DUR=2."),
+))
+
+_add("M_MA_DRAG_ALONG_NO_MINIMUM_PRICE_01", "UnilateralDiscretion", "MajorityOwner", _vec(
+    UD=(2, "Forcing a sale at any price is majority-owner discretion over a single economic term (sale price), not the existence of the minority owner's stake in the abstract -- the stake itself is what's being sold, at an unconstrained price."),
+    FB=(1, "The forced-sale price, however low, is still a real, calculable transaction figure, not a total loss."),
+))
+
+_add("H_MA_ESCROW_RELEASE_SOLE_DISCRETION_01", "UnilateralDiscretion", "Buyer", _vec(
+    UD=(3, "Escrow release left entirely to buyer discretion, no fixed schedule or defined trigger, is unbounded discretion touching whether the seller is ever paid the escrowed amount at all -- the same fact pattern as M_MA_EARNOUT_DISCRETION_01's identical buyer-controls-the-payment structure."),
+    FB=(2, "No defined release trigger means the seller's right to the escrowed funds is not certain or bounded -- matching FB=2's 'cap undermined' pattern."),
+    REV=(2, "Once withheld past the expected release point, recovering escrowed funds typically requires a dispute process."),
+))
+
+_add("M_PARTNERSHIP_FIDUCIARY_DUTY_WAIVER_01", "GovernanceGap", "MinorityOwner", _vec(
+    REV=(1, "Removed fiduciary protections create governance risk that materializes only if self-dealing actually occurs -- a real but contingent, not yet realized, harm."),
+))
+
+# -- Construction (deeper coverage) --
+
+_add("H_CONSTR_NO_DAMAGES_FOR_DELAY_01", "RemedyElimination", "Contractor", _vec(
+    FB=(2, "A 'no damages for delay' clause that bars recovery even for owner-caused delay categorically zeroes the contractor's delay-cost recovery -- the same structural fact as other broad remedy-elimination rules (FB=2: a category of recovery is excluded)."),
+    REV=(1, "Absorbed delay costs are an ordinary, if uncompensated, commercial harm."),
+))
+
+_add("M_CONSTR_CHANGE_ORDER_UNILATERAL_PRICING_01", "UnilateralDiscretion", "Owner", _vec(
+    UD=(2, "Owner's unilateral change-order pricing discretion is a single economic term (price of extra work), not the existence of the contract itself."),
+))
+
+_add("H_CONSTR_INDEMNITY_SOLE_NEGLIGENCE_01", "Indemnification", "Contractor", _vec(
+    FB=(2, "Requiring indemnification even for the owner's own sole negligence broadens the contractor's exposure to harms it didn't cause -- a structural undermining of ordinary fault-based indemnity boundedness, matching FB=2's pattern."),
+    RS=(1, "Many states' anti-indemnity statutes directly restrict or void this exact clause type -- regime-adjacent, though the clause's own text doesn't name a specific statute."),
+    REV=(1, "Ordinary, calculable indemnity-payout exposure once a claim arises."),
+))
+
+_add("M_CONSTR_WARRANTY_PERIOD_EXTENDED_01", "ObligationScope", "Contractor", _vec(
+    DUR=(1, "Extended beyond the one-year industry standard, but still a stated, bounded period -- not perpetual."),
+    FB=(1, "Long-tail warranty exposure is real but bounded to defined workmanship-defect claims."),
+))
+
 
 # ---------------------------------------------------------------------
 # Public exports

@@ -13,16 +13,18 @@ def test_v3_rule_inventory_counts_and_version():
     engine = RuleEngine()
     counts = Counter(rule.severity.value for rule in engine.rules)
 
-    assert engine.version == "6.0.0"
+    assert engine.version == "7.0.0"
     # 91 rules through v5.0 (see rules/version.json) + 26 rules added in the
     # v6.0 small/midsize law firm broad-practice expansion pass covering
     # commercial leases, loans/guaranties, employment offer/severance,
     # franchise/distribution, M&A/partnership, settlement agreements, and
-    # construction contracts (see tests/test_v6_lawfirm_expansion_rules.py).
-    assert len(engine.rules) == 117
-    # 2 new CRITICAL rules (H_LOAN_CONFESSION_JUDGMENT_01,
-    # H_LOAN_GUARANTY_WAIVER_01); 10 new HIGH; 14 new MEDIUM.
-    assert counts == {"critical": 7, "high": 32, "medium": 67, "low": 11}
+    # construction contracts (see tests/test_v6_lawfirm_expansion_rules.py)
+    # + 63 rules added in the v7.0 broad coverage expansion covering real
+    # estate, insurance, lending, government contracting, healthcare, IP
+    # licensing, and deeper franchise/settlement/employment/M&A/construction
+    # coverage (see rules/version.json's v7.0 changelog entry).
+    assert len(engine.rules) == 180
+    assert counts == {"critical": 9, "high": 42, "medium": 102, "low": 27}
 
 
 def test_high_stored_card_authorization_rule():

@@ -64,7 +64,7 @@ for rule_id, live_rule in _LIVE_RULES.items():
         )
     )
 
-assert len(FULL_MIGRATION) == 117, f"expected 117 scored rules, got {len(FULL_MIGRATION)}"
+assert len(FULL_MIGRATION) == 180, f"expected 180 scored rules, got {len(FULL_MIGRATION)}"
 
 
 # ---------------------------------------------------------------------
@@ -75,6 +75,18 @@ assert len(FULL_MIGRATION) == 117, f"expected 117 scored rules, got {len(FULL_MI
 # observation, not acted on here.
 # ---------------------------------------------------------------------
 FINDINGS = """
+UPDATE (v7.0 rule expansion): FULL_MIGRATION now covers 180 rules, not
+117 -- the original 117-rule Reviewer 1 migration plus 63 rules added in
+the v7.0 small/midsize-firm coverage expansion (see
+docs/rules_engine/README.md and rules/version.json). The 63 new rules
+were scored and gated the same way going forward (severity_new_rule_workflow.md,
+tests/test_new_rule_severity_gate.py) rather than migrated from a
+pre-existing legacy severity, so they do not have a "legacy vs computed"
+disagreement to report the way the original 117 do. Everything below this
+note describes ONLY the original 117-rule migration and should be read as
+a historical record of that specific pass, not as a description of all
+180 rules now in FULL_MIGRATION.
+
 UPDATE (Framework v1.1.0): the headline finding below (#0) was recorded
 under the v1.0 absolute band mode and directly motivated the v1.1
 relative-mode default now shipped in severity_scoring.py. It is kept
