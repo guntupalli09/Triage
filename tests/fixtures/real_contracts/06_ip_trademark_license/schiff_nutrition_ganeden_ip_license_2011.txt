@@ -1,0 +1,530 @@
+EX-10.1
+4
+exhibit10_1-ipagreement.htm
+EXHIBIT 10.1-IP LICENSE AGREEMENT (PROJECT EDEN-FILED JUNE 2, 2011)
+
+exhibit10_1-ipagreement.htm
+
+Exhibit 10.1
+
+INTELLECTUAL PROPERTY LICENSE AGREEMENT
+
+by and between
+
+GANEDEN BIOTECH, INC.
+
+(“Ganeden” or “Licensor”)
+
+and
+
+SCHIFF NUTRITION GROUP, INC.
+
+(“Licensee”)
+
+DATED AS OF June 1, 2011
+
+INTELLECTUAL PROPERTY LICENSE AGREEMENT
+
+This Intellectual Property License Agreement (“Agreement”) is dated as of June 1, 2011 (“Effective Date”), by and between Ganeden Biotech, Inc., a Delaware corporation, having its principal place of business at 5915 Landerbrook Dr, Suite #304, Mayfield Heights, OH 44124 (“Ganeden” or “Licensor”) and Schiff Nutrition Group, Inc., a Utah corporation its principal place of business at 2002 South 5070 West, Salt Lake City, Utah 84104 (“Purchaser” or “Licensee”).
+
+RECITALS:
+
+A.   This Agreement is entered into by Licensor and Licensee pursuant to that certain Asset Purchase Agreement (hereafter referred to as the “APA”), dated as of June 1, 2011, by and between Licensor and Licensee;
+
+B.   In connection with the transactions contemplated by the APA, Licensee wishes to obtain from Ganeden, and Ganeden wishes to grant to Licensee, a license to certain rights in the Licensed Intellectual Property under the terms and conditions hereinafter set forth.
+
+NOW, THEREFORE , in consideration of the mutual promises herein made and the mutual benefits to be derived therefrom, and in consideration of the representations, warranties and covenants contained herein and in the APA, Ganeden and Licensee (each, a “Party,” and collectively, the “Parties”) agree as follows:
+
+ARTICLE 1
+
+DEFINITIONS
+
+The capitalized terms used in this Agreement shall have the meanings set forth in this Article 1 or elsewhere in this Agreement.  Any capitalized term that is not defined under this Agreement shall have the meaning ascribed to it under the APA.
+
+“ Accounting Standard ” shall mean the applicable International Financial Reporting Standards or GAAP, in each case consistently applied by the applicable Person.
+
+“Affiliate”   means all Persons defined as Affiliates in the APA.
+
+“After-Arising Intellectual Property” means all Intellectual Property relating to Probiotics or Products, or research, development, manufacture or commercialization thereof, that is created, developed, conceived of, first reduced to practice or otherwise made by or on behalf either Ganeden or Licensee after the Effective Date of this Agreement.
+
+“Confidential Information” means all information and Know-How in connection with the Business disclosed or provided by, or on behalf of a Party (the “ Disclosing Party ”) to the other Party (the “ Receiving Party ”) or to any of the Receiving Party’s Affiliates or any of their respective officers, directors, stockholders, employees or consultants, pursuant to or in connection with this Agreement; provided, that, none of the foregoing shall be Confidential Information if: (a) as of the date of disclosure, it is known to the Receiving Party or its Affiliates, as demonstrated by written
+
+- 2 -
+
+documentation, other than by virtue of a prior confidential disclosure to such Receiving Party; (b) as of the date of disclosure it is in the public domain or it subsequently enters the public domain other than through a breach by the Receiving Party or its Affiliates of a contractual obligation; (c) it is obtained by the Receiving Party or its Affiliates from a Third Party having a lawful right to make such disclosure free from any obligation of confidentiality to the Disclosing Party or its Affiliates; or (d) it is independently developed by or for the Receiving Party or its Affiliates without reference to or use of any Confidential Information of the Disclosing Party or its Affiliates as demonstrated by credible written documentation.
+
+“Control” or “Controlled” means with respect to Intellectual Property, that a Party owns, acquires or has a license to such Intellectual Property and has the right to grant a license or sublicense to such Intellectual Property as provided herein solely to the extent that such grant does not violate the terms of any agreement or arrangement with any Third Party or any applicable laws or regulations.
+
+“Copyrights” has the meaning set forth in the APA.
+
+“ Cover ” or “ Covered ” means, with respect to a Product, the manufacture, use, sale, offer for sale, or importation of such Product would, but for the licenses granted under this License Agreement, infringe a Valid Claim within the Licensed Patents in the country for which such product is sold or offered for sale.
+
+“ Data ” shall mean any and all information and results of any type, whether or not proprietary, including research, development, manufacturing and commercialization data, such as clinical data (including original patient report forms, investigator reports (both preliminary and final reports), clinical protocols, statistical analyses, expert opinions and reports, safety and other electronic databases), manufacturing data (including analytical and quality control data and stability data), correspondence to and from Governmental or Regulatory Authorities, minutes from teleconferences with Governmental or Regulatory Authorities, adverse event files and complaint files, reports from contract research organizations, annual reports to Governmental or Regulatory Authorities presentations and papers from academic meetings, market research, commercialization plans and customer lists, in each case, together with all supporting data and raw source data.
+
+“Effective Date” has the meaning set forth in the preamble of this Agreement.
+
+“Excluded Fields of Use” means all uses outside the Licensed Field of Use.
+
+“ Excluded Strain” has the meaning given thereto in the APA.
+
+“Ganeden BC30” means that certain strain of Bacillus coagulans referred to as GBI-30, 6086.
+
+“Know-How” has the meaning set forth in the APA.
+
+“Licensed Field of Use” has the same meaning as the defined term “Field of Use” as set forth in the APA.
+
+- 3 -
+
+“Licensed Intellectual Property” means, individually and collectively, the Licensed Copyrights, Licensed Know-How, Licensed Patents, and Licensed Trademarks.
+
+“Licensed Copyrights” means the Copyrights Controlled by Ganeden or its Affiliates as of the Effective Date or during the Term related to the Licensed Know-How or the Excluded Books and Records that are Shared Books and Records.
+
+“Licensed Know-How” means all Know-How Controlled by Ganeden or its Affiliates as of the Effective Date used (or which has been used) in connection with the conduct of the Business, other than the Assigned Know-How, including all Know-How that is necessary or useful for the research, development, manufacture or commercialization of Probiotics or Products.  Licensed Know-How includes, but is not limited to, formulation ingredient lists, sourcing of ingredients, product codes and suppliers, supply chain knowledge, process science/mixing conditions, sterilization conditions, manufacturing details and expertise.  In addition, Licensed Know-How includes all Ganeden After-Arising Intellectual Property that is Know-How.
+
+“Licensed Patents” means any and all Patents Controlled by Ganeden or its Affiliates as of the Effective Date used by or on behalf of Ganeden in connection with the conduct of the Business, including all Patents that claim or otherwise cover, in whole or in part, any Probiotic or Product, or the research, development, manufacture, use or commercialization thereof.  Licensed Patents includes the patent and patent applications listed in Schedule 1 attached hereto, and any reissues, reexaminations, extensions, renewals, patents of importation, utility models, divisional applications, continuation applications and continuation-in-part applications thereof.  In addition, Licensed Patents includes all Ganeden After-Arising Intellectual Property that are Patents.
+
+“ Licensed Product ” means any Product that is Covered by or is based upon the Licensed Intellectual Property.
+
+“Licensed Trademarks” means those Trademarks listed in Schedule 2 attached hereto and any BC30Marks Controlled by Ganeden or its Affiliates during the Term pursuant to Section 6.2 below.
+
+“ Net Sales ” means the actual gross amount invoiced by Licensee or its Affiliate or their respective Sublicensee for sales of Royalty-Bearing Products, less the following deductions allowed to the extent included in the gross invoiced sales price with respect to such sales:  (i) any rebates, quantity, trade and cash discounts, and other usual and customary discounts;  (ii) charge-back payments and rebates granted to managed health care organizations or to national, state or local governments, their respective agencies, Licensees or reimbursers, adjustments arising from discount or other similar programs; (iii) retroactive price reductions, credits or allowances actually granted upon rejections or returns of Royalty-Bearing Products, including for recalls or damaged goods; (iv) fees paid to distributors, including group purchasing organizations; (v) deductions for actual bad debts to the extent relating to the Royalty-Bearing Product; (vi) compulsory payments and rebates, actually paid or deducted; (vii) freight, postage, shipping and insurance charges related to shipping actually allowed or paid for delivery of Royalty-Bearing Products; and (viii) sales taxes, excise
+
+- 4 -
+
+taxes, use taxes, import/export duties or other governmental charges actually due or incurred with respect to such Royalty-Bearing Product, including without limitation value-added taxes, in each case to the extent not reimbursed.  For purposes of this definition of Net Sales, Royalty-Bearing Product shall be considered “sold” and reductions “allowed” when so recorded in the ordinary course of business in accordance with the Accounting Standards.
+
+For clarity, sales of Royalty-Bearing Product between Licensee and its Affiliates or their respective Sublicensees for resale shall be excluded from Net Sales, but the subsequent resale by an Affiliate or Sublicensee shall be included in Net Sales.  Sales or other dispositions of Royalty-Bearing Products used for promotional or advertising purposes or used for research or development purposes (including for clinical trials) or for donations shall not be included in Net Sales.
+
+In the event a Royalty-Bearing Product is sold together with Another Product as a Co-Packaged Product, Net Sales of such Royalty-Bearing Product sold as a Co-Packaged Product will be calculated such that the applicable royalty would be payable only on the portion of the Net Sales of the Co-Packaged Product allocable to the Royalty-Bearing Product.  Accordingly, Net Sales of such Royalty-Bearing Product sold as a Co-Packaged Product will be calculated by multiplying the Net Sales (as described above) of the Co-Packaged Product by the fraction A/(A+B), where A is the average gross selling price in the applicable country of the Royalty-Bearing Product portion of the Co-Packaged Product sold separately, and B is the average gross selling prices in the applicable country such Another Product, during the applicable calendar year.  In the event that no separate significant sales of either the Royalty-Bearing Product portion or any Another Product contained in the Co-Packaged Product is made during the applicable calendar quarter or if the applicable gross selling prices cannot otherwise be determined, Net Sales allocable to the Royalty-Bearing Product portion and Another Product(s) contained in the Co-Packaged Product shall be determined in good faith by Purchaser based on the relative value contributed by the Royalty-Bearing Product portion and Another Product(s) in such Co-Packaged Product.
+
+For purposes of the foregoing, “ Co-Packaged Product ” shall mean a Royalty-Bearing Product sold together with one or more separate products that do not contain a Probiotic (each “ Another Product ”), which are sold together for a single price.  All references to “Royalty-Bearing Product” in this Agreement shall be deemed to include Co-Packaged Products.
+
+“OTC” has the meaning set forth in the APA.
+
+“Permitted Lien” has the meaning set forth in the APA.
+
+“Product”   has the meaning set forth in the APA .
+
+“Probiotics” has the meaning set forth in the APA .
+
+“Royalty-Bearing Product” means a Product (i) incorporating the strain Bacillus coagulans GBI-30, 6086 or (ii) Covered by a Valid Claim within the Licensed Patents.
+
+“Sublicensee” or “ sublicensee ” shall mean any person or entity to whom Licensee or its Affiliate has granted (i) the right to make and sell a Licensed Product within the scope of the licenses granted to Licensee hereunder, or (ii) the right to distribute, in the applicable distribution territory, a Licensed Product, provided that such Third Party has primary responsibility for the
+
+- 5 -
+
+development and commercialization of such Licensed Product in its distribution territory and has the right to record sales of such Licensed Product for its account.  Notwithstanding the foregoing, “Sublicensee” shall exclude any wholesaler or reseller of a Licensed Product who is not primarily responsible for marketing or promotion of such Licensed Product and any contract manufacturer or other Third Party acting solely on behalf of Licensee or its Affiliates and not on its own behalf.
+
+“Term” has the meaning as set forth in Section 10.1 of this Agreement.
+
+“Third Party” means any person or entity other than Licensor and Licensee and their respective Affiliates.
+
+“ Valid Claim ” means (i) an issued claim of an unexpired Patent which has not been entirely abandoned, disclaimed, held permanently revoked, or held invalid or unenforceable by a court of competent jurisdiction or administrative agency in an unappealed or unappealable decision, and which has not been admitted to be invalid or unenforceable through reissue, disclaimer or otherwise or (ii) a pending claim of a Patent application; but excluding claims that have not issued as part of an issued Patent within seven (7) years after the earliest filing date to which the claim is entitled to priority (until such time, if at all, as the claim is subsequently included within the scope of subparagraph (i) above).
+
+ARTICLE 2
+
+GRANT
+
+Section 2.1   Patent License .  Subject to the provisions of this Agreement and the APA, Ganeden hereby grants to Licensee, and Licensee hereby accepts, an exclusive, worldwide, license under the Licensed Patents to research, develop, improve, produce, manufacture, have manufactured, market, promote, offer to sell, sell, use, import, distribute and commercialize Probiotics and Products and otherwise exploit the Licensed Patents, in each case, for use in the Licensed Field of Use (“the Patent License ”).
+
+Section 2.2   Know-How License .  Subject to the provisions of this Agreement and the APA, Ganeden hereby grants to Licensee, and Licensee hereby accepts, an exclusive, worldwide, license under the Licensed Know-How to research, develop, improve, produce, manufacture, have manufactured, market, promote, offer to sell, sell, use, import, distribute and commercialize Probiotics and Products and otherwise exploit the Licensed Know-How, in each case, for use in the Licensed Field of Use (“the Know-How License ”).
+
+Section 2.3   Trademarks License .  Subject to the provisions of this Agreement and the APA, including but not limited to Article 6, Ganeden hereby grants to Licensee and Licensee hereby accepts, an exclusive, worldwide license under the Licensed Trademarks to use such Licensed Trademarks on any Product for use in the Field of Use or in connection with the research, development, sale, offer for sale, marketing, advertising, promotion or other commercialization of Probiotics and Products, in each case, for use in the Licensed Field of Use.
+
+- 6 -
+
+Section 2.4   Copyrights License .  Subject to the provisions of this Agreement and the APA, Ganeden hereby grants to Licensee and Licensee hereby accepts, an exclusive, worldwide license under the Licensed Copyrights to use, reproduce, distribute, modify, adapt, prepare derivative works of, display, perform, and otherwise exploit the Licensed Copyrights, in each case, in connection with the research, development, manufacture, sale, offer for sale, marketing, advertising, promotion or other commercialization of Probiotics and Products, in each case, for use in the Licensed Field of Use.
+
+Section 2.5   License Term .  Subject to the provisions of this Agreement and the APA, the licenses granted in Sections 2.1 through 2.4 shall be perpetual, irrevocable, and transferable .
+
+Section 2.6   Affiliates; Sublicensees .  Subject to the provisions of this Agreement, the licenses granted in Sections 2.1 through 2.4 above include a license to any Affiliate of Licensee and the right to grant and authorize sublicenses under all or part of such licenses to Third Parties . Notwithstanding the foregoing, Licensee shall have the right to exercise the licenses granted in Sections 2.1 through 2.4 above through its Affiliates and Third Parties as contractors, which exercise shall not be construed as a sublicense for purposes of this Agreement.
+
+Section 2.7   First Right of Negotiation .  In addition to the foregoing licenses under Sections 2.1 through 2.4 above, Licensor (itself and on behalf of its Affiliates) shall not offer or grant, directly or indirectly, any license or other transfer of rights under any Ganeden After-Arising Intellectual Property to any Third Party, whether by assignment, license, option, merger or otherwise, unless and until Licensor first offers Licensee the right to negotiate for such rights as follows:  Prior to entering into any confidentiality arrangement with a Third Party to discuss a potential offer or grant of such rights to such Third Party, Licensor shall provide Licensee with written notice thereof referencing this Section 2.7 together with such other information reasonably requested by Licensee.  Licensee may exercise its first right of negotiation by promptly (but in no event later than thirty (30) days after receipt of such notice and information) providing Licensor written notice thereof and then the Parties shall negotiate terms and conditions for the grant of such rights under the Licensed Intellectual Property.  In the event the Parties cannot agree upon such terms and conditions within ninety (90) days of Licensor’s receipt of Licensee’s notice to exercise such right of first negotiation (“ Negotiation Period ”), then Licensor shall be free to grant such rights to a Third Party under terms and conditions that are the same as, or more favorable to Licensor than, those offered to Licensee; provided that Licensor is negotiating with such Third Party for such rights under such terms and conditions within one hundred twenty (120) days following expiration of the Negotiation Period and continues to actively negotiate with such Third Party to complete an agreement on such terms and conditions within a reasonable period thereafter.
+
+Section 2.8   Additional Covenants .  Ganeden covenants to Licensee as follows:
+
+(a)   No Conflict; Covenant .  During the Term, Ganeden shall not enter into, any Contract that conflict with the rights and licenses granted to Licensee under this Agreement or prevent Ganeden from performing its obligations under the Agreement; and
+
+(b)   No Liens on Licensed Intellectual Property .  During the Term, Ganeden, its Affiliates or their respective licensees shall maintain the Licensed Intellectual Property free and clear of all liens, claims or other similar encumbrances that would materially interfere, or the exercise of which would materially interfere, with Licensee exercising the licenses or rights granted in this Article 2.
+
+- 7 -
+
+ARTICLE 3
+
+EXCLUSION OF OTHER RIGHTS
+
+Section 3.1   No Implied Rights .  Other than those rights as expressly set forth herein or in the APA, no license or right, either express or implied, is granted herein, whether by implication, estoppel, reliance, or otherwise, by any Party to the other Party with respect to or under any of the other Party’s copyrights, mask work rights, patents, trade secrets, know-how, trademarks, trade names or other Intellectual Property rights.
+
+Section 3.2   No Rights Outside the Field of Use .  For the avoidance of doubt, no license or right is granted herein to Licensee with respect to the Licensed Intellectual Property to research, develop, improve, produce, manufacture, have manufactured, market, commercialize, offer to sell, sell, use, import, or otherwise distribute Licensed Products outside the Licensed Field of Use, including without limitation for any use within the Excluded Fields of Use.
+
+Section 3.3   No Assignment .  Licensee acknowledges that Licensee will not acquire any ownership rights in the Licensed Intellectual Property by virtue of this Agreement, and all use by Licensee of the Licensed Trademarks will inure to the benefit of Licensor.
+
+ARTICLE 4
+
+RESEARCH, DEVELOPMENT AND COMMERCIALIZATION
+
+Section 4.1   General Activities .  Except as otherwise expressly provided herein, Licensee shall have the sole right for developing and commercializing Licensed Products for use in the Licensed Field of Use and Ganeden shall have the sole right for developing and commercializing Licensed Products for use in the Excluded Fields of Use.  Each Party shall ensure that any sale, distribution or other transfer of a Licensed Product shall be subject to the appropriate label license (or other reasonable restrictions) under which such Licensed Product may only be marketed, promoted, and sold for use in its respective fields of use (with respect to Licensee, the Licensed Field of Use and with respect to Ganeden, the Excluded Fields of Use).  Each Party shall use commercially reasonable efforts to prevent any Licensed Product sold or otherwise distributed by, or under the authority of, it or its Affiliates or licensees or sublicensees, directly or indirectly, from being sold, distributed or otherwise transported for use outside its respective fields of use (with respect to Licensee, the Excluded Fields of Use and with respect to Ganeden, the Licensed Field of Use).  Each Party shall promptly notify the other Party in the event it or its Affiliate or licensee or sublicensee has reason to believe that any such Licensed Product sold or otherwise distributed has been or will be used outside its respective fields of use, and each Party shall not sell or otherwise distribute Licensed Product to any Third Party if it or its Affiliate or licensee or sublicensee knows, or has reason to know, that such Licensed Product may be sold or transferred, directly or indirectly, for use outside its respective fields of use.
+
+Section 4.2   Research and Development with Ganeden .  Without limiting Section 4.1 above, i t is contemplated that Licensee may, at its sole discretion, request Ganeden to conduct additional research and/or development activities with respect to Licensed Products for use in the Field of Use.  If Licensee so requests, the Parties will enter into a separate agreement under reasonable and customary terms and conditions to be negotiated by the Parties, including royalty payments to Ganeden on net sales of any such Licensed Products at a rate of 3% or such other royalty rate not to
+
+- 8 -
+
+exceed 10% based on the relative contribution of Ganeden to such License Product and ownership by Licensee of any and all new Intellectual Property made in connection with such collaboration.  For clarification, nothing in this Section 4.2 shall limit any rights granted to Licensee under the Licensed Intellectual Property pursuant to this Agreement.
+
+Section 4.3   Research and Development of Excluded Strain .  It is further contemplated that Ganeden will pursue the development and commercialization of the Excluded Strain for use as a prescription pharmaceutical product for the treatment of cardiovascular disease.  In connection with such development and commercialization, Ganeden shall keep Licensee reasonably informed of the progress of the development of the Excluded Strain, including sharing Data as further set forth in Section 4.4 below, and without limiting Section 9.1 of the APA, for a period of five (5) years after the Effective Date, Licensee shall have a first right of negotiation with respect to any offer or grant, directly or indirectly, whether by assignment, license, option, merger or otherwise, to any Third Party any rights to research, develop and/or commercialize such Excluded Strain for use in the Licensed Field of Use as set forth on Exhibit 4.3 .
+
+Section 4.4   Know-How; Data .  Ganeden shall permit Licensee (or its designees) to access, reproduce and use all Licensed Know-How in connection with its exercise of rights and performance of obligations under this Agreement, including all Data contained therein.  From time-to-time during the Term upon the reasonable request of Licensee, but no more than once a calendar quarter, Ganeden shall transfer to Licensee any Licensed Know-How to the extent not previously transferred to Licensee pursuant to the APA, the Transition Services Agreement by and between Ganeden and Licensee of even date herewith, or this Agreement.  The content and mode of such transfer shall be determined by the Parties with the goals of disclosure of all necessary information, efficiency and cost-effectiveness.  Without limiting the foregoing and in connection with such transfers of such Licensed Know-How pursuant to this Section 4.4 , Ganeden shall, at the request of Licensee, make available such personnel reasonably familiar with the transferred Licensed Know-How to consult with and assist the Licensee during normal business hours in implementing such Licensed Know-How.
+
+ARTICLE 5
+
+ROYALTIES
+
+Section 5.1   Royalties .  Subject to the terms and conditions of this Agreement and in consideration for the rights and licenses granted by Licensor to Licensee under this Agreement, Licensee shall pay to Licensor royalties calculated as a percentage of the Net Sales during the Royalty Term as set forth below (the “ Royalty Payments ”):
+
+Royalty Base
+
+Royalty Rate
+
+(a)   All Net Sales (other than as set forth in subsection (b) below)
+
+3%
+
+(b)  All Net Sales arising from the sale of Royalty-Bearing Products (i) for use by any HIV infected individuals and for which reimbursement is actually received  from Medicare or Medicaid in the United States or (ii) to any International Distributor and Marketing Partner
+
+7%
+
+For purposes of this Section 5.1 , any “ International Distributor and Marketing Partner ” means any of those Third Parties listed on Exhibit 5.1 .
+
+- 9 -
+
+Section 5.2   Royalty Term .  The royalty set forth in Section 5.1 above shall be payable with respect to Net Sales occurring during the period beginning on the Closing Date and ending on the fifth (5 th ) anniversary thereof (the “ Royalty Term ”).  Upon expiration of the Royalty Term, the licenses granted from Ganeden to Licensee under Article 2 above shall become fully paid-up and royalty-free and no additional amounts (or other consideration) will be due from Licensee to Ganeden under this Agreement.
+
+Section 5.3   Reporting and Payments .
+
+(a)   Reporting .  Licensee shall provide Licensor within sixty (60) days of the close of each fiscal quarter during the Royalty Term a report specifying in the aggregate: (i)  total actual gross amount invoiced for sales of Royalty-Bearing Products by Licensee and its Affiliates and their respective Sublicensees; (ii) amounts deducted from such gross amounts invoiced to calculate Net Sales; (iii) Net Sales; and (iv) the Royalty Payment payable calculated pursuant to Section 5.1 above; and each such report shall be accompanied by the corresponding Royalty Payment reported.
+
+(b)   Currency Conversion .  Unless otherwise expressly stated in this Agreement, all amounts specified in this Agreement are in United States Dollars, and all payments under this Agreement shall be paid in United States Dollars.  If any currency conversion shall be required in connection with the payment of the royalties under this Agreement, such conversion shall be calculated using the rate used by Licensee to prepare its financial statements.
+
+(c)   Withholdings .  Any and all withholding or similar taxes imposed or levied on account of the payment of amounts under this Agreement, which are required to be withheld, shall be deducted by Licensee prior to remittance and shall be paid to the proper taxing authority.  Proof of payment shall be secured, if available, and sent to Ganeden by Licensee as evidence of such payment in such form as required by the tax authorities having jurisdiction over Licensee.  Each Party agrees to cooperate with the other Party in claiming exemptions from such deductions or withholdings under any agreement or treaty from time to time in effect.
+
+(d) Audit; Underreporting .  Licensor shall have the right to audit records of Licensee and its Affiliates, as applicable, with respect to the report provided pursuant to Section 5.3(a) hereof and the calculation of the amounts set forth therein for the purpose of verifying Royalty Payments.  The audit shall be conducted during normal business hours by an independent qualified public accounting firm of recognized standing selected by Licensor and reasonably acceptable to Licensee .  The expense of such audit shall be borne by Licensor; provided, however, that in the event of any underreporting of the Royalty Payments due in any fiscal quarter by an amount in excess of six percent (6%), then, Licensee shall, within thirty (30) days of the date Licensor delivers to Licensee such accounting firm’s written report, reimburse Licensor the fees of such accounting firm .   The foregoing right of examination may be exercised only once during each twelve (12) month
+
+- 10 -
+
+period.  Such accountants may be required by Licensee to enter into a reasonably acceptable confidentiality agreement, and such accountants shall disclose to Licensor, with a copy to Licensee, only whether the Royalty Payments and associated reports are correct or incorrect, and the amount of royalty discrepancy, if any.  No other information shall be provided to Licensor.  The Parties agree that any discrepancy of Royalty Payments reported by such accountants shall be final and binding upon the Parties with respect to such period of time examined, absent apparent error, and such books and records examined shall no longer be subject to further inspection by Licensor under this Section 5.3(d).  In the event Licensee is unable to secure audit rights for Ganeden consistent with this Section 5.3(d) from any of its Sublicensees, Licensee agrees to secure such rights for itself and, if requested by Ganeden, shall exercise such rights, at its own expense, on behalf of Ganeden and fully report the results thereof to Ganeden in accordance with this Section 5.3(d).
+
+Section 5.4   Third Party Payments .  If after the Effective Date, Licensee or its Affiliate or their respective Sublicensee enters into a written agreement with a Third Party pursuant to which it pays to such Third Party amounts for a license or acquisition of rights that is necessary to make, use, sell, offer for sale or import any product materially identical to a product commercialized by Ganeden prior to the Effective Date, Licensee may deduct from the Royalty Payments payable pursuant to Section 5.1 the amounts paid to such Third Party that are not otherwise recovered as Damages pursuant to a Claim for which Licensee is entitled to indemnification under Article 7 of the APA.
+
+ARTICLE 6
+
+TRADEMARKS; QUALITY CONTROL
+
+Section 6.1   Display; Product Marks .  Licensee shall have the right to determine, in its sole discretion, the trademarks, trade dress, style of packaging and the like with respect to the packaging, marketing, distribution and sales of Licensed Products for use in the Licensed Field of Use, including the right, but not the obligation, to brand the Licensed Products using the Licensed Trademarks (such Trademarks other than the Licensed Trademarks, the “ Licensee Product Marks ”).  Licensee shall own all rights in the Licensee Product Marks and shall register and maintain the Licensee Product Marks in the jurisdictions it determines reasonably necessary at its own cost and expense.
+
+Section 6.2   BC30 Marks .  With respect to Trademarks incorporating the element “BC30” in those jurisdictions where such Trademark has not been registered with the appropriate Governmental or Regulatory Authority as of the Effective Date (collectively, “ BC30 Marks ”), Licensee may request during the Term that Ganeden apply to register, prosecute and maintain any BC30 Mark in a particular jurisdiction as a Trademark to be included within the Licensed Trademarks under this Agreement.  If Ganeden so agrees, it shall do so using counsel reasonably acceptable to Licensee and keep Licensee reasonably informed with respect thereto and Licensee shall reimburse Ganeden for its reasonable out-of-pocket costs incurred with respect thereto; provided that Licensee may provide sixty (60) days notice to Ganeden that it no longer intends to reimburse such costs for a particular BC30 Mark in a particular jurisdiction and after expiration of such period, Ganeden’s obligation to prosecute and maintain such mark in such jurisdiction and Licensee’s obligation to reimburse costs with respect thereto shall terminate.  Otherwise, if Ganeden does not apply to register such BC30 Mark within thirty (30) days of its receipt of Licensee’s request thereof, Licensee shall have the right, at its own cost and expense, to apply to register and control the prosecution and maintenance of such BC30 Mark in Ganeden’s name in such jurisdiction.  For clarity, any such BC30 Mark for which Licensee applies to register and controls the prosecution of maintenance pursuant to this Section 6.2 would be owned by Ganeden and licensed to Licensee as a Licensed Trademark under this Agreement.
+
+- 11 -
+
+Section 6.3   Goodwill and Reputation .  To protect the goodwill and reputation associated with the Licensed Trademarks, Licensee covenants, represents and warrants that its use of the Licensed Trademarks will comply with all applicable laws and regulations and will in no manner reflect adversely upon the goodwill and reputation associated with the Licensor, the Licensed Trademarks and that such use and goodwill shall inure to the benefit of the Licensor.
+
+Section 6.4   Quality Control .  To ensure quality control, Licensor shall provide Licensee with reasonable usage guidelines for the Licensed Trademarks within sixty (60) days of the Effective Date or Licensee’s request thereof.  Licensee shall use the Licensed Trademarks in accordance with such guidelines, and prior to the first use of a Licensed Trademark in any jurisdiction in connection with any packaging, labeling and other commercialization materials (including but not limited to marketing materials created by an agent or representative of a Party), Licensee shall furnish to Licensor a representative sample of such materials for written confirmation of the compliance of such materials with such guidelines and Licensor agrees to provide its approval (not to be unreasonably withheld or conditioned) or disapproval, as the case may be, within twenty (20) business days after its receipt of any such sample.  Licensor may change such guidelines only by mutual written agreement, consent to which shall not be unreasonably withheld.  Licensor shall have the right to monitor the quality of all products and services associated with the Licensed Trademarks licensed under this Agreement, and Licensee shall assist the Licensor in monitoring such quality by providing to Licensor samples of such uses upon Licensor’s reasonable request.  Licensor shall have the right to make reasonable objections to any such use on the grounds that Licensor believes that such use by the Licensee will be damaging to or dilutive of the value of, or reputation associated with, such Licensed Trademark.  Licensee shall undertake such other steps as the Licensor may reasonably request to assist the Licensor in monitoring the quality of the products and services provided by the Licensor under the Licensed Trademark.  The Licensor has the right to take all action that it deems necessary to ensure that the Licensee’s activities under, and uses of, the Licensed Trademark are consistent with the reputation for quality and prestige of products and services associated with the Licensed Trademark.
+
+ARTICLE 7
+
+PATENT PROSECUTION AND MAINTENANCE
+
+Section 7.1   Licensed Patents .  Except as otherwise provided under Section 7.3 below, Ganeden shall control, at its own cost and expense and in its discretion subject to this Section 7.1, the Prosecution and Maintenance of all Licensed Patents in Ganeden’s name and Ganeden will continue to retain ownership thereof.  Accordingly, prosecution costs and governmental fees (including filing fees, taxes and annuities) relating to the worldwide Prosecution and Maintenance of the Licensed Patents will be borne by Ganeden and all such Prosecution and Maintenance shall be handled by patent counsel or agents of Ganeden’s choice (to which Licensee has no reasonable objection).  During the course of Prosecution and Maintenance of the Licensed Patents, Ganeden shall consult with Licensee regarding the Prosecution and Maintenance of the Licensed Patents as further provided under Section 7.2 below.  Licensee may, at its option, provide written comments on Ganeden’s
+
+- 12 -
+
+Prosecution and Maintenance of the Licensed Patents to Ganeden or directly to Ganeden’s prosecution counsel utilized for Prosecution and Maintenance of the Licensed Patents, and Ganeden shall consider in good faith the comments of Licensee as further provided under Section 7.2 below.  If Ganeden decides that it will not continue to Prosecute and Maintain one or more of the Licensed Patents, then Ganeden shall promptly notify Licensee at least sixty (60) days prior to the last date any action would be required to prevent any abandonment of such Licensed Patent, so that Licensee can, at its option, control the Prosecution and Maintenance of such Licensed Patent, at its own cost and expense.  In such event, Ganeden will continue to retain ownership of any such Licensed Patents subject to the licenses and rights granted to Licensee under this Agreement.
+
+Section 7.2   Licensed Patents - Protocol .  The Parties specifically contemplate and intend that both Ganeden and Licensee will have involvement in the Prosecution and Maintenance of the Licensed Patents and that Ganeden’s prosecution counsel will provide timely updates to both Parties concerning the status of such Prosecution and Maintenance.  In order to carry out these intentions, the following non-exhaustive list of actions by the Parties are agreed to:  (1) Ganeden’s prosecution counsel will provide updates to both Parties concerning the status of the Prosecution and Maintenance of the Licensed Patents, including providing copies of all material communications, filings or submissions with respect to such activities (in the English-language, where available) (for which Licensee shall reimburse Ganeden with respect to any incremental costs paid to its prosecution counsel) within a timeframe that allows each Party at least thirty (30) days to review such communication, filing or submission and provide comments to the prosecution counsel concerning such Prosecution and Maintenance at the option of each Party; (2) if the Parties are in disagreement concerning a proposed communication, filing or submission, such as a response to an office action rejection, they agree to consult with mutually agreeable outside counsel (who will not be a current or former prosecution counsel of either Party, which counsel will have the final decision concerning the proposed response, and under such circumstances any costs incurred by the mutually agreeable outside counsel in reviewing the proposed response and making the final decision shall be shared by the Parties 50/50.
+
+Section 7.3   Licensed Patents – National Phase Filings .  Notwithstanding Sections 7.1 and 7.2 above, if Ganeden decides that it will not file for any foreign counterpart of the Licensed Patents (including any national phase filing) or any continuation applications, continuation-in-part applications, or divisional applications thereof, then Ganeden shall promptly notify Licensee at least sixty (60) days prior to the first date to file for such foreign counterpart with the applicable Governmental or Regulatory Authority, so that Licensee can, at its option, acquire all ownership rights and control the Prosecution and Maintenance of any such foreign counterpart (i.e., such patent application filed in the applicable country and resulting patent(s)), at its own cost and expense.  In such event, Ganeden shall, and hereby assigns, all right, title and interest in and to such Patent filed in such country, without further consideration, to Licensee, and Licensee will grant, and hereby grants, to Ganeden an exclusive license under such Patent to make, use, sell, offer to sell, and import Products, in each case, for use in the Excluded Fields of Use.
+
+For purposes of this Article 7, “ Prosecution and Maintenance ” shall mean, with respect to a Patent, the preparation, filing, and prosecution of Patent applications and maintenance of Patents, as well as re examinations, reissues, requests for patent term extensions and the like with respect to such Patents, together with the conduct of interferences, the defense of oppositions and other similar proceedings with respect to the particular Patent application or Patent; and “ Prosecute and Maintain ” shall have the correlative meaning.
+
+- 13 -
+
+ARTICLE 8
+
+INFRINGEMENT BY THIRD PARTIES
+
+Section 8.1   Licensee Action .  Each Party shall promptly bring to the attention of the other Party any infringement or misappropriation of the Licensed Intellectual Property (or any declaratory action with respect thereto) by any Third Party (an “ Infringer ”) of which it becomes aware.  Subject to Section 8.3 below, Licensee shall have the first right, but not the obligation, after notice to Licensor, to take enforcement action or defend against any Infringer with respect to the Licensed Field of Use (“ Licensee Action ”).  In the event of any Licensee Action, Licensee shall have the sole right and discretion to select counsel and to conduct and control any action or litigation (including settlement thereof), and shall be entitled to any awards or sums resulting therefrom; provided that Licensee shall keep Ganeden reasonably informed of the progress of any such Licensee Action (including status of any settlement negotiations and the terms of any offer related thereto) and consider in good faith any impact such Licensee Action may have on the rights of Ganeden in the Licensed Intellectual Property.  In any such Licensee Action, as requested by Licensee, Ganeden shall provide reasonable cooperation, including, joining as a party to such action to the extent necessary to maintain the action (such as through standing).  All recoveries in any such Licensee Action will be retained solely by Licensee.
+
+Section 8.2   Ganeden Action .  Subject to Section 8.3 below, Ganeden shall have the first right, but not the obligation, after notice to Licensee, to take enforcement action or defend against any Infringer with respect to the Excluded Fields of Use (“ Ganeden Action ”).  In the event of any Ganeden Action, Ganeden shall have the sole right and discretion to select counsel and to conduct and control any action or litigation (including settlement thereof); provided that Ganeden shall keep Licensee reasonably informed of the progress of any such Ganeden Action (including status of any settlement negotiations and the terms of any offer related thereto) and consider in good faith any impact such Ganeden Action may have on the rights of Licensee in the Licensed Intellectual Property.  Ganeden shall be entitled to any awards or sums resulting from such Ganeden Action.  In any Ganeden Action, as requested by Ganeden, Licensee shall provide reasonable cooperation at Ganeden’s expense.
+
+Section 8.3   Other Action .  In the case of any Infringer acting in both the Licensed Field of Use and the Excluded Fields of Use, the Parties shall first consult with each other regarding any actions to be taken against such Infringer.  In the event that the Parties cannot agree on any joint action against such Infringer, each Party may take an enforcement action or defend against such Infringer as provided under Section 8.1 and 8.2 above (“ Other Action ”).  If the Party with the initial right to enforce against such Infringer as set forth in Section 8.1 and 8.2 above fails to take an Other Action within sixty (60) days of its receipt of notice of such infringement or misappropriation (or shorter period as reasonably necessary to preserve the right to commence an enforcement action therefor), then the other Party may commence or defend and control such Other Action, at its own expense.  The Party commencing or defending any such Other Action (the “ Enforcing Party ”) shall keep the other Party reasonably informed of the progress of any such Other Action, and such other Party shall have the right to join, but not to control, such Other Action with counsel of its own choice, at its own expense.  In any event, the other Party shall reasonably cooperate with the Enforcing Party, including providing information and materials, at the Enforcing Party’s request and expense.  In the event that the Enforcing Party is unable to initiate or prosecute such Other Action solely in its own name or it is otherwise advisable in order  to obtain an effective
+
+- 14 -
+
+remedy, the other Party will join, but not control, at the Enforcing Party’s request and expense, such Other Action and will execute all documents necessary for the Enforcing Party to initiate litigation and prosecute and maintain such Other Action.  Each Party will keep the other Party informed of developments in and the status of any such Other Action, including status of any settlement negotiations and the terms of any offer related thereto; provided, however, no settlement, compromise or other disposition of any such Other Action shall be completed without the prior written consent of both Parties, which consent shall not be unreasonably withheld, conditioned or delayed.
+
+ARTICLE 9
+
+CONFIDENTIALITY
+
+Section 9.1   Confidentiality Obligations .  Each Party receiving Confidential Information (a “Receiving Party”) recognizes that Confidential Information of the Disclosing Party constitutes highly valuable assets of the Disclosing Party.  For clarity, to the extent information within Shared Books and Records disclosed hereunder relates to the Business, such information shall be deemed Confidential Information of Licensee, and to the extent information within the Shared Books and Records disclosed hereunder does not relate to the Business, such information shall be deemed Confidential Information of Licensor.  Each Receiving Party agrees that, subject to the remainder of this Article 9, from and after the Effective Date it will not disclose, and will cause its Affiliates and licensees and sublicensees and their respective officers, directors, employees, agents and representatives not to disclose, any Confidential Information of the Disclosing Party and it will not use, and will cause its Affiliates and sublicensees and their respective officers, directors, employees and representatives not to use, any Confidential Information of the Disclosing Party except as expressly permitted under the APA and this Agreement.
+
+Section 9.2   Limited Disclosure and Use .  Each Disclosing Party agrees that disclosure of its Confidential Information may be made by the Receiving Party to its Affiliates and licensees, sublicensees, consultants and contractors and any of their respective officers, directors, employees and representatives to enable the Receiving Party to exercise its rights or to carry out its responsibilities under this Agreement or under the APA; provided, that, any such disclosure or transfer shall only be made on a need-to-know basis in each case under appropriate confidentiality provisions substantially equivalent to those of Section 9.1 .  In addition, Licensor agrees that Licensee may disclose its Confidential Information (a) on a need-to-know basis to Licensee’s legal and financial advisors, (b) as reasonably necessary in connection with an actual or potential (i) permitted sublicense of Licensee’s rights hereunder, (ii) debt or equity financing of Licensee or (iii) transfer or sale of all or substantially all of Licensee’s assets or business (or the portion of such business which includes the development and commercialization of any Products) or in the event of its merger, consolidation, change in control or similar transaction, (c) for any other purpose with Licensor’s written consent, not to be unreasonably withheld, conditioned or delayed; provided, that, any such disclosure or transfer under clause (a), (b) or (c) shall only be made under appropriate confidentiality provisions consistent with the nature of the Confidential Information so disclosed.  In addition, each Disclosing Party agrees that the Receiving Party may disclose its Confidential Information as required by applicable laws or regulations; provided, that, in the case of any such disclosure, the Receiving Party shall (1) if practicable, provide the Disclosing Party with reasonable advance notice of and an opportunity to comment on any such required disclosure and (2) if requested by the Disclosing Party, cooperate in all reasonable respects with the Disclosing Party’s efforts to obtain confidential treatment or a protective order with respect to any such disclosure, at the Disclosing Party’s expense.
+
+- 15 -
+
+ARTICLE 10
+
+TERM AND TERMINATION
+
+Section 10.1   Term .  This Agreement will commence upon the Effective Date and continue in full force and effect unless and until earlier terminated pursuant to this Article 10.
+
+Section 10.2   Termination .  Ganeden may terminate this Agreement immediately upon written notice to Licensee if Licensee or its Affiliate commences or actively participates in an action in which it challenges the validity or enforceability of any of the Licensed Patents as disclosed to Licensee in Schedule 1 ; except to the extent such challenge is made in defense of a suit or other action by Ganeden or its Affiliates or licensees asserting a Licensed Patent against Licensee or its Affiliates.
+
+Section 10.3   Rights in Bankruptcy .   All rights and licenses granted under or pursuant to this Agreement from Ganeden to Licensee are, and shall otherwise be deemed to be, for purposes of Section 365(n) of the U.S. Bankruptcy Code or any non-U.S. equivalent thereof, licenses of right to “intellectual property” as defined under Section 101 of the U.S. Bankruptcy Code.  Ganeden agree that Licensee, as exclusive licensee of certain rights under this Agreement, shall retain and may fully exercise all of its rights and elections under the U.S. Bankruptcy Code or any non-U.S. equivalent thereof.  Ganeden further agrees that, in the event of the commencement of a bankruptcy proceeding by or against Ganeden under the U.S. Bankruptcy Code or other applicable Laws governing Ganeden, Licensee shall have the right to retain any and all rights licensed to it hereunder, to the maximum extent permitted by Law (such as under Sections 365(n)(1) and 365(n)(2) of the U.S. Bankruptcy Code or any non-U.S. equivalent thereof) and be entitled to a complete duplicate of (or complete access to, as appropriate) any such intellectual property and all embodiments of such intellectual property, which, if not already in Licensee’s possession, shall be promptly delivered to it upon any such commencement of a bankruptcy proceeding, unless Ganeden (or its bankruptcy trustee) elects to assume this Agreement and continue to perform all of its obligations under this Agreement.
+
+Section 10.4   Consequences of Termination of Agreement .  If this Agreement is terminated by Licensor pursuant to Section 10.2 :
+
+(a)   all licenses granted by Licensor to Licensee shall immediately terminate;
+
+(b)   Licensee shall promptly return all Confidential Information of Licensor; provided, that Licensee may retain one (1) copy of Confidential Information of Licensor in its archives solely for the purpose of establishing the contents thereof and ensuring compliance with its obligations hereunder; and
+
+(c)   each sublicensee of Licensee shall be considered a direct licensee of Licensor; provided, that, (i) such sublicensee is then in material compliance with all terms and conditions of its sublicense, (ii) all accrued payments obligations of such sublicensee to Licensee have been paid, and (iii) such sublicensee agrees in writing to remain in compliance with all terms and conditions of the sublicense (subject to any notice and cure period provisions contained in any such sublicense agreement with such sublicensee).
+
+- 16 -
+
+Section 10.5   Surviving Provisions .  Notwithstanding any provision herein to the contrary, the rights and obligations of the Parties set forth in Articles 9, 11, 12 and Sections 10.4 and 15.1 as well as any rights or obligations otherwise accrued hereunder, shall survive the termination of this Agreement.
+
+ARTICLE 11
+
+AFTER-ARISING INTELLECTUAL PROPERTY
+
+Section 11.1   Licensee Inventions .  Any After-Arising Intellectual Property (whether patentable or not) created, developed, conceived of, first reduced to practice or otherwise made solely, or independently of Licensor, by or on behalf of employees or consultants of Licensee during the Term of this Agreement shall be owned by Licensee.
+
+Section 11.2   Licensor Inventions .  Ganeden shall own all right, title and interest in and to any After-Arising Intellectual Property created, developed, conceived of, first reduced to practice or otherwise made solely, or independently of Licensee, by or on behalf of employees or consultants of Licensor during the Term of this Agreement (“ Ganeden After-Arising Intellectual Property ”).  For clarity, all Ganeden After-Arising Intellectual Property is included within the definition of Licensed Intellectual Property and subject to the licenses granted to Licensee under Sections 2.1 through 2.4 above.  To the extent Ganeden After-Arising Intellectual Property is reasonably useful for research, development, manufacture, distribution, marketing, sale, promotion, or commercialization of Products for the Field of Use, Ganeden shall disclose relevant information concerning the same to Licensee.
+
+ARTICLE 12
+
+INDEMNIFICATION, INSURANCE
+
+Section 12.1   Indemnification by Ganeden .   Ganeden shall defend, indemnify, and hold Licensee and Licensee’s Affiliates and their respective sublicensees and distributors and in each case, their respective officers, directors, employees, and agents (the “ Licensee Indemnitees ” ) harmless from and against any and all liabilities, damages, expenses, and recoveries (including court costs and reasonable attorneys’ fees and expenses) (collectively, “ Liabilities ”) resulting from Third Party claims, suits, proceedings, actions, and demands (collectively, “ Claims ”)   to the extent that such Claims arise out of, are based on, or result from (a) the development, manufacture, storage, handling, use, promotion, sale, offer for sale, importation and other commercialization of Licensed Products by Ganeden or its Affiliates or their respective licensees or distributors after the Effective Date (including products liability or similar Claims by end users of Licensed Products sold by or on behalf of Ganeden or its Affiliate or licensee (other than Licensee or its Affiliates or sublicensees) or distributor); or (b) the willful misconduct or negligent acts of Ganeden, its Affiliates, or their respective licensees or distributors, or in each case, their respective officers, directors, and employees .   The foregoing indemnity obligation shall not apply to the extent that the Licensee Indemnitees fail to comply with the indemnification procedures set forth in Section 12.3 and Ganeden’s defense of the relevant Claims is prejudiced by such failure, or to the extent that any Claim or Liability
+
+- 17 -
+
+arises from, is based on, or results from (i) the development, manufacture, storage, handling, use, promotion, sale, offer for sale, and importation of Licensed Products by Licensee, its Affiliates, or their respective sublicensees or distributors; (ii) a material breach of any of Licensee’s representations, warranties, or obligations under this Agreement; or (iii) the willful misconduct or negligent acts of Licensee, its Affiliates, or their respective sublicensees or distributors, or in each case, their respective officers, directors, and employees.
+
+Section 12.2   Indemnification by Licensee .   Licensee shall defend, indemnify, and hold Ganeden and Ganeden’s Affiliates and their respective licensees and distributors and in each case, their respective officers, directors, employees, and agents (the “ Ganeden Indemnitees ” ) harmless from and against any and all Liabilities resulting from Claims to the extent that such Claims arise out of, are based on, or result from (a) the development, manufacture, storage, handling, use, promotion, sale, offer for sale, and importation of Licensed Products by Licensee or its Affiliates or their respective sublicensees or distributors after the Effective Date (including products liability or similar Claims by end users of Licensed Products sold by or on behalf of Licensee or its Affiliate or sublicensee or distributor); (b) the willful misconduct or negligent acts of Licensee, its Affiliates, or their respective sublicensees or distributors, or in each case, their respective officers, directors, and employees.  The foregoing indemnity obligation shall not apply to the extent that the Ganeden Indemnitees fail to comply with the indemnification procedures set forth in Section 12.3 and Licensee’s defense of the relevant Claims is prejudiced by such failure, or to the extent that any Claim or Liability arises from, is based on, or results from (i) the development, manufacture, storage, handling, use, promotion, sale, offer for sale, and importation of Probiotics and Products by Ganeden or its Affiliates or their respective licensees or distributors; (ii) a material breach of any of Ganeden’s representations, warranties, or obligations under this Agreement; or (iii) the willful misconduct or negligent acts of Ganeden, its Affiliates, or their respective licensees or distributors, or in each case, their respective officers, directors, and employees.
+
+Section 12.3   Indemnification Procedures .   The Party claiming indemnity under this Article 12 (the “ Indemnified Party ”) shall give written notice to the Party from whom indemnity is being sought (the “ Indemnifying Party ”) promptly after learning of such Claim.  The Indemnified Party shall provide the Indemnifying Party with reasonable assistance, at the Indemnifying Party’s expense, in connection with the defense of the claim for which indemnity is being sought.  The Indemnified Party may participate in and monitor such defense with counsel of its own choosing at its sole expense; provided, however, the Indemnifying Party shall have the right to assume and conduct the defense of the claim with counsel of its choice.  The Indemnifying Party shall not settle any claim without the prior written consent of the Indemnified Party, not to be unreasonably withheld, unless the settlement involves only the payment of money.  So long as the Indemnifying Party is actively defending the claim in good faith, the Indemnified Party shall not settle any such claim without the prior written consent of the Indemnifying Party.  If the Indemnifying Party does not assume and conduct the defense of the claim as provided above, (a) the Indemnified Party may defend against, and consent to the entry of any judgment or enter into any settlement with respect to the claim in any manner the Indemnified Party may deem reasonably appropriate (and the Indemnified Party need not consult with, or obtain any consent from, the Indemnifying Party in connection therewith), and (b) the Indemnifying Party will remain responsible to indemnify the Indemnified Party as provided in this Article 12.
+
+- 18 -
+
+Section 12.4   Set-Off Right .  In additional to any rights and remedies available under this Agreement and applicable Law, Licensee shall be entitled to offset any and all amounts incurred by Licensee or its Affiliates or their respective sublicensee with respect to which Licensee or its Affiliate or their respective sublicensee is entitled to indemnification hereunder against amounts payable by Licensee to Ganeden pursuant to this Agreement; provided , however , that Licensee may not effect any such offset unless and until one of the following shall have occurred: (a) Ganeden shall have acknowledged in writing its obligation to indemnify hereunder and shall not dispute the amount of the indemnification claim, (b) Ganeden shall have failed to give written notice to Licensee, within 21 days of the receipt by Ganeden of a written notice of claim pursuant to this Article 12 to dispute Ganeden’s obligation to indemnify hereunder or the amount of such claim, or (c) if Ganeden shall have timely given the notice described in clause (b) of this sentence, Licensee deposits the amount of such offset in escrow to be held and disbursed by an escrow agent pending the outcome of the resolution of any dispute.
+
+Section 12.5   Insurance .  Each Party shall procure and maintain insurance, including product liability insurance, adequate to cover its obligations hereunder and consistent with normal business practices of prudent companies similarly situated at all times during which any Licensed Product is being clinically tested in human subjects or commercially distributed or sold by such Party.  It is understood that such insurance shall not be construed to create a limit of either Party’s liability with respect to its indemnification obligations under this Article 12 or that the maintenance of such insurance shall not be construed to relieve either Party of its other obligations under this Agreement.  Each Party shall provide the other with written evidence of such insurance upon request.  Each Party shall provide the other with written notice at least thirty (30) days prior to the cancellation, non-renewal or material change in such insurance.
+
+Section 12.6   Security Interest; Filing with PTO .
+
+(a)   Ganeden represents and warrants that (y) it is a Delaware corporation duly organized and validly existing under the name Ganeden Biotech, Inc. and is in good standing under the laws of the jurisdiction of its incorporation, is qualified to do business and is in good standing as a foreign corporation in each jurisdiction in which the conduct of its business or the ownership of its properties requires such qualification and failure to have standing would prevent Ganeden from performing its obligations under this Section 12.6 , and (z) as of the Effective Date, it has not granted any security interest in any of its rights, title or interest in or to the Licensed Intellectual Property to any of its Affiliates or a Third Party.  Ganeden has entered into the that certain Security Agreement as attached hereto as Exhibit 12.6(a) (“ Security Agreement ”) pursuant to which it grants, and shall maintain, at all times during the Term, in favor of Licensee, subject to this Section 12.6 below, a valid, continuing, first priority perfected lien, subject to Permitted Liens, on and security interest in and to, and mortgage on the Licensed Intellectual Property and other Collateral (collectively, the “ Lien ”) as further described therein.  Ganeden shall perform all of its obligations under the Security Agreement, including executing, filing, registering, and/or delivering such documents as reasonably requested by and at the expense of Licensee to perfect the Lien.  Licensee will have all rights of a secured creditor, at law, in equity, and otherwise in connection with the Lien and Licensee’s enforcement of this Agreement and the Security Agreement.  Ganeden further covenants that it shall not grant any lien on, security interest in and to or mortgage on the Licensed
+
+- 19 -
+
+Intellectual Property to any of its Affiliates or a Third Party without the prior written consent of Licensee; provided that Ganeden may grant one (and no more than one at any time during the Term except as Licensee may otherwise agree (Licensee agrees to consider any request with respect thereto in good faith)) lien on, security interest in and to or mortgage on the Licensed Intellectual Property to its Affiliate or a Third Party (“ Senior Party ”), to which the Lien would be subordinate, (collectively, the “ Senior Lien ”) without prior written consent of Licensee, solely for the purposes of securing Ganeden’s obligation to pay amounts in satisfaction of a Permitted Senior Loan.  “ Permitted Senior Loan ” shall mean a loan for borrowed money that satisfies the following conditions:  (i) if the Senior Party is not a commercial bank, commercial finance lender or other lending institution with assets under management in excess of US$50 Million, in each case, which is primarily engaged in the business of lending money, then the principal amount shall not exceed Five Hundred Thousand U.S. Dollars (US$500,000); (ii) the Senior Party shall have entered into an intercreditor agreement with Licensee, which intercreditior agreement shall be limited to provisions (1) pursuant to which the Senior Party agrees (A) to provide Licensee, simultaneously with notice to Ganeden, any notice of any actual or potential default under any documentation evidencing such loan (the “ Senior Loan Agreement ”), which notice shall describe the default and the then-outstanding amounts (including any interest) owed under the Senior Loan Agreement, (B) to grant Licensee the right to pay off, within ten (10) business days of receipt of such a notice, any then-outstanding amounts (including any principal, interest, fees and expenses required thereunder) owed under the Senior Loan Agreement, in which case, the Senior Party would immediately and unconditionally release such Senior Lien and Licensee would be subrogated to the rights of the Senior Party under the Senior Loan Agreement, and (C) to grant Licensee the right to purchase the Permitted Senior Loan, together with all rights under the Senior Loan Agreement for a purchase price equal to the lesser of (I) any then-outstanding amounts (including any principal, interest, fees and expenses required thereunder) owed under the Senior Loan Agreement and (II) any amount contemporaneously being offered by a Third Party and agreed by the Senior Party for the purchase of the Permitted Senior Loan (it being understood that the Senior Party will be required to give at least 20 days’ notice of any such proposed purchase, including the terms thereof and the proposed purchaser, prior to effecting such a purchase); and (iii) any successor of the Senior Lien (whether by sale, merger or other transfer) shall take subject to the foregoing rights of Licensee and (2) such other term and conditions as are reasonably necessary to implement the provisions described in (A) – (C).  In any event, prior to granting any such Senior Lien, Ganeden shall first notify Licensee in writing of its intention to grant such Senior Lien and provide a copy of the Senior Loan Agreement that evidences compliance with the term and conditions of the Security Agreement and this Section 12.6 to the reasonable satisfaction of Licensee.  For clarity, (W) the security interest created under this Section 12.6 and the Security Agreement terminate as set forth in the Security Agreement, (X) to the extent of any conflict between this Section 12.6 and the Security Agreement, the term and conditions of the Security Agreement shall govern, (Y) in no event shall Ganeden grant more than one Senior Lien at any time during the Term (except as permitted by Licensee) and (Z) if Licensee elects to pay off any Loan Amount to the Senior Party as set forth above, Licensee may exercise any or all of the rights of the Senior Party in seeking recovery thereof from Ganeden.
+
+(b)   In addition, Licensee shall have the right to file and register with the United States Patent and Trademark Office and corresponding offices in other countries where any Licensed Intellectual Property exists appropriate documentation as may be required or useful to record the licenses granted hereunder and Ganeden shall execute all documents reasonably requested by Licensee or its counsel in connection therewith, including a duly executed copy of the short forms of license agreement attached hereto as Exhibit 12.6(b)-1 and Exhibit 12.6(b)-2 .
+
+- 20 -
+
+Section 12.7   Assignment.
+
+(a)   Certain Definitions . For purposes of this Section 12.7 , the following definitions shall apply:
+
+(i)   “ Burn Rate ” means, for any fiscal quarter of Ganeden, the net reduction, if any, in cash of Ganeden (taken together with any subsidiaries, as applicable) required to be reflected on Ganeden’s statement of cash flows as cash flows from operating activities and cash flows from investing activities taken together (but excluding cash flows from financing activities), calculated in accordance with GAAP, but excluding any Extraordinary Advertising Expenditures which are duly reflected on any applicable Extraordinary Advertising Expenditures Certification with respect to such fiscal quarter.
+
+(ii)   “ Extraordinary Advertising Expenditures Certification ” means a written certification executed by the Chief Executive Officer of Ganeden which details any Extraordinary Advertising Expenses incurred by Ganeden for a particular fiscal quarter, certifying that such expenses are Extraordinary Advertising Expenses and which is delivered to Licensee prior to or concurrent with the delivery of the applicable financial statements for the period in which such Extraordinary Advertising Expenses are incurred.
+
+(iii)   “ Extraordinary Advertising Expenditures ” means non-recurring and short term expenditures for advertising and marketing which are incurred outside of the ordinary course of business in connection with an increase in promotional efforts for a particular product or product line and which may be terminated by Ganeden at any time without additional cost (other than nominal cost).  For the avoidance of doubt, any expenditures with respect to a particular product or product line which are of a nature which occur in more than one fiscal quarter in any period of four consecutive fiscal quarters shall not be “non-recurring” for purposes of this definition, except as otherwise reasonably agreed by Licensee.
+
+(iv)   The “ Financial Delivery Term ” means the fiscal quarters of Ganeden commencing with and including the second fiscal quarter of 2012 and ending with and including the third fiscal quarter of 2016.
+
+(v)   “ GAAP ” means U.S. generally accepted accounting principles.
+
+(b)   Financial Reporting.   Ganeden shall provide to Licensee on or before the thirtieth (30 th ) day after the end of each fiscal quarter of Ganeden which is included in the Financials Delivery Term, a copy of its balance sheet and cash flow statement, calculated in accordance with GAAP, for such quarter, and any other financial information as may be requested by Licensee that are reasonably necessary to verify whether an Assignment Event (as defined below) has occurred or may be reasonably necessary to understand any Extraordinary Advertising Expenditures Certification (the “ Required Financials ”), and Ganeden shall further provide to Licensee copies of any audited financial statements that have been previously provided to Licensee as they become available.  If Licensee identifies any material inconsistency with any of the information provided by Ganeden pursuant to this Section 12.7 (b), then Ganeden shall permit Licensee to examine during
+
+- 21 -
+
+normal business hours any relevant books and records of Ganeden as may be reasonably necessary to verify the accuracy of any such information.  If (i) Ganeden fails to provide the information required in this Section 12.7 (b) when due, (ii) any Required Financials are found in the course of any examination by Licensee not to fairly present in all material respects for the applicable period the financial position, cash flows or results of operations of Ganeden and its subsidiaries and unless such failures to fairly present Ganeden’s financial position, cash flows or results of operations could not reasonably potentially result in an Assignment Event or (iii) any Extraordinary Advertising Expenditures Certification is found to be incorrect in any material respect and unless such errors could not reasonably potentially result in an Assignment Event, in each case which is not cured within ten (10) days of a request by Licensee to do so (any of the foregoing, a “ Financials Issue ”), then, upon notice from Licensee, such Financials Issue shall be deemed the “Assignment Event” in accordance with Section 12.7 (c) below.
+
+(c)   Assignment.   In the event that as of the last day of any fiscal quarter of Ganeden which is included in the Financial Delivery Term, the immediately available cash and cash equivalent balances of Ganeden (taken together with any subsidiaries, as applicable) fall below 400% of the absolute value of the Burn Rate for such fiscal quarter of Ganeden (the first to occur of such event or notice by Licensee of a Financials Issue as described in Section 12.7 (b) above, the “ Assignment Event ”), then Ganeden shall and does hereby assign to Licensee all of its right, title and interest in and to the Licensed Intellectual Property.  In such event, Licensee shall and does hereby grant to Ganeden an exclusive, worldwide, fully-paid, irrevocable license, with the right to grant and authorize sublicenses, under (i) the Licensed Patents to research, develop, improve, produce, manufacture, have manufactured, market, promote, offer to sell, sell, use, import, distribute and commercialize products and otherwise exploit the Licensed Patents, in each case, solely for use in the Excluded Fields of Use; (ii) the Licensed Know-How to research, develop, improve, produce, manufacture, have manufactured, market, promote, offer to sell, sell, use, import, distribute and commercialize products and otherwise exploit the Licensed Know-How, in each case, solely for use in the Excluded Fields of Use; (iii) the Licensed Trademarks to use such Licensed Trademarks solely on any product or in connection with the research, development, sale, offer for sale, marketing, advertising, promotion or other commercialization of products, in either case, solely for use in the Excluded Fields of Use; and (iv) the Licensed Copyrights to use, reproduce, distribute, modify, adapt, prepare derivative works of, display, perform, and otherwise exploit the Licensed Copyrights, in each case, in connection with the research, development, manufacture, sale, offer for sale, marketing, advertising, promotion or other commercialization of products solely for use in the Excluded Fields of Use.
+
+(d)   Escrow; Notice and Release.   In connection with Section 12.7 (c) above, the Parties shall deliver at Closing executed copies of the assignment agreements necessary to implement and perfect the assignment of the Licensed Intellectual Property contemplated in Section 12.7 (c), in substantially the form attached hereto as Exhibit 12.7(d) , for Ganeden, through its legal counsel, to hold in escrow until the Parties enter into an escrow agreement with a mutually-agreed escrow agent pursuant to which Ganeden, through its legal counsel, shall deposit such assignment agreements.  In the event of an Assignment Event, Licensee shall have the right to provide Ganeden and the escrow agent appropriate notice and obtain a release of such assignment agreements.  Thereafter, Ganeden shall cooperate with and assist Licensee as requested to implement and perfect such assignment and otherwise transition the Licensed Intellectual Property consistent with the foregoing.
+
+- 22 -
+
+(e)   Reassignment Event.   If within six (6) months of the first occurrence of an Assignment Event, as of the last day of any fiscal quarter of Ganeden, the immediately available cash and cash equivalent balances of Ganeden (taken together with any subsidiaries, as applicable) are at least 600% of the absolute value of the average Burn Rate for the immediately two (2) prior fiscal quarters of Ganeden as reflected on true and correct copies of the Required Financials delivered to Licensee pursuant to Section 12.7(b) above, then Licensee shall reassign to Ganeden all of the right, title and interest in and to the Licensed Intellectual Property previously assigned to Licensee pursuant to Section 12.7 (c) above.  In such event, the terms and conditions of this Agreement shall apply as if the Assignment Event had not occurred including redelivering the assignments described in Section 12.7 (d) to the escrow agent.  For clarity, this Section 12.7 (e) shall apply only one time after the first occurrence of the Assignment Event.
+
+ARTICLE 13
+
+RECALLS, PRODUCT COMPLAINTS AND OTHER REGULATORY MATTERS
+
+Section 13.1   Notifications .  Each Party shall inform the other Party of any notification or other information whether received, directly or indirectly, regarding adverse events or other issues that could reasonably affect the marketing, quality, safety, or effectiveness of the Probiotics or Products by the other Party and/or which could reasonably result in the recall of a Product by the other Party, in each case in a timely manner commensurate with the seriousness of the event or issue.
+
+Section 13.2   Withdrawal/Recall .  Within five (5) business days of a determination by a Party that a withdrawal or a recall of a Product marketed by such Party may be necessary, such Party shall notify the other Party thereof.  Upon a Party’s request, each Party shall reasonably assist the other Party, at the other Party’s cost, in an investigation to determine the cause and extent of any withdrawal or recall of Product, but only if and to the extent such withdrawal or recall presents issues that have a material impact on both Parties.  Any withdrawal or recall of the Products in the Field of Use shall be performed by Licensee.
+
+Section 13.3   Cooperation .  Each Party shall keep the other Party reasonably informed of any correspondence with Governmental or Regulatory Authorities, including FDA Form 483, Notice of Observations and the like, that are (or reasonably could be) material to such other Party’s marketing of Products as contemplated herein.
+
+Section 13.4   Reporting .  Each Party shall be responsible for reporting of any adverse drug experiences of the Products marketed by such Party as required by the FDA and other Governmental or Regulatory Authorities and any applicable Law.
+
+Section 13.5   Applicability .  The foregoing Sections 13.1 through 13.4 shall only apply to the Parties to the extent required under applicable Law.
+
+- 23 -
+
+ARTICLE 14
+
+REPRESENTATIONS AND WARRANTIES
+
+Section 14.1   Due Organization, Valid Existence and Due Authorization .  Each Party hereto represents and warrants to the other Party as follows: (a) it is duly organized and validly existing under the Laws of its jurisdiction of incorporation; (b) it has full corporate power and authority and has taken all corporate action necessary to enter into and perform this Agreement; (c) the execution and performance by it of its obligations hereunder will not constitute a breach of, or conflict with, its organizational documents nor any other agreement or arrangement, whether written or oral, by which it is bound; and (d) this Agreement is its legal, valid and binding obligation, enforceable against such Party in accordance with the terms and conditions hereof.
+
+Section 14.2   Representations and Warranties of Ganeden .  Ganeden represents, warrants and covenants to Licensee as follows:
+
+(a)   No Conflict; Covenant .  As of the Effective Date, it is not a party to any Contract that conflict with the rights and licenses granted to Licensee under this Agreement or prevent it from performing its obligations under the Agreement;
+
+(b)   Title to Licensed Intellectual Property .  As of the Effective Date, Ganeden owns the entire right, title and interest in, or otherwise has the right to grant the licenses and rights granted to Licensee in Article 2 under, the Licensed Intellectual Property (including the Patents listed on Schedule 1 attached hereto);
+
+(c)   No Liens on Licensed Intellectual Property .  As of the Effective Date, the Licensed Intellectual Property is free and clear of all liens, claims or other encumbrances of any kind that would interfere, or the exercise of which would interfere, with Licensee exercising the licenses or rights granted in Article 2;
+
+(d)   Infringement of Third Party Rights .  To Ganeden’s Knowledge, the development, manufacture, use, or sale or other commercialization of the Licensed Products (including the use of any Assigned Trademarks or Licensed Trademarks in connection with the Licensed Products) does not infringe, misappropriate, dilute, violate or otherwise conflict with any Intellectual Property of any other Person or constitute a violation of the Lanham Act, unfair competition or unfair trade practices under the Law of any jurisdiction;
+
+(e)   Non-Invalidity and Non-Unenforceability .  As of the Effective Date, (i) to Ganeden’s Knowledge, all Licensed Intellectual Property are valid and enforceable; (ii) there is no claim by any Third Party pending or, to Ganeden’s Knowledge, threatened, contesting the validity, enforceability, or ownership of any Licensed Intellectual Property; and (iii) there are no acts or omissions of Ganeden that would (A) constitute inequitable conduct, fraud or misrepresentation with respect to any Patent application included within Licensed Patents, or (B) render any Licensed Intellectual Property invalid or unenforceable in whole or in part;
+
+(f)   Clinical Trials .  As of the Effective Date, there are no ongoing or planned (for which a clinical protocol has been prepared) clinical trials related to the Licensed Products either conducted by or on behalf of Ganeden or for which Ganeden provides supply of such Licensed Product, other than the clinical trials listed on Schedule 14.2(f) ; and
+
+- 24 -
+
+(g)   Material Misrepresentation .  To Ganeden’s Knowledge, none of the data, documentation and other information disclosed by Ganeden to Licensee in connection with the negotiations of this Agreement or pursuant to this Agreement is materially untrue, and Ganeden has not omitted to disclose any data, documentation or other information that would make the data, documentation or other information disclosed by Ganeden materially misleading.
+
+Section 14.3   No Other Representations and Warranties .  EXCEPT AS SET FORTH IN SECTIONS 14.1 AND 14.2 AND THE APA, EACH PARTY DISCLAIMS ALL OTHER REPRESENTATIONS AND WARRANTIES WHATSOEVER WITH RESPECT TO THE SUBJECT MATTER OF THIS AGREEMENT.  THE LICENSED INTELLECTUAL PROPERTY IS LICENSED TO AND OTHERWISE PROVIDED BY GANEDEN AS IS, WHERE IS, WITH ALL FAULTS AND WITHOUT ANY WARRANTY OF MERCHANTABILITY, FITNESS FOR PARTICULAR PURPOSE, NON INFRINGEMENT OR ANY OTHER WARRANTY, EXPRESS OR IMPLIED.
+
+Section 14.4   Coordination with APA .  The indemnification provisions provided for under Article 7 of the APA will be the exclusive remedy for any breach of representation and warranty under this Article 14; provided however, nothing in the APA or this Agreement shall limit the rights and remedies of any Indemnified Party in connection with (i) any fraud or willful breach of this Agreement or (ii) seeking any equitable remedies, including any injunctive or other provisional relief.
+
+ARTICLE 15
+
+MISCELLANEOUS
+
+Section 15.1   Assignment .  This Agreement will be binding upon and inure to the benefit of the successors and assigns of the Parties.  Licensor agrees that any transfer or assignment of its ownership rights in and to the Licensed Intellectual Property or this Agreement shall be subject to such successor or assignee providing written notice of expressly assuming performance of such rights and/or obligations of this Agreement such that such transfer or assignment takes subject to Licensee’s rights in and to such Licensed Intellectual Property under this Agreement; and any transfer or assignment in violation of the foregoing shall be null and void.  Licensee shall have the right to transfer or assign this Agreement without the requirement for any prior written consent of the Licensor; provided that Licensee shall provide Licensor with a true copy of any such agreement within thirty (30) days of such transfer or assignment.  For the avoidance of doubt, the preceding sentence applies to all transfers and assignments by Licensee, including, but not limited to, those to any affiliated entity controlled by, controlling, or under common control with Licensee or to any Licensee or successor in interest to all, or substantially all, of the assets or business of Licensee.
+
+Section 15.2   Governing Law and Jurisdiction .  This Agreement will be governed by and be construed in accordance with the Laws of the State of Delaware, without regard however to the conflicts of laws principles thereof.  In the event any litigation is commenced as a result of this Agreement, the Parties expressly consent and agree to the exclusive jurisdiction and venue of the State and Federal courts located in New Castle County, Delaware.
+
+- 25 -
+
+Section 15.3   Section Headings .  Captions and section headings are used for convenience of reference only, are not part of this Agreement, and may not be used in construing this Agreement.
+
+Section 15.4   Counterparts .  This Agreement may be executed in several counterparts, each of which will be deemed an original, and such counterparts will together constitute and be one and the same instrument.
+
+Section 15.5   Severability .  If any provision of this Agreement is or becomes or is deemed invalid, illegal or unenforceable under the applicable laws or regulations of any jurisdiction, such provision will be deemed amended to conform to such laws or regulations without materially altering the intention of the Parties, or if required by a court of competent jurisdiction, it will be stricken and the remainder of this Agreement will remain in full force and effect.  In the event that any provision of this Agreement is declared by a court of competent jurisdiction to be invalid, illegal, or otherwise unenforceable, the validity, legality, and enforceability of the remaining provisions will not in any way be affected or impaired thereby.
+
+Section 15.6   Waiver .  Each Party further agrees that no failure or delay by the non-breaching Party, its agents or representatives, in exercising any right, power or privilege under this Agreement will operate as a waiver thereof unless expressed in writing, nor will any single or partial exercise thereof preclude any other or further exercise thereof or the exercise of any right, power or privilege under this Agreement.
+
+Section 15.7   Complete Agreement .  This Agreement and the APA constitute the full understanding of the Parties and a complete and exclusive statement of the term of their agreement, and no terms, conditions, usage of trade, course of dealing, understanding or agreement purporting to modify or vary the terms of this Agreement and the APA will be binding unless hereafter made in writing and signed by the Party to be bound.  Unless otherwise expressly stated, this Agreement supersedes all previous or contemporaneous dealings or agreements with respect to the subject matters of this Agreement and the APA.
+
+Section 15.8   Further Assurances .  Ganeden agrees to execute, acknowledge and deliver such further instruments, and to do all such other acts, as may be necessary or appropriate in order to carry out the express purposes and intent of this Agreement and ensure Licensee’s exclusive rights and licenses under the Licensed Intellectual Property, including any requirements to record this Agreement as an exclusive license of the Licensed Intellectual Property with the appropriate Governmental or Regulatory Authorities.
+
+Section 15.9   Force Majeure .  Neither Party will be liable for, or will be considered to be in breach of or default under this Agreement on account of, any delay or failure to perform as required by this Agreement as a result of any causes or conditions that are beyond such Party’s reasonable control and that such Party is unable to overcome through the exercise of commercially reasonable diligence.  If any force majeure event occurs, the affected Party will give prompt written notice to the other Party and will use commercially reasonable efforts to minimize the impact of the event.
+
+- 26 -
+
+Section 15.10   Notices .  All notices and other communications hereunder will be in writing and will be deemed to have been duly given when delivered in person, by facsimile, receipt confirmed, or on the next Business Day when sent by overnight courier or on the third Business Day after being sent when sent by registered or certified mail (postage prepaid, return receipt requested) to the respective parties at the following addresses (or at such other address for a party as will be specified by like notice):
+
+(1)   If to Licensor, to:
+
+Ganeden Biotech, Inc.
+
+5915 Landerbrook Drive
+
+Suite 304
+
+Mayfield Heights, Ohio  44124
+
+Attention: Andrew Lefkowitz, President and CEO
+
+Telecopy: (440) 229-5240
+
+and an additional copy (which will not constitute notice to Licensor) to:
+
+Benesch, Friedlander, Coplan & Aronoff LLP
+
+2300 BP Tower
+
+200 Public Square
+
+Cleveland, Ohio  44114
+
+Attention:  Ira C. Kaplan
+
+Telecopy:  (216) 363-4588
+
+(2)   If to Licensee to:
+
+Schiff Nutrition Group, Inc.
+
+2002 South 5070 West
+
+Salt Lake City, Utah 84104
+
+Attention: General Counsel
+
+Telecopy: ____________________
+
+and an additional copy (which will not constitute notice to Licensee) to:
+
+Wilson Sonsini Goodrich & Rosati, P.C.
+
+650 Page Mill Road
+
+Palo Alto, California 94304
+
+Attention:  Marty Korman
+
+                Ian B. Edvalson
+
+Telecopy:  (650) 493-6811
+
+Section 15.11   Amendment .  No amendment, change or modification of any the terms, provisions or conditions of this Agreement will be effective unless made in writing and signed on behalf of the Parties hereto by their duly authorized representatives.
+
+Section 15.12   No Third Party Beneficiaries .  Except as provided under Article 12, nothing in this Agreement is intended to or will create for any third party any rights whatsoever, as a third party beneficiary or otherwise.
+
+- 27 -
+
+Section 15.13   IN WITNESS WHEREOF, the Parties have executed this Agreement as of the Effective Date.
+
+LICENSOR:
+
+GANEDEN BIOTECH, INC.
+
+By:
+
+/s/  Andrew R. Lefkowitz
+
+Print Name:
+
+  Andrew R. Lefkowitz
+
+Title:
+
+  President and CEO
+
+LICENSEE:
+
+SCHIFF NUTRITION GROUP, INC.                 
+
+By:
+
+/s/  Tarang P.Amin
+
+Print Name:
+
+  Tarang P. Amin
+
+Title:
+
+  President and Chief Executive Officer
+
+- 28 -

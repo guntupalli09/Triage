@@ -1,0 +1,1058 @@
+EX-10.1
+2
+ex10-1.htm
+SETTLEMENT AGREEMENT AND MUTUAL RELEASE DATED JUNE 24, 2015 AND EFFECTIVE JUNE 25, 2015, BY AND BETWEEN LUCAS ENERGY, INC. AND VICTORY ENERGY CORPORATION
+
+ex10-1.htm
+
+Exhibit 10.1
+
+SETTLEMENT AGREEMENT AND MUTUAL RELEASE
+
+This Settlement Agreement and Mutual Release (this “ Settlement Agreement ”) is made and entered into as of the 24th day of June, 2015, by and among Victory Energy Corporation , a Nevada corporation (the “ Victory ”) and Lucas Energy, Inc. , a Nevada corporation (“ Lucas ”). Each of Victory and Lucas is referred to herein as a “ Party ” and, collectively, as the “ Parties .”
+
+BACKGROUND
+
+On February 2, 2015, Victory and Lucas entered into a Letter of Intent for Business Combination (the “ Letter of Intent ”) relating to a proposed business combination (the “ Merger ”) between the two parties.  Thereafter, on February 26, 2015, Victory and Lucas entered into a Pre-Merger Loan and Funding Agreement (the “ Loan Agreement ”) pursuant to which Victory agreed to loan Lucas up to Two Million Dollars ($2,000,000) as evidenced by a Delayed Draw Term Note that was issued by Lucas to Victory on the same day (the “ Lucas Note ”). A total of $600,000 in principal amount (the “ Principal Amount ”) has been advanced by Victory to Lucas under the Loan Agreement.  The Principal Amount and accrued interest thereon is secured by a pledge of Lucas Common Stock (the “ Pledged Securities ”) pursuant to a Pledge Agreement entered into on the same date (the “ Pledge Agreement ”) between the Parties.  The Parties and certain other affiliates of Victory also entered into the Pre-Merger Collaboration Agreement on February 26, 2015, as amended by Amendment No. 1 thereto, dated March 3, 2015 (the “ Collaboration Agreement ”).  Pursuant to the Collaboration Agreement, Lucas’ assigned to Victory certain rights (the “ Well Rights ”) in five (5) Penn Virginia well-bores (the “ Penn Virginia Well-Bores ”) and two (2) Earthstone Energy/Oak Valley Resources Boggs Unit No. 1H and Boggs Unit No. 2H well-bores (the “ Oak Valley Wells ”).  In connection with the assignment of the Well Rights, Lucas obtained a partial release from Louise H. Rogers, Lucas’ secured lender (the “ Senior Lender ”), and Sharon E. Conway, as Trustee, under that certain Mortgage, Deed of Trust, Assignment, Security Agreement, Financing Statement and Fixture Filing, dated August 13, 2013, that permitted Lucas to transfer the Well Rights to Victory. The Collaboration Agreement provides that Victory retains the Well Rights whether or not the Merger is consummated. The Collaboration Agreement also required Victory to issue a contingent promissory note in the principal amount of $250,000 to the Senior Lender (the “ Rogers Note ”).  In accordance with its terms, the Rogers Note becomes due and payable, among other times, within ninety (90) days following the termination of the Letter of Intent.
+
+The Parties now desire to resolve their respective claims under the Letter of Intent, Loan Agreement, Collaboration Agreement, Pledge Agreement, Lucas Note and Rogers Note and otherwise without admitting liability therefor, and in order to avoid the uncertainty, expense and burden of litigation.
+
+AGREEMENT
+
+NOW, THEREFORE, in consideration of the promises, representations, warranties and covenants contained herein, and intending to be legally bound hereby, the Parties agree as follows:
+
+1.            Termination of Terminated Agreements; Further Assurances .
+
+(a)            Subject to the terms and conditions of this Settlement Agreement and except as expressly provided otherwise below, all rights, duties, liabilities and obligations of each of the Parties under the Letter of Intent and the Collaboration Agreement (such agreements being referred to herein as the “ Terminated Agreements ”) are hereby terminated and cancelled as of the date hereof, and neither of the Parties nor any of their affiliates (including, without limitation, Aurora Energy Partners, Navitus Energy Group, and AEP Assets, LLC), shall have any further rights, duties, liabilities or obligations to the other Party under any of the Terminated Agreements.
+
+(b)           Each of the Parties hereto agrees to execute and deliver all such other and additional instruments and documents and do all such other acts and things as may be necessary to more fully effectuate this Settlement Agreement.
+
+2.            Obligations and Understandings of the Parties .  In consideration for the mutual releases contained in this Settlement Agreement, the Parties hereto agree as follows:
+
+(a)           Victory shall retain ownership and control over the Penn Virginia Well-Bores and all unpaid joint interest billings relating to the Penn Virginia Well-Bores for operations on or after August 1, 2014 shall be payable by Victory and all division orders with respect to the Penn Virginia Well-Bores shall reflect Victory as a successor in interest to Lucas. In addition to the originally assigned Penn Virginia Well-Bores, on the date hereof, Lucas shall assign to Victory (to be held in escrow by Attorney Sharon E. Conway, as agent for the Senior Lender in accordance with the Rogers Release) all related acreage, reserves and proven undeveloped drilling locations remaining at Platypus and Dingo and the proven developed Platypus Hunter 1H (the “ Additional Penn Virginia Property ”) pursuant to an assignment in substantially the form of Exhibit A to this Agreement.   The Additional Penn Virginia Property is more specifically described as follows and on Exhibit A to this Agreement, which includes a full property description of the Additional Penn Virginia Property:
+
+Penn Virginia Well-Bores
+
+-      Platypus Hunter 2H
+
+-      Platypus Hunter 3H
+
+-
+
+Dingo Unit 1H – 1-H
+
+-
+
+Dingo Unit 2H – 2H
+
+-
+
+Dingo Unit 3H - 3H
+
+Additional Penn Virginia Property
+
+One 116.11 acre Tract #4 (lessor Jackie Robertson, et al) in the 531.67 acre Dingo Unit, giving rise to a 3.27581% working interest and Two Tracts #8 & #9 totaling 75.0 acre (lessor Jackie Robertson, et al) in the 649.322 ac Platypus Unit, giving rise to a 1.481330% working interest.
+
+(b)           Neither Lucas nor its affiliates shall in anyway interfere with Victory’s ownership and control of the Penn Virginia Well-Bores or the Additional Penn Virginia Property and Lucas on behalf of itself and its affiliates hereby waives any right to contest Victory’s ownership of the Penn Virginia Well-Bores and the Additional Penn Virginia Property.  Lucas shall notify the operator in writing that all future communications and divisions orders are to be sent directly to Victory (c/o Aurora Energy Partners).  Lucas shall execute and deliver all such other and additional instruments and documents and do all such other acts and things as may be necessary to ensure that Victory retains ownership and control over the Penn Virginia Wells-Bores and the Additional Penn Virginia Property.
+
+2
+
+(c)           Victory shall execute and deliver the mutual release with the Senior Lender in the form of Exhibit B to this Agreement (the “ Rogers Release ”) against execution and delivery by the Senior Lender of the same.  Lucas shall procure the Senior Lender’s agreement to the Rogers Release and execution of the same as required by this Agreement as soon as practicable and in any event within two (2) business days of the date hereof. The Rogers Release shall include a release in favor of Victory and its affiliates from the Senior Lender from all obligations under the Rogers Note, including, without limitation, interest, fees and penalties and from any and all claims that the Senior Lender may have against Victory and its affiliates arising out of, or in connection with, the Rogers Note or any of the Terminated Agreements, and the only remaining obligations of Victory to Rogers are those set forth in the Rogers Release. The release contained herein in favor of Lucas shall not become effective unless and until the Senior Lender delivers to Victory and its affiliates the Rogers Release.
+
+(d)           Lucas acknowledges that Victory has paid $195,928.33 toward AFEs with respect to the Oak Valley Wells (the “ Oak Valley AFE Payment ”).  As part of this Agreement, Victory is relinquishing its rights to receive the return of the Oak Valley AFE Payment.  Victory shall execute and deliver the mutual release with Oak Valley in the form of Exhibit C to this Agreement (the “ Oak Valley Release ”) against execution and delivery by Oak Valley of the same. Lucas shall procure Oak Valley’s agreement to the Oak Valley Release and execution of the same as required by this Agreement as soon as practicable and in any event within two (2) business days of the date hereof.  The Oak Valley Release shall include a release in favor of Victory and its affiliates from Oak Valley and its affiliates that releases Victory and its affiliates from all obligations that Victory and its affiliates may have relating to the Oak Valley Wells and from any claims that Oak Valley and its affiliates may have against Victory and its affiliates.  The release contained herein in favor of Lucas shall not become effective unless and until Oak Valley and its affiliates deliver to Victory and its affiliates the Oak Valley Release.
+
+(e)           Without making any representation to Lucas with respect to Victory’s title to the Oak Valley Wells, in accordance with the Oak Valley Release, Victory shall quitclaim to Sabine River Energy, LLC any and all right, title and interest that Victory may have to the Oak Valley Wells.  Victory agrees to execute and deliver all such other and additional instruments and documents and do all such other acts and things as may be necessary to effectuate such assignment.
+
+3
+
+(f)           Lucas acknowledges and agrees that the Principal Amount is $600,000, that Victory has already advanced the Principal Amount to Lucas in full, and that all obligations under the Loan Agreement and the Lucas Note are secured by the Pledged Securities under the Pledge Agreement.  Lucas further acknowledges that Victory has no further obligation to advance any funds to Lucas under the Loan Agreement, the Lucas Note or otherwise.  Lucas shall promptly (and in any event within 14 days) issue 1,101,729 shares of Lucas Common Stock registered in the name of Victory (the “ Settlement Shares ”) subject to equitable adjustment if there is a stock split, stock combination, stock dividend, recapitalization or similar event relating to Lucas common stock prior to the issuance of such Settlement Shares.  Lucas shall cause the Settlement Shares to be delivered to Attorney Sharon E. Conway, as agent for the Senior Lender, who shall hold the Settlement Shares in accordance with the Rogers Release.  Victory shall accept the Settlement Shares in full satisfaction of Lucas’ Obligations under the Loan Agreement and the Lucas Note. The Settlement Shares shall upon issuance be duly issued, fully paid and non assessable.  Lucas hereby grants to Victory piggyback registration rights on the terms described below and upon Victory’s request shall enter into a customary agreement relating to these rights, which will include, among other things, customary indemnification provisions.  If at any time there is not an effective registration statement covering the Settlement Shares and any other shares of Lucas Common Stock held by Victory (the “ Registrable Securities ”) and Lucas shall determine to prepare and file with the Securities and Exchange Commission a registration statement relating to an offering for its own account or the account of others under the Securities Act of 1933, as amended (the “ Securities Act ”) of any of its equity securities, other than on Form S-4 or Form S-8 (each as promulgated under the Securities Act) or their then equivalents relating to equity securities to be issued solely in connection with any acquisition of any entity or business or equity securities issuable in connection with stock option or other employee benefit plans, then Lucas shall send to Victory written notice of such determination and if, within fifteen days after receipt of such notice, Victory shall so request in writing, Lucas shall include in such registration statement all or any part of such Registrable Securities Victory requests to be registered; provided, however, that Lucas shall not be required to register any Registrable Securities pursuant to this Section 2(e) that are eligible for sale pursuant to Rule 144 of the Securities Act without any restriction as to volume of sales (without reference to any contractual volume limitations applicable to Victory).
+
+(g)           So long as Victory owns any Settlement Shares it shall comply with the following limitations on the number of Settlement Shares that it may sell in the market through a broker (not including private sales to unaffiliated third parties):
+
+(i)           Victory shall not sell more than Twenty Five Thousand (25,000) Settlement Shares per trading day;
+
+(ii)           Victory shall not sell more than One Hundred Twenty Five Thousand (125,000) Settlement Shares per week; and
+
+(iii)           Victory shall not sell more than Five Hundred Thousand (500,000) Settlement Shares per month.
+
+(iv)           If Lucas effects a stock split, stock combination, stock dividend recapitalization or similar event affecting the number of shares of Lucas common stock outstanding, then the aforementioned limitations on the number of Settlement Shares that Victory may sell will be equitably adjusted such that Victory shall be permitted to sell the same overall percentage of Settlement Shares per period.
+
+4
+
+(v)           Upon the written request from Lucas, Victory shall promptly provide to Lucas brokerage statements confirming the number of Settlement Shares that Victory has sold in any applicable period.  On the date hereof, Victory is executing and delivering to Lucas a proxy in the form of Exhibit D.  This proxy provides that for a period of twenty four (24) months following the date of this Agreement, Lucas’ board of directors or its designee may vote the Settlement Shares (including through the execution of a written consent) that Victory continues to hold on any matter coming before the stockholders of Lucas for a vote.  Victory shall not request and Lucas shall not provide to Victory any material non-public information relating to Lucas or its affiliates.  So long as Victory owns any Settlement Shares, it shall not directly or indirectly, nor shall it cause any person acting on its behalf or pursuant to any understanding with it to, execute any short sales (as such term is defined in rule 200 of Regulation SHO under the Securities Exchange Act of 1934, as amended), in the securities of Lucas.
+
+(h)           Victory acknowledges and agrees that so long as the Settlement Shares are in certificate form they shall bear any legend required by the Securities Act of 1933, as amended and they shall bear the following legend:
+
+THE SECURITIES REPRESENTED BY THIS CERTIFICATE ARE SUBJECT TO A PROXY IN FAVOR OF THE BOARD OF DIRECTORS OF THE ISSUER AND TO CERTAIN LIMITATIONS ON THE NUMBER OF SECURITIES THAT MAY BE SOLD AS SPECIFIED IN THAT CERTAIN SETTLEMENT AGREEMENT BETWEEN THE ISSUER AND THE ORIGINAL HOLDER OF THIS CERTIFICATE.  A COPY OF THE SETTLEMENT AGREEMENT MAY BE OBTAINED BY REQUESTING THE SAME FROM THE SECRETARY OF THE ISSUER AT THE ISSUER’S EXECUTIVE OFFICES.
+
+Victory acknowledges and agrees that if and to the extent that Victory transfers the Settlement Shares to any third party in a transaction other than a market transaction through a broker, it shall, as a condition to such transfer, cause such third party to be bound by the sale restrictions and voting rights provisions of this Settlement Agreement.  For the avoidance of doubt, if Victory transfers the Settlement Shares in the market through a brokerage transaction to a third party, the purchaser of such unrestricted Settlement Shares shall acquire the same without any restriction or limitation imposed under this Settlement Agreement.
+
+Lucas agrees that it shall take any and all reasonable action to facilitate the deposit of the Settlement Shares into Victory’s brokerage account if such Settlement Shares are registered or may be sold in accordance with Rule 144 of the Securities Act.  Such action shall include, but not be limited to, the provision to Lucas’ transfer agent of an instruction letter in form satisfactory to such transfer agent, the removal of the aforementioned legend (in which case, the covenants in this Settlement Agreement relating to restrictions on sale of the Settlement Shares and the proxy for the Settlement Shares would remain in effect in accordance with their terms notwithstanding the removal of the legend), the delivery to Lucas’ transfer agent of an opinion (or the acceptance of an opinion from Victory’s counsel), and such other similar actions as may be necessary to facilitate the deposit of the Settlement Shares into a brokerage account.
+
+5
+
+3.            Mutual Releases .
+
+(a)           Subject to the terms and conditions of this Agreement, from and after the date hereof, each of the Parties on behalf of itself and all of its affiliates and assigns hereby fully, finally, voluntarily and irrevocably releases and discharges the other Party and such other Party’s affiliates and its and their officers, directors, shareholders, members, partners, employees, legal counsel, accountants, auditors, advisors and agents  (the “ Released Parties ”) to the fullest extent permitted under applicable law from any and all claims, counterclaims, demands, causes of action, contract obligations, suits, losses, liabilities, rights, debts, dues, sums of money, accounts, reckonings, bonds, bills, specialties, covenants, contracts, controversies, obligations, guarantees, endorsements, liens, security interests, agreements, promises, variances, trespasses, judgments, extents, executions, damages, attorneys’ fees or costs whatsoever, at law or in equity or otherwise, whether direct or indirect, known or unknown (any of the foregoing, a “ Claim ” and, collectively, the “ Claims ”), which such Party now owns or holds, or has at any time heretofore owned or held, or may in the future own or hold, against the Released Parties, or any of them, in any capacity, including as an officer, director or stockholder of the other Party, which are or may be based upon any facts, acts, omissions, representations, contracts, agreements, including the Terminated Agreements, events or matters of any kind occurring or existing at any time on or before the date of this Settlement Agreement, in each case, solely to the extent such Claims arise from or are in any way related to Terminated Agreements or any act or event taken by or on behalf of the other Party in furtherance of the Terminated Agreements.
+
+(b)            Waiver of Unknown Claims . In addition to each Party’s release of Claims provided for in Section 3(a), each Party hereby expressly waives any protection under applicable state law for releases of unknown claims. Each Party understands the significance of his or its release of unknown claims and the waiver of any applicable statutory protection against a release of unknown claims.  EACH PARTY EXPRESSLY ASSUMES THE RISK OF SUCH UNKNOWN AND UNANTICIPATED CLAIMS AND AGREES THAT THIS SETTLEMENT AGREEMENT APPLIES TO ALL CLAIMS, AS DEFINED UNDER SECTION 3(a), WHETHER KNOWN, UNKNOWN, OR UNANTICIPATED.
+
+4.            Waiver of Suit .  For the consideration and mutual promises specified herein and other good and valuable consideration the receipt and sufficiency of which is hereby acknowledged, each Party agrees to waive, release, promise and agrees not to bring or pursue any judicial, quasi-judicial or administrative action against the other Party for any reason whatsoever arising out of the Claims released herein up to and including the date of this Settlement Agreement.  Each party further acknowledges and agrees that it has not already filed or otherwise commenced any such action.  For the avoidance of doubt, any action for enforcement of this Settlement Agreement is expressly excluded from this waiver provision.
+
+6
+
+5.            Representations and Warranties .
+
+(a)           Each Party represents and warrants to the other Party that it has the requisite power to enter into this Settlement Agreement and to carry out its obligations hereunder and that the terms of this Settlement Agreement have been fully disclosed to the Board of Directors of such Party and that the requisite approvals have been obtained, prior to its execution and that this Settlement Agreement does not conflict with, or result in a breach of, any other agreement to which such Party is a party.
+
+(b)           Each Party represents and warrants to the other Party that this Settlement Agreement has been duly executed and delivered and constitutes a valid and binding obligation enforceable in accordance with its terms.
+
+6.            Entire Agreement .  This Settlement Agreement constitutes the entire, exclusive and final agreement among the parties   and supersedes any and all prior agreements, discussions, representations and warranties among the parties with respect to the matters set forth herein.  The parties have not relied upon any statements or representations made by any party outside the contents of this Settlement Agreement.
+
+7.            Choice of Law .  This Settlement Agreement shall be enforced, governed by and construed in accordance with the laws of the State of Texas without regard to principles of conflict of laws.
+
+8.            Counterparts .  This Settlement Agreement may be executed in any number of counterparts, each of which shall be deemed to be an original but all of which together shall constitute but one agreement.
+
+9.            Severability .  If any provision of this Settlement Agreement is determined to be unlawful or otherwise unenforceable, the remaining provisions of this Settlement Agreement shall nevertheless continue in full force and effect.
+
+10.            Parties in Interest; Assignment; Third Party Beneficiaries .  This Settlement Agreement is binding upon the parties and their respective successors, heirs, legal representatives and permitted assigns.  Aurora Energy Partners, Navitus Energy Group and AEP Assets, LLC and each of their respective officers, directors, managers and owners are each intended third party beneficiaries of this Settlement Agreement and may enforce their rights under this Settlement Agreement.
+
+11.            No Admission of Liability or Wrongdoing .  This Settlement Agreement and the negotiations and discussions leading up to this Settlement Agreement effect the settlement of claims which are denied and contested, and do not constitute, nor shall they be construed as, an admission of liability by the parties.  This Settlement Agreement is made solely for the purpose of avoiding the burden and expense of litigation, which would be imposed on the parties if the disputes between them remained unsettled.  This Settlement Agreement does not constitute an admission by any of the parties hereto that they have engaged in any unlawful act.  Each of the parties hereto expressly deny that they have engaged in any unlawful act and deny liability for all claims any other party had, has, or may have against them.
+
+7
+
+12.            Indemnification and Contribution .  Each Party (an “ Indemnitor ”) agrees to indemnify the other Party and its affiliates and its and their officers, directors, employees, agents, shareholders, members and/or partners (collectively referred to as the “ Indemnitees ”) against, and hold them harmless of and from, any and all loss, liability, cost, damage and expense, including without limitation, reasonable counsel fees, which the Indemnitees may suffer or incur by reason of any action, claim or proceeding brought against the Indemnitees arising out of or relating in any way to a breach by the Indemnitor of any representation, warranty or covenant contained in this Settlement Agreement. If the indemnification provided for in Section 12 is applicable, but for any reason is held to be unavailable, the Indemnitor shall contribute such amounts as are just and equitable to pay, or to reimburse the Indemnitees for, the aggregate of any and all losses, liabilities, costs, damages and expenses, including counsel fees, actually incurred by the Indemnitees as a result of or in connection with, and any amount paid in settlement of, any action, claim or proceeding arising out of or relating in any way to any actions or omissions of the Indemnitor.  The provisions of this Section 12 shall survive any termination of this Agreement.
+
+13.            Construction .  This Settlement Agreement shall not be construed against the party preparing it, but shall be construed as if the parties collectively prepared it and any uncertainty or ambiguity shall not be interpreted against any party.
+
+14.            Modifications; Waiver .  This Settlement Agreement may not be modified orally.  No breach of any provision hereof may be waived unless in writing.  Waiver of any breach shall not be deemed to be a waiver of any other breach of the same or of any other provision hereof.  All modifications to this Settlement Agreement must be in writing and signed by the Party to be charged.
+
+15.            No Assignments . Each of the Parties hereby represents and warrants to the other Party that there has been no assignment or transfer whatsoever of any of the Claims released herein.  Each Party agrees to defend and indemnify the other Party and the other persons and entities released herein against any Claim based upon, arising out of or in connection with any such assignment or transfer.
+
+16.            Attorneys' Fees .  If any action is brought for the enforcement of this Settlement Agreement or in connection with any dispute arising out of it or the claims which are the subject of this Settlement Agreement, the prevailing party shall be entitled to recover reasonable attorneys' fees and any other costs incurred in such litigation in addition to any other relief to which the prevailing party may be entitled.
+
+17.            Advice of Counsel .  Each party to this Settlement Agreement has had the opportunity to discuss the matter with legal counsel, and enters into this Settlement Agreement only after such consultation.
+
+18.            Waiver Of Jury Trial .   EACH PARTY EXPRESSLY, IRREVOCABLY AND UNCONDITIONALLY WAIVES TRIAL BY JURY IN ANY LEGAL ACTION OR PROCEEDING RELATING TO THIS SETTLEMENT AGREEMENT AND FOR ANY COUNTERCLAIM THEREIN.
+
+8
+
+19.            Notices .  All notices and other communications hereunder shall be in writing to the parties at the addresses specified on the signature pages hereto.
+
+[Signature page follows]
+
+9
+
+IN WITNESS WHEREOF, the parties have executed this Settlement Agreement as of the date first above written.
+
+Victory Energy Corporation
+
+By: /s/ Kenny Hill                                           
+
+Name: Kenny Hill
+
+Title: Chief Executive Officer
+
+3355 Bee Caves Road, Suite 608
+
+Austin, TX  78746
+
+Lucas Energy, Inc.
+
+By :/s/ Anthony Schnur                                       
+
+Name: Anthony Schnur
+
+Title: Chief Executive Officer
+
+3555 Timmons Lane, Suite 1550
+
+Houston, TX 77027
+
+Acknowledgement of Counsel:
+
+Each of the undersigned legal counsel to Victory and to Lucas by signing this Settlement Agreement below acknowledge that they approve the Settlement Agreement as to form:
+
+/s/ David M. Loev                                    
+/s/ David McCall                                       
+
+David Loev of The Loev Law Firm, PC,
+David McCall
+
+Counsel to Lucas
+Counsel to Victory
+
+Approving as to form only
+Approving as to form only
+
+10
+
+EXHIBIT A
+
+Assignment of Additional Penn Virginia Property
+
+PARTIAL ASSIGNMENT AND BILL OF SALE
+
+STATE OF TEXAS
+
+§
+
+KNOW ALL MEN BY THESE PRESENTS:
+
+COUNTY OF KARNES
+
+§
+
+THAT, LUCAS ENERGY, INC., a Nevada corporation, whose mailing address is 3555 Timmons Lane, Suite 1550, Houston, Texas 77027 (hereinafter referred to as “Assignor”) for sufficient consideration received from SABINE RIVER ENERGY, LLC, a Texas limited liability company, whose mailing address is 1400 Woodloch Forest Drive, Suite 300, The Woodlands, Texas 77380-1197 (hereinafter referred to as “Assignee”), does hereby transfer, assign, sell, bargain and convey unto Assignee, subject as herein provided, all of Assignor’s right, title and interest in the oil and/or gas leases listed in Exhibit “A” attached hereto and made a part hereto (said leases being hereinafter referred to as “Leases”), insofar and only insofar as the leases cover the rights below the Austin Chalk formation.  The Austin Chalk formation shall mean the correlative interval from 9,982 feet to 10,294 feet as shown on the Baker-Hughes High Definition Induction Log dated February 4, 2009 of the EOG Resources, Inc. Milton Unit Well No. 1, API No. 4225531608, Eagleville (Eagle Ford) Field, Abstraction 247, Karnes County, Texas.
+
+To have and to hold the Leases and interest forever, subject to the following:
+
+1.  This Partial Assignment and Bill of Sale is subject to the terms and provisions of the Leases and Assignee hereby assumes all express and implied covenants thereunder.
+
+2.  This Partial Assignment and Bill of Sale shall be binding upon and inure to the benefit of Assignee and Assignor and their respective successors, heirs and assigns.
+
+3.  This Partial Assignment and Bill of Sale may be executed in any number of counterparts, and each counterpart may be recorded separately or may be combined to form one (1) instrument for recording purposes.
+
+Executed by Assignor and Assignees on the dates reflected in their respective acknowledgments, but effective as of June 1, 2015.
+
+ASSIGNOR
+
+LUCAS ENERGY, INC.
+
+By: _________________________________
+
+Anthony Schnur
+
+Chief Executive Officer
+
+A-1
+
+ASSIGNEE
+
+SABINE RIVER ENERGY, LLC
+
+By: _________________________________
+
+Christopher E. Cottrell
+
+Executive Vice President Land & Marketing
+
+ACKNOWLEDGMENTS
+
+STATE OF TEXAS
+
+COUNTY OF MONTOGMERY
+
+This instrument was acknowledged before me on this _____ day of _______________, 2015 by Christopher E. Cottrell, who is Executive Vice President Land & Marketing of SABINE RIVER ENERGY, LLC, a Texas limited liability company, on behalf of said limited liability company.
+
+My Commission Expires: ___________                     ____________________________________
+
+Notary Public for the State of Texas
+
+County of Montgomery
+
+Printed Name: ________________________
+
+STATE OF TEXAS
+
+COUNTY OF HARRIS
+
+This instrument was acknowledged before me on this _____ day of _________________, 2015 by Anthony Schnur, who is the Chief Executive Officer of LUCAS ENERGY, INC., a Nevada corporation, on behalf of said corporation.
+
+My Commission Expires: _____________                ____________________________________
+
+Notary Public for the State of Texas
+
+County of Harris
+
+Printed Name: ________________________
+
+A-2
+
+EXHIBIT A
+
+OIL AND GAS LEASES:
+
+Lessor:
+
+Leland Copeland
+
+Lessee:
+
+Lucas Energy, Inc.
+
+Effective Date:
+
+July 16, 2013
+
+Memorandum Recorded:
+
+Volume 1134, Page 651
+
+Description:
+
+143.00 acres more or less, out of the Thomas P. Crosby Survey,
+
+Abstract 66, Karnes County, Texas
+
+Lessor:
+
+Glenn D. Boggs, Jr. and Wife, Betty J. Boggs
+
+Lessee:
+
+Lucas Energy, Inc.
+
+Effective Date:
+
+July 16, 2013
+
+Memorandum Recorded:
+
+Volume 1134, Page 653
+
+Description:
+
+143.00 acres more or less, out of the Thomas P. Crosby Survey,
+
+Abstract 66, Karnes County, Texas
+
+Lessor:
+
+Red Crest Trust, JPMorgan Chase Bank, N. A. as Trustee
+
+Lessee:
+
+Billy R. Wilson
+
+Effective Date:
+
+March 25, 2008
+
+Recorded:
+
+Volume 873, Page 394
+
+Description:
+
+250.00 acres more or less, out of the Thomas P. Crosby Survey,
+
+Abstract 66, Karnes County, Texas
+
+A-3
+
+EXHIBIT B
+
+Form of Rogers Release
+
+For Purposes of Settlement Discussions;
+
+Subject to Texas Rule of Evidence 408 and
+
+Federal Rule of Evidence 408
+
+SETTLEMENT AGREEMENT AND MUTUAL RELEASE
+
+This Settlement Agreement and Mutual Release (this “ Settlement Agreement ”) is made and entered into as of the __ day of June, 2015, by and among Victory Energy Corporation , a Nevada corporation (the “ Victory ”) and Louise H. Rogers, an individual (“ Rogers ”). Each of Victory and Rogers is referred to herein as a “ Party ” and, collectively, as the “ Parties .”
+
+BACKGROUND
+
+On February 2, 2015, Victory and Lucas Energy, Inc. (“ Lucas ”) entered into a Letter of Intent for Business Combination (the “ Letter of Intent ”) relating to a proposed business combination (the “ Merger ”) between the two parties.  Thereafter, Lucas, Victory and certain other affiliates of Victory entered into the Pre-Merger Collaboration Agreement on February 26, 2015, as amended by Amendment No. 1 thereto, dated March 3, 2015 (the “ Collaboration Agreement ”).  Pursuant to the Collaboration Agreement, Lucas assigned to Victory certain rights (the “ Well Rights ”) in five (5) Penn Virginia well-bores and two (2) Earthstone Energy/Oak Valley Resources Boggs Unit No. 1H and Boggs Unit No. 2H well-bores.  In connection with the assignment of the Well Rights, Lucas obtained a partial release from Rogers, Lucas’ secured lender, and Sharon E. Conway, as Trustee, under that certain Mortgage, Deed of Trust, Assignment, Security Agreement, Financing Statement and Fixture Filing, dated August 13, 2013, that permitted Lucas to transfer the Well Rights to Victory. Among other things, the Collaboration Agreement required Victory to issue a contingent promissory note in the principal amount of $250,000 to Rogers (the “ Rogers Note ”).  In accordance with its terms, the Rogers Note becomes due and payable, among other times, within ninety (90) days following the termination of the Letter of Intent.
+
+On May 11, 2015, Victory notified Lucas that Victory does not intend to proceed with the Merger and thereby terminated the Letter of Intent.
+
+The Parties now desire to resolve their respective claims under the Collaboration Agreement and the Rogers Note and otherwise without admitting liability therefor, and in order to avoid the uncertainty, expense and burden of litigation.
+
+AGREEMENT
+
+NOW, THEREFORE, in consideration of the promises, representations, warranties and covenants contained herein, and intending to be legally bound hereby, the Parties agree as follows:
+
+1.            Termination of Rogers Note; Further Assurances .
+
+(a)            Subject to the terms and conditions of this Settlement Agreement and except as expressly provided otherwise below, all rights, duties, liabilities and obligations of each of the Parties under the Rogers Note is hereby terminated and cancelled as of the date hereof, and neither of the Parties nor any of their affiliates, shall have any further rights, duties, liabilities or obligations to the other Party under the Rogers Note.
+
+B-1
+
+For Purposes of Settlement Discussions;
+
+Subject to Texas Rule of Evidence 408 and
+
+Federal Rule of Evidence 408
+
+(b)           Each of the Parties hereto agree to execute and deliver all such other and additional instruments and documents and do all such other acts and things as may be necessary to more fully effectuate this Settlement Agreement.
+
+2.            Victory Payment Obligation . On or before July 15, 2015, Victory shall pay to Rogers Two Hundred and Fifty Three Thousand Seven Hundred Fifty Dollars ($253,750) in immediately available funds to an account specified by Rogers to Victory in writing; provided, however, that if Victory fails to make such payment on or before July 15, 2015 it shall be in breach of this Settlement Agreement and default interest on such amount shall accrue at a per diem rate of $126.88 (i.e., 18% per annum).  Victory agrees that Roger’s counsel, Attorney Sharon E. Conway, may hold in escrow (i) the assignment of the additional Penn Virginia properties contemplated by Section 2(a) of the VL Settlement Agreement (as defined below), and (ii) the Settlement Shares (as defined in the VL Settlement Agreement), until such time as Victory pays to Rogers the amounts due and payable to Rogers pursuant to this Section 2 and Rogers shall immediately release such assignment once such payment has been made in full.
+
+3.            Concurrent Settlement Agreements . This Settlement Agreement has been negotiated concurrently with (a) that certain settlement agreement being entered into on or about the date hereof between Victory and Lucas (the “ VL Settlement Agreement ”), and (b) that certain settlement agreement being entered into on or about the date hereof among Oak Valley Operating LLC and its affiliates, Lucas and its affiliates and Victory and its affiliates (the “ Oak Valley Settlement Agreement ”).  Notwithstanding any provision herein contained to the contrary, this Settlement Agreement shall automatically terminate and be of no force or effect if each of the VL Settlement Agreement and the Oak Valley Settlement Agreement is not executed by all of the parties thereto on or before the expiration of two (2) business days after the date hereof.
+
+B-2
+
+For Purposes of Settlement Discussions;
+
+Subject to Texas Rule of Evidence 408 and
+
+Federal Rule of Evidence 408
+
+4.            Mutual Releases .
+
+(a)           Subject to the terms and conditions of this Agreement, from and after the date hereof, each of the Parties on behalf of itself and all of its affiliates and assigns hereby fully, finally, voluntarily and irrevocably releases and discharges the other Party and such other Party’s affiliates (including, specifically and without limitation, in the case of Victory, Aurora Energy Partners, Navitus Energy Group and AEP Assets, LLC) and its and their officers, directors, shareholders, members, partners, employees, legal counsel, accountants, auditors, advisors and agents  (the “ Released Parties ”) to the fullest extent permitted under applicable law from any and all claims, counterclaims, demands, causes of action, contract obligations, suits, losses, liabilities, rights, debts, dues, sums of money, accounts, reckonings, bonds, bills, specialties, covenants, contracts, controversies, obligations, guarantees, endorsements, liens, security interests, agreements, promises, variances, trespasses, judgments, extents, executions, damages, attorneys’ fees or costs whatsoever, at law or in equity or otherwise, whether direct or indirect, known or unknown (any of the foregoing, a “ Claim ” and, collectively, the “ Claims ”), which such Party now owns or holds, or has at any time heretofore owned or held, or may in the future own or hold, against the Released Parties, or any of them, in any capacity, including as an officer, director or stockholder of the other Party, which are or may be based upon any facts, acts, omissions, representations, contracts, agreements, including the Rogers Note and the Collaboration Agreement, events or matters of any kind occurring or existing at any time on or before the date of this Settlement Agreement.
+
+(b)            Waiver of Unknown Claims . In addition to each Party’s release of Claims provided for in Section 4(a), each Party hereby expressly waives any protection under applicable state law for releases of unknown claims. Each Party understands the significance of his or its release of unknown claims and the waiver of any applicable statutory protection against a release of unknown claims.  EACH PARTY EXPRESSLY ASSUMES THE RISK OF SUCH UNKNOWN AND UNANTICIPATED CLAIMS AND AGREES THAT THIS SETTLEMENT AGREEMENT APPLIES TO ALL CLAIMS, AS DEFINED UNDER SECTION 4(a), WHETHER KNOWN, UNKNOWN, OR UNANTICIPATED.
+
+5.            Waiver of Suit .  For the consideration and mutual promises specified herein and other good and valuable consideration the receipt and sufficiency of which is hereby acknowledged, each Party agrees to waive, release, promise and agrees not to bring or pursue any judicial, quasi-judicial or administrative action against the other Party for any reason whatsoever arising out of the Claims released herein up to and including the date of this Settlement Agreement.  Each party further acknowledges and agrees that it has not already filed or otherwise commenced any such action.  For the avoidance of doubt, any action for enforcement of this Settlement Agreement is expressly excluded from this waiver provision.
+
+6.            Representations and Warranties .
+
+(a)           Each Party represents and warrants to the other Party that it has the requisite power to enter into this Settlement Agreement and to carry out its obligations hereunder and that the terms of this Settlement Agreement have been fully disclosed to the Board of Directors, if applicable, of such Party and that the requisite approvals have been obtained, prior to its execution and that this Settlement Agreement does not conflict with, or result in a breach of, any other agreement to which such Party is a party.
+
+B-3
+
+For Purposes of Settlement Discussions;
+
+Subject to Texas Rule of Evidence 408 and
+
+Federal Rule of Evidence 408
+
+(b)           Each represents and warrants to the other Party that this Settlement Agreement has been duly executed and delivered and constitutes a valid and binding obligation enforceable in accordance with its terms.
+
+7.            Entire Agreement .  This Settlement Agreement constitutes the entire, exclusive and final agreement among the parties   and supersedes any and all prior agreements, discussions, representations and warranties among the parties with respect to the matters set forth herein.  The parties have not relied upon any statements or representations made by any party outside the content of this Settlement Agreement.
+
+8.            Choice of Law .  This Settlement Agreement shall be enforced, governed by and construed in accordance with the laws of the State of Texas without regard to principles of conflict of laws.
+
+9.            Counterparts .  This Settlement Agreement may be executed in any number of counterparts, each of which shall be deemed to be an original but all of which together shall constitute but one agreement.
+
+10.            Severability .  If any provision of this Settlement Agreement is determined to be unlawful or otherwise unenforceable, the remaining provisions of this Settlement Agreement shall nevertheless continue in full force and effect.
+
+11.            Parties in Interest; Assignment; Third Party Beneficiaries .  This Settlement Agreement is binding upon the parties and their respective successors, heirs, legal representatives and permitted assigns.  Aurora Energy Partners, Navitus Energy Group and AEP Assets, LLC and each of their respective officers, directors, managers and owners are each intended third party beneficiaries of this Settlement Agreement and may enforce their rights under this Settlement Agreement.
+
+12.            No Admission of Liability or Wrongdoing .  This Settlement Agreement and the negotiations and discussions leading up to this Settlement Agreement effect the settlement of claims which are denied and contested, and do not constitute, nor shall they be construed as, an admission of liability by the parties.  This Settlement Agreement is made solely for the purpose of avoiding the burden and expense of litigation, which would be imposed on the parties if the disputes between them remained unsettled.  This Settlement Agreement does not constitute an admission by any of the parties hereto that they have engaged in any unlawful act.  Each of the parties hereto expressly deny that hey have engaged in any unlawful act and deny liability for all claims any other party had, has, or may have against them.
+
+13.            Indemnification and Contribution .  Each Party (an “ Indemnitor ”) agrees to indemnify the other Party and its affiliates and its and their officers, directors, employees, agents, shareholders, members and/or partners (collectively referred to as the “ Indemnitees ”) against, and hold them harmless of and from, any and all loss, liability, cost, damage and expense, including without limitation, reasonable counsel fees, which the Indemnitees may suffer or incur by reason of any action, claim or proceeding brought against the Indemnitees arising out of or relating in any way to a breach by the Indemnitor of any representation, warranty or covenant contained in this Settlement Agreement. If the indemnification provided for in Section 13 is applicable, but for any reason is held to be unavailable, the Indemnitor shall contribute such amounts as are just and equitable to pay, or to reimburse the Indemnitees for, the aggregate of any and all losses, liabilities, costs, damages and expenses, including counsel fees, actually incurred by the Indemnitees as a result of or in connection with, and any amount paid in settlement of, any action, claim or proceeding arising out of or relating in any way to any actions or omissions of the Indemnitor.  The provisions of this Section 13 shall survive any termination of this Agreement.
+
+B-4
+
+For Purposes of Settlement Discussions;
+
+Subject to Texas Rule of Evidence 408 and
+
+Federal Rule of Evidence 408
+
+14.            Construction .  This Settlement Agreement shall not be construed against the party preparing it, but shall be construed as if the parties collectively prepared it and any uncertainty or ambiguity shall not be interpreted against any party.
+
+15.            Modifications; Waiver .  This Settlement Agreement may not be modified orally.  No breach of any provision hereof may be waived unless in writing.  Waiver of any breach shall not be deemed to be a waiver of any other breach of the same or of any other provision hereof.  All modifications to this Settlement Agreement must be in writing and signed by all of the Parties hereto.
+
+16.            No Assignments . Each of the Parties hereby represents and warrants to the other Party that there has been no assignment or transfer whatsoever of any of the Claims released herein.  Each Party agrees to defend and indemnify the other Party and the other persons and entities released herein against any Claim based upon, arising out of or in connection with any such assignment or transfer.
+
+17.            Attorneys' Fees .  If any action is brought for the enforcement of this Settlement Agreement or in connection with any dispute arising out of it or the claims which are the subject of this Settlement Agreement, the prevailing party shall be entitled to recover reasonable attorneys' fees and any other costs incurred in such litigation in addition to any other relief to which the prevailing party may be entitled.
+
+18.            Advice of Counsel .  Each party to this Settlement Agreement has had the opportunity to discuss the matter with legal counsel, and enters into this Settlement Agreement only after such consultation.
+
+19.            Waiver Of Jury Trial .   EACH PARTY EXPRESSLY, IRREVOCABLY AND UNCONDITIONALLY WAIVES TRIAL BY JURY IN ANY LEGAL ACTION OR PROCEEDING RELATING TO THIS SETTLEMENT AGREEMENT AND FOR ANY COUNTERCLAIM THEREIN.
+
+20.            Notices .  All notices and other communications hereunder shall be in writing to the parties at the addresses specified on the signature pages hereto.
+
+[Signature page follows]
+
+B-5
+
+For Purposes of Settlement Discussions;
+
+Subject to Texas Rule of Evidence 408 and
+
+Federal Rule of Evidence 408
+
+IN WITNESS WHEREOF, the parties have executed this Settlement Agreement as of the date first above written.
+
+Victory Energy Corporation
+
+By:                                           
+
+Name: Kenneth Hill
+
+Title: Chief Executive Officer
+
+3355 Bee Caves Road, Suite 608
+
+Austin, TX  78746
+
+Louise H. Rogers
+
+c/o Sharon E. Conway
+
+Attorney at Law
+
+2441 High Timbers, Suite 410
+
+The Woodlands, Texas  77380-1052
+
+Acknowledgement of Counsel:
+
+Each of the undersigned legal counsel to Victory and to Rogers by signing this Settlement Agreement below acknowledge that they approve the Settlement Agreement as to form:
+
+______________________________
+______________________________
+
+Sharon E. Conway
+David McCall
+
+Counsel to Rogers
+Counsel to Victory
+
+Approving as to form only
+Approving as to form only
+
+B-6
+
+EXHIBIT C
+
+Form of Oak Valley Release
+
+COMPROMISE SETTLEMENT AGREEMENT AND
+
+MUTUAL GENERAL RELEASE
+
+I.
+
+PARTIES
+
+The parties to this Compromise Settlement Agreement and Mutual General Release are:
+
+1.01           Earthstone Operating, LLC; Earthstone Energy, Inc.; Oak Valley Resources, LLC; Oak Valley Operating, LLC; and Sabine River Energy, LLC (collectively, “ Earthstone ”).
+
+1.02           Lucas Energy, Inc. (“ LEI ”).
+
+1.03           Victory Energy Corporation; AEP Assets LLC, and Aurora Energy Partners (together, “ Victory ”).
+
+II.
+
+DEFINITIONS
+
+2.01            “JOA ” means that certain Joint Operating Agreement which appears as Exhibit “C” to the Participation Agreement, as defined below.
+
+2.02            “Earthstone Parties” means Earthstone and its past and present principals, officers, directors, shareholders, employees, agents, representatives, members, parents, subsidiaries, affiliates, assigns, predecessors and successors.
+
+2.03            “LEI Parties ” means LEI and its past and present principals, officers, directors, shareholders, employees, agents, representatives, members, parents, subsidiaries, affiliates, assigns, and successors.
+
+2.04           “ Participation Agreement ” means that certain Participation Agreement, dated August 1, 2014, between Earthstone and LEI.
+
+2.05            “Victory Assignment” means the assignment to Victory of the Subject Interests, as defined below, pursuant to that certain Partial Assignment and Bill of Sale of Wellbore Rights dated effective as of February 27, 2015 and recorded in Volume 1223, Page 133 in the Official Records of Karnes County, Texas.
+
+2.06           “ Victory Parties ” means Victory and its past and present principals, officers, directors, shareholders, employees, agents, representatives, members, parents, subsidiaries, affiliates, assigns, and successors.
+
+2.07              “Settlement Agreement” means this Compromise Settlement Agreement and Mutual General Release.
+
+COMPROMISE SETTLEMENT AGREEMENT AND MUTUAL GENERAL RELEASE
+
+PAGE 1
+
+2.08            “Subject Interests” means   a purported fifty percent (50%) Working/Leasehold Interest in and to the Boggs #1H and #2H wellbore rights, along with one hundred feet (100’) laterally perpendicular to said wellbores that were assigned by Lucas to Victory pursuant to the Victory Assignment.
+
+2.09            “Parties” means Earthstone, LEI, and Victory, each of whom shall be individually referred to as a “ Party.”
+
+2.10           The “Dispute” means all claims and causes of action of any kind whatsoever which the Parties have or may have in the future against each other, based on any acts or events that have occurred on or before the Effective Date, as defined below, related to or arising out of those facts set forth in Section III below, except as otherwise provided in this Settlement Agreement.
+
+2.11            “Effective Date” means the date on which this Settlement Agreement is executed by LEI, Earthstone and Victory.  If executed on different dates, the Effective Date shall be the date that this Agreement is executed by the last party to any such agreement to execute.
+
+2.12            “VL Settlement Agreement”   means that certain Settlement Agreement and Mutual Release between Victory and Lucas, including all exhibits thereto.
+
+2.13            “Rogers Release” means the full mutual release, including a release in favor of Victory and its affiliates from Louis H. Rogers, Lucas’ senior  secured lender that is contemplated by the VL Settlement Agreement.
+
+III.
+
+Background
+
+3.01           Each of the Parties has informed the other Parties that it intends to assert claims against the other Parties for various reasons, including, without limitation, claims arising out of the following agreements, conveyances or interests:
+
+(a)
+
+the Participation Agreement;
+
+(b)
+
+the JOA;
+
+(c)
+
+the letter of intent dated August 4, 2014 between LEI and the Earthstone Parties;
+
+(d)
+
+the Partial Assignment dated effective August 1, 2014, and recorded in Volume 1196, Page 702 of the Official Records of Karnes County;
+
+(e)
+
+the Victory Assignment;
+
+(f)
+
+the letter agreement dated February 9, 2015, between LEI and the Earthstone Parties;
+
+(g)
+
+a letter dated May 1, 2015, from the Earthstone Parties to LEI; and
+
+(h)
+
+an oil and gas lease, the memorandum of which is recorded as Instrument No. 201500142279 of the Official Records of Karnes County (the “ Boggs Lease ”).
+
+All of the Parties dispute the claims that each other Party has made against it.  The parties wish to resolve the respective claims by entering into this Agreement without admitting liability therefor, and in order to avoid the uncertainty, expense and burden of litigation.  Concurrently, one or more of the Parties is entering into the Lucas Settlement, the VL Settlement Agreement and the Rogers Release.
+
+COMPROMISE SETTLEMENT AGREEMENT AND MUTUAL GENERAL RELEASE
+
+PAGE 2
+
+Scope of Settlement
+
+3.02           Bona fide disputes and controversies may exist between the Parties, both as to the fact and extent of liability, if any, and as to the fact and extent of damages, if any, and by reason of such disputes and controversies, the Parties to this Settlement Agreement desire to settle all claims and causes of action of any kind whatsoever which the Parties have or may have in the future against each other, based on any acts or events that have occurred on or before the Effective Date, except as otherwise provided in this Settlement Agreement.
+
+3.03           The Parties intend that the full terms and conditions of the compromise and settlement be set forth in this Settlement Agreement.
+
+In consideration of the agreements contained in this Settlement Agreement and other good and valuable consideration, the receipt and sufficiency of which are hereby acknowledged, the Parties agree as follows:
+
+IV.
+
+REPRESENTATIONS AND WARRANTIES
+
+The following representations and warranties shall survive the execution of this Settlement Agreement and the completion of the settlement provided below.
+
+Authority/Capacity
+
+4.01           Each Party to this Settlement Agreement warrants and represents that it has the power and authority to enter into this Settlement Agreement and that this Settlement Agreement and all documents delivered pursuant to this Settlement Agreement are valid, binding, and enforceable upon him or it.
+
+4.02           Each Party to this Settlement Agreement warrants and represents that no consent, approval, authorization or order of, and no notice to, or filing with any court, governmental authority, person or entity is required for the execution, delivery, and performance of this Settlement Agreement.
+
+4.03           Earthstone warrants and represents that it is not the fiduciary of LEI or Victory; no fiduciary relationship exists between Earthstone and LEI or between Earthstone and Victory; and this is an arm’s length transaction.  LEI warrants and represents that it is not the fiduciary of Earthstone or Victory; no fiduciary relationship exists between LEI and Earthstone or between LEI and Victory; and this is an arm’s length transaction.  Victory warrants and represents that it is not the fiduciary of LEI or Earthstone; no fiduciary relationship exists between Victory and LEI or between Victory and Earthstone; and this is an arm’s length transaction.
+
+4.04           Earthstone warrants and represents that it is duly formed under the laws of the state of its organization and is duly organized and validly existing in good standing under such laws.  Earthstone warrants and represents that it has the power and authority to execute and deliver this Settlement Agreement and all other agreements and instruments to be executed by it as contemplated by this Settlement Agreement and to carry out the transactions and perform its obligations provided for in this Settlement Agreement and in those other agreements and instruments.  The execution and delivery of this Settlement Agreement and such other agreements and instruments and the consummation of the transactions contemplated by this Settlement Agreement and such other agreements and instruments have been duly and validly authorized by all necessary action on the part of Earthstone.
+
+COMPROMISE SETTLEMENT AGREEMENT AND MUTUAL GENERAL RELEASE
+
+PAGE 3
+
+4.05           LEI warrants and represents that it is duly formed under the laws of the state of its organization and is duly organized and validly existing in good standing under such laws.  LEI warrants and represents that it has the power and authority to execute and deliver this Settlement Agreement and all other agreements and instruments to be executed by it as contemplated by this Settlement Agreement and to carry out the transactions and perform its obligations provided for in this Settlement Agreement and in those other agreements and instruments.  The execution and delivery of this Settlement Agreement and such other agreements and instruments and the consummation of the transactions contemplated by this Settlement Agreement and such other agreements and instruments have been duly and validly authorized by all necessary action on the part of LEI.
+
+4.06           Victory warrants and represents that it is duly formed under the laws of the state of its organization and is duly organized and validly existing in good standing under such laws.  Victory warrants and represents that it has the power and authority to execute and deliver this Settlement Agreement and all other agreements and instruments to be executed by it as contemplated by this Settlement Agreement and to carry out the transactions and perform its obligations provided for in this Settlement Agreement and in those other agreements and instruments.  The execution and delivery of this Settlement Agreement and such other agreements and instruments and the consummation of the transactions contemplated by this Settlement Agreement and such other agreements and instruments have been duly and validly authorized by all necessary action on the part of Victory.
+
+V.
+
+SETTLEMENT TERMS
+
+This Settlement Agreement has been negotiated concurrently with (a) the VL Settlement Agreement, (b) the Rogers Release and (c) that certain Compromise Settlement Agreement and General Release by and between Earthstone and LEI of even date herewith (the “ Lucas Settlement ”).  Notwithstanding any provision herein contained to the contrary, this Settlement Agreement shall automatically terminate and be of no force or effect if (a) the VL Settlement Agreement, (b) the Rogers Release or (c) the Lucas Settlement is not executed by all of the parties thereto on or before the expiration of two (2) business days after the Effective Date.
+
+In reliance upon the representations, warranties, and covenants in this Settlement Agreement, and concurrently with the execution and delivery of this Settlement Agreement, the Parties have settled and compromised their claims and causes of action against each other as follows:
+
+COMPROMISE SETTLEMENT AGREEMENT AND MUTUAL GENERAL RELEASE
+
+PAGE 4
+
+Payment, Reassignment & Non-Consent
+
+5.01           LEI shall be entitled to receive from Earthstone $195,928.33, being the sum previously advanced to Earthstone on behalf of LEI (the “ JIB Return ”); and Earthstone shall be entitled to receive from LEI $141,907.50 (the “ Title Failure Return ”).
+
+THEREFORE, Earthstone shall pay to LEI the difference between the JIB Return and the Title Failure Return, being FIFTY-FOUR THOUSAND TWENTY AND 83/100 DOLLARS ($54,020.83) (the “Payment” ).
+
+5.02           Earthstone shall deliver the Payment by wire transfer of immediately available funds in U.S. dollars to the account of LEI to the bank or account specified as follows:
+
+_________________
+
+_________________
+
+_________________
+
+_________________
+
+5.03           The parties hereby agree that, notwithstanding the election period set forth in the Letter dated May 1, 2015 (described in Section 3.01(g) above), LEI is hereby deemed a Non-Consenting Party as defined under the terms of the JOA, for all purposes.
+
+5.04           LEI shall execute and deliver an irrevocable election not to participate in the Boggs #1H and #2H Wells (or any AFEs related thereto) as proposed under the above described May 1, 2015 Letter.  LEI will further acknowledge in such election that it and its interests in the Boggs #1H and #2H wells are subject to the non-consent penalties set forth in the JOA for failure to participate in such wells.
+
+5.05           Victory shall execute and record a “quit claim” assignment of leasehold working interest in favor of Sabine River Energy, LLC, effective as of February 27, 2015, substantially in the form attached hereto as Exhibit A (the “Reassignment” ), of all of the right, title and interest conveyed pursuant to the Victory Assignment.  LEI shall warrant title to the Subject Interests unto Sabine River Energy, LLC, against all persons claiming by, through and under LEI and/or Victory, but not otherwise.
+
+5.06           As described in Section 5.02 above, the Payment shall be transmitted to the account specified by LEI within two (2) business days after receipt by Earthstone’s counsel, Thompson & Knight, LLP (“ T&K ”) of the fully executed signature pages of this Settlement Agreement, the Lucas Settlement, the VL Settlement Agreement, and the Rogers Release for all respective parties thereto; the Reassignment; and any other documentation required to be exchanged under this Settlement Agreement.  This Settlement Agreement shall automatically terminate and be null and void, and of no further force or effect, if the Payment is not timely transmitted in accordance with this Settlement Agreement.
+
+5.07           LEI acknowledges that Earthstone has in good faith commenced operations, and Earthstone shall take commercially reasonable steps to continue such operations on or before August 31, 2015, for the drilling of either the Boggs #1H well or the Boggs #2H well.  LEI’s sole and exclusive remedy for any failure of Earthstone to take such further steps shall be Earthstone’s waiver of the non-consent penalty as to the AFEs included in the May 1, 2015 letter to the extent such waiver is required under the JOA, and LEI shall waive all other rights and remedies for the same (including, without limitation, LEI shall not sue Earthstone for money damages or injunctive relief for failure to continue its operations for such wells).
+
+COMPROMISE SETTLEMENT AGREEMENT AND MUTUAL GENERAL RELEASE
+
+PAGE 5
+
+5.08           In the event that “Recoupment”, as defined under Article VI(d) of the JOA, occurs as to either the Boggs #1H well or the Boggs #2H well, respectively, then within thirty (30) days thereafter Earthstone shall assign to LEI its proportionate share of the applicable wellbore, and the Subject Interests to the extent located within one hundred feet (100’) laterally perpendicular to such wellbore with special warranty of title by, through and under Earthstone, but not otherwise, effective as of the first day of the month following the month in which such Recoupment occurs. For purposes of this section, LEI’s “proportionate share” means an undivided 34.3971%, provided that if as of the Effective Date Earthstone, Victory and LEI, collectively, own less than one hundred percent (100%) of the wells, leases, and other oil and gas properties lying within the “Contract Area” of the JOA (as defined therein), as reflected in the real property records of Karnes County, Texas, then such percentage shall be proportionately reduced.
+
+Non-Disparagement
+
+5.09           From and after the Effective Date, LEI agrees not to discuss or comment upon, or publish any information concerning, any Earthstone Parties or Victory Parties, their business affairs, or their management in a negative or disparaging manner.  From and after the Effective Date, Victory agrees not to discuss or comment upon, or publish any information concerning, any Earthstone Parties or LEI Parties, their business affairs, or their management in a negative or disparaging manner. From and after the Effective Date, Earthstone agrees not to discuss or comment upon, or publish any information concerning, any Victory Parties or LEI Parties, their business affairs, or their management in a negative or disparaging manner.  LEI, Victory, and Earthstone each agree not to act to disrupt, derogate, or detrimentally affect, directly or indirectly, the business or any business relationship, services, operations, reputation, officers, employees, financial status, or liabilities of any other Party.
+
+Release by LEI of the Earthstone Parties
+
+5.10           Except as otherwise expressly set forth in the Lucas Settlement, as of the Effective Date, LEI generally releases and forever discharges the Earthstone Parties from any and all claims, demands, and causes of action of whatever kind or character which LEI or any other LEI Parties have, or may have in the future, based on any acts or omissions that have occurred on or before the Effective Date, whether known or unknown, including claims for fraud, fraudulent inducement, and breach of fiduciary duty (collectively, the “ LEI Claims ”), save and except solely those claims, demands, and causes of action arising out of or relating to the breach, enforcement, or interpretation of this Settlement Agreement.
+
+5.11           This release is to be construed as the broadest type of general release and includes, but is not limited to: (a) any claim growing out of, or connected in any way with, the Dispute; (b) any claims growing out of, or connected in any way with, LEI’s business dealings with the Earthstone Parties; (c) any claim based in whole or in part on the activities of the Earthstone Parties that may have been alleged to violate any laws or administrative rules of the United States, or any state or subdivision of the United States, or any foreign country or subdivision of any foreign country, pertaining to inter alia, breach of contract, fraud, negligent misrepresentation, tortious interference of prospective contractual relations, intentional interference with an existing contract, attorneys’ fees, breach of fiduciary duty, or punitive damages; (d) any claim based in whole or in part on the activities of the Earthstone Parties that may have been alleged to create any right or action for recovery for damages or injunction, under any federal or state statutes or administrative rule or other judicial decisions or the common law of the United States, or any state or subdivision of the United States, or any foreign country or subdivision of any foreign country; (e) any claim based in whole or in part on the activities of the Earthstone Parties that may have been alleged to create or contribute to any other right, claim or cause of action of LEI against the Earthstone Parties; and (f) claims for punitive or exemplary damages, attorneys’ fees, or penalties.
+
+5.12           This release is intended to constitute a general release by LEI of the Earthstone Parties of the LEI Claims, whether known or unknown.  To the extent any of the LEI Claims have not been released by this Settlement Agreement, LEI hereby assigns those claims to Earthstone.
+
+COMPROMISE SETTLEMENT AGREEMENT AND MUTUAL GENERAL RELEASE
+
+PAGE 6
+
+Release by Victory of the Earthstone Parties
+
+5.13           As of the Effective Date, Victory generally releases and forever discharges the Earthstone Parties from any and all claims, demands, and causes of action of whatever kind or character which Victory or any other Victory Parties have, or may have in the future, based on any acts or omissions that have occurred on or before the Effective Date, whether known or unknown, including claims for fraud, fraudulent inducement, and breach of fiduciary duty (collectively, the “ Victory Claims ”), save and except solely those claims, demands, and causes of action arising out of or relating to the breach, enforcement, or interpretation of this Settlement Agreement.
+
+5.14           This release is to be construed as the broadest type of general release and includes, but is not limited to: (a) any claim growing out of, or connected in any way with, the Dispute; (b) any claims growing out of, or connected in any way with, Victory’s business dealings with the Earthstone Parties; (c) any claim based in whole or in part on the activities of the Earthstone Parties that may have been alleged to violate any laws or administrative rules of the United States, or any state or subdivision of the United States, or any foreign country or subdivision of any foreign country, pertaining to inter alia, breach of contract, fraud, negligent misrepresentation, tortious interference of prospective contractual relations, intentional interference with an existing contract, attorneys’ fees, breach of fiduciary duty, or punitive damages; (d) any claim based in whole or in part on the activities of the Earthstone Parties that may have been alleged to create any right or action for recovery for damages or injunction, under any federal or state statutes or administrative rule or other judicial decisions or the common law of the United States, or any state or subdivision of the United States, or any foreign country or subdivision of any foreign country; (e) any claim based in whole or in part on the activities of the Earthstone Parties that may have been alleged to create or contribute to any other right, claim or cause of action of Victory against the Earthstone Parties; and (f) claims for punitive or exemplary damages, attorneys’ fees, or penalties.
+
+5.15           This release is intended to constitute a general release by Victory of the Earthstone Parties of the Victory Claims, whether known or unknown.  To the extent any of the Victory Claims have not been released by this Settlement Agreement, Victory hereby assigns those claims to Earthstone.
+
+COMPROMISE SETTLEMENT AGREEMENT AND MUTUAL GENERAL RELEASE
+
+PAGE 7
+
+Release of the Earthstone Claims
+
+5.16           Except as otherwise expressly set forth in the Lucas Settlement as to Earthstone Claims against LEI, as of the Effective Date, Earthstone generally releases and forever discharges the LEI Parties and the Victory Parties from any and all claims, demands, and causes of action of whatever kind or character which Earthstone or any other Earthstone Parties have, or may have in the future, based on any acts or omissions that have occurred on or before the Effective Date, whether known or unknown, including claims for fraud, fraudulent inducement, and breach of fiduciary duty (collectively, the “ Earthstone Claims ”), save and except solely those claims, demands, and causes of action arising out of or relating to the breach, enforcement, or interpretation of this Settlement Agreement.
+
+5.17           This release is to be construed as the broadest type of general release and includes, but is not limited to: (a) any claim growing out of, or connected in any way with, the Dispute; (b) any claims growing out of, or connected in any way with, Earthstone’s business dealings with the LEI Parties and/or the Victory Parties; (c) any claim based in whole or in part on the activities of the LEI Parties and/or the Victory Parties that may have been alleged to violate any laws or administrative rules of the United States, or any state or subdivision of the United States, or any foreign country or subdivision of any foreign country, pertaining to inter alia, breach of contract, fraud, negligent misrepresentation, tortious interference of prospective contractual relations, intentional interference with an existing contract, attorneys’ fees, breach of fiduciary duty, or punitive damages; (d) any claim based in whole or in part on the activities of the LEI Parties and/or the Victory Parties that may have been alleged to create any right or action for recovery for damages or injunction, under any federal or state statutes or administrative rule or other judicial decisions or the common law of the United States, or any state or subdivision of the United States, or any foreign country or subdivision of any foreign country; (e) any claim based in whole or in part on the activities of the LEI Parties and/or the Victory Parties that may have been alleged to create or contribute to any other right, claim or cause of action of Earthstone against the LEI Parties and/or the Victory Parties; and (f) claims for punitive or exemplary damages, attorneys’ fees, or penalties.
+
+5.18           This release is intended to constitute a general release by Earthstone of the LEI Parties and/or the Victory Parties of the Earthstone Claims, whether known or unknown.  To the extent any of the Earthstone Claims have not been released by this Settlement Agreement, Earthstone hereby assigns those claims to LEI and/or Victory, as may be applicable.
+
+5.19           Notwithstanding anything in this Settlement Agreement to the contrary, the Earthstone Claims do not include, and Earthstone hereby reserves and does not release or waive, and does not assign to LEI and/or Victory, any claims, demands, and/or causes of action of whatever kind or character which Earthstone or any other Earthstone Parties have against LEI arising from or relating to the Lucas Settlement or the performance or enforcement thereof.
+
+COMPROMISE SETTLEMENT AGREEMENT AND MUTUAL GENERAL RELEASE
+
+PAGE 8
+
+Indemnification
+
+5.20           LEI warrants and represents that it owns the LEI Claims and that no part of the LEI Claims has been assigned or transferred to any other person or entity.  LEI AGREES TO FULLY INDEMNIFY AND HOLD HARMLESS EARTHSTONE FROM ANY AND ALL CLAIMS ARISING OUT OF, OR DERIVATIVE OF, THE CLAIMS RELEASED BY LEI IN THIS SETTLEMENT AGREEMENT, INCLUDING ALL CLAIMS FOR CONTRIBUTION AND INDEMNITY, AND EXPRESSLY INCLUDING ANY CLAIMS ARISING OUT OF LEI’S OWN NEGLIGENCE OR FAULT.  LEI AGREES THAT THE INDEMNIFICATION AND HOLD HARMLESS INCLUDES THE AMOUNTS OF THE CLAIMS, THE EXPENSES OF DEFENDING AGAINST THE CLAIMS, COURT COSTS, AND ATTORNEYS’ FEES.
+
+5.21           Victory warrants and represents that it owns the Victory Claims and that no part of the Victory Claims has been assigned or transferred to any other person or entity.  Victory AGREES TO FULLY INDEMNIFY AND HOLD HARMLESS EARTHSTONE FROM ANY AND ALL CLAIMS ARISING OUT OF, OR DERIVATIVE OF, THE CLAIMS RELEASED BY VICTORY IN THIS SETTLEMENT AGREEMENT, INCLUDING ALL CLAIMS FOR CONTRIBUTION AND INDEMNITY, AND EXPRESSLY INCLUDING ANY CLAIMS ARISING OUT OF VICTORY’S OWN NEGLIGENCE OR FAULT.  VICTORY AGREES THAT THE INDEMNIFICATION AND HOLD HARMLESS INCLUDES THE AMOUNTS OF THE CLAIMS, THE EXPENSES OF DEFENDING AGAINST THE CLAIMS, COURT COSTS, AND ATTORNEYS’ FEES.
+
+5.22           Earthstone warrants and represents that it owns the Earthstone Claims and that no part of the Earthstone Claims has been assigned or transferred to any other person or entity.  EARTHSTONE AGREES TO FULLY INDEMNIFY AND HOLD HARMLESS LEI AND/OR VICTORY FROM ANY AND ALL CLAIMS ARISING OUT OF, OR DERIVATIVE OF, THE CLAIMS RELEASED BY EARTHSTONE IN THIS SETTLEMENT AGREEMENT, INCLUDING ALL CLAIMS FOR CONTRIBUTION AND INDEMNITY, AND EXPRESSLY INCLUDING ANY CLAIMS ARISING OUT OF EARTHSTONE’S OWN NEGLIGENCE OR FAULT.  EARTHSTONE AGREES THAT THE INDEMNIFICATION AND HOLD HARMLESS INCLUDES THE AMOUNTS OF THE CLAIMS, THE EXPENSES OF DEFENDING AGAINST THE CLAIMS, COURT COSTS, AND ATTORNEYS’ FEES.
+
+Covenant Not to Sue
+
+5.23           LEI covenants and agrees not to sue Earthstone for any matters released in Sections 5.10 and 5.11 above.
+
+5.24           Victory covenants and agrees not to sue Earthstone for any matters released in Sections 5.13 and 5.14 above.
+
+5.25           Earthstone covenants and agrees not to sue LEI and/or Victory for any matters released in Sections 5.16 and 5.17 above.
+
+5.26           The parties agree that for any breach of a covenant not to sue the breaching party shall be liable for the non-breaching party’s attorneys’ fees and costs as actual damages in a breach of contract action.
+
+COMPROMISE SETTLEMENT AGREEMENT AND MUTUAL GENERAL RELEASE
+
+PAGE 9
+
+Cooperation and Additional Actions
+
+5.27           The Parties agree to cooperate fully in executing any and all supplementary documents, and to take all additional actions that may be necessary or appropriate to give full force and effect to the basic terms and intent of this Settlement Agreement.
+
+Costs and Fees
+
+5.28           The Parties agree that each Party shall bear its or his own costs and attorneys’ fees incurred in connection with the Dispute and the negotiation, drafting, and execution of this Settlement Agreement.
+
+Choice of Law
+
+5.29           This Settlement Agreement shall be governed by, construed, interpreted, and enforced in accordance with the laws of the State of Texas, except that any conflict of law rule of that jurisdiction that may require reference to the laws of some other jurisdiction shall be disregarded.
+
+Confidentiality
+
+5.30           From the Effective Date forward, the Parties agree not to reveal the terms of this Settlement Agreement to anyone who is not a Party to this Settlement Agreement.  However, the Parties agree that this section shall not prevent any Party from revealing or discussing the terms of this Settlement Agreement (a) with its or his legal advisors, accountants, tax advisors, or financial advisors; (b) in any action regarding the breach, enforcement, or interpretation of this Settlement Agreement; and (c) as required by law (including, where applicable, the Securities and Exchange Commission filing obligations of the Parties), contract, governmental agency, or any court of competent jurisdiction.
+
+Miscellaneous
+
+5.31           The Parties agree that this Settlement Agreement is entered into for settlement purposes only in order to avoid further trouble, litigation, and expense, and it is further agreed that no Party admits any liability or damages as a result of the acts and omissions that form the basis of the Dispute.
+
+5.32           This Settlement Agreement has been prepared by the joint efforts of the respective attorneys for each of the Parties.
+
+5.33           Section numbers and section titles have been set forth herein for convenience only; they shall not be construed to limit or extend the meaning or interpretation of any part of this Settlement Agreement.
+
+5.34           With the exception of Sections 5.10, 5.13 and 5.16, if any provision of this Settlement Agreement is or may be held by a court of competent jurisdiction to be invalid, void, or unenforceable, the remaining provisions shall nevertheless survive and continue in full force and effect without being impaired or invalidated in any way.
+
+COMPROMISE SETTLEMENT AGREEMENT AND MUTUAL GENERAL RELEASE
+
+PAGE 10
+
+5.35           None of the Parties to this Settlement Agreement has expressed any facts, representations, or express or implied warranties to the other Party, except as expressly contained in this Settlement Agreement.
+
+5.36           This Settlement Agreement shall continue perpetually and shall be binding upon the Parties and their heirs, successors, and assigns and shall inure to the benefit of the Parties and their heirs, successors, and assigns.
+
+5.37           Except, as between Earthstone and LEI, as expressly set forth in the Lucas Settlement, and as between Victory and LEI as expressly set forth in the VL Settlement Agreement or the Rogers Release, this Settlement Agreement represents the entire agreement of the Parties and supersedes all prior written or oral agreements, and the terms are contractual and not mere recitals.
+
+5.38           This Settlement agreement may not be amended, altered, modified or changed in any way except in writing signed by all the Parties to this Settlement Agreement.
+
+5.39           EACH PARTY WARRANTS THAT IT HAS CAREFULLY READ THIS AGREEMENT (INCLUDING THIS DISCLAIMER OF RELIANCE SET FORTH HEREIN IN WHAT EACH PARTY AGREES TO BE APPROPRIATELY CONSPICUOUS LANGUAGE) AND ANY EXHIBITS ATTACHED TO THIS AGREEMENT, EACH PARTY REPRESENTS AND WARRANTS THAT IT UNDERSTANDS THIS AGREEMENT AND DISCLAIMER’S CONTENTS, AND SIGNS THIS AGREEMENT AS ITS OR HIS OWN FREE ACT.  EACH PARTY  EXPRESSLY WARRANTS THAT NO PROMISE OR AGREEMENT WHICH IS NOT HEREIN EXPRESSED HAS BEEN MADE TO IT OR HIM IN EXECUTING THIS AGREEMENT, AND THAT EACH PARTY IS NOT RELYING UPON (INDEED, EXPRESSLY DISCLAIMS RELIANCE UPON) ANY STATEMENT OR REPRESENTATION OF ANY PARTY OR ANY AGENT OF ANY OF THE PARTIES HERETO.  EACH PARTY AGREES THIS IS AN ARM’S-LENGTH TRANSACTION (NO FIDUCIARY RELATIONSHIP EXISTS) AND EACH PARTY REPRESENTS, WARRANTS, AND PROMISES THAT IT OR HE IS RELYING SOLELY ON ITS OR HIS OWN JUDGMENT AND DUE DILIGENCE, WHICH IT OR HE HEREBY CONTRACTUALLY AGREES TO UNDERTAKE.  EACH PARTY WARRANTS IT OR HE HAS BEEN REPRESENTED BY LEGAL COUNSEL IN THIS MATTER.  EACH PARTY REPRESENTS THAT ITS OR HIS LEGAL COUNSEL HAS READ AND EXPLAINED TO THAT PARTY THE ENTIRE CONTENTS OF THIS AGREEMENT IN FULL, AS WELL AS THE LEGAL CONSEQUENCES OF THIS AGREEMENT AND DISCLAIMER.  EACH PARTY AGREES AND WARRANTS THAT IT OR HE HAS READ THE ENTIRE CONTENTS OF THIS AGREEMENT IN FULL, IS SOPHISTICATED AND KNOWLEDGEABLE ABOUT BUSINESS, AND FULLY UNDERSTANDS THE LEGAL CONSEQUENCES OF THIS AGREEMENT AND DISCLAIMER.  EACH PARTY REPRESENTS, WARRANTS, AND PROMISES THAT THIS SECTION IS A CLEAR, UNEQUIVOCAL, AND EFFECTIVE DISCLAIMER OF RELIANCE UNDER TEXAS LAW AND THAT THIS AGREEMENT AND DISCLAIMER IS INTENDED TO AND DOES NEGATE ANY CLAIM FOR FRAUD OR FRAUDULENT INDUCEMENT INTO THIS AGREEMENT.
+
+[The remainder of this page has been intentionally left blank]
+
+COMPROMISE SETTLEMENT AGREEMENT AND MUTUAL GENERAL RELEASE
+
+PAGE 11
+
+5.40            This Settlement Agreement may be executed in multiple counterparts or copies and/or on separated signature pages and/or by e-mail transmission, any or all of which when taken together shall be deemed an original for all purposes.
+
+EARTHSTONE OPERATING, LLC (formerly Oak Valley Operating, LLC)
+
+By:   ___________________________________
+
+Name, Title: ________________________, ________
+
+Date: ________________
+
+EARTHSTONE ENERGY, INC.
+
+By:   ___________________________________
+
+Name, Title: ________________________, ________
+
+Date: ________________
+
+OAK VALLEY RESOURCES, LLC
+
+By:   ___________________________________
+
+Name, Title: ________________________, ________
+
+Date: ________________
+
+SABINE RIVER ENERGY, LLC
+
+By:   ___________________________________
+
+Name, Title: ________________________, ________
+
+Date: ________________
+
+COMPROMISE SETTLEMENT AGREEMENT AND MUTUAL GENERAL RELEASE
+
+PAGE 12
+
+LUCAS ENERGY INC.
+
+By:   ___________________________________
+
+Name, Title: ________________________, ________
+
+Date: ________________
+
+VICTORY ENERGY CORPORATION
+
+By:   ___________________________________
+
+Name, Title: ________________________, ________
+
+Date: ________________
+
+AEP ASSETS, LLC
+
+By:   ___________________________________
+
+Name, Title: ________________________, ________
+
+Date: ________________
+
+AURORA ENERGY PARTNERS
+
+By ______________________________
+
+Its General Partner
+
+By:   ___________________________________
+
+Name, Title: ________________________, ________
+
+Date: ________________
+
+COMPROMISE SETTLEMENT AGREEMENT AND MUTUAL GENERAL RELEASE
+
+PAGE 13
+
+EXHIBIT A
+
+Form of Reassignment
+
+[ attached ]
+
+EXHIBIT A - PAGE 1
+
+NOTICE OF CONFIDENTIALITY RIGHTS:  IF YOU ARE A NATURAL PERSON, YOU MAY REMOVE OR STRIKE ANY OR ALL OF THE FOLLOWING INFORMATION FROM ANY INSTRUMENT THAT TRANSFERS AN INTEREST IN REAL PROPERTY BEFORE IT IS FILED FOR RECORD IN THE PUBLIC RECORDS:  YOUR SOCIAL SECURITY NUMBER OR YOUR DRIVER’S LICENSE NUMBER.
+
+ASSIGNMENT AND BILL OF SALE
+
+STATE OF TEXAS  
+
+                                                                                                                                                                               KNOW ALL MEN BY THESE PRESENTS:
+
+COUNTY OF KARNES
+
+THAT, VICTORY ENERGY CORPORATION, a Texas corporation, whose mailing address is 3355 Bee Caves Road, Suite 608, Austin, Texas 78746 (hereinafter referred to as “Assignor”), for sufficient consideration received from SABINE RIVER ENERGY, LLC, a Texas limited liability company, whose mailing address is 1400 Woodloch Forest Drive, Suite 300, The Woodlands, Texas 77380-1197 (hereinafter referred to as “Assignee”), does hereby transfer, assign, sell, bargain and convey unto Assignee, subject as herein provided, all of Assignor’s right, title and interest in and to the Oil and Gas Leases described on Exhibit “A” attached hereto and made a part hereof (said leases being hereinafter referred to as “Leases”).
+
+It is the intent of this Assignment and Bill of Sale that Assignor shall retain no interest of any kind or character in the Leases described on Exhibit “A” attached hereto and made a part hereof.
+
+To have and to hold the Leases and interest forever, subject to the following:
+
+1.  This Assignment and Bill of Sale is subject to the terms and provisions of the Leases and Assignee hereby assumes its proportionate share of all express and implied covenants thereunder.
+
+2.  This Assignment and Bill of Sale shall be binding upon and inure to the benefit of Assignee and Assignor and their respective successors, heirs and assigns.
+
+3.      This Assignment and Bill of Sale is subject to all of the terms and provisions contained in the unrecorded Participation Agreement dated effective August 1, 2014.  It is agreed between the Parties that should there arise any conflict between the terms of this Assignment and Bill of Sale and said Participation Agreement, the terms and provisions of the Participation Agreement shall control.
+
+4.      This Assignment and Bill of Sale is further made subject to all of the terms and provisions contained in that certain unrecorded Compromise Settlement Agreement and General Release executed by and among the Assignor, the Assignee, Lucas Energy, Inc., and certain affiliated parties, dated June ___ , 2015 (the “Settlement Agreement”).  Notwithstanding anything contained herein to the contrary, in the event of conflict between the terms of this Assignment and Bill of Sale, the Participation Agreement referenced in Section 3 above, and the Settlement Agreement, the terms of the Settlement Agreement shall control.
+
+EXHIBIT A - PAGE 2
+
+5.      This Assignment and Bill of Sale may be executed in any number of counterparts, and each counterpart may be recorded separately or may be combined to form one (1) instrument for recording purposes.
+
+[ Signature Page to Follow ]
+
+EXHIBIT A - PAGE 3
+
+Executed by Assignor and Assignee on the dates reflected in their respective acknowledgments, but effective as of February 27, 2015.
+
+ASSIGNOR
+
+VICTORY ENERGY CORPORATION
+
+By:________________________________
+
+Printed Name:_______________________
+
+Title:______________________________
+
+ASSIGNEE
+
+SABINE RIVER ENERGY, LLC
+
+By:_________________________________
+
+Christopher E. Cottrell
+
+Executive Vice President Land & Marketing
+
+EXHIBIT A - PAGE 4
+
+ACKNOWLEDGMENTS
+
+STATE OF TEXAS
+
+COUNTY OF TRAVIS
+
+This instrument was acknowledged before me on this _____ day of _________________, 2015 by ___________________________, who is _____________ of VICTORY ENERGY CORPORATION, a Texas corporation, on behalf of said corporation.
+
+My Commission Expires:_____________                 ____________________________________
+
+Notary Public for the State of Texas
+
+County of Travis
+
+Printed Name:________________________
+
+STATE OF TEXAS
+
+COUNTY OF MONTGOMERY
+
+This instrument was acknowledged before me on this _____ day of _______________, 2015 by Christopher E. Cottrell, who is Executive Vice President Land & Marketing of SABINE RIVER ENERGY, LLC, a Texas limited liability company, on behalf of said limited liability company.
+
+My Commission Expires:___________                      ____________________________________
+
+Notary Public for the State of Texas
+
+County of Montgomery
+
+Printed Name:________________________
+
+EXHIBIT “A”
+
+EXHIBIT A - PAGE 5
+
+Attached hereto and made to that certain Assignment and Bill of Sale dated effective February 27, 2015 by and between Victory Energy Corporation, as Assignor, and Sabine River Energy, LLC, as Assignee.
+
+OIL AND GAS LEASES:
+
+Lessor:
+
+Leland Copeland
+
+Lessee:
+
+Lucas Energy, Inc.
+
+Effective Date:
+
+July 16, 2013
+
+Memorandum Recorded:
+
+Volume 1134, Page 651
+
+Description:
+
+143.00 acres more or less, out of the Thomas P. Crosby Survey,
+
+Abstract 66, Karnes County, Texas
+
+Lessor:
+
+Glenn D. Boggs, Jr. and Wife, Betty J. Boggs
+
+Lessee:
+
+Lucas Energy, Inc.
+
+Effective Date:
+
+July 16, 2013
+
+Memorandum Recorded:
+
+Volume 1134, Page 653
+
+Description:
+
+143.00 acres more or less, out of the Thomas P. Crosby Survey,
+
+Abstract 66, Karnes County, Texas
+
+Lessor:
+
+Red Crest Trust, JPMorgan Chase Bank, N. A. as Trustee
+
+Lessee:
+
+Billy R. Wilson
+
+Effective Date:
+
+March 25, 2008
+
+Recorded:
+
+Volume 873, Page 394
+
+Description:
+
+250.00 acres more or less, out of the Thomas P. Crosby Survey,
+
+Abstract 66, Karnes County, Texas
+
+IN ADDITION TO ANY AND ALL INTEREST ASSIGNOR HAS IN THE ABOVE DESCRIBED LEASES, ASSIGNOR IS CONVEYING TO ASSIGNEE ALL OF ITS RIGHT, TITLE AND INTEREST THAT ASSIGNOR WAS ASSIGNED IN THAT CERTAIN PARTIAL ASSIGNMENT AND BILL OF SALE OF WELLBORE RIGHTS BY AND BETWEEN LUCAS ENERGY, INC., AS ASSIGNOR, AND VICTORY ENERGY CORPORATION, AS ASSIGNEE, DATED EFFECTIVE FEBRUARY 27, 2015, RECORDED IN VOLUME 1223, PAGE 133, DOCUMENT NO. 00141110 IN THE OFFICIAL RECORDS OF KARNES COUNTY, TEXAS.
+
+All recording references are as to Karnes County, Texas.
+
+END OF EXHIBIT “A”
+
+EXHIBIT A - PAGE 6
+
+EXHIBIT D
+
+Form of Proxy
+
+PROXY
+
+The undersigned, Victory Energy Corporation, having an address at 3355 Bee Caves Road, Suite 608, Austin, Texas 78746 , being the holder of 1,517,241 shares of Lucas Energy, Inc. (or such lesser number of shares of Lucas Energy, Inc. that Victory continues to hold after the date hereof), does hereby constitute and appoint the Board of Directors of Lucas Energy, Inc. acting through its authorized officer, including its Chief Executive Officer, as the undersigned’s proxy to act by written consent of the stockholders of Lucas Energy, Inc. during the period from the date hereof through the second anniversary of the date hereof and to attend all the meetings of the stockholders of said corporation to be held between the date hereof and the second anniversary of the date hereof   or any continuation or adjournment thereof, with full power to vote and act for undersigned and in the undersigned’s name, place and stead, in the same manner, to the same extent and with the same effect that the undersigned might were the undersigned personally present thereat, giving to said Board of Directors of Lucas Energy, Inc. full power of substitution and revocation, and the undersigned hereby revokes any other proxy heretofore given by the undersigned.  This proxy is coupled with an interest and is irrevocable during the period from the date hereof through the second anniversary of the date hereof.
+
+Dated _____, 2015.
+
+Victory Energy Corporation
+
+By:                                                                           
+
+Kenneth Hill , Chief Executive Officer

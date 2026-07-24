@@ -1,0 +1,1338 @@
+<DOCUMENT>
+<TYPE>EX-99.1
+<SEQUENCE>2
+<FILENAME>agreement.txt
+<DESCRIPTION>ADMINISTRATIVE COMPLIANCE AGREEMENT
+<TEXT>
+ADMINISTRATIVE COMPLIANCE AGREEMENT
+
+This Administrative Compliance Agreement ("Agreement") is made between the
+United States Army ("Army"), acting through its Suspension & Debarment Official
+("SDO"), on behalf of the U.S. Government as the lead agency for determining the
+present responsibility and ITT Corporation (the "Contractor").
+
+A. PREAMBLE
+
+1. On March 26, 2007, ITT Corporation entered into a plea agreement with
+the United States Attorney's Office for the Western District of Virginia
+regarding allegations that, on numerous occasions between the mid-1980s and
+2005, it violated the Arms Export Control Act, as implemented by the
+International Traffic in Arms Regulations ("ITARs"). Specifically, ITT
+Corporation's Night Vision Division was accused of knowingly violating the ITARs
+by sending technical data, drawings, specifications, services and equipment
+related to classified military night vision systems to parties in Singapore, the
+United Kingdom and elsewhere without export licenses from the Department of
+State. In addition, it is alleged that from the late 1990s through 2001, ITT
+Corporation deliberately submitted false and misleading statements regarding its
+compliance with ITARs to the Department of State to minimize and conceal this
+activity. The charges included in the criminal information filed in support of
+the plea agreement were two counts of Willful Export of Defense Articles Without
+a License in violation of Section 38 of the Arms Export Control Act and Sections
+127.1 (a) and 127.3 of the ITARs, and one count of Willful Omission of
+Statements of Material Fact in Arms Export Reports, in violation of 22 U.S.C.
+ss. 2778(c) and 18 U.S.C. ss. 2.
+
+2. As a result of the March 26, 2007 agreement, ITT Corporation pled guilty
+to one count of Willful Export of Defense Articles Without a License and the
+charge of Willful Omission of Statements of Material Fact in Arms Export
+Reports. Regarding the second count of Willful Export of Defense Articles
+Without a License, ITT Corporation and the United States Attorney's Office
+entered into a Deferred Prosecution Agreement on March 26, 2007. The Deferred
+Prosecution Agreement provides that ITT Corporation pay a $2,000,000.00 criminal
+fine, forfeit $28,000,000.00 of proceeds derived from its illegal actions, and
+pay $20,000,000.00 in monetary penalties to the Department of State for the
+ITARs violations. The Deferred Prosecution Agreement also contains a
+$50,000,000.00 "Deferred Prosecution Monetary Penalty" and provides that ITT may
+reduce on a dollar-for-dollar basis the amount of the $50,000,000.00 Deferred
+Prosecution Monetary Penalty by:
+
+[M]onies spent to accelerate and further the development and fielding
+of the most advanced night vision technology [and] spent in
+consultation with and with the prior agreement of the United States
+Army
+
+as further discussed in Attachment 3 hereto.
+
+3. In order to assure its present responsibility, 1TT Corporation agrees to
+execute and take the remedial actions specified in this Agreement, including
+Section C, Contractor Responsibility Program, subject to the terms and
+conditions described in Section D, General Conditions, and
+
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+Section E, Administration of this Agreement. ITT Corporation also agrees to
+acknowledge and abide by the provisions of the Appendices to this Agreement,
+which provide supplemental information and guidance on the implementation of
+specific remedial actions.
+
+4. The Army has determined that the terms and conditions of this Agreement,
+if complied with, provide adequate assurance that the interests of the
+Government will be sufficiently protected to preclude the necessity of debarment
+or suspension of the ITT Corporation.
+
+5. This Agreement is effective for a period of five years (60 months) from
+the Effective Date. Upon the completion of the third year of this Agreement, ITT
+Corporation may request a review of its performance under the Agreement and ask
+that the SDO determine if it has fulfilled its obligations under this Agreement
+and the Deferred Prosecution Agreement. The decision concerning the fulfillment
+of these obligations shall be at the sole discretion of the SDO, in consultation
+with the United States Attorney for the Western District of Virginia and the
+Department of State. In addition, at any time after the completion of the third
+year of the agreement, ITT Corporation may present information for consideration
+by the SDO regarding its performance under the Agreement and request a
+reconsideration of the SDO's decision to maintain the Agreement in force.
+
+NOW THEREFORE, in consideration of the promises set forth herein and for good
+and valuable consideration, the parties mutually agree as follows.
+
+B. DEFINITIONS
+
+1. "Arms Export Control Act" or "AECA" refers to the provisions of Title
+22, United States Code, Chapter 39. Executive Order 11958, as amended, delegates
+authority for implementation of the AECA to the Department of State via the
+ITARs.
+
+2. "Army" refers to the United States Army. Specific points of contact for
+this Agreement are the SDO and the United States Army Legal Services Agency,
+Contract and Fiscal Law Division, Procurement Fraud Branch and their designees.
+Regarding Attachment 3 to the Agreement, points of contact will be designated by
+the United States Army Research, Development & Engineering Command,
+Communications and Electronics Research and Development Center, Night Vision &
+Electronic Sensors Directorate.
+
+3. "Attachment" refers to documents which are incorporated by reference
+into this Agreement. Attachments contain material relevant to the basis for
+entering into this Agreement or discuss specific aspects of its implementation.
+Attachments may be modified after the entry of this Agreement into force without
+altering the basic Agreement itself at the express agreement of the parties. As
+executed, there are three "Attachments" to this Agreement: Attachment 1 -
+Deferred Prosecution Agreement and its attachments; Attachment 2 - Plea
+Agreement; and Attachment 3 -Deferred Prosecution Monetary Penalty
+Implementation.
+
+4. "Appendix" or "Appendices" refer to modifications to the Agreement
+itself. Appendices may be added at the agreement of the parties to address a new
+or unforeseen issue related to the implementation of the Agreement.
+
+2
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+5. "Contractor" refers to ITT Corporation, including its divisions,
+operating units, groups, value centers and other subsidiaries, as appropriate,
+including its directors, officers, and employees, while acting in their
+capacities as such.
+
+6. "Days" refers to calendar days.
+
+7. "Deferred Prosecution Agreement" refers to the agreement signed on March
+26, 2007 between the United States Attorney's Office for the Western District of
+Virginia and ITT Corporation regarding one of two charges of Willful Export of
+Defense Articles Without A License in violation of 22 U.S.C. ss.ss. 2778(b)(2),
+2778(c), 18 U.S.C. ss. 2, and 22 C.F.R. 127.1(a) and 127.3. Included in the
+Deferred Prosecution Agreement are Appendix A, the Statement of Facts and
+Appendix B, the Remedial Action Plan. A copy of this agreement may be found at
+Attachment 1.
+
+8. "DFARS" refers to the Defense Federal Acquisition Regulation Supplement.
+
+9. "Effective Date" refers to the date on which the SDO signs this
+Agreement on behalf of the Army.
+
+10. "Employee" refers to officers, managers, and supervisors. All other
+full and part-time workers, whose performance is under the direct supervision
+and control of the Contractor, will be considered "employees" solely for
+training purposes. Consultants and temporary workers shall be made aware of the
+compliance agreement and the standing Contractor Responsibility Program, and, to
+the extent engaged in the formation or administration of government contracts,
+furnished copies of the Code of Corporate Conduct and the Government Contracting
+Policies and Procedures.
+
+11. "Chief Ethics & Compliance Officer" refers to a managerial officer of
+the Contractor who will be the first point of contact for all questions
+regarding the terms and conditions of this Agreement.
+
+12. "FAR" refers to the Federal Acquisition Regulation.
+
+13. "Government" refers to any department, agency, division, independent
+establishment, or wholly-owned corporation of the United States Government.
+
+14. "Independent Cause for Suspension or Debarment" refers to a reason or
+basis for such action not directly related to information set forth in the
+Preamble or any document referred to in the Preamble.
+
+15. "Independent Monitor" refers to an independent attorney, certified
+public accountant, or other expert knowledgeable in the area of Federal
+Government contracting policies and procedures who will act to ensure the
+Contractor's compliance with the terms of this Agreement.
+
+16. "International Traffic in Arms Regulations" or "ITARs" refers to
+Chapter 22, Code of Federal Regulations, Parts 120 through 130.
+
+3
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+17. "Plea Agreement" refers to the agreement entered into on March 28, 2007
+between the United States Attorney's Office for the Western District of Virginia
+and the Contractor regarding the disposition of the charges against the
+Contractor for violation of the AECA as implemented by the ITARs. A copy of this
+agreement may be found at Attachment 2.
+
+18. "U.S.C." refers to the United States Code.
+
+19. "Temporary workers" shall mean persons who have worked for the
+Contractor for more than ninety (90) days.
+
+20. "Ombudsperson" shall mean the Office of the Ombudsman, located at Value
+Centers and other business units of ITT, who will act as an alternative channel
+of communication for ITT employees and other interested individuals who wish to
+report what they consider to he infractions or violations of the Contractor's
+Code of Corporate Conduct or ask questions regarding the Code.
+
+C. CONTRACTOR RESPONSIBILITY PROGRAM
+
+1. Existing Program Elements. The Contractor has a company-wide Contractor
+Responsibility Program which provides the institutional means for achieving
+present responsibility as a Government contractor. As of the Effective Date, the
+Contractor has established the following elements of this program:
+
+a. Code of Corporate Conduct. The Contractor has established and
+continues to have in place corporate compliance and ethics policies,
+programs, procedures and training as part of its ongoing business
+practices. These include a Code of Corporate Conduct ("Code") setting
+forth the Contractor's basic principles and standards for ethical
+business conduct and integrity, and establishing the responsibility of
+individual employees to comply with all applicable laws and
+regulations. All of the Contractor's employees must annually certify
+that they have reviewed the Code, have received training regarding the
+Code, and understand that they are required to comply with its
+provisions. Current versions of the Code are available at www.itt.com.
+
+b. Management Involvement and Overall Interaction of Contractor
+Responsibility Program.
+
+(i) The Contractor's Board of Directors, directly or through
+committees, assesses the activities and responsibilities of the
+Contractor's Corporate Responsibility Program, including the
+compliance activities of the Contractor, which further includes
+compliance with applicable law and regulation, including
+government contracts and export control regulations.
+
+(ii) The Contractor has established Compliance Review Boards ("CRBs")
+at the value center, group, and world headquarters levels. CRBs
+are staffed by members of the human resources department, legal
+department, and/or finance department, and/or the compliance
+official at each level and are responsible to ensure that the
+Contractor's Responsibility Program is a formal and documented
+process for investigating
+
+4
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+potential violations of the Code. CRBs also have the
+responsibility of assigning investigative teams to address
+potential violations of the Code after they are discovered and
+reported. This process, as well as the responsibilities of the
+CRBs, is set forth in Corporate Policy 40-13, "Compliance Issue
+Handling and Communication," dated May 5, 2005.
+
+(iii) Contractor has also appointed Ombudspersons at its Headquarters,
+and at each of its groups, to receive and investigate reports of
+possible violations of the Code.
+
+(iv) All issues giving rise to an investigation by a CRB or
+Ombudsperson will be registered and recorded in the Contractor's
+"Compliance Tracking System" operated using EthicsPoint (see
+below). This system is used to track and document all actions
+taken from the beginning of the investigation until issue
+resolution. The system is available by electronic means and has
+various levels of security, as it is accessible by variously, the
+CRB investigative team, the Ombudsperson, Legal Department, and
+the Chief Ethics & Compliance Officer.
+
+c. Ethics and Compliance Training.
+
+(i) Code of Conduct Training. The Contractor provides training for
+its employees regarding the Code and revisions thereto. For
+example, the Contractor provided training in 2006 for its
+employees following a 2006 revision to the Code. After providing
+the training, the Contractor required that employees certify to
+receiving the Code and participating in the training program.
+This training has been revised and updated and will be provided
+to employees during 2007.
+
+(ii) Government Contracting Training. The Contractor provides
+employees with Government contracting training opportunities. The
+training program includes topics covering the more critical
+issues faced by the Contractor when preparing for, entering into,
+and administering Government contracts. The Contractor targets
+certain employees who are directly involved with formation and
+the performance of Government contracts to receive specialized
+training in procurement laws, regulations, and policies. Like the
+Code of Conduct training, employees are required to certify that
+they attended the training and received a copy of the relevant
+materials at the conclusion of the particular Government
+contracts training course.
+
+(iii) Frequency and Certification of Training. The Contractor conducts
+and updates all ethics and Government contracting training and
+employee certifications annually. The Contractor requires that
+rosters of all employee certifications for ethics and Government
+contracting training be maintained.
+
+d. Government Contracting Policies and Procedures. The Contractor is
+developing an updated set of Government Contracting Compliance
+Policies and Procedures ("GCCP&P") setting forth the Contractor's
+compliance obligations under relevant law and regulation. Specific
+GCCP&P have been or will be created for specific value centers. The
+Contractor will submit the GCCP&P(s) to the Army for review and, with
+respect to those portions of the GCCP&P updated or issued after the
+Effective Date,
+
+5
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+in advance of promulgation unless immediate promulgation is required
+by law. The Contractor annually will review and update as necessary
+the GCCP&P. Contractor management shall monitor employee compliance
+with the GCCP&P, and consider such compliance when making decisions
+concerning personnel decisions, including compensation.
+
+e. Employee Telephonic and Web-based Hotlines. In addition to the CRBs
+and Ombudsperson, the Contractor maintains a toll-free compliance
+telephonic hotline operated by EthicsPoint which is available to
+receive information 24 hours a day, 7 days a week.
+
+(i) Contractor's hotline is available so that employees may report to
+the Compliance Department any violations of the Code. In
+reporting the alleged violation, employees are given the option
+to do so anonymously, in accordance with local law and
+regulation. Information on how to use or access the hotline is
+readily available to all employees in work areas. Information
+gathered and learned from the hotline is provided to the CRBs,
+who will initiate investigations as appropriate.
+
+(ii) Contractor, in addition to a telephone hotline, also uses
+"EthicsPoint" as a database for recording alleged violations of
+the Code. The Contractor, in addition to its telephone hotline,
+also utilizes EthicsPoint to allow employees to report alleged
+violations of the Code through the internet at
+www.ethicspoint.com. Alleged violations of the Code are sent to
+the CRBs for appropriate investigation.
+
+f. Employee Newsletter. Contractor publishes a quarterly newsletter,
+which provides employees with company information. As part of the
+newsletter, the Contractor regularly prepares articles that serve to
+inform employees on compliance issues and related matters.
+
+g. Management Training Program. As part of its management development
+program, Contractor's personnel receive training regarding ethical
+behavior and adherence to the corporate compliance program. Personnel
+identified for managerial positions are informed that the Code is
+incorporated in employee performance assessments and is considered
+when evaluating competency for advancement within the corporation, as
+well as for compensation purposes.
+
+h. Wallet-Sized Compliance Information. Contractor has prepared and
+issued wallet-sized compliance information cards to all employees. The
+card provides employees with the emergency contact information for the
+Ombudspersons throughout the entire company and EthicsPoint, thereby
+assisting employees in reporting violations 24 hours a day, 7 days a
+week.
+
+6
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+2. Required Program Elements. The following steps and procedures shall be
+implemented as part of this Agreement:
+
+a. Code of Corporate Conduct.
+
+(i) The Contractor shall maintain, and, as necessary, revise, the
+Code to ensure that the Contractor maintains the business
+integrity and honesty required of a Government contractor, and
+that the Contractor's performance is in strict compliance with
+the terms and conditions of its Government contracts.
+
+(ii) The Contractor, when possible without violation of applicable
+local law or regulation, shall add a requirement in the Code at
+its next update that, in addition to the hotline and web-based
+vendor service for reporting compliance issues, employees may
+report any violation of the Code, whether committed by the
+Contractor, a vendor, a subcontractor, or a Government employee.
+
+(iii) Within 60 days of the Effective Date of this Agreement,
+Contractor shall submit the latest edition of its Code to the
+Army for written approval. If the Army objects to the Code as
+failing to meet the requirements of this Agreement, Contractor
+shall promptly revise the Code to meet the Army's objections and
+resubmit it for approval.
+
+b. Management Involvement and Overall Integration of Contractor
+Responsibility Program.
+
+(i) Within 90 days of the Effective Date of this Agreement, the
+Contractor will implement a uniform system for reporting findings
+of all complaints submitted through the CRBs, hotline,
+Ombudsperson, EthicsPoint, or to the Independent Monitor. Such
+system may utilize any means deemed appropriate to the
+Contractor; however, at a minimum, the reporting system must
+contain the following elements: 1) identification of the accused
+individual (unless circumstances warrant protecting the
+individual's identity further) and business unit; 2) a
+description of the allegations; 3) a listing of the investigating
+personnel; 4) the date of the initial report/complaint; 5) the
+resolution to the issue; and 6) recommendation regarding
+additional or preventative action to be taken. These reports
+shall contain supporting documents collected during the course of
+the investigation as attachments. This system, once approved by
+the Army and the Independent Monitor, shall be applied to all
+investigations. The Contractor will accomplish these goals
+through the EthicsPoint system.
+
+(ii) Within 120 days of the Effective Date of this Agreement, the
+Contractor will develop and/or update its written corporate
+policies and procedures to ensure uniform application of the
+Contractor Responsibility Plan. These policies and procedures
+shall be provided to the Independent Monitor and the Army for
+review and will be the basis for the development of training
+materials regarding the implementation of the Contactor
+Responsibility Plan.
+
+7
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+c. Ethics and Compliance Training.
+
+(i) Army Approval of Training Plans. Within 30 days of the Army's
+approval of the update of the Contractor's GCCP&P, the Contractor
+shall provide the Army and the Independent Monitor a training
+plan with a detailed description of course materials it intends
+to use in training classes. If the Army rejects the plan, the
+Army will specify the reasons for doing so and the Contractor
+will promptly propose another plan.
+
+(ii) Notice of Training. Upon request, the Contractor will provide the
+Independent Monitor and/or the Army a schedule of upcoming ethics
+and Government contracting training sessions so the Independent
+Monitor and/or the Army may attend the training.
+
+(iii) Within 60 days of the approval of the training plan by the Army,
+pursuant to paragraph (i) above, the Contractor shall commence
+training of all employees directly involved with the formation
+and performance of Government contracts, including specialized
+training in laws, regulations, and contractor policies and
+procedures related to Government contracting. These employees
+shall sign and date a roster which may be in an electronic format
+certifying they attended the training, received a copy of the
+GCCP&P and were familiarized with its requirements. Within 90
+days of being hired, the Contractor shall ensure that those
+employees involved in the Government contracting process receive
+training, a copy of the GCCP&P, and sign and date a roster
+certifying they attended training and received and read a copy of
+the GCCP&P.
+
+d. Employee Hotline. The Chief Ethics & Compliance Officer shall ensure
+that a record is maintained of all hotline submissions, or employee
+reports to the CRBs, Ombudspersons, or Independent Monitor, using the
+EthicsPoint system, to include: date and time of call; identity of
+caller, if disclosed; summary of allegation or inquiry; and general
+resolution or referral. The Contractor shall require that each call is
+adequately investigated and resolved. Access to EthicsPoint will be
+granted to the Independent Monitor solely to facilitate the duties
+described in Section C.5(f) of this Agreement and, at its request, the
+Army. The Contractor shall not assert an attorney-client or
+work-product privilege with respect to the relevant contents of
+EthicsPoint.
+
+e. Notification to Employees of this Agreement. Within 60 days of the
+Effective Date of this Agreement, Contractor's Chief Executive Officer
+shall prepare and display, in places sufficiently prominent to be
+accessible to all employees, a letter stating that the Contractor has
+entered into this Agreement at facilities in the United States. A copy
+of the Chief Executive Officer's letter will be forwarded to the Anny
+for approval prior to distribution. The letter shall state:
+
+(i) The basis for this Agreement;
+
+(ii) Contractor's commitment to observe all applicable laws and
+regulations, and to maintain the highest standards in conducting
+business with the United States Government;
+
+8
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+(iii) A brief description of the features of the Contractor
+Responsibility Program;
+
+(iv) The toll-free telephonic hotline, EthicsPoint website, and
+contact information of the Independent Monitor;
+
+(v) The availability of the Chief Ethics & Compliance Officer or his
+designee and the Independent Monitor to answer questions
+concerning the Code;
+
+(vi) Employees' ability to report matters to the Independent Monitor,
+who will conduct an investigation, including a recommendation of
+corrective action; and
+
+(vii) That employees may make reports of violations of the Code
+without revealing their identity, when such anonymity is possible
+without violation of applicable local law or regulation.
+
+f. On an annual basis, the Independent Monitor and the Contractor's Board
+of Directors shall meet to discuss the implementation of this
+Agreement, the status of ongoing investigations and other matters.
+
+g. The Contractor shall submit written reports at the request of the
+Independent Monitor for the purpose of preparing reports to the Army
+as specified in Section C.7 of this Agreement.
+
+The Contractor shall submit written reports at the request of the Independent
+Monitor for the purpose of preparing reports to the Army as specified in Section
+C.7 of this Agreement.
+
+3. Investigations by Third Parties.
+
+a. Subject to the provisions and requirements of the Deferred Prosecution
+Agreement with the Department of Justice and Consent Agreement entered
+into between the Contractor and the Department of State (the "Consent
+Agreement"), the primary internal means of investigating violations of
+the Code, including Government contracting regulations, and/or export
+law and regulation by the Contactor shall be through and within the
+Contractor Responsibility Program described herein. In certain cases,
+the Contractor may engage the services of a third party, at its
+discretion, to assist the Contractor in investigating allegations of
+wrongdoing by the Contractor and/or its employees. Examples of cases
+where third party investigations may be appropriate include those
+which require special technical expertise on the part of the
+investigator which is not otherwise available internally to the
+Contractor, investigations of senior level (i.e. VicePresident or
+higher) personnel, investigations which, due to their complexity,
+would cause severe disruption to the operation of the business unit
+affected or where the use of a third party is mandated by a government
+authority, such as the Deferred Prosecution Agreement or Consent
+Agreement referenced above, or law or regulation. Subject to the
+Deferred Prosecution Agreement and Consent Agreement referred to
+above, all investigations must be conducted within the framework of
+the Contractor Responsibility Program.
+
+9
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+b. The Contractor shall, within 30 days of the Effective Date of this
+Agreement, provide to the Independent Monitor and the Army, a list of
+current internal investigations being conducted with the assistance of
+third parties on behalf of the Contractor regarding violations of
+Government contracting or export law or regulation This list shall
+include the name of the third party conducting the investigation, the
+general nature of the investigation subject matter, and the reason for
+utilizing the resources of a third party to supplement the internal
+investigation.
+
+c. The Contractor shall provide notice to the Independent Monitor and the
+Army within 7 business days of commencing any future internal
+investigations regarding violations of government contracting or
+export law or regulation that utilize a third party. This notice shall
+include the name of the third party which will conduct the
+investigation, the general nature of the investigation subject matter,
+and the reason for utilizing a third party to supplement the internal
+investigation.
+
+d. As part of the quarterly report pursuant to Section C.7(a)(iii) of
+this Agreement, the Contractor shall provide the Independent Monitor
+with updates regarding the status of all open investigations regarding
+violations of government contracting or export law or regulation where
+third party resources are retained to support the investigation.
+
+e. At the conclusion of any investigation regarding violations of
+government contracting or export law or regulation whether conducted
+using internal resources or by third parties, the Contractor shall
+provide to the Independent Monitor a report of the findings of the
+investigation and actions taken or to be taken in response to those
+findings. This report will not be of a privileged nature and will be
+included by the Independent Monitor as part of his or her regular
+reports to the Army and other parties utilizing the services of the
+Independent Monitor.
+
+f. The use of a third party in an investigation by the Contactor does not
+preclude a similar or simultaneous investigation by the Independent
+Monitor pursuant to the provisions of Section C.3 of this Agreement.
+
+4. Chief Ethics & Compliance Officer. The Contractor has appointed a Chief
+Ethics & Compliance Officer to oversee its Corporate Responsibility Program. The
+Chief Ethics & Compliance Officer has direct reporting responsibilities to the
+Contractor's President and Chief Executive Officer, shall serve as the
+Contractor's first point of contact for all questions regarding the terms and
+conditions of this Agreement and Contractor implementation of this Agreement,
+investigate complaints concerning Contractor's compliance with this Agreement,
+and report to the Army concerning Contractor's compliance with this Agreement.
+Any change in the Chief Ethics & Compliance Officer shall require prior Army
+approval.
+
+5. Independent Monitor.
+
+a. General. The Independent Monitor is responsible for monitoring and
+assessing the Contractor's compliance with the terms of this Agreement
+to ensure that the Contractor performs its obligations in a timely and
+satisfactory manner.
+
+10
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+b. Appointment. The Contractor has nominated Mr. John S. Pachter to serve
+as an Independent Monitor at Contractor's expense for the oversight of
+this Agreement. This nomination has been made in coordination with the
+Department of Justice and the Department of State per the terms of the
+Deferred Prosecution Agreement. Mr. Pachter's nomination has been
+approved by the Army.
+
+c. Removal of the independent Monitor. Any change of the Independent
+Monitor appointed per this Agreement requires prior Army approval. At
+any time, should the Army become dissatisfied with the performance of
+the Independent Monitor, the Army may require the Contractor to
+nominate a new Independent Monitor again subject to Army approval.
+
+d. Nature of Employment. The Army intends for the Independent Monitor to
+act as an independent check upon the Contractor's compliance with this
+Agreement. The Independent Monitor shall not be an agent of the
+Contractor, and his work shall not be subject to the Contractor's
+assertion of the attorney-client privilege or the work-product
+doctrine. The Army also intends that the Independent Monitor will work
+with the Contractor's management team in implementing this Agreement.
+The Independent Monitor will be consulted by both parties regarding
+questions concerning the terms and conditions of this Agreement, and
+will, at his discretion, investigate complaints concerning the
+Contractor's compliance with this Agreement, and will report to the
+Army concerning the Contractor's compliance with this Agreement. The
+Independent Monitor may, as he reasonably requires, consult with other
+counsel, at Contractor's reasonable expense, in performing any of his
+responsibilities under this Agreement.
+
+e. Annual Certification of Independence. Upon nomination, and upon each
+anniversary of the Effective Date of this Agreement during its tenure,
+the Independent Monitor shall furnish the Army with an affidavit
+certifying that he has no financial interest in, or other relationship
+with, the Contractor or its affiliates, other than that arising from
+his appointment as the Independent Monitor. The affidavit must also
+certify that his representation of any other client will not create a
+conflict of interest or appearance thereof in fulfilling his
+responsibilities as Independent Monitor. Any change in relationships
+that would affect these certifications must be reported to the Army
+before they occur or as soon as the Independent Monitor or Contractor
+learns of them.
+
+f. Duties. The Independent Monitor's duties shall include:
+
+(i) Verification of the implementation of the Contractor
+Responsibility Program described in Section C of this Agreement.
+
+(ii) Investigation of allegations of violations of this Agreement and
+matters arising under the Contractor Responsibility Program
+involving violations of Goverrunent contract laws, rules, and
+regulations, or other matters that raise questions concerning the
+Contractor's present responsibility. For this purpose, the
+Independent Monitor, at the conclusion of each of his
+investigations, shall provide a written report to the
+Contractor's Chief Ethics & Compliance Officer and to the Army,
+detailing the substance of the allegations, evidence revealed by
+the investigation, and the findings
+
+11
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+and recommendations. The Contractor shall take corrective actions
+where appropriate. The Independent Monitor's complete
+investigative file shall be furnished to the Army. This provision
+does not preclude participation in the Department of Defense
+Voluntary Disclosure Program.
+
+(iii) Review of investigations made by the Contractor in accordance
+with the provisions of Section C.3 of this Agreement.
+
+(iv) Preparation and submission of reports to the Army as specified in
+Section C.7 of this Agreement.
+
+(v) Attending and monitoring employee training on the Code and
+Government contracting as he deems appropriate.
+
+(vi) On an annual basis, the Independent Monitor and the Contractor's
+Board of Directors shall meet to discuss the implementation of
+this Agreement, the status of ongoing investigations and other
+matters. In addition, when necessary, but not less than
+semiannually, the Independent Monitor shall meet with the
+management of any of the Contractor's divisions, operating units,
+groups, value centers and other subsidiaries, to discuss the
+progress of implementing the Contractor Responsibility Program
+described in Section C of this Agreement. Notice of such meetings
+shall be provided to the Army by the Independent Monitor not less
+than 30 days in advance to allow for attendance by the Army and,
+if necessary, other parties to the Deferred Prosecution
+Agreement.
+
+(vii) Performance of other duties as described elsewhere in this
+Agreement, or as deemed reasonably necessary by the Independent
+Monitor, the Army, or the Department of Justice, to implement
+this Agreement.
+
+g. Staff. The Contractor agrees that the Independent Monitor shall:
+
+(i) Have sufficient staff and resources, as reasonably determined by
+the Independent Monitor, to effectively monitor the Contractor's
+compliance with this Agreement; and
+
+(ii) Have the right to select and hire outside expertise as reasonably
+necessary to effectively monitor ITT's compliance with this
+Agreement.
+
+h. Fees and Expenses. The Contractor agrees to pay the reasonable fees
+and expenses associated with an Independent Monitor for this Agreement
+as negotiated between the Contractor and the Independent Monitor.
+
+6. Deferred Prosecution Monetary Penalty. As part of the Deferred
+Prosecution Agreement between the United States and the Contractor, the
+Contractor agreed to a Deferred Prosecution Monetary Penalty of $50,000,000.00.
+Payment of this penalty has been suspended by the United States for a period of
+sixty (60) months. During that sixty (60) month suspension period, ITT may
+reduce on a dollar-for-dollar basis the amount of the $50,000,000.00 Deferred
+Prosecution Monetary Penalty, by up to $50,000,000.00, for monies spent to
+accelerate and further the development and fielding of the most advanced night
+vision technology.
+
+12
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+a. Accounting.
+
+(i) Contractor further agrees to provide the Independent Monitor
+quarterly reports detailing the monies spent as part of
+offsetting the Deferred Prosecution Monetary Penalty. These
+reports shall include, at a minimum, the following:
+
+(1) The amounts expended;
+
+(2) The nature of the expense;
+
+(3) A brief description of how the expense qualifies under the
+Deferred Prosecution Agreement as a corrective action
+credit; and
+
+(4) The total amount expended as of the date of the report.
+
+(ii) Contractor shall provide reports to the Army Official designated
+in Attachment 3 to this Agreement, for the purpose of monitoring
+development and fielding associated with the Deferred Prosecution
+Monetary Penalty Implementation. The frequency of and information
+to be included in these reports shall be specified to the
+Contractor by the designated Army Official.
+
+7. Reports to the Army.
+
+a. The Independent Monitor shall submit a quarterly report to the Army
+that is postmarked no later than seven days after the first day of
+October, January, April, and July, as appropriate, of each year that
+this Agreement is in effect, until this Agreement has expired. The
+report shall include:
+
+(i) A description of the training conducted that is required by this
+Agreement and the number of persons who attended, including a
+statement of the percentage of total employees trained year to
+date as of the date of the report.
+
+(ii) The total number of hotline calls and other contacts made or
+referred to the Independent Monitor. This part of the report
+shall include:
+
+(1) The means by which any alleged misconduct was reported
+(e.g., call, letter, or drop-in visit, electronic means,
+etc.);
+
+(2) The category of any alleged misconduct (e.g., product
+substitution, mischarging, defective pricing, etc.) and a
+brief descriptive summary thereof,
+
+(3) Whether the alleged misconduct was substantiated, in whole
+or in part;
+
+(4) Whether disciplinary action was imposed and if so, a
+description of that action;
+
+13
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+(5) Whether corrective measures other than disciplinary actions
+were taken and if so, a description of those actions.
+Matters pending resolution at the time of a reporting period
+shall be included in each subsequent report until final
+resolutions of the matters are reported;
+
+(iii) Whether any investigations utilizing third party resources have
+been initiated and the status of previously reported
+investigations utilizing third party resources as required by
+Section C.3(d) of this Agreement.
+
+(iv) The status of expenditures made for the Deferred Prosecution
+Monetary Penalty reduction as required by Section C.6(b) of this
+Agreement.
+
+b. In addition, the Contractor and the Independent Monitor shall submit a
+report to the Army that is postmarked no later than 14 days after the
+third anniversary date of the Agreement reviewing the Contractor's
+compliance with the Agreement and the ethics environment within the
+company. The report shall be reviewed by the Army and a review of the
+Contractor's performance under this Agreement and the Deferred
+prosecution Agreement shall be made to the SDO by the Independent
+Monitor. This report , at a minimum, shall include a discussion of the
+following:
+
+(i) The state of the Contractor's compliance programs, including
+progress made by the company during the term of the ACA;
+
+(ii) A discussion of Contractor's training program and its compliance
+with this requirement;
+
+(iii) A summary of actions as Independent Monitor;
+
+(iv) A list of recommendations and/or "lessons learned"; and
+
+(v) A discussion of any other topic relevant to the Agreement.
+
+c. At the conclusion of the Agreement, the Independent Monitor shall
+prepare a report for review by the Army SDO. This report shall include
+information regarding investigations conducted by the Independent
+Monitor, information regarding the Contractor's implementation of the
+Contractor Responsibility Program, a summary of hotline calls reviewed
+pursuant to this Agreement, a summary of expenditures under the
+Deferred Prosecution Monetary Penalty and any other topics requested
+by the Army.
+
+D. GENERAL CONDITIONS
+
+1. Unallowable Costs. All unallowable costs, as described in FAR 31.205-47,
+incurred for or on behalf of Contractor in response to or in preparation of
+Government criminal, civil, or administrative actions related to alleged
+violations described in the Section A of this Agreement, and all costs incurred
+by Contractor in negotiating this Agreement, the Deferred Prosecution Agreement,
+or Consent Agreement shall be deemed unallowable costs, direct or indirect, for
+Government contract purposes. These unallowable amounts shall be separately
+accounted for by
+
+14
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+the Contractor by identification of costs incurred: a) through accounting
+records to the extent possible; b) through memorandum records, including diaries
+and formal logs, regardless of whether such records are part of official
+corporate documentation, where accounting records are not available; and c)
+through good faith itemized estimates where no other reasonable accounting basis
+is available.
+
+a. Costs incurred in the reduction of the Deferred Prosecution Monetary
+Penalty are specifically designated as unallowable costs. This
+prohibition includes the direct or indirect inclusion of these costs
+in any claim for payment or reimbursement made against the Government
+by the Contractor.
+
+2. Allowable Costs. The costs of all self-governance normally required
+under FAR 9.104-1 and DFARS 203.7001, including the compliance, or ethics
+programs, activities and offices in existence as of the Effective Date and which
+are continued by the terms of this Agreement shall be allowable costs to the
+extent otherwise permitted by law and regulation.
+
+3. Modifications of This Agreement. Any requirements imposed on Contractor
+by this Agreement may be discontinued by the SDO at his sole discretion. Other
+modifications to this Agreement may be made only in writing and upon mutual
+consent of the parties to this Agreement.
+
+4. Approvals. Where this Agreement requires approval by the Army, or other
+action or response by the Army, the Chief, Procurement Fraud Branch or his/her
+designee, will normally provide such action. This does not restrict the ability
+of the SDO to take such action as he may elect.
+
+5. Business Relationships with Suspended or Debarred Entities. Contractor
+shall not knowingly subcontract or enter into any business relationship in
+support of a U.S. Government prime contract with any individual or business
+entity that is listed by the General Services Administration (GSA) as debarred,
+suspended, or proposed for debarment. In order to implement this provision, the
+Contractor shall make reasonable inquiry into the status of any such potential
+business partner, to include, at a minimum, review of the GSA's Excluded Parties
+List System./1
+
+6. Public Document. This Agreement is a public document. It, and any
+attachments, appendices, addendums and/or modifications, will be posted on the
+publicly assessable Army Fraud Fighter's Website./2
+
+____________________
+
+1/ Available at:
+http://www.epls.gov/epls/servlet/EPLSSearcMain/1
+
+2/ Available at:
+https://www.jagcnet.army.mil/JAGCNETInternet/Homepages/AC/ArmyFraud.nsf'
+(JAGCNetDocID)/HOME? Open Document.
+
+15
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+7. Release of Liability. Contractor releases the United States, its
+instrumentalities, agents, and employees in their official and personal
+capacities, of any and all liability or claims, monetary or equitable, arising
+out of the negotiation of, and entry into, this Agreement.
+
+8. Legal Proceedings. Contractor will provide, within 30 days of the entry
+into force of this Agreement, a listing and status of all known ongoing
+criminal, civil and administrative investigations and proceedings conducted by
+any Government entity with regard to any allegation relating to the Contractor's
+violation of government contracts or export law or regulation.
+
+9. Information Sharing. The Contractor agrees that the Army and/or the
+Independent Monitor, at their sole discretion, may disclose to any Government
+department or agency any information, testimony, document, record or other
+materials provided pursuant to this Agreement. Such disclosures shall be subject
+to 18 U.S.C. ss. 1905 and other applicable exemptions to the Freedom of
+Information Act.
+
+10. Scope of This Agreement - Suspension and Debarment for Independent
+Cause. This Agreement in no way restricts the authority, responsibility, or
+legal duty of the Army, or any other federal agency to consider and institute
+suspension or debarment proceedings against the Contractor based upon
+information constituting independent cause for suspension or debarment
+concerning events related or unrelated to the facts and circumstances set out
+herein, including, but not restricted to, any substantive allegations of
+wrongdoing under any past, present, or future hotline complaint or security
+program investigations. The Army or any other federal agency may, in its sole
+discretion, initiate such proceedings in accordance with the FAR Subpart 9.4.
+
+a. The Army reserves the right to require additional protective measures
+or modifications of this Agreement if an independent cause for
+suspension or debarment should arise. Failure to institute such
+proposed measures may constitute an independent cause for debarment of
+the Contractor in accordance with FAR Subpart 9.4.
+
+b. Suspension and/or debarment may be initiated at any time under the
+same facts and circumstances underlying this Agreement should further
+information become available that indicates such action is necessary
+to protect the Government's interests.
+
+c. Upon conclusive evidence that the Contractor has misrepresented any
+aspect of its proffer in connection with this Agreement, the Army may
+take suspension or debarment action as appropriate. Any such
+misrepresentation or material breach of this Agreement will be
+regarded as cause for debarment.
+
+11. Survival of This Agreement. This Agreement shall inure to the benefit
+of, and be binding upon, the parties and their respective successors and
+assigns, unless the new owners request and show good cause why it should not be
+applicable to their operations. Bankruptcy proceedings shall not prevent or stay
+the enforcement of this Agreement or any debarment proceedings the Army deems to
+be appropriate should the parties fail to comply with the terms of this
+Agreement, or engage in such other conduct that is a cause for suspension or
+debarment.
+
+16
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+12. Truth and Accuracy of Submissions. Contractor represents that all
+written materials and other information supplied to the Army by its authorized
+representatives during the course of discussion with the Army preceding this
+Agreement are true and accurate in all material respects, to the best of the
+Contractor's information and belief, false statements are punishable under Title
+18, United States Code, Section 1001.
+
+13. Violations of this Agreement. Any violation of this Agreement that is
+not corrected within ten days from the date of receipt of notice from the Army
+may constitute an independent cause for debarment. If correction is not possible
+within ten days, the Contractor shall present an acceptable plan for correction
+within that ten-day period. The Army may, at its sole discretion, initiate
+suspension or debarment proceedings in accordance with FAR Subpart 9.4.
+Alternatively, in the event of any noncompliance, the Army may in its sole
+discretion extend this Agreement for a period equal to the period of
+noncompliance. Contractor does not, by this Agreement or otherwise, waive its
+right to oppose such action under FAR Subpart 9.4, or any other substantive,
+procedural, or due process rights it may have under the Constitution or other
+applicable laws or regulations of the United States.
+
+14. Press Releases. The Contractor agrees that it will cooperate in good
+faith with the Army regarding any press release related to this Agreement. The
+Contractor will not unilaterally release any press release related to this
+Agreement without first obtaining Army approval, which the Army agrees to timely
+review and not to unreasonably withhold.
+
+15. Agreement. This Agreement, and its attachments, constitute the entire
+agreement between the Army and the Contractor, and supersedes all prior
+agreements or understandings, oral or written, with respect to the subject
+matter of this action. This Agreement shall not supersede the Deferred
+Prosecution Agreement with the Department of Justice or the Consent Agreement
+with the Department of State.
+
+E. ADMINISTRATION OF AGREEMENT
+
+1. Addresses for Agreement Correspondence. All submissions required by this
+Agreement shall be delivered to the following addresses, or such other addresses
+as the parties may designate in writing.
+
+If to the Army:
+
+Procurement Fraud Branch
+Contract and Fiscal Law Division
+U.S. Army Legal Services Agency
+ATTN: DAJA-PFB (Brian A. Persico)
+01 North Stuart Street - Suite 700
+Arlington, Virginia 22203-1837
+
+If to the Contractor:
+
+Ann D. Davidson
+Chief Ethics and Compliance Officer
+
+17
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+ITT Corporation
+4 West Red Oak Lane
+White Plains, NY 10604
+
+2. Certification of Compliance. Within 120 days of the Effective Date of
+this Agreement, Contractor will provide the Army with a certification that all
+terms and conditions of this Agreement have been implemented or will be
+satisfied within the times specified in this Agreement.
+
+3. Access to Books and Records.
+
+a. During the term of this Agreement, the Army Procurement Fraud Branch
+(PFB), the Independent Monitor or any agency or office of the
+Department of Defense designated by PFB for a particular inquiry,
+shall have the right to examine, audit, and reproduce Contractor's
+books, records, documents, and supporting materials related to any
+report, allegation or complaint of suspected violation of law or
+regulation, whether criminal, civil, administrative, or contractual
+and whether reported through the hotline program, or by any other
+means, and any resulting inquiries or investigations related thereto.
+Such hotline reports, inquiries, investigations, and all related
+books, records, documents and supporting material are considered by
+Contractor to be administrative and managerial and are not
+investigations, books, records, documents, material, reports, or
+investigations protected by the attorney-client privilege or any other
+privilege.
+
+b. PFB, the Independent Monitor and/or their designees shall have the
+opportunity to review the books, records, documents, materials,
+reports, and investigations directly related to compliance with this
+Agreement.
+
+c. PFB, the Independent Monitor and/or their designees shall also have
+the opportunity to interview any Contractor employee for the purpose
+of evaluating: (1) compliance with the terms of this Agreement; (2)
+future compliance with federal procurement policies and regulations;
+and (3) maintenance of the high level of business integrity and
+honesty required of a Government contractor.
+
+d. The interviews and materials described above shall be made available
+to PFB, the Independent Monitor and/or their designee(s) at company
+offices at reasonable times. Contractor's obligation under this
+Agreement with respect to employee interviews is limited to making its
+employees available for an interview at their place of employment
+during normal business hours. The individual employee shall have the
+right to determine whether or not to submit to an interview. To the
+extent it is permitted to do so by law, regulation, or policy, the
+Army shall protect Contractor's confidential and proprietary business
+information from public disclosure.
+
+e. The materials described above shall be made available at Contractor's
+offices at reasonable times for inspection, audit, or reproduction.
+Neither PFB, the Independent Monitor nor their designees shall copy or
+remove Contractor's technical or other proprietary data without
+Contractor's permission.
+
+18
+<PAGE>
+Administrative Compliance Agreement
+ITT Corporation
+
+4. Corporate Officer List. Contractor shall provide the Army with a list of
+its directors and officers and a copy of its organizational chart, which will be
+updated, as changes occur.
+
+5. Administrative Costs. Within ten days of the Effective Date of this
+Agreement, Contractor shall deliver a check in the amount of $25,000.00 to the
+Army, payable to Treasurer of the United States, in order to compensate the Army
+for the cost of negotiating and administering this Agreement, to include costs
+associated with Army visits to Contractor and any of its divisions or its
+subsidiaries authorized under this Agreement.
+
+6. Expiration. This Agreement shall expire at midnight not later than five
+years after the Effective Date of this Agreement.
+
+7. Governing Law. This Agreement shall be governed by the laws of the
+United States with regard to all matters arising under and individuals located
+within the United States.
+
+/s/ Steven R. Loranger /s/ Robert N. Kittel
+------------------------------------- --------------------------------------
+STEVEN R. LORANGER ROBERT N. KITTEL
+Chairman, President and Army Suspension and Debarment Official
+Chief Executive Officer
+ITT Corporation
+
+10/04/07 10/11/07
+------------------------------------- --------------------------------------
+DATE DATE
+
+19
+<PAGE>
+Administrative Compliance Agreement
+Attachment 3
+
+Deferred Prosecution Monetary Penalty Implementation
+
+1. Purpose and Duration. This Attachment addresses the implementation of
+the effort to be undertaken by ITT Corporation ("Contractor") with respect to
+the conversion of the Deferred Prosecution Monetary Penalty of fifty million
+dollars ($50,000,000.00), to a credit, as discussed in Paragraph 22.d of the
+Deferred Prosecution Agreement ("DPA"). This Agreement was entered into between
+the United States Department of Justice ("DOJ") and the Contractor on 28 March
+2007 (See Attachment 1 to the Administrative Compliance Agreement) and permits
+the Contractor to engage in activities to accelerate and further the
+.development and fielding of the most advanced night vision technology over a
+period of a maximum period of sixty (60) months, beginning on the date of the
+DPA's entry into force.
+
+2. Research Proposals.
+
+a. Dates of Submission. Within 30 days of the Effective Date of the
+Administrative Compliance Agreement (ACA), the Contractor shall submit
+the first series of Research Proposals regarding the expenditure of
+the Deferred Prosecution Monetary Penalty Implementation from 28 March
+2007 through 31 December 2007. On or before 31 October 2007, the
+Contractor shall submit Research Proposals covering the 12-month
+period starting January 1, 2008. Future Research Proposals shall be
+submitted annually on 31 October covering the 12-month period for the
+following calendar year until the expenditure of the entire amount of
+the Deferred Prosecution Monetary Penalty or the end of the 60-month
+period, whichever occurs first.
+
+(i) Research Proposals may include status reports regarding "work in
+progress" of previously approved projects to fulfill the annual
+submission requirements. See Section 2.d of this Attachment.
+
+(ii) The term "Research Proposals", in the context of this Attachment,
+is meant to describe a list of possible topics by the Contractor
+to accelerate and further the development and fielding of the
+most advanced night vision technology. The number and subject
+matter of the topics presented is at the discretion of the
+Contractor.
+
+b. Scope Proposals. Research Proposals submitted by the Contractor shall
+address specific approaches to accelerate and further the development
+and fielding of the most advanced night vision technology. Each
+Research Proposal shall be submitted for review and approval to the
+United States Army Research, Development & Engineering Command,
+Communications and Electronics Research and Development Center, Night
+Vision & Electronic Sensors Directorate ("NVESD"). At a minimum, each
+Research Proposal shall include the following features:
+
+(i) Identify specific topics to be worked on during the yearly period
+including the technical objectives, approach, and rationale.
+
+(ii) Research Proposal schedule including technical milestones and
+proposed NVESD technical reviews. An annual technical review
+shall take place at the completion of each one year effort.
+
+1
+<PAGE>
+Administrative Compliance Agreement
+Attachment 3
+
+(iii) Estimated dollar value of the effort. Cost estimates shall be
+itemized for each technical milestone in the following areas: 1)
+engineering labor, 2) materials, 3) costs associated with the use
+of subcontractors, and 4) other costs.
+
+(iv) Identification and rationale of any proposed capital equipment or
+prototype fabrication testing to accelerate the fielding of the
+most advanced night vision technology.
+
+(v) Validation criteria for each technical milestone, including data,
+simulations, demonstrations and/or deliverables.
+
+c. Interim Changes. At any point during the performance of an approved
+research project, the Army reserves the right to request additional
+topics, to broaden an existing topic or inform the contractor that the
+topic is no longer eligible to reduce the Deferred Prosecution
+Monetary Penalty. Such allowable deviations from approved topics may
+be made in writing to ITT by NVESD to the points of contact listed in
+Section 4 of this Attachment or their designated successors.
+
+d. Work In Progress. Research projects that need to extend beyond a
+12-month period shall be identified in the original project's
+submission, together with the rationale for the extended period, and
+shall identify appropriate milestones in the proposed schedule. Such
+efforts shall be started upon approval by NVESD of the proposed topic,
+and may continue beyond the 12-month timeframe until the project
+reaches its "logical conclusion" or the contractor is told that the
+project is no longer eligible to reduce the Deferred Prosecution
+Monetary Penalty. The Contractor and NVESD shall consult with each
+other throughout the progress of research.
+
+3. Research Proposal Approval Process.
+
+a. Review of Submissions. NVESD will review each project and provide
+written approval or disapproval of each specific topic that ITT
+proposes receiving credit for expenditures on the project against the
+$50,000,000.00. The Army, through its representative, NVESD, may, at
+its discretion, accept or reject applying credit for topics undertaken
+by the Contractor to meet the requirements of the DPA.
+
+b. Selection of Research Projects. The Contractor shall provide a list of
+proposed projects to NVESD in the format described in Section 2 of
+this Attachment. NVESD may then select any, all or none of the
+individual topics submitted by the Contractor for approval of credit
+against the $50,000,000.00 at its sole discretion. NVESD may also
+request additional information or clarification of an individual topic
+from the Contractor to assist in making this determination.
+
+c. Resubmissions of Rejected Proposals. The Contractor will be given
+thirty (30) calendar days to amend and re-submit revised topics based
+on the review guidance provided by NVESD, if deemed appropriate.
+Resubmitted topics will be reviewed with the same criteria and in the
+same manner as the original projects. As part of the review guidance,
+NVESD may also, at its discretion, inform the Contractor that the
+resubmission of a particular topic is not required for technical, cost
+or other reasons.
+
+2
+<PAGE>
+
+d. Commencement of Work. The Contractor is authorized to begin work on an
+approved topic at any time after receiving a written confirmation of
+approval of a topic from NVESD.
+
+e. The Department of Justice will act as the final arbiter of eligibility
+for credit against the Deferred Prosecution Monetary Penalty.
+
+4. Reports to the Army.
+
+a. ITT shall provide an interim milestone report not later than thirty
+(30) calendar days after each technical review and an annual report
+not later than thirty (30) calendar days after the completion of each
+annual review to the following Army Official at NVESD:
+
+Philip Perconti
+Night Vision Electronic Sensors Directorate
+AMSRD-CER-NV-ST
+10221 Burbeck Road
+Fort Belvoir, VA 22060
+
+b. The interim milestone and annual reports shall contain both a
+technical section and a cost section. NVESD shall review and approve
+the technical section. NVESD shall forward the cost section of the
+reports to the Independent Monitor appointed by the ACA for review.
+The Independent Monitor shall send a copy of any comments based upon
+its cost review to NVESD, the Assistant Secretary of the Army for
+Acquisition, Logistics and Technology, and the United States Attorney
+for the Western District of Virginia.
+
+c. Approval of both the technical and cost sections of each annual report
+is required for the associated expenditures to be accepted as partial
+fulfillment of the Contractor's obligations under Paragraph 22.d of
+the DPA by DOJ with input from the Army.
+
+d. The NVESD shall designate alternate or additional Army Officials as
+needed and shall inform the Contractor of such changes as they occur.
+
+5. General Provisions.
+
+a. Extensions of Time. Requests for extensions of time for the submission
+of any of the proposals, reports or other materials required by this
+Attachment must be submitted in writing to NVESD not later than ten
+(10) working days in advance of the date which they are due. Requests
+for extensions of time may only be granted for good cause as
+demonstrated by the Contractor, with the length of time to be granted
+to be determined by NVESD. NVESD will provide a written approval or
+disapproval to any such request, with a copy provided to the
+Independent Monitor.
+
+b. Costs. No costs associated with the work accomplished per the Research
+Proposals submitted in accordance with this Attachment or costs
+directly associated with any of the requirements of those plans are
+recoverable by the Contractor as allowable costs.
+
+3
+<PAGE>
+
+The Contractor may not attempt to recover any portion of these funds
+either directly or indirectly as part of an overhead or G&A pool. The
+Army expressly reserves the right to seek any and all criminal, civil
+and administrative remedies should the Contractor attempt to recover
+any portion of these funds either directly or indirectly from the
+Government.
+
+c. Government Purpose Rights. The Contractor will provide to the
+Government "Government Purpose Rights," as defined by DFARS
+252.227-7013, in any computer software produced, or partially
+produced, and in any technical data related to any item, component, or
+process developed, or partially developed, in connection with the
+efforts described in this document in accordance with Paragraph 22.d
+of the DPA. Such computer software and/or technical data shall be
+deliverable upon NVESD's request at no cost.
+
+d. Expiration of Terms. This Attachment shall remain in force for the
+duration of the ACA between the Army and the Contractor. Any portion
+of the )Deferred Prosecution Monetary Penalty not converted to credits
+at the end of the sixty (60) month duration of the DPA shall be
+accounted for by the Contractor to the Independent Monitor not later
+than 29 March 2012. A copy of this report shall also be provided to
+NVESD.
+
+e. Incorporation by Reference. The undersigned parties agree that the
+terms and conditions of the ACA between the Army and the Contactor, in
+their entirety, are incorporated by reference into this Attachment.
+
+/s/ Steven R. Loranger /s/ Thomas H. Killion
+--------------------------------- -----------------------------------
+STEVEN R. LORANGER DR. THOMAS . KILLION
+Chairman, President and Deputy Assistant Secretary Official
+Chief Executive Officer for Research and Technology,
+ITT Corporation Chief Scientist
+Department of the Army
+
+10/04/07 24 Sep 2007
+--------------------------------- -----------------------------------
+DATE DATE
+
+4
+</TEXT>
+</DOCUMENT>

@@ -1,0 +1,3971 @@
+EX-10.28
+17
+dex1028.htm
+CONTRACT NO. N00014-02-C-0306 DATED 6-28-02
+
+CONTRACT NO. N00014-02-C-0306 DATED 6-28-02
+
+EXHIBIT 10.28  
+
+AWARD/CONTRACT
+
+1. THIS CONTRACT IS A RATED ORDER UNDER
+DPAS (15 CFR 350)
+ 
+RATING DO-C9(U)
+ 
+PAGE OF PAGES 1        18
+
+2.
+ 
+CONTRACT (Proc. Inst. Ident.) No.
+ 
+3. EFFECTIVE DATE
+ 
+4. REQUISITION/PURCHASE REQUEST/ PROJECT NO.
+
+N00014-02-C-0306
+ 
+SEE BLOCK 20C
+ 
+02-PR09637-00
+
+5.
+ 
+ISSUED BY
+  
+CODE
+ 
+N00014
+ 
+6. ADMINISTERED BY (If other than Item 5)
+ 
+CODE
+ 
+S1103A
+
+OFFICE OF NAVAL RESEARCH ONR
+251: Bona Tilahun (703) 696-2591 BALLSTON TOWER ONE 800 NORTH QUINCY STREET ARLINGTON, VA 22217-5660
+ 
+  DCM ATLANTA 805 WALKER STREET, SUITE 1 MARIETTA, GA
+30060-2789
+
+7.
+ 
+NAME AND ADDRESS OF CONTRACTOR (No., street, city, county, State and ZIP Code.)
+ 
+8. DELIVERY
+
+CREE, INC. 4600 SILICON DRIVE
+DURHAM, NC 27703
+
+See SECTION F of Schedule ¨   FOB ORIGIN         ¨   OTHER (See below)
+
+9. DISCOUNT FOR PROMPT PAYMENT
+
+N.A.
+
+10. SUBMIT INVOICES (4 copies unless otherwise specified) TO THE ADDRESS SHOWN IN   ¨
+
+ITEM SEE SECTION G
+
+CODE
+
+0C9J8
+
+FACILITY CODE
+
+11.
+ 
+SHIP TO/MARK
+FOR                    CODE
+ 
+N00014
+ 
+12.
+ 
+PAYMENT WILL BE MADE BY
+
+CODE
+ 
+HQ0338
+
+PROGRAM OFFICER SEE SECTION F
+– DELIVERIES OR PERFORMANCE
+ 
+DFAS COLUMBUS CENTER DFAS CO SOUTH ENTITLEMENT OPERATIONS PO BOX 182264 COLUMBUS, OH 43218-2264
+
+13.
+ 
+AUTHORITY FOR USING OTHER THAN FULL AND OPEN COMPETITION:
+ 
+14. ACCOUNTING AND APPROPRIATION DATA
+
+¨ 10 U.S.C. 2304(c)( N/A )
+ 
+¨ 41 U.S.C. 253(c)(  N/A  )
+ 
+See Attached Financial Accounting Data Sheet(s)
+
+15A. ITEM NO.
+
+15B. SUPPLIES/SERVICES
+
+15C. QUANTITY
+ 
+15D. UNIT
+ 
+15E. UNIT PRICE
+ 
+15F. AMOUNT
+
+See SECTION B of Schedule
+
+15G. TOTAL AMOUNT OF CONTRACT
+ 
+See SECTION B of Schedule
+
+16. TABLE OF CONTENTS
+
+(X)
+ 
+SEC
+ 
+DESCRIPTION
+ 
+PAGE(S)
+ 
+(X)
+ 
+SEC.
+ 
+DESCRIPTION
+ 
+PAGE(S)
+
+PART I — THE SCHEDULE
+
+PART II - CONTRACT CLAUSES
+
+X
+ 
+A
+ 
+SOLICITATION/CONTRACT FORM
+ 
+1
+ 
+X
+ 
+I
+ 
+CONTRACT CLAUSES
+ 
+11-17
+
+X
+ 
+B
+ 
+SUPPLIES OR SERVICES AND PRICES/COSTS
+ 
+2
+ 
+PART III – LIST OF DOCUMENTS, EXHIBITS AND OTHER ATTACH.
+
+X
+ 
+C
+ 
+DESCRIPTION/SPECS./WORK STATEMENT
+ 
+3
+ 
+X
+ 
+J
+ 
+LIST OF ATTACHMENTS
+ 
+18
+
+X
+ 
+D
+ 
+PACKAGING AND MARKING
+ 
+3
+ 
+PART IV- REPRESENTATIONS AND INSTRUCTIONS
+
+X
+ 
+E
+ 
+INSPECTION AND ACCEPTANCE
+ 
+3
+ 
+X
+ 
+K
+ 
+REPRESENTATIONS, CERTIFICATIONS AND OTHER STATEMENTS OF OFFERORS
+ 
+18
+
+X
+ 
+F
+ 
+DELIVERIES OR PERFORMANCE
+ 
+3-4
+
+X
+ 
+G
+ 
+CONTRACT ADMINISTRATION DATA
+ 
+4-7
+
+L
+ 
+INSTRS., CONDS., AND NOTICES TO OFFERORS
+
+X
+ 
+H
+ 
+SPECIAL CONTRACT REQUIREMENTS
+ 
+7-10
+
+M
+ 
+EVALUATION FACTORS FOR AWARD
+
+CONTRACTING OFFICER WILL COMPLETE ITEM 17 OR 18 AS APPLICABLE
+
+17.
+ 
+x
+ 
+CONTRACTOR’S NEGOTIATED AGREEMENT
+ 
+18.
+ 
+¨
+ 
+AWARD
+
+(Contractor is required to sign this document and return _2_ copies to issuing office.) Contractor agrees to furnish and deliver all items or perform all the services set
+forth or otherwise identified above and on any continuation sheets for the consideration stated herein. The rights and obligations of the parties to this contract shall be subject to and governed by the following documents: (a) this award/contract,
+(b) the solicitation, if any, and (c) such provisions, representations, certifications, and specifications, as are attached or incorporated by reference herein. (Attachments are listed herein.)
+
+(Contractor is not required to sign this document.) Your offer on Solicitation Number              .
+including the additions or changes made by you which additions or changes are set forth in full above, is hereby accepted as to the items listed above and on any continuation sheets. This award consummates the contract which consists
+of the following documents: (a) the Government’s solicitation and your offer, and (b) this award/contract. No further contractual document is necessary.
+
+19A. NAME AND TITLE OF SIGNER ( Type or print )
+ 
+20A. NAME OF CONTRACTING OFFICER
+
+John W. Palmour, Dir. Of Advanced Devices
+ 
+Bona Tilahun Contracting
+Officer
+
+19B. NAME OF CONTRACTOR
+
+19C. DATE SIGNED
+ 
+20B. UNITED STATES OF AMERICA
+  
+20C. DATE SIGNED
+
+BY
+ 
+/s/ John W. Palmour
+
+26 June 02
+ 
+BY
+ 
+    /s/ Bona Tilahun
+  
+6/28/02
+
+(Signature of person authorized to sign)
+
+(Signature of Contracting Officer)
+
+NSN 7540-01-152-8069 PREVIOUS EDITION UNUSABLE NAVONR OVERPRINT (4-85)
+ 
+STANDARD FORM 26 (REV.
+4-85)             Prescribed by GSA FAR (48 CFR) 53.214(a)
+
+SECTION B - SUPPLIES OR SERVICES AND PRICES/COSTS  
+
+BASE EFFORT
+
+ITEM NO.
+  
+SUPPLIES/SERVICES
+  
+ESTIMATED GOVERNMENT COST SHARE
+  
+ESTIMATED CONTRACTOR COST SHARE
+  
+TOTAL ESTIMATED COSTS
+
+0001
+  
+The Contractor shall furnish the necessary personnel and facilities to conduct the research effort as described in Section C.1 and C.2.
+  
+[***]
+  
+[***]
+  
+[***]
+
+000101: AA [***]
+
+0002
+  
+Deliverables for Quarters 1-6 in accordance with Attachment Number 2
+
+NSP
+
+0003
+  
+Reports and Data in accordance with Exhibit A (DD Form 1423)
+
+NSP
+Note: [***] out of the estimated contractor’s [***] amount of [***] represents a [***] discount on the
+projected price of the [***]. The [***] shall be used in support of this contract and charged at the current catalog price at the time of consumption less a [***] discount. Therefore, these items are not subject to a DCAA incurred cost audit.
+
+OPTION EFFORT
+
+ITEM NO.
+  
+SUPPLIES/SERVICES
+  
+ESTIMATED GOVERNMENT COST SHARE
+  
+ESTIMATED CONTRACTOR COST SHARE
+  
+TOTAL ESTIMATED COSTS
+
+0004
+  
+The Contractor shall furnish the necessary personnel and facilities to conduct the research effort as described in Section C. 1 and C .3.
+  
+[***]
+  
+[***]
+  
+[***]
+
+0005
+  
+Deliverables for Quarters 7-8 in accordance with Attachment Number 2
+
+NSP
+
+0006
+  
+Reports and Data in accordance with Exhibit A (DD Form 1423)
+
+NSP
+Note: [***] out of the estimated contractor’s [***] amount of [***] represents a [***] discount on the
+projected price of the[***]. The [***] shall be used in support of this contract and charged at the current catalog price at the time of consumption less a [***] discount. Therefore, these items are not subject to a DCAA incurred cost audit.
+
+TOTAL ESTIMATED CONTRACT CONSIDERATION:
+  
+[***]
+  
+[***]
+  
+[***]
+
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities and Exchange Commission. Omitted portions have been filed
+separately with the Commission.
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 2
+
+SECTION C - DESCRIPTION/SPECIFICATIONS/WORK STATEMENT  
+
+1)
+ 
+The research effort to be performed hereunder shall be subject to the requirements and standards contained in Exhibit A and the following paragraph(s).  
+
+2)
+ 
+The Contractor shall conduct the base effort research in accordance with the base effort tasks on pages 1-4 of Attachment Number 1, entitled “Statement of Work.” The
+contractor shall provide the deliverables described under Quarters 1-6 of Attachment Number 2 of the contract.  
+
+3)
+ 
+The Contractor shall conduct the option research effort in accordance with the optional tasks described on pages 5-8 of Attachment Number 1, entitled “Statement of
+Work.” The contractor shall provide the deliverables described under Quarters 7-8 of Attachment Number 2 of the contract.   SECTION D - PACKAGING AND MARKING   Preservation, packaging, packing and marking of all deliverable contract line items shall conform to normal commercial packing standards to assure safe delivery at
+destination.   SECTION E - INSPECTION AND ACCEPTANCE   Inspection and acceptance of the final delivery under this contract will be accomplished by
+the Program Officer designated in Section F of this contract, who shall have at least thirty (30) days after contractual delivery for acceptance.   SECTION F - DELIVERIES OR PERFORMANCE  
+
+1)
+ 
+The research effort performed under this contract shall be conducted during the period from the effective date (See Block 20C of the Standard Form 26) through eighteen (18) months
+thereafter. A final report will be prepared, submitted, reproduced and distributed by sixty days thereafter unless the contract is extended, in which case, the final report will be prepared in accordance with the terms of such extension.
+
+a)
+ 
+Item No. 0002 of Section B (Deliverables) shall be delivered within the time periods stated in Attachment Number 2, F.O.B. Destination.  
+
+b)
+ 
+Item No. 0003 of Section B (Reports and Data) shall be delivered within the time periods stated in Exhibit A, F.O.B. Destination.  
+
+2)
+ 
+If the Option (CLIN 0004) is exercised, that research effort shall be conducted during the period from the date the option is exercised through [***] thereafter. A final report will
+be prepared, submitted, reproduced and distributed by sixty days thereafter unless the contract is extended, in which case, the final report will be prepared in accordance with the terms of such extension.  
+
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities and Exchange Commission. Omitted portions have been filed
+separately with the Commission.
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 3
+
+a)
+ 
+Item No. 0005 of Section B (Deliverables) shall be delivered within the time periods stated in Attachment Number 2, F.O.B. Destination.  
+
+b)
+ 
+Item No 0006 of Section B (Reports and Data) shall be delivered within the time periods stated in Exhibit A, F.O.B. Destination.  
+
+3)
+ 
+Distribution, consignment and marking instructions for CLIN 0002 and if the option is exercised, CLIN 0005, shall be in accordance with the following address In addition, the Data
+Sheets required under these CLINS shall also be delivered to the Program Officer stated in paragraph 4.   Tri-Service Correlation Team Attn: Thomas Jenkins AFRL/SNDM, Bldg 620, Area B 2241 Avionics Circle, Rm C2G69 Wright-Patterson AFB OH 45433   Ref: Contract N00014-02-C-0306  
+
+4)
+ 
+Distribution, consignment and marking instructions for CLIN 0003 and if the option is exercised, CLIN 0006, shall be in accordance with Enclosure Number 1 and the following:
+  Program Officer Office of Naval Research Baliston Tower One 800 North Quincy Street Arlington, Virginia 222 17-5660   Attn: Dr. Harry Dietrich, Code 312, Telephone (703) 696-0240 Ref: Contract N00014-02-C-0306   SECTION G - CONTRACT ADMINISTRATION DATA  
+
+1.
+  
+  NAPS 5252.232-                        9001
+  
+SUBMISSION OF INVOICES (COST REIMBURSEMENT, TIME-AND-MATERIALS, LABOR-HOUR, OR FIXED PRICE INCENTIVE) (JUL 1992)
+
+(a)
+ 
+“Invoice” as used in this clause includes contractor requests for interim payments using public vouchers (SF 1034) but does not include contractor requests for progress
+payments under fixed price incentive contracts.  
+
+(b)
+ 
+The Contractor shall submit invoices and any necessary supporting documentation, in an original and 4 copies, to the contract auditor at the following address:
+
+Defense Contract Audit Agency DCAA/MABO
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 4
+
+P.O. Box 891 Arnold, MD 21012-0891   Telephone: (410) 260-5420 Fax: (410) 260-5986   unless
+delivery orders are applicable, in which case invoices will be segregated by individual order and submitted to the address specified in the order. In addition, an information copy shall be submitted to the Program Officer identified in Section F.2a
+of this contract. Following verification, the contract auditor* will forward the invoice to the designated payment office for payment in the amount determined to be owing, in accordance with the applicable payment (and fee) clause(s) of this
+contract.  
+
+(c)
+ 
+Invoices requesting interim payments shall be submitted no more than once every two weeks, unless another time period is specified in the Payments clause of this contract. For
+indefinite delivery type contracts, interim payment invoices shall be submitted no more than once every two weeks for each delivery order. There shall be a lapse of no more than 30 calendar days between performance and submission of an interim
+payment invoice.  
+
+(d)
+ 
+In addition to the information identified in the Prompt Payment clause herein, each invoice shall contain the following information, as applicable:  
+
+(1)
+ 
+Contract line item number (CLIN)
+
+(2)
+ 
+Subline item number (SLIN)
+
+(3)
+ 
+Accounting Classification Reference Number (ACRN)
+
+(4)
+ 
+Payment terms
+
+(5)
+ 
+Procuring activity
+
+(6)
+ 
+Date supplies provided or services performed
+
+(7)
+ 
+Costs incurred and allowable under the contract
+
+(8)
+ 
+Vessel (e.g., ship, submarine or other craft) or system for which supply/service is provided.  
+
+(e)
+ 
+A DD Form 250, “Material Inspection and Receiving Report”,  
+
+¨
+  
+is required with each invoice submittal.
+
+x
+  
+is required only with the final Invoice.
+
+¨
+  
+is not required.
+
+(f)
+ 
+A Certificate of Performance  
+
+¨
+  
+shall be provided with each invoice submittal.
+
+x
+  
+is not required
+
+(g)
+ 
+The Contractor’s final invoice shall be identified as such, and shall list all other invoices (if any) previously tendered under this contract.  
+
+(h)
+ 
+Costs of performance shall be segregated, accumulated and invoiced to the appropriate  
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 5
+
+ACRN categories to the extent possible. When such segregation of costs by ACRN is not possible for
+invoices submitted with CLINS/SLINS with more than one ACRN, an allocation ratio shall be established in the same ratio as the obligations cited in the accounting data so that costs are allocated on a proportional basis.  
+
+2.
+ 
+Submission of Invoices Direct to Payment Office  
+
+a)
+ 
+Pursuant to DFARS 242.803(b)(I)(C), if the cognizant Government auditor has notified the contractor of its authorization to do so, the contractor may submit interim vouchers under
+this contract direct to the payment office shown in Block 12 of SF-26 instead of to the address shown in subparagraph (b) of section G. 1 above.  
+
+b)
+ 
+Such authorization does not extend to the first and final vouchers. The contractor shall continue to submit first vouchers to the cognizant auditor shown in subparagraph (b) of
+section G. 1. above. The final voucher shall be submitted to the Administrative Contracting Officer (SF-26 block 6) with a copy to the cognizant auditor.  
+
+3.
+ 
+Method of Payment   As consideration for the proper performance of the work and services required under this contract, the Contractor shall be paid as follows:  
+
+a)
+ 
+Costs, as provided for under the contract clause entitled “Allowable Cost and Payment,” not to exceed the amount set forth as “Estimated Cost” in Section B,
+subject to the contract clause entitled “Limitation of Cost” or “Limitation of Funds” whichever is applicable.  
+
+4.
+ 
+Procuring Office Representatives  
+
+a)
+ 
+In order to expedite administration of this contract, the Administrative Contracting Officer should direct inquiries to the appropriate office listed below Please do not direct
+routine inquiries to the person listed in Item 20A on Standard Form 26.  
+
+Contract Negotiator -
+  
+Bona Tilahun, ONR 251, (703) 696-2591, DSN 426-2591, E-Mail Address: tilahub@onr.navy.mil
+
+Inspection and Acceptance  -
+  
+Dr. Harry Dietrich, ONR 312, (703) 696-0240, DSN 426-0240, E-Mail Address: dietrih@onr.navy.mil
+
+Security Matters - Ms. Jennifer Ramsey, ONR 43, (703) 696-4618, DSN 426-4618
+
+Patent Matters - Mr. Tom McDonnell, ONR 00CC, (703) 696-4000, DSN 426-4000.
+
+b)
+ 
+The Administrative Contracting Officer will forward invention disclosures and reports directly to Corporate Counsel (Code 00CC), Office of Naval Research, Department of the Navy,
+Arlington, Virginia 222 17-5660. The Corporate Counsel will return the reports along with a recommendation to the Administrative Contracting Officer. The Corporate Counsel will represent the Contracting Officer with regard to invention reporting
+matters arising  
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 6
+
+under
+ 
+this contract.  
+
+5.
+ 
+Allotment of Funds   It is hereby understood and agreed that the Government’s share of this contract will not exceed a total amount of [***]. The total amount presently
+available for payment and allotted to this contract is [***]. It is estimated that the amount allotted of [***] will cover the period from the effective date of the contract (See date in Block 20C of the Standard Form 26) through [***] thereafter.
+
+6.
+ 
+Consent to Subcontract and/or Hire Consultants   The services of the following subcontractors have been identified as necessary for the performance of this contract:  
+
+Identified Subcontractor
+    
+Estimated Cost Base
+ 
+Estimated Cost Option I
+
+Cree Lighting Company
+    
+[***]
+ 
+[***]
+
+SUNY - Stony Brook
+    
+[***]
+ 
+[***]
+  The preceding listing
+shall constitute the written consent of the Contracting Officer required by Paragraphs (c), (d) and (e) of the contract clause at FAR 52 244-2 entitled “Subcontracts” The Contracting Officer’s written consent to subcontract is
+required for:  
+
+(i)
+ 
+services acquired under a cost-reimbursement, time-and-materials, or labor-hour type subcontract or agreement;  
+
+(ii)
+ 
+fixed price contracts that exceed the greater of $100,000 or 5 percent of the total estimated cost of the contract;   This consent is based upon the information submitted by the prime contractor in accordance
+with FAR 52.244-2 (f) (1) (i) through (vii).  
+
+7.
+ 
+Type of Contract   This is a [***] (completion) contract.   SECTION H - SPECIAL CONTRACT REQUIREMENTS  
+
+1.
+ 
+ONR 5252.235-9714 REPORT PREPARATION (FEB 2002)   Scientific or technical reports prepared by the Contractor and deliverable under the terms of this contract will be prepared in accordance with format
+requirements contained in ANSI/NISO Z39. 18-1995 , Scientific and Technical Reports: Elements, Organization, and Design.  
+
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities and Exchange Commission. Omitted portions have been filed
+separately with the Commission.
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 7
+
+[NOTES: All NISO American National Standards are available as free, downloadable pdf(s) at
+http://www.niso.org/stanards/index.html . NISO standards can also be purchased in hardcopy form from NISO Press Fulfillment, P. O. Box 451, Annapolis Junction, MD 20701-0451 USA. Telephone U.S. and Canada: (877) 736-6476; Outside the U.S. and
+Canada: 301-362-6904; Fax: 301-206-9786.]  
+
+2.
+ 
+ONR 5252.210-9708 METRICATION REQUIREMENTS (DEC 1988)  
+
+a)
+ 
+All scientific and technical reports delivered pursuant to the terms of this contract shall identify units of measurement in accordance with the International System of Units (SI)
+commonly referred to as the “Metric System”. Conversion to U.S. customary units may also be given where additional clarity is deemed necessary. Guidance for application of the metric system is contained in the American Society of Testing
+Materials document entitled “Standard Practice for Use of the International System of Units (The Modernized Metric System)” (ASTM Designation E 30-89A)  
+
+b)
+ 
+This provision also applies to journal article preprints, reprints, commercially published books or chapters of books, theses or dissertations submitted in lieu of a scientific
+and/or technical report.  
+
+3.
+ 
+Invention Disclosure and Reports   The Contractor shall submit all invention disclosures and reports required by the Patent Rights clause of this contract to the Administrative Contracting
+Officer.  
+
+4.
+ 
+ONR 5252.242-9718 TECHNICAL DIRECTION (FEB 2002)  
+
+a)
+ 
+Performance of the work hereunder is subject to the technical direction of the Program Officer/COR designated in this contract, or duly authorized representative. For the purposes
+of this clause, technical direction includes the following:  
+
+1)
+ 
+Direction to the Contractor which shifts work emphasis between work areas or tasks, requires pursuit of certain lines of inquiry, fills in details or otherwise serves to accomplish
+the objectives described in the statement of work;  
+
+2)
+ 
+Guidelines to the Contractor which assist in the interpretation of drawings, specifications or technical portions of work description.  
+
+b)
+ 
+Technical direction must be within the general scope of work stated in the contract. Technical direction may not be used to:  
+
+1)
+ 
+Assign additional work under the contract;  
+
+2)
+ 
+Direct a change as defined in the contract clause entitled “Changes”;  
+
+3)
+ 
+Increase or decrease the estimated contract cost, the fixed fee, or the time required for contract performance; or  
+
+4)
+ 
+Change any of the terms, conditions or specifications of the contract.  
+
+c)
+ 
+The only individual authorized to in any way amend or modify any of the terms of this contract shall be the Contracting Officer. When, in the opinion of the Contract, any
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 8
+
+technical direction calls for effort outside the scope of the contract or inconsistent with this special provision, the Contractor shall notify the
+Contracting Officer in writing within ten working days after its receipt. The Contractor shall not proceed with the work affected by the technical direction until the Contractor is notified by the Contracting Officer that the technical direction is
+within the scope of the contract.  
+
+d)
+ 
+Nothing in the foregoing paragraphs may be construed to excuse the Contractor from performing that portion of the work statement which is not affected by the disputed technical
+direction.  
+
+5.
+ 
+ONR 5252.237-9705 Key Personnel (DEC 88)  
+
+a)
+ 
+The Contractor agrees to assign to the contract tasks those persons whose resumes were submitted with its proposal and who are necessary to fulfill the requirements of the contract
+as “key personnel”. No substitutions may be made except in accordance with this clause.  
+
+b)
+ 
+The Contractor understands that during the first ninety (90) days of the contract performance period, no personnel substitutions will be permitted unless these substitutions are
+unavoidable because of the incumbent’s sudden illness, death or termination of employment. In any of these events, the Contractor shall promptly notify the Contracting Officer and provide the information described in paragraph (c) below. After
+the initial ninety (90) day period the Contractor must submit to the Contracting Officer all proposed substitutions, in writing, at least 30 days in advance (60 days if security clearance must be obtained) of any proposed substitution and provide
+the information required by paragraph (c) below.  
+
+c)
+ 
+Any request for substitution must include a detailed explanation of the circumstances necessitating the proposed substitution, a resume for the proposed substitute, and any other
+information requested by the Contracting Officer. Any proposed substitute must have qualifications equal to or superior to the qualifications of the incumbent. The Contracting Officer or his/her authorized representative will evaluate such requests
+and promptly notify the Contractor in writing of his/her approval or disapproval thereof.  
+
+d)
+ 
+In the event that any of the identified key personnel cease to perform under the contract and the substitute is disapproved, the contract may be immediately terminated in accordance
+with the Termination clause of the contract.   The following are identified as key personnel:  
+
+Labor Category
+  
+Name of Key Person
+
+[***]
+  
+[***]
+
+[***]
+  
+[***]
+
+[***]
+  
+[***]
+
+[***]
+  
+[***]
+
+[***]
+  
+[***]
+
+[***]
+  
+[***]
+
+6.
+ 
+Controlled Unclassified Information  
+
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities and Exchange Commission. Omitted portions have been filed
+separately with the Commission.
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 9
+
+The parties understand that information and materials provided pursuant to or resulting from this
+contract may be export controlled, sensitive, for official use only, or otherwise protected by law, executive order or regulation. The Contractor is responsible for compliance with all applicable laws and regulations Nothing in this Contract shall
+be construed to permit any disclosure in violation of those restrictions.  
+
+7.
+ 
+[***]    
+
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities and Exchange
+Commission. Omitted portions have been filed separately with the Commission.   CONTRACT NUMBER: N00014-02-C-0306
+
+PAGE 10
+
+SECTION I - CONTRACT CLAUSES   Cost Sharing (MAY 2002) (1)   Attention: Prime Contractors. If a subaward is made to an educational institution, Prime Contractors are directed to please refer to the
+ONR Model A ward for appropriate flow-down clauses to universities. See http://www.onr.navy.nijL click Contracts & Grants Icon . Click Model Awards Link Click Section I clauses that flow-down to University subcontractors.
+
+(A)
+ 
+FAR 52.252-02 CLAUSES INCORPORATED BY REFERENCE (FEB 1998)   This contract incorporates one or more clauses by reference, with the same force and effect as if they were given in full text Upon request, the Contracting Officer will
+make their full text available Also, the full text of a clause may be accessed electronically at these addresses:   http://www.arnet.gov/far/ http://web1.deskbook.osd.mil/htmlfiles/DBY_far.asp http://web2.deskbook.osd.mil/htmlfiles/DBY_dfars.asp http //farsite.hill.af.mil/farsite_script.html   For instance, a dollar threshold may trigger the applicability of the clause or a certain condition of the research may trigger the applicability of the clause. In order
+to provide some assistance, as to when a dollar threshold triggers a clause, we have associated certain symbols with dollar thresholds. The symbols and their appropriate dollar thresholds are as follows:  
+
+*
+ 
+Applies when contract action exceeds $10,000  
+
+**
+ 
+Applies when contract action exceeds $100,000  
+
++
+ 
+Applies when contract action exceeds $500,000  
+
+++
+ 
+Applies when contract action exceeds $500,000 and subcontracting possibilities exist Small Business Exempt  
+
+x
+ 
+(DD250)  
+
+xx
+ 
+Not applicable  
+
+I.
+ 
+FEDERAL ACQUISITION REGULATION (FAR) (48 CFR CHAPTER 1) CLAUSES:  
+
+**
+  
+FAR 52 202-1
+  
+Definitions (DEC 2001)
+
+**
+  
+FAR 52 203-3
+  
+Gratuities (APR 1984)
+
+**
+  
+FAR 52 203-5
+  
+Covenant Against Contingent Fees (APR 1984)
+
+**
+  
+FAR 52.203-6
+  
+Restrictions on Subcontractor Sales to the Government (JUL 1995)
+
+**
+  
+FAR 52 203-7
+  
+Anti-Kickback Procedures (JUL 1995)
+
+**
+  
+FAR 52 20 3-8
+  
+Cancellation, Rescission, and Recovery of Funds for Illegal or
+
+**
+
+Improper Activity (JAN 1997)
+
+**
+  
+FAR 52 203-10
+  
+Price or Fee Adjustment for illegal or Improper Activity (JAN 1997)
+
+**
+  
+FAR 52 203-12
+  
+Limitation on Payments to Influence Certain Federal Transactions (JUN 1997)
+
+**
+  
+FAR 52 204-4
+  
+Printing/Copying Double-Sided on Recycled Paper (AUG 2000)
+
+FAR 52 211-15
+  
+Defense Prionty and Allocation Requirements (SEP 1990)
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 11
+
+**
+  
+FAR 52.215-2
+  
+Audit and Records - Negotiation (JUN 1999) and Alternate II (APR 1998) (Alternate II is only applicable with cost reimbursement contracts with State and local Governments,
+educational institutions, and other non-profit organizations.)
+
+FAR 52.215-8
+  
+Order of Precedence - Uniform Contract Format (OCT 1997)
+
++
+  
+FAR 52.215-10
+  
+Price Reduction for the Defective Cost or Pricing Data (OCT 1997) (The clause is applicable to subcontracts over $550,000.)
+
++
+  
+FAR 52.215-12
+  
+Subcontractor Cost or Pricing Data (OCT 1997) (Applicable to subcontracts over $550,000 only)
+
+**
+  
+FAR 52.215-14
+  
+Integrity of Unit Prices (OCT 1997) and Alternate I (OCT 1997) (Alternate I is applicable if the action is contracted under Other Than Full and Open Competition)
+
++
+  
+FAR 52.215-15
+  
+Pension Adjustments and Asset Reversions (DEC 1998)
+
++
+  
+FAR 52.215-18
+  
+Reversion or Adjustment of Plans for Postretirement Benefits (PRB) Other than Pensions (OCT 1997)
+
++
+  
+FAR 52.215-19
+  
+Notification of Ownership Changes (OCT 1997) (Applicable when Cost or Pricing Data is required)
+
+FAR 52.216-7
+  
+Allowable Cost and Payment (FEB 2002)
+
+FAR 52.216-8
+  
+Fixed Fee (MAR 1997)
+
+**
+  
+FAR 52.219-4
+  
+Notice of Price Evaluation Preference for HUBzone Small Business Concerns (JAN 1999)
+
+**
+  
+FAR 52.219-8
+  
+Utilization of Small Business Concerns (OCT 2000)
+
+++
+  
+FAR 52.219-9
+  
+Small Business Subcontracting Plan (JAN 2002)
+
+++
+  
+FAR 52.219-16
+  
+Liquidated Damages - Subcontracting Plan (JAN 1999)
+
+FAR 52.222-1
+  
+Notice to the Government of Labor Disputes (FEB 1997)
+
+**
+  
+FAR 52.222-2
+  
+Payment for Overtime Premiums (JUL 1990) (Note: The word “zero” is inserted in the blank space indicated by an asterisk)
+
+FAR 52.222-3
+  
+Convict Labor (AUG 1996) (Reserved when FAR 52.222-20 Walsh Healy Public Contracts Act is applicable)
+
+**
+  
+FAR 52.222-4
+  
+Contract Work Hours and Safety Standards Act - Overtime Compensation (SEP 2000)
+
+FAR 52.222-21
+  
+Prohibition of Segregated Facilities (FEB 1999)
+
+FAR 52.222-26
+  
+Equal Opportunity (APR 2002)
+
+*
+  
+FAR 52.222-35
+  
+Equal Opportunity for Special Disabled Veterans, Veterans of the Vietnam Era, and Other Eligible Veterans (DEC 2001 1998)
+
+*
+  
+FAR 52.222-36
+  
+Affirmative Action for Workers with Disabilities (JUN 1998)
+
+*
+  
+FAR 52.222-37
+  
+Employment Reports on Special Disabled Veterans, Veterans of the Vietnam Era, and Other Eligible Veterans (DEC 2001)
+
+**
+  
+FAR 52.223-14
+  
+Toxic Chemical Release Reporting (OCT 2000)
+
+FAR 52.225-13
+  
+Restrictions on Certain Foreign Purchases (JUL 2000)
+
+**
+  
+FAR 52.227-1
+  
+Authorization and Consent (JUL 1995) and Alternate I (APR 1984)
+
+**
+  
+FAR 52.227-2
+  
+Notice and Assistance Regarding Patent and Copyright Infringement (AUG 1996)
+
+FAR 52.228-7
+  
+Insurance Liability to Third Persons (MAR 1996) (Further to paragraph (a)(3), unless otherwise stated in this contract, types and limits of insurance required are as stated in FAR
+28.307-2)
+
+FAR 52.232-9
+  
+Limitation on Withholding of Payments (APR 1984)
+
+**
+  
+FAR 52.232-17
+  
+Interest (JUN 1996)
+
+FAR 52.232-23
+  
+Assignment of Claims (JAN 1986) and Alternate I (APR 1984)
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 12
+
+FAR 52.232-25
+  
+Prompt Payment (FEB 2002) and Alternate I (FEB 2002) (The words “the 30th day” are inserted in lieu of “the 7th day” at (a)(5)(i). [When Alternate I is
+applicable (a)(5)(i) does do not apply] [Alternate I applies when awarding a cost reimbursement contract for services]
+
+FAR 52.232-33
+  
+Payment by Electronic Funds Transfer - Central Contractor Registration (MAY 1999)
+
+FAR 52.233-1
+  
+Disputes (DEC 1998)
+
+FAR 52.233-3
+  
+Protest After Award (AUG 1996) and Alternate I (JUN 1985)
+
+FAR 52.242-1
+  
+Notice of Intent to Disallow Costs (APR 1984)
+
++
+  
+FAR 52.242-3
+  
+Penalties for Unallowable Costs (MAY 2001)
+
+FAR 52.242-4
+  
+Certification of Final Indirect Costs (JAN 1997)
+
+**
+  
+FAR 52.242-13
+  
+Bankruptcy (JUL 1995)
+
+FAR 52.242-15
+  
+Stop Work Order (AUG 1989) and Alternate I (APR 1984)
+
+FAR 52.244-2
+  
+Subcontracts (AUG 1998) and Alternate I (AUG 1998) [Insert in cost-reimbursement contracts, and letter, time-and-material, and labor-hour contracts exceeding SAP, and fixed price contracts exceeding SAP where unpriced actions are anticipated. Use Alternate I for cost-reimbursement
+contracts]
+
+**
+  
+FAR 52.244-5
+  
+Competition in Subcontracting (DEC 1996)
+
+FAR 52.244-6
+  
+Subcontracts for Commercial Items and Commercial Components (APR 2002)
+
+FAR 52.245-5
+  
+Government Property (Cost-Reimbursement, Time-and-Materials, or Labor-Hour Contracts) (JAN 1986) and ALT I (JUL 1985) (As modified by DoD Class Deviation 99-00008 dated 13 July
+1999) (ALT I is applicable if the contractor is a nonprofit organization whose primary purpose is the conduct of scientific research)
+
+**
+  
+FAR 52.247-64
+  
+Preference for Privately Owned U.S. Flag Commercial Vessels (JUN 2000)
+
+FAR 52.249-6
+  
+Termination (Cost-Reimbursement) (SEP 1996)
+
+FAR 52.249-14
+  
+Excusable Delays (APR 1984)
+
+FAR 52.251-1
+  
+Government Supply Sources (APR 1984)
+
+FAR 52.253-1
+  
+Computer Generated Forms (JAN 1991)
+
+II.
+ 
+DEPARTMENT OF DEFENSE FAR SUPPLEMENTAL (DFARS) (48 CFR CHAPTER 2) CLAUSES:  
+
+**
+  
+DFARS 252.203-7001
+  
+Prohibition On Persons Convicted of Fraud or Other Defense-Contract-Related Felonies (MAR 1999)
+
+DFARS 252.204-7003
+  
+Control of Government Work Product (APR 1992)
+
+DFARS 252.204-7004
+  
+Required Central Contractor Registration (NOV 2001)
+
+**
+  
+DFARS 252.209-7000
+  
+Acquisition from Subcontractors subject to On-Site Inspection under the Intermediate Range Nuclear Forces (INF) Treaty (NOV 1995)
+
+**
+  
+DFARS 252.209-7004
+  
+Subcontracting with Firms That Are Owned or Controlled by the Government of a Terrorist Country (MAR 1998)
+
++
+  
+DFARS 252.215-7000
+  
+Pricing Adjustments (DEC 1991)
+
+++
+  
+DFARS 252.219-7003
+  
+Small, Small Disadvantaged and Women-owned Small Business Subcontracting Plan (DoD Contracts) (APR 1996)
+
+**
+  
+DFARS 252.225-7012
+  
+Preference for Certain Domestic Commodities (APRIL 2002)
+
+DFARS 252.225-7031
+  
+Secondary Arab Boycott of Israel (JUN 1992)
+
+DFARS 252.227-7013
+  
+Rights in Technical Data – Noncommercial Items (NOV 1995), and Alternate I (JUN 1995)
+
+DFARS 252.227-7014
+  
+Rights In Noncommercial Computer Software and Noncommercial Computer Software Documentation (JUN 1995)
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 13
+
+DFARS 252.227-7016
+  
+Rights in Bid or Proposal Information (JUN 1995)
+
+DFARS 252.227-7019
+  
+Validation of Asserted Restrictions – Computer Software (JUN 1995)
+
+DFARS 252.227-7025
+  
+Limitations on the Use or Disclosure of Government-Furnished Information Marked with Restrictive Legends (JUN 1995)
+
+DFARS 252.227-7028
+  
+Technical Data or Computer Software Previously Delivered to the Government (JUN 1995)
+
+DFARS 252.227-7030
+  
+Technical Data – Withholding of Payment (MAR 2000)
+
+DFARS 252.227-7036
+  
+Declaration of Technical Data Conformity (JAN 1997)
+
+DFARS 252.227-7037
+  
+Validation of Restrictive Markings on Technical Data (SEP 1999)
+
+DFARS 252.231-7000
+  
+Supplemental Cost Principles (DEC 1991)
+
+DFARS 252.242-7000
+  
+Post-Award Conference (DEC 1991)
+
+**
+  
+DFARS 252.243-7002
+  
+Requests for Equitable Adjustment (MAR 1998)
+
+DFARS 252.245-7001
+  
+Reports of Government Property (MAY 1994)
+
+X
+  
+DFARS 252.246-7000
+  
+Material Inspection and Receiving Report (DEC 1991)
+
+DFARS 252.251-7000
+  
+Ordering from Government Supply Sources (MAY 1995)
+
+**
+  
+DFARS 252.247-7023
+  
+Transportation of Supplies by Sea (MAR 2000)
+
+**
+  
+DFARS 252.247-7024
+  
+Notification Of Transportation Of Supplies By Sea (MAR 2000) (Applicable when the Contractor has made a negative response to the inquiry in the representation at DFARS
+252.247-7022.)
+
+DFARS 252.251-7000
+  
+Ordering from Government Supply Sources (MAY 1995)
+
+(B)
+ 
+ADDITIONAL FAR AND DFARS CLAUSES   This contract incorporates one or more clauses by reference as indicated by the mark of (X), with the same force and effect as if they were given in full
+text. Upon request, the Contracting Officer will make their full text available. Also, the full text of a clause may be accessed electronically at this address: http://www.arnet.gov/far/  
+
+FAR 52.204-2
+  
+Security Requirements (AUG 1996) (Applicable if contract will generate or require access to classified information and DD Form 254, Contract Security Classification Specification,
+is issued to the contractor)
+
+X
+  
+FAR 52.209-6
+  
+Protecting the Government’s Interest when Subcontracting with Contractors Debarred, Suspended, or Proposed for Debarment (JUL 1995) (Applicable to contracts exceeding $25,000
+in value.)
+
+FAR 52.215-17
+  
+Waiver of Facilities Capital Cost of Money (OCT 1997) (Applicable if the Contractor did not propose facilities capital cost of money in the offer)
+
+X
+  
+FAR 52.215-20
+  
+Requirements for Cost or Pricing Data or Information Other Than Cost or Pricing Data (OCT 1997) (Applicable if cost or pricing data or information other than cost or pricing data
+are required)
+
+X
+  
+FAR 52.215-21
+  
+Requirements for Cost or Pricing Data or Information Other Than Cost or Pricing Data - Modifications (OCT 1997) (Applicable if cost or pricing data or information other than cost
+or pricing data will be required for modifications)
+
+X
+  
+FAR 52.217-9
+  
+Option to Extend the Term of the Contract (MAR 2000) (In paragraph (a), insert “the period of performance”, and in paragraph (c), insert “24 months”)
+(Applicable if contract contains line item(s) for option(s)) (Complete the spaces in parentheses)
+
+FAR 52.219-3
+  
+Notice of Total HUBZone Set-Aside (JAN 1999)
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 14
+
+FAR 52.219-5
+  
+Very Small Business Set-Aside (MAR 1999) (For actions between $2,500 and $50,000)
+
+FAR 52.219-6
+  
+Notice of Total Small Business Set-Aside (JUL 1996), and Alternate I (OCT 1995) (Applicable to total small business set-asides, including SBIR)
+
+FAR 52.219-7
+  
+Notice of Partial Small Business Set-Aside (JUL 1996) and Alternate I (OCT 1995)
+
+FAR 52.219-10
+  
+Incentive Subcontracting Program (OCT 2001) (Applicable at the PCO’s discretion to contract actions exceeding $500,000 and when subcontracting possibilities exist. The clause
+is small business exempt) (In paragraph (b), insert the appropriate number between 0 and 10 – “XX”) (Complete the space in the parentheses)
+
+FAR 52.219-25
+  
+Small Disadvantaged Business Participation Program - Disadvantaged Status and Reporting (OCT 1999) (Applicable if contract includes FAR 52.219-24)
+
+FAR 52.219-26
+  
+Small Disadvantaged Business Participation Program - Incentive Subcontracting Program (OCT 2000) (Applicable at the PCO’s discretion to contract actions exceeding $500,000
+and when subcontracting possibilities exist. The clause is small business exempt) (In paragraph (b), insert the appropriate number between 0 and 10 – “XX”) (Complete the space in the parentheses)
+
+X
+  
+FAR 52.222-20
+  
+Walsh Healy Public Contracts Act (DEC 1996) (Applicable if the contract includes deliverable materials, supplies, articles or equipment in an amount that exceeds or may exceed
+$10,000)
+
+FAR 52.223-5
+  
+Pollution Prevention and Right-to-Know Information (APR 1998) (Applicable if contract provides for performance, in whole or in part, on a Federal facility)
+
+X
+  
+FAR 52.223-6
+  
+Drug-Free Workplace (MAY 2001) (Applies when contract action exceeds $100,000 or at any value when the contract is awarded to an individual)
+
+FAR 52.230-2
+  
+Cost Accounting Standards (APR 1998) (Applicable when contract amount is over $500,000, if contractor is subject to full CAS coverage, as set forth in 48 CFR Chapter 99, Subpart
+9903.201-2(a) (FAR Appendix B)
+
+X
+  
+FAR 52.230-3
+  
+Disclosure and Consistency of Cost Accounting Practices (APR 1998) (Applicable when contract amount is over $500,000 but less than $25 million, and the offeror certifies it is
+eligible for and elects to use modified CAS coverage as set forth in 48 CFR Chapter 99, Subpart 9903.201-2 (FAR Appendix B)
+
+X
+  
+FAR 52.230-6
+  
+Administration of Cost Accounting Standards (NOV 1999) (Applicable if contract is subject to either clause at FAR 52.230-2, FAR 52.230-3 or FAR 52.230-5)
+
+X
+  
+FAR 52.232-20
+  
+Limitation of Cost (APR 1984) (Applicable only when contract action is fully funded)
+
+X
+  
+FAR 52.232-22
+  
+Limitation of Funds (APR 1984) (Applicable only when contract action is incrementally funded)
+
+FAR 52.239-1
+  
+Privacy or Security Safeguards (AUG 1996) (Applicable to contracts for information technology which require security of information technology, and/or are for the design,
+development, or operation of a system of records using commercial information technology services or support services.)
+
+FAR 52.245-18
+  
+Special Test Equipment (FEB 1993) Applicable when it is anticipated that the contractor will acquire or fabricate special test equipment but the exact identification of the
+equipment is not known)
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 15
+
+X
+  
+DFARS 252.203-7002
+  
+Display of DoD Hotline Poster (DEC 1991) (Applicable only when contract action exceeds $5 million or when any modification increases contract amount to more than $5
+million)
+
+X
+  
+DFARS 252.204-7000
+  
+Disclosure of Information (DEC 1991) (Applies when Contractor will have access to or generate unclassified information that may be sensitive and inappropriate for release to the
+public)
+
+DFARS 252.204-7005
+  
+Oral Attestation of Security Responsibilities (NOV 2001) (Applicable if FAR 52.204-2, Security Requirements Applies)
+
+X
+  
+DFARS 252.205-7000
+  
+Provision of Information to Cooperative Agreement Holders (DEC 1991) (Applicable only when contract action exceeds $500,000 or when any modification increases total contract
+amount to more than $500,000)
+
+X
+  
+DFARS 252.215-7002
+  
+Cost Estimating System requirements (Oct 1998) (Applicable only to contract actions awarded on the basis of certified cost or pricing data)
+
+DFARS 252.223-7004
+  
+Drug-Free Work Force (SEP 1988) (Applicable (a) if contract involves access to classified information: or (b) when the Contracting Officer determines that the clause is necessary
+for reasons of national security or for the purpose of protecting the health or safety of performance of the contract.
+
+DFARS 252.223-7006
+  
+Prohibition on Storage and Disposal of Toxic and Hazardous Materials (APR 1993) (Applicable if work requires, may require, or permits contractor performance on a DoD
+installation)
+
+DFARS 252.225-7001
+  
+Buy American Act and Balance of Payments Program (MAR 1998) (Applicable if the contract includes deliverable supplies) (This clause does not apply if an exception to the Buy
+American Act or Balance of Payments Program is known or if using the clause at 252.225-7007, 252.225-7021, or 252.225-7036.)
+
+DFARS 252.225-7002
+  
+Qualifying Country Sources as Subcontractors (DEC 1991) (Applicable when clause at DFARS 252.225-7001, 252.227-7007, 252.227-7021, or 252.227-7036 applies)
+
+DFARS 252.225-7007
+  
+Buy American Act – Trade Agreements – Balance of Payments Program (SEP 2001) (Use instead of FAR 52.225-5, Trade Agreements (Include in contracts valued at $186,000 or
+more, if the Trade Agreements Act applies (see 25.401 and 25.403) and the agency has determined that the restrictions of the Buy American Act or Balance of Payments Program are not applicable to U.S.– made end products, unless the acquisition
+is to be awarded and performed outside the United States in support of a contingency operation or a humanitarian or peacekeeping operation and does not exceed the increase simplified acquisition threshold of $200,000.) The clause need not be used
+where purchase from foreign sources is restricted (see 225.401 (b)(ii)). The clause may be used where the contracting officer anticipates a waiver of the restriction.)
+
+DFARS 252.225-7008
+  
+Supplies to be Accorded Duty-Free Entry (MAR 1998) (Applicable when the contract provides for duty-free entry and includes FAR 52.225-8 – Duty-Free Entry)
+
+DFARS 252.225-7009
+  
+Duty-Free Entry – Qualifying Country Supplies (End Products and Components) (AUG 2000) (Applicable if contract includes deliverable supplies)
+
+DFARS 252.225-7010
+  
+Duty-Free Entry – Additional Provisions (AUG 2000) (Applicable when FAR 52.225-8 – Duty-Free Entry is included in the contract.)
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 16
+
+DFARS 252.225-7016
+  
+Restriction On Acquisition Of Ball And Roller Bearings (DEC 2000) (Applicable if contract includes deliverable supplies, unless Contracting Officer knows that items being acquired
+do not contain ball or roller bearings)
+
+X
+  
+DFARS 252.225-7026
+  
+Reporting of Contract Performance Outside the United States (JUN 2000) (Applicable only when contract value exceeds $500,000 or when any modification increases contract value to
+more than $500,000)
+
+DFARS 252.226-7001
+  
+Utilization of Indian Organizations and Indian-Owned Economic Enterprises (SEP 2001) [(Applicable if FAR Part 12 not used, and for supplies and services expected to exceed SAP
+thresholds) (This Interim Rule replaces FAR 52.226-1 (JUN 2000) via DFARS Chg Ntc 200110911]
+
+DFARS 252.227-7018
+  
+Rights in Noncommercial Technical Data and Computer Software – Small Business Innovation Research (SBIR) Program (JUN 1995) (Applicable when technical data or computer
+software will be generated during performance of contracts under the SBIR Program)
+
+X
+  
+DFARS 252.242-7004
+  
+Material Management and Accounting System (DEC 2000) (Applicable to contract actions exceeding $100,000) (Not applicable to contracts set aside for exclusive participation by
+small business and small disadvantaged business concerns)
+
+C.
+ 
+COST SHARING – NO FEE RESEARCH AND DEVELOPMENT CLAUSES   The following FAR and DFARS clauses apply to Cost Sharing – No Fee Research and Development Contracts and are either required by regulation or are required when the
+circumstances of the contract warrant that they apply. The FAR and DFARS clauses for Cost-Sharing Research and Development Contracts only apply when specifically marked with an (X).:  
+
+FAR 52.216-11
+  
+Cost Contract - No Fee (APR 1984) and Alternate I (APR 1984) Replace 52.216-8) [This clause may be modified by substituting “$10,000” in lieu of “$100,000” as
+the maximum reserve in paragraph (b) if the Contractor is a nonprofit organization.]
+
+X
+  
+FAR 52.216-12
+  
+Cost Sharing Contract - No Fee (APR 1984)
+
+FAR 52.227-10
+  
+Filing of Patent Applications –Classified Subject Matter (APR 1984) (Applicable if contract is subject to FAR clause 52.204-02 and either 52.227-11 or
+52.227-12)
+
+FAR 52.227-11
+  
+Patent Rights – Retention by the Contractor (Short Form) (JUN 1997) (Applicable if contractor is a small business or non profit organization)
+
+OR
+
+X
+  
+FAR 52.227-12
+  
+Patent Rights – Retention by the Contractor (Long Form) (JAN 1997) (Applicable if contractor is a large business)
+
+X
+  
+FAR 52.246-9
+  
+Inspection of Research and Development (Short Form) (Apr 1984)
+
+FAR 52.247-63
+  
+Preference for U.S.-Flag Air Carriers (JAN 1997.
+
+DFARS 252.227-7034
+  
+Patents – Subcontracts (APR 1984) (Applicable when FAR 52.227-11 applies)
+
+DFARS 252.227-7039
+  
+Patents – Reporting of Subject Inventions (APR 1990) (Applicable when FAR 52.227-11 applies)
+
+X
+  
+DFARS 252.235-7011
+  
+Final Scientific Or Technical Report (Sep 1999)
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 17
+
+SECTION J - LIST OF ATTACHMENTS  
+
+1)
+ 
+Attachment Number 1 entitled, “Statement of Work,” 8 pages.  
+
+2)
+ 
+Attachment Number 2 entitled, “Deliverables,” 1 page.  
+
+3)
+ 
+EXHIBIT A entitled, “Contract Data Requirements List,” (DD Form 1423), 1 page.  
+
+4)
+ 
+Enclosure Number I entitled, “Contract Data Requirements List - Instructions for Distribution,” 3 pages.  
+
+5)
+ 
+Attachment Number 3 entitled, “Master Small Business Subcontracting Plan,” and “Contract Specific Subcontracting Plan” 14 pages.  
+
+6)
+ 
+Attachment Number 4 entitled, “Financial Accounting Data Sheet,” 1 page.  
+
+SECTION
+ 
+K - REPRESENTATIONS, CERTIFICATIONS AND. OTHER STATEMENTS OF OFFEROR  
+
+1)
+ 
+The Contractor’s Representations and Certifications, dated 03 April 2002, are hereby incorporated into this contract by reference.  
+
+CONTRACT NUMBER N00014-02-C-0306
+  
+PAGE 18
+
+Attachment Number 1: Statement of Work   Base
+Period   Task Area: [***]   Task 1 Develop high quality [***] for [***]   Cree will develop [***] to support the [***] of task 3 and of Cree’s DARPA Power
+program (01-35-5 1). This will be accomplished by the following subtasks:   Task 1.1 [***]. Task 1.2 [***]. Task 1.3 [***]. Task 1.4 [***].   Task 2: Develop high quality [***] for [***]   Cree will develop [***] to support the [***] of task 3 and of Cree’s DARPA Power program (01-35-51). This will be accomplished by the
+following subtasks to:   Task 2.1 [***]. Task 2.2 [***].   Task 3: Develop low-defect [***]   The
+development of [***] will be accomplished as follows:   Task 3.1
+[***]. Task 3.2 [***]. Task 3.3 [***].
+  Task 4: Reduce [***] in [***] by [***] to enhance [***].
+  To achieve highly uniform reproducible [***] behavior in [***], Cree will
+work to attain a [***] in background [***] in [***]. This task will be comprised of the following subtasks:   Task 4.1 [***]. Task 4.2 [***]. Task 4.3 [***].  
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities
+and Exchange Commission. Omitted portions have been filed separately with the Commission.  
+
+ATTACHMENT NUMBER 1 CONTRACT
+NUMBER N00014-02-C-0306
+  
+PAGE 1
+
+Task 5: Enhance the concentration of [***] by active control of [***].   Cree will develop a [***] process comprising manipulation of the concentration of [***] to
+achieve highly controlled [***]. This task will rely on the following subtasks:   Task 5 1 [***]. Task 5.2 [***].   Task Area: [***] Development   Task 6: Develop [***] capability   Task 6.1 Convert [***] from a [***] to [***] configuration and develop the latter [***] capability with [***] uniformity.   Task 6.2 Develop process for [***] capability with [***] uniformity.   Task Area: [***]   Task 7: Provide [***] studies by fabricating and characterizing [***]
+  Task 7.1 Fabricate [***] containing a dense array of [***] and
+[***] to support the [***] and [***] development tasks.   Task 7.2
+Characterize all [***] with [***] load-pull testing.   Table
+1: Task Goals for [***] Effort  
+
+Task(s) lGo al
+ 
+[***] months
+
+3-5
+ 
+[***]
+
+6
+ 
+[***]
+  Task 8: Growth Optimization of
+[***]   Growth conditions will be optimized in the novel
+[***] with special attention to the [***], namely the [***] will be investigated in the [***]. A [***] configuration will be analyzed towards the end of the program. Throughout all of the optimization of materials properties for device performance,
+extensive use of DOE (design of experiments) methodology will be used. At the end of [***], the [***] will be evaluated for hardware modification based on the results to date.  
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities
+and Exchange Commission. Omitted portions have been filed separately with the Commission.  
+
+ATTACHMENT NUMBER 1 CONTRACT NUMBER
+N00014-02-C-0306
+  
+PAGE 2
+
+The [***] goals are: - [***] with better than [***] uniformity in [***] . - [***] with [***].   Task 9. [***] interaction with [***]   [***] properties can influence the quality of [***]. For the most direct
+comparisons, [***] will be grown upon in the same [***]. These [***] will then be processed in the same [***]. These [***] will minimize the relative influence of the [***] and process so that the effects of different [***] can be discerned. [***]
+maps of [***] will be correlated with maps of [***].   The [***] goals are:
+- [***]   Task 10. [***]   This task will concentrate on the optimization of the growth parameters of the thin [***] and the [***] above it. Growth optimization of the [***]
+structure will be addressed by investigating the effects of [***] and related [***] and the effect of [***] and [***] in the [***]. The goal of this task is [***] to demonstrate [***] without sacrificing [***], resulting in [***].   The [***] goals are: - [***]. - [***].
+  In addition to the [***] structure, the [***] layer also
+enables the growth of [***] structures. These structures potentially will combine the advantages of the [***] approach with the growth of [***] offering improved [***] characteristics and [***] performance. For the [***] growth, effect of variation
+of [***] and the [***] on the above [***] structures will be investigated. [***] targets for [***] resistance are better than [***] on a [***] in [***]. [***] with a [***] charge of [***] will be targeted.   Task 11. Reduced [***]   [***] has high [***] when grown on highly [***]. The goal of this task is to reduce [***].   The goal of this task is to make [***] of sufficient quality to determine whether
+improvements are evident in the characteristics of simple devices.  
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities
+and Exchange Commission. Omitted portions have been filed separately with the Commission.  
+
+ATTACHMENT NUMBER 1 CONTRACT
+NUMBER N00014-02-C-0306
+  
+PAGE 3
+
+The [***] goals are: [***].   Task 12. Device fabrication for material-device correlation in support of tasks 8-11   Device fabrication for performing matenal-device correlation shall be done
+for each of the [***] tasks. Approximately [***] lots will be fabricated each month. In addition, approximately [***]/month shall also be fabricated using [***] for [***] definition to aid in the material-device correlation for [***] targeting [***]
+devices.   Measurements for detailed
+material-device correlation will be done  
+
+Task
+  
+Activity
+  
+Milestones 12 Months
+
+8
+  
+[***]: [***]
+  
+• [***] •
+[***]
+
+9
+  
+[***]
+  
+• [***]
+
+10
+  
+[***]
+  
+• [***]
+
+11
+  
+[***]
+  
+• [***]
+  Table 2. Summary of
+Tasks & associated milestones for [***]  
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities
+and Exchange Commission. Omitted portions have been filed separately with the Commission.  
+
+ATTACHMENT NUMBER 1 CONTRACT
+NUMBER N00014-02-C-0306
+  
+PAGE 4
+
+Option Period   The optional tasks stated below represent a continuation of the base program required to meet the specified goals of the option period As such, the task descriptions
+are broadly stated similar to the base program However, the established goals under the option period are higher than the goals of the base period because the contractor is anticipated to enhance the accomplishments of the base program to obtain the
+desired increases in [***] technologies The optional tasks will also complete the work required to address the [***] goals of the program.   Task Area: [***]   Task 1 Develop high quality [***] for [***]   Cree will develop [***] to support the [***] of task 3 and of Cree’s DARPA Power program (01-35-51). This will be accomplished by the following subtasks:
+  Task 1.1 [***]. Task 1.2 [***]. Task 1.3 [***]. Task 1.4 [***].   Task 2: Develop high
+quality [***] for [***]   Cree will develop [***] to support the [***] of
+task 3 and of Cree’s DARPA Power program (01-35-51). This will be accomplished by the following subtasks to:   Task 2.1 [***]. Task 2.2 [***].   Task 3: Develop low-defect [***]   The development of [***] will be accomplished as follows:   Task 3.1 [***]. Task 3.2 [***]. Task 3.3 [***].   Task 4: Reduce [***].   To achieve highly uniform reproducible [***] behavior [***], Cree will work to attain a [***] in background [***] in [***]. This task will be comprised of the following
+subtasks:   Task 4.1 [***].  
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities
+and Exchange Commission. Omitted portions have been filed separately with the Commission.  
+
+ATTACHMENT NUMBER 1 CONTRACT
+NUMBER N00014-02-C-0306
+  
+PAGE 5
+
+Task 4.2 [***]. Task 4.3 [***].   Task 5 Enhance the concentration of
+[***] by active control of [***].   Cree will develop a [***]
+process comprising manipulation of the concentration of [***] to achieve highly controlled [***]. This task will rely on the following subtasks:   Task 5.1 [***]. Task 5 2 [***].   Task Area: [***]   Task 6: Develop [***]   Task 6.1 Convert [***] from a [***] to [***] configuration and develop the latter [***] growth capability with [***]. Task 6.2 Develop process for [***] capability with [***].   Task Area: [***]   Task 7: Provide [***] studies by fabricating and characterizing [***]   Task 7.1 Fabricate [***] containing a dense array of [***] and [***] to support the [***] and [***] tasks. Task 7.2 Characterize [***] with [***].   Table 1 (option period): Task Goals for [***] Effort  
+
+Task(s) Goal
+  
+[***]Option
+
+3-5
+  
+[***] [***]
+
+6
+  
+[***]
+  Task 8. Growth Optimization of
+[***]   Growth conditions will be optimized in the novel [***] with
+special attention to the [***], namely the [***]  
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities
+and Exchange Commission. Omitted portions have been filed separately with the Commission.  
+
+ATTACHMENT NUMBER 1 CONTRACT
+NUMBER N00014-02-C-0306
+  
+PAGE 6
+
+will be investigated in the [***]. A [***] configuration will be analyzed towards the end of the program Throughout all
+of the optimization of materials properties for device performance, extensive use of DOE (design of experiments) methodology will be used. At the end of [***], the [***] will be evaluated for hardware modification based on the results to date.
+  The [***] goals are:   - [***] with better than [***] uniformity in [***] over a [***] usable
+area - [***] with [***]   Task 9. [***] interaction with [***]   [***] properties can influence the quality of [***]. For the most direct comparisons, [***] will be grown upon in the same [***]. These [***] will then be
+processed in the same [***] run. This will minimize the relative influence of the [***] and process so that the effects of different [***] can be discerned. [***] maps of [***] will be correlated with maps of [***].   Task 10. [***]   This task will concentrate on the optimization of the growth parameters of the thin [***] and the [***] above it. Growth
+optimization of the [***] structure will be addressed by investigating the effects of [***] and related [***] and the effect of [***] and [***] in the [***]. The goal of this task is to demonstrate [***] without sacrificing [***], resulting in
+[***].   In addition to [***] structure, the [***] layer also
+enables the growth of [***] structures. These structures potentially will combine the advantages of the [***] approach with the growth of [***] offering improved [***] characteristics and [***] performance. For the [***] growth, effect of variation
+of [***] and the [***] on the above [***] structures will be investigated. [***] targets for [***] are better than [***] on a [***] in [***] with a [***] will be targeted.   Task 11. Reduced [***]   [***] has high [***] when grown on highly [***]. The goal of this task is to reduce the [***].   The goal of this task is to make [***] of sufficient quality to determine
+whether improvements are evident in the characteristics of simple devices.   Task 12. Device fabrication for material-device correlation in support of tasks 8-11   Device fabrication for performing material-device correlation shall be done for each of the [***] tasks.  
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities
+and Exchange Commission. Omitted portions have been filed separately with the Commission.  
+
+ATTACHMENT NUMBER 1 CONTRACT
+NUMBER N00014-02-C-0306
+  
+PAGE 7
+
+Approximately [***] lots will be fabricated each month. In addition, approximately [***]/month shall also be fabricated
+using [***] for [***] definition to aid in the material-device correlation for [***] targeting [***] devices.   Measurements for detailed material-device correlation will be done   The milestones targeted for the various tasks at 24 months are described in Table 2.  
+
+Task
+  
+Activity
+  
+Milestones [***] Months
+
+8
+  
+[***]
+  
+• [***] •
+[***]
+
+9
+  
+[***]
+  
+• [***]
+
+10
+  
+[***]
+  
+• [***]
+
+11
+  
+[***]
+  
+• [***]
+  Table 2. Summary of
+Tasks & associated milestones for [***]  
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities
+and Exchange Commission. Omitted portions have been filed separately with the Commission.  
+
+ATTACHMENT NUMBER 1 CONTRACT
+NUMBER N00014-02-C-0306
+  
+PAGE 8
+
+Attachment Number 2: Deliverables  
+
+Base Period
+  
+Option
+  
+Comment
+
+Type of Deliverable
+
+Q1
+  
+Q2
+  
+Q3
+  
+Q4
+  
+Q5
+  
+Q6
+  
+Q7
+  
+Q8
+
+1
+  
+[***]
+
+6
+  
+6
+  
+6
+  
+4
+  
+4
+  
+2
+  
+2
+  
+2
+  
+1,4
+
+2
+  
+[***]
+
+2
+  
+2
+  
+4
+  
+4
+  
+4
+  
+1,4
+
+3
+  
+[***]
+
+4
+
+4
+  
+[***]
+
+4
+  
+4
+  
+6
+  
+6
+  
+6
+  
+6
+
+5
+  
+[***]
+
+2
+  
+1
+
+6
+  
+[***]
+
+5
+  
+5
+  
+4
+  
+2
+  
+4
+  
+2
+
+1,4
+
+7
+  
+[***]
+
+1
+  
+1
+  
+2
+  
+5
+  
+4
+  
+1,4
+
+8
+  
+[***]
+
+3
+  
+3
+  
+3
+  
+3
+
+3
+
+3
+
+9
+  
+[***]
+
+3
+
+3
+
+10
+  
+[***]
+
+1
+
+1,4
+
+11
+  
+[***]
+
+2
+  
+1
+  
+2
+  
+1
+  
+2
+  
+1,4
+
+12
+  
+[***]
+
+3
+  
+6
+
+6
+  
+6
+
+13
+  
+[***]
+
+4
+
+5
+
+14
+  
+[***]
+
+2
+  
+5
+
+15
+  
+[***]
+
+X
+  
+X
+  
+X
+  
+X
+  
+X
+  
+X
+  
+X
+  
+X
+  
+2
+
+16
+  
+[***]
+
+3
+  The numbers under the column for each
+quarter represent the number of units to be delivered each quarter.   COMMENTS  
+
+1.
+ 
+Deliverables must demonstrate that the contract goals and/or milestones have been met.
+
+2.
+ 
+The contractor shall deliver data summaries for all tests run on the deliverables and/or representative companion [***] and devices that were tested.
+
+3.
+ 
+Mask set designs, excluding proprietary mask levels, shall be submitted to the government for review no later than one month after the effective date of the contract.
+
+4.
+ 
+Attempt should be made to have [***] representative of those used for the processed [***].
+
+5.
+ 
+Attempt should be made to have [***] representative of those used for the processed [***].  
+
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities and Exchange Commission. Omitted portions have been filed
+separately with the Commission.
+
+CONTRACT NUMBER N00014-02-C-0306
+
+CONTRACT DATA REQUIREMENTS LIST
+ 
+Form Approved                 OMB No. 0704-0188                
+Public reporting burden for this collection of information is
+estimated to average 440 hours per response, including the time for reviewing instructions, searching existing data sources, gathering and maintaining the data needed, and completing and reviewing the collection of information. Send comments
+regarding this burden estimate or any other aspect of this collection or information, including suggestions for reducing this burden, to Washington Headquarters Services Directorate for information Operations and Reports, 1215 Jefferson Davis
+Highway, Suite 1204, Arlington, VA 22202-4302, and to the Office of Management and Budget Paperwork Reduction Project (0704-0188), Washington, DC 20503
+
+A. CONTRACT LINE ITEM NO.   0003 (and Option CLIN 0006 if exercised)
+ 
+B. EXHIBIT   A
+
+C. CATEGORY        TOP       ¨     
+ 
+TM       ¨     
+
+OTHER       x     
+
+D. SYSTEM/ITEM   [***]
+ 
+E. CONTRACT/PR NO.           N00014-02-C-0250
+ 
+F. CONTRACTOR   CREE, INC.
+
+1. DATA ITEM NO.   A001
+ 
+2. TITLE OF DATA ITEM   Monthly Status Reports*
+
+            3. SUBTITLE  
+
+4. AUTHORITY (Data Acquisition Document No.)  
+ 
+5. CONTRACT REFERENCE   Section H.1 of the Schedule
+
+            6. REQUIRING OFFICE               See Section
+F.4
+
+7. DD 250 REQ
+  
+9. DIST STATEMENT REQUIRED
+  
+10. FREQUENCY
+  
+12. DATE OF FIRST SUBMISSION
+ 
+14. DISTRIBUTION
+
+LT*
+
+Monthly
+  
+30 days after the effective date of the Contract
+ 
+            ADDRESSEE
+ 
+b. COPIES
+
+8. APP CODE
+
+11. AS OF DATE See Blk 12.
+  
+13. DATE OF SUBSEQUENT SUBMISSION Every 30 days thereafter
+
+    Draft
+ 
+            Final            
+
+REQ            REPRO
+
+16. REMARKS   *These monthly reports shall contain the following: major accomplishments, issues, problems, monthly dollar expenditures on a comprehensive/cumulative basis as well as a
+comparison of projected versus actual expenditures, and plans for the next 3 months. These reports may be submitted electronically, may be approximately two pages in length, and can be in contractor format.
+ 
+See Enclosure Number 1
+
+15. TOTAL
+
+1. DATA ITEM NO.   A002
+ 
+2. TITLE OF DATA ITEM   Presentation Materials
+
+            3. SUBTITLE  
+
+4. AUTHORITY (Data Acquisition Document No.)  
+ 
+5. CONTRACT REFERENCE   Section H.1 of the Schedule
+
+            6. REQUIRING OFFICE               See Section
+F.4
+
+7. DD 250 REQ
+  
+9. DIST STATEMENT REQUIRED
+  
+10. FREQUENCY
+  
+12. DATE OF FIRST SUBMISSION
+ 
+14. DISTRIBUTION
+
+LT*
+
+As Required
+  
+*
+ 
+            ADDRESSEE
+ 
+b. COPIES
+
+8. APP CODE
+
+11. AS OF DATE
+  
+13. DATE OF SUBSEQUENT SUBMISSION
+
+    Draft
+ 
+            Final            
+
+*
+  
+*
+
+REQ            REPRO
+
+16. REMARKS   * These presentations materials will be on as-requested basis in a format to be requested by the Program Officer.
+ 
+See Enclosure Number 1
+
+15. TOTAL
+
+1. DATA ITEM NO.   A003
+ 
+2. TITLE OF DATA ITEM   Final Report*
+
+            3. SUBTITLE  
+
+4. AUTHORITY (Data Acquisition Document No.)  
+ 
+5. CONTRACT REFERENCE   Section H.1 of the Schedule
+
+            6. REQUIRING OFFICE               See Section
+F.4
+
+7. DD 250 REQ
+  
+9. DIST STATEMENT REQUIRED
+  
+10. FREQUENCY
+  
+12. DATE OF FIRST SUBMISSION
+ 
+14. DISTRIBUTION
+
+DD*
+
+ONE/R
+  
+See Section F
+ 
+            ADDRESSEE
+ 
+b. COPIES
+
+8. APP CODE
+
+11. AS OF DATE
+  
+13. DATE OF SUBSEQUENT SUBMISSION
+
+    Draft
+ 
+            Final            
+
+REQ            REPRO
+
+16. REMARKS   * DD 250 required only for acceptance by the Program Officer designated in Section F.2. Information copies of this report shall be distributed in accordance with
+Enclosure Number 1.
+ 
+See Enclosure Number 1
+
+15. TOTAL
+
+1. DATA ITEM NO. A004
+ 
+2. TITLE OF DATA ITEM Semi-Annual Progress
+Report*
+
+            3. SUBTITLE  
+
+4. AUTHORITY (Data Acquisition Document No.)  
+ 
+5. CONTRACT REFERENCE Section H.1 of the
+Schedule
+
+            6. REQUIRING OFFICE               See Section
+F.4
+
+7. DD 250 REQ
+  
+9. DIST STATEMENT REQUIRED
+  
+10. FREQUENCY
+  
+12. DATE OF FIRST SUBMISSION
+ 
+14. DISTRIBUTION
+
+Semi-Annual
+  
+             6 Months after date contract effective date
+ 
+            ADDRESSEE
+ 
+b. COPIES
+
+8. APP CODE
+
+11. AS OF DATE
+  
+13. DATE OF SUBSEQUENT SUBMISSION
+
+    Draft
+ 
+            Final            
+
+Every 6 months thereafter
+
+REQ            REPRO
+
+16. REMARKS   * These semi-annual (i.e., every 7 months) reports shall contain a comprehensive/cumulative description of the major accomplishments to date. The reports can be in
+contractor format.
+
+15. TOTAL
+
+G. PREPARED BY   Bona Tilhun, ONR 251
+  
+H. DATE   26-Jun-02
+    
+L. APPROVED BY   ONR 251
+  
+J. DATE   26-Jun-02
+
+DD Form 1423-2, JUN 90 NAVOCNR OVERPRINT
+(1-91)
+  
+Previous editions are obsolete
+  
+Page 2 of 2
+
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities
+and Exchange Commission. Omitted portions have been filed separately with the Commission.
+
+ENCLOSURE NUMBER 1 CONTRACT DATA REQUIREMENTS LIST INSTRUCTIONS FOR DISTRIBUTION   DISTRIBUTION OF MONTHLY STATUTS REPORTS, PRESENTATION MATERIALS, AND CONTRACT FUNDS STATUS
+REPORTS   The minimum distribution of technical reports and the final report
+submitted in connection with this contract is as follows:  
+
+DODAAD CODE
+  
+NUMBER OF COPIES
+
+ADDRESSEE
+
+UNCLASSIFIED/ UNLIMITED
+  
+UNCLASSIFIED/ LIMITED AND CLASSIFIED
+
+Program Officer E-Mail: dietrih@onr.navy.mil
+  
+N00014
+  
+1
+  
+1
+
+Administrative Contracting Officer*
+  
+S1103A
+  
+1
+  
+1
+
+*
+ 
+Send only a copy of the transmittal letter to the Administrative Contracting Officer; do not send actual reports to the Administrative Contracting Officer.
+  SEMI- ANNUAL REPORTS   The minimum distribution of semi-annual reports is as follows:  
+
+DODAAD CODE
+  
+NUMBER OF COPIES
+
+ADDRESSEE
+
+UNCLASSIFIED/ UNLIMITED
+  
+UNCLASSIFIED/ LIMITED AND CLASSIFIED
+
+Program Officer E-Mail: dietrih@onr.navy.mil
+  
+N00014
+  
+3
+  
+3
+
+Administrative Contracting Officer*
+  
+S1103A
+  
+1
+  
+1
+
+Director, Naval Research Lab Attn: Code 5227 4555 Overlook Avenue, SW Washington, D.C. 20375-5320 E-Mail: Reports@library.nrl.navy.mil
+  
+N00173
+  
+1
+  
+1
+
+Defense Technical Information Center 8725 John J. Kingman Road STE 0944 Ft. Belvoir, VA 22060-6218 E-Mail: tr@dtic.mil
+  
+S47031
+  
+2
+  
+2
+
+Dr. Edgar J. Martinez Defense Advanced Research Projects Agency Microsystems Technology Office 3701 Fairfax Drive Arlington, VA 2203
+  
+MDA972
+  
+1
+  
+1
+
+Thomas Jenkins AFRL/SNDM 2241 Avionics Circle RM C2G69
+  
+F33615
+  
+1
+  
+1
+
+CONTRACT NUMBER N00014-02-C-0306 ATTACHMENT NUMBER 3
+  
+PAGE 1
+
+Wnght-Patterson AFB, OH 45433-7322
+
+Daniel Judy Army Research Laboratory 2800 Powder Mill Road AMSRL-SE-RE Adeiphi, MD 20783-1197
+  
+DAADI7
+  
+1
+  
+1
+
+EvanGlaser Naval Research Laboratory 4555 Overlook Avenue SW Code 6877 Washington, DC 20375-5347
+  
+N00173
+  
+1
+  
+1
+
+Dr. John C. Zolper Defense Advanced Research Projects Agency Microsystems Technology Office 3701 Fairfax Drive Arlington, VA 22203
+  
+MDA972
+  
+I
+  
+I
+
+*
+ 
+Send only a copy of the transmittal letter to the Administrative Contracting Officer; do not send actual reports to the Administrative Contracting Officer.
+  FINAL REPORT DISTRIBUTION   The minimum distribution of the final report submitted in connection with this contract is
+as follows:  
+
+NUMBER OF COPIES
+
+ADDRESSEE
+  
+DODAAD CODE
+  
+UNCLASSIFIED / UNLIMITED
+  
+UNCLASSIFIED! LIMITED AND CLASSIFIED
+
+Program Officer E-Mail dietrih@onr navy mil
+  
+N00014
+  
+5
+  
+5
+
+Administrative Contracting Officer*
+  
+S1103A
+  
+I
+  
+I
+
+Director, Naval Research Lab Attn: Code 5227 4555 Overlook Avenue, SW Washington, D.C. 20375-5320 E-mail: reports@library.nrl.navy.mil
+  
+N00173
+  
+I
+  
+I
+
+Defense Technical Information Center 8725 John J. Kingman Road STE 0944 Ft. Belvoir, VA 22060-6218 E-mail: tr@dtic.mil
+  
+S4703 1
+  
+2
+  
+2
+
+Dr. Edgar J. Martinez Defense Advanced Research Projects Agency Microsystems Technology Office 3701 Fairfax Drive Arlington, VA 22203
+  
+MDA972
+  
+I
+  
+I
+
+Thomas Jenkins AFRL/SNDM 2241 Avionics Circle RM C2G69 Wright-Patterson AFB, OH 45433-7322
+  
+F33615
+  
+I
+  
+I
+
+Robert Kemerley
+  
+F33615
+  
+1
+  
+1
+
+CONTRACT NUMBER N00014-02-C-0306 ATTACHMENT NUMBER 3
+  
+PAGE 2
+
+AFRL/SND 2241 Avionics Circle, Bldg 620 Wright-Patterson AFB, OH 45433-7322
+
+Daniel Judy Army Research Laboratory 2800 Powder Mill Road AMSRL-SE-RE Adelphi, MD 20783-1197
+  
+DAADI7
+    
+        I
+    
+        I
+
+H. Bruce Wallace Army Research Laboratory 2800 Powder Mill Road AMSRL-SE-R Adelphi, MD 20783-1197
+  
+DAADI7
+    
+        I
+    
+        I
+
+Dr. John C. Zolper Defense Advanced Research Projects Agency Microsystems Technology Office 3701 Fairfax Drive Arlington, VA 22203
+  
+MDA972
+    
+        1
+    
+        1
+
+Gerald Borsuk Naval Research Laboratory 4555 Overlook Avenue Code 6800 Washington, DC 20375
+  
+N00 173
+    
+        1
+    
+        1
+
+C. J. (Skip) Scozzie US Army Research Laboratory AMSRL-SE-DP 2800 Powder Mill Road Adeiphi, MD 20783-1197
+  
+DAADI7
+    
+        I
+    
+        I
+
+*
+ 
+Send only a copy of the transmittal letter to the Administrative Contracting Officer; do not send actual reports to the Administrative Contracting Officer.
+  ELECTRONIC SUBMISSIONS OF TECHNICAL REPORTS IS PREFERRED AND ENCOURAGED ELECTRONIC
+SUBMISSION SHOULD BE SENT TO THE E-MAIL ADDRESSES PROVIDED IN THE ABOVE TABLE, HOWEVER PLEASE NOTE THE FOLLOWING:  
+
+•
+ 
+Only Unlimited/Unclassified document copies may be submitted by e-mail.  
+
+•
+ 
+Unclassified/Limited has restricted distribution and a classified document (whether in its entirety or partially) is to be distributed in accordance with classified material
+handling procedures.  
+
+•
+ 
+Electronic submission to DIRECTOR, NAVAL RESEARCH LAB, shall be unclassified/unlimited reports and 30 pages or less. If unclassified and more than 30 pages, hardcopies of reports
+must be mailed.  
+
+•
+ 
+Electronic submission to DTIC shall be unclassified/unlimited reports If submission is for limited documents, please send them in on a disk or sign up for DTIC’s web-based
+document submission system at http //www dtic mil/dtic/submittrnglelec _ subm html   If the Program Officer directs, the Contractor shall make additional distribution of technical reports in accordance with a supplemental distribution list provided by the Program Officer.  
+
+CONTRACT NUMBER N00014-02-C-0306 ATTACHMENT NUMBER 3
+  
+PAGE 3
+
+CREE, INC.  
+MASTER SMALL BUSINESS SUBCONTRACTING PLAN   FOR THE DEPARTMENT OF
+DEFENSE CONTRACTS AND MAJOR SUBCONTRACTS   Small Business Concerns Veteran Owned Small Business Concerns and Service Disabled Veteran-Owned Small Business/Hubzone Small Business
+Concerns/Small Business Concerns Owned and Controlled By Socially and Economically Disadvantaged Individuals/Small Business Concerns Owned and Controlled By Women
+
+CREE, INC. MASTER SMALL BUSINESS SUBCONTRACTING PLAN  
+
+Contractor:
+  
+Cree, Inc. and its wholly-owned subsidiaries (Cree)
+
+Address:
+  
+4600 Silicon Drive
+
+Durham, NC 27703-8475
+  This is a Master Small Business
+Subcontracting Plan for Cree, Inc. and its wholly owned subsidiaries including but not limited to, Cree Lighting Company and UltraRF, Inc. As used herein, “Cree” refers to the Cree company (Cree, Inc Cree Lighting Company, UItraRF, Inc, or
+other subsidiary) that is a party to the contract in question. This Plan contains all the required elements of an individual contract plan except individual goals established for each Government contract or major subcontract. In addition Cree shall
+submit a contract specific Plan to the contracting officer/buyer for final negotiation and approval. The contract specific plan will include goals based on the planned subcontracting for that contract.   STATEMENT OF POLICY :   It is the policy of Cree that small business concerns, veteran-owned small business concerns
+and service-disabled veteran-owned small business concerns, HUBZone small business concerns small business concerns owned and controlled by socially and economically disadvantaged individuals, and small business concerns owned and controlled by
+women shall have the maximum practicable opportunity to participate in subcontracting at Cree. Cree hereby agrees to carry out this policy in awarding of subcontracts to the fullest extent, consistent with the efficient performance of Government
+contracts and subcontracts. Cree further agrees to cooperate in any studies or surveys as may be conducted by the Small Business Administration or the awarding agency/department of the United States, as may be necessary to determine the extent of
+compliance with Federal Acquisition Regulation (FAR) 52 219-8 clause titled “Utilization of Small Business Concerns (OCT 2000 Oct 1999).”   1. CONTRACT SPECIFIC GOALS   Cree shall submit proposed contract specific subcontracting goals for the term of each Government contract or major subcontract. The Contract Specific Plan submittal
+shall include goals for small business concerns (SB), veteran-owned small business concerns (VOSB) small business concerns owned and controlled by socially and economically disadvantaged individuals (SDB), HUBZone small business concerns (HUB), and
+small business concerns owned and controlled by women (WOSB). Service-disabled veteran-owned small business concerns meet the definition of veteran-owned small business concerns and they will be included within the subcontracting plan goal for
+veteran-owned small business concerns. The negotiated and established goals of the Contract Specific Plan will be incorporated into this Master Plan by this reference, upon signature of the parties, and will not require contract modification.
+  The proposed goals shall be based upon an established percentage of estimated
+commercial purchases which will be derived from the current fiscal year budget. Goals for the utilization of SB, VOSB, SDB, HUB, and WOSB subcontractors shall be expressed in both dollars and  
+Page 1 of 8
+
+CREE, INC. MASTER SMALL BUSINESS SUBCONTRACTING PLAN   percentages for total planned dollars to be subcontracted; total dollars planned to be
+subcontracted to SB; total dollars planned to be subcontracted to VOSB, total dollars planned to be subcontracted to HUB; total dollars to be subcontracted to SDB; and total dollars planned to be subcontracted to WOSB concerns, unless otherwise
+required by the Contracting Officer/buyer.   Cree’s subcontracting goals
+shall be set at a level that the parties reasonably expect can result from expending good faith efforts to use SB, VOSB, SDB, HUB, and WOSB subcontractors.   2. DESCRIPTION OF SUPPLIERS AND SERVICES   The principal products and/or services to be subcontracted for the Contract Specific Plan, and the types of businesses supplying them shall be identified in an Attachment
+A to the Contract Specific Plan.   3. METHODOLOGY-GOALS   a) The type of products/services typically needed by Cree is reviewed
+periodically to establish additional materials and services that are likely to be performed by a concern other than Cree.   b) The Scope of Work for each Contract/subcontract is reviewed to establish potential material and services that could likely be performed by a concern
+other than Cree.   c) From the total estimate of potential
+subcontracted items, a list of those items that are candidates for small businesses is established.   d) From the total estimate of potential subcontracted items to small businesses, a list of those items that could be subcontracted to veteran-owned small
+business concerns is established.   e) From the total estimate
+of potential subcontracted items to small businesses, a list of those items that could be subcontracted to small disadvantaged business concerns is established.   f) From the total estimate of potential subcontracted items, a list of those items that are candidates for HUBZone small
+business concerns is established.   g) From the total estimate
+of potential subcontracted items to small business, a list of those items that could be subcontracted to women-owned small business concerns is established.   4. METHODOLOGY –POTENTIAL SOURCES   In the establishment of potential SBNOSB/SDBIHUB/WOSB sources for solicitation purposes, the following resources are used:  
+Page 2 of 8
+
+CREE, INC. MASTER SMALL BUSINESS SUBCONTRACTING PLAN   a) Cree Company Approved Supplier List; b) the Small Business Administration’s (SBA) Pro-Net system, (http:llpro-net.sba.gov/); c) the National Minority Business Council Vendor Information Service ( http://www.nmbc.org /); d) the Minority Business Development Administration’s Phoenix database, ( httri://www. m bda.qov/vendors. html);
+e) the HUBZone data base in the Pro-Net system , ( http //pro-net sba gov /); f) the 8(a) search database available through Pro-Net ( http://pro-net.sba.qov/) ; g) the Woman-Owned Small business database available through Pro-Net ( http //pronet.sba.qov/); h) the Information Division of the Minority Business Development Agency in the Department of Commerce; i) the local Industrial Services Directory; j) other small and minority business associations; and k) Networking opportunities with the local Chamber of Commerce.
+l) Office of Veterans Business Development ( http://www.sba.gov/VETS/)   5. INDIRECT COSTS   In accordance with FAR 52.219-9 (OCT 2000) Cree has decided not to include indirect costs in the goals specified for its individual contracts however for reporting
+purposes on the SF295 we will allocate a portion of indirect cost in accordance with the portion of DOD sales versus total company sales.   6. RESPONSIBILITIES FOR IMPLEMENTATION   This Master Subcontracting Plan and Contract Specific Plan there under, are to be administered by Cree to assure that the provisions of applicable Law and the plan are
+implemented and performed. Any change in the name of the administrator will be communicated without delay to the Contracting Officer/buyer by letter and will not require a contract modification.   The following individual will administer the subcontracting program:   Name:             Carmen L.
+Hayes   Title:     Contract Administrator/Small Business
+Utilization Specialist   Address: 4600 Silicon Drive         Durham, NC 27703 Telephone:   (919) 313-5644 Email:     carmen_hayes © cree.com   This individual’s specific duties as they relate to this Subcontracting Program shall include, but are not limited to:  
+Page 3 of 8
+
+CREE, INC. MASTER SMALL BUSINESS SUBCONTRACTING PLAN  
+
+a)
+ 
+Oversee compliance with the content of this Plan;  
+
+b)
+ 
+Ensure that all Government subcontracts placed contain the latest provisions regarding small business and small disadvantaged business subcontracting and that the requirements of
+FAR 52 219-9 as implemented by this Plan are being fulfilled by Cree’s large business subcontractors;  
+
+c)
+ 
+Assure inclusion of SB, VOSB, SDB, HUB, WOSB concerns in all solicitations for products or services which they are capable of providing;  
+
+d)
+ 
+Review solicitations to remove statements, clauses, etc. which may tend to restrict or prohibit SB, VOSB, SDB, HUB, WOSB participants;  
+
+e)
+ 
+Participate in Business Opportunity Workshops, Minority Business Enterprise Seminars, Trade Fairs, etc, to assist SB, VOSB, 8DB, HUB and WOSB concerns and to discuss subcontracting
+opportunities with them Plan to attend one DOD southeast council meeting per year;  
+
+f)
+ 
+Perform periodic audit of sub-tier subcontracting plans to measure progress of goals and monitor attainment of goals under each Contract Specific Plan;  
+
+g)
+ 
+Prepare and submit periodic subcontracting reports including SF 294/295, and cooperate in studies and surveys as required;  
+
+h)
+ 
+Assist in developing and maintaining bidders list of SB, VOSB, SDB, HUB and WOSB concerns from all possible sources;  
+
+i)
+ 
+Participate in procuring, planning and selection of potential sources to ensure that SB, VOSB, 8DB, HUB and WOSB concerns are offered every opportunity to participate in the
+program; and,  
+
+j)
+ 
+Coordinate and participate with the SBA small business utilization specialist, and other groups to locate capable firms.  
+
+k)
+ 
+Facilitate the use of SB/ VOSB /SDB/HUB/WOSB by ensuring that adequate time is allowed for preparation of bids and that solicitation quantities, specifications, and delivery
+schedules facilitate the participation by such concerns.  
+
+I)
+ 
+Counsel and discuss subcontracting opportunities with representatives of SB/ VOSB /SDB/HUB/WOSB firms.  
+
+m)
+ 
+Provide notice to subcontractors concerning penalties and remedies for misrepresentations of business size status as SB/ VOSB B/SDB/HUB/WOSB for the purpose of obtaining a
+subcontract that is to be included as part or all of a goal.  
+
+n)
+ 
+Coordinate and participate in annual program review.  
+Page 4 of 8
+
+CREE, INC. MASTER SMALL BUSINESS SUBCONTRACTING PLAN  
+
+o)
+ 
+Maintain vendor certification.   7. DESCRIPTION OF EFFORTS   In the establishment of the SB, VOSB, 8DB, HUB and WOSB goals, the following resources are used the Company Approved Supplier List, the Small Business
+Administration’s Pro-Net system, (http //pro-net sba govf) , the National Minority Purchasing Council Vendor Information Service, the Minority Business Development Administration’s Phoenix database, (http / /www mbda gov/vendors
+html) , the Research and Information Division of the Minority Business Development Agency in the Department of Commerce, and other small and minority business associations.   Outreach efforts include:  
+
+a)
+ 
+Assignment by name of specific individuals to carry out the requirements of company policies and procedures;  
+
+b)
+ 
+Provision of technical and management assistance to small business, small disadvantaged business concerns and women-owned business concerns to ensure complete understanding of
+requirements;  
+
+c)
+ 
+Assuring that Cree will consider small business concerns in all “make-or-buy decisions” and maintain records of these processes;  
+
+d)
+ 
+Institute a program to recognize purchasing personnel who excel in administering the Cree subcontracting program;  
+
+e)
+ 
+Participation in local Small Business Opportunity Fairs;  
+
+f)
+ 
+Institute a program that recognizes small business participation in the success of performing Government contracts and major subcontracts; and  
+
+g)
+ 
+Where additional bidders are required, the following publications will be used to search for capable firms:  
+
+a.
+ 
+Minority Business Enterprise , published by the Defense Logistics Agency.  
+
+b.
+ 
+Diversity Information Resources , National Business Campaign, 12011 2th Ave. N, Minneapolis, MN 55411. (http://www.tryusdir.com)  
+
+c.
+ 
+The Regional Minority Purchasing Council’s listings.  
+
+d.
+ 
+The Women-Owned Business directory.  
+
+e.
+ 
+National Minority Council mailing list.  
+Page 5 of 8
+
+CREE, INC. MASTER SMALL BUSINESS SUBCONTRACTING PLAN  
+
+f.
+ 
+An outreach effort will be made to solicit the assistance of local, state, and federal officers, trade and manufacturing associations, and labor organizations in identifying
+qualified firms.   8. COMPLIANCE WITH FEDERAL ACQUISITION
+REGULATIONS (FAR)   Cree will include the FAR clause 52.219-8, titled
+“Utilization of Small Business Concerns, (OCT 2000),” in all subcontracts supporting Government contracts that offer further subcontracting opportunities, except contracts for personal services or subcontracts to be performed outside any
+territory or possession of the United States Cree will require all subcontractors (except small business concerns) who support Government contracts and who receive subcontracts of $500,000 or in the case of a subcontract for the construction of any
+public facility, $1,000,000, and which offer further subcontracting possibilities to adopt and submit a plan similar to the Cree Plan, and one that complies with the requirements of the stated FAR clause.   9. REPORTING   Cree gives assurance of:  
+
+a)
+ 
+Cooperation in any studies or surveys that may be required by the contracting agency, or the SBA.  
+
+b)
+ 
+Submission of periodic reports that show compliance with the subcontracting plan. Cree may utilize the GSA “Formfill” web site http://fillform.gsa.gov / to complete
+and submit required reports.  
+
+c)
+ 
+Submission of Standard Form (SF) 294, “Subcontracting Report for Individual Contracts,” and SF-295, “Summary Subcontract Report,” in accordance with the
+instructions on the forms.  
+
+d)
+ 
+Ensuring that large business subcontractors with subcontracting plans agree to submit Standard Forms 294 and 295.  
+
+Reporting Period
+  
+Report Due
+  
+Due Date
+
+Oct 1 - Mar 31
+  
+SF 294
+  
+April 30
+
+Apr 1 - Sep 30
+  
+SF 294
+  
+October 30
+
+Oct 1 Mar 31
+  
+SF 295
+  
+April 30 (DoD only)
+
+Oct 1 - Sep 30
+  
+SF 295
+  
+October 30
+
+Subcontract Closeout
+  
+SF 294
+  
+Subcontract Completion
+ 
+Page 6 of 8
+
+CREE, INC. MASTER SMALL BUSINESS SUBCONTRACTING PLAN   10. RECORDS   Cree agrees to maintain at least the following types of records to document compliance with this Subcontracting Plan:   a) Source lists, guides and other data identifying SB, VOSB, SDB, HUB and
+WOSB concerns;   b) Organizations contacted in an attempt to
+locate sources that are SB, VOSB, SDB, HUB and WOSB concerns;   c) On a subcontract-by-subcontract basis, records on all subcontract solicitations over $100,000, indicating on each solicitation whether any SB, VOSB, SDB, HUB and WOSB concerns were solicited, and if not, why not;   d) On a subcontract-by-subcontract basis, records indicating the reason an
+award was not made to a SB, VOSB, SDB, HUB and WOSB concern;   e) Records to support other outreach efforts: contacts with minority and small business trade associations, contacts with business development organizations attendance at small and minority business procurement conferences and trade fairs
+to locate SB, VOSB, SDB, HUB and WOSB concerns;   f) Records to
+support internal activities to guide and encourage buyers through workshops seminars, training programs and monitoring performance activities to evaluate compliance; and   g) Records to support award data, including the name, address, and business size of each subcontractor.  
+Page 7 of 8
+
+CREE, INC. MASTER SMALL BUSINESS SUBCONTRACTING PLAN   a) On a subcontract-by-subcontract basis, records on all subcontract
+solicitations over $100,000, indicating on each solicitation whether any SB, VOSO, SDB, HUB and WOSB concerns were solicited, and if not, why not;   d) On a subcontract-by-subcontract basis, records indicating the reason an award was not made to a SB, VOSB, SDB, HUB and WOSS concern;   e) Records to support other outreach efforts: contacts with minority and
+small business trade associations, contacts with business development organizations, attendance at small and minority business procurement conferences and trade fairs to locate SB, VOSB, SDB, HUB and WOSB concerns;   f) Records to support internal activities to guide and encourage buyers
+through workshops, seminars, training programs and monitoring performance activities to evaluate compliance; and   g) Records to support award data, including the name, address, and business size of each subcontractor.   Cree hereby submits a request for approval of this Master Subcontracting Plan. This Plan
+shall be effective for three years after approval, or for the life of any contract/major subcontract that incorporates this Master Subcontracting Plan.  
+
+PLAN SUBMITTED BY:
+
+/s/ Cynthia Merrell
+
+Date
+ 
+        12 /8/00
+
+NAME    Cynthia Merrell
+
+Chief Financial
+
+PLAN CONCURRED BY:
+
+/s/ Carmen Hays
+
+Date
+ 
+        11/21/00
+
+Carmen Hays
+
+Small Business Utilization Specialist
+
+PLAN ACCEPTED BY:
+
+/s/ Marjorie Hockstetler
+
+Date
+ 
+        1/8/01    
+
+Contracting Officer
+
+Page 7 of 7
+
+CREE, INC.  
+Contract/Major Subcontract Specific   SB/HUB/SDB/WOB/VOSB
+SUBCONTRACTING PLAN
+
+CREE, INC. SB/HUB/SDB/WOB SUBCONTRACTING PLAN For Contract/Subcontract No;
+DARPA BAA 01-35  
+
+Contractor:
+ 
+Cree, Inc. (Cree)
+
+Address:
+ 
+4600 Silicon Drive
+
+Durham, NC 27703
+
+Procuct:
+
+Contract Value
+ 
+$    [***]    
+  1. GOALS- PERCENTAGE
+  This Contract Specific Plan relates specifically to the scope of work to
+be performed under this contract/major subcontract, including support services. Subcontracting opportunities have been found to exist in the scope of work as noted below. Further, Cree will continue to expand subcontracting opportunities for small
+business concerns, HUBZone small business concerns, small business concerns owned and controlled by socially and economically disadvantaged individuals, and small business concerns owned and controlled by women, as they become known to Cree.
+  This Contract Specific Plan, hereby incorporated into the Cree Master
+Subcontracting Plan are the following goals:  
+
+Small Business (SB)
+  
+     [***] %    
+
+HUBZone Business
+  
+     [***] %    
+
+Small Disadvantaged Business (SDB)
+  
+     [***] %    
+
+Women-Owned Small Business (WOSB)
+  
+     [***] %    
+
+Veteran-Owned Small Business (VOSB)
+  
+     [***] %    
+  2. GOALS-DOLLAR   Total dollars planned to be subcontracted is $ [***] Total dollars planned to be
+subcontracted to small business concerns is $ [***]. Total dollars planned to be subcontracted to HUBZone concerns is $          [***]          .
+Total dollars planned to be subcontracted to small disadvantaged business is $          [***]          . Total dollars planned to be subcontracted to
+women-owned small business is $ [***]. Total dollars planned to be subcontracted to veteran-owned small business is $          [***]          .
+ 
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities
+and Exchange Commission. Omitted portions have been filed separately with the Commission.  
+
+Page 2 of 4
+
+CREE, INC. SB/HUB/SDB/WOB SUBCONTRACTING PLAN  
+
+3.
+ 
+DESCRIPTION OF SUBCONTRACTING OPPORTUNITIES   The principal products and/or services to be subcontracted and the types of businesses to be utilized are included in Attachment 1.  
+Page 3 of 4
+
+CREE, INC. SB/HUB/SDB/WOB SUBCONTRACTING PLAN   for CONTRACT/SUBCONTRACT NO.: DARPA BAA 01-35  
+
+Approved:
+
+/s/    Carmen Hayes
+
+5/21/2002
+
+Small Business Utilization Specialist, Cree, Inc
+
+Date
+
+Contracting Officer/Buyer
+
+Date
+ 
+Page 4 of 4
+
+Item No. Product
+  
+Quantity
+  
+$ Amount
+  
+Total
+  
+Vendor
+  
+Business Type
+
+1 [***]
+  
+91.00
+  
+250.00
+  
+22,750.00
+  
+[***]
+  
+Small
+
+2 [***]
+  
+212.00
+  
+375.00
+  
+79,500.00
+  
+[***]
+  
+Small
+
+3 [***]
+  
+90.00
+  
+208.80
+  
+18792.00
+  
+[***]
+  
+Large
+
+4 [***]
+
+[***]
+  
+Large
+
+5 [***]
+  
+8.00
+  
+780.00
+  
+6,240.00
+  
+[***]
+  
+Large
+
+5a [***]
+  
+38.00
+  
+127.00
+  
+4,826.00
+  
+[***]
+  
+Large
+
+5b [***]
+  
+18.00
+  
+780.00
+  
+14,040.00
+  
+[***]
+  
+Large
+
+5c [***]
+  
+48.00
+  
+210.00
+  
+10,080.00
+  
+[***]
+  
+Large
+
+5d [***]
+  
+47.00
+  
+27.00
+  
+1,269.00
+  
+[***]
+  
+Large
+
+5e [***]
+  
+12.00
+  
+152.50
+  
+1,830.00
+  
+[***]
+  
+Large
+
+5f [***]
+  
+13.00
+  
+90.00
+  
+1,170.00
+  
+[***]
+  
+Large
+
+6 [***]
+  
+9,00
+  
+2,117.00
+  
+19,053.00
+  
+[***]
+  
+Small
+
+6a [***]
+  
+65.00
+  
+40.00
+  
+2,600.00
+  
+[***]
+  
+Small
+
+6b [***]
+  
+22.00
+  
+190.95
+  
+4,200.90
+  
+[***]
+  
+Small
+
+6b [***]
+  
+3.00
+  
+278.30
+  
+834.90
+  
+[***]
+  
+Small
+
+7 [***]
+  
+9.00
+  
+218.60
+  
+1,967.40
+  
+[***]
+  
+Small
+
+8 [***]
+  
+26.00
+  
+585.00
+  
+15,210.00
+  
+[***]
+  
+Large
+
+9 [***]
+  
+77.00
+  
+426.82
+  
+32,865,14
+  
+[***]
+  
+Large
+
+10 [***]
+  
+17.00
+  
+630.00
+  
+10,710.00
+  
+[***]
+  
+Large
+
+lOa [***]
+  
+17.00
+  
+25.00
+  
+425.00
+  
+[***]
+  
+Large
+
+12 [***]
+
+100.00
+
+[***]
+  
+Non Profit
+
+12a [***]
+
+342.00
+
+[***]
+  
+Non Profit
+
+13 [***]
+
+698.00
+
+[***]
+  
+Large
+
+14 [***]
+
+128,444.00
+  
+[***]
+  
+WOSB
+  Attachment 1
+ 
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities and
+Exchange Commission. Omitted portions have been filed separately with the Commission.
+
+    FINANCIAL ACCOUNTING DATA SHEET - NAVY  
+
+1. CONTRACT NUMBER (CRITICAL)
+ 
+2. SPIN (CRITICAL)
+ 
+3. MOD (CRITICAL)
+ 
+4. PR NUMBER
+
+Page 1 of 1
+
+    N0001402C0306
+
+02PR10579-00
+
+CLIN/SLIN
+ 
+6. LINE OF ACCOUNTING
+
+A.
+ 
+B.
+ 
+C.
+ 
+D.
+ 
+E.
+ 
+F.
+ 
+G.
+ 
+H.
+ 
+I.
+ 
+J.
+ 
+K. COST CODE
+
+ACRN (CRITICAL)
+ 
+APPROPRIATION (CRITICAL)
+ 
+SUBHEAD (CRITICAL)
+ 
+OBJ CLA
+ 
+PARM
+ 
+RFM
+ 
+SA
+ 
+AAA (CRITICAL)
+ 
+IT
+ 
+PAA
+ 
+PROJ UNIT
+ 
+MCC
+ 
+PDU & SUF
+ 
+AMOUNT (CRITICAL)
+ 
+Navy Internal use only REF Doc/acrn
+
+AA
+ 
+9720400
+ 
+1304
+ 
+255
+ 
+RA
+ 
+313
+ 
+0
+ 
+68342
+ 
+2D
+ 
+0
+ 
+R2Y10
+ 
+0
+ 
+N132
+ 
+[***]
+ 
+PR#02PR10579-00 FRC:A124
+
+PAGE TOTAL
+
+[***]
+
+GRAND TOTAL
+
+[***]
+
+PREPARED/AUTHORIZED BY:
+
+    COMPTROLLER APPROVAL
+
+  DATE
+
+    FOR FISCAL DATA AND SIGNATURE
+
+    BY                                   
+
+ONR AWARD FORM (2/00) - version 1.1
+
+DATE:
+
+  [***] Confidential treatment requested
+pursuant to a request for confidential treatment filed with the Securities and Exchange Commission. Omitted portions have been filed separately with the Commission.  
+
+AMENDMENT OF SOLICIT. ON//MODIFICATION OF CONTRACT
+  
+                    CONTRACT ID CODE                     DO-C9(T)
+  
+PAGE OF PAGES     1            3
+
+2. AMENDMENT/MODIFICATION NO.             P00001
+  
+3. EFFECTIVE DATE SEE BLOCK 16C
+  
+4. REQUISITION/PURCHASE REG. O3PR05549-00/30DEC 2002
+  
+NO.5. PROJECT NO. (If applicable) na
+
+6. ISSUED BY    CODE OFFICE OF NAVAL RESEARCH ONR 251: Michael Shimoff (703) 696-5639 BALLSTON TOWER CENTRE ONE 800 NORTH QUINCY STREET ARLINGTON, VA 22217-5660
+  
+N00014
+
+7. ADMINISTERED BY (If other than Item 6) SCD-C DCM ATLANTA 805 WALKER STREET, SUITE 1 MARIETTA, GA 30060-2789
+  
+CODE S1103A
+
+8. NAME AND ADDRESS OF CONTRACTOR (No., street, county, State and Zip Code) CREE INC. 4600 SILICON DRIVE, DURHAM, NC 27703
+  
+(X)
+  
+9A. AMENDMENT OF SOLICITATION NO. N.A.
+
+(  )
+  
+9B. DATED (SEE ITEM 11)
+
+ODE 0C9J8
+  
+FACILITY CODE
+
+X
+  
+10A. MODIFICATION OF CONTRACT/ORDER NO N00014-02-C-0306
+
+10B. DATED (SEE ITEM 13) 28 JUN
+2002
+
+11. THIS ITEM ONLY APPLIES TO AMENDMENTS OF SOLICITATIONS
+
+  The above numbered solicitation is
+amended as set forth in Item 14. The hour and date specified for receipt of Offers              is extended
+             is not extended   Offers must acknowledge receipt of this amendment prior to the hour and data specified in the solicitation or as amended, by one of the following methods:(a) By completing items 8 and 15, and returning —
+copies of the amendment; (b) By acknowledging receipt of this amendment on each copy of the offer submitted; or (c) By separate letter or telegram which includes a reference to the solicitation and amendment numbers. FAILURE OF YOUR
+ACKNOWLEDGMENT TO BE RECEIVED AT THE PLACE DESIGNATED FOR THE RECEIPT OF OFFERS PRIOR TO THE HOUR AND DATE SPECIFIED MAY RESULT IN REJECTION OF YOUR OFFER. If by virtue of this amendment you desire to change an offer already submitted, such change
+may be made by telegram or letter, provided each telegram or letter makes reference the solicitation and this amendment, and is received prior to the opening hour and data Specified.   12. ACCOUNTING AND APPROPRIATION DATA (If required)         SEE THE ATTACHED FINANCIAL ACCOUNTING DATA (FAD) SHEET  
+
+—
+  
+13. THIS ITEM APPLIES ONLY TO MODIFICATIONS OF CONTRACTS/ORDERS, IT MODIFIES THE CONTRACT/ORDER NO. AS DESCRIBED ITEM 14.
+
+(    ) A.
+ 
+THIS CHANGE ORDER IS ISSUED PURSUANT TO (Specify authority) THE CHANGES SET FORTH IN ITEM 14 ARE MADE IN THE CONTRACT ORDER NO. IN ITEM 10A.  
+
+(    ) B.—
+ 
+THE ABOVE NUMBERED CONTRACT/ORDER IS MODIFIED TO REFLECT THE ADMINISTRATIVE CHANGES (such as changes in paying office, appropriation date, etc.) SET FORTH IN ITEM 14, PURSUANT TO THE AUTHORITY OF FAR 43.103(b).
+
+(    ) C.
+ 
+SUPPLEMENTAL AGREEMENT IS ENTERED INTO PURSUANT TO AUTHORITY OF: N.A.  
+
+    —
+ 
+AUTHORITY FOR OTHER THAN FL LL AND OPEN COMPETITION  
+
+(X) D
+ 
+OTHER (Specify type of modification and authority)
+
+FAR 43.103(a) and Mutual Agreement of the Parties   E. IMPORTANT; Contractor X is not,      is required to sign this document and return _ copies to the issuing office.
+
+(    ) A.
+ 
+THIS CHANGE ORDER IS ISSUED PURSUANT TO (Specify authority) THE CHANGES SET FORTH IN ITEM 14 ARE MADE IN THE CONTRACT ORDER NO. IN ITEM 10A.  
+
+(    ) B.—
+ 
+THE ABOVE NUMBERED CONTRACT/ORDER IS MODIFIED TO REFLECT THE ADMINISTRATIVE CHANGES (such as changes in paying office, appropriation date, etc.) SET FORTH IN ITEM 14, PURSUANT TO THE AUTHORITY OF FAR 43.103(b).
+
+(    ) C.
+ 
+SUPPLEMENTAL AGREEMENT IS ENTERED INTO PURSUANT TO AUTHORITY OF: N.A.  
+
+    —
+ 
+   AUTHORITY FOR OTHER THAN FL LL AND OPEN COMPETITION  
+
+(X) D
+ 
+OTHER (Specify type of modification and
+authority)                                       
+                  funding under Contract No N00014-02-C-0306 FAR 43.103(a) and Mutual Agreement of the Parties   E. IMPORTANT; Contractor     X     is not,      is required to sign this document and return 2 copies to the issuing office.  
+
+    14.
+ 
+DESCRIPTION OF AMENDMENT/MODIFICATION (Organized by UCF section headings, including solicitation/contract subject matter where feasible.)   The Purpose of this notification is to provide for the final increment of   Except as provided herein, all terms and conditions of the document referenced in Item 9A or
+10A, as heretofore changed, remains unchanged and in full force and effect.  
+
+15A. NAME AND TITLE OF SIGNER (Type or print)
+ 
+16A. NAME AND TITLE OF CONTRACTING OFFICER   (Type
+or print) Margaret Graves, Contracting Officer
+
+15B. CONTRACTOR/OFFEROR             
+15C. DATE SIGNED
+ 
+16B. UNITED STATES OF AMERICA    16C.   DATE SIGNED By: /s/ Margaret Graves
+                                  31 DEC 02 (Signature of Contracting Officer)
+
+N 7540-01.152-8070 PREVIOUS
+EDITION UNUSABLE NAVOCNR OVERPRINT (3-88)
+ 
+STANDARD FORM 30 (REV. 10-83) Prescribed by GSA FAR (48
+CFR) 53.243
+
+30-105
+
+Effective as of the date of this Modification:  
+
+1.
+ 
+The funds available for performance of this Contact are increased by the amount set forth In the attached Financial Accounting              Sheet.  
+
+2.
+ 
+Section B Supplies or Services and Prices/Costs is revised to read as follows:  
+
+BASE EFFORT
+
+ITEM NO.
+  
+SUPPLIES/SERVICES
+  
+ESTIMATED GOVERNMENT COST SHARE
+  
+ESTIMATED CONTRACTOR COST SHARE
+  
+TOTAL ESTIMATED COST
+
+0001
+  
+The Contractor shall furnish the necessary personnel and facilities to conduct the research effort as described in Sections C.1 and C.2
+  
+$[***]
+  
+$[***]
+  
+$[***]
+
+000101 ACRN; AA [***] 000102 ACRN; AB [***]
+
+0002 Deliverables for Quarters 1-6 in accordance with Attachment Number 2
+
+NSP
+
+0003
+  
+Reports and Data in accordance with Exhibit A (DD Form 1423)
+
+NSP
+
+**
+ 
+Note: $628,200 Out of the estimated contractor’s [***] amount of [***] represents a discount on the projected price of the [***] and [***]. The [***] and [***] shall be used in
+support of this contract and charged at the current [***] price at the time of consumption less a [***] % discount. Therefore, these items are not subject to a DCAA incurred cost audit  
+
+OPTION EFFORT
+
+ITEM NO.
+  
+SUPPLIES/SERVICES
+  
+ESTIMATED GOVERNMENT COST SHARE
+  
+ESTIMATED CONTRACTOR COST SHARE
+  
+TOTAL ESTIMATED COST
+
+0004
+  
+The Contractor shall furnish the necessary personnel and facilities to conduct the research effort as described in Sections C.1 and C.3
+  
+[***]
+  
+[***]
+  
+[***]
+
+0005
+  
+Deliverables for Quarters 7-8 in accordance with Attachment Number 2
+
+NSP
+
+0006
+  
+Reports and Data in accordance with Exhibit A (DD Form 1423)
+
+NSP
+
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities and Exchange Commission. Omitted portions have been filed
+separately with the Commission.
+
+AWARD NUMBER: N00014-02-C-0306 MODIFICATION NUMBER : P00001
+  
+PAGE 2
+
+• Note: $ [***] out of the estimated contractor’s [***] amount of $ [***] represents a [***] discount on
+the projected price of the [***] The [***] shall be used in support of this contract and charged at the current catalog price at the time of consumption less a [***] discount. Therefore, these items are not subject to a DCAA incurred cost audit.
+
+TOTAL
+ 
+ESTIMATED
+ 
+[***]
+ 
+[***]
+ 
+[***]
+
+                            CONTRACT                             CONSIDERATION
+
+3.
+ 
+Section G “Contract Administration Data” is revised as follows:  
+
+a.
+ 
+Paragraph 4. a), entitled, Procuring Office Representatives”, is revised as follows:  
+
+Contract_Negotiator :
+ 
+Ms. Margaret L. Graves, ONR 251, (703) 696-2602, DSN 426-2602,
+
+E-Mail
+ 
+Address: gravesm@onr.navy.mil  
+
+b.
+ 
+Paragraph 5. entitled, “Allotment of Funds”, is hereby deleted in its entirety.  
+
+4.
+ 
+This modification makes no change to the Government’s share of this Contract.  
+
+5.
+ 
+All other terms and conditions remain unchanged.  
+
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities and Exchange Commission. Omitted portions have been filed
+separately with the Commission.
+
+AWARD NUMBER: N00014-02-C-0306 MODIFICATION NUMBER: P00001
+  
+PAGE 3
+
+ FINANCIAL ACCOUNTING DATA SHEET - NAVY  
+
+1. CONTRACT NUMBER (CRITICAL)
+ 
+2. SPIN (CRITICAL)
+ 
+3. MOD (CRITICAL)
+ 
+4. PR NUMBER
+
+Page 1 of 1
+
+    N0001402C0306
+
+02PR10579-00
+
+CLIN/SLIN
+ 
+6. LINE OF ACCOUNTING
+
+A.
+ 
+B.
+ 
+C.
+ 
+D.
+ 
+E.
+ 
+F.
+ 
+G.
+ 
+H.
+ 
+I.
+ 
+J.
+ 
+K. COST CODE
+
+ACRN (CRITICAL)
+ 
+APPROPRIATION (CRITICAL)
+ 
+SUBHEAD (CRITICAL)
+ 
+OBJ CLA
+ 
+PARM
+ 
+RFM
+ 
+SA
+ 
+AAA (CRITICAL)
+ 
+IT
+ 
+PAA
+ 
+PROJ UNIT
+ 
+MCC
+ 
+PDU & SUF
+ 
+AMOUNT (CRITICAL)
+ 
+Navy Internal use only REF Doc/acrn
+
+AB
+ 
+9720400
+ 
+1304
+ 
+255
+ 
+RA
+ 
+313
+ 
+0
+ 
+68342
+ 
+2D
+ 
+0000
+ 
+R2Y10
+ 
+000
+ 
+N132
+ 
+[***]
+ 
+PR#02PR10579-00 FRC:A124
+
+PAGE TOTAL
+
+[***]
+
+GRAND TOTAL
+
+[***]
+
+PREPARED/AUTHORIZED BY:
+
+    COMPTROLLER APPROVAL
+
+  DATE
+
+    FOR FISCAL DATA AND SIGNATURE
+
+    BY                                   
+
+ONR AWARD FORM (2/00) - version 1.1
+
+DATE:
+
+  [***] Confidential treatment requested
+pursuant to a request for confidential treatment filed with the Securities and Exchange Commission. Omitted portions have been filed separately with the Commission.  
+
+AMENDMENT OF SOLICIT. ON//MODIFICATION OF CONTRACT
+  
+CONTRACT ID CODE DO-C9(T)
+  
+PAGE OF PAGES I
+
+2. AMENDMENT/MODIFICATION NO.             P00002
+  
+3. EFFECTIVE DATE SEE BLOCK 16C
+  
+4. REQUISITION/PURCHASE REG. O3PR05549-01
+  
+NO.5. PROJECT NO. (If applicable) na
+
+6. ISSUED BY    CODE OFFICE OF NAVAL RESEARCH ONR 251: Michael Shimoff (703) 696-5639 BALLSTON TOWER CENTRE ONE 800 NORTH QUINCY STREET ARLINGTON, VA 22217-5660
+  
+N00014
+
+7. ADMINISTERED BY (If other than Item 6) SCD-C DCM ATLANTA 805 WALKER STREET, SUITE 1 MARIETTA, GA 30060-2789
+  
+CODE S1103A
+
+8. NAME AND ADDRESS OF CONTRACTOR (No., street, county, State and Zip Code) CREE INC. 4600 SILICON DRIVE, DURHAM, NC 27703—
+  
+(X)
+  
+9A. AMENDMENT OF SOLICITATION NO. N.A.
+
+(  )
+
+(  )
+  
+9B. DATED (SEE ITEM 11)
+
+ODE 0C9J8
+  
+FACILITY CODE
+
+X
+  
+10A. MODIFICATION OF CONTRACT/ORDER NO N00014-02-C-0306
+
+10B. DATED (SEE ITEM 13) 28 JUN
+2002
+
+11. THIS ITEM ONLY APPLIES TO AMENDMENTS OF SOLICITATIONS
+
+The above numbered solicitation is amended as set forth in Item
+14. The hour and date specified for receipt of Offers          is extended          is not extended Offers must acknowledge receipt of this amendment prior to the hour and data specified in the solicitation or as amended, by one of the following methods:(a) By
+completing items 8 and 15, and returning — copies of the amendment; (b) By acknowledging receipt of this amendment on each copy of the offer submitted; or (c) By separate letter or telegram which includes a reference to the
+solicitation and amendment numbers. FAILURE OF YOUR ACKNOWLEDGMENT TO BE RECEIVED AT THE PLACE DESIGNATED FOR THE RECEIPT OF OFFERS PRIOR TO THE HOUR AND DATE SPECIFIED MAY RESULT IN REJECTION OF YOUR OFFER. If by virtue of this amendment you desire
+to change an offer already submitted, such change may be made by telegram or letter, provided each telegram or letter makes reference the solicitation and this amendment, and is received prior to the opening hour and data Specified.  
+
+    12.
+ 
+ACCOUNTING AND APPROPRIATION DATA (If required)  N/A  
+
+—
+  
+13. THIS ITEM APPLIES ONLY TO MODIFICATIONS OF CONTRACTS/ORDERS, IT MODIFIES THE CONTRACT/ORDER NO. AS DESCRIBED ITEM 14.
+
+(    ) A.
+ 
+THIS CHANGE ORDER IS ISSUED PURSUANT TO (Specify authority) THE CHANGES SET FORTH IN ITEM 14 ARE MADE IN THE CONTRACT ORDER NO. IN ITEM 10A.  
+
+(    ) B.—
+ 
+THE ABOVE NUMBERED CONTRACT/ORDER IS MODIFIED TO REFLECT THE ADMINISTRATIVE CHANGES (such as changes in paying office, appropriation date, etc.) SET FORTH IN ITEM 14, PURSUANT TO THE AUTHORITY OF FAR 43.103(b).
+
+(    ) C.
+ 
+SUPPLEMENTAL AGREEMENT IS ENTERED INTO PURSUANT TO AUTHORITY OF: N.A.  
+
+    —
+ 
+   AUTHORITY FOR OTHER THAN FL LL AND OPEN COMPETITION  
+
+(X) D
+ 
+OTHER (Specify type of modification and authority) FAR 43.103(a) and Mutual Agreement of the Parties   E. IMPORTANT;
+Contractor              is not, X is required to sign this document and return 2 copies to the issuing office.  
+
+    14.
+ 
+DESCRIPTION OF AMENDMENT/MODIFICATION (Organized by UCF section headings, including solicitation/contract subject matter where feasible.)   See Page 2.   Except as provided herein, all terms and conditions of the document referenced in Item 9A or 10A, as heretofore changed, remains unchanged
+and in full force and effect.  
+
+15A. NAME AND TITLE OF SIGNER (Type or print) John W. Palmour—Director of Advanced Devices
+ 
+16A. NAME AND TITLE OF CONTRACTING OFFICER   (Type
+or print) Susan M. Sutherland, Contracting Officer
+
+15B. CONTRACTOR/OFFEROR             
+15C. DATE SIGNED /s/ John W. Palmour
+                                        
+    2/14/03
+ 
+16B. UNITED STATES OF AMERICA    16C.   DATE SIGNED By: /s/ Susan M. Sutherland
+                                  2/25/03 (Signature of Contracting Officer)
+
+SN 7540-01.152-8070 PREVIOUS
+EDITION UNUSABLE NAVOCNR OVERPRINT (3-88)
+ 
+STANDARD FORM 30 (REV. 10-83) Prescribed by GSA FAR (48
+CFR) 53.243
+
+The purpose of this modification is to add a Residual Materials paragraph to Section H of Contract N000
+14-02-C-0306.   Effective as of the date of this Modification:
+
+1.
+ 
+The following is added to Section H, Special Contract Requirements, of the Contract   8. Residual Materials   The contractor may retain any residual materials (such as excess [***], masks) resulting from its efforts to produce the [***] deliverables specified in
+Section B to be delivered to the Government The contractor is encouraged to utilize these residual materials as it sees fit for the further dual-use development of the underlying technology.  
+
+2.
+ 
+This Modification has no affect on the Total Estimated Cost of the contract.  
+
+3.
+ 
+All other terms and conditions remain unchanged.  
+
+[***] Confidential treatment requested pursuant to a request for confidential treatment filed with the Securities and Exchange Commission. Omitted portions have been filed
+separately with the Commission.
+
+CONTRACT NUMBER N00014-02-C-0306 / P00002
+  
+PAGE 2

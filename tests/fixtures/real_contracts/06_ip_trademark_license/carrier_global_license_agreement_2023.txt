@@ -1,0 +1,1783 @@
+EX-10.1
+3
+eh230352031_ex1001.htm
+EXHIBIT 10.1
+
+EXHIBIT 10.1
+
+Johann | Form of License Agreement
+
+Exhibit 24.1 to the SPA
+
+CERTAIN INFORMATION
+CONTAINED IN THIS AGREEMENT HAS BEEN OMITTED BY MEANS OF REDACTING A PORTION OF THE TEXT AND REPLACING IT WITH [***] BECAUSE IT IS BOTH:
+(I) NOT MATERIAL AND (II) THE TYPE THAT THE REGISTRANT TREATS AS PRIVATE OR CONFIDENTIAL.
+
+Exhibit
+24.1
+
+Form
+of License Agreement
+
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+Table of Contents
+
+1.
+Interpretation and Definitions
+5
+
+2.
+Grant and Scope of License
+11
+
+3.
+Sublicenses
+13
+
+4.
+Website Architecture and Social Media
+13
+
+5.
+Core Brand Strategy and Brand Guidelines
+14
+
+6.
+Further Specifics of Use
+15
+
+7.
+Quality Assurance and Critical Incidents
+16
+
+8.
+Brand Team, Brand Committee and Escalation Process
+17
+
+9.
+Royalties
+20
+
+10.
+Maintenance and Third Party Challenges with Regard to Licensed Trademarks
+23
+
+11.
+Enforcement against Third-Party Infringements
+24
+
+12.
+Attacks on Use of Licensed Trademarks; Product Liability
+25
+
+13.
+Representations and Warranties; Limitation of Liability
+27
+
+14.
+Term and Termination
+27
+
+15.
+Effects of Expiry and Termination
+30
+
+16.
+Compliance; No Agency or Partnership
+31
+
+17.
+Additional Intellectual Property Matters
+31
+
+18.
+[***]
+32
+
+19.
+Miscellaneous
+32
+
+20.
+Severability
+38
+
+    2
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+This License Agreement (" Agreement ")
+is made on [●]
+
+by and between
+
+1. Viessmann Group GmbH & Co. KG ,
+registered with the commercial register of the local court of Marburg, Germany, under number
+HRA 3389, Viessmannstraße 1, 35108 Allendorf (Eder)
+
+" Licensor "
+
+and
+
+2. Viessmann Climate Solutions
+SE , registered with the commercial register of the local court of Marburg, Germany, under
+number HRA 7562, Viessmannstraße 1, 35108 Allendorf (Eder) (or such other person or
+company to be determined by Parent as set forth in Exhibit 0 )
+
+" Licensee "
+
+and
+
+3. Carrier
+Global Corporation , a corporation incorporated under the laws of Delaware, U.S.A., with
+file number: 7286518, with its principal executive offices located at 13995 Pasteur Boulevard,
+Palm Beach Gardens, Florida 33418, U.S.A.
+
+" Parent "
+
+regarding the use of the trademark
+"Viessmann" and further trademarks owned by Licensor
+
+- Licensor, Licensee and Parent also referred to
+individually as a " Party " and collectively as " Parties " -
+
+    3
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+RECITALS
+
+(A) WHEREAS , on [●], Licensor
+as seller and Blitz F23-620 GmbH (to be renamed Johann Purchaser GmbH as purchaser a wholly-owned subsidiary
+of Parent have entered into a share purchase agreement (the " Share Purchase Agreement ")
+regarding the sale and purchase of all of the outstanding shares in Licensee (Licensee, collectively
+with its subsidiaries existing at the Effective Date of this Agreement, " CS Group ").
+
+(B) WHEREAS , Licensor owns and will
+own during the term of this Agreement current and future trademarks consisting of or containing the
+term "Viessmann" and further trademarks currently being used for the Licensed Business and
+also for other business divisions of Licensor which will not be acquired by purchaser. Licensee and
+CS Group respectively, own certain CS Trademarks which include trademarks that are currently being used
+exclusively for the Licensed Business.
+
+(C) WHEREAS , Licensor is willing to
+grant Licensee an exclusive license with regard to certain trademarks consisting of or containing the
+term "Viessmann" and further trademarks limited to the Licensed Business.
+
+(D) WHEREAS , the Parties envisage a
+long-term successful commercial relationship. The purpose of this Agreement is to enable Licensee and
+CS Group to provide premium products, solutions and services of the Licensed Business under the trademarks
+to be licensed under this Agreement.
+
+(E) WHEREAS , the Parties acknowledge
+the perception of "Viessmann" as a premium brand with respect to the Licensed Business and
+other business areas of Licensor and the Affiliates of Licensor. Licensee is committed to ensuring the
+premium quality of the products, services and solutions that are sold under the trademarks to be licensed
+under this Agreement.
+
+NOW, THEREFORE, the Parties agree
+as follows:
+
+    4
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+1. Interpretation and Definitions
+
+1.1 Interpretation
+
+1.1.1 Capitalized terms used in this Agreement
+shall have the meaning assigned to the respective term in any section of this Agreement or, if the
+term is not assigned a meaning in this Agreement, the Share Purchase Agreement. Certain terms are
+defined in Section 1.2. For reference purposes, Section 1.3 contains a list of terms defined
+in this Agreement.
+
+1.1.2 The Exhibits to this Agreement are an
+integral part of this Agreement and any reference to this Agreement includes this Agreement and the
+Exhibits as a whole.
+
+1.1.3 The headings of the Sections and subsections
+in this Agreement are for convenience purposes only and shall not affect the interpretation of any
+of the provisions hereof.
+
+1.1.4 Terms to which a German translation
+has been added shall be interpreted as having the meaning assigned to them by the German translation.
+
+1.1.5 Unless expressly defined and used with
+an initial capital letter, words shall have their generally accepted meanings. Terms defined in this
+Agreement, when used in the singular shall have a comparable meaning when used in the plural and vice
+versa. The word "shall" is mandatory, the word "may" is permissive, the word "or"
+is not exclusive and the words "e.g.", "includes" and "including" shall
+mean "including, without limitation". Words such as "hereof", "herein"
+or "hereunder" refer (unless otherwise required by the context) to this Agreement as a whole
+and not to a specific provision of this Agreement.
+
+1.2 Certain Definitions
+
+For the purpose of this Agreement, the following terms shall have the following meaning:
+
+" Affiliate/s
+of Licensee "
+ 
+shall mean any company of CS Group (which is not Licensee)
+as well as any company that, directly or indirectly, Controls or is Controlled by Licensee, or is under common Control with Licensee.
+
+" Affiliate/s of Licensor "
+ 
+shall mean
+any company or person (including, for the avoidance of doubt, [***] and [***]), (other than CS Group) that, directly or indirectly,
+Controls or is Controlled by Licensor, or is under common Control with Licensor; for purposes hereof, in relation to
+
+    5
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+any person qualifying as Affiliate of Licensor, also the following shall qualify as Affiliate of
+Licensor: [***].
+
+" Agreement "
+ 
+shall mean this trademark license agreement, including all exhibits
+hereto, as amended from time to time.
+
+" Control "
+ 
+(including the correlative terms " Controlling ", " Controlled
+by " and " under common Control with ") shall mean the direct or indirect holding of more than 50% of the
+capital and the voting rights.
+
+" CS Trademarks "
+ 
+shall mean the trademarks which are currently owned by Licensee or
+CS Group and which are exclusively used in the Licensed Business, including any future trademarks. The CS Trademarks do not include
+any of the Licensed Trademarks.
+
+" Customer "
+ 
+shall mean third parties taking ownership of Licensed Products for
+their own use or for further resale to third parties, and shall not include Affiliates of Licensee.
+
+" Escalation Process "
+ 
+shall mean the escalation process set forth in Section 8.3.
+
+" Exclusive Trademarks "
+ 
+shall mean those Licensed Trademarks that are, as of the Effective Date, exclusively used in the Licensed Business as set out in Exhibit 1.2./1 .
+
+" Existing License Agreement[s] "
+ 
+shall mean (i) any agreement existing as of the Effective Date pursuant
+to which any Target Company grants to any third party a license or other right to use under any of the Licensed Trademarks in the
+Licensed Business and (ii) the trademark license agreement[s] listed in Exhibit 1.2/2 .
+
+    6
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+" Intellectual Property Rights "
+ 
+shall mean inventions, patents, utility models, trademarks, trade names,
+domain names, designs, copyrights and use rights for copyrights, rights in software and databases, trade secrets, know-how and any
+other rights of a similar kind, whether registered or not, including applications for, and rights to apply for, the registration
+of such rights.
+
+" Licensed Business "
+ 
+shall mean for residential, commercial and light commercial: (i) heating,
+(ii) comfort cooling, (iii) ventilation and indoor air quality, (iv) heating and/or storage of sanitary water, (v) energy
+storage, energy management, fuel cells and integrated green electricity generation, (vi) digital platforms, digital offerings,
+intelligent and sensing technologies in connection with each of the foregoing and (vii) controls and automation and auxiliary
+products in conjunction with digital and value-added services in connection with each of the foregoing.
+
+" Licensed Products "
+ 
+shall mean products, solutions and services of the Licensed Business
+which originate from Licensee or sublicensed Affiliates of Licensee.
+
+" Licensed Trademarks "
+ 
+shall mean the trademarks consisting of or containing the term "Viessmann"
+as well as certain further trademarks protected for Licensor as set out in Exhibit 1.2/3 , and any other trademarks subsequently filed in any country in accordance with
+the terms of this Agreement.
+
+" Net Sales "
+ 
+[***].
+
+" Share Purchase Agreement "
+ 
+shall have the meaning as set forth in Recital (A).
+
+" Territory "
+ 
+shall mean
+all countries of the world.
+
+    7
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+" VAT "
+ 
+shall mean (i) such tax as may be levied by any member state of the
+European Union (EU) on the basis of Directive 2006/112/EC (as amended from time to time) and (ii) comparable taxes under the
+laws of any other jurisdiction outside the European Union.
+
+"Viessmann Generations Trademarks"
+ 
+shall mean any current and future trademarks consisting of or containing
+the terms "Viessmann Generation" or "Viessmann Generations", including the trademarks listed in Exhibit
+1.2/4 .
+
+" VS Group's Refrigeration Business "
+ 
+shall mean any and all refrigeration solution business activities of
+Licensor and Licensor's Affiliates as conducted on the Effective Date, including (i) any natural extensions thereof and (ii) with
+respect to clean rooms and cool rooms (unless primarily used to cool people), all extensions (including extensions by way of a merger,
+acquisition or other combination with the business of a third party) and (iii) solutions combining commercial cooling displays and
+Shop cooling, such as marketed under ESyCOOL, and all extensions of such combined solutions (including extensions by way of a merger,
+acquisition or other combination with the business of a third party).
+
+1.3 Further Definitions
+
+The following list contains capitalized terms defined in this Agreement.
+
+    8
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+Affiliate/s of Licensee
+as defined in Section 1.2
+
+Affiliate/s of Licensor
+as defined in Section 1.2
+
+Agreement
+as defined in Section 1.2
+
+Allowed Co-Branding
+as defined in Section 6.4
+
+Brand Committee
+as defined in Section 8.2.1
+
+Brand Guidelines
+as defined in Section 5.2
+
+Brand Strategy Check-Ins
+as defined in Section 5.5
+
+Brand Team
+as defined in Section 8.1.1
+
+Confidential Information
+as defined in Section 19.2.1
+
+Control
+as defined in Section 1.2
+
+Core Brand Strategy
+as defined in Section 5.1
+
+CS Group
+as defined in Recital A
+
+CS Trademarks
+as defined in Section 1.2
+
+CSPI
+as defined in Section 7.2.1
+
+Customer
+as defined in Section 1.2
+
+Domain Names
+as defined in Section 2.5
+
+Effective Date
+as defined in Section 14.1
+
+Escalation Process
+as defined in Section 1.2
+
+Exclusive Trademarks
+as defined in Section 1.2
+
+Existing License Agreement[s]
+as defined in Section 1.2
+
+Final Quality Assurance Guidelines
+as defined in Section 7.1.3
+
+[***] Royalty Report
+as defined in Section 9.2.3
+
+Force Majeure Event
+as defined in Section 18.6
+
+[***]
+as defined in Section 9.5.2
+
+Initial Quality Assurance Guidelines
+as defined in Section 7.1.3
+
+Initial Term
+as defined in Section 14.1
+
+Intellectual Property Rights
+as defined in Section 1.2
+
+License
+as defined in Section 2.1
+
+Licensed Business
+as defined in Section 1.2
+
+[***]
+as defined in Exhibit 17.1
+
+Licensed Products
+as defined in Section 1.2
+
+Licensed Trademarks
+as defined in Section 1.2
+
+Licensed Trademarks for Sale
+as defined in Section 19.5.4
+
+Licensee
+as defined in List of Parties
+
+[***]
+as defined in Exhibit 17.1
+
+[***]
+as defined in Exhibit 17.1
+
+[***]
+as defined in Exhibit 17.1
+
+Licensor
+as defined in List of Parties
+
+[***]
+as defined in Exhibit 17.1
+
+[***]
+as defined in Exhibit 17.1
+
+[***]
+as defined in Exhibit 17.1
+
+Licensor Own Social Media Accounts
+as defined in Section 4.3
+
+Material Competitors
+as defined in Section 19.5.4
+
+Net Sales
+as defined in Section 1.2
+
+Parent
+as defined in List of Parties
+
+Parties
+as defined in List of Parties
+
+Party
+as defined in List of Parties
+
+Product Liability Claims
+as defined in Section 12.2.1
+
+Renewal Period
+as defined in Section 14.1
+
+Royalty Payment
+as defined in Section 9.1
+
+Royalty Period
+as defined in Section 9.2.1
+
+Royalty Report
+as defined in Section 9.2.2
+
+Share Purchase Agreement
+as defined in Section 1.2
+
+Sport Sponsoring Contracts
+as defined in Section 5.3
+
+Sublicensee
+as defined in Section 3.1
+
+Successor
+as defined in Section 1.2
+
+Term
+as defined in Section 14.1
+
+Termination Period
+as defined in Section 14.3
+
+Territory
+as defined in Section 1.2
+
+VAT
+as defined in Section 1.2
+
+Viessmann Generations Trademarks
+as defined in Section 1.2
+
+VS Group's Refrigeration Business
+as defined in Section 1.2
+
+    9
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+2. Grant and Scope of License
+
+2.1 Subject
+to the terms and conditions of this Agreement, Licensor hereby grants to Licensee for the term stipulated in Section 14 a non-assignable
+and non-transferable (except as permitted pursuant to Section 19.5), subject to Section 3, sublicensable,
+subject to Section 9, royalty-bearing, exclusive (except as permitted pursuant to Section 2.2)
+license to the Licensed Trademarks (i) to develop, manufacture, commercialize, service and distribute
+Licensed Products, (ii) to use the Licensed Trademarks in connection with the marketing and advertising
+of Licensed Products and (iii) to use the Domain Names and the associated websites as stipulated in
+Sections 4.1 and 4.2 and (iv) to use the Licensed Trademarks in social media accounts as stipulated
+in Section 4.3, in each case of clauses (i)-(iv), in the Licensed Business in the Territory and including
+corresponding "have-made" rights (the " License ").
+
+2.2 The License is limited to the Licensed
+Business. The License does not extend to any activity outside the Licensed Business and is non-exclusive
+in respect to the overlap between the Licensed Business and the VS Group's Refrigeration Business. To
+the extent the Parties expressly agree to extend the scope of the License beyond the Licensed Business,
+the terms of this Agreement will apply to such extension.
+
+2.3 At the earliest after [***] following
+the Effective Date, and thereafter every [***] or at any other time when such a need arises, Licensee
+may request from Licensor the review of the Licensed Business definition to evaluate whether there is
+a reasonable need to extend the scope of the License to technologic, economic and market developments.
+Licensor may decide in its sole discretion whether there should be any such amendment to the definition
+of Licensed Business. If Licensor agrees that the definition of Licensed Business should be amended,
+then the Parties will enter into good faith negotiations to try to reach an agreement on an amendment
+of this Agreement reflecting such requirements, in particular including the determination of the royalties
+payable by Licensee to Licensor as a consequence of such amendments. If Licensor agrees to an extension
+or amendment to the Licensed Business, all costs and expenses to cover such extension or amendment of
+the Licensed Business shall be borne by [***], including costs and expenses associated with any adaptation
+of the Licensed Trademarks, including costs and expenses for clearance, registration, renewal, maintenance
+and dealing with infringements.
+
+2.4 Although the Viessmann Generations Trademarks
+are not licensed under this Agreement, Licensee shall be entitled to use the term "generation"
+and "generations" in connection with the Licensed Products in a descriptive way, but not as
+a trade mark, company name or business designation ( Geschäftsbezeichnung ). Licensor shall
+not use the Viessmann Generations Trademarks in the Licensed Business.
+
+2.5 Licensee
+is entitled to use the Licensed Trademarks (i) as, or as part of, Licensee's corporate name and the corporate name of the companies of
+CS Group and (ii) as, or as part of, email addresses of Licensee and the companies of CS Group, in each case of (i) and (ii),
+if and as long as the companies of CS Group are exclusively engaged in the Licensed Business. Licensee is allowed to use (x) the
+legend "manufactured by [ name of Licensee or Licensee's Affiliate engaged in the Licensed Business ] under license
+from Viessmann Group GmbH & Co. KG " or a legend with similar sense as required by applicable law, and (y) those
+domain names owned by Licensor on the
+
+    10
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+  Effective Date that are
+listed in Exhibit 2.5 (" Domain Names "), in each case for the Licensed
+Business pursuant to Section 4.
+
+2.6 [***] may apply to register the License
+at [***] expense. [***] shall render all statements and declarations and perform all actions which will
+be necessary to effect such registration, and [***] shall reimburse [***] for any resulting costs and
+expenses.
+
+2.7 Licensee hereby undertakes not to, and
+to cause all Affiliates of Licensee and all Sublicensees not to, use the Licensed Trademarks for products
+other than Licensed Products and not to use, apply for or register trademarks which are similar to or
+resemble the Licensed Trademarks.
+
+2.8 Licensee acknowledges Licensor's ownership
+in the Licensed Trademarks and further acknowledges that the Licensed Trademarks are unique and original
+to Licensor. Any use of the Licensed Trademarks under this Agreement and any goodwill arising from any
+use of the Licensed Trademarks shall be solely for the benefit of Licensor and shall be deemed to be
+solely the property of Licensor.
+
+2.9 Licensee shall not pledge the rights to
+which it is entitled under this Agreement or make them subject of any other right in rem .
+
+2.10 Licensor and Licensee are entitled to
+refer in their business communication to the fact that the Licensed Trademarks are licensed by Licensor
+to Licensee.
+
+2.11 Licensor shall not, and shall cause its
+Affiliates not to, use or permit any third party to use the Exclusive Trademarks. In connection with
+the Licensed Business, Licensor shall not, and shall cause its Affiliates not to, use or permit any
+third party to use the Licensed Trademarks or any designation that is identical to, resemble or is
+confusingly similar to the Licensed Trademarks, other than for the VS Group's Refrigeration Business.
+
+3. Sublicenses
+
+3.1 Licensee may grant sublicenses under the
+License (i) to any Affiliates of Licensee and (ii) with the prior written consent of Licensor
+to third parties, such consent to set forth any specific rules applicable and in particular the agreement
+applicable to royalties as well as reporting requirements (any such sublicensee under (i) and (ii),
+a " Sublicensee "), provided that any Sublicensee declares in writing for Licensor's
+benefit, as a direct contract for the benefit of a third party ( echter Vertrag zu Gunsten Dritter ),
+that it will adhere to the terms and conditions of this Agreement. Licensee shall notify Licensor of
+any sublicenses granted or terminated (for whatever cause, including expiry) within [***]. Any notification
+of a sublicense grant shall include a copy of the Sublicensee's declaration according to sentence 1
+of this Section 3.1.
+
+3.2 Licensee shall procure that the use of
+the Licensed Trademarks by any Sublicensee pursuant to Section 3.1 above is at all times in accordance
+with the terms and
+
+    11
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+  conditions of this Agreement (other than the terms of Section 9), and any breach
+by any Sublicensee shall be considered a breach by Licensee under this Agreement.
+
+3.3 Any sublicense granted by Licensee under
+Section 3.1(i) above shall automatically terminate once the respective Sublicensee (i) ceases to
+be an Affiliate of Licensee or (ii) voluntarily or involuntarily suffers restructuring, becomes insolvent
+or a petition in bankruptcy is filed or any insolvency proceedings are instituted by or against it,
+or if it is placed in the hands of a receiver or sequestrator, or liquidates its business, and with
+regard to all sublicenses granted pursuant to Sections 3.1(i) and (ii) above, in case of expiration
+or termination of this Agreement. Licensee shall include a respective provision in the sublicense agreement
+with the respective Sublicensee.
+
+3.4 Licensee and any of its Affiliates may
+have their designated distributors and contract manufacturers, including dealers and installers, use,
+reproduce and display Licensed Trademarks for the distribution, marketing and manufacture of Licensed
+Products within the ordinary course of business and for providing related services without entering
+into a separate sublicense agreement. Sections 3.2 and 3.3 shall apply accordingly; provided that Licensor
+may not terminate this Agreement pursuant to Section 14.4 for [***].
+
+3.5 Licensee is not liable for any Existing
+License Agreement that Licensor previously concluded to the extent that the provisions in such Existing
+License Agreement conflict with Licensee's obligations in this Agreement.
+
+4. Website Architecture and Social Media
+
+4.1 Licensee shall be entitled to operate
+under the Domain Names. Licensor will operate (i) under domain names other than the Domain Names, such
+as and including the domain names "viessmann.family", "viessmann.io" and "viessmann.net"
+and (ii) under the "viessmann.com" domain name. "viessmann.com" shall also be used
+as a landing page where visitors can navigate either to a Domain Name designated by Licensee or other
+domain names operated by Licensor or third-party licensees of Licensor with respect to Licensor's retained
+businesses and "viessmann.io" and "viessmann.net" shall be linked to such landing
+page. If Licensee does not use certain domain names which are part of the Domain Names for a period
+of [***], Licensee shall no longer be entitled to use the respective domain names and they shall be
+deemed deleted from the list of Domain Names in Exhibit 2.5 . Licensee shall regularly
+inform Licensor on the actual use of the Domain Names. For a period of two years, Licensee and the CS
+Group may continue to use, within the current scope of use, the "@viessmann.com" email addresses,
+and for a period of five years, Licensee and the CS Group may continue to use, within the current scope
+of use and on a non-exclusive basis (only internal use), the "[***]" and "[***]"
+email addresses. Following such transition periods, Licensee will transition to different email addresses;
+provided that Licensee's new email addresses may contain "viessmann" with another separated
+distinguisher (e.g., [***]).
+
+    12
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+4.2 Licensee will have freedom to operate
+its respective websites at its own cost in accordance with the Brand Guidelines and will have full responsibility
+for their content. As the technical implementation of the landing page and Licensor's websites on a
+stand-alone basis, to which the landing page refers, will not be completed until the Effective Date,
+Licensee or any of the Affiliates of Licensee will provide Licensor and the Affiliates of Licensor with
+an interim solution under a transitional services agreement on website services.
+
+4.3 Each of Licensor and Licensee will use
+their own social media accounts. Own social media accounts of Licensor pursuant to the forgoing sentence
+are, in particular, the social media accounts listed in Exhibit 4.3 (" Licensor
+Own Social Media Accounts "). The social media accounts existing at the Effective Date will
+continue to be used solely by Licensor. Licensee shall create its own social media accounts (LinkedIN,
+Instagram, Facebook, etc.) under the Licensed Trademarks in accordance with the Brand Guidelines.
+
+5. Core Brand Strategy and Brand Guidelines
+
+5.1 The core brand strategy of Licensor defining
+the brand identity (purpose, values) and key brand attributes (premium positioning, use for high-quality
+products, solutions and services and striving further to green energy production) of the "Viessmann"
+brand (" Core Brand Strategy ") is attached as Exhibit 5.1 . The Parties
+will follow the Core Brand Strategy.
+
+5.2 Licensee shall comply with the Viessmann
+brand guidelines attached as Exhibit 5.2 (" Brand Guidelines ") when
+using the Licensed Trademarks. The Brand Guidelines govern the appearance, design, communication, tonality
+as well as fostering the positioning of the "Viessmann" brand and the Licensed Trademarks
+as well as the use of the accompanying claims to ensure Licensee's compliance with the Core Brand Strategy
+(including premium brand and use for high-quality products, solutions and services). If Licensor grants
+licenses to the Licensed Trademarks to parties that are not Affiliates of Licensor, Licensor shall oblige
+such third parties to use the Licensed Trademarks in a manner to maintain the recognition and quality
+of the Licensed Trademark.
+
+5.3 The Brand Guidelines include guidance
+to be complied with by Licensee with regard to sport sponsoring as an important marketing tool beneficial
+for both Licensor and Licensee and to be continued in future. Licensee shall continue the sport sponsoring
+[***].
+
+5.4 Licensor may decide on future amendments
+of the Brand Guidelines after having consulted with the Brand Committee, provided that any material
+changes, including any changes in the form or appearance (including brand recognition) of the Licensed
+Trademarks, require the prior consent of the Brand Committee. Licensee shall have a transition period
+of [***] to implement such amendments and may sell off any Licensed Products already produced and continue
+using existing business and
+
+    13
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+  marketing materials. If any future amendment of the Brand Guidelines or
+the form and appearance of the Licensed Trademarks leads to the registration of a modification of any
+of the Licensed Trademarks, such modified Licensed Trademark shall automatically become a Licensed Trademark
+under this Agreement upon registration.
+
+5.5 Every [***] during the Term, commencing
+on the [***] of the Effective Date of this Agreement, the Brand Committee shall convene a special meeting
+to discuss and align on Brand Guidelines, changes in the Core Brand Strategy, if any, and, more broadly,
+Licensee's role as a brand steward and Licensor's role as brand captain; provided however, that the
+core elements of the form and appearance of the Licensed Trademarks shall, subject to Section 5.4, remain
+untouched (" Brand Strategy Check-Ins "). If the Brand Committee is unable to reach alignment
+with respect to any matters during the Brand Strategy Check-Ins, such matters will be escalated to the
+Escalation Process pursuant to Section 8.3.
+
+5.6 During the term of the License, both Licensor
+and Licensee will, within their respective scope of use of the Licensed Trademarks, maintain, protect,
+enforce and foster the Licensed Trademarks in accordance with the terms of this Agreement.
+
+6. Further Specifics of Use
+
+6.1 Licensee is obliged to use the Licensed
+Trademarks in all countries where Licensed Trademarks are both registered and used by the CS Group immediately
+prior to the Effective Date. Such use has to be sufficient to fulfill the use requirement under applicable
+trademark law and to secure registration of the Licensed Trademarks. Licensee shall inform Licensor
+from time to time, but at least [***], about its use of the Licensed Trademarks on a country-by-country
+basis. Licensee shall keep detailed evidence of use of any of the Licensed Trademarks for a period of
+[***] and hand over such evidence of use to Licensor upon request.
+
+6.2 Licensee must inform Licensor in writing
+of its intention to cease using the Licensed Trademarks in a particular country at least [***] prior
+to the end of the period in which the Licensed Trademarks have to be used in such country in order to
+keep the registration.
+
+6.3 Licensee may use the Licensed Trademarks
+only (i) in their registered form and appearance, and (ii) in accordance with the Core Brand Strategy
+and the Brand Guidelines. Any use of the Licensed Trademarks by Licensee that deviates from their registered
+form or appearance is impermissible even if the deviations do not alter the identifying characteristics
+of the Licensed Trademarks.
+
+6.4 Licensee shall use the Licensed Trademarks
+on the Licensed Products stand-alone and not together with any other words or devices. As an exception
+to the foregoing, Licensee is allowed to use the CS Trademarks existing as of the Effective Date
+and future CS Trademarks approved by the Brand Committee together with the Licensed Trademarks on Licensed
+Products in accordance with the Brand Guidelines (" Allowed Co-Branding "). Licensee
+may also use product names together with the
+
+    14
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+  Licensed Trademarks in a descriptive manner in catalogues,
+brochures, price lists and similar marketing and sales material with respect to Licensed Products.
+
+6.5 Licensee shall inform Licensor from time
+to time, but at least [***], about all forms of use of the Licensed Trademarks and the marketing of
+the Licensed Products under the Licensed Trademarks and provide Licensor with visual material regarding
+such use and marketing.
+
+7. Quality Assurance and Critical Incidents
+
+7.1 Quality Assurance
+
+7.1.1 Licensee shall conduct the Licensed
+Business in a manner that does not adversely affect the reputation of Licensor or any of the Licensed
+Trademarks.
+
+7.1.2 Licensee shall procure that the Licensed
+Products are manufactured and distributed in compliance with applicable product safety laws and regulations.
+
+7.1.3 Licensee shall ensure that (i) the Licensed
+Products placed on the market under the Licensed Trademarks and (ii) the solutions and services rendered
+in the Licensed Business under the Licensed Trademarks are, in the case of both (i) and (ii), of uniform
+and consistent premium quality in accordance with the initial guidelines annexed to this Agreement
+as Exhibit 7.1.3 (the " Initial Quality Assurance Guidelines ").
+After the Effective Date, Licensor and Licensee shall work on a migration from the Initial Quality
+Assurance Guidelines to either Parent's quality assurance guidelines or any other quality assurance
+guidelines on which they mutually agree and which shall replace the Initial Quality Assurance Guidelines
+in Exhibit 7.1.3 (the " Final Quality Assurance Guidelines ").
+
+7.1.4 [***] Licensee shall report to Licensor
+in writing any product recalls and major quality issues that have occurred during the [***].
+
+7.1.5 Upon request, Licensee shall provide
+Licensor with free-of-charge samples of the Licensed Products manufactured or marketed under the Licensed
+Trademarks to the extent required for purposes of quality assurance. If the provision of a free-of-charge
+sample of a Licensed Product is not reasonable due to the nature of the Licensed Product, the Parties
+agree that Licensee will grant Licensor a right to inspect the respective Licensed Product for quality
+control; the details of such inspection shall be reasonably agreed by the Parties. If Licensor objects
+to the quality of the Licensed Products, it shall inform Licensee of the objections in writing and
+give Licensees the opportunity to remedy the quality defects within [***].
+
+7.2 Critical Incidents
+
+7.2.1 After any of the Parties have received
+knowledge of a Critical Serious Public Incident (as defined in the Quality Assurance Guidelines) or
+any event resulting in a significant and sustaining critical serious public incident (each of these,
+a " CSPI ") of
+
+    15
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+  any nature in connection with this Agreement, including any incidents
+relating to the Licensed Trademarks, the Licensed Products or the Licensed Business, the Parties have
+to, as promptly as possible, inform the other Party. The Parties shall as promptly as possible share
+all information to ensure that the CSPI can be solved professionally.
+
+7.2.2 As the Licensed Trademark's and the
+Parties' reputation can be significantly harmed by the delayed or inappropriate handling of the CSPI,
+both Parties need to align quickly in case of a CSPI. If the Parties cannot quickly agree on a joint
+strategy to handle the CSPI, Licensee will take action in compliance with applicable law and consistent
+with the Quality Assurance Guidelines, including response strategy and messaging. Each of the Parties
+have to ensure that their employees, who are responsible for handling such incidents, are available
+on short notice.
+
+8. Brand Team, Brand Committee and Escalation
+Process
+
+8.1 Brand Team
+
+8.1.1 Licensor and Licensee shall establish
+in a timely manner after the Effective Date a brand team for the coordination of all matters relating
+to the Licensed Trademarks, including the use of domain names and social media (" Brand Team ").
+
+8.1.2 The Brand Team shall consist of [***]
+members, [***] members appointed by Licensor and [***] members appointed by Parent. The members of
+each side shall consist of representatives of each of the Parties with knowledge, expertise and experience
+in trademark and marketing matters.
+
+8.1.3 The Brand Team shall be a discussion
+forum for the Parties with regard to brand related questions and brand usage; prepare proposals for
+the topics to be decided by the Brand Committee pursuant to Section 8.2; and represent the first
+escalation level in cases of non-compliance with the Brand Guidelines. The Brand Team shall have the
+authority to render binding decisions with respect to day-to-day trademark and marketing matters.
+Decisions of the Brand Team are taken with [***]. In case (i) the Brand Team cannot reach an agreement,
+(ii) the matter goes beyond the day-to-day level, or (iii) of the preparation of the agenda for the
+Brand Committee, including the Brand Strategy Check-Ins pursuant to Section 5.5, the Brand Team shall
+prepare a proposal and pass on the matter to the Brand Committee.
+
+8.1.4 The Brand Team shall meet on a regular
+basis, at least every [***] during the [***] of the Initial Term. Thereafter, the Brand Team shall
+meet [***] or as mutually agreed. The Brand Team members may [***]. Minutes shall be taken of the
+meetings.
+
+8.2 Brand Committee
+
+8.2.1 Licensor and Licensee shall establish
+in a timely manner the brand committee with [***] voting rights of Licensor and Licensee (" Brand
+Committee "). The Brand Committee shall have [***] members who shall be (i) [***] members
+who are [***]
+
+    16
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+  from, and designated by, Parent and (ii) [***] members who are [***] from, and designated
+by, Licensor.
+
+8.2.2 The Licensor has the role as brand captain,
+meaning that Licensor is taking the initiative to the development of the brand, and the Licensee is
+the brand steward, meaning that Licensee will duly care for the brand. Thus, Licensor shall take the
+lead in respect of the Brand Guidelines as set forth in Section 5.4.
+
+8.2.3 The Brand Committee shall decide on
+the following:
+
+(a) on all questions
+in relation to the Brand Strategy Check-Ins pursuant Section 5.5;
+
+(b) on material
+changes of the form and appearance of the Licensed Trademarks;
+
+(c) on amendments
+to the Brand Guidelines materially affecting the form and appearance of the Licensed Trademarks;
+
+(d) on matters
+that the Brand Team has passed on to the Brand Committee in its function as escalation level
+pursuant to Section 8.1.3;
+
+(e) on matters
+relating to the termination of this Agreement for cause ( außerordentliche Kündigung )
+pursuant to Section 14.4 or Section 14.5;
+
+(f) on any disputes
+regarding this Agreement; and
+
+(g) on the website
+architecture and social media demarcation between the Parties with respect to websites with
+domain names that use any Licensed Trademark and social media accounts that use any Licensed
+Trademark in the account name or handle.
+
+Decisions of the Brand Committee are taken with [***], provided
+that decisions pursuant to subsections (b) and (c) require a [***].
+
+8.2.4 The Brand Committee shall meet (i) for
+the Brand Strategy Check-Ins and (ii) with reasonable prior written notice at the initiative of either
+Party in urgent or business-critical matters relative to Section 8.2.3, (iii) if the Parties
+otherwise have a dispute with respect to this Agreement, or (iv) if the Brand Team has not been able
+to resolve an issue.
+
+8.2.5 The Brand Committee shall try to reach
+an agreement on submitted matters. The Brand Committee shall attempt to reach an agreement as soon
+as possible, but not later than [***] after a matter has been submitted to the Brand Committee. In
+case that the Brand Committee cannot reach an agreement after good faith discussions within [***],
+the Parties will proceed with the Escalation Process as further stipulated in Section 8.3, unless
+any of the Parties asks for an extension of further [***] to reach an agreement in which case the
+period to reach an agreement will be [***] in total.
+
+    17
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+8.3 Escalation Process
+
+8.3.1 All matters that cannot be resolved
+by the Brand Committee after good faith discussions pursuant to Section 8.2.5 will be escalated
+immediately, first, to the [***] of Parent and the applicable representative from the Licensor as
+designated by Licensor to resolve such matter.
+
+8.3.2 In case that an agreement cannot be
+reached pursuant to Section 8.3.1 after good faith discussions within [***] after it has been
+escalated, the respective matter will be further escalated to the [***] of Parent and the [***] of
+Licensor, but either Party shall be entitled to escalate the matter already after [***] if it is of
+the opinion that a further discussion on this level will likely not be successful.
+
+8.3.3 If the respective matter cannot be resolved
+by the [***] of Parent and the [***] of Licensor in good faith discussions pursuant to Section 8.3.2
+within [***] (which may be extended by mutual agreement), (i) where proposed changes to the Brand
+Guidelines that require consent or the Core Brand Strategy are concerned, [***] and (ii) where
+a dispute over this Agreement is concerned, either Party may initiate the Dispute Resolution process
+pursuant to Section 19.7.2.
+
+8.3.4 The right of a Party to terminate this
+Agreement for cause ( außerordentliche Kündigung ) pursuant to Section 14.4 and Section
+14.5, remains unaffected.
+
+9. Royalties
+
+9.1 Running Royalties
+
+9.1.1 As consideration for the grant of the
+License, Licensee shall pay to Licensor the following royalties [***]: for the [***] through [***]
+following the Effective Date: [***];
+
+9.1.2 [***].
+
+9.1.3 Licensee shall also pay to Licensor
+such royalties from Sublicensees as agreed upon by the Parties in connection with Licensor's approval
+of a Sublicense in accordance with the terms of Section 3.1;
+
+all
+payments under these Sections 9.1.1, 9.1.2 and 9.1.3 the " Royalty Payments "
+
+9.2 [***]
+
+Royalty
+Payments become due for, and Licensee shall include in the Royalty Report, the Net Sales [***]. With respect to [***] or [***], Licensee
+will [***].
+
+Licensee
+and its Affiliates will not structure a "go to market" strategy in a manner, the purpose of which is to avoid paying royalties
+on Licensed Products marketed under the Licensed Trademarks.
+
+    18
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+9.3 Payment and Royalty Reports
+
+9.3.1 If not otherwise stipulated in this
+Agreement, any Royalty Payments under this Section 9 shall be due and payable within [***] following
+Licensee's receipt of Licensor's invoice as stipulated in Section 9.3.4 after the end of each
+[***] in which the Royalty Payments have accrued (each of such [***] " Royalty Period "),
+provided that the first Royalty Period shall for the purposes of this Agreement begin on the Effective
+Date and end on [***].
+
+9.3.2 Within [***] after the end of each Royalty
+Period, Licensee shall prepare and issue to Licensor verified reports for the Royalty Period in the
+English language in accordance with the form annexed hereto as Exhibit 9.3.2 or
+such other form agreed in writing between Licensor and Licensee (a " Royalty Report ")
+derived from the Net Sales which shall be [***] plus the associated royalty calculations with respect
+to any third-party Sublicensees which shall be separately listed in the Royalty Report. [***], [***].
+The Royalty Report shall show the Net Sales in the [***]. Where [***] financial statements are available,
+they shall be used, otherwise a fair estimate, in each case subject [***]. Licensor may request additional
+documents from Licensee.
+
+9.3.3 Within [***] after [***], Licensee shall
+prepare and issue to Licensor [***] report, that is substantiated by underlying documents ("[***]
+Royalty Report ") to confirm or correct the Net Sales previously reported in such [***]
+Royalty Reports. Within [***] of receipt of the [***] Royalty Report Licensee shall pay to Licensor
+any shortfall with respect to the royalty payments, and respectively Licensor shall reimburse Licensee
+any overpayment of royalties for the respective [***].
+
+9.3.4 Licensor will issue an invoice for the
+Royalty Payments payable for each Royalty Period by Licensee to Licensor based on Licensee's Royalty
+Reports as further stipulated in Section 9.3.2. Where sales are reported in other currencies
+than [***], they shall be converted into [***] using the average exchange rate for such Royalty Period,
+as provided by the [***], or any replacement thereof.
+
+9.3.5 All Royalty Payments by Licensee to
+Licensor shall be made in [***] and be transferred [***] as Licensor may direct, and shall be clearly
+designated as payments under this Agreement.
+
+9.3.6 Royalty Payments provided for in this
+Section 9, when overdue, shall bear interest at a rate of [***] the base rate ( Basiszinssatz )
+of the German Central Bank ( Deutsche Bundesbank ) [***] for the time period from the payment's
+due date until and including the date payment is received by Licensor.
+
+9.3.7 For a period of [***] after each payment
+by Licensee pursuant to this Section 9.3.7, Licensee shall keep, and obtain from any Sublicensees,
+separate records in sufficient detail to permit the determination of the Royalty Payments payable
+under this Agreement and shall, upon Licensor's request upon [***] prior written notice, but not more
+than [***], permit an accredited and reputable independent auditor, selected by Licensor and reasonably
+acceptable to Licensee, to have access and examine, at any
+
+    19
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+  time during ordinary business hours in
+a manner that does not interfere with the normal business activities of Licensee or its Sublicensees,
+such records as may be necessary to verify or determine Royalty Payments paid or payable under this
+Agreement. All costs and expenses in connection with such examination shall be borne by [***], provided
+however, that if such examination reveals a [***] in any Royalty Payments of [***] than [***] per
+[***], then [***] shall reimburse [***] for all reasonable costs incurred by [***] in connection with
+such examination. Licensee's obligation to pay interest pursuant to Section 9.3.6 remains unaffected.
+
+9.3.8 If Licensee or Licensor believes the
+result of the examination by the independent auditor pursuant to Section 9.3.7 to be incorrect, Licensor,
+Licensee and the independent auditor shall jointly review the relevant information and any additional
+information considered relevant by any of them in an effort to find an amicable solution. If Licensor
+and Licensee cannot agree within a period of [***], the original determination by the independent
+auditor pursuant to Section 9.3.7 shall become binding between the Parties.
+
+9.4 Value-Added Tax
+
+All
+Royalty Payments made by Licensee to Licensor under this Agreement [***] VAT. [***] VAT [***].
+
+9.5 [***]
+
+9.5.1 Any Royalty Payments shall be made in
+full and [***], [***].
+
+9.5.2 If [***], [***].
+
+9.5.3 To the extent [***], if [***], [***].
+[***].
+
+9.5.4 The Parties shall [***], including [***].
+
+10. Maintenance and Third Party Challenges
+with Regard to Licensed Trademarks
+
+10.1 Maintenance
+
+10.1.1 Licensor shall maintain the Domain
+Names and the Licensed Trademarks to the extent necessary for maintaining trademark protection for
+the Licensed Products in the respective classes in the Licensed Business in the Territory. [***]
+shall bear the costs of the maintenance of the Domain Names, the domain name "viessmann.com"
+and the Licensed Trademarks, if not otherwise stipulated in Section 10.1.2. The costs for the maintenance
+of the landing page under "viessmann.com" shall be [***].
+
+10.1.2 Upon request of Licensee, Licensor
+shall file and maintain in its own name new trademark registrations for the trademarks that include
+"Viessmann" for the Licensed Business. Licensor has the right to reject such requests if
+Licensor determines in good faith that (i) such registration does not belong to the Licensed Business
+after
+
+    20
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+  consultation with the Brand Committee and satisfaction of the Escalation Process, or (ii) the
+new trademarks may interfere with rights of third parties, or (iii) such registrations may suffer
+demonstrable material legal obstacles or (iv) such registrations may contravene law. The foregoing
+applies accordingly in the event that Licensee wishes to extend trademark protection to countries
+in the Territory where the Licensed Trademarks are not yet protected. [***] shall bear the costs
+of registration and maintenance of any such new trademark. Licensor shall notify Licensee without
+undue delay if a Licensed Trademark is not available for registration or use in a particular country.
+Any new trademark registered in accordance with this Section 10.1.2 shall automatically become
+a Licensed Trademark under this Agreement upon registration.
+
+10.2 Defense against Cancellation of Trademarks
+
+[***]
+shall defend the Licensed Trademarks against cancellation, revocation or invalidation to the extent necessary for maintaining sufficient
+trademark protection for the Licensed Products in the respective classes in the Licensed Business in the Territory. [***] shall inform
+[***] about any attempt to cancel, revoke or invalidate any such Licensed Trademark without undue delay. If any Licensed Trademark is
+subject to any cancellation, revocation or invalidation, [***], upon [***]'s reasonable written request, shall, not later than [***]
+after receipt of [***]'s request, either (i) inform [***] that [***] will defend the Licensed Trademark with the reasonable assistance
+of [***] or (ii) duly authorize [***] to conduct the defense [***]. Irrespective of the option selected and implemented by [***], [***]
+shall bear all reasonable costs associated with the defense. Each Party will provide such assistance as required or useful under the
+respective circumstances.
+
+10.3 Opposition against Third-Party Trademarks
+
+[***]
+may decide, at its sole discretion, whether or not to oppose third-party trademarks which are identical or confusingly similar to the
+Licensed Trademarks. If the third-party trademarks might affect [***]'s interests regarding [***], [***] shall, upon [***]'s reasonable
+written request, either (i) bring opposition proceedings against the third-party trademarks with any reasonable assistance of [***] or
+(ii) duly authorize [***] to bring opposition proceedings against the third-party trademarks on behalf of [***]. Irrespective of the
+option selected and implemented by [***], [***] shall bear all reasonable costs associated with the defense. Each Party will provide
+such assistance as required or useful under the respective circumstances.
+
+11. Enforcement against Third-Party Infringements
+
+11.1 Infringement Notice
+
+In the event that either Party becomes aware of any infringement of the Licensed Trademarks in
+the Licensed Business by a third party, it shall promptly notify the other Parties hereto in writing.
+
+    21
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+11.2 Enforcement by [***]
+
+11.2.1 [***] shall have the first right, but
+not the obligation, to institute, prosecute and control any action or proceeding with respect to
+the infringement of the Licensed Trademarks in its own name and cost against infringers, both out
+of court and in court. [***] shall at [***], cooperate with [***] in pursuing or defending any action
+with respect to the Licensed Trademarks, including joining as a party plaintiff and executing such
+documents as may be reasonably necessary.
+
+11.2.2 If [***] does not inform [***] that
+it will take action within [***] as of receiving notice pursuant to Section 11.1, or [***] does not
+take immediate action after providing such notice to [***], or if it is impossible for [***] to take
+action in its own name in a particular country due to [***], [***] can take action. The Parties will
+[***].
+
+11.3 Enforcement by [***]
+
+11.3.1 In the event that [***] does not institute
+legal proceedings to cease an infringement pursuant to Section 11.2, [***] shall have the right to
+initiate an action to cease such infringement at [***]. [***] shall prosecute and control any action
+or proceeding with respect to such infringement, using counsel of its choice, provided that [***],
+including any obligation regarding the Licensed Trademarks. The Parties shall cooperate at [***]'s
+expense, in pursuing any such action, including joining as a party plaintiff and executing such documents
+as may be reasonably necessary.
+
+11.3.2 [***] shall always timely and fully
+inform [***] about all developments in litigation initiated pursuant to Section 11.3.1 above.
+
+11.4 Allocation of Proceeds from Enforcement
+
+All damages or other compensations of any kind
+recovered through proceedings for the infringement of the Licensed Trademarks shall be allocated in the following order: (i) first, to
+reimburse the Party bringing the legal action or proceeding for any reasonable costs incurred with respect to such action or proceeding,
+(ii) second, to reimburse the Party not bringing such action or proceeding for reasonable costs incurred by it at the request of the
+other Party taking such action or proceeding and (iii) finally, any remaining amount of such recovered damages or other compensations
+shall be provided to [***]. Any such remaining amount that is attributable to the loss of sales with respect to any Licensed Product
+shall be [***]. [***].
+
+12. Attacks on Use of Licensed Trademarks;
+Product Liability
+
+12.1 Attacks on Use of Licensed Trademarks
+
+If a third party asserts that Licensee's use of the Licensed Trademarks
+in accordance with this Agreement infringes its rights from a prior mark, [***] shall promptly notify [***] thereof. Within a reasonable
+time, [***] shall then select one of the following
+
+    22
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+options and notify [***] accordingly: (i) [***] shall take control of the defense
+at [***], including choice of counsel, litigation strategy and settlement, and indemnify and hold harmless ( freistellen ) [***]
+against the infringement claims asserted by the third party or (ii) [***] shall take control of the defense at [***], including choice
+of counsel, litigation strategy and settlement. Irrespective of the option selected by [***], the respective Party not in control of
+the defense shall render the controlling party all assistance reasonably helpful for conducting the defense at [***] cost.
+
+12.2 Indemnification; Product Liability
+
+12.2.1 Licensee shall indemnify and hold harmless
+( freistellen ) Licensor and any of its Affiliates and its respective directors, officers, employees,
+and agents from any (including past, present or future, contingent, known or unknown) claims, suits,
+lawsuits, damages, costs, expenses and liabilities to the extent they directly or indirectly arise
+out of or relate to, whether directly or indirectly, Licensee's, its Sublicensee's (either by themselves
+or through a third party (including its designated distributors, contract manufacturers, dealers
+and installers)) use of the Licensed Trademarks, Domain Names and the social media accounts pursuant
+to this Agreement, including third-party claims according to § 4 of the German Product
+Liability Code ( Produkthaftungsgesetz ) and similar claims in other jurisdictions (" Product
+Liability Claims "). This indemnification obligation does not extend to any claims to the
+extent they (a) have arisen before the Effective Date; (b) have been caused by actions of Licensor
+or Licensor's Affiliates; (c) are third-party claims that are brought against Licensee alleging that
+Licensee's or any of its Affiliate's or their Sublicensee's use of the Licensed Trademarks in accordance
+with this Agreement infringes any third party's intellectual property rights; or (d) are a result
+of Licensor's express instructions.
+
+12.2.2 Licensee shall notify Licensor about
+any Product Liability Claims and any claims of customers in connection with a claim for a product
+recall brought against Licensee and about any incident which may give rise to a product recall. Licensee
+shall [***], in each case consistent with the requirements to preserve attorney-client privilege.
+
+12.2.3 Licensor shall indemnify and hold harmless
+( freistellen ) Licensee and any of its Affiliates and its respective directors, officers, employees,
+and agents from any (including past, present or future, contingent, known or unknown) claims, suits,
+lawsuits, damages, costs, expenses and liabilities to the extent they directly or indirectly arise
+out of or relate to, whether directly or indirectly, Licensor's or its Affiliates' or their other
+Licensees' use of the Licensed Trademarks, Domain Names and the social media accounts in Licensor's
+and its Affiliates' respective businesses. This indemnification obligation does not extend to any
+claims to the extent they (a) have arisen before the Effective Date or (b) have been caused by actions
+of Licensee or Licensee's Affiliates or (c) are a direct result of Licensee's express requests.
+
+    23
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+13. Representations and Warranties; Limitation
+of Liability
+
+13.1 Representations and Warranties by
+Licensor
+
+Licensor represents and warrants by way of an independent
+guarantee ( selbstständiges Garantieversprechen ) within the meaning of § 311 para. 1 BGB that it
+has full and valid title in the Licensed Trademarks listed in Exhibit 1.2/3 and obtained all corporate authorizations required
+to enter into and perform its obligations under this Agreement.
+
+13.2 No
+further Representations and Warranties by Licensor
+
+13.2.1 Except as explicitly stated in Section
+13.1 Licensor makes no representations or warranties. In particular, Licensor makes no representation
+or warranty:
+
+(a) as to the
+validity of the Licensed Trademarks; or
+
+(b) that the
+exercise of this Agreement will not result in the infringement of intellectual property rights
+of third parties.
+
+13.2.2 Unless expressly stated otherwise in
+this Agreement, [***].
+
+13.3 Representations and Warranties by
+Licensee
+
+Licensee represents and warrants by way of an independent guarantee ( selbstständiges Garantieversprechen )
+within the meaning of § 311 para. 1 BGB that:
+
+(a) it has obtained
+all corporate authorizations required to enter into and perform its obligations under this
+Agreement; and
+
+(b) it will
+promote, market, sell and distribute Licensed Products as a premium quality brand under the
+Licensed Trademarks in the Licensed Business.
+
+14. Term and Termination
+
+14.1 This Agreement shall enter into effect
+upon signature by both Parties (the " Effective Date "). Subject to earlier termination
+in accordance with this Section 14 or Section 19.5.4, this Agreement shall continue for an initial
+term of forty (40) years (" Initial Term ") and after the Initial Term, it shall be
+automatically renewed for periods of five (5) years (each of these periods the " Renewal Period "
+and together with the Initial Term, the " Term ").
+
+14.2 The Parties envisage a long-term successful
+commercial relationship. The Parties will therefore discuss in good faith a further fixed extension
+of the term of the license fifteen (15) years before the expiry of the Initial Term and every five
+(5) years thereafter, e.g ., as part of the Brand Strategy Check-Ins.
+
+    24
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+14.3 Effective as of the expiry of the Initial
+Term or any Renewal Period, either Party may ordinarily terminate this Agreement ( ordentliche Kündigung )
+with five (5) years' prior written notice (" Termination Period "). Prior to delivery
+of any termination notice under this Section 14.3, the Party intending to terminate shall provide
+written notice of this intent to the other Party, and, upon request of the other Party, the [***] of
+Parent and of Licensor shall discuss the arguments of the other Party and consider in good faith whether
+there is an appropriate solution other than the termination.
+
+14.4 Each Party may terminate this Agreement
+for cause ( aus wichtigem Grund ) with [***] – or with effect from such other later effective
+date as may be chosen by the terminating Party – by written notice to the other Party, in particular,
+if, in the case of termination by Licensor, Licensee breached its material obligations under this Agreement
+set forth below and such breach is so material and severe that, taking into account all the circumstances
+of the specific breach and weighing the interests of both Parties, the terminating Party cannot reasonably
+be expected to continue this Agreement:
+
+(a) if Licensee
+commits multiple breaches of the scope of the License as stipulated in Section 2; or
+
+(b) if Licensee
+commits multiple breaches of the use requirements set out in Section 6.3 (use in the registered
+form and appearance) or Section 6.4 (stand-alone use); or
+
+(c) if Licensee
+materially breaches any of the provisions (i) under Sections 7.1.2 or 7.1.3 (Quality Assurance)
+in a manner that creates a risk to health and safety and as a consequence thereof the Viessmann
+brand is significantly impacted or (ii) under Section 7.2 (Critical Incidents); or
+
+(d) if Licensee
+(i) at any time knowingly makes a false Royalty Report or (ii) habitually makes inaccurate
+Royalty Reports as determined pursuant to Section 9.3.2; or
+
+(e) if Licensee
+repeatedly fails to pay royalties that have become due pursuant to Section 9 on the
+due date; or
+
+(f) if Licensee,
+any of its Sublicensees or Affiliates attacks, or instructs or actively supports a third
+party in attacking the validity of any of the Licensed Trademarks by cancellation proceedings,
+opposition or otherwise; or
+
+(g) if Licensee
+[***]; or
+
+(h) if Licensee
+fails to materially comply with the Brand Guidelines in a manner that seriously harms the
+value of the Licensed Trademarks as a whole; or
+
+    25
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+(i) if the activities
+of Licensee or any of its Sublicensees in connection with this Agreement subjects Licensor
+or any of Licensor's Affiliates to material criminal liability.
+
+Any termination pursuant to this Section 14.4 requires that such breach (i) has not been
+cured within [***] following receipt of a written notice from the terminating Party specifying the breach; provided that if Licensee
+is using good faith efforts to cure such breach during such [***] cure period, such cure period shall be extended for another [***] period
+and (ii) has not been resolved in accordance with either Section 8.2.3(e) by the Brand Committee or Section 8.3 via the Escalation
+Process.
+
+14.5 In addition to Section 14.4 above, Licensor
+may terminate this Agreement for cause ( aus wichtigem Grund ) with [***] – or with effect
+from such other later effective date as it may choose – by written notice to Licensee, without
+further requirements:
+
+(a) if Parent,
+Licensee or any member of the CS Group voluntarily or involuntarily suffers restructuring,
+becomes insolvent or a petition in bankruptcy is filed or any insolvency proceedings are
+instituted by or against it, or if it is placed in the hands of a receiver or sequestrator,
+or liquidates its business; or
+
+(b) if and to
+the extent (i) Licensee or any of Affiliates of Licensee using the Licensed Trademarks ceases
+to be Controlled by Parent, or (ii) Parent divests the CS Group as a whole, or (iii) Parent
+divests or otherwise ceases to control all, substantially all or material parts of the Licensed
+Business, in each case unless the [***] of Parent and Licensor have agreed on another appropriate
+solution. In order to allow for such [***] discussion, prior to any change of control in
+the meaning of (i) through (iii) above, Parent shall provide written notice to Licensor of
+its intent to divest, and the [***] of Parent and Licensor shall discuss in good faith whether
+this Agreement should be terminated upon the change of control or if there is another appropriate
+solution. If the [***] agree on another appropriate solution, Licensor shall not terminate
+this Agreement. In the event only parts of, but not all, of the CS Group or its businesses
+within the Licensed Business cease to be controlled by Parent, any such termination pursuant
+to this Section 14.5 shall be limited to such parts of the CS Group or such businesses that
+are no longer controlled by Parent.
+
+14.6 Any negotiations and discussions as well
+as the Escalation Process that aim at avoiding termination of this Agreement for cause ( aus wichtigem
+Grund ) will not act as a bar to such termination if the issue cannot be resolved despite these
+negotiations and the Escalation Process. Each Party waives its right to oppose termination for cause
+( aus wichtigem Grund ) on the basis that the termination trigger occurred too long ago.
+
+14.7 This Agreement shall automatically terminate
+if the Share Purchase Agreement is rescinded or unwound.
+
+    26
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+14.8 This Agreement will, in any case, expire
+with the legally binding cancellation of all of the Licensed Trademarks in all countries of the Territory.
+
+14.9 If the License expires or is terminated
+in accordance with this Section 14, all sublicenses granted by Licensee under the License shall
+automatically terminate, and Licensee shall procure that they automatically terminate by including
+into any sublicense agreement a suitable provision to that effect and Section 15 shall apply accordingly.
+
+15. Effects of Expiry and Termination
+
+15.1 Upon expiry or termination of this Agreement
+in accordance with Section 14:
+
+(a) all rights
+and obligations of the Parties under this Agreement shall terminate; provided that: Sections 1,
+13.2.2, 15.1(a), 15.2, 17 (and Exhibit 17.1), 19.1, 19.2, 19.4, 19.7 and 20 shall remain
+in full force and effect.
+
+(b) Licensee
+hereby transfers to Licensor, subject to the condition precedent of expiry or termination
+of this Agreement occurring, any and all intellectual property rights (including any goodwill)
+it has accrued with respect to the Licensed Trademarks during the Term. Upon request by Licensor,
+Licensee shall execute any instrument necessary or appropriate to accomplish the foregoing.
+
+(c) Except for
+any records as may be required by any national or local laws, rules or regulations to be
+kept, Licensee shall without undue delay transfer to Licensor or, at Licensor's discretion,
+destroy or mark over all documents regarding the Licensed Trademarks, whether recorded in
+electronic or any other form, and all such materials, including any promotional or advertising
+materials, in the possession or under the control of Licensee, Licensee's Affiliates or any
+third parties acting on its behalf. Licensee may retain [***] for evidentiary purposes only
+and [***] of computer records or files containing such documents and materials that have
+been created pursuant to automatic archiving or back-up procedures that cannot be reasonably
+be destroyed or deleted. Licensee shall, if applicable, promptly confirm destruction pursuant
+to this Section 15.1(c) in writing to Licensor.
+
+15.2 Termination or expiry of this Agreement
+(i) will not relieve the Parties of any obligation that has accrued prior to such termination or expiry
+and (ii) is without prejudice to the Parties' rights to claim for damages under statutory law.
+
+15.3 During the Termination Period, Licensee,
+Sublicensees and business partners are allowed to use the Licensed Trademarks together with another
+trademark owned by Parent in the Licensed Business and on Licensed Products; provided that such trademark
+owned by Parent shall be a premium brand and the Parties shall agree on which trademark owned by Parent
+may be co-branded with the Licensed Trademark (such agreement not to be unreasonably withheld). The
+Parties shall cooperate in
+
+    27
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+  good faith on the co-branding strategy and any other details to facilitate
+the smooth and flexible transition off the Viessmann brand and replacing it by other brands owned by
+the Parent group.
+
+16. Compliance; No Agency or Partnership
+
+16.1 Compliance
+
+In exercising its rights and obligations under this Agreement, (i) Licensee shall comply with,
+and shall procure that the Affiliates of Licensee and its Sublicensees comply with, all applicable national and local laws, rules and
+regulations, including (but not limited to) any relevant laws, rules or regulations concerning the research, development, manufacture,
+delivery, transport, import, advertising, packaging, labelling, storage, sale or use of the Licensed Products under the Licensed Trademarks
+in the Licensed Business in the Territory and (ii) Licensor shall comply with, and shall procure that its Affiliates comply with,
+and Licensor shall obligate its licensees of the Licensed Trademarks to comply with, all applicable national and local laws, rules and
+regulations, including (but not limited to) any relevant laws, rules or regulations concerning the research, development, manufacture,
+delivery, transport, import, advertising, packaging, labelling, storage, sale or use of any and all products and services sold or offered
+for sale under any Licensed Trademarks outside the Licensed Business in the Territory.
+
+16.2 No Agency or Partnership
+
+This Agreement shall not constitute or create any relationship of agency, partnership, silent
+participation, sub-participation, joint venture or any other similar ongoing relationship or undertaking between the Parties or with
+any third person (including for any applicable tax purposes) and no Party shall make any filing or take any action inconsistent with
+the foregoing. Licensee sells the Licensed Products under the Licensed Trademarks in its own name, for its own account, and at its own
+risk, and acts as independent trader.
+
+17. Additional Intellectual Property Matters
+
+17.1 Exhibit 17.1 sets forth additional matters
+with respect to Intellectual Property.
+
+18. [***]
+
+19. Miscellaneous
+
+19.1 Notices
+
+Unless explicitly stated otherwise in this Agreement, all notices,
+requests and other communications hereunder shall be made in writing in the English language and delivered by hand, by courier, or email
+to the person at the address set forth below, or such other person or address as may be designated by the respective Party to the other
+
+    28
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+Party in the same manner. Any notice,
+request or other communication made in the electronic form (Section 127 para. 3 of the German Civil Code ( BGB )) shall
+be deemed to be in writing for all purposes of this Agreement:
+
+To Licensor:
+
+Viessmann Group GmbH & Co. KG
+
+Attn.: [***]
+
+[***]
+
+Email: [***]
+
+with a copy to: [***]
+
+Attn. [***]
+
+Email: [***]
+
+To Licensee:
+
+Viessmann Climate Solutions SE
+
+Attn.: [***]
+
+[***]
+
+Email: [***]
+
+with a copy to: [***]
+
+Attn.
+[***]
+
+Email: [***]
+
+To Parent:
+
+Carrier
+Global Corporation
+
+Attn.: [***]
+
+[***]
+
+Email: [***]
+
+with a copy
+to: [***]
+
+Attn.:
+[***]
+
+Email: [***]
+
+or to such other recipients and addresses which may be notified
+by any Party to the other Party in the future in writing. The requirement to provide copies to certain parties shall be for convenience
+purposes only and failure to send such copies shall not affect the validity of service of any notice.
+
+    29
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+19.2 Confidentiality
+
+19.2.1 The terms of this Agreement and all
+confidential and non-public information (collectively, the " Confidential Information "),
+whether written or oral, furnished by either Party to the other Party or any Affiliate of such other
+Party in connection with the preparation, negotiation and execution of this Agreement shall be maintained
+by each Party and their respective Affiliates in strict confidence.
+
+19.2.2 Disclosure by a Party shall not be
+in violation of Section 19.2.1 above to the extent that (i) the relevant facts are publicly
+known or (ii) such disclosure is required by law or a court or administrative authority; provided
+that, with respect to clause (ii), such Party shall give the other Party prior written notice of
+such disclosure and an opportunity to contest such disclosure or obtain confidential treatment of
+such disclosure.
+
+19.2.3 Each Party shall be entitled to reveal
+Confidential Information covered by Section 19.2.2 above to internal advisors who are under
+a professional or contractual duty of confidentiality which is at least as restrictive as the confidentiality
+obligation under this Section 19.2.
+
+19.2.4 Licensee or any of its Affiliates (including
+Parent) may disclose the terms of this Agreement to the extent such disclosure is, in the opinion
+of Licensee's or such applicable Affiliate's legal counsel, required by applicable law or the rules
+of a stock exchange on which the securities of Licensee or its applicable Affiliate are listed.
+
+19.3 Costs and Expenses
+
+19.3.1 All fees (including notarial fees),
+registration duties or other charges related to any regulatory requirements and other charges and
+costs payable in connection with the execution of this Agreement and the implementation of the transactions
+contemplated hereby shall be borne by [***].
+
+19.3.2 Each Party shall pay its own expenses,
+including the costs of its advisors, incurred in connection with this Agreement.
+
+19.4 Binding Effect; Entire Agreement;
+Amendments and Waivers
+
+19.4.1 This Agreement (including all Exhibits
+hereto) contains the entire agreement between the Parties with respect to the subject matter hereof
+and supersedes all prior agreements and understandings with respect thereto.
+
+19.4.2 Any provision of this Agreement (including
+this Section 19.4) may be amended or waived only if such amendment or waiver is by written instrument
+executed by all Parties and explicitly refers to this Agreement.
+
+    30
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+19.5 Assignments
+
+19.5.1 Except as expressly set forth in this
+Agreement, no Party may assign, delegate or otherwise transfer any of its rights or obligations under
+this Agreement without the consent of the other Party.
+
+19.5.2 Licensee may, without Licensor's consent,
+assign this Agreement in its entirety to any of the Affiliates of Licensee such that the assignee
+replaces the Licensee as a party to this Agreement ( Vertragsübernahme ); provided that
+the Agreement is automatically re-assigned to Licensee or any of the Affiliates of Licensee if the
+assignee ceases to be an Affiliate of Licensee.
+
+19.5.3 Licensor may, without Licensee's consent,
+transfer all of the Licensed Trademarks and/or this Agreement to any Affiliate of Licensor, provided
+that (i) the Licensed Trademarks and/or this Agreement, as the case may be, are automatically re-assigned
+to Licensor or any of the Affiliates of Licensor if the assignee ceases to be an Affiliate of Licensor,
+and (ii) Licensor shall procure (e.g., by way of an appropriate power of attorney being issued) that
+the exercise of rights under the License vis-à-vis Licensee remains concentrated in one entity
+only, and such entity shall also be the only addressee for any exercise by Licensee of its rights
+and Licensee may fulfill its obligations under this Agreement towards such entity.
+
+19.5.4 Subject
+to the provisions of this Section 19.5.4, Licensor may, without Licensee's consent, transfer any or all of the Licensed Trademarks (" Licensed
+Trademarks for Sale ") to a third party, provided that: (i) if the transfer also includes the Licensed Trademarks for the Licensed
+Business, Licensor has first invited Licensee to make an offer for all of the Licensed Trademarks for Sale for the Licensed Business
+and (A) Licensee has not made an offer during a period of [***] or (B) if Licensee has made an offer during such period, the offer has
+been [***]; and (ii) Licensor shall procure that the third party assumes all rights and obligations under this Agreement if the third
+party also acquires the Licensed Trademarks for Sale for the Licensed Business, subject to [***] and (iii) Licensor shall procure (e.g.,
+by way of an appropriate power of attorney being issued) that the exercise of rights under the License vis-à-vis Licensee remains
+concentrated in one entity only, and such entity shall also be the only addressee for any exercise by Licensee of its rights and Licensee
+may fulfill its obligations under this Agreement towards such entity.
+
+In
+the case of (i)(A) above, Licensor is free to sell and assign the Licensed Trademarks for
+Sale for the Licensed Business to a third party within [***] from having made the invite for an offer to Licensee. In the case of (i)(B)
+above, Licensor may only sell and assign the Licensed Trademarks for Sale for the Licensed Business to a third party within [***] from
+having received the offer from Licensee if (x) the offer of such third party is [***] in
+respect of the Licensed Trademarks for Sale for the Licensed Business than the offer made by Licensee or (y)
+Licensor has again invited Licensee to purchase the Licensed Trademarks for Sale for the Licensed Business and Licensee has not accepted,
+within a period of [***], to acquire the
+
+    31
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+Licensed Trademarks for Sale for the Licensed Business for a price [***]. If Licensor sells
+trademarks other than the Licensed Trademarks for Sale for the Licensed Business together with the Licensed Trademarks for Sale for the
+Licensed Business, the benchmark for Licensee's right to [***] pursuant to (i)(B) above, shall be [***], on the one hand, and [***],
+on the other hand.
+
+If
+Licensee accepts to purchase the Licensed Trademarks for Sale for the Licensed Business [***], Licensor shall sell and assign the Licensed
+Trademarks for Sale for the Licensed Business to Licensee and this Agreement shall automatically terminate.
+
+If
+the [***] period for a sale to the third party elapses without Licensor having sold and assigned the Licensed Trademarks for Sale for
+the Licensed Business to the third party, any new attempt by Licensor to sell and assign the Licensed Trademarks for Sale for the Licensed
+Business requires a new invitation to Licensee to make an offer and the process as set out above is to be repeated.
+
+In
+no event may Licensor sell or transfer the Licensed Trademarks for Sale for the Licensed Business to any material competitor of Parent
+or the CS Business listed in Exhibit 19.5.4/2 (" Material Competitors "), as the same may be updated by Licensee
+from time to time beginning [***] after the Effective Date, subject to Licensor's consent, not to be unreasonably withheld or delayed,
+to reflect the landscape of material competitors at such time. Such updates shall be on the same basis that Exhibit 19.5.4/2 was compiled
+at the Effective Date, including with respect to [***].
+
+The
+rights of Licensee under this Section 19.5.4 may not be avoided by selling any entity that owns the Licensed Trademarks for Sale for
+the Licensed Business where the Licensed Trademarks for Sale for the Licensed Business represent [***], provided that the foregoing shall
+not restrict any change of control of Licensor.
+
+19.5.5 Licensor may, without Licensee's consent,
+assign this Agreement in its entirety to any Affiliate of Licensor such that the assignee replaces
+Licensor as a party to this Agreement ( Vertragsübernahme ); provided that (i) Licensor
+shall procure that the assignee is in a position to grant the License; and (ii) the Agreement is
+automatically re-assigned to Licensor or any of the Affiliates of Licensor if the assignee ceases
+to be an Affiliate of Licensor.
+
+19.6 Force Majeure
+
+The Parties hereto shall not be liable for failure of or
+delay in performing any obligation under this Agreement if such failure or delay is due to force majeure or any other cause beyond the
+reasonable control of the affected Party (including natural events, any new pandemic-related situations (in particular COVID-19), any
+yet unknown pandemic or epidemic or outbreak of any disease, terrorist and other attacks (each, a " Force Majeure Event ");
+provided, however, that the Party affected shall promptly notify the other Party of the Force Majeure Event and shall exert all reasonable
+efforts to eliminate, cure or overcome any such causes and to resume performance of its obligations with all possible speed.
+
+    32
+        Johann | Form of License Agreement Exhibit 24.1 to the SPA
+
+19.7 Governing Law; Dispute Resolution
+
+19.7.1 This Agreement is solely governed,
+in form and substance, by and construed in accordance with the laws of the Federal Republic of Germany
+to the exclusion of the United Nations Convention on Contracts for the International Sale of Goods
+and the principles of international private law.
+
+19.7.2 Any dispute arising out of or relating
+to this Agreement, the formation or the breach, termination or invalidity hereof, shall be finally
+settled, under exclusion of any state court's competence (except for proceedings for temporary or
+interlocutory relief), by arbitration in accordance with the arbitration rules of Deutsche Institution
+für Schiedsgerichtsbarkeit e.V. ( DIS ), as in effect from time to time. The arbitral tribunal
+shall consist of [***] arbitrators. Each arbitrator shall be eligible for [***]. The place of arbitration
+shall be [***]. The language to be used in the arbitration proceedings shall be English; provided
+that no Party shall be under an obligation to provide to the arbitral tribunal English translations
+of any documents in the German language that are submitted for evidence purposes.
+
+19.7.3 Parent hereby appoints each partner
+of Linklaters LLP admitted to the German bar, as its agent for service of process ( Zustellungsbevollmächtigter )
+for all legal proceedings involving Parent arising out of or in connection with this Agreement. This
+appointment shall only terminate upon the appointment of another agent for service of process domiciled
+in Germany, provided that the agent for service of process is an attorney admitted to the German
+bar ( in Deutschland zugelassener Rechtsanwalt ) and his appointment has been notified to and
+approved in writing by Licensor (which approval shall not be unreasonably withheld or delayed). Parent
+shall promptly after the Signing Date and upon the appointment of any new agent for service of process
+(as the case may be) issue to the agent a written power of attorney ( Vollmachtsurkunde ) and
+shall irrevocably instruct the agent to submit such deed in connection with any service of process
+under this Agreement.
+
+20. Severability
+
+Should any provision of this Agreement, or any
+provision incorporated into this Agreement in the future, be or become invalid or unenforceable, the validity or enforceability of
+the other provisions of this Agreement shall not be affected thereby. The invalid or unenforceable provision shall be substituted by
+arrangement of the Parties by a suitable and equitable provision which, to the extent legally permissible, comes as close as
+possible to the intent and purpose of the invalid or unenforceable provision. The same shall apply (i) if the Parties have,
+unintentionally, failed to address a certain matter in this Agreement ( Regelungslücke ); in this case a suitable and
+equitable provision shall be agreed upon which comes as close as possible to what the Parties, in the light of the intent and
+purpose of this Agreement, would have agreed upon if they had considered the matter; or (ii) if any provision of this Agreement is
+invalid because of the scope of any time period or performance stipulated herein; in this case a legally permissible time period or
+performance shall be deemed to have been agreed which comes as close as possible to the stipulated time period or performance. The
+provisions of this Section 20 shall not be construed as merely shifting the burden of proof, but shall apply absolutely.
+
+[ Signature
+page to follow ]
+
+  33
+
+[ Signature Page of Viessmann Group GmbH & Co. KG to License Agreement ]
+
+Place: _________, Date:____________
+ 
+Place: _________, Date:____________
+
+Viessmann Group GmbH & Co. KG
+ 
+Viessmann Group GmbH & Co. KG
+
+Name:
+ 
+Name:
+
+Function:
+ 
+Function:
+
+[ Signature Page of Viessmann Climate Solutions SE to License Agreement ]
+
+Place: _________, Date:____________
+ 
+Place: _________, Date:____________
+
+Viessmann Climate Solutions SE
+ 
+Viessmann Climate Solutions SE
+
+Name:
+ 
+Name:
+
+Function:
+ 
+Function:
+
+[ Signature Page of Carrier
+Global Corporation to License Agreement ]
+
+Place: _________, Date:____________
+ 
+Place: _________, Date:____________
+
+Carrier Global Corporation
+ 
+Carrier Global Corporation
+
+Name:
+ 
+Name:
+
+Function:
+ 
+Function:

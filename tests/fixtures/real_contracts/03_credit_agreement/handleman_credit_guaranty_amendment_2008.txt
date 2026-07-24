@@ -1,0 +1,609 @@
+EX-10.1
+2
+k34542exv10w1.htm
+EX-10.1
+
+EX-10.1
+
+Exhibit 10.1
+
+EXECUTION
+COPY
+
+TENTH AMENDMENT TO CREDIT AND GUARANTY AGREEMENT
+
+          TENTH AMENDMENT TO CREDIT AND GUARANTY AGREEMENT, dated as of August 5, 2008 (this
+“ Amendment ”), to the Credit and Guaranty Agreement, dated as of April 30, 2007 (as amended,
+restated, supplemented or modified from time to time, the “ Credit Agreement ”), by and among
+Handleman Company, a Michigan corporation (“ Holdings ”), Handleman Services Company, a
+Michigan corporation (“ Handleman Services ”), certain subsidiaries of Holdings identified on
+the signature page hereto as “Borrowers” (such Subsidiaries, together with Handleman Services, are
+referred to individually as a “ Borrower ” and collectively, jointly and severally, as
+“ Borrowers ”), certain subsidiaries of Holdings identified on the signature page hereto as
+“Guarantors” (such subsidiaries, together with Holdings, are referred to individually as a
+“ Guarantor ” and collectively, jointly and severally, as “ Guarantors ”), the lenders
+party hereto from time to time (“ Lenders ”), and Silver Point Finance, LLC (“ Silver
+Point ”), as administrative agent for Lenders (in such capacity, together with its successors
+and assigns in such capacity, the “ Administrative Agent ”) and as collateral agent for
+Lenders (in such capacity, together with its successors and assigns in such capacity, the
+“ Collateral Agent ” and together with Administrative Agent, each an “ Agent ” and
+collectively the “ Agents ”).
+
+          WHEREAS, Borrowers and Guarantors have requested that Agents and Lenders agree to amend
+certain terms and conditions of the Credit Agreement, in each case, as more fully set forth herein;
+and
+
+          WHEREAS, Agents and Lenders have agreed to make such amendments to the Credit Agreement, in
+each case, subject to the terms and conditions set forth herein.
+
+          NOW, THEREFORE, in consideration of the foregoing and the mutual covenants herein contained,
+and for other good and valuable consideration, the receipt and sufficiency of which are hereby
+acknowledged, the parties hereby agree as follows:
+
+          1. Definitions . All terms used herein which are defined in the Credit Agreement and
+not otherwise defined herein are used herein as defined therein.
+
+          2. Amendments to Credit Agreement .
+
+               (a) Section 1.1 of the Credit Agreement is hereby amended by adding the following new
+definitions thereto, in appropriate alphabetical order, to read in their entirety as follows:
+
+“ ‘Tenth Amendment’ means the Tenth Amendment to Credit and Guaranty
+Agreement, dated as of August 5, 2008, by and among Credit Parties,
+Lenders and Agents.”
+
+“ ‘Tenth Amendment Effective Date’ has the meaning ascribed to the
+term ‘Amendment Effective Date’ in the Tenth Amendment.”
+
+“ ‘Tesco Business’ means the business of the Credit Parties relating
+to the distribution of Inventory by the Credit Parties to Tesco
+Stores.”
+
+               (b) Section 1.1 of the Credit Agreement is hereby amended by amending and restating the
+definitions of the following terms contained therein to read in their entirety as follows:
+
+“‘ Revolving Commitment Termination Date’ means the earliest to occur
+of (i) May 1, 2007, if the Term Loans are not made on or before that
+date; (ii) April 30, 2012; (iii) the date the Revolving Commitments
+are permanently reduced to zero pursuant to Section 2.12(b) or 2.13;
+and (iv) the date of the termination of the Revolving Commitments
+pursuant to Section 8.1.”
+
+“ ‘Term Loan Maturity Date ’ means the earlier of (i) September 1,
+2008, and (ii) the date that all Tranche A Term Loans and Tranche B
+Term Loans shall become due and payable in full hereunder, whether
+by acceleration or otherwise.”
+
+               (c) The second sentence of Section 2.5 of the Credit Agreement is hereby amended and restated
+to read in its entirety as follows:
+
+“The proceeds of the Revolving Loans made after the Closing Date (i)
+shall be applied by the Borrowers for working capital and general
+corporate purposes of Holdings and its Subsidiaries, including
+Permitted Acquisitions, and (ii) on (and only on) September 1, 2008,
+may be applied by the Borrowers to repay in full the outstanding
+principal amount of the Tranche B Term Loans to the extent that the
+aggregate outstanding principal amount of the Tranche B Term Loans
+on such date (prior to giving effect to such application) is less
+than $2,000,000; but shall in no event be used to make or facilitate
+any Investment or Restricted Junior Payment not otherwise permitted
+hereunder.”
+
+               (d) Section 2.11 of the Credit Agreement is hereby amended and restated to read in its
+entirety as follows:
+
+“ 2.11 Scheduled Payments/Commitment Reductions . (a) The aggregate
+unpaid principal amount of the Term Loans together with all other
+amounts owed hereunder with respect thereto, shall be paid in full
+by the Borrowers no later than the Term Loan Maturity Date. (b) The
+Revolving Commitments shall be (i) reduced to $20,000,000 on the
+Tenth Amendment Effective Date, (ii) reduced to $15,000,000 on
+August 30, 2008, (iii) reduced to $10,000,000 on October 4, 2008,
+(iv) reduced from time to time in connection with any voluntary or
+mandatory reductions of the Revolving Commitments in accordance with
+Sections 2.11, 2.12 and 2.13, as applicable, and (v) terminated on
+the Revolving Commitment Termination Date, and all amounts owed
+hereunder with respect thereto, shall, in any event, be paid in full
+by the Borrowers no later than the Revolving Commitment Termination
+Date.”
+
+               (e) Section 2.12(c)(i) of the Credit Agreement is hereby amended by amending and restating the
+last sentence thereof to read in its entirety as follows:
+
+“Notwithstanding anything to the contrary contained in any Credit
+Document, (x) from the Fifth Amendment Effective Date until (but not
+including) the Tenth Amendment Effective Date, any Make-Whole Amount
+that is incurred shall not be required to be paid in cash on the
+date on which such Make-Whole Amount is incurred, but shall be paid-
+
+-2-
+
+in-kind on such date by capitalizing such Make-Whole Amount and
+adding it to the outstanding principal amount of the Tranche B Term
+Loan, whereupon such Make-Whole Amount shall (i) constitute a
+portion of the outstanding Tranche B Term Loan for purposes of the
+Credit Agreement and all other Credit Documents, (ii) be secured by
+the Collateral, (iii) constitute a portion of the Obligations owing
+by the Credit Parties to Agents and Lenders, and (iv) be payable on
+the Term Loan Maturity Date, and (y) on and after the Tenth
+Amendment Effective Date, any Make-Whole Amount that is incurred
+shall paid in cash with the proceeds of Revolving Loans; and”
+
+               (f) Section 2.13(g) of the Credit Agreement is hereby amended and restated to read in its
+entirety as follows:
+
+“(g) Tranche A Term Loan and Revolving Loans . The Borrowers
+shall make the payments required by Section 6.21 hereof. At any
+time that the aggregate outstanding principal amount of the
+Revolving Loans exceeds the Revolving Commitments at such time, the
+Borrowers shall immediately prepay the Revolving Loans in an amount
+equal to such excess.”
+
+               (g) Section 2.13(i) of the Credit Agreement is hereby amended and restated to read in its
+entirety as follows:
+
+“(i) Administrative Agent’s Account . At all times following
+the Tenth Amendment Effective Date, but subject to Section 5.15(b),
+so long as no Default or Event of Default has occurred and is
+continuing (in which case funds shall be applied in accordance with
+Section 2.15(g), unless Requisite Lenders consent to another
+application), Administrative Agent shall apply all funds transferred
+from the Blocked Accounts and deposited in Administrative Agent’s
+Account, to the payment, in whole or in part, of the outstanding
+principal amount of the Tranche B Term Loan, until the Tranche B
+Term Loan is paid in full and then to the payment of the Revolving
+Loans (without any permanent reduction of the Revolving Commitment)
+until all Revolving Loans are paid in full (in each case, together
+with accrued interest and fees on the amount prepaid to the date of
+prepayment and the applicable Make-Whole Amount or Prepayment
+Premium then due thereon).”
+
+               (h) Section 2.13(l)of the Credit Agreement is hereby amended and restated to read in its
+entirety as follows:
+
+“(l) Wal-Mart Receipts . (i) No later than the first
+Business Day following each date on which Holdings or any of its
+Subsidiaries receives any proceeds of any Accounts owing to Holdings
+or any of its Subsidiaries from Wal-Mart Stores, Inc. or any of its
+Affiliates in respect of U.S. music sales, the Borrowers shall
+prepay the Loans in an aggregate amount equal to 75% of such
+proceeds as follows: (A) first, to the Tranche B Term Loans, until
+paid in full; and (B) second, to the Revolving Loans (without any
+permanent reduction of the Revolving Commitment), until paid in
+full, and (ii) commencing on the date of the
+
+-3-
+
+closing of the acquisition contemplated by the Canadian Purchase
+Agreement, no later than the first Business Day following each date
+on which Holdings or any of its Subsidiaries receives any proceeds
+of any Accounts owing to Canadian OpCo in respect of the
+distribution of music products in Canada, the Borrowers shall prepay
+the Loans in an aggregate amount equal to 100% of such proceeds as
+follows: (A) first, to the Tranche B Term Loans until paid in full;
+and (B) second, to the Revolving Loans (without any reduction in the
+Revolving Commitment), until paid in full;”
+
+               (i) Section 2.14(b)(ii) of the Credit Agreement is hereby amended and restated to read in its
+entirety as follows:
+
+“(ii) So long as no Default or Event of Default has occurred and is
+continuing, any mandatory prepayment of any Loan pursuant to (A)
+Section 2.13(a) shall be applied as follows: (x) first, to the
+Tranche B Term Loans until paid in full; and (y) second, to the
+Revolving Loans (without any reduction in the Revolving Commitment)
+until paid in full; and (B) Section 2.13(b) shall be applied as
+follows: (x) first, to the Tranche B Term Loans until paid in full;
+and (y) second, to the Revolving Loans, until paid in full (it being
+understood that the Revolving Commitment shall be permanently
+reduced by the amount of any such prepayment); and”
+
+               (j) Section 2.15(g)(ii) of the Credit Agreement is hereby amended by amending and restating
+clauses (5), (6), (7) and (8) thereof to read in their entirety as follows:
+
+“(5) fifth, ratably to pay interest due in respect of the Tranche B
+Term Loans until paid in full;
+
+(6) sixth, ratably to pay interest due in respect of the Revolving
+Loans, on a pro rata basis, until paid in full;
+
+(7) seventh, ratably to pay principal of the Tranche B Term Loans
+until paid in full;
+
+(8) eighth, ratably to pay principal of the Revolving Loans until
+paid in full;”
+
+               (k) Section 4.24 of the Credit Agreement is hereby amended by adding the following sentence to
+the end thereof to read in its entirety as follows:
+
+“Notwithstanding the foregoing, it is understood and agreed that the
+Form 10-K required to be submitted to the Securities and Exchange
+Commission by Holdings for the Fiscal Year of Holdings and its
+Subsidiaries ended April 30, 2008, shall be submitted to the
+Securities and Exchange Commission on August 15, 2008, rather than
+on August 1, 2008, as required.”
+
+               (l) Section 5.15(b) of the Credit Agreement is hereby amended by deleting the final proviso of
+the second sentence thereof in its entirety.
+
+-4-
+
+               (m) Section 6.7(e) of the Credit Agreement is hereby amended and restated to read in its
+entirety as follows:
+
+“(e) Minimum Asset Coverage . Credit Parties shall not
+permit, at any time (i) between the Tenth Amendment Effective Date
+through (but not including) October 31, 2008, the positive
+difference between (A) the Working Capital Borrowing Base at such
+time (without taking into account the Term Loan Reserve, the Minimum
+Availability Amount or any other Reserves (as defined in the Working
+Capital Agreement)) and (B) the principal amount of all Indebtedness
+outstanding (including without limitation, all undrawn letters of
+credit (except undrawn letters of credit that are fully cash
+collateralized)) under the Working Capital Agreement and this
+Agreement at such time (such positive difference, the “Minimum Asset
+Coverage” ) to be less than an amount equal to the greater of (x) the
+principal amount of all Indebtedness outstanding (including without
+limitation, all undrawn letters of credit (except undrawn letters of
+credit that are fully cash collateralized)) under the Working
+Capital Agreement and this Agreement at such time, and (y)
+$22,500,000 (or, commencing on September 15, 2008, if the Tesco
+Business has been sold by such date in accordance with the
+requirements of Section 6.27, $20,000,000), and (ii) on and after
+October 31, 2008, the Minimum Asset Coverage to be less than
+$70,000,000.”
+
+               (n) Article VI of the Credit Agreement is hereby amended by adding the following new section
+to the end thereof to read in its entirety as follows:
+
+“ 6.27 Tesco Sale . By not later than September 15, 2008, the Credit
+Parties shall not fail to have sold the Tesco Business, on terms and
+conditions (including, without limitation, with respect to price and
+application of proceeds to the Obligations), and pursuant to
+documentation, satisfactory in form and substance to Agents and
+Requisite Lenders.”
+
+          3. Conditions to Effectiveness . This Amendment shall become effective (the
+“ Amendment Effective Date ”) upon satisfaction in full of the following conditions
+precedent:
+
+          (a) Immediately after giving effect to this Amendment, (i) the representations and
+warranties contained in this Amendment, the Credit Agreement and the other Credit Documents
+shall be correct on and as of the date of this Amendment as though made on and as of such
+date (except where such representations and warranties relate to an earlier date in which
+case such representations and warranties shall be true and correct as of such earlier date)
+and (ii) no Default or Event of Default shall have occurred and be continuing (or would
+result from this Amendment becoming effective in accordance with its terms).
+
+          (b) Administrative Agent shall have received counterparts of this Amendment that bear
+the signatures of each of Credit Parties, Agents and Lenders.
+
+          4. Waiver . (a) Credit Parties have advised Agents and Lenders that certain Events of
+Default have occurred have occurred and are continuing under Section 8.1(c) of the Credit Agreement
+due to the failure of Credit Parties to (i) comply with the $4,000,000 limitation on the incurrence
+of Consolidated Capital Expenditures, License Advances, Exclusive Distribution Advances and
+Software
+
+-5-
+
+Development Costs contained in Section 6.7(b) of the Credit Agreement, during the period from
+January 1, 2008 through May 31, 2008, and (ii) deliver to Administrative Agent and Lenders when due
+the financial reporting packages required by Section 5.1(a) of the Credit Agreement for the April
+2008, May 2008 and June 2008 Fiscal Months of Holdings and its Subsidiaries (such Events of
+Default, the “ Specified Events of Default ”).
+
+               (b) At the request of Credit Parties, effective upon the Amendment Effective Date, each of
+Agents and Lenders hereby waives (i) the Specified Event of Default described in Section 4(a)(i)
+above for the period from January 1, 2008 through May 31, 2008; provided that the aggregate
+amount of Consolidated Capital Expenditures, License Advances, Exclusive Distribution Advances and
+Software Development Costs incurred by all Subsidiaries of Holdings during the period from January
+1, 2008 through May 31, 2008 did not exceed $6,000,000; and (ii) the Specified Event of Default
+described in Section 4(a)(ii) above for the April 2008, May 2008 and June 2008 Fiscal Months of
+Holdings and its Subsidiaries; provided that such financial reporting packages are
+delivered to Administrative Agent and Lenders by September 2, 2008.
+
+               (c) The waivers set forth in Section 4(b) above shall be effective only in this specific
+instance and for the specific purposes set forth herein, and do not allow for any other or further
+departure from the terms and conditions of the Credit Agreement (including, without limitation, any
+further violation of Section 5.1(a) or Section 6.7(b) of the Credit Agreement), or any further
+amendment of any other provision of the Credit Agreement or any other Credit Document, which terms
+and conditions shall continue in full force and effect.
+
+          5. Credit Parties’ Representations and Warranties . Each Credit Party represents and
+warrants to Agents and Lenders as follows:
+
+          (a) Such Credit Party (i) is duly organized, validly existing and in good standing
+under the laws of the state of its organization and (ii) has all requisite power, authority
+and legal right to execute, deliver and perform this Amendment and to perform the Credit
+Agreement, as amended hereby.
+
+          (b) The execution, delivery and performance by such Credit Party of this Amendment and
+the Purchase Documents and the performance by such Credit Party of the Credit Agreement, as
+amended hereby (i) have been duly authorized by all necessary action, (ii) do not and will
+not violate or create a default under such Credit Party’s organizational documents, any
+applicable law or any contractual restriction binding on or otherwise affecting such Credit
+Party or any of such Credit Party’s properties, and (iii) except as provided in the Credit
+Documents, do not and will not result in or require the creation of any Lien, upon or with
+respect to such Credit Party’s property.
+
+          (c) No authorization or approval or other action by, and no notice to or filing with,
+any governmental authority is required in connection with the due execution, delivery and
+performance by such Credit Party of this Amendment or the Purchase Documents or the
+performance by such Credit Party of the Credit Agreement, as amended hereby.
+
+          (d) This Amendment and the Credit Agreement, as amended hereby, and the Purchase
+Documents constitute the legal, valid and binding obligations of such Credit Party,
+enforceable against such Credit Party in accordance with their terms except to the extent
+the enforceability thereof may be limited by any applicable bankruptcy, insolvency,
+reorganization, moratorium or similar laws from time to time in effect affecting generally
+the enforcement of creditors’ rights and remedies and by general principles of equity.
+
+-6-
+
+          (e) Immediately after giving effect to this Amendment, (i) the representations and
+warranties contained in the Credit Agreement are correct on and as of the date of this
+Amendment as though made on and as of the date hereof (except where such representations and
+warranties relate to an earlier date in which case such representations and warranties shall
+be true and correct as of such earlier date), and (ii) no Default or Event of Default has
+occurred and is continuing (or would result from this Amendment becoming effective in
+accordance with its terms).
+
+          6. Working Capital Agreement . Credit Parties have advised Agents that the obligations
+under the Working Capital Agreement have been repaid in full, and that the Working Capital
+Agreement and the Working Capital Documents have been terminated. Credit Parties, Agents and
+Lenders hereby agree that (a) Credit Parties shall take all actions reasonably required by Agents
+to cause Agents to become the “Creditor Representative” with respect to the Blocked Accounts, and
+to take all other actions reasonably requested by Agents in connection with the termination of the
+Working Capital Agreement and the Working Capital Documents, and (b) any term in any Credit
+Document or any other Credit Document that refers to a term defined in the Working Capital
+Agreement shall be deemed to refer to such term as of the last date the Working Capital Agreement
+was in effect (except to the extent that such term refers only to such term as in effect on a
+specific date), and any reference to any judgment of the Working Capital Agent shall be deemed to
+be a judgment of the Agents.
+
+          7. Continued Effectiveness of Credit Agreement . Each Credit Party hereby confirms and
+agrees that (a) the Credit Agreement and each other Credit Document to which it is a party is, and
+shall continue to be, in full force and effect and is hereby ratified and confirmed in all respects
+except that on and after the Amendment Effective Date all references in any such Credit Document to
+“the Credit Agreement”, “hereto”, “hereof”, “hereunder”, “thereto”, “thereof”, “thereunder” or
+words of like import referring to the Credit Agreement shall mean the Credit Agreement as amended
+by this Amendment, (b) to the extent that any such Credit Document purports to assign or pledge to
+Collateral Agent, for the ratable benefit of Lenders, or to grant to Collateral Agent, for the
+ratable benefit of Lenders a security interest in or Lien on, any Collateral as security for the
+Obligations of the Credit Party, or any of their respective Subsidiaries from time to time existing
+in respect of the Credit Agreement and the other Credit Documents, such pledge, assignment and/or
+grant of the security interest or Lien is hereby ratified and confirmed in all respects, and (c) no
+amendment or waiver of any terms or provisions of the Credit Agreement, or the amendments or
+waivers granted hereunder, shall relieve any Credit Party from complying with such terms and
+provisions other than as expressly amended or waived hereby or from complying with any other term
+or provision thereof or herein.
+
+          8. Release . Each Credit Party hereby acknowledges and agrees that: (a) neither it nor
+any of its Affiliates has any claim or cause of action against any Agent or any Lender (or any of
+their respective Affiliates, officers, directors, employees, attorneys, consultants or agents) and
+(b) each Agent and each Lender has heretofore properly performed and satisfied in a timely manner
+all of its obligations to Credit Parties and their Affiliates under the Credit Agreement and the
+other Credit Documents. Notwithstanding the foregoing, Credit Parties wish (and Agents and Lenders
+agree) to eliminate any possibility that any past conditions, acts, omissions, events or
+circumstances would impair or otherwise adversely affect any Agent’s or any Lenders’ rights,
+interests, security and/or remedies under the Credit Agreement and the other Credit Documents.
+Accordingly, for and in consideration of the agreements contained in this Amendment and other good
+and valuable consideration, each Credit Party (for itself and its Affiliates and the successors,
+assigns, heirs and representatives of each of the foregoing) (collectively, the
+“ Releasors ”) does hereby fully, finally, unconditionally and irrevocably release and
+forever discharge each Agent and each Lender and each of their respective Affiliates, officers,
+directors, employees, attorneys, consultants and agents (collectively, the “ Released
+Parties ”) from any and all debts, claims, obligations, damages, costs, attorneys’ fees, suits,
+demands, liabilities, actions, proceedings and causes of
+
+-7-
+
+action, in each case, whether known or unknown, contingent or fixed, direct or indirect, and
+of whatever nature or description, and whether in law or in equity, under contract, tort, statute
+or otherwise, which any Releasor has heretofore had or now or hereafter can, shall or may have
+against any Released Party by reason of any act, omission or thing whatsoever done or omitted to be
+done, arising out of, connected with or related in any way to the Credit Agreement or any other
+Credit Document, or any act, event or transaction related or attendant thereto, or the agreements
+of any Agent or any Lender contained therein, or the possession, use, operation or control of any
+of the assets of any Credit Party, or the making of any Loans or other advances, or the management
+of such Loans or advances or the Collateral.
+
+          9. Miscellaneous .
+
+          (a) This Amendment may be executed in any number of counterparts and by different
+parties hereto in separate counterparts, each of which shall be deemed to be an original but
+all of which taken together shall constitute one and the same agreement. Delivery of an
+executed counterpart of this Amendment by telefacsimile or electronic method shall be
+equally as effective as delivery of an original executed counterpart of this Amendment.
+
+          (b) Section and paragraph headings herein are included for convenience of reference
+only and shall not constitute a part of this Amendment for any other purpose.
+
+          (c) This Amendment shall be governed by, and construed in accordance with, the laws of
+the State of New York. Each of the parties to this Amendment hereby irrevocably waives all
+rights to trial by jury in any action, proceeding or counterclaim arising out of or relating
+to this Amendment.
+
+          (d) Borrowers will pay on demand all reasonable fees, costs and expenses of Agents and
+Lenders in connection with the preparation, execution and delivery of this Amendment or
+otherwise payable under the Credit Agreement, including, without limitation, reasonable fees
+disbursements and other charges of counsel to Agents and Lenders.
+
+          (e) This Amendment is a Credit Document executed pursuant to the Credit Agreement and
+shall be construed, administered and interpreted in accordance with the terms thereof.
+Accordingly, it shall be an Event of Default under the Credit Agreement if any
+representation or warranty made or deemed made by any Credit Party under or in connection
+with this Amendment shall have been incorrect when made or deemed made or if any Credit
+Party fails to perform or comply with any covenant or agreement contained herein.
+
+[remainder of this page intentionally left blank]
+
+-8-
+
+          IN WITNESS WHEREOF, the parties hereto have caused this Agreement to be duly executed and
+delivered by their respective officers thereunto duly authorized as of the date first written
+above.
+
+BORROWERS :
+
+HANDLEMAN CATEGORY MANAGEMENT COMPANY
+
+By:  
+
+Name:  
+
+Title:  
+
+HANDLEMAN SERVICES COMPANY
+
+By:  
+
+Name:  
+
+Title:  
+
+HANDLEMAN REAL ESTATE LLC
+
+By:  
+
+Name:  
+
+Title:  
+
+ARTIST TO MARKET DISTRIBUTION LLC
+
+By:  
+
+Name:  
+
+Title:  
+
+REPS, L.L.C.
+
+By:  
+
+Name:  
+
+Title:  
+
+Tenth Amendment To Credit And Guaranty Agreement
+
+GUARANTORS :
+
+HANDLEMAN COMPANY
+
+By:  
+
+Name:  
+
+Title:  
+
+CRAVE ENTERTAINMENT GROUP, INC.
+
+By:  
+
+Name:  
+
+Title:  
+
+HANLEY ADVERTISING COMPANY
+
+By:  
+
+Name:  
+
+Title:  
+
+HANDLEMAN COMPANY OF CANADA LIMITED
+
+By:  
+
+Name:  
+
+Title:  
+
+HANDLEMAN UK LIMITED
+
+By:  
+
+Name:  
+
+Title:  
+
+Tenth Amendment To Credit And Guaranty Agreement
+
+SVG DISTRIBUTION, INC.
+
+By:  
+
+Name:  
+
+Title:  
+
+CRAVE ENTERTAINMENT, INC.
+
+By:  
+
+Name:  
+
+Title:  
+
+Tenth Amendment To Credit And Guaranty Agreement
+
+ADMINISTRATIVE AGENT AND COLLATERAL AGENT :
+
+SILVER POINT FINANCE, LLC,
+as Administrative Agent and Collateral Agent
+
+By:  
+
+Name:  
+
+Title:  
+
+Tenth Amendment To Credit And Guaranty
+Agreement
+
+LENDERS :
+
+SPF CDO I, LTD.
+
+By:  
+
+Name:  
+
+Title:  
+
+SPCP GROUP, LLC
+
+By:  
+
+Name:  
+
+Title:  
+
+THERMOPYLAE FUNDING CORP.
+
+By:  
+
+Name:  
+
+Title:  
+
+FIELD POINT I, LTD.
+
+By:  
+
+Name:  
+
+Title:  
+
+FIELD POINT II, LTD.
+
+By:  
+
+Name:  
+
+Title:  
+
+Tenth Amendment To Credit And Guaranty Agreement
