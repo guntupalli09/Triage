@@ -1,0 +1,1844 @@
+EX-10.1
+2
+tm2128750d1_ex10-1.htm
+EXHIBIT 10.1
+
+Exhibit 10.1
+
+LOSS
+PORTFOLIO TRANSFER REINSURANCE AGREEMENT
+
+by
+and among
+
+James
+River Insurance Company and
+James River Casualty Company
+
+and
+
+Aleka
+Insurance, Inc.
+
+Dated
+September 27, 2021
+
+TABLE
+OF CONTENTS
+
+Article
+I
+
+DEFINITIONS
+
+1.1 Definitions
+1
+
+Article
+II
+
+REINSURANCE CEDED
+
+2.1 Reinsurance Coverage
+8
+
+2.2 Commencement of the Reinsurer’s Liability
+8
+
+2.3 Exclusions
+9
+
+2.4 Territory
+10
+
+Article
+III
+
+REINSURANCE CONSIDERATION
+
+3.1 Net Reinsurance Premium
+10
+
+3.2 Payments
+10
+
+3.3 MCCA Claims
+11
+
+Article
+IV
+
+ADMINISTRATION
+
+4.1 Administration
+12
+
+4.2 Loss Fund Account Funding
+12
+
+Article
+V
+
+DURATION AND TERMINATION
+
+5.1 Duration and Termination
+12
+
+5.2 Effect of Termination
+13
+
+5.3 Special Termination
+13
+
+5.4 Commutation
+14
+
+Article
+VI
+
+INSOLVENCY
+
+6.1 Insolvency of Reinsured
+15
+
+I  
+
+Article
+VII
+
+Claims Payments
+
+7.1 Claims Payments
+15
+
+Article
+VIII
+
+DISPUTE RESOLUTION
+
+8.1 Meet and Confer
+16
+
+Article
+IX
+
+ARBITRATION / ATTORNEY FEES
+
+9.1 Arbitration
+16
+
+9.2 Attorney Fees
+18
+
+Article
+X
+
+EXTRA CONTRACTUAL OBLIGATIONS/LOSS IN EXCESS OF POLICY LIMITS
+
+10.1 ECOs/XPLs
+18
+
+Article
+XI
+
+SALVAGE AND SUBROGATION
+
+11.1 Salvage and Subrogation
+18
+
+Article
+XII
+
+INURING THIRD PARTY REINSURANCE AGREEMENTS; INDEMNITY AGREEMENTS
+
+12.1 Inuring Third Party Reinsurance Agreements
+18
+
+12.2 Indemnity Agreements
+19
+
+Article
+XIII
+
+COLLATERAL
+
+13.1 General Collateral Provisions and Triggers
+19
+
+13.2 Collateral
+21
+
+Article
+XIV
+
+LOSS FUND
+
+14.1 Establishment of the Loss Fund Trust Account
+22
+
+II  
+
+Article
+XV
+
+REPRESENTATIONS AND WARRANTIES
+
+15.1 Representations and Warranties of the Reinsured
+23
+
+15.2 Representations and Warranties of the Reinsurer
+24
+
+15.3 Notification of Breach
+25
+
+Article
+XVI
+
+REGULATORY AND LEGAL MATTERS
+
+16.1 Actions
+25
+
+Article
+XVII
+
+CONFIDENTIALITY
+
+17.1 Confidentiality
+25
+
+Article
+XVIII
+
+ERRORS AND OMISSIONS
+
+18.1 Errors and Omissions
+27
+
+Article
+XIX
+
+MATERIAL CHANGES
+
+19.1 Material Changes to Reinsured Contracts and Inuring Third Party Reinsurance Agreements
+27
+
+Article
+XX
+
+ACCESS TO RECORDS; REPORTING
+
+20.1 Access to Books and Records
+28
+
+20.2 Reporting
+28
+
+Article
+XXI
+
+MISCELLANEOUS PROVISIONS
+
+21.1 Notices
+29
+
+21.2 Entire Agreement
+30
+
+21.3 Waiver and Amendment
+30
+
+21.4 Successors and Assigns
+30
+
+21.5 Headings
+30
+
+21.6 Construction; Interpretation
+30
+
+21.7 Governing Law and Jurisdiction
+31
+
+III  
+
+21.8 No Third Party Beneficiaries
+31
+
+21.9 Counterparts
+31
+
+21.10 Specific Performance
+31
+
+21.11 Waiver of Jury Trial
+32
+
+21.12 Currency
+32
+
+21.13 Non-Solicitation
+32
+
+21.14 Taxes
+33
+
+21.15 Severability
+33
+
+SCHEDULES
+
+1 Reinsured Contracts
+
+2 Indemnity Agreements
+
+3 Inuring Third Party Reinsurance Agreements
+
+4 Required Collateral Amount
+
+5 Example Calculation of Allocation of Loss Fund Amounts
+
+6 Data Processing Exhibit
+
+7 MCCA Claims
+
+IV  
+
+LOSS
+PORTFOLIO TRANSFER REINSURANCE AGREEMENT
+
+THIS LOSS PORTFOLIO TRANSFER
+REINSURANCE AGREEMENT , dated September 27, 2021 (the “ Contract Effective Date ”) (together with all schedules
+and exhibits, this “ Reinsurance Agreement ”), is made and entered into by and among (i) James
+River Insurance Company , an Ohio corporation (“ James River ”) and
+James River Casualty Company ,
+a Virginia corporation (James River Casualty Company, collectively with James River, the “ Reinsured ”), and (ii)
+Aleka Insurance, Inc., a Hawaii corporation (“ Aleka ” or the “ Reinsurer ”) (each of
+the Reinsured and the Reinsurer, each a “ Party ” and, collectively, the “ Parties ”).
+
+WHEREAS , certain of
+the Parties and certain of Rasier, LLC, a Delaware limited liability company, Rasier-CA, LLC, a Delaware limited liability company, Rasier-DC,
+LLC, a Delaware limited liability company, Rasier-PA, LLC, a Delaware limited liability company, Portier, LLC, a Delaware limited liability
+company, Uber USA, LLC, a Delaware limited liability company, Uber Commute Services, LLC, a Delaware limited liability company, and Uber
+Technologies, Inc., a Delaware corporation (collectively, the “ Insureds ”) have entered into Indemnity Agreements,
+each as amended or re-executed from time to time through the Contract Effective Date (collectively, the “ Indemnity Agreements ”
+and as listed in Schedule 2 hereto), pursuant to which the various Insureds agreed to indemnify James River for certain percentages
+of the claims that James River paid under automobile liability insurance policies provided by James River to the various Insureds;
+
+WHEREAS , the Parties
+desire to enter into a loss portfolio transaction whereby Reinsurer will reinsure losses and Allocated Loss Adjustment Expenses (as such
+term is defined below) on the Reinsured Contracts (as such term is defined below); and
+
+WHEREAS , the Parties
+intend to effect this loss portfolio transaction through the transfer to the Reinsurer of obligations under the Reinsured Contracts, which
+will be retroactively reinsured by the Reinsurer, in exchange for payment of the Net Reinsurance Premium (as such term is defined below)
+by James River to the Reinsurer.
+
+NOW, THEREFORE , in
+consideration of the mutual and several promises and undertakings herein contained, and for good and valuable consideration, the receipt
+and adequacy of which are hereby acknowledged, the Reinsured and the Reinsurer hereby agree as follows:
+
+Article
+I
+
+DEFINITIONS
+
+1.1            Definitions . The following terms shall have the respective meanings set forth below throughout this Reinsurance Agreement
+(definitions are applicable to both the singular and the plural forms of each term defined in this Article I ):
+
+“ Action ”
+means (i) any civil, criminal, regulatory or administrative action, suit, claim, litigation, arbitration or similar proceeding, in each
+case before or brought by a Governmental Authority relating to the Subject Business or (ii) any investigation or written inquiry by a
+Governmental Authority relating to the Subject Business, other than any examination by a Governmental Authority having jurisdiction over
+the assessment, determination, collection or other imposition of any taxes, including a tax audit.
+
+“ Actuary Panel ”
+has the meaning set forth in Section 5.3(d).
+
+1
+
+“ Administered
+Business ” has the meaning set forth in the Administrative Services Agreement.
+
+“ Administrative
+Services Agreement ” means the Administrative Services Agreement, dated as of the Contract Effective Date, by and among the
+Reinsured, the Reinsurer and the Administrator, pursuant to which the Administrator will administer claims arising under the Administered
+Business following each such claim’s Transition Date.
+
+“ Administrator ”
+has the meaning set forth in Section 4.1(a ).
+
+“ Affiliate ”
+means, with respect to any Person, another Person that, directly or indirectly, controls, is controlled by, or is under common control
+with, such first Person, where “control” means the possession, directly or indirectly, of the power to direct or cause the
+direction of the management policies of a Person, whether through the ownership of voting securities, by contract or otherwise.
+
+“ Aleka ”
+has the meaning set forth in the Preamble .
+
+“ Allocated Loss
+Adjustment Expenses ” means all costs and expenses incurred, directly by the Reinsured, or indirectly through an affiliate
+or a third party service provider engaged by the Reinsured, on or after the Financial Effective Date in connection with or incidental
+to the investigation, appraisal, adjustment, settlement, litigation, defense or appeal of a specific Claim or loss, or alleged loss, with
+respect to the Subject Business, including (x) all costs and expenses incurred by the Reinsured related to ECO, ex gratia payments and
+XPL other than Specified ECO/XPL, and (y) all administration costs (including costs of third party administrators (but, for the avoidance
+of doubt, excluding any costs payable by the Reinsured pursuant to Section 7.2(j) of the Administrative Services Agreement) and of James
+River following any necessary resumption by James River of the administration of the Administered Business in compliance with the procedures
+set forth in the Administrative Services Agreement or in connection with the preparation for the resumption of administration following
+a notice from the Reinsurer pursuant to Section 7.2(i)(i)(x) of the Administrative Services Agreement), and shall include (i) court costs
+or costs associated with any alternative dispute resolution process such as arbitration or mediation; (ii) costs of supersedeas and appeal
+bonds; (iii) monitoring counsel expenses; (iv) legal expenses and costs incurred in connection with coverage questions and legal actions
+connected thereto, including declaratory judgment actions and costs of counsel appointed under Sections 4.1 and 4.2 of the Administrative
+Services Agreement (but, for the avoidance of doubt, excluding separate legal representation appointed at the Reinsured’s own expense
+pursuant to Section 4.1(d) and Section 4.2(c) of the Administrative Services Agreement); (v) all attorneys’ fees and costs incurred
+investigating potential fraudulent claims; (vi) all litigation and medical cost containment expenses, including surveillance expenses,
+medical records review consultant fees, fixed amounts for medical cost containment and litigation management expenses; (vii) fees and
+costs of outside independent adjusters, consultants, hearing representatives, re-inspectors, investigators, settling agents and any other
+similar service provider or vendor routinely retained as part of the Claim adjustment process; (viii) post-judgment interest; (ix) pre-judgment
+interest, unless included as part of an award or judgment; (x) subrogation, salvage and recovery expenses, including sums paid to attorneys
+as retainer, of obtaining or making such recovery; (xi) expenses for participation in voluntary and involuntary market pools; (xii) attorneys’
+fees and costs incurred in discharging the Reinsured’s right and duty to defend under the Reinsured Contracts; (xiii) attorneys’
+fees and costs incurred in defending the Reinsured against uninsured or underinsured motorist arbitration; (xiv) costs of insurance office
+searches, police reports and special investigation unit expenses and (xv) costs (other than Specified ECO/XPL) incurred by the Administrator
+or the Reinsured with respect to Legal Actions and Regulatory Actions, as defined in the Administrative Services Agreement (but, for the
+avoidance of doubt, excluding separate legal representation appointed at the Reinsured’s own expense pursuant to Section 4.1(d)
+and Section 4.2(c) of the Administrative Services Agreement); provided , however , that for purposes of this definition,
+costs and expenses shall not include costs of the Reinsured’s own staff, salaries, benefits, per diem or other compensation of employees,
+officers, or directors, office rent and other occupancy costs, operational expenses and overhead and general office expenses including
+telephones and information technology except for any of Reinsured’s such costs allocable to James River’s resumption of the
+administration of the Administered Business in compliance with the procedures set forth in the Administrative Services Agreement.
+
+2
+
+“ Applicable Law ”
+means any domestic or foreign, federal, state or local statute, law, ordinance or code, or any written rules, regulations or administrative
+interpretations issued by any Governmental Authority pursuant to any of the foregoing, in each case applicable to any Party, and any Order,
+writ, injunction, directive, judgment or decree of a court of competent jurisdiction applicable to the Parties.
+
+“ Arbitration ”
+has the meaning set forth in Section 9.1(a) .
+
+“ Arbitrators ”
+has the meaning set forth in Section 9.1(a) .
+
+“ Assets ”
+means any assets deposited into the Trust Account by or on behalf of Aleka and any successor of Aleka, excluding any interest, dividends
+or investment earnings thereon.
+
+“ Business Day ”
+means any day other than a Saturday, Sunday or a day on which commercial banks in New York are required or authorized by law to be closed.
+
+“ Case Reserves ”
+means reserves that represent estimated, but unpaid, Covered Losses, as reported each month by the Reinsured.
+
+“ Chair ”
+has the meaning set forth in Section 9.1(a) .
+
+“ Claim ”
+means a claim arising under any of the Reinsured Contracts.
+
+“ Claims Services
+Agreements ” means any claims services agreements entered into between Rasier, LLC and James River prior to the Contract
+Effective Date, each as may be amended from time to time through the Contract Effective Date.
+
+“ Collateral Revision
+Principles ” has the meaning set forth in Section 13.1(b).
+
+“ Commencement
+Letter ” has the meaning set forth in Section 9.1(b) .
+
+“ Common Interest
+Agreement ” means the Common Interest Agreement entered into between the Parties and certain of their Affiliates on May 14,
+2021.
+
+“ Commuted Claim ”
+has the meaning set forth in Section 5.4 (a) .
+
+“ Confidential
+Information ” means any information, whether disclosed to Receiving Party before or after the Contract Effective Date, specifically
+shared in connection with the Reinsurance Agreement, not generally known by the public that relates to the insurance business of any Reinsured,
+Reinsurer, or Insured and/or their Affiliates, and which specifically includes: business information (including accounts), claims information,
+financial information, business methods, reserving information and methodologies, Personal Data, unannounced business relationships ( e.g. ,
+transactions that a Party is negotiating), trade secrets and the like.
+
+“ Contract Effective
+Date ” has the meaning set forth in the Preamble .
+
+3
+
+“ Covered Losses ”
+has the meaning set forth in Section 2.2(b) .
+
+“ Data Privacy
+Laws ” has the meaning set forth in Schedule 6 .
+
+“ Demand for Arbitration ”
+has the meaning set forth in Section 9.1(b) .
+
+“ Disclosing Party ”
+has the meaning set forth in Section 17.1(a) .
+
+“ ECO ”
+means any liabilities imposed upon the Reinsured by judgment, settlement or decree that are not covered under any contractual provision
+of the Reinsured Contracts and which arise from handling of any Claim relating to the Subject Business, such liabilities arising because
+of, but not limited to, the following: (i) failure by the Reinsured to settle within the policy limit; (ii) alleged or actual negligence,
+fraud or bad faith in rejecting an offer of settlement or in the preparation of the defense or in the trial of any action against its
+insured; or (iii) in the preparation or prosecution of an appeal consequent upon actions relating to clause (i) or (ii).
+
+“ Excluded Liabilities ”
+has the meaning set forth in Section 2.3(d) .
+
+“ Existing Trust
+Account ” means the trust account established under the Existing Trust Agreement.
+
+“ Existing Trust
+Agreement ” means the Trust Agreement, effective March 1, 2017, among the Reinsurer, the Reinsured and the Existing Trustee.
+
+“ Existing Trustee ”
+means Wells Fargo Bank, N.A., as Trustee under the Existing Trust Agreement.
+
+“ FATCA ”
+means Sections 1471 through 1474 of the Internal Revenue Code, as of the Contract Effective Date (or any amended or successor version
+that is substantively comparable and not materially more onerous to comply with), any current or future regulations or official interpretations
+thereof, any agreements entered into pursuant to Section 1471(b)(1) of the Internal Revenue Code and any fiscal or regulatory legislation,
+rules or practices adopted pursuant to any intergovernmental agreement, treaty or convention among Governmental Authorities and implementing
+such Sections of the Internal Revenue Code.
+
+“ Financial Effective
+Date ” means July 1, 2021, being the effective date of the transfer of liabilities between the Reinsured and the Reinsurer.
+
+“ Governmental
+Authority ” means any government, political subdivision, court, board, commission, regulatory or administrative agency or
+other instrumentality thereof, whether federal, state, provincial, local or foreign and including any regulatory authority, which may
+be partly or wholly autonomous.
+
+“ Indemnified
+Policy ” has the meaning set forth in the Administrative Services Agreement.
+
+“ Indemnity Agreements ”
+has the meaning set forth in the Recitals .
+
+“ Independent
+Actuary ” means the “Independent Actuary” as defined in the Omnibus Amendment Agreement.
+
+“ Information
+Security Incident ” has the meaning set forth in Schedule 6 .
+
+4
+
+“ Insurance Program
+Agreement ” means the Insurance Program Agreement between Rasier, LLC and James River, dated July 1, 2017, as amended March
+1, 2018, June 25, 2019, July 29, 2019 and as may be further amended through the Contract Effective Date.
+
+“ Insureds ”
+has the meaning set forth in the Recitals .
+
+“ Inuring Third
+Party Reinsurance Agreements ” means those agreements and instruments pursuant to which James River has ceded to, or is otherwise
+entitled to reimbursement from, one or more unaffiliated third party reinsurers or other entities, risks (or, in the case of such reimbursement,
+losses arising from risks) specifically related to the Subject Business, such agreements as listed in Schedule 3 .
+
+“ Inuring Third
+Party Reinsurance Recoverables ” means amounts recoverable under the Inuring Third Party Reinsurance Agreements.
+
+“ James River ”
+has the meaning set forth in the Preamble .
+
+“ JAMS ”
+has the meaning set forth in Section 9.1(a) .
+
+“ JAMS Comprehensive
+Rules ” has the meaning set forth in Section 9.1(b) .
+
+“ Loss Fund Amount ”
+means “Loss Fund Amount” as defined in the Administrative Services Agreement.
+
+“ Loss Fund Reimbursements ”
+means “Loss Fund Reimbursements” as defined in the Administrative Services Agreement.
+
+“ Loss Fund Trust
+Account ” means the combination of two segregated trust accounts procured by the Reinsured on or prior to the Contract Effective
+Date, with and in the name of the Trustee, in accordance with the terms of the Loss Fund Trust Agreement.
+
+“ Loss Fund Trust
+Agreement ” means the Loss Fund Trust Agreement, dated as of the Contract Effective Date, by and among the Reinsured, the
+Reinsurer, the Administrator and the Loss Fund Trustee, pursuant to which the Loss Fund Trustee will receive and hold certain assets on
+behalf of the Reinsured for the benefit of the Administrator.
+
+“ Loss Fund Trustee ”
+means Wells Fargo Bank, N.A., as Loss Fund Trustee under the Loss Fund Trust Agreement.
+
+“ MCCA Claim ”
+means any Claim that, at any time during the term of this Reinsurance Agreement, triggers a reporting obligation to the Michigan Catastrophic
+Claims Association pursuant to Article 10.01(a) of the Plan of Operation of the MCCA as in effect from time to time.
+
+“ MCCA PIP Retention
+Amount ” means, for any MCCA Claim, the applicable amount set forth in Act No. 3, Public Acts of 2001 of the Legislature
+of the State of Michigan, codified at Section 500.3104 of the Insurance Code of 1956 of the State of Michigan.
+
+“ Minimum Capital
+and Surplus ” means the greater of (i) that minimum unimpaired capital and surplus that Reinsurer is required to maintain
+pursuant to Haw. Rev. Stat. 431:19-104, and (ii) one hundred and fifty million dollars ($150,000,000); provided that if, at any
+time, the Required Collateral Amount is less than twenty-five million dollars ($25,000,000), “Minimum Capital and Surplus”
+shall mean that minimum unimpaired capital and surplus that Reinsurer is required to maintain pursuant to Haw. Rev. Stat. 431:19-104.
+
+5
+
+“ Net Reinsurance
+Premium ” means the amount set forth in Section 3.1(a) .
+
+“ Omnibus Amendment
+Agreement ” means the Omnibus Amendment Agreement, dated as of the Contract Effective Date, by and among the Reinsured, the
+Reinsurer and certain of the Reinsurer’s Affiliates
+
+“ Order ”
+means any order, writ, judgment, injunction, decree, stipulation, determination or award entered by or with any Governmental Authority.
+
+“ Party ”
+or “ Parties ” has the meaning set forth in the Preamble .
+
+“ Person ”
+means any natural person, corporation, partnership, limited liability company, trust, joint venture or other entity, including a Governmental
+Authority.
+
+“ Personal Data ”
+has the meaning set forth in Schedule 6 .
+
+“ Privacy Exhibit ”
+has the meaning set forth in Schedule 6 .
+
+“ Receiving Party ”
+has the meaning set forth in Section 17.1(a) .
+
+“ Reinsurance
+Agreement ” has the meaning set forth in the Preamble .
+
+“ Reinsurance
+Premium ” means the amount set forth in Section 3.1(a) .
+
+“ Reinsured ”
+has the meaning set forth in the Preamble , including any predecessor or successor of such companies, including by reason of merger,
+consolidation or otherwise.
+
+“ Reinsured Contracts ”
+means all policies identified in Schedule 1 .
+
+“ Reinsured Liabilities ”
+has the meaning set forth in Section 2.1 .
+
+“ Reinsurer ”
+has the meaning set forth in the Preamble .
+
+“ Related Agreements ”
+means this Reinsurance Agreement, the Administrative Services Agreement, the Trust Agreement, the Release Agreement, the Transition Services
+Agreement, the Omnibus Amendment Agreement, the Claims Services Agreement, the Indemnity Agreements, the Existing Trust Agreement, the
+Loss Fund Trust Agreement, the Insurance Program Agreement, the Common Interest Agreement, that certain Data Protection Agreement, dated
+September 3, 2021, entered in by the Reinsured, Reinsurer, and the Administrator, that certain Non-Disclosure Agreement, dated May 17,
+2021, entered into by the Reinsured and Reinsurer and that certain Non-Disclosure Agreement, dated August 12, 2021, entered in by the
+Reinsured, Reinsurer and the Administrator.
+
+“ Related Arbitration ”
+has the meaning set forth in Section 9.1(d).
+
+“ Release Agreement ”
+means the Release Agreement, dated as of the Contract Effective Date, by and among the Reinsured, the Reinsurer and certain of the Reinsurer’s
+Affiliates.
+
+“ Representatives ”
+means, with respect to a Party, such Party’s directors, officers, employees and advisors.
+
+“ Required Collateral
+Amount ” has the meaning set forth in Section 13.1(a).
+
+6
+
+“ Required Modifications ”
+has the meaning set forth in Section 19.1(b) .
+
+“ Salvage and
+Subrogation Recoveries ” means deductibles, salvage and subrogation (other than any reinsurance recoverables) in respect
+of the Subject Business actually recovered by the Reinsured on or after the Financial Effective Date.
+
+“ Security Program ”
+has the meaning set forth in Schedule 6 .
+
+“ Solvent ”
+means that, as of any date of determination, (a) the amount of the “fair saleable value” of the assets of such entity or entities
+will, as of such date, exceed (i) the value of all “liabilities of such entity or entities, including contingent and other liabilities,”
+as of such date, as such quoted terms are generally determined in accordance with applicable laws governing determinations of the insolvency
+of debtors, and (ii) the amount that will be required to pay the probable liabilities of such entity or entities, as of such date, on
+its existing debts (including contingent and other liabilities) as such debts become absolute and mature; (b) such entity or entities
+will not have, as of such date, an unreasonably small amount of capital for the operation of the businesses in which it is engaged or
+proposed to be engaged following such date or to satisfy the minimum capital and surplus requirements under Applicable Law; and (c) such
+entity or entities will be able to pay its liabilities, including contingent and other liabilities, as they mature. For purposes of this
+definition, “not have an unreasonably small amount of capital for the operation of the businesses in which it is engaged or proposed
+to be engaged” and “able to pay its liabilities, including contingent and other liabilities, as they mature” means that
+such entity or entities will be able to generate enough cash from operations, asset dispositions or refinancing, or a combination thereof,
+to meet its obligations as they become due.
+
+“ Specified ECO/XPL ”
+means any ECO or XPL to the extent that such amounts are found to have primarily resulted from the gross negligence or willful misconduct
+of any of the Reinsured or any of their Affiliates prior to the Transition Date, proven by clear and convincing evidence and determined
+by Arbitration, including any ECO or XPL already paid by Reinsured for a Claim as of the Financial Effective Date for such Claim for which
+notification has not been presented for indemnification by the Insureds prior to the Financial Effective Date; provided , however ,
+that “Specified ECO/XPL” shall exclude any and all ECO, ex gratia payment or XPL associated with Claims that are closed as
+of the Contract Effective Date, including amounts actually claimed or that potentially could be claimed against the Reinsured by excess
+insurers on Claims that have been settled by exhaustion of policy limits of one or more Reinsured Contracts prior to the Contract Effective
+Date.
+
+“ Subject Business ”
+means (i) any loss of Reinsured arising out of, in connection with or as a result of a Claim that is unpaid, in whole or in part, as of
+the Financial Effective Date, only to the extent of the unpaid amount of Claim as of that date; (ii) any expenses incurred by Reinsured
+in servicing any Claim pursuant to the Claims Services Agreement after the Financial Effective Date and prior to its respective Transition
+Date that are unpaid, in whole or in part, but only on the extent of the unpaid amount of such expenses as of its respective Transition
+Date; and (iii) any payment obligation (other than any payment obligation or other liability arising out of, in connection with or relating
+to this Reinsurance Agreement) related to a Claim that arises out of, in connection with or related to any policy, certificate, binder,
+contract or cover note of insurance or reinsurance issued by, or on behalf of, the Reinsured with respect to any Reinsured Contract pursuant
+to which such Claim arose that is unpaid, in whole or in part, as of the Financial Effective Date, only to the extent of the unpaid amount
+of such payment obligation under this clause (iii).
+
+“ Tax ”
+means any and all federal, state, foreign or local income, gross receipts, premium, capital stock, franchise, profits, withholding, social
+security, unemployment, disability, real property, ad valorem/personal property, stamp, excise, occupation, sales, use, transfer, value
+added, alternative minimum, estimated or other tax, fee, duty, levy, custom, tariff, impost, assessment, obligation or charge of the same
+or of a similar nature to any of the foregoing, including any interest, penalty or addition thereto.
+
+7
+
+“ Third Party ”
+has the meaning set forth in Schedule 6 .
+
+“ Total Collateral ”
+has the meaning set forth in Section 13.2(c) .
+
+“ Transition Date ”
+means, for any Claim, the date that file handling for that Claim moves from the Reinsured to the Administrator pursuant to the Transition
+Services Agreement and the Administrative Services Agreement.
+
+“ Transition Services
+Agreement ” means the Transition Services Agreement, dated as of the Contract Effective Date, by and among James River, the
+Reinsurer and Rasier, LLC, pursuant to which James River will transition administration of the Reinsured Contracts, the Indemnified Policies
+and claims arising thereunder to the Administrator following the Contract Effective Date.
+
+“ Trust Account ”
+means a segregated trust account procured by the Reinsurer on or prior to the Contract Effective Date, with and in the name of the Trustee,
+in accordance with the terms of the Trust Agreement.
+
+“ Trust Agreement ”
+means the Trust Agreement, dated as of the Contract Effective Date, by and among the Reinsured, the Reinsurer and the Trustee, pursuant
+to which the Trustee will receive and hold certain assets on behalf of the Reinsured.
+
+“ Trustee ”
+means Wells Fargo Bank, N.A.
+
+“ Ultimate Net
+Loss ” has the meaning set forth in Section 2.2(b) .
+
+“ XPL ”
+means any amount paid or payable by the Reinsured on a Reinsured Contract in excess of policy limits for which the Reinsured would have
+been contractually liable to pay had it not been for the limit of such Reinsured Contract.
+
+Article
+II
+
+REINSURANCE CEDED
+
+2.1            Reinsurance Coverage .
+
+Effective as of the Financial
+Effective Date, the Reinsured shall cede to the Reinsurer, and the Reinsurer shall reinsure, 100% of all losses, liabilities and expenses
+included within the definition of Ultimate Net Loss, with no aggregate or individual claim limit (the “ Reinsured Liabilities ”).
+
+2.2            Commencement of the Reinsurer’s Liability .
+
+(a)             The Reinsurer’s liability under Section 2.1 of this Reinsurance Agreement shall, on the Contract Effective Date, attach
+simultaneously with that of the Reinsured as of the Financial Effective Date, and all reinsurance with respect to which the Reinsurer
+shall be liable by virtue of this Reinsurance Agreement shall be subject in all respects to the same risks, terms, rates, conditions,
+interpretations, assessments and waivers and to the same modifications, alterations and cancellations, as the respective Reinsured Contracts
+and Subject Business to which liability under this Reinsurance Agreement attaches, the true intent of this Reinsurance Agreement being
+that the Reinsurer shall, in every case to which liability under this Reinsurance Agreement attaches, follow the fortunes of the Reinsured,
+and the Reinsurer shall be bound, without limitation, by all payments and settlements entered into by or on behalf of the Reinsured (including
+by the Administrator pursuant to the Administrative Services Agreement), subject to the terms, conditions and provisions set forth herein.
+
+8
+
+(b)             “ Ultimate Net Loss ” means the sum of (i) any amount which is paid, required to be paid or due to be paid
+by the Reinsured on and after the Financial Effective Date in respect of Subject Business for settlements or satisfaction of judgements
+or awards within the terms and limits of the Reinsured Contracts (“ Covered Losses ”); plus (ii) Allocated
+Loss Adjustment Expenses; minus (iii) Salvage and Subrogation Recoveries as described in Article XI actually collected,
+without duplication to amounts the Reinsurer recovers directly pursuant to Section 11.1 ; minus (iv) Inuring Third Party
+Reinsurance Recoverables, whether recovered or not, the amount to be deducted for purposes of this clause (iv) in calculating Ultimate
+Net Loss to include, by way of example and not to limit the generality of the foregoing, (a) any amounts in excess of any maximum permissible
+loss ratio cap set forth in any Inuring Third Party Reinsurance Agreement, and (b) any amounts not recoverable due to breach of or other
+non-compliance with any Inuring Third Party Reinsurance Agreements by the Reinsured (including any voiding that may occur with respect
+to Inuring Third Party Reinsurance Agreements as a result of any such breach or other non-compliance); minus (v) losses indemnified
+by the Insureds, and actually received by the Reinsured, pursuant to the existing Indemnity Agreements, provided that any amounts
+that would have been indemnified by the Insureds pursuant to an existing Indemnity Agreement but are not in fact indemnified pursuant
+to the terms thereof and pursuant to the terms of Section 12.2 hereof shall be included in the definition of Ultimate Net Loss; minus
+(vi) Excluded Liabilities; provided , however , in no event shall Ultimate Net Loss include Specified ECO/XPL.
+
+(c)             The Subject Business is subject to the terms and conditions of the original Reinsured Contracts in the Subject Business and automatically
+follows all modifications thereto required by a Governmental Authority or pursuant to Applicable Law, subject to the exclusions and the
+other terms and conditions of this Reinsurance Agreement.
+
+(d)             The Reinsurer shall be bound by the Reinsured’s and their Affiliates’ liability with respect to the Subject Business
+as determined by a court or arbitration panel or arising from a judgment, settlement, compromise or adjustment of Claims or losses related
+to the Subject Business, including payments involving coverage issues and the resolution of whether such claim is required by contract
+or Applicable Law, to be covered (or not to be excluded), regardless of whether such court or arbitration determination, judgment, settlement,
+compromise or adjustment is in respect of a liability recognized by or contrary to the governing law of this Reinsurance Agreement.
+
+2.3            Exclusions .
+
+Notwithstanding any provision
+of this Reinsurance Agreement to the contrary, the Reinsurer shall not be liable for any liabilities or obligations of the Reinsured that
+are not Reinsured Liabilities, including:
+
+9
+
+(a)             Any sum paid, or booked as paid, prior to the Financial Effective Date in settlement or payment of any obligation arising from
+Subject Business, including any such sums for Covered Losses, Allocated Loss Adjustment Expenses or Specified ECO/XPL;
+
+(b)             Any liability assumed by any Reinsured under a reinsurance agreement or cover note entered into on or after the Financial Effective
+Date, or any additional liability arising from an amendment to a reinsurance agreement, which amendment was entered into on or after the
+Financial Effective Date; and
+
+(c)             Any liability associated with MCCA Claims identified prior to the Contract Effective Date, as listed in Schedule 7 .
+
+(d)             Any additional liability arising from an amendment to an Inuring Third Party Reinsurance Agreement by a Reinsured except as permitted
+by Section 19.1 (collectively, (a)-(d) constitute the “ Excluded Liabilities ”).
+
+2.4            Territory .
+
+The reinsurance provided
+under this Reinsurance Agreement shall be coextensive with the territory of the Reinsured Contracts.
+
+Article
+III
+
+REINSURANCE CONSIDERATION
+
+3.1            Net Reinsurance Premium .
+
+On the Contract Effective
+Date, James River shall pay to the Reinsurer an amount in cash of three hundred and seventeen million, six hundred and five thousand,
+nine hundred and twenty dollars and ninety-five cents ($317,605,920.95) (the “ Net Reinsurance Premium ”), to
+be deposited directly by James River on behalf of the Reinsurer into the Trust Account by wire transfer of immediately available United
+States dollars to such bank account or accounts as designated by the Trustee pursuant to the Trust Agreement, such amount reflects three
+hundred and forty-five million, one hundred and forty-five thousand, seven hundred and seven dollars and ninety-eight cents ($345,145,707.98)
+(the “ Reinsurance Premium ”) reduced by twenty-seven million, five hundred and thirty-nine thousand, seven hundred
+and eighty-seven dollars and three cents ($27,539,787.03) for paid losses from and including the Financial Effective Date to and including
+August 31, 2021. The Parties acknowledge that eleven million, seven hundred and sixty-seven thousand dollars ($11,767,000) of the Reinsurance
+Premium represents contribution towards the Administration Fee (as defined in the Administrative Services Agreement) by James River.
+
+3.2            Payments .
+
+(a)             Except with respect to payments of Ultimate Net Loss made by Reinsurer to third parties on behalf of Reinsured, all payments between
+the Parties made pursuant to this Reinsurance Agreement shall be made either (i) by wire transfer of immediately available United States
+dollars in cash to such bank account or accounts as designated by the recipient or (ii) by direct deposit or direct debit through the
+Automated Clearing House (ACH) system.
+
+10
+
+(b)             Except with respect to payments of Ultimate Net Loss made by Reinsurer to third parties on behalf of Reinsured, all payments by
+the Reinsurer to the Reinsured shall be made directly to Reinsured or to its liquidator, receiver or statutory successor.
+
+3.3            MCCA Claims .
+
+(a)             If, at any time prior to the transition of a Claim to the Administrator pursuant to the Transition Services Agreement, the Reinsured
+determines that such Claim has become an MCCA Claim, (i) the MCCA Claim shall cease to be a Reinsured Liability, (ii) the MCCA Claim shall
+no longer be subject to transition pursuant to the Transition Services Agreement, (iii) the MCCA Claim shall continue to be administered
+by the Reinsured, and (iv) the MCCA Claim shall promptly, and in no event later than twenty (20) Business Days following the date of such
+determination, be commuted under this Reinsurance Agreement by Aleka to the relevant Reinsured, on economic terms to be agreed upon (including
+$5,000 reimbursement to the Reinsured by Aleka as consideration for the transition of handling of each MCCA Claim to the Reinsured and
+continued liability on the Reinsurer for the MCCA Claim (up to the MCCA PIP Retention Amount in the case of personal injury protection
+portions of the MCCA Claim) by Aleka and the relevant Insured, on the one hand, and the Reinsured, on the other hand, and otherwise in
+accordance with the provisions (including, without limitation, the timing provisions with respect to valuation) of Section 5.4
+of this Reinsurance Agreement.
+
+(b)             If, at any time following the transition of a Claim to the Administrator pursuant to the Transition Services Agreement, the Administrator
+determines that such Claim has become an MCCA Claim, then (i) the MCCA Claim shall cease to be a Reinsured Liability, (ii) the MCCA Claim
+shall promptly, and in no event later than twenty (20) Business Days following the date that the Administrator notifies Aleka and the
+Reinsured that such Claim has become an MCCA Claim, be commuted under this Reinsurance Agreement by Aleka to the relevant Reinsured, (iii)
+the administration of the MCCA Claim shall be transferred by the Administrator to the Reinsured for administration by the Reinsured at
+the time the MCCA Claim is commuted pursuant to clause (ii) of this Section 3.3(b) , and (iv) the economic terms of such commutation
+shall be agreed upon (including $5,000 reimbursement to the Reinsured by Aleka as consideration for the transition of handling of each
+MCCA Claim to the Reinsured and continued liability on the Reinsurer for the MCCA Claim up to the MCCA PIP Retention Amount in the case
+of personal injury protection portions of the MCCA Claim) by Aleka and the relevant Insured, on the one hand, and the Reinsured, on the
+other hand, and otherwise in accordance with the provisions (including, without limitation, the timing provisions with respect to valuation)
+of Section 5.4 of this Reinsurance Agreement.
+
+11
+
+Article
+IV
+
+ADMINISTRATION
+
+4.1            Administration .
+
+(a)             James River and Reinsurer shall appoint an administrator (the “ Administrator ”) to perform all administrative
+services with respect to the Reinsured Contracts as respects the Administered Business (including the Subject Business), pursuant to the
+Administrative Services Agreement, until the earlier of the date of termination of this Reinsurance Agreement, the date of termination
+of the Administrative Services Agreement or the resignation or replacement of the Administrator pursuant to the terms of the Administrative
+Services Agreement and the Administrator Schedule (as defined in the Administrative Services Agreement). The Parties acknowledge that
+they have agreed to appoint an administrator as Administrator as of the Contract Effective Date, and that substantially simultaneously
+with the execution and delivery of this Reinsurance Agreement they will enter into the Administrative Services Agreement with the Administrator.
+
+(b)             Pursuant to the terms and conditions of the Transition Services Agreement, the Reinsured and the Reinsurer shall cooperate in good
+faith to transition all administrative services with respect to the Reinsured Contracts and the Indemnified Policies to the Administrator.
+
+4.2            Loss Fund Account Funding .
+
+On or before the first Transition Date, James
+River shall withdraw from the Trust Account, and deposit into the Loss Fund Trust Account, the portion of the Loss Fund Amount applicable
+pursuant to this Reinsurance Agreement to the Claims to be transitioned on such Transition Date by wire transfer of immediately available
+United States dollars in cash to such bank account or accounts as designated by the Loss Fund Trustee pursuant to the Loss Fund Trust
+Agreement. The Loss Fund Amount shall be updated from time to time in accordance with the provisions of Article XIV .
+
+Article
+V
+
+DURATION AND TERMINATION
+
+5.1            Duration and Termination .
+
+This Reinsurance Agreement
+shall commence on the Contract Effective Date and continue in force until the earlier of: (i) the date the Reinsured’s liability
+with respect to the Subject Business is terminated and all amounts due the Reinsured under this Reinsurance Agreement with respect to
+the Subject Business are paid; (ii) the date on which this Reinsurance Agreement is terminated, in whole but not in part, by the mutual
+written consent of the Parties; (iii) in part as to any Commuted Claim, the date of commutation of such Commuted Claim in accordance with
+the provisions of Section 5.4 ; or (iv) the date on which the Reinsured or Reinsurer terminates this Reinsurance Agreement pursuant
+to Section 5.3 .
+
+12
+
+5.2            Effect of Termination .
+
+Notwithstanding the other
+provisions of this Article V , the terms and conditions of Articles I (“Definitions”), VIII (“Dispute
+Resolution”), IX (“Arbitration/Attorney Fees”), XVII (“Confidentiality”), XX (“Access
+to Records; Reporting”), and Article XXI (“Miscellaneous Provisions”) shall remain in full force and effect after
+the termination of this Reinsurance Agreement.
+
+5.3            Special Termination .
+
+(a)             The Reinsured may terminate this Reinsurance Agreement, in whole but not in part, in the event that:
+
+(i)              any Governmental Authority of competent jurisdiction orders the Reinsurer to cease reinsuring business;
+
+(ii)             the Reinsurer (whether voluntarily or involuntarily) becomes insolvent or the subject of any liquidations, administration, rehabilitation,
+receivership, supervision, conservation or bankruptcy action or proceeding;
+
+(iii)            Reinsurer fails to maintain Minimum Capital and Surplus and the Reinsurer has not cured such shortfall (a) within thirty (30) calendar
+days of becoming aware thereof, if the Reinsurer has minimum capital and surplus of less than one hundred and fifty million dollars ($150,000,000)
+as of such date or (b) within sixty (60) calendar days of becoming aware thereof, if the Reinsurer has minimum capital and surplus of
+one hundred and fifty million dollars ($150,000,000) or greater as of such date;
+
+(iv)            there is a change of control of Reinsurer or Reinsurer files an application for an insurance business transfer of substantially
+all its business, and the Insureds or their Affiliates do not assume full responsibility for all the Reinsured Liabilities;
+
+(v)             the Reinsurer breaches any of its representations or warranties in a manner that does or would reasonably be expected to materially
+and adversely affect the ability of Reinsurer to perform its obligations under this Reinsurance Agreement; or
+
+(vi)            the Reinsurer materially breaches any of its covenants or obligations under this Reinsurance Agreement, and the Reinsurer has not
+cured such breach within thirty (30) calendar days of receiving written notice thereof from the Reinsured.
+
+(b)             The Reinsurer may terminate this Reinsurance Agreement, in whole but not in part, in the event that the Reinsured breaches any
+of its representations or warranties in a manner that does or would reasonably be expected to materially and adversely affect the ability
+of Reinsured to perform its obligations under this Reinsurance Agreement, and the Reinsured has not cured such breach within thirty (30)
+calendar days of providing written notice thereof to the Reinsurer.
+
+13
+
+(c)             The Reinsured or Reinsurer may deliver notice of termination following any of the events set forth in Section 5.3(a) or
+5.3(b) , respectively.
+
+(d)             If the Reinsured or Reinsurer elects termination pursuant to Section 5.3(c) , the Reinsured and Reinsurer shall mutually
+determine the amount due and payable by the Reinsurer in a terminal settlement statement (including $5,000 reimbursement to the Reinsured
+by Aleka as consideration for the transition of handling of each open Claim to the Reinsured). The Reinsurer shall pay such balance to
+the Reinsured in cash by wire transfer of immediately available funds to the account designated in writing by the Reinsured within ten
+(10) Business Days after delivery of the statement. In case of any dispute with respect to the terminal settlement, the undisputed portion
+of the terminal settlement shall be paid in accordance with this Section 5.3(d) within ten (10) Business Days after delivery of
+the statement, and the Reinsurer may deliver a written demand for a “meet and confer” pursuant to the procedures set forth
+in Section 8.1 . Disputes that are not resolved via the meet and confer shall be resolved by a panel of three independent actuaries,
+one selected by the Reinsured, one selected by the Reinsurer and the third selected by the Party-selected actuaries (an “ Actuary
+Panel ”). The Actuary Panel’s review of the terminal settlement amount shall be a de novo calculation applying the
+Actuary Panel’s own interpretation of standard actuarial principles, calculating a new terminal settlement amount that is between
+Reinsured’s and Reinsurer’s calculation thereof. The Reinsurer and the Reinsured shall use commercially reasonable efforts
+to cause the Actuary Panel to deliver its resolution of such dispute within thirty (30) calendar days of the request by the Reinsurer
+and the Reinsured, and such determination shall be binding on the Reinsured and the Reinsurer. The expenses of the Actuary Panel shall
+be paid by the Party whose calculation of the terminal settlement was further from the amount determined by the Actuary Panel, provided
+that if the amount determined by the Actuary Panel is the midpoint between the calculations of the terminal settlement by the Parties,
+then the expenses of the Actuary Panel shall be paid equally by the Parties.
+
+5.4            Commutation .
+
+(a)             Either Aleka or the relevant Reinsured may request commutation of any one or more Claims.  If both parties agree to consider
+commutation of a Claim (each, a “ Commuted Claim ”), then within sixty (60) days after such agreement, the relevant
+Reinsured shall submit a statement of valuation of the Commuted Claim at the date of such statement, showing the elements considered reasonable
+to establish the Ultimate Net Loss (including $5,000 reimbursement to the Reinsured by Aleka as consideration for the transition of handling
+of each Commuted Claim to the Reinsured); provided that commutation of any MCCA Claim shall occur in accordance with Section
+3.3 . Aleka shall pay the amount of such valuation within ten (10) Business Days of the agreement by both parties as to such statement
+of valuation and shall no longer be obligated to reinsure the Commuted Claims pursuant to this Reinsurance Agreement; the relevant Reinsured
+shall assume the administration of the Commuted Claims from the Administrator or, if any or all of the Commuted Claims have yet to be
+transitioned to the Administrator pursuant to the Transition Services Agreement; and such Commuted Claims shall no longer be subject to
+transition under the Transition Services Agreement.
+
+(b)             If the Reinsurer delivers notice to the Reinsured that it disagrees with the Reinsured’s valuation of the Commuted Claim,
+Aleka may deliver a written demand for a “meet and confer” pursuant to the procedures set forth in Section 8.1 . If,
+following completion of such meet and confer, the Parties are unable to agree upon a valuation of the Commuted Claims, the Party requesting
+commutation may decide to withdraw such request; provided , that with respect to commutation of an MCCA Claim, if, following completion
+of such meet and confer, the parties are unable to agree upon a valuation of the MCCA Claim, the MCCA Claim shall be valued at an amount
+equal to $5,000 as consideration for the transition of handling of such MCCA Claim back to the Reinsured and any remaining potential Ultimate
+Net Loss up to the MCCA PIP Retention Amount with respect to the personal injury protection portion of such MCCA Claim and as agreed by
+the parties with respect to the non-personal injury protection portion of any such MCCA Claim or, if the parties are unable to so agree,
+as is decided by arbitration pursuant to Article IX.
+
+14
+
+Article
+VI
+
+INSOLVENCY
+
+6.1            Insolvency of Reinsured .
+
+(a)             The Reinsurer hereby agrees that in the event of the insolvency of any Reinsured and the appointment of a conservator, liquidator,
+receiver or statutory successor of any Reinsured, all amounts due such Reinsured under this Reinsurance Agreement shall be payable by
+the Reinsurer to any conservator, liquidator, receiver or statutory successor of such Reinsured on the basis of the Claims allowed against
+such Reinsured by any court of competent jurisdiction or by any conservator, liquidator, receiver or statutory successor of such Reinsured
+having authority to allow such claims, without diminution because of that insolvency, or because the conservator, liquidator, receiver
+or statutory successor has failed to pay all or a portion of any Claims. Payments by the Reinsurer as set forth in this Section 6.1
+shall be made directly to the Reinsured or to its conservator, liquidator, receiver or statutory successor. Under no circumstances shall
+Reinsurer’s liability hereunder be accelerated or enlarged by the insolvency of any Reinsured.
+
+(b)             It is agreed and understood, however , that in the event of the insolvency of any Reinsured the liquidator, receiver or statutory
+successor of such Reinsured shall give written notice of the pendency of a claim against such Reinsured on a Reinsured Contract within
+a reasonable period of time after such claim is filed in the insolvency proceedings and that during the pendency of such claim Reinsurer
+may investigate such claim and interpose, at its own expense, in the proceeding where such claim is to be adjudicated, any defense or
+defenses which it may deem available to such Reinsured or its liquidator, receiver or statutory successor. It is further understood that
+the expense thus incurred by Reinsurer shall be chargeable, subject to court approval, against such Reinsured as part of the expense of
+liquidation to the extent of a proportionate share of the benefit which may accrue to such Reinsured solely as a result of the defense
+undertaken by Reinsurer.
+
+Article
+VII
+
+Claims Payments
+
+7.1            Claims Payments .
+
+For Claim payments under this Reinsurance Agreement
+both before and after the Transition Date for any such Claim, on a monthly basis the Reinsured shall seek reimbursement from the Reinsurer
+of Ultimate Net Loss for amounts paid by providing to the Reinsurer within fifteen (15) calendar days following the end of each calendar
+month a loss bordereau with Ultimate Net Loss payment activity for each Claim separately. For the avoidance of doubt, payment for such
+Ultimate Net Loss shall be processed by withdrawing amounts due from the Trust Account pursuant to the terms of the Trust Agreement. Any
+such withdrawal shall not create any immediate obligation of the Reinsurer to contribute assets to the Trust Account, which shall only
+be required pursuant to the procedures set forth in Article XIII.
+
+15
+
+Article
+VIII
+
+DISPUTE RESOLUTION
+
+8.1            Meet and Confer .
+
+As a condition precedent
+to (i) the filing of any Demand for Arbitration (as defined in Section 9.1(a) below) arising out of this Reinsurance Agreement
+or (ii) the referral of a dispute to the Independent Actuary or Actuary Panel pursuant to Section 13.1(f) or an Actuary Panel pursuant
+to Section 5.3(d) , an executive officer of the aggrieved Party with full decision making authority for that Party (i.e. ,
+possessing authority to make a decision without consulting others) shall first attempt to “meet and confer” by videoconference
+or in person with an executive officer of the other Party with full decision making authority for that Party (i.e. , possessing
+authority to make a decision without consulting others) in an attempt to resolve the issue in good faith. The “meet and confer”
+shall take place within fourteen (14) calendar days of a written demand for such “meet and confer,” or at any other time as
+agreed by the Parties in writing. In any subsequent Arbitration or court action to enforce an award, the Chair (as defined in Section
+9.1(a) below) or judge shall have the discretion to award the fees and costs of the Arbitration to the prevailing Party if the Chair
+or judge finds that the non-prevailing Party either refused to “meet and confer” or that the “meet and confer”
+was not in good faith.
+
+Article
+IX
+
+ARBITRATION / ATTORNEY FEES
+
+9.1            Arbitration .
+
+(a)             In the event of any dispute or difference of opinion hereafter arising between the Parties with respect to matters relating to
+or arising in connection with this Reinsurance Agreement or with respect to their obligations or performance hereunder, including disputes
+or disagreements with respect to payments hereunder as well as the formation or interpretation of the Reinsurance Agreement, it is hereby
+mutually agreed that such dispute or difference of opinion shall be submitted to binding arbitration (“ Arbitration ”)
+before a panel consisting of three neutral arbitrators (“ Arbitrators ”), one chosen by the Reinsured and one
+chosen by the Reinsurer, together with a Chairperson (“ Chair ”) to be chosen by the two Party-selected Arbitrators.
+The Arbitrators shall not be under the control of either Party, and shall have no financial interest in the outcome of the Arbitration.
+The Chair shall be affiliated with Judicial Arbitration and Mediation Services (“ JAMS ”), and the party-selected
+Arbitrators may but need not be affiliated with JAMS.
+
+16
+
+(b)             Unless otherwise agreed by the Parties in writing, the Arbitration shall be administered by the Los Angeles, California office
+of JAMS and shall be governed by JAMS Comprehensive Arbitration Rules and Procedures then in effect (“ JAMS Comprehensive Rules ”)
+(except as modified herein). Commencement of Arbitration shall be governed by the JAMS Comprehensive Rules and shall be initiated by a
+Demand for Arbitration filed with JAMS (“ Demand for Arbitration ”). Each Party acknowledges and agrees that this
+Reinsurance Agreement constitutes a pre-dispute written contractual provision requiring the Parties to arbitrate their dispute and claims
+and specifying JAMS administration. Each Party shall respond to the Commencement Letter issued thereafter by JAMS (“ Commencement
+Letter ”) and notify the JAMS Administrator of the identity in writing of its party-selected Arbitrator within thirty (30)
+calendar days following issuance of the Commencement Letter. The party-selected Arbitrators shall agree on a Chair within thirty (30)
+calendar days of the date on which notice of the identity of both party-selected Arbitrators has been given. In the event either Party
+fails or refuses to respond to the Commencement Letter or fails to select an Arbitrator within this time period, the other Party may choose
+two Arbitrators who shall in turn choose a Chair. The Chair shall have the power to enter an award in favor of the non-defaulting Party
+in accordance or consistent with JAMS Comprehensive Rules. If the Arbitrators are chosen by the Parties but fail to agree upon the selection
+of a Chair within thirty (30) calendar days following notice of appointment as provided herein, the Chair shall be determined by the process
+specified in the JAMS Comprehensive Rules, provided that the Chair candidates shall be from the list of available neutrals in the Los
+Angeles office of JAMS.
+
+(c)             The Arbitration hearing shall take place in Los Angeles, California. The Arbitrators shall consider this Reinsurance Agreement
+as an honorable engagement, as well as a legal obligation, and they are relieved of all judicial formalities regarding procedural matters,
+and may abstain from following the strict rules of law regarding entering of evidence. Discovery shall be taken in accordance with the
+JAMS Comprehensive Rules or in the discretion of the Arbitrators upon application of any Party to the Arbitrators for leave to do so by
+majority decision, or by the Chair if the Arbitrators are not able to reach a majority. The Partial Final Award (if any) and Final Award
+(each as defined in JAMS Comprehensive Rules) of the Arbitrators shall be final and binding. Judgment upon the Partial Final Award (if
+any) and Final Award may be entered in any court of competent jurisdiction, and the Parties agree that the United States District Court
+for the Central District of California and the Superior Court of California in and for the County of Los Angeles are courts of competent
+jurisdiction for entry and enforcement of judgment on the Partial Final Award (if any) and Final Award.
+
+(d)             In order to facilitate the comprehensive resolution of related disputes, and upon request of any party to an arbitration brought
+under the Related Agreements (the “ Related Arbitration ”), the arbitrators appointed in the Related Arbitration may
+consolidate the Related Arbitration with any other arbitration proceeding relating to the Related Agreements. The arbitrators shall not
+consolidate such arbitrations unless they determine that (i) the arbitrations so filed have common issues of fact or law so that a consolidated
+proceeding would be more efficient than separate proceedings, and (ii) no party would be prejudiced as a result of such consolidation
+through undue delay or otherwise. In the event of different rulings on this question by arbitration tribunal(s) constituted hereunder
+or under the Related Agreements, the conflict will be resolved by the ruling of the arbitration tribunal that was appointed in the first-filed
+arbitration proceedings commenced pursuant to this Reinsurance Agreement; or, if there are no proceedings commenced pursuant to this Reinsurance
+Agreement, by the tribunal appointed in the arbitration proceedings that were filed first in time pursuant to any of the other Related
+Agreements. If proceedings are consolidated, the arbitrators in those consolidated proceedings shall be the members of the arbitration
+tribunal that was appointed in the first-filed arbitration proceedings commenced pursuant to this Reinsurance Agreement; or, if there
+are no proceedings pursuant to this Reinsurance Agreement, the members of the arbitration tribunal that was appointed in the first-filed
+arbitration proceedings commenced pursuant to any of the other Related Agreements.
+
+17
+
+9.2            Attorney Fees .
+
+The costs of the Arbitration,
+including the fees of the Chair, shall be borne equally by the Parties unless a Party fails to “meet and confer” in good faith
+as set forth in Section 8.1 above. Each Party shall bear the fees and costs of its own party-selected Arbitrator. In the event
+one Party chooses both Arbitrators as provided above, then the other Party shall bear the fees and costs for all Arbitrators. Notwithstanding
+any provision ostensibly to the contrary herein, in any Arbitration and in any court proceedings to obtain judgment on and/or to enforce
+a Partial Final Award (if any) and Final Award, the substantially prevailing Party shall be entitled to recover its reasonable attorneys’
+fees and costs.
+
+Article
+X
+
+EXTRA CONTRACTUAL OBLIGATIONS/LOSS IN EXCESS OF POLICY LIMITS
+
+10.1          ECOs/XPLs .
+
+To the maximum extent permitted
+by Applicable Law, this Reinsurance Agreement shall cover ECOs, ex gratia payments and XPLs, except for Specified ECO/XPL.
+
+Article
+XI
+
+SALVAGE AND SUBROGATION
+
+11.1          Salvage and Subrogation .
+
+The Reinsurer shall be subrogated
+to all rights of any Reinsured against any Person or other entity who may be legally responsible in damages constituting Reinsured Liabilities
+for which the Reinsurer shall actually pay, or become liable to pay, on or after the Financial Effective Date (but only to the extent
+of the amount of payment by, or the amount of liability of, the Reinsurer), subject to subrogation rights under the Indemnity Agreements
+and the Inuring Third Party Reinsurance Agreements, which shall continue pro rata to the rights of the Reinsurer with respect to each
+Claim. Reinsured hereby assigns, transfers and conveys to the Reinsurer any and all rights of the Reinsured to deductibles, salvage and
+subrogation on the Subject Business and on the Reinsured Contracts, except for such rights assigned under the Indemnity Agreements and
+the Inuring Third Party Reinsurance Agreements, pro rata as aforesaid.
+
+Article
+XII
+
+INURING THIRD PARTY REINSURANCE AGREEMENTS; INDEMNITY AGREEMENTS
+
+12.1          Inuring Third Party Reinsurance Agreements .
+
+The Inuring Third Party Reinsurance
+Agreements shall be administered by the Reinsured. Subject to above Section 2.2 (“Ultimate Net Loss”), in the event
+that Inuring Third Party Reinsurance Recoverables relating to the Subject Business Claims are paid by Reinsurer, they shall be paid to
+Reinsurer.
+
+18
+
+12.2          Indemnity Agreements .
+
+If the Reinsured has a right
+to indemnification under an Indemnity Agreement, it will timely submit a written accounting or loss bordereau monthly under such Indemnity
+Agreement and, if any payment is not made in accordance with such Indemnity Agreement, use reasonable best efforts to draw down collateral
+in accordance with the provisions of such Indemnity Agreement. Amounts indemnifiable under the Indemnity Agreements shall only constitute
+Ultimate Net Loss to the extent that (i) the Reinsured has complied with this Section 12.2 and not recovered under the relevant
+Indemnity Agreements, and (ii) the Reinsured has a valid claim under the applicable Indemnity Agreement; provided that amounts
+indemnifiable under the Indemnity Agreements that would constitute Ultimate Net Loss pursuant to this Section 12.2 shall be reduced
+by any amounts withdrawn by the Reinsured from the Existing Trust Account and not subsequently applied in accordance with the Trust Agreement
+or returned to the Trust Account.
+
+Article
+XIII
+
+COLLATERAL
+
+13.1          General Collateral Provisions and Triggers .
+
+(a)             The required collateral amount under this Reinsurance Agreement shall be 102% of the Reinsured’s estimate of Reinsurer’s
+obligations under this Reinsurance Agreement (such estimate to assume that there is no obligation to pay under this Reinsurance Agreement
+for losses covered by any Indemnity Agreement) (“ Required Collateral Amount ”), calculated as shown in Schedule
+4 . As of the Contract Effective Date, the Required Collateral Amount is three hundred and twelve million, three hundred and fifty-nine
+thousand, eighty-six dollars and ninety-three cents ($312,359,086.93).
+
+(b)             The Reinsured shall review and revise the Required Collateral Amount (i) at least monthly, beginning as of October 1, 2021, to
+reflect payments made by the Reinsurer for its obligations under this Reinsurance Agreement and (ii) no more frequently than monthly beginning
+as of October 1, 2021 and no more frequently than quarterly beginning as of April 1, 2022, to reflect changes in the estimated Ultimate
+Net Loss (such estimate to assume that there is no obligation to pay under this Reinsurance Agreement for losses covered by any Indemnity
+Agreement). The Reinsured shall make such revisions such that the Required Collateral Amount shall be 102% of ceded reserves with respect
+to the Subject Business (x) based on reserves recorded in its statutory financial statements and (y) based on its estimate of Ultimate
+Net Loss using standard actuarial principles consistent with the Reinsured’s policies and practices as of the Contract Effective
+Date, as reasonably adjusted to reflect changes to the Reinsured’s historical claims paying practices, including with respect to
+the Administrator’s practices with respect to case reserving and amount and timing of claims payments (the “ Collateral
+Revision Principles ”).
+
+(c)             The Reinsured may also revise the Required Collateral Amount using the Collateral Revision Principles at other reasonable times,
+including (i) following the termination of this Reinsurance Agreement or (ii) if Reinsurer fails to maintain Minimum Capital and Surplus
+and the Reinsurer has not cured such shortfall within ninety (90) calendar days of becoming aware thereof.
+
+19
+
+(d)             If there is a change in the Required Collateral Amount pursuant to Section 13.1(b) or Section 13.1 (c), the Reinsured
+shall deliver to the Reinsurer an amended and restated Schedule 4 , and any amounts due to or from the Reinsured in connection with
+the change in the Required Collateral Amount shall be payable within ten (10) calendar days following the delivery of such amended and
+restated Schedule 4 . Each such amended and restated Schedule 4 delivered by the Reinsured to the Reinsurer shall be deemed
+to constitute a representation and warranty by the Reinsured to the Reinsurer that such proposed revision has been determined in accordance
+with the Collateral Revision Principles and otherwise in accordance with the terms of this Section 13.1(d) . If, pursuant to the
+dispute resolution provisions of this Article XIII, it is determined that the amount payable pursuant to such amended and restated Schedule
+4 is less than the amount set forth therein, such excess shall be promptly refunded to the Reinsurer.
+
+(e)             Except as provided in Section 13.1(f) , the Reinsurer may dispute a revision to the Required Collateral Amount delivered
+by the Reinsured pursuant to Section 13.1(d) (i) to the extent it was not calculated in accordance with the Collateral Revision
+Principles; or (ii) for any calculation of the Required Collateral Amount with respect to any calendar quarter beginning with the calendar
+quarter starting April 1, 2023, if the amount of the Revised Collateral Amount that is in dispute is greater than five percent (5%) of
+the Required Collateral Amount calculated by the Reinsured reflected on the proposed amended and restated Schedule 4 , by written
+notice of dispute delivered to the Reinsured within ten (10) calendar days following the delivery of such amended and restated Schedule
+4 . The Reinsurer or the Reinsured may deliver a written demand for a “meet and confer” pursuant to the procedures set
+forth in Section 8.1 following any such notice of dispute.
+
+(f)              Disputes that are not resolved via the meet and confer required pursuant to Section 13.1(e) shall be resolved by the Independent
+Actuary. If the Independent Actuary cannot be mutually agreed upon, disputes that are not resolved via the meet and confer required pursuant
+to Section 13.1(e) shall be resolved by an Actuary Panel. In the case of a dispute under Section 13.1(e)(i) , the Independent
+Actuary’s or Actuary Panel’s review, as the case may be, of the Reinsured’s calculation of the Required Collateral Amount
+shall be limited to whether the Reinsured calculated such amount using the Collateral Revision Principles. In the case of a dispute under
+Section 13.1(e)(ii) , the Independent Actuary or Actuary Panel, as the case may be, shall conduct a de novo calculation of the Required
+Collateral Amount applying standard actuarial principles, calculating a new Required Collateral Amount that is between the Reinsured’s
+and the Reinsurer’s calculation thereof. The Reinsurer and the Reinsured shall use commercially reasonable efforts to cause the
+Independent Actuary or Actuary Panel, as the case may be, to deliver its resolution of such dispute within thirty (30) calendar days of
+the request by the Reinsurer and the Reinsured, and such determination shall be binding as a substitute to an amended and restated Schedule
+4 under Section 13.1(d) . In the case of a dispute under Section 13.1(e)(i) , (x) the expenses of the Independent Actuary
+or Actuary Panel, as the case may be, shall be paid by the Reinsured if the Independent Actuary or Actuary Panel, as the case may be,
+finds that the calculation was not made using the Collateral Revision Principles, and by the Reinsurer if such Independent Actuary or
+Actuary Panel finds that the calculations were made using the Collateral Revision Principles and (y) if such Independent Actuary or Actuary
+Panel finds that the calculations were made using the Collateral Revision Principles the Reinsurer shall not be permitted to bring a dispute
+under Section 13.1(e) for a period of 12 months after such determination by the Independent Actuary or Actuary Panel. In the case
+of a dispute under Section 13.1(e)(ii) , (x) the expenses of the Independent Actuary or Actuary Panel, as the case may be, shall
+be paid by the Party whose calculation of the Required Collateral Amount was further from the amount determined by such Independent Actuary
+or Actuary Panel, provided that if the amount determined by such Independent Actuary or Actuary Panel is the midpoint between the
+calculations of the Required Collateral Amounts as calculated by the Parties, then the expenses of the Independent Actuary or Actuary
+Panel, as the case may be, shall be paid equally by the Parties and (y) if the Reinsurer’s calculation of the Required Collateral
+Amount was further from the amount determined by such Independent Actuary or Actuary Panel than the Reinsured’s calculation of the
+Required Collateral Amount, the Reinsurer shall not be permitted to bring a dispute under Section 13.1(e) for a period of 12 months
+after such determination by the Independent Actuary or Actuary Panel.
+
+20
+
+(g)             If there is a dispute between the Reinsured and the Reinsurer regarding the Required Collateral Amount or the delivery of collateral
+pursuant to this Article XIII , then during the pendency of such dispute the Reinsurer shall promptly (and in no event later than
+10 calendar days following the date of such invoice) deposit the additional collateral in the Trust Account up to the Required Collateral
+Amount calculated by the Reinsured during the pendency of such dispute. If, as a result of the dispute proceedings pursuant to Section
+13.1(f) , the amount of Required Collateral Amount is determined to be less than the amount determined by the Reinsured, the Reinsurer
+may withdraw an amount such that the Trust Account is funded at the same level as if the amount determined by the Reinsured was the amount
+determined pursuant to Section 13.1(f) .
+
+13.2          Collateral .
+
+(a)             The Reinsured and Reinsurer shall cooperate with each other to determine the Assets that will be deposited into the Trust Account
+to secure the Reinsurer’s obligations under this Reinsurance Agreement. All Assets that are initially deposited into the Trust Account
+will be specifically identified and listed on Exhibit A to the Trust Agreement.
+
+(b)             On the Contract Effective Date, the Reinsured shall deposit the Net Reinsurance Premium on behalf of the Reinsurer into the Trust
+Account in accordance with Section 3.2(a)(i) of this Reinsurance Agreement.
+
+(c)             All collateral which is posted pursuant to this Reinsurance Agreement shall consist of (i) Assets deposited into the Trust Account
+as provided in the Trust Agreement, (ii) the Loss Fund Amount attributable to obligations payable under this Reinsurance Agreement as
+described in Article XIV , or (iii) such other collateral acceptable to the Reinsured, which acceptance shall be in writing obtained
+from the Reinsured in advance of the Reinsurer posting such other form of collateral (the “ Total Collateral ”).
+
+(d)             If the value of the Total Collateral is less than the Required Collateral Amount, the Reinsurer shall post, or cause to be posted,
+additional collateral to meet the Required Collateral Amount, within ten (10) calendar days of such shortfall.
+
+(e)             With respect to any collateral the Reinsured may choose to accept other than pursuant to the Trust Agreement, any written agreements
+between the Reinsurer and the Reinsured regarding their respective rights and obligations with respect to such collateral are incorporated
+by reference into this Reinsurance Agreement.
+
+21
+
+Article
+XIV
+
+LOSS FUND
+
+14.1          Establishment of the Loss Fund Trust Account .
+
+(a)             The Reinsured shall establish and maintain the Loss Fund Trust Account with the Administrator and the Loss Fund Trustee pursuant
+to the Loss Fund Trust Agreement. Monies in the Loss Fund Trust Account shall be held as collateral for estimated Loss Fund Reimbursements
+if, and to the extent, the Reinsured fails to reimburse the Administrator for payments that qualify as Loss Fund Reimbursements made by
+the Administrator pursuant to the Administrative Services Agreement and as described below.
+
+(b)             Monies in the Loss Fund Trust Account shall be held in two separate sub-accounts to be maintained by the Loss Fund Trustee as collateral
+for estimated Loss Fund Reimbursements, one attributable to the aggregate estimated obligations covered by the Indemnity Agreements and
+this Reinsurance Agreement, and another attributable to the estimated obligations covered by the Inuring Third Party Reinsurance Agreements
+in respect of the Reinsured Contracts and Indemnified Policies. The Reinsured and the Reinsurer shall determine the portion of the Loss
+Fund Amount that is attributable to the Indemnity Agreements and this Reinsurance Agreement according to the methodology described in
+Schedule 5 . The Reinsured (i) may withdraw an amount from the Trust Account (without penalties or interest) up to the amount of
+the then-current Loss Fund Amount required to be held in the relevant sub-account attributable to obligations under this Reinsurance Agreement,
+(ii) may withdraw an amount from the Existing Trust Account (without penalties or interest) up to the amount of the then-current Loss
+Fund Amount required to be held in the relevant sub-account attributable to obligations under the Indemnity Agreements and (iii) shall
+fund from its own funds such amount as is equal to the amount of the then-current Loss Fund Amount required to be held in the relevant
+sub-account attributable to obligations covered by the Inuring Third Party Reinsurance Agreements in respect of Reinsured Contracts and
+Indemnified Policies, provided , that in the case of clauses (i) or (ii) above, if sufficient funds are not held in the trust account
+of the Trust Agreement or the Existing Trust Agreement, as the case may be, as a result of withdrawals therefrom by the Reinsured as permitted
+by such trust agreement, then the Reinsured shall fund such amounts from its own funds.
+
+(c)             If at any date of re-estimation of the Loss Fund Amount, the Reinsurer and the Reinsured determine that the amount required to
+be held in any sub-account of the Loss Fund Trust Account is less than the amount in such sub-account as of the date of re-estimation,
+then (i) to the extent such excess amount shall be in the relevant sub-account described in Section 14.1(b)(i) , such amount shall
+be returned to the Trust Account; (ii) to the extent such excess amount shall be in the relevant sub-account described in Section 14.1(b)(ii) ,
+such amount shall be returned to the Existing Trust Account, and (iii) to the extent such excess amount shall be in the relevant sub-account
+described in Section 14.1(b)(iii) , such amount shall be returned to the Reinsured.
+
+(d)             If and to the extent the monies that the Administrator withdraws from the Loss Fund Trust Account are to fund Loss Fund Reimbursements
+that represent liabilities under this Reinsurance Agreement or the Indemnity Agreements, respectively, the Reinsured may withdraw an amount
+from the Trust Account or the Existing Trust Account, as applicable, equal to the amount of such withdrawal attributable to obligations
+under this Reinsurance Agreement or the Indemnity Agreements, respectively.
+
+22
+
+(e)             For the avoidance of doubt, any amounts held in the Loss Fund Trust Account shall still be considered as part of the Total Collateral
+under this Reinsurance Agreement (to the extent held in the sub-account described in Section 14.1(b)(i) ) and shall be considered
+as part of the collateral held under the Existing Trust Agreement (to the extent held in the sub-account described in Section 14.1(b)(ii) ).
+If the Administrator withdraws from the Loss Fund Trust Account, such withdrawal shall offset Aleka's liabilities to the Reinsured under
+this Reinsurance Agreement (to the extent they are attributed to the sub-account described in Section 14.1(b)(i) ) and shall offset
+the relevant Insured's liabilities to the Reinsured under the Indemnity Agreements (to the extent they are attributed to the sub-account
+described in Section 14.1(b)(ii) ).
+
+(f)              As set forth in the Administrative Services Agreement, the Administrator shall invoice the Reinsured (and shall copy the Reinsurer
+on each such invoice) on a monthly basis in arrears for Loss Fund Reimbursements made by the Administrator pursuant to the terms of this
+Reinsurance Agreement. Except as set forth in Section 7.1 , the Reinsured shall promptly (and in no event later than 30 calendar
+days following the date of such invoice) reimburse the Administrator. The Reinsured shall withdraw from the Trust Account, the Existing
+Trust Account and its own funds according to the portion of such invoice that is attributable to obligations under this Reinsurance Agreement,
+the Indemnity Agreements and the Inuring Third Party Reinsurance Agreements, respectively. The Reinsured and Reinsurer shall determine
+the portion of such reimbursement that is attributable to the Indemnity Agreements and this Reinsurance Agreement.
+
+Article
+XV
+
+REPRESENTATIONS AND WARRANTIES
+
+15.1          Representations and Warranties of the Reinsured .
+
+As of the Contract Effective
+Date, each of the Reinsured hereby represents and warrants to the Reinsurer that:
+
+(a)             it is an insurance company duly organized, validly existing and in good standing under the laws of its domiciliary state and has
+all requisite corporate power and authority to carry out the operations of its business as they are now being conducted;
+
+(b)             it has all requisite corporate power and authority to enter into this Reinsurance Agreement and to perform its obligations hereunder;
+its execution, delivery and performance of this Reinsurance Agreement has been duly authorized by all necessary limited liability company
+or corporate action, as applicable; its execution, delivery and performance of this Reinsurance Agreement and the consummation of the
+transactions contemplated hereby will not (i) violate any provision of its charter, operating agreement, bylaws or similar organizational
+documents, (ii) violate any law, regulation, rule, decree, order, judgment or contractual restriction binding on it or its assets or (iii)
+conflict with or result in a breach or default under (with or without notice or lapse of time) or right of acceleration, amendment or
+termination under, or result in the creation of any lien on its properties or assets under, any contract or agreement to which it is a
+party or by which its property or assets is bound;
+
+23
+
+(c)             it has all licenses, certificates of authority or similar certificates necessary to conduct its business as currently conducted;
+all such licenses and certificates are valid and in full force and effect; and it is not subject to any pending or, to its knowledge,
+threatened action that would result in the suspension, termination, modification or impairment of any such license or certificate;
+
+(d)             all consents or approvals required from any Governmental Authority or third party necessary for the due execution, delivery and
+performance by it of this Reinsurance Agreement have been obtained or made; and
+
+(e)             it is Solvent as of immediately prior to the execution, delivery and performance of this Reinsurance Agreement, and will be Solvent
+as of and immediately after the consummation of the transactions contemplated hereby.
+
+15.2          Representations and Warranties of the Reinsurer .
+
+As of the Contract Effective
+Date, the Reinsurer hereby represents and warrants to the Reinsured that:
+
+(a)             it is a captive insurance company duly organized, validly existing and in good standing under the laws of its domiciliary state
+and has all requisite corporate power and authority to carry out the operations of its business as they are now being conducted;
+
+(b)             it has all requisite corporate power and authority to enter into this Reinsurance Agreement and to perform its obligations hereunder;
+its execution, delivery and performance of this Reinsurance Agreement has been duly authorized by all necessary limited liability company
+or corporate action, as applicable; its execution, delivery and performance of this Reinsurance Agreement and the consummation of the
+transactions contemplated hereby will not (i) violate any provision of its charter, operating agreement, bylaws or similar organizational
+documents, (ii) violate any law, regulation, rule, decree, order, judgment or contractual restriction binding on it or its assets or (iii)
+conflict with or result in a breach or default under (with or without notice or lapse of time) or right of accelerations, amendment or
+termination under, or result in the creation of any lien on its properties or assets under, any contract or agreement to which it is a
+party or by which its property or assets is bound;
+
+(c)             it has all licenses, certificates of authority or similar certificates necessary to conduct its business as currently conducted;
+all such licenses and certificates are valid and in full force and effect; and it is not subject to any pending or, to its knowledge,
+threatened action that would result in the suspension, termination, modification or impairment of any such license or certificate;
+
+(d)             all consents or approvals required from any Governmental Authority or third party necessary for the due execution, delivery and
+performance by it of this Reinsurance Agreement have been obtained or made; and
+
+(e)             it is Solvent as of immediately prior to the execution, delivery and performance of this Reinsurance Agreement, and will be Solvent
+as of and immediately after the consummation of the transactions contemplated hereby.
+
+24
+
+15.3          Notification of Breach .
+
+Each Party hereto, upon obtaining
+actual knowledge of any breach, shall promptly notify the other Parties hereto of any breach of any of the foregoing representations and
+warranties, providing details as to the facts of the breach and plans to remediate same, and shall provide notification to all other Parties
+hereto of material developments of such remediation efforts.
+
+Article
+XVI
+
+REGULATORY AND LEGAL MATTERS
+
+16.1          Actions .
+
+If the Reinsurer or Reinsured
+receives notice of or otherwise becomes aware of any Action, such Party shall promptly (and in no event later than five (5) Business Days
+after becoming aware) notify the other Parties thereof. The Parties shall cooperate in good faith to coordinate resolution of such Action
+in a manner consistent with this Reinsurance Agreement and the Administrative Services Agreement.
+
+Article
+XVII
+
+CONFIDENTIALITY
+
+17.1          Confidentiality .
+
+(a)             Each Party (each, a “ Receiving Party ”) hereby acknowledges and agrees that the Confidential Information
+disclosed by any other Party (the “ Disclosing Party ”) hereunder is proprietary to the Disclosing Party, and
+absent prior written consent of the Disclosing Party, the Receiving Party agrees (i) to use the Confidential Information only in connection
+with the transfer of Reinsured Contracts pursuant to this Reinsurance Agreement and for the purpose of servicing the Reinsured Contracts
+hereunder and (ii) to keep the Confidential Information strictly confidential and not disclose it, except to its Representatives who “need
+to know” the Confidential Information for these purposes and, in the case of advisors, who are themselves bound by nondisclosure
+restrictions with respect to the Confidential Information that are no less strict than those contained herein. Each Receiving Party shall
+be liable for all acts and omissions that its respective Representatives make when accessing or using the Confidential Information. If
+a Receiving Party becomes aware of any disclosure or use of the Confidential Information not in compliance with this Reinsurance Agreement,
+such Receiving Party shall immediately notify the Disclosing Party. Each Receiving Party shall use at least the same degree of care in
+safeguarding each Disclosing Party’s Confidential Information as it uses in safeguarding its own confidential information. The Parties
+acknowledge that: (i) their ultimate parents are public companies, and that the Confidential Information may contain material non-public
+information concerning the Parties; (ii) they are aware of the restrictions imposed by U.S. federal and state securities laws, and the
+rules and regulations promulgated thereunder, on persons and entities in possession of material non-public information; and (iii) they
+will not (and will direct their Representatives to not), directly or indirectly, use, or allow any third party to use, any Confidential
+Information in contravention of any U.S. federal or state securities laws. Nothing herein shall constitute an admission by either Party
+that any Confidential Information in fact contains or will contain material non-public information.
+
+25
+
+(b)             The Parties hereby acknowledge that a violation, or threatened violation, of this Section 17.1 would cause irreparable harm
+to the Disclosing Party and that remedies at law would be inadequate to redress any actual or threatened violation of this Section
+17.1 . The Parties agree that, in addition to other equitable relief, the Disclosing Party may seek to enforce this Section 17.1
+by temporary and permanent injunctive relief without the requirement of posting a bond or other security and without regard to the requirements
+of Section 21.10 .
+
+(c)             The Receiving Party acknowledges that the use and disclosure of Personal Data is restricted by applicable Data Privacy Laws and
+agrees to maintain Personal Data in accordance with such Data Privacy Laws. In addition, the Receiving Party agrees to comply with industry
+standards that relate to data protection, privacy, encryption, identity theft, data breach, consumer protection and data security in its
+handling of Personal Data.
+
+(d)             To the extent any Confidential Information disclosed under this Reinsurance Agreement constitutes information protected under the
+attorney-client privilege or attorney work product doctrine, including information protected under the common interest doctrine, disclosure
+of such Confidential Information shall not constitute a waiver of such privilege or protections. By disclosing such information, the Parties
+do not intend to waive any attorney-client privilege or work product protection that may apply to such Confidential Information.
+
+(e)             Except for Personal Data, the Receiving Party’s obligation not to use or disclose Confidential Information under this Reinsurance
+Agreement shall not apply to information that: (i) becomes generally available to the public other than as the result of unauthorized
+disclosure by the Receiving Party or a third party; (ii) is independently developed by the Receiving Party without the aid, application,
+or use of the Confidential Information; or (iii) was received by the Receiving Party on a non-confidential basis prior to receipt from
+the Disclosing Party or from a third party lawfully possessing and lawfully entitled to disclose such information. The burden of establishing
+that information was known, received, acquired, or independently developed by the Receiving Party as provided above shall be the burden
+of the Receiving Party.
+
+(f)              Notwithstanding the foregoing, the Receiving Party may disclose Confidential Information if such disclosure is (i) required pursuant
+to a valid court order or regulatory requirement; or (ii) based upon the advice of legal counsel for the Receiving Party, is otherwise
+required by law, provided that, in the case of a valid court order: (a) if permitted by law, the Receiving Party shall furnish
+the Disclosing Party with a copy of the demand, summons, subpoena, or other legal process to compel such disclosure; (b) if permitted
+by law, the Receiving Party shall give the Disclosing Party reasonable prior notice of its intention to disclose the Confidential Information
+in order to allow an opportunity to seek appropriate protection; and (c) the Receiving Party shall take all reasonable steps, including
+the pursuit of a protective order, to restrict the disclosure of the Confidential Information to the greatest extent possible.
+
+26
+
+Article
+XVIII
+
+ERRORS AND OMISSIONS
+
+18.1          Errors and Omissions .
+
+Inadvertent delays, errors
+or omissions made in connection with this Reinsurance Agreement or any transaction hereunder shall not relieve any Party from any liability
+which would have attached had such delay, error or omission not occurred, provided that such error or omission is rectified as
+soon as possible after discovery, and provided , further , that the Party making such error or omission or responsible for
+such delay shall be responsible for any additional liability which attaches as a result. If (i) the failure of either Party to comply
+with any provision of this Reinsurance Agreement is unintentional or the result of a misunderstanding or oversight and (ii) such failure
+to comply is promptly rectified, both Parties shall be restored as closely as possible to the positions they would have occupied if no
+error or oversight had occurred.
+
+Article
+XIX
+
+MATERIAL CHANGES
+
+19.1          Material Changes to Reinsured Contracts and Inuring Third Party Reinsurance Agreements .
+
+(a)             Neither the Reinsurer nor the Reinsured shall voluntarily make or agree to any material changes in the terms and conditions of
+any Reinsured Contract without the prior approval of such changes by the other, except to the extent of any Required Modifications.
+
+(b)             All reinsurance under this Reinsurance Agreement shall be subject to the same terms, conditions, waivers and interpretations, and
+to the same modifications and alterations as the respective Reinsured Contracts and Inuring Third Party Reinsurance Agreements of the
+Reinsured and their Affiliates resulting from (i) any requirement of or change in Applicable Law or (ii) any regulatory action or decision,
+or the decision of any Governmental Authority having jurisdiction over the Reinsured or its Affiliate (each a “ Required Modification ”);
+provided that, the Reinsured shall provide (x) written notice of any such Required Modification to the Reinsurer promptly upon
+the Reinsured becoming aware of such Required Modification and (y) as soon as practicable, (1) written evidence of such requirement or
+change in Applicable Law or of such regulatory action or decision by such Governmental Authority or, if such written evidence cannot be
+provided, (2) written legal advice of legal counsel (including in-house counsel) to such Party.
+
+(c)             In the event any material changes are made by the Reinsurer to any Reinsured Contracts without the prior approval of the Reinsured
+and such changes result in any additional Ultimate Net Loss, the Reinsurer shall be responsible for paying the entire amount of additional
+Ultimate Net Loss arising from such Reinsured Contract.
+
+27
+
+(d)             Notwithstanding anything to the contrary herein, each Reinsured may novate, reinsure or otherwise transfer all or a portion of
+the Subject Business to a direct or indirect wholly owned domestic subsidiary of James River Group Holdings, Ltd. with the prior written
+consent of the Reinsurer, such consent not to be unreasonably withheld, delayed or conditioned, with such novated, reinsured or otherwise
+transferred business and assuming company continuing to be reinsured hereby. All costs associated with such novation shall be borne by
+the Reinsured.
+
+Article
+XX
+
+ACCESS TO RECORDS; REPORTING
+
+20.1          Access to Books and Records .
+
+(a)             The Reinsured shall provide to the Reinsurer and its Representatives, upon twenty (20) Business Days’ prior notice, reasonable
+access during normal business hours to such books and records in connection with any Reinsured Contract (or Claims in connection therewith)
+that are reasonably necessary for the Reinsurer to verify the Reinsured’s compliance with its obligations under this Reinsurance
+Agreement and the Indemnity Agreements following the Financial Effective Date and to provide any information to administer a Claim, whether
+open or not; provided that the Reinsured shall not be required to provide access to any books and records with respect to Claims
+that closed prior to the Financial Effective Date (except that the Reinsured shall also provide access to any books and records with respect
+to Claims closed subsequent to January 1st, 2021 as is reasonably needed by the Reinsurer’s outside auditors for financial reporting
+purposes) or any matter that is released by the Uber Parties (as defined in the Release Agreement) pursuant to the Release Agreement.
+
+(b)             The Reinsurer shall not have the right to inspect books and records that are subject to privilege from disclosure to the Reinsurer
+as a result of the attorney-client privilege, the attorney work-product privilege and other applicable privileges and immunities; provided
+that, the Reinsured shall take commercially reasonable steps to attempt to provide the Reinsurer with the information requested. In no
+event shall the Reinsurer have access to privileged materials relating to any dispute between the Reinsurer and the Reinsured.
+
+(c)             The Reinsurer shall bear the cost of any such audit. No such audit shall unreasonably interfere with the conduct of Reinsured’s
+business, and the Reinsurer shall have the right to audit the other Party pursuant to this provision no more than four times in a calendar
+year.
+
+20.2          Reporting .
+
+(a)             On a monthly basis, the Reinsured shall provide to Reinsurer a monthly statement that details the following as respects the Subject
+Business: (i) Paid and Case Reserve amounts for each component of Ultimate Net Loss (i.e., Covered Losses, Allocated Loss Adjustment Expenses,
+Salvage and Subrogation Recoveries, Inuring Third Party Reinsurance Recoverables, losses indemnified by the Insureds pursuant to the existing
+Indemnity Agreements); (ii) Reinsured’s estimate of Ultimate Net Loss consistent with its most recent quarterly financial statements;
+and (iii) the Required Collateral Amount .
+
+28
+
+(b)             The Reinsurer shall deliver to the Reinsured: (1) a copy of its audited annual financial statements prepared in accordance with
+accounting principles generally accepted in the United State of America within five (5) Business Days following the filing of the audited
+annual financial statements with the Insurance Division of the Hawaii Department of Commerce and Consumer Affairs but no later than June
+30 of each year; (2) a copy of its unaudited quarterly balance sheet and statement of income prepared in accordance with accounting principles
+generally accepted in the United States of America no later than twenty five (25) Business Days after the end of each of the first three
+calendar quarters of each year; and (3) a calculation of its capital and surplus no later than twenty five (25) Business Days after the
+end of each calendar quarter.
+
+Article
+XXI
+
+MISCELLANEOUS PROVISIONS
+
+21.1          Notices .
+
+All notices, demands or requests
+made pursuant to, under or by virtue of this Reinsurance Agreement must be in writing and shall be (i) personally delivered, (ii) delivered
+by express mail, Federal Express or other comparable overnight courier service, (iii) delivered by email, provided that the email is promptly
+confirmed, or (iv) mailed to the Party to which the notice, demand or request is being made by certified or registered mail, postage prepaid,
+return receipt requested, as follows:
+
+If to any of the Reinsured:
+
+James River Insurance Company
+
+James River Casualty Company
+
+c/o James River Group, Inc.
+
+1414 Raleigh Road, Suite 405
+
+Chapel Hill, NC 27517
+
+Attention: Frank D’Orazio, Chief Executive Officer
+
+Jeanette Miller, Chief Legal Officer
+
+With a copy (which shall
+not constitute notice) to:
+
+Debevoise & Plimpton
+LLP
+
+919 Third Avenue
+
+New York, New York 10022
+
+Attention: Alexander R. Cochran
+
+(212) 909-6311
+
+arcochran@debevoise.com
+
+If to the Reinsurer:
+
+Aleka Insurance, Inc.
+
+201 Merchant Street,
+Suite 2400
+
+Honolulu, Hawaii 96813
+
+Attention: Christina
+Kamaka
+
+With a copy to: [Redacted]
+
+29
+
+Any Party may, from time
+to time, specify as its address for purposes of this Reinsurance Agreement any other address upon the giving of two (2) calendar days’
+prior notice thereof to the other Parties.
+
+21.2          Entire Agreement .
+
+This Reinsurance Agreement
+(including the exhibits and schedules hereto) and any other documents delivered pursuant hereto constitute the entire agreement among
+the Parties and their respective Affiliates with respect to the subject matter hereof and supersede all prior negotiations, discussions,
+writings, agreements and understandings, oral and written, among the Parties with respect to the subject matter hereof. Notwithstanding
+the above, the Parties acknowledge that the Related Agreements shall remain in full force and effect according to their respective terms,
+except as otherwise amended by the Parties in writing or by this Reinsurance Agreement or the other Related Agreements.
+
+21.3          Waiver and Amendment .
+
+This Reinsurance Agreement
+may not be modified or amended except in written instrument agreed to and signed by the Reinsured and Reinsurer. No waiver of any of the
+provisions of this Reinsurance Agreement shall be effective unless in writing and signed by the waiving Party. No failure or delay by
+a Party in exercising any right, power or privilege hereunder shall operate as a waiver thereof, nor shall any single or partial exercise
+thereof preclude any other or further exercise thereof or the exercise of any other right, power or privilege hereunder.
+
+21.4          Successors and Assigns .
+
+The rights and obligations
+of the Parties under this Reinsurance Agreement shall not be subject to assignment without the prior written consent of the other Parties,
+and any attempted assignment without the prior written consent of the other Party shall be invalid ab initio . This Reinsurance
+Agreement shall be binding upon and shall inure to the benefit of the Parties hereto and their legal representatives, directors and/or
+officers, successors in interest and assignees. The terms “Reinsured” and “Reinsurer” shall include their respective
+permitted assigns and successors-in-interest.
+
+21.5          Headings .
+
+The headings of this Reinsurance
+Agreement are for convenience of reference only and shall not affect the interpretation or construction of this Reinsurance Agreement
+hereof.
+
+21.6          Construction; Interpretation .
+
+The Parties to this Reinsurance
+Agreement understand and agree that this Reinsurance Agreement has been negotiated at arm’s length and on equal footing as between
+the Reinsured and the Reinsurer, that all of the Parties are sophisticated, and that all of the Parties fully understand and agree to
+all the terms and conditions contained in this Reinsurance Agreement. Accordingly, in any dispute concerning the meaning of this Reinsurance
+Agreement, or any term or condition hereof, such dispute shall be resolved without any presumption or rule of construction in favor of
+either Party or any related or similar doctrine. When a reference is made to an Article, Section, Schedule or Exhibit, such reference
+shall be to an Article, Section, Schedule or Exhibit of or to this Reinsurance Agreement unless otherwise indicated. Whenever the words
+“include”, “includes” or “including” are used in this Reinsurance Agreement, they shall be deemed
+to be followed by the words “without limitation.” The words “Reinsurance Agreement,” mean this Reinsurance Agreement
+as amended or supplemented, together with all Exhibits and Schedules attached hereto or incorporated by reference, and the words “hereof,”
+“herein,” “hereto,” “hereunder” and other words of similar import shall refer to this Reinsurance
+Agreement in its entirety and not to any particular Article, Section or provision of this Reinsurance Agreement. The references to “$”
+shall be to United States dollars. Reference to any Applicable Law means such Applicable Law as amended, modified, codified, replaced
+or reenacted, and all rules and regulations promulgated thereunder. References to a Person are also to its successors and permitted assigns,
+including by reason of merger, consolidation or otherwise. For the avoidance of doubt, the Parties agree that each Party shall be responsible
+for its own fees and expenses (including fees and expenses of outside counsel and outside consultants) incurred in connection with the
+entry into this Reinsurance Agreement and the Related Agreements.
+
+30
+
+21.7          Governing Law and Jurisdiction .
+
+This Reinsurance Agreement
+shall be governed by and construed in accordance with the laws of the State of Delaware without regard to such state’s principles
+of conflict of laws that could compel the application of the laws of another jurisdiction, and the obligations, rights and remedies of
+the Parties hereunder shall be determined in accordance with such laws.
+
+21.8          No Third Party Beneficiaries .
+
+Nothing in this Reinsurance
+Agreement is intended or shall be construed to give any Person, other than the Parties, any legal or equitable right, remedy or claim
+under or in respect of this Reinsurance Agreement or any provision contained herein.
+
+21.9          Counterparts .
+
+This Reinsurance Agreement
+may be executed in counterparts, all of which when taken together shall constitute one and the same instrument, and any Party hereto may
+execute this Reinsurance Agreement by signing any such counterpart. Delivery of an executed counterpart of a signature page of this Reinsurance
+Agreement by facsimile or by PDF file (portable document format file) shall be as effective as delivery of a manually executed counterpart
+of this Reinsurance Agreement.
+
+21.10        Specific Performance .
+
+Each of the Parties acknowledges
+and agrees that the other Party would be irreparably damaged in the event that any of the provisions of this Reinsurance Agreement were
+not performed or complied with in accordance with their specific terms or were otherwise breached, violated or unfulfilled. Accordingly,
+each of the Parties agrees that the other Party shall be entitled to an injunction or injunctions to prevent noncompliance with, or breaches
+or violations of, the provisions of this Reinsurance Agreement by the other Party and to enforce specifically this Reinsurance Agreement
+and the terms and provisions hereof in any action instituted in accordance with Article IX , in addition to any other remedy to
+which such Party may be entitled, at law or in equity. The Parties further agree that (a) by seeking the remedies provided for in this
+Section 21.10 a Party shall not in any respect waive its right to seek any other form of relief that may be available to a Party
+under this Reinsurance Agreement, including monetary damages in the event that this Reinsurance Agreement has been terminated or in the
+event that the remedies provided for in this Section 21.10 are not available or otherwise are not granted and (b) nothing contained
+in this Section 21.10 shall require any Party to institute any action for (or limit any Party’s right to institute any action
+for) specific performance under this Section 21.10 before exercising any termination right under Article V nor shall the
+commencement of any action pursuant to this Section 21.10 or anything contained in this Section 21.10 restrict or limit
+any Party’s right to terminate this Reinsurance Agreement in accordance with the terms of Article V or pursue any other remedies
+under this Reinsurance Agreement that may be available then or thereafter.
+
+31
+
+21.11        Waiver of Jury Trial .
+
+EACH OF THE PARTIES HEREBY
+WAIVES TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW ANY RIGHT IT MAY HAVE TO A TRIAL BY JURY WITH RESPECT TO ANY LITIGATION DIRECTLY
+OR INDIRECTLY ARISING OUT OF, UNDER OR IN CONNECTION WITH THIS REINSURANCE AGREEMENT OR THE TRANSACTIONS CONTEMPLATED BY THIS REINSURANCE
+AGREEMENT. EACH OF THE PARTIES HEREBY (A) CERTIFIES THAT NO REPRESENTATIVE, AGENT OR ATTORNEY OF THE OTHER PARTIES HAS REPRESENTED, EXPRESSLY
+OR OTHERWISE, THAT SUCH OTHER PARTIES WOULD NOT, IN THE EVENT OF LITIGATION, SEEK TO ENFORCE THE FOREGOING WAIVER, AND (B) ACKNOWLEDGES
+THAT IT HAS BEEN INDUCED TO ENTER INTO THIS REINSURANCE AGREEMENT AND THE TRANSACTIONS CONTEMPLATED BY THIS REINSURANCE AGREEMENT, AS
+APPLICABLE, BY, AMONG OTHER THINGS, THE MUTUAL WAIVERS AND CERTIFICATIONS IN THIS SECTION 21.11 .
+
+21.12        Currency .
+
+All financial data required
+to be provided pursuant to the terms of this Reinsurance Agreement shall be expressed in United States dollars. All payments and all settlements
+of account between the Parties shall be in United States currency unless otherwise agreed by the Parties.
+
+21.13        Non-Solicitation .
+
+From the Contract Effective
+Date until the termination of this Reinsurance Agreement pursuant to Article V hereof, neither the Reinsured or the Reinsurer shall,
+and each shall instruct its Affiliates and representatives not to, solicit for employment, employ or attempt to employ or divert any Person
+known to the Reinsured or Reinsurer (as applicable) to be an employee of the other or its Affiliates whose job responsibilities cover
+the Subject Business, provided that, each of the Reinsured and the Reinsurer may (a) solicit for employment or employ or attempt
+to employ any Persons who has not been employed by the other or its Affiliates for at least six (6) months prior to such solicitation,
+employment or attempt to employ, (b) engage in general solicitations of employment not specifically directed at employees of the other
+or its Affiliates and (c) employ any Person (other than a Person who becomes known to such Party or its Affiliates in connection with
+the Subject Business) who contacts such Party on his or her own initiative without any direct or indirect solicitation (other than general
+solicitations described in the foregoing clause (b)) by or encouragement from such Party.
+
+32
+
+21.14       Taxes .
+
+(a)             Upon prior written request therefor, the Reinsurer shall provide or otherwise make available updated documentation on forms approved
+by the United States Internal Revenue Service that establish an exemption from withholding of premium payable hereunder. If the Reinsurer
+fails to do so or ceases to be exempt from withholding in accordance with FATCA, the Reinsured shall withhold the applicable percentage
+on premium payable hereunder and the Reinsurer shall allow such withholding. The Reinsured acknowledges that no withholding will be required,
+and agrees not to withhold any amount of taxes, in respect of a premium payable hereunder if the Reinsurer provides the Reinsured with
+a properly executed, complete and correct Internal Revenue Service Form W-9 with respect to the Reinsurer. Interest shall not be payable
+on any amounts withheld in accordance herewith, nor shall any such amounts be subject to offset. In the event any return of premium is
+due to the Reinsured, the Reinsurer will return the premium paid hereunder and the Reinsured or its agent will recover Taxes paid to the
+United States Internal Revenue Service in accordance herewith. Notwithstanding the foregoing, in the event that the Reinsured’s
+attempt to recover such Taxes is denied, contested or disputed by the United States Internal Revenue Service, then the Reinsurer shall
+reimburse the Reinsured for such Taxes within thirty (30) calendar days of receipt of written notice of such denial, contest or dispute.
+The Reinsurer agrees to indemnify the Reinsured for any Tax liability, or interest or penalty related to such tax liability, that the
+Reinsured may incur by reason of (i) any inaccurate or invalid documentation provided to establish an exemption from FATCA withholding,
+or (ii) a violation by the Reinsurer of any other applicable withholding tax requirement.
+
+(b)            Each of the Parties agrees that it (or its Affiliate) will pay any Taxes imposed on such Party by virtue of its participation in
+the transactions contemplated by this Reinsurance Agreement.
+
+21.15       Severability .
+
+If any provision of this Reinsurance Agreement
+is held to be void or unenforceable, in whole or in part, (i) such invalidity or unenforceability shall not invalidate or render unenforceable
+any other provision of this Reinsurance Agreement or this Reinsurance Agreement, and (ii) the Parties agree to attempt in good faith to
+reform such void or unenforceable provision to the extent necessary to render such provision enforceable and to carry out its original
+intent.
+
+(The
+remainder of this page has been intentionally left blank.)
+
+33
+
+IN WITNESS WHEREOF ,
+the Parties hereby execute this Reinsurance Agreement on the day and year first set forth above.
+
+JAMES RIVER INSURANCE COMPANY
+
+By:
+/s/ Richard J. Schmitzer
+
+Name: Richard J. Schmitzer
+
+Title: Chief Executive Officer
+
+[ Signature Page to Loss
+Portfolio Transfer Reinsurance Agreement ]
+
+JAMES RIVER CASUALTY COMPANY
+
+By:
+/s/ Richard J. Schmitzer
+
+Name: Richard J. Schmitzer
+
+Title: Chief Executive Officer
+
+[ Signature Page to Loss
+Portfolio Transfer Reinsurance Agreement ]
+
+ALEKA INSURANCE, INC.
+
+By:
+/s/ Henry G. “Gus”
+Fuldner
+
+Name: Henry G. “Gus”
+Fuldner
+
+Title: President
+
+[ Signature Page to Loss Portfolio
+Transfer Reinsurance Agreement ]

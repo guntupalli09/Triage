@@ -1,0 +1,294 @@
+EX-10.1
+2
+aout-ex10_1.htm
+EX-10.1
+
+EX-10.1
+
+Exhibit 10.1
+AMENDED AND RESTATED TRADEMARK LICENSE AGREEMENT
+ 
+This AMENDED AND RESTATED TRADEMARK LICENSE AGREEMENT (the “ Agreement ”) is entered into and made effective on this 11th day of April, 2024, the (“Amended Effective Date ”) by and between Smith & Wesson Inc., a Delaware corporation having a place of business at 1852 Proffitt Springs Rd., Maryville, TN 37801 ( “S&W” or “Licensor” ) and AOB Products Company, a Missouri corporation having a place of business at 1800 North Route Z, Columbia, Missouri 65202 ( “Licensee” ). Each of S&W and Licensee may be referred to herein as a “party” and collectively they may be referred to herein as the “parties.”
+ 
+Background:
+ 
+A. The parties entered into that certain Trademark License Agreement (the “ Original Agreement ”), dated August 24, 2020 (the “ Effective Date ”);
+ 
+B. S&W owns certain trademarks for use on and in connection with firearms, apparel, accessories and other products;
+ 
+C. Licensee is engaged in the business of manufacturing, selling and sourcing accessories, apparel and other products, and desires to engage in the development, design, manufacture, sourcing, marketing, advertising, promoting, merchandising, shipment, distribution and sale of certain products as identified in Schedule A bearing one or more of S&W’s trademarks;
+ 
+D. On the Amended Effective Date, S&W has sold, assigned, transferred, conveyed and delivered to Hawken Holding Co., LLC or an affiliate thereof certain intellectual property and other assets related to the business of the Thompson/Center firearms brand (collectively, the “ T/C Intellectual Property ”) and the parties wish to amend and restate the Original Agreement to reflect such transaction, principally through the removal of all references and obligations to the Thompson/Center brand and other corresponding marks such that any and all assets pertaining to such T/C Intellectual Property will be removed from the definitions of Licensed Trademarks, S&W Intellectual Property and S&W Trademarks (in each case, as defined below) from the Amended Effective Date;
+ 
+E. Notwithstanding anything herein to the contrary, the Effective Date as used throughout this Agreement refers to August 24, 2020; that is, the Effective Date of the Original Agreement; and
+
+F. Subject to and conditional upon Licensee’s compliance with the terms and conditions of this Agreement, S&W agrees to grant to Licensee a license to use certain of S&W’s trademarks solely as set forth herein.
+ 
+NOW THEREFORE, in consideration of the above premises and the mutual covenants and undertakings of the parties hereunder, S&W and Licensee agree that Agreement shall be deleted in its entirety and replaced as follows:
+ 
+1. Definitions; Interpretation.
+ 
+1.1 Defined Terms . As used in this Agreement, the following terms will have the following meanings:
+ 
+“ Affiliate ” means any entity that now or hereafter directly, or indirectly, through one or more intermediaries, Controls (defined below), or is Controlled by, or is under common Control with, a party.
+
+“Applicable Law” means all applicable statutes, laws, regulations, ordinances, executive orders, rules, judgments, orders, decrees, directives, guidelines (to the extent mandatory), policies (to the extent mandatory) and other similar directives, whether now or hereafter in effect, of any federal, state, or local or foreign government, any political subdivision, and any governmental, quasi-governmental, judicial, public, or statutory instrumentality, administrative agency, authority, body, or other entity having jurisdiction over S&W, Licensee or the Licensed Products.
+ 
+“Channels of Distribution” means only those channels of distribution identified in Schedule A.
+ 
+“Confidential Information” means any and all information proprietary to one of the parties hereto, whether or not reduced to writing or other tangible medium of expression, and whether or not patented, patentable, capable of trade secret protection or protected as an unpublished or published work under the copyright laws. Confidential Information includes the terms of this Agreement (but not the existence of this Agreement), information relating to Intellectual Property and to business plans, financial matters, products, services, manufacturers, manufacturing processes and methods, costs, sources of supply, strategic marketing plans, customer lists, sales, profits, pricing methods, personnel and business relationships. Confidential Information shall not include any information that: (i) was already known to the receiving party prior to its relationship with the disclosing party, as established by the receiving party’s written records; (ii) becomes generally available to the public other than as a result of the receiving party’s breach of this Agreement; (iii) is furnished to the receiving party by a third party who is lawfully in possession of, and who lawfully conveys, such information; (iv) is subsequently developed by the receiving party independently of the information received from the disclosing party, as established by the receiving party’s written records; or (v) is ordered to be disclosed by a court or regulatory body of competent jurisdiction. Should either party be served with a request to disclose Confidential Information in a judicial or regulatory body proceeding, it will not do so before notifying the other party in writing within ten (10) days as to provide such party the opportunity to object to the disclosure to the court or regulatory body. Nothing in this paragraph is intended to cause either party to disobey a court or other lawful order or requirement.
+ 
+“Control” means the possession, direct or indirect, of the power to direct or cause the direction of the management and policies of a Person (defined below), whether through the ownership of voting securities, by contract or otherwise, in each case as interpreted under Rule 12b-2 of the Securities Exchange Act of 1934, as amended.
+ 
+“Intellectual Property” means all rights, title and interests pertaining to or arising from patents, copyrights, trade secrets, trademarks, trade dress, rights of publicity, and all similar rights throughout the world and however denominated; all domain names; all rights and interests arising from information relating to research and development, product design, materials, manufacturing techniques, supply and distribution arrangements, marketing and advertising plans and materials, pricing and other financial information; and all rights and interests arising from inventions, discoveries, improvements, methods and processes, know how, algorithms, compositions, works of authorship, concepts, designs, styles, graphics, images, ideas, prototypes, writings, notes and patent applications, and all such rights and interests without regard to whether or not patentable or capable of trade secret or copyright protection.
+ 
+“Licensed Products” means only those products in the product categories as defined in Schedule A.
+ 
+“Licensed Trademarks” mean only those trademarks, used either separately or in conjunction with each other, in the form set forth in Schedule A , and all goodwill associated with such marks existing as of the Effective Date, and all goodwill arising thereafter whether such goodwill arises from the activities of S&W or Licensee.
+ 
+“Net Sales” means the aggregate amount booked as sales, billed, invoiced or received (whichever comes first) by Licensee for sales or other transfers of Licensed Products in arm’s length transactions in the Territory,
+
+less (i) promotional markdowns, (ii) reasonable quantity discounts actually granted to the extent customarily granted to Licensee’s customers based on volume, (iii) customer returns actually credited, (iv) to the extent separately stated on purchase orders, invoices or other documents of sale, any duties, taxes and/or other governmental fees or charges levied on the production, sale, transportation, delivery or use of the Licensed Products and paid by or on behalf of Licensee, and (v) reasonable charges for delivery or transportation provided by third parties, if separately stated on purchase orders, invoices or other documents of sale. No deductions in Net Sales may be made for: (vi) cash or other discounts (except as stated above); (vii) commissions; (viii) uncollectable accounts; (ix) taxes, fees, assessments, impositions, payments or expenses of any kind that may be incurred or paid by Licensee in connection with the royalty payments due to S&W hereunder or in connection with the transfer of funds or royalties or with the conversion of any currency into United States dollars; or (x) any costs incurred in the research, design, development, manufacture, sourcing, offering for sale, sale, advertising, promotion, shipment, distribution or exploitation of the Licensed Products. In the event that any Licensed Products are sold other than in an arm’s length transaction, then Net Sales shall be deemed to be the Net Sales which would have been applied under this Agreement had such sale been to an independent arm’s length purchaser. For purposes of determining royalties owed under this Agreement, Net Sales (A) shall not include the sale or distribution of Licensed Products to Licensor or to an Affiliate of Licensor (excluding the Licensee); and (B) shall not include the sale and distribution of products acquired by Licensee from third-parties which are the subject of (i.e., licensed products under) a royalty-bearing license between a third party and Licensor.
+ 
+“Person” means any natural person, sole proprietorship, partnership, corporation, limited-liability company, firm or other entity.
+ 
+“S&W Intellectual Property” means (i) the S&W Trademarks; (ii) any marketing, advertising or promotional materials and any packaging referencing or containing any Licensed Product developed or created by S&W, including but not limited to domain names; (iii) all Intellectual Property owned by S&W prior to the Effective Date and all Intellectual Property independently created by S&W; (iv) all Intellectual Property of or relating to the Smith & Wesson, M&P, Performance Center, and Gemtech brands and their associated products, as well as any other brand now or in the future owned by S&W; (v) all Intellectual Property created during the Term of this Agreement that is identified with S&W’s core firearm business (including firearms, firearm parts, magazines and suppressors) with or without a S&W Trademark, including any design, graphic, image or style approved by S&W for use, or used, in connection with any Licensed Product hereunder, whether developed or created by S&W or Licensee or both, that reflects any feature of any S&W product (including firearms, firearm parts, magazines and suppressors), such as a grip, grip texture or palm swell on an accessory or outdoor product; and (vi) any improvements to or derivatives of any of the foregoing, by S&W or Licensee or both.
+
+“S&W Trademarks” means the Licensed Trademarks and all other Trademarks owned and/or used by S&W and all variations, derivations, stylizations, and versions thereof, as well as any image or depiction of a S&W firearm or other product, and all goodwill associated with any of the foregoing, whether or not registered in the Territory.
+ 
+“Territory” means worldwide .
+ 
+“Trademark” means any trademark, trade name, service mark, logo, word, name, symbol, design (including trade dress) or any combination thereof used or intended to be used to identify or distinguish a Person’s goods or services.
+ 
+2. License; Restrictions.
+ 
+2.1 Trademark License . Subject to, and conditional upon Licensee’s compliance with, the terms and conditions of this Agreement, including the rights retained by S&W pursuant to Section 2.2 below, and except as otherwise set forth in this Agreement, S&W hereby grants to Licensee a limited, non-transferable, exclusive right
+
+and license to use the Licensed Trademarks in the Territory and during the Initial Term and any Renewal Term(s) solely in connection with the manufacture, distribution, marketing, advertising, promotion, merchandising, shipping, and sale of the Licensed Products within the Channels of Distribution (the “Trademark License”) as further set forth in Schedule A, provided that Licensee’s right and license to use S&W Trademarks relating to the business of the Gemtech brand shall be non-exclusive, and S&W reserves the right to use any Licensed Trademarks in connection with Licensed Products in order for S&W and its affiliates to market and sell any products purchased from Licensee shall not use the Licensed Trademarks except as expressly stated in this Agreement. Notwithstanding the foregoing, for any items that are normally included in a S&W Bill of Materials, S&W may sell, ship, distribute or use any Licensed Products or similar products to manufacture, or fulfill customer orders for parts for products sold by S&W, or for any customer service purpose other than general retail sales of Licensed Products. Notwithstanding anything in this Agreement to the contrary, S&W may manufacture, directly or through an Affiliate, or purchase from a third party, any “Promotional Products” (as herein defined). “Promotional Products” shall mean any products that will be used by S&W or any Affiliate for promotional purposes or giveaway purposes, and not directly tied to a revenue generating transaction. Licensee’s exclusive rights hereunder and any other restrictions in this Agreement shall not apply to Promotional Products. Notwithstanding anything in this Agreement to the contrary, S&W may manufacture, distribute, market, advertise, promote, merchandise, ship, and sell directly or through an Affiliate, or purchase from a third party, any “Bundled Products” (as herein defined). “ Bundled Products ” shall mean those products in the product categories identified in Schedule A-1 as Backpacks, Range Bags, Magazine Pouches, Messenger Bags, Molle Bag Holder, Slings, Soft Case—Long Gun and Soft Case—Pistol that will be offered by S&W or any Affiliate as a component part of any firearm package sold as a single unit and tied to a revenue generating transaction, or for any customer service purpose other than general retail sales. For the avoidance of doubt, products in the product categories identified in Schedule A-1 as Backpacks, Range Bags, Magazine Pouches, Messenger Bags, Molle Bag Holder, Slings, Soft Case—Long Gun and Soft Case—Pistol cannot be sold separately (not part of a firearm bundle SKU) by S&W or any Affiliate to any online or physical retailer or on any third-party website. Notwithstanding anything in this Agreement to the contrary, the exclusive rights of the Trademark License as they pertain only to those products in the product category identified in Schedule A-1 as AR Parts Kits shall expire one year after the Amended Effective Date and thereafter S&W grants to Licensee a limited, non-transferable, non-exclusive right and license to use the Licensed Trademarks as they pertain to those products in the product category identified in Schedule A-1 as AR Parts Kits in the Territory and during the remainder of the Initial Term and any Renewal Term(s) solely in connection with the manufacture, distribution, marketing, advertising, promotion, merchandising, shipping, and sale of the Licensed Products within the Channels of Distribution. Except to the extent that Licensee’s rights are non-exclusive, or that S&W otherwise reserves rights with respect to the Licensed Trademarks under this Agreement, during the term of this Agreement, S&W shall not license any third party to use the Licensed Trademarks for the manufacture or sale of any product in any product category listed in Schedule A-1. All rights not granted to Licensee in this Agreement are reserved by and to S&W.
+ 
+2.2 [INTENTIONALLY OMITTED.]
+ 
+3. Use of Licensed Trademarks and Patents.
+ 
+3.1 Prohibited Uses . During the Term and at all times thereafter, Licensee shall not use any of the Licensed Trademarks for any purpose other than as trademarks for the Licensed Products.
+ 
+3.2 Use of Intellectual Property (Other Than S&W Intellectual Property) in Connection with the Licensed Products . Licensee shall be solely responsible for ensuring that any Intellectual Property (other than S&W Intellectual Property) proposed for use in connection with a Licensed Product does not infringe the Intellectual Property of any Person.
+
+3.3 Marking .
+ 
+Licensee shall comply with S&W’s trademark usage guidelines, including all modifications and updates thereto, as are communicated in writing by S&W to Licensee by Licensor from time to time, and shall place and display the Licensed Trademarks on and in connection with the Licensed Products only in such form and manner as comply with such trademark usage guidelines. Without limiting the foregoing, S&W specifically requires Licensee to cause the Licensed Trademarks to appear on, and in connection with, all Licensed Products in the form set forth in Schedule A . Licensee shall also cause to appear on the Licensed Products and on (i) their containers, packaging, labels, tags, and the like, (ii) all Promotional Materials (defined below) and (iii) all stationery, business cards, invoices and other transaction documents and business materials which display any of the Licensed Trademarks, such other legends, markings and notices as may be required by law or regulation in the Territory or as S&W may reasonably request.
+ 
+4. Registration and Licensing .
+ 
+Licensee shall cooperate with S&W in any effort by S&W to register or otherwise establish or perfect its ownership of any S&W Trademark or S&W Intellectual Property applications that S&W may desire to file, and shall execute all documents and perform such acts as S&W may from time to time reasonably request in connection therewith.
+ 
+5. Infringements.
+ 
+Licensee shall inform S&W as soon as practicable but not more than 14 days after learning of any goods or activities that infringe (or may infringe) the Licensed Trademarks, or learns of any other infringement or misappropriation of the Licensed Trademarks now or hereafter owned by S&W. Licensee shall provide complete information, cooperation and assistance to S&W concerning each such infringement (including reasonable cooperation and assistance in any further investigation or legal action, such as joining as a party to any lawsuit brought by S&W). Upon learning of such infringement, S&W will have the right, but not the obligation, at its sole discretion and expense, to take such action as S&W considers necessary or appropriate to enforce S&W’s rights, including legal action to suppress or eliminate such infringement or to settle any such dispute or action. S&W may also seek and recover all costs, expenses, and damages resulting from such infringement, including sums that might otherwise be recoverable by or due to Licensee by operation of law or otherwise, and Licensee shall have no right to share in any amounts recovered by S&W. Licensee shall have no authority to enforce the rights of S&W by itself, nor shall Licensee have any right to demand or control action by S&W to enforce such rights.
+ 
+6. License Royalties.
+ 
+6.1 Royalties . Licensee shall pay to S&W on a fiscal quarterly basis a 5% ongoing aggregate royalty based on Net Sales by Licensee or any Affiliate of Licensee of the Licensed Products within the Territory for Licensed Trademarks, provided that Licensee shall pay S&W a minimum quarterly royalty of $150,000.
+ 
+6.2 Royalty Reports . Not later than thirty (30) days after the end of each fiscal quarter, Licensee shall deliver to S&W a report in a format to be approved in advance by S&W containing at least the following information:
+ 
+(a) a detailed written accounting of Licensed Products sold or otherwise disposed of during the immediately preceding quarter in the Territory, the Net Sales for such quarter and the amount of royalties due for such quarter (the “Accounting Statement”), including a breakout of each type of Licensed Product sold by product segment, applicable country and customer type (e.g., Internet, Brick & Mortar, Catalog, etc.);
+
+(b) a summary of the Licensed Products sold and royalties paid during the then-current Product Year;
+ 
+(c) a certified statement by Licensee that the report is complete and accurate.
+ 
+Notwithstanding the foregoing sentences, S&W reserves the right to require Licensee to provide additional financial reporting information as requested by S&W in its reasonable discretion.
+ 
+6.3 Payment . Together with each quarterly royalty report, Licensee shall remit full and satisfactory payment of royalties due to S&W for the immediately preceding fiscal quarter not later than thirty (30) days after the end of such quarter. Such payments shall be made by wire transfer, corporate check (subject to collection), or other method approved by S&W, at the election of S&W. If there is a dispute as to an amount due, Licensee shall not delay payment on undisputed amounts pending resolution of the disputed amount. When overdue, such payments shall bear interest at an annual rate of ten percent (10%) (or such lower rate as may then be the highest rate legally available) from the time such payment is due until payment is received by S&W.
+ 
+6.4 Taxes . Licensee shall withhold from any royalty payments pursuant to this Agreement any sums required to be withheld on behalf of S&W under the applicable tax laws of the Territory, provided, however, that Licensee shall reasonably cooperate with S&W to obtain reduction or relief from any such withholding obligation. Licensee shall pay such sums as are required to be withheld to the appropriate tax authorities and shall furnish S&W with the official tax receipt or other appropriate evidence of payment issued by such authorities.
+ 
+6.5 Payments Upon Termination . If this Agreement is terminated for any reason before all payments hereunder have been made, Licensee shall within thirty (30) days thereafter submit a report and pay to S&W any remaining unpaid royalties accrued during the period prior to such termination.
+ 
+7. Records and Audit Rights.
+ 
+Licensee shall keep complete, true and accurate records of all operations relating to its performance hereunder, payments, marketing related expenditures and Licensed Product quality standards and make such records available for inspection by Licensor upon Licensor’s reasonable request.
+
+8. Proprietary Rights.
+ 
+The S&W Intellectual Property, and Licensed Trademarks (including all registrations and applications therefor and all goodwill associated therewith), are and will remain the property of S&W, solely and exclusively, and may be used by Licensee solely for the Licensed Products subject to all of the terms and conditions of this Agreement. Licensee acknowledges and agrees that it has not acquired, and shall not acquire (whether by operation of law, by this Agreement or otherwise), any right, title, interest or ownership in or to the S&W Intellectual Property or Licensed Trademarks or any part thereof (all of the foregoing collectively, “Proprietary Rights”). Licensee shall not register any S&W name or other S&W Trademarks, or any confusingly similar variation, as an internet domain name. Licensee may request that S&W register a domain name that uses the S&W name or other S&W Trademarks for use by Licensee during the term of, and in accordance with, this Agreement. Notwithstanding the foregoing, during the Term of this Agreement and any Sell-Off Period (defined further below), solely as set forth in Section 12.6, Licensee may use the S&W name or other S&W Trademarks at the end of a domain name solely for the purpose of identifying the location of the Licensed Products on a website. Licensee specifically acknowledges and agrees that S&W is the owner of all Proprietary Rights, including but not limited to copyright rights, in S&W Intellectual Property. Should any Proprietary Rights become vested in Licensee, Licensee hereby assigns any such Proprietary Rights to S&W at no cost. Licensee shall provide and execute all documents necessary, in S&W’s sole discretion, to effectuate and record each such assignment. Licensee shall not, during the Term or at any time thereafter: (i) do anything that, in S&W’s sole discretion, could in any way damage, injure or impair the validity, subsistence, or reputation of the Licensed Trademarks; (ii) use any mark, trade name,
+
+trade dress, logo, design or style that is confusingly similar to the Licensed Trademarks; or (iii) attack, dispute or challenge the ownership, validity or enforceability of the Licensed Trademarks, the validity of this Agreement, nor shall Licensee assist others in so doing. All use of the Licensed Trademarks and all goodwill and benefit arising from such use shall inure to the benefit of S&W, solely and exclusively. Without limiting any of the foregoing provisions regarding S&W’s rights as to S&W Intellectual Property, during the Term of this Agreement, Licensee shall not sell, as a product not branded with an S&W Trademark, any products that are substantially similar to any Licensed Products.
+ 
+9. Term; Termination.
+ 
+9.1 Initial Term and Renewal Terms . This Agreement will commence on the Amended Effective Date and, will continue in full force and effect for five (5) years from May 1, 2024 (the “Initial Term”), unless earlier terminated in accordance with this Section 9.
+ 
+9.1.1. After the Initial Term, the parties may agree in writing to one or more five-year renewal terms (each a “Renewal Term”).
+ 
+9.1.2. In addition to the conditions on renewal set forth in Section 9.1.1, if either party wishes to modify the Royalty Rate, commencing on or after ten (10) years from the Effective Date, then not later than six (6) months prior to the expiration of the Renewal Term, the parties shall engage in good faith discussions regarding such new Royalty Rate, and if the parties are unable to agree on a new Royalty Rate, the parties will engage an independent third party (“ITP”) to set the new Royalty Rate based off the industry average rate.
+ 
+Upon determination of such new Royalty Rate by the ITP, such Royalty Rate shall be the Royalty Rate under Section 6.1 of the Agreement, starting with the five-year renewal term as to which the modified rate was requested and continuing thereafter, provided, if either party does not agree with the rate determined by the ITP, such party may elect to not extend the Agreement and this Agreement shall not renew for such five-year renewal term, but shall instead continue for a period of twelve (12) months from the last day of the preceding renewal term at the same Royalty Rate of such preceding renewal term.
+ 
+The cost of the ITP shall be paid by the Party that does not wish to extend the Agreement, or split equally between the parties if the Agreement is extended. For avoidance of doubt, the parties agree that the royalty rate adjustment is not a one-time event, and may be renegotiated at the end of each renewal six (6) months prior to the expiration of the Renewal Term.
+ 
+9.1.3 Notwithstanding the foregoing, S&W may terminate this Agreement and purchase the assets of the business line selling the Products (the “Business”) at any time beginning three years from the Effective Date by paying Licensee a purchase price and termination fee equal to two (2) times the net revenues of Licensee from its sales of Licensed Products for the 12-month period preceding such termination date with an adjustment for net working capital of the Business as of the date of the closing as compared to the target working capital of the Business calculated using an average over the 12 month period preceding the date Licensor exercises its right to terminate and purchase the Business.
+ 
+9.2 Termination for Cause . S&W or Licensee may terminate this Agreement for cause if the other party breaches any of its obligations under this Agreement and fails to cure such breach within thirty (30) days after receiving notice thereof from the non-breaching party, provided such 30-day period shall be extended, upon request by the breaching party that is approved in writing by the other party, such approval not to be unreasonably withheld, if such cure cannot reasonably be completed in 30 days as long as the breaching party is diligently pursuing such cure.
+
+9.3 Termination Due to Insolvency . Unless expressly prohibited by Applicable Law, S&W may terminate this Agreement immediately for cause by providing notice to Licensee if Licensee: (a) commences or becomes the subject of any case or proceeding under the bankruptcy, insolvency or equivalent laws of any country in the Territory; (b) has appointed for it or for any substantial part of its property a court appointed receiver, liquidator, assignee, trustee, custodian, sequestrator or other similar official; (c) makes an assignment for the benefit of its creditors; (d) defaults on any obligation which is secured, in whole or in part, by a security interest in the Licensed Products; (e) fails generally to pay its debts as they become due; or (f) takes corporate action in furtherance of any of the foregoing (collectively, herein referred to as “Events of Insolvency”). Licensee shall immediately give S&W written notice of any Event of Insolvency.
+ 
+9.4 No Rights After Term . Licensee understands and acknowledges that, with the exception of its right to sell Remaining Inventory during the Sell-Off Period under Section 9.6, no rights under this Agreement whatsoever shall extend to Licensee beyond the expiration or termination of this Agreement. Licensee shall not be entitled to any compensatory payment in connection with the expiration or termination of this Agreement for any reason.
+ 
+9.5 Return of Property . Each party shall return to the other, promptly upon the expiration or termination of this Agreement, or at any other time when requested, any and all property of the other party (including, but not limited to, all Confidential Information and copies thereof); provided, however, that S&W may retain free of charge any items bearing the Licensed Trademarks, any samples supplied to it under this Agreement and any products supplied to it by Licensee.
+ 
+9.6 Inventory Upon Termination or Expiration .
+ 
+(a) Promptly following expiration or termination of this Agreement, Licensee shall notify S&W in writing detailing any inventory of Licensed Products remaining upon such expiration or termination (collectively, the “Remaining Inventory”). Licensee may sell-off (“Sell‑Off”) to third parties all or any portion of the Remaining Inventory. The period for such sell-off (the “Sell-Off Period”) shall be the six (6) month period following the expiration or termination of this Agreement. Licensee’s proposed sell-off arrangements will be subject to S&W’s prior written approval, and shall be subject to Licensee’s payment of royalties at the percentage rate and on the schedule set forth in Sections 6.1 and 6.2, and compliance with all other restrictions herein on the use of the Licensed Trademarks.
+ 
+(b) Upon expiration of the Sell-Off Period, such part of any Remaining Inventory that is not otherwise sold, up to a maximum of six months’ supply based on the rolling 12 months’ sales through the termination date, shall be purchased by S&W at Licensee’s reasonable cost thereof, and any Remaining Inventory that is not sold must be provided to S&W free of charge or at S&W’s sole option destroyed. Licensee shall make no claim against S&W in connection therewith.
+
+9.7 Surviving Terms . The following terms shall survive termination or expiration of this Agreement: 1, 3.1, 4, 7, 8, 9.5, 9.6, 11, 12, 13, 14, 15 and any other terms, which are expressly, or by their nature are impliedly, intended to survive. Notwithstanding the foregoing, the provisions of Section 7 (Records and Audit Rights) shall terminate one (1) year following the end of the Sell-Off Period.
+ 
+10. Marketing.
+ 
+Licensee shall use its best efforts to promote and expand the supply of Licensed Products throughout the Territory. Licensee shall comply with S&W’s policies and procedures, as amended from time to time, and communicated in writing to Licensee with respect to intellectual property, marketing and promotional materials, and approvals. Licensee shall comply with S&W’s policies and procedures for marketing materials, or obtain S&W’s prior written approval, which shall not be unreasonably withheld, for any advertising, promotional,
+
+merchandising and other marketing materials for which Licensee is responsible pertaining to the Licensed Products, including all containers, packaging, labels, tags, advertisements, brochures and the like. Licensee shall, upon S&W’s request from time to time, provide copies of any such marketing materials to S&W. Licensee shall obtain, in writing, all necessary and applicable approvals in S&W’s chain of command as identified to Licensee from time to time.
+ 
+11. Quality Control; Distribution; Consumer Inquiries.
+ 
+11.1 Approval of Licensed Products . On at least an annual basis, or more frequently as necessary for the introduction of new Licensed Products during the year, Licensee shall obtain S&W’s prior written approval, which shall not be unreasonably withheld, of all Licensed Products or any changes to Licensed Products. As requested by Licensor, Licensee will deliver to S&W at no cost for approval by S&W samples of each Licensed Product, and any material change thereto, prior to Licensee’s production manufacturing, initial presentation, sale or other use of such Licensed Products, and shall otherwise comply with S&W product approval policies and procedures, as amended from time to time, and communicated in writing to Licensee. Licensee shall obtain, in writing, all necessary and applicable approvals in S&W’s chain of command as identified to Licensee from time to time.
+ 
+11.2 Product Standards . Licensee shall assure at all times that the Licensed Products: (a) are of a high quality standard consistent with the quality of S&W products and otherwise conform to specifications, performance standards and quality standards of Licensee’s other premium positioned products; (b) conform to the samples submitted for approval described above, with modifications only as approved in writing by S&W; (c) are sourced, manufactured, labeled, distributed, marketed, advertised, promoted and sold in accordance with all Applicable Laws and any S&W codes of conduct or policies as the same may be modified, supplemented or superseded by S&W from time to time (“S&W Policies”); and (d) meet or exceed all government standards, Applicable Laws, manufacturing codes and the like. Licensee shall have and maintain a commercially reasonable quality assurance plan acceptable to S&W to assure that the Licensed Products conform to the foregoing requirements, which plan shall be made available for inspection by S&W upon its request.
+ 
+11.3 Approval of Third Party Manufacturers/Suppliers . In no event will Licensee permit or engage any person or entity to manufacture or supply a Licensed Product or components thereof without first following all company policies and procedures relating to due diligence and approval of third-party manufacturers/suppliers. In any event, Licensee shall be fully responsible and liable for the acts and omissions of any manufacturer, whether or not approved by S&W.
+ 
+11.4 Manufacturing; Supply Chain . S&W shall have the right to inspect and oversee components of Licensee’s manufacturing and supply chain to the extent necessary to protect the Licensed Trademarks, provided that in lieu of identifying any third party supplier, Licensee shall provide S&W with information regarding how such supplier was selected and is measured, and such other information requested by S&W regarding the quality standards employed by such supplier, which information shall be reasonably satisfactory to S&W.
+ 
+11.5. Distribution . Licensee shall not sell or distribute, and shall not permit any Affiliate of Licensee to sell or distribute, Licensed Products to any retailer or wholesaler outside the Channels of Distribution.
+ 
+11.6. Consumer Inquiries . Licensee will at its sole cost and expense handle all product warranty and guarantee/satisfaction issues, response and compliance requirements, as well as all consumer inquiries or complaints relating in any way to any Licensed Product (collectively "Consumer Inquiries"). Licensee shall keep records of all Consumer Inquiries and shall put in place a quality assurance plan acceptable to S&W for detecting and tracking and resolving quality problems reported to it by consumers. If Licensee learns of any consumer injury or alleged injury relating to a Licensed Product, Licensee shall promptly notify the Legal Department at S&W. Licensee shall print on all packaging or packaging inserts for any Licensed Product contact information
+
+identifying the Licensee as the manufacturer or distributor (as the case may be) of the Licensed Product, including at least Licensee’s company name, address and email address for consumer inquiries or complaints.
+ 
+12. Representations, Warranties and Additional Covenants.
+ 
+12.1 S&W Representations and Warranties . S&W represents and warrants to Licensee that: (a) it is authorized to enter into this Agreement; (b) it has the right to grant the rights and licenses granted hereunder; and (c) it has not made, and will not make, any commitments to others inconsistent with, or in derogation of, such rights, provided S&W makes no representations or warranties with respect to any Licensed Trademarks for
+use with any product outside of any jurisdiction in which and with respect to which such Licensed Trademark is registered.
+ 
+12.2 Licensee General Representations and Warranties . Licensee represents and warrants to S&W that: (a) it is authorized to enter into this Agreement; (b) it has not made, and will not make, any commitments inconsistent with, or in derogation of, the rights granted in this Agreement; (c) by entering into and performing under this Agreement it is not, and shall not be, in conflict with any prior obligations to third parties; (d) the Licensed Products and all associated materials are, and shall be, free from any claims of infringement of any third party’s proprietary or other intellectual property rights (including trade secret, patent, copyright and trademark rights); (e) the Licensed Products and all associated materials are, and shall be, free from defects in design, material and workmanship and are, and shall be, safe and suitable for their intended and foreseeable uses; (f) the Licensed Products and all associated materials are, and shall be, free from any claim of product liability; (g) the Licensed Products and all associated materials shall meet the requirements of all Applicable Laws in the Territory; and (h) Licensee will comply with all S&W Policies for which Licensee has been provided with written notification.
+ 
+12.3 Licensee Compliance with Conflict Minerals Laws . Licensee shall ensure that it is able to provide to S&W upon request, information in sufficient detail (with certifications if requested), to enable S&W to timely comply with all of its diligence, disclosure and audit requirements under Section 1502 of the Dodd-Frank Wall Street Reform and Consumer Protection Act (the "Dodd-Frank Act") and Rule 13p-1 and Form SD under the Securities Exchange Act of 1934, and any similar, applicable statutes and regulations, including due inquiry of Licensee’s suppliers (and certifications by such suppliers) identifying conflict minerals (as defined in Section 1502(e)(4) of the Dodd-Frank Act) contained in each Licensed Product and the country of origin of such conflict minerals (or, following due inquiry, why such country of origin cannot be determined).
+ 
+12.4. Licensee Compliance with Anti-Corruption/Anti-Bribery and Import/Export Control Laws . Licensee shall: (a) comply with all applicable laws and regulations prohibiting corrupt practices and/or bribery, including, but not limited to, the United States Foreign Corrupt Practices Act (“FCPA”) and the United Kingdom Anti-Bribery Act; (b) comply with all applicable export and import laws and regulations; and (c) not directly or indirectly export, re-export, distribute or transfer any technology, Confidential Information or materials of any value to any nation, individual or entity that is prohibited or restricted by law or regulation, including, but not limited to, the U.S. Department of State International Traffic in Arms Regulations, the U.S. Department of Commerce Export Administration Regulations, the U.S. Treasury Office of Foreign Assets Control, and the U.S. Department of State’s State Sponsors of Terrorism designation. Licensee shall provide S&W with such information and certifications as are from time to time reasonably requested by S&W regarding Licensee’s compliance with all applicable company policies concerning anti-corruption/anti-bribery and/or import/export laws and regulations.
+ 
+12.5 Compliance . Licensee shall comply with all Applicable Laws applicable to its sale and use of Licensed Products, and all industry practices, guidelines or other standards requested by S&W, including any standards relating to privacy and security of personal information and payment card information.
+
+12.6 Website . During the term of this Agreement, (a) Licensor shall ensure that the website https://www.smith-wesson.com/ and any successor website that serves as Licensor's primary website during such time contains a link to Licensee's website and (b) Licensee shall have the non-exclusive right to use the website domain https://store.smith-wesson.com, which Licensee acknowledges is owned by Licensor, in connection with Licensee’s sale of Licensed Products.
+
+13. Indemnification by Licensee; Insurance.
+ 
+13.1 Licensee Indemnity . Licensee shall indemnify and hold S&W and its parent company, and their respective directors, officers, employees and agents (altogether the “S&W Parties”) harmless from and against any and all claims arising out of or relating to: (a) any inaccuracy or breach of Licensee’s representations, warranties, covenants or other obligations hereunder (including those set forth in Sections 12.2, 12.3, 12.4, and 12.5); (b) the design, development, manufacture, sourcing, marketing, advertising, promotion, merchandising, shipment, importing, exporting, distribution, sale or use of any Licensed Products or Promotional Materials (including any (i) product liability claims, (ii) claims of personal injury, death or property damage, (iii) claims made under any guaranties made or warranties given (in each case, whether express or implied) with respect to such Licensed Products, (iv) any claims of infringement or misappropriation of Intellectual Property of a third party except any claim arising out of the use of the Licensed Trademark or S&W’s Intellectual Property, or (v) any similar or other claim based on strict liability, negligence or warranty (whether express or implied)); or (c) any use of the Licensed Trademarks by Licensee in a manner not authorized by this License Agreement, provided however Licensee shall not have any indemnification obligations hereunder to the extent arising out of S&W’s breach of this agreement, gross negligence or intentional misconduct. Any settlement of any claim as a result of Licensee’s indemnification obligations hereunder shall first require the consent of S&W, and must release S&W from all liability for any and all claims arising out of or relating to the matter that were or could have been asserted by the claimant/plaintiff.
+ 
+13.2 S&W Indemnity . S&W shall indemnify and hold Licensee and its parent company, and their respective directors, officers, employees and agents harmless from and against any and all claims arising out of (a) any inaccuracy or breach of S&W’s representations, warranties, covenants or other obligations hereunder, and (b) third party claims of infringement or misappropriation of a Licensed Trademark arising from use of a Licensed Trademark in a jurisdiction and with a Licensed Product in which and as to which such Licensed Trademark is registered, provided however S&W shall not have any indemnification obligations hereunder to the extent arising out of Licensee’s breach of this agreement, gross negligence or intentional misconduct.
+ 
+13.3 Third Party Claims . If either party seeks indemnification or damages (the “Indemnified Party”) under this Agreement from the other party (the “Indemnifying Party”) for any claim asserted, against such Indemnified Party by a third party (a “Third Party Claim”), the Indemnified Party shall, promptly upon gaining knowledge of such Third Party Claim, deliver to the Indemnifying Party notice (a “Claim Notice”) of such Third Party Claim with sufficient detail as to why the Indemnifying Party is responsible for such Third Party Claim; provided, that a failure by the Indemnified Party to give such Claim Notice in the manner required pursuant to this Section 13.3 shall not limit or otherwise affect the obligations of the Indemnifying Party under this Agreement, except to the extent that such Indemnifying Party is actually prejudiced with respect to the rights available to the Indemnifying Party with respect to such Third Party Claims, and then only to the extent of any such actual prejudice. The Indemnifying Party shall have the right, at its sole option and expense, to appoint counsel of its choice, which must be reasonably satisfactory to the Indemnified Party, and to defend against, negotiate, settle or otherwise deal with such Third Party Claim in lieu of the Indemnified Party defending or settling such claim, provided the Indemnifying Party shall not have the right to defend such Third Party Claim if such Third-Party Claim seeks relief other than the payment of monetary damages or seeks the imposition of a consent order, injunction or decree that would materially restrict the future activity or conduct of the Indemnified Party, or is a criminal Legal proceeding or alleges, or seeks a finding or admission of a violation of Law or violation of the rights of any person by the Indemnified Party.
+
+13.4 Insurance .
+ 
+(a) At all times during the Term of this Agreement and for a period of three years thereafter, Licensee shall procure and maintain, at its sole cost and expense, commercial general liability insurance with limits not less than Two Million Dollars ($2,000,000) per occurrence and Five Million Dollars ($5,000,000) in the aggregate, including bodily injury and property damage and products and completed operations and advertising liability, which policy will include contractual liability coverage insuring the activities of Licensee under this Agreement.
+ 
+(b) All insurance policies required pursuant to Section 13.2 must:
+ 
+(i) be issued by insurance companies reasonably acceptable to Licensor;
+ 
+(ii) provide that such insurance carriers give Licensor at least 30 days’ prior written notice of cancellation or non-renewal of policy coverage; provided that, prior to such cancellation, Licensee has new insurance policies in place that meet the requirements of Section 13.2;
+ 
+(iii) waive any right of subrogation of the insurers against Licensor or any of its Affiliates;
+ 
+(iv) provide that such insurance be primary insurance and any similar insurance in the name of and/or for the benefit of Licensor is excess and non-contributory; and
+ 
+(v) name Licensor and its Affiliates, including, in each case, all successors and permitted assigns, as additional insureds.
+ 
+(c) Licensee shall provide Licensor with copies of the certificates of insurance and policy endorsements required by this Section 13.4 upon the written request of Licensor, and shall not do anything to invalidate such insurance.
+
+14. Confidential Information.
+ 
+14.1 Confidentiality and Non-Disclosure . The parties acknowledge that during the course of their performance under this Agreement, each party may learn Confidential Information of the other party. Each party agrees to take reasonable steps to protect such Confidential Information and further agrees that it shall not: (a) use such Confidential Information except as required in the normal and proper course of performing under this Agreement; (b) disclose such Confidential Information to a third party; or (c) allow a third party access to such Confidential Information (except as may otherwise be required by law) without, in each case, obtaining the prior written approval of the other party, provided, however, that such restrictions shall not apply to Confidential Information which a party has requested be subject to a confidentiality order but nonetheless is required to be revealed to an adjudicating body in the course of litigation. All Confidential Information is, and shall remain, the property of the party which supplied it. Each party shall take reasonable steps to mark its Confidential Information which is in written form with appropriate legends, provided, however, that the failure so to mark such Confidential Information shall not relieve the other party of its obligations hereunder.
+ 
+14.2 Prohibited Use of S&W’s Confidential Information . Under no circumstances shall Licensee: (a) use S&W Confidential Information in connection with products outside of the scope of Licensee’s business of manufacturing, selling and sourcing firearm accessories, or that are not Licensed Products; or (b) disclose S&W Confidential Information to, or allow access to S&W Confidential Information by, anyone not directly associated with the design, development or manufacture of Licensed Products.
+
+15. Miscellaneous.
+ 
+15.1 Recalls . Licensee shall immediately notify S&W in the event of any product defect or recall considerations or deliberations concerning a Licensed Product. If, at any time, S&W determines that any Licensed Product sold by Licensee is defective, unsafe or otherwise harmful or potentially harmful to consumers or S&W, S&W shall have the right (but shall not be obligated) to require Licensee to recall such Licensed Product, provided, however, that such recall (or failure so to recall) shall not relieve Licensee of any obligations hereunder. The type and method of recall shall be subject to S&W’s approval. Licensee shall bear any and all costs related to any recall of Licensed Products, whether such recall is voluntary or required by S&W or any governmental authority. Licensee shall have and maintain an adequate and comprehensive lot traceability program to ensure recall effectiveness.
+ 
+15.2 Relationship of the Parties . Neither Licensee nor S&W shall be construed to be the agent of the other in any respect. The parties have entered into this Agreement as independent contractors only, and nothing herein shall be construed to place the parties in the relationship of partners, joint venturers, agents or legal representatives. Neither Licensee nor S&W will have the authority to obligate or bind the other in any manner as to any third party. Nothing contained herein shall be construed to restrict Licensee’s ability to set its prices with respect to unaffiliated third parties.
+ 
+15.3 Entire Agreement . This Agreement constitutes the entire agreement between the parties with respect to its subject matter and, as of its Effective Date, supersedes all prior agreements, understandings, commitments, negotiations and discussions with respect thereto, whether oral or written.
+ 
+15.4 No Amendment . This Agreement may not be amended or modified in any respect, except upon mutual written agreement of the parties.
+ 
+15.5 Waiver . The failure of any party to insist upon strict adherence to any provision of this Agreement on any occasion shall not be considered a waiver of such party’s right to insist upon strict adherence to such provision thereafter or to any other provision of this Agreement in any instance. Any waiver shall be in writing signed by the party against whom such waiver is sought to be enforced.
+ 
+15.6 Sublicensing and Assignment . This Agreement and the rights and licenses granted to Licensee are personal to Licensee. Licensee shall not sublicense any of the Licensed Trademarks or assign or transfer any of its rights or delegate any of its obligations under this Agreement without the prior written consent of S&W. S&W shall not unreasonably withhold its consent to a proposed sublicense or assignment by Licensee to an Affiliate of Licensee, except S&W may, in its sole discretion, withhold any consent to any such proposed sublicense or assignment following a change of Control of Licensee or of any Affiliate of Licensee. Any attempted sublicense, assignment, transfer or delegation in violation of this Section 15.6 or by virtue of the operation of law shall be null and void and of no effect. This Agreement shall be binding upon, and shall inure to the benefit of, the parties’ respective successors and permitted assigns. For purposes of this Section 15.6, a “transfer” shall include the following actions by Licensee (whether effected in a single transaction or in a series of related transactions, and whether effected directly or indirectly): (a) the sale or other disposition of all or substantially all of Licensee’s business or assets (except for “ordinary course” inventory sales); (b) the transfer of effective voting or other business Control of Licensee; or (c) any other change of Control of Licensee.
+ 
+15.7 Severability; Reformation . The provisions of this Agreement shall be severable. If a court of competent jurisdiction shall declare any provision of this Agreement invalid, illegally or unenforceable, the other provisions hereof shall remain in full force and effect, and such court shall be empowered to modify, if possible, such invalid, illegal or unenforceable provision to the extent necessary to make it valid and enforceable to the maximum extent possible.
+
+15.8 Equitable Relief . Licensee acknowledges and agrees that: (a) its failure to perform its obligations under this Agreement and its breach of any provision hereof, in any instance, shall result in immediate and irreparable damage to S&W; (b) no adequate remedy at law exists for such damage; and (c) in the event of such failure or breach, S&W shall be entitled to equitable relief by way of temporary, preliminary and permanent injunctions, and such other and further relief as any court of competent jurisdiction may deem just and proper, in addition to, and without prejudice to, any other relief whether in law or in equity to which S&W may be entitled.
+ 
+15.9 Governing Law; Jurisdiction and Venue . This Agreement will be governed by and construed in accordance with the laws of the Commonwealth of Massachusetts applicable to agreements made and to be performed entirely therein. Licensee hereby consents to the exclusive jurisdiction of the courts of the Commonwealth of Massachusetts and of the United States District Court for the District of Massachusetts for resolution of all claims, differences and disputes which the parties may have regarding, or which arise under, this Agreement. Any judgment or other decision of any such court shall be enforceable, without further proceedings, against the named party anywhere in the world where such party is located, does business or has assets.
+ 
+15.10 Waiver of Right to Jury Trial . EACH OF THE PARTIES HEREBY WAIVES ITS RIGHTS TO A TRIAL BY JURY IN ANY LITIGATION IN ANY COURT WITH RESPECT TO, IN CONNECTION WITH, OR ARISING OUT OF, THIS AGREEMENT OR THE VALIDITY, INTERPRETATION OR ENFORCEMENT OF THIS AGREEMENT OR ANY OF THE TRANSACTIONS CONTEMPLATED HEREIN.
+ 
+15.11 Notices . Materials required to be delivered to any party hereunder shall be delivered to the address given below for such party. Unless otherwise expressly stated in this Agreement, any notice, accounting statement, consent, approval or other communication under this Agreement shall be in writing and shall be considered given: (a) upon personal delivery, (b) two (2) business days after being deposited with an “overnight” courier or “express mail” service, or (c) seven (7) business days after being mailed by registered or certified first class mail, return receipt requested, in each case addressed to the notified party at its address set forth below (or at such other address as such party may specify by notice to the others delivered in accordance with this Section 15):
+
+If to S&W:
+ 
+If to Licensee:
+
+Smith & Wesson Inc.
+ 
+AOB Products Company
+
+1852 Proffitt Springs Rd.
+ 
+1800 North Route Z
+
+Maryville, TN 37801
+ 
+Columbia, MO 65202
+
+Attn: President
+ 
+Attn: President
+
+With a copy to:
+ 
+With a copy to:
+
+Smith & Wesson Inc.
+ 
+TD Bank, N.A.
+
+1852 Proffitt Springs Rd.
+ 
+2 West Main St., 2nd Floor
+
+Maryville, TN 37801
+ 
+Waterbury, CT 06702
+
+Attn: Legal Department
+ 
+Attention: AOB Products Acct Manager
+
+15.12 Offer and Acceptance . This Agreement will not be effective unless and until it is fully executed by authorized officers of each of the parties.
+ 
+[The remainder of this page is left blank intentionally.]
+
+IN WITNESS WHEREOF, the parties hereto have caused this Agreement to be executed by their duly authorized officers as of the Amended Effective Date.
+
+Smith & Wesson Inc. AOB Products Company
+
+By: /s/ Mark P. Smith By: /s/ Brian D. Murphy
+ 
+Name: Mark P. Smith Name: Brian D. Murphy
+ 
+Title: President Title: President

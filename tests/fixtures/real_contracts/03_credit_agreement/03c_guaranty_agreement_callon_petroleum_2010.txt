@@ -1,0 +1,613 @@
+EX-10.3
+4
+h69502exv10w3.htm
+EX-10.3
+
+exv10w3
+
+Exhibit 10.3
+
+THIRD AMENDED AND RESTATED
+GUARANTY AGREEMENT
+
+     This Third Amended and Restated Guaranty Agreement dated as of January 29, 2010 (this
+“ Guaranty ”) is executed by each of the undersigned (individually a “ Guarantor ” and
+collectively, the “ Guarantors ”), in favor of Regions Bank, as administrative agent (the
+“ Administrative Agent ”) for the ratable benefit of itself, the Lenders (as defined below),
+the Issuing Lender (as defined below), and the Swap Counterparties (as defined below) (together
+with the Administrative Agent, the Issuing Lender, the Lenders, individually a
+“ Beneficiary ”, and collectively, the “ Beneficiaries ”).
+
+INTRODUCTION
+
+     A. The Guarantors have previously executed and delivered that certain Guaranty Agreement dated
+as of June 14, 2004 (the “ 2004 Guaranty ”), which was ratified and reaffirmed in connection
+with that certain Amended and Restated Credit Agreement dated as of August 30, 2006, as amended
+heretofore (as so amended, the “ 2006 Credit Agreement ”), among Callon Petroleum Company
+(“ Borrower ”), the lenders party thereto from time to time (individually, a
+“ Lender ”, and collectively the “ Lenders ”), and Union Bank of California, N.A., as
+administrative agent (in such capacity, the “ Prior Administrative Agent ”) and issuing
+lender (in such capacity, the “ Issuing Lender ”) for the Lenders.
+
+     B. The 2004 Guaranty was amended and restated by that certain Amended and Restated Guaranty,
+dated September 25, 2008, made by the Guarantors (the “ Existing Guaranty ”), and the 2006
+Credit Agreement was amended and restated in its entirety pursuant to that certain Second Amended
+and Restated Credit Agreement dated as of September 25, 2008 (the “ Existing Credit
+Agreement ”) among the Borrower, the Lenders, the Issuing Lender and the Prior Administrative
+Agent. Effective as of January 29, 2010, the Prior Administrative Agent has resigned from such
+capacity and the Adminstrative Agent has been appointed as the successor administrative agent under
+the Existing Credit Agreement.
+
+     C. The Existing Credit Agreement is being amended and restated in its entirety pursuant to
+that certain Third Amended and Restated Credit Agreement dated as of January 29, 2010 (as amended,
+restated, supplemented and otherwise modified from time to time, the “ Credit Agreement ”)
+among the Borrower, the Lenders, the Issuing Lender and the Administrative Agent.
+
+     D. The Guarantors are Subsidiaries of the Borrower and will derive substantial direct and
+indirect benefit from (i) the transactions contemplated by the Credit Agreement, and the other Loan
+Documents (as defined in the Credit Agreement), and (ii) the Hedge Contracts (as defined in the
+Credit Agreement) entered into by the Borrower or any of its Subsidiaries with a Swap Counterparty
+(as defined in the Credit Agreement).
+
+     E. It is a requirement under the Credit Agreement that each of the Guarantors continue to
+guarantee the due payment and performance of all Obligations (as defined in the
+
+Third Amended and Restated Guaranty
+Third Amended and Restated Credit Agreement
+
+Page 1 of 14
+
+Credit Agreement) by amending and restating in its entirety the Existing Guaranty as set forth
+herein.
+
+     NOW, THEREFORE, in consideration of the premises, each Guarantor hereby agrees (a) that the
+Existing Guaranty is amended and restated in its entirety as follows and (b) further agrees as
+follows:
+
+     Section 1. Definitions. All capitalized terms not otherwise defined in this Guaranty
+that are defined in the Credit Agreement shall have the meanings assigned to such terms by the
+Credit Agreement.
+
+     Section 2. Guaranty .
+
+(a) Each Guarantor hereby absolutely, unconditionally and irrevocably guarantees the punctual
+payment and performance, when due, whether at stated maturity, by acceleration or otherwise, of (i)
+all Obligations, whether absolute or contingent and whether for principal, interest (including,
+without limitation, interest that but for the existence of a bankruptcy, reorganization or similar
+proceeding would accrue), fees, amounts required to be provided as collateral, indemnities,
+expenses or otherwise, and all other amounts owing in respect of the Obligations and (ii) all
+obligations under this Guaranty (collectively, the “ Guaranteed Obligations ”). Without
+limiting the generality of the foregoing, each Guarantor’s liability shall extend to all amounts
+that constitute part of the Guaranteed Obligations and would be owed by the Borrower or any of its
+Subsidiaries to the Administrative Agent, the Issuing Lender or any Lender under the Loan Documents
+and by the Borrower or any of its Subsidiaries to any Swap Counterparty but for the fact that they
+are unenforceable or not allowable due to insolvency or the existence of a bankruptcy,
+reorganization or similar proceeding involving any Person.
+
+(b) It is the intention of the Guarantors and each Beneficiary that the amount of the Guaranteed
+Obligations guaranteed by each Guarantor shall not be in excess of the maximum amount permitted by
+fraudulent conveyance, fraudulent transfer or similar Legal Requirements applicable to such
+Guarantor. Accordingly, notwithstanding anything to the contrary contained in this Guaranty or in
+any other agreement or instrument executed in connection with the payment of any of the Guaranteed
+Obligations, the amount of the Guaranteed Obligations guaranteed by a Guarantor under this Guaranty
+shall be limited to an aggregate amount equal to the largest amount that would not render such
+Guarantor’s obligations hereunder subject to avoidance under Section 548 of the United States
+Bankruptcy Code or any comparable provision of any other applicable law.
+
+     Section 3. Guaranty Absolute . Each Guarantor guarantees that the Guaranteed
+Obligations will be paid strictly in accordance with the terms of the Loan Documents and any Hedge
+Contracts with Swap Counterparties (collectively, the “ Guaranteed Documents ”), regardless
+of any law, regulation or order now or hereafter in effect in any jurisdiction affecting any of
+such terms or the rights of any Beneficiary with respect thereto but subject to Section 2(b) above.
+The obligations of each Guarantor under this Guaranty are independent of the Guaranteed
+Obligations or any other obligations of any other Person under the Guaranteed Documents, and a
+separate action or actions may be brought and prosecuted against any Guarantor to enforce this
+Guaranty, irrespective of whether any action is brought against the
+
+Third Amended and Restated Guaranty
+Third Amended and Restated Credit Agreement
+
+Page 2 of 14
+
+Borrower, any Guarantor or any other Person or whether the Borrower, any Guarantor or any
+other Person is joined in any such action or actions. The liability of each Guarantor under this
+Guaranty shall be irrevocable, absolute and unconditional irrespective of, and each Guarantor
+hereby irrevocably and unconditionally waives any defenses it may now or hereafter have in any way
+relating to, any or all of the following:
+
+(a) any lack of validity or enforceability of any Guaranteed Document or any agreement or
+instrument relating thereto or any part of the Guaranteed Obligations being irrecoverable;
+
+(b) any change in the time, manner or place of payment of, or in any other term of, all or any of
+the Guaranteed Obligations or any other obligations of any Person under the Loan Documents or any
+agreement or instrument relating to Hedge Contract with a Swap Counterparty, or any other amendment
+or waiver of or any consent to departure from any Loan Document or any agreement or instrument
+relating to any Hedge Contract with a Swap Counterparty, including, without limitation, any
+increase in the Guaranteed Obligations resulting from the extension of additional credit to the
+Borrower or otherwise;
+
+(c) any taking, exchange, release or non-perfection of any collateral, or any taking, release or
+amendment or waiver of or consent to departure from any other guaranty, for all or any of the
+Guaranteed Obligations;
+
+(d) any manner of application of collateral, or proceeds thereof, to all or any of the Guaranteed
+Obligations, or any manner of sale or other disposition of any collateral for all or any of the
+Guaranteed Obligations or any other obligations of any other Person under the Guaranteed Documents
+or any other assets of the Borrower or any other Person;
+
+(e) any change, restructuring or termination of the corporate structure or existence of the
+Borrower or any other Person;
+
+(f) any failure of any Lender, the Administrative Agent, the Issuing Lender or any other
+Beneficiary to disclose to the Borrower or any Guarantor any information relating to the business,
+condition (financial or otherwise), operations, properties or prospects of any Person now or in the
+future known to the Administrative Agent, the Issuing Lender, any Lender or any other Beneficiary
+(and each Guarantor hereby irrevocably waives any duty on the part of any Beneficiary to disclose
+such information);
+
+(g) any signature of any officer of the Borrower being mechanically reproduced in facsimile or
+otherwise; or
+
+(h) any other circumstance or any existence of or reliance on any representation by any Beneficiary
+that might otherwise constitute a defense available to, or a discharge of, the Borrower, any
+Guarantor or any other guarantor, surety or other Person.
+
+     Section 4. Continuation and Reinstatement, Etc. Each Guarantor agrees that, to the
+extent that payments of any of the Guaranteed Obligations are made, or any Beneficiary receives any
+proceeds of collateral, and such payments or proceeds or any part thereof are subsequently
+invalidated, declared to be fraudulent or preferential, set aside, or otherwise required to be
+
+Third Amended and Restated Guaranty
+Third Amended and Restated Credit Agreement
+
+Page 3 of 14
+
+repaid, then to the extent of such repayment the Guaranteed Obligations shall be reinstated
+and continued in full force and effect as of the date such initial payment or collection of
+proceeds occurred. EACH GUARANTOR SHALL DEFEND AND INDEMNIFY EACH BENEFICIARY FROM AND AGAINST ANY
+CLAIM, DAMAGE, LOSS, LIABILITY, COST OR EXPENSE UNDER THIS SECTION 4 (INCLUDING REASONABLE
+ATTORNEYS’ FEES AND EXPENSES) IN THE DEFENSE OF ANY SUCH ACTION OR SUIT INCLUDING SUCH CLAIM,
+DAMAGE, LOSS, LIABILITY, COST, OR EXPENSE ARISING AS A RESULT OF THE INDEMNIFIED BENEFICIARY’S OWN
+NEGLIGENCE BUT EXCLUDING SUCH CLAIM, DAMAGE, LOSS, LIABILITY, COST, OR EXPENSE THAT IS FOUND IN A
+FINAL, NON-APPEALABLE JUDGMENT BY A COURT OF COMPETENT JURISDICTION TO HAVE RESULTED FROM SUCH
+INDEMNIFIED BENEFICIARY’S GROSS NEGLIGENCE OR WILLFUL MISCONDUCT.
+
+     Section 5. Waivers and Acknowledgments .
+
+(a) Each Guarantor hereby waives promptness, diligence, presentment, notice of acceptance and any
+other notice with respect to any of the Guaranteed Obligations and this Guaranty and any
+requirement that any Beneficiary protect, secure, perfect or insure any Lien or any property or
+exhaust any right or take any action against the Borrower or any other Person or any collateral.
+
+(b) Each Guarantor hereby irrevocably waives any right to revoke this Guaranty, and acknowledges
+that this Guaranty is continuing in nature and applies to all Guaranteed Obligations, whether
+existing now or in the future.
+
+(c) Each Guarantor acknowledges that it will receive substantial direct and indirect benefits from
+the financing arrangements involving the Borrower or any Subsidiary of the Borrower contemplated by
+the Guaranteed Documents (including any Hedge Contracts) and that the waivers set forth in this
+Guaranty are knowingly made in contemplation of such benefits.
+
+     Section 6. Subrogation . No Guarantor will exercise any rights that it may now have or
+hereafter acquire against the Borrower or any other Person to the extent that such rights arise
+from the existence, payment, performance or enforcement of such Guarantor’s obligations under this
+Guaranty or any other Guaranteed Document or otherwise, including, without limitation, any right of
+subrogation, reimbursement, exoneration, contribution or indemnification and any right to
+participate in any claim or remedy of any Beneficiary against the Borrower or any other Person,
+whether or not such claim, remedy or right arises in equity or under contract, statute or common
+law, including, without limitation, the right to take or receive from the Borrower or any other
+Person, directly or indirectly, in cash or other property or by set-off or in any other manner,
+payment or security on account of such claim, remedy or right, unless and until the occurrence of
+the Guaranty Termination (as defined in Section 13 below). If any amount shall be paid to a
+Guarantor in violation of the preceding sentence at any time prior to Guaranty Termination, such
+amount shall be held in trust for the benefit of the Beneficiaries and shall forthwith be paid to
+the Administrative Agent to be credited and applied to the Guaranteed Obligations and any and all
+other amounts payable by the Guarantors under this Guaranty, whether matured or unmatured, in
+accordance with the terms of the Loan Documents.
+
+Third Amended and Restated Guaranty
+Third Amended and Restated Credit Agreement
+
+Page 4 of 14
+
+     Section 7. Subordination . Each Guarantor hereby subordinates (in liquidation,
+dissolution, bankruptcy, reorganization, or otherwise) all sums due and owing to such Guarantor by
+the Borrower or any other Guarantor, if any, to all sums due and owing to any Beneficiary by the
+Borrower or any Guarantor. Each Guarantor hereby agrees that no payments shall be made by, or
+received from, the Borrower or any other Guarantor with respect to any such subordinated obligation
+owing to such Guarantor, except as permitted under the Credit Agreement.
+
+     Section 8. Representations and Warranties. Each Guarantor hereby represents and
+warrants as follows:
+
+(a) There are no conditions precedent to the effectiveness of this Guaranty that have not been
+satisfied or waived. Such Guarantor benefits from executing this Guaranty.
+
+(b) Such Guarantor has, independently and without reliance upon any Beneficiary and based on such
+documents and information as it has deemed appropriate, made its own credit analysis and decision
+to enter into this Guaranty, and such Guarantor has established adequate means of obtaining from
+the Borrower and each other relevant Person on a continuing basis information pertaining to, and is
+now and on a continuing basis will be completely familiar with, the business, condition (financial
+and otherwise), operations, properties and prospects of the Borrower and each other relevant
+Person.
+
+(c) The obligations of such Guarantor under this Guaranty are the valid, binding and legally
+enforceable obligations of such Guarantor, and the execution and delivery of this Guaranty by such
+Guarantor has been duly and validly authorized in all respects by such Guarantor, and the Person
+who is executing and delivering this Guaranty on behalf of such Guarantor has full power, authority
+and legal right to so do, and to observe and perform all of the terms and conditions of this
+Guaranty on such Guarantor’s part to be observed or performed.
+
+     Section 9. Right of Set-Off . Upon the occurrence and during the continuance of any
+Event of Default, each Beneficiary is hereby authorized at any time, to the fullest extent
+permitted by law, to set off and apply any deposits (general or special, time or demand,
+provisional or final) and other indebtedness owing by such Beneficiary or an Affiliate thereof to
+the account of each Guarantor against any and all of the obligations of the Guarantors under this
+Guaranty, irrespective of whether or not such Beneficiary shall have made any demand under this
+Guaranty and although such obligations may be contingent and unmatured. Such Beneficiary shall
+promptly notify the affected Guarantor after any such set-off and application is made, provided
+that the failure to give such notice shall not affect the validity of such set-off and application.
+The rights of the Beneficiaries under this Section 9 are in addition to other rights and remedies
+(including, without limitation, other rights of set-off) which any Beneficiary may have.
+
+     Section 10. Amendments, Etc. No amendment or waiver of any provision of this Guaranty
+and no consent to any departure by any Guarantor therefrom shall in any event be effective unless
+the same shall be in writing and signed by the affected Guarantor, the Administrative Agent and the
+Required Lenders, and then such waiver or consent shall be effective only in the specific instance
+and for the specific purpose for which given; provided that no amendment, waiver or consent
+shall, unless in writing and signed by all of the Lenders, (a)
+
+Third Amended and Restated Guaranty
+Third Amended and Restated Credit Agreement
+
+Page 5 of 14
+
+release any Guarantor from its obligations hereunder except as permitted under Section 8.08(b)
+of the Credit Agreement (it being understood that waivers and amendments permitted to be made under
+the Credit Agreement by the Required Lenders with respect to any of the underlying obligations
+guaranteed hereunder shall not be deemed to release or limit the liability of any Guarantor within
+the meaning of this clause (a)), (b) postpone any date fixed for payment hereunder in respect of
+any of the Guaranteed Obligations, or (c) change the percentage of the Lenders required to take any
+action hereunder.
+
+     Section 11. Notices, Etc. All notices and other communications provided for hereunder
+shall be sent in the manner provided for in Section 9.02 of the Credit Agreement and if to a
+Guarantor, at its address specified on the signature page hereto and if to the Administrative
+Agent, the Issuing Lender or any Lender, at its address specified in or pursuant to the Credit
+Agreement, and if to a Swap Counterparty, at its address specified in the applicable Hedge
+Contract. All such notices and communications shall be effective when delivered, except that
+notices and communications to the Administrative Agent shall not be effective until received by the
+Administrative Agent.
+
+     Section 12. No Waiver: Remedies . No failure on the part of the Administrative Agent
+or any other Beneficiary to exercise, and no delay in exercising, any right hereunder shall operate
+as a waiver thereof; nor shall any single or partial exercise of any right hereunder preclude any
+other or further exercise thereof or the exercise of any other right. The remedies herein provided
+are cumulative and not exclusive of any remedies provided by law.
+
+     Section 13. Continuing Guaranty: Assignments under the Credit Agreement. This
+Guaranty is a continuing guaranty and shall (a) remain in full force and effect until such time
+when each of the following shall have occurred: (i) the indefeasible payment in full in cash of all
+Guaranteed Obligations and all other amounts payable under the Loan Documents, (ii) the termination
+or expiration of all Letters of Credit, (iii) the termination of all Hedge Contracts with the Swap
+Counterparties (other than Hedge Contracts with any Swap Counterparty with respect to which other
+arrangements satisfactory to such Swap Counterparty and the Borrower have been made or have been
+deemed to have to been made under Section 8.08(b) of the Credit Agreement), and (iv) the
+termination of all the Commitments (such time being referred to herein as the “Guaranty
+Termination”), (b) be binding upon each Guarantor and its successors and assigns, (c) inure to the
+benefit of and be enforceable by the Administrative Agent, the Issuing Lender and each Lender and
+their respective successors, and, in the case of transfers and assignments made in accordance with
+the Credit Agreement, transferees and assigns, and (d) inure to the benefit of and be enforceable
+by a Swap Counterparty and each of its successors, transferees and assigns to the extent such
+successor, transferee or assign is a Lender or an Affiliate of a Lender. Without limiting the
+generality of the foregoing clause (c), subject to Section 9.06 of the Credit Agreement,
+Administrative Agent, the Issuing Lender and each Lender may assign or otherwise transfer all or
+any portion of its rights and obligations under the Credit Agreement (including, without
+limitation, all or any portion of its Commitment, the Advances owing to it and the Note or Notes
+held by it) to any other Person, and such other Person shall thereupon become vested with all the
+benefits in respect thereof granted to such Lender herein or otherwise, subject, however, in all
+respects to the provisions of the Credit Agreement. Furthermore, when any Swap Counterparty
+assigns or otherwise transfers any interest held by it under a Hedge Contract to any other Person
+pursuant to the terms of such agreement, that other
+
+Third Amended and Restated Guaranty
+Third Amended and Restated Credit Agreement
+
+Page 6 of 14
+
+Person shall thereupon become vested with all the benefits held by such Lender under this
+Guaranty only if such Person is also then a Lender or an Affiliate of a Lender. Each Guarantor
+acknowledges that upon any Person becoming a Lender or the Administrative Agent in accordance with
+the Credit Agreement, such Person shall be entitled to the benefits hereof.
+
+     Section 14. Governing Law . This Guaranty shall be governed by, and construed and
+enforced in accordance with, the laws of the State of Mississippi. Each Guarantor hereby
+irrevocably and unconditionally submits to the jurisdiction of any Mississippi state sitting in
+Madison County, Mississippi or any federal court sitting in the Southern District of Mississippi in
+any action or proceeding arising out of or relating to this Guaranty and the other Loan Documents,
+and each Guarantor hereby irrevocably and unconditionally agrees that all claims in respect of such
+action or proceeding may be heard and determined in such court. Each Guarantor hereby irrevocably
+waives, to the fullest extent it may effectively do so, any right it may have to the defense of an
+inconvenient forum to the maintenance of such action or proceeding. Each Guarantor hereby agrees
+that service of copies of the summons and complaint and any other process which may be served in
+any such action or proceeding may be made by mailing or delivering a copy of such process to such
+Guarantor at its address set forth in the Credit Agreement or set forth on the signature page of
+this Guaranty. Each Guarantor agrees that a final judgment in any such action or proceeding shall
+be conclusive and may be enforced in other jurisdictions by suit on the judgment or in any other
+manner provided by law. Nothing in this Section shall affect the rights of any Beneficiary to
+serve legal process in any other manner permitted by the law or affect the right of any Beneficiary
+to bring any action or proceeding against any Guarantor or its Property in the courts of any other
+jurisdiction.
+
+     Section 15. Amendment and Restatement . As to the Guarantors party to the Existing
+Guaranty, this Guaranty is an amendment and restatement of the Existing Guaranty and is given in
+renewal and replacement for such Existing Guaranty. Such Guarantors, though not required, hereby
+consent to the terms of the Credit Agreement.
+
+     Section 16. INDEMNIFICATION . EACH GUARANTOR SHALL INDEMNIFY EACH OF THE
+BENEFICIARIES, AND THEIR RESPECTIVE DIRECTORS, OFFICERS, EMPLOYEES AND AGENTS FROM, AND DISCHARGE,
+RELEASE, AND HOLD EACH OF THEM HARMLESS AGAINST, ANY AND ALL LIABILITIES, OBLIGATIONS, LOSSES,
+CLAIMS, EXPENSES, OR DAMAGES OF ANY KIND OR NATURE WHATSOEVER TO WHICH ANY OF THEM MAY BECOME
+SUBJECT RELATING TO OR ARISING OUT OF THIS GUARANTY, INCLUDING ANY LIABILITIES, OBLIGATIONS,
+LOSSES, CLAIMS, EXPENSES, OR DAMAGES WHICH ARISE OUT OF OR RESULT FROM (A) ANY ACTUAL OR PROPOSED
+USE BY THE BORROWER, ANY GUARANTOR OR ANY AFFILIATE OF THE BORROWER OR ANY GUARANTOR OF THE
+PROCEEDS OF THE ADVANCES, (B) ANY BREACH BY THE BORROWER OR ANY GUARANTOR OF ANY PROVISION OF THE
+CREDIT AGREEMENT OR ANY OTHER LOAN DOCUMENT, (C) ANY INVESTIGATION, LITIGATION OR OTHER PROCEEDING
+(INCLUDING ANY THREATENED INVESTIGATION OR PROCEEDING) RELATING TO THE FOREGOING, (D) ANY
+ENVIRONMENTAL CLAIM OR REQUIREMENT OF ENVIRONMENTAL LAWS CONCERNING OR RELATING TO THE PRESENT OR
+PREVIOUSLY-OWNED OR OPERATED PROPERTIES OF THE BORROWER, ANY
+
+Third Amended and Restated Guaranty
+Third Amended and Restated Credit Agreement
+
+Page 7 of 14
+
+GUARANTOR OR THE OPERATIONS OR BUSINESS, OF THE BORROWER OR ANY GUARANTOR, INCLUDING ANY
+MATTER DISCLOSED WITHIN THE CREDIT AGREEMENT, OR (E) ANY ENVIRONMENTAL CLAIM OR REQUIREMENT OF
+ENVIRONMENTAL LAWS CONCERNING OR RELATED TO THE BORROWER’S OR ANY GUARANTOR’S PROPERTIES AND EACH
+GUARANTOR SHALL REIMBURSE THE BENEFICIARIES AND THEIR RESPECTIVE DIRECTORS, OFFICERS, EMPLOYEES AND
+AGENTS, UPON DEMAND FOR ANY OUT-OF-POCKET EXPENSES (INCLUDING LEGAL FEES) INCURRED IN CONNECTION
+WITH ANY SUCH INVESTIGATION, LITIGATION OR OTHER PROCEEDING; AND EXPRESSLY INCLUDING ANY SUCH
+LOSSES, LIABILITIES, CLAIMS, DAMAGES, OR EXPENSES INCURRED BY REASON OF THE PERSON BEING
+INDEMNIFIED’S OWN NEGLIGENCE, BUT EXCLUDING ANY SUCH LOSSES, LIABILITIES, CLAIMS, DAMAGES OR
+EXPENSES THAT IS FOUND IN A FINAL, NON-APPEALABLE JUDGMENT BY A COURT OF COMPETENT JURISDICTION TO
+HAVE RESULTED FROM SUCH INDEMNIFIED PERSON’S GROSS NEGLIGENCE OR WILLFUL MISCONDUCT.
+
+     Section 17. WAIVER OF JURY TRIAL . EACH GUARANTOR HEREBY ACKNOWLEDGES THAT IT HAS BEEN
+REPRESENTED BY AND HAS CONSULTED WITH COUNSEL OF ITS CHOICE, AND HEREBY KNOWINGLY, VOLUNTARILY,
+INTENTIONALLY, AND IRREVOCABLY WAIVES ANY AND ALL RIGHT TO TRIAL BY JURY IN RESPECT OF ANY LEGAL
+PROCEEDING ARISING OUT OF OR RELATING TO THIS GUARANTY, ANY OTHER LOAN DOCUMENT OR ANY OF THE
+TRANSACTIONS CONTEMPLATED HEREBY OR THEREBY.
+
+     Section 18. Additional Guarantors . Pursuant to Section 6.15 of the Credit Agreement,
+each Subsidiary of the Borrower (other than any Entrada Entity, unless CIECO Debt Termination has
+occurred) that was not in existence on the date of the Credit Agreement is required to enter into
+this Guaranty as a Guarantor upon becoming a Subsidiary. After the date hereof, upon execution and
+delivery after the date hereof by the Administrative Agent and such Subsidiary of an instrument in
+the form of Annex 1, such Subsidiary shall become a Guarantor hereunder with the same force and
+effect as if originally named as a Guarantor herein. The execution and delivery of any instrument
+adding an additional Guarantor as a party to this Guaranty shall not require the consent of any
+other Guarantor hereunder. The rights and obligations of each Guarantor hereunder shall remain in
+full force and effect notwithstanding the addition of any new Guarantor as a party to this
+Guaranty.
+
+     Section 19. USA Patriot Act . Each Beneficiary that is subject to the Act (as
+hereinafter defined) and the Administrative Agent (for itself and not on behalf of any other
+Beneficiary) hereby notifies the Guarantors that pursuant to the requirements of the USA Patriot
+Act (Title III of Pub. L. 107-56 (signed into law October 26, 2001))(the “Act”), it is required to
+obtain, verify and record information that identifies the Guarantors, which information includes
+the name and address of the Guarantors and other information that will allow such Beneficiary or
+the Administrative Agent, as applicable, to identify the Guarantors in accordance with the Act.
+Following a request by any Beneficiary, Guarantors shall promptly furnish all documentation and
+other information that such Beneficiary reasonably requests in order to comply with its
+
+Third Amended and Restated Guaranty
+Third Amended and Restated Credit Agreement
+
+Page 8 of 14
+
+ongoing obligations under applicable “know your customer” and anti-money laundering rules and
+regulations, including the Act.
+
+      THE RIGHTS AND OBLIGATIONS OF THE PARTIES TO AN AGREEMENT SUBJECT TO THE PRECEDING PARAGRAPH
+SHALL BE DETERMINED SOLELY FROM THE WRITTEN AGREEMENT, AND ANY PRIOR ORAL AGREEMENTS BETWEEN THE
+PARTIES ARE SUPERSEDED BY AND MERGED INTO THIS GUARANTY. THIS GUARANTY AND THE GUARANTEED
+DOCUMENTS REPRESENT THE FINAL AGREEMENT AMONG THE PARTIES WITH RESPECT TO THE SUBJECT MATTER HEREOF
+AND MAY NOT BE CONTRADICTED BY EVIDENCE OF PRIOR, CONTEMPORANEOUS, OR SUBSEQUENT ORAL AGREEMENTS OF
+THE PARTIES.
+
+      THERE ARE NO UNWRITTEN ORAL AGREEMENTS AMONG THE PARTIES.
+
+[Remainder of this page intentionally left blank.]
+
+Third Amended and Restated Guaranty
+Third Amended and Restated Credit Agreement
+
+Page 9 of 14
+
+     Each Guarantor has caused this Guaranty to be duly executed as of the date first above
+written.
+
+GUARANTOR:
+
+CALLON PETROLEUM OPERATING COMPANY,
+a Delaware corporation
+
+By:  
+
+Name:  
+
+Title:  
+
+Address for Guarantor:
+200 North Canal Street
+Natchez, Mississippi 39120
+Attention: Rodger W. Smith, Treasurer
+Facsimile: 601.446.1410
+Telephone: 601 442 1601
+
+ADMINISTRATIVE AGENT:
+
+REGIONS BANK,
+as Administrative Agent
+
+By:  
+
+William A. Philipp, 
+
+Vice President 
+
+Third Amended and Restated Guaranty
+Third Amended and Restated Credit Agreement
+
+Page 10 of 14
+
+Annex 1 to the Third Amended and
+
+Restated Guaranty Agreement
+
+     SUPPLEMENT NO. ___ dated as of ___ (the “ Supplement ”), to the Third Amended
+and Restated Guaranty Agreement dated as of January 29, 2010 (as amended, supplemented or otherwise
+modified from time to time, the “ Guaranty Agreement ”), executed by each of the subsidiaries
+party thereto (each such subsidiary individually, a “ Guarantor ” and collectively, the
+“ Guarantors ”) of Callon Petroleum Company, a Delaware corporation (the “ Borrower ”),
+in favor of Regions Bank, as administrative agent for the benefit of the Beneficiaries (as defined
+in the Guaranty Agreement).
+
+     A. Reference is made to the Third Amended and Restated Credit Agreement dated as of January
+29, 2010 (as amended, supplemented or otherwise modified from time to time, the “ Credit
+Agreement ”), among the Borrower, the lenders from time to time party thereto (the
+“ Lenders ”), and Regions Bank, as administrative agent (in such capacity, the
+“ Administrative Agent ”) and issuing lender (in such capacity, the “ Issuing Lender ”)
+for the Lenders.
+
+     B. Capitalized terms used herein and not otherwise defined herein shall have the meanings
+assigned to such terms in the Guaranty Agreement or the Credit Agreement.
+
+     C. The Guarantors have entered into the Guaranty Agreement in order to induce the Lenders to
+make Advances and the Issuing Lender to issue Letters of Credit. Pursuant to Section 6.15 of the
+Credit Agreement, any new Subsidiaries of the Borrower (other than any Entrada Entity, unless CIECO
+Debt Termination has occurred) are required to enter into the Guaranty Agreement as Guarantors.
+Section 18 of the Guaranty Agreement provides that additional Subsidiaries of the Borrower may
+become Guarantors under the Guaranty Agreement by execution and delivery of an instrument in the
+form of this Supplement. The undersigned Subsidiary of the Borrower (the “ New Guarantor ”)
+is executing this Supplement in accordance with the requirements of the Credit Agreement to become
+a Guarantor under the Guaranty Agreement in order to induce the Lenders to make additional Advances
+and the Issuing Lender to issue additional Letters of Credit and as consideration for Advances
+previously made and Letters of Credit previously issued.
+
+     Accordingly, the Administrative Agent and the New Guarantor agree as follows:
+
+     SECTION 1. In accordance with Section 18 of the Guaranty Agreement, the New Guarantor by its
+signature below becomes a Guarantor under the Guaranty Agreement with the same force and effect as
+if originally named therein as a Guarantor and the New Guarantor hereby (a) agrees to all the terms
+and provisions of the Guaranty Agreement applicable to it as a Guarantor thereunder and
+(b) represents and warrants that the representations and warranties made by it as a Guarantor
+thereunder are true and correct in all material respects on and as of the date hereof. Each
+reference to a “Guarantor” in the Guaranty Agreement shall be deemed to include the New Guarantor.
+The Guaranty Agreement is hereby incorporated herein by reference.
+
+     SECTION 2. The New Guarantor represents and warrants to the Administrative Agent and the other
+Beneficiaries that this Supplement has been duly authorized, executed and
+
+Third Amended and Restated Guaranty
+Third Amended and Restated Credit Agreement
+
+Page 11 of 14
+
+delivered by it and constitutes its legal, valid and binding obligation, enforceable against
+it in accordance with its terms (subject to applicable bankruptcy, reorganization, insolvency,
+moratorium or similar laws affecting creditors’ rights generally and subject, as to enforceability,
+to equitable principles of general application (regardless of whether enforcement is sought in a
+proceeding in equity or at law)).
+
+     SECTION 3. This Supplement may be executed in counterparts, each of which shall constitute an
+original, but all of which when taken together shall constitute a single contract. This Supplement
+shall become effective when the Administrative Agent shall have received counterparts of this
+Supplement that, when taken together, bear the signatures of the New Guarantor and the
+Administrative Agent. Delivery of an executed signature page to this Supplement by fax transmission
+shall be as effective as delivery of a manually executed counterpart of this Supplement.
+
+     SECTION 4. Except as expressly supplemented hereby, the Guaranty Agreement shall remain in
+full force and effect.
+
+     SECTION 5. THIS SUPPLEMENT SHALL BE GOVERNED BY, AND CONSTRUED AND ENFORCED IN ACCORDANCE
+WITH, THE LAWS OF THE STATE OF MISSISSIPPI. The New Guarantor hereby irrevocably submits to the
+jurisdiction of any Mississippi state court sitting in Madison County, Mississippi or federal court
+for the Southern District of Mississippi in any action or proceeding arising out of or relating to
+this Supplement or the Guaranty and the other Guaranteed Documents, and the New Guarantor hereby
+irrevocably agrees that all claims in respect of such action or proceeding may be heard and
+determined in such court. The New Guarantor hereby irrevocably waives, to the fullest extent it
+may effectively do so, any right it may have to the defense of an inconvenient forum to the
+maintenance of such action or proceeding. The New Guarantor hereby agrees that service of copies
+of the summons and complaint and any other process which may be served in any such action or
+proceeding may be made by mailing or delivering a copy of such process to such Guarantor at its
+address set forth on the signature page hereof. The New Guarantor agrees that a final judgment in
+any such action or proceeding shall be conclusive and may be enforced in other jurisdictions by
+suit on the judgment or in any other manner provided by law. Nothing in this Section shall affect
+the rights of any Beneficiary to serve legal process in any other manner permitted by the law or
+affect the right of any Beneficiary to bring any action or proceeding against the New Guarantor or
+its Property in the courts of any other jurisdiction.
+
+     SECTION 6. In case any one or more of the provisions contained in this Supplement should be
+held invalid, illegal or unenforceable in any respect, the validity, legality and enforceability of
+the remaining provisions contained herein and in the Guaranty Agreement shall not in any way be
+affected or impaired thereby (it being understood that the invalidity of a particular provision
+hereof in a particular jurisdiction shall not in and of itself affect the validity of such
+provision in any other jurisdiction). The parties hereto shall endeavor in good-faith negotiations
+to replace the invalid, illegal or unenforceable provisions with valid provisions the economic
+effect of which comes as close as possible to that of the invalid, illegal or unenforceable
+provisions.
+
+Third Amended and Restated Guaranty
+Third Amended and Restated Credit Agreement
+
+Page 12 of 14
+
+     SECTION 7. All communications and notices hereunder shall be in writing and given as provided
+in Section 11 of the Guaranty Agreement. All communications and notices hereunder to the New
+Guarantor shall be given to it at the address set forth under its signature below.
+
+     SECTION 8. The New Guarantor agrees to reimburse the Administrative Agent for its reasonable
+out-of-pocket expenses in connection with this Supplement, including the fees, disbursements and
+other charges of counsel for the Administrative Agent.
+
+      THE RIGHTS AND OBLIGATIONS OF THE PARTIES TO AN AGREEMENT SUBJECT TO THE PRECEDING PARAGRAPH
+SHALL BE DETERMINED SOLELY FROM THE WRITTEN AGREEMENT, AND ANY PRIOR ORAL AGREEMENTS BETWEEN THE
+PARTIES ARE SUPERSEDED BY AND MERGED INTO THIS GUARANTY. THIS SUPPLEMENT, THE GUARANTY AGREEMENT
+AND THE OTHER GUARANTEED DOCUMENTS REPRESENT THE FINAL AGREEMENT AMONG THE PARTIES WITH RESPECT TO
+THE SUBJECT MATTER HEREOF AND MAY NOT BE CONTRADICTED BY EVIDENCE OF PRIOR, CONTEMPORANEOUS, OR
+SUBSEQUENT ORAL AGREEMENTS OF THE PARTIES.
+
+THERE ARE NO UNWRITTEN ORAL AGREEMENTS AMONG THE PARTIES.
+
+Third Amended and Restated Guaranty
+Third Amended and Restated Credit Agreement
+
+Page 13 of 14
+
+     IN WITNESS WHEREOF, the New Guarantor and the Administrative Agent have duly executed this
+Supplement to the Guaranty Agreement as of the day and year first above written.
+
+[Name of New Guarantor]
+
+By:  
+
+Name:  
+
+Title:  
+
+Address:  
+
+REGIONS BANK, as Administrative Agent
+
+By:  
+
+Name:  
+
+Title:  
+
+Third Amended and Restated Guaranty
+Third Amended and Restated Credit Agreement
+
+Page 14 of 14

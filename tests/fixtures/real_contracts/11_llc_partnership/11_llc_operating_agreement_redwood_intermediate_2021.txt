@@ -1,0 +1,3115 @@
+EX-10.3
+6
+tm2130841d1_ex10-3.htm
+EXHIBIT 10.3
+
+Exhibit 10.3
+
+EXECUTION VERSION
+
+REDWOOD INTERMEDIATE, LLC
+
+FOURTH AMENDED AND RESTATED LIMITED LIABILITY
+COMPANY
+AGREEMENT
+
+Dated as of October 22, 2021
+
+THE UNITS REPRESENTED BY THIS FOURTH AMENDED AND RESTATED LIMITED LIABILITY
+COMPANY AGREEMENT HAVE NOT BEEN REGISTERED UNDER THE UNITED STATES SECURITIES ACT OF 1933, AS AMENDED, OR UNDER ANY OTHER APPLICABLE SECURITIES
+LAWS. SUCH UNITS MAY NOT BE SOLD, ASSIGNED, PLEDGED OR OTHERWISE DISPOSED OF AT ANY TIME WITHOUT EFFECTIVE REGISTRATION UNDER SUCH ACT
+AND LAWS OR EXEMPTION THEREFROM, AND COMPLIANCE WITH THE OTHER SUBSTANTIAL RESTRICTIONS ON TRANSFERABILITY SET FORTH HEREIN.
+
+Table of Contents
+
+Page
+
+Article I DEFINITIONS
+6
+
+1.1
+Certain Definitions
+6
+
+1.2
+Interpretive Provisions
+16
+
+Article II ORGANIZATIONAL MATTERS
+17
+
+2.1
+Formation of Company
+17
+
+2.2
+Limited Liability Company Agreement
+17
+
+2.3
+Name
+17
+
+2.4
+Purpose
+18
+
+2.5
+Principal Office; Registered Office
+18
+
+2.6
+Term
+18
+
+2.7
+No State-Law Partnership
+18
+
+2.8
+Tax Treatment
+18
+
+2.9
+Prior Agreements
+18
+
+Article III CAPITALIZATION; CAPITAL CONTRIBUTIONS
+18
+
+3.1
+Capitalization
+18
+
+3.2
+New PubCo Issuances
+20
+
+3.3
+PubCo Debt Issuance
+21
+
+3.4
+New Company Issuances
+21
+
+3.5
+Repurchases and Redemptions
+22
+
+3.6
+Equity Subdivisions and Combinations
+23
+
+3.7
+General Authority
+23
+
+3.8
+Capital Accounts
+24
+
+3.9
+Negative Capital Accounts
+24
+
+3.10
+No Withdrawal
+24
+
+3.11
+Loans From Members
+24
+
+3.12
+Shares Governed by Article 8
+24
+
+Article IV DISTRIBUTIONS AND ALLOCATIONS
+25
+
+4.1
+Distributions
+25
+
+4.2
+Allocations of Net Profit and Net Loss
+26
+
+4.3
+Special Allocations
+26
+
+4.4
+Tax Allocations
+28
+
+4.5
+Withholding Taxes
+28
+
+4.6
+Allocations Upon Final Liquidation
+30
+
+Article V MANAGEMENT
+30
+
+5.1
+Authority of Managing Member
+30
+
+5.2
+Actions of the Managing Member
+31
+
+5.3
+Compensation; Expenses
+31
+
+5.4
+Delegation of Authority
+32
+
+5.5
+Limitation of Liability
+33
+
+5.6
+Resignation or Termination of Managing Member
+34
+
+Article VI RIGHTS AND OBLIGATIONS OF MEMBERS
+35
+
+6.1
+Limitation of Liability
+35
+
+6.2
+Lack of Authority
+35
+
+6.3
+No Right of Partition
+36
+
+6.4
+Indemnification
+36
+
+6.5
+Members Right to Act
+37
+
+6.6
+Investment Opportunities
+39
+
+Article VII BOOKS, RECORDS, ACCOUNTING AND REPORTS
+39
+
+7.1
+Records and Accounting
+39
+
+7.2
+Fiscal Year
+39
+
+7.3
+Reports
+40
+
+7.4
+Transmission of Communications
+40
+
+7.5
+Confidentiality
+40
+
+Article VIII TAX MATTERS
+41
+
+8.1
+Preparation of Tax Returns
+41
+
+8.2
+Tax Elections
+41
+
+8.3
+Tax Controversies
+41
+
+Article IX RESTRICTIONS ON TRANSFER OF UNITS
+42
+
+9.1
+Transfers of Units
+42
+
+9.2
+Restricted Units Legend
+44
+
+9.3
+Assignee’s Rights
+45
+
+9.4
+Assignor’s Rights and Obligations
+46
+
+9.5
+Encumbrances
+46
+
+9.6
+Further Restrictions
+46
+
+9.7
+Counterparts; Joinder
+47
+
+9.8
+Ineffective Transfer
+48
+
+Article X ADMISSION OF MEMBERS
+48
+
+10.1
+Substituted Members
+48
+
+10.2
+Additional Members
+48
+
+10.3
+Substitute Managing Member
+48
+
+Article XI WITHDRAWAL AND RESIGNATION OF MEMBERS
+48
+
+Article XII EXCHANGE RIGHTS
+49
+
+12.1
+Exchange Procedures
+49
+
+12.2
+Exchange Payment
+50
+
+12.3
+Certain Expenses
+51
+
+12.4
+Exchange Taxes
+51
+
+12.5
+Limitations on Exchanges
+51
+
+12.6
+Adjustments
+52
+
+12.7
+Class A Common Stock to be Issued
+53
+
+12.8
+Distribution Rights
+53
+
+12.9
+Tax Treatment; Tax Withholding
+53
+
+Article XIII DISSOLUTION AND LIQUIDATION
+54
+
+13.1
+Dissolution
+54
+
+13.2
+Winding Up and Termination
+55
+
+13.3
+Deferment; Distribution in Kind
+56
+
+13.4
+Cancellation of Certificate
+56
+
+13.5
+Reasonable Time for Winding Up
+56
+
+13.6
+Return of Capital
+57
+
+Article XIV VALUATION
+57
+
+14.1
+Value
+57
+
+14.2
+Determination and Dispute
+57
+
+Article XV GENERAL PROVISIONS
+57
+
+15.1
+Power of Attorney
+57
+
+15.2
+Amendments
+58
+
+15.3
+Title to Company Assets
+59
+
+15.4
+Addresses and Notices
+60
+
+15.5
+Binding Effect
+61
+
+15.6
+Creditors
+61
+
+15.7
+Waiver
+61
+
+15.8
+Counterparts
+61
+
+15.9
+Applicable Law; Waiver of Jury Trial
+61
+
+15.10
+Severability
+62
+
+15.11
+Further Action
+62
+
+15.12
+Delivery by Facsimile
+62
+
+15.13
+Offset
+62
+
+15.14
+Entire Agreement
+62
+
+15.15
+Remedies
+63
+
+15.16
+Descriptive Headings; Interpretation
+63
+
+EXHIBIT AND SCHEDULES
+
+Exhibit A
+Form of Election of Exchange
+A-1
+
+REDWOOD INTERMEDIATE, LLC
+
+FOURTH AMENDED AND RESTATED LIMITED LIABILITY
+COMPANY
+AGREEMENT
+
+This Fourth Amended and Restated Limited Liability
+Company Agreement, dated as of October 22, 2021 (this “ Agreement” ), is entered into by and among Redwood Intermediate,
+LLC, a Delaware limited liability company (the “ Company ”), PubCo (as defined below), as Managing Member and on its
+behalf, and the Members. Capitalized terms used herein without definition shall have the meanings assigned to such terms in Article
+I .
+
+WHEREAS , Redwood Holdco, L.P., a Delaware
+limited liability company and the initial sole member of the Company (the “ Holding Company ”), entered into the Second
+Amended and Restated Limited Liability Company Agreement of the Company, dated as of September 29, 2020;
+
+WHEREAS , the Holding Company, as the sole
+Member of the Company, entered into the Third Amended and Restated Limited Liability Company Agreement, dated as of the date hereof (the
+“ Prior Agreement ”);
+
+WHEREAS , the Holding Company and the Company
+entered into the Business Combination Agreement, dated as of May 16, 2021 (the “ BCA ”), with PubCo and Seaport Merger
+Sub LLC, a Delaware limited liability company, pursuant to which Seaport Merger Sub, LLC will merge with and into the Company with the
+Company surviving the merger (the “ Merger ”) and the Company will issue Class A Common Units to PubCo and the Holding
+Company;
+
+WHEREAS , the Holding Company, as the sole
+Member of the Company, has agreed to admit PubCo to the Company as Managing Member, and PubCo, by its execution and delivery of this Agreement,
+is hereby admitted to the Company as Managing Member, and in such capacity shall have the rights and obligations as provided in this Agreement;
+and
+
+WHEREAS , the Company, PubCo and the Members
+desire to amend and restate the Prior Agreement in its entirety as set forth herein effective as of immediately before the Effective Time,
+at which time the Prior Agreement will be superseded entirely by this Agreement;
+
+NOW, THEREFORE , in consideration of the mutual
+covenants contained herein and other good and valuable consideration, the receipt and sufficiency of which are hereby acknowledged, the
+parties hereto, intending to be legally bound, hereby agree to amend and restate the Prior Agreement to read in its entirety as follows:
+
+Article
+I
+DEFINITIONS
+
+1.1           
+Certain Definitions . The following definitions shall be applied to the terms used in this Agreement for all purposes, unless
+otherwise clearly indicated to the contrary.
+
+“ Additional Member ” means a Person
+admitted to the Company as a Member pursuant to Section 10.2 .
+
+“Adjusted Capital Account Balance”
+means, with respect to each Member, the balance in such Member’s Capital Account adjusted (i) by taking into account the adjustments,
+allocations and distributions described in Treasury Regulations Sections 1.704-1(b)(2)(ii)(d)(4), (5) and (6); and (ii) by adding to such
+balance such Member’s share of Company Minimum Gain and Member Nonrecourse Debt Minimum Gain, determined pursuant to Treasury Regulations
+Sections 1.704-2(g) and 1.704-2(i)(5), and any amounts such Member is obligated to contribute or deemed obligated to contribute pursuant
+to any provision of this Agreement or by applicable law. The foregoing definition of Adjusted Capital Account Balance is intended to comply
+with the provisions of Treasury Regulations Section 1.704-1(b)(2)(ii)(d) and shall be interpreted consistently therewith.
+
+“ Admission Date ” has the meaning
+set forth in Section 9.4 .
+
+“ Affiliate ” of any Person means
+any Person that directly or indirectly controls, is controlled by, or is under common control with the Person in question, where “ control ”
+means the possession, directly or indirectly, of the power to direct the management and policies of a Person whether through the ownership
+of voting securities, its capacity as a sole or managing member or otherwise. For purposes of this Agreement, no Member shall be deemed
+to be an Affiliate of any other Member solely by reason of being a Member.
+
+“ Agreement ” has the meaning set
+forth in the Preamble to this Agreement.
+
+“ Assignee ” means a Person to whom
+any Units have been Transferred in accordance with the terms of this Agreement but who has not become a Member pursuant to Article
+X .
+
+“ Assumed Tax Rate ” has the meaning
+set forth in Section 4.1(d)(iii) .
+
+“ Available Gains ” has the meaning
+set forth in Section 4.3(c)(ii) .
+
+“ Base Rate ” means, on any date,
+a variable rate per annum equal to the rate of interest most recently published by The Wall Street Journal as the “prime rate”
+at large U.S. money center banks.
+
+“ BCA ” has the meaning set forth
+in the Recitals.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+6
+
+“ Board ” means the board of directors
+of PubCo, as constituted at any given time.
+
+“ Book Value ” means, with respect
+to any property of the Company, the Company’s adjusted basis for U.S. federal income tax purposes, as adjusted from time to time
+to reflect the adjustments required or permitted by Treasury Regulation Section 1.704-1(b)(2)(iv)(d)-(g).
+
+“ Business Day ” means any day,
+other than a Saturday, Sunday or any other day on which commercial banks located in the State of New York are authorized or obligated
+by law or executive order to close.
+
+“ Business Opportunities Exempt Party ”
+has the meaning set forth in Section 6.6 .
+
+“ Capital Account ” means the capital
+account maintained for a Member pursuant to Section 3.8 .
+
+“ Capital Contribution ” means any
+cash, cash equivalents, promissory obligations or the Fair Market Value of other property which a Member contributes to the Company pursuant
+to Section 3.1 .
+
+“ Capital Stock ” shall mean any
+and all shares, interests, participations or other equivalents (however designated) of capital stock of a corporation, any and all equivalent
+ownership interests in a Person (other than a corporation) including, without limitation, partnership or membership interests (including
+any components thereof such as capital accounts, priority returns or the like) in a limited partnership or limited liability company and
+any and all warrants, rights or options to purchase any of the foregoing.
+
+“ Cash Exchange Class A 5-Day VWAP ”
+means the arithmetic average of the VWAP for each of the five (5) consecutive Trading Days ending on the Trading Day immediately prior
+to the Exchange Date.
+
+“ Cash Exchange Notice ” has the
+meaning set forth in Section 12.1(b) .
+
+“ Cash Exchange Payment ” means
+with respect to a particular Exchange for which PubCo has elected to make a Cash Exchange Payment in accordance with Section 12.1(b) :
+
+(i)             
+if the shares of Class A Common Stock are then traded on a National Securities Exchange or automated or electronic quotation system,
+an amount of cash equal to the product of (x) the number of shares of Class A Common Stock that would have been received by the Exchanging
+Member in the Exchange for that portion of the Class A Common Units subject to the Exchange set forth in the Cash Exchange Notice if PubCo
+had paid the Stock Exchange Payment with respect to such number of Class A Common Units, and (y) the Cash Exchange Class A 5-Day VWAP;
+or
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+7
+
+(ii)            if
+the shares of Class A Common Stock are not then traded on a National Securities Exchange or automated or electronic quotation system,
+as applicable, an amount of cash equal to the product of (x) the number of shares of Class A Common Stock that would have been received
+by the Exchanging Member in the Exchange for that portion of the Class A Common Units subject to the Exchange set forth in the Cash Exchange
+Notice if PubCo had paid the Stock Exchange Payment with respect to such number of Class A Common Units, for which PubCo has elected to
+make a Cash Exchange Payment and (y) the value of one (1) share of Class A Common Stock that would be obtained in an arms-length transaction
+between an informed and willing buyer and an informed and willing seller, neither of whom is under any compulsion to buy or sell, respectively,
+and without regard to the particular circumstances of the buyer or seller, as determined in good faith by a majority of the Disinterested
+Members of the Board.
+
+“ Certificate ” means the Company’s
+certificate of formation as filed with the Secretary of State of the State of Delaware, as amended or amended and restated from time to
+time.
+
+“ Class A Common Stock ” means,
+as applicable, (a) the Class A Common Stock, par value $0.0001 per share, of PubCo or (b) following any consolidation, merger, reclassification
+or other similar event involving PubCo, any shares or other securities of PubCo or any other Person that become payable in consideration
+for the Class A Common Stock or into which the Class A Common Stock is exchanged or converted as a result of such consolidation, merger,
+reclassification or other similar event.
+
+“ Class A Common Units ” means the
+common limited liability company membership interests described in Section 3.1(a)(i) and having the rights and preferences specified
+herein.
+
+“ Class A Common Unit Capital Account Amount ”
+means, from time to time, the Capital Account a Member would have if such Member held a single Class A Common Unit.
+
+“ Class A Percentage Interest ”
+means, with respect to any Member, the quotient obtained by dividing the aggregate number of Class A Common Units then owned by such Member
+by the aggregate number of Class A Common Units then owned by all Members.
+
+“ Class B Common Stock ” means,
+as applicable, (a) the Class B Common Stock, par value $0.0001 per share, of PubCo or (b) following any consolidation, merger, reclassification
+or other similar event involving PubCo, any shares or other securities of PubCo or any other Person that become payable in consideration
+for the Class B Common Stock or into which the Class B Common Stock is exchanged or converted as a result of such consolidation, merger,
+reclassification or other similar event.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+8
+
+“ Code ” means the United States
+Internal Revenue Code of 1986, as amended.
+
+“ Company ” has the meaning set
+forth in the Preamble to this Agreement.
+
+“Company Minimum Gain” has the
+meaning ascribed to the term “partnership minimum gain” set forth in Treasury Regulations Sections 1.704-2(b)(2) and 1.704-2(d).
+
+“ Convertible Securities ” means
+any securities directly or indirectly convertible into or exercisable or exchangeable for Units, other than Options.
+
+“ Delaware Act ” means the Delaware
+Limited Liability Company Act, 6 Del. C. § 18-101, et seq., as it may be amended from time to time, and any successor to the Delaware
+Act.
+
+“ Designated Individual ” has the
+meaning set forth in Section 8.3 .
+
+“ Disinterested Members of the Board ”
+means, as of any applicable time, those members of the Board who (a) are not Exchanging Member Related Parties, and (b) were not nominated
+for election to the Board by any Exchanging Member Related Parties pursuant to the provisions of any stockholder, voting or similar agreement
+relating to the election of members of the Board to which PubCo is a party (including, without limitation, the Stockholders Agreement).
+
+“ Disputing Member ” has the meaning
+set forth in Section 14.2 .
+
+“ Distribution ” means each distribution
+made by the Company to a Member, whether in cash, property or securities of the Company and whether by liquidating distribution or otherwise;
+provided that none of the following shall be a Distribution: (a) any redemption or repurchase by the Company of any securities,
+or (b) any recapitalization or exchange of securities of the Company, or any subdivision (by Unit split or otherwise) or any combination
+(by reverse Unit split or otherwise) of any outstanding Units.
+
+“ DTC ” means The Depository Trust
+Company.
+
+“ Economic Capital Account Balance ”
+with respect to a Member means an amount equal to its Capital Account balance, plus the amount of its share of any Member Nonrecourse
+Debt Minimum Gain or Company Minimum Gain.
+
+“ Effective Time ” means the effective
+time of the Merger under the BCA.
+
+“ ERISA ” means the Employee Retirement
+Income Security Act of 1974, as amended.
+
+“ Encumbrance ” means any
+mortgage, hypothecation, claim, lien, encumbrance, conditional sales or other title retention agreement, right of first refusal,
+preemptive right, pledge, option, charge, security interest or other similar interest, easement, judgment or imperfection of title
+of any nature whatsoever.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+9
+
+“ Equity Securities ” means (i)
+Units or other equity interests in the Company (including other classes or groups thereof having such relative rights, powers and duties
+as may from time to time be established by the Managing Member, including rights, powers and/or duties senior to existing classes and
+groups of Units and other equity interests in the Company) or equity interests in any other specified Person, (ii) Convertible Securities
+or other obligations, evidences of indebtedness or other securities or interests convertible or exchangeable into other equity interests
+in the Company or any other specified Person and (iii) Options or warrants, or other rights to purchase or otherwise acquire other equity
+interests in the Company or any other specified Person.
+
+“ Event of Withdrawal ” means the
+death, retirement, resignation, expulsion, bankruptcy or dissolution of a Member or the occurrence of any other event that terminates
+the continued membership of a Member in the Company.
+
+“ Exchange ” means the redemption
+by the Company of Class A Common Units held by a Member (together with the surrender and cancellation of the same number of outstanding
+shares of Class B Common Stock held by such Member) for either (a) a Stock Exchange Payment or (b) if approved by a majority of the Disinterested
+Members of the Board, a Cash Exchange Payment, in each case in accordance with Article XII .
+
+“ Exchange Act ” means the Securities
+Exchange Act of 1934, as amended, and applicable rules and regulations thereunder, and any successor to such statute, rules or regulations.
+Any reference herein to a specific section, rule or regulation of the Exchange Act shall be deemed to include any corresponding provisions
+of future law.
+
+“ Exchange Date ” means the date
+that is five (5) Business Days after the Exchange Notice Date is given; provided , however , that to the extent an Exchange
+is made in connection with an Exchanging Member’s proper exercise of its rights to participate in a Piggy-Back Registration pursuant
+to Section 2.3 of the Registration Rights Agreement, the Exchange Date shall be the date on which the offering with respect to
+such Piggy-Back Registration is completed.
+
+“ Exchange Notice ” means a written
+election of Exchange in the form of Exhibit A , duly executed by an Exchanging Member.
+
+“ Exchange Notice Date ” means,
+with respect to any Exchange Notice, the date such Exchange Notice is given to the Company in accordance with Section 12.1 .
+
+“ Exchanging Member ” means any
+Member holding Class A Common Units (other than PubCo and its wholly-owned Subsidiaries) whose Class A Common Units are subject to an
+Exchange.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+10
+
+“ Exchanging Member Related
+Parties ” means any owners, investors, equityholders, stockholders, members, partners, directors, managers, officers, or
+employees of an Exchanging Member or any of its Affiliates (including its respective investors and equityholders and any associated
+Persons or investment funds or any of their respective portfolio companies or investments), in each case, excluding any Persons who
+are owners, investors, equityholders, officers or employees solely of PubCo or its wholly-owned Subsidiaries.
+
+“ Exchanged Units ” means, with
+respect to any Exchange, the Class A Common Units being exchanged pursuant to a relevant Exchange Notice.
+
+“ Exchange Rate ” means, at any
+time, the number of shares of Class A Common Stock for which one Class A Common Unit is entitled to be Exchanged at such time pursuant
+to this Agreement. On the date of this Agreement, the Exchange Rate shall be one for one, subject to adjustment pursuant to Section
+12.6 .
+
+“ Exempt Pledge ” means a pledge
+by a Member of Class A Common Units held by such Member as collateral to secure obligations (or as a grant or maintenance of a bona
+fide lien, security interest, pledge or other similar encumbrance) pursuant to borrowing, lending, financing or other arrangements
+between one or more third parties (or their Affiliates or designees) (“ Lenders ”) and such Member and/or its Affiliates.
+
+“ Exempt Transfer ” has the meaning
+set forth in Section 9.1(b) .
+
+“ Fair Market Value ” means, with
+respect to any asset or equity interest, its fair market value determined according to Article XIV .
+
+“ Fiscal Year ” means the Company’s
+annual accounting period established pursuant to Section 7.2 .
+
+“ Fund Indemnitees ” has the meaning
+set forth in Section 6.4(e) .
+
+“ Fund Indemnitors ” has the meaning
+set forth in Section 6.4(e) .
+
+“ Governmental Entity ” means the
+United States of America or any other nation, any state or other political subdivision thereof, or any entity exercising executive, legislative,
+judicial, regulatory or administrative functions of government.
+
+“ Holding Company ” has the meaning
+set forth in the Recitals.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+11
+
+“ Imputed Underpayment
+Amount ” means (a) any “imputed underpayment” within the meaning of Section 6225 of the Code (or any
+corresponding or similar provision of state, local or foreign tax law) paid (or payable) by the Company as a result of any
+adjustment by the IRS with respect to any Company item of income, gain, loss, deduction, or credit of the Company (including,
+without limitation, any “partnership-related item” within the meaning of Section 6241(2) of the Code (or any
+corresponding or similar provision of state, local or foreign tax law)), including any interest, penalties or additions to tax with
+respect to any such adjustment, (b) any amount not described in clause (a) (including any interest, penalties or additions to tax
+with respect to such amounts) paid (or payable) by the Company as a result of the application of Sections 6221-6241 of the Code (or
+any corresponding or similar provision of state, local or foreign tax law), and/or (c) any amount paid (or payable) by any entity
+treated as a partnership for U.S. federal income tax purposes in which the Company holds (or has held) a direct or indirect interest
+other than through entities treated as corporations for U.S. federal income tax purposes if the Company bears the economic burden of
+such amounts, whether by law or agreement, as a result of the application of Sections 6221-6241 of the Code (including for the
+avoidance of doubt Section 6226(b) of the Code or any corresponding or similar provision of state, local or foreign tax law),
+including any interest, penalties or additions to tax with respect to such amounts.
+
+“ Indemnified Person ” has the meaning
+set forth in Section 6.4(a) .
+
+“ Liquidity Event ” means, whether
+occurring through one transaction or a series of related transactions, any liquidation, dissolution or winding up, voluntary or involuntary,
+of the Company.
+
+“ Lock-Up Agreement ” means, as
+applicable, (a) the Parent Lock-Up Agreement, dated as of May 16, 2021, by and among PubCo and the Holding Company and (b) the Sponsor
+Lock-Up Agreement, dated as of May 16, 2021, by and among PubCo and Seaport Global SPAC, LLC, in each case as may be amended from time
+to time.
+
+“ Managing Member ” means (i) immediately
+before the Effective Time, the Holding Company, (ii) from and after the Effective Time, PubCo, whereupon the Holding Company shall cease
+to be the Managing Member, or (iii) any successor Managing Member admitted to the Company in accordance with the terms of this Agreement,
+in its capacity as the managing member of the Company.
+
+“ Member ” means each of the Persons
+from time to time admitted to the Company as a member of the Company and listed as a Member in the books and records of the Company, each
+in its capacity as a member of the Company other than PubCo.
+
+“Member Nonrecourse Debt Minimum Gain”
+has the meaning ascribed to the term “partner nonrecourse debt minimum gain” in Treasury Regulations Section 1.704-2(i)(2).
+
+“Member Nonrecourse Deductions”
+has the meaning ascribed to the term “partner nonrecourse deductions” set forth in Treasury Regulations Section 1.704-2(i)(2).
+
+“ Merger ” has the meaning set forth
+in the Recitals.
+
+“ National Securities Exchange ”
+means a securities exchange registered with the Commission under Section 6 of the Exchange Act.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+12
+
+“ Net Loss ” means, with respect
+to a Taxable Year, the excess, if any, of Losses for such Taxable Year over Profits for such Taxable Year (excluding Losses and Profits
+specially allocated pursuant to this Agreement).
+
+“ Net Profit ” means, with respect
+to a Taxable Year, the excess, if any, of Profits for such Taxable Year over Losses for such Taxable Year (excluding Profits and Losses
+specially allocated pursuant to this Agreement).
+
+“Nonrecourse Deductions” has the
+meaning set forth in Treasury Regulations Section 1.704-2(b)(1). The amount of Nonrecourse Deductions of the Company for a Fiscal Year
+equals the net increase, if any, in the amount of Company Minimum Gain of the Company during that fiscal year, determined according to
+the provisions of Treasury Regulations Section 1.704-2(c).
+
+“ Options ” means any right, option
+or warrant to subscribe for, purchase or otherwise acquire any Units.
+
+“ Participate ” (and the correlative
+terms “ Participating ” and “ Participation ”) includes any direct or indirect ownership interest in
+any enterprise or participation in the management of such enterprise, whether as an officer, director, employee, partner, sole proprietor,
+agent, representative, independent contractor, consultant, executive, franchisor, franchisee, creditor, owner or otherwise.
+
+“ Partnership Representative ” has
+the meaning set forth in Section 8.3 .
+
+“ Permitted Hedging Transactions ”
+means convertible securities, derivative securities, options or contracts or instruments used by the Holding Company (together with its
+successors and any Permitted Transferee thereof) to manage, hedge, transfer or dispose the Holding Company’s (or any of its successors’
+or any Permitted Transferee thereof’s) ownership of any Capital Stock of PubCo that the Holding Company (together with its successors
+and any Permitted Transferee thereof) holds of record and/or beneficially.
+
+“ Permitted Transferee ” means any
+transferee in an Exempt Transfer.
+
+“ Person ” means an individual or
+a corporation, partnership, limited liability company, trust, unincorporated organization, association or other entity.
+
+“ Prior Agreement ” has the meaning
+set forth in the Recitals.
+
+“ Profits ” or “ Losses ”
+means items of Company income and gain or loss and deduction, other than items allocated pursuant to Section 4.3 , for an applicable
+tax accounting period determined for purposes of maintaining the Capital Account of each Member under Section 3.2 and in accordance
+with Section 704(b) of the Code and the Treasury Regulations promulgated thereunder.
+
+“ PubCo ” means Redbox Entertainment
+Inc. (f/k/a Seaport Global Acquisition Corp.), a Delaware corporation, and its successors.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+13
+
+“ PubCo Warrants ” has the meaning
+given to “Acquiror Warrants” in the BCA.
+
+“ Registration Rights Agreement ”
+means that certain Amended and Restated Registration Rights Agreement, dated as of or about the date hereof, by and among PubCo and the
+parties listed as Investors on Schedule I thereto, as may be amended from time to time.
+
+“ Securities Act ” means the Securities
+Act of 1933, as amended, and applicable rules and regulations thereunder, and any successor to such statute, rules or regulations. Any
+reference herein to a specific section, rule or regulation of the Securities Act shall be deemed to include any corresponding provisions
+of future law.
+
+“ Securities and Exchange Commission ”
+means the United States Securities and Exchange Commission, including any governmental body or agency succeeding to the functions thereof.
+
+“ Similar Law ” means any law or
+regulation that could cause the underlying assets of the Company to be treated as assets of the Member by virtue of its limited liability
+company interest in the Company and thereby subject the Company and the Managing Member (or other persons responsible for the investment
+and operation of the Company’s assets) to laws or regulations that are similar to the fiduciary responsibility or prohibited transaction
+provisions contained in Title I of ERISA or Section 4975 of the Code.
+
+“ Stock Exchange Payment ” means,
+with respect to any Exchange of Class A Common Units for which a Stock Exchange Payment is elected by the Managing Member, a number of
+shares of Class A Common Stock equal to the number of Class A Common Units so exchanged multiplied by the Exchange Rate.
+
+“ Stockholders Agreement ” means
+the Stockholders Agreement, dated as of or about the date hereof, by and among PubCo, the Holding Company, the parties listed as on Schedule
+A thereto and each additional Person that becomes a party thereto in accordance with Section 7.18 thereof, as may be amended from
+time to time.
+
+“ Subsidiary ” means, with
+respect to any Person, any corporation, limited liability company, partnership, association or business entity of which (i) if a
+corporation, a majority of the total voting power of shares of stock entitled (without regard to the occurrence of any contingency)
+to vote in the election of directors, managers or trustees thereof is at the time owned or controlled, directly or indirectly, by
+that Person or one or more of the other Subsidiaries of that Person or a combination thereof, or (ii) if a limited liability
+company, partnership, association or other business entity (other than a corporation), a majority of partnership or other similar
+ownership interest thereof is at the time owned or controlled, directly or indirectly, by any Person or one or more Subsidiaries of
+that Person or a combination thereof. For purposes hereof, a Person or Persons shall be deemed to have a majority ownership interest
+in a limited liability company, partnership, association or other business entity (other than a corporation) if such Person or
+Persons shall be allocated a majority of limited liability company, partnership, association or other business entity gains or
+losses or shall be or control any managing director or general partner of such limited liability company, partnership, association
+or other business entity. For purposes hereof, references to a “Subsidiary” of the Company shall be given effect only at
+such times that the Company has one or more Subsidiaries, and, unless otherwise indicated, the term “Subsidiary” refers
+to a Subsidiary of the Company.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+14
+
+“ Substituted Member ” means a Person
+that is admitted as a Member to the Company pursuant to Section 10.1 .
+
+“ Tax Distributions ” has the meaning
+set forth in Section 4.1(d)(i) .
+
+“ Tax Estimate ” has the meaning
+set forth in Section 4.1(d)(i) .
+
+“ Tax Receivable Agreement ” mean
+the Tax Receivable Agreement dated as of or about the date hereof among the Company, the Holding Company and PubCo, as amended from time
+to time.
+
+“ Taxable Year ” means the Company’s
+accounting period for federal income tax purposes determined pursuant to Section 8.2 .
+
+“ Transfer ” has the meaning set
+forth in Section 9.1(a) .
+
+“ Transferor’s Owner ” has
+the meaning set forth in Section 9.1(d)(i) .
+
+“ Treasury Regulations ” means the
+income tax regulations promulgated under the Code, as amended.
+
+“ Unit ” means, collectively, the
+Class A Common Units and such other units of the Company as may be authorized, designated or issued, as determined by the Managing Member
+from time to time after the date hereof.
+
+“ VWAP ” means the daily per share
+volume-weighted average price of the Class A Common Stock on the Nasdaq Capital Market or such other principal United States securities
+exchange on which the Class A Common Stock is listed, quoted or admitted to trading, as displayed under the heading Bloomberg VWAP on
+the Bloomberg page designated for the Class A Common Stock (or its equivalent successor if such page is not available) in respect of the
+period from the open of trading on such Trading Day until the close of trading on such Trading Day (or if such volume-weighted average
+price is unavailable, (a) the per share volume-weighted average price of a share of Class A Common Stock on such Trading Day (determined
+without regard to afterhours trading or any other trading outside the regular trading session or trading hours), or (b) if such determination
+is not feasible, the market price per share of Class A Common Stock, in either case as determined by a nationally recognized independent
+investment banking firm retained in good faith for this purpose by PubCo).
+
+“ Withholding Payment ” has the
+meaning set forth in Section 4.5 .
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+15
+
+1.2             Interpretive Provisions . For all purposes of this Agreement, except as otherwise provided in this Agreement or unless the
+context otherwise requires:
+
+(a)               
+The singular includes the plural and the plural includes the singular.
+
+(b)               
+A reference to the masculine gender shall be deemed to be a reference to the feminine gender and vice versa.
+
+(c)               
+The words “or,” “either,” and “any” are not exclusive.
+
+(d)               
+A reference to a Person includes its permitted successors and permitted assigns.
+
+(e)               
+The words “include,” “includes” and “including” are not limiting and shall be deemed to be
+followed by the words “without limitation”.
+
+(f)                
+The headings of particular provisions of this Agreement are inserted for convenience only and will not be construed as a part of
+this Agreement or serve as a limitation or expansion on the scope of any term or provision of this Agreement.
+
+(g)               
+A reference in a document to an Article, Section, Exhibit, Schedule, Annex or Appendix is to the Article, Section, Exhibit, Schedule,
+Annex or Appendix of such document unless otherwise indicated. Exhibits, Schedules, Annexes or Appendices to any document shall be deemed
+incorporated by reference in such document.
+
+(h)               
+References to any document, instrument or agreement (i) shall include all exhibits, schedules and other attachments thereto, (ii)
+shall include all documents, instruments or agreements issued or executed in replacement thereof, and (iii) shall mean such document,
+instrument or agreement, or replacement or predecessor thereto, as amended, modified and supplemented from time to time and in effect
+at any given time.
+
+(i)                 
+The words “hereof,” “herein” and “hereunder” and words of similar import when used in any document
+shall refer to such document as a whole and not to any particular provision of such document.
+
+(j)                 
+This Agreement is the result of negotiations among, and has been reviewed by, the Members with the advice of counsel to the extent
+deemed necessary by any Member. Accordingly, this Agreement shall be deemed to be the product of all of the Members, and no ambiguity
+shall be construed in favor of or against any Member.
+
+(k)               
+All accounting terms not specifically defined in this Agreement shall be construed in accordance with generally accepted accounting
+principles in the United States of America, consistently applied.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+16
+
+(l)                 
+All references to currency, monetary values and dollars set forth in this Agreement shall mean United States (U.S.) dollars and
+all payments under this Agreement shall be made in United States dollars.
+
+(m)              
+The term “day” shall mean calendar day.
+
+(n)               
+Whenever an event or action is to be performed by a particular date or a period ends on a particular date, and the date in questions
+falls on a day which is not a business day, the event or action shall be performed, or the period shall end, on the next succeeding business
+day.
+
+(o)               
+All references in this Agreement to any law shall be to such law as amended, supplemented, modified and replaced from time to time,
+and all rules and regulations promulgated thereunder.
+
+Article
+II
+ORGANIZATIONAL MATTERS
+
+2.1           
+Formation of Company . The Company was formed on August 8, 2016 pursuant to the provisions of the Delaware Act.
+
+2.2           
+Limited Liability Company Agreement . The Members hereby execute this Agreement for the purpose of establishing the affairs
+of the Company and the conduct of its business in accordance with the provisions of the Delaware Act. This Agreement amends and restates
+the Prior Agreement in its entirety and shall constitute the “limited liability company agreement” (as that term is defined
+in the Delaware Act) of the Company effective as of the Effective Time. The Members hereby agree that during the term of the Company set
+forth in Section 2.6 the rights and obligations of the Members with respect to the Company will be determined in accordance with
+the terms and conditions set forth in this Agreement and the Delaware Act. On any matter upon which this Agreement is silent, the Delaware
+Act shall control. No provision of this Agreement shall be in violation of the Delaware Act and to the extent any provision of this Agreement
+is in violation of the Delaware Act, such provision shall be void and of no effect to the extent of such violation without affecting the
+validity of the other provisions of this Agreement; provided , however , that where the Delaware Act provides that a provision
+of the Delaware Act shall apply “unless otherwise provided in a limited liability company agreement” or words of similar effect,
+the provisions of this Agreement shall in each instance control.
+
+2.3             Name . The name of the Company shall be “Redwood Intermediate, LLC”. The Managing Member in its sole discretion
+may change the name of the Company at any time and from time to time in accordance with the Delaware Act. Notification of any such change
+shall be given to all of the Members. The Company’s business may be conducted under its name and/or any other name or names deemed
+advisable by the Managing Member.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+17
+
+2.4             Purpose .
+The Company shall have authority to engage in any lawful business, purpose or activity permitted by the Delaware Act. The Company shall
+possess and may exercise all of the powers and privileges granted by the Act or by any other law or by this Agreement, together with
+any powers incidental thereto, and may take any other action not prohibited under the Act or other applicable law, including such powers
+or privileges as are necessary or convenient to the conduct, promotion or attainment of the business, purposes or activities of the Company.
+
+2.5             Principal Office; Registered Office . The principal office of the Company shall be at 1 Tower Lane, Suite 800, Oakbrook Terrace,
+Illinois 60181, or such other place as the Managing Member may from time to time designate. The Company may maintain offices at such other
+place or places as the Managing Member deems advisable. Notification of any such change shall be given to all of the Members. The address
+of the registered office of the Company in the State of Delaware shall be 251 Little Falls Drive, City of Wilmington, County of New Castle,
+Delaware 19808, and the registered agent for service of process on the Company in the State of Delaware at such registered office shall
+be Corporation Service Company.
+
+2.6             Term . The term of the Company commenced upon the filing of the Certificate in accordance with the Delaware Act and shall
+continue in existence until dissolution thereof in accordance with the provisions of Article XIII . The existence of the Company
+as a separate legal entity shall continue until cancellation of the Certificate as provided in the Delaware Act.
+
+2.7             No State-Law Partnership . The Members intend that the Company not be a partnership (including, without limitation, a limited
+partnership) or joint venture, and that no Member be a partner or joint venturer of any other Member by virtue of this Agreement, for
+any purposes other than as set forth in Section 2.8 , and neither this Agreement nor any other document entered into by the Company
+or any Member relating to the subject matter hereof shall be construed to suggest otherwise.
+
+2.8             Tax Treatment . The Members intend that the Company shall be treated as a partnership for federal and applicable state or
+local income tax purposes, and that each Member and the Company shall file all tax returns and shall otherwise take all tax and financial
+reporting positions in a manner consistent with and actions necessary to obtain such treatment.
+
+2.9            
+Prior Agreements . For the avoidance of doubt, all prior limited liability company agreements amongst the Company and its
+members, including all amendments thereto, shall govern and control for all periods prior to the date hereof.
+
+Article
+III
+CAPITALIZATION; CAPITAL CONTRIBUTIONS
+
+3.1             Capitalization .
+
+(a)                Each
+Member shall hold Units, and the relative rights, privileges, preferences and obligations with respect to each Member’s Units
+shall be determined under this Agreement and the Delaware Act based upon the number and the class of Units held by such Member. The
+number and the class of Units held by each Member shall be set forth in the books and records of the Company. The Company shall
+maintain a schedule (as updated and amended from time to time in accordance with the terms of this Agreement and current as of the
+date set forth therein), which shall include: (i) the name and address of each Member; (ii) the aggregate number of and type of
+Units issued and outstanding held by each Member; and (iii) each Member’s Capital Contributions following the Effective Time.
+The class of Units as of the Effective Time is as follows:
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+18
+
+(i)                 
+Class A Common Units . The Class A Common Units shall have all the rights, privileges and obligations as are specifically
+provided for in this Agreement for Class A Common Units, and as may otherwise be generally applicable to all classes of Units, unless
+such application is specifically limited to one or more other classes of Units.
+
+The Members shall have no right to vote on any matter, except as specifically
+set forth in this Agreement, or as may be required under the Delaware Act. Any such vote shall be at a meeting of the Members entitled
+to vote or in writing as provided herein.
+
+(b)                Subject
+to the provisions of this Agreement, the Managing Member in its sole discretion may establish and issue, from time to time in
+accordance with such procedures as the Managing Member shall determine from time to time, additional Units, in one or more classes
+or series of Units, or other Company securities, at such price, and with such designations, preferences and relative, participating,
+optional or other special rights, powers and duties (which may be senior to existing Units, classes and series of Units or other
+Company securities), as shall be determined by the Managing Member without the approval of any Member or any other Person who may
+acquire an interest in any of the Units, including (i) the right of such Units to share in Profits and Losses or items thereof; (ii)
+the right of such Units to share in Company distributions; (iii) the rights of such Units upon dissolution and winding up of the
+Company; (iv) whether, and the terms and conditions upon which, the Company may or shall be required to redeem such Units (including
+sinking fund provisions); (v) whether such Units are issued with the privilege of conversion or exchange and, if so, the terms and
+conditions of such conversion or exchange; (vi) the terms and conditions upon which such Units will be issued, evidenced by
+certificates and assigned or transferred; (vii) the method for determining the Class A Percentage Interest as to such Units; (viii)
+the terms and conditions of the issuance of such Units (including, without limitation, the amount and form of consideration, if any,
+to be received by the Company in respect thereof, the Managing Member being expressly authorized, in its sole discretion, to cause
+the Company to issue such Units for less than fair market value); and (ix) the right, if any, of the holder of such Units to vote on
+Company matters, including matters relating to the relative designations, preferences, rights, powers and duties of such Units.
+Subject to the provisions of this Agreement, the Managing Member in its sole discretion, without the approval of any Member or any
+other Person, is authorized (i) to issue Units or other Company securities of any newly established class or any existing class to
+Members or other Persons who may acquire an interest in the Company; (ii) to amend this Agreement to reflect the creation of any
+such new class, the issuance of Units or other Company securities of such class, and the admission of any Person as a Member which
+has received Units or other Company securities; and (iii) to effect the combination, subdivision and/or reclassification of
+outstanding Units as may be necessary or appropriate to give economic effect to equity investments in the Company by the Managing
+Member that are not accompanied by the issuance by the Company to the Managing Member of additional Units and to update the books
+and records of the Company accordingly. All Units of a particular class shall have identical rights in all respects as all other
+Units of such class, except in each case as otherwise specified in this Agreement. The Company shall not, and the Managing Member
+shall not cause the Company to, issue any Units if such issuance would (i) result in the Company having more than 100 partners,
+within the meaning of Treasury Regulations Section 1.7704-1(h) (determined taking into account the rules of Treasury Regulations
+Section 1.7704-1(h)(3)) or (ii) pose a material risk that the Company would be treated as a “publicly traded
+partnership” within the meaning of Section 7704 of the Code and the Treasury Regulations promulgated thereunder.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+19
+
+(c)               
+All Units issued hereunder shall be uncertificated unless otherwise determined by the Managing Member.
+
+(d)               
+Each Member who is issued Units by the Company pursuant to the authority of the Managing Member pursuant to Section 5.1
+shall make the Capital Contributions to the Company determined by the Managing Member pursuant to the authority of the Managing Member
+pursuant to Section 5.1 in exchange for such Units.
+
+(e)               
+Each Member, to the extent having the right to consent thereto, by executing this Agreement, hereby confirms, ratifies and approves
+the transactions contemplated by this Agreement and the other agreements and transactions referred to herein.
+
+3.2           
+New PubCo Issuances .
+
+(a)               
+Subject to Article XII and Section 3.2(b) , if, at any time after the Effective Time, PubCo issues shares of its Class
+A Common Stock or any other Equity Security of PubCo (other than shares of Class B Common Stock), (x) the Company shall concurrently issue
+to PubCo an equal number of Class A Common Units (if PubCo issues shares of Class A Common Stock), or an equal number of such other Equity
+Security of the Company corresponding to the Equity Securities issued by PubCo (if PubCo issues Equity Securities of PubCo other than
+Class A Common Stock), and with the same rights to dividends and distributions (including distributions upon liquidation) and other economic
+rights as those of such Equity Securities of PubCo so issued and (y) PubCo shall concurrently contribute to the Company the net proceeds
+or other property received by PubCo, if any, for such shares of Class A Common Stock or other Equity Security.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+20
+
+(b)                Notwithstanding
+anything to the contrary contained in Section 3.2(a) or Section 3.2(c) , this Section 3.2 shall not apply to (x)
+the issuance and distribution to holders of shares of PubCo Class A Common Stock of rights to purchase Equity Securities of PubCo
+under a “poison pill” or similar shareholder rights plan (and upon exchange of Class A Common Units for Class A Common
+Stock, such Class A Common Stock will be issued together with corresponding rights under such plan) or (y) the issuance under
+PubCo’s employee benefit plans of any warrants, options, stock appreciation right, restricted stock, restricted stock units,
+performance based award or other rights to acquire Equity Securities of PubCo or rights or property that may be converted into or
+settled in Equity Securities of PubCo, but shall in each of the foregoing cases apply to the issuance of Equity Securities of PubCo
+in connection with the exercise or settlement of such warrants, options, stock appreciation right, restricted stock units,
+performance based awards or the vesting of restricted stock (including as set forth in clause (c) below, as applicable).
+
+(c)               
+In the event any outstanding Equity Security of PubCo is exercised or otherwise converted and, as a result, any shares of Class
+A Common Stock or other Equity Securities of PubCo are issued (including as a result of the exercise of PubCo Warrants), (x) the corresponding
+Equity Security outstanding at the Company, if any, shall be similarly exercised or otherwise converted, if applicable, (y) an equivalent
+number of Class A Common Units or equivalent Equity Securities of the Company shall be issued to PubCo as required by the first sentence
+of Section 3.2(a), and (z) PubCo shall concurrently contribute to the Company the net proceeds received by PubCo from any such
+exercise or conversion.
+
+3.3           
+PubCo Debt Issuance . If at any time PubCo or any of its Subsidiaries (other than the Company and its Subsidiaries) issues
+Debt Securities, PubCo or such Subsidiary shall transfer to the Company the net proceeds received by PubCo or such Subsidiary, as applicable,
+in exchange for such Debt Securities in a manner that directly or indirectly burdens the Company with the repayment of the Debt Securities.
+
+3.4           
+New Company Issuances . Except pursuant to Article XII , (a) the Company may not issue any additional Units to PubCo
+or any of its Subsidiaries (other than the Company and its Subsidiaries) unless (i) substantially simultaneously therewith PubCo or such
+Subsidiary issues or transfers an equal number of newly-issued shares of Class A Common Stock (or relevant Equity Security of such Subsidiary)
+to another Person or Persons, and (ii) such issuance is in accordance with Section 3.2 , and (b) the Company may not issue any other
+Equity Securities of the Company to PubCo or any of its Subsidiaries (other than the Company and its Subsidiaries) unless (i) substantially
+simultaneously therewith PubCo or such Subsidiary issues or transfers, to another Person, an equal number of newly-issued shares of Equity
+Securities of PubCo or such Subsidiary with substantially the same rights to dividends and distributions (including distributions upon
+liquidation) and other economic rights as those of such Equity Securities of the Company, and (ii) such issuance is in accordance with
+Section 3.2 .
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+21
+
+3.5           
+Repurchases and Redemptions .
+
+(a)                PubCo
+or any of its Subsidiaries (other than the Company and its Subsidiaries) may redeem, repurchase or otherwise acquire (A) shares of
+Class A Common Stock pursuant to a Board approved repurchase plan or program (or otherwise in connection with a transaction approved
+by the Board), provided that substantially simultaneously therewith the Company redeems, repurchases or otherwise acquires from
+PubCo or such Subsidiary an equal number of Class A Common Units for the same price per security, if any, or (B) any other Equity
+Securities of PubCo or any of its Subsidiaries (other than the Company and its Subsidiaries) pursuant to a Board approved repurchase
+plan or program (or otherwise in connection with a transaction approved by the Board), provided that substantially simultaneously
+therewith, the Company redeems, repurchases or otherwise acquires from PubCo or such Subsidiary an equal number of the corresponding
+class or series of Equity Securities of the Company with the same rights to dividends and distributions (including distributions
+upon liquidation) and other economic rights as those of such Equity Securities of PubCo or such Subsidiary for the same price per
+security, if any.
+
+(b)               
+The Company may not redeem, repurchase or otherwise acquire (x) any Class A Common Units from PubCo or any of its Subsidiaries
+(other than the Company and its Subsidiaries) unless substantially simultaneously therewith, PubCo or such Subsidiary redeems, repurchases
+or otherwise acquires pursuant to a Board approved repurchase plan or program (or otherwise in connection with a transaction approved
+by the Board) an equal number of shares of Class A Common Stock for the same price per security from holders thereof or (y) any other
+Equity Securities of the Company from PubCo or any of its Subsidiaries (other than the Company and its Subsidiaries) unless substantially
+simultaneously therewith, PubCo or such Subsidiary redeems, repurchases or otherwise acquires pursuant to a Board approved repurchase
+plan or program (or otherwise in connection with a transaction approved by the Board) for the same price per security an equal number
+of Equity Securities of PubCo (or such Subsidiary) of a corresponding class or series with substantially the same rights to dividends
+and distributions (including distributions upon liquidation) and other economic rights as those of such Equity Securities of PubCo or
+such Subsidiary.
+
+(c)               
+Notwithstanding the foregoing clauses (a) and (b) of this Section 3.5 , to the extent that any consideration payable by PubCo
+in connection with the redemption, repurchase or acquisition of any shares of Class A Common Stock or other Equity Securities of PubCo
+or any of its Subsidiaries (other than the Company and its Subsidiaries) consists (in whole or in part) of shares of Class A Common Stock
+or such other Equity Securities (including in connection with the cashless exercise of an option or warrant (or other convertible right
+or security)) other than under PubCo’s employee benefit plans for which there are no corresponding Class A Common Units or other
+Equity Securities of the Company, the redemption, repurchase or acquisition of the corresponding Class A Common Units or other Equity
+Securities of the Company shall be effectuated in an equivalent manner; provided that clause (c) shall not apply to a redemption,
+repurchase or acquisition to the extent paid in connection with a contribution to the Company of cash previously received as a distribution
+from the Company.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+22
+
+3.6             Equity Subdivisions and Combinations .
+
+(a)               
+The Company shall not in any manner effect any subdivision (by any equity split, equity distribution, reclassification, recapitalization
+or otherwise) or combination (by reverse equity split, reclassification, recapitalization or otherwise) of the outstanding Units unless
+accompanied by an identical subdivision or combination, as applicable, of the outstanding Class A Common Stock or other related class
+or series of Equity Security of PubCo, with corresponding changes made with respect to any other exchangeable or convertible Equity Securities
+of the Company and PubCo.
+
+(b)               
+Except in accordance with Section 12.6 , PubCo shall not in any manner effect any subdivision (by any equity split, equity
+distribution, reclassification, recapitalization or otherwise) or combination (by reverse equity split, reclassification, recapitalization
+or otherwise) of the outstanding Class A Common Stock or any other class or series of Equity Security of PubCo, unless accompanied by
+an identical subdivision or combination, as applicable, of the outstanding Units or other related class or series of Equity Security of
+the Company, with corresponding changes made with respect to any applicable exchangeable or convertible Equity Securities of the Company
+and PubCo.
+
+3.7             General Authority . For the avoidance of doubt, but subject to Sections 3.1 , 3.2 , 3.3 , 3.4 , 3.5
+and 3.6 , the Company and PubCo (including in its capacity as the Managing Member of the Company) shall be permitted to undertake
+all actions, including an issuance, redemption, reclassification, distribution, division or recapitalization, with respect to the Units
+to maintain at all times a one-to-one ratio between (i) the number of Class A Common Units owned by PubCo, directly or indirectly, and
+the number of outstanding shares of Class A Common Stock, and (ii) the number of outstanding shares of Class B Common Stock held by any
+Person (other than PubCo) and the number of Class A Common Units held by such Person disregarding, for purposes of maintaining the one-to-one
+ratios in clause (i), (A) options, rights or securities of PubCo issued under any plan involving the issuance of any Equity Securities
+of PubCo that are convertible into or exercisable or exchangeable for Class A Common Stock, (B) treasury stock, or (C) preferred stock
+or other debt or equity securities (including warrants, options or rights) issued by PubCo that are convertible or into or exercisable
+or exchangeable for Class A Common Stock (but in each case prior to such conversion or exchange).
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+23
+
+3.8             Capital Accounts .
+
+(a)                A
+separate capital account (each, a “ Capital Account ”) shall be established for each Member and shall be maintained
+in accordance with Treasury Regulations Section 1.704-1(b)(2)(iv) and this Section 3.8 shall be interpreted and applied in a
+manner consistent with such Treasury Regulations. In accordance with Treasury Regulations Section 1.704-1(b)(2)(iv)(f), the Company
+may adjust the Capital Accounts of its Members to reflect revaluations (including any unrealized income, gain or loss) of the
+Company’s property (including intangible assets such as goodwill), whenever it issues additional interests in the Company
+(including any interests issued with a zero initial Capital Account), or whenever the adjustments would otherwise be permitted under
+such Treasury Regulations. In the event that the Capital Accounts of the Members are so adjusted, (i) the Capital Accounts of the
+Members shall be adjusted in accordance with Treasury Regulations Section 1.704-1(b)(2)(iv)(g) for allocations of depreciation,
+depletion, amortization and gain or loss, as computed for book purposes, with respect to such property and (ii) the Members’
+distributive shares of depreciation, depletion, amortization and gain or loss, as computed for tax purposes, with respect to such
+property shall be determined so as to take account of the variation between the adjusted tax basis and Book Value of such property
+in the same manner as under Section 704(c) of the Code. In the event that Section 704(c) of the Code applies to property of the
+Company, the Capital Accounts of the Members shall be adjusted in accordance with Treasury Regulations Section 1.704-1(b)(2)(iv)(g)
+for allocations of depreciation, depletion, amortization, and gain and loss, as computed for book purposes with respect to such
+property. The Capital Accounts shall be increased (decreased) by the amount of Profits (Losses) allocated to the respective Members
+in accordance with this Agreement and applicable Treasury Regulations, and shall be maintained for the sole purpose of allocating
+Profits and Losses among the Members and have no effect on the amount of any distributions to any Members in liquidation or
+otherwise. In connection with the transactions contemplated by this Agreement, the Capital Accounts of the Members shall be adjusted
+in accordance with Treasury Regulations Section 1.704-1(b)(2)(iv)(f) and determined as of the date hereof and the Capital Account of
+each Member shall be reflected in the books and records of the Company.
+
+3.9            
+Negative Capital Accounts . No Member shall be required to pay to any other Member or the Company any deficit or negative
+balance which may exist from time to time in such Member’s Capital Account (including upon and after dissolution of the Company).
+
+3.10          
+No Withdrawal . No Person shall be entitled to withdraw any part of such Person’s Capital Contribution or Capital Account
+or to receive any Distribution from the Company, except as expressly provided herein.
+
+3.11          
+Loans From Members . Loans by Members to the Company shall not be considered Capital Contributions. If any Member shall advance
+funds to the Company in excess of the amounts required hereunder to be contributed by such Member to the capital of the Company, the making
+of such advances shall not result in any increase in the amount of the Capital Account of such Member. The amount of any such advances
+shall be a debt of the Company to such Member and shall be payable or collectible in accordance with the terms and conditions upon which
+such advances are made.
+
+3.12           Shares
+Governed by Article 8 . The Company hereby irrevocably elects that all Units in the Company shall be securities governed by
+Article 8 of the Uniform Commercial Code as in effect in the State of Delaware and each other applicable jurisdiction. Should the
+Company issue certificates to a Member evidencing the Units held by such Member in the Company, each such certificate shall bear the
+following legend, among others determined by the Board: “This certificate evidences an interest in Redwood Intermediate LLC
+and shall be a security governed by Article 8 of the Uniform Commercial Code as in effect in the State of Delaware and, to the
+extent permitted by applicable law, each other applicable jurisdiction.”
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+24
+
+Article
+IV
+DISTRIBUTIONS AND ALLOCATIONS
+
+4.1            
+Distributions .
+
+(a)               
+Distributions Generally . The Managing Member may, subject to (i) any restrictions contained in the financing agreements
+to which the Company or any its Subsidiaries is a party, (ii) having available cash, and (iii) any other restrictions set forth in this
+Agreement, make Distributions at any time and from time to time. Notwithstanding any other provision of this Agreement to the contrary,
+no Distribution, Tax Distribution or other payment in respect of Units shall be required to be made to any Member if, and to the extent
+that, such Distribution, Tax Distribution or other payment in respect of Units would not be permitted under the Delaware Act or other
+applicable law.
+
+(b)               
+Operating Distributions . Subject to Section 4.1(d) with respect to Tax Distributions, all Distributions by the Company
+other than those made in connection with a Liquidity Event pursuant to Section 4.1(c) , shall be made or allocated to holders of
+Class A Common Units pro rata based on the number of Class A Common Units held by each such holder and the total number of outstanding
+Class A Common Units.
+
+(c)               
+Distributions in Connection with a Liquidity Event . Subject to Section 4.1(d) with respect to Tax Distributions,
+all Distributions by the Company, and all proceeds (whether received by the Company or directly by the Members) in connection with any
+Liquidity Event, shall be made or allocated among the holders of Class A Common Units pro rata based on the number of Class A Common
+Units held by each such holder and the total number of outstanding Class A Common Units.
+
+(d)               
+Tax Distributions .
+
+(i)                  At
+least two Business Days prior to the date on which any U.S. federal corporate estimated tax payments are due the Company shall make
+distributions to each Member of the Company on a pro rata basis based on the number of Class A Common Units held by each Member in
+an amount that in the Managing Member’s reasonable discretion allows every Member to satisfy its tax liability with respect to
+its Class A Common Units (“ Tax Distributions ”). The amount of any Tax Distributions shall be determined assuming
+that each Member is a corporation, and each Member’s only income is from the Company, which amount of income shall be
+calculated based on the projections believed by the Managing Member in good faith to be reasonable projections of the taxable income
+of the Company for the applicable tax period (a “ Tax Estimate ”) multiplied by the highest marginal federal, state
+and local tax rate for a corporation that is resident in the United States applicable to ordinary income, qualified dividend income
+or capital gains, as appropriate, taking into account the holding period of the assets disposed of and the year in which the taxable
+net income is recognized by the Company, and taking into account the deductibility of state and local income taxes as applicable at
+the time for U.S. federal income tax purposes and any limitations thereon including pursuant to Section 68 of the Code or Section
+164 of the Code (the " Assumed Tax Rate "). The Assumed Tax Rate shall be the same for all Members.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+25
+
+(ii)                 
+If the aggregate amount of Tax Distributions paid for any Fiscal Year is less than the amount that would be calculated as of the
+end of such Fiscal Year based upon the Company’s actual income for such Fiscal Year, additional Tax Distributions in the amount
+of such shortfall shall be paid as soon as reasonably practicable after the end of such Fiscal Year.
+
+(e)               
+Each Distribution pursuant to Section 4.1(b) and (c) and each Distribution pursuant to Section 4.1(d) shall
+be made to the Persons shown on the Company’s books and records as Members as of the date of such Distribution; provided ,
+however , that any transferor and transferee of Units may mutually agree as to which of them should receive payment of any Distribution
+under Section 4.1(d) .
+
+(f)                
+For purposes of this Section 4.1 , any non-cash Company assets distributed in kind to any Members shall be valued at their
+Fair Market Value in accordance with Article XIV .
+
+4.2            
+Allocations of Net Profit and Net Loss . Except as otherwise provided in this Agreement, including Section 4.3 , Net
+Profits and Net Losses (and, to the extent necessary, individual items of income, gain or loss or deduction of the Company) shall be allocated
+among the Capital Accounts of the Members pro rata in accordance with their respective Percentage Interests. Notwithstanding the foregoing,
+the Managing Member may adjust the allocations to the Members pursuant to this Article in its discretion so as to conform as nearly as
+practicable with the related distributions and expected distributions pursuant to this Agreement, and the Managing Member may take into
+account whatever facts and circumstances the Managing Member reasonably determines are relevant in exercising such discretion (including
+unrealized gains or losses or expected accruals of preferred return).
+
+4.3           
+Special Allocations . Notwithstanding any other provision in this Article IV :
+
+(a)                Minimum
+Gain Chargeback . If there is a net decrease in Company Minimum Gain or Member Nonrecourse Debt Minimum Gain (determined in
+accordance with the principles of Treasury Regulations Sections 1.704-2(d) and 1.704- 2(i)) during any Company taxable year, the
+Members shall be specially allocated items of Company income and gain for such year (and, if necessary, subsequent years) in an
+amount equal to their respective shares of such net decrease during such year, determined pursuant to Treasury Regulations Sections
+1.704-2(g) and 1.704-2(i)(5). The items to be so allocated shall be determined in accordance with Treasury Regulations Section
+1.704-2(f). This Section 4.3(a) is intended to comply with the minimum gain chargeback requirements in such Treasury
+Regulations Sections and shall be interpreted consistently therewith; including that no chargeback shall be required to the extent
+of the exceptions provided in Treasury Regulations Sections 1.704-2(f) and 1.704-2(i)(4).
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+26
+
+(b)               
+Qualified Income Offset . If any Member unexpectedly receives any adjustments, allocations, or distributions described in
+Treasury Regulations Section 1.704-1(b)(2)(ii)(d)(4), (5) or (6), items of Company income and gain shall be specially allocated to such
+Member in an amount and manner sufficient to eliminate the deficit balance in such Member’s Adjusted Capital Account Balance created
+by such adjustments, allocations or distributions as promptly as possible; provided that an allocation pursuant to this Section
+4.3(b) shall be made only to the extent that a Member would have a deficit Adjusted Capital Account Balance in excess of such sum
+after all other allocations provided for in this Article IV have been tentatively made as if this Section 4.3(b) were not
+in this Agreement. This Section 4.3(b) is intended to comply with the “qualified income offset” requirement of the
+Code and shall be interpreted consistently therewith.
+
+(c)               
+Gross Income Allocation . If any Member has a deficit Capital Account at the end of any taxable year which is in excess of
+the sum of (i) the amount such Member is obligated to restore, if any, pursuant to any provision of this Agreement, and (ii) the amount
+such Member is deemed to be obligated to restore pursuant to the penultimate sentences of Treasury Regulations Section 1.704-2(g)(1) and
+1.704-2(i)(5), each such Member shall be specially allocated items of Company income and gain in the amount of such excess as quickly
+as possible; provided that an allocation pursuant to this Section 4.3(c) shall be made only if and to the extent that a
+Member would have a deficit Capital Account in excess of such sum after all other allocations provided for in this Article IV have
+been tentatively made as if Section 4.3(b) and this Section 4.3(c) were not in this Agreement.
+
+(d)               
+Nonrecourse Deductions . Nonrecourse Deductions shall be allocated to the Members holding Class A Common Units in accordance
+with their respective Class A Percentage Interest.
+
+(e)               
+Member Nonrecourse Deductions . Member Nonrecourse Deductions for any taxable period shall be allocated to the Member who
+bears the economic risk of loss with respect to the liability to which such Member Nonrecourse Deductions are attributable in accordance
+with Treasury Regulations Section 1.704-2(j).
+
+(f)                 Ameliorative
+Allocations . Any special allocations of income or gain pursuant to Sections 4.4(a) or 4.4(e) hereof shall be taken
+into account in computing subsequent allocations pursuant to Section 4.2 and this Section 4.3(f) , so that the net
+amount of any items so allocated and all other items allocated to each Member shall, to the extent possible, be equal to the net
+amount that would have been allocated to each Member if such allocations pursuant to Sections 4.3(b) or 4.3(e) had not
+occurred.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+27
+
+4.4           
+Tax Allocations .
+
+(a)               
+Except as provided in Sections 4.4(b) , (c) and (d) , Net Profits and Net Losses (and, to the extent necessary,
+items of income, gains, losses, deductions and credits) of the Company will be allocated, for federal, state and local income tax purposes,
+among the holders of Units in accordance with the allocation of such income, gains, losses, deductions and credits among the holders of
+Units for book purposes.
+
+(b)               
+The Company shall elect to use the “traditional method with curative allocations” within the meaning of Treasury Regulations
+Section 1.704-3(c) with respect to any assets deemed contributed to the Company by Seller in connection with the transactions contemplated
+by the BCA.
+
+(c)               
+If the Book Value of any Company asset is adjusted pursuant to Section 3.2 , subsequent allocations of items of taxable income,
+gain, loss and deduction with respect to such asset shall take account of any variation between the adjusted basis of such asset for federal
+income tax purposes and its Book Value in the same manner as under Section 704(c) of the Code.
+
+(d)               
+Allocations of tax credits, tax credit recapture, and any items related thereto shall be allocated to the holders of Units according
+to their interests in such items as determined by the Managing Member taking into account the principles of Treasury Regulation Section
+1.704-1(b)(4)(ii).
+
+(e)               
+Allocations pursuant to this Section 4.4 are solely for purposes of federal, state and local taxes and shall not affect,
+or in any way be taken into account in computing, any holder’s Capital Account or share of book income, gain, loss or deduction,
+Distributions or other Company items pursuant to any provision of this Agreement.
+
+4.5           
+Withholding Taxes .
+
+(a)               
+The Company shall withhold taxes from distributions to, and allocations among, the Members to the extent required by law. Except
+as otherwise provided in this Section 4.5 , any amount so withheld by the Company with regard to a Member shall be treated for purposes
+of this Agreement as an amount actually distributed to such Member pursuant to Section 4.1(b) or Section 4.1(c) , as appropriate
+(a “ Withholding Payment ”). An amount shall be considered withheld by the Company if, and at the time, remitted to a
+Governmental Entity without regard to whether such remittance occurs at the same time as the distribution or allocation to which it relates;
+provided , however , that an amount actually withheld from a specific distribution or designated by the Managing Member as
+withheld from a specific allocation shall be treated as if distributed at the time such distribution or allocation occurs.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+28
+
+(b)               
+Each Member hereby agrees to indemnify the Company and the other Members for any liability they may incur for failure to properly
+withhold taxes in respect of such Member. Moreover, each Member hereby agrees that neither the Company nor any other Member shall be liable
+to such Member for any excess taxes withheld in respect of such Member’s Interest and that, in the event of over-withholding, a
+Member’s sole recourse shall be to apply for a refund from the appropriate governmental authority.
+
+(c)               
+If it is anticipated that at the due date of the Company’s withholding obligation the Member’s share of cash distributions
+or other amounts due is less than the amount of the Withholding Payment, the Member with respect to which the withholding obligation applies
+shall pay to the Company the amount of such shortfall within thirty (30) days after notice by the Company. If a Member fails to make the
+required payment when due hereunder, and the Company nevertheless pays the withholding, in addition to the Company’s remedies for
+breach of this Agreement, the amount paid shall be deemed a recourse loan from the Company to such Member bearing interest at an interest
+rate per annum equal to the Base Rate plus 2.0%, and the Company shall apply all distributions or payments that would otherwise be made
+to such Member toward payment of the loan and interest, which payments or distributions shall be applied first to interest and then to
+principal until the loan is repaid in full. In the event that the distributions or proceeds to the Company or any Subsidiary of the Company
+are reduced on account of taxes withheld at the source or any taxes are otherwise required to be paid by the Company and such taxes are
+imposed on or with respect to one or more, but not all of the Members in the Company, or all of the Members in the Company at different
+tax rates, the amount of the reduction shall be borne by the relevant Members and treated as if it were paid by the Company as a Withholding
+Payment with respect to such Members pursuant to Section 4.5(a) . Taxes imposed on the Company where the rate of tax varies depending
+on characteristics of the Members shall be treated as taxes imposed on or with respect to the Members for purposes of Section 4.5(a) .
+In addition, if the Company is obligated to pay any taxes (including penalties, interest and any addition to tax) to any Governmental
+Entity that is specifically attributable to a Member or a former Member, including, without limitation, on account of Sections 864 or
+1446 of the Code, then (x) such Member or former Member shall indemnify the Company in full for the entire amount paid or payable,
+(y) the Managing Member may offset future distributions from such Member or former Member pursuant to Section 4.1 to which such
+Person is otherwise entitled under this Agreement against such Member or former Member’s obligation to indemnify the Company under
+this Section 4.5(c) and (z) such amounts shall be treated as a Withholding Payment pursuant to Section 4.5(a) with respect
+to such Member or former Member; provided , however that such Member or former Member shall, prior to each Exchange Date,
+pay to the Company in cash any amount subject to this Section 4.5(c) that would be outstanding as of such Exchange Date.
+
+(d)                If
+the Company incurs an Imputed Underpayment Amount, the Managing Member shall determine in its reasonable discretion the portion of
+such Imputed Underpayment Amount attributable to each Member or former Member and such attributable amount shall be treated as a
+Withholding Payment pursuant to Section 4.5(a) . The portion of the Imputed Underpayment Amount that the Managing Member
+attributes to a former Member of the Company shall be treated as a Withholding Payment with respect to both such former Member and
+such former Member’s transferee(s) or assignee(s), as applicable, and the Managing Member may in its discretion exercise the
+Company’s rights pursuant to this Section 4.5 in respect of either or both of the former Member and its transferee or
+assignee; provided , however that such Member or former Member shall, prior to each Exchange Date, pay to the Company
+in cash any Imputed Underpayment Amount attributable to such Member or former Member that would be outstanding as of such Exchange
+Date.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+29
+
+(e)               
+A Member’s obligations under this Section 4.5 shall survive the dissolution and winding up of the Company and any
+transfer, assignment or liquidation of such Member’s interest in the Company.
+
+4.6           
+Allocations Upon Final Liquidation . With respect to the fiscal year in which the final liquidation of the Company occurs
+in accordance with Section 13.2 of the Agreement, and notwithstanding any other provision of Sections 4.2 , 4.3 or
+4.4 hereof, items of Company income, gain, loss and deduction shall be specially allocated to the Members in such amounts and priorities
+as are necessary so that the positive capital accounts of the Members shall, as closely as possible, equal the amounts that will be distributed
+to the Members pursuant to Section 13.2 .
+
+Article
+V
+MANAGEMENT
+
+5.1            Authority
+of Managing Member . Except for situations in which the approval of one or more of the Members is specifically required by the
+express terms of this Agreement, and subject to the provisions of this Article V, (i) all management powers over the business and
+affairs of the Company shall be exclusively vested in the Managing Member, (ii) the Managing Member shall conduct, direct and
+exercise full control over all activities of the Company, and (iii) the Managing Member shall have the sole power to bind or take
+any action on behalf of the Company, or to exercise any rights and powers (including, without limitation, the rights and powers to
+take certain actions, give or withhold certain consents or approvals, or make certain determinations, opinions, judgments or other
+decisions) granted to the Company under this Agreement or any other agreement, instrument or other document to which the Company is
+a party. Without limiting the generality of the foregoing, but subject to any situations in which the approval of the Members is
+specifically required by this Agreement, (x) the Managing Member shall have discretion in determining whether to issue Equity
+Securities of the Company, the number of Equity Securities of the Company to be issued at any particular time, the purchase price
+for any Equity Securities of the Company issued, and all other terms and conditions governing the issuance of Equity Securities of
+the Company and (y) the Managing Member may enter into, approve, and consummate any Liquidity Event or other extraordinary or
+business combination or divestiture transaction, and execute and deliver on behalf of the Company or the Members any agreement,
+document and instrument in connection therewith (including amendments, if any, to this Agreement or adoptions of new constituent
+documents) without the approval or consent of any Member. The Managing Member shall operate the Company and its Subsidiaries in
+accordance in all material respects with an annual budget, business plan and financial forecasts for the Company and its
+Subsidiaries for each fiscal year. The Managing Member shall be the “manager” of the Company for the purposes of the
+Delaware Act. The Managing Member is hereby designated as authorized person, within the meaning of the Delaware Act, to execute,
+deliver and file the certificate of formation of the Company and all other certificates (and any amendments and/or restatements
+thereof) required or permitted by the Delaware Act to be filed in the Office of the Secretary of State of the State of Delaware. The
+Managing Member is hereby authorized to execute, deliver and file any other certificates (and any amendments and/or restatements
+thereof) necessary for the Company to qualify to do business in a jurisdiction in which the Company may wish to conduct business.
+Notwithstanding any other provision of this Agreement to the contrary, without the consent of any Member or other Person being
+required, the Company is hereby authorized to execute, deliver and perform, and the Managing Member or any officer on behalf of the
+Company, is hereby authorized to execute and deliver (a) the Tax Receivable Agreement; and (b) any amendment and any agreement,
+document or other instrument contemplated thereby or related thereto. The Managing Member or any officer is hereby authorized to
+enter into the documents described in the preceding sentence on behalf of the Company, but such authorization shall not be deemed a
+restriction on the power of the Managing Member or any officer to enter into other documents on behalf of the Company. Nothing set
+forth in this Agreement shall reduce or restrict the rights of any Person set forth in the Tax Receivable Agreement, subject to the
+terms and conditions thereof. Further notwithstanding the foregoing or any other provision of this Agreement to the contrary, and
+subject to any matter required to be approved by a majority of the Disinterested Members of the Board, from and after the Effective
+Time, if any action or determination that is permitted to be taken or made by the Managing Member pursuant to this Agreement is an
+action or determination that would require the approval of the board of directors of a Delaware corporation if the Company were such
+a corporation, then such action or determination shall be taken or made by the Managing Member only with the approval of the
+Board.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+30
+
+5.2            
+Actions of the Managing Member . Unless otherwise provided in this Agreement, any decision, action, approval or consent required
+or permitted to be taken by the Managing Member may be taken by the Managing Member through any Person or Persons to whom authority and
+duties have been delegated pursuant to Section 5.4(a) . The Managing Member shall not cease to be the Managing Member of the Company
+as a result of the delegation of any duties hereunder. No officer or agent of the Company, in its capacity as such, shall be considered
+the Managing Member of the Company by agreement, as a result of the performance of its duties hereunder or otherwise.
+
+5.3           
+Compensation; Expenses .
+
+(a)               
+The Managing Member shall not be entitled to any compensation for services rendered to the Company in its capacity as Managing
+Member. The Managing Member’s interest in its capacity as such shall be a non-economic interest in the Company, which does not entitle
+the Managing Member, solely in its capacity as such, to any Units, distributions or Tax Distributions.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+31
+
+(b)               
+The Company shall pay, or cause to be paid, all costs, fees, operating expenses and other expenses of the Company (including the
+costs, fees and expenses of attorneys, accountants or other professionals) incurred in pursuing and conducting, or otherwise related to,
+the activities of the Company. The Company shall also, in the sole discretion of the Managing Member, bear and/or reimburse PubCo or the
+Managing Member for (i) any costs, fees or expenses incurred by the Managing Member in connection with serving as the Managing Member,
+(ii) operating, administrative and other similar costs incurred by PubCo or the Managing Member in connection with operating the Company’s
+business, to the extent the proceeds are used or will be used by PubCo or the Managing Member to pay expenses described in this clause
+(ii), and payments of any legal, tax, accounting and other professional fees and expenses (but, for the avoidance of doubt, excluding
+any tax liabilities of PubCo or the Managing Member), (iii) any judgments, settlements, penalties, fines or other costs and expenses in
+respect of any claims against, or any litigation or proceedings involving, PubCo or the Managing Member in connection with, arising out
+of or relating to operating the Company’s business, (iv) fees and expenses (other than any underwriters’ discounts and commissions
+that are economically recovered by the Managing Member as a result of acquiring Class A Common Units with the net proceeds of the transactions
+in which any such underwriters’ discounts and commissions were incurred) related to any securities offering, investment or acquisition
+transaction (whether or not successful) authorized by PubCo or the Managing Member in connection with, arising out of or relating to operating
+the Company’s business, (v) other fees and expenses in connection with the maintenance of the existence of the Managing Member,
+and (vi) all other expenses allocable to the Company or otherwise incurred by PubCo or the Managing Member in connection with operating
+the Company’s business; provided , however , that amounts so borne or reimbursed by the Company not be used to pay or
+facilitate dividends or distributions on the securities of PubCo and must be used solely for one of the express purposes set forth under
+clauses (i) through (vi) of this sentence; and further provided , however , that the Company shall not pay, bear or
+reimburse any income tax obligations of PubCo or the Managing Member or any obligations of PubCo or the Managing Member under the Tax
+Receivable Agreement except as provided therein. To the extent practicable, expenses incurred by PubCo or the Managing Member on behalf
+of or for the benefit of the Company shall be billed directly to and paid by the Company and, if and to the extent any reimbursements
+to PubCo or the Managing Member or any of their Affiliates by the Company pursuant to this Section 5.3(b) constitute gross income
+to such Person (as opposed to the repayment of advances made by such Person on behalf of the Company), such amounts shall be treated as
+“guaranteed payments” within the meaning of Section 707(c) of the Code and shall not be treated as distributions for purposes
+of computing the Members’ Capital Account. Reimbursements pursuant to this Section 5.3(b) shall be in addition to any reimbursement
+to PubCo or the Managing Member as a result of indemnification pursuant to Section 6.4 .
+
+5.4           
+Delegation of Authority .
+
+(a)                The
+Managing Member may, from time to time, delegate to one or more Persons, including any officer or director of the Company or PubCo
+(or to the Compensation Committee of the Board or its designees), or to any other Person, such authority and duties as the Managing
+Member may deem advisable; provided that any such Person shall exercise such authority subject to the same duties and
+obligations to which the Managing Member would have otherwise been subject pursuant to the terms of this Agreement.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+32
+
+(b)               
+The Managing Member may assign titles (including, without limitation, executive chairman, non-executive chairman, chief executive
+officer, chief financial officer, president, vice president, secretary, assistant secretary, treasurer or assistant treasurer) and delegate
+certain authority and duties to such Persons. Any number of titles may be held by the same officer of the Company or other individual.
+The salaries or other compensation, if any, of the officers and agents of the Company shall be fixed from time to time by the Managing
+Member. Any delegation pursuant to this Section 5.4 may be revoked at any time by the Managing Member.
+
+5.5           
+Limitation of Liability .
+
+(a)               
+Except as otherwise provided herein, in an agreement entered into by such Person and the Company or by applicable law, none of
+the Managing Member or any manager, officer, director, principal, member, employee, agent or Affiliate of the Managing Member shall be
+liable to the Company or to any Member for any act or omission performed or omitted by the Managing Member in its capacity as the Managing
+Member pursuant to authority granted to such Person by this Agreement; provided that, except as otherwise provided herein, such
+limitation of liability shall not apply to the extent the act or omission was attributable to such Person’s gross negligence, willful
+misconduct or knowing violation of law, for any present or future breaches of any representations, warranties or covenants by such Person
+or its Affiliates contained herein with respect to any rights of the Company under any other agreements between the Managing Member and
+the Company. The Managing Member may exercise any of the powers granted to it by this Agreement and perform any of the duties imposed
+upon it hereunder either directly or by or through its agents, and none of the Managing Member or any manager, officer, director, principal,
+member, employee, agent or Affiliate of the Managing Member shall be responsible for any misconduct or negligence on the part of any such
+agent appointed by the Managing Member (so long as such agent was selected in good faith and with reasonable care). The Managing Member
+shall be entitled to rely upon the advice of legal counsel, independent public accountants and other experts, including financial advisors,
+and any act of or failure to act by the Managing Member in good faith reliance on such advice shall in no event subject the Managing Member
+to liability to the Company or any Member.
+
+(b)               
+Notwithstanding the provisions of Section 6.1 :
+
+(i)                 
+in connection with the performance of its duties as the Managing Member of the Company, the Managing Member (solely in its capacity
+as such) will owe to the other Members the same fiduciary duties as it would owe to the stockholders of a Delaware corporation if it were
+a member of the board of directors of such a corporation and the other Members were stockholders of such corporation;
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+33
+
+(ii)                 
+to the extent that, at Law or in equity, any Subsidiary of the Company or any manager, director (or equivalent), officer, employee
+or agent of any Subsidiary of the Company has duties (including fiduciary duties) to the Company, to a Member (other than the Managing
+Member) or to any Person who acquires Units, all such duties (including fiduciary duties) are hereby limited solely to those expressly
+set forth in this Agreement (if any), to the fullest extent permitted by Law; and
+
+(iii)                
+the limitation of duties (including fiduciary duties) to the Company, each Member (other than the Managing Member) and any Person
+who acquires Units set forth in this Section 5.5(b) is approved by the Company, each Member (other than the Managing Member) and
+any Person who acquires Units.
+
+(c)               
+Except as provided in this Agreement or in the Delaware Act, the debts, obligations and liabilities of the Company, whether arising
+in contract, tort or otherwise, shall be solely the debts, obligations and liabilities of the Company and the Managing Member shall not
+be obligated personally for any such debts, obligations or liabilities solely by reason of acting as the Managing Member of the Company.
+The Managing Member shall not be personally liable for the Company’s obligations, liabilities and losses. Notwithstanding anything
+contained herein to the contrary, the failure of the Company to observe any formalities or requirements relating to the exercise of its
+powers or management of its business and affairs under this Agreement or the Delaware Act shall not be grounds for imposing personal liability
+on the Managing Member for liabilities of the Company.
+
+5.6            
+Resignation or Termination of Managing Member . PubCo shall not, by any means, resign as, cease to be or be removed or replaced
+as Managing Member except in compliance with this Section 5.6 . No termination or replacement of PubCo as Managing Member shall
+be effective unless proper provision is made, in compliance with this Agreement, so that the obligations of PubCo, its successor by merger
+(if applicable) and any new Managing Member and the rights of all Members under this Agreement and applicable Law remain in full force
+and effect. No appointment of a Person other than PubCo (or its successor by merger, as applicable) as Managing Member shall be effective
+unless (a) the new Managing Member executes a joinder to this Agreement and agrees to be bound by the terms and conditions in this Agreement,
+and (b) PubCo (or its successor by merger, as applicable) and the new Managing Member (as applicable) provide all other Members with contractual
+rights, directly enforceable by such other Members against PubCo (or its successor by merger, as applicable) and the new Managing Member
+(as applicable), to cause (i) PubCo to comply with all PubCo’s obligations under this Agreement (including its obligations under
+Article XII ) other than those that must necessarily be taken solely in its capacity as Managing Member and (ii) the new Managing
+Member to comply with all the Managing Member’s obligations under this Agreement.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+34
+
+Article
+VI
+RIGHTS AND OBLIGATIONS OF MEMBERS
+
+6.1           
+Limitation of Liability .
+
+(a)               
+Except as provided in this Agreement or in the Delaware Act, the debts, obligations and liabilities of the Company, whether arising
+in contract, tort or otherwise, shall be solely the debts, obligations and liabilities of the Company and no Member shall be obligated
+personally for any such debts, obligations or liabilities solely by reason of being a member of the Company. Except as otherwise provided
+in this Agreement or the Delaware Act, a Member’s liability (in its capacity as such) for Company obligations, liabilities and Losses
+shall be limited to the Company’s assets; provided that a Member shall be required to return to the Company any Distribution
+made to it after the execution of this Agreement in clear and manifest accounting or similar error. The immediately preceding sentence
+shall constitute a compromise to which all Members have consented within the meaning of the Delaware Act.
+
+(b)               
+Except as provided in this Agreement or in the Delaware Act, this Agreement is not intended to, and does not, create or impose
+any duty (including any fiduciary duty) on any of the Members (other than the Managing Member) hereto or on their respective Affiliates.
+Further, notwithstanding any other provision of this Agreement or any duty otherwise existing at law or in equity, the parties hereto
+agree that no Member (other than the Managing Member) shall, to the fullest extent permitted by law, have duties (including fiduciary
+duties) to any other Member or to the Company, and in doing so, recognize, acknowledge and agree that their duties and obligations to
+one another and to the Company are only as expressly set forth in this Agreement; provided , however , that each Member and
+the Managing Member shall have the duty to act in accordance with the implied contractual covenant of good faith and fair dealing.
+
+(c)               
+To the extent that, at law or in equity, any Member (other than the Managing Member) has duties (including fiduciary duties) and
+liabilities relating thereto to the Company, to another Member or to another Person who is a party to or is otherwise bound by this Agreement,
+the Members (other than the Managing Member) acting under this Agreement will not be liable to the Company, to any such other Member or
+to any such other Person who is a party to or is otherwise bound by this Agreement, for their good faith reliance on the provisions of
+this Agreement. The provisions of this Agreement, to the extent that they restrict or eliminate the duties and liabilities relating thereto
+of any Member (other than the Managing Member) otherwise existing at law or in equity, are agreed by the Members to replace to that extent
+such other duties and liabilities of the Members relating thereto (including without limitation, the Managing Member).
+
+6.2            Lack
+of Authority . No Member (other than the Managing Member) in its capacity as such (other than in its capacity as a Person
+delegated authority pursuant to Section 5.4 ) has the authority or power to act for or on behalf of the Company, to do any act
+that would be binding on the Company or to make any expenditures on behalf of the Company. The Members hereby consent to the
+exercise by the Managing Member of the powers conferred on it by law and this Agreement.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+35
+
+6.3           
+No Right of Partition . No Member shall have the right to seek or obtain partition by court decree or operation of law of
+any Company property, or the right to own or use particular or individual assets of the Company.
+
+6.4           
+Indemnification .
+
+(a)               
+Subject to Section 4.5 , the Company hereby agrees to indemnify and hold harmless any Person (each an “ Indemnified
+Person ”) to the fullest extent permitted under the Delaware Act, as the same now exists or may hereafter be amended, substituted
+or replaced (but, in the case of any such amendment, substitution or replacement only to the extent that such amendment, substitution
+or replacement permits the Company to provide broader indemnification rights than the Company is providing immediately prior to such amendment,
+substitution or replacement), against all expenses, liabilities and losses (including attorneys’ fees, judgments, fines, excise
+taxes or penalties, as reasonably required) reasonably incurred or suffered by such Person (or one or more of such Person’s Affiliates)
+by reason of the fact that such Person is or was a Member (or Affiliate of a Member) or is or was serving as the Managing Member, any
+additional or substitute Managing Member, officer, Partnership Representative, employee or other agent of the Company or is or was serving
+at the request of the Company as a manager, officer, director, principal, member, employee or agent of another corporation, partnership,
+joint venture, limited liability company, trust or other enterprise (including any manager, officer, director, principal, member, employee
+or agent of the Managing Member or any additional or substitute Managing Member); provided that (unless the Managing Member otherwise
+consents) no Indemnified Person shall be indemnified for any expenses, liabilities and losses suffered that are attributable to such Indemnified
+Person’s or its Affiliates’ gross negligence, willful misconduct or knowing violation of law. Expenses, including reasonable
+attorneys’ fees, incurred by any such Indemnified Person in defending a proceeding related to any such indemnifiable matter shall
+be paid by the Company in advance of the final disposition of such proceeding, including any appeal therefrom, upon receipt of an undertaking
+by or on behalf of such Indemnified Person to repay such amounts if it shall ultimately be determined that such Indemnified Person is
+not entitled to be indemnified by the Company.
+
+(b)               
+The right to indemnification and the advancement of expenses conferred in this Section 6.4 shall not be exclusive of any
+other right which any Person may have or hereafter acquire under any statute, agreement, by-law, determination of the Managing Member
+or otherwise.
+
+(c)               
+The Company will maintain directors’ and officers’ liability insurance, at its expense, for the benefit of the Managing
+Member, the officers of the Company and any other Persons to whom the Managing Member has delegated its authority pursuant to Section
+5.4 .
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+36
+
+(d)               
+Notwithstanding anything contained herein to the contrary (including in this Section 6.4 ), any indemnity by the Company
+relating to the matters covered in this Section 6.4 shall be provided out of and to the extent of Company assets only and no Member
+(unless such Member otherwise agrees in writing or is found in a final decision by a court of competent jurisdiction to have personal
+liability on account thereof) shall have personal liability on account thereof or shall be required to make additional capital contributions
+or otherwise provide funding to help satisfy such indemnity of the Company.
+
+(e)               
+The Company hereby acknowledges that certain of its Members (the “ Fund Indemnitees ”) may have rights to indemnification,
+advancement of expenses and/or insurance in connection with their involvement with the Company provided by other Persons (collectively,
+the “ Fund Indemnitors ”). The Company hereby agrees that, with respect to matters for which a Fund Indemnitee is entitled
+to indemnification, advancement of expenses and/or insurance pursuant to this Section 6.4 , the Company (i) is and shall be the
+indemnitor of first resort ( i.e. , its obligations to the Fund Indemnitee are primary and any obligation of the Fund Indemnitors
+to advance expenses or to provide indemnification for the same expenses or liabilities incurred by the Fund Indemnitees are secondary),
+and (ii) irrevocably waives, relinquishes and releases the Fund Indemnitors from any and all claims against the Fund Indemnitors for contribution,
+subrogation or any other recovery of any kind in respect thereof to the fullest extent permitted by law. The Company further agrees that
+no advancement or payment by the Fund Indemnitors on behalf of the Fund Indemnitees with respect to any claim for which the Fund Indemnitees
+have sought indemnification from the Company shall affect the foregoing and the Fund Indemnitors shall have a right of contribution and/or
+be subrogated to the extent of such advancement or payment to all of the rights of recovery of the Fund Indemnitees against the Company.
+
+(f)                
+If this Section 6.4 or any portion hereof shall be invalidated on any ground by any court of competent jurisdiction, then
+the Company shall nevertheless indemnify and hold harmless each Indemnified Person pursuant to this Section 6.4 to the fullest
+extent permitted by any applicable portion of this Section 6.4 that shall not have been invalidated and to the fullest extent permitted
+by applicable law.
+
+6.5            
+Members Right to Act . For matters that require the approval of the Members generally (rather than the approval of the Managing
+Member on behalf of the Members or the approval of a particular group of Members), the Members shall act through meetings and written
+consents as described in paragraphs (a) and (b) below:
+
+(a)                Except
+as otherwise expressly provided by this Agreement or as required by the Delaware Act, acts by the Members holding a majority of the
+Units voting together as a single class shall be the act of the Members. Any Member entitled to vote at a meeting of Members or to
+express consent or dissent to Company action in writing without a meeting may authorize another person or persons to act for it by
+proxy. A telegram, email or similar transmission by the Member, or a photographic, photostatic, facsimile or similar reproduction of
+a writing executed by the Member shall (if stated thereon) be treated as a proxy executed in writing for purposes of this Section
+6.5(a) . No proxy shall be voted or acted upon after eleven months from the date thereof, unless the proxy provides for a longer
+period. A proxy shall be revocable unless the proxy form conspicuously states that the proxy is irrevocable and that the proxy is
+coupled with an interest. Should a proxy designate two or more Persons to act as proxies, unless that instrument shall provide to
+the contrary, a majority of such Persons present at any meeting at which their powers thereunder are to be exercised shall have and
+may exercise all the powers of voting or giving consents thereby conferred, or, if only one be present, then such powers may be
+exercised by that one; or, if an even number attend and a majority do not agree on any particular issue, the Company shall not be
+required to recognize such proxy with respect to such issue if such proxy does not specify how the votes that are the subject of
+such proxy are to be voted with respect to such issue.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+37
+
+(b)               
+The actions by the Members permitted hereunder may be taken at a meeting called by the Managing Member or by Members holding a
+majority of the Units on at least twenty-four hours’ prior written notice to the other Members entitled to vote, which notice shall
+state the purpose or purposes for which such meeting is being called. The actions taken by the Members entitled to vote or consent at
+any meeting (as opposed to by written consent), however called and noticed, shall be as valid as though taken at a meeting duly held after
+regular call and notice if (but not until), either before, at or after the meeting, the Members entitled to vote or consent as to whom
+it was improperly held signs a written waiver of notice or a consent to the holding of such meeting or an approval of the minutes thereof.
+The actions by the Members entitled to vote or consent may be taken by vote of the Members entitled to vote or consent at a meeting or
+by written consent (without a meeting, without notice and without a vote) so long as such consent is signed by the Members having not
+less than the minimum number of Units that would be necessary to authorize or take such action at a meeting at which all Members entitled
+to vote thereon were present and voted. Prompt notice of the action so taken without a meeting shall be given to those Members entitled
+to vote or consent who have not consented in writing. Any action taken pursuant to such written consent of the Members shall have the
+same force and effect as if taken by the Members at a meeting thereof.
+
+(c)               
+Notwithstanding anything to the contrary in this Agreement, Section 18-210 of the Delaware Act shall not apply or be incorporated
+into this Agreement.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+38
+
+6.6           
+Investment Opportunities . To the fullest extent permitted by applicable Law, the doctrine of corporate opportunity, or
+any analogous doctrine, shall not apply to (a) any Member (other than Members who are directors, managers, officers or employees of the
+Company, PubCo or any of their respective Subsidiaries, in which case solely acting in their capacity as such), (b) any of their respective
+Affiliates (other than the Company, the Managing Member or any of their respective Subsidiaries), (c) each Person that was a Member immediately
+before the Effective Time or any of its respective Affiliates (including its respective investors and equityholders and any associated
+Persons or investment funds or any of their respective portfolio companies or investments) or (d) any of the respective officers, managers,
+directors, agents, shareholders, members, and partners of any of the foregoing (each, a “ Business Opportunities Exempt Party ”).
+The Company and each of the Members, on its own behalf and on behalf of their respective Affiliates and equityholders, hereby renounces
+any interest or expectancy of the Company in, or in being offered an opportunity to Participate in, business opportunities that are from
+time to time presented to any Business Opportunities Exempt Party and irrevocably waives any right to require any Business Opportunity
+Exempt Party to act in a manner inconsistent with the provisions of this Section 6.6 . No Business Opportunities Exempt Party who
+acquires knowledge of a potential transaction, agreement, arrangement or other matter that may be an opportunity for PubCo, the Company
+or any of their respective Subsidiaries, Affiliates or equityholders shall have any duty to communicate or offer such opportunity to
+the Company and none of PubCo, the Company or any of their respective Subsidiaries, Affiliates or equityholders will acquire or be entitled
+to any interest or Participation in any such transaction, agreement, arrangement or other matter or opportunity as a result of Participation
+therein by a Business Opportunity Exempt Party. This Section 6.6 shall not apply to, and no interest or expectancy of the Company
+is renounced with respect to, any opportunity offered to any director of PubCo if such opportunity is expressly offered or presented
+to, or acquired or developed by, such Person solely in his or her capacity as a director or officer of the Company. No amendment or repeal
+of this Section 6.6 shall apply to or have any effect on the Liability or alleged Liability of any Business Opportunities Exempt
+Party for or with respect to any opportunities of which any such Business Opportunities Exempt Party becomes aware prior to such amendment
+or repeal. Any Person purchasing or otherwise acquiring any interest in any Units shall be deemed to have notice of and consented to
+the provisions of this Section 6.6 . Neither the amendment or repeal of this Section 6.6 , nor the adoption of any provision
+of this Agreement inconsistent with this Section 6.6 , shall eliminate or reduce the effect of this Section 6.6 in respect
+of any business opportunity first identified or any other matter occurring, or any cause of Action that, but for this Section 6.6 ,
+would accrue or arise, prior to such amendment, repeal or adoption. No action or inaction taken by any Business Opportunities Exempt
+Party in a manner consistent with this Section 6.6 shall be deemed to be a violation of any fiduciary or other duty owed to any
+Person.
+
+Article
+VII
+BOOKS, RECORDS, ACCOUNTING AND REPORTS
+
+7.1           
+Records and Accounting . The Company shall keep, or cause to be kept, appropriate books and records with respect to the Company’s
+business, including all books and records necessary to provide any information, lists and copies of documents required to be provided
+pursuant to Section 7.3 or pursuant to applicable laws. All matters concerning (i) the determination of the relative amount of
+allocations and distributions among the Members pursuant to Article III and Article IV and (ii) accounting procedures and
+determinations, and other determinations not specifically and expressly provided for by the terms of this Agreement, shall be determined
+by the Managing Member, whose determination shall be final and conclusive as to all of the Members absent manifest clerical error.
+
+7.2           
+Fiscal Year . The Fiscal Year of the Company shall be its Taxable Year.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+39
+
+7.3           
+Reports . The Company shall furnish each Member with tax information (including an Internal Revenue Service Schedule K-1)
+necessary to prepare its or their federal, state and, if applicable, local income tax return on or before March 1 of each calendar
+year or as soon as reasonably practicable thereafter. If the Company cannot provide a Schedule K-1 by March 1, it shall provide tax
+estimates or a draft Schedule K-1 and/or the associated state-equivalent returns, as applicable, on an estimated basis by such date and,
+in all events, shall furnish final tax information by June 1. The Company will use commercially reasonable efforts to furnish to the Members
+all other necessary or otherwise reasonably requested tax information as quickly as reasonably possible following the close of the Company’s
+fiscal year (or at such other times as reasonably requested by a Member). At least two Business Days prior to the date on which any U.S.
+federal corporate estimated tax payments are due the Company shall provide a Tax Estimate for the applicable tax period to each Member.
+
+7.4           
+Transmission of Communications . Each Person that owns or controls Units on behalf of, or for the benefit of, another Person
+or Persons shall be responsible for conveying any report, notice or other communication received from the Company to such other Person
+or Persons.
+
+7.5           
+Confidentiality .
+
+(a)               
+The Managing Member may keep confidential from the Members, for such period of time as the Managing Member determines in its sole
+discretion, (i) any information that the Managing Member reasonably believes to be in the nature of trade secrets or (ii) other information
+the disclosure of which the Managing Member believes is not in the best interests of the Company, could damage the Company or its business
+or that the Company is required by law or by agreement with any third party to keep confidential, including without limitation, information
+as to the Units held by any other Member. With respect to any schedules, annexes or exhibits to this Agreement, to the fullest extent
+permitted by law, each Member (other than the Managing Member) shall only be entitled to receive and review any such schedules, annexes
+and exhibits relating to such Member and shall not be entitled to receive or review any schedules, annexes or exhibits relating to any
+other Member (other than the Managing Member).
+
+(b)                Each
+Member agrees, for so long as such Member owns any Units and for a period of two (2) years following the date upon which such Member
+ceases to own any Units, to keep confidential, any non-public information provided to such Member by the Company; provided , however ,
+that nothing herein will limit the disclosure of any information (i) to the extent required by law, statute, rule, regulation,
+judicial process, subpoena or court order or required by any governmental agency or other regulatory authority; (ii) that is in the
+public domain or becomes generally available to the public, in each case, other than as a result of the disclosure by the parties in
+violation of this Agreement; or (iii) to a Member’s advisors, representatives and Affiliates; provided that such
+advisors, representatives and Affiliates shall have been advised of this agreement and shall have expressly agreed to be bound by
+the confidentiality provisions hereof, or shall otherwise be bound by comparable obligations of confidentiality, and the applicable
+Member shall be responsible for any breach of or failure to comply with this agreement by any of its Affiliates and such Member
+agrees, at its sole expense, to take reasonable measures (including but not limited to court proceedings) to restrain its advisors,
+representatives and Affiliates from prohibited or unauthorized disclosure or use of any confidential information.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+40
+
+Article
+VIII
+TAX MATTERS
+
+8.1           
+Preparation of Tax Returns . The Company shall arrange for the preparation and timely filing of all tax returns required
+to be filed by the Company. The Managing Member shall, consistent with the other sections of this Agreement, the BCA and the Tax Receivable
+Agreement, determine the accounting methods and conventions under the tax laws of the United States, the several states and other relevant
+jurisdictions as to the treatment of items of income, gain, deduction, loss and credit or any other method or procedure related to the
+preparation of such tax returns.
+
+8.2           
+Tax Elections . The Taxable Year of the Company shall be the calendar year unless otherwise required by the Code or applicable
+tax laws. The Managing Member shall cause the Company to have in effect (and to cause each direct or indirect subsidiary that is treated
+as a partnership for U.S. federal income tax purposes) an election pursuant to Section 754 of the Code, to adjust the tax basis of Company
+properties, for the taxable year that includes the Effective Time and for each taxable year in which an Exchange occurs. The Managing
+Member shall determine whether to make or revoke any other available election or decision relating to tax matters pursuant to the Code
+(or other applicable tax law), including for the avoidance of doubt the election to make (or not make) a “push out” election
+under Section 6226 of the Code. Each Member will upon request supply any information necessary to give proper effect to any such election.
+
+8.3            Tax
+Controversies . The Managing Member shall be the “partnership representative” of the Company (the
+“ Partnership Representative ”) for purposes of Section 6223 of the Code. The Partnership Representative may be
+removed, and a new Partnership Representative appointed, by the Managing Member in accordance with the Code and the Treasury
+Regulations. The Partnership Representative shall be permitted to appoint any “designated individual” (or similar
+person) (a “ Designated Individual ”) permitted under Treasury Regulations Section 301.6223-1 or any successor
+regulations or similar provisions of tax law. If the Partnership Representative appoints a Designated Individual pursuant to Section
+6223 of the Code and Treasury Regulations thereunder (or similar provisions of state, local or other tax laws), such Designated
+Individual shall be subject to this Agreement in the same manner as the Partnership Representative (and references to the
+Partnership Representative shall include any such Designated Individual unless the context otherwise requires or shall mean solely
+the Designated Individual as needed to comply with applicable law). The Partnership Representative shall have the power to manage
+and represent the Company in any administrative proceeding of the IRS, and shall be indemnified by the Company for all costs and
+expenses relating to serving in its capacity as the Partnership Representative. Each Member hereby agrees to use commercially
+reasonable efforts: (a) to take such actions as may be required to effect the Managing Member’s designation as the Partnership
+Representative and (b) to cooperate to provide any information or take such other actions as may be reasonably requested by the
+Partnership Representative in order to determine whether any Imputed Underpayment Amount may be modified pursuant to Section 6225(c)
+of the Code. A Member’s obligation to comply with this Section shall survive the transfer, assignment or liquidation of such
+Member’s Interest in the Company. Notwithstanding the foregoing, the Partnership Representative shall be subject to the
+control of the Managing Member pursuant to Section 8.2 and shall not settle or otherwise compromise any issue in any such
+examination, audit or other proceeding without first obtaining approval of the Managing Member.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+41
+
+Article
+IX
+RESTRICTIONS ON TRANSFER OF UNITS
+
+9.1           
+Transfers of Units .
+
+(a)               
+Except as otherwise agreed to in writing between the Managing Member and the applicable Member and reflected in the books and records
+of the Company or as otherwise provided in this Article IX , no holder of Units may sell, transfer, assign, pledge, encumber, distribute,
+contribute or otherwise dispose of (whether directly or indirectly (including, for the avoidance of doubt, by Transfer or issuance of
+any Capital Stock of any Member that is not a natural person), whether with or without consideration and whether voluntarily or involuntarily
+or by operation of law) any interest (legal or beneficial) in any Units (a “ Transfer ”), except Exchanges pursuant to
+and in accordance with Article XII , (ii) Transfers that are Permitted Hedging Transactions or (iii) Transfers pursuant to and in
+accordance with Section 9.1(b) .
+
+(b)                The
+restrictions contained in Section 9.1(a) shall not apply, subject to S ection 9.6 , to any Transfer of Units by (i) any
+Member to its Affiliates, (ii) with respect to the Holding Company or any of its Affiliates (including their successors and
+Permitted Transferees thereof) that is an investment fund, vehicle or similar entity, (x) any other investment fund, vehicle or
+similar entity of which such Person or an affiliate, advisor or manager of such Person serves as the general partner, manager or
+advisor and (y) any direct or indirect limited partner or investor in such investment fund, vehicle or similar entity or any direct
+or indirect limited partner or investor in any other investment fund, vehicle or similar entity of which the Holding Company or such
+Affiliate thereof (including their successors and Permitted Transferees thereof, as applicable) or an affiliate, advisor or manager
+of the Holding Company or such Affiliate thereof (including their successors and Permitted Transferees thereof, as applicable)
+serves as the general partner, manager or advisor ( provided , however , that in no event shall any “portfolio
+companies” (as such term is customarily used in the private equity industry) of the Holding Company or any of its Affiliates
+(including their successors and Permitted Transferees thereof) or any entity that is controlled by a “portfolio company”
+of the Holding Company or any of its Affiliates (including their successors and Permitted Transferees thereof) constitute a
+Permitted Transferee) or (iii) by the Holding Company to its direct or indirect members, shareholders, partners or other equity
+holders, whether as a distribution, a liquidating distribution or otherwise (each of clauses (i)-(ii), an “ Exempt
+Transfer ”); provided that (x) the restrictions contained in this Article IX other than the restrictions
+contained in Section 9.1(a) shall apply to an Exempt Transfer and (y) the restrictions contained in this Agreement will
+continue to apply to the Units after any Exempt Transfer and each transferee of Units shall agree in writing, prior to and as a
+condition precedent to the effectiveness of such Exempt Transfer, to be bound by the provisions of this Agreement, without
+modification or condition, subject only to the consummation of such Exempt Transfer. Upon the Exempt Transfer of Units, the
+transferor will deliver written notice to the Company, which notice will disclose in reasonable detail the identity of such
+transferee(s) and shall include original counterparts of this Agreement in a form acceptable to the Managing Member. Notwithstanding
+the foregoing, no party hereto shall avoid the provisions of this Agreement by making one or more Exempt Transfers to one or more
+transferees and then disposing of all or any portion of such party’s interest in such transferee if such disposition would
+result in such transferee ceasing to be a Permitted Transferee. Notwithstanding anything to the contrary in Section 9.1(a) ,
+any Member shall be permitted to make an Exempt Pledge.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+42
+
+(c)               
+Notwithstanding anything in this Agreement to the contrary, as a condition to any Transfer:
+
+(i)                 
+if the transferor of Units who proposes to transfer such Units (or if such transferor is a disregarded entity for U.S. federal
+income tax purposes, the first direct or indirect beneficial owner of such transferor that is not a disregarded entity (the “ Transferor’s
+Owner ”)) is a “United States person” as defined in Section 7701(a)(30) of the Code, then such transferor (or Transferor’s
+Owner, if applicable) shall complete and provide to both of the transferee and the Company, a duly executed affidavit in the form provided
+to such transferor by the Company, certifying, under penalty of perjury, that the transferor (or Transferor’s Owner, if applicable)
+is not a foreign person, nonresident alien, foreign corporation, foreign partnership, foreign trust, or foreign estate (as such terms
+are defined under the Code and applicable United States Treasury Regulations) and the transferor’s (or Transferor’s Owner’s,
+if applicable) United States taxpayer identification number, or
+
+(ii)                 
+if the transferor of Units who proposes to transfer such Units (or if such transferor is a disregarded entity for U.S. federal
+income tax purposes, the Transferor’s Owner) is not a “United States person” as defined in Section 7701(a)(30) of the
+Code, then such transferor and transferee shall jointly provide to the Company written proof reasonably satisfactory to the Managing Member
+that any applicable withholding tax that may be imposed on such transfer (including pursuant to Sections 864 and 1446 of the Code) and
+any related tax returns or forms that are required to be filed, have been, or will be, timely paid and filed, as applicable.
+
+(d)               
+Notwithstanding anything otherwise to the contrary in this Section 9.1 , each Member may Transfer Units in Exchanges pursuant
+to, and in accordance with, this Agreement.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+43
+
+(e)               
+Except as otherwise expressly provided herein, it shall be a condition precedent to any Transfer of any Unit that, concurrently
+with such Transfer such transferring Member shall also Transfer to the transferee an equal number of shares of Class B Common Stock.
+
+9.2           
+Restricted Units Legend .
+
+(a)               
+The Units have not been registered under the Securities Act and, therefore, in addition to the other restrictions on Transfer contained
+in this Agreement, cannot be sold unless subsequently registered under the Securities Act or an exemption from such registration is then
+available. To the extent such Units have been certificated, each certificate evidencing Units and each certificate issued in exchange
+for or upon the Transfer of any Units (if such securities remain Units as defined herein after such Transfer) shall be stamped or otherwise
+imprinted with a legend in substantially the following form:
+
+THE SECURITIES REPRESENTED HEREBY HAVE NOT BEEN REGISTERED
+UNDER THE SECURITIES ACT OF 1933, AS AMENDED (THE “SECURITIES ACT”), OR ANY STATE SECURITIES OR BLUE SKY LAWS AND MAY NOT
+BE OFFERED, SOLD, TRANSFERRED, HYPOTHECATED OR OTHERWISE ASSIGNED EXCEPT (1) PURSUANT TO A REGISTRATION STATEMENT WITH RESPECT TO SUCH
+SECURITIES WHICH IS EFFECTIVE UNDER THE SECURITIES ACT OR (2) PURSUANT TO AN AVAILABLE EXEMPTION FROM REGISTRATION UNDER THE SECURITIES
+ACT RELATING TO THE DISPOSITION OF SECURITIES AND (3) IN ACCORDANCE WITH APPLICABLE STATE SECURITIES AND BLUE SKY LAWS.
+
+THE SECURITIES REPRESENTED BY THIS CERTIFICATE ARE
+ALSO SUBJECT TO ADDITIONAL RESTRICTIONS ON TRANSFER SPECIFIED IN THE SECOND AMENDED AND RESTATED LIMITED LIABILITY COMPANY AGREEMENT OF
+THE ISSUER OF SUCH SECURITIES, AS SUCH AGREEMENT MAY BE AMENDED, MODIFIED OR RESTATED FROM TIME TO TIME, AND THE ISSUER RESERVES THE RIGHT
+TO REFUSE THE TRANSFER OF SUCH SECURITIES UNTIL SUCH TRANSFER RESTRICTIONS HAVE BEEN FULFILLED. A COPY OF SUCH SECOND AMENDED AND RESTATED
+LIMITED LIABILITY COMPANY AGREEMENT SHALL BE FURNISHED BY THE ISSUER TO THE HOLDER HEREOF UPON WRITTEN REQUEST AND WITHOUT CHARGE.
+
+The Company will imprint such legend on certificates
+(if any) evidencing Units. The legend set forth above will be removed from the certificates (if any) evidencing any units which cease
+to be Units in accordance with the definition thereof.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+44
+
+(b)                In
+connection with the Transfer of any Units, the holder thereof shall deliver written notice to the Company describing in reasonable
+detail the Transfer or proposed Transfer, which shall, if so requested by the Managing Member, be accompanied by (i) an opinion of
+counsel which (to the Company’s reasonable satisfaction) is knowledgeable in securities law matters to the effect that such
+Transfer of Units may be effected without registration of such Units under the Securities Act or (ii) such other evidence reasonably
+satisfactory to the Managing Member to the effect that such Transfer of Units may be effected without registration of such Units
+under the Securities Act. In addition, if the holder of the Units delivers to the Company an opinion of such counsel that no
+subsequent Transfer of such Units shall require registration under the Securities Act, the Company shall promptly upon such
+contemplated Transfer deliver new certificates for such securities (if then certificated) which do not bear the Securities Act
+legend set forth in Section 9.2(a) . If the Company is not required to deliver new certificates for such Units not bearing
+such legend, the holder thereof shall not effect any Transfer of the same until the prospective transferee has confirmed to the
+Company in writing its agreement to be bound by the conditions contained in this Agreement.
+
+(c)               
+Upon the request of any Member, the Company will promptly supply to such Member or its prospective transferees all information
+regarding the Company required to be delivered in connection with a Transfer pursuant to Rule 144 of the Securities and Exchange Commission.
+
+(d)               
+If any Units become eligible for sale pursuant to Rule 144 of the Securities and Exchange Commission or no longer constitute “restricted
+securities” (as defined under Rule 144(a) of the Securities and Exchange Commission), the Company shall, upon the request of the
+holder of such Units, remove the Securities Act legend set forth in Section 9.2(a) above from the certificates (if any) for such
+securities.
+
+9.3           
+Assignee’s Rights .
+
+(a)               
+Subject to Section 9.6(b) , a Transfer of Units in a manner in accordance with this Agreement shall be effective as of the
+date of assignment and compliance with the conditions to such Transfer and such Transfer shall be shown on the books and records of the
+Company. Income, loss and other Company items shall be allocated between the transferor and the Assignee according to Section 706 of the
+Code as determined by the Managing Member. Distributions made before the effective date of such Transfer shall be paid to the transferor,
+and Distributions made after such date shall be paid to the Assignee.
+
+(b)               
+Unless and until an Assignee becomes a Member pursuant to Article X , the Assignee shall not be entitled to any of the rights
+granted to a Member hereunder or under applicable law, other than the rights granted specifically to Assignees pursuant to this Agreement;
+provided that without relieving the transferring Member from any such limitations or obligations as more fully described in Section
+9.4 , such Assignee shall be bound by any limitations and obligations of a Member contained herein that a Member would be bound on
+account of such Units (including the obligation to make Capital Contributions on account of such Units).
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+45
+
+9.4            Assignor’s
+Rights and Obligations . Any Member who shall Transfer any Units in a manner in accordance with this Agreement shall cease to be
+a Member with respect to such Units or such other interest and shall no longer have any rights or privileges, or, except as set
+forth in this Section 9.4 , duties, liabilities or obligations, of a Member with respect to such Units or such other interest
+(it being understood, however, that the applicable provisions of Sections 5.5 , 6.4 and 6.6 shall continue to
+inure to such Person’s benefit), except that unless and until the Assignee is admitted as a substituted Member in accordance
+with the provisions of Article X (the “ Admission Date ”), (i) such assigning Member shall retain all of the
+duties, liabilities and obligations of a Member with respect to such Units or other interest, including, without limitation, the
+obligation (together with its Assignee pursuant to Section 9.3(b) ) to make and return Capital Contributions on account of
+such Units or other interest pursuant to the terms of this Agreement and (ii) the Managing Member may reinstate all or any portion
+of the rights and privileges of such Member with respect to such Units or other interest for any period of time prior to the
+Admission Date. Nothing contained herein shall relieve any Member who Transfers any Units or other interest in the Company from any
+liability of such Member to the Company with respect to such Units that may exist on the Admission Date or that is otherwise
+specified in the Delaware Act and incorporated into this Agreement or for any liability to the Company or any other Person for any
+materially false statement made by such Member (in its capacity as such) or for any present or future breaches of any
+representations, warranties or covenants by such Member (in its capacity as such) contained herein or in the other agreements with
+the Company.
+
+9.5           
+Encumbrances . No Member or Assignee may create an Encumbrance with respect to all or any portion of its Units (or any beneficial
+interest therein) other than Encumbrances that run in favor of the Member unless the Managing Member consents in writing thereto, which
+consent may be given or withheld, or made subject to such conditions as are determined by the Managing Member, in the Managing Member’s
+sole discretion. Consent of the Managing Member shall be withheld until the holder of the Encumbrance acknowledges the terms and conditions
+of this Agreement. Any purported Encumbrance that is not in accordance with this Agreement shall be, to the fullest extent permitted by
+law, null and void.
+
+9.6           
+Further Restrictions .
+
+(a)               
+Notwithstanding any contrary provision in this Agreement, in no event may any Transfer (including an Exempt Transfer and, for purposes
+of clauses (ii), (iii) and (v) only, an Exempt Pledge) of a Unit be made by any Member or Assignee if the Managing Member determines in
+good faith that:
+
+(i)                 
+such Transfer is made to any Person who lacks the legal right, power or capacity to own such Unit;
+
+(ii)                
+such Transfer would require the registration of such transferred Unit or of any class of Unit pursuant to any applicable U.S. federal
+or state securities laws;
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+46
+
+(iii)                such
+Transfer would cause (A) all or any portion of the assets of the Company to (1) constitute “plan assets” (under ERISA,
+the Code or any applicable Similar Law) of any existing or contemplated Member, or (2) be subject to the provisions of ERISA,
+Section 4975 of the Code or any applicable Similar Law, or (B) the Managing Member to become a fiduciary with respect to any
+existing or contemplated Member, pursuant to ERISA, any applicable Similar Law, or otherwise;
+
+(iv)               
+to the extent requested by the Managing Member, the Company does not receive such Assignee’s consent to be bound by this
+Agreement as an Assignee in a form satisfactory to the Managing Member;
+
+(v)               
+such Transfer would (A) result in the Company having more than 100 partners, within the meaning of Treasury Regulations Section
+1.7704-1(h) (determined taking into account the rules of Treasury Regulations Section 1.7704-1(h)(3)) or (B) pose a material risk that
+the Company would be treated as a “publicly traded partnership” within the meaning of Section 7704 of the Code and the Treasury
+Regulations promulgated thereunder.
+
+(b)               
+In addition, notwithstanding any contrary provision in this Agreement, to the extent the Managing Member shall determine in good
+faith that additional restrictions on Transfers are necessary so that the Company is not treated as a “publicly traded partnership”
+under Section 7704 of the Code, the Managing Member may impose such additional restrictions on Transfers as the Managing Member has determined
+in good faith to be so necessary.
+
+(c)               
+Notwithstanding any contrary provision in this Agreement, in no event may any Transfer of a Unit be made by any Member unless such
+Member or the prospective transferee(s) of such Units shall have reimbursed the Company for all reasonable and documented out-of-pocket
+expenses (including attorneys’ fees and expenses) incurred and paid by the Company in connection with implementing such Transfer
+or proposed Transfer, whether or not consummated (other than Exchanges pursuant to Article XII or any Transfer to the Company).
+
+9.7           
+Counterparts; Joinder . Prior to Transferring any Units (other than Exchanges pursuant to Article XII or any Transfer
+to the Company) and as a condition precedent to the effectiveness of such Transfer, the transferring holder of Units will cause the prospective
+transferee(s) of such Units to execute and deliver to the Company counterparts of this Agreement and any other agreements relating to
+such Units, or executed joinders to such agreements, in each case, in a form acceptable to the Managing Member. Notwithstanding anything
+herein to the contrary, to the fullest extent permitted by law, any Person who acquires in any manner whatsoever any Units, irrespective
+of whether such Person has accepted and adopted in writing the terms and conditions of this Agreement, shall be deemed by the acceptance
+of the benefits of the acquisition thereof to have agreed to be subject to and bound by all of the terms and conditions of this Agreement
+to which any predecessor in such Units was subject or by which such predecessor was bound.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+47
+
+9.8          
+Ineffective Transfer . Any Transfer or attempted Transfer of any Units in violation of any provision of this Agreement shall,
+to the fullest extent permitted by law, be null and void ab initio, and the Company will not record such Transfer on its books or treat
+any purported transferee of such Units as the owner of such securities for any purpose.
+
+Article
+X
+ADMISSION OF MEMBERS
+
+10.1          
+Substituted Members . Subject to the provisions of Article IX hereof, in connection with the permitted Transfer of
+any Units of a Member, the transferee shall become a Substituted Member on the effective date of such Transfer, which effective date shall
+not be earlier than the date of compliance with the conditions to such Transfer, and such admission shall be shown on the books and records
+of the Company.
+
+10.2          
+Additional Members . Subject to the provisions of Article IX hereof, a Person may be admitted to the Company as an
+Additional Member only upon furnishing to the Company (a) counterparts of this Agreement or an executed joinder to this Agreement in a
+form acceptable to the Managing Member and (b) such other documents or instruments as may be necessary or appropriate to effect such Person’s
+admission as a Member (including entering into such documents as the Managing Member may deem appropriate). Such admission shall become
+effective on the date on which the Managing Member determines that such conditions have been satisfied and when any such admission is
+shown on the books and records of the Company.
+
+10.3          
+Substitute Managing Member . No Person may be admitted to the Company as substitute Managing Member without the prior written
+consent of the incumbent Managing Member, which consent may be given or withheld, or made subject to such conditions as are determined
+by the incumbent Managing Member, in each case in the sole discretion of the incumbent Managing Member. The Managing Member will not be
+entitled to resign as Managing Member of the Company unless another Managing Member shall have been admitted hereunder (and not have previously
+been removed or resigned). Any substitute Managing Member admitted as the Managing Member of the Company pursuant to this Section 10.3
+is hereby authorized to, and shall, continue the Company without dissolution.
+
+Article
+XI
+WITHDRAWAL AND RESIGNATION OF MEMBERS
+
+No Member shall have the power or right to
+withdraw or otherwise resign as a Member from the Company prior to the dissolution and winding up of the Company pursuant to Article
+XIII without the prior written consent of the Managing Member, except as otherwise expressly permitted by this Agreement. Any
+Member, however, that attempts to withdraw or otherwise resign as a Member from the Company without the prior written consent of the
+Managing Member upon or following the dissolution and winding up of the Company pursuant to Article XIII but prior to such
+Member receiving the full amount of distributions from the Company to which such Member is entitled pursuant to Article XIII
+shall be liable to the Company for all damages (including all lost profits and special, indirect and consequential damages) directly
+or indirectly caused by the withdrawal or resignation of such Member, and such Member shall be entitled to receive the Fair Market
+Value of such Member’s equity interest in the Company as of the date of its resignation (or, if less, the amount that such
+Member would have received on account of such equity interest had such Member not resigned or otherwise withdrew from the Company),
+as conclusively determined by the Managing Member, on the sixth month anniversary date (or such earlier date determined by the
+Managing Member) following the completion of the distribution of Company assets as provided in Article XIII to all other
+Members. Upon a Transfer of all of a Member’s Units in a Transfer permitted by this Agreement, subject to the provisions of Section
+9.4 , such Member shall cease to be a Member.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+48
+
+Article
+XII
+EXCHANGE RIGHTS
+
+12.1          
+Exchange Procedures .
+
+(a)               
+Upon the terms and subject to the conditions set forth in this Article XII , after the expiration or termination of the Lock-Up
+Period applicable to such Exchanging Member (as defined in the applicable Lock-Up Agreement), each Exchanging Member (collectively with
+such Exchanging Member’s Affiliates and Permitted Transferees) shall be entitled to cause the Company to effect an Exchange by delivering
+an Exchange Notice to the Company, with a copy to PubCo. Each Exchange Notice shall be in the form set forth on Exhibit A and shall
+include all information required to be included therein. In the event that an Exchange is being exercised in order to participate in a
+Piggy-Back Registration (as such term is defined in the Registration Rights Agreement), the Exchange Notice Date shall be prior to the
+expiration of the time period in which a holder of securities is required to notify PubCo that it wishes to participate in such Piggy-Back
+Registration in accordance with Section 2.3 of the Registration Rights Agreement.
+
+(b)                Within
+three (3) Business Days of the giving of an Exchange Notice, the Managing Member, as Managing Member of the Company, may elect (if
+approved by a majority of the Disinterested Members of the Board) to settle all or a portion of the Exchange in cash in an amount
+equal to the Cash Exchange Payment (in lieu of shares of Class A Common Stock), exercisable by giving written notice of such
+election to the Exchanging Member within such three (3) Business Day period (such notice, the “ Cash Exchange
+Notice ”). The Cash Exchange Notice shall set forth the portion of the Class A Common Units subject to the Exchange that
+will be exchanged for cash in lieu of shares of Class A Common Stock. To the extent such Exchange relates to the exercise of the
+Exchanging Member’s registration rights under Section 2 of the Registration Rights Agreement, the Managing Member and the
+Company will cooperate in good faith with such Exchanging Member to exercise such Exchange in a manner which preserves such
+Exchanging Member’s rights thereunder. At any time following the giving of a Cash Exchange Notice and prior to the Exchange
+Date, the Managing Member may elect (if approved by a majority of the Disinterested Members of the Board and exercisable by giving
+written notice of such election to the Exchanging Member) to revoke the Cash Exchange Notice with respect to all or any portion of
+the Exchanged Units and make the Stock Exchange Payment with respect to any such Exchanged Units on the Exchange Date.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+49
+
+(c)               
+Notwithstanding anything herein to the contrary, a Member may withdraw or amend an Exchange Notice, in whole or in part, prior
+to the effectiveness of the Exchange, at any time prior to 5:00 p.m. New York City time, on the Business Day immediately preceding the
+Exchange Date (or any such later time as may be required by Applicable Law) by delivery of a written notice of withdrawal to PubCo and
+the Company specifying (1) the number of withdrawn Class A Common Units plus shares of Class B Common Stock, (2) if any, the number of
+Exchanged Interests as to which the Exchange Notice remains in effect and (3) if the Member so determines, a new Exchange Date or any
+other new or revised information permitted in the Exchange Notice.
+
+(d)               
+PubCo and the Company may adopt reasonable procedures for the implementation of the Exchange provisions set forth in this Article
+XII , provided that none of such procedures shall be adopted with a principal purpose of restricting or otherwise impairing
+in any material respect the Members’ rights to consummate Exchanges.
+
+(e)               
+Notwithstanding anything to the contrary herein, to the extent a Member surrenders for exchange a fraction of a Class A Common
+Unit, the Company may in its sole discretion deliver to such holder a cash amount equal to the market value of such fraction (as determined
+by the Managing Member in its sole discretion) in lieu of delivering a fraction of a share of Class A Common Stock.
+
+12.2          
+Exchange Payment . The Exchange shall be consummated on the Exchange Date. On the Exchange Date (to be effective immediately
+prior to the close of business on the Exchange Date):
+
+(i)                 
+PubCo shall contribute to the Company for delivery to the Exchanging Member (A) the Stock Exchange Payment with respect to any
+Exchanged Units not subject to a Cash Exchange Notice and (B) the Cash Exchange Payment with respect to any Exchanged Units subject to
+a Cash Exchange Notice and, for the avoidance of doubt, PubCo shall be obligated to make the contributions described in this Section
+12.2(i) regardless of whether the Company has sufficient assets to effect the Exchange without such contributions);
+
+(ii)                
+the Exchanging Member shall transfer and surrender the Exchanged Units to the Company (including any certificates that represent
+the Exchanged Units), free and clear of all Encumbrances, together with any instruments of transfer reasonably required by the Managing
+Member (or a duly appointed transfer agent), duly executed by the Exchanging Member or the Exchanging Member’s duly authorized representative;
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+50
+
+(iii)               
+the Company shall issue to PubCo a number of Class A Common Units equal to, and PubCo shall automatically be admitted as a Member
+of the Company in respect of, the number of Class A Common Units surrendered pursuant to clause (ii);
+
+(iv)               
+solely to the extent necessary in connection with an Exchange, PubCo shall undertake all actions, including an issuance, reclassification,
+distribution, division or recapitalization, with respect to the Class A Common Stock to maintain a one-to-one ratio between the number
+of Class A Common Units owned by PubCo, directly or indirectly, and the number of outstanding shares of Class A Common Stock, taking into
+account the issuance in clause (iii), any Stock Exchange Payment, and any other action taken in connection with this Article XII ;
+
+(v)                
+the Company shall (A) cancel the redeemed Class A Common Units which were Exchanged Units held by the Exchanging Member and (B)
+transfer to the Exchanging Member, the Cash Exchange Payment and/or the Stock Exchange Payment, as applicable; and
+
+(vi)               
+PubCo shall cancel the surrendered shares of Class B Common Stock.
+
+Upon the Exchange of all of a Member’s Units,
+such Member shall cease to be a Member of the Company.
+
+12.3          
+Certain Expenses . The Company shall bear all expenses in connection with the consummation of any Exchange, whether or not
+any such Exchange is ultimately consummated; provided , however , that if any shares of Class A Common Stock are to be delivered
+in a name other than that of the Exchanging Member that requested the Exchange (or the DTC or its nominee for the account of a participant
+of the DTC that will hold the shares for the account of such Exchanging Member), then such Exchanging Member and/or the person in whose
+name such shares are to be delivered shall pay to the Company or PubCo, as applicable, the amount of any transfer taxes, stamp taxes or
+duties, or other similar taxes in connection with, or arising by reason of, such Exchange or shall establish to the reasonable satisfaction
+of the Company that such tax has been paid or is not payable.
+
+12.4          
+Exchange Taxes . The issuance of shares of Class A Common Stock upon an Exchange shall be made without charge to the Exchanging
+Member for any stamp or other similar tax in respect of such issuance.
+
+12.5           Limitations
+on Exchanges . For the avoidance of doubt, and notwithstanding anything to the contrary herein, a Member shall not be entitled to
+effect an Exchange to the extent PubCo or the Company determines on advice of counsel that such Exchange (i) would be prohibited by
+law or regulation (including, without limitation, the unavailability of any requisite registration statement filed under the
+Securities Act or any exemption from the registration requirements thereunder) or (ii) would not be permitted under any other
+agreements with PubCo or its subsidiaries to which such Member may be party (including, without limitation, this Agreement) or any
+written policies of PubCo related to unlawful or inappropriate trading applicable to its directors, officers or other personnel.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+51
+
+12.6          
+Adjustments .
+
+(a)               
+The Exchange Rate shall be adjusted accordingly if there is: (i) any subdivision (by any unit split, unit distribution, reclassification,
+reorganization, recapitalization or otherwise) or combination (by reverse unit split, reclassification, reorganization, recapitalization
+or otherwise) of the applicable Units that is not accompanied by a substantively identical subdivision or combination of the Class A Common
+Stock; or (ii) any subdivision (by any stock split, stock dividend or distribution, reclassification, reorganization, recapitalization
+or otherwise) or combination (by reverse stock split, reclassification, reorganization, recapitalization or otherwise) of the Class A
+Common Stock that is not accompanied by a substantively identical subdivision or combination of shares of Class B Common Stock or the
+applicable Units, in each case, to the extent necessary to maintain the economic equivalency in the value surrendered for exchange and
+the value received, as determined by PubCo in its sole discretion; provided , however , that no adjustment to the Exchange
+Rate will be made solely as a result of a stock dividend by PubCo that is effected to maintain the relationship between the outstanding
+shares of Class A Common Stock and Class A Common Units. If there is any reclassification, reorganization, recapitalization or other similar
+transaction in which the Class A Common Stock is converted or changed into another security, securities or other property, then upon any
+subsequent Exchange, an Exchanging Member shall be entitled to receive the amount of such security, securities or other property that
+such Exchanging Member would have received if such Exchange had occurred immediately prior to the
+effective date of such reclassification, reorganization, recapitalization or other similar transaction, taking into account any adjustment
+as a result of any subdivision (by any split, distribution or dividend, reclassification, reorganization, recapitalization or otherwise)
+or combination (by reverse split, reclassification, recapitalization or otherwise) of such security, securities or other property that
+occurs after the effective time of such reclassification, reorganization, recapitalization
+or other similar transaction. These adjustments shall apply to, mutatis mutandis, and all references to “Units” will be
+deemed to include, any security, securities or other property of PubCo or the Company which may be issued in respect of, in exchange for
+or in substitution of shares of Class B Common Stock or Class A Common Units, as applicable, by reason of stock or unit split, reverse
+stock or unit split, stock or unit dividend or distribution, combination, reclassification, reorganization, recapitalization, merger,
+exchange (other than an Exchange) or other transaction.
+
+(b)               
+This Agreement shall apply to the Units held by the Members and their Permitted Transferees as of the date hereof, as well as any
+Units hereafter acquired by a Member and his or her or its Permitted Transferees.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+52
+
+12.7          
+Class A Common Stock to be Issued .
+
+(a)               
+PubCo shall at all times reserve and keep available out of its authorized but unissued Class A Common Stock, solely for the purpose
+of issuance upon an Exchange, such number of shares of Class A Common Stock as shall be deliverable upon any such Exchange; provided
+that nothing contained herein shall be construed to preclude PubCo or the Company from satisfying its obligations in respect of the Exchange
+of the Units by delivery of shares of Class A Common Stock which are held in the treasury of PubCo or are held by the Company or any of
+their subsidiaries or by delivery of purchased shares of Class A Common Stock (which may or may not be held in the treasury of PubCo or
+held by any subsidiary thereof). PubCo and the Company covenant that all shares of Class A Common Stock issued upon an Exchange will,
+upon issuance, have been duly authorized and validly issued and will be fully paid and non-assessable.
+
+(b)               
+PubCo and the Company covenant and agree that, to the extent that a registration statement under the Securities Act is effective
+and available for shares of Class A Common Stock to be delivered with respect to any Exchange, shares that have been registered under
+the Securities Act shall be delivered in respect of such Exchange. In the event that any Exchange in accordance with this Agreement is
+to be effected at a time when any required registration has not become effective or otherwise is unavailable, upon the request and with
+the reasonable cooperation of the Member requesting such Exchange, PubCo and the Company shall use commercially reasonable efforts to
+promptly facilitate such Exchange pursuant to any reasonably available exemption from such registration requirements. PubCo and the Company
+shall use commercially reasonable efforts to list the shares of Class A Common Stock required to be delivered upon Exchange prior to such
+delivery upon each National Securities Exchange or inter-dealer quotation system upon which the outstanding Class A Common Stock may be
+listed or traded at the time of such delivery.
+
+12.8          
+Distribution Rights . No Exchange shall impair the right of the Exchanging Member to receive any distributions payable on
+the Class A Common Units redeemed pursuant to such Exchange in respect of a record date that occurs prior to the Exchange Date for such
+Exchange. No Exchanging Member, or a Person designated by an Exchanging Member to receive shares of Class A Common Stock, shall be entitled
+to receive, with respect to such record date, distributions or dividends both on Class A Common Units redeemed by the Company from such
+Exchanging Member and on shares of Class A Common Stock received by such Exchanging Member, or other Person so designated, if applicable,
+in such Exchange.
+
+12.9          
+Tax Treatment; Tax Withholding .
+
+(a)                As
+required by the Code and the Treasury Regulations, the parties shall report any Exchange in which the cash, shares of Class A Common
+Stock or both provided as consideration are contributed to the Company by PubCo in connection with such Exchange as a taxable sale
+of Class A Common Units by an Exchanging Member to PubCo, resulting in a basis step-up to PubCo under Section 743 of the Code, and
+no party shall take a contrary position on any income tax return, amendment thereof or communication with a taxing authority unless
+an alternate position is permitted under the Code and Treasury Regulations and PubCo consents in writing.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+53
+
+(b)               
+Notwithstanding any other provision in this Agreement (and without limiting Section 4.5 or Section 9.1(c)) , PubCo,
+the Company and their agents and affiliates shall have the right to deduct and withhold taxes (including shares of Class A Common Stock
+with a fair market value determined in the sole discretion of PubCo equal to the amount of such taxes) from any payments to be made pursuant
+to the transactions contemplated by this Agreement if, in their reasonable opinion, such withholding is required by law, and shall be
+provided with any necessary tax forms, including Form W-9 or the appropriate series of Form W-8, as applicable, and any similar information;
+provided that PubCo may, in its sole discretion, allow an Exchanging Member to pay such taxes owed on the Exchange of Units and
+shares of Class B Common Stock for shares of Class A Common Stock in cash in lieu of PubCo withholding or deducting such taxes. To the
+extent that any of the aforementioned amounts are so withheld, such withheld amounts shall be treated for all purposes of this Agreement
+as having been delivered and paid to the recipient of the payments in respect of which such deduction and withholding was made.
+
+(c)               
+Notwithstanding anything to the contrary herein, each of PubCo and the Company may, in its discretion, require that an exchanging
+Member deliver to PubCo or the Company, as the case may be, a certification of non-foreign status in accordance with Treasury Regulation
+Section 1.1445-2(b) and 1.1446(f)-2(b)(2) prior to an Exchange. In the event PubCo or the Company has required delivery of such certification
+but an exchanging Holder does not provide such certification, PubCo or the Company, as the case may be, shall nevertheless deliver or
+cause to be delivered to the exchanging Holder the Class A Common Stock, as applicable, or payment of cash in accordance with Section
+12.2 , but subject to withholding as provided in Section 12.9(b) .
+
+Article
+XIII
+DISSOLUTION AND LIQUIDATION
+
+13.1          
+Dissolution . The Company shall not be dissolved by the admission of Additional Members or Substituted Members or the attempted
+withdrawal or resignation of a Member. The Company shall dissolve, and its affairs shall be wound up, upon:
+
+(a)               
+the entry of a decree of judicial dissolution of the Company under Section 18-802 of the Delaware Act;
+
+(b)               
+at any time there are no Members, unless the Company is continued in accordance with the Delaware Act;
+
+(c)               
+the sale of all or substantially all of the assets of the Company;
+
+(d)               
+the determination of the Managing Member to dissolve the Company; or
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+54
+
+(e)               
+any event which makes it unlawful for the business of the Company to be carried on by the members.
+
+The Members hereby agree that the Company shall not
+dissolve prior to the occurrence of one of the events specified in the first sentence of this Section 13.1 . In the event of a dissolution
+pursuant to Section 13.1(d) , the relative economic rights of each class of Units immediately prior to such dissolution shall be
+preserved to the greatest extent practicable with respect to distributions made to Members pursuant to Section 13.2 in connection
+with such dissolution, taking into consideration tax and other legal constraints that may adversely affect one or more Members and subject
+to compliance with applicable Laws, unless, with respect to any class of Units, holders of at least ninety percent (90%) of the Units
+of such class not held by the Managing Member consent in writing to a treatment other than as described above. Further, if a dissolution
+pursuant to Section 13.1(d) or Section 13.1(e) would have a material adverse effect on any Member, the dissolution of the
+Company shall require the prior consent of such Member, which consent shall not be unreasonably withheld, delayed or conditioned.
+
+Except as otherwise set forth in this Article
+XIII , the Company is intended to have perpetual existence. An Event of Withdrawal shall not, in and of itself, cause a dissolution
+of the Company and the Company shall continue in existence subject to the terms and conditions of this Agreement.
+
+13.2          
+Winding Up and Termination . On dissolution of the Company, the Managing Member shall act as liquidating trustee or may appoint
+one or more Persons as liquidating trustee. The liquidating trustee shall proceed diligently to wind up the affairs of the Company and
+make final distributions as provided herein and in the Delaware Act. The costs of winding up shall be borne as a Company expense. Until
+final distribution, the liquidating trustee shall continue to operate the Company properties with all of the power and authority of the
+Managing Member. The steps to be accomplished by the liquidating trustee are as follows:
+
+(a)               
+as promptly as possible after dissolution and again after completion of the winding up, the liquidating trustee shall cause a proper
+accounting to be made by a recognized firm of certified public accountants of the Company’s assets, liabilities and operations through
+the last day of the calendar month in which the dissolution occurs or the completion of the winding up is completed, as applicable;
+
+(b)               
+the liquidating trustee shall pay, satisfy or discharge from Company funds all of the debts, liabilities and obligations of the
+Company (including, without limitation, all expenses incurred of winding up) or otherwise make adequate provision for payment and discharge
+thereof (including, without limitation, the establishment of a cash fund for contingent, conditional or unmatured liabilities in such
+amount and for such term as the liquidating trustee may reasonably determine); and
+
+(c)                all
+remaining assets of the Company shall be distributed to the Members in accordance with Section 4.1(c) by the end of the
+Taxable Year of the Company during which the winding up of the Company occurs (or, if later, by ninety (90) days after the date of
+the winding up).
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+55
+
+The distribution of cash and/or property to Members
+in accordance with the provisions of this Section 13.2 and Section 13.3 constitutes a complete return to the Members of
+their Capital Contributions and a complete distribution to the Members of their interest in the Company and all the Company’s property
+and constitutes a compromise to which all Members have consented within the meaning of the Delaware Act. To the extent that a Member returns
+funds to the Company, it has no claim against any other Member for those funds.
+
+13.3          
+Deferment; Distribution in Kind . Notwithstanding the provisions of Section 13.2 , but subject to the order of priorities
+set forth therein, if upon dissolution of the Company the liquidating trustee determines that an immediate sale of part or all of the
+Company’s assets would be impractical or would cause undue loss (or would otherwise not be beneficial) to the Members, the liquidating
+trustee may, in their sole discretion, defer for a reasonable time the winding up of any assets except those necessary to satisfy Company
+liabilities (other than loans to the Company by Members) and reserves. Subject to the order of priorities set forth in Section 13.2 ,
+the liquidating trustee may, in their sole discretion, distribute to the Members, in lieu of cash, either (i) all or any portion of such
+remaining Company assets in-kind in accordance with the provisions of Section 13.2(c) , (ii) as tenants in common and in accordance
+with the provisions of Section 13.2(c) , undivided interests in all or any portion of such Company assets or (iii) a combination
+of the foregoing. Any such distributions in kind shall be subject to (x) such conditions relating to the disposition and management of
+such assets as the liquidating trustee deem reasonable and equitable and (y) the terms and conditions of any agreements governing such
+assets (or the operation thereof or the holders thereof) at such time. Any Company assets distributed in kind will first be written up
+or down to their Fair Market Value, thus creating Profit or Loss (if any), which shall be allocated in accordance with Section 4.2 .
+The liquidating trustee shall determine the Fair Market Value of any property distributed in accordance with the valuation procedures
+set forth in Article XIV .
+
+13.4          
+Cancellation of Certificate . On completion of the winding up of the Company’s affairs and distribution of Company
+assets as provided herein, the Company is terminated (and the Company shall not be terminated prior to such time), and the Managing
+Member (or such other Person or Persons as the Delaware Act may require or permit) shall file a certificate of cancellation with the
+Secretary of State of Delaware, cancel any other filings made pursuant to this Agreement that are or should be canceled and take such
+other actions as may be necessary to terminate the Company. The Company shall be deemed to continue in existence for all purposes of this
+Agreement until it is terminated pursuant to this Section 13.4 .
+
+13.5          
+Reasonable Time for Winding Up . A reasonable time shall be allowed for the orderly winding up of the business and affairs
+of the Company and the liquidation of its assets pursuant to Sections 13.2 and 13.3 in order to minimize any losses otherwise
+attendant upon such winding up.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+56
+
+13.6         
+Return of Capital . The liquidating trustee shall not be personally liable for the return of Capital Contributions or any
+portion thereof to the Members (it being understood that any such return shall be made solely from Company assets).
+
+Article
+XIV
+VALUATION
+
+14.1          
+Value . “ Fair Market Value ” of any asset, property or equity interest means the amount which a seller
+of such asset, property or equity interest would receive in a sale of such asset, property or equity interest in an arms-length transaction
+with an unaffiliated third party consummated on a date determined by the Managing Member (which may be the date on which the event occurred
+which necessitated the determination of the Fair Market Value) (and after giving effect to any transfer taxes payable in connection with
+such sale). Notwithstanding the foregoing, in making the determination of Fair Market Value as described in Section 14.2 , the Managing
+Member, the Disputing Member and any investment banking firm (as described below) shall not give effect or take into account any “minority
+discount” or “liquidity discount” (or any similar discount arising out of the fact that the Units are restricted or
+are not registered with the Securities and Exchange Commission, publicly traded or listed on a securities exchange), but shall value the
+Company and its Subsidiaries and their respective businesses in their entirety on an enterprise basis using any variety of industry recognized
+valuation techniques commonly used to value businesses.
+
+14.2          
+Determination and Dispute . Fair Market Value shall be determined by the Managing Member (or, if pursuant to Section 13.3 ,
+the liquidating trustee) in its good faith judgment in such manner as it deems reasonable and using all factors, information and data
+deemed to be pertinent. Notwithstanding the foregoing, at the request of any Member that holds at least 1 million Class A Common Units
+(a “ Disputing Member ”), the Managing Member will retain an investment banking firm of recognized national standing
+reasonably acceptable to such Disputing Member to determine the Fair Market Value of such Units, assets or consideration.
+
+Article
+XV
+GENERAL PROVISIONS
+
+15.1          
+Power of Attorney .
+
+(a)               
+Each holder of Units hereby constitutes and appoints the Managing Member and the liquidating trustee, with full power of substitution,
+as his, her or its true and lawful agent and attorney-in-fact, with full power and authority in his, her or its name, place and stead,
+to:
+
+(i)                  execute,
+swear to, acknowledge, deliver, file and record in the appropriate public offices (A) this Agreement, all certificates and other
+instruments and all amendments thereof which the Managing Member deems appropriate or necessary to form, qualify, or continue the
+qualification of, the Company as a limited liability company in the State of Delaware and in all other jurisdictions in which the
+Company may conduct business or own property; (B) all instruments which the Managing Member deems appropriate or necessary to
+reflect any amendment, change, modification or restatement of this Agreement in accordance with its terms; (C) all conveyances and
+other instruments or documents which the Managing Member deems appropriate or necessary to reflect the dissolution and winding up of
+the Company pursuant to the terms of this Agreement, including a certificate of cancellation; and (D) all instruments relating to
+the admission, withdrawal or substitution of any Member pursuant to Article X or Article XI ; and
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+57
+
+(ii)                 
+sign, execute, swear to and acknowledge all ballots, consents, approvals, waivers, certificates and other instruments appropriate
+or necessary, in the reasonable judgment of the Managing Member, to evidence, confirm or ratify any vote, consent, approval, agreement
+or other action which is made or given by such holder of Units hereunder or is consistent with the terms of this Agreement and/or appropriate
+or necessary (and not inconsistent with the terms of this Agreement), in the reasonable judgment of the Managing Member, to effectuate
+the terms of this Agreement.
+
+(b)               
+For the avoidance of doubt, the foregoing power of attorney does not include the power or authority to vote any Units held by any
+Member on any matter on which the Members have a right to vote, either at a meeting or by any written consent, either as contemplated
+by Section 6.5 or otherwise under this Agreement.
+
+(c)               
+The foregoing power of attorney is irrevocable and coupled with an interest, and shall survive the death, disability, incapacity,
+dissolution, bankruptcy, insolvency or termination of any holder of Units and the Transfer of all or any portion of his, her or its Units
+and shall extend to such holder’s heirs, successors, assigns and personal representatives.
+
+15.2          
+Amendments .
+
+(a)               
+The Managing Member (pursuant to its power of attorney from the holders of Units as provided in Section 15.1 or otherwise),
+without the consent of any holder of Units, may amend any provision of this Agreement, and execute, swear to, acknowledge, deliver, file
+and record whatever documents may be required in connection therewith, to reflect:
+
+(i)                 
+a change in the name of the Company or the location of the principal place of business of the Company;
+
+(ii)                
+admission, substitution, removal or withdrawal of Members or Assignees in accordance with this Agreement;
+
+(iii)                a
+change that does not adversely affect any holder of Units in any material respect in its capacity as an owner of Units and is
+necessary or desirable to satisfy any requirements, conditions or guidelines contained in any opinion, directive, order, ruling or
+regulation of any United States federal or state agency or judicial authority or contained in any United States federal or state
+statute; or
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+58
+
+(iv)               
+as contemplated by Section 3.1(c) .
+
+(b)               
+Except as provided in Section 15.2(a) , this Agreement may not be amended or modified except with the consent of the Managing
+Member and, so long as the holders of the Class A Common Units other than the Managing Member have an ownership percentage of at least
+10% of the total issued and outstanding Class A Common Units, the consent or approval of the holders of at least ninety percent (90%)
+of the Class A Common Units not held by the Managing Member consent in writing to a treatment other than as described above. Notwithstanding
+the preceding sentence, (i) no consent or approval shall be required for the Company to admit a Permitted Transferee as a Member following
+an Exempt Transfer completed in compliance with this Agreement, and (ii) if the holders of the Class A Common Units other than the Managing
+Member have an ownership percentage of less than 10% of the total issued and outstanding Class A Common Units, the holders of at least
+ninety percent (90%) of the Class A Common Units not held by the Managing Member must also consent to or approve any amendments or modifications
+to Article IV , Section 9.1 , Article XII , Section 13.2 , this Section 15.2 or related definitions or
+any other amendments or modifications that affect the rights granted to the such holders in such sections in any material respect, including,
+without limitation, changes to the number of shares of Class A Common Stock issued upon an Exchange, either through an amendment to the
+definition of “Exchange Rate” or otherwise, or that otherwise increases the obligations or decreases the benefits to the applicable
+holders. Notwithstanding the foregoing, any amendment which would materially and adversely affect the rights or duties of a Member on
+a discriminatory and non-pro rata basis shall require the consent of such Member, other than those actions set forth in Section 15.2(a)
+above. In addition, the amendment of any specific approval, consent, voting right, or transfer rights of a specified Member shall require
+the approval of such Member, provided that such Member holds the number of Units, as applicable, required to exercise such rights.
+Any amendment or modification effected in accordance with this Section 15.2(b) shall be effective, in accordance with its terms,
+with respect to the rights and obligations of and binding upon all Members. For the avoidance of doubt, without any action or requirement
+of consent by any Member, the Company shall update the books and records of the Company to remove a Member’s name therefrom once
+such Member no longer holds any Equity Securities of the Company, following which such Person shall cease to be a “Member”
+or have any rights or obligations under this Agreement.
+
+15.3           Title
+to Company Assets . The Company assets shall be deemed to be owned by the Company as an entity, and no holder of Units,
+individually or collectively, shall have any ownership interest in such Company assets or any portion thereof. The Managing Member
+hereby declares and warrants that any Company assets for which legal title is held in its name or the name of any nominee shall be
+held in trust by the Managing Member or such nominee for the use and benefit of the Company in accordance with the provisions of
+this Agreement. All Company assets shall be recorded as the property of the Company on its books and records, irrespective of the
+name in which legal title to such Company assets is held.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+59
+
+15.4          
+Addresses and Notices. Any notice provided for in this Agreement will be in writing and will be either personally delivered,
+or received by certified mail, return receipt requested, sent by reputable overnight courier service (charges prepaid) or facsimile to
+the Company at the address set forth below and to any other recipient and to any holder of Units at such address as indicated by the Company’s
+records, or at such address or to the attention of such other person as the recipient party has specified by prior written notice to the
+sending party. Notices will be deemed to have been given hereunder when delivered personally or sent by facsimile (provided confirmation
+of transmission is received), three days after deposit in the U.S. mail and one day after deposit with a reputable overnight courier service.
+The Company’s address is:
+
+To the Company :
+
+Redwood Intermediate, LLC
+
+c/o Redbox Entertainment Inc.
+
+1 Tower Lane
+
+Suite 800
+
+Oakbrook Terrace, Illinois 60181
+
+Attention: Fred Stein, Chief Legal Officer
+
+Email: AskLegal@redbox.com
+
+in each case, with a copy (which shall not constitute written
+notice) to:
+
+Paul, Weiss, Rifkind, Wharton & Garrison LLP
+
+1285 Avenue of the Americas
+
+New York, New York 10019
+
+Attention:   Taurie Zeitzer
+
+                    Justin Rosenberg
+
+Email:         tzeitzer@paulweiss.com
+                    jrosenberg@paulweiss.com
+
+To the Managing Member :
+
+Redbox Entertainment Inc.
+
+1 Tower Lane
+
+Suite 800
+
+Oakbrook Terrace, Illinois 60181
+
+Attention: Fred Stein, Chief Legal Officer
+
+Email: AskLegal@redbox.com
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+60
+
+in each case, with a copy (which shall not constitute written
+notice) to:
+
+Seaport Global Acquisition Corp.
+
+360 Madison Avenue, 20 th Floor
+
+New York, NY 10017
+Attn:          Stephen C. Smith, Chief Executive Officer
+
+Email:       SSmith@seaportglobal.com
+
+and
+
+Paul Hastings LLP
+
+4747 Executive Drive
+
+12th Floor
+
+San Diego, CA 92121
+Attn:          Carl Sanchez
+                  Frank Lopez
+Email:       carlsanchez@paulhastings.com
+                  franklopez@paulhastings.com
+
+15.5          
+Binding Effect . This Agreement shall be binding upon and inure to the benefit of the parties hereto and their heirs, executors,
+administrators, successors, legal representatives and permitted assigns.
+
+15.6          
+Creditors . None of the provisions of this Agreement shall be for the benefit of or enforceable by any creditors of the Company
+or any of its Affiliates, and no creditor who makes a loan to the Company or any of its Affiliates may have or acquire (except pursuant
+to the terms of a separate agreement executed by the Company in favor of such creditor) at any time as a result of making the loan any
+direct or indirect interest in Company Profits, Losses, Distributions, capital or property other than as a secured creditor.
+
+15.7          
+Waiver . No failure by any party to insist upon the strict performance of any covenant, duty, agreement or condition of this
+Agreement or to exercise any right or remedy consequent upon a breach thereof shall constitute a waiver of any such breach or any other
+covenant, duty, agreement or condition.
+
+15.8          
+Counterparts . This Agreement may be executed in separate counterparts, each of which will be an original and all of which
+together shall constitute one and the same agreement binding on all the parties hereto.
+
+15.9           Applicable
+Law; Waiver of Jury Trial . This Agreement shall be governed by, and construed in accordance with, the laws of the State of
+Delaware, without giving effect to any choice of law or conflict of law rules or provisions (whether of the State of Delaware or any
+other jurisdiction) that would cause the application of the laws of any jurisdiction other than the State of Delaware. Any dispute
+relating hereto shall be heard in the state or federal courts of Delaware, and the parties agree to exclusive jurisdiction and venue
+therein and waive, to the fullest extent permitted by law, any objection based on venue or forum non conveniens with respect
+to any action instituted therein. The parties hereto hereby consent to service being made through the notice procedures set forth in Section
+15.4 and irrevocably submit to the jurisdiction of the aforesaid courts. THE PARTIES HERETO HEREBY IRREVOCABLY WAIVE, TO THE
+FULLEST EXTENT PERMITTED BY LAW, ANY AND ALL RIGHT TO TRIAL BY JURY IN ANY LEGAL PROCEEDING ARISING OUT OF OR RELATED TO THIS
+AGREEMENT OR THE TRANSACTIONS CONTEMPLATED HEREBY.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+61
+
+15.10       
+Severability . Whenever possible, each provision of this Agreement will be interpreted in such manner as to be effective
+and valid under applicable law, but if any provision of this Agreement is held to be invalid, illegal or unenforceable in any respect
+under any applicable law or rule in any jurisdiction, such invalidity, illegality or unenforceability will not affect any other provision
+or the effectiveness or validity of any provision in any other jurisdiction, and this Agreement will be reformed, construed and enforced
+in such jurisdiction as if such invalid, illegal or unenforceable provision had never been contained herein.
+
+15.11        
+Further Action . The parties shall use commercially reasonable efforts to execute and deliver all documents, provide all
+information and take or refrain from taking such actions as may be necessary or appropriate to achieve the purposes of this Agreement.
+
+15.12        
+Delivery by Facsimile . This Agreement and any signed agreement or instrument entered into in connection with this Agreement
+or contemplated hereby, and any amendments hereto or thereto, to the extent signed and delivered by means of a facsimile machine or electronic
+transmission (i.e., in portable document format), shall be treated in all manner and respects as an original agreement or instrument and
+shall be considered to have the same binding legal effect as if it were the original signed version thereof delivered in person. At the
+request of any party hereto or to any such agreement or instrument, each other party hereto or thereto shall re-execute original forms
+thereof and deliver them to all other parties. No party hereto or to any such agreement or instrument shall raise the use of a facsimile
+machine or electronic transmission to deliver a signature or the fact that any signature or agreement or instrument was transmitted or
+communicated through the use of a facsimile machine or electronic transmission as a defense to the formation of a contract and each such
+party forever waives any such defense.
+
+15.13        
+Offset . Whenever the Company is to pay any sum to any holder of Units or any Affiliate or related person thereof, any undisputed
+amounts that such holder of Units or such Affiliate or related person owes to the Company (such lack of dispute to be evidenced by written
+confirmation of such by such holder of Units or related person thereof) may be deducted from that sum before payment.
+
+15.14        
+Entire Agreement . This Agreement, those documents expressly referred to herein (including the BCA, the Registration Rights
+Agreement, the Stockholders Agreement, the Lock-Up Agreements and the Tax Receivable Agreement), embody the complete agreement and understanding
+among the parties and supersede and preempt any prior understandings, agreements or representations by or among the parties, written or
+oral (including the Prior Agreement), which may have related to the subject matter hereof in any way.
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+62
+
+15.15      
+Remedies . Each holder of Units shall have all rights and remedies set forth in this Agreement and all rights and remedies
+which such Person has been granted at any time under any other agreement or contract and all of the rights which such Person has under
+any law. Any Person having any rights under any provision of this Agreement or any other agreements contemplated hereby shall be entitled
+to seek to enforce such rights specifically (without posting a bond or other security), to recover damages by reason of any breach of
+any provision of this Agreement and to exercise all other rights granted by law.
+
+15.16       
+Descriptive Headings; Interpretation . The descriptive headings of this Agreement are inserted for convenience only and do
+not constitute a substantive part of this Agreement. Whenever required by the context, any pronoun used in this Agreement shall include
+the corresponding masculine, feminine or neuter forms, and the singular form of nouns, pronouns and verbs shall include the plural and
+vice versa. The use of the word “including” in this Agreement shall be by way of example rather than by limitation. Reference
+to any agreement, document or instrument means such agreement, document or instrument as amended or otherwise modified from time to time
+in accordance with the terms thereof, and if applicable hereof. Wherever required by the context, references to a Fiscal Year shall refer
+to a portion thereof. The use of the words “or,” “either” and “any” shall not be exclusive. The parties
+hereto have participated jointly in the negotiation and drafting of this Agreement. In the event an ambiguity or question of intent or
+interpretation arises, to the fullest extent permitted by law, this Agreement shall be construed as if drafted jointly by the parties
+hereto, and no presumption or burden of proof shall arise favoring or disfavoring any party by virtue of the authorship of any of the
+provisions of this Agreement. Wherever a conflict exists between this Agreement and any other agreement, this Agreement shall control
+but solely to the extent of such conflict.
+
+* * * * *
+
+Fourth Amended and Restated Limited Liability Company Agreement
+
+63
+
+IN WITNESS WHEREOF, the undersigned have executed
+this Fourth Amended and Restated Limited Liability Company Agreement as of the date first above written.
+
+REDWOOD INTERMEDIATE, LLC
+
+  By: /s/ Kavita Suthar
+
+Name: Kavita Suthar
+    Title: Chief Financial Officer, Treasurer and Secretary
+
+REDWOOD HOLDCO, L.P., as Managing Member immediately prior to the consummation of the Effective Time and on its behalf
+
+  By: /s/ Kavita Suthar
+
+Name: Kavita Suthar
+    Title: Chief Financial Officer, Treasurer and Secretary
+
+REDBOX ENTERTAINMENT INC., as Managing Member immediately after the Effective Time and on its behalf
+
+  By: /s/ Kavita Suthar
+
+Name: Kavita Suthar
+    Title: Chief Financial Officer, Treasurer and Secretary
+
+Second Amended and Restated Limited Liability Company Agreement – Signature Page
+
+IN WITNESS WHEREOF, the undersigned have executed
+this Fourth Amended and Restated Limited Liability Company Agreement as of the date first above written.
+
+SOLE MEMBER:
+
+REDWOOD HOLDCO, L.P.
+
+  By: /s/ Kavita Suthar
+
+Name: Kavita Suthar
+    Title: Chief Financial Officer, Treasurer and Secretary
+
+Second Amended and Restated Limited Liability Company Agreement – Signature Page
+
+ANNEX A
+
+Member Name
+ 
+Address
+ 
+Amount of Units
+
+Redwood Holdco, LP
+ 
+One Manhattanville Road,
+Suite 201 Purchase, New York 10577 United States of America
+
+32,770,000
+
+Redbox Entertainment Inc.
+ 
+One Tower Lane, Suite 800 Oakbrook Terrace, IL 60181 United States of America
+
+12,618,516
+
+Total
+
+45,388,516 
+
+EXHIBIT A
+
+FORM OF
+ELECTION OF EXCHANGE
+
+Redwood Intermediate] LLC
+
+c/o Redbox Entertainment Inc.
+
+1 Tower Lane
+
+Suite 800
+
+Oakbrook Terrace, Illinois 60181
+
+Attention: Fred Stein, Chief Legal Officer
+
+Email: AskLegal@redbox.com
+
+Reference is hereby made to the Fourth Amended and
+Restated Limited Liability Company Agreement, dated as of October 22, 2021 (as amended from time to time, the “ Agreement ”),
+among Redwood Intermediate, LLC, a Delaware limited liability company (the “ Company ”), and Redbox Entertainment Inc.
+(f/k/a Seaport Global Acquisition Corp.), a Delaware corporation and the Managing Member of the Company (“ PubCo ”),
+and the Members from time to time party thereto (each, a “ Holder ”). Capitalized terms used but not defined herein shall
+have the meanings given to them in the Agreement.
+
+The undersigned Holder hereby transfers to PubCo
+the number of Class A Common Units plus shares of Class B Common Stock set forth below (together, the “ Exchanged Interests ”)
+in Exchange for shares of Class A Common Stock to be issued in its name as set forth below, as set forth in the Agreement.
+
+Legal Name of Holder:
+
+Address:
+
+Number of Exchanged Interests to be Exchanged:
+
+Brokerage Account Details:
+
+The undersigned hereby represents and warrants
+that (i) the undersigned has full legal capacity to execute and deliver this Election of Exchange and to perform the
+undersigned’s obligations hereunder; (ii) this Election of Exchange has been duly executed and delivered by the undersigned
+and is the legal, valid and binding obligation of the undersigned enforceable against it in accordance with the terms thereof or
+hereof, as the case may be, subject to applicable bankruptcy, insolvency and similar laws affecting creditors’ rights
+generally and the availability of equitable remedies; (iii) the Exchanged Interests subject to this Election of Exchange are being
+transferred to PubCo (or the Company, if applicable) free and clear of any pledge, lien, security interest, encumbrance, equities or
+claim; and (iv) no consent, approval, authorization, order, registration or qualification of any third party or with any court or
+governmental agency or body having jurisdiction over the undersigned or the Exchanged Interests subject to this Election of Exchange
+is required to be obtained by the undersigned for the transfer of such Exchanged Interests to PubCo.
+
+A- 1
+
+The undersigned hereby irrevocably constitutes and
+appoints any officer of PubCo or of the Company as the attorney of the undersigned, with full power of substitution and resubstitution
+in the premises, to do any and all things and to take any and all actions that may be necessary to transfer to PubCo (or the Company,
+if applicable) the Exchanged Interests subject to this Election of Exchange and to deliver to the undersigned the shares of Class A Common
+Stock to be delivered in exchange therefor.
+
+A- 2
+
+IN WITNESS WHEREOF the undersigned, by authority
+duly given, has caused this Election of Exchange to be executed and delivered by the undersigned or by its duly authorized attorney.
+
+Name:
+
+Dated:
+
+A- 3
