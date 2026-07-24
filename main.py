@@ -2021,11 +2021,9 @@ async def server_error_handler(request: Request, exc):
 async def index(request: Request):
     db = next(get_db())
     user = get_current_user(request, db)
-    if user:
-        return RedirectResponse(url="/dashboard", status_code=302)
     return templates.TemplateResponse("home.html", {
         "request": request, "current_year": datetime.now().year,
-        "user": None,
+        "user": user,
     })
 
 
