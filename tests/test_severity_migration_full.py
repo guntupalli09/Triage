@@ -14,7 +14,7 @@ def test_all_live_rules_are_scored():
     live_ids = {r.rule_id for r in RuleEngine().rules}
     scored_ids = {r.rule_id for r in FULL_MIGRATION}
     assert live_ids == scored_ids
-    assert len(FULL_MIGRATION) == 180
+    assert len(FULL_MIGRATION) == 185
 
 
 def test_no_duplicate_rule_ids():

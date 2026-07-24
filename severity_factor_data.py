@@ -1154,6 +1154,38 @@ _add("M_CONSTR_WARRANTY_PERIOD_EXTENDED_01", "ObligationScope", "Contractor", _v
 ))
 
 
+# v7.1 batch -- gaps surfaced by real-document validation against the
+# 63-document SEC EDGAR corpus (tests/fixtures/real_contracts/), scored the
+# same way as every other new rule: read only the clause language and
+# doctrine, not by analogy.
+
+_add("M_LENDING_BORROWING_BASE_REDETERMINATION_01", "LendingCompliance", "Borrower", _vec(
+    UD=(2, "Lender's sole-discretion redetermination of the borrowing base is a single procedural term governing an existing facility, not the existence of the loan itself."),
+    FB=(1, "A redetermination deficiency triggers a real but calculable-once-determined mandatory prepayment, not a literally unbounded figure."),
+    OC=(1, "No stated cure period before the deficiency-triggered mandatory prepayment applies."),
+))
+
+_add("M_CONSTR_LIQUIDATED_DAMAGES_UNCAPPED_01", "LiquidatedDamages", "Contractor", _vec(
+    FB=(2, "A per-day liquidated-damages rate with no stated aggregate maximum means exposure grows without limit the longer completion is delayed -- the same structural fact as an uncapped fee or penalty, just accruing daily rather than being fixed at signing."),
+    REV=(1, "Ordinary, calculable financial exposure once the delay period is known."),
+))
+
+_add("M_FRANCHISE_ADFUND_NO_ACCOUNTING_01", "FranchiseRelationship", "Franchisee", _vec(
+    REV=(1, "Inability to verify how mandatory ad-fund contributions are spent is a visibility gap, not itself a realized diversion of funds -- the same pattern as M_IPLICENSE_ROYALTY_AUDIT_MISSING_01's missing-audit-rights fact."),
+))
+
+_add("M_EMPLOY_MANDATORY_ARBITRATION_01", "RightsWaiver", "Employee", _vec(
+    RW=(1, "Mandatory arbitration alone, without an accompanying class/collective-action waiver, replaces court access with a private forum but does not also remove collective recourse -- a narrower forum-rights change than M_EMPLOY_ARBITRATION_CLASS_WAIVER_01's RW=2 compound fact, so scored at the single-dimension RW=1 level."),
+    REV=(1, "Ordinary dispute-resolution-cost harm, not structurally irreversible."),
+))
+
+_add("M_GOVCON_OCI_TERMINATION_01", "GovernmentContracting", "Subcontractor", _vec(
+    UD=(2, "Either party's sole-discretion OCI determination triggers termination of the subcontract -- unilateral discretion over the contract's continued existence, but gated on an actual OCI determination rather than an unconstrained 'for any reason' trigger, so scored at UD=2 rather than the UD=3 MAC-clause level."),
+    FB=(1, "No defined mitigation process or wind-down compensation is stated, but the resulting loss is an unperformed-contract opportunity cost, not an unbounded payment obligation."),
+    REV=(1, "A terminated subcontract is a lost-opportunity harm, ordinarily disputable rather than structurally irreversible."),
+))
+
+
 # ---------------------------------------------------------------------
 # Public exports
 # ---------------------------------------------------------------------
