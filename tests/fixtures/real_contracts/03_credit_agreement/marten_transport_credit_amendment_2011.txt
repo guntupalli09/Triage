@@ -1,0 +1,507 @@
+EX-10.1
+2
+ex10-1.htm
+EXHIBIT 10.1
+
+ex10-1.htm
+
+Exhibit 10.1
+
+THIRD AMENDMENT TO CREDIT AGREEMENT
+
+THIS THIRD AMENDMENT (this "Amendment"), dated as of May 27, 2011, amends and modifies a certain Credit Agreement, dated as of August 31, 2006, as amended by Amendments dated as of January 1, 2007 and November 30, 2007 (as so amended, the "Credit Agreement"), by and among MARTEN TRANSPORT, LTD., a Delaware corporation (the "Borrower"), the Banks named therein, and U.S. BANK NATIONAL ASSOCIATION, as agent for the Banks (the "Agent").  Terms not otherwise expressly defined herein shall have the meanings set forth in the Credit Agreement.
+
+FOR VALUE RECEIVED, the Borrower, the Banks and the Agent agree as follows:
+
+ARTICLE I - TERMINATION OF REVOLVING COMMITMENT
+
+OF BANK OF AMERICA
+
+1.1   Repayment of Bank of America and Termination of Revolving Commitment .  Effective upon closing of this Amendment (the "Amendment Closing Date"), the Revolving Commitment of Bank of America, N.A. ("Bank of America") shall terminate and any participation interest of Bank of America in any Letters of Credit or Swing Line Loans shall terminate.  The Agent shall make arrangements to allocate any outstanding Revolving Loans held by Bank of America to the other Banks, and on the Amendment Closing Date, shall transfer funds from the making of Revolving Loans by such other Banks to Bank of America to the extent necessary to repay all outstanding Revolving Loans held by Bank of America and all accrued unpaid interest thereon.  The Borrower shall pay to Bank of America on the Amendment Closing Date any accrued unpaid Revolving Commitment Fees under Section 2.17 and any unpaid Letter of Credit Fees under Section 2.18 .
+
+1.2   Execution of Amendment .  Bank of America is executing this Amendment solely and exclusively to agree to the terms of Section 1.1 hereof.  It is the intent of all parties that Credit Agreement, as amended by Article II hereof, shall not apply to Bank of America, and Bank of America shall not be a Bank under the Credit Agreement as so amended.  For this reason, Exhibit A may not be provided to Bank of America, and Bank of America takes no responsibility for the terms of the Amendment set forth in Article II or any other terms or conditions of the Credit Agreement, as so amended.  Article II hereof shall not apply to Bank of America, and Bank of America shall be deemed not to be a "Bank" for purposes of references thereto in Article II.
+
+1.3   Confidentiality and Indemnification .   Bank of America agrees that Section 9.7 of the Credit Agreement, as in effect prior to this Amendment, shall continue to apply to Bank of America, as if Bank of America remained a Bank under the Credit Agreement.  The Borrower agrees that Section 9.12 shall continue to apply to Bank of America, as if Bank of America remained a Bank under the Credit Agreement.
+
+ARTICLE II - AMENDMENTS TO THE CREDIT AGREEMENT;
+
+REPRESENTATIONS AND WARRANTIES
+
+2.1   Amendment .  The Borrower, the Banks (which shall not include Bank of America for purposes of this Article or the following Articles) and the Agent agree that effective as provided below, the text of the Credit Agreement is amended as set forth in Exhibit A hereof.  The Credit Agreement, after giving effect to such Amendment, is called the "Amended Credit Agreement".
+
+2.2   Representations and Warranties .  To induce the Banks and the Agent to enter into this Amendment and to make and maintain the Revolving Loans   and Letters of Credit under the Credit Agreement as amended hereby, the Borrower hereby warrants and represents to the Banks and the Agent that it is duly authorized to execute and deliver this Amendment, and to perform its obligations under the Amended Credit Agreement, and that this Amendment constitutes the legal, valid and binding obligation of the Borrower, enforceable in accordance with its terms, subject to limitations as to enforceability which might result from bankruptcy, insolvency, moratorium and other similar laws affecting creditors' rights generally and subject to equitable principles
+
+ARTICLE III - CONDITIONS PRECEDENT
+
+This Amendment shall become effective on the date first set forth above, provided, however, that the effectiveness of this Amendment is subject to the satisfaction of each of the following conditions precedent:
+
+3.1   Warranties .  Before and after giving effect to this Amendment, the representations and warranties in Article 4 of the Amended Credit Agreement shall be true and correct as though made on the date hereof, except for changes that are permitted by the terms of the Credit Agreement, as amended hereby and except to the extent such representations and warranties expressly refer to an earlier date.
+
+3.2  Defaults .  Before and after giving effect to this Amendment, no Default and no Event of Default shall have occurred and be continuing under the Amended Credit Agreement.
+
+3.3  Documents .  The Borrower shall have executed and delivered this Amendment and the Guarantor Subsidiaries shall have executed and delivered the Acknowledgement in the form attached hereto.  The Borrower shall have satisfied any other requirements of Section 3.1 of the Amended Credit Agreement.
+
+ARTICLE IV - GENERAL
+
+4.1  Expenses .  The Borrower agrees to reimburse the Agent upon demand for all reasonable expenses (including reasonable attorneys' fees and legal expenses) incurred by the Agent in the preparation, negotiation and execution of this Amendment and any other document required to be furnished herewith, and in enforcing the obligations of the Borrower hereunder, and to pay and save the Agent and the Banks harmless from all liability for, any stamp or other taxes which may be payable with respect to the execution or delivery of this Amendment, which obligations of the Borrower shall survive any termination of the Credit Agreement.
+
+2
+
+4.2  Counterparts .  This Amendment may be executed in as many counterparts as may be deemed necessary or convenient, and by the different parties hereto on separate counterparts, each of which, when so executed, shall be deemed an original but all such counterparts shall constitute but one and the same instrument.
+
+4.3  Severability .  Any provision of this Amendment which is prohibited or unenforceable in any jurisdiction shall, as to such jurisdiction, be ineffective to the extent of such prohibition or unenforceability without invalidating the remaining portions hereof or affecting the validity or enforceability of such provisions in any other jurisdiction.
+
+4.4  Law; Consent to Jurisdiction; Waiver of Jury Trial .  This Amendment shall be a contract made under the laws of the State of Minnesota, which laws shall govern all the rights and duties hereunder.    This Amendment shall be subject to the Consent to Jurisdiction and Waiver of Jury Trial provisions of the Credit Agreement.
+
+4.5  Successors; Enforceability .  This Amendment shall be binding upon the Borrower, the Banks and the Agent and their respective successors and assigns, and shall inure to the benefit of the Borrower, the Banks and the Agent and the successors and assigns of the Banks and the Agent.  Except as hereby amended, the Credit Agreement shall remain in full force and effect and is hereby ratified and confirmed in all respects.
+
+(signature page follows)
+
+3
+
+IN WITNESS WHEREOF, the parties hereto have caused this Amendment to be executed at Minneapolis, Minnesota by their respective officers thereunto duly authorized as of the date first written above.
+
+U.S. BANK NATIONAL ASSOCIATION, as
+
+ Agent and as a Bank
+
+By: /s/ Michael J. Reymann
+
+Title: Senior Vice President
+
+MARTEN TRANSPORT, LTD., as the Borrower
+
+By: /s/ James J. Hinnendael
+
+Title:  Chief Financial Officer
+
+BANK OF AMERICA, N.A., as a Bank
+
+By: /s/ Steven K. Kessler
+
+Title: Senior Vice President
+
+4
+
+GUARANTOR'S ACKNOWLEDGMENT
+
+The undersigned (the "Guarantors") have each, by guaranties each dated as of January 1, 2007 (the "Guaranties") guaranteed payment and performance of obligations of MARTEN TRANSPORT, LTD. (the "Borrower") to the Banks and U.S. Bank National Association, as Agent, under the Credit Agreement, dated as of August 31, 2006, as amended by Amendments dated as of January 1, 2007 and November 30, 2007 (the "Credit Agreement") among the Borrower, the Banks and the Agent.  Each Guarantor acknowledges that such Guarantor has received a copy of the proposed Third Amendment to the Credit Agreement, to be dated on or about May 27, 2011 (the "Amendment").  Each Guarantor agrees and acknowledges that the Amendment shall in no way impair or limit the right of the Bank under its Guaranty, and confirms that by its Guaranty, such Guarantor continues to guaranty payment and performance of the obligations of the Borrower to the Bank specified in such Guaranty, including without limitation obligations under the Credit Agreement as amended pursuant to the Amendment.  Each Guarantor hereby confirms that its Guaranty remains in full force and effect, enforceable against such Guarantor in accordance with its terms.
+
+Dated as of May 27, 2011.
+
+MARTEN TRANSPORT SERVICES, LTD.
+
+By: /s/ James J. Hinnendael
+
+Title:  Chief Financial Officer
+
+MARTEN TRANSPORT LOGISTICS, LLC
+
+By: /s/ James J. Hinnendael
+
+Title:  Chief Financial Officer
+
+MARTEN TRANSPORT HOLDINGS, LTD.
+
+By: /s/ James J. Hinnendael
+
+Title:  Chief Financial Officer
+
+Exhibit A
+
+to
+
+Third Amendment
+
+Marten Transport, Ltd.
+
+The Borrower and U.S. Bank National Association, as Agent and as sole Bank, agree that the Credit Agreement is amended as follows:
+
+1.   Amendments to Definitions .  Section 1.1 is amended as follows:
+
+(a)  The following definitions are amended to read as follows:
+
+"' Agent’s Fee Letter ':  That certain letter agreement, dated as of May 27, 2011 (as thereafter amended, modified, renewed or replaced from time to time) between the Borrower and the Agent pertaining to certain fees and charges."
+
+"' Applicable Commitment Fee Percentage; Applicable Margin ': Subject to the last sentence of this definition, with respect to the period beginning five calendar days after the financial statements and Compliance Certificate required by Sections 5.1(a), (c) and (d) are delivered with respect to any fiscal quarter and ending on the day five calendar days after the date such financial statements and Compliance Certificate for the next fiscal quarter are actually delivered, the percentage specified below based on the Cash Flow Leverage Ratio calculated as of the end of the fiscal quarter for which such statements were delivered:
+
+Applicable
+
+Applicable Margin for
+
+Cash Flow
+
+Commitment
+
+LIBOR
+
+Prime Rate
+
+Leverage Ratio:
+
+Fee Percentage:
+
+Advances*:
+
+Advances:
+
+Greater than
+
+2.25 to 1.00:
+
+0.300
+%
+
+1.600
+%
+
+0.000
+%
+
+Equal to or less than
+
+2.25 to 1.00 but
+
+greater than
+
+1.75 to 1.00:
+
+0.250
+%
+
+1.400
+%
+
+-0.250
+%
+
+Equal to or less than
+
+1.75 to 1.00 but
+
+greater than
+
+1.25 to 1.00:
+
+0.200
+%
+
+1.200
+%
+
+-0.250
+%
+
+Equal to or less than
+
+1.25 to 1.00 but
+
+greater than
+
+0.75 to 1.00:
+
+0.150
+%
+
+1.000
+%
+
+-0.500
+%
+
+Equal to or less than
+
+0.75 to 1.00:
+
+0.100
+%
+
+0.800
+%
+
+-0.500
+%
+
+*Applicable Margin for Daily Floating LIBOR Advance is same as for LIBOR Advances.
+
+A-1
+
+The minus sign (-) preceding certain of the foregoing percentages is intended to indicate a negative percentage.
+
+During the period beginning on the date five days after the financial statements and Compliance Certificate for a fiscal quarter are required to be delivered pursuant to Sections 5.1(a), (c) and (d) but are not delivered and ending five days after the date such financial statements are delivered, the Applicable Commitment Fee Percentage and Applicable Margins shall be as specified for a Cash Flow Leverage Ratio greater than 2.25."
+
+"' Capitalized Lease Obligations ': As to any Person, the obligations of such Person to pay rent or other amounts under a lease of (or other agreement conveying the right to use) real or personal property which obligations are required to be classified and accounted for as a capital lease on a balance sheet of such Person under GAAP (including Statement of Financial Accounting Standards No. 13 of the Financial Accounting Standards Board), and, for purposes of this Agreement, the amount of such obligations shall be the capitalized amount thereof, determined in accordance with GAAP (including such Statement No. 13)."
+
+"' Daily Floating LIBOR ':  LIBOR (Reserve Adjusted) determined on each Business Day, based on the rates on Reuters Screen LIBOR01 Page on such Business Day (without regard to the two-day forward delivery convention) for an Interest Period of one month, which shall change on each Business Day and shall be rounded up to the nearest one-sixteenth percent."
+
+"' Guaranties ':  Guaranties by the Guarantor Subsidiaries in the form provided by the Agent with the First Amendment of this Agreement, and all further guaranties delivered in accordance with Section 5.13 hereof, each as amended, modified or replaced from time to time."
+
+"' Guarantor Subsidiaries ':  Marten Transport Services, Ltd., a Delaware corporation, Marten Transport Logistics, LLC, a Delaware limited liability company, Marten Transport Holdings, Ltd., a Delaware corporation and each other Subsidiary of the Borrower that guaranties any material Indebtedness of the Borrower, including any public debt securities issued by the Borrower, and each successor thereof."
+
+"' Letter of Credit Sublimit ': $15,000,000.
+
+"' LIBOR ': The offered rate for deposits in United States Dollars for delivery of such deposits on the first day of an Interest Period of a LIBOR Advance, for the number of days comprised therein, quoted by the Agent from Reuters Screen LIBOR01 Page as of approximately 11:00 a.m., London time, on the day that is two Business Days preceding the first day of the Interest Period of such LIBOR Advance, or the rate for such deposits determined by the Agent at such time based on such other published service of general application as shall be selected by the Agent for such purpose; provided, that in lieu of determining the rate in the foregoing manner, the Agent may determine the rate based on rates offered to the Agent for deposits in United States Dollars in the interbank eurodollar market at such time for delivery on the first day of the Interest Period for the number of days comprised therein."
+
+A-2
+
+"' Regulatory Change ': Any change after the Closing Date in federal, state or foreign laws or regulations or the adoption or making after such date of any interpretations, directives or requests applying to a class of banks including any Bank under any federal, state or foreign laws or regulations (whether or not having the force of law) by any court or governmental or monetary authority charged with the interpretation or administration thereof provided , however , that for purposes of this Agreement the following shall be deemed to be Regulatory Changes, regardless of the date enacted, adopted or issued: (a) the Dodd-Frank Wall Street Reform and Consumer Protection Act and all requests, rules, guidelines or directives in connection therewith, and (b) all requests, rules, guidelines or directives promulgated by, or in accordance with the directives of, the Bank for International Settlements, the Basel Committee on Banking Regulations and Supervisory Practices (or any successor or similar authority) or the United States financial regulatory authorities in connection with such directives."
+
+"' Termination Date ': The earliest of (a) May 27, 2016, (b) the date on which the Revolving Commitments are terminated pursuant to Section 7.2 hereof or (c) the date on which the Revolving Commitment Amounts are reduced to zero pursuant to Section 2.15 hereof."
+
+(b)  The following definition is added:
+
+" Borrowing Base Applicability Period ":  Each period beginning at the end of the next-following month after the Borrower's quarterly financial statements demonstrate that the Borrower's Fixed Charge Coverage Ratio is less than 2.00 to 1.00, and ending at the end of the next-following month after the Borrower's quarterly financial statements demonstrate that the Borrower's Fixed Charge Coverage Ratio is equal to or greater than 2.00 to 1.00."
+
+2.    Swing Line Loans .  Section 2.1(b) is amended by adding the following sentences at the end of such Section:
+
+"During such time as there shall only be one Bank or there is more than one Bank and there is a Defaulting Bank, the Swing Line Bank shall not make Swing Line Loans, and all Loans shall be borrowed as Revolving Loans.  If one or more other Banks are added, the Swing Line Bank shall, by notice to the Borrower, make Swing Line Loans available as promptly as practicable after addition of such other Banks."
+
+3.    Borrowing Base Applicability Period .  Section 2.8(a) is amended by adding, at the beginning of the text of such Section, the phrase "During each Borrowing Base Applicability Period  .  .  . ".
+
+4.    Accordion Feature .  Section 2.29 is amended by deleting "$100,000,000" and inserting "$75,000,000" in place thereof.
+
+5.    Defaulting Banks .  At all times that there shall be two or more Banks, Section 2.31 and related definitions, as set forth on Schedule 2 attached hereto, is added to the Credit Agreement.
+
+6.   Borrowing Base Certificate .  Section 5.1(d) is amended by adding, at the beginning of the text of such Section, the phrase "During each Borrowing Base Applicability Period  .  .  . ".
+
+7.   Additional Guarantor Subsidiaries .  Section 5.13 is added, and shall read as follows:
+
+"Section 5.13   Additional Guarantor Subsidiaries .  If any Subsidiary becomes a Guarantor Subsidiary at any time and has not executed and delivered a Guaranty, the Borrower shall cause such Guarantor Subsidiary to execute and deliver a Guaranty together with additional documentation pertaining to such Guaranty (including approval resolutions) reasonably requested by the Agent."
+
+8.   Fixed Charge Coverage Ratio .  Section 6.16 is amended by deleting "1.75 to 1.00" and inserting "1.50 to 1.00" in place thereof.
+
+A-3
+
+9.    Cash Flow Leverage Ratio .  Section 6.17 is amended by deleting "2.50 to 1.00" and inserting "3.00 to 1.00" in place thereof.
+
+10.   Compliance Certificate .  Exhibit C to the Credit Agreement is replaced by Exhibit C attached hereto.
+
+11.   Commitments and Percentages .   Schedule 1.1.2 is replaced by Schedule 1.1.2 attached hereto.
+
+12.   Revolving Note .  The Borrower shall execute and deliver to the Bank a replacement Revolving Note in the form provided by the Bank in connection with this Amendment, which shall be the "Revolving Note" for purposes of all references thereto in the Credit Agreement.
+
+A-4
+
+Schedule 1.1.2
+
+Commitments and Percentages
+
+ Bank:
+ 
+ Revolving Commitment:
+ 
+ Revolving Percentage:
+
+ U.S. Bank 
+ 
+ $50,000,000  
+ 
+ 100.000000000%
+
+Schedule 1 to Exhibit A
+
+Schedule 2
+
+To Exhibit A, Third Amendment
+
+Marten Transport, Ltd.
+
+During such time as there shall be two or more Banks, the Credit Agreement is further amended as follows:
+
+1.  The following definitions are added to Section 1.1:
+
+" Defaulting Bank ":  Any Bank, as determined by the Agent, that has (a) failed to fund any portion of its Revolving Loans or participations in Letters of Credit or Swing Line Loans within one Business Day of the date such portion is required in the determination of the Agent to be funded by it hereunder, (b) notified the Borrower, the Agent, the Swing Line Bank or any Bank in writing that it does not intend to comply with any of its funding obligations under this Agreement or has made a public statement to the effect that it does not intend to comply with its funding obligations (i) under this Agreement or (ii) under other agreements in which it is obligated to extend credit unless, in the case of this clause (ii), such obligation is the subject of a good faith dispute, (c) failed, within one Business Day after request by the Agent, to confirm that it will comply with the terms of this Agreement relating to its obligations to fund prospective Loans and participations in then outstanding Letters of Credit and Swing Line Loans, (d) otherwise failed to pay over to the Agent or any other Bank any other amount required to be paid by it hereunder within one Business Day of the date when due, unless the subject of a good faith dispute, or (e) (i) become or is insolvent or has a parent company that has become or is insolvent or (ii) become the subject of a bankruptcy or insolvency proceeding, or has had a receiver, conservator, trustee, administrator, assignee for the benefit of creditors or similar Person charged with reorganization or liquidation of its business or custodian, appointed for it, or has taken any action in furtherance of, or indicating its consent to, approval of or acquiescence in any such proceeding or appointment or has a parent company that has become the subject of a bankruptcy or insolvency proceeding, or has had a receiver, conservator, trustee, administrator, assignee for the benefit of creditors or similar Person charged with reorganization or liquidation of its business or custodian appointed for it, or has taken any action in furtherance of, or indicating its consent to, approval of or acquiescence in any such proceeding or appointment; provided, that a Bank shall not become a Defaulting Bank solely as the result of (x) the acquisition or maintenance of an ownership interest in such Bank or a Person controlling such Bank or (y) the exercise of control over a Bank or a Person controlling such Bank, in each case, by a governmental authority or an instrumentality thereof.  Any determination by the Agent that a Bank is a Defaulting Bank will be conclusive and binding absent manifest error, and such Bank will be deemed to be a Defaulting Bank upon notification of such determination by the Agent to the Borrower, the Swing Line Bank and the Banks.
+
+"' Letter of Credit Obligations ':  The aggregate amount of all possible drawings under all Letters of Credit plus all amounts drawn under any Letter of Credit and not reimbursed by the Borrower hereunder.
+
+"' Pro Rata Share ':  The proportion that the Revolving Commitment Amount of the specified Bank or Banks bears to the aggregate Revolving Commitment Amount of all Banks."
+
+2.  The definition of "Required Banks" is amended to read as follows:
+
+"' Required Banks ':  At any time, Banks holding more than 50% of the aggregate unpaid principal amount of the Revolving Loans or, if no Revolving Loans are at the time outstanding hereunder, Banks holding more than 50% of the Aggregate Revolving Commitment Amounts, provided , however , that at any time that there shall only be two Banks, Required Banks shall mean both of such Banks, and provided , further , that the Revolving Loans or Revolving Commitment Amounts of any Defaulting Bank shall not be taken into account in determining the Required Banks or for any vote, direction or request made by Required Banks."
+
+Schedule 2, Page 1
+
+3.   Section 2.31 is added, and shall read as follows:
+
+"Section 2.31   Defaulting Banks .  Notwithstanding any provision of this Agreement to the contrary, if any Bank becomes a Defaulting Bank, then the following provisions shall apply for so long as such Bank is a Defaulting Bank:
+
+(a)  Revolving Commitment Fees shall cease to accrue on the unfunded portion of the Revolving Commitment of such Defaulting Bank pursuant to Section 2.17 ;
+
+(b)  if any Swing Line Loans shall be outstanding or any Letter of Credit Obligations shall exist at the time a Bank becomes a Defaulting Bank then:
+
+(i)  all or any part of the unfunded participations in and commitments with respect to such Swing Line Loans or Letters of Credit shall be reallocated among the non-Defaulting Banks in accordance with their respective Pro Rata Shares but only to the extent (x) the sum of all non-Defaulting Banks' Revolving Loans and participations in Swing Line Loans and Letter of Credit Obligations after such reallocation does not exceed the total of all non-Defaulting Bank's Revolving Commitments and (y) the conditions set forth in Article 3 are satisfied at such time; provided , that the Letter of Credit Fees payable to the Banks shall be determined taking into account such reallocation.
+
+(ii)  if the reallocation described in clause (i) above cannot, or can only partially, be effected, the Borrower shall within one Business Day following notice by the Agent (x) first, prepay the outstanding Swing Line Loans that were not reallocated and (y) second, pay into the Holding Account an amount equal to  such Defaulting Bank's Pro Rata Share of the Letter of Credit Obligations that are not so reallocated;
+
+(iii)  if any Defaulting Bank's Letter of Credit Exposure is not cash collateralized pursuant to clause (ii) above, then, without prejudice to any rights or remedies of the Agent or any Bank hereunder, all Letter of Credit Fees under Section 2.18 paid or payable to such Defaulting Bank shall be payable to the Agent;
+
+(c)  so long as any Bank is a Defaulting Bank, the Agent shall not be required to issue or amend any Letter of Credit, unless it is satisfied that the related exposure will be 100% covered by cash collateral provided by the Borrower in accordance with Section 2.31(b); and
+
+Schedule 2, Page 2
+
+(d)  any amount payable to such Defaulting Bank hereunder and under the Revolving Note of such Defaulting Bank (whether on account of principal, interest, fees or otherwise and including any amount that would otherwise be payable to such Defaulting Bank) shall, in lieu of being distributed to such Defaulting Bank, be retained by the Agent in a segregated account and, subject to any applicable requirements of law, be applied at such time or times as may be determined by the Agent (i) first, to the payment of any amounts owing by such Defaulting Bank to the Agent hereunder, (ii) second, to the payment of any amounts owing by such Defaulting Bank to the Swing Line Bank hereunder, (iii) third, to the funding of any Revolving Loan or the funding or cash collateralization of any participating interest in any Swing Line Loan or Letter of Credit in respect of which such Defaulting Bank has failed to fund its Pro Rata Share thereof as required by this Agreement, as determined by the Agent, (iv) fourth, if so determined by the Agent and the Borrower, held in such account as cash collateral for future funding obligations of the Defaulting Bank under this Agreement, (v) fifth, to the payment of any amounts owing to the Borrower or the Banks as a result of any judgment of a court of competent jurisdiction obtained by the Borrower or any Bank against such Defaulting Bank as a result of such Defaulting Bank's breach of its obligations under this Agreement, and (vi) sixth, if so determined by the Agent, distributed to the Banks other than the Defaulting Bank until the ratio of such other Bank's Revolving Loans, Swing Line Exposure and Letter of Credit Exposure, to the aggregate Revolving Loans, Swing Line Exposure and Letter of Credit Exposure equals such ratio immediately prior to the Defaulting Bank's failure to fund any portion of any Revolving Loans or participations in Letters of Credit or Swing Line Loans and (vii) seventh, to such Defaulting Bank or as otherwise directed by a court of competent jurisdiction.
+
+(e)  In the event that the Agent, the Borrower and the Swing Line Bank each agrees that a Defaulting Bank has adequately remedied all matters that caused such Bank to be a Defaulting Bank, then the Swing Line Exposure and Letter of Credit Exposure of the Banks shall be readjusted to reflect the inclusion of such Bank's Revolving Commitment and on such date such Bank shall purchase at par such of the Revolving Loans of the other Banks as the Agent shall determine may be necessary in order for such Bank to hold the Revolving Loans in accordance with its Pro Rata Share.
+
+(f)  For purposes of this Section 2.31, (x) "Swing Line Exposure" shall mean, with respect to any Bank at any time, such Bank's Pro Rata Share of the aggregate principal amount of all Swing Line Loans outstanding at such time and (y) "Letter of Credit Exposure" shall mean, with respect to any Bank at any time, such Bank's Pro Rata Share of the Letter of Credit Obligations at such time.
+
+(g)  Nothing contained in the foregoing shall be deemed to constitute a waiver by the Borrower of any of its rights or remedies (whether in equity or law) against any Bank which fails to fund any of its Loans hereunder at the time or in the amount required to be funded under the terms of this Agreement.
+
+Schedule 2, Page 3
+
+Exhibit C
+
+Form of Compliance Certificate
+
+To:
+
+The Agent and Banks party to the Credit
+
+Agreement described herein
+
+U.S. Bank National Association
+
+800 Nicollet Mall
+
+Minneapolis, MN  55402
+
+Attention: Michael J. Reymann
+
+Re: Compliance Certificate as of ______, 20__.
+
+Ladies/Gentlemen:
+
+Reference is made to that certain Credit Agreement, dated as of August 31, 2006 (as amended from time to time, the "Credit Agreement"), among MARTEN TRANSPORT, LTD. (the "Borrower"), the Banks named therein and U.S. BANK NATIONAL ASSOCIATION, as Agent (the "Agent").  Terms not otherwise expressly defined herein shall have the meanings set forth in the Credit Agreement.  This letter is intended to be a Compliance Certificate under the Credit Agreement.
+
+As required pursuant to Section 5.1(c) of the Credit Agreement, the Borrower hereby certifies that as of _____________, 20__ (the "Statement Date"), the following is true, correct and accurate in all respects:
+
+1.  The financial statements and internal financial analysis submitted herewith are true, correct and complete.
+
+2.  No Default and no Event of Default, has occurred and is continuing, except as described on a separate attachment to this Certificate.  The exceptions listing, in detail, the nature of the condition or event, the period during which it has existed and the action which the Borrower has taken, is taking or proposes to take with respect to such condition or event.
+
+3.  Covenant compliance is demonstrated as follows:
+
+Section 6.16   Fixed Charge Coverage Ratio . (calculated for period of four consecutive fiscal quarters ending on the Statement Date):
+
+EBITDAR:
+
+  $
+
+minus Restricted Payments:
+
+  $
+
+minus  25% of Capital Expenditures (net
+
+of trade-ins):
+  $
+
+minus  tax expenses paid in cash:
+
+  $
+
+Total:
+  $
+
+to
+
+Interest Expense:
+
+  $
+
+plus operating lease expense for
+
+transportation equipment:
+  $
+
+plus  1/6 x Total Liabilities bearing interest:
+
+  $
+
+Total:
+  $
+
+Ratio:
+
+____ to 1.00
+
+Required: not less than 1.50 to 1.00.
+
+Section 6.17   Cash Flow Leverage Ratio . (calculated for period of four consecutive fiscal quarters ending on the Statement Date):
+
+Capitalized Lease Obligations: 
+ $
+
+plus   Total Liabilities bearing
+
+interest (as of last day of period):  
+  $
+
+plus stated amount of Letters of Credit
+
+(as of the last day of period):  
+ $
+
+plus 6 x transportation equipment operating
+
+lease expense
+ $
+
+Total:
+
+to
+
+EBITDAR:
+
+Ratio:
+
+____ to 1.00
+
+Required: not more than 3.00 to 1.00.
+
+EBITDAR is calculated as follows:
+
+EBITDAR:
+
+Consolidated Net Income:
+ $
+
+plus , to the extent deducted in determining
+
+Consolidated Net Income:
+
+income taxes:
+ $
+
+Interest Expense:    
+ $
+
+transportation equipment operating
+
+lease expense:  
+ $
+
+depreciation:    
+ $
+
+amortization:     
+ $
+
+plus or minus other non-operating gains or losses: 
+ $
+
+(not including gains or losses from the sale of  revenue-generating capital assets)
+
+Total: 
+ $
+
+MARTEN TRANSPORT, LTD.
+
+By:
+
+/s/  James J. Hinnendael
+
+James J. Hinnendael
+
+Title: Chief Financial Officer

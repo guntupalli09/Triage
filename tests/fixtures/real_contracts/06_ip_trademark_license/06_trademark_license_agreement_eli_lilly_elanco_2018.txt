@@ -1,0 +1,278 @@
+EX-10.7
+10
+a2236778zex-10_7.htm
+EX-10.7
+
+Exhibit 10.7
+ 
+TRANSITIONAL TRADEMARK LICENSE AGREEMENT
+ 
+This TRANSITIONAL TRADEMARK LICENSE AGREEMENT (this “ Agreement ”), dated as of September 24, 2018 and effective as of the Effective Date (as defined in the Separation Agreement), is entered into by and among Eli Lilly and Company, an Indiana corporation (the “ Licensor ”); Elanco Animal Health Incorporated, an Indiana corporation (the “ Licensee ”); and, solely for the purposes of Section 11(a)(iii) , Elanco US Inc., a Delaware corporation (“ Elanco US ”).
+ 
+WHEREAS, pursuant to that certain Master Separation Agreement by and between Licensor and Licensee, dated on or about the date hereof (the “ Separation Agreement ”), and the Ancillary Agreements, Licensor has transferred the Animal Health Business to Licensee in contemplation of the Separation and IPO;
+ 
+WHEREAS, Licensor and Elanco US previously entered into that certain Trademark License Agreement, dated as of July 14, 2016 (the “ Trademark License Agreement ”), pursuant to which Licensor granted to Elanco US a license under certain of its Trademarks and the Parties and Elanco US now desire to wholly supersede and replace the Trademark License Agreement with the terms of this Agreement; and
+ 
+WHEREAS, in order to provide for an orderly transition from the Animal Health Business operating as a division of Licensor to operating as a standalone publicly-traded company, Licensor and Licensee have agreed to enter into this Agreement, pursuant to which Licensor has agreed to grant to Licensee limited rights to use the “LILLY” and “ELI LILLY AND COMPANY” Trademarks (including word, logo and design versions) on a transitional basis in accordance with the terms, and subject to the conditions, set forth in this Agreement.
+ 
+NOW, THEREFORE, for good and valuable consideration, the receipt and sufficiency of which are hereby acknowledged, and intending to be legally bound hereby, the Parties hereby agree as follows:
+ 
+1.                                       Definitions .  Capitalized terms used herein and not otherwise defined herein shall have the meanings set forth for such terms in the Separation Agreement.  For the purpose of this Agreement, the following capitalized terms have the following meanings:
+ 
+(a)                                  “ Advertising Materials ” means advertising and promotional materials in any medium, including any websites, that Licensee uses in connection with the sale and distribution of the Products.
+ 
+(b)                                  “ Licensed Territory ” means, with respect to each Licensed Trademark, the countries in which Licensee conducts the Animal Health Business or distributes, directly or indirectly, Products that use such Licensed Trademark in any manner.
+ 
+1
+
+(c)                                   “ Licensed Trademarks ” means, collectively, the trademarks “LILLY” and “ELI LILLY AND COMPANY” (including all word, logo and design versions thereof), to the extent used on or in connection with the Products or the Animal Health Business as of the Effective Date, as shown in Schedule A .
+ 
+(d)                                  “ Party ” means Licensor and Licensee individually, and “ Parties ” means the Licensor and Licensee collectively.
+ 
+(e)                                   “ Product Packaging ” means (i) the primary packaging in which Products are packaged ( e.g. , blister packs or bottles with labels), (ii) the secondary packaging in which Products are packaged ( e.g. , boxes containing blister packs or bottles) and (iii) any leaflets contained inside the secondary packaging.
+ 
+(f)                                    “ Products ” means any products sold by or through the Animal Health Business.
+ 
+(g)                                   “ Regulatory Approval ” means the approval, registration, license or authorization of a Governmental Authority necessary for the manufacturing, distribution, use, promotion or sale of a Product for one or more indications in a country or other regulatory jurisdiction, including approval of Biologics License Applications (as defined by applicable Law) in the United States and Marketing Authorizations in the European Union or other European countries.
+ 
+(h)                                  “ Third Party ” means any Person other than Licensor, Licensee, or one of their Subsidiaries.
+ 
+2.                                       License Grants .
+ 
+(a)                                  License to Use Licensed Trademarks on Product Packaging .
+ 
+(i)                                      Beginning on the Effective Date and solely for the term set forth in Section 2(a)(iii) , Licensor hereby grants to Licensee a non-exclusive, non-transferable (subject to Section 11(d) ), sublicensable (subject to Section 2(d) ), fully paid-up, royalty-free, temporary (in accordance with Section 2(a)(iii) ), limited right and license to use the Licensed Trademarks on Product Packaging for the Products, subject to the terms of this Agreement and solely in the Licensed Territory, in each case in a manner consistent with the operation of the Animal Health Business for the six (6) month period immediately prior to the Effective Date or as otherwise approved in writing by Licensor (the “ Product Packaging License ”).
+ 
+2
+
+(ii)                                   Re-branding .  The Product Packaging License is granted solely for transitional purposes, and Licensee shall use commercially reasonable efforts to cease its use of all of the Licensed Trademarks as quickly as practicable after the Effective Date, including by seeking labeling approval from a Governmental Authority to change the Product Packaging so that such Product Packaging no longer displays any Licensed Trademarks or by completing the transfer of the Regulatory Approvals and replacing the Licensed Trademarks with Licensee’s name or house mark.
+ 
+(iii)                                Term .  Unless terminated earlier under Section 10 , the Product Packaging License will terminate, on a Product-by-Product and (to the extent applicable) country-by-country basis, after the receipt by Licensee of labeling approval from the relevant Governmental Authority for any such Product to change the Product Packaging so that such Product Packaging no longer displays any Licensed Trademarks, consistent with the timelines specified in regulations or guidance from such Governmental Authority on implementation of labeling changes. Notwithstanding the foregoing, under no circumstances shall the Product Packaging License expire later than four (4) years after the Effective Date; provided , however, that upon the Parties’ mutual agreement, the term of the Product Packaging License can be extended for one (1) additional year (beyond the four (4) year period immediately following the Effective Date).
+ 
+(iv)                               Notice Obligations of Licensee .  Licensee shall provide written notice to Licensor promptly upon Licensee’s receipt of any labeling approval from the relevant Governmental Authority with respect to any Product to change the Product Packaging so that such Product Packaging no longer displays any Licensed Trademarks.
+ 
+(b)                      License to Use Licensed Trademarks in Advertising Materials . Beginning on the Effective Date and solely for the term of the Product Packaging License, Licensor hereby grants to Licensee a non-exclusive, non-transferable (subject to Section 11(d) ), sublicensable (subject to Section 2(d) ), fully paid-up, royalty-free, temporary (in accordance with Section 2(a)(iii) ), limited right and license to use the Licensed Trademarks in Advertising Materials, including advertising online and via social media outlets, in connection with the Products, subject to the terms of this Agreement and solely in the Licensed Territory, in each case in a manner consistent with the operation of the Animal Health Business for the six (6) month period immediately prior to the Effective Date or as otherwise approved in writing by Licensor.
+ 
+(c)                       License to Use Licensed Trademarks in the Animal Health Business .  Beginning on the Effective Date and solely for the term of the Product Packaging License, Licensor hereby grants to Licensee a non-exclusive, non-transferable (subject to Section 11(d) ), sublicensable (subject to Section 2(d) ), fully paid-up, royalty-free, temporary (in accordance with Section 2(a)(iii) ), limited right and license to use the Licensed Trademarks, including as a trade name, in connection with the distribution and sale of the Products and in Licensee’s business records used in connection with the day-to-day operation of the Animal Health Business (including Company Books and Records, human resource records,
+ 
+3
+
+bank statements, invoices and Regulatory Approval applications), subject to the terms of this Agreement and solely in the Licensed Territory, in each case in a manner consistent with the operation of the Animal Health Business for the six (6) month period immediately prior to the Effective Date or as otherwise approved in writing by Licensor.
+ 
+(d)                      Sublicensing .  Licensee may sublicense (i) rights it receives under Sections 2(a)  through 2(c)  to its Affiliates and (ii) rights it receives under Sections 2(a)  and 2(b)  to (A) distributors of Product or (B) buyers of any divested Product lines, in each case if, at the time of distribution by any such distributor or purchase by any such buyer, such Products (or Product lines) are still subject to such licenses (each such sublicense recipient in (i) or (ii), a “ Sublicensee ”), on the condition that each Sublicensee agrees in a written sublicense agreement to be bound by terms of use and obligations with respect to the Licensed Trademarks that are no less restrictive than those set forth in this Agreement.  Licensee is liable to Licensor and, as between the Parties, to all other Persons, for the failure of any Sublicensee to comply with its sublicense agreement to the same extent that Licensee would have been liable had Licensee failed to comply with this Agreement.  Any sublicenses granted under this Section 2(d)  shall automatically terminate upon the termination of the relevant license to Licensee hereunder.
+ 
+3.                                       Reservation of Rights .  Licensor reserves all rights in and to the Licensed Trademarks.  Licensee acknowledges and agrees that as between Licensor and Licensee, Licensor is the sole and exclusive owner of all right, title and interest in, to and under the Licensed Trademarks, including all goodwill of the business connected with the use of, or symbolized by, the Licensed Trademarks.  All goodwill generated by Licensee’s use of the Licensed Trademarks inures solely to the benefit of Licensor.  Nothing in this Agreement grants Licensee any ownership or other proprietary interest in any Licensed Trademarks.
+ 
+4.                                       Restrictions on Use .  Without limiting the generality of Section 3 of this Agreement, Licensee will not nor attempt to, nor permit, enable, or request any of its Subsidiaries to:
+ 
+(a)                      use any Licensed Trademarks in any manner, or engage in any other act or omission, that would be reasonably likely to impair any right of Licensor in, to or under the Licensed Trademarks, including any act or omission that would be reasonably likely to invalidate or cause the cancellation or abandonment of any Licensed Trademarks;
+ 
+(b)                      file, acquire or otherwise obtain any registration for or application to register any Trademark or Internet domain name, or acquire, create or otherwise obtain any social media account that consists of, incorporates, uses, or is confusingly similar to any Licensed Trademarks, whether with any Governmental Authority, Internet domain name registrar, social media platform or otherwise (each of the foregoing, a “ Registration ”);
+ 
+(c)                       adopt or use any variation, derivation or acronym of the Licensed Trademarks or any word, symbol or Trademark confusingly similar to the Licensed Trademarks (each, a “ Variation ”);
+ 
+(d)                      use any Licensed Trademarks together with any other word, symbol or Trademark so as to form a composite Trademark (each, a “ Composite ”);
+ 
+4
+
+(e)                       represent to any other Person that Licensee, any of its Subsidiaries or any other Person (other than Licensor or its successors in interest to the Licensed Trademarks) has or will have any ownership interest in any Licensed Trademarks;
+ 
+(f)                        grant or attempt to grant a security interest in or lien on, record any security interest or lien on, or otherwise encumber, any Licensed Trademarks or this Agreement; or
+ 
+(g)                       contest, challenge or otherwise make any claim or take any action adverse to Licensor’s ownership of or interest in, or the validity of, the Licensed Trademarks, including in any proceeding before any Governmental Authority.
+ 
+5.                                       Transfer of Rights .  If Licensee has or acquires any rights in, to or under the Licensed Trademarks, or any Registrations, Composites or Variations, Licensee hereby irrevocably assigns all such rights to Licensor.  At the reasonable request of Licensor, Licensee will execute any document, and perform any act reasonably necessary to obtain or confirm, Licensor’s or its designee’s exclusive ownership interest in and to the Licensed Trademarks and Registrations, in each applicable jurisdiction, including executing and delivering applications, oaths, declarations, affidavits, waivers, assignments and other documents.
+ 
+6.                                       Compliance with Laws .  Licensee will comply with all applicable Laws in connection with its use of the Licensed Trademarks, including the sale, distribution, promotion and advertising of Products, in connection with its use of the Advertising Materials, and in connection with any other exercise of the rights and licenses granted to it under this Agreement.
+ 
+7.                                       Quality Control .
+ 
+(a)                                  Licensee will use the Licensed Trademarks under the terms of this Agreement solely in a manner consistent with the operation of the Animal Health Business for the six (6) month period immediately prior to the Effective Date or as otherwise approved in writing by Licensor.
+ 
+(b)                                  Licensee will comply with any specifications, standards and directions that Licensor may provide in writing from time to time relating to the use of the Licensed Trademarks under this Agreement.
+ 
+(c)                                   Concerning any Products manufactured by Licensor or its Subsidiaries, or by any Third Party in privity of contract with Licensor or its Subsidiaries, Licensee will not tamper, modify or otherwise take any action to affect the quality of such Products.
+ 
+(d)                                  Concerning any Products manufactured by Licensee or its Subsidiaries, or by any Third Party in privity of contract with Licensee or its Subsidiaries, Licensee will ensure that such Products at all times meet or exceed (i) the quality and manufacturing standards of similar products in the Products’ industry, (ii) the then-current Good Manufacturing Practices applicable to such Products, (iii) any other standards imposed by the applicable Governmental Authorities and (iv) any specifications and quality provisions set forth in any agreement entered into by the Parties.  Licensee will notify Licensor in writing in the event that any Product does not meet such standards.
+ 
+5
+
+(e)                                   Inspection .  Licensee will permit Licensor to enter any place used for the storage or distribution of the Products, Advertising Materials or Company Books and Records to inspect (at reasonable times and on reasonable advance notice) the methods of storage and distribution to ensure compliance with the quality standards, or any other specifications or requirements, described in this Agreement.  Licensee will promptly cease all use of any Licensed Trademark identified by Licensor that does not comply with this Agreement.
+ 
+(f)                                    Notice .  Except where Product Packaging or Advertising Materials originate with Licensor or Licensor’s Subsidiary, Licensee will, to the extent physically practicable, include on all Product Packaging and Advertising Materials that bear a Licensed Trademark (i) a statement that the Licensed Trademark used thereon is a trademark of Licensor and used under license (or any similar statement required by Licensor concerning the status of the Licensed Trademarks), and (ii) the symbols “®,” “™” or other notice required by Licensor and/or the applicable Governmental Authority in proximity to each prominent use of such Licensed Trademark.
+ 
+8.                                       Enforcement and Maintenance .
+ 
+(a)                                  Notification . Licensee will promptly notify Licensor upon becoming aware of any use of, or any application or registration for, a Licensed Trademark by any Third Party which Licensee considers might be (i) an infringement, dilution or other violation of such Licensed Trademark or (ii) a claim asserted by any Person that such Licensed Trademark is invalid or that Licensee’s use of such Licensed Trademark infringes, dilutes or otherwise violates any Person’s Trademark or other rights.
+ 
+(b)                                  Enforcement .  Licensor has the sole right, but not the obligation, to take action against other Persons in the courts, administrative agencies or otherwise, at Licensor’s cost and expense, to (i) prevent or terminate infringement, dilution or other violation of the Licensed Trademarks, (ii) oppose or cancel applications or registrations for any Trademarks that may conflict with any Licensed Trademarks, or (iii) otherwise defend the Licensed Trademarks (each of (i)-(iii), an “ Action ”).  Licensee may not initiate or maintain any Action on its own.
+ 
+(c)                                   Procedure .  At the reasonable request of Licensor, Licensee will cooperate with Licensor, at Licensor’s expense, in an Action (including by executing, filing and delivering all documents and evidence requested by Licensor) and will lend its name to that Action if required by Law or if reasonably requested by Licensor.  Licensee will not assert or maintain any claim against Licensor based on or arising out of Licensor’s handling of or decisions concerning any Action or any settlement or compromise thereof, and Licensee hereby irrevocably releases Licensor from all such claims.  All damages or other compensation of any kind recovered in any Action or from any settlement or compromise thereof, are for the sole benefit of Licensor.
+ 
+(d)                                  Maintenance .  As between Licensor and Licensee, Licensor is responsible for prosecuting, maintaining and renewing applications and registrations for the Licensed Trademarks (“ Maintenance ”).  Licensor will use commercially reasonable efforts to maintain the Licensed Trademarks during the term of this Agreement.  At Licensor’s request and expense, Licensee will cooperate and provide assistance to Licensor in connection with Maintenance, including (i) supplying specimens and other samples of Licensee’s use of the Licensed
+ 
+6
+
+Trademarks and (ii) executing documents and performing lawful acts as reasonably requested by Licensor.
+ 
+9.                                       Indemnification .  Each Party hereby agrees to indemnify, defend and hold harmless the other Party and its Subsidiaries, and their respective officers, directors, employees, shareholders, members, partners, agents, representatives, successors, and assigns (collectively, “ Indemnitees ”), from any losses, liabilities, claims, expenses and damages, including reasonable legal fees and expenses, actually suffered or incurred by such Indemnitee to the extent arising out of or resulting from the breach of any covenant or agreement by the first Party in this Agreement.
+ 
+10.                                Term and Termination .
+ 
+(a)                                  Term .  This Agreement shall be effective as of the Effective Date through the earlier of the date of (A) termination of the last-to-terminate Product Packaging License (as set forth in Section 2(a)(iii) ), or (B) four (4) years after the Effective Date (or, if the Parties have agreed to extend the Product Packaging License in accordance with Section 2(a)(iii) , five (5) years after the Effective Date), unless earlier terminated under this Section 10 .
+ 
+(b)                                  Termination .  Licensor may terminate this Agreement and any of the rights granted to Licensee under this Agreement at any time by providing written notice of termination to Licensee if Licensee commits a breach of this Agreement and the breach continues unremedied for a period of fifteen (15) Business Days after Licensor provides written notice to Licensee describing the nature of the breach.
+ 
+(c)                                   Effect of Termination .  After any termination of this Agreement by Licensor pursuant to Section 10(b) , (i) all rights of Licensee to use the Licensed Trademarks automatically terminate, and (ii) Licensee will promptly cease using the Licensed Trademarks and will destroy (or modify so as to remove the Licensed Trademarks) the applicable Product Packaging and Advertising Materials as set forth in Sections 2(a)  and 2(b) .
+ 
+(d)                                  License-by-License and Product-by-Product Basis for Termination .
+ 
+(i)                                      In the event of an unremedied, non-material breach that gives rise to Licensor’s right to terminate this Agreement pursuant to Section 10(b) , Licensor shall terminate only the specific licenses or Products to which such non-material breach applies.  In such a case, this Agreement will remain in effect as to the non-terminated licenses and Products.
+ 
+(ii)                                   In the event of an unremedied, material breach that gives rise to Licensor’s right to terminate this Agreement pursuant to Section 10(b) , Licensor may, in Licensor’s sole discretion, terminate any and all licenses granted under this Agreement as to any and all Products.
+ 
+7
+
+(e)                                   Survival .  The following sections, together with any sections that expressly survive by their terms, survive expiration or termination of this Agreement:  Sections 1 , 2(a)(iv) , 3 , 4(b) , 4(c) , 4(d) , 4(e) , 7 , 8 , 9 , 10(c) , 10(e)  and 11 .
+ 
+11.                                Miscellaneous .
+ 
+(a)                                  Counterparts; Entire Agreement; Conflicting Agreements .
+ 
+(i)                                      This Agreement may be executed in one (1) or more counterparts, all of which shall be considered one (1) and the same agreement, and shall become effective when one (1) or more counterparts have been signed by each Party and delivered to the other Party.  Execution of this Agreement or any other documents pursuant to this Agreement by facsimile or other electronic copy of a signature shall be deemed to be, and shall have the same effect as being, executed by an original signature.
+ 
+(ii)                                   This Agreement, the Separation Agreement, the other Ancillary Agreements, the exhibits, the schedules and appendices hereto and thereto contain the entire agreement between the Parties with respect to the subject matter hereof, supersede all previous agreements, negotiations, discussions, writings, understandings, commitments and conversations with respect to such subject matter and there are no agreements or understandings between the Parties with respect to such subject matter other than those set forth or referred to herein or therein.
+ 
+(iii)                                The Parties and Elanco US hereby acknowledge and agree that the Trademark License Agreement is wholly superseded and cancelled and replaced with the terms of this Agreement and such Trademark License Agreement is of no further force or effect.
+ 
+(iv)                               In the event of any inconsistency between this Agreement and any other agreement entered into in connection with the Transaction (including the Separation Agreement), the Separation Agreement shall prevail.  In the event and to the extent that there shall be a conflict between the provisions of this Agreement and the provisions of the Separation Agreement, the Separation Agreement shall control.
+ 
+(b)                      No Construction Against Drafter .  The Parties acknowledge that this Agreement and all the terms and conditions contained herein have been fully reviewed and negotiated by the Parties.  Having acknowledged the foregoing, the Parties agree that any principle of construction or rule of Law that provides that, in the event of any inconsistency or ambiguity, an agreement shall be construed against the drafter of the agreement shall have no application to the terms and conditions of this Agreement.
+ 
+8
+
+(c)                       Governing Law .  This Agreement shall be governed by and construed and interpreted in accordance with the Laws of Indiana, without regard to the conflict of laws principles thereof that would result in the application of any Law other than the Laws of Indiana.
+ 
+(d)                      Assignment .  This Agreement shall be binding upon and inure to the benefit of the Parties hereto and their respective successors and permitted assigns; provided, however, that no Party hereto may assign its respective rights or delegate its respective obligations under this Agreement without the express prior written consent of the other Party hereto.
+ 
+(e)                       No Third-Party Beneficiaries .  Except for the indemnification rights under this Agreement as set forth in Section 9 , (i) the provisions of this Agreement are solely for the benefit of the Parties hereto and are not intended to confer upon any Person (including employees of the Parties hereto) except the Parties any rights or remedies hereunder, and (ii) there are no Third Party beneficiaries of this Agreement and this Agreement shall not provide any Third Party (including employees of the Parties hereto) with any remedy, claim, liability, reimbursement, claim of action or other right in excess of those existing without reference to this Agreement.
+ 
+(f)                        Notices .  All notices or other communications under this Agreement shall be in writing and shall be deemed to be duly given when (a) delivered in person or (b) deposited in the United States mail or private express mail, postage prepaid, addressed as follows:
+ 
+If to Licensor, to:
+ 
+Eli Lilly and Company Lilly Corporate Center Indianapolis, Indiana 46285 Attention:                                          General Counsel
+ 
+with a copy (which shall not constitute notice) to: Trademarks@lilly.com
+ 
+If to Licensee to:
+ 
+Elanco Animal Health Incorporated 2500 Innovation Way Greenfield, Indiana 46140 Attention:                                          General Counsel
+ 
+Any Party may, by written notice to the other Party, change the address to which such notices are to be given.
+ 
+(g)                       Severability .  If any provision of this Agreement or the application thereof to any Person or circumstance is determined by a court of competent jurisdiction to be invalid, void or unenforceable, the remaining provisions hereof or the application of such provision to Persons or circumstances or in jurisdictions other than those as to which it has been held
+ 
+9
+
+invalid or unenforceable, shall remain in full force and effect and shall in no way be affected, impaired or invalidated thereby, so long as the economic or legal substance of the transactions contemplated hereby is not affected in any manner adverse to any Party.  Upon such determination, the Parties shall negotiate in good faith in an effort to agree upon a suitable and equitable provision to effect the original intent of the Parties as closely as possible in a mutually acceptable manner in order that the rights and obligations contemplated by this Agreement be fulfilled as originally contemplated to the greatest extent possible.
+ 
+(h)                      Force Majeure .  No Party shall be deemed in default of this Agreement to the extent that any delay or failure in the performance of its obligations under this Agreement results from any cause beyond its reasonable control and without its fault or negligence, such as acts of God, acts of civil or military authority, embargoes, epidemics, war, riots, insurrections, fires, explosions, earthquakes, floods, unusually severe weather conditions, or labor problems, or, in the case of computer systems, any failure in electrical or air conditioning equipment.  In the event of any such excused delay, the time for performance shall be extended for a period equal to the time lost by reason of such delay.
+ 
+(i)                          Headings .  The table of contents and article, section and paragraph headings contained in this Agreement are for reference purposes only and shall not affect in any way the meaning or interpretation of this Agreement.
+ 
+(j)                         Waivers of Default .  Waiver by any Party of any default by the other Party of any provision of this Agreement shall not be deemed a waiver by the waiving Party of any subsequent or other default, nor shall it prejudice the rights of the other Party.
+ 
+(k)                      Specific Performance .  In the event of any actual or threatened default or breach of, any of the terms, conditions and provisions of this Agreement, the Party or Parties who are or are to be thereby aggrieved shall be entitled to seek an injunction or injunctions to prevent breaches of this Agreement and to enforce specifically the terms and provisions hereof, in each case (i) without the requirement of posting any bond or other indemnity and (ii) in addition to any other remedy to which it or they may be entitled, at Law or in equity.  Such remedies shall be cumulative with and not exclusive of and shall be in addition to any other remedies which any Party may have under this Agreement, or at Law or in equity or otherwise, and the exercise by a Party hereto of any one remedy shall not preclude the exercise of any other remedy.
+ 
+(l)                          Amendments .  No provision of this Agreement shall be deemed waived, amended, supplemented or modified by any Party, unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of the Party against whom it is sought to enforce such waiver, amendment, supplement or modification.
+ 
+(m)                  Interpretation .  Interpretation of this Agreement (except as specifically provided in this Agreement, in which case such specified rules of construction shall govern with respect to this Agreement) shall be governed by the following rules of construction: (i) words in the singular shall be held to include the plural and vice versa, and words of one gender shall be held to include the other gender as the context requires; (ii) references to the terms Article, Section, paragraph and Exhibit are references to the Articles, Sections,
+ 
+10
+
+paragraphs and Exhibits to this Agreement unless otherwise specified; (iii) the terms “hereof”, “herein”, “hereby”, “hereto” and derivative or similar words refer to this entire Agreement, including the Schedules and Exhibits hereto; (iv) references to “$” shall mean U.S. dollars; (v) the word “including” and words of similar import shall mean “including without limitation,” unless otherwise specified; (vi) the word “or” shall not be exclusive; (vii) references to “written” or “in writing” include in electronic form; (viii) provisions shall apply, when appropriate, to successive events and transactions; (ix) a reference to any Person includes such Person’s permitted successors and permitted assigns; (x) any reference to “days” means calendar days unless Business Days are expressly specified; and (xi) when calculating the period of time before which, within which or following which any act is to be done or step taken pursuant to this Agreement, the date that is the reference date in calculating such period shall be excluded and, if the last day of such period is not a Business Day, the period shall end on the next succeeding Business Day.
+ 
+(n)                      Waiver of Jury Trial .  SUBJECT TO SECTIONS 11(k)  AND 11(o)  HEREIN, EACH OF THE PARTIES HEREBY WAIVES TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW ANY RIGHT IT MAY HAVE TO A TRIAL BY JURY WITH RESPECT TO ANY COURT PROCEEDING DIRECTLY OR INDIRECTLY ARISING OUT OF AND PERMITTED UNDER OR IN CONNECTION WITH THIS AGREEMENT.  EACH OF THE PARTIES HEREBY (i) CERTIFIES THAT NO REPRESENTATIVE, AGENT OR ATTORNEY OF THE OTHER PARTY HAS REPRESENTED, EXPRESSLY OR OTHERWISE, THAT SUCH OTHER PARTY WOULD NOT, IN THE EVENT OF LITIGATION, SEEK TO ENFORCE THE FOREGOING WAIVER AND (ii) ACKNOWLEDGES THAT IT HAS BEEN INDUCED TO ENTER INTO THIS AGREEMENT AND THE TRANSACTIONS CONTEMPLATED BY THIS AGREEMENT, AS APPLICABLE, BY, AMONG OTHER THINGS, THE MUTUAL WAIVERS AND CERTIFICATIONS IN THIS SECTION 11(n) .
+ 
+(o)                      Submission to Jurisdiction; Waivers .  With respect to any claim relating to or arising out of this Agreement, each Party to this Agreement irrevocably (i) consents and submits to the exclusive jurisdiction of the courts of Indiana, (ii) waives any objection which such Party may have at any time to the laying of venue of any claim brought in any such court, waives any claim that such claim has been brought in an inconvenient forum and further waives the right to object, with respect to such claim, that such court does not have jurisdiction over such Party and (iii) consents to the service of process at the address set forth for notices in Section 11(f)  herein; provided, however, that such manner of service of process shall not preclude the service of process in any other manner permitted under applicable Law.
+ 
+(p)                      Further Assurances .  In addition to the actions specifically provided for elsewhere in this Agreement, each of the Parties will cooperate with each other and shall use its (and shall cause its Subsidiaries to use their) commercially reasonable efforts, prior to, on and after the Effective Date, to take, or cause to be taken, all actions, and to do, or cause to be done, all things, reasonably necessary, proper or advisable under applicable Laws, regulations and agreements to implement and give effect to this Agreement.
+ 
+[ Signature page follows ]
+ 
+11
+
+IN WITNESS WHEREOF, each of the Parties hereto and Elanco US have caused this Agreement to be duly executed and delivered in its name and on its behalf as of the date first written above.
+
+LICENSOR:
+
+LICENSEE:
+
+Eli Lilly and Company
+
+Elanco Animal Health Incorporated
+
+By:
+
+/s/ David A. Ricks
+
+By:
+
+/s/ Michael-Bryant Hicks
+
+Name:
+
+David A. Ricks
+
+Name:
+
+Michael-Bryant Hicks
+
+Title:
+
+Chairman, President and Chief Executive Officer
+
+Title:
+
+Executive Vice President, General Counsel and Corporate Secretary
+
+Date:
+
+September 24, 2018
+
+Date:
+
+September 24, 2018
+ 
+ELANCO US:
+ 
+Elanco US Inc.
+
+By:
+
+/s/ Karen L. DeHaan-Fullerton
+
+Name:
+
+Karen L. DeHaan-Fullerton
+
+Title:
+
+Secretary
+
+Date:
+
+September 24, 2018
+
+12
+
+SCHEDULE A
+ 
+Licensed Trademarks
+ 
+ELI LILLY AND COMPANY
+ 
+LILLY
+
+13

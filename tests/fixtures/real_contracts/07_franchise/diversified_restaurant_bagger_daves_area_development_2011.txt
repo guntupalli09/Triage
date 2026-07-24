@@ -1,0 +1,1303 @@
+EX-10.1
+2
+ex10-1.htm
+EXHIBIT 10.1
+
+ex10-1.htm
+
+Exhibit 10.1
+
+AREA DEVELOPMENT AGREEMENT
+
+Bagger Dave’s Franchising Corporation
+
+27680 Franklin Road
+
+Southfield, Michigan  48034
+
+(248) 223-9160
+
+www.baggerdaves.com
+
+AREA DEVELOPMENT AGREEMENT
+
+Between
+
+BAGGER DAVE’S FRANCHISING CORPORATION
+
+(“FRANCHISOR”)
+
+and
+
+BD’S RESTAURANT GROUP, LLC
+
+(“DEVELOPER”)
+
+2024 Watson
+
+Jackson, Missouri 63755
+
+Telephone Number: (573)204 - 3123
+
+Date: 11/17/11
+
+Email:billzellmer@charter.net
+
+Effective Date
+
+11/17/11
+
+ (to be completed by Us)
+
+TABLE OF CONTENTS
+
+1. 
+DEFINITIONS
+ 1 
+
+2.  
+DESIGNATED RIGHTS; TERM
+ 6 
+
+3. 
+DEVELOPMENT SCHEDULE; LOCATION SELECTION; OCCUPANCY CONTRACT; DEVELOPMENT MATERIALS
+ 7 
+
+4. 
+FEES AND PAYMENTS
+10 
+
+5.  
+REPRESENTATIVE; OPERATOR; RESTAURANT MANAGERS; TRAINING
+10 
+
+6. 
+CONFIDENTIAL INFORMATION 
+13 
+
+7. 
+DEVELOPER’S REPRESENTATIONS AND WARRANTIES; AFFIRMATIVE AND NEGATIVE COVENANTS
+14 
+
+8. 
+TRANSFER
+18 
+
+9. 
+
+CONSENT AND WAIVER
+
+20 
+
+10.
+DEFAULT AND REMEDIES
+20 
+
+11. 
+RIGHTS AND DUTIES OF PARTIES UPON TERMINATION OR EXPIRATION
+22 
+
+12. 
+INSURANCE
+23 
+
+13. 
+INDEMNIFICATION
+24 
+
+14. 
+NOTICES
+26 
+
+15. 
+FORCE MAJEURE 
+26 
+
+16.  
+SEVERABILITY
+27 
+
+17. 
+
+INDEPENDENT CONTRACTOR
+
+27 
+
+18. 
+DUE DILIGENCE AND ASSUMPTION OF RISK
+27 
+
+19. 
+ENFORCEMENT
+28 
+
+20. 
+MISCELLANEOUS
+31 
+
+21.  
+ENTIRE AGREEMENT
+32 
+
+i
+
+AREA DEVELOPMENT AGREEMENT
+
+This Area Development Agreement (“Agreement”) is entered into as of the 17th day of  November , 2011(“Commencement Date”), by and between BAGGER DAVE’S FRANCHISING CORPORATION (“Franchisor,” “us” or “we”), a Michigan corporation, with its principal place of business located at 27680 Franklin Road, Southfield, Michigan 48034, and BD’S RESTAURANT GROUP, LLC (“Developer”) with its principal place of business located at 2024 Watson, Jackson, Missouri 63755 and its
+Principals (as defined herein below).
+
+RECITALS
+
+WHEREAS, our Parent has developed a unique System for operating a full-service, casual/fast-casual Restaurant with liquor license that offers on-premises dining and carry out with a wide variety of Menu Items, specializing in freshly-made hamburgers and French fries with superior customer service to its clients;
+
+WHEREAS, our Parent owns the Trademarks used in connection with the System;
+
+WHEREAS, our Parent has granted to us the right to sublicense the right to develop and operate Bagger Dave’s Legendary Burger Tavern™ Restaurants;
+
+WHEREAS, Franchisor intends to identify the System in the Territory with the Trademarks;
+
+WHEREAS, Developer wishes to obtain certain rights to develop Restaurants under the System in the Territory.
+
+NOW, THEREFORE, the parties, in consideration of the undertakings and commitments set forth herein, agree as follows:
+
+1.
+
+DEFINITIONS
+
+As used in this Agreement the following words and phrases shall have the meanings attributed to them in this Section:
+
+Action - any cause of action, suit, proceeding, claim, demand, investigation or inquiry (whether a formal proceeding or otherwise) asserted or instituted by a third party with respect to which the indemnity described in Section 12 applies.
+
+Agreement - this Area Development Agreement.
+
+Business Days - Each day except Saturday, Sunday and United States Government legal holidays.
+
+Commencement Date – as specified in Attachment 1.
+
+1
+
+Competing Business - a Restaurant business offering the same or similar products, including hamburgers, French fries, or other Menu Items, including any casual, fast-casual, quick-serve, full-service, take-out, or delivery Restaurant concept.
+
+Confidential Information - all data or facts, not available to the public or which do not become available to the public, which data and facts shall include but not be limited to all memoranda, notes, disks, financial statements, Trademarks, trade dress, copyrights, logos, signage, blueprints, sketches, recipes, methods, processes, designs, plans, property, reports, documents, analytical tools, business plans, business contacts, information regarding operations, manufacturing, administration, merchandising, marketing, costing, and production information and all extracts and copies thereof prepared by either party or its officers,
+agents, employees, attorneys, Representatives, or consultants, which when used together as they relate to the System reasonably represent an entity employing the System, which is disclosed to or acquired by you directly or indirectly from us in the course of activities related to the development of a business relationship between you and us, or which is obtained by you through an inspection or tour of our offices, facilities, or Restaurants or the Restaurants of our Franchisees.
+
+Development Fee - a fee equal to the sum of one hundred percent (100%) of the Initial Franchise Fee ($30,000) for the first Restaurant to be developed under the Development Schedule, plus twenty percent (20%) of the Initial Franchise Fee for each additional Restaurant ($20,000) required to be developed thereafter pursuant to the Development Schedule.
+
+Development Materials - a description of the Location, a feasibility study (including, without limitation, demographic data, photographs, maps, artists' renderings, site plans, a copy of the Lease, and documentation indicating your prospects to acquire the Location) and such other information related to the development of the Location as we reasonably request.
+
+Development Schedule - the schedule pursuant to which Developer must develop Restaurants in the Territory ( see , Section 3.A).
+
+Event of Default - as defined in Section 10.
+
+Franchise Agreement – an agreement pursuant to which Developer constructs and operates a Restaurant during the Development Schedule.
+
+Franchisee - as defined in the Franchise Agreement.
+
+Franchise Fee - an initial per Restaurant fee (more fully defined in the Franchise Agreement) paid by Developer to us.  The Initial Franchise Fee for the first Restaurant to be developed under the Development Schedule shall be $30,000.  The Initial Franchise Fee for each subsequent Restaurant to be developed under the Development Schedule shall be $20,000.
+
+Location - the proposed Location of the Restaurant.
+
+2
+
+Location Consent - written communication from us to Developer notifying Developer that a proposed Location has received our consent.
+
+Losses and Expenses - all compensatory, exemplary or punitive damages, fines, charges, costs, expenses, lost profits, reasonable fees of attorneys and other engaged professionals, court costs, settlement amounts, judgments, costs of or resulting from delays, financing, costs of advertising material and media time/space, and costs-of changing, substituting or replacing the same, and any and all expenses of recall, refunds, compensation, public notices and other such amounts incurred in connection with the matters described in Section 13.
+
+Material Event of Default - an Event of Default which constitutes a substantial deviation from the performance required.
+
+Menu Items - Any and all food and beverage products required to be provided to customers as provided by the Operations Manuals and prepared in accordance with specified recipes, cooking techniques and procedures pursuant to the System.
+
+New Restaurant Team - a "New Restaurant Opening Team" consisting of our employees and certain of Franchisee's employees to whom we have consented which shall perform the functions described in Section 5.
+
+Occupancy Contract - the proposed agreement or document (including, without limitation, any Lease, deed, contract for sale, contract for deed, land contract, management contract, license, or other agreement purporting to grant any right, title, or interest in or to the Location) pursuant to which Developer shall occupy or acquire rights in any Location.
+
+Operator - an individual designated as described in Section 5.B. who shall devote his full time and best efforts to the management and supervision of (i) Developer's duties and obligations hereunder; and (ii) the operation of the Restaurants.
+
+Operations Manuals – Our confidential operating manuals, as amended from time to time in our sole discretion, which contain the instructions, requirements, standards, specifications, methods and procedures for the operation of the Restaurant including without limitation, (i) those relating to the selection, purchase, service and sale of all products and services sold at the Restaurant; (ii) those relating to the maintenance and repair of the Restaurant, buildings, grounds, equipment, signs, interior and exterior décor items, fixtures and furnishings; (iii) those relating to employee apparel and dress, accounting,
+bookkeeping, record retention and other business Systems, procedures and operations; and (iv) the purchase, storage, and preparation of all Menu Items.
+
+Our Indemnities – Us, our directors, officers, employees, agents, members, affiliates, successors and assigns, Parent, affiliates, subsidiaries, and the respective directors, officers, employees, agents, shareholders, members affiliates and successors and assigns of each.
+
+Other Concepts - Retail, wholesale, Restaurant, bar, tavern, take-out or any other type of business involving the production, distribution or sale of food products, beverages, services, merchandise or other items that do not use one, some or all of the Trademarks or other names or markets but may utilize some part of or similar components of the System pursuant to which a Bagger Dave’s Legendary Burger Tavern™ Restaurant is operated.
+
+3
+
+Parent – AMC Burgers, Inc., the owner of the Trademarks and System.
+
+Payments - all transfers of funds from you to us, including, without limitation, the Development Fee and reimbursement of expenses.
+
+Permanent Disability - any physical, emotional or mental injury, illness or incapacity which would prevent the afflicted person from performing his obligations hereunder for more than ninety (90) consecutive days as determined by a licensed physician selected by us.
+
+Principal Owner(s) - the persons listed on Attachment 2, who are (and such other persons or entities to whom we shall consent from time to time) the record and beneficial owners of, and have the right to vote their respective interests (collectively one hundred percent (100%)) of your equity interests or the securities or partnership interest of any person or entity designated by us which owns or controls a direct or indirect interest in your equity interests of the Developer.
+
+Project Manager - an individual designated as described in Section 5.C who shall devote his full time and best efforts to the coordination and completion of Restaurant construction.
+
+Publicly-Held Entity - a corporation or other entity whose equity securities are (i) registered pursuant to applicable law; (ii) widely held by the public; and (iii) traded on a public securities exchange or over the counter pursuant to applicable law.
+
+Representative - an individual, designated as described in Attachment 1 who (i) owns an equity interest in the Developer and (ii) is authorized to act on behalf of, and bind, Developer with respect to this Agreement.
+
+Restaurant - Restaurants operated in accordance with the System under the registered service marks “Bagger Dave’s Legendary Burger Tavern™” or “Bagger Dave’s ® ”.
+
+Security - the capital stock of, partner’s interest in, or other equity or voting interest in Developer including such interests issued or created subsequent to the date hereof.
+
+Standards and Specifications - our Standards and Specifications, as amended from time to time by us, in our sole discretion, contained in, and being a part of, the Confidential Information pursuant to which you shall develop and operate the Restaurant in the Designated Area.
+
+System - a unique, proprietary System developed and owned by our Parent (which may be modified or further developed from time to time in our sole discretion) for the establishment and operation of full-service Restaurants under the Trademarks, which includes, without limitation, a distinctive image consisting of exterior and interior design, decor, color scheme and furnishings; special recipes, Menu Items and full-service bar; uniform standards, products, services and specifications; procedures with respect to operations, inventory and management control (including accounting procedures and policies); training and assistance; and
+advertising and promotional programs.
+
+4
+
+Term - the duration of this Agreement commencing on the Commencement Date and continuing until the date specified on the Development Schedule for the last Restaurant to be opened.
+
+Territorial Expenses - such costs and expenses incurred by or assessed with respect to our (or other described party’s) employees, agents and/or Representatives in connection with activities in the Territory which Developer is obligated to pay pursuant to this Agreement including, without limitation, hotel/lodging, transportation and meals, and other related or incidental expenses.
+
+Territory - the geographical area described in Attachment 1; provided, however, the Territory shall not include any enclosed malls, institutions (such as hospitals or schools), airports, airport properties, parks (including theme, entertainment or amusement parks), casinos, military bases and sports arenas otherwise located within the Territory, nor a specifically identified restricted area surrounding any Restaurant located within the Territory as of the date of this Agreement nor shall it be deemed to convey any exclusivity with respect to the use of the Trademarks.
+
+Trademarks - certain Trademarks, trade names, trade dress, service marks, emblems and indicia of origin designated by us from time to time for use in connection with the operation of the Restaurant pursuant to the System in the Designated Area, including, without limitation, “Bagger Dave’s Legendary Burger Tavern™” or “Bagger Dave’s ® ”.
+
+Training Center - the location(s) specified from time to time by us as the Training Center.
+
+Transfer - the sale, assignment, conveyance, license, devise, bequest, pledge, mortgage or other encumbrance, whether direct or indirect, of (i) this Agreement; (ii) any or all of your rights or obligations herein; or (iii) any interest in any equity interest, including the issuance of any new equity interests.
+
+Transferee Owner(s) - the owner of any and all record or beneficial interest in the capital stock of, partner’s interest in, or other equity or voting interest in any transferee of a Transfer occurring pursuant to the Terms of Section 8.
+
+Wage Expenses - such wages and/or salaries (including a reasonable allocation of the cost of benefits) of, or with respect to, our (or other described party’s) employees, agents and/or Representatives to be reimbursed to us or such party as described herein.
+
+5
+
+2.
+
+DESIGNATED RIGHTS; TERM
+
+A.          We grant to Developer the right, and Developer accepts the obligation, subject to the Terms and conditions herein, to develop and operate the number of Restaurants set forth in the Development Schedule (set forth in Attachment 1) as may be approved by us in accordance with its then-current site consent procedures.  The Restaurants shall be developed and operated in the Territory pursuant to the System.  For so long as no Event of Default has occurred and is continuing and no event has occurred which, with the giving of notice or lapse of time, or both, would constitute an Event of Default, we will neither
+develop, nor authorize any other person to develop Restaurants in the Territory during the Term.  You acknowledge and agree that we and our affiliates have the unrestricted right to operate and franchise others to operate Restaurants outside the Territory.
+
+B.           We reserve the right to use some parts of or similar components of the System in connection with Other Concepts.
+
+    C.           We expressly reserve the right, and Developer acknowledges that we have the exclusive unrestricted right, to engage, directly and indirectly, through its employees, developers, Franchisees, licensees, agents and others within the Territory, in Other Concepts.  Such Other Concepts may compete with Developer directly or indirectly.  Developer shall have no rights with respect to Other Concepts.
+
+D.          Subject to Sections 3 and 4 hereof, Developer shall exercise the rights granted herein for each Restaurant by executing, delivering and otherwise performing pursuant to a Franchise Agreement.
+
+E.           Unless sooner terminated as provided herein, this Agreement shall commence on the Commencement Date and continue until the expiration of the Term.  This Agreement shall automatically expire on the date specified in Section 3.A. as the opening date for the last Restaurant to be opened.
+
+F.           Upon any termination or expiration of this Agreement, (i) Developer shall not develop additional Restaurants in the Territory pursuant to this Agreement; provided , however , that Developer may complete development of and/or operate Restaurants under then-existing Franchise Agreements signed by us, subject to the Terms and conditions thereof; and (ii) we may develop, or authorize others to develop, Restaurants in the Territory.
+
+6
+
+G.           The rights granted under this Agreement are limited to the right to develop and operate Restaurants located in the Territory, and do not include (i) any right to sell products or Menu Items identified by the Trademarks at any Location or through any other channel or method of distribution, including without limitation, the internet, world wide web or other existing or future form of electronic commerce, other than at Restaurants within the Territory; (ii) any right to sell products and Menu Items identified by the Trademarks to any person or entity for resale or further distribution; or (iii) any right to exclude, control
+or impose conditions on our development or operation of franchised, company or affiliate-owned Restaurants at any time or at any Location outside the Territory.  You may not use any part of any of the Trademarks as any part of your name of your corporation, partnership, limited liability company or other business entity.
+
+H.           This Agreement is not a Franchise Agreement and you have no right to use in any manner the Trademarks by virtue of this Agreement.  You have no right under this Agreement to sublicense or subfranchise others to operate a business or Restaurant or use the System or Trademarks.
+
+3.
+
+DEVELOPMENT SCHEDULE; LOCATION SELECTION; OCCUPANCY CONTRACT; DEVELOPMENT MATERIALS
+
+A.          Developer shall develop, open, commence operation of and continuously operate pursuant to the respective Franchise Agreements the minimum of Restaurants in the Territory, pursuant to the Development Schedule as described in Attachment 1 to the Area Development Agreement.
+
+B.           Each Restaurant and the cumulative number of Restaurants indicated in the Development Schedule shall be OPEN AND OPERATING by the date(s) specified therein. Developer shall select a Location that we approve no later than six (6) months before the scheduled OPEN AND OPERATING date.  Our consent to any Location or execution of a Franchise Agreement shall not waive, extend or modify the Development Schedule.  Unless otherwise agreed and approved by us, the Restaurants shall refer to Bagger Dave’s Legendary Burger Tavern™ Restaurants operating
+pursuant to the System.
+
+If the Developer shall close any Location, whether voluntarily or involuntarily, and whether as a result of the loss of possession of the premises, by fire or other casualty, or otherwise, the Developer shall locate and secure a suitable alternative Location or premises approved by us within six (6) months from the loss of possession of the original site, and shall be open for business at the new Location not more than twelve (12) months following the closing of the prior Location.  If a suitable alternative Location is not secured and opened as hereinabove described, this Agreement and the right of the Developer to develop additional Locations under this Agreement shall
+terminate.  The opening of a Location in replacement of another Location under this paragraph shall not satisfy the Franchisee’s obligation to open Locations under this Section 3 of this Agreement.
+
+7
+
+C.           We make no representation or warranty as to the number of Restaurants that can be operated in the Territory.  Developer assumes all cost, liability, expense, risk and responsibility for locating, obtaining, and developing Locations for Restaurants, and for constructing and equipping Restaurants at such Locations.  Prior to execution of each Franchise Agreement, Developer shall obtain our consent to each Location (including, without limitation, the Trademarks which shall be used to identify the Restaurant at the Location to the public) pursuant to the time frames set forth in Section 3.A. above in
+accordance with our then-existing Location selection criteria and procedures including:
+
+(1)           submission of all Development Materials to us; and
+
+(2)           with respect to each Restaurant to be developed hereunder, completion of one (1) Location visit by us at our sole cost and expense, if we require.
+
+(3)           You must not be in default of this Agreement, any Franchise Agreement entered into pursuant to this Agreement or any other agreement between you and any of your affiliates and us or any of our affiliates.  You must have satisfied on a timely basis all monetary and material obligations under the Franchise Agreements for all existing Restaurants.
+
+D.           Within thirty (30) days following receipt of all Development Materials and completion of any such visit, we shall consent to or reject such Location.  Our failure to consent shall constitute rejection of such Location.  Promptly after our consent is obtained, but prior to commencing construction at such Location, Developer shall execute a Franchise Agreement and pay the Franchise Fee.
+
+E.           Neither our (i) consent to, nor (ii) assistance in the selection of, any Location shall constitute our representation or warranty that a Restaurant operated at such Site will be profitable or meet any financial projection.
+
+F.           We shall have the right to review and consent to the Occupancy Contract prior to the execution thereof.  A copy of the proposed Occupancy Contract shall be provided to us within thirty (30) days of the date of our consent.  The Occupancy Contract shall be executed by all necessary parties within thirty (30) days following our consent thereto.  Developer shall furnish us a complete copy of the executed Occupancy Contract within the (10) days after execution.  Unless it conveys to Developer fee simple title to the Location, the landlord shall consent to the Conditional Assignment of
+Lease, attached as Exhibit H to the Franchise Disclosure Document, consistent with the Terms of the Franchise Agreement.  Landlord and Developer shall not amend the Occupancy Contract in any way which is inconsistent with the provisions of the Franchise Agreement or the Conditional Assignment of Lease.
+
+G.           Notwithstanding the Terms of Section 3.F, Developer shall:
+
+(1)           deliver to us, immediately after delivery to or by Developer, any notice of default under the Occupancy Contract which threatens or purports to terminate the Occupancy Contract or result in a foreclosure thereof; and
+
+8
+
+(2)           permit us or our Representative to enter the Restaurant premises to protect the Trademarks or the System or to cure any Event of Default or default under the Occupancy Contract or the applicable Franchise Agreement, all at Developer's expense.
+
+H.          If Developer owns the Location in fee simple, Developer must grant to us the option to purchase the real estate upon which a Restaurant is located (and hereinafter referred to as the “Real Estate”) upon the expiration without renewal or termination of a Franchise Agreement or termination of the Agreement.  Any Transfer, renewal, extension, or amendment of the Franchise Agreement shall not affect this Option Agreement unless expressly so provided.  The Terms of the Option rights are detailed in Exhibit I to the Franchise Disclosure Document.
+
+I.           Developer shall abide by the Terms of the Franchise Agreement executed in connection with each Restaurant.
+
+J.            We shall provide Developer with a copy of sample and generic plans and specifications for the construction of a typical Restaurant which plans and specifications may be an existing Restaurant or our then-current prototype.  Developer acknowledges our ownership of the plans and specifications, together with any copyright rights in or to such materials.  Developer shall observe our reasonable requests concerning copyright notices.
+
+K.           YOU ACKNOWLEDGE THAT YOU HAVE CONDUCTED AN INDEPENDENT INVESTIGATION OF THE PROSPECTS FOR THE ESTABLISHMENT OF RESTAURANTS WITHIN THE TERRITORY, AND RECOGNIZE THAT THE BUSINESS VENTURE CONTEMPLATED BY THIS AGREEMENT INVOLVES BUSINESS AND ECONOMIC RISKS AND THAT YOUR FINANCIAL AND BUSINESS SUCCESS WILL BE PRIMARILY DEPENDENT UPON THE PERSONAL EFFORTS OF YOU AND YOUR MANANGEMENT AND EMPLOYEES.  WE EXPRESSLY DISCLAIM THE MAKING OF, AND YOU ACKNOWLEDGE THAT YOU HAVE NOT RECEIVED, ANY ESTIMATES, PROJECTIONS, WARRANTIES OR GUARANTEES, EXPRESS OR IMPLIED, REGARDING THE POTENTIAL GROSS SALES, PROFITS, EARNINGS OR THE
+FINANCIAL SUCCESS OF THE RESTAURANTS YOU DEVELOP WITHIN THE TERRITORY.
+
+L.           You recognize and acknowledge that this Agreement requires you to open Restaurants in the future pursuant to the Development Schedule.  You further acknowledge that the estimated expenses and investment requirements set forth in Items 6 and 7 of our Franchise Disclosure Document are subject to increase over time, and that future Restaurants likely will involve greater initial investment and operating capital requirements than those stated in this Franchise Disclosure Document provided to you prior to the execution of this Agreement.  You are obligated to execute all the Franchise Agreements and open all
+of the Restaurants on the dates set forth in the Development Schedule, regardless of: (i) the requirement of a greater investment; (ii) the financial condition or performance of your prior Restaurants; or (iii) any other circumstances, financial or otherwise.  The foregoing shall not be interpreted as imposing any obligation upon us to execute the Franchise Agreements under this Agreement if you have not complied with each and every condition necessary to develop the Restaurants.
+
+9
+
+4.
+
+FEES AND PAYMENTS
+
+A.           In consideration of the development rights granted herein, Developer shall pay to us upon execution of this Agreement the Development Fee.  Under no circumstances shall Developer be entitled to any refund of any portion of the Development Fee.
+
+B.           The Franchise Fee to be paid by Developer for each new Restaurant to be developed under the Development Schedule set forth in Section 3.A hereof shall be Thirty Thousand and 00/100 Dollars ($30,000.00) for the first Restaurant to be developed under the Development Schedule and Twenty Thousand and 00/100 Dollars ($20,000) for each subsequent Restaurant to be developed under the Development Schedule, payable upon execution of the Franchise Agreement for each Restaurant in accordance with the Development Schedule.  Developer shall receive a credit against the payment of the Franchise Fee due for each Restaurant
+developed pursuant to the Development Schedule as follows:
+
+Restaurant No.
+
+Amount of Credit
+
+1
+
+$30,000.00
+
+2 or more
+
+$4,000.00
+
+C.           (1)           All Payments shall be submitted to us at the address provided in Section 14 hereof, in care of the “Chief Financial Officer,” or such other address as we shall designate in writing.
+
+(2)          Payments shall be received by us (i) upon execution hereof in the case of the Development Fee; (ii) upon execution of each Franchise Agreement; and (iii) not more than thirty (30) days after date of invoice for all other Payments.  Delinquent Payments shall bear interest from the due date until received by us at one and one-half percent (1.5%) per month or the maximum rate permitted by law, whichever is less.
+
+D.           Developer shall not withhold or off-set any portion of any Payment due to our alleged non-performance under this Agreement or any other agreement by and between us and Developer or their respective Parent corporations, subsidiaries or affiliates.
+
+5.
+
+REPRESENTATIVE; OPERATOR; RESTAURANT MANAGERS; TRAINING
+
+A.           Developer hereby designates the person identified in Attachment 1 as the Representative.  Any replacement Representative shall be designated within ten (10) days of the prior Representatives’ resignation or termination.  Each Representative shall attend and successfully complete to our satisfaction, all of our required training programs, including, without limitation, the management training program and the staff training program.  The Representative shall be the same individual under each Franchise Agreement.
+
+B.           Developer hereby designates the person identified in Attachment 1 as the Operator.  Any replacement Operator shall be designated within ten (10) days of the prior Operator's resignation or termination.  Each Operator shall attend and successfully complete at the Training Center within six (6) months of appointment our management training program and staff training program (see Section 5.D.).  The Operator hereunder and the Franchisee Designate under each Franchise Agreement shall not be the same individual.
+
+10
+
+C.           Not less than sixty (60) days prior to the commencement of Restaurant construction, Developer shall designate the Project Manager.  Any replacement Project Manager shall be designated within ten (10) days of the prior Project Manager's resignation/termination.
+
+D.           The requisite number of Restaurant Managers, as we determine, shall be employed by Franchisee for each Restaurant developed hereunder.  All Restaurant Managers shall attend and successfully complete our management training program for Restaurant Managers.   Any previously-trained Restaurant Manager who is not a Franchisee Designate, but has been selected to become a Franchisee Designate shall attend and successfully complete such additional training as we may require.  At the time that Developer and all of Developer’s affiliates have opened three (3) Restaurants, Developer shall
+designate one (1) of its Restaurants as a Training Center for the training of all management personnel of Developer and all of Developer's affiliates.  Developer’s Training Center shall be approved by us and continue to meet the standards as provided in our Operations Manuals.
+
+E.           Each Operator, each Franchisee Designate, Project Manager and all Restaurant Managers shall be approved by us and shall have satisfactorily completed the training required by us and shall be certified or approved by us as meeting our minimum qualifications on an annual basis.  Developer shall bear all costs and expenses related to the required training for each Operator, each Franchisee Designate, Project Manager and Restaurant Manager consistent with the Franchise Agreement.  Our approval of any Operator, Franchisee Designate, Project Manager or Restaurant Manager shall not be construed as our
+endorsement of same and shall not be construed by Developer as a representation or warranty by us that any person accepted or consented to can or will perform the functions of the job for which the person is hired; Developer shall remain solely liable and responsible for all hiring decisions, regardless of our approval of any Operator, Franchisee Designate, Project Manager or Restaurant Manager.
+
+F.           We shall provide instructors, facilities and materials for training at the Training Center, and may provide, at our option, other training programs at non-Training Center Locations as we may designate from time to time in the Operations Manuals or otherwise in writing.  Developer shall reimburse us for any Territorial Expenses or other direct expenses incurred by us for such other training programs.
+
+G.           We are not obligated to perform our training services to Developer’s particular level of satisfaction, but as a function of our experience, knowledge and judgment.  We make no representation or warranty that the person trained can adequately perform the job function to which the person is assigned.  Developer acknowledges and accepts all responsibility for the proper job performance of each and every employee.
+
+H.           Except as provided herein, Developer shall bear all costs and expenses relating to any Representative, Operator, Franchisee Designate, Project Manager and Restaurant Manager training.
+
+11
+
+I.           The New Restaurant Team shall assist in (i) training Franchisee's employees at each Restaurant; and (ii) the opening of each Restaurant.  The New Restaurant Team for a Restaurant typically consists of a combined total of approximately four (4) employees of ours and Franchisee (the actual number of members shall be determined by us in our sole discretion, depending upon the number of Restaurant Locations already open and operating by Developer and such other criteria as we deem reasonable).  The members of the New Restaurant Team shall be subject to our consent.  The number of our employees
+selected to serve on the New Restaurant Team for a Restaurant is determined according to the following schedule, provided however, we may elect to modify this schedule in the event the total number of people on the New Restaurant Team is greater or less than four (4):
+
+Restaurant No.
+
+Operated
+
+By Developer
+
+No. of Our
+
+Employees on the
+
+New Restaurant Team
+
+No. of Team
+
+Members Paid for
+
+by Us
+
+Team Members
+
+Paid for by
+
+Developer
+
+1 & 2
+
+4
+
+4
+
+0
+
+3
+
+2
+
+2
+
+2
+
+4
+
+1
+
+3
+
+3
+
+5 or more
+
+0
+
+4
+
+4
+
+In the event we determine that more than four (4) New Restaurant Team members are necessary for an opening, a Developer with five (5) or more Restaurants open (inclusive of the new Restaurant) shall be responsible for the costs associated with the team members in excess of four (4).  For Developers with less than five (5) Restaurants open, we will bear the costs of the additional team members.
+
+If Franchisee fails or is unable to timely provide such employees, we may, but shall not be obligated to, staff the New Restaurant Team with our employees.  We and Franchisee shall each be responsible for: (a) making all travel, per diem food and lodging arrangements, and (b) the wage and other expenses of the New Restaurant Team members provided by each; provided, however, that Franchisee shall reimburse us for the Territorial Expenses and the Wage Expenses of our employees who are provided as a result of Franchisee’s failure or inability to provide Franchisee employees for participation on the New Restaurant Team.
+
+12
+
+6.
+
+CONFIDENTIAL INFORMATION
+
+A.           (1)           Neither Developer nor any Principal shall communicate, disclose or use any Confidential Information except as (i) permitted herein or (ii) required by law, and shall use all reasonable efforts to maintain such information as secret and confidential.  Neither Developer nor any Principal shall, without our prior consent, copy, duplicate, record or otherwise reproduce any Confidential Information.  Confidential Information may be provided to employees, agents, consultants and contractors only to the extent necessary for such parties to
+provide services to Developer.  Prior to such disclosure of any Confidential Information, each of such employees, agents, consultants and contractors shall (a) be advised by Developer of the confidential and proprietary nature of the Confidential Information, and (b) agree to be bound by the terms and conditions of Section 6 of this Agreement or the Confidentiality and Non-Disclosure Agreement and Covenant Not to Compete which is part of the Franchise Agreement documents.  Notwithstanding such agreement, Developer shall indemnify Our Indemnitees from any damages, costs or expenses resulting from or related to any disclosure or use of Confidential Information by its agents, employees, consultants and contractors.
+
+(2)           In the event Developer or Developer's employees, agents, consultants, or contractors receive notice of any request, demand, or order to Transfer or disclose all or any portion of the Confidential Information, Developer shall immediately notify us thereof, and shall fully cooperate with and assist us in prohibiting or denying any such Transfer or disclosure.  Should such Transfer or disclosure be required by a valid, final, non-appealable court order, Developer shall fully cooperate with and assist us in protecting the confidentiality of the Confidential Information to the maximum extent permitted by
+law.
+
+(3)           Developer and each Principal acknowledge our exclusive ownership of the Confidential Information, the System, and the Trademarks.  Neither Developer nor any Principal shall, directly or indirectly, contest or impair our exclusive ownership of, and/or license with respect to, the Confidential Information, the System or the Trademarks.
+
+B.           If Developer develops improvements (as we determine) to the Confidential Information, Developer and the Principals shall each, without additional consideration, execute such agreements and other documentation as shall be deemed necessary by us, granting exclusive ownership thereof to us.  All such improvements shall be Confidential Information.
+
+C.           Developer, each Principal, each Operator, Representative, Franchisee Designate, Project Manager, and Restaurant Manager and all other employees of Developer shall execute and deliver to us a Confidentiality and Non-Disclosure Agreement and Covenant Not to Compete, the form attached as Exhibit F to the Franchise Disclosure Document.  Notwithstanding the execution of such Confidentiality and Non-Disclosure Agreement and Covenant Not to Compete, Developer shall indemnify Our Indemnitees from any damages, costs or expenses resulting from or related to any disclosure or use of Confidential Information by any
+Principal, Operator, Representative, Franchisee Designate, Project Manager, Restaurant Manager or other employees of Developer.
+
+13
+
+D.           Immediately upon any Termination or expiration hereof, Developer and each Principal, Operator, Representative, Franchisee Designate, Project Manager, Restaurant Manager and all other employees of Developer shall return the Confidential Information including, without limitation, that portion of the Confidential Information which consists of analyses, compilations, studies or other documents containing or referring to any part of the Confidential Information, prepared by Developer or such Principal, Operator, Representative, Franchisee Designate, Project Manager, Restaurant Manager and all other employees of Developer, their
+agents, Representatives or employees, and all copies thereof.
+
+7.
+
+DEVELOPER’S REPRESENTATIONS AND WARRANTIES; AFFIRMATIVE AND NEGATIVE COVENANTS
+
+A.           In the event Developer is a corporation, limited liability company, or partnership, Developer represents and warrants to us as follows:
+
+(1)           Developer is duly organized, validly existing and in good standing under the laws of the jurisdiction of its organization with all requisite power and authority to own, operate and lease its assets (real or personal), to carry on its business, to enter into this Agreement and perform its obligations hereunder.  Developer is duly qualified to do business and is in good standing in each jurisdiction in which its business or the ownership of its assets requires.
+
+(2)           The execution, delivery and performance by Developer of this Agreement, any Franchise Agreement and all other agreements contemplated herein has been duly authorized by all requisite action and no further action is necessary to make this Agreement, any Franchise Agreement or such other agreements valid and binding upon it and enforceable against it in accordance with their respective Terms.  Neither the execution, delivery nor performance by Developer of this Agreement, any Franchise Agreement or any other agreements contemplated hereby will conflict with, or result in a breach of any Term or provision of
+Developer's articles of incorporation, by-laws, partnership agreement or other governing documents or under any mortgage, deed of trust or other contract or agreement to which Developer is a party or by which it or any of its assets are bound, or breach any order, writ, injunction or decree of any court, administrative agency or governmental body.
+
+(3)           Developer's articles of incorporation, by-laws, partnership agreement and other governing documents expressly limit Developer's business activities solely to the development and operation (pursuant to this Agreement and the Franchise Agreements) of the Restaurants.
+
+(4)           Certified copies of Developer's articles of incorporation, by-laws, partnership agreement, other governing documents and any amendments thereto, including board of director's or partner's resolutions authorizing this Agreement are attached hereto as Attachment 2.
+
+(5)           A certified current list of all Principals is attached hereto as Attachment 2.
+
+14
+
+(6)           Developer's articles of incorporation or other governing documents, or partnership agreement limit Transfers as described in Sections 8.B.(2) and 8.C.
+
+(7)           Each Security shall bear a legend (in a form to which we shall consent) indicating that any Transfer is subject to Sections 8.B and 8.C.
+
+(8)            D eveloper represents, warrants and covenants to us that (1) neither Developer, nor any individual or entity owning directly or indirectly any interest of Developer (if Developer is a business entity) or their respective affiliates or the funding sources for any of the foregoing is an individual or entity whose property or interests are subject to being blocked under Executive Order 13224 issued by the President of the United States of America, the Terrorism Sanctions Regulations (Title 31 Part 595 of the U.S. Code of Federal Regulations), the Terrorism List
+Governments Sanctions Regulations (Title 31 Part 596 of the U.S. Code of Federal Regulations), the Foreign Terrorist Organizations Sanctions Regulations (Title 31 Part 597 of the U.S. Code of Federal Regulations), and the Cuban Assets Control Regulations (Title 31 Part 515 of the U.S. Code of Federal Regulations), and all other present and future federal, state and local laws, ordinances, regulations, policies, lists (including, without limitation, the Specially Designated Nationals and Blocked Persons List) and any other requirements of any Governmental Authority (including, without limitation, the United States Department of the Treasury Office of Foreign Assets Control) addressing, relating to, or attempting to eliminate, terrorist acts and acts of war, each as hereafter supplemented, amended or modified from time to time, and the present and future rules, regulations and guidance
+documents promulgated under any of the foregoing, or under similar laws, ordinances, regulations, policies or requirements of other states or localities (“OFAC Laws and Regulations”) or is otherwise in violation of any of the OFAC Laws and Regulations; (2) neither Developer nor any individual or entity owning directly or indirectly any interest of Developer or their respective affiliates or the funding sources for any of the foregoing, (a) is under investigation by any government authority form, or has been charged with, or convicted of, OFAC Laws and Regulations, (b) has been assessed any penalties under these laws, or (c) has had any of its funds seized or forfeited in any Action under these laws; (3) neither Developer   nor any individual or entity owning directly or indirectly any interest of Developer
+or their respective affiliates or the funding sources for the foregoing is directly or indirectly owned or controlled by the government of a county that is subject to an embargo imposed by the United States Government, nor acting on behalf of a government; (4) has taken all reasonable measures to ensure compliance with all OFAC Laws and Regulations ; and (5) Developer shall take all reasonable measures to continue compliance with all OFAC Laws and Regulations during the Term of  this Agreement.
+
+(9)           Developer and Principal Owners, and Developer’s officers, directors, shareholders, partners, members and managers, (if any) acknowledge that their respective entire knowledge of the operation of a Bagger Dave’s Legendary Burger Tavern™ Restaurant and the System, including without limitation the knowledge or know-how regarding the specifications, standards and operating procedures of the services and activities, is derived from information we disclose to you and that certain information is proprietary, confidential, and constitutes our trade secrets.  The Term “trade secrets” refers to
+the whole or any portion of know-how, knowledge, methods, specifications, processes, procedures and/or improvements regarding the business that is valuable and secret in the sense that it is not generally known to our competitors, any proprietary information contained in our Operations Manuals or otherwise communicated to you in writing, verbally or through the internet or other online or computer communications and any other knowledge or know-how concerning the methods of operation of the Restaurants.  You and your Principal Owners, officers, directors, shareholders, partners, members, and managers (if any), jointly and severally, agree that at all times during and after the Term of this Agreement, you will maintain the absolute confidentiality of all such proprietary information and will not disclose, copy, reproduce, sell or use any such information in any other business or
+in any manner not specifically authorized or approved in advance in writing by us.  We require that you obtain nondisclosure and confidentiality agreements and covenants not to compete in a form satisfactory to us from the individuals listed in the first sentence of this paragraph and other key employees.
+
+15
+
+(10)           You must comply with all requirements of all applicable federal, state and local laws, rules and regulations.
+
+B.           Developer affirmatively covenants with us as follows:
+
+(1)           Developer shall perform its duties and obligations hereunder and under any Franchise Agreement and shall require each Operator, Franchisee Designate, Project Manager and Restaurant Manager to dedicate their respective full time and best efforts to the development, construction, management, operation, supervision and promotion of the Restaurants in accordance with the Terms and conditions hereof.
+
+(2)           Developer shall promptly provide us with all information concerning any new process or improvements in the development, construction, management, operation, supervision or promotion of the Restaurants developed by Developer or any Principal without compensation. Developer and the Principals shall each execute such agreements and other documentation as shall be deemed necessary by us, granting us exclusive ownership thereof.
+
+(3)           Developer shall comply with all requirements of applicable rules, regulations, statutes, laws and ordinances.
+
+(4)           Developer shall maintain a current list of all Principals and deliver a certified copy thereof to us upon (i) any Transfer; or (ii) request.
+
+(5)           Each Security issued subsequent to the date hereof shall be in compliance with Section 7.A.(7).
+
+C.           Developer acknowledges and/or negatively covenants with us as follows:
+
+(1)           Developer shall not amend its articles of incorporation, by-laws, partnership agreement or other governing documents in a manner which is inconsistent with Sections 7.A.(3), 8.B.(2) and 8.C.
+
+(2)           Developer shall not, remove or permit removal from any Security or its partnership agreement, or issue any Security that does not have endorsed upon it, the legend described in Section 7.A.(7).
+
+16
+
+(3)           Developer and each Principal shall receive valuable, unique training, trade secrets and the Confidential Information which are beyond the present skills, experience and knowledge of Developer, any Principal and Developer's employees.  Developer and each Principal acknowledge that (i) such training, trade secrets and the Confidential Information (a) are essential to the development of the Restaurant and (b) provide a competitive advantage to Developer; and (ii) access to such training, trade secrets and the Confidential Information is a primary reason for their execution of this Agreement.  In consideration
+thereof, Developer and each Principal covenant that, during the Term and for a period of five (5) years after the expiration or termination hereof, neither Developer nor any Principal shall, directly or indirectly:
+
+(a)           employ or seek to employ any person (or induce such person to leave his or her employment) who is, or has within one (1) year been, employed (i) by us, (ii) by any Developer or Franchisee of ours, or (iii) in any other concept or System owned, operated or franchised by an Affiliate, as a director, officer or in any managerial capacity;
+
+(b)           own, maintain, operate or have any interest in any Competing Business;
+
+(c)           own, maintain, operate or have any interest in any Competing Business which business is, or is intended to be, located in the Territory; or
+
+(d)           own, maintain, operate or have any interest in any Competing Business which business is, or is intended to be, located within a ten (10) mile radius of any Restaurant which is a part of a concept or System owned, operated, or franchised by us or any Affiliate.
+
+(4)           Sections 7.C.(3)(b), (c) and (d) shall not apply to an interest for investment only of five percent (5%) or less of the capital stock of a Publicly-Held Entity if such owner is not a director, officer or manager therefore or consultant thereto or to businesses operated pursuant to a Franchise Agreement with us.  You and Each Principal Owner shall be jointly and severally liable to us for a violation of Section 7.C(3)(a) the amount of two times the annual compensation of our employee or former employee whom you employ, which amount shall be deemed liquidated damages and not a penalty.  The parties agree that
+a precise calculation of the full extent of the damages that Franchisor will incur on a violation of this non-solicitation provision of this Agreement as a result of Franchisee’s default is difficult and the parties desire certainty in this matter and agree that the lump sum payment provided under this Section is reasonable in light of the damages for premature termination that Franchisor will incur.  This payment is not exclusive of any other remedies that Franchisor may have including attorneys’ fees and costs.
+
+D.           Each of the foregoing covenants is independent of each other covenant or agreement contained in this Agreement or in any Franchise Agreement.
+
+17
+
+E.           We may, in our sole discretion, reduce the area, duration or scope of any covenant contained in Section 7.C. without Developer’s or any Principal’s consent, effective upon notice to Developer.  Developer and each Principal shall comply with any covenant as so modified.
+
+F.           Developer’s representations, warranties, covenants and agreements herein are continuing representations, warranties, covenants and agreements each of which shall survive the expiration or termination hereof.
+
+8.
+
+TRANSFER
+
+A.           We may assign this Agreement, or any of its rights or obligations herein, to any person or entity without Developer’s or any Principal’s consent; provided, however, that our obligations which are assigned shall be fully assumed by the party to whom we assign such obligations.
+
+B.           (1)           Developer and each Principal acknowledge that Developer’s rights and obligations herein and in each Franchise Agreement are personal to Developer and that we have entered into this Agreement and will enter into each Franchise Agreement relying upon the business skill, experience and aptitude, financial resources and reputation of Developer and each Principal. Therefore, neither Developer nor any Principal, their respective successors or permitted assigns, shall complete, or allow to be completed, any Transfer without our consent.  Any purported
+Transfer, by operation of law or otherwise, without our consent shall be null and void and constitute an Event of Default.
+
+(2)          We may require satisfaction of any of the following conditions and such other conditions as we may reasonably require prior to consenting to any Transfer, each of which Developer acknowledges and agrees is reasonable and necessary:
+
+(a)           no Event of Default shall have occurred and be continuing and no event shall have occurred which, with the giving of notice or lapse of time, or both, would constitute an Event of Default;
+
+(b)           Developer and/or any affected Principal shall deliver a general release of any and all claims against Our Indemnitees including, without limitation, claims arising under this Agreement and any Franchise Agreement, in a form acceptable to us;
+
+(c)           Developer and/or any affected Principal shall remain liable for the performance of its obligations, covenants and agreements herein through the date of Transfer and shall execute all instruments reasonably requested by us to evidence such liability;
+
+(d)           the Transferee and all Transferee Owners, as applicable, shall (i) make each of Developer’s and Principal’s representations and warranties; (ii) assume full, unconditional, joint and several liability for, and agree to perform from the date of Transfer, each of Developer’s and Principal’s obligations, covenants and agreements herein; and (iii) execute all instruments (in a form acceptable to us) reasonably requested by us to evidence the foregoing;
+
+18
+
+(e)           the Transferee and all Transferee Owners shall satisfy, in our reasonable judgment, our then-existing criteria for Bagger Dave’s Legendary Burger Tavern™ developers or principals, as applicable, including, without limitation: (i) education; (ii) business skill, experience and aptitude; (iii) character and reputation; and (iv) financial resources;
+
+(f)           the Transferee and all Transferee Owners shall execute (without extending the Term) the standard form of development agreement then being offered to new System developers or other form of this Agreement as we request and such other ancillary agreements as we may request for the development of the Restaurants, which shall supersede this Agreement and its ancillary documents and the Terms of which may differ from the Terms hereof; provided, however, that the Transferee shall not be required to pay the Development Fee (Transferee shall pay all Franchise Fees and other fees described in each Franchise Agreement which have
+not already been paid in full by Developer); and
+
+(g)           at the Transferee's expense, the Transferee's Representative, any Franchisee Designate(s), Operator, and Restaurant Managers shall complete such training as then-required (if not previously trained pursuant to the Terms hereof), upon such Terms and conditions as we may reasonably require.
+
+C.           Developer and each Principal agree that we shall have the right of first refusal with respect to all bona fide written offers to purchase which Developer receives with respect to any Transfer.  Any time that Developer receives a bona fide offer to purchase, Developer shall inform us in writing of all of the terms and conditions of the offer and provide us with a copy of any written offer to purchase.  Any such offer must be in writing and signed by the offeree to be considered bona fide.  We may, within ninety (90) days after receiving the notice of the bona fide offer, notify Developer, in
+writing, of its election to exercise its right of first refusal with regard to such Transfer on the same terms and conditions, only, as are contained in that offer.  If the offer provides for any Payments in the form of property other than cash, we can substitute cash for the fair market value of such property or services.  If we waive or fail to exercise our right of first refusal, and subject to the conditions continued in this Agreement can complete the proposed sale or Transfer, but only to the bona fide offeree, and only in the same terms and conditions as were disclosed to us.  Such sale must be completed within ninety (90) days after the expiration of our right of first refusal period or if earlier, the date on which we waived its option rights in writing.
+
+D.           In the event we consent to any proposed Transfer, there shall be paid to us a fee of Twenty Thousand and 00/100 Dollars ($20,000.00), or such greater amount as is necessary to reimburse us for its costs and expenses associated with reviewing the proposed Transfer including, without limitation, Territorial Expenses, legal and accounting fees and Wage Expenses.  No such fee shall be payable with respect to a transaction with us described in Section 8.C.
+
+E.           In the event Developer or any Principal is a natural person, Developer or his administrator, executor, guardian or personal representative shall promptly notify us of the death or Permanent Disability of such Developer or such Principal.  Any Transfer upon death or Permanent Disability shall be subject to the terms and conditions described in Sections 8.B.(2) and 8.C. and shall be completed prior to a date which is (i) one (1) year after the date of death; or (ii) ninety (90) days after the date Developer or such Principal becomes, or is deemed to be, Permanently Disabled.  Developer or any Principal
+refusing to submit to examination with respect to Permanent Disability shall be deemed Permanently Disabled.
+
+19
+
+F.           Our consent to any Transfer shall not constitute a waiver of (i) any claims it may have against the Transferor; or (ii) the Transferee's compliance with the Terms hereof.
+
+9.
+
+CONSENT AND WAIVER
+
+A.           When required, Developer or any Principal shall make a written request for our consent in advance and such consent shall be obtained in writing.  Our consent shall not be unreasonably withheld.  The foregoing notwithstanding, where either party’s consent is expressly reserved to such party’s sole discretion, the exercise of such discretion shall not be subject to contest.
+
+B.           WE MAKE NO REPRESENTATIONS OR WARRANTIES UPON WHICH DEVELOPER OR ANY PRINCIPAL MAY RELY AND ASSUME NO LIABILITY OR OBLIGATION TO DEVELOPER, ANY PRINCIPAL OR ANY THIRD PARTY BY PROVIDING ANY WAIVER, ADVICE, CONSENT OR SERVICES TO DEVELOPER OR DUE TO ANY DELAY OR DENIAL THEREOF.
+
+10.
+
+DEFAULT AND REMEDIES
+
+10.01       A.           The following shall constitute Events of Default by Developer or any Principal for which there shall be no opportunity to cure and for which notice of termination is not required: (i) failure to comply with the Development Schedule; (ii) the breach or falsity of any representation or warranty herein; (iii) failure to deliver executed covenants as required in Section 6.C; (iv) failure to comply with or perform its covenants, obligations and agreements herein; (v) any Transfer that (a) occurs other than as provided in Section
+8 or (b) fails to occur within the time periods described in Section 8 (notwithstanding any lack of, or limits upon, the enforceability of any Term or provision of Sections 7 or 8); (vi) Developer (a) is adjudicated, or is, bankrupt or insolvent, (b) makes an assignment for the benefit of creditors, or (c) seeks protection from creditors by petition in bankruptcy or otherwise or there is filed against Developer a similar petition which is not dismissed within thirty (30) days; (vii) the appointment of a liquidator or receiver for (a) all or substantially all of Developer's assets or (b) any Restaurant is sought which is not dismissed within thirty (30) days; (viii) breach or failure to perform any other term or condition of this Agreement; (ix) an Event of Default shall arise under any Franchise Agreement under which Franchisee has no opportunity to cure; (x) Developer or any Principal
+pleads guilty or no contest to or is convicted of a felony or a crime involving moral turpitude or any other crime or offense that we reasonably believe is likely to adversely affect the Trademarks, the System or the goodwill associated therewith (whether in the Territory or elsewhere) or our interest therein; or (xi) any (a) two (2) or more Events of Default shall arise under any single subsection of Section 10.0l.B or (b) three (3) or more Events of Default shall arise under this Section 10.0l.B in any continuous twelve (12) month period notwithstanding the previous cure of such Events of Default.
+
+20
+
+B.           The following shall constitute Events of Default by Developer or any Principal for which there shall be a cure period of fifteen (15) days after written notification from us: (i) failure to make any Payment on or before the date payable; (ii) failure to meet and/or maintain the Standards; (iii) an Event of Default shall arise under any Franchise Agreement under which Franchisee has an opportunity to cure, in which case, the cure period under this Agreement shall be extended to coincide with the cure period of the Franchise Agreement.
+
+10.02            Among the remedies we have for breach of this Agreement, upon the occurrences of any Event of Default under Section 10.01, we may: (a) terminate this Agreement and all rights granted hereunder without waiving, (i) any claim for damages suffered by us, or (ii) other rights, remedies or claims; (b) assert any and all other rights or remedies available to us.
+
+10.03            Subject to the provisions of Section 10.06, all rights and remedies of either party shall be cumulative, and not exclusive, of any other right or remedy described herein or available at law or in equity. The expiration or termination of this Agreement shall not release any party from any liability or obligation then accrued or any liability or obligation continuing beyond, or arising from, such expiration or termination.  Nothing in this Agreement shall impair either party's right to obtain injunctive or other equitable relief.
+
+10.04            The failure of any party to exercise any right or remedy or to enforce any obligation, covenant or agreement herein shall not constitute a waiver by, or estoppel of, that party’s right to any of the remedies described herein including, without limitation, to enforce strict compliance with any such obligation, covenant or agreement.  No custom or practice shall modify or amend this Agreement.  The waiver of, or failure or inability of any party to enforce, any right or remedy shall not impair that party’s rights or remedies with
+respect to subsequent Events of Default of the same, similar or different nature.  The delay, forbearance or failure of any party to exercise any right or remedy in connection with any Event of Default or default by any other developers shall not affect, impair or constitute a waiver of such party’s rights or remedies herein.  Acceptance of any Payment shall not waive any Event of Default.
+
+10.05            Developer and each Principal shall, jointly and severally, pay all costs and expenses (including reasonable fees of attorneys and other engaged professionals) incurred by us in successfully enforcing, or obtaining any remedy arising from the breach of this Agreement.  The existence of any claims, demands or Actions which Developer or any Principal may have against us, whether arising from this Agreement or otherwise, shall not constitute a defense to our enforcement of Developer’s or any Principal’s representations, warranties, covenants,
+obligations or agreements herein.
+
+10.06           IN THE EVENT OF A DISPUTE BETWEEN THEM WHICH IS NOT SUBJECT TO, NOR ARISES UNDER, SECTION 13, WE, DEVELOPER AND PRINCIPALS HEREBY WAIVE, TO THE FULLEST EXTENT PERMITTED BY LAW, ANY RIGHT TO OR CLAIM FOR ANY PUNITIVE, EXEMPLARY, INCIDENTAL, INDIRECT, SPECIAL OR CONSEQUENTIAL DAMAGES (INCLUDING, WITHOUT LIMITATION, LOSS OF PROFITS, BUT SPECIFICALLY EXCLUDING, HOWEVER, DAMAGES TO THE REPUTATION AND GOODWILL ASSOCIATED WITH AND/OR SYMBOLIZED BY THE TRADEMARKS) AGAINST THE OTHER ARISING OUT OF ANY CAUSE WHATSOEVER (WHETHER SUCH CAUSE BE BASED IN
+CONTRACT, NEGLIGENCE, STRICT LIABILITY, OTHER TORT OR OTHERWISE) AND AGREE THAT EACH SHALL BE LIMITED TO THE RECOVERY OF ANY ACTUAL DAMAGES SUSTAINED BY IT.  IF ANY OTHER TERM OF THIS AGREEMENT IS FOUND OR DETERMINED TO BE UNCONSCIONABLE OR UNENFORCEABLE FOR ANY REASON, THE FOREGOING PROVISION SHALL CONTINUE IN FULL FORCE AND EFFECT.
+
+21
+
+10.07            Developer and each Principal agree that our exercise of the rights and remedies set forth herein are reasonable.  We may, in addition to pursuing any other remedies, specifically enforce such obligations, covenants and agreements or obtain injunctive or other equitable relief in connection with the violation or anticipated violation of such obligations, covenants and agreements.
+
+11.
+
+RIGHTS AND DUTIES OF PARTIES UPON TERMINATION OR EXPIRATION
+
+Upon termination or expiration of this Agreement, all rights granted to you will automatically terminate, and:
+
+A.           All remaining rights granted to you to develop Restaurants under this Agreement will automatically be revoked and will be null and void.  You will not be entitled to any refund of any fees.  You will have no right to develop or operate any business for which a Franchise Agreement has not been executed by us.  We will be entitled to develop and operate, or to franchise others to develop and operate, Restaurants in the Territory, except as may be otherwise provided under any Franchise Agreement that has been executed between us and you and that has not been terminated.
+
+B.           You must immediately cease to operate your business under this Agreement and must not thereafter, directly or indirectly, represent to the public or hold yourself out as a present or former developer of ours.
+
+C.           You must take such action as may be necessary to cancel or assign to us or our designee, at our option, any assumed name or equivalent registration that contains our name or any of the works Bagger Dave’s ® or Bagger Dave’s Legendary Burger Tavern™ or any other Trademark of ours, and you must furnish us with evidence satisfactory to us of compliance with this obligation within thirty (30) days after termination or expiration of this Agreement.
+
+D.           You must assign to us or our designee all your right, title and interest in and to your telephone number(s) and must notify the telephone company and all listing agencies of the termination or expiration of your right to use any telephone number in any regular, classified or other telephone directory listing associated with the Trademarks and to authorize Transfer of same at our discretion.  If you fail to sign any required documents within two (2) Business Days of Notice, you hereby appoint us as your lawful attorney-in-fact to sign on your behalf any and all documents necessary to effectuate the assignment of
+the telephone numbers listed to us.  This power, coupled with an interest, is given as Security for the rights and privileges given to you under this Agreement.
+
+22
+
+E.           You must within thirty (30) days of the termination or expiration of this Agreement, pay all sums owing to us and our affiliates, including without limitation, the balance of the Initial Franchise Fees that we would have received had you developed all of the Restaurants set forth in the Development Schedule.  In addition to the Initial Franchise Fee for undeveloped Restaurants, you agree to pay us, as fair and reasonable liquidated damages (but not as a penalty) an amount equal to Twenty Five Thousand Dollars ($25,000) for each undeveloped Restaurant.  You agree that this amount is for lost revenue from
+Royalty Fees and other amounts payable to us, including the fact that you were holding the development rights for those Restaurants and precluding the development of certain Restaurants in the Territory, and that it would be difficult to calculate with certainty the amount of damages we will incur.  Notwithstanding your agreement, if a court determines that this liquidated damages payment is unenforceable, then we may pursue all other available remedies, including without limitation, consequential damages.
+
+All unpaid amounts will bear interest at the rate of eighteen percent (18%) per annum or the maximum contact rate of interest permitted by governing law, whichever is less, from and after the date of accrual.  In the event of termination for any default by you, the sums due will include all damages, costs and expenses, including reasonable attorney fees and expenses, incurred by us as a result of your default.  You also must pay to us all damages, costs and expenses, including reasonable attorney fees and expenses, that we incur subsequent to the termination or expiration of this Agreement in obtaining injunctive or other relief for the enforcement of any provisions of
+this Agreement.
+
+F.           All of our and your obligations that expressly or by their nature survive the expiration or termination of this Agreement will continue in full force and effect subsequent to and notwithstanding its expiration or termination and until they are satisfied or by their nature expire.
+
+12.
+
+INSURANCE
+
+A.           Developer shall obtain within thirty (30) days from the date hereof and maintain throughout the Term, such insurance coverage (including, without limitation, auto liability coverage and workers compensation insurance) as may be (i) required by law; or (ii) prescribed by us from time to time as to types of coverage and amounts of coverage.  Such insurance shall:
+
+(1)           name Our Indemnitees as additional insured parties and provide that coverage applies separately to each insured and additional insured party against whom a claim is brought as though a separate policy had been issued to each of Our Indemnitees;
+
+(2)           contain no provision which limits or reduces coverage in the event of a claim by any one (1) or more of the insured or additional insured parties;
+
+23
+
+(3)           provide that policy limits shall not be reduced, coverage restricted, canceled, allowed to lapse or otherwise altered or such policy(ies) amended without our consent, but in no event upon less than thirty (30) days prior written notice to us; and
+
+(4)           be obtained from reputable insurance companies with an A.M. Best Rating of “A” and an A.M. Best Class Rating of VIII or better (or comparable ratings from a reputable insurance rating service, in the event such A.M. Best ratings are discontinued or materially altered), authorized to do business in the jurisdiction in which the Restaurant is located.
+
+B.           Such insurance may provide for reasonable deductible amounts not to exceed Ten Thousand Dollars ($10,000) per occurrence with our consent.
+
+C.           A certificate of insurance shall be submitted for our consent within ten (10) days following commencement of such coverage, and additional certificates of insurance shall be submitted to us thereafter, evidencing uninterrupted coverage.  Developer shall deliver a complete copy of such policy(ies) within ten (10) days of request.
+
+D.           In the event of a claim of any one or more of Our Indemnitees against Developer, Developer shall, on our request, assign to us any and all rights which Developer then has or thereafter may have with respect to such claim against the insurer(s) providing the coverage described in this Section.
+
+E.           Developer’s obligation to obtain and maintain insurance or to indemnify any of Our Indemnitees shall not be limited by reason of any insurance which may be maintained by Our Indemnitee, nor shall such insurance relieve Developer of any liability under this Agreement.  Developer’s insurance shall be primary to any policies maintained by any of Our Indemnitees.
+
+F.           If Developer fails to obtain or maintain the insurance required by this Agreement, as such requirements may be revised from time to time, we may acquire such insurance, and the cost thereof, together with a reasonable fee for our expenses in so acting and interest at one and one-half percent (1.5%) per month from the date acquired, shall be payable by Developer upon notice.
+
+13.
+
+INDEMNIFICATION
+
+A.           Developer and each Principal will, at all times, indemnify and hold harmless, to the fullest extent permitted by law, Our Indemnitees from all “Losses and Expenses” incurred in connection with any Action, suit, proceeding, claim, demand, investigation or inquiry (formal or informal), or any settlement thereof (whether or not a formal proceeding or Action has been instituted) which arises out of or is based upon any of the following:
+
+(1)           The infringement, alleged infringement, or any other violation or alleged violation by Franchisee or any Principal of any patent, mark or copyright or other proprietary right owned or controlled by third parties.
+
+24
+
+(2)           The violation, breach or asserted violation or breach by Developer or any Principal of any contract, federal, state or local law, regulation, ruling, standard or directive or any industry standard.
+
+(3)           Libel, slander or any other form of defamation of us or the System, by Developer or any Principal.
+
+(4)           The violation or breach by Developer or any Principal of any warranty, representation, agreement or obligation in this Agreement.
+
+(5)           Acts, errors or omissions of Developer or any of its agents, servants, employees, contractors, partners, affiliates or Representatives.
+
+B.           Developer and each Principal agree to give us immediate notice of any such Action, suit, proceeding, claim, demand, inquiry or investigation.
+
+C.           We shall at all times have the absolute right to retain counsel of our own choosing in connection with any Action, suit, proceeding, claim, demand, inquiry or investigation.  We shall at all times have the absolute right to investigate any Action, suit proceeding, claim or demand itself.
+
+D.           Developer and each Principal shall indemnify Our Indemnitees for attorney fees, expenses, and costs incurred in connection with the enforcement of our rights under this Section 13. This provision shall not be construed so as to limit or in any way affect Developer’s indemnity obligations pursuant to the other provisions of this Section 13.
+
+E.            In the event that our exercise of our rights under Section 13 actually results in Developer’s insurer with respect to insurance required to be maintained by Developer pursuant to Section 12 (hereinafter, the “Insurer”) refusing to pay on a third-party claim, all causes of Action and legal remedies which Developer might have against the Insurer shall be automatically assigned to us without the need for any further action on our or Developer’s part.  For the purposes of Section 13, “actually results” means that, but for our exercise of our rights under Section 13, the Insurer
+would not have refused to pay on said third-party claim.
+
+F.            In the event that our exercise of our rights under Section 13 actually results in the Insurer refusing to pay on a third-party claim, Developer shall be required to indemnify us for the our attorney fees, expenses and costs incurred in connection with that claim.
+
+G.           In the event that Developer encourages, requests, or suggests that the Insurer deny a claim, Developer shall indemnify us for our attorney fees, expenses and costs in connection with that claim.
+
+H.           In order to protect persons or property, or our reputation or goodwill, or the reputation or goodwill of others, we may, at any time and without notice, as in our judgment we deem appropriate, consent or agree to settlements or take such other remedial or corrective action as we deem expedient with respect to the Action, suit, proceeding, claim, demand, inquiry or investigation if, in our sole judgment, there are reasonable grounds to believe that:
+
+25
+
+(1)           any of the acts or circumstances enumerated in Section 13.A. above have occurred; or
+
+(2)           any act, error, or omission of Developer or any Principal may result directly or indirectly in damage, injury or harm to any person or any property.
+
+I.            In addition to their other indemnity obligations, Developer and each Principal shall indemnify us for any and all losses, compensatory damages, exemplary or punitive damages, fines, charges, costs, expenses, lost profits, settlement amounts, judgments, compensation for damages to our reputation and goodwill, costs of or resulting from delays, financing, costs of advertising material and media time/space, and costs of changing, substituting or replacing the same, and any and all expenses of recall, refunds, compensation, public notices and other such amounts incurred in connection with the matters described, which
+result from any of the items set forth in Section 13.
+
+J.            We do not assume any liability whatsoever for acts, errors, or omissions of those with whom Developer or any Principal may contract, regardless of the purpose.  Developer and each Principal shall hold harmless and indemnify us for all Losses and Expenses which may arise out of any acts, errors or omissions of these third parties.
+
+K.           Under no circumstances shall we be required or obligated to seek recovery from third parties or otherwise mitigate its losses in order to maintain a claim against Developer or any Principal.  Developer and each Principal agree that the failure to pursue such recovery or mitigate loss will in no way reduce the amounts recoverable by us from Developer or any Principal.
+
+14.
+
+NOTICES
+
+All notices required or desired to be given hereunder shall be in writing and shall be sent by personal delivery, expedited delivery service, facsimile or certified mail, return receipt requested to the addresses identified in Attachment 1 to this Area Development Agreement (or such other addresses as designated pursuant to this Section 14)
+
+Notices posted by personal delivery, next day or same day expedited service or given by facsimile shall be deemed given the next Business Day after transmission.  Notices posted by certified mail shall be deemed received three (3) Business Days after the date of posting.  Any change in the foregoing addresses shall be effected by giving fifteen (15) days written notice of such change to the other party.
+
+15.
+
+FORCE MAJEURE
+
+No party shall be liable for any inability to perform resulting from acts of God or other causes (other than financial inability or insolvency) beyond their reasonable control; provided, however, that nothing herein shall excuse or permit any delay or failure (i) to remit any Payment on the date due; or (ii) for more than one hundred eighty (180) days.  The party whose performance is affected by an event of force majeure shall, within three (3) days of the occurrence of such event, give notice thereof to the other party setting forth the nature thereof and an estimate of its duration.
+
+26
+
+16.
+
+SEVERABILITY
+
+A.           Should any term, covenant or provision hereof, or the application thereof, be determined by a valid, final, non-appealable order to be invalid or unenforceable, the remaining terms, covenants or provisions hereof shall continue in full force and effect without regard to the invalid or unenforceable provision.  In such event, such term, covenant or provision shall be deemed modified to impose the maximum duty permitted by law and such term, covenant or provision shall be valid and enforceable in such modified form as if separately stated in and made a part of this Agreement.  Notwithstanding the foregoing, if
+any term hereof is so determined to be invalid or unenforceable and such determination adversely affects, in our reasonable judgment, (i) our ability to realize the principal purpose of the Agreement; (2) our, or our rights in, the goodwill associated with the System, the Trademarks, the System, or the Confidential Information, we may terminate this Agreement upon notice to Developer.
+
+B.           Captions in this Agreement are for convenience only and shall not affect the meaning or construction of any provision hereof.
+
+17.
+
+INDEPENDENT CONTRACTOR
+
+A.           Developer is an independent contractor.  We do not operate the Developer’s business.  Nothing herein shall create the relationship of principal and agent, legal representative, joint ventures, partners, employee and employer or master and servant between the parties.  No fiduciary duty is owed by, or exists between, the parties.
+
+B.           Nothing herein authorizes Developer or any Principal to make any contract, agreement, warranty or representation or to incur any debt or obligation in our name.
+
+18.
+
+DUE DILIGENCE AND ASSUMPTION OF RISK
+
+A.           Developer and each Principal (i) have conducted such due diligence and investigation as each desires; (ii) recognize that the business venture described herein involves risks; and (iii) acknowledge that the success of such business venture is dependent upon the abilities of Developer and Principals.   WE EXPRESSLY DISCLAIM THE MAKING OF, AND DEVELOPER AND EACH PRINCIPAL ACKNOWLEDGE THAT THEY HAVE NOT RECEIVED OR RELIED UPON, ANY REPRESENTATION OR WARRANTY, EXPRESS OR IMPLIED, AS TO THE POTENTIAL PERFORMANCE OR VIABILITY OF THE BUSINESS VENTURE CONTEMPLATED BY THIS
+AGREEMENT.
+
+B.           Developer and each Principal have received, read and understand this Agreement, the documents referred to herein and the Exhibits and Schedules hereto.  Developer and each Principal have had ample time and opportunity to consult with their advisors concerning the potential benefits and risks of entering into this Agreement.
+
+27
+
+19.
+
+ENFORCEMENT
+
+A.            Enforcement by Judicial Process .  We shall have the right to enforce by judicial process our right to terminate this Agreement for the causes enumerated in Section 10, to prevent or remedy a material breach of this Agreement by Developer or Principal if such breach could materially impair the goodwill associated with the System or our Trademarks (including actions with respect to the servicing of wholesale accounts), to collect unpaid fees due to us, to enforce the confidentiality provisions of this Agreement, and to enforce the Non-Competition
+provisions of this Agreement.  We shall be entitled without bond to the entry of temporary restraining orders and temporary and permanent injunctions enforcing the aforementioned provisions.  If a court determines a bond is necessary, Developer or Principal agrees that the bond shall be limited to not more than Five Thousand Dollars ($5,000).  If we are successful in obtaining an injunction or any other relief against Developer or Principal, Developer or Principal shall pay us an amount equal to the aggregate of our costs of commencing and prosecuting the Action, including, without limitation, reasonable attorney fees, costs of investigation and proof of facts, court costs, other litigation expenses and travel and living expenses.
+
+B.            Mediation and Arbitration .  Except insofar as we elect to enforce this Agreement by judicial process and injunction as provided above, all disputes and claims relating to any provision hereof, to any specification, standard, operating procedure or other obligation of ours or our agents or the breach thereof (including, without limitation, any claim that this Agreement, any provision thereof, any specification, standard, operating procedure or any other obligation of Developer or Principal or is illegal, unenforceable or voidable under any law,
+ordinance or ruling) shall be settled by binding arbitration in the county of our principal office.  Arbitration will be held in accordance with the United States Arbitration Act (9 U.S.C. § 1 et. seq ), if applicable, and the JAMS Comprehensive Arbitration Rules and Procedures (or such rules relating to the arbitration of disputes arising under Franchise Area or Development Agreements).
+
+(1)           Except with respect to matters for which we believe it necessary to seek equitable relief or to collect royalties or other amounts owing to us, Developer or Principal and we shall be required to enter into mediation of all disputes involving this Agreement or any aspect of the relationship between them for a minimum of four (4) hours prior to the initiation of any arbitration or other Action or proceeding against the other party or any agent or affiliate of the other party.  Upon written notice by either party to the other of the initiating party’s desire to
+mediate, the party receiving the notice shall select an independent entity that regularly provides mediation services to franchisors and Franchisees to serve as mediator in the proceeding.  If the party receiving the notice of intent to mediate does not provide the name of such an organization within ten (10) Business Days from the date the notice of intention to mediate is received, then the other party, at its option, may (i) forego mediation of the issues(s) and commence legal Action, or (ii) select the organization to provide mediation services.  If one party selects an organization that is unwilling to serve as mediator, then the other party shall select an organization.  Once the organization is designated and agrees to accept the appointment as mediator, or if the designated organization is unwilling to serve as mediator or does not meet the
+requirements of this subparagraph, then the initiating party may designate such an organization.  Once the organization is designated, the organization shall be directed to schedule a mediation proceeding at a time mutually convenient to us and Developer or Principal.  The mediation shall be held within thirty (30) days following receipt by the mediation organization of notification that its services shall be retained.  If the parties cannot agree on a date for mediation, then the mediation organization shall select a date it believes is reasonable for the parties, given all of the alleged conflicts in dates.  The actual mediator shall either be a person who has had at least ten (10) years of experience as either Franchisee or franchisor (or as an officer of such an entity) or in franchise law.  The parties shall equally share the cost
+of the mediator.  The mediator shall select the Location for the mediation, giving due consideration to the Location that will minimize the total expenses of the mediation.  If Developer or Principal fails or refuses to abide by the provisions of this subparagraph and to engage in mediation as required herein, and litigation or arbitration ensues between the parties, Developer or Principal shall be liable for all attorney fees incurred by us in such proceeding, regardless of the outcome of the proceeding, and shall reimburse us on demand for such costs.
+
+28
+
+(2)           Any arbitrator appointed must have at least ten (10) years experience in franchise matters and shall have the right to award or include in any award the specific performance of this Agreement.  We and Developer or Principal acknowledge that judgment upon an arbitration award may be entered in any court of competent jurisdiction and shall be binding, final and nonappealable.  During the pendency of any arbitration proceeding, Developer or Principal and we shall fully perform this Agreement.
+
+(3)           If, after we or Developer or Principal institute an arbitration proceeding, one or the other asserts a claim, counterclaim or defense, the subject matter of which, under statute or current judicial decision is nonarbitrable for public policy reasons, the party against whom the claim, counterclaim or defense is asserted may elect to proceed with the arbitration of all arbitrable claims, counterclaims or defenses or to proceed to litigate all claims, counterclaims or defenses in a court having competent jurisdiction.
+
+C.            WAIVER OF JURY TRIAL .  TO THE EXTENT EITHER PARTY IS PERMITTED TO ENFORCE THIS AGREEMENT BY JUDICIAL PROCESS AND ELECTS TO DO SO, EACH OF THE PARTIES WAIVES ITS RIGHT TO A TRIAL BY JURY.  THIS WAIVER SHALL APPLY TO ALL CAUSES OF ACTION THAT ARE OR MIGHT BE INCLUDED IN SUCH ACTION INCLUDING, BUT NOT LIMITED TO, CLAIMS RELATED WITH RESPECT TO THE ENFORCEMENT OR INTERPRETATION OF THIS AGREEMENT, ALLEGATIONS OF STATE OR FEDERAL STATUTORY VIOLATIONS, FRAUD, MISREPRESENTATION,
+OR SIMILAR CAUSES OF ACTION, AND IN CONNECTION WITH ANY LEGAL ACTION INITIATED FOR THE RECOVERY OF DAMAGES BETWEEN US AND DEVELOPER OR PRINCIPAL (INCLUDING ANY OWNERS OR GUARANTORS, IF APPLICABLE, AND INCLUDING ACTIONS INVOLVING AFFILIATES, OFFICERS, EMPLOYEES OR AGENTS OF OURS OR DEVELOPER) FOR BREACH OF THE FRANCHISE AGREEMENT.
+
+29
+
+D.            Exclusive Venue .  We and Developer or Principal ( and the respective owners, officers, affiliates and agents, if applicable) each agree to submit to the exclusive jurisdiction of the state and federal courts of the state of our principal place of business with respect to any litigation pertaining to this Agreement or to any aspect of the business relationship between the parties, even if additional persons are named as parties to such litigation.  No Action or proceeding involving this Agreement or any aspect of the relationship between
+the parties or their agents or affiliates shall be commenced by any party except in the county of our principal place of business at the time that the litigation is commenced, nor shall any such Action be transferred to any other venue.  Notwithstanding the foregoing, if we are permitted to seek injunctive relief under this Agreement, we may, at our option, bring such Action in the county in which the Developer or Principal or Restaurant is located.
+
+E.            Waiver of Collateral Estoppel .  The parties agree they should each be able to settle, mediate, litigate, arbitrate, or compromise disputes in which they are involved with third parties, without having the disposition of such disputes directly affect the contract or relationship between us and Developer or Principal.  We and Developer or Principal therefore each agree that a decision of an arbitrator or court of law in litigation to which one of them is not a party shall not in any manner prevent the person that was a party to such Action
+from making similar arguments, or taking similar positions, in any Action between us and Developer or Principal.  The parties therefore waive the right to assert that principles of collateral estoppel prevent either of them from raising any claim or defense in an Action between them as a result of such party having lost a similar claim or defense in another Action.
+
+F.            Choice of Law .  Except to the extent governed by the United States Trademark Act of 1946 (Lanham Act; 15 U.S.C. § 1050 et. seq ), as amended, this Agreement shall be governed by the laws of the state of Michigan.  The parties agree, however, that if the Territory is not located in Michigan, and if Developer is not a resident of Michigan, the provisions of the Michigan Franchise Investment Law and the regulations promulgated thereunder shall not apply to this transaction or this
+Agreement.
+
+Notwithstanding the foregoing, the parties recognize that if Developer is a resident of a state that has a law specifically governing the sale and operation of franchises of the type granted hereby to Developer, or if the Territory is located in such a state, then while the foregoing paragraph shall still be applicable, the franchise law of such other states shall also apply to this transaction.  In that event, to the extent that the provisions of this Agreement provide for periods of notice less than those required by such applicable law, or provide for Termination, cancellation, non-renewal or the like other than in accordance with such applicable law, such provisions shall, to
+the extent that such are not in accordance with such applicable law, be superseded by said law, and we shall comply with such applicable law in connection with each of these matters
+
+G.            Limitation of Claims .  All claims, except for monies due to our or Developer’s performance under this Agreement, arising under this Agreement or from the relationship between the parties are barred unless an Action is filed and timely served on the opposing party within one (1) year from the date the party knew or should have known of the facts creating the claim, except to the extent any applicable law or statute provides for a shorter period of time to bring a claim or as otherwise required by law.
+
+30
+
+20.
+
+MISCELLANEOUS
+
+A.          Time is of the essence to this Agreement.
+
+B.           There are no third-party beneficiaries to this Agreement except for the remedy provided for breach of Developer’s or any Principal’s covenant contained in Section 7.C.(3)(a).
+
+C.           This Agreement may be executed in any number of counterparts each of which when so executed shall be an original, but all of which together shall constitute one (1) and the same instrument.
+
+D.           All references herein to the masculine, neuter or singular shall be construed to include the masculine, feminine, neuter or plural, unless otherwise suggested by the text.
+
+E.           This Agreement will become effective only upon execution hereof by our President or authorized officer.
+
+F.           This Agreement is not a Franchise Agreement and does not grant Developer or any Principal any rights in or to the (i) System (except as expressly provided herein); or (ii) Trademarks.
+
+G.           Developer shall not use the words “Bagger Dave’s ® ” or “Bagger Dave’s Legendary Burger Tavern™,” or any part thereof, as part of its corporate or other name.
+
+H.           Developer and each Principal acknowledge that each has received a complete copy of this Agreement, the documents referred to herein and the Exhibits hereto at least seven (7) days prior to the date on which this Agreement was executed.  Developer and each Principal further acknowledge that each has received our Franchise Disclosure Document at least fourteen (14) days prior to the date on which this Agreement was executed.
+
+I.            Should one or more clauses of this Agreement be held void or unenforceable for any reason by any court of competent jurisdiction, such clause or clauses will be deemed to be separable in such jurisdiction and the remainder of this Agreement is valid and in full force and effect and the terms of this Agreement must be equitably adjusted so as to compensate the appropriate party for any consideration lost because of the elimination of such clause or clauses.
+
+J.            No waiver by us of any breach by you, nor any delay or failure by us to enforce any provision of this Agreement, may be deemed to be a waiver of any other or subsequent breach or be deemed an estoppels to enforce our rights with respect to that or any other or subsequent breach.  This Agreement may not be waived, altered or rescinded, in whole or in part, except by a writing signed by you and us.
+
+31
+
+K.           You and each of your Principal Owners shall execute the form of guaranty at the end of this Agreement.
+
+21.
+
+ENTIRE AGREEMENT
+
+This Agreement and the Exhibits, Addenda and Schedules hereto and the Franchise Disclosure Document constitute the entire agreement between us, Developer and the Principals concerning the subject matter hereof.  All prior agreements, discussions, representations, warranties and covenants are merged herein. THERE ARE NO WARRANTIES, REPRESENTATIONS, COVENANTS OR AGREEMENTS, EXPRESS OR IMPLIED, BETWEEN THE PARTIES CONCERNING THE SUBJECT MATTER HEREOF, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED COVENANT OF GOOD FAITH AND FAIR DEALING, EXCEPT THOSE EXPRESSLY SET FORTH IN THIS AGREEMENT.  EXCEPT THOSE PERMITTED TO BE MADE UNILATERALLY BY US HEREUNDER, NO AMENDMENT, CHANGE OR
+VARIANCE FROM THIS AGREEMENT SHALL BE BINDING ON EITHER PARTY UNLESS MUTUALLY AGREED TO BY US AND DEVELOPER AND EXECUTED IN WRITING.
+
+Signature Page to Follow
+
+32
+
+IN WITNESS WHEREOF, the parties hereto have executed and delivered this Agreement on the day and year first above written.
+
+DEVELOPER
+
+BD’S RESTAURANT GROUP, LLC
+
+By: /s/ Bill Zellmer
+
+Name: Bill Zellmer
+
+Title: Member
+
+Date: 11/17/11
+
+BAGGER DAVE’S FRANCHISING CORPORATION
+
+By: /s/ T. Michael Ansley
+
+Name: T. Michael Ansley
+
+Title: President & CEO
+
+Date: 11/17/11
+
+By: /s/ Lonnie Griggs
+
+Name: Lonnie Griggs
+
+Title: Member
+
+Date: 11/17/11
+
+33
+
+ATTACHMENT 1
+
+To the Area Development Agreement between
+
+Bagger Dave’s Franchising Corporation and
+
+BD’S RESTAURANT GROUP, LLC (“Developer”)
+
+1.                Description of Developer’s Territory. Developer’s Territory shall be defined as that area within the following borders or designated in the map attached:
+
+Cape Girardeau County in MO; Jackson & Williamson Counties in IL; McCracken & Warren Counties in KY; Montgomery County in TN; Vanderburgh County in IN
+
+2.                Development Schedule:
+
+A.               Developer shall develop, open, commence operation of and continuously operate pursuant to the respective Franchise Agreements a minimum of six (6) Restaurants in the Territory, pursuant to the Development Schedule as follows:
+
+Restaurant No.
+
+Date of
+
+Location Consent
+
+Date Franchise
+
+Agreement Signed
+
+& Franchise Fees Paid
+
+Date Open &
+
+Operating
+
+1
+
+10/25/11
+
+10/25/11
+
+11/1/12
+
+2
+
+4/1/13
+
+6/1/13
+
+10/1/13
+
+3
+
+4/1/14
+
+6/1/14
+
+10/1/14
+
+4
+
+4/1/15
+
+6/1/15
+
+10/1/15
+
+5
+
+12/1/15
+
+2/1/16
+
+6/1/16
+
+6
+
+6/1/16
+
+9/1/16
+
+12/1/16
+
+(1).           The Franchise Agreement for each Restaurant Location must be fully executed and all Franchise Fees paid within the time frames set forth in the foregoing Development Schedule.
+
+(2).           Time is of the essence, with respect to each of the development obligations specified in this Attachment.
+
+B.               Each Restaurant and the cumulative number of Restaurants indicated in the Development Schedule shall be OPEN AND OPERATING by the date(s) specified therein.
+
+3.                 Development Fee.        The Development Fee for this Area Development Agreement is Fifty Thousand Dollars ($50,000.00).
+
+34
+
+4.                 Notice:                       Notices pursuant to Section 14 of the Area Development Agreement shall be sent to the following addresses:
+
+if to Developer or any Principal:      
+Bill Zellmer
+
+2024 Watson
+
+Jackson, Missouri 63755
+
+ Facsimile No.: 573-204-3123
+
+if to us:
+Bagger Dave’s Franchising Corporation
+
+27680 Franklin Road
+
+Southfield, Michigan  48034
+
+Facsimile No.: (866) 737-8689
+
+with a copy to:
+Mark J. Burzych
+
+(does not constitute notice)    
+Fahey Schultz Burzych Rhodes PLC
+
+4151 Okemos Road
+
+Okemos, MI 48864
+
+Facsimile No.: (517) 381-5051
+
+5.                Commencement Date.   The Commencement Date of the Area Development Agreement is 11/17/11 , 2011.
+
+6.                Representative.   Developer’s Representative and contact information for purposes of this Area Development Agreement is:
+
+ Name
+
+ Bill Zellmer
+
+ Address
+
+ 2024 Watson
+
+ City, State, Zip code
+
+ Jackson, Missouri 63755
+
+ Phone Number
+
+ 573-204-3123
+
+ Email Address
+
+ billzellmer@charter.net
+
+35
+
+7.                Operator.   Developer’s Operator and contact information for purposes of this Area Development Agreement is:
+
+ Name
+
+ Bill Zellmer
+
+ Address
+
+ 2024 Watson
+
+ City, State, Zip code
+
+ Jackson, Missouri 63755
+
+ Phone Number
+
+ 573-204-3123
+
+ Email Address
+
+ billzellmer@charter.net
+
+IN WITNESS WHEREOF, the parties hereto have executed and delivered this Agreement on the day and year first above written.
+
+DEVELOPER
+
+BD’S  RESTAURANT GROUP, LLC
+
+By: /s/ Bill Zellmer
+
+Name: Bill Zellmer
+
+Title: Member
+
+Date: 11/17/11
+
+BAGGER DAVE’S FRANCHISING CORPORATION
+
+By: /s/ T. Michael Ansley
+
+Name: T. Michael Ansley
+
+Title: President & CEO
+
+Date: 11/17/11
+
+By: /s/ Lonnie Griggs
+
+Name: Lonnie Griggs
+
+Title: Member
+
+Date: 11/17/11
+
+36
+
+ATTACHMENT 2
+
+TO THE AREA DEVELOPMENT AGREEMENT
+
+BETWEEN BAGGER DAVE’S FRANCHISING CORPORATION
+
+AND BD’S RESTAURANT GROUP, LLC
+
+DATED    11/17  , 2011
+
+Developer and its Principal Owners
+
+This form must be completed by you, if you have multiple owners or if Developer is owned by a business organization (like a corporation, partnership or limited liability company).  We are relying on its truth and accuracy in awarding the franchise to you.
+
+1.
+Form of Owner.   You are a (check one):
+
+(a)  
+General Partnership   
+o
+
+(b) 
+Corporation 
+o
+
+(c) 
+Limited Partnership  
+o
+
+(d) 
+Limited Liability Company  
+o
+
+(e)  
+Other 
+x
+
+Specify: 
+o
+
+___________________________________________________________________
+
+You are formed under the laws of Missouri.
+
+2.                Business Entity.   You were incorporated or formed on October , 2011 under the laws of the State of Missouri.  You have not conducted business under any name other than your corporate, limited liability company or partnership name.  The following is a list of all persons who have management rights and powers (e.g., officers, managers, partners, etc.) and their positions are listed below:
+
+Name of Person
+
+Position(s) Held
+
+ Bill Zellmer
+
+Member
+
+ Lonnie Griggs
+
+Member
+
+3.                 Owners .  The following list includes the full name and mailing address of each person who is one of your owners and fully describes the nature of each owner's interest.  Attach additional sheets if necessary.
+
+37
+
+Name
+
+Address
+
+Description and Quantity of Ownership Interest
+
+Office Held
+
+Bill Zellmer
+
+2024 Watson, Jackson, MO 63755
+
+50%
+
+Member
+
+Lonnie Griggs
+
+110 Masterson, Jackson, MO 63755
+
+50%
+
+Member
+
+4.                Governing Documents.   Attached are copies of the documents and contracts governing the ownership, management and other significant aspects of the business organization (e.g., articles of incorporation or organization, partnership or shareholder agreements, etc.) of BD’S RESTAURANT GROUP, LLC.
+
+This Attachment 2 is current and complete as of 11/17/11 , 2011.
+
+Developer
+
+BD’S RESTAURANT GROUP, LLC
+
+By: /s/ Bill Zellmer
+
+Bill Zellmer (print name)
+
+Its: Member
+
+By: /s/ Lonnie Griggs
+
+Lonnie Griggs (print name)
+
+Its: Memebr
+
+38
+
+BAGGER DAVE’S LEGENDARY BURGER TAVERN™
+
+DEVELOPER INCENTIVE PACKAGE ADDENDUM
+
+This Addendum is appended to, and made a part of, the BAGGER DAVE’S FRANCHISING CORPORATION Area Development Agreement, dated ________________________________ (the “Development Agreement”), between BAGGER DAVE’S FRANCHISING CORPORATION (“we” or “us”) and BD’S RESTAURANT GROUP, LLC (“you”), a 6 Restaurant Developer.  Capitalized terms not defined in this Addendum have the meanings given to them in the Development Agreement.  In the event of any conflict between the terms of this Addendum and those in the Development Agreement, the terms of this Addendum will control.
+
+WHEREAS, in the fiscal year 2011, we intend to offer a limited number of developer incentive programs for qualified Developers who commit to develop either 3 Restaurants over a period of 3 years or 6 Restaurants over a period of 5 years.
+
+WHEREAS, if you are a qualified 6 Restaurant Developer, we will offer up to five (5) Developers the following incentives to execute an Area Development Agreement on or before the expiration of our 2011 fiscal year:  Royalty Fee waiver for the first fifty-two (52) weeks of each Restaurant’s operations, so long as each Restaurant opened on or before the Restaurant opening date in the Development Schedule and a right of first refusal for adjacent territories;
+
+NOW, THEREFORE, The Area Development Agreement is hereby amended as follows:
+
+1.  
+
+Waiver of Royalty for a 6 Restaurant Developer
+
+a.  
+
+Subject to the terms and conditions of this Addendum and of the Area Development Agreement, for each Restaurant you open on time in accordance with the Development Schedule, we will waive the Royalty otherwise due under the Franchise Agreement for each Restaurant for the first fifty-two (52) weeks of operation.  If you default under the Franchise Agreement for a Restaurant within the first fifty two (52) weeks of operation for any reason whatsoever and such default extends beyond any applicable cure period, you must pay the Royalty for that Restaurant from the date of the expiration of the cure period.
+
+b.  
+
+No restaurants beyond the initial six restaurants in the Area Development Agreement qualify for waiver of royalty.
+
+c.  
+
+A six (6) month bank is established as of the Franchise Agreement and Development Agreement execution date.  Developer may use this month bank to stay in compliance with required opening dates in the Development Agreement.  Early openings will add to the month bank and late openings will subtract from the bank. If the month bank becomes depleted, the next restaurant opening, and all remaining openings of the initial six (6) restaurants in Area Development Agreement, will not qualify for any royalty waiver incentive.
+
+39
+
+2.  
+
+Right of First Refusal for Adjacent Territory for a 6 Restaurant Developer
+
+a.  
+
+Subject to the terms and conditions of this Addendum and of the Area Development Agreement, you have the right of first refusal for the development rights to a development territory adjacent to your Territory.  If we have a prospective developer for a territory adjacent to your Territory who is interested in purchasing the development rights, we will provide you with written notice of the terms of such Area Development Agreement.  You shall have the option to purchase the development rights of the territory adjacent to your Territory, so long as you exercise that option within ten (10) days of written notice from us by providing us written notice of your intent to exercise your right of first refusal and you either amend your
+Area Development Agreement or enter into a new Area Development Agreement no later than twenty (20) days after you exercise your right of first refusal.  Your right of first refusal shall expire no later than the on-time opening or scheduled opening date of the third Restaurant. The Development Fee for the adjacent territory will be twenty thousand dollars ($20,000) for the next Restaurant developed plus four thousand dollars ($4,000) for each Restaurant to be developed thereafter.  The balance of sixteen thousand dollars ($16,000) of the reduced Initial Franchise Fee of twenty thousand dollars ($20,000) is due upon execution of the Franchise Agreement for each Restaurant (there is no Royalty waiver for these Restaurants).
+
+b.  
+
+In the event the franchisor has a qualified prospect, developer will have the right of first refusal for the following towns thru the 3 rd required open date of October 1, 2014 in the Area Development Agreement: Murray, Kentucky; Hopkinsville, Kentucky, Owensboro, Kentucky, and Springfield, Missouri.
+
+3.  
+
+Timely Openings for a 6 Restaurant Developer.
+
+a.  
+
+The developer incentives of the waiver of Royalty and the option to develop additional restaurants are conditioned upon your timely opening of each and every Restaurant on your Development Schedule.  If at any time, the Restaurants you are to develop under the Development Schedule open a cumulative six (6) months late, then all developer incentives provided in this Addendum, including without limitation, waiver of Royalty and the option to develop additional Restaurants will immediately terminate and Developer shall pay Royalty on all subsequent Restaurants without waiver of any kind immediately.
+
+b.  
+
+A six (6) month bank is established as of the Franchise Agreement and Area Development Agreement execution date.  Developer may use this month bank to stay in compliance with required opening dates in the Area Development Agreement.  Early openings will add to the month bank and late openings will subtract from the bank. If the month bank becomes depleted, the next restaurant opening, and all remaining openings in the initial six (6) store Area Development Agreement will not qualify for any royalty waiver incentive.
+
+40
+
+4.  
+
+Management Structure .  Prior to the opening of your third Restaurant, you must submit and receive our approval for your regional operational management structure for all Restaurants to be opened under this Addendum.
+
+5.  
+
+Site Selection .  We have the right to require you to use a site selection model or tools, including any software, designated by us in the selection of sites for your Restaurants.  You must pay all costs and fees associated with your use of a designated site selection model or tools.
+
+6.  
+
+Press Release .  We may hire, at our own cost, a public relations firm to prepare an article on you and the execution of the Area Development Agreement to be released in such publications as we deem appropriate.  You agree to be interviewed and otherwise assist us and the firm we hire in the preparation of the article.  Prior to any public release, we will send you a copy of the article for your approval.  You will have ten (10) days from the date we send you the article to raise any objections to it.  You will not be entitled to any compensation for the preparation or use of the
+article.  Furthermore, you and your Principal Owner hereby release us and our affiliates of all and any claims arising out of or relating to the article, its content, use or publication.
+
+IN WITNESS WHEREOF, the parties have executed this Addendum as of the date first written above.
+
+DEVELOPER:
+
+FRANCHISOR
+
+BD’S Restaurant Group, LLC
+
+Bagger Dave's Franchising Corporation
+
+By: /s/ Bill Zellmer
+
+By: /s/ T. Michael Ansley
+
+Bill Zellmer
+
+T. Michael Ansley
+
+Its: Member
+
+Its:  President & CEO
+
+By: /s/ Lonnie Griggs
+
+Lonnie Griggs
+
+Its: Member

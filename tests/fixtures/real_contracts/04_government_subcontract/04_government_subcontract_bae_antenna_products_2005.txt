@@ -1,0 +1,3099 @@
+<DOCUMENT>
+<TYPE>EX-10.B
+<SEQUENCE>2
+<FILENAME>bae_sub-contract.txt
+<DESCRIPTION>BAE SYSTEMS ATI SUBCONTRACT
+<TEXT>
+
+SUBCONTRACT 511-05-191
+
+PROJECT TITLE: HAARP, HIGH & LOW BAND ANTENNA MATCHING UNIT ASSEMBLY PROJECT
+PRIME CONTRACT NO. N00014-02-D-0479, DELIVERY ORDER 011 & 013
+
+FIRM FIXED PRICE
+
+ISSUED TO:
+
+ANTENNA PRODUCTS CORPORATION
+101 S.E. 25th AVENUE
+MINERAL WELLS, TX 76067
+
+ISSUED BY:
+
+BAE SYSTEMS ADVANCED TECHNOLOGIES, INC.
+1250 TWENTY-FOURTH ST, NW
+WASHINGTON, DC 20037
+
+Anthony Pugh
+Contract Administrator
+
+Phone: (202) 223 - 8808
+Fax: (202) 223 -1377
+E-Mail: anthony.pugh@baesystems.com
+---------------------------
+
+1
+<PAGE>
+SUBCONTRACT NO. 511-05-191
+-------------------------------------------------------------
+
+SUBCONTRACT NO. 511-05-191
+
+BETWEEN
+
+ANTENNA PRODUCTS CORPORATION
+
+AND
+
+BAE SYSTEMS ADVANCED TECHNOLOGIES, INC.
+
+EFFECTIVE DATE: DATE OF EXECUTION
+SUBCONTRACT TYPE: FIRM FIXED PRICE
+PERIOD OF PERFORMANCE 20 January 2005 to 1 November 2005
+SUBCONTRACT VALUE: FIRM FIXED PRICE: $3,723,530.70
+PAYMENT TERMS: NET 30 DAYS
+PRIME CONTRACT NO.: N00014-02-D-0479
+PRIME CONTRACT DELIVERY ORDER NO: 0011 & 0013
+SECURITY CLASSIFICATION: UNCLASSIFIED
+DPAS RATING: DO-C9(J)
+SUBCONTRACTOR EIN: 75-1964534
+
+2
+<PAGE>
+SUBCONTRACT NO. 511-05-191
+-------------------------------------------------------------
+
+TABLE OF CONTENTS
+
+SECTION A .............................................................CONTRACT
+
+SECTION B ........................................SUPPLIES/SERVICES AND PRICES
+
+SECTION C .......................................DESCRIPTIONS/SPECIFICATIONS
+
+SECTION D ............................................. PACKAGING AND MARKING
+
+SECTION E ........................................ INSPECTION AND ACCEPTANCE
+
+SECTION F .........................................DELIVERIES OR PERFORMANCE
+
+SECTION G ...................................SUBCONTRACT ADMINISTRATION DATA
+
+SECTION H ....................................SPECIAL CONTRACT REQUIREMENTS
+
+SECTION I ...................GENERAL PROVISIONS AND FAR FLOWDOWN PROVISIONS
+
+SECTION J ...............................................LIST OF ATTACHMENTS
+
+SECTION K .................................REPRESENTATIONS AND CERTIFICATIONS
+
+3
+<PAGE>
+SUBCONTRACT NO. 511-05-191
+-------------------------------------------------------------
+SECTION A CONTRACT
+
+A-1 INTRODUCTION
+This FIRM FIXED PRICE SUBCONTRACT is hereby made and entered into by and between
+BAE SYSTEMS Advanced Technologies Inc., a corporation organized and existing
+under the laws of the State of Delaware (hereinafter also called BAE SYSTEMS
+ATI, BAE, Contractor, or Buyer), and Antenna Products Corporation having a
+principal place of business in Mineral Wells, Texas (hereinafter also called
+APC, Subcontractor, or Seller).
+
+WITNESS THAT WHEREAS, BAE SYSTEMS ATI has entered into Prime Contract No.
+N00014-02-D-0479 to perform certain work and services for the U.S. Government;
+and
+
+WHEREAS, BAE SYSTEMS ATI desires to have APC perform certain work and services
+hereinafter described, and APC desires to perform certain work and services for
+BAE SYSTEMS ATI; and
+
+WHEREAS, the work and services hereinafter described to be performed by APC are
+related to the work and services to be furnished by BAE SYSTEMS ATI to the U.S.
+Government,
+
+NOW, THEREFORE, the parties mutually agree as follows:
+
+A-2 SUBCONTRACT TYPE
+
+Firm Fixed Price
+
+A-3 SUBCONTRACT VALUE
+
+The total cost for performance of the Work as defined in Section C is
+$3,723,530.70 which amount shall represent BAE SYSTEMS ATI's total hereunder
+unless changed by written modification to this Agreement, which is signed by
+authorized representatives of both parties.
+
+A-4 SUBCONTRACT EXECUTION
+In witness whereof, the duly authorized representatives of Buyer and Seller have
+executed this Subcontract.
+
+SELLER BUYER
+Antenna Products Corporation BAE SYSTEMS ADVANCED TECHNOLOGIES, INC.
+
+BY: Clark D. Wraight BY: Michael J. Murphy
+/s/Clark D. Wraight /s/Michael J. Murphy
+SIGNATURE: ----------------------- SIGNATURE: ------------------------------
+TITLE: President TITLE: Contracts Manager
+DATE: January 21, 2005 DATE: January 24, 2005
+
+4
+<PAGE>
+SUBCONTRACT NO. 511-05-191
+-------------------------------------------------------------
+SECTION B SUPPLIES/SERVICES AND PRICES
+
+B-1 SCOPE OF CONTRACT
+The general description of services to be provided under this Subcontract is for
+the manufacture, packing and the shipping to the HAARP site in Gakona, AK of the
+following items: 270 Low Band Antenna Matching Units (AMU's), 346 High Band
+AMU's, and various other antenna tower component mounting kit assemblies. A
+detailed Statement of Work is included in Subcontract Section C, Statement of
+Work.
+
+B-2 SUBCONTRACT LINE ITEM DESCRIPTION (SLIN) LIST
+
+SLIN # Description Qty FFP Amount
+------ ----------- --- ----------
+0001 Manufacture, Packing and Shipping of Low Band 135 $737,364.14
+AMU's, BAE P/N ECE-98-4000-1
+
+0002 Manufacture, Packing and Shipping of Low Band 135 $737,364.14
+AMU's, BAE P/N ECE-98-4000-2
+
+0003 Manufacture, Packing and Shipping of High Band 173 $1,009,887.76
+AMU's BAE P/N CSI-04-4000-1
+
+0004 Manufacture, Packing and Shipping of High Band 173 $1,009.887.76
+AMU's BAE P/N CSI-04-4000-2
+
+0005 Manufacture, Packing and Shipping of Current Sensor's 100 $21,500.00
+BAE P/N ECE-98-4001
+
+0006 Tower Component Mounting Kit 2800 $147,728.00
+APC P/N 0004-1072-201
+
+0007 Switch Control Box Mounting Kits 140 $5,835.20
+APC P/N 0004-1074-201
+
+0008 Current Monitor Mounting Kit 140 $9,979.20
+APC P/N 0004-1076-201
+
+0009 Cable Mounting Kit 1050 $43,984.50
+APC P/N 0004-1078-201
+
+SECTION C DESCRIPTIONS/SPECIFICATIONS
+
+C-1 DESCRIPTIONS/SPECIFICATIONS
+
+Statement of Work:
+------------------
+Subcontractor shall provide all labor, materials, facilities, equipment,
+packaging material, shipping and other services necessary to accomplish the Work
+and to produce and deliver the Deliverables described as follows:
+
+Deliverables:
+-------------
+
+5
+<PAGE>
+SUBCONTRACT NO. 511-05-191
+-------------------------------------------------------------
+<TABLE>
+<S> <C> <C> <C>
+Part Number and Rev Level Description Quantity Documentation Source
+---------------------------------------------------------------------------------------
+ECE-98-4000-1 rev C LB AMU 135 BAE Drawing Package
+ECE-98-4000-2 rev C LB AMU 135 BAE Drawing Package
+CSI-04-4000-1 rev B HB AMU 173 BAE Drawing Package
+CSI-04-4000-2 rev B HB AMU 173 BAE Drawing Package
+ECE-98-4001 rev E Current Sensor 100 BAE Drawing Package
+0004-1072-201 Tower Component Mounting Kit 2800 Antenna Products Part Number
+0004-1074-201 Switch Control Box Mounting Kit 140 Antenna Products Part Number
+0004-1076-201 Current Monitor Box Mounting Kit 140 Antenna Products Part Number
+0004-1078-201 Cable Mounting Kit 1050 Antenna Products Part Number
+</TABLE>
+
+Antenna Products Corp is responsible for shipping the deliverables to the
+HAARP site in Gakona, AK per the schedule outlined in Section F-1. This
+delivery schedule provides firm arrival deadlines for the deliverables at
+the HAARP site. It is permissible to ship earlier than the schedule.
+Antenna Products Corp is responsible for preparing and packaging the
+deliverables for shipment and for the shipping to the HAARP site. Notice of
+shipments must be provided to BAE Systems ATI so that preparations at the
+site can be made for their arrival. Transfer of ownership of the
+deliverables will occur at the HAARP site.
+
+As part of this subcontract, BAE Systems ATI will supply a complete drawing
+package (CD with drawing files in DWG format) for the Low Band AMU
+(ECE-98-4000), the High Band AMU (CSI-04-4000) and the Current Sensor
+(ECE-98-4001). All required prints and their correct revision level are
+listed in Attachment A.
+
+BAE Systems ATI will supply the following Customer Furnished Materials
+(CFM) to Antenna Products Corp in a timely manner to support the delivery
+schedule in Section F-1. Antenna Products Corp will not be responsible for
+the purchase of these materials but will need to handle and safeguard this
+material as normal inventory items. All unused material shall be returned
+to BAE Systems ATI at the completion of this subcontract.
+
+CFM for Low Band AMU's
+
+1100 Capacitors, Draloric (Round),PE 140-300-5,Print ECE-98-4000(item 23)
+275 Capacitors, Jennings, CKT 150-0030, Print ECE-98-4017 (item 12)
+550 Relays, Kilovac, KC-22, Print ECE-98-4017 (item 27)
+8000 ft Cable, HP-850-B, listed in notes on Prints ECE-98-4013,
+ECE-98-4014 and ECE-98-4015
+
+CFM for High Band AMU's
+
+360 Capacitors, MC2C-75, Print CSI-04-4001 (item 22)
+360 Capacitors, MC3C-175, Print CSI-04-4001 (item 12)
+360 Capacitors, MC3C-235, Print CSI-04-4001 (item 6)
+700 Relays, KC-22, Print CSI-04-4001 (item 27)
+7000 ft Cable, HP-850-B, listed in notes on Print CSI-04-4011
+2500 ft Cable, HP-950-33, listed in notes on Print CSI-04-4010
+
+6
+<PAGE>
+SUBCONTRACT NO. 511-05-191
+-------------------------------------------------------------
+Antenna Products Corp shall provide to BAE SYSTEMS ATI a copy of Antenna
+Products Corp's QA Plan that will be used to monitor progress of
+manufacturing by including the manufacturing processes, inspection, test,
+and acceptance. Antenna Products Corp's QA Plan is subject to review and
+approval by BAE SYSTEMS ATI's QA POC prior to the start of any
+manufacturing effort by Antenna Products Corp.
+
+SECTION D PACKAGING AND MARKING
+
+D-1 PACKAGING
+Packaging is to be supplied by the subcontractor. Each AMU unit is to be
+individually packaged within its own shipping container. Transportation is to be
+via air ride van from Antenna Products Corp facility to the Seattle, Washington
+area, by water to Anchorage, Alaska and again by air ride van to the HAARP Site
+in Gakona, Alaska. Any deviations from the above will require written approval
+from BAE Systems ATI. Packaging and marking of all deliverables shall be in
+accordance with the best commercial practice necessary to ensure safe and timely
+delivery at destination.
+
+D-2 CONTAINER MARKINGS
+A complete packing list shall be included with all shipments. Subcontractor
+shall mark containers or packages with necessary lifting, loading, and shipping
+information, including the BAE SYSTEMS ATI agreement number, item number, dates
+of shipment, and the names and address of consignor and consignee. Bills of
+lading shall include this agreement number.
+
+D-3 MARKING OF SUBCONTRACTOR REPORTS
+All reports submitted under this subcontract shall include:
+
+o The Prime Contract Number/ Delivery Order Number
+o Subcontract Number
+o Forwarded Prepaid
+o Provide preservation, packaging and marking which shall afford adequate
+protection against physical damage during shipment for all deliverable
+items.
+o All reports shall be packaged and forwarded to:
+BAE Systems Advanced Technologies Inc.
+1250 24th Street, N.W.
+Washington, D.C. 20037
+Attn: Paul Darling
+
+SECTION E INSPECTION AND ACCEPTANCE
+
+E-1 INSPECTION AND ACCEPTANCE
+Final inspection and acceptance of all work, deliverables and report items will
+be performed by BAE SYSTEMS ATI quality assurance personal or by the Program
+Manager's designee. The Subcontractor shall be responsible for all materials
+delivered and work performed until completion and acceptance of the entire work
+for any completed unit of work that may have been accepted under this
+subcontract.
+
+7
+<PAGE>
+SUBCONTRACT NO. 511-05-191
+-------------------------------------------------------------
+1. The Subcontractor shall submit a complete and signed "Travelers
+Checklist", which will be audited by BAE Systems ATI POC on a regular
+basis showing AMU completion. This traveler checklist should include
+critical quality items (such as hardware torque and soldering
+inspection) that are to be signed off by QA inspectors at specific
+assembly and test points. BAE Systems ATI will do random audits of this
+process.
+
+2. Subcontractor will test the AMU's using a network analyzer to catch any
+assembly errors and loose connections. This test will consist of
+hooking up, testing, print out results, and unhooking the AMU's from a
+network analyzer. The person performing the test must be qualified to
+support the use of/or troubleshoot the network analyzer. BAE Systems
+ATI will provide the initial training and support as well as the
+software, computer, GPIB card, and connectors for the network analyzer.
+
+3. The units can be shipped to the HAARP Site only after the receipt and
+acceptance of the Traveler Checklist and Test Data for each unit.
+
+SECTION F DELIVERIES OR PERFORMANCE
+
+F-1 DELIVERIES
+Deliveries required in performance of this subcontract as set forth herein will
+be made in accordance with the following delivery schedule:
+<TABLE>
+<S><C> <C> <C> <C> <C> <C> <C> <C>
+------------- --------------------------- ------- ------- ------ ------- ------- -----
+Part Number Description 6/27/05 7/18/05 8/8/05 8/29/05 9/12/05 Total
+------------- --------------------------- ------- ------- ------ ------- ------- -----
+ECE-98-4000-1 LB AMU 35 35 33 32 135
+------------- --------------------------- ------- ------- ------ ------- ------- -----
+ECE-98-4000-2 LB AMU 35 35 33 32 135
+------------- --------------------------- ------- ------- ------ ------- ------- -----
+CSI-04-4000-1 HB AMU 35 35 33 34 36 173
+------------- --------------------------- ------- ------- ------ ------- ------- -----
+CSI-04-4000-2 HB AMU 35 35 33 34 36 173
+------------- --------------------------- ------- ------- ------ ------- ------- -----
+ECE-98-4001 Current Sensor 100 100
+------------- --------------------------- ------- ------- ------ ------- ------- -----
+0004-1072-201 Tower Component Mtg Kit 700 700 700 700 2800
+------------- --------------------------- ------- ------- ------ ------- ------- -----
+0004-1074-201 Switch Control Box Mtg Kit 140 140
+------------- --------------------------- ------- ------- ------ ------- ------- -----
+0004-1076-201 Current Monitor Box Mtg Kit 140 140
+------------- --------------------------- ------- ------- ------ ------- ------- -----
+0004-1078-201 Cable Mtg Kit 250 200 200 200 200 1050
+------------- --------------------------- ------- ------- ------ ------- ------- -----
+</TABLE>
+Delivery of the QA Plan, and other documentation required in performance of this
+subcontract as set forth herein will be made to:
+BAE SYSTEMS Advanced Technologies, Inc.
+1250 Twenty-Fourth St., NW, Suite 850
+Washington, DC 20037
+Attn: Paul Darling
+
+8
+<PAGE>
+SUBCONTRACT NO. 511-05-191
+-------------------------------------------------------------
+Delivery of the Deliverables required in performance of this Subcontract as set
+forth herein will be made to:
+BAE SYSTEMS Advanced Technologies, Inc.
+HAARP DP Site
+Milepost 11.3 TOK Cutoff
+Gakona, AK 99586
+Attn: Program Manager/Designee
+
+All Deliveries shall be FOB Destination.
+
+A copy of all transmittal letters shall be mailed to the BAE SYSTEMS ATI
+Contractual Point of Contact identified in Section G-4 of this Subcontract.
+
+F-2 PERIOD OF PERFORMANCE
+The Period of Performance for this Subcontract is 20 January 2005 through 1
+November 2005. The subcontractor shall plan and execute the work accordingly.
+
+F-3 PLACE OF PERFORMANCE
+Performance under this subcontract will take place at the Subcontractor's
+facility in Mineral Wells, Texas.
+
+SECTION G SUBCONTRACT ADMINISTRATION DATA
+
+G-1 INVOICING AND PAYING INSTRUCTIONS
+
+Submit one original invoice to:
+BAE SYSTEMS Advanced Technologies, Inc.
+1250 Twenty-Fourth St., NW
+Washington, DC 20037
+Attention: Anthony Pugh
+
+Invoices may be submitted no more often than monthly after approved "Travelers
+Checklist" has been received by BAE SYSTEMS ATI, on a per unit completed basis.
+Anticipated payment schedule as follows:
+
+Milestone Payments
+
+Description Payment Anticipated Date
+---------------------------------------------------------------------
+Payment # 1 (With Notice to Proceed) $494,945.66 Jan 25, 2005
+Payment # 2 $249,760.48 Mar 15, 2005
+
+Total Milestones $744,706.14
+
+Delivery Payments
+Per delivery schedule or sooner
+Invoices to use the following part numbers and price per unit
+
+Part # / Description Quantity Price/Unit Total Value
+-----------------------------------------------------------------------------
+ECE-98-4000-1 / LB AMU 135 $4,369.5653 $589,891.31
+ECE-98-4000-2 / LB AMU 135 $4,369.5653 $589,891.31
+CSI-04-4000-1 / HB AMU 173 $4,670.0012 $807,910.21
+
+9
+<PAGE>
+SUBCONTRACT NO. 511-05-191
+-------------------------------------------------------------
+CSI-04-4000-2 / HB AMU 173 $4,670.0012 $807,910.21
+ECE-98-4001 / Current Sensor 100 $172.0000 $17,200.00
+0004-1072-201 / Tower Component Mtg Kit 2800 $42.2080 $118,182.40
+0004-1074-201 / Switch Control Box Mtg Kit 140 $33.3440 $4,668.16
+0004-1076-201 / Current Monitor Box Mtg Kit 140 $57.0240 $7,983.36
+0004-1078-201 / Cable Mtg Kit 1050 $33.5120 $35,187.60
+
+Total Delivery Payments $2,978,824.56
+
+Total Payments $3,723,530.70
+
+In accordance with the provisions of this Agreement and conditioned upon
+satisfactory performance of Subcontractor's obligations hereunder, BAE SYSTEMS
+ATI will pay the approved amounts of Subcontractor's interim payment vouchers
+within thirty (30) days after BAE SYSTEMS ATI's receipt thereof at the
+aforementioned address; except that if BAE SYSTEMS ATI, in good faith, disputes
+and does not approve an item billed BAE SYSTEMS ATI will notify Subcontractor of
+the portion disputed within 5 days and withhold payment thereof until settlement
+of the dispute. Such right of BAE SYSTEMS ATI to withhold such payments shall
+not constitute or imply acceptance of the Work or Deliverables.
+
+BAE SYSTEMS ATI will have no direct or indirect obligation to pay, reimburse or
+otherwise bear any rates, costs, expenses or other charges or amounts
+whatsoever, except as agreed to herein; it being understood that all of
+Subcontractor's work shall be performed by Subcontractor at Subcontractor's sole
+cost, risk and expense, except as otherwise expressly agreed to in writing.
+
+Completion criteria for invoice purposes will be when a "Travelers Checklist"
+has been completed by both APC and BAE Quality Assurance personnel, and BAE
+Quality Assurance personnel has approved work as being satisfactory or
+completed.
+
+Final Payment under this subcontract shall be predicated upon receipt and
+acceptance by BAE SYSTEMS ATI of all performance and Deliverables called for
+hereunder; final accounting for and disposition of government property; the
+assignment to BAE SYSTEMS ATI of any refunds; and the release discharging BAE
+SYSTEMS ATI from liabilities.
+
+G-2 PAYMENT AND CORRESPONDENCE ADDRESS
+Payment under this subcontract shall be made to:
+
+ANTENNA PRODUCTS CORPORATION
+ACCT# 600058164 C/O Frost National Bank PO Box 164009 Fort Worth,
+TX 76161-4009
+
+G-3 CONTRACT ADMINISTRATION
+The BAE SYSTEMS ATI Contract Administrator shall be the only individual
+authorized to direct and/or redirect the effort or in any way amend any of the
+terms of this subcontract other than those instances specifically delegated to
+an Administrative Contracting Officer, or a Termination Contracting Officer, by
+a General Provision of this subcontract. No verbal statement of any person
+whomsoever shall, in any manner or degree, modify or otherwise affect the terms
+
+10
+<PAGE>
+SUBCONTRACT NO. 511-05-191
+-------------------------------------------------------------
+of this subcontract. In the event effects any such change at the direction of
+any person other than the BAE SYSTEMS ATI Contract Administrator, the change
+will be considered to have been made without administrative authority and no
+adjustment will be made in the authorized funding to cover any increase in costs
+incurred as a result thereof.
+
+G-4 POINTS OF CONTACT
+The individuals identified below may be contacted for contractual and technical
+administration of this Subcontract. Any notices consents or approvals required
+or permitted by this Agreement shall be in writing and shall be given to the
+contractual Point of Contact or to such other address as the party to receive
+the same shall have designated to the other party hereto.
+
+BAE SYSTEMS ATI:
+----------------
+Contractual Technical
+----------- ---------
+Name: Anthony Pugh Name: Dr. Rob Jacobsen
+Title: Contract Administrator Title: Program Manager
+Voice: 202-223-8808 Voice: 202-223-8808
+FAX: 202-223-1377 FAX: 202-223-1377
+E-mail: anthony.pugh@baesystems.com E-mail: jacobsen@baesystems.com
+--------------------------- -----------------------
+
+Quality Assurance
+-----------------
+Name: Paul Darling
+Title: Assistant Program Manager
+Voice: 202-223-8808
+FAX: 202-223-1377
+E-mail: paul.darling@baesystems.com
+---------------------------
+
+SUBCONTRACTOR:
+--------------
+Contractual Technical
+----------- ---------
+Name: Clark D. Wraight Name: Angus Hume
+------------- -------------
+Title: President Title: Program Manager
+------------- ---------------
+Voice: (940)325-3301 Voice: (940)325-3301
+------------- -------------
+FAX: (940)325-8440 FAX: (940)325-8440
+------------- -------------
+E-MAIL: wraight@antennaproducts.com E-MAIL: hume@antennaproducts.com
+---------------------------- -------------------------
+
+G-5 PROGRAM MANAGER
+
+Performance under the work hereunder is subject to the technical direction of
+BAE SYSTEMS ATI's Program Manager or his designee. If the Program Manager
+assigns a designee, such designee shall be identified in a written
+
+11
+<PAGE>
+SUBCONTRACT NO. 511-05-191
+-------------------------------------------------------------
+correspondence signed by the BAE SYSTEMS ATI Contract Administrator and provided
+to the Subcontractor Contractual Point of Contact as identified in Section G-4
+of this Agreement. For the purpose of this clause, technical direction includes
+the following:
+(a) Direction to the Subcontractor that shifts work emphasis between work
+areas or tasks, requires pursuit of certain lines of inquiry, fills in
+details or otherwise serves to accomplish the objectives described in
+the statement of work.
+(b) Guidelines to the Subcontractor that assist in the interpretation of
+drawings, specifications or technical portions of work description.
+
+The Program Manager does not have the authority to issue any direction under
+this contract, either technical or otherwise, that increases BAE SYSTEMS ATI's
+financial obligation hereunder.
+
+SECTION H SPECIAL CONTRACT REQUIREMENTS
+
+H-1 CLAIMS AGAINST SUBCONTRACTOR Subcontractor shall not be in
+default because of any failure to
+If notification of any claim perform this subcontract under its
+against the Subcontractor arising terms if the failure arises from
+out of labor or materials furnished causes beyond the control and
+to the project has been made to BAE without the fault or negligence of
+SYSTEMS ATI, BAE SYSTEMS ATI may, Subcontractor. Examples of these
+at their discretion, withhold causes are (1) acts of God or of
+sufficient funds from any payments the public enemy, (2) acts of the
+to cover the cost of any such Government in either its sovereign
+claims pending their settlement to or Contractual capacity, (3) fires,
+the satisfaction of BAE SYSTEMS (4) floods, (5) epidemics, (6)
+ATI. BAE SYSTEMS ATI shall have the quarantine restrictions (7)
+right at any time to make payments strikes, (8) freight embargoes, and
+due under this Agreement by means (9) unusually severe weather. In
+of joint checks to the each instance, the failure to
+Subcontractor or directly to any of perform must be beyond the control
+the laborers, suppliers or and without the fault or negligence
+Subcontractors directly. of Subcontractor. "Default"
+includes failure to make progress
+H-2 DUST CONTROL in the work so as to endanger
+Not Used. performance.
+
+H-3 EMPLOYEE SITE - H-7 EXAMINATION OF COSTS
+EEO ORIENTATION For the purpose of evaluating
+Not Used. Subcontractor's costs with respect
+to requests for change proposal,
+H-4 ENVIRONMENTAL FIELD OFFICER and proposal for follow-on
+Not Used. procurement, Subcontractor agrees
+that BAE SYSTEMS ATI may subject
+H-5 ENVIRONMENTAL IMPACTS such proposals, requests or reports
+Not Used. and related fianancial data to
+anaysis type examintation. For such
+H-6 EXCUSABLE DELAYS purposes, Subcontractor must make
+Except for defaults of available all data supporting
+Subcontractor at any tier, direct costs to DCAA or any other
+
+12
+<PAGE>
+SUBCONTRACT NO. 511-05-191
+-------------------------------------------------------------
+authorized governement official. maintenance or disposal of
+Government-furnished property that
+H-8 EXISITING UTILITIES may come into Subcontractor's
+Not Used. possession during Subcontractor's
+performance of this subcontract;
+H-9 FAILURE TO COMPLY WITH EQUAL such handling, use, maintenance or
+OPPORTUNITY REGULATIONS disposal is governed by the
+This Subcontract may be canceled by government furnished property
+BAE SYSTEMS ATI up to 30 days after clause in Section I of this
+award and without liability to BAE subcontract.
+SYSTEMS ATI or others for any
+payment or otherwise, if H-12 INSURANCE
+Subcontractor is found by the In accordance with the Contract
+United States Government, on the Clause FAR 52.228-7 entitled
+basis of a compliance review, not "Insurance Liability to Third
+able to comply with the provisions Persons", the following kinds and
+of the Equal Opportunity minimum amounts of insurance are
+regulations clause incorporated required during the performance of
+herein and the Equal Opportunity this contract:
+regulations of the Government. (a) Worker's Compensation and
+Employer's Liability
+H-10 FURTHER ASSURANCES Insurance:
+Subcontractor will, and will cause (i) The amount required
+its employees, officers, agents and by the state where
+representatives to, prepare and performance will
+execute at the executing party's occur, under
+expense, and will deliver, at the applicable Worker's
+reasonable request of BAE SYSTEMS Compensation and
+ATI, any and all documents or occupational disease
+instruments reasonably necessary or statutes.
+appropriate to create, evidence or (ii)Employer's liability
+confirm the grant, discharge, or insurance in the
+release, as the case may be, of any minimum amount of
+right, interest or obligation $1,000,000 per person
+acquired by BAE SYSTEMS ATI and $1,000,000 per
+pursuant to this Agreement. accident.
+(b) General Liability
+H-11 GOVERNMENT PROPERTY Insurance: Bodily injury,
+BAE SYSTEMS ATI shall retain title sickness or death liability
+to all property furnished to and coverage on the
+utilized by Subcontractor in comprehensive form of
+performance of this subcontract. policy at $1,000,000 per
+Subcontractor shall label, occurrence and $1,000,000
+maintain, and dispose of BAE for loss or damage to
+SYSTEMS ATI's property, including property in one accurrence.
+scrap, according to BAE SYSTEMS (c) Automobile Liability
+ATI's written direction, and Insurance: Coverage shall
+Subcontractor shall be responsible be on the comprehensive
+for all loss or damage to BAE form of policy. The policy
+SYSTEMS ATI's property in shall provide for bodily
+Subcontractor's possession. This injury and property damage
+clause does not govern liability covering the
+Subcontractor's handling, use, operation of all
+
+13
+<PAGE>
+SUBCONTRACT NO. 511-05-191
+-------------------------------------------------------------
+automobiles used in obtain, maintain, and keep
+connection with performing in force, during the time
+the subcontract. Policies in which they are engaged
+covering automobiles in performing Services
+operated in the United hereunder, adequate
+States shall provide insurance coverage in
+coverage of at least accordance with
+$200,000 per person and Subcontractors' normal
+$500,000 per occurrence for practice and furnish BAE
+bodily injury and $20,000 SYSTEMS ATI acceptable
+per occurrence for property evidence of such insurance.
+damage. (i) BAE SYSTEMS ATI shall not
+(d) The amount of liability be liable for loss or
+coverage on other policies damage to equipment,
+shall be commensurate with supplies, and materials
+any legal requirements of belonging to the
+the locality and sufficient Subcontractor or used on
+to meet normal and behalf of Subcontractor for
+customary claims. Subcontractor's performance
+(e) All policies shall be hereunder. Any insurance
+endorsed to provide that policies carried by
+underwriters and insurance Subcontractor or third
+companies of Subcontractor party on said equipment,
+shall not have any right of supplies and materials
+subrogation against BAE shall provide for waiver of
+SYSTEMS ATI and agents, underwriter's right to
+employees, invites, subrogation against BAE
+subcontractors, insurers, SYSTEMS ATI.
+underwriters, and other (j) Unless otherwise provided
+such parties as BAE SYSTEMS pursuant to FAR 52.228-7,
+ATI may designate. it is expressly agreed and
+(f) Subcontractor shall furnish understood that the cost of
+Certificate of Insurance to premiums and deductibles
+BAE SYSTEMS ATI evidencing for insurance described in
+the insurance required this Agreement is a
+hereunder and upon request, non-reimbursable cost.
+BAE SYSTEMS ATI may examine (k) Primary Insurance - It is
+true copies of the actual hereby understood and
+policies. Each certificate agreed that any coverage
+shall provide that thirty provided BAE SYSTEMS ATI by
+(30) days prior written Subcontractor's insurance
+notice shall be given to under this Agreement is
+BAE SYSTEMS ATI in the primary insurance and shall
+event of cancellation or not be considered
+material change in policies contributory insurance with
+occurs any insurance policies of
+(g) All policies shall be BAE SYSTEMS ATI.
+endorsed to provide that (l) By so specifying, BAE
+there will be no recourse SYSTEMS ATI may require
+against BAE SYSTEMS ATI for additional types of
+payment of premium. insurance. (m) These
+(h) Subcontractor shall require insurance provisions in no
+all subcontractors to way affect the liability of
+
+14
+<PAGE>
+SUBCONTRACT NO. 511-05-191
+-------------------------------------------------------------
+Subcontractor as stated H-18 PERMITS
+elsewhere in this Not Used.
+Agreement.
+H-19 PERFORMANCE AND PAYMENT BOND
+H-13 LIGHTING Not Used.
+Not Used.
+H-20 RESPONSIBILITY FOR PERFORMANCE
+H-14 LIMITATION OF FUNDS (NOT BAE SYSTEMS ATI issuance of this
+APPLICABLE TO FIRM FIXED subcontract is based in part on BAE
+PRICE CONTRACTS) SYSTEMS ATI's reliance upon
+Not used. Subcontractor's ability, expertise
+and knowledge of the expected
+H-15 NATIONAL CODES construction project, and
+Subcontractor's continuing
+The following codes are hereby compliance with all applicable laws
+incorporated into the subcontract and regulations during the
+by reference, with the same force performance of this subcontract.
+and effect as if it were provided Subcontractor shall not, by
+in full text. contract, operation of law, or
+(a) Uniform Building Code (UBC) otherwise, assign any of its rights
+(b) Uniform Mechanical Code delegate any of its duties or
+(UMC) obligations under this subcontract,
+(c) Uniform Plumbing Code (UPC) including but not limited to any
+(d) National Electrical Code right to monies due or to become
+(NEC) due, without BAE SYSTEMS ATI's
+(e) Americans with Disabilites prior written consent. No
+Act (ADA) assignment, delegation, or
+(f) National Fire Protection subcontracting by Subcontractor,
+Association (NFPA) with or without BAE SYSTEMS ATI's
+consent, shall relieve
+H-16 NOTIFICATION OF DEBARMENT/ Subcontractor of any of its
+SUSPENSION STATUS obligations under this subcontract.
+Subcontractor shall provide Notwithstanding the foregoing,
+immediate notice to the BAE SYSTEMS either party shall have the right
+ATI Contract Administrator in the to assign this subcontract to any
+event of being suspended, debarred successor of such party by way of
+or declared ineligible by any merger or consolidation or the
+Department or other Federal Agency, acquisition of substantially all of
+or upon receipt of a notice of the business and assets of the
+proposed debarment from another DoD assigning party relating to the
+Agency, during the performance of subject matter of this subcontract.
+this subcontract. This right shall be retained
+provided that such successor shall
+H-17 OFF-DUTY EMPLOYMENT expressly assume all the
+Subcontractor agrees not to employ obligations and liabilities of the
+any person who is and employee of assigning party under this
+the United States Government, subcontract, and that the assigning
+either civilian or military, party shall remain liable and
+without assuring that the employees responsible to the other party
+has complied with all the hereto for the performance and
+appropriate Department of Defense observance of all such obligations.
+Regulations pertaining to off-duty
+employment for Government H-21 SAFETY
+personnel. The Subcontractor shall be
+
+15
+<PAGE>
+SUBCONTRACT NO. 511-05-191
+-------------------------------------------------------------
+responsible for safety related to required services, supervising
+and during prosecution of the work techniques used in their work, and
+and shall ensure that its employees assuring the quality of their
+and employees of its Subcontractors product.Subcontractor shall select,
+are notified of and observe and supervise and exercise control and
+abide by all safety regulations and direction over its employees under
+laws including, but not limited to this Subcontract. Subcontractor
+State of Alaska General Safety shall not supervise, direct or
+Code, U.S. Department of Labor control the activities of BAE
+Safety and Health Act of 1970, SYSTEMS ATI personnel. Except as
+including, any revisions of the may be otherwise expressly
+foregoing, that may hereafter be specified herein, Subcontractor
+applicable, and all applicable shall provide all necessary
+safety regulations. Said laws and administrative and other support to
+regulations are designed as minimum its employees.
+requirements for the Subcontractor,
+and the Subcontractor shall take H-25 SUBCONTRACTING RESTRICTIONS
+any additional precautions Subcontractor may not issue
+necessary or proper under the second-tier subcontracts to
+circumstances to prevent injury or business concerns that have been
+death to persons and/or damage to debarred from contracting with the
+property. Neither compliance with U.S. Government. Nor shall the
+such laws and regulations by Subcontractor issue second-tier
+Subcontractor nor BAE SYSTEMS ATI's subcontracts to foreign owned
+approval of any actions or business concerns.
+procedures of the Subcontractor as
+provided herein, shall relieve the H-26 TRASH AND WASTE
+Subcontractor of its obligations to Not Used
+always use due care in performing
+services under this subcontract. H-27 WATER AND SANITARY SERVICES
+Not Used.
+The Subcontractor shall immediately
+notify BAE SYSTEMS ATI and, as soon
+thereafter as is practicable,
+furnish BAE SYSTEMS ATI with a
+written report of any damage to
+property and/or injury to, or death
+of, persons which occurs in
+connection with or is in any way
+related to the execution of
+services under this subcontract.
+
+H-22 SECURITY
+Not Used.
+
+H-23 SERVICE CONTRACT ACT -
+STATEMENT OF EQUIVALENT RATES
+Not Used.
+
+H-24 SUBCONTRACTOR PERSONNEL
+Subcontractor shall be responsible
+for selecting personnel who are
+well qualified to perform the
+
+16
+<PAGE>
+SECTION I GENERAL PROVISIONS AND FAR FLOWDOWN PROVISIONS
+--------------------------------------------------------------------------------
+SECTION I: GENERAL PROVISIONS 21 New Materials
+----------------------------- 22 Offset Credit/Cooperation
+1 Acceptance of Contract/Terms and 23 Packing and Shipment
+Conditions 24 Payments, Taxes, And Duties
+2 Applicable Laws 25 Precedence
+3 Assignment 26 Priority Rating
+4 Changes 27 Quality Control System
+5 Commercial Computer Software 28 Release of Information
+6 Communication with BAE SYSTEMS 29 Stop Work Order
+Customer 30 Severability
+7 Contract Direction 31 Survivability
+8 Default 32 Termination for Convenience
+9 Definitions 33 Timely Performance
+10 Disputes 34 Waiver, Approval, And Remedies
+11 Export Control 35 Warranty
+12 Extras
+13 Furnished Property SECTION II: FAR FLOWDOWN PROVISIONS
+14 Gratuities/Kickbacks -----------------------------------
+15 Independent Contractor A Incorporation of FAR Clauses
+Relationship B Government Subcontract
+16 Information of BAE SYSTEMS C Notes
+17 Information of Seller D Amendments Required by Prime
+18 Inspection and Acceptance Contract
+19 Insurance/Entry on BAE SYSTEMS E Preservation of the Government's
+Property Rights
+20 Intellectual Property F FAR Flowdown Clauses
+
+SECTION I: GENERAL PROVISIONS included in SELLER's
+------------------------------ acknowledgment hereof are
+1. ACCEPTANCE OF CONTRACT/TERMS hereby objected to by BAE
+AND CONDITIONS SYSTEMS and have no effect
+unless accepted in writing
+(a) This Contract integrates, by BAE SYSTEMS.
+merges, and supersedes any
+prior offers, 2. APPLICABLE LAWS
+negotiations, and (a) This Contract shall be
+agreements concerning the governed by and construed
+subject matter hereof and in accordance with the
+constitutes the entire laws of the State of
+agreement between the Delaware, excluding its
+Parties. choice of laws rules,
+except that any provision
+(b) SELLER's acknowledgment, in this Contract that is
+acceptance of payment, or (i) incorporated in full
+commencement of text or by reference from
+performance, shall the Federal Acquisition
+constitute SELLER's Regulation (FAR); or (ii)
+unqualified acceptance of incorporated in full text
+this Contract. or by reference from any
+agency regulation that
+(c) Additional or differing implements or supplements
+terms or conditions the FAR or; (iii) that is
+proposed by SELLER or substantially based on any
+
+17
+<PAGE>
+such agency regulation or or may demand payment
+FAR provision, shall be (in whole or in part)
+construed and interpreted of the corresponding
+according to the federal amounts. SELLER shall
+common law of government promptly pay amounts so
+contracts as enunciated demanded.
+and applied by federal
+judicial bodies, boards of (4)In the event it is
+contracts appeals, and determined that the
+quasi-judicial agencies of Work is not a
+the federal Government. Commercial Item as
+defined at FAR 2.101,
+(b) (1)SELLER agrees to then SELLER agrees the
+comply with all corresponding agency
+applicable laws, flowdowns shall be
+orders, rules, applicable to this
+regulations, and Contract, in lieu of
+ordinances. these terms and
+conditions, effective
+(2)If: (i) BAE SYSTEMS' as of the date of this
+contract price or fee Contract.
+is reduced; (ii) BAE
+SYSTEMS' costs are (c) SELLER represents that
+determined to be each chemical substance
+unallowable; (iii) any constituting or contained
+fines, penalties or in Work sold or otherwise
+interest are assessed transferred to BAE SYSTEMS
+on BAE SYSTEMS; or (iv) hereunder is on the list
+BAE SYSTEMS incurs any of chemical substances
+other costs or damages; compiled and published by
+as a result of any the Administrator of the
+violation of applicable Environmental Protection
+laws, orders, rules, Administration pursuant to
+regulations, or the Toxic Substances
+ordinances by SELLER, Control Act (15 U.S.C.
+its officers, Sec. 2601 et seq.) as
+employees, agents, amended.
+suppliers, or
+subcontractors at any (d) SELLER shall provide to
+tier, BAE SYSTEMS may BAE SYSTEMS with each
+proceed as provided for delivery any Material
+in (3) below. Safety Data Sheet
+applicable to the Work in
+(3)Upon the occurrence of conformance with and
+any of the containing such
+circumstances information as required by
+identified in (2) the Occupational Safety
+above, BAE SYSTEMS may and Health Act of 1970 and
+make a reduction of regulations promulgated
+corresponding amounts there under, or its state
+(in whole or in part) approved counterpart.
+in the price, or in the
+costs and fee, of this 3. ASSIGNMENT
+Contract or any other Any assignment of SELLER's
+contract with SELLER, contract rights or delegation
+
+18
+<PAGE>
+of duties shall be void, (c) Any claim for an equitable
+unless prior written consent adjustment by SELLER must
+is given by BAE SYSTEMS. be submitted in writing to
+However, SELLER may assign BAE SYSTEMS within thirty
+rights to be paid amounts due, (30) days from the date of
+or to become due, to a notice of the change,
+financing institution if BAE unless the Parties agree
+SYSTEMS is promptly furnished in writing to a longer
+a signed copy of such period.
+assignment reasonably in
+advance of the due date for (d) Failure to agree to any
+payment of any such amounts. adjustment shall be
+Amounts assigned to an resolved in accordance
+assignee shall be subject to with the "Disputes" clause
+setoffs or recoupment for any of this Contract. However,
+present or future claims of nothing contained in this
+BAE SYSTEMS against SELLER. "Changes" clause shall
+BAE SYSTEMS shall have the excuse SELLER from
+right to make settlements proceeding without delay
+and/or adjustments in price in the performance of this
+without notice to the Contract as changed.
+assignee.
+5. COMMERCIAL COMPUTER SOFTWARE
+4. CHANGES (a) As used in this clause,
+(a) The BAE SYSTEMS "restricted computer
+Procurement Representative software" means computer
+may at any time, by program, computer data
+written notice, and base, or documentation
+without notice to sureties thereof, that has been
+or assignees, make changes developed at private
+within the general scope expense and either is a
+of this Contract in any trade secret, is
+one or more of the commercial or financial
+following: (i) drawings, and confidential or
+designs or specifications; privileged, or is
+(ii) method of shipping or published and copyrighted,
+packing; (iii) place of and so marked when
+inspection, acceptance or delivered or otherwise
+point of delivery; and furnished.
+(iv) delivery schedule.
+(b) Notwithstanding any
+(b) If any such change causes provisions to the contrary
+an increase or decrease in contained in any SELLER's
+the cost of, or the time standard commercial
+required for, performance license or lease
+of any part of this agreement, SELLER agrees
+Contract, BAE SYSTEMS that the restricted
+shall make an equitable computer software
+adjustment in the Contract delivered under this
+price and/or delivery Contract shall provide the
+schedule, and modify the following rights to BAE
+Contract accordingly. SYSTEMS and the U.S.
+Changes to the delivery Government.
+schedule will be subject
+to a price adjustment (1)The restricted computer
+only. software may be:
+
+19
+<PAGE>
+(i)Used or copied for (vi) Used or copied for
+use in or with the use in or
+computer or transferred to a
+computers for which replacement
+it was acquired, computer.
+including use at
+any Government (c) Release from liability.
+installation to The SELLER agrees that the
+which such computer Government and BAE
+or computers may be SYSTEMS, and other persons
+transferred; to whom the Government or
+BAE SYSTEMS may have
+(ii)Used or copied for released or disclosed
+use in or with a commercial computer
+backup computer if software delivered or
+any computer for otherwise furnished under
+which it was this Contract, shall have
+acquired is no liability for any
+inoperative; release or disclosure of
+such commercial computer
+(iii)Reproduced for software that are not
+safekeeping marked to indicate that
+(archives) or such software are licensed
+backup purposes; data subject to use,
+modification,
+(iv)Modified, adapted, reproduction, release,
+or combined with performance, display, or
+other computer disclosure restrictions.
+software, provided
+that the modified, 6. COMMUNICATION WITH BAE SYSTEMS
+combined, or CUSTOMER
+adapted portions BAE SYSTEMS shall be solely
+of the derivative responsible for all liaison
+software and coordination with the BAE
+incorporating any SYSTEMS customer, including
+of the delivered, the U. S. Government, as it
+restricted affects the applicable Prime
+computer software Contract, this Contract, and
+shall be subject any related contract.
+to same
+restrictions set 7. CONTRACT DIRECTION
+forth in this (a) Only the BAE SYSTEMS
+Contract; Contract Administrator has
+authority to amend this
+(v) Disclosed to and Contract. Such amendments
+reproduced for use must be in writing.
+by support service
+contractors or (b) BAE SYSTEMS engineering
+their and technical personnel
+subcontractors, may from time to time
+subject to the render assistance or give
+same restrictions technical advice or
+set forth in this discuss or effect an
+Contract; and exchange of information
+
+20
+<PAGE>
+with SELLER's personnel terminated portion of this
+concerning the Work Contract. BAE SYSTEMS and
+hereunder. Such actions SELLER shall agree on the
+shall not be deemed to be amount of payment for
+a change under the these other deliverables.
+"Changes" clause of this
+Contract and shall not be (c) SELLER shall continue all
+the basis for equitable Work not terminated.
+adjustment.
+(d) If after termination under
+(c) Except as otherwise paragraph (a), it is later
+provided herein, all determined that SELLER was
+notices to be furnished by not in default, such
+the SELLER shall be sent termination shall be
+to the BAE SYSTEMS deemed a Termination for
+Contract Administrator. Convenience.
+
+8. DEFAULT 9. DEFINITIONS
+The following terms shall have
+(a) BAE SYSTEMS, by written the meanings set forth below:
+notice, may terminate this
+Contract for default, in (a) "Buyer" means BAE SYSTEMS
+whole or in part, if Advanced Technologies,
+SELLER fails to comply Inc. (BAE SYSTEMS ATI).
+with any of the terms of
+this Contract, fails to (b) "Contract" means the
+make progress so as to instrument of contracting,
+endanger performance of such as "PO", "Purchase
+this Contract, or fails to Order", "Subcontract" or
+provide adequate assurance other such type
+of future performance. designation, including all
+Seller shall have ten (10) referenced documents,
+days (or such longer exhibits and attachments.
+period as BAE SYSTEMS may If these terms and
+authorize in writing) to conditions are
+cure any such failure incorporated into a
+after receipt of notice "master" agreement that
+from BAE SYSTEMS. Default provides for releases, (in
+involving delivery the form of a Purchase
+schedule delays shall not Order or other such
+be subject to the cure document) the term
+provision. "Contract" shall also mean
+the Release document for
+(b) BAE SYSTEMS shall not be the Work to be performed.
+liable for any Work not
+accepted; however, BAE (c) "Customer" means any
+SYSTEMS may require SELLER customer of BAE SYSTEMS
+to deliver to BAE SYSTEMS ATI, any subsequent owner,
+any supplies and operator or user of the
+materials, manufacturing Goods and any other
+materials, and individual, partnership,
+manufacturing drawings corporation or person or
+that SELLER has entity which has or
+specifically produced or acquires any interest in
+acquired for the the Goods from, through or
+
+21
+
+<PAGE>
+under BAE SYSTEMS ATI. a part of this Contract
+shall mean this
+(d) "FAR" means the Federal "Contract."
+Acquisition Regulation,
+issued as Chapter 1 of (n) "Subcontractor" means the
+Title 48, Code of Federal Party identified on the
+Regulations. face of the Contract with
+whom BAE SYSTEMS is
+(e) "BAE SYSTEMS" means BAE contracting.
+SYSTEMS CORPORATION,
+acting through its (o) "Work" means all required
+companies or business articles, materials,
+sites as identified on the supplies, goods, and
+face of this Contract. If services constituting the
+a subsidiary or affiliate subject matter of this
+of BAE SYSTEMS CORPORATION Contract.
+is identified on the face
+of the Contract then "BAE (p) "Owner" means the means
+SYSTEMS" means that BAE SYSTEMS Advanced
+subsidiary or affiliate. Technologies, Inc. (BAE
+SYSTEMS ATI).
+(f) "BAE SYSTEMS Procurement
+Representative" means the
+person authorized by BAE 10. DISPUTES
+SYSTEMS' cognizant All disputes under this
+procurement organization Contract which are not
+to administer and/or disposed of by mutual
+execute this Contract. agreement may be decided by
+recourse to an action at law
+(g) "Goods" means all goods, or in equity. Until final
+services, data software resolution of any dispute
+and other items furnished hereunder, SELLER shall
+or to be furnished to BAE diligently proceed with the
+SYSTEMS ATI under this performance of this Contract
+Subcontract. as directed by BAE SYSTEMS.
+
+(h) "Government" means the 11. EXPORT CONTROL
+government of the United (a) SELLER agrees to comply
+States. with all applicable U.S.
+export control laws and
+(i) "Prime Contract" means the regulations. Without
+Government Contract under limiting the foregoing,
+which this Subcontract is SELLER agrees that it will
+issued. not transfer any export
+controlled item, data or
+(k) "PO" or "Purchase Order" services, to include
+as used in any document transfer to foreign
+constituting a part of persons employed by or
+this Contract shall mean associated with, or under
+this "Contract." contract to SELLER or
+SELLER's lower-tier
+(l) "Seller" means the Party suppliers, without the
+identified on the face of authority of an Export
+the Contract with whom BAE License or applicable
+SYSTEMS is contracting. license exception.
+
+(m) "Subcontract" as used in (b) SELLER agrees to notify
+any document constituting BAE SYSTEMS if any
+
+22
+
+<PAGE>
+deliverable under this and/or upon completion of
+Contract is restricted by this Contract the SELLER
+export control laws or shall submit, in an
+regulations. acceptable form, inventory
+lists of Furnished
+(c) SELLER shall immediately Property and shall deliver
+notify the BAE SYSTEMS or make such other
+Procurement Representative disposal as may be
+if SELLER is listed in any directed by BAE SYSTEMS.
+Denied Parties List or if
+SELLER's export privileges (e) The Government Property
+are otherwise denied, clause contained in
+suspended or revoked in Section II shall apply in
+whole or in part by any U. lieu of paragraphs (a)
+S. Government entity or through (d) above with
+agency. respect to Government
+Furnished Property, or
+12. EXTRAS property to which the
+Work shall not be supplied in Government takes title
+excess of quantities specified under this Contract.
+in the Contract. SELLER shall
+be liable for handling charges 14. GRATUITIES/KICKBACKS
+and return shipment costs for (a) No gratuities (in the form
+any excess quantities. of entertainment, gifts or
+otherwise) or kickbacks
+13. FURNISHED PROPERTY shall be offered or given
+(a) BAE SYSTEMS may provide to by SELLER, to any employee
+SELLER property owned by of BAE SYSTEMS with a view
+either BAE SYSTEMS or its toward securing favorable
+customer (Furnished treatment as a supplier.
+Property). Furnished
+Property shall be used (b) By accepting this
+only for the performance Contract, SELLER certifies
+of this Contract. and represents that it has
+not made or solicited and
+(b) Title to Furnished will not make or solicit
+Property shall remain in kickbacks in violation of
+BAE SYSTEMS or its FAR 52.203-7 or the
+customer. SELLER shall Anti-Kickback Act of 1986
+clearly mark (if not so (41 USC 51-58), both of
+marked) all Furnished which are incorporated
+Property to show its herein by this specific
+ownership. reference, except that
+paragraph (c)(1) of FAR
+(c) Except for reasonable wear 52.203-7 shall not apply.
+and tear, SELLER shall be
+responsible for, and shall 15. INDEPENDENT CONTRACTOR
+promptly notify BAE RELATIONSHIP
+SYSTEMS of, any loss or (a) SELLER is an independent
+damage. Without additional contractor in all its
+charge, SELLER shall operations and activities
+manage, maintain, and hereunder. The employees
+preserve Furnished used by SELLER to perform
+Property in accordance Work under this Contract
+with good commercial shall be SELLER's
+practice. employees exclusively
+without any relation
+(d) At BAE SYSTEMS' request, whatsoever to BAE SYSTEMS.
+
+23
+
+<PAGE>
+(b) SELLER shall be without additional charge.
+responsible for any costs
+or expenses including (b) No such inspection shall
+attorneys' fees, all relieve SELLER of its
+expenses of litigation obligations to furnish all
+and/or settlement, and Work in accordance with
+court costs, arising from the requirements of this
+any act or omission of Contract. BAE SYSTEMS'
+SELLER, its officers, final inspection and
+employees, agents, acceptance shall be at
+suppliers, or destination.
+subcontractors at any
+tier, in the performance (c) If SELLER delivers
+of any of its obligations non-conforming Work, BAE
+under this Contract. SYSTEMS may; (i) accept
+all or part of such Work
+16. INFORMATION OF BAE SYSTEMS at an equitable price
+Information provided by BAE reduction; (ii) reject
+SYSTEMS to SELLER remains the such Work; or (iii) make,
+property of BAE SYSTEMS. or have a third party make
+SELLER agrees to comply with all repairs,
+the terms of any Proprietary modifications, or
+Information Agreement with BAE replacements necessary to
+SYSTEMS and to comply with all enable such Work to comply
+Proprietary Information in all respects with
+markings and Restrictive Contract requirements and
+Legends applied by BAE SYSTEMS charge the cost incurred
+to anything provided hereunder to SELLER.
+to SELLER. SELLER agrees not
+to use any BAE SYSTEMS (d) SELLER shall not re-tender
+provided information for any rejected Work without
+purpose except to perform this disclosing the corrective
+Contract and agrees not to action taken.
+disclose such information to
+third parties without the 19. INSURANCE/ENTRY ON BAE SYSTEMS
+prior written consent of BAE PROPERTY
+SYSTEMS. In the event that SELLER, its
+employees, agents, or
+17. INFORMATION OF SELLER subcontractors enter the
+SELLER shall not provide any site(s) of BAE SYSTEMS or its
+Proprietary Information to BAE customers for any reason in
+SYSTEMS without prior connection with this Contract,
+execution by BAE SYSTEMS of a then SELLER and its
+Proprietary Information subcontractors shall procure
+Agreement. and maintain worker's
+compensation, comprehensive
+18. INSPECTION AND ACCEPTANCE general liability, bodily
+(a) BAE SYSTEMS and its injury and property damage
+customer may inspect all insurance in reasonable
+Work at reasonable times amounts, and such other
+and places, including, insurance as BAE SYSTEMS may
+when practicable, during require. In addition, SELLER
+manufacture and before and its subcontractors shall
+shipment. SELLER shall comply with all site
+provide all information, requirements. SELLER shall
+facilities, and assistance indemnify and hold harmless
+necessary for safe and BAE SYSTEMS, its officers,
+convenient inspection employees, and agents from any
+
+24
+
+<PAGE>
+losses, costs, claims, causes that is based upon a claim
+of action, damages, that the Work performed or
+liabilities, and expenses, delivered under this
+including attorneys' fees, all Contract infringes or
+expenses of litigation and/or otherwise violates the
+settlement, and court costs, intellectual property
+by reason of property damage rights of any person or
+or loss or personal injury to entity.
+any person caused in whole or
+in part by the actions or (b) With regard to any
+omissions of SELLER, its modifications that SELLER
+officers, employees, agents, makes to any Work in the
+suppliers, or subcontractors. performance of this
+SELLER shall provide BAE Contract, BAE SYSTEMS and
+SYSTEMS thirty (30) days the Government shall have
+advance written notice prior a nonexclusive,
+to the effective date of any irrevocable, world wide
+cancellation or change in the license and right under
+term or coverage of any of any intellectual property
+SELLER's required insurance. right obtained to cover
+SELLER shall send a such modifications to
+"Certificate of Insurance" make, have made, use,
+showing SELLER's compliance sell, copy, distribute,
+with these requirements. make derivative works or
+SELLER shall name BAE SYSTEMS compilations, display
+as an additional insured for publicly, or perform
+the duration of this Contract. publicly such
+Insurance maintained pursuant modifications.
+to this clause shall be
+considered primary as respects 21. NEW MATERIALS
+the interest of BAE SYSTEMS Unless otherwise specified,
+and is not contributory with the Work to be delivered
+any insurance that BAE SYSTEMS hereunder shall consist of new
+may carry. "Subcontractor" as materials, as defined in FAR
+used in this clause shall 52.211-5 not used, or
+include SELLER's reconditioned, remanufactured,
+subcontractors at any tier. or of such age as to impair
+its usefulness or safety.
+20. INTELLECTUAL PROPERTY
+(a) SELLER warrants that the 22. OFFSET CREDIT/COOPERATION
+Work performed and All offset or countertrade
+delivered under this credit value resulting from
+Contract will not infringe this Contract shall accrue
+or otherwise violate the solely to the benefit of BAE
+intellectual property SYSTEMS. SELLER agrees to
+rights of any third party cooperate with BAE SYSTEMS in
+in the United States or the fulfillment of any foreign
+any foreign country. offset/countertrade
+SELLER agrees to defend, obligations.
+indemnify and hold
+harmless BAE SYSTEMS and 23. PACKING AND SHIPMENT
+its customers from and (a) Unless otherwise
+against any claims, specified, all Work is to
+damages, losses, costs and be packed in accordance
+expenses, including with good commercial
+reasonable attorneys' practice.
+fees, arising out of any
+action by a third party (b) A complete packing list
+
+25
+
+<PAGE>
+shall be enclosed with all precedence: (1) Face of the
+shipments. SELLER shall Purchase Order, Release
+mark containers or document or Schedule, (which
+packages with necessary shall include continuation
+lifting, loading, and sheets), as applicable,
+shipping information, including any Special
+including the BAE SYSTEMS Provisions; (2) Any
+Contract number, item master-type agreement (such as
+number, dates of shipment, corporate, sector or blanket
+and the names and agreements); (3) these General
+addresses of consignor and Provisions; and (4) Statement
+consignee. Bills of lading of Work.
+shall include this
+Contract number. 26. PRIORITY RATING
+If so identified, this
+(c) Unless otherwise Contract is a "rated order"
+specified, delivery shall certified for national defense
+be FOB Destination. use, and the SELLER shall
+follow all the requirements of
+24. PAYMENTS, TAXES, AND DUTIES the Defense Priorities and
+(a) Unless otherwise provided, Allocation System (DPAS)
+terms of payment shall be Regulation (15 CFR Part 700).
+net thirty (30) days from Under DPAS regulations, if
+the latest of the this Contract supports the
+following: (i) BAE U.S. Government, is DX or DO
+SYSTEMS' receipt of the Rated, and exceeds $50,000.00,
+SELLER's proper invoice; the Contractor must
+(ii) Scheduled delivery acknowledge acceptance of
+date of the Work; or (iii) DX-Rated orders within ten
+Actual delivery of the (10) days, and DO-Rated orders
+Work. BAE SYSTEMS shall within fifteen (15) days of
+have a right of setoff receipt hereof. Commencement
+against payments due or at of performance of the work
+issue under this Contract called for by this Contract in
+or any other contract the absence of seller's
+between the Parties. written acknowledgement
+thereof shall be deemed
+(b) Payment shall be deemed to acceptance of this Contract as
+have been made as of the written.
+date of mailing BAE
+SYSTEMS' payment or 27. QUALITY CONTROL SYSTEM
+electronic funds transfer. (a) SELLER shall provide and
+maintain a quality control
+(c) Unless otherwise system to an industry
+specified, prices include recognized Quality
+all applicable federal, Standard and in compliance
+state and local taxes, with any other specific
+duties, tariffs, and quality requirements
+similar fees imposed by identified in this
+any government, all of Contract.
+which shall be listed
+separately on the invoice. (b) Records of all quality
+control inspection work by
+25. PRECEDENCE SELLER shall be kept
+Any inconsistencies in this complete and available to
+Contract shall be resolved in BAE SYSTEMS and its
+accordance with the following customers.
+descending order of
+
+26
+<PAGE>
+28. RELEASE OF INFORMATION completed, or is terminated,
+Except as required by law, no SELLER shall not be relieved
+public release of any of those obligations contained
+information, or confirmation in the following provisions:
+or denial of same, with
+respect to this Contract or (a) Applicable Laws Export
+the subject matter hereof, Control Independent
+will be made by SELLER without Contractor Relationship
+the prior written approval of Information of BAE SYSTEMS
+BAE SYSTEMS. Insurance/Entry on BAE
+SYSTEMS Property
+29. STOP WORK ORDER Intellectual Property
+Performance and Payment
+(a) SELLER shall stop Work for Bond Release of
+up to ninety (90) days in Information Warranty
+accordance with the terms
+of any written notice (b) Those U. S. Government
+received from BAE SYSTEMS, flowdown provisions that
+or for such longer period by their nature should
+of time as the parties may survive.
+agree and shall take all
+reasonable steps to 32. TERMINATION FOR CONVENIENCE
+minimize the incurrence of (a) For specially performed
+costs allocable to the Work: BAE SYSTEMS may
+Work during the period of terminate part or all of
+Work stoppage. this Contract for its
+convenience by giving
+(b) Within such period, BAE written notice to SELLER.
+SYSTEMS shall either BAE SYSTEMS' only
+terminate or continue the obligation shall be to pay
+Work by written order to SELLER a percentage of the
+SELLER. In the event of a price reflecting the
+continuation, an equitable percentage of the Work
+adjustment in accordance performed prior to the
+with the principles of the notice of termination,
+"Changes" clause, shall be plus reasonable charges
+made to the price, that SELLER can
+delivery schedule, or demonstrate to the
+other provision affected satisfaction of BAE
+by the Work stoppage, if SYSTEMS, using generally
+applicable, provided that accepted accounting
+the claim for equitable principles, have resulted
+adjustment is made within from the termination.
+thirty (30) days after SELLER shall not be paid
+such continuation. for any Work performed or
+costs incurred which
+30. SEVERABILITY reasonably could have been
+Each paragraph and provision avoided.
+of this Contract is severable,
+and if one or more paragraphs (b) In no event shall BAE
+or provisions are declared SYSTEMS be liable for lost
+invalid, the remaining or anticipated profits, or
+provisions of this Contract unabsorbed indirect costs
+will remain in full force and or overhead, or for any
+effect. sum in excess of the total
+Contract price. SELLER's
+31. SURVIVABILITY termination claim shall be
+If this Contract expires, is submitted within ninety
+
+27
+<PAGE>
+(90) days from the (a) Failure by BAE SYSTEMS to
+effective date of the enforce any of the
+termination. provision(s) of this
+Contract shall not be
+(c) For other than specially construed as a waiver of
+performed Work: BAE the requirement(s) of such
+SYSTEMS may terminate part provision(s), or as a
+or all of this Contract waiver of the right of BAE
+for its convenience by SYSTEMS thereafter to
+giving written notice to enforce each and every
+SELLER and BAE SYSTEMS' such provision(s).
+only obligation to SELLER
+shall be payment of a (b) BAE SYSTEMS' approval of
+mutually agreed-upon documents shall not
+restocking or service relieve SELLER from
+charge. complying with any
+requirements of this
+(d) In either case, SELLER Contract.
+shall continue all Work
+not terminated. (c) The rights and remedies of
+BAE SYSTEMS in this
+33. TIMELY PERFORMANCE Contract are cumulative
+(a) SELLER's timely and in addition to any
+performance is a critical other rights and remedies
+element of this Contract. provided by law or in
+equity.
+(b) Unless advance shipment
+has been authorized in 35. WARRANTY
+writing by BAE SYSTEMS, SELLER warrants that all Work
+BAE SYSTEMS may store at furnished pursuant to this
+SELLER's expense, or Contract shall strictly
+return, shipping charges conform to applicable
+collect, all Work received specifications, drawings,
+in advance of the samples, and descriptions, and
+scheduled delivery date. other requirements of this
+Contract and be free from
+(c) If SELLER becomes aware of defects in design, material
+difficulty in performing and workmanship. The warranty
+the Work, SELLER shall shall begin upon final
+timely notify BAE SYSTEMS, acceptance and extend for a
+in writing, giving period of (i) the
+pertinent details. This manufacturer's warranty period
+notification shall not or one (1) year, whichever is
+change any delivery longer, if SELLER is not the
+schedule. manufacturer and has not
+modified the Work or, (ii) one
+(d) In the event of a (1) year or the manufacturer's
+termination for warranty period, whichever is
+convenience or change, no longer if the SELLER is the
+claim will be allowed for manufacturer of the Work or
+any manufacture or has modified it. If any
+procurement in advance of non-conformity with Work
+SELLER's normal flow time appears within that time,
+unless there has been SELLER shall promptly repair,
+prior written consent by replace, or reperform the
+BAE SYSTEMS. Work. Transportation of
+replacement Work and return of
+34. WAIVER, APPROVAL, AND REMEDIES non-conforming Work and repeat
+
+28
+<PAGE>
+performance of Work shall be
+at SELLER's expense. If repair 3. "CONTRACTOR" means the
+or replacement or SELLER, as defined in this
+reperformance of Work is not Agreement, acting as the
+timely, BAE SYSTEMS may elect immediate (first tier)
+to return the nonconforming subcontractor to BAE
+Work or repair or replace Work SYSTEMS.
+or reprocure the Work at
+SELLER's expense. All 4. "Prime Contract" means
+warranties shall run to BAE the contract between BAE
+SYSTEMS and its customer(s). SYSTEMS and the U.S.
+Any implied warranty of Government or between BAE
+merchantability and fitness SYSTEMS and its higher-
+for a particular purpose is tier contractor who has a
+hereby disclaimed. contract with the U.S.
+Government.
+
+SECTION II: FAR FLOWDOWN PROVISIONS 5. "Subcontract" means any
+----------------------------------- contract placed by the
+A. INCORPORATION OF FAR CLAUSES CONTRACTOR or lower-tier
+---------------------------- subcontractors under this
+The Federal Acquisition Contract.
+Regulation (FAR) clauses
+referenced below are C. NOTES
+incorporated herein by -----
+reference, with the same force 1. Substitute "BAE SYSTEMS"
+and effect as if they were for "Government" or
+given in full text, and are "United States" as
+applicable, including any applicable throughout
+notes following the clause this clause.
+citation, to this Contract. If
+the date or substance of any 2. Substitute "BAE SYSTEMS
+of the clauses listed below is Procurement
+different than the date or Representative" for
+substance of the clause "Contracting Officer",
+actually incorporated in the "Administrative
+Prime Contract referenced by Contracting Officer", and
+number herein, the date or "ACO" throughout this
+substance of the clause clause.
+incorporated by said Prime
+Contract shall apply instead. 3. Insert "and BAE SYSTEMS"
+after "Government" or
+B. GOVERNMENT SUBCONTRACT "Contracting Officer", as
+---------------------- appropriate, throughout
+This Contract is entered into this clause.
+by the Parties in support of a
+U.S. Government contract. 4. Insert "or BAE SYSTEMS"
+after "Government"
+As used in the clauses throughout this clause.
+referenced below and otherwise
+in this Contract: 5. Communication/notification
+required under this clause
+1. "Commercial Item" means a from/to the CONTRACTOR to/
+commercial item as defined from the Contracting
+in FAR 2.101. Officer shall be through
+BAE SYSTEMS.
+2. "Contract" means this
+contract.
+
+29
+<PAGE>
+D. AMENDMENTS REQUIRED BY PRIME ------------ ------------------
+---------------------------- REFERENCE TITLE
+CONTRACT ------------ ------------------
+-------- 52.203-2 CERTIFICATE OF
+CONTRACTOR agrees that upon INDEPENDENT PRICE
+the request of BAE SYSTEMS it DETERMINATION
+will negotiate in good faith (APR 1985)
+with BAE SYSTEMS relative to ------------ ------------------
+amendments to this Contract to 52.203-3 GRATUITIES (APR
+incorporate additional 1984)
+provisions herein or to change ------------ ------------------
+provisions hereof, as BAE 52.203-5 COVENANT AGAINST
+SYSTEMS may reasonably deem CONTINGENT FEES
+necessary in order to comply (APR 1984)
+with the provisions of the ------------ ------------------
+applicable Prime contract or 52.203-6 RESTRICTIONS ON
+with the provisions of SUBCONTRACTOR
+amendments to such Prime SALES TO THE
+contract. If any such GOVERNMENT (JUL
+amendment to this Contract 1995)
+causes an increase or decrease ------------ ------------------
+in the estimated cost of, or 52.203-7 ANTI-KICKBACK
+the time required for, PROCEDURES (JUL
+performance of any part of the 1995)
+work under this Contract, an ------------ ------------------
+equitable adjustment shall be 52.203-8 CANCELLATION,
+made pursuant to the "Changes" RESCISSION AND
+clause of this Contract. RECOVERY OF FUNDS
+FOR ILLEGAL OR
+E. PRESERVATION OF THE IMPROPER ACTIVITY
+------------------- (JAN 1997)
+GOVERNMENT'S RIGHTS ------------ ------------------
+------------------- 52.203-10 PRICE OR FEE
+If BAE SYSTEMS furnishes ADJUSTMENT FOR
+designs, drawings, special ILLEGAL OR
+tooling, equipment, IMPROPER ACTIVITY
+engineering data or other (JAN 1997)
+technical or proprietary ------------ ------------------
+information (Furnished Items) 52.203-12 LIMITATION ON
+to which the U. S. Government PAYMENTS TO
+owns or has the right to INFLUENCE CERTAIN
+authorize the use of, nothing FEDERAL
+herein shall be construed to TRANSACTIONS (JUN
+mean that BAE SYSTEMS, acting 1997)
+on its own behalf, may modify ------------ ------------------
+or limit any rights the 52.209-6 PROTECTING THE
+Government may have to GOVERNMENT'S
+authorize the CONTRACTOR's use INTEREST WHEN
+of such Furnished Items in SUBCONTRACTING
+support of other U. S. WITH CONTRACTORS
+Government prime contracts. DEBARRED,
+SUSPENDED, OR
+F. FAR FLOWDOWN CLAUSES PROPOSED FOR
+-------------------- DEBARMENT (JUL
+The following FAR clauses 1995)
+apply to this Contract: DEBARMENT (JUL
+1995)
+------------ ------------------
+
+30
+<PAGE>
+------------ ------------------ PLAN (JAN 1999)
+52.211-5 MATERIAL (ALTERNATIVE 1)
+REQUIREMENTS (OCT ------------ ------------------
+1997) 52.222-1 NOTICE TO
+------------ ------------------ GOVERNMENT OF
+52.214-26 AUDIT AND RECORDS LABOR DISPUTES
+- SEALED BIDDING (FEB 1997)
+(OCT 1997) ------------ ------------------
+------------ ------------------ 52.222-3 CONVICT LABOR (AUG
+52.214-27 PRICE REDUCTION 1996)
+FOR DEFECTIVE COST ------------ ------------------
+OR PRICING DATA - 52.222-4 CONTRACT WORK
+MODIFICATIONS - HOURS AND SAFETY
+SEALED BIDDING STANDARDS ACT -
+(OCT 1997) OVERTIME
+------------ ------------------ COMPENSATION (SEP
+52.214-28 SUBCONTRACTOR COST 2000)
+OR PRICING DATA - ------------ ------------------
+MODIFICATIONS - 52.222-7 WITHHOLDING OF
+SEALED BIDDING FUNDS (FEB 1988)
+(OCT 1997) ------------ ------------------
+------------ ------------------ 52.222-8 PAYROLLS AND BASIC
+52.215-2 AUDIT AND RECORDS RECORDS (FEB 1988)
+- NEGOTIATION (JUN ------------ ------------------
+1999) 52.222-9 APPRENTICES AND
+AND ALTERNATE II TRAINEES(FEB 1988)
+(APR 1998) ------------ ------------------
+------------ ------------------ 52.222-10 COMPLIANCE WITH
+52.215-11 PRICE REDUCTION COPELAND ACT
+FOR DEFECTIVE COST REQUIREMENTS (FEB
+OR PRICING DATA - 1988)
+MODIFICATIONS (OCT ------------ ------------------
+1997) 52.222-12 CONTRACT
+------------ ------------------ TERMINATION -
+52.215-12 SUBCONTRACTOR COST DEBARMENT (FEB
+OR PRICING DATA 1988)
+(OCT 1997) ------------ ------------------
+(Applicable to 52.222-14 DISPUTES
+Subcontractors CONCERNING LABOR
+over $550,000 STANDARDS (FEB
+only) 1988)
+------------ ------------------ ------------ ------------------
+52.215-14 INTEGRITY OF UNIT 52.222-15 CERTIFICATION OF
+PRICES (OCT 1997) ELIGIBILITY (FEB
+AND ALTERNATE I 1988)
+(OCT 1997) ------------ ------------------
+------------ ------------------ 52.222-16 APPROVAL OF WAGE
+52.215-19 NOTIFICATION OF RATES (FEB 1988)
+OWNERSHIP CHANGES ------------ ------------------
+(OCT 1997) 52.222-20 WALSH HEALY
+------------ ------------------ PUBLICE CONTRACTS
+52.219-8 UTILIZATION OF ACT (DEC 1996)
+SMALL BUSINESS ------------ ------------------
+CONCERNS (JAN 52.222-21 PROHIBITION OF
+1999) SEGREGATED
+------------ ------------------ FACILITIES (FEB
+52.219-9 SMALL BUSINESS 1999)
+SUBCONTRACTING ------------ ------------------
+
+31
+<PAGE>
+------------ ------------------ ------------ ------------------
+52.222-26 EQUAL OPPORTUNITY 52.227-17 RIGHTS IN DATA -
+(FEB 1999) SPECIAL WORKS
+------------ ------------------ (JUNE 1987)
+52.222-35 EQUAL OPPORTUNITY ------------ ------------------
+FOR SPECIAL 52.229-3 FEDERAL, STATE,
+DISABLED VETERAND, AND LOCAL TAXES
+VETERANS OF THE (JAN 1991)
+VIETNAM ERA, AND ------------ ------------------
+OTHER ELIGIBLE 52.233-3 PROTEST AFTER
+VETERANS (DEC AWARD (AUG 1996)
+1998) ------------ ------------------
+------------ ------------------ 52.236-5 MATERIALS AND
+52.222-36 AFFIRMATIVE ACTION WORKMANSHIP (APR
+FOR WORKERS WITH 1984)
+DISABILITIES (JUN ------------ ------------------
+1998) 52.236-7 PERMITS AND
+------------ ------------------ RESPONSIBILITIES
+52.222-37 EMPLOYMENT REPORTS (NOV 91)
+ON SPECIAL ------------ ------------------
+DISABLED VETERAND, 52.236-13 ACCIDENT
+VETERANS OF THE PREVENTION
+VIETNAM ERA, AND ------------ ------------------
+OTHER ELIGIBLE 52.242-13 BANRUPTCY (JUL
+VETERANS (DEC 1995)
+1998) ------------ ------------------
+------------ ------------------ 52.242-15 STOP WORK ORDER
+52.222-44 FAIR LABOR (AUG 1989)
+STANDARDS ACT AND ------------ ------------------
+SERVICE CONTRACT 52.243-1 CHANGES - FIXED
+ACT-PRICE PRICE (AUG 1987)
+ADJUSTMENT (FEB ------------ ------------------
+2002) 52.244-5 COMPETITION IN
+------------ ------------------ SUBCONTRACTING
+52.223-6 DRUG FREE (DEC 1996)
+WORKPLACE (JAN ------------ ------------------
+1997) 52.244-2 INSPECTION OF
+------------ ------------------ SUPPLIES-FIXED
+52.225-13 RESTRICTIONS ON PRICE (AUG 96)
+CERTAIN FOREIGN ------------ ------------------
+PURCHASES (JUL 52.244-6 SUBCONTRACTS FOR
+2000) COMMERCIAL ITEMS
+------------ ------------------ AND COMMERCIAL
+52.227-1 AUTHORIZATION AND COMPONENTS (OCT
+CONSENT (JUL 1995) 1998)
+------------ ------------------ ------------ ------------------
+52.227-2 NOTICE AND 52.246-23 LIMITATION OF
+ASSISTANCE LIABILITY (FEB
+REGARDING PATENT 1997)
+AND COPYRIGHT ------------ ------------------
+INFRINGEMENT (AUG 52.247-64 PREFERENCE FOR
+1996) PRIVATELY OWNED
+------------ ------------------ U.S-FLAG
+52.227-3 PATENT INDEMNITY - COMMERCIAL VESSELS
+CONSTRUCTION (JUN 2000)
+CONTRACTS (APR ------------ ------------------
+1984) 52-249-2 TERMINATION FOR
+------------ ------------------ CONVENIENCE OF THE
+
+32
+<PAGE>
+GOVERNMENT (FIXED Business
+PRICE) (SEP 1996) Subcontracting
+AND ALT I (SEP Plan (DOD
+1996) Contracts)(Apr 96)
+------------ ------------------ ------------ ------------------
+252.223-7006 Prohibition on
+Storage and
+G. DoD FAR SUPPLEMENT (DFARS) Disposal of Toxic
+------------------------------ and Hazardous
+FLOWDOWN CLAUSES. Material (Apr 93)
+----------------- ------------ ------------------
+The following DoD FAR clauses 252.225-7012 Preference for
+apply to this Contract: Certain Domestic
+Commodities (Apr
+------------ ------------------ 02)
+REFERENCE TITLE ------------ ------------------
+------------ ------------------ 252.225-7031 Secondary Arab
+252.203-7001 Prohibition On Boycott of Israel
+Persons Convicted (Jun 92)
+of Fraud or Other ------------ ------------------
+Defense-Contract - 252.225-7026 Reporting of
+Related Felonies Contract
+(Mar 99) Performance
+------------ ------------------ Outside
+252.204-7003 Control of the United States
+Government Work (Jun 00)
+Product (Apr 92) ------------ ------------------
+------------ ------------------ 252.227-7016 Rights in Bid or
+252.205-7000 Provision of Proposal
+Information to Information (Jun
+Cooperative 95)
+Agreement Holders ------------ ------------------
+(Dec 91) 252.227-7025 Limitations on the
+------------ ------------------ Use or Disclosure
+252.209-7000 Acquisition from of Government-
+Subcontractors Furnished
+Subject to On-Site Information Marked
+Inspection under with Restrictive
+the Intermediate Legends (Jun 95)
+Range Nuclear ------------ ------------------
+Forces Treaty 252.227-7037 Validation of
+(Nov 95) Restrictive
+------------ ------------------ Markings on
+252.209-7004 Subcontracting Technical Data
+with Firms That (Sep 99)
+are Owned or ------------ ------------------
+Controlled by the 252.231-7000 Supplemental Cost
+Government of a Principles (Dec
+Terrorist Country 91)
+(Mar 98) ------------ ------------------
+------------ ------------------ 252.242-7004 Material
+252.215-7000 Pricing Management and
+Adjustments (Dec Accounting System
+91) (Dec 00)
+------------ ------------------ ------------ ------------------
+252.219-7003 Small, Small 252.243-7001 Pricing of
+Disadvantaged and Contract
+Woman-owned Small Modifications (Dec
+91)
+33
+<PAGE>
+------------ ------------------
+252.243-7002 Requests for
+Equitable
+Adjustment(Mar 98)
+------------ ------------------
+252.245-7001 Reports on
+Government
+Property (May 94)
+------------ ------------------
+
+34
+
+<PAGE>
+
+SECTION J LIST OF ATTACHMENTS
+
+Attachment A AMU Print Number and Rev Levels
+
+35
+
+<PAGE>
+SECTION K REPRESENTATIONS, CERTIFICATIONS AND OTHER STATEMENTS OF OFFERORS
+
+NAME OF OFFEROR (Firm or Organization) Antenna Products Corporation
+-----------------------------------
+OFFEROR DUNS NUMBER 11-876-9926
+------------------------------------------------------
+Proposal Title HAARP, High and Low Band Antenna Matching Unit Assembly
+-----------------------------------------------------------
+Project Prime Contract No. N00014-02-D-0479, Delivery Order 011 & 013
+--------------------------------------------------------------------------
+
+Proposal Number and/or Date January 21, 2005
+----------------------------------------------
+1. FAR 52.203-11 CERTIFICATION AND DISCLOSURE REGARDING PAYMENTS TO
+INFLUENCE CERTAIN FEDERAL TRANSACTIONS (APR 1991) (Deviation D.L. 90-07)
+
+(a) The definitions and prohibitions contained in the clause, at FAR 52.203-12,
+Limitation on Payments to Influence Certain Federal Transactions, included in
+this solicitation, are hereby incorporated by reference in paragraph (b) of this
+certification.
+
+(b) The offeror, by signing its offer, hereby certifies to the best of his or
+her knowledge and belief that on or after December 23, 1989 --
+(1) No Federal appropriated funds have been paid or will be paid to any person
+for influencing or attempting to influence an officer or employee of any agency,
+a Member of Congress, an officer or employee of Congress, or an employee of a
+Member of Congress on his or her behalf in connection with the awarding of any
+Federal contract, the making of any Federal grant, the making of any Federal
+loan, the entering into of any cooperative agreement, and the extension,
+continuation, renewal, amendment or modification of any Federal contract, grant,
+loan, or cooperative agreement;
+(2) If any funds other than Federal appropriated funds (including profit or
+fee received under a covered Federal transaction) have been paid, or will be
+paid, to any person for influencing or attempting to influence an officer or
+employee of any agency, a Member of Congress, an officer or employee of
+Congress, or an employee of a Member of Congress on his or her behalf in
+connection with this solicitation, the offeror shall complete and submit, with
+its offer, OMB standard form LLL, Disclosure of Lobbying Activities, to the
+Contracting Officer; and
+(3) He or she will include the language of this certification in all
+subcontract awards at any tier and require that all recipients of subcontract
+awards in excess of $100,000 shall certify and disclose accordingly.
+
+(c) Submission of this certification and disclosure is a prerequisite for making
+or entering into this contract imposed by section 1352, title 31, United States
+Code. Any person who makes an expenditure prohibited under this provision or who
+fails to file or amend the disclosure form to be filed or amended by this
+provision, shall be subject to a civil penalty of not less than $10,000, and not
+more than $100,000, for each such failure.
+
+2. FAR 52.204-3TAXPAYER IDENTIFICATION (OCT 1998)
+
+(a) Definitions.
+Common parent, as used in this provision, means that corporate entity that owns
+or controls an affiliated group of corporations that files its Federal income
+tax returns on a consolidated basis, and of which the offeror is a member.
+
+36
+
+<PAGE>
+Taxpayer Identification Number (TIN), as used in this provision, means the
+number required by the Internal Revenue Service (IRS) to be used by the offeror
+in reporting income tax and other returns. The TIN may be either a Social
+Security Number or an Employer Identification Number.
+
+(b) All offerors must submit the information required in paragraphs (d) through
+(f) of this provision to comply with debt collection requirements of 31
+U.S.C.7701(c) and 3325(d), reporting requirements of 26 U.S.C.6041, 6041A, and
+6050M, and implementing regulations issued by the IRS. If the resulting contract
+is subject to the payment reporting requirements described in Federal
+Acquisition Regulation (FAR) 4.904, the failure or refusal by the offeror to
+furnish the information may result in a 31 percent reduction of payments
+otherwise due under the contract.
+
+(c) The TIN may be used by the Government to collect and report on any
+delinquent amounts arising out of the offeror's relationship with the Government
+(31 U.S.C.7701(c)(3)). If the resulting contract is subject to the payment
+reporting requirements described in FAR 4.904, the TIN provided hereunder may be
+matched with IRS records to verify the accuracy of the offeror's TIN.
+
+(d) Taxpayer Identification Number (TIN).
+[X] TIN: 75-1964-534
+-----------------------------
+[ ] TIN has been applied for.
+[ ] TIN is not required because:
+[ ] Offeror is a nonresident alien, foreign corporation, or foreign partnership
+that does not have income effectively connected with the conduct of a trade or
+business in the United States and does not have an office or place of business
+or a fiscal paying agent in the United States;
+[ ] Offeror is an agency or instrumentality of a foreign government; Offeror is
+an agency or instrumentality of the Federal Government.
+
+(e) Type of organization.
+[ ] Sole proprietorship;
+[ ] Partnership;
+[ ] Corporate entity (not tax-exempt);
+[X] Corporate entity (tax-exempt);
+[ ] Government entity (Federal, State, or local); Foreign government;
+[ ] International organization per 26 CFR 1.6049-4;
+[ ] Other
+--------------------------------------
+
+(f) Common parent.
+[ ] Offeror is not owned or controlled by a common parent as defined in
+paragraph (a) of this provision.
+[X] Name and TIN of common parent:
+
+Name
+---------------------------------------------------
+TIN
+---------------------------------------------------
+[ ] Name and TIN of common parent:
+
+Name PHAZAR CORP
+-------------------------------
+TIN 75-1907070
+-------------------------------
+
+37
+
+<PAGE>
+3. FAR 52.204-5WOMEN-OWNED BUSINESS OTHER THAN SMALL BUSINESS
+(MAY 1999)
+
+(a) Definition.
+
+"Women-owned business concern," as used in this provision, means a concern which
+is at least 51 percent owned by one or more women; or in the case of any
+publicly owned business, at least 51 percent of the stock of which is owned by
+one or more women; and whose management and daily business operations are
+controlled by one or more women.
+
+(b) Representation. [Complete only if the offeror represents itself a
+women-owned business concern and has not represented itself as a small business
+concern in paragraph (b)(1) of FAR 52.219-1, Small Business Program
+Representations, of this solicitation] The offeror represents that it is, a
+women-owned business concern.
+
+4. FAR 52.209-5 CERTIFICATION REGARDING DEBARMENT, SUSPENSION,
+PROPOSED DEBARMENT, AND OTHER RESPONSIBILITY
+MATTERS (DEC 2001) (REFLECTS FAC 2001-03 FINALIZATION OF
+APRIL 2001 STAY VIA FAC 97-24)
+
+(a) (1) The Offeror certifies, to the best of its knowledge and belief, that --
+(i) The Offeror and/or any of its Principals--
+(A) Are [ ] are not [X] presently debarred, suspended, proposed for
+debarment, or declared ineligible for the award of contracts by any Federal
+agency;
+(B) Have [ ] have not [X], within a 3-year period preceding this offer,
+been convicted of or had a civil judgment rendered against them for: commission
+of fraud or a criminal offense in connection with obtaining, attempting to
+obtain, or performing a public (Federal, state, or local) contract or
+subcontract; violation of Federal or state antitrust statutes relating to the
+submission of offers; or commission of embezzlement, theft, forgery, bribery,
+falsification or destruction of records, making false statements, tax evasion,
+or receiving stolen property; and
+(C) Are [ ] are not [X] presently indicted for, or otherwise criminally
+or civilly charged by a government entity with, commission of any of the
+offenses enumerated in subdivision (a)(1)(i)(B) of this provision.
+(ii) The Offeror has [ ] has not [X], within a 3-year period preceding this
+offer, had one or more contracts terminated for default by any Federal agency.
+(2) "Principals," for the purpose of this certification, means officers;
+directors; owners; partners; and, persons having primary management or
+supervisory responsibilities within a business entity (e.g., general manager;
+plant manager; head of a subsidiary, division, or business segment, and similar
+positions).
+
+This certification concerns a matter within the jurisdiction
+of an agency of the United States and the making of a false,
+fictitious, or fraudulent certification may render the maker
+subject to prosecution under section 1001, title 18, United
+States Code.
+
+38
+
+<PAGE>
+(b) The Offeror shall provide immediate written notice to the Contracting
+Officer if, at any time prior to contract award, the Offeror learns that its
+certification was erroneous when submitted or has become erroneous by reason of
+changed circumstances.
+
+(c) A certification that any of the items in paragraph (a) of this provision
+exists will not necessarily result in withholding of an award under this
+solicitation. However, the certification will be considered in connection with a
+determination of the Offeror's responsibility. Failure of the Offeror to furnish
+a certification or provide such additional information as requested by the
+Contracting Officer may render the Offeror nonresponsible.
+
+(d) Nothing contained in the foregoing shall be construed to require
+establishment of a system of records in order to render, in good faith, the
+certification required by paragraph (a) of this provision. The knowledge and
+information of an Offeror is not required to exceed that which is normally
+possessed by a prudent person in the ordinary course of business dealings.
+
+(e) The certification in paragraph (a) of this provision is a material
+representation of fact upon which reliance was placed when making award. If it
+is later determined that the Offeror knowingly rendered an erroneous
+certification, in addition to other remedies available to the Government, the
+Contracting Officer may terminate the contract resulting from this solicitation
+for default.
+
+5. FAR 52.215-6 PLACE OF PERFORMANCE (OCT 1997)
+
+(a) The offeror or respondent, in the performance of any contract resulting from
+this solicitation, [ ] intends, [X] does not intend to use one or more plants or
+facilities located at a different address from the address of the offeror or
+respondent as indicated in this proposal or response to request for information.
+
+(b) If the offeror or respondent checks "intends" in paragraph (a) of this
+provision, it shall insert in the following spaces the required information:
+
+--------------- ---------------------- -------------------------------------
+Place of Performance Name and Address of Owner and
+Operator of the Plant or Facility if
+Other Than Offeror or Respondent
+--------------- ---------------------- -------------------------------------
+Name of Company
+--------------- ---------------------- -------------------------------------
+Street Address
+--------------- ---------------------- -------------------------------------
+City
+--------------- ---------------------- -------------------------------------
+State
+--------------- ---------------------- -------------------------------------
+County
+--------------- ---------------------- -------------------------------------
+Zip Code
+--------------- ---------------------- -------------------------------------
+
+39
+
+<PAGE>
+6. FAR 52.219-1 SMALL BUSINESS PROGRAM REPRESENTATIONS (MAY 2001) ALTERNATES
+(I/II) (Oct 2000)
+
+EFFECTIVE 1 OCTOBER 2000 THE NORTH AMERICAN INDUSTRY CLASSIFICATION SYSTEM
+(NAICS) CODE REPLACED THE STANDARD INDUSTRIAL CLASSIFICATION SYSTEM (SIC). ALL
+REPRESENTATIONS AND CERTIFICATION FOR CONTRACT AWARDS OCCURRING ON OR AFTER 1
+OCTOBER 2000 MUST PROVIDE THE NAICS CODE. ENTER THE NAICS CODE IN EFFECT AT THE
+TIME OF AWARD. THESE CODES ARE IN THE 1997 U.S. NAICS MANUAL ACCESSED AT:
+
+The Small Business Administration NAICS Website:
+http://www.sba.gov/size/Table-of-Small-Business-Size-Standards-
+---------------------------------------------------------------
+from-final-rule.html
+--------------------
+
+U.S. Census Bureau NAICS Website: http://www.census.gov/pub/epcd/www/naics.html.
+---------------------------------------------
+(a)
+(1) The North American Industry Classification System (NAICS) code for this
+acquisition is 333415.
+(2) The small business size standard is 750 employees.
+(3) The small business size standard for a concern which submits an offer in
+its own name, other than on a construction or service contract, but which
+proposes to furnish a product which it did not itself manufacture, is 500
+employees.
+
+(b) Representations.
+(1) The offeror represents as part of its offer that it [X]is, [ ]is not a
+small business concern.
+(2) (Complete only if the offeror represented itself as a small business
+concern in paragraph (b)(1) of this provision.) The offeror represents, for
+general statistical purposes, that it [ ]is, [X]is not, a small disadvantaged
+business concern as defined in 13 CFR 124.1002.
+(3) (Complete only if the offeror represented itself as a small business
+concern in paragraph (b)(1) of this provision.) The offeror represents as part
+of its offer that it [ ] is, [X]is not a women-owned small business concern.
+(4) (Complete only if the offeror represented itself as a small business
+concern in paragraph (b)(1) of this provision.) The offertory represents as part
+of its offer that it [ ] is, [X]is not a veteran-owned small business concern.
+(5) (Complete only if the offeror represented itself as a veteran-owned small
+business concern in paragraph (b)(4) of this provision.) The offeror represents
+as part of its offer that is [ ] is, is [X] not a service-disabled veteran-owned
+small business concern.
+
+ALTERNATE I (OCT 2000)
+
+(6) [Complete only if offeror represented itself as small business concern in
+paragraph (b)(1) of this provision]. The offeror represents, as part of its
+offer, that--
+
+(i) It [ ] is, [X] is not a HUB Zone small business concern listed, on the date
+of this representation, on the List of Qualified HUB Zone Small Business
+Concerns maintained by the Small Business Administration, and no material change
+in ownership and control, principal office, or HUB Zone employee percentage has
+occurred since it was certified by the Small Business Administration in
+accordance with 13 CFR Part 126; and
+
+40
+
+<PAGE>
+(ii) It [ ]is, [X]is not a joint venture that complies with the requirements of
+13 CFR Part 126, and the representation in paragraph (b)(6)(i) of this provision
+is accurate for the HUB Zone small business concern or concerns that are
+participating in the joint venture. [The offeror shall enter the name or names
+of the HUB Zone small business concern or concerns that are participating in the
+joint venture:
+----------- -------------------------------------------.] Each HUB
+Zone small business concern participating in the joint venture shall submit a
+separate signed copy of the HUB Zone representation.
+
+ALTERNATE II (OCT 2000)
+
+(7) [Complete if offeror represented itself as disadvantaged in paragraph
+(b)(2) of this provision.] The offeror shall check the category in which its
+ownership falls:
+
+[ ] Black American.
+
+[ ] Hispanic American.
+
+[ ] Native American (American Indians, Eskimos, Aleuts, or Native Hawaiians).
+
+[ ] Asian-Pacific American (persons with origins from Burma, Thailand, Malaysia,
+Indonesia, Singapore, Brunei, Japan, China, Taiwan, Laos, Cambodia (Kampuchea),
+Vietnam, Korea, The Philippines, U.S. Trust Territory of the Pacific Islands
+(Republic of Palau), Republic of the Marshall Islands, Federated States of
+Micronesia, the Commonwealth of the Northern Mariana Islands, Guam, Samoa,
+Macao, Hong Kong, Fiji, Tonga, Kiribati, Tuvalu, or Nauru).
+
+[ ] Subcontinent Asian (Asian-Indian) American (persons with origins from India,
+Pakistan, Bangladesh, Sri Lanka, Bhutan, the Maldives Islands, or Nepal).
+
+[ ] Individual/concern, other than one of the preceding.
+
+(c) Definitions. As used in this provision--
+
+(1) "Service-disabled veteran-owned small business concern" means a
+-------------------------------------------------------
+small business concern-
+
+(i) where at least 51 percent of is owned by one or more service-disabled
+veterans or, in the case of any publicly owned business, at least 51
+percent of the stock of is owned by one or more service-disabled
+veterans; and
+
+(ii)The management and daily business operations are controlled by one
+or more service-disabled veterans or, in the case of a veteran with
+permanent and severe disability, the spouse or permanent caregiver of
+such veteran.
+
+(2) Service-disabled veteran means a veteran, as defined in 38 U.S.C.
+101(2), with a disability that is service-connected, as defined in 38
+U.S.C. 101(16).
+
+41
+
+<PAGE>
+"Small business concern," means a concern, including its affiliates, that
+------------------------- is independently owned and operated, not
+dominant in the field of operation in which it is bidding on
+Government contracts, and qualified as a small business under the
+criteria in 13 CFR Part 121 and the size standard in paragraph (a) of
+this provision.
+
+"Veteran-owned small business concern" means a small business concern-
+--------------------------------------
+
+(1) which is at least 51 percent owned by one or more veterans (as
+defined at 38 U.S.C. 101(2)) or, in the case of any publicly owned
+business, at least 51 percent of the stock is owned by one or more
+veterans; and
+
+(2) The management and daily business operations of which are controlled
+by one or more veterans.
+
+"Women-owned small business concern," means a small business concern --
+-------------------------------------
+
+(1) which is at least 51 percent owned by one or more women or, in the
+case of any publicly owned business, at least 51 percent of the stock
+of which is owned by one or more women; and
+
+(2) whose management and daily business operations are controlled by one
+or more women.
+
+(d) Notice. (1) If this solicitation is for supplies and has been set
+aside, in whole or in part, for small business concerns, then the clause in this
+solicitation providing notice of the set-aside contains restrictions on the
+source of the end items to be furnished. (2) Under 15 U.S.C. 645(d), any person
+who misrepresents a firm's status as a small, HUB Zone small, small
+disadvantaged, or women-owned small business concern in order to obtain a
+contract to be awarded under the preference programs established pursuant to
+section 8(a), 8(d), 9, or 15 of the Small Business Act or any other provision of
+Federal law that specifically references section 8(d) for a definition of
+program eligibility, shall --
+(i) Be punished by imposition of fine, imprisonment, or both;
+(ii) Be subject to administrative remedies, including suspension and
+debarment; and (iii) Be ineligible for participation in programs
+conducted under the authority of the Act.
+
+7. FAR 52.219-22 SMALL DISADVANTAGED BUSINESS STATUS (OCT 1999)
+
+(a) General. This provision is used to assess an offeror's small disadvantaged
+business status for the purpose of obtaining a benefit on this solicitation.
+Status as a small business and status as a small disadvantaged business for
+general statistical purposes is covered by the provision at FAR 52.219-1, Small
+Business Program Representation.
+
+(b) Representations.
+
+42
+
+<PAGE>
+(1) General. The offeror represents, as part of its offer, that it is a
+small business under the size standard applicable to this acquisition; and
+either--
+
+[ ] (i) It has received certification by the Small Business Administration as a
+small disadvantaged business concern consistent with 13 CFR 124, Subpart B; and
+(A) No material change in disadvantaged ownership and control has occurred
+since its certification;
+(B) Where the concern is owned by one or more disadvantaged individuals, the
+net worth of each individual upon whom the certification is based does not
+exceed $750,000 after taking into account the applicable exclusions set forth at
+13 CFR 124.104(c)(2); and
+(C) It is identified, on the date of its representation, as a certified small
+disadvantaged business concern in the database maintained by the Small Business
+Administration (PRO-Net); or
+
+[ ] (ii) It has submitted a completed application to the Small Business
+Administration or a Private Certifier to be certified as a small disadvantaged
+business concern in accordance with 13 CFR 124, Subpart B, and a decision on
+that application is pending, and that no material change in disadvantaged
+ownership and control has occurred since its application was submitted.
+
+(2) [ ] For Joint Ventures. The offeror represents, as part of its offer, that
+it is a joint venture that complies with the requirements at 13 CFR 124.1002(f)
+and that the representation in paragraph (b)(1) of this provision is accurate
+for the small disadvantaged business concern that is participating in the joint
+venture. [The offeror shall enter the name of the small disadvantaged business
+concern that is participating in the joint venture: .]
+-------------------------
+
+(c) Penalties and Remedies. Anyone who misrepresents any aspects of the
+disadvantaged status of a concern for the purposes of securing a contract or
+subcontract shall--
+(1) Be punished by imposition of a fine, imprisonment, or both;
+(2) Be subject to administrative remedies, including suspension and
+debarment; and (3) Be ineligible for participation in programs
+conducted under the authority of the
+Small Business Act.
+
+ALTERNATE I (OCT 1998)
+
+(3) Address. The offeror represents that its address [ ] is, [ ] is not in a
+region for which a small disadvantaged business procurement mechanism is
+authorized and its address has not changed since its certification as a small
+disadvantaged business concern or submission of its application for
+certification. The list of authorized small disadvantaged business procurement
+mechanisms and regions is posted at
+http://www.arnet.gov/References/sdbadjustments.htm. The offeror shall use the
+list in effect on the date of this solicitation. "Address," as used in this
+provision, means the address of the offeror as listed on the Small Business
+Administrations register of small disadvantaged business concerns or the address
+on the completed application that the concern has submitted to the Small
+Business Administration or a Private Certifier in accordance with 13 CFR part
+124, subpart B. For joint ventures, "address" refers to the address of the small
+disadvantaged business concern that is participating in the joint venture.
+
+43
+
+<PAGE>
+8. FAR 52.222-22 PREVIOUS CONTRACTS AND COMPLIANCE REPORTS (FEB 1999)
+
+The offeror represents that --
+
+(a) It [X] has, [ ]has not participated in a previous contract or subcontract
+Subject to the Equal Opportunity clause of this solicitation;
+
+(b) It [X] has, [ ] has not filed all required compliance reports; and
+
+(c) Representations indicating submission of required compliance reports, signed
+by proposed subcontractors, will be obtained before subcontract awards.
+
+9. FAR 52.222-25 AFFIRMATIVE ACTION COMPLIANCE (APR 1984)
+
+The offeror represents that --
+
+(a) It [X] has developed and has on file, [ ] has not developed and does not
+have on file, at each establishment, affirmative action programs required by the
+rules and regulations of the Secretary of Labor (41 CFR 60-1 and 60-2); or
+
+(b) It [ ] has not previously had contracts subject to the written affirmative
+action programs requirement of the rules and regulations of the Secretary of
+Labor.
+
+10. FAR 52.223-4 RECOVERED MATERIAL CERTIFICATION (OCT 1997)
+
+As required by the Resource Conservation and Recovery Act of 1976 (42 U.S.C.
+6962(c)(3)(A)(I)), the offeror certifies, by signing this offer, that the
+percentage of recovered materials to be used in the performance of the contract
+will be at least the amount required by the applicable contract specifications.
+
+11. FAR 52.223-13 CERTIFICATION OF TOXIC CHEMICAL RELEASE REPORTING (OCT 2000)
+
+(a) Submission of this certification is a prerequisite for making or entering
+into this contract imposed by Executive Order 12969, August 8, 1995.
+
+(b) By signing this offer, the offeror certifies that--
+(1) As the owner or operator of facilities that will be used in the
+performance of this contract that are subject to the filing and reporting
+requirements described in section 313 of the Emergency Planning and Community
+Right-to-Know Act of 1986 (EPCRA) (42 U.S.C. 11023) and section 6607 of the
+Pollution Prevention Act of 1990 (PPA) (42 U.S.C. 13106), the offeror will file
+and continue to file for such facilities for the life of the contract the Toxic
+Chemical Release Inventory Form (Form R) as described in sections 313(a) and (g)
+of EPCRA and section 6607 of PPA; or
+(2) None of its owned or operated facilities to be used in the performance of
+this contract is subject to the Form R filing and reporting requirements because
+each such facility is exempt for at least one of the following reasons: (Check
+each block that is applicable.)
+[ ](i)The facility does not manufacture, process, or otherwise use
+any toxic chemicals listed under section 313(c) of EPCRA, 42 U.S.C. 11023(c);
+[ ](ii) The facility does not have 10 or more full-time employees as
+specified in section 313(b)(1)(A) of EPCRA, 42 U.S.C. 11023(b)(1)(A);
+[ ](iii)The facility does not meet the reporting thresholds of toxic
+chemicals established under section 313(f) of EPCRA, 42 U.S.C. 11023(f)
+
+44
+
+<PAGE>
+(including the alternate thresholds at 40 CFR 372.27, provided an appropriate
+certification form has been filed with EPA);
+[ ](iv) The facility does not fall within Standard Industrial
+Classification Code (SIC) major groups 20 through 39 or their corresponding
+North American Industry Classification System (NAICS) sectors 31 through 33; or
+[ ](v)The facility is not located within any State of the United States, the
+District of Columbia, the Commonwealth of Puerto Rico, Guam, American Samoa, the
+United States Virgin Islands, the Northern Mariana Islands, or any other
+territory or possession over which the United States has jurisdiction.
+
+12. FAR 52.226-2 HISTORICALLY BLACK COLLEGE OR UNIVERSITY AND
+MINORITY INSTITUTION REPRESENTATION (MAY 2001)
+
+(a) Definitions. As used in this provision
+
+Historically Black College or University means an institution determined by the
+Secretary of Education to meet the requirements of 34 CFR 608.2. For the
+Department of Defense, the National Aeronautics and Space Administration, and
+the Coast Guard, the term also includes any nonprofit research institution that
+was an integral part of such a college or university before November 14, 1986.
+
+Minority Institution means an institution of higher education meeting the
+requirements of Section 1046(3) of the Higher Education Act of 1965 (20 U.S.C.
+1067k, including a Hispanic-serving institution of higher education as defined
+in Section 316(b)(1) of the Act (20 U.S.C. 1101a)).
+
+(b) Representation.
+
+The offeror represents that it --
+[ ] is [X] is not a Historically Black College or University;
+[ ] is [X] is not a Minority Institution.
+
+13. FAR 52.227-6 ROYALTY INFORMATION (APR 1984)
+
+(a) Cost or charges for royalties. When the response to this solicitation
+contains costs or charges for royalties totaling more than $250, the following
+information shall be included in the response relating to each separate item of
+royalty or license fee:
+(1) Name and address of licensor.
+(2) Date of license agreement.
+(3) Patent numbers, patent application serial numbers, or other basis on which
+the royalty is payable.
+(4) Brief description, including any part or model numbers of each contract
+item or component on which the royalty is payable.
+(5) Percentage or dollar rate of royalty per unit.
+(6) Unit price of contract item.
+(7) Number of units.
+(8) Total dollar amount of royalties.
+
+(b) Copies of current licenses. In addition, if specifically requested by the
+Contracting Officer before execution of the contract, the offeror shall furnish
+a copy of the current license agreement and an identification of applicable
+claims of specific patents.
+
+14. FAR 52.227-7 PATENTS -- NOTICE OF GOVERNMENT LICENSEE (APR
+1984)
+
+45
+
+<PAGE>
+The Government is obligated to pay a royalty applicable to the proposed
+acquisition because of a license agreement between the Government and the patent
+owner. The patent number is [Contracting Officer fill in], and the
+---------------
+royalty rate is [Contracting Officer fill in]. If the offeror is the
+------------
+owner of, or a licensee under, the patent, indicate below:
+[ ] Owner
+[ ] Licensee
+If an offeror does not indicate that it is the owner or a licensee of the
+patent, its offer will be evaluated by adding thereto an amount equal to the
+royalty.
+
+15. FAR 52.230-1 COST ACCOUNTING STANDARDS NOTICES AND
+CERTIFICATION (JUN 2000)
+
+Note: This notice does not apply to small businesses or foreign governments.
+This notice is in three parts, identified by Roman numerals I through III.
+
+Offerors shall examine each part and provide the requested information in order
+to determine Cost Accounting Standards (CAS) requirements applicable to any
+resultant contract.
+
+If the offeror is an educational institution, Part II does not apply unless the
+contemplated contract will be subject to full or modified CAS coverage pursuant
+to 48 CFR 9903.201-2(c)(5) or 9903.201-2(c)(6), respectively.
+
+I. Disclosure Statement--Cost Accounting Practices and Certification
+
+(a) Any contract in excess of $500,000 resulting from this solicitation will be
+subject to the requirements of the Cost Accounting Standards Board (48 CFR
+Chapter 99), except for those contracts which are exempt as specified in 48 CFR
+9903.201-1.
+
+(b) Any offeror submitting a proposal which, if accepted, will result in a
+contract subject to the requirements of 48 CFR Chapter 99 must, as a condition
+of contracting, submit a Disclosure Statement as required by 48 CFR 9903.202.
+When required, the Disclosure Statement must be submitted as a part of the
+offeror's proposal under this solicitation unless the offeror has already
+submitted a Disclosure Statement disclosing the practices used in connection
+with the pricing of this proposal. If an applicable Disclosure Statement has
+already been submitted, the offeror may satisfy the requirement for submission
+by providing the information requested in paragraph (c) of Part I of this
+provision.
+
+Caution: In the absence of specific regulations or agreement, a practice
+disclosed in a Disclosure Statement shall not, by virtue of such disclosure,
+be deemed to be a proper, approved, or agreed-to practice for pricing
+proposals or accumulating and reporting contract performance cost data.
+
+(c) Check the appropriate box below:
+
+[ ](1) Certificate of Concurrent Submission of Disclosure Statement. The
+offeror hereby certifies that, as a part of the offer, copies of the Disclosure
+Statement have been submitted as follows:
+
+46
+
+<PAGE>
+(I) Original and one copy to the cognizant Administrative Contracting
+Officer (ACO) or cognizant Federal agency official authorized to act in that
+capacity (Federal official), as applicable; and
+(ii) One copy to the cognizant Federal auditor.
+
+(Disclosure must be on Form No. CASB DS-1 or CASB DS-2, as applicable. Forms
+may be obtained from the cognizant ACO or Federal official and/or from the
+loose-leaf version of the Federal Acquisition Regulation.)
+
+Date of Disclosure Statement:
+-----------------------------------
+Name and Address of Cognizant ACO or Federal Official Where Filed:
+
+-------------------------------------------------------
+
+The offeror further certifies that the practices used in estimating costs in
+pricing this proposal are consistent with the cost accounting practices
+disclosed in the Disclosure Statement.
+
+[ ](2) Certificate of Previously Submitted Disclosure Statement. The offeror
+hereby certifies that the required Disclosure Statement was filed as follows:
+
+Date of Disclosure Statement:
+-----------------------------------
+Name and Address of Cognizant ACO or Federal Official Where Filed:
+
+-------------------------------------------------------
+
+The offeror further certifies that the practices used in estimating costs in
+pricing this proposal are consistent with the cost accounting practices
+disclosed in the applicable Disclosure Statement.
+
+[X](3) Certificate of Monetary Exemption. The offeror hereby certifies that the
+offeror, together with all divisions, subsidiaries, and affiliates under common
+control, did not receive net awards of negotiated prime contracts and
+subcontracts subject to CAS totaling $50 million or more in the cost accounting
+period immediately preceding the period in which this proposal was submitted.
+The offeror further certifies that if such status changes before an award
+resulting from this proposal, the offeror will advise the Contracting Officer
+immediately.
+
+[ ](4) Certificate of Interim Exemption. The offeror hereby certifies that (I)
+the offeror first exceeded the monetary exemption for disclosure, as defined in
+(3) of this subsection, in the cost accounting period immediately preceding the
+period in which this offer was submitted and (ii) in accordance with 48 CFR
+9903.202-1, the offeror is not yet required to submit a Disclosure Statement.
+The offeror further certifies that if an award resulting from this proposal has
+not been made within 90 days after the end of that period, the offeror will
+immediately submit a revised certificate to the Contracting Officer, in the form
+specified under subparagraph (c)(1) or (c)(2) of Part I of this provision, as
+appropriate, to verify submission of a completed Disclosure Statement.
+
+Caution: Offerors currently required to disclose because they were awarded a
+CAS-covered prime contract or subcontract of $50 million or more in the
+current cost accounting period may not claim this exemption (4). Further, the
+
+47
+
+<PAGE>
+exemption applies only in connection with proposals submitted before
+expiration of the 90-day period following the cost accounting period in which
+the monetary exemption was exceeded.
+
+II. Cost Accounting Standards--Eligibility for Modified Contract Coverage
+
+If the offeror is eligible to use the modified provisions of 48 CFR
+9903.201-2(b) and elects to do so, the offeror shall indicate by checking the
+box below. Checking the box below shall mean that the resultant contract is
+subject to the Disclosure and Consistency of Cost Accounting Practices clause in
+lieu of the Cost Accounting Standards clause.
+
+[X] The offeror hereby claims an exemption from the Cost Accounting Standards
+clause under the provisions of 48 CFR 9903.201-2(b) and certifies that the
+offeror is eligible for use of the Disclosure and Consistency of Cost Accounting
+Practices clause because during the cost accounting period immediately preceding
+the period in which this proposal was submitted, the offeror received less than
+$50 million in awards of CAS-covered prime contracts and subcontracts, or the
+offeror did not receive a single CAS-covered award exceeding $1 million. The
+offeror further certifies that if such status changes before an award resulting
+from this proposal, the offeror will advise the Contracting Officer immediately.
+
+Caution: An offeror may not claim the above eligibility for modified contract
+coverage if this proposal is expected to result in the award of a CAS-covered
+contract of $50 million or more or if, during its current cost accounting
+period, the offeror has been awarded a single CAS-covered prime contract or
+subcontract of $50 million or more.
+
+III. Additional Cost Accounting Standards Applicable to Existing Contracts
+
+The offeror shall indicate below whether award of the contemplated contract
+would, in accordance with subparagraph (a)(3) of the Cost Accounting Standards
+clause, require a change in established cost accounting practices affecting
+existing contracts and subcontracts.
+
+[ ] YES [X] NO
+
+ALTERNATE I (APR 1996)
+
+[ ](5) Certificate of Disclosure Statement Due Date by Educational Institution.
+If the offeror is an educational institution that, under the transition
+provisions of 48 CFR 9903.202-1(f), is or will be required to submit a
+Disclosure Statement after receipt of this award, the offeror hereby certifies
+that (check one and complete):
+(i) A Disclosure Statement Filing Due Date of has been established
+with the cognizant Federal agency. ----------
+(ii) The Disclosure Statement will be submitted within the 6-month period
+ending months after receipt of this award.
+-----------
+
+Date of Disclosure Statement:
+---------------------------
+Name and Address of Cognizant ACO or Federal Official:
+
+-------------------------------------------------------
+
+48
+
+<PAGE>
+Where Disclosure Statement is Filed:
+
+-------------------------------------------------------
+
+16. DFARS 252.204-7004 Required Central Contractor Registration (NOV 2001)
+
+(a) Definitions. As used in this clause-
+
+(1) "Central Contractor Registration (CCR) database" means the primary DoD
+repository for contractor information required for the conduct of business with
+DoD.
+
+(2) "Data Universal Number System (DUNS) number" means the 9-digit number
+assigned by Dun and Bradstreet Information Services to identify unique business
+entities.
+
+(3) "Data Universal Numbering System +4 (DUNS+4) number" means the DUNS number
+assigned by Dun and Bradstreet plus a 4-digit suffix that may be assigned by a
+parent (controlling) business concern. This 4-digit suffix may be assigned at
+the discretion of the parent business concern for such purposes as identifying
+subunits or affiliates of the parent business concern.
+
+(4) "Registered in the CCR database" means that all mandatory information,
+including the DUNS number or the DUNS+4 number, if applicable, and the
+corresponding Commercial and Government Entity (CAGE) code, is in the CCR
+database; the DUNS number and the CAGE code have been validated; and all edits
+have been successfully completed.
+
+(b) (1) By submission of an offer, the offeror acknowledges the
+requirement that a prospective awardee must be registered in the CCR
+database prior to award, during performance, and through final
+payment of any contract resulting from this solicitation, except for
+awards to foreign vendors for work to be performed outside the United
+States.
+
+(2) The offeror shall provide its DUNS or, if applicable, its DUNS+4
+number with its offer, which will be used by the Contracting Officer
+to verify that the offeror is registered in the CCR database.
+
+(3) Lack of registration in the CCR database will make an offeror
+ineligible for award.
+
+(4) DoD has established a goal of registering an applicant in the CCR
+database within 48 hours after receipt of a complete and accurate
+application via the Internet. However, registration of an applicant
+submitting an application through a method other than the Internet
+may take up to 30 days. Therefore, offerors that are not registered
+should consider applying for registration immediately upon receipt of
+this solicitation.
+
+(c) The Contractor is responsible for the accuracy and completeness of
+the data within the CCR, and for any liability resulting from the
+Government's reliance on inaccurate or incomplete data. To remain
+registered in the CCR database after the initial registration, the
+Contractor is required to confirm on an annual basis that its
+information in the CCR database is accurate and complete.
+
+49
+
+<PAGE>
+(d) Offerors and contractors may obtain information on registration and
+annual confirmation requirements by calling 1-888-227-2423, or via
+the Internet at http://www.ccr.gov.
+------------------
+CAGE CODE:
+---------------
+
+17. DFARS 252.209-7001 DISCLOSURE OF OWNERSHIP OR CONTROL BY THE
+GOVERNMENT OF A TERRORIST COUNTRY (MAR 1998)
+
+(a) Definitions. As used in this provision-
+(1) "Government of a terrorist country" includes the state and the government
+of a terrorist country, as well as any political subdivision, agency, or
+instrumentality thereof.
+(2) "Terrorist country" means a country determined by the Secretary of State,
+under section 6(j)(1)(A) of the Export Administration Act of 1979 (50 U.S.C.
+App. 2405(j)(I)(A)), to be a country the government of which has repeatedly
+provided support for acts of international terrorism. As of the date of this
+provision, terrorist countries include: Cuba, Iran, Iraq, Libya, North Korea,
+Sudan, and Syria.
+(3) "Significant interest" means-
+(i) Ownership of or beneficial interest in 5 percent or more of the firm's
+or subsidiary's securities. Beneficial interest includes holding 5 percent or
+more of any class of the firm's securities in "nominee shares," "street names,"
+or some other method of holding securities that does not disclose the beneficial
+owner;
+(ii) Holding a management position in the firm, such as a director or
+officer; (iii) Ability to control or influence the election, appointment, or
+tenure of directors
+or officers in the firm;
+(iv) Ownership of 10 percent or more of the assets of a firm such as
+equipment, buildings, real estate, or other tangible assets of the firm; or
+(v) Holding 50 percent or more of the indebtedness of a firm.
+
+(b) Prohibition on award. In accordance with 10 U.S.C. 2327, no contract may be
+awarded to a firm or a subsidiary of a firm if the government of a terrorist
+country has a significant interest in the firm or subsidiary or, in the case of
+a subsidiary, the firm that owns the subsidiary, unless a waiver is granted by
+the Secretary of Defense.
+
+(c) Disclosure. If the government of a terrorist country has a significant
+interest in the Offeror or a subsidiary of the Offeror, the Offeror shall
+disclose such interest in an attachment to its offer. If the Offeror is a
+subsidiary, it shall also disclose any significant interest the government of a
+terrorist country has in any firm that owns or controls the subsidiary. The
+disclosure shall include-
+(1) Identification of each government holding a significant interest; and (2)
+A description of the significant interest held by each government.
+
+18. DFARS 252.209-7002 DISCLOSURE OF OWNERSHIP OR CONTROL BY A
+FOREIGN GOVERNMENT (SEP 1994)
+
+50
+
+<PAGE>
+(a) Definitions.
+-----------
+
+As used in this provision --
+
+(1) "Effectively owned or controlled" means that a foreign government or any
+entity controlled by a foreign government has the power, either directly or
+indirectly, whether exercised or exercisable, to control the election,
+appointment, or tenure of the Offeror's officers or a majority of the Offeror's
+board of directors by any means, e.g., ownership, contract, or operation of law
+(or equivalent power for unincorporated organizations).
+(2) "Entity controlled by a foreign government" --
+(i) Means --
+(A)Any domestic or foreign organization or corporation that is
+effectively owned or controlled by a foreign government; or
+(B)Any individual acting on behalf of a foreign government.
+(ii) Does not include an organization or corporation that is owned, but is
+not controlled, either directly or indirectly, by a foreign government if the
+ownership of that organization or corporation by that foreign government was
+effective before October 23, 1992.
+(3) "Foreign government" includes the state and the government of any country
+(other than the United States and its possessions and trust territories) as well
+as any political subdivision, agency, or instrumentality thereof.
+(4) "Proscribed information" means --
+(I) Top Secret information;
+(ii) Communications Security (COMSEC) information, except classified keys
+used to operate secure telephone units (STU IIIs);
+(iii)Restricted Data as defined in the U.S. Atomic Energy Act of 1954, as
+amended;
+(iv) Special Access Program (SAP) information; or
+(v) Sensitive Compartmented Information (SCI).
+
+(b) Prohibition on award. No contract under a national security program may be
+awarded to an entity controlled by a foreign government if that entity requires
+access to proscribed information to perform the contract, unless the Secretary
+of Defense or a designee has waived application of 10 U.S.C.2536(a).
+
+(c) Disclosure. The Offeror shall disclose any interest a foreign government has
+in the Offeror when that interest constitutes control by a foreign government as
+defined in this provision. If the Offeror is a subsidiary, it shall also
+disclose any reportable interest a foreign government has in any entity that
+owns or controls the subsidiary, including reportable interest concerning the
+Offeror's immediate parent, intermediate parents, and the ultimate parent. Use
+separate paper as needed, and provide the information in the following format:
+
+Offeror's Point of Contact for Questions about Disclosure (Name and Phone Number
+with Country Code, City Code and Area Code, as applicable)
+
+Name and Address of Offeror
+
+Name and Address of Entity Controlled by a Foreign Government
+
+Description of Interest, Controlled by a Foreign Ownership Percentage, and
+Government Identification of Foreign Government
+
+51
+
+<PAGE>
+19. DFARS 252.225-7031 SECONDARY ARAB BOYCOTT OF ISRAEL (JUN 1992)
+
+(a) Definitions.
+-----------
+
+As used in this clause -
+"Foreign person" means any person other than a United States person as defined
+--------------
+in Section 16(2) of the Export Administration Act of 1979 (50 U.S.C. App.Sec
+2415). "United States person" is defined in Section 16(2) of the Export
+--------------------
+Administration Act of 1979 and means any United States resident or national
+(other than an individual resident outside the United States and employed by
+other than a United States person), any domestic concern (including any
+permanent domestic establishment of any foreign concern), and any foreign
+subsidiary or affiliate (including any permanent foreign establishment) of any
+domestic concern which is controlled in fact by such domestic concern, as
+determined under regulations of the President.
+
+(b) Certification.
+-------------
+
+By submitting this offer, the Offeror, if a foreign person, company or entity,
+certifies that it -
+(1) Does not comply with the secondary Arab boycott of Israel; and (2) Is not
+taking or knowingly agreeing to take any action, with respect to the
+secondary boycott of Israel by Arab countries, which 50 U.S.C. App. Sec 2407(a)
+prohibits a United States person from taking.
+
+20. DFARS 252.227-7028 TECHNICAL DATA OR COMPUTER SOFTWARE
+PREVIOUSLY DELIVERED TO THE GOVERNMENT (JUN 1995)
+
+The Offeror shall attach to its offer an identification of all documents or
+other media incorporating technical data or computer software it intends to
+deliver under this contract with other than unlimited rights that are identical
+or substantially similar to documents or other media that the Offeror has
+produced for, delivered to, or is obligated to deliver to the Government under
+any contract or subcontract. The attachment shall identify:
+
+(a) The contract number under which the data or software were produced;
+
+(b) The contract number under which, and the name and address of the
+organization to whom, the data or software were most recently delivered or will
+be delivered; and
+
+(c) Any limitations on the Government's rights to use or disclose the data or
+software, including, when applicable, identification of the earliest date the
+limitations expire.
+
+21. DFARS 252.247-7022 REPRESENTATION OF EXTENT OF
+TRANSPORTATION BY SEA (AUG 1992)
+
+(a) The Offeror shall indicate by checking the appropriate blank in paragraph
+(b) of this provision whether transportation of supplies by sea is anticipated
+under the resultant contract. The term "supplies" is defined in the
+
+52
+
+<PAGE>
+Transportation of Supplies by Sea clause (DFARS 252.247-7023) of this
+solicitation.
+
+(b) Representation.
+
+The Offeror represents that it --
+
+[X]Does anticipate that supplies will be transported by sea in the performance
+of any contract or subcontract resulting from this solicitation.
+[ ]Does not anticipate that supplies will be transported by sea in the
+performance of any contract or subcontract resulting from this solicitation.
+
+(c) Any contract resulting from this solicitation will include the
+Transportation of Supplies by Sea clause. If the Offeror represents that it will
+not use ocean transportation, the resulting contract will also include the
+Defense FAR Supplement clause at 252.247-7024, Notification of Transportation of
+Supplies by Sea.
+
+22. Standard Form-LLL, "Disclosure of Lobbying Activities"
+
+If applicable in accordance with subparagraph (b)(2) of provision 1.
+Certification and Disclosure Regarding Payments to Influence Certain Federal
+Transactions (FAR 52.203-11), Standard Form-LLL has been completed in accordance
+with its instructions and is returned herewith.
+
+SIGNATURE
+
+By signature hereto, or to an offer incorporating these representations and
+certifications, the offeror certifies that they are accurate, current, and
+complete and that he is aware of the penalty prescribed in 18 U.S.C. 1001 for
+making false statement in offers.
+
+January 21, 2005 Antenna Products Corporation
+-------------------- -----------------------------------------
+Date Name of Contractor
+
+/s/ Clark D. Wraight
+------------------------------------------
+Authorized Signature
+
+Clark D. Wraight
+-------------------------------------------
+Typed or Printed Name
+
+President
+------------------------------------------
+Title
+
+53
+
+Subcontract No. 511-05-191
+
+ATTACHMENT A
+
+AMU Print Number and Rev Levels as of 12-23-04
+
+Low Band AMU Prints and Rev Levels
+----------------------------------
+
+ECE-98-2000-, BRACKET, CAN
+ECE-98-2001A, BRACKET, DRAIN COIL
+ECE-98-2002C, BRACKET, FIXED CAPACITOR
+ECE-98-2003-, BRACKET, MOUNTING
+ECE-98-2004-, BRACKET, ROUND CAPACITOR
+ECE-98-2005A, BRACKET, SHORTING STRAP
+ECE-98-2006A, SPACER, SHORTING STRAP
+ECE-98-2007C, BRACKET, SWITCH L
+ECE-98-2008B, BRACKET, TURN SPACER
+ECE-98-2009A, BRACKET, UPPER COIL
+ECE-98-2010-, BUS, ROUND CAPACITOR
+ECE-98-2011A, BUS, OUTPUT
+ECE-98-2012B, BUS, OUTPUT STRAIN RELIEF
+ECE-98-2013E, BUS, ROUND CAP TO HYBRID
+ECE-98-2014A, BUS, SWITCH
+ECE-98-2015B, CLAMP, DOUBLE GROUND PLATE SIDE B
+ECE-98-2016B, CLAMP, DOUBLE GROUND PLATE SIDE A
+ECE-98-2017B, CLAMP, DOUBLE HYBRID
+ECE-98-2018A, CLAMP, FIXED CAPACITOR
+ECE-98-2019B, CLAMP, SINGLE GROUND PLATE
+ECE-98-2020B, CLAMP, CAP
+ECE-98-2021D, CLAMP, INPUT
+ECE-98-2022A, TERMINAL, INPUT
+ECE-98-2023A, TERMINAL, INDUCTOR COIL
+ECE-98-2024B, TERMINAL, OUTPUT
+ECE-98-2025A, TERMINAL, SPARK GAP
+ECE-98-2026C, INSULATOR, HYBRID SLEEVE
+ECE-98-2027C, INSULATOR, INPUT
+ECE-98-2028B, FLANGE, INPUT CONNECTOR
+ECE-98-2029A, FLANGE, SWITCH BASE
+ECE-98-2030A, FLANGE, SWITCH MOUNT
+ECE-98-2031B, FRAME, SPARK GAP
+ECE-98-2032A, INSULATOR, OUTPUT PIN
+ECE-98-2033B, INSULATOR, OUTPUT PLUG
+ECE-98-2034A, FRAME, DRAIN COIL
+ECE-98-2035-, FRAME, UPPER COIL
+ECE-98-2036A, EYE, LIFTING
+ECE-98-2037-, SLEEVE, ANGLE, TEFLON
+ECE-98-2039D, BUS, HYBRID JUMPER
+ECE-98-2041D, ASSEMBLY, DRAIN COIL, SHT1
+ECE-98-2041D, ASSEMBLY, DRAIN COIL, SHT2
+ECE-98-2042B, RING, SPLIT
+ECE-98-2043B, RING, INNER
+ECE-98-2044C, RING, OUTER
+ECE-98-2045C, TERMINAL, INNER CONDUCTOR
+
+ATTACHMENT A - 1
+<PAGE>
+Subcontract No. 511-05-191
+
+ECE-98-2048A, CLAMP, INPUT CAP
+ECE-98-2049-, LUG, COMPRESSION ALTERED ITEM
+ECE-98-2050-, PROCEDURE, CABLE MEASUREMENT
+ECE-98-2051A, TERMINAL, INDUCTOR COIL MOUNT
+ECE-98-3000-, BUS, TRIANGULAR
+ECE-98-3001B, INSULATOR, OUTPUT
+ECE-98-3002B, BUS, SHORTING STRAP
+ECE-98-3003A, BRACKET, INDUCTOR COIL
+ECE-98-3004D, ASSEMBLY, INDUCTOR COIL
+ECE-98-3005A, BRACKET, OFF-CENTERED TURN SPACER
+ECE-98-3006D, BUS, INDUCTOR COIL
+ECE-98-3007B, HOUSING, 5 IN
+ECE-98-3009B, ASSEMBLY, UPPER COIL
+ECE-98-3010-, BRACKET, TOWER MOUNT
+ECE-98-3011-, COIL, INDUCTOR
+ECE-98-4000C SHT 1, ASSEMBLY, HAARP LOW BAND AMU
+ECE-98-4000C SHT 2, ASSEMBLY, HAARP LOW BAND AMU
+ECE-98-4000C SHT 3, ASSEMBLY, HAARP LOW BAND AMU
+ECE-98-4000C SHT 4, ASSEMBLY, HAARP LOW BAND AMU
+ECE-98-4000C SHT 5, ASSEMBLY, HAARP LOW BAND AMU
+ECE-98-4001E, ASSEMBLY, CURRENT SENSOR
+ECE-98-4002B, PLATE, BASE
+ECE-98-4003A, PLATE, GROUND
+ECE-98-4004A, PLATE, ENCLOSURE LID
+ECE-98-4005A, FLANGE, ENCLOSURE
+ECE-98-4006A, BRACKET, ALUMINUM UPRIGHT
+ECE-98-4007B, BRACKET, CENTERED TURN SPACER
+ECE-98-4008C, ASSEMBLY, ENCLOSURE
+ECE-98-4009A, BRACKET, G9 UPRIGHT
+ECE-98-4010C, ASSEMBLY, OUTPUT CABLE 'A'
+ECE-98-4011C, ASSEMBLY, OUTPUT CABLE 'B'
+ECE-98-4012C, ASSEMBLY, INPUT CABLE 'C'
+ECE-98-4013B, CABLE, OUTPUT 'A'
+ECE-98-4014B, CABLE, OUTPUT 'B'
+ECE-98-4015B, CABLE, INPUT 'C'
+ECE-98-4016B, ASSEMBLY, LOW BAND HYBRID SHT 1
+ECE-98-4016B, ASSEMBLY, LOW BAND HYBRID SHT 2
+ECE-98-4017C, ASSEMBLY, BASEPLATE SHT 1
+ECE-98-4017C, ASSEMBLY, BASEPLATE SHT 2
+ECE-98-4017C, ASSEMBLY, BASEPLATE SHT 3
+ECE-98-4018A, CABLE, REJECT LOAD
+
+ATTACHMENT A - 2
+<PAGE>
+Subcontract No. 511-05-191
+
+High Band Prints and Rev Levels
+-------------------------------
+
+CSI-04-2000A, BRACKET, CAN
+CSI-04-2002-, BRACKET, CAPACITOR
+CSI-04-2003-, BRACKET, TURN SPACER LOWER
+CSI-04-2004-, BRACKET, TURN SPACER UPPER
+CSI-04-2005-, CLAMP, DOUBLE
+CSI-04-2006-, CLAMP, TRIPLE
+CSI-04-2007A, CLAMP, INPUT CAP
+CSI-04-2008-, CLAMP, INPUT
+CSI-04-2009-, CLAMP, OUTPUT CAP
+CSI-04-2010A, CLAMP, OUTPUT
+CSI-04-2011-, RING, INPUT INNER
+CSI-04-2012-, RING, INPUT OUTER
+CSI-04-2013-, RING, SPLIT INNER
+CSI-04-2014A, RING, SPLIT INPUT OUTER
+CSI-04-2015-, BUS, HYBRID
+CSI-04-2016A, BUS, CAPACITOR
+CSI-04-2017-, BUS, INPUT CAP
+CSI-04-2018-, BUS, INPUT SUPPORT
+CSI-04-2019-, TERMINAL, HP-950-33
+CSI-04-2020-, INSULATOR, HP-950-33
+CSI-04-2021B, POST, REJECT LOAD
+CSI-04-2022B, ASSEMBLY, DRAIN COIL
+CSI-04-2023-, PROCEDURE, HP-950-33 CABLE MEASUREMENT
+CSI-04-2024A, LUG, INPUT
+CSI-04-2025-, INSULATOR, INNER CONDUCTOR
+CSI-04-2026-, BACKING PLATE, CLAMP
+CSI-04-3000-, BRACKET, TURN SPACER
+CSI-04-3001-, BRACKET, TURN SPACER #2
+CSI-04-3002B, FRAME, DRAIN COIL
+CSI-04-3003A, BUS, SWITCH CAP
+CSI-04-3004B, BUS, OUTPUT
+CSI-04-3005A, BUS, SHORTING STRAP
+CSI-04-3006B, COIL, 3.25 TURN L1-A
+CSI-04-3007B, COIL, 3.25 TURN L1-B
+CSI-04-3008B, COIL, 5 TURN
+CSI-04-4000B SHT 1, ASSEMBLY, HAARP HIGH BAND AMU
+CSI-04-4000B SHT 2, ASSEMBLY, HAARP HIGH BAND AMU
+CSI-04-4000B SHT 3, ASSEMBLY, HAARP HIGH BAND AMU
+CSI-04-4000B SHT 4, ASSEMBLY, HAARP HIGH BAND AMU
+CSI-04-4001C, ASSEMBLY, BASEPLATE SHT 1
+CSI-04-4001C, ASSEMBLY, BASEPLATE SHT 2
+CSI-04-4001C, ASSEMBLY, BASEPLATE SHT 3
+CSI-04-4002C, ASSEMBLY, HIGH BAND HYBRID SHT 1
+CSI-04-4002C, ASSEMBLY, HIGH BAND HYBRID SHT 2
+CSI-04-4003A, ASSEMBLY, ENCLOSURE
+CSI-04-4004A, BRACKET, UPRIGHT SUPPORT
+CSI-04-4005A, PLATE , GROUND
+CSI-04-4006A, BUS, REJECT LOAD
+
+ATTACHMENT A - 3
+<PAGE>
+Subcontract No. 511-05-191
+
+CSI-04-4007A, ASSEMBLY, INPUT CABLE
+CSI-04-4008A, ASSEMBLY, OUTPUT CABLE
+CSI-04-4009B, PLATE, HIGH BAND BASE
+CSI-04-4010A, CABLE, INPUT
+CSI-04-4011A, CABLE, OUTPUT
+
+ATTACHMENT A - 4
+
+</TEXT>
+</DOCUMENT>

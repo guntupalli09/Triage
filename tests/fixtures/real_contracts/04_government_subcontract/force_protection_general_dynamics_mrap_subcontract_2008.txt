@@ -1,0 +1,1423 @@
+EX-10.52
+11
+a2187693zex-10_52.htm
+EXHIBIT 10.52
+
+QuickLinks
+-- Click here to rapidly navigate through this document
+
+Exhibit 10.52
+
+SUBCONTRACT AGREEMENT
+
+SUBCONTRACTOR:
+ 
+SUBCONTRACT NUMBER: MRAP- GDLS-5031
+
+General Dynamics Land Systems, Inc.
+
+ADDRESS: 38500 Mound Road
+
+CONTRACT TYPE: FFP
+
+Sterling Heights, MI 48310-3200
+
+INTRODUCTION
+
+        This Firm Fixed Price (FFP) Subcontract Agreement, effective as of September 6, 2007 is made between Force Protection
+Industries, Inc. (hereinafter known as FPII), and General Dynamics Land Systems, Inc. (hereinafter known as the "Subcontractor"). The effort to be performed by the Subcontractor under
+this Agreement will be in support of FPII's Prime Contract Number (Prime # M67854-07-D-5031), with the U.S. Government. The Subcontract Agreement shall cover goods
+and/or services including, delivery of vehicles and services called up under individual delivery orders and in addition but not limited to Contract Administration and Revenue Management as defined in
+Attachment #1, Statement of Work.
+
+        The
+Subcontract Agreement consists of the signature page and the following sections:
+
+Section A:
+ 
+Definitions
+
+Section B:
+ 
+Supplies or Services and Prices
+
+Section C:
+ 
+Description/Specifications/Work Statement
+
+Section D:
+ 
+Deliveries or Performance
+
+Section E:
+ 
+Subcontract Administration Data
+
+Section F:
+ 
+Special Provisions
+
+Section G:
+ 
+General Provisions
+
+Attachment 1:
+ 
+Statement of Work
+
+Attachment 2:
+ 
+Confidentiality/Proprietary Data Agreement
+
+        Each
+Party acknowledges having read this entire Subcontract Agreement and with the full power and authority to execute this subcontract, agrees to perform in accordance with the terms
+and conditions contained herein.
+
+Force Protection Industries, Inc.
+ 
+Subcontractor: General Dynamics Land Systems, Inc.
+
+Name:
+
+Otis Byrd
+
+Name:
+
+Jeremy Pohlman
+
+Signature:
+
+/s/ OTIS BYRD
+
+Signature:
+
+/s/ JEREMY POHLMAN
+
+Title:
+ 
+Director of Contracts
+ 
+Title:
+ 
+Sr. Contract Representative
+
+Date:
+ 
+September 10, 2007
+ 
+Date:
+ 
+September 10, 2007
+
+SECTION A—DEFINITIONS
+
+        The term "Prime Contract" means the government Prime Contract between FPI and the United States of America (herein called the
+"Government").
+
+        For
+the purposes of the "Changes" provision hereof the term "specifications" shall include the Statement of Work.
+
+        The
+terms "Subcontract", "Agreement" or "subcontract" are interchangeable and mean "Subcontract Agreement".
+
+SECTION B—SUPPLIES OR SERVICES AND PRICES/COSTS
+
+B.1.
+SCOPE OF SUBCONTRACT
+
+        FPII
+will issue and GDLS will accept Purchase Orders for GDLS' Workshare in accordance with Workshare Agreement(s) issued by the Force Dynamics Board of
+Directors in support of Prime Contract M67854-07-D-5031. In addition, Subcontractor will provide services as outlined in Attachment 1, Statement of Work. Other
+products and or services will be issued in accordance with clause H.1.
+
+B.2.
+LETTER AGREEMENTS
+
+        This
+Subcontract Agreement incorporates by reference the following Letter Agreements regarding Subcontractor's Workshare in support of the Prime Contract:
+
+M678540-7-D-5031 DO 0001
+ 
+Reference FPII Letter FP07-033 dated February 5, 2007
+
+M678540-7-D-5031 DO 0002
+ 
+Reference FPII Letter FP07-220 dated July 12, 2007
+
+M678540-7-D-5031 DO 0003
+ 
+Reference FPII Letters FP07-145 and FP07-293 dated May 10, 2007 and August 29, 2007 respectively
+
+M678540-7-D-5031 DO 0004
+ 
+Reference FPII Letters FP07-213 and FP07-294 dated June 9, 2007 and August 29, 2007 respectively
+
+M678540-7-D-5031 DO 0005
+ 
+Reference FPII Letter FP07-275 dated August 20, 2007
+
+SECTION C—DESCRIPTIONS/SPECIFICATIONS/WORK STATEMENT
+
+C.1.
+Description
+
+        The
+Subcontractor, as an independent contractor, and not as an agent, servant or employee of FPII having special knowledge and techniques possessed by and
+available to the Subcontractor, shall furnish all management personnel, materials, equipment and data to provide the products and services outlined in clause B.1 in accordance with the
+provisions of this subcontract.
+
+SECTION D—PRESERVATION PACKAGING AND PACKING AND SHIPPING INFORMATION
+
+D.1.
+Packaging and Marking Instructions
+
+        Packaging
+and marking shall be in accordance with standard commercial practice for domestic shipment, as set forth in the Uniform Freight Classification for
+commercial practice, or as stated in Purchase Orders issued pursuant to this Subcontract Agreement to assure arrival at destination in serviceable condition.
+
+        The
+Subcontractor shall comply with FPII's part numbering, labeling, and special packing requirements for all goods delivered under individual Purchase Orders. Exterior of the
+containers(s) shall bear the Subcontractor's name and address (as consignor), Purchase Order number, FPII designated part number, and FPII's name and address (as consignee).
+
+D.2.
+Delivery of Product
+
+        The
+Subcontractor shall deliver the goods and perform the services at the location specified by FPII and according to the delivery schedule made a part of the
+Purchase Order. Unless otherwise specified in the Purchase Order the goods are sold FOB destination.
+
+2
+
+SECTION E—INSPECTION AND ACCEPTANCE
+
+        This Subcontract Agreement incorporates the following clauses by reference, either in the text or as provided in the attachments, with
+the same force and effect as if they were given in full text.
+
+FAR 52.246-2
+ 
+Inspection of Supplies-Fixed Price (Aug 1996)
+
+FAR 52.246-4
+ 
+Inspection of Services- Fixed Price (Aug 1996)
+
+        In
+the event Government source inspection is required by any Purchase Order issued under this Subcontract Agreement the following clause is applicable:
+
+        Government
+Source Inspection is required prior to shipment of the product from your facility. Upon receipt of the Purchase Order, promptly notify and furnish a copy to the Government
+Representative who normally services your plant, or if none, to the nearest defense Contract management Agency office. In the event the Representative or Office can not be located, FPII's Contract
+representative should be notified immediately.
+
+E.1.
+Responsibility for Inspection
+
+        Unless
+otherwise specified in the Purchase Order, the Subcontractor is responsible for the performance of all inspection requirements specified herein. The
+Subcontractor may use his own or any other facility suitable for the performance of the inspection requirements, unless disapproved by FPII. FPII reserves the right to perform or witness any of the
+inspections or tests identified in the Purchase Order, Statement of Work or specification.
+
+E.2.
+Responsibility for Compliance
+
+        The
+Subcontractor shall provide and maintain an effective inspection and quality assurance system for the goods or services delivered under this Subcontract
+Agreement in accordance with ISO 9000-2000 or equivalent Quality System.
+
+E.3.
+FPII Verification
+
+        All
+quality assurance operations performed by the Subcontractor may be subject to FPII verification at scheduled intervals. Verifications shall consist of
+(a) surveillance of the operation to determine that practices, methods, and procedures of the Subcontractor's written quality assurance system plan are being properly applied,
+(ISO 9000-2000) or equivalent and (b) FPII product inspection to measure the quality of the product offered to FPII for acceptance. Deviation from the prescribed or agreed
+upon procedures or instances of poor practices which might have adverse effect on the product shall immediately be called to the attention of the Subcontractor.
+
+E.4.
+Inspection Equipment
+
+        Unless
+otherwise specified in the Purchase Order, the Subcontractor is responsible for the provision and maintenance of all inspection equipment necessary to
+assure that the product offered for FPII acceptance conforms to the Purchase Order requirements. If no other calibration specification or requirement is identified in the Purchase Order, then the
+inspection equipment shall be calibrated per the suggested manufacturer's guidelines.
+
+E.5.
+Material Certification
+
+        The
+Subcontractor shall provide all required material certification applicable to the goods provided hereunder. Lack of such certification shall be deemed to
+be a substantial nonconformity permitting FPII to reject the goods.
+
+3
+
+E.6.
+Reserved
+
+E.7.
+Inspection
+
+        FPII
+and its customer may inspect and test material, work in process and supplies at all times and places, during manufacture and otherwise. FPII inspection
+may, in its sole discretion, include physical, visual and/or mechanical review, as well as any documentation necessary to substantiate the meeting of quality requirements or specific requirements set
+forth in the Subcontract Agreement or applicable purchase order. If inspection and test are made on Subcontractor's premises, Subcontractor, without additional charge, shall provide reasonable
+facilities and assistance for the safety and convenience of the inspectors in performing their duties. Inspections and test by FPII shall be performed in such manner as not to delay the work unduly.
+
+        The
+inspection, review or approval by FPII of any work, or of any drawing, design, or other document, will not be deemed to relieve Subcontractor of any of its obligations under any
+purchase order, or to constitute a waiver of any defects or nonconformities. The acceptance by FPII of any goods or services under any purchase order will not be deemed to limit or affect any warranty
+or right of indemnity granted by Subcontractor under such purchase order, these terms and conditions or otherwise.
+
+        Except
+as otherwise agreed in writing, all shipments and supplies furnished under this Subcontract Agreement shall be subject to final inspection and acceptance by the United States
+Government (USG) as set forth in the Purchase Order notwithstanding any previous source inspection or acceptance, or any prior payment by FPII, or any prior inspection of any type.
+
+E.8.
+Responsibility For Supplies
+
+        Except
+as specifically otherwise provided in this Subcontract Agreement, Subcontractor shall be responsible for supplies meeting the requirements of this
+Subcontract Agreement until final inspection and acceptance thereof by the USG, and shall bear all risks as to rejected supplies or supplies requiring correction after notice of rejection
+notwithstanding any prior acceptance.
+
+E.9.
+Acceptance
+
+        Final
+inspection and acceptance of the Subcontractor's product shall be conducted by the USG as specified in the Purchase Order. The USG at its option, may
+reject or require prompt correction (in place or elsewhere), of any supplies or services which are, defective in material or workmanship or otherwise fail to meet the drawings, designs, statement of
+work, specifications or other technical documents, or other requirements of this Subcontract. If Subcontractor fails promptly to remove such supplies and to proceed promptly to replace or correct
+them, FPII may replace or correct such supplies at the expense of Subcontractor including any excess cost. Subcontractor shall not again tender rejected or corrected supplies unless Subcontractor
+discloses the former tender and rejection or requirement of correction.
+
+SECTION F—PERFORMANCE
+
+        This Subcontract Agreement incorporates the following clause by reference:
+
+FAR 52-242-17
+ 
+Government Delay of Work (APR 1984)
+
+FAR 52-246-16
+ 
+Responsibility for Services (APR 1984)
+
+4
+
+F.1.
+Period of Performance
+
+        All
+work under this Subcontract is to be performed in accordance with the requirements of subcontract or modifications issued pursuant to this Subcontract
+Agreement. The term of this Subcontract Agreement shall be from the effective date of this Subcontract Agreement through the completion of Prime Contract
+M67854-07-D-5031.
+
+F.2.
+Place of Performance
+
+        The
+principal places of performance of this Subcontract are: Lima, Ohio; Sterling Heights Michigan; Shellby, Michigan; and Anniston, Alabama.
+
+SECTION G—SUBCONTRACT ADMINISTRATION DATA
+
+G.1.
+Technical and Contractual Representatives
+
+        The
+following authorized representatives are hereby designated for this Subcontract:
+
+        Contractor:
+
+Technical:
+Kelly Campbell, 843-740 -7015 ext. 313; Kelly.Campbell@ forceprotection.net
+Contractual: Otis Byrd, 843-740-7015 ext. 283; otis.byrd@forceprotection.net
+
+        Subcontractor:
+
+Technical:
+Don Kotchman, 586-825-7901 kotchman@gdls.com
+Contractual: Jeremy Pohlman, 586-825-5852 pohlmanj@gdls.com
+
+G.2.
+Contacts
+
+        Correspondence
+with FPII or Subcontractor which affects the Subcontract ceilings, labor rates, schedule, statement of work or other subcontract terms and
+conditions shall be made with the authorized contractual representative. No changes to this Subcontract will be binding upon FPII or the subcontractor unless incorporated in a written modification to
+the Subcontract and signed by FPII's and Subcontractor's contractual representative.
+
+        All
+effort authorized shall be performed under the direction of FPII's authorized representative. When, in Subcontractor's opinion, such direction constitutes a change to the Subcontract
+Agreement, FPII's contractual representative shall be notified immediately for authorization of such change. Until FPII's contractual representative grants such authorization, Subcontractor shall
+perform in accordance with the Subcontract Agreement, as written.
+
+        FPII's
+authorized representative is responsible for day-to-day clarifications and guidance, as may be required within the scope of the Subcontract Agreement. All
+written communications, however, shall be transmitted through FPII's and the Subcontractor's designated Contract Representatives.
+
+        All
+commitments hereunder (subsequent to execution of this Subcontract) shall be made through the respective parties' Contract Representatives. No verbal or written request, notice,
+authorization, direction or order received by the Subcontractor shall be binding upon either Party, or serve as the basis for a change in the Subcontract value or any other provision of this
+Subcontract, unless issued and receipt is confirmed by both parties' Contract Representatives.
+
+        Subcontractor
+shall immediately notify FPII's Contract Representative whenever a verbal or written change notification has been received from FPII which would affect any of the terms,
+conditions, cost, schedules, and/or any other provision in this Subcontract. The Subcontractor is not authorized to perform work pursuant to change or modification unless both parties' Contract
+Representatives executes a modification to the subcontract.
+
+5
+
+G.3. Payment Terms
+
+        Payment
+for the performance of Subcontractor's workshare in support of the Prime Contract will be made to Subcontractor as defined in the Attachment 1
+Statement of Work. All other payments will be net 30 days or as mutually agreed to by the parties.
+
+G.4.
+Submission of Vouchers
+
+        Notwithstanding
+any other provision, the Subcontractor invoice shall be mailed monthly to:
+
+Force
+Protection Industries Inc.
+9801 HWY 78
+Ladson, SC 29456
+Attn: Gary Papp
+
+        Each
+invoice shall contain the Purchase Order number, quantity of items delivered and accepted by FPII, and the agreed upon purchase price per unit. The purchase price shall not be
+increased without prior written consent by the FPII Contract Representative.
+
+SECTION H—SPECIAL PROVISIONS
+
+H.1.
+Ordering Additional Products and/or Services
+
+(a) Any
+products and/or services other than Purchase Orders for Subcontractor's Workshare in support of the Prime Contract shall be ordered by issuance of
+subcontract modifications as mutually agreed upon by the Parties.
+(b) All
+subcontract modifications are subject to the terms and conditions of this Agreement. In the event of conflict between a subcontract modification and the
+Subcontract Agreement, this Agreement shall control.
+
+H.2.
+Subcontract Modification Requirements
+
+(a) Subcontractor
+must acknowledge receipt of proposed subcontract modification within five (5) working days. FPII will accept written notification of
+acknowledgement. Email is sufficient for written notification.
+(b) Each
+subcontract change modification will require a proposal from the Subcontractor. The Subcontractor's proposal will constitute a firm offer to do the
+work requested and will include the following:
+
+1) Labor
+Costs, (Cost and Pricing Data will be provided to the appropriate USG agency).
+2) Other
+Direct Costs (ODCs)
+3) Travel
+Cost, including destination, number of people, number of days, airfare, per diem, car rental and other charges
+4) Priced
+Bill of Materials.
+5) Miscellaneous
+Other Direct Charges.
+6) Consultants—not
+applicable unless without previous written approval.
+7) Profit/Fee.
+8) Cost
+of preparing the proposal.
+
+6
+
+H.3.
+Subcontract modification preparation
+
+        An
+FPII subcontract modification will include, at a minimum, the following:
+
+(a) Reference
+to this Agreement
+(b) Type
+of Delivery (i.e., completion or term)
+(c) Statement
+of Work
+(d) Performance
+Schedule
+(e) Reference
+to Subcontractor's Proposal
+(f) Place
+of Delivery or Performance
+(g) FPII
+Technical Monitor for the order
+(h) Any
+special provisions that may apply (e.g., Government Furnished Property, safety requirements, security requirements, metrics for the measurement
+of performance, a quality assurance surveillance plan (QASP), etc.)
+(i) A
+separate unique subcontract modification number
+(j) FPII
+project number reference for invoicing and reporting purposes
+
+H.4.
+Unpriced Orders
+
+        FPII
+reserves the right to issue "unpriced orders" with a mutually agreed to Not-to-Exceed amount, pending negotiation. Subcontractor
+shall begin work on receipt of such an unpriced order and submit any proposal required in accordance with the schedule therein. The Subcontractor shall have no obligation to continue performance
+beyond the Not-to-Exceed amount. Should both parties agree to the acceptance of unpriced orders, the following FAR clauses are incorporated herein by reference:
+
+52.216-23
+ 
+Execution and Commencement of Work (Apr 1984)—Full text to be provided in the Not-To-Exceed Purchase Order
+
+52.216-24
+ 
+Limitation of Government Liability (Apr 1984)—Full text to be provided in the Not To-Exceed Purchase Order
+
+52.216-25
+ 
+Contract Definitization (Oct 1997)—Full text to be provided in the Not-To-Exceed Purchase Order
+
+52.216-26
+ 
+Payments of Allowable Costs Before Definitization (Dec 2002)
+
+52.232-16
+ 
+Progress Payments, Alternate II (Apr 2003)
+
+52.244-2
+ 
+Subcontract (Cost-Reimbursement and Letter Contracts (Apr 1998)
+
+        Special
+invoicing requirements for these types of orders will be provided for on the individual subcontract modification.
+
+        Each
+subcontract modification shall be considered to have been separately funded. Subcontractor shall not use unexpended funds from one order for performance of any other order, unless
+each such order shall have been modified by FPII in writing. Subcontractor shall not be reimbursed, nor is the Subcontractor obligated to incur, expenditures in excess of any individual subcontract
+modification's stated Not-to-Exceed amount or, if not fully funded, the subcontract modification's funded amount.
+
+        Each
+subcontract modification issued hereunder shall be invoiced separately and shall comply with the invoicing requirements of this Agreement.
+
+7
+
+H.5.
+Subcontractor Liability
+
+        The
+Subcontractor hereby agrees and acknowledges that it shall be liable to FPII for all costs not reimbursed by the Government which FPII incurs as the result
+of the Subcontractor's negligence in performing this Subcontract Agreement in accordance with its terms
+
+        FPII
+shall have the right to terminate the Subcontract Agreement on the same terms as set forth in the Government Termination clauses of the Prime Contract.
+
+H.6.
+Notice to FPII of Delays
+
+        If
+the Subcontractor encounters difficulties in meeting performance requirements, anticipates difficulty in complying with this Subcontract's schedule or
+dates, or has knowledge that any actual or potential situation is delaying or threatens to delay the timely performance of this Subcontract, the Subcontractor shall immediately notify FPII in writing,
+giving pertinent details.
+
+H.7.
+FURNISHED PROPERTY/FACILITIES AND/OR SERVICES
+
+        Any
+property and/or facilities furnished by the Government or FPII will be specified in the individual subcontract modification. Property administration shall
+be conducted in accordance with FAR 45.5 requirements. When engaged in performance on Government premises, Subcontractor shall be liable for the loss or destruction of, or damage to, the Government
+property and facilities provided in accordance with FAR 45.5.
+
+H.8.
+Status Reviews
+
+        FPII's
+Representative may conduct informal reviews with the Subcontractor to monitor progress. The objective of these reviews is to provide FPII visibility of
+Subcontractor's performance and progress and to identify potential problems and allow institution of corrective action in a timely manner to preclude schedule delays or cost impacts.
+
+H.9.
+Customer Meetings
+
+        Meetings
+may be held between FPII and its customer, at which time Subcontractor's attendance may be required. In addition, preparatory meetings may be held
+between FPII and Subcontractor prior to the scheduled customer meeting. Subcontractor agrees to attend and participate in such meetings and preparatory meetings, as necessary, when so requested by
+FPII.
+
+H.10.
+Security Requirements
+
+        It
+is contemplated that some work to be performed under this subcontract may involve access to and handling of classified material up to and including SECRET.
+Accordingly, the Subcontractor will be required to have or obtain a Facility Security Clearance, provide storage capability, and obtain Security Clearances on Subcontractor personnel required to have
+such clearance to perform their job under this Subcontract Agreement.
+
+        No
+costs to obtain security clearances have been included in the Subcontract Agreement. In the event the Government charges Subcontract to obtain security clearance, Subcontractor shall
+be entitled to an equitable adjustment.
+
+H.11.
+Disclosure
+
+        FPII
+or the Subcontractor shall not disclose information concerning work under this Subcontract to any third party, unless such disclosure is necessary for the
+performance of the Subcontract effort. No news release, public announcement, denial or confirmation of any part of the subject matter of this
+
+8
+
+Subcontract
+or any phase of any program hereunder shall be made without prior mutual written consent of FPII and the subcontractor. The restrictions of this paragraph shall continue in effect upon
+completion or termination of this Subcontract for such period of time as may be mutually agreed upon in writing by the parties. In the absence of a written established period, no disclosure is
+authorized.
+
+H.12.
+Insurance
+
+A. The
+Subcontractor certifies to FPII, by signing this Subcontract Agreement that he has and will maintain the types of insurance and the minimum amount of
+coverage listed below:
+
+Type of Insurance
+ 
+Minimum Amount
+
+(i)
+ 
+Workmen's Compensation and all occupational disease as required by State Law
+
+(ii)
+ 
+Employer's Liability including all occupational disease when not so covered in Workmen's Compensation above
+ 
+$
+1,000,000 per accident
+
+(iii)
+ 
+General Liability (Comprehensive) Bodily Injury per occurrence
+ 
+$
+2,000,000
+
+(iv)
+ 
+Automobile Liability (Comprehensive)
+
+Bodily Injury per person
+ 
+$
+1,000,000
+
+Bodily Injury per occurrence
+ 
+$
+2,000,000
+
+Property damage per accident
+ 
+$
+1,000,000
+
+        Upon
+request by FPII, Subcontractor shall furnish a certificate of insurance reasonably satisfactory to FPII to evidence these coverage's naming FPII as an additional insured and
+providing 30 days written notice of cancellation or material change. Additionally, Subcontractor waives any and all subrogation rights against FPII on behalf of it and its insurers.
+
+B. All
+persons assigned duties or performing work for the Subcontractor under this Subcontract Agreement shall at all times and for all purposes in performance
+of said work be considered employees or agents of the Subcontractor. Payment of Federal and State Social Security or any other form of payroll taxes or deductions with respect to such employees shall
+be the responsibility of the Subcontractor. The Subcontractor, in all matters relating to this Subcontract Agreement, shall be acting as an independent contractor.
+C. The
+Parties, at their own expense, shall comply with such laws and assume all obligations implied by any one or more of such laws with respect to this
+Subcontract Agreement. Further the Parties agree to hold each other harmless for any injury or liability incurred by the Subcontractor or its employees caused by negligence or wrongful acts of it or
+its employees.
+
+H.13.
+Incorporation of Specifications and Publications by Reference
+
+        All
+specifications and publications listed or otherwise cited in this subcontract, whether or not they are attached thereto, are incorporated by reference and
+have the same force and effect as if set forth in full text.
+
+H.14.
+Subcontractor Certification
+
+        The
+certifications and representations made by the Subcontractor which are contained in the documents entitled, "Representations, Certifications, and ,Other
+Statements of Offeror's," and the "Small, Small Disadvantaged, and Women Owned Small Business Subcontracting Plan," if applicable, are hereby incorporated by reference. FPII has relied upon the above
+identified certifications and representations made by the Subcontractor in issuing this Subcontract. The Subcontractor agrees to
+
+9
+
+promptly
+advise FPII should there be any change in status with respect to the matters covered by such certifications and representations.
+
+H.15.
+Subcontract Quick Close
+
+        If
+appropriate, and circumstances permit the Subcontractor agrees to a "Quick Close" of this subcontract agreement and/or individual subcontract modification.
+
+H.16.
+Conformity to Laws and Regulations
+
+        Subcontractor
+agrees in the performance of this Subcontract to comply with all federal, state and local regulations, rules and orders applicable to this
+Subcontract including but not limited to the provisions of the Fair Labor Standards Act of 1938, as amended and any applicable Executive Orders.
+
+        Each
+Party represents that it will comply with all applicable export and import laws and regulations during performance of this Subcontract Agreement, including but not limited to, the
+U.S. Arms Export Control Act, as amended (22 U.S.C §§ 2751-2799), the International Traffic in Arms Regulations, as amended (22 C.F.R Part 120 ct
+seq,), the Export Administration Regulations, as amended (50 U.S.C §§ 2401-2420), and the U.S. Export Administration Regulations, as amended (15 C.F.R
+§ 730 et seq.). The Parties shall not export, disclose, furnish or otherwise provide any article, technical data, technology, defense service, or technical assistance of the other
+Party to any foreign person or entity, whether within the U.S. or abroad, without obtaining, in advance, (a) appropriate U.S. government export authorization, and (b) written approval
+from the disclosing Party.
+
+H.17.
+Assignment of Agreement
+
+        This
+Subcontract shall be binding upon each of the parties hereto and their respective successors. It may not be assigned in whole or in part by either Party
+without the prior written consent of the other Party, except upon the merger, consolidation, sale or other transfer of all or substantially all of the assets of either Party.
+
+H.18.
+Indemnification
+
+(a) The
+Parties will defend, indemnify and hold each other harmless and their affiliates, and their officers, agents, employees, successors and assigns, against
+any claims, loss, damage or expense, including, without limitation, payment of direct damages and expenses of defending claims, including attorneys' fees. This duty to defend, indemnify and hold
+harmless extends to any suit, claim, judgment or demand that may arise out of or in connection with either Party's performance or nonperformance of the Subcontract Agreement, out of either Party's
+breach of warranty, out of any defect in the supplies or materials, out of any patent infringement or misappropriation of trade secrets, or failure of either Party to pay royalties, or any other
+breach of either Party's obligations hereunder, whether such claim or suit is based upon contract, warranty, strict liability in tort, negligence, or other legal theory, and also extends not only to
+"third party claims" but also to any direct loss suffered by either Party. Either Party will inform the other Party of any claim demand or suit asserted or instituted against it and, to the extent of
+that Party's ability to do so, permit the other Party to defend the same or make settlement in respect thereof.
+
+Except
+as provided for in Paragraph H.32 below, in the event of breach of this Subcontract Agreement by either Party, it is agreed that the remedy of the non-breaching Party whether
+based upon contract, warranty, tort, negligence, indemnity, strict liability or otherwise, shall be limited to the recovery of direct costs demonstrably expended in performing its or their obligations
+under this Subcontract Agreement. Neither Party shall have any liability to the other for any special, incidental, indirect, punitive, exemplary or consequential damages arising out of its performance
+or nonperformance of any obligation hereunder, whether such liability is based upon contract, warranty, delay, tort, negligence, indemnity, strict liability or otherwise
+
+10
+
+(b) Subcontractor
+shall comply with the provisions of FAR 52.215-10, 52.215-11, 52.215-12, and 52.215-13 which
+are incorporated herein by reference to the extent that such clauses are or become applicable to this Subcontract Agreement. Subcontractor shall indemnify and hold harmless FPII from any amount, loss,
+and expense, including interest assessed by the Government under 10 U.S.C. § 2306a, by which this Subcontractor is determined by the Government to have been defectively priced
+because of Seller's or Subcontractor's failure to comply with such provisions. The rights of the parties hereunder shall survive completion or termination of this Subcontract Agreement.
+
+H.19.
+Infringement Indemnity
+
+        In
+lieu of any other warranty by FPII or Subcontractor against infringement, statutory or otherwise, it is agreed that the Subcontractor shall defend at its
+expense any suit against FPII or its customers, based on a claim that any supply item or service the Subcontractor furnished under this Subcontract Agreement (With the exception of materials provided
+to Subcontractor by FPII) or the normal use or sale thereof infringes any U.S. Letters patent or copyright, and shall pay cost and damages finally awarded in any such suit, provided that Subcontractor
+is notified in writing of the suit and given authority, information, and assistance at Subcontractor's expense for the defense of same. If the use or sale of said item is enjoined as a result of such
+suit, Subcontractor, at no expense to FPII, shall obtain for FPII and its customers the right to use and sell said item or shall substitute an equivalent item acceptable to FPII and extend this patent
+indemnity thereto.
+
+        Notwithstanding
+the foregoing paragraph, when this Subcontract Agreement is performed under the Authorization and Consent of the U.S. Government to infringe U.S. Patents, the
+Subcontractor's
+liability for infringement of such patents in such performance shall be limited to the extent of the obligation of FPII to indemnify the U.S. Government.
+
+H.20.
+Proprietary Information
+
+        The
+Parties agree that the Confidentiality/Proprietary Data Agreement entered into between FPII and GDLS dated 15 March 2007 (Attachment 2) shall
+also govern the protection of the information exchanged between the parties in performance of this Subcontract.
+
+H.21.
+Proprietary Rights
+
+        Ownership
+of Intellectual Property including, but not limited to, copyrights, patents, inventions resulting in work under this Subcontract Agreement shall be
+governed in accordance with the provisions of the JV Agreement dated 15 December 2007.
+
+H.22.
+Equal Opportunity
+
+        The
+Equal Opportunity clauses required by 41CFR 60-1.4(a)(7), 41CFR 60-250.5(a), and 41 CFR 60-741.5(a) are included for
+reference in this Subcontract Agreement.
+
+H.23.
+Disputes
+
+        It
+shall be the obligation of the Subcontractor to exercise due diligence to discover and to bring to the attention of FPII, at the earliest possible time, any
+ambiguities, discrepancies, inconsistencies, or conflicts in or between any of the technical or contractual provisions hereof.
+
+        Any
+dispute arising under this Subcontract, which is not settled by agreement of the parties shall be settled pursuant to the disputes clause of the Joint Venture Agreement that
+established Force Dynamics LLC. Pending any decision the Subcontractor shall proceed diligently with the performance of this Subcontract as directed by FPII.
+
+11
+
+        In
+cases where Purchase Orders under this Subcontract Agreement are awarded in furtherance of the Government Prime Contract, if a decision relating to the Prime Contract is made by the
+Contracting Officer and such decision is also related to the Purchase Orders, said decision, if binding upon FPII under the Prime Contract shall in turn be binding upon FPII and Subcontractor with
+respect to such matter; provided, however, that if Subcontractor disagrees with any such decision made by the Contracting Officer and FPII elects not to appeal such decision, Subcontractor shall have
+the right reserved to FPII under the Prime Contract with the Government to prosecute a timely appeal in the name of FPII, as permitted by the contract or by law. Subcontractor shall bear its own legal
+and related costs. If FPII elects not to appeal such decision, FPII agrees to notify Subcontractor in a timely fashion after receipt of such decision and to assist Subcontractor in its prosecution of
+any such appeal in every reasonable manner. If FPII elects to appeal any such decision of the Contracting Officer, FPII agrees to furnish Subcontractor promptly with a copy of such appeal. Any
+decision upon appeal, if binding upon FPII, shall in turn be binding upon Subcontractor pending any decision either by the Contracting Officer or on appeal, Subcontractor shall proceed diligently with
+performance of the Purchase Order.
+
+        If,
+as a result of any decision or judgment which is binding upon Subcontractor and FPII, as provided above, FPII is unable to obtain payment or reimbursement from the Government under
+the Prime Contract for, or is required to refund or credit to the Government, any amount with respect to any item or matter for which FPII has reimbursed or paid Subcontractor, Subcontractor shall, on
+demand, promptly repay such amount to FPII. Additionally, pending the final conclusion of any appeal hereunder, Subcontractor shall, on demand, promptly repay any such amount to FPII. FPII's maximum
+liability for any matter connected with or related to this Subcontract Agreement which was properly the subject of a claim against the Government under the Prime Contract shall not exceed the amount
+of FPII's recovery from the Government.
+
+        Subcontractor
+agrees to provide certification that data supporting any claim made by Subcontractor hereunder is made in good faith and that the supporting data is accurate and complete
+to the best of Subcontractor's knowledge or belief, all in accordance with the requirements of the Contract Disputes Act of 1978 (41 U.S.C. 601-613) and implementing regulations. If any
+claim of Subcontractor is determined to be based on fraud or misrepresentation, Subcontractor agrees to defend, indemnify and hold buyer harmless for any and all liability, loss and cost or expense
+resulting there from.
+
+H.24.
+General Relationship
+
+        Subcontractor
+agrees that in all matters relating to this Subcontract it shall be acting as an independent contractor and shall assume and pay all undisputed
+liabilities and perform all obligations imposed with respect to the performance of this Subcontract. Subcontractor shall have no right, power or authority to create any obligation, expressed or
+implied, on behalf of FPII and/or the Government and shall have no authority to represent FPII as an agent unless whenever designated by this Agreement or any subcontract modification
+
+H.25.
+Organizational Conflict of Interest
+
+        It
+is understood by both Parties that neither Party is knowingly adversely affected by organizational conflict of interest related to this procurement as of
+the date of this Subcontract Agreement. The Parties agree that should either Party determine, in its sole discretion, that an organizational conflict of interest exists as a result of its further
+pursuit of the procurement effort contemplated by this Agreement, this Subcontract Agreement may be terminated at the request of either Party.
+
+12
+
+H.26.
+RESERVED
+
+H.27.
+Effect of Any Invalidity of Any Provision(s)
+
+        The
+invalidity in whole or in part of any provision of this Subcontract Agreement shall not affect the validity of any other provision(s) of this Subcontract.
+
+H.28.
+Taxes
+
+        Unless
+otherwise provided herein, the price of the supplies/services includes all applicable federal, state, and local taxes
+
+H.29.
+FPII's Review and Approval
+
+A. When
+review and approval of Subcontractor's work is necessary or required under this Subcontract, the Subcontractor shall allow sufficient time for such
+review and/or approval as may reasonably be required by FPII and/or the Government. FPII shall advise Subcontractor of specific reasons for rejection of any of Subcontractor's submissions for
+review/approval. FPII's notice of approval, acceptability, concurrence, or release to proceed with the work shall be construed only as acknowledgement that the course of action proposed by
+Subcontractor appears reasonable and that Subcontractor may proceed to fulfill its responsibility to perform services in full conformance with the requirements of this Agreement
+
+H.30.
+Rights in Data and Computer Software
+
+        Unless
+otherwise set forth herein, all technical data and computer software developed for the performance of this Subcontract shall be delivered to FPII on the
+basis that the Government's rights thereto will be unlimited and unrestricted respectively as defined in FAR/DFARS of the Prime Contract
+
+H.31.
+Order of precedence
+
+        In
+the event of an inconsistency in this Agreement, unless otherwise provided herein, the inconsistency shall be resolved by giving precedence in the following
+order as each section noted may have been modified:
+
+(a) Purchase
+Orders (inclusive of the Letter Agreement(s) and FAR/DFARS referenced therein)
+(b) This
+Subcontract Agreement
+(c) Attachments
+to this Subcontract Agreement
+
+H.32.
+Liability
+
+        Excepting
+any claims based on any infringement of proprietary rights, in no event will either Party be liable for consequential damages of any kind, including
+without limitation loss of profits or other incidental or special damages whether due to or based upon delay, breach of contract, warranty, tort, negligence or strict liability.
+
+H.33.
+Invention Disclosures and Reports
+
+        Prior
+to final payment and as a condition thereof, Subcontractor shall submit to FPII all invention disclosures and reports if required by the U.S. Government
+FPII is responsible for transmitting to the Government all such information supplied by Subcontractor.
+
+13
+
+H.34.
+Acceptance of Agreement
+
+        This
+Agreement becomes a binding subcontract, subject to the terms and conditions hereof, when executed by both Parties.
+
+H.35.
+Entire Agreement
+
+        Upon
+execution of this Subcontract, the Parties agree that the provisions under this Subcontract including all documents incorporated herein by reference,
+shall constitute the entire Agreement between the parties hereto and supersede all prior agreements, relating to the subject matter hereof. This Subcontract may not be modified or terminated orally,
+and neither modification nor any claimed waiver of any of the provisions hereof shall be binding unless in writing and signed by the Party against whom such modification or waiver is sought to be
+enforced.
+
+SECTION I—GENERAL PROVISIONS
+
+GOVERNMENT FLOW DOWN PROVISIONS
+
+        The following Federal Acquisition Regulations (FARs) and agency FAR Supplement clauses are incorporated herein by reference and made a
+part hereof. The FAR and FAR Supplement clauses are the versions in effect as noted in the prime contract. Except as may be expressly otherwise provided below in each of such clauses, "Contractor"
+shall mean "Subcontractor "; "Subcontractor" shall mean "Subcontractor's subcontractor"; and "Contract" shall mean "this Agreement." "Contracting Officer", "Government" and "Prime Contractor" shall
+mean FPII". Except for those clauses having to do with Audits and Audit rights and disclosure of financial and accounting data; the terms "Contracting Officer" and "Government" shall remain Government
+entities.
+
+        The
+Subcontractor, by accepting this Subcontract Agreement, hereby represents, warrants and certifies that it is in compliance with the following clauses and is, therefore, eligible for
+award.
+
+14
+
+FAR
+Clauses Incorporated by Reference
+
+Clause
+
+Title
+
+52.202-1
+ 
+Definitions (July 2004)
+
+52.203-3
+ 
+Gratuities (Apr 1984)
+
+52.203-5
+ 
+Covenant Against Contingent Fees (Apr 1984)
+
+52.203-6
+ 
+Restrictions on Subcontractor Sales to the Government (July 1995)
+
+52.203-7
+ 
+Anti-Kickback Procedures (July 1995)
+
+52.203-8
+ 
+Cancellation, Rescission, and Recovery of Funds for Illegal Activity (Jan 1997)
+
+52.203-10
+ 
+Price or Fee Adjustment for illegal or Improper Activity (Jan 1997)
+
+52.203-12
+ 
+Limitation on Payments to Influence Certain Federal Transactions (Sept 2005)
+
+52.204-4
+ 
+Printed or Copied Double-Sided on Recycled Paper (Aug 2000)
+
+52.204-7
+ 
+Central Contractor Registration (Jul 2006)
+
+52.209-6
+ 
+Protecting the Government's Interest When Subcontracting with Contractors Debarred, Suspended, or Proposed for Debarment (Jan 2005)
+
+52.211-5
+ 
+Material Requirements (Aug 2000)
+
+52.211-15
+ 
+Defense Priority and Allocation Requirements (Sept 1990)
+
+52.215-2
+ 
+Audit and Records -Negotiation (June 1999)
+
+52.215-8
+ 
+Order of Precedence- Uniform Contract Format (Oct 1997)
+
+52.215-14
+ 
+Integrity of Unit Prices (Oct 1997)
+
+52.215-15
+ 
+Pension Adjustments and Asset Reversions (Oct 2004)
+
+52.215-18
+ 
+Reversion or Adjustment of Plans for Postretirement Benefits (July 2005)
+
+52.219-8
+ 
+Utilization of Small Business Concerns (May 2000)
+
+52.219-9
+ 
+Small Business Subcontracting Plan (Sep 2006)
+
+52.219-9 AltII
+ 
+Small Business Subcontracting Plan (Sep 2006) Alternate II
+
+52.219-16
+ 
+Liquidated Damages—Subcontracting Plan (Jan 1999)
+
+52.222-1
+ 
+Notice to the Government of Labor Disputes (Feb 1997)
+
+52.222-3
+ 
+Convict Labor (June 2003)
+
+52.222-4
+ 
+Contract Work Hours and Safety Standards Act—Overtime Compensation (Jul 2005)
+
+52.222-19
+ 
+Child Labor—Cooperation with Authorities and Remedies (Jan 2006)
+
+52.222-20
+ 
+Walsh-Healey Public Contracts Act (Dec 1996)
+
+52.222-26
+ 
+Equal Opportunity (Apr 2002)
+
+52.222-35
+ 
+Affirmative Action for Special Disabled and Vietnam Era Veterans (Dec 2001)
+
+52.222-36
+ 
+Affirmative Action for Handicapped Workers (June 1998)
+
+52.222-37
+ 
+Employment Reports on Special Disabled Veterans, Veterans of the Vietnam Era, and Other Eligible Veterans (Sept 2006)
+
+52.223-3
+ 
+Hazardous Material Identification and Material Safety Data (Jan 1997)
+
+52.223-5
+ 
+Pollution Prevention and Right-to-Know Information (Aug 2003)
+
+52.223-6
+ 
+Drug-Free Workplace (May 2001)
+
+52.223-12
+ 
+Refrigeration Equipment and Air Conditioners (May 1995)
+
+52.223-14
+ 
+Toxic Chemical Release Reporting (Aug 2003)
+
+52.224-1
+ 
+Privacy Act Notification (Apr 1984)
+
+52.224-2
+ 
+Privacy Act (Apr 1984)
+
+52.225-13
+ 
+Restrictions on Certain Foreign Purchases (Feb 2006)
+
+52.227-1
+ 
+Authorization and Consent (July 1995)
+
+52.227-2
+ 
+Notice and Assistance Regarding Patent and Copyright Infringement (Aug 1996)
+
+52.227-21
+ 
+Technical Data Declaration, Revision and Withholding of Payment—Major Systems (Jan 1997)
+
+52.227-22
+ 
+Major System-Minimum Rights (June 1987)
+
+52.229-3
+ 
+Federal, State, and Local Taxes (Apr 2003)
+
+52.232-1
+ 
+Payments (1984)
+
+15
+
+Clause
+
+Title
+
+52.232-8
+ 
+Discounts For Prompt Payment (Feb 2002)
+
+52.232-9
+ 
+Limitation on Withholding of Payments (Apr 1984)
+
+52.232-11
+ 
+Extras (Apr 1984)
+
+52.232-17
+ 
+Interest (Jun 1996)
+
+52.232-18
+ 
+Availability of Funds (Apr 1984)
+
+52.232-23
+ 
+Assignment of Claims (Jan 1986)
+
+52.232-23 AltI
+ 
+Assignment of Claims (Jan 1986)—Alternate I
+
+52.232-25
+ 
+Prompt Payment (Oct 2003)
+
+52.232-32
+ 
+Performance-Based Payments (Feb 2002)
+
+52.232-33
+ 
+Payment by Electronic Funds Transfer—Central Contractor Registration (Oct 2003)
+
+52.233-1
+ 
+Disputes (July 2002)
+
+52.233-1 AltI
+ 
+Disputes (Jul 2002)—Alternate I
+
+52.233-3
+ 
+Protest After Award (Aug 1996)
+
+52.242-13
+ 
+Bankruptcy (July 1995)
+
+52.242-15
+ 
+Stop-Work Order (Aug 1989)
+
+52.242-17
+ 
+Government Delay of Work (Apr 1984)
+
+52.243-1
+ 
+Changes-Fixed Price ((Aug 1987)
+
+52.243-7
+ 
+Notification of Changes (Apr 1984)
+
+52.244-2
+ 
+Subcontracts (Aug 1998)
+
+52.244-5
+ 
+Competition in Subcontracting (Dec 1996)
+
+52.244-6
+ 
+Subcontracts for Commercial Items and Commercial Components (Feb 2006)
+
+52.245-2
+ 
+Government Property (Fixed Price Contracts) (May 2004)
+
+52.246-15
+ 
+Certificate of Conformance (Apr 1984)
+
+52.246-16
+ 
+Responsibility for Supplies (Apr 1984)
+
+52.246-24
+ 
+Limitation of Liability—High Value Items (Feb 1997)
+
+52.247-48
+ 
+F.O.B. Destination—Evidence of Shipment (Feb 1999)
+
+52.247-55
+ 
+F.O.B. Point for Delivery of Government-Furnished Property (Jun 2003)
+
+52.247-58
+ 
+Loading, Blocking, and Bracing of Freight Car Shipment (Apr 1984)
+
+52.249-2
+ 
+Termination for Convenience of the Government (Fixed Price) (May 2004)
+
+52.249-8
+ 
+Default (Fixed-Price Supply and Service) (Apr 1984)
+
+52.251-1
+ 
+Government Supply Sources (Apr 1984)
+
+52.253-1
+ 
+Computer Generated Forms (Jan 1991)
+
+52.252-2
+ 
+Clauses Incorporated by Reference (Feb 1998)
+
+DOD FAR Supplement Clauses Incorporated by Reference
+
+16
+
+Clause
+
+Title
+
+252.203-7001
+ 
+Prohibition on Persons Convicted of Fraud or Other Defense-Contract-Related Felonies (Dec 2004)
+
+252.203-7002
+ 
+Display of DoD Hotline Poster (Dec 1991)—Required for contracts over $5M
+
+252.204-7000
+ 
+Disclosure of Information (Dec 1991)
+
+252.204-7003
+ 
+Control of Government Personnel Work Product (Apr 1992) 252-204-7004 AltA Central Contractor Registration (52.204-7) Alternate A (Nov 2003)
+
+252.205-7000
+ 
+Provision of Information to Cooperative Agreement Holders (Dec 1991)
+
+252.209-7004
+ 
+Subcontracting with Firms that are Owned or Controlled by the Government Of a Terrorist Country (Mar 1998)
+
+252.211-7000
+ 
+Acquisition Streamlining (Dec 1991)
+
+252.219-7003
+ 
+Small, Small Disadvantaged and Women-Owned Small Business Subcontracting Plan (DOD Contracts) (Apr 1996)
+
+252.219-7011
+ 
+Notification to Delay Performance (Jun 1998)
+
+252.223-7004
+ 
+Drug-Free Workforce (SEP 1988)
+
+252.225-7001
+ 
+Buy America Act and Balance of Payments Programs (Jun 2005)
+
+252.225-7002
+ 
+Qualifying Country Sources As Subcontractors (Apr 2003)
+
+252.225-7013
+ 
+Duty Free Entry (June 2005)
+
+252.225-7040
+ 
+Contractor Personnel Authorized to Accompany U.S. Armed Forces Deployed Outside the United States (Jun 2006)
+
+252.227-7013
+ 
+Rights in Technical Data—Noncommercial Items (Nov 1995)
+
+252.227-7014
+ 
+Rights in Noncommercial Computer Software and Noncommercial Computer Software Documentation (Jun 1995)
+
+252.227-7015
+ 
+Technical Data—Commercial Items (Nov 1995)
+
+252.227-7016
+ 
+Rights in Bid or Proposal Information (Jun 1995)
+
+252.227-7019
+ 
+Validation of Asserted Restrictions—Computer Software (Jun 1995)
+
+252.227-7025
+ 
+Limitation on Use or Disclosure of Government-Furnished Information Marked With Restrictive Legends (June 1995)
+
+252.227-7027
+ 
+Deferred Ordering of Technical Data or Computer Software (Apr 1988)
+
+252.227-7030
+ 
+Technical Data-Withholding of Payment (Mar 2000)
+
+252.227-7037
+ 
+Validation of Restrictive Markings on Technical Data (Sept 1999)
+
+252.243-7002
+ 
+Requests for Equitable Adjustments (Mar 1998)
+
+252.244-7000
+ 
+Subcontracts for Commercial Items and Commercial Components (Dod Contracts) (Nov 2005)
+
+252.245-7001
+ 
+Reports of Government Property (May 1994)
+
+252.246-7000
+ 
+Material Inspection and Receiving Report (Mar 2003)
+
+252.247-7023
+ 
+Transportation of Supplies by Sea (May 2002)
+
+252.249-7002
+ 
+Notification of Anticipated Program Termination or Reduction (Dec 1996)
+
+17
+
+Attachment 1
+Statement of Work
+
+Contract Administration and Revenue Management/Invoicing Services
+Statement of Work (SOW)
+
+        The parties agree that the functions of Contract Administration and Revenue Management/Invoicing Services for Prime Contract
+M67854-07-D-5031 which are currently being provided by Force Protection Industries, Inc. (FPII) shall be transferred to General Dynamics Land
+Systems, Inc. (GDLS) at no additional cost to the subcontract between GDLS and FPII in support of the prime contract. The transfer of these duties does not in any way transfer or assign
+contract performance or responsibility from FPII to GDLS. Nor does this transfer increase or decrease the contractual liabilities of FPII or GDLS. Either party may terminate this SOW, in whole or in
+part, with 60 days prior written notice to the other party.
+
+A. GDLS
+will provide timely Contract Administration in support of Prime Contract M67854-07-D-5031 and all resulting Delivery
+Orders and modifications. In this capacity, and acting on behalf of FPII, GDLS will provide the lead in the following areas:
+
+1. Receipt
+and transmission of all formal contract communications with the PCO and/or the ACO and any other customer agencies. GDLS will coordinate
+correspondence with all associated parties, act as the customer interface, and coordinate approvals and notifications pursuant to contract actions/requirements. GDLS will electronically record
+distribute and track all formal communications.
+2. Receipt,
+coordination and response to all Government Requests for Quotes (RFQ's) or Requests for Proposal (RFP's) and coordination and submittal of all
+Proposals. GDLS will incorporate FPII inputs and GDLS inputs into all Estimates/Proposal Submissions to the customer. FPII is responsible for timely submittals of all required inputs.
+3. Receipt
+and review of all delivery orders and contract modifications. FPII will execute contractual documents which are binding on FPII. However, with FPII's
+prior written approval, GDLS may execute contract actions on behalf of FPII. The parties agree to develop a formal approval document to use for such authorization purposes. However, for routine
+contract actions that do not impact cost schedule or party liabilities an informal coordination via e-mail can be provided by FPII to GDLS in lieu of a formal authorization. All such
+approvals shall be provided to the GDLS contract representative via an FPII contract representative.
+4. Lead
+negotiations, subject to FPII's prior written approval, with all matters involving the PCO or ACO. FPII will provide timely support as required.
+5. FPII
+will provide contract support to GDLS as requested in the same manner that GDLS currently provides such support to FPII. It is anticipated that FPII
+will be providing a minimum of one full time head in support of prime contract administration activities including by way of example drafting of letters and/or correspondence, providing proposal
+inputs and CDRL input, supporting negotiations, etc.
+6. Tracking
+and submission of all Contract Deliverables. GDLS will incorporate FPII inputs and GDLS inputs into all formal Contract Deliverables as required
+under Attachment 3 of Prime Contract M67854-07-D-5031. FPII will be responsible for forwarding all necessary inputs to GDLS 72 hours prior to the CDRL due
+date to the customer. GDLS will provide advance notification to FPII Contracts representative of all CDRL due dates.
+
+Attachment 1-1
+
+        GDLS
+conduct of the above tasks is conditioned upon FPII securing a modification from the USG recognizing GDLS as an additional authorized contract interface on the prime contract.
+
+B. GDLS
+will provide Revenue Management/Invoicing Services in support of Prime Contract M67854-07-D-5031 and all resulting
+Delivery Orders and modifications. In this capacity, and acting on behalf of FPII, GDLS will provide the lead in the following areas:
+
+1. Tracking
+invoices processed for all CLINS submitted on DD250s including vehicle shipments, spares shipments, Field Service Representatives, etc.
+2. Consolidating
+partner input, submitting invoices and tracking invoices for any other non-DD250 billings such as performance based payments.
+3. Correction,
+coordination, and follow-up of rejected invoices with the Customer.
+4. Providing
+cash disbursement allocations for receipts in to the FPII bank account to allow payment to GDLS for their scope of work.
+5. Coordination
+of billing processes and procedures between FPII, GDLS and the subcontractors.
+6. GDLS
+Revenue Management and Invoicing Services will not include the following:
+
+a. Loading
+DD250's into MILPAC for vehicles delivered or services performed by FPII or any of their subcontractors (excluding GDLS and their subcontractors).
+b. Obtaining
+DCMA approval of the milestones achieved by FPII or their subcontractors (excluding GDLS and their subcontractors).
+
+7. The
+following information is required of FPII prior to GDLS' start of Revenue Management and Invoicing Services:
+
+a. FPII
+Federal Tax Identification Number (allows access to My Invoice).
+b. Agreement
+with ACO allowing GDLS representative to act on behalf of FPII with both DFAS and the ACO as required.
+c. The
+purchase and support of MILPAC software to facilitate data interchange between GDLS and FPII. Submission of a MILPAC generated FTP file and accompanying
+attachments uniquely identified to the FTP file will be required daily for upload into WAWF.
+d. FPII
+shall disburse to GDLS, by end of the next business day of receipt, the cash received for the GDLS billed Scope of Work.
+
+Attachment 1-2
+
+QuickLinks
+
+Exhibit 10.52

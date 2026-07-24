@@ -1,0 +1,2409 @@
+<DOCUMENT>
+<TYPE>EX-10
+<SEQUENCE>5
+<FILENAME>franchiseagmt.txt
+<DESCRIPTION>FORM OF FRANCHISE AGREEMENT
+<TEXT>
+
+STANDARD FORM
+
+APPLEBEE'S NEIGHBORHOOD GRILL & BAR
+
+FRANCHISE AGREEMENT
+
+-----------------------------------
+(Location Address)
+
+-----------------------------------
+(Franchisee Name)
+
+-----------------------------------
+(Date)
+
+-1-
+<PAGE>
+
+TABLE OF CONTENTS
+
+RECITALS................................................................. 3
+
+1. FRANCHISE GRANT AND TERM........................................ 4
+2. UNIFORM STANDARDS............................................... 5
+3. COMPLIANCE WITH THE SYSTEM...................................... 6
+4. GENERAL SERVICES OF FRANCHISOR.................................. 6
+5. RESTAURANT SYSTEM AND PROCEDURES................................ 7
+6. TRAINING........................................................ 10
+7. RESTAURANT MAINTENANCE.......................................... 10
+8. ADVERTISING..................................................... 11
+9. FEES............................................................ 13
+10. RECORD KEEPING.................................................. 15
+11. FRANCHISEE ORGANIZATION, AUTHORITY,
+FINANCIAL CONDITION AND SHAREHOLDERS............................ 15
+12. TRANSFER........................................................ 18
+13. CONFIDENTIALITY; RESTRICTIONS................................... 21
+14. INSPECTIONS..................................................... 23
+15. RELATIONSHIP OF PARTIES AND INDEMNIFICATION..................... 24
+16. INSURANCE....................................................... 26
+17. DEBTS AND TAXES................................................. 28
+18. TRADE NAMES, SERVICE MARKS AND TRADEMARKS....................... 28
+19. EXPIRATION AND TERMINATION; OPTION TO
+PURCHASE RESTAURANT; ATTORNEYS' FEES............................ 30
+20. NO WAIVER OF DEFAULT............................................ 35
+21. CONSTRUCTION, SEVERABILITY,
+GOVERNING LAW AND JURISDICTION.................................. 35
+22. INTERFERENCE WITH EMPLOYMENT RELATIONS.......................... 36
+23. LIQUOR LICENSE.................................................. 37
+24. FORCE MAJEURE................................................... 37
+25. MISCELLANEOUS................................................... 38
+26. ACKNOWLEDGMENTS................................................. 39
+
+EXHIBIT 1: ROYALTY FEE................................................ 41
+
+APPENDIX A: STATEMENT OF OWNERSHIP INTERESTS........................... 42
+
+APPENDIX B: REVIEW AND CONSENT WITH
+RESPECT TO TRANSFERS....................................... 43
+
+APPENDIX C: CONFIDENTIALITY AGREEMENT.................................. 44
+
+-2-
+<PAGE>
+
+APPLEBEE'S NEIGHBORHOOD GRILL & BAR
+FRANCHISE AGREEMENT
+
+This Agreement is made this ________ day of _____________________, 20______, by
+and between APPLEBEE'S INTERNATIONAL, INC., a Delaware corporation
+("FRANCHISOR"), _____________________________________________, a
+(_______________ corporation, sole proprietorship, _______________ partnership,
+_______________ limited partnership [strike inappropriate language])
+("FRANCHISEE") and --------------------------------------
+______________________________ (collectively, the "PRINCIPAL SHAREHOLDERS" and,
+individually, a "PRINCIPAL SHAREHOLDER" of Franchisee if a corporation or
+general partner if Franchisee is a limited partnership having as its general
+partner a corporation) and
+------------------------------------------------------------------------------
+("GENERAL PARTNER" of Franchisee if Franchisee is a limited partnership).*
+
+* (If Franchisee is not a corporation or a sole proprietorship, or if
+Franchisee is a limited liability company, the parties hereto hereby agree that
+an Addendum shall be attached to this Agreement so as properly to reflect the
+responsibilities of the partners of any general partnership, the general partner
+of any limited partnership and the shareholders of any corporate general partner
+of any partnership, or the members of any limited liability company.)
+
+WITNESSETH:
+
+RECITALS
+
+A. Franchisor owns the rights to develop and operate a unique system of
+restaurants which specialize in the sale of high quality, moderately priced food
+and alcoholic beverages in an attractive, casual setting, which includes
+proprietary rights in certain valuable trade names, service marks and
+trademarks, including the service mark Applebee's Neighborhood Grill & Bar and
+variations of such mark, designs, decor and color schemes for restaurant
+premises, signs, equipment, procedures and formulae for preparing food and
+beverage products, specifications for certain food and beverage products,
+inventory methods, operating methods, financial control concepts, training
+facilities and teaching techniques ("the System").
+
+B. Franchisor established, through its own development and operation, and
+through the granting of franchises, a chain of Applebee's Neighborhood Grill &
+Bar restaurants which are distinctive; which are similar in appearance, design
+and decor; and which are uniform in operation and product consistency.
+
+C. The value of Franchisor's trade names, service marks and trademarks is
+based upon: (1) the maintenance of uniform high quality standards in connection
+with the preparation and sale of Franchisor-approved food and beverage products,
+(2) the uniform high standards of appearance of the individual restaurant units
+in the System, (3) the use of distinctive trademarks, service marks, building
+designs and advertising signs representing a uniformly high quality of product
+and services, and (4) the assumption by Franchisor and its franchisees of the
+obligation to maintain and enhance the goodwill and public acceptance of the
+System (and of Franchisor's trade names, service marks and trademarks) by strict
+adherence to the high standards required by Franchisor.
+
+-3-
+<PAGE>
+
+D. Franchisor, Franchisee and the Principal Shareholders have entered into
+a Development Agreement dated __________________, 20____ ("Development
+Agreement"), relating to the development by Franchisee of Applebee's
+Neighborhood Grill & Bar restaurants.
+
+E. Franchisee desires to use the System in connection with the operation
+of an Applebee's Neighborhood Grill & Bar restaurant at the location which is
+specified in Subsection 1.1 of this Agreement, pursuant to the terms, conditions
+and provisions hereinafter set forth.
+
+NOW, THEREFORE, in consideration of the mutual obligations contained herein, it
+is hereby agreed as follows:
+
+1. FRANCHISE GRANT AND TERM
+
+1.1 Franchisor grants Franchisee, for the term stated below, the right,
+license and privilege:
+
+(a) to use the System incident to the operation of an Applebee's
+Neighborhood Grill & Bar restaurant at ____________________________________
+(the "Restaurant");
+
+(b) to use the trade names, service marks and trademarks which
+Franchisor shall from time to time designate as part of the System, but only
+in connection with the sale at the Restaurant of those products which
+Franchisor has designated and approved; and
+
+(c) to hold itself out to the public as a Franchisee of Franchisor.
+
+1.2 The term of the franchise shall commence as of the Commencement Date,
+as hereinafter defined, and shall end twenty (20) years thereafter, unless this
+Agreement is terminated prior to that date in accordance with its provisions.
+"Commencement Date," as used herein, shall mean the date upon which the
+Restaurant opens for business. The parties agree to affix to this Agreement an
+addendum expressly setting forth the Commencement Date, which, when so affixed,
+shall become a part of this Agreement.
+
+1.3 At the expiration of the term hereof, Franchisee shall have an option
+to operate the Restaurant for four (4) successive terms of five (5) years
+(unless the franchise agreement with respect to that additional term is sooner
+terminated in accordance with its provisions), provided that immediately prior
+to each such five (5) year term (a) Franchisee satisfies the requirements which
+Franchisor then-imposes on its new franchisees, (b) all other restaurant units
+within the System which Franchisee then-operates substantially comply, in the
+opinion of Franchisor, with Franchisor's then-current standards, specifications,
+requirements and instructions, and (c) Franchisee executes the form of franchise
+agreement which Franchisor is then using with respect to new restaurants within
+the System, with the amount of royalty and advertising fees payable at the rates
+then-prevailing under the franchise agreements which Franchisor is then using
+
+-4-
+<PAGE>
+
+for new restaurants within the System, and Franchisee pays to Franchisor for
+each of said five (5) year periods a franchise fee equal to ten percent (10%) of
+the prevailing franchise fee paid by new franchisees at that time. Any franchise
+agreement which Franchisee executes for such additional term will also contain
+options to obtain an assignment of Franchisee's lease with a third party and/or
+to purchase certain property or to purchase or lease the Restaurant premises
+exercisable by Franchisor upon termination thereof and an option to purchase or
+lease the Restaurant premises exercisable by Franchisor upon expiration of the
+renewal term (subject to any then-existing renewal rights of Franchisee). Such
+options will contain provisions substantially similar to the provisions of
+Franchisor's options described in Subsection 19.4 hereof. Franchisee shall give
+Franchisor written notice of its desire to exercise its option to operate the
+Restaurant for an additional term no earlier than twelve (12) months, and no
+later than seven (7) months, prior to expiration of the initial term. If
+Franchisee gives that notice, Franchisor, in its sole discretion, reasonably
+exercised, shall determine whether Franchisee has satisfied the foregoing
+requirements. Within forty-five (45) days of receiving the notice described
+above, Franchisor shall notify Franchisee in writing whether or not Franchisee
+is eligible to exercise the option described in this Subsection.
+
+1.4 During the period from the date of this Agreement to the expiration or
+earlier termination of this Agreement, Franchisor shall not establish a
+restaurant unit utilizing the System, or license another franchisee to establish
+a restaurant unit utilizing the System, at any location within the lesser of a
+three (3) mile radius of the Restaurant or a radius from the Restaurant which
+includes either a daytime or residential population of forty thousand (40,000)
+or more people. Notwithstanding the foregoing, Franchisor may establish a
+restaurant unit or may license a restaurant unit to a third party within the
+geographic area set forth in the preceding sentence, provided that (i) such
+restaurant is located within an airport (serviced by one or more public or
+charter carrier), arena, stadium, state or national park, or military fort, post
+or base, (ii) is located across an international border, or (iii) does not
+utilize the System or utilize the Applebee's Neighborhood Grill & Bar service
+mark.
+
+1.5 Franchisee, in consideration of the benefits and privileges provided to
+it by this Agreement, agrees to operate the Restaurant and perform as required
+hereunder for the full term of this Agreement.
+
+1.6 This Agreement is entered into pursuant to and subject to the terms and
+conditions which are set forth in the Development Agreement.
+
+2. UNIFORM STANDARDS
+
+2.1 The System is a comprehensive restaurant system for the retailing of
+certain uniform and quality food and beverage products (including alcoholic
+beverages), emphasizing a varied menu of high quality, moderately priced food
+products (including appetizers, creative sandwiches, dinner entrees and
+desserts), a selection of alcoholic and other beverages, and prompt and
+courteous service in a clean, wholesome, casual atmosphere. The foundation of
+the System is the establishment and maintenance of a reputation among the public
+for the operation of high quality restaurant units. A fundamental requirement of
+the System, this Franchise Agreement and franchises which Franchisor will grant
+to others is adherence by all franchisees to Franchisor's standards and policies
+providing for the uniform operation of all restaurant units within the System,
+including, but not limited to, (a) selling only those products which Franchisor
+has designated and approved, (b) using only Franchisor's prescribed building
+layout and designs, equipment, signs, interior and exterior decor items,
+fixtures and furnishings, (c) adhering strictly to Franchisor's standards and
+specifications relating to the selection, purchase, storage, preparation,
+packaging, service and sale of all food and beverage products being sold at the
+Restaurant, and (d) satisfying all of Franchisor's prescribed standards of
+quality, service and cleanliness. Compliance by all franchisees with the
+foregoing standards and policies in conjunction with the use of Franchisor's
+trade names, service marks and trademarks provides the basis for the wide public
+acceptance of the System and its valuable goodwill. Accordingly, strict
+adherence by all franchisees to all aspects of the System is required at all
+times.
+
+-5-
+<PAGE>
+
+2.2 The provisions of the Agreement shall be interpreted to give effect to
+the intent of the parties stated in this Section 2 to assure that Franchisee
+shall operate the Restaurant in conformity with the System, through strict
+adherence to Franchisor's standards and policies as they now exist and as they
+may be modified from time to time.
+
+3. COMPLIANCE WITH THE SYSTEM
+
+Franchisee acknowledges that every component of the System is important to
+Franchisor, to all franchisees and to the operation of the Restaurant, including
+the requirements (a) that only those products designated and approved by the
+Franchisor are sold at the Restaurant, and (b) that there is uniformity of food
+and beverage specifications, preparation methods, quality, appearance, building
+and interior design, color and decor, landscaping, facilities and service among
+all restaurant units in the System. Accordingly, Franchisee agrees to and shall
+comply with all aspects of the System (as it now exists and as it may be
+modified from time to time). Franchisee recognizes and agrees that Franchisor
+may prohibit the use of the System and its trade names, notwithstanding the
+granting of this Agreement, if Franchisee fails to design, construct, equip or
+furnish its Restaurant in compliance with the specifications designated by
+Franchisor, unless prior written approval has been received from Franchisor.
+
+4. GENERAL SERVICES OF FRANCHISOR
+
+4.1 Franchisor shall advise and consult with Franchisee periodically in
+connection with the operation of the Restaurant, and at other reasonable times
+upon Franchisee's request. Franchisor will provide to Franchisee such of its
+know-how, new developments, techniques and improvements in areas of restaurant
+design, management, food and beverage preparation, sales promotion and service
+concepts as may be pertinent to the construction and operation of the Restaurant
+under the System. Franchisor may provide the foregoing information (a) by
+sending representatives to visit the Restaurant, (b) by providing written or
+other material, (c) at meetings or seminars, and (d) at training sessions at
+Franchisor's training facility and/or such other locations as may be selected by
+Franchisor from time to time. Franchisor also shall make available to Franchisee
+all additional services, facilities, rights and privileges which Franchisor
+makes available from time to time to its franchisees of the System generally.
+
+-6-
+<PAGE>
+
+4.2 For approximately eight (8) days prior to the opening of the Restaurant
+and the first six (6) days that the Restaurant is open for business, Franchisor
+shall provide Franchisee, at Franchisor's expense, with the services of up to a
+maximum of six (6) of Franchisor's training personnel to facilitate proper
+operation of the kitchen, bar and dining room areas during that period and to
+assist in correcting any operational problems which may arise.
+
+4.3 From time to time during the term of this Agreement, Franchisor will
+develop and test new menu items. The menu consists of approved national food and
+beverage selections. Franchisee shall comply with all menu changes which
+generally occur every six (6) months. The menu may be modified to reflect food
+and beverage items peculiar to Franchisee's local area, subject to Franchisor's
+testing and approval.
+
+5. RESTAURANT SYSTEM AND PROCEDURES
+
+5.1 Franchisor shall furnish Franchisee with advice and assistance in
+managing and operating the Restaurant, and Franchisor's representatives will
+visit the Restaurant periodically. Franchisor will assist Franchisee in
+coordinating the Restaurant's pre-opening activities, and as noted more
+particularly in Subsection 4.2 hereof, shall provide Franchisee with the
+services of certain of Franchisor's personnel to facilitate proper operation of
+the Restaurant when it opens for business.
+
+5.2 Franchisee shall designate an employee who will supervise the
+Restaurant, and devote his or her full time, best efforts and constant personal
+attention to the day-to-day operation of the Restaurant (the "General Manager").
+Franchisee also shall designate an employee who will supervise the Restaurant
+kitchen, and devote his or her full time, best efforts and constant personal
+attention to the day-to-day operation of the Restaurant kitchen (the "Kitchen
+Manager").
+
+5.3 Franchisee shall require that the General Manager, the Kitchen Manager
+and each of Franchisee's employees who serve as Restaurant managers to maintain
+his or her principal personal residence within a usual driving time of not more
+than approximately one (1) hour from the Restaurant. Franchisor reserves the
+right to require that, as a condition of his or her employment, the General
+Manager must successfully complete Franchisor's interview process and a
+psychological profile test in a manner which satisfies a uniform standard
+established by Franchisor. The test shall be administered by Franchisor, or by a
+testing agency designated by Franchisor, at Franchisee's expense.
+
+5.4 Unless Franchisor shall have given its prior written approval,
+Franchisee shall keep the Restaurant open for business only during the hours
+which are specified by Franchisor in the Franchise Operations Manual or in such
+other materials or manuals provided or made available by Franchisor to
+Franchisee (collectively the "Manuals"), provided that such hours do not
+conflict with state laws or local ordinances relating to the sale of alcoholic
+beverages or governing the hours during which restaurant establishments may be
+open for business. In addition, Franchisee expressly agrees to:
+
+(a) operate the Restaurant in a clean, safe and orderly manner,
+providing courteous, first-class service to the public;
+
+-7-
+<PAGE>
+
+(b) diligently promote and make every reasonable effort to increase
+the business of the Restaurant;
+
+(c) advertise the business of the Restaurant by the use of the
+Franchisor's trade names, service marks and trademarks and such other
+insignia, slogans, emblems, symbols, designs and other identifying
+characteristics as may be developed or established from time to time by
+Franchisor and included in the Manuals, subject to the limitations of
+Subsections 8.4 and 8.5 hereof;
+
+(d) prohibit and, to the best of Franchisee's ability, prevent the use
+of the Restaurant for any immoral or illegal purpose, or for any other
+purpose, business activity, use of function which is not expressly
+authorized hereunder or in the Manuals; and
+
+(e) comply fully with all applicable laws and regulations, including,
+but not limited to, those relating to building construction, maintenance and
+safety, environmental, fire prevention, food safety, public access and the
+sale of alcoholic beverages.
+
+5.5 Franchisee hereby acknowledges receipt and loan of a copy of the
+Manuals heretofore or hereinafter furnished to Franchisee, and agrees to
+faithfully, completely and continuously perform, fulfill, observe and follow
+all instructions, requirements, standards, specifications, systems and
+procedures contained therein, including (a) those relating to the construction,
+design, decor, building and equipping of the Restaurant, (b) those relating to
+the selection, purchase, storage, preparation, packaging, service and sale of
+all products being sold at the Restaurant, (c) those relating to the maintenance
+and repair of Restaurant building, grounds, equipment, signs, interior and
+exterior decor items, fixtures and furnishings, and (d) those relating to
+employee uniforms and dress, accounting, bookkeeping, record retention, and
+other business systems, procedures and operations. The Manuals are incorporated
+herein by reference and hereby made part of this Agreement. Franchisee
+acknowledges and agrees that the materials contained in the Manuals are
+integral, necessary and material elements of the System.
+
+5.6 Franchisee understands, acknowledges and agrees that strict conformity
+with the System, including the standards, specifications, systems, procedures,
+requirements and instructions contained in this Agreement and in the Manuals, is
+vitally important, not only to the success of Franchisor, but to the collective
+success of all of Franchisor's other franchisees, by reason of the benefits
+which Franchisor and all of its franchisees will derive from uniformity in
+products sold, identity, quality, appearance, facilities and service among all
+restaurant units which are part of the System. Without limiting the generality
+of the foregoing provisions, Franchisee agrees to adhere strictly to the
+requirements in the Manuals relating (a) to the construction, design, decor,
+building and equipping of the Restaurant, (b) to the maximum permissible ratio
+of sales of alcoholic beverages to sales of food at the Restaurant, and (c) to
+the limitations on the number of video games or similar devices which may be
+placed on the Restaurant premises. Any failure to adhere to the standards,
+specifications, systems, requirements or instructions contained in this
+Agreement or in the Manuals shall constitute a material breach of this
+Agreement.
+
+-8-
+<PAGE>
+
+5.7 Franchisor shall have the right, at any time and from time to time, in
+the good faith exercise of its reasonable business judgment, consistent with the
+overall best interests of the System generally, having due regard for the
+financial burden which may be placed upon its franchisees, to revise, amend,
+delete from and add to the System and the material contained in the Manuals.
+Franchisee expressly agrees to comply with all such revisions, amendments,
+deletions and additions.
+
+5.8 Franchisee shall offer for sale from the Restaurant, at all times when
+the Restaurant is open for business, only the products which are expressly
+designated in the Manuals, except, as noted more particularly in Subsection 4.3,
+to the extent that Franchisee has obtained Franchisor's prior written consent to
+a modification of that requirement. No product shall be offered or sold at or
+from the Restaurant under, or in connection with, any trademark or service mark
+other than Franchisor's designated trademarks and service marks without
+Franchisor's prior written consent.
+
+5.9 Franchisee shall obtain all food and beverage products, equipments,
+signs, interior and exterior decor items, fixtures, furnishings, supplies, and
+other products and materials required for the operation of or sold at the
+Restaurant solely from suppliers (including manufacturers, distributors and
+other sources) who demonstrate, to Franchisor's continuing reasonable
+satisfaction, the ability to meet Franchisor's then-current standards and
+specifications for such items; who possess adequate quality controls and
+capacity to supply Franchisee's needs promptly and reliably; and who have been
+approved in writing by Franchisor and not thereafter disapproved. The Manuals
+contain a list of approved suppliers. If Franchisee desires to purchase any
+items from an unapproved supplier, Franchisee shall submit to Franchisor a
+written request for such approval, which approval shall not be unreasonably
+withheld, or shall request the supplier itself to do so. Franchisor shall have
+the right to inspect the supplier's facilities, and to require that samples from
+the supplier be delivered, at Franchisor's option, either to Franchisor or to an
+independent, certified laboratory designated by Franchisor for testing.
+Franchisee or the supplier shall pay the costs of any such test. Franchisor
+shall notify Franchisee in writing within forty-five (45) days of receiving any
+such request whether it disapproves the supplier. Failure by Franchisor to so
+notify Franchisee within that period shall be deemed to constitute Franchisor's
+approval of such supplier. Franchisor reserves the right, at its option, to
+reinspect the facilities and retest products of any such approved supplier at
+any time and to revoke its approval upon the supplier's failure to continue to
+meet any of Franchisor's criteria. Notwithstanding the foregoing, any supplier
+of goods having any trademark, trade name, service mark, logo or symbol owned by
+Franchisor shall not be approved to supply Franchisee such goods until such
+supplier has entered a written agreement with Franchisor regarding the
+production, use and sale of such goods.
+
+5.10 No food or beverage product, interior or exterior decor item, sign,
+item of equipment, fixtures, furnishings or supplies, or other product or
+material required for the operation of the Restaurant, which bears any of
+Franchisor's trade names, service marks or trademarks, shall be used or sold in
+or upon the Restaurant premises unless the same shall have been first submitted
+to and approved in writing by Franchisor.
+
+5.11 The Manuals and all related material furnished to Franchisee hereunder
+are and shall remain the property of Franchisor, and must be returned to
+Franchisor, along with any copies made thereof, immediately upon request or upon
+the expiration or earlier termination of this Agreement.
+
+-9-
+<PAGE>
+
+6. TRAINING
+
+6.1 Franchisor shall make its operations training course available to the
+General Manager, the Kitchen Manager, and Franchisee's Assistant Managers and
+other Restaurant managers.
+
+6.2 Before the Restaurant opens for business, and thereafter as replacement
+personnel are employed by Franchisee, the General Manager, the Kitchen Manager
+and each Assistant Manager shall attend Franchisor's operations training
+facility for such period of time as Franchisor shall deem reasonably necessary,
+and shall successfully complete that course to Franchisor's reasonable
+satisfaction. If the General Manager, Kitchen Manager or an Assistant Manager
+fails to successfully complete Franchisor's operations training course,
+Franchisor may require designation of a new General Manager, Kitchen Manager or
+Assistant Manager, as the case may be, and Franchisee shall designate a new
+General Manager, Kitchen Manager or Assistant Manager, who shall be required to
+successfully complete such training course.
+
+6.3 The General Manager, the Kitchen Manager and each Assistant Manager
+shall, from time to time as reasonably required by Franchisor, attend and
+successfully complete to Franchisor's reasonable satisfaction a
+Franchisor-provided refresher course in restaurant operations.
+
+6.4 Franchisee shall be responsible for the Restaurant's compliance with
+the operating standards, methods, techniques and material taught at Franchisor's
+operations training course, and shall cause the employees of the Restaurant to
+be trained in such standards, methods and techniques as are relevant to the
+performance of their respective duties.
+
+6.5 Attendance of the General Manager, the Kitchen Manager and each
+Assistant Manager at any of Franchisor's training courses shall be tuition-free.
+Franchisee shall pay all other costs and expenses relating to the attendance of
+Franchisee's personnel at any of Franchisor's training courses, including,
+without limitation, the cost of travel, lodging, meals, and other related and
+incidental expenses.
+
+7. RESTAURANT MAINTENANCE
+
+7.1 Franchisee shall, at Franchisee's sole cost and expense, maintain the
+Restaurant in conformity with the standards, specifications and requirements of
+the System, as the same may be designated by Franchisor from time to time.
+Franchisee specifically agrees to repair or replace, at Franchisee's cost and
+expense, equipment, signs, interior and exterior decor items, fixtures,
+furnishings, supplies, and other products and materials required for the
+operation of the Restaurant as necessary or desirable, and to obtain, at
+Franchisee's cost and expense, any new or additional equipment, signs, interior
+and exterior decor items, fixtures, furnishings, supplies, and other products
+and materials which may be reasonably required by Franchisor for new products or
+procedures. Except as may be expressly provided in the Manuals, no alterations
+or improvements, or changes of any kind in design, equipment, signs, interior or
+exterior decor items, fixtures or furnishings shall be made in or about the
+Restaurant or Restaurant premises without the prior written approval of
+Franchisor in each instance.
+
+-10-
+<PAGE>
+
+7.2 In order to assure the continued success of the Restaurant, Franchisee
+shall, at any time from time to time after ________________, _________, (i.e.,
+six [6] years after the date of this Agreement) as reasonably required by
+Franchisor (taking into consideration the cost and then-remaining term of this
+Agreement), modernize the Restaurant premises, equipment, signs, interior and
+exterior decor items, fixtures, furnishings, supplies, and other products and
+materials required for the operation of the Restaurant, to Franchisor's
+then-current standards and specifications, provided that at the time Franchisor
+requires Franchisee to so modernize the Restaurant premises at least twenty-five
+percent (25%) of Franchisor-owned and operated Restaurants meet such standards
+and specifications. Franchisee's obligations under this Subsection are in
+addition to, and shall not relieve Franchisee from, any of its other obligations
+under this Agreement, including those contained in the Manuals.
+
+7.3 If Franchisee is or becomes a lessee of the Restaurant premises,
+Franchisee shall have included in the lease provisions expressly permitting both
+Franchisee and Franchisor to take all actions and make all alterations referred
+to under Subsections 7.1 and 7.2 hereof, requiring the lessor thereunder to give
+Franchisor reasonable notice of any contemplated termination, and providing that
+Franchisee has the unrestricted right to assign the lease to Franchisor without
+the lessor having any right to impose conditions on such assignment or to obtain
+any payment in connection therewith. Franchisee shall not, without the prior
+written consent of Franchisor, execute any lease or other agreement which
+imposes, or purports to impose, any limitations on the ability of Franchisee
+and/or of Franchisor to operate additional restaurants at any particular
+location beyond the geographic limitation set forth in Section 1.4 hereof, or
+any lease the term of which is shorter than the term of this Agreement.
+
+8. ADVERTISING
+
+8.1 Franchisor shall develop and administer advertising, public relations
+and sales promotion programs designed to promote and enhance the collective
+success of all restaurant units in the System. It is expressly understood,
+acknowledged and agreed that in all phases of such advertising and promotion,
+including, without limitation, type, quantity, timing, placement and choice of
+media and medium, market areas, advertising agencies and public relations firms,
+Franchisor's decisions shall be final and binding. Franchisee shall have the
+right to participate actively in all such advertising, public relations and
+sales promotion programs, but only in full and complete accordance with such
+terms and conditions as may be established by Franchisor for each such program.
+
+8.2 Franchisee shall pay Franchisor, in the manner described in Section 9
+hereof, a minimum dollar amount equal to two and twenty-five hundredths percent
+(2.25%) of Franchisee's gross sales, as defined in Subsection 9.3 hereof. Such
+funds shall become the sole and absolute property of Franchisor, to be allocated
+to a separate "advertising account" established by Franchisor. Franchisor shall
+use such funds for market studies, advertising and marketing studies or
+services, production of commercials, advertising copy and layouts, traffic
+costs, agency fees, marketing personnel, or any other costs associated with the
+development, marketing and testing of advertising, and for the purchase of
+advertising time, space or materials in national, regional or other advertising
+media, in a manner determined by Franchisor in its sole discretion. Within six
+(6) months following the end of Franchisor's fiscal year, Franchisor shall
+provide all franchisees with an accounting of all amounts received from them and
+expended by Franchisor for the matters set forth above. In addition, Franchisee
+shall expend a minimum dollar amount equal to one and one-half percent (1.5%) of
+Franchisee's gross sales, for local promotional activities, subject to the
+provisions of Subsections 8.4 and 8.5 hereof. Franchisor shall have the right at
+all times to review Franchisee's books and records, and to require Franchisee to
+produce evidence of its gross sales and local promotional activities, to ensure
+Franchisee's compliance with this Section. Any amount determined by said audit
+to be due Franchisor as part of the advertising fee will be paid to Franchisor
+by Franchisee within ten (10) days thereafter. At any time after execution of
+this Agreement, Franchisor may in its sole discretion increase, to a maximum of
+four percent (4%) of gross sales, the percentage of gross sales which Franchisee
+
+-11-
+<PAGE>
+
+shall be required to pay to Franchisor for allocation to a separate advertising
+account pursuant to this Subsection 8.2. Franchisor shall use the funds paid
+pursuant to that increased percentage requirement solely for the purchase of
+advertising time, space or materials in national, regional or other advertising
+media, in a manner determined by Franchisor in its sole discretion, provided
+that in each calendar year (or other twelve [12] month period established by
+Franchisor) in which Franchisor makes expenditures for advertising from such an
+advertising account, so long as Franchisee is in compliance with its obligations
+hereunder, Franchisor's expenditures for advertising in the Territory
+encompassed by the Development Agreement (including expenditures for national or
+regional advertising in media which reach that Territory) shall be on a basis
+which is roughly proportional to Franchisee's contribution to that advertising
+account during that calendar year or other twelve (12) month period. Franchisor
+also may increase the percentage of gross sales which Franchisee shall be
+required to spend for local promotional activities, provided however, that in no
+event shall Franchisee be required to make payments pursuant to this Subsection
+8.2 in a dollar amount in excess of five percent (5%) of gross sales.
+
+8.3 Franchisee shall submit to Franchisor, for Franchisor's approval, an
+advertising campaign plan relating to the promotion of the opening of the
+Restaurant which is sufficient to meet the needs of the market. The Manuals
+contain a Press Release kit to assist Franchisee in this regard. Franchisee
+shall conduct the approved advertising campaign and make all expenditures for
+advertising to promote the opening of the Restaurant no later than sixty (60)
+days after the Restaurant opens for business. Franchisor will reimburse fifty
+percent (50%) of Franchisee's out-of-pocket opening advertising expenditures up
+to a maximum of two thousand five hundred dollars ($2,500), if Franchisee meets
+the following criteria:
+
+(a) Franchisee's opening advertising expenditures are made within
+sixty (60) days after the opening of the Restaurant;
+
+(b) Franchisee submits to Franchisor within one hundred twenty (120)
+days after the opening of the Restaurant documentation for the opening
+advertising expenditures, such as paid invoices from suppliers of goods or
+services evidencing expenditure on the opening advertising promotion; and
+
+(c) Franchisee's opening advertising expenditures are made pursuant to
+the approved advertising campaign plan and in accordance with the Grand
+Opening Reimbursement Program Policy Guidelines set forth in the Manuals.
+
+-12-
+<PAGE>
+
+8.4 Nothing in the foregoing Subsections shall be deemed to prohibit
+Franchisee from making additional expenditures for local promotional activities.
+All of the Franchisee's local promotional activities shall utilize approved
+advertising media. "Approved advertising media" are limited to the following:
+
+(a) Newspapers, magazines and other such periodicals;
+
+(b) Radio and television;
+
+(c) Outdoor advertising by signs displayed on billboards or buildings;
+and
+
+(d) Handbills, flyers, door-hangers and direct mail.
+
+In the event Franchisee wants to use a form of advertising medium not set forth
+above, Franchisee shall submit a description of such medium and advertising to
+Franchisor. Franchisor shall notify Franchisee whether it approves the use of
+such medium within thirty (30) days of Franchisee's request. Failure by
+Franchisor to so notify Franchisee within that period shall be deemed to
+constitute Franchisor's approval of such request. Guidelines for local
+promotional activities are contained in the Manuals, including Franchisee's
+required participation in any co-operative marketing program.
+
+8.5 All advertising copy and other materials employed by Franchisee in
+local promotional activities shall be in strict accordance and conformity with
+the standards, formats and specimens contained in the Manuals and shall receive
+the prior approval of Franchisor. In the event Franchisee wishes to deviate from
+the materials contained in the Manuals, Franchisee shall submit, in each
+instance, the proposed advertising copy and materials to Franchisor for approval
+in advance of publication. Franchisor shall notify Franchisee in writing, within
+fifteen (15) days of such submission, whether Franchisor disapproves such
+advertising copy and materials. Failure by Franchisor to so notify Franchisee
+within that period shall be deemed to constitute Franchisor's approval of such
+advertising copy and materials. In no event shall Franchisee's advertising
+contain any statement or material which may be considered (a) in bad taste or
+offensive to the public or to any group of persons, (b) defamatory of any person
+or an attack on any competitor, (c) to infringe upon the use, without
+permission, of any other persons' trade name, trademark, service mark or
+identification, or (d) inconsistent with the public image of Franchisor or of
+the System.
+
+9. FEES
+
+9.1 As partial consideration for the rights granted hereunder, Franchisee
+shall pay Franchisor:
+
+(a) an initial franchise fee of _____________________ dollars
+($__________), to be paid in the manner prescribed in Subsection 4.l of the
+Development Agreement as payment for the grant of the franchise;
+
+-13-
+<PAGE>
+
+(b) a monthly royalty fee as determined by Franchisor, not to exceed
+five percent (5%) of each calendar month's gross sales, as provided in
+Subsection 4.3 of the Development Agreement, as payment for Franchisee's
+continuing right to operate the Restaurant as part of the System (see
+Exhibit 1); and
+
+(c) a monthly advertising fee equal to such percentage of each
+calendar month's gross sales as Franchisor may require pursuant to
+Subsection 8.2 hereof.
+
+9.2 The fees referred to in Subsections 9.l(b) and (c) (the "Fees") shall
+be paid by check mailed and postmarked on or before the twelfth day of the next
+full month immediately following the month to which the Fees relate. Any Fees,
+including the initial franchise fee, which are not paid when due shall bear
+interest from and after the due dates thereof at the rate of eighteen percent
+(18%) per annum or the highest rate permitted by applicable law, whichever is
+less.
+
+9.3 (a) Except for the sale of a gift certificate (on which royalty shall
+be due and payable upon redemption of the gift certificate and as provided in
+Subsection 9.3(b) hereof, the term "gross sales," as used in this Agreement,
+shall mean all receipts (cash, cash equivalents or credit) or revenues from
+sales from all business conducted upon or from the Restaurant premises, whether
+evidenced by check, cash, credit, charge account, exchange or otherwise,
+including, but not limited to, amounts received from the sale of goods, wares
+and merchandise (including sales of food beverages and tangible property of
+every kind and nature, promotional or otherwise), from all services performed
+from or at the Restaurant premises, and from all orders taken or received at the
+Restaurant premises, regardless of where such orders are filled. Gross sales
+shall not be reduced by any deductions for cash shortages incurred in connection
+with the transaction of business with customers, credit card company charges or
+theft which is reimbursed by insurance or is not reported to the appropriate
+police authorities. Each charge or sale upon installment or credit shall be
+treated as a sale for the full price in the month during which such charge or
+sale shall be first made, irrespective of the time when Franchisee shall receive
+payment (whether full or partial) therefor.
+
+(b) Gross sales shall not include: (i) the sale of merchandise for
+which cash has been refunded or, except as provided in the second sentence of
+Subsection 9.3(a), not received, or allowances made for merchandise, if the
+sales of any such returned or exchanged merchandise shall have been previously
+included in gross sales, (ii) the amount of any sales tax imposed by any
+federal, state, municipal or other governmental authority directly on sales and
+intended to be collected from customers, provided that the amount thereof is
+added to the selling price and actually paid by the Franchisee to such
+governmental authority, (iii) the sale of merchandise for which a gift
+certificate is redeemed, if the initial sale of the gift certificate shall have
+been previously included in gross sales, (iv) the sale of waste products of the
+Restaurant, (v) telephone, game and vending machine revenues, (vi) the sale of
+non-food items or beverages at a discount in connection with a promotional
+campaign, (vii) one-time sale of furniture, fixtures or equipment, and (viii)
+theft which is not covered by insurance and is reported to the appropriate
+police authorities. In addition, Franchisor may, from time to time, in writing,
+permit or allow certain other items to be excluded from gross sales. Any such
+permission or allowance may be revoked or withdrawn at Franchisor's discretion.
+
+-14-
+<PAGE>
+
+10. RECORD KEEPING
+
+10.1 Franchisee shall employ a point of sale system approved by Franchisor,
+without modification, in connection with the business of the Restaurant.
+Franchisee shall use such bookkeeping and record keeping forms as shall be
+prescribed in the Manuals.
+
+10.2 Franchisee shall complete and submit to Franchisor, on a regular,
+continuous basis, each of the following reports, in the form specified in the
+Manuals:
+
+(a) monthly Restaurant reports, on or before the twelfth day of each
+calendar month following the month to which the report relates;
+
+(b) annual Restaurant reports, on or before the fifteenth day of April
+of each year; and
+
+(c) weekly gross sales reports, on or before the Tuesday following the
+calendar week to which the report relates.
+
+10.3 The annual Restaurant reports referred to above shall include a balance
+sheet dated as of the end of Franchisee's fiscal year or calendar year and a
+profit and loss statement for such year, together with such additional financial
+information as Franchisor may reasonably request. Such balance sheet and profit
+and loss statement shall be prepared in accordance with generally accepted
+accounting principles, certified as correct and complete by Franchisee's chief
+executive officer, president, chief financial officer or controller and reported
+on and reviewed by an independent state-licensed certified public accountant. If
+Franchisee fails to provide Franchisor with such balance sheet and profit and
+loss statement, Franchisor shall have the right to have an independent audit
+made of Franchisee's books and records, and Franchisee shall promptly reimburse
+Franchisor for the cost thereof.
+
+10.4 Each of the reports referred to in this Section 10 shall be completed
+by Franchisee or its accountant in the respective specimen forms, and in
+accordance with the instructions, contained in the Manuals. Subsection 10.3
+notwithstanding, time is of the essence with respect to the completion and
+submission of each such report.
+
+11. FRANCHISEE ORGANIZATION, AUTHORITY, FINANCIAL CONDITION AND SHAREHOLDERS
+
+11.1 Franchisee and each Principal Shareholder represent and warrant that:
+(a) Franchisee is a corporation duly incorporated, validly existing and in good
+standing under the laws of the State of its incorporation; (b) Franchisee is
+duly qualified and is authorized to do business and is in good standing as a
+foreign corporation in each jurisdiction in which its business activities or the
+nature of the properties owned by it requires such qualification; (c) the
+execution and delivery of this Agreement and the transaction contemplated hereby
+
+-15-
+<PAGE>
+
+are within Franchisee's corporate power; (d) the execution and delivery of this
+Agreement has been duly authorized by the Franchisee; (e) the articles of
+incorporation and by-laws of Franchisee delivered to Franchisor are true,
+complete and correct, and there have been no changes therein since the date
+thereof; (f) the certified copies of the minutes electing the officers of
+Franchisee and authorizing the execution and delivery of this Agreement are
+true, correct and complete, and there have been no changes therein since the
+date(s) thereof; (g) the specimen stock certificate delivered to Franchisor is a
+true specimen of Franchisee's stock certificate; (h) the balance sheet of
+Franchisee as of ____________________, ________ ("Balance Sheet") and the
+balance sheets of its Principal Shareholders as of ____________________,
+________, heretofore delivered to Franchisor, are true, complete and correct,
+and fairly present the financial positions of Franchisee and each Principal
+Shareholder, respectively, as of the dates thereof; (i) the Balance Sheet and
+each such balance sheet have been prepared in accordance with generally accepted
+accounting principles; and (j) there have been no materially adverse changes in
+the condition, assets or liabilities of Franchisee or Principal Shareholders
+since the date or dates thereof.
+
+11.2 Franchisee and each Principal Shareholder covenant that during the term
+of this Agreement: (a) Franchisee shall do or cause to be done all things
+necessary to preserve and keep in full force its corporate existence and shall
+be in good standing as a foreign corporation in each jurisdiction in which its
+business activities or the nature of the properties owned by it requires such
+qualification; (b) Franchisee shall have the corporate authority to carry out
+the terms of this Agreement; and (c) Franchisee shall print, in a conspicuous
+fashion on all certificates representing shares of its stock when issued, a
+legend referring to this Agreement and the restrictions on and obligations of
+Franchisee and Principal Shareholders hereunder, including the restrictions on
+transfer of Franchisee's shares.
+
+11.3 In addition to the financial information which Franchisee is required
+to provide to Franchisor under Subsections 10.2 and 11.1 hereof, Franchisee and
+Principal Shareholders shall provide Franchisor with such other financial
+information as Franchisor may reasonably request from time to time, including,
+on an annual basis, copies of the then-most current financial statements of
+Franchisee and each Principal Shareholder, dated as of the end of the last
+preceding fiscal year of the Franchisee or Principal Shareholder, said
+statements to be delivered to Franchisor no later than April 15 of each year,
+which financial statements shall conform to the standards set forth in
+Subsection 11.1 hereof.
+
+11.4 Franchisee and each Principal Shareholder represent, warrant and
+covenant that all Interests (as defined in Subsection 12.4 hereto) in Franchisee
+are owned as set forth on Appendix A hereto, that no Interest has been pledged
+or hypothecated (except in accordance with Section 12 of this Agreement), and
+that no change will be made in the ownership of any such Interest other than as
+permitted by this Agreement, or otherwise consented to in writing by Franchisor.
+Franchisee and Principal Shareholders agree to furnish Franchisor with such
+evidence as Franchisor may request, from time to time, for the purpose of
+assuring Franchisor that the Interests of Franchisee and Principal Shareholders
+remain as represented herein.
+
+11.5 Each Principal Shareholder, jointly and severally, hereby personally
+and unconditionally guarantees each of Franchisee's financial obligations to
+Franchisor (including, but not limited to, all obligations relating to the
+payment of fees by Franchisee to Franchisor). Each Principal Shareholder agrees
+that Franchisor may resort to such Principal Shareholder (or any of them) for
+payment of any such financial obligation, whether or not Franchisor shall have
+proceeded against Franchisee, any other Principal Shareholder or any other
+obligor primarily or secondarily obligated to Franchisor with respect to such
+financial obligation. Each Principal Shareholder hereby expressly waives
+presentment, demand, notice of dishonor, protest, and all other notices
+
+-16-
+<PAGE>
+
+whatsoever with respect to Franchisor's enforcement of this guaranty. In
+addition, each Principal Shareholder agrees that if the performance or
+observance by Franchisee of any term or provision hereof is waived or the time
+of performance thereof extended by Franchisor, or payment of any such financial
+obligation is accelerated in accordance with any agreement between Franchisor
+and any party liable in respect thereto or extended or renewed, in whole or in
+part, all as Franchisor may determine, whether or not notice to or consent by
+any Principal Shareholder or any other party liable in respect to such financial
+obligations is given or obtained, such actions shall not affect or alter the
+guaranty of each Principal Shareholder described in this Subsection.
+
+11.6 Franchisee and each Principal Shareholder represent and warrant to
+Franchisor that:
+(a) Neither Franchisee nor any Principal Shareholder or any other
+person with a direct or indirect ownership interest in Franchisee is
+identified, either by name or an alias, pseudonym or nickname, on the
+list of "Specially Designated Nationals and Blocked Persons" maintained
+by the U.S. Treasury Department's Office of Foreign Assets Control
+(texts available at www.treas.gov/offices/enforcement/ofac/). Further,
+Franchisee and its Principal Shareholders represent and warrant that
+neither has violated and agree that neither will violate any law (in
+effect now or which may become effective in the future) prohibiting
+corrupt business practices, money laundering or the aid or support of
+persons or entities who conspire to commit acts of terror against any
+person or government, including acts prohibited by the U.S. Patriot Act
+(text available at http://www.epic.org/privacy/terrorism/hr3162.html),
+U.S. Executive Order 13244 (text available at
+http://treas.gov/offices/enforcement/ofac/sanctions/terrorism.html), or
+similar law;
+
+(b) Franchisee has not made, nor has any Principal Shareholder made,
+any expenditures other than for lawful purposes or directly or
+indirectly offered, gave, promised to give or authorized the payment or
+the gift of any money, or anything of value, to any person or entity,
+while knowing or having reason to know that all or a portion of such
+money or thing of value would be given or promised, directly or
+indirectly, to any government official, official of an international
+organization, officer or employee of a foreign government or anyone
+acting in an official capacity for a foreign government, for the
+purpose of (1) influencing any action, inaction or decision of such
+official in a manner contrary to his or her position or creating an
+improper advantage; or (2) inducing such official to influence any
+government or instrumentality thereof to effect or influence any act or
+decision of such government or instrumentality.
+
+(c) Franchisee nor any Principal Shareholder or any other person or
+entity who has any direct or indirect ownership interest is or will
+become directly or indirectly owned or controlled by governmental
+authorities of any country that is subject to a United States embargo;
+and
+
+Franchisee understands and its Principal Shareholders understand and have
+been advised by legal counsel on the requirements of the United States Foreign
+Corrupt Practices Act (currently located at
+www.usdoj.gov/criminal/fraud/fcpa.html, any local foreign corrupt practices laws
+and the Patriot Act (currently located at
+www.epic.org/privacy/terrorism/hr3162.html, acknowledge the importance to
+Franchisor and the Restaurants and the parties' relationship of their respective
+compliance with the requirements of these laws, including any applicable
+auditing requirements and any requirement to report or provide access to
+information to Franchisor or any government, that is made part of any applicable
+law, and agree to take all steps required by their consultants, agents and
+employees to comply with such laws prior to engaging or employing any such
+individuals or entities.
+
+-17-
+<PAGE>
+
+12. TRANSFER
+
+12.1 There shall be no Transfer of any Interest of Franchisee, or of a
+Principal Shareholder in Franchisee, in whole or in part (whether voluntarily or
+by operation of law), directly, indirectly or contingently, except in accordance
+with the provisions of this Section 12. "Transfer" and "Interest" are defined in
+Subsections 12.2, 12.3 and 12.4. Any proposed Transfer also shall be subject to
+the provisions of the Development Agreement, which are incorporated herein by
+reference.
+
+12.2 Except as provided in Subsection 12.3, "Transfer" shall mean any
+assignment, sale, pledge, hypothecation, gift or any other event which would
+change ownership of or change or create a new Interest, including, but not
+limited to:
+
+(a) any change in the ownership of or rights in or to any shares of
+stock or other equity interest in Franchisee which would result from the act
+of any shareholder of Franchisee ("Shareholder"), such as a sale, exchange,
+pledge or hypothecation of shares, or any interest in or rights to any of
+Franchisee's profits, revenues or assets, or any such change which would
+result by operation of law; and
+
+(b) any change in the percentage interest owned by any Shareholder in
+the shares of stock of Franchisee, or interests in its profits, revenues or
+assets which would result from any act of Franchisee such as a sale, pledge
+or hypothecation of any Restaurant assets (other than a pledge of assets to
+secure bona fide loans made or credit extended in connection with
+acquisition of the assets pledged, provided that immediately before and
+after such transaction the net worth of Franchisee shall not be less than
+the amount which is reflected on the Balance Sheet referred to in Subsection
+11.1 of this Agreement); any sale or issuance of any shares of Franchisee's
+stock; the retirement or redemption of any shares of Franchisee's stock; or
+any sale or grant to any person of any right to participate in or otherwise
+to share or become entitled to any part of Franchisee's profits, revenues,
+assets or equity.
+
+12.3 "Transfer" shall not include (a) a change in the ownership of or rights
+to any shares or other equity interest in Franchisee pursuant to a public
+offering of Franchisee's securities registered under the Securities Act of 1933,
+or (b) a change in the ownership of or rights to any securities or other equity
+interest in Franchisee pursuant to a private offering of Franchisee's securities
+exempted from registration under such Act, provided that Franchisee provides
+Franchisor with a copy of its prospectus and/or offering memorandum ten (10)
+days prior to its filing with the Securities and Exchange Commission or
+circulation to third parties so that Franchisor may comment and, if necessary,
+correct any information concerning Franchisor and/or the System, and further
+provided that after giving effect to such public or private offering, the
+Principal Shareholders, or any of them, "control" Franchisee. For purposes of
+this Section 12, "control" means either (1) owning legal and equitable title to
+fifty-one percent (51%) or more of the outstanding voting securities of
+Franchisee, which are not subject to a proxy granted to or contract with any
+other person or party granting that party the right to vote part or all of such
+securities, or (2) having and continually exercising the contractual power
+presently to designate a majority of the directors of Franchisee.
+
+-18-
+<PAGE>
+
+12.4 "Interest" shall mean: when referring to interests or rights in
+Franchisee, any shares of Franchisee's stock and any other equitable or legal
+right in or to any of Franchisee's stock, revenues, profits or assets; when
+referring to rights or assets of Franchisee, Franchisee's rights under and
+interest in this Agreement, the Restaurant and its revenues, profits and assets.
+
+12.5 (a) The Interest of a Principal Shareholder may be transferred to such
+Principal Shareholder's spouse or children or to a person designated in such
+Principal Shareholder's will or trust (individually and collectively referred to
+as a "Successor"), upon such Principal Shareholder's death or permanent
+incapacity, without Franchisor's approval, provided that such Successor shall
+agree to be bound by the restrictions contained in this Section 12, and the
+other agreements and covenants of the Principal Shareholders contained in this
+Agreement.
+
+(b) The Interest of a Principal Shareholder may not be transferred to
+another Principal Shareholder without Franchisor's approval, which approval
+shall not be unreasonably withheld.
+
+(c) The Interest of a Successor may only be transferred in accordance
+with Subsection 12.5(b), 12.6, 12.7 or 12.8, regardless of whether such Transfer
+is for consideration or by gift or will or other device.
+
+12.6 If at any time the Principal Shareholders desire to dispose of all or
+substantially all of the Interests of the Principal Shareholders in Franchisee,
+or the Principal Shareholders (or Franchisee) desire to dispose of all or
+substantially all of Franchisee's Interest in this Agreement or in the assets
+which Franchisee has acquired as a result of this Agreement, the Principal
+Shareholders or Franchisee, as the case may be, shall notify Franchisor of that
+desire, in writing, thirty (30) days before announcing that fact publicly or
+engaging the services of a broker or sales agent.
+
+12.7 (a) If at any time any of the Principal Shareholders or Franchisee, as
+the case may be, obtains from a third party or third parties a bona fide offer
+(the "Offer") in writing for the purchase of all or substantially all of the
+Interests of the Principal Shareholders in Franchisee, or of Franchisee's
+Interest in this Agreement or in the assets which Franchisee has acquired as a
+result of this Agreement, the Principal Shareholders or Franchisee shall give
+notice (the "Selling Notice") to Franchisor stating that the Principal
+Shareholders or Franchisee, as the case may be, have received the Offer,
+identifying the prospective purchaser by name and address, specifying the
+proposed purchase price and attaching a true and complete copy of the Offer.
+
+(b) Franchisor shall have an option to purchase (the "Option"),
+exercisable within a period of forty-five (45) days after receipt of the Selling
+Notice (the "Option Period"), such Interests at the price and on the conditions
+set forth in the Offer, except that Franchisor shall not be obligated to pay any
+finder's or broker's fee, and if the Offer provides for payment of consideration
+other than cash, or if the Offer involves certain intangible benefits,
+Franchisor may elect to purchase such Interests by offering a reasonable dollar
+value substitute including, at Franchisor's option, cash or the common stock or
+other securities of the Franchisor or any combination thereof for the
+non-cash/intangible benefits part of the Offer.
+
+-19-
+<PAGE>
+
+(c) The Option shall be exercisable by Franchisor delivering to the
+Principal Shareholders or Franchisee, as the case may be, within the Option
+Period, a notice (i) stating that the Option is being exercised, and (ii)
+specifying the time, date and place at which such purchase and sale will take
+place, which date shall be within forty-five (45) days after Franchisor delivers
+such notice. Franchisee shall provide Franchisor access to and copies of such
+information and documentation Franchisor shall request regarding the purchase.
+The forty-five (45) day limitation described at the end of the preceding
+sentence shall not apply if at the end of said forty-five (45) day period the
+only issue which prevents completion of the purchase and sale is the need to
+effect transfers of the applicable liquor licenses. In the event of such a
+delay, the purchase and sale shall take place within seven (7) business days
+after those liquor licenses have been transferred.
+
+(d) If the Option is not exercised, the Principal Shareholders or
+Franchisee, as the case may be, may sell the Interests in or of Franchisee to
+the third party which made the Offer, on conditions no more favorable to the
+third-party offerer than those set forth in the Offer, provided that Franchisor
+approves the proposed transferee in accordance with the criteria set forth in
+Appendix B and provided further that such sale takes place within ninety (90)
+days after the expiration of the Option Period. The ninety (90) day limitation
+described in the preceding sentence shall not apply if at the end of said ninety
+(90) day period the issue which prevents completion of the purchase and sale is
+either the need to effect transfers of the applicable liquor licenses or consent
+or approval of the transaction by a state or federal regulatory agency. In the
+event of such a delay, the purchase and sale shall take place within seven (7)
+business days after those issues have been resolved or waived by Franchisor.
+
+(e) If the Option is not exercised, the Principal Shareholders or
+Franchisee, as the case may be, shall immediately notify Franchisor in writing
+of any change in the terms of an Offer. Any change in the terms of an Offer
+shall cause it to be deemed a new Offer, conferring upon Franchisor a new Option
+pursuant to this Subsection 12.7; the Option Period with respect to the new
+Option shall be deemed to commence on the day on which Franchisor receives
+written notice of a change in the terms of the original Offer. Provided however,
+in such an instance, Franchisor shall provide Franchisee its response within
+fifteen (15) days after Franchisor's receipt of all of the modified terms,
+unless such changes are deemed material by Franchisor and in such an event,
+Franchisor shall have a forty-five (45) day period within which to review said
+changes.
+
+12.8 (a) Franchisee understands and acknowledges that the rights and duties
+set forth in this Agreement are personal to Franchisee and that Franchisor has
+entered into this Agreement in reliance on the business skill and financial
+capability of Franchisee, and the business skill, financial capability and
+personal character of each Principal Shareholder. Except as otherwise provided
+in this Section 12, the Principal Shareholders shall at all times retain control
+of Franchisee. Except as otherwise provided in this Section 12, no Transfer of
+any part of Franchisee's Interest in this Agreement or in the Restaurant, and no
+Transfer of any Interest of any Principal Shareholder, shall be completed except
+in accordance with this Subsection 12.8. In the event of such a proposed
+Transfer of any part of Franchisee's Interest in this Agreement or in the
+Restaurant, or of any Interest of any Principal Shareholder, the party or
+parties desiring to effect such Transfer shall give Franchisor notice in writing
+of the proposed Transfer, which notice shall set forth the name and address of
+the proposed transferee, its financial condition, including a copy of its
+financial statement dated not more than ninety (90) days prior to the date of
+said notice, and all the terms and conditions of the proposed Transfer. Upon
+receiving such notice, Franchisor may (i) approve the Transfer, or (ii) withhold
+its consent to the Transfer. Franchisor shall, within forty-five (45) days of
+receiving such notice and all of the information required therein, advise the
+party or parties desiring to effect the Transfer whether it (1) approves the
+Transfer, or (2) withholds its consent to the Transfer, giving the reasons for
+such disapproval. Failure of Franchisor to so advise said party or parties
+within that forty-five (45) day period shall be deemed to be an approval of the
+proposed Transfer. Appendix B sets forth the criteria for obtaining Franchisor's
+consent to a proposed Transfer.
+
+-20-
+<PAGE>
+
+(b) In the event that Franchisor approves the Transfer, and the
+Transfer is not completed within ninety (90) days of the later of (i) expiration
+of the forty-five (45) day notice period, or (ii) delivery of notice of
+Franchisor's approval of the proposed Transfer, Franchisor's approval of the
+proposed Transfer shall automatically be revoked. The ninety (90) day limitation
+described in the preceding sentence shall not apply if at the end of said ninety
+(90) day period the only issue which prevents completion of the Transfer is the
+need to effect transfers of the applicable liquor licenses. In the event of such
+a delay, the Transfer shall take place within seven (7) business days after
+those liquor licenses have been transferred. Any subsequent proposal to complete
+the proposed Transfer shall be subject to Franchisor's right of approval as
+provided herein. The party which desires to effect the proposed Transfer shall
+immediately notify Franchisor in writing of any change in the terms of a
+Transfer. Any change in the terms of a Transfer prior to closing shall cause it
+to be deemed a new Transfer, revoking any approval previously given by
+Franchisor and conferring upon Franchisor a new right to approve such Transfer,
+which shall be deemed to commence on the day on which Franchisor receives
+written notice of such changes in terms.
+
+12.9 In connection with any request for Franchisor's approval of a proposed
+Transfer pursuant to this Section 12, the parties to the proposed Transfer shall
+pay Franchisor a nonaccountable fee to defray the actual cost of review and the
+administrative and professional expenses related to the proposed Transfer and
+the preparation and execution of documents and agreements, up to a maximum of
+two thousand five hundred dollars ($2,500).
+
+13. CONFIDENTIALITY; RESTRICTIONS
+
+13.1 Franchisee and its Principal Shareholders acknowledge that over the
+term of this Agreement they are to receive proprietary information which
+Franchisor has developed over time at great expense, including, but not limited
+to, information regarding the System, methods of site selection, marketing and
+public relations methods, product analysis and selection, and service methods
+and skills relating to the development and operation of restaurants. They
+further acknowledge that this information, which includes, but is not
+necessarily limited to, that contained in the Manuals, is not generally known in
+the industry and is beyond their own present skills and experience, and that to
+develop it themselves would be expensive, time consuming and difficult.
+Franchisee and its Principal Shareholders further acknowledge that the
+Franchisor's information provides a competitive advantage and will be valuable
+to them in the development of their business, and that gaining access to it is
+therefore a primary reason why they are entering into this Agreement.
+Accordingly, Franchisee and its Principal Shareholders agree that Franchisor's
+information, as described above, which may or may not be "trade secrets" under
+prevailing judicial interpretations or statutes, is private and valuable, and
+constitutes trade secrets belonging to Franchisor. Accordingly, in consideration
+of Franchisor's confidential disclosure to them of these trade secrets,
+Franchisee and Principal Shareholders agree as follows (subject to the
+provisions of the Development Agreement and any other franchise agreement
+between Franchisor and Franchisee):
+
+-21-
+<PAGE>
+
+(a) During the term of this Agreement, neither Franchisee nor any
+Principal Shareholder, for so long as such Principal Shareholder owns an
+Interest in Franchisee, may, without the prior written consent of
+Franchisor, directly or indirectly engage in, or acquire any financial or
+beneficial interest (including any interest in corporations, partnerships,
+trusts, unincorporated associations or joint ventures) in, advise, help,
+guarantee loans or make loans to, any restaurant business whose menu or
+method of operation is similar to that employed by restaurant units within
+the System which is either (i) located in the Territory, as defined in the
+Development Agreement, (ii) located in the Area of Dominant Influence (as
+defined and established from time to time by Arbitron Ratings Company) of
+any restaurant developed pursuant to the Development Agreement, (iii)
+located within a five (5) mile radius of any restaurant unit within the
+System, or (iv) determined by Franchisor, exercising reasonable good faith
+judgment, to be a direct competitor of the System.
+
+(b) Neither Franchisee, for two (2) years following the termination of
+this Agreement, nor any Principal Shareholder, for two (2) years following
+the termination of all of his or her Interest in Franchisee or the
+termination of this Agreement, whichever occurs first, may directly or
+indirectly engage in, or acquire any financial or beneficial interest
+(including any interest in corporations, partnerships, trusts,
+unincorporated associations or joint ventures) in, advise, help, guarantee
+loans or make loans to, any restaurant business whose menu or method of
+operation is similar to that employed by restaurant units within the System
+which is located either (i) in the Territory, as defined in the Development
+Agreement, (ii) in the Area of Dominant Influence (as defined and
+established from time to time by Arbitron Ratings Company) of any restaurant
+developed pursuant to the Development Agreement, (iii) within a five (5)
+mile radius of any restaurant unit within the System, or (iv) within any
+area for which an active, currently binding development agreement has been
+granted by Franchisor to another franchisee as of the date of the
+termination.
+
+(c) Neither Franchisee nor any Shareholder shall at any time (i)
+appropriate or use the trade secrets incorporated in the System, or any
+portion thereof, in any restaurant business which is not within the System,
+(ii) disclose or reveal any portion of the System to any person, other than
+to Franchisee's Restaurant employees as an incident of their training, (iii)
+acquire any right to use any name, mark or other intellectual property right
+which is or may be granted by this Agreement, except in connection with the
+operation of the Restaurant, or (iv) communicate, divulge or use for the
+benefit of any other person or entity any confidential information,
+knowledge or know-how concerning the methods of development or operation of
+a restaurant utilizing the System, which may be communicated by Franchisor
+in connection with the franchise granted hereunder.
+
+-22-
+<PAGE>
+
+13.2 Franchisee and Principal Shareholders agree that the provisions of this
+Section 13 are and have been a primary inducement to Franchisor to enter into
+this Agreement, and that in the event of breach thereof Franchisor would be
+irreparably injured and would be without adequate remedy at law. Therefore, in
+the event of a breach, or a threatened or attempted breach, of any of such
+provisions Franchisor shall be entitled, in addition to any other remedies which
+it may have hereunder or at law or in equity (including the right to terminate
+this Agreement), to a preliminary and/or permanent injunction and a decree for
+specific performance of the terms hereof without the necessity of showing actual
+or threatened damage, and without being required to furnish a bond or other
+security.
+
+13.3 The restrictions contained in Subsection 13.1(a) and (b) above shall
+not apply to ownership of less than two percent (2%) of the shares of a company
+whose shares are listed and traded on a national securities exchange if such
+shares are owned for investment only, and are not owned by an officer, director,
+employee, or consultant of such publicly traded company.
+
+13.4 If any court or other tribunal having jurisdiction to determine the
+validity or enforceability of this Section 13 determines that it would be
+invalid or unenforceable as written, then the provisions hereof shall be deemed
+to be modified or limited to such extent or in such manner as necessary for such
+provisions to be valid and enforceable to the greatest extent possible.
+
+13.5 Franchisee shall require the General Manager, the Kitchen Manager and
+each of its Restaurant managers to execute a confidentiality agreement in the
+form attached hereto as Appendix C. Franchisee shall be responsible for
+compliance of its employees with the agreements identified in this Subsection.
+
+14. INSPECTIONS
+
+14.1 Franchisor shall have the right at any time, and from time to time, to
+have its representatives enter the Restaurant premises without notice for the
+purpose of inspecting the condition thereof and the operation of the Restaurant
+in order to determine whether Franchisee is in compliance with the standards,
+specifications, requirements and instructions contained in this Agreement and in
+the Manuals, and for any other reasonable purpose connected with the operation
+of the Restaurant.
+
+14.2 Without limiting the generality of Subsection 14.1, a representative of
+Franchisor shall be present in the Restaurant to consult with Franchisee or its
+General Manager once each calendar quarter and, at least semi-annually, a
+representative shall conduct an inspection/ consultation at the Restaurant
+(which may be conducted with or without notice). During such inspection,
+Franchisor's representative will inspect the condition of the Restaurant and
+observe procedures and operations at the Restaurant. Also during the
+inspection/consultation, Franchisor's representative will meet with the General
+Manager and such other Restaurant employees as Franchisor's representative may
+designate, for the purpose of evaluating the condition and operation of the
+Restaurant and seeking to maintain or achieve compliance with the standards,
+specifications, requirements and instructions contained in this Agreement and in
+the Manuals.
+
+-23-
+<PAGE>
+
+14.3 Without limiting the generality of Subsection 14.1, Franchisor's
+representatives shall have the right at all times during normal business hours
+to confer with Restaurant employees and customers, and to inspect Franchisee's
+books, records and tax returns, or such portions thereof as pertain to the
+operation of the Restaurant. All such books, records and tax returns shall be
+kept and maintained at the principal executive offices of Franchisee or such
+other place as may be agreed upon by the parties in writing. If any inspection
+reveals that the gross sales reported in any report or statement are less than
+the actual gross sales ascertained by such inspection, then the Franchisee shall
+immediately pay Franchisor the additional amount of fees owing by reason of the
+understatement of gross sales previously reported, together with interest as
+provided in Subsection 9.2. In the event that any report or statement
+understates gross sales by more than three percent (3%) of the actual gross
+sales ascertained by Franchisor's inspection, Franchisee shall, in addition to
+making the payment provided for in the immediately preceding sentence, pay and
+reimburse Franchisor for any and all expenses incurred in connection with its
+inspection, including, but not limited to, reasonable accounting and legal fees.
+Such payments shall be without prejudice to any other rights or remedies which
+Franchisor may have under this Agreement or otherwise. If any inspection reveals
+that the gross sales reported in any report or statement are greater than the
+actual gross sales ascertained by such inspection, and that Franchisee thereby
+has made an overpayment of fees, the amount of the overpayment (without
+interest) shall be offset against future fees owing by Franchisee to Franchisor.
+
+14.4 Franchisee shall maintain an accurate stock register. In the event that
+the beneficial ownership of Franchisee's stock differs in any respect from
+record ownership, Franchisee also shall maintain a list of the names, addresses
+and interests of all beneficial owners of its stock. Franchisee shall produce
+its stock register, and any list of beneficial owners certified by the
+corporation's secretary to be correct, at its principal executive offices upon
+ten (10) days prior written request by Franchisor. Franchisor's representatives
+shall have the right to examine the stock register and any list of beneficial
+owners, and to reproduce all or any part thereof. Further, upon ten (10) days
+written notice, Franchisor may request a copy of the list of stockholders and
+owners of beneficial interests to be forwarded to it at Franchisor's principal
+office.
+
+15. RELATIONSHIP OF PARTIES AND INDEMNIFICATION
+
+15.1 Franchisee is not, and shall not represent or hold itself out as, an
+agent, legal representative, joint venturer, partner, employee or servant of
+Franchisor for any purpose whatsoever and, where permitted by law to do so,
+shall file a business certificate to such effect with the proper recording
+authorities. Franchisee is an independent contractor and is not authorized to
+make any contract, agreement, warranty or representation on behalf of
+Franchisor, or to create any obligation, express or implied, on behalf of
+Franchisor. Franchisee agrees that Franchisor does not have any fiduciary
+obligation to Franchisee. Franchisee shall not use the name Applebee's
+Neighborhood Grill & Bar (other than in connection with the operation of the
+Restaurant), or Applebee's International, Inc., or any similar words as part of
+or in association with any trade name of any business entity which is, directly
+or indirectly, associated with Franchisee.
+
+-24-
+<PAGE>
+
+15.2 Franchisee shall indemnify and hold harmless Franchisor and its
+officers, directors, employees, agents, affiliates, successors and assigns from
+and against (a) any and all claims based upon, arising out of, or in any way
+related to the operation or condition of any part of the Restaurant or
+Restaurant premises, the conduct of business thereat, the ownership or
+possession of real or personal property, and any negligent act, misfeasance or
+nonfeasance by Franchisee or any of its agents, contractors, servants, employees
+or licensees (including, without limitation, the performance by Franchisee of
+any act required by, or performed pursuant to, any provision of this Agreement),
+and (b) any and all fees (including reasonable attorneys' fees), costs and other
+expenses incurred by or on behalf of Franchisor in the investigation of or
+defense against any and all such claims.
+
+15.3 In addition to, and not in limitation of, any subsection hereof,
+Franchisee specifically covenants, represents and warrants that Franchisee is in
+compliance in all material respects with all federal, state, municipal and local
+laws governing the generation, use or disposal of hazardous waste or hazardous
+materials, and any and all other laws designed to protect the environment and
+that:
+
+(a) There have been no past, and there are no current or anticipated,
+releases or substantial threats of a release of a hazardous substance,
+pollutant or contaminant from or onto the Restaurant or real property upon
+which the Restaurant is located and referred to in this Agreement
+("Premises") which is or may be subject to regulation under the
+Comprehensive Environmental Response, Compensation and Liability Act (42
+U.S.C. 9601, et seq.) or other laws designed to protect the environment;
+
+(b) The Premises have not previously been used, are not now being used
+and are not contemplated to be used for the treatment, collection, storage
+or disposal of any refuse or objectionable waste so as to require a permit
+or approval from the Environmental Protection Agency pursuant to the
+Hazardous and Solid Waste Amendments of 1984 (96 Stat. 3221) or any other
+federal, state, county or municipal agency charged with the responsibility
+of protecting the environment;
+
+(c) The Premises have not previously been used, are not now being
+used, and are not contemplated to be used, for the generation,
+transportation, treatment, storage or disposal of any hazardous waste;
+
+(d) No portion of the Premises are located on or over a "sanitary
+landfill" or an "open dump" within the meaning of the Resource Conservation
+and Recovery Act (42 U.S.C. 6941 et seq.), as amended by the Hazardous and
+Solid Waste Amendments of 1984 (96 Stat. 3221);
+
+(e) No asbestos fibers or materials or polychlorinated biphenyls
+(PCB's) are on or in the Premises;
+
+-25-
+<PAGE>
+
+(f) There have not been, nor are there presently pending, any federal
+or state enforcement actions against the Premises, nor is the Franchisee or
+its Landlord, if any, subject to any outstanding administrative orders which
+require ongoing compliance efforts in connection with compliance with laws
+designed to protect the environment;
+
+(g) The Franchisee has not entered into any consent decrees or
+administrative consent orders with any agency charged with the
+responsibility of protecting the environment;
+
+(h) There have not been any notices of violation sent to the
+Franchisee under the Citizens Suit Provisions of any statute;
+
+(i) The Franchisee has not received any request for information,
+notice or demand letters for administrative inquiries from any governmental
+entity with regard to its environmental practices;
+
+(j) The Franchisee has maintained all required records under each and
+every applicable environmental statute and is in full compliance with all
+environmental permits issued to it by any governmental or regulatory agency;
+
+(k) The Franchisee maintains all insurance policies as may be required
+by any applicable law governing the environment;
+
+(l) The Franchisee has no reason to believe that any operation of
+equipment on or at the Premises may be the cause of a future spill or
+release of a pollutant;
+
+(m) The Franchisee has not in the past, nor is it presently,
+generating, transporting or disposing of a hazardous substance as defined by
+Section 9601(12) of CERCLA; and
+
+(n) The Franchisor shall have the right, at Franchisee's expense, to
+require an environmental audit of the Premises from a company or companies
+satisfactory to Franchisor.
+
+16. INSURANCE
+
+16.1 Franchisee shall procure before the commencement of Restaurant
+operations, and shall maintain in full force and effect during the entire term
+of this Agreement, at its sole cost and expense, an insurance policy or policies
+protecting Franchisee and Franchisor and their respective officers, directors
+and employees against any and all claims, loss, liability or expense whatsoever,
+arising out of or in connection with the condition, operation, use or occupancy
+of the Restaurant or Restaurant Premises. Franchisee shall procure workers'
+compensation coverage for each of its employees no later than the first date of
+such employee's employment. Franchisee shall also insure the Restaurant building
+and other improvements, equipment, signs, interior and exterior decor items,
+
+-26-
+<PAGE>
+
+furnishings and fixtures, and any additions thereto, in accordance with standard
+fire and extended coverage insurance policies then in effect for similar
+businesses. Franchisor shall be named as an additional insured in all such
+policies, workers' compensation excepted, and the certificate or certificates of
+insurance shall state that the policy or policies shall not be subject to
+cancellation or alteration without at least thirty (30) days prior written
+notice to Franchisor. Such policy or policies shall be written by a responsible
+insurance company or companies satisfactory to Franchisor, and shall be in such
+form and contain such limits of liability as shall be satisfactory to Franchisor
+from time to time. In any event, such policy or policies shall include at least
+the following:
+
+KIND OF INSURANCE MINIMUM LIMITS OF LIABILITY
+
+Workers' Compensation Statutory
+
+Employer's Liability $500,000 bodily injury by accident
+$500,000 bodily injury by disease
+
+General Public Liability, $1,000,000 each person,
+including Product Liability, $1,000,000 each incident
+Injury and Liquor Liability $2,000,000 aggregate
+
+Fire and Extended Coverage Full replacement value
+
+Umbrella Liability Insurance $35,000,000
+
+Franchisee shall, upon request, exhibit certificates of such insurance to
+Franchisor. The insurance afforded by the policy or policies respecting public
+liability shall not be limited in any way by reason of any insurance which may
+be maintained by Franchisor.
+
+16.2 Within sixty (60) days after the execution of this Agreement, but in no
+event later than the day before the Restaurant opens for business, Franchisee
+shall submit to Franchisor for approval certificates of insurance showing
+compliance with the requirements of Subsection 16.1. Notwithstanding the
+foregoing, Franchisee shall submit to Franchisor for approval certificates of
+insurance showing compliance with the worker's compensation requirements set
+forth in Subsection 16.1 prior to the training of any Franchisee employee at a
+Restaurant operated by Franchisor. Maintenance of such insurance and the
+performance by Franchisee of its obligations under this Section 16 shall not
+relieve Franchisee of liability under the indemnity provisions of this
+Agreement, and shall not limit such liability.
+
+16.3 Should Franchisee, for any reason, fail to procure or maintain the
+insurance coverage required by this Section, then Franchisor shall have the
+right and authority to immediately procure such insurance coverage and to charge
+the cost thereof to Franchisee, which amounts shall be paid immediately upon
+notice and shall be subject to charges for late payments in the manner set forth
+in Subsection 9.2.
+
+16.4 No later than thirty (30) days following Franchisee's receipt of same,
+Franchisee shall submit to Franchisor a copy of any written report relating to
+the condition of the Restaurant premises, or any aspect thereof, prepared by an
+insurer or prospective insurer or by a representative of a federal, state or
+local government agency, provided that if any such report contains comments or
+information which could materially and detrimentally affect the Restaurant, such
+report shall be submitted to Franchisor within three (3) days following
+Franchisee's receipt thereof.
+
+-27-
+<PAGE>
+
+17. DEBTS AND TAXES
+
+Franchisee shall pay or cause to be paid promptly when due all obligations
+incurred, directly or indirectly, in connection with the Restaurant and its
+operation, including, without limitation, (a) all taxes and assessments that may
+be assessed against the Restaurant land, building and other improvements,
+equipment, fixtures, signs, furnishings, and other property; (b) all liens and
+encumbrances of every kind and character created or placed upon or against any
+of said property, and; (c) all accounts and other indebtedness of every kind and
+character incurred by or on behalf of Franchisee in the conduct of the
+Restaurant business. Notwithstanding the foregoing, Franchisee will not be in
+default of this Agreement as a result of a non-payment or non-performance of the
+foregoing so long as it disputes said debt or lien and is, in the sole opinion
+of Franchisor, validly and in good faith pursuing a resolution of said claim or
+lien and has reserved sufficient sums to pay the debt/claim as is agreed to by
+Franchisor.
+
+18. TRADE NAMES, SERVICE MARKS AND TRADEMARKS
+
+18.1 Franchisee acknowledges the sole and exclusive right of Franchisor
+(except for rights granted under existing and future franchise agreements) to
+use Franchisor's trade names, service marks and trademarks in connection with
+the products and services to which they are or may be applied by Franchisor, and
+represents, warrants and agrees that Franchisee shall not, either during the
+term of this Agreement, or after the expiration or other termination hereof,
+directly or indirectly, contest or aid in contesting the validity, ownership or
+use thereof by Franchisor, or take any action whatsoever in derogation of the
+rights claimed herein by Franchisor.
+
+18.2 The right granted to Franchisee under this Agreement to use
+Franchisor's trade names, service marks and trademarks is nonexclusive, and
+Franchisor, in its sole discretion, subject only to the limitations contained in
+Subsection 1.4 of this Agreement, has the right to grant other rights in, to and
+under those names and marks in addition to those rights already granted, and to
+develop and grant rights in other names and marks on any such terms and
+conditions as Franchisor deems appropriate. The rights granted under this
+Agreement do not include any right or authority of any kind whatsoever to
+pre-package or sell pre-packaged food products, under any of Franchisor's names
+or marks, or any menu items approved for sale at the Restaurant, whether at the
+Restaurant, on the Internet, or at any other location, including grocery stores.
+
+18.3 Franchisee understands and acknowledges and agrees that Franchisor has
+the unrestricted right, subject only to the limitations contained in Subsection
+1.4 of this Agreement, to engage, directly and indirectly, through its
+employees, representatives, licenses, assigns, agents, affiliates, subsidiaries
+and others, at wholesale, retail, and otherwise, in (a) the production,
+distribution and sale of products under the names and marks licensed hereunder
+or other names or marks, (b) the use, in connection with such production,
+distribution and sale, of any and all trademarks, trade names, service marks,
+logos, insignia, slogans, emblems, symbols, designs and other identifying
+characteristics as may be developed or used, from time to time, by Franchisor
+with respect to the System or otherwise, and (c) the production, distribution
+and sale of products through another restaurant or restaurants which do not
+utilize the System or the Applebee's Neighborhood Grill & Bar service mark and
+which otherwise compete or might compete with the Restaurant.
+
+-28-
+<PAGE>
+
+18.4 Nothing contained in this Agreement shall be construed to vest in
+Franchisee any right, title or interest in or to any of Franchisor's names or
+marks, the goodwill now or hereafter associated therewith, or any right in the
+design of any restaurant building or premises, or the decor or trade-dress of
+the Restaurant, other than the rights and license expressly granted herein for
+the term hereof. Any and all goodwill associated with or identified by any of
+Franchisor's names or marks shall inure directly and exclusively to the benefit
+of Franchisor, including, without limitation, any goodwill resulting from
+operation and promotion of the Restaurant, provided that this Subsection shall
+not be construed to entitle Franchisor to receive any portion of the
+consideration paid to Franchisee and/or any Principal Shareholder as a result of
+a Transfer of an Interest pursuant to Section 12 hereof.
+
+18.5 Franchisee shall adopt and use Franchisor's names and marks only in a
+manner expressly approved by Franchisor, and shall not use any of Franchisor's
+names or marks in connection with any statement or material which may, in the
+judgment of Franchisor, be in bad taste or inconsistent with Franchisor's public
+image, or tend to bring disparagement, ridicule or scorn upon Franchisor, any of
+Franchisor's names or marks, or the goodwill associated therewith. Franchisee
+shall not adopt, use or register as its corporate name (by filling a certificate
+or articles of incorporation or otherwise) any trade or business name, style or
+design which includes, or is similar to, any of Franchisor's trademarks, service
+marks, trade names, logos, insignia, slogans, emblems, symbols, designs or other
+identifying characteristics.
+
+18.6 Franchisor shall have the right, at any time and from time to time,
+upon notice to Franchisee, to make additions to, deletions from and changes in
+any of Franchisor's names or marks, or all of them, all of which additions,
+deletions and changes shall be made in good faith, on a reasonable basis and
+with a view toward the overall best interests of the System. Franchisor will use
+its best efforts to protect and preserve the integrity and validity of
+Franchisor's names and marks, including the taking of actions deemed by
+Franchisor to be appropriate in the event of any apparent infringement of any of
+Franchisor's names or marks.
+
+18.7 (a) Franchisor shall hold Franchisee harmless from any liability or
+expense (but excluding consequential damages) resulting from infringement of a
+third party's service mark, trade name or trademark by Franchisor's service
+mark, Applebee's Neighborhood Grill & Bar, or by any other service mark,
+trademark or trade name of Franchisor which Franchisor shall designate as part
+of the System. This hold-harmless indemnity shall not apply to any unauthorized
+use by Franchisee of any such service mark, trade name or trademark.
+
+(b) Franchisee agrees to notify Franchisor promptly in writing of any
+suit or claim for infringement which is within the scope of the hold-harmless
+indemnity set forth in this Subsection 18.7. Subject to the terms and conditions
+of this Subsection 18.7, Franchisor shall have the sole right to defend or
+settle any such suit or claim of infringement at Franchisor's expense.
+Franchisee, at Franchisee's expense, shall have the right to be represented by
+counsel. Franchisor shall, however, retain control of any negotiations with
+respect to such claim or of any litigation involving such suit. Franchisee
+agrees to cooperate with Franchisor and to assist Franchisor whenever reasonably
+requested by Franchisor, at Franchisor's expense, in the defense of any such
+infringement suit or claim. Franchisee shall not enter into any settlement of
+any such claim or suit or conduct any settlement negotiations relative thereto
+without the prior approval of Franchisor in writing and, if Franchisee does so,
+the hold-harmless indemnity set forth in this Subsection 18.7 shall be deemed to
+have been waived and released in all respects.
+
+-29-
+<PAGE>
+
+18.8 Franchisor represents that it is the sole owner of the service mark
+Applebee's Neighborhood Grill & Bar. In the event that Franchisee is precluded
+from operating the Restaurant because Franchisor determines that a third person
+has acquired rights under the law of any state in such mark, which so precludes
+Franchisee, Franchisor agrees (a) to repay to Franchisee the initial franchise
+fee paid by Franchisee with respect to the Restaurant, and (b) to assist
+Franchisee, at Franchisee's request, in locating an alternative site for the
+Restaurant.
+
+19. EXPIRATION AND TERMINATION; OPTION TO PURCHASE RESTAURANT; ATTORNEYS' FEES
+
+19.1 Franchisor shall have the right to terminate this Agreement immediately
+upon written notice to Franchisee stating the reason for such termination:
+
+(a) in the event of any breach or default of any of the provisions of
+Subsection 9.1, Sections 12 or 13, Subsection 14.1 or Section 23;
+
+(b) if a petition in bankruptcy, an arrangement for the benefit of
+creditors, or a petition for reorganization is filed by Franchisee, or is
+filed against Franchisee and not dismissed within ninety (90) days from the
+filing thereof, or if Franchisee shall make any assignment for the benefit
+of creditors, or if a receiver or trustee is appointed for Franchisee and is
+not dismissed within ninety (90) days of such appointment;
+
+(c) if Franchisee ceases to operate the Restaurant without the prior
+written consent of Franchisor or loses its right to possession of the
+Restaurant premises; provided however, this provision will not apply if
+Franchisee ceases to operate the Restaurant or loses its right to possession
+of the Restaurant premises by reason of Force Majeure and Franchisee
+complies with the requirements of Section 24 of this Agreement;
+
+(d) if Franchisor discovers that Franchisee has made any material
+misrepresentation or omitted any material fact in the information which was
+furnished to Franchisor in connection with this Agreement;
+
+(e) if any part of this Agreement relating to the payment of fees to
+Franchisor, or the preservation of any of Franchisor's trade names, service
+marks, trademarks, trade secrets or secret formulae licensed or disclosed
+hereunder is, for any reason, declared invalid or unenforceable; or
+
+-30-
+<PAGE>
+
+(f) if Franchisee or any Principal Shareholder is convicted of or
+pleads nolo contendere to a felony or any crime involving moral turpitude.
+
+If Franchisee defaults in the performance or observance of any of its other
+obligations hereunder, and such default continues for a period of sixty (60)
+days after written notice to Franchisee specifying such default, Franchisor
+shall have the right to terminate this Agreement upon thirty (30) days written
+notice to Franchisee. If Franchisee defaults in the performance or observance of
+the same obligation two (2) or more times within a twelve (12) month period,
+Franchisor shall have the right to terminate this Agreement immediately upon
+commission of the second act of default, upon thirty (30) days written notice to
+Franchisee stating the reason for such termination, without allowance for any
+curative period.
+
+The foregoing provisions of this Subsection 19.1 are subject to the
+provisions of any local statutes or regulations which limit the grounds upon
+which Franchisor may terminate this Agreement, or which require that Franchisor
+give Franchisee additional prior written notice of termination and opportunity
+to cure any default.
+
+In the event of termination by reason of Franchisee's failure after a good
+faith effort to obtain the necessary state or local liquor licenses (as required
+in Section 23), Franchisor shall refund to Franchisee, without interest, the
+franchise fee payment referred to in Subsection 9.1(a), less any expenses
+incurred and damages sustained by Franchisor in connection with its performance
+hereunder prior to the date of such termination. Franchisor shall also repay the
+initial franchise fee in the circumstances described in Subsection 18.8 hereof.
+In the event of termination for any other reason, Franchisor shall have no
+obligation to refund any amount previously paid by Franchisee, and Franchisee
+shall be obligated to promptly pay all sums which are then due Franchisor.
+
+19.2 Upon the termination of this Agreement by Franchisor, Franchisee may
+not remove any property from the Restaurant premises for thirty (30) days after
+the termination. Upon the expiration or earlier termination of this Agreement
+for any reason:
+
+(a) Franchisee shall immediately discontinue its use of the System and
+its use of Franchisor's trade names, service marks, trademarks, logos,
+insignia, slogans, emblems, symbols, designs and other identifying
+characteristics;
+
+(b) if the Restaurant premises are owned by Franchisee or leased from
+a third party, Franchisee shall, upon demand by Franchisor, remove (at
+Franchisee's expense) Franchisor's trade names, service marks, trademarks,
+logos, insignia, slogans, sign facia, emblems, symbols, designs and other
+identifying characteristics from all premises, and paint all premises and
+other improvements maintained pursuant to this Agreement a design and color
+which is basically different from Franchisor's authorized design and color.
+If Franchisee shall fail to make or cause to be made any such removal or
+repainting within thirty (30) days after written notice, then Franchisor
+shall have the right to enter upon the Restaurant premises, without being
+deemed guilty of trespass or any tort (or Franchisee shall cause Franchisor
+to be permitted on the premises as necessary), and make or cause to be made
+such removal, alterations and repainting at the reasonable expense of
+Franchisee, which expense Franchisee shall pay to Franchisor immediately
+upon demand; and
+
+-31-
+<PAGE>
+
+(c) Franchisee shall not thereafter use any trademark, trade name,
+service mark, logo, insignia, slogan, emblem, symbol, design or other
+identifying characteristic that is in any way associated with Franchisor or
+similar to those associated with Franchisor, or use any food or proprietary
+menu item, recipe or method of food preparation or operate or do business
+under any name or in any manner that might tend to give the public the
+impression that Franchisee is or was a licensee or franchisee of, or
+otherwise associated with, Franchisor.
+
+19.3 In the event that any party to this Agreement initiates any legal
+proceeding to construe or enforce any of the terms, conditions and/or provisions
+of this Agreement, including, but not limited to, its termination provisions and
+its provisions requiring Franchisee to make certain payments to Franchisor
+incident to the operation of the Restaurant, or to obtain damages or other
+relief to which any such party may be entitled by virtue of this Agreement, the
+prevailing party or parties shall be paid its reasonable attorneys' fees and
+expenses by the other party or parties. If Franchisee fails to comply with a
+written notice of termination sent by Franchisor and a court later upholds such
+termination of this Agreement, Franchisee's operation of the Restaurant, from
+and after the date of termination stated in such notice, shall constitute
+willful trademark infringement and unfair competition by Franchisee, and
+Franchisee shall be liable to Franchisor for damages resulting from such
+infringement in addition to any fees paid or payable hereunder, including,
+without limitation, any profits which Franchisee derived from such
+post-termination operation of the Restaurant.
+
+19.4 (a) With respect to Restaurant premises owned by Franchisee, in the
+event of termination of this Agreement, Franchisor shall have, for thirty (30)
+days after the termination is effective, an option, exercisable upon written
+notice to Franchisee within such thirty (30) day period, to elect to purchase
+the Restaurant premises from Franchisee for the fair market value of the land
+and buildings, furnishings and equipment located therein.
+
+(b) In addition to the option described above, Franchisor shall have
+an option, exercisable upon written notice to Franchisee, to elect to purchase
+the Restaurant premises from Franchisee upon expiration of this Agreement for
+the fair market value of the land and buildings, furnishings, and equipment
+located therein subject to Franchisee's option to operate the Restaurant for an
+additional term under Subsection 1.3 hereof. If Franchisee does not notify
+Franchisor, pursuant to Subsection 1.3 hereof, of a desire to operate the
+Restaurant for an additional term, then Franchisor shall provide the written
+notice described in the preceding sentence within thirty (30) days after the
+latest date by which Franchisee is required by Subsection 1.3 to advise
+Franchisor of such a desire; if Franchisee does notify Franchisor of a desire to
+operate the Restaurant for an additional term and Franchisor determines that
+Franchisee is not eligible to do so, Franchisor shall provide the written notice
+described in the preceding sentence within thirty (30) days of its written
+notice to Franchisee that Franchisee is not eligible to operate the Restaurant
+for such additional term. With respect to the option to purchase upon expiration
+of this Agreement, this option shall not apply if prior to thirty (30) days
+before said expiration, Franchisee enters into an agreement to sell such
+Restaurant premises to a third party upon the expiration of the Franchise
+Agreement, provided that Franchisee's agreement with the purchaser includes a
+covenant by the purchaser, which is expressly enforceable by Franchisor as a
+third-party beneficiary thereof, pursuant to which the purchaser agrees that,
+for a period of twelve (12) months after the expiration of this Agreement, the
+purchaser shall not use such premises for the operation of a restaurant business
+whose menu or method of operation is similar to that employed by restaurant
+units within the System.
+
+-32-
+<PAGE>
+
+(c) If Franchisee receives approval to operate the Restaurant premises
+for an additional term in accordance with Subsection 1.3 hereof, Franchisee will
+be required to execute the then-existing form of franchise agreement, which
+shall contain an option to obtain assignment of Franchisee's lease with a third
+party and/or to purchase certain property, exercisable by Franchisor upon
+termination thereof, and an option to purchase the Restaurant premises,
+exercisable by Franchisor upon expiration of the additional term (subject to any
+then-existing rights to renew of Franchisee). Such options shall be
+substantially similar to the provisions described in this Subsection 19.4.
+
+(d) If the parties cannot agree on the purchase price or other terms
+of purchase within thirty (30) days following Franchisor's exercise of its
+option pursuant to Subsection 19.4(a) and (b), the price or disputed terms of
+purchase shall be determined by three (3) appraisers, with each party selecting
+one (1) appraiser and the two (2) appraisers, so chosen, selecting the third
+appraiser. In the event of such an appraisal, each party shall bear its own
+legal and other costs and shall split equally the appraisal fees. The
+appraisers' determination of the price and other disputed terms of purchase
+shall be final and binding.
+
+(e) If Franchisor elects to exercise its option to purchase upon
+termination of this Agreement, the purchase price shall be paid within thirty
+(30) days of the determination of the purchase price and other terms of
+purchase. If Franchisor elects to exercise its option to purchase upon
+expiration of this Agreement, the purchase price shall be paid within thirty
+(30) days of the later of (a) the determination of the purchase price and other
+terms of purchase, or (b) expiration of this Agreement. If the Franchisor does
+not elect to exercise its option to purchase the Restaurant premises, the
+Franchisee may sell such premises to a third party, provided that Franchisee's
+agreement with the purchaser includes a covenant by the purchaser, which is
+expressly enforceable by Franchisor as a third-party beneficiary thereof,
+pursuant to which the purchaser agrees that it shall not use such premises for
+the operation of a restaurant business whose menu or method of operation is
+similar to that employed by restaurant units within the System for a period of
+twelve (12) months after the termination or expiration of this Agreement.
+
+(f) If the Restaurant premises are leased by Franchisee from a third
+party, such lease must allow Franchisee to assign the lease to Franchisor. Upon
+termination of this Agreement for any reason, Franchisor has the right,
+exercisable upon written notice to Franchisee within thirty (30) days after
+termination is effective, to require Franchisee to assign all Franchisee's
+rights and obligations under the lease to Franchisor and to immediately
+surrender possession of the premises, including all fixtures and leasehold
+improvements, to Franchisor. The lessor may not impose any assignment fee or
+other similar charge on Franchisor in connection with such assignment. If
+Franchisor exercises that right, it has an additional right, to be exercised
+within thirty (30) days after taking possession of the premises, to purchase all
+of Franchisee's equipment, signs, decor items, furnishings, supplies and other
+products and materials at their then-fair market value. If the parties cannot
+agree on the price, the price will be determined in the manner set forth in
+connection with Franchisee-owned Restaurant premises. If Franchisor elects not
+to purchase the items mentioned above, Franchisee shall, at Franchisee's own
+expense and under Franchisor's supervision remove those items from the premises
+within ten (10) days after such final election, or ten (10) days after
+expiration of the option period, whichever is earlier. If Franchisee fails to
+remove all such property from the premises within such period, Franchisor shall
+be entitled to do so, or to authorize a third party to do so, all at
+Franchisee's expense.
+
+-33-
+<PAGE>
+
+19.5 In addition to the provisions contained in Subsection 19.4 hereof:
+
+(a) With respect to Restaurant premises owned by Franchisee, in the
+event of termination of this Agreement and Franchisor's exercise of its
+option to purchase the Restaurant premises pursuant to Subsection 19.4(a)
+hereof, Franchisee shall have, for ten (10) days after its receipt of
+written notice of Franchisor's election to purchase, an option, exercisable
+upon written notice to Franchisor, to lease said premises to Franchisor,
+pursuant to a lease which provides for rental at a rate not in excess of six
+percent (6%) of gross sales and triple net terms. Said lease shall provide
+for a lease term of at least ten (10) years with two (2) five (5)-year
+options to renew, and for primary annual rent of not in excess of the number
+derived from multiplying six percent (6%) times the gross sales reported by
+Franchisee to Franchisor for which Franchisee has paid a royalty fee for the
+next preceding calendar year times eighty percent (80%).
+
+(b) In addition to the option described above, Franchisee shall have
+an option, exercisable upon written notice to Franchisor, to elect to lease
+the Restaurant premises to Franchisor upon expiration of this Agreement and
+Franchisor's exercise of its option to purchase the Restaurant premises
+pursuant to Subsection 19.4(b) hereof, pursuant to the same terms set forth
+in Subsection 19.5(a) above, subject to Franchisee's option to operate the
+Restaurant for an additional term under Subsection 1.3 hereof. If (i)
+Franchisee does not notify Franchisor, pursuant to Subsection 1.3 hereof, of
+a desire to operate the Restaurant for an additional term, or (ii)
+Franchisee does notify Franchisor of a desire to operate the Restaurant for
+an additional term and Franchisor determines that Franchisee is not eligible
+to do so, and Franchisor exercises its option to purchase the Restaurant
+premises, then Franchisee shall provide the written notice described in the
+preceding sentence within ten (10) days after its receipt of written notice
+of Franchisor's election to purchase. With respect to the option to lease
+upon expiration of this Agreement, this option shall not apply if prior to
+thirty (30) days before said expiration, Franchisee enters into an agreement
+to sell such Restaurant premises to a third party upon the expiration of the
+Franchise Agreement, provided that Franchisee's agreement with the purchaser
+includes a covenant by the purchaser, which is expressly enforceable by
+Franchisor as a third-party beneficiary thereof, pursuant to which the
+purchaser agrees, at Franchisor's option, either to lease said premises to
+Franchisor upon the terms set forth in Subsection 19.5(a), or that for a
+period of twelve (12) months after the expiration of this Agreement, the
+purchaser shall not use such premises for the operation of a restaurant
+business whose menu or method of operation is similar to that employed by
+restaurant units within the System.
+
+(c) If Franchisee receives approval to operate the Restaurant premises
+for an additional term in accordance with Subsection 1.3 hereof, Franchisee
+will be required to execute the then-existing form of franchise agreement
+which shall contain an option to obtain assignment of Franchisee's lease
+with a third party and/or to lease certain property, exercisable by
+Franchisor upon termination thereof, and an option to lease the Restaurant
+premises, exercisable by Franchisor upon expiration of the additional term
+(subject to any then-existing rights to renew of Franchisee). Such options
+shall be substantially similar to the provisions described in this
+Subsection 19.5.
+
+-34-
+<PAGE>
+
+20. NO WAIVER OF DEFAULT
+
+20.1 The waiver by any party to this Agreement of any breach or default, or
+series of breaches or defaults, of any term, covenant or condition herein, or of
+any same or similar term, covenant or condition contained in any other agreement
+between Franchisor and any franchisee, shall not be deemed a waiver of any
+subsequent or continuing breach or default of the same or any other term,
+covenant or condition contained in this Agreement, or in any other agreement
+between Franchisor and any franchisee.
+
+20.2 All rights and remedies of the parties hereto shall be cumulative and
+not alternative, in addition to and not exclusive of any other rights or
+remedies which are provided for herein or which may be available at law or in
+equity in case of any breach, failure or default or threatened breach, failure
+or default of any term, provision or condition of this Agreement. The rights and
+remedies of the parties hereto shall be continuing and shall not be exhausted by
+any one (1) or more uses thereof, and may be exercised at any time or from time
+to time as often as may be expedient; and any option or election to enforce any
+such right or remedy may be exercised or taken at any time and from time to
+time. The expiration or earlier termination of this Agreement shall not
+discharge or release Franchisee or any Principal Shareholder from any liability
+or obligation then accrued, or any liability or obligation continuing beyond, or
+arising out of, the expiration or earlier termination of the Agreement.
+
+21. CONSTRUCTION, SEVERABILITY, GOVERNING LAW AND JURISDICTION
+
+21.1 If any part of this Agreement shall for any reason be declared invalid,
+unenforceable or impaired in any way, the validity of the remaining portions
+shall remain in full force and effect as if the Agreement had been executed with
+such invalid portion eliminated, and it is hereby declared the intention of the
+parties that they would have executed the remaining portion of this Agreement
+without including therein any such portions which might be declared invalid;
+provided however, that in the event any part hereof relating to the payment of
+fees to Franchisor, or the preservation of any of Franchisor's trade names,
+service marks, trademarks, trade secrets or secret formulae licensed or
+disclosed hereunder is for any reason declared invalid or unenforceable, then
+Franchisor shall have the right to terminate this Agreement upon written notice
+to Franchisee. If any clause or provision herein would be deemed invalid or
+unenforceable as written, it shall be deemed modified or limited to such extent
+or in such manner as may be necessary to render the clause or provision valid
+and enforceable to the greatest extent possible in light of the interest of the
+parties expressed in that clause or provision, subject to the provisions of the
+preceding sentence.
+
+21.2 FRANCHISEE AND PRINCIPAL SHAREHOLDERS ACKNOWLEDGE THAT FRANCHISOR MAY
+GRANT NUMEROUS FRANCHISES THROUGHOUT THE UNITED STATES ON TERMS AND CONDITIONS
+SIMILAR TO THOSE SET FORTH IN THIS AGREEMENT, AND THAT IT IS OF MUTUAL BENEFIT
+TO FRANCHISEE AND PRINCIPAL SHAREHOLDERS AND TO FRANCHISOR THAT THESE TERMS AND
+CONDITIONS BE UNIFORMLY INTERPRETED. THEREFORE, THE PARTIES AGREE THAT TO THE
+EXTENT THAT THE LAW OF THE STATE OF KANSAS DOES NOT CONFLICT WITH LOCAL
+FRANCHISE STATUTES, RULES AND REGULATIONS, KANSAS LAW SHALL APPLY TO THE
+CONSTRUCTION OF THIS AGREEMENT AND SHALL GOVERN ALL QUESTIONS WHICH ARISE WITH
+REFERENCE HERETO; PROVIDED HOWEVER, THAT PROVISIONS OF KANSAS LAW REGARDING
+CONFLICTS OF LAW SHALL NOT APPLY HERETO.
+
+-35-
+<PAGE>
+
+21.3 THE PARTIES AGREE THAT ANY CLAIM, CONTROVERSY OR DISPUTE ARISING OUT OF
+OR RELATING TO THIS AGREEMENT OR THE PERFORMANCE THEREOF WHICH CANNOT BE
+AMICABLY SETTLED, EXCEPT AS OTHERWISE PROVIDED HEREIN, MAY, AT THE OPTION OF THE
+CLAIMANT, BE RESOLVED BY A PROCEEDING IN A COURT IN JOHNSON COUNTY, KANSAS, AND
+FRANCHISEE AND PRINCIPAL SHAREHOLDERS EACH IRREVOCABLY ACCEPT THE JURISDICTION
+OF THE COURTS OF THE STATE OF KANSAS AND THE FEDERAL COURTS SERVING JOHNSON
+COUNTY, KANSAS FOR SUCH CLAIMS, CONTROVERSIES OR DISPUTES.
+
+The parties agree that service of process in any proceeding arising out of
+or relating to this Agreement or the performance thereof may be made as to
+Franchisee and any Principal Shareholder by serving a person of suitable age and
+discretion (such as the person in charge of the office) at the address of
+Franchisee specified in this Agreement and as to Franchisor by serving the
+president or a vice-president of Franchisor at the address of Franchisor or by
+serving Franchisor's registered agent.
+
+22. INTERFERENCE WITH EMPLOYMENT RELATIONS
+
+During the term of this Agreement, neither Franchisor nor Franchisee shall
+employ or seek to employ in a managerial position (i.e., in a position at a pay
+grade at or above that of Assistant Restaurant Manager or Kitchen Manager),
+directly or indirectly, any person who is at the time or was at any time during
+the prior six (6) months employed by the other party or any of its subsidiaries
+or affiliates, or by any franchisee in the System. This section shall not be
+violated if, at the time Franchisor or Franchisee employs or seeks to employ
+such person, such former employer has given its written consent. Notwithstanding
+any other provision of this Agreement, the parties hereto acknowledge that if
+this Section is violated, such former employer shall be entitled to liquidated
+damages equal to three (3) times the annual salary of the employee involved,
+plus reimbursement of all costs and attorneys' fees incurred. In addition to the
+rights granted to the parties hereto, the parties acknowledge and agree that any
+franchisee from which an employee was hired by either party to this Agreement in
+violation of the terms of this Section shall be deemed to be a third-party
+beneficiary of this provision and may sue and recover against the offending
+party the liquidated damages herein set forth; provided however, the failure by
+Franchisee to enforce this Section shall not be deemed to be a violation of this
+Section.
+
+-36-
+<PAGE>
+
+23. LIQUOR LICENSE
+
+The grant of the rights which are the subject of this Agreement is expressly
+conditioned upon the ability of the Franchisee to obtain and maintain any and
+all required state and/or local licenses permitting the sale of liquor by the
+drink on the Restaurant premises, and Franchisee agrees to use its best efforts
+to obtain such licenses. In the event Franchisee fails, after a good faith
+effort, to obtain any and all such required liquor licenses prior to the date on
+which the Restaurant is otherwise ready to open for business, then, at the
+option of the Franchisor, this Agreement may be terminated forthwith by
+Franchisor upon written notice to Franchisee, in which event, Franchisor shall
+refund to Franchisee, without interest, the initial franchise fee payment
+referred to in Subsection 9.1, less any expenses incurred and damages sustained
+by Franchisor in connection with its performance hereunder prior to the date of
+such termination. After obtaining the necessary state or local liquor licenses,
+Franchisee shall thereafter comply with all applicable laws and regulations
+relating to the sale of liquor on the Restaurant premises. If, during any twelve
+(12) month period during the term of this Agreement, Franchisee is prohibited
+for any reason from selling liquor on the Restaurant premises for more than
+thirty (30) days because of a violation or violations of state or local liquor
+laws, then at the option of Franchisor this Agreement may be terminated
+forthwith by Franchisor upon written notice to Franchisee.
+
+24. FORCE MAJEURE
+
+24.1 As used in this Agreement, the term "Force Majeure" shall mean any act
+of God, strike, lock-out or other industrial disturbance, war (declared or
+undeclared), riot, epidemic, fire or other catastrophe, act of any government
+and any other similar cause not within the control of the party affected
+thereby.
+
+24.2 If the performance of any obligation by any party under this Agreement
+is prevented or delayed by reason of Force Majeure, which cannot be overcome by
+use of normal commercial measures, the parties shall be relieved of their
+respective obligations to the extent the parties are respectively necessarily
+prevented or delayed in such performance during the period of such Force
+Majeure. The party whose performance is affected by an event of Force Majeure
+shall give prompt notice of such Force Majeure event to the other party by
+facsimile, telephone or telegram (in each case to be confirmed in writing),
+setting forth the nature thereof and an estimate as to its duration, and shall
+be liable for failure to give such timely notice only to the extent of damage
+actually caused.
+
+24.3 Notwithstanding the provisions of this Section 24, if, as a result of
+an event of Force Majeure (including condemnation proceedings), the Franchisee
+ceases to operate the Restaurant or loses the right to possession of the
+Restaurant premises, Franchisee shall apply within thirty (30) days after the
+event of Force Majeure for Franchisor's approval to relocate and/or reconstruct
+the Restaurant. If relocation is necessary, Franchisor agrees to use its
+reasonable efforts to assist Franchisee in locating an alternative site in the
+same general area where Franchisee can operate a Restaurant within the System
+for the balance of the term of the Franchise Agreement. If Franchisor so assists
+Franchisee, Franchisee shall reimburse Franchisor for its reasonable
+
+-37-
+<PAGE>
+
+out-of-pocket expenses incurred as a result thereof. (This provision shall not
+be construed to prevent Franchisee from receiving the full amount of any
+condemnation award of damages relating to the closing of the Restaurant;
+provided however, that if Franchisor or an affiliate is the lessor of the
+Restaurant premises, Franchisee specifically waives and releases any claim it
+may have for the value of any building, fixtures and other improvements on the
+premises, whether or not installed or paid for by the Franchisee, and Franchisee
+agrees to subordinate any claim it may have to Franchisor's claim for such
+improvements.) Selection of an alternative location will be subject to the site
+approval procedures set forth in Section 5 of the Development Agreement. Once
+Franchisee has obtained Franchisor's approval to relocate and/or reconstruct the
+Restaurant, Franchisee must diligently pursue relocation and/or reconstruction
+until the Restaurant is reopened for business.
+
+25. MISCELLANEOUS
+
+25.1 All notices and other communications required or permitted to be given
+hereunder shall be deemed given when delivered in person, by overnight courier
+service, facsimile transmission or mailed by registered or certified mail
+addressed to the recipient at the address set forth below, unless that party
+shall have given written notice of change of address to the sending party, in
+which event the new address so specified shall be used.
+
+FRANCHISOR: Applebee's International, Inc.
+4551 W. 107th Street, Suite 100
+Overland Park, Kansas 66207
+Attention: President
+
+FRANCHISEE: ___________________________
+___________________________
+___________________________
+
+PRINCIPAL SHAREHOLDERS: __________________________
+__________________________
+
+25.2 All terms used in this Agreement, regardless of the number and gender
+in which they are used, shall be deemed and construed to include any other
+number, singular or plural, and any other gender, masculine, feminine or neuter,
+as the context or sense of this Agreement may require, the same as if such words
+had been written in this Agreement themselves. The headings inserted in this
+Agreement are for reference purposes only and shall not affect the construction
+of this Agreement or limit the generality of any of its provisions. The term
+"business day" means any day other than Saturday, Sunday, or the following
+national holidays: New Year's Day, Martin Luther King Day, Washington's
+Birthday, Memorial Day, Independence Day, Labor Day, Columbus Day, Veterans'
+Day, Thanksgiving and Christmas.
+
+-38-
+<PAGE>
+
+25.4 Franchisee shall, at its own cost and expense, promptly comply with all
+laws, ordinances, orders, rules, regulations and requirements of all federal,
+state and municipal governments and appropriate departments, commissions, boards
+and offices thereof. Without limiting the generality of the foregoing,
+Franchisee shall abide by all applicable rules and regulations of any public
+health department.
+
+25.5 In the event that Franchisor has leased the Restaurant premises to
+Franchisee pursuant to a written lease agreement (the "Lease"), the Lease is
+hereby incorporated in this Agreement by reference, and any failure on the part
+of Franchisee (Lessee therein) to perform, fulfill or observe any of the
+covenants, conditions or agreements contained in the Lease shall constitute a
+material breach of this Agreement. It is expressly understood, acknowledged and
+agreed by Franchisee that any termination of the Lease shall result in automatic
+and immediate termination of this Agreement without additional notice to
+Franchisee.
+
+25.6 This Agreement and the documents referred to herein constitute the
+entire agreement between the parties, superseding and canceling any and all
+prior and contemporaneous agreements, understandings, representations,
+inducements and statements, oral or written, of the parties in connection with
+the subject matter hereof. FRANCHISEE EXPRESSLY ACKNOWLEDGES THAT IT HAS ENTERED
+INTO THIS FRANCHISE AGREEMENT AS A RESULT OF ITS OWN INDEPENDENT INVESTIGATION
+AND AFTER CONSULTATION WITH ITS OWN ATTORNEY, AND NOT AS A RESULT OF ANY
+REPRESENTATIONS OF FRANCHISOR, ITS AGENTS, OFFICERS OR EMPLOYEES, EXCEPT AS
+CONTAINED HEREIN AND IN FRANCHISOR'S FRANCHISE OFFERING CIRCULAR, HERETOFORE
+MADE AVAILABLE TO FRANCHISEE.
+
+25.7 Except as expressly authorized herein, no amendment or modification of
+this Agreement shall be binding unless executed in writing both by Franchisor
+and by Franchisee and Principal Shareholders.
+
+26. ACKNOWLEDGMENTS
+
+Franchisee and Principal Shareholders acknowledge that:
+
+(a) Franchisee has received a copy of this Agreement and has had an
+opportunity to consult with its attorney with respect thereto at least five
+(5) business days prior to execution of this Agreement;
+
+(b) No representation has been made by Franchisor as to the future
+profitability of the Restaurant;
+
+(c) Prior to the execution of this Agreement, Franchisee has had ample
+opportunity to contact Franchisor's existing franchisees, if any, and to
+investigate all statements made by Franchisor relating to the System;
+
+-39-
+<PAGE>
+
+(d) This Agreement establishes the right to construct and operate a
+Restaurant only at the location specified in Subsection 1.1 hereof; and
+
+(e) Franchisor is the sole owner of the service marks identified in
+this Agreement, and of the goodwill associated therewith, and Franchisee
+acquires no right, title or interest in those names and marks other than the
+right to use them only in the manner and to the extent prescribed and
+approved by Franchisor.
+
+IN WITNESS WHEREOF, the undersigned have entered into this Agreement as of the
+date first above written.
+
+FRANCHISOR:
+
+ATTEST: APPLEBEE'S INTERNATIONAL, INC.
+
+By: _____________________________________
+_____________________________________
+Name: ______________________________ Name: ___________________________________
+Title: ______________________________ Title: __________________________________
+
+FRANCHISEE:
+
+ATTEST:
+_________________________________________
+
+By: _____________________________________
+_____________________________________
+Name: _______________________________ Name: ___________________________________
+Title: ______________________________ Title: __________________________________
+
+PRINCIPAL SHAREHOLDER(S):
+
+_____________________________________ _________________________________________
+Witness Name: ___________________________________
+
+_____________________________________ _________________________________________
+Witness Name: ___________________________________
+
+_____________________________________ _________________________________________
+Witness Name: ___________________________________
+
+-40-
+<PAGE>
+
+EXHIBIT 1 TO FRANCHISE AGREEMENT
+
+ROYALTY FEE
+
+The monthly royalty fee to be paid by Franchisee shall be four percent (4%)
+of each calendar month's gross sales until January 1, 2020. Thereafter, a
+monthly royalty fee shall be determined by Franchisor in its sole discretion.
+
+-41-
+<PAGE>
+
+APPENDIX A TO FRANCHISE AGREEMENT
+
+STATEMENT OF OWNERSHIP INTERESTS
+
+Percent of Issued
+and Outstanding
+Shareholder Shares of Franchisee
+
+-42-
+<PAGE>
+
+APPENDIX B TO FRANCHISE AGREEMENT
+
+REVIEW AND CONSENT WITH RESPECT TO TRANSFERS
+
+In determining whether to grant or to withhold consent to a proposed
+Transfer, Franchisor shall consider all of the facts and circumstances which it
+views as relevant in the particular instance, including, but not limited to, any
+of the following: (i) work experience and aptitude of Proposed New Owner and/or
+proposed new management (a proposed transferee of a Principal Shareholder's
+Interest and/or a proposed transferee of this Agreement is referred to as
+"Proposed New Owner"); (ii) financial background and condition of Proposed New
+Owner, and actual and pro forma financial condition of Franchisee; (iii)
+character and reputation of Proposed New Owner; (iv) conflicting interests of
+Proposed New Owner; (v) the terms and conditions of Proposed New Owner's rights,
+if the proposed Transfer is a pledge or hypothecation; (vi) the adequacy of
+Franchisee's operation of any Restaurant and compliance with the System and this
+Agreement; and (vii) such other criteria and conditions as Franchisor shall then
+consider relevant in the case of an application for a new franchise to operate a
+restaurant unit within the System by an applicant that is not then currently
+doing so. Franchisor's consent also may be conditioned upon execution by
+Proposed New Owner of an agreement whereby Proposed New Owner assumes full,
+unconditional, joint and several liability for, and agrees to perform from the
+date of such Transfer, all obligations, covenants and agreements contained
+herein to the same extent as if it had been an original party to this Agreement
+and may also require Franchisee and Principal Shareholders, including the
+proposed Transferor(s), to execute a general release which releases Franchisor
+from any claims they may have had or then have against Franchisor. In the event
+Proposed New Owner is a partnership (including, but not limited to, a limited
+partnership), Proposed New Owner will also be required to execute an addendum to
+the Agreement which amends the references to Franchisee and its Principal
+Shareholders to include the partnership approved by Franchisor and Proposed New
+Owner's general partner(s) and the principal shareholders of the general
+partner(s), if the general partner(s) is a corporation. This addendum will
+contain a provision including in the definition of "Transfer" the withdrawal,
+removal or voluntary/involuntary dissolution (if applicable) of the general
+partner(s) or the substitution or addition of a new general partner. Franchisee
+or Principal Shareholders, as the case may be, shall provide Franchisor with
+such information as it may require in connection with a request for approval of
+a proposed Transfer.
+
+-43-
+<PAGE>
+
+APPENDIX C TO FRANCHISE AGREEMENT
+
+CONFIDENTIALITY AGREEMENT
+
+THIS AGREEMENT is made this ________ day of ________________, 20_______, by
+and between _______________________________________, a _____________ corporation
+("Developer"), and __________________________, an individual employed by
+Developer ("Employee").
+
+WITNESSETH:
+
+WHEREAS, APPLEBEE'S INTERNATIONAL, INC. ("Applebee's") is the owner of all
+rights in and to a unique system for the development and operation of
+restaurants (the "System"), which includes proprietary rights in valuable trade
+names, service marks and trademarks, including the service mark Applebee's
+Neighborhood Grill & Bar and variations of such mark, designs and color schemes
+for restaurant premises, signs, equipment, procedures and formulae for preparing
+food and beverage products, specifications for certain food and beverage
+products, inventory methods, operating methods, financial control concepts, a
+training facility and teaching techniques;
+
+WHEREAS, Developer is the owner of the exclusive right to develop
+restaurants franchised by Applebee's which utilize the System ("Restaurants")
+for the period and in the territory described in the Development Agreement
+between Applebee's and Developer (the "Development Agreement"); and
+
+WHEREAS, Developer acknowledges that Applebee's information as described
+above was developed over time at great expense, is not generally known in the
+industry and is beyond Developer's own present skills and experience, and that
+to develop it itself would be expensive, time-consuming and difficult, that it
+provides a competitive advantage and will be valuable to Developer in the
+development of its business, and that gaining access to it was therefore a
+primary reason why Developer entered into the Development Agreement; and
+
+WHEREAS, in consideration of Applebee's confidential disclosure to Developer
+of these trade secrets, Developer has agreed to be obligated by the terms of
+Development Agreement to execute, with each employee of Developer who will have
+supervisory authority over the development or operation of more than one
+Restaurant in the Territory described in the Development Agreement, a written
+agreement protecting Applebee's trade secrets and confidential information
+entrusted to Employee;
+
+NOW, THEREFORE, in consideration of the mutual covenants and obligations
+contained herein, the parties agree as follows:
+
+(1) The parties acknowledge and agree that Employee is or will be employed
+in a supervisory or managerial capacity and in such capacity will have access to
+information and materials which constitute trade secrets and confidential and
+proprietary information. The parties further acknowledge and agree that any
+actual or potential direct or indirect competitor of Applebee's, or of any of
+its franchisees, shall not have access to such trade secrets and confidential
+information.
+
+-44-
+<PAGE>
+
+(2) The parties acknowledge and agree that the System includes trade
+secrets and confidential information which Applebee's has revealed to Developer
+in confidence, and that protection of said trade secrets and confidential
+information and protection of Applebee's against unfair competition from others
+who enjoy or who have had access to said trade secrets and confidential
+information are essential for the maintenance of goodwill and special value of
+the System.
+
+(3) Employee agrees that he or she shall not at any time (i) appropriate or
+use the trade secrets incorporated in the System, or any portion thereof, for
+use in any business which is not within the System; (ii) disclose or reveal any
+portion of the System to any person, other than to Developer's employees as an
+incident of their training; (iii) acquire any right to use, or to license or
+franchise the use of any name, mark or other intellectual property right which
+is or may be granted by any franchise agreement between Applebee's and
+Developer; or (iv) communicate, divulge or use for the benefit of any other
+person or entity any confidential information, knowledge or know-how concerning
+the methods of development or operation of a Restaurant which may be
+communicated to Employee or of which Employee may be apprised by virtue of
+Employee's employment by Developer. Employee shall divulge such confidential
+information only to such of Developer's other employees as must have access to
+that information in order to operate a Restaurant or to develop a prospective
+site for a Restaurant. Any and information, knowledge and know-how, including,
+without limitation, drawings, materials, equipment, specifications, techniques
+and other data, which Applebee's designates as confidential, shall be deemed
+confidential for purposes of this Agreement.
+
+(4) Employee further acknowledges and agrees that the Franchise Operations
+Manual and any other materials or manuals provided or made available to
+Developer by Applebee's (collectively, the "Manuals"), described in Section 5 of
+the applicable franchise agreement between Applebee's and Developer, are loaned
+by Applebee's to Developer for limited purposes only, remain the property of
+Applebee's, and may not be reproduced, in whole or in part, without the written
+consent of Applebee's.
+
+(5) Employee agrees to surrender to Developer or to Applebee's each and
+every copy of the Manuals and any other information or material in his or her
+possession or control upon request, upon termination of employment or upon
+completion of the use for which said Manuals or other information or material
+may have been furnished to Employee.
+
+(6) The parties agree that in the event of a breach of this Agreement,
+Applebee's would be irreparably injured and would be without an adequate remedy
+at law. Therefore, in the event of a breach or a threatened or attempted breach
+of any of the provisions hereof, Applebee's shall be entitled to enforce the
+provisions of this Agreement as a third-party beneficiary hereof and shall be
+entitled, in addition to any other remedies which it may have hereunder at law
+or in equity (including the right to terminate the Development Agreement), to a
+temporary and/or permanent injunction and a decree for specific performance of
+the terms hereof without the necessity of showing actual or threatened damage,
+and without being required to furnish a bond or other security.
+
+-45-
+<PAGE>
+
+(7) If any court or other tribunal having jurisdiction to determine the
+validity or enforceability of this Agreement determines that it would be invalid
+or unenforceable as written, the provisions hereof shall be deemed to be
+modified or limited to such extent or in such manner necessary for such
+provisions to be valid and enforceable to the greatest extent possible.
+
+IN WITNESS WHEREOF, the undersigned have entered into this Agreement as of
+the date first above written.
+
+DEVELOPER EMPLOYEE
+
+By: _________________________________ By: _____________________________________
+Name: _______________________________ Name: ___________________________________
+Title: ______________________________
+
+-46-
+
+</TEXT>
+</DOCUMENT>
