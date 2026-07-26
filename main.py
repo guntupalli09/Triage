@@ -12,6 +12,7 @@ import time
 import zipfile
 import hmac
 import hashlib
+import html
 import json
 import logging
 import secrets
@@ -2019,16 +2020,78 @@ async def contact_page(request: Request):
     })
 
 
+CONTACT_SUBJECT_LABELS = {
+    "general": "General Inquiry",
+    "enterprise": "Enterprise Plan",
+    "support": "Technical Support",
+    "research": "Research Collaboration",
+    "partner": "Referral Partner Application",
+    "other": "Other",
+}
+
+
 @app.post("/contact", response_class=HTMLResponse)
-async def contact_submit(request: Request, cf_turnstile_response: str = Form("", alias="cf-turnstile-response")):
+async def contact_submit(
+    request: Request,
+    name: str = Form(...),
+    email: str = Form(...),
+    subject: str = Form("general"),
+    message: str = Form(...),
+    cf_turnstile_response: str = Form("", alias="cf-turnstile-response"),
+):
     enforce_rate_limit(request, "contact", limit=5, window_seconds=600)
     db = next(get_db())
     user = get_current_user(request, db)
-    if not await captcha.verify(request, cf_turnstile_response):
+
+    def render_error(error: str):
         return templates.TemplateResponse("contact.html", {
             "request": request, "user": user, "current_year": datetime.now().year,
-            "turnstile_site_key": captcha.TURNSTILE_SITE_KEY, "error": "Verification failed. Please try again.",
+            "turnstile_site_key": captcha.TURNSTILE_SITE_KEY, "error": error,
         })
+
+    if not await captcha.verify(request, cf_turnstile_response):
+        return render_error("Verification failed. Please try again.")
+
+    # Strip control characters (CR/LF, etc.) so form input can't inject extra
+    # email headers or corrupt the notification.
+    name = "".join(ch for ch in name.strip() if ch.isprintable())[:200]
+    email = "".join(ch for ch in email.strip() if ch.isprintable())[:200]
+    message = "".join(ch for ch in message.strip() if ch.isprintable() or ch == "\n")[:5000]
+    subject_key = subject.strip().lower()
+    subject_label = CONTACT_SUBJECT_LABELS.get(subject_key, "Other")
+
+    if not name or not email or not message:
+        return render_error("Please fill in your name, email, and message.")
+    if "@" not in email or "." not in email.split("@")[-1]:
+        return render_error("Please enter a valid email address.")
+
+    if emailer.is_configured():
+        try:
+            emailer.send_email(
+                to=ADMIN_EMAIL,
+                subject=f"[Contact] {subject_label} — {name}",
+                html=(
+                    f'<div style="font-family:sans-serif;max-width:560px;margin:0 auto">'
+                    f'<h2 style="color:#0F172A">New contact form submission</h2>'
+                    f'<p><strong>Name:</strong> {html.escape(name)}<br>'
+                    f'<strong>Email:</strong> {html.escape(email)}<br>'
+                    f'<strong>Subject:</strong> {html.escape(subject_label)}</p>'
+                    f'<p style="white-space:pre-wrap">{html.escape(message)}</p>'
+                    f'</div>'
+                ),
+                text=(
+                    f"New contact form submission\n\n"
+                    f"Name: {name}\nEmail: {email}\nSubject: {subject_label}\n\n{message}"
+                ),
+                reply_to=email,
+            )
+        except Exception:
+            logger.exception("Failed to send contact form notification email")
+            return render_error("We couldn't send your message. Please try again in a few minutes or email us directly.")
+    else:
+        logger.warning("Contact form submitted but no email provider is configured; message was not delivered.")
+        return render_error("Message delivery is temporarily unavailable. Please try again later.")
+
     return templates.TemplateResponse("contact.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
         "success": True,

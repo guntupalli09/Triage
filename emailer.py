@@ -22,6 +22,7 @@ import urllib.error
 import urllib.request
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -33,27 +34,29 @@ def is_configured() -> bool:
     return bool(os.getenv("RESEND_API_KEY", "").strip()) or bool(os.getenv("SMTP_HOST", "").strip())
 
 
-def send_email(to: str, subject: str, html: str, text: str) -> None:
+def send_email(to: str, subject: str, html: str, text: str, reply_to: Optional[str] = None) -> None:
     """Send an email; raises on failure so callers can react."""
     sender = os.getenv("EMAIL_FROM", "").strip() or DEFAULT_FROM
     resend_key = os.getenv("RESEND_API_KEY", "").strip()
     if resend_key:
-        _send_via_resend(resend_key, sender, to, subject, html, text)
+        _send_via_resend(resend_key, sender, to, subject, html, text, reply_to)
         return
     smtp_host = os.getenv("SMTP_HOST", "").strip()
     if smtp_host:
-        _send_via_smtp(smtp_host, sender, to, subject, html, text)
+        _send_via_smtp(smtp_host, sender, to, subject, html, text, reply_to)
         return
     raise RuntimeError("No email provider configured (set RESEND_API_KEY or SMTP_HOST)")
 
 
-def _send_via_resend(api_key: str, sender: str, to: str, subject: str, html: str, text: str) -> None:
-    payload = json.dumps({
+def _send_via_resend(api_key: str, sender: str, to: str, subject: str, html: str, text: str, reply_to: Optional[str] = None) -> None:
+    payload = {
         "from": sender, "to": [to], "subject": subject, "html": html, "text": text,
-    }).encode()
+    }
+    if reply_to:
+        payload["reply_to"] = [reply_to]
     req = urllib.request.Request(
         RESEND_ENDPOINT,
-        data=payload,
+        data=json.dumps(payload).encode(),
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
@@ -72,7 +75,7 @@ def _send_via_resend(api_key: str, sender: str, to: str, subject: str, html: str
     logger.info(f"Password email sent via Resend to {to}")
 
 
-def _send_via_smtp(host: str, sender: str, to: str, subject: str, html: str, text: str) -> None:
+def _send_via_smtp(host: str, sender: str, to: str, subject: str, html: str, text: str, reply_to: Optional[str] = None) -> None:
     port = int(os.getenv("SMTP_PORT", "587"))
     user = os.getenv("SMTP_USER", "").strip()
     password = os.getenv("SMTP_PASSWORD", "").strip()
@@ -81,6 +84,8 @@ def _send_via_smtp(host: str, sender: str, to: str, subject: str, html: str, tex
     msg["Subject"] = subject
     msg["From"] = sender
     msg["To"] = to
+    if reply_to:
+        msg["Reply-To"] = reply_to
     msg.attach(MIMEText(text, "plain"))
     msg.attach(MIMEText(html, "html"))
 
