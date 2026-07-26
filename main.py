@@ -53,6 +53,8 @@ from auth import (
     hash_password, verify_password, create_session, get_current_user,
     logout as auth_logout, check_usage_limit,
 )
+from rate_limiter import enforce_rate_limit
+import captcha
 from models import User, Contract, Playbook
 from analytics_models import UserAcquisition, UserSession, UserEvent, ContractEvent
 from playbook_engine import PlaybookEngine
@@ -158,8 +160,42 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
         response.headers["x-request-id"] = request_id
         return response
 
+
+# CSP still allows 'unsafe-inline' script/style because the templates use
+# inline <script>/style= attributes throughout; migrating those to a
+# nonce-based policy is a larger, separate follow-up. Everything else here
+# (frame-ancestors, object-src, allowed origins) is fully locked down.
+CONTENT_SECURITY_POLICY = (
+    "default-src 'self'; "
+    "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://challenges.cloudflare.com; "
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+    "img-src 'self' data: https:; "
+    "font-src 'self' data: https://fonts.gstatic.com; "
+    "connect-src 'self' https://challenges.cloudflare.com; "
+    "frame-src https://challenges.cloudflare.com https://js.stripe.com; "
+    "object-src 'none'; "
+    "base-uri 'self'; "
+    "form-action 'self'; "
+    "frame-ancestors 'none'"
+)
+
+
+class SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        response = await call_next(request)
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
+        response.headers["Content-Security-Policy"] = CONTENT_SECURITY_POLICY
+        if os.getenv("SECURE_COOKIES", "false").lower() == "true":
+            response.headers["Strict-Transport-Security"] = "max-age=63072000; includeSubDomains"
+        return response
+
+
 app.add_middleware(AnalyticsMiddleware)
 app.add_middleware(RequestIDMiddleware)
+app.add_middleware(SecurityHeadersMiddleware)
 
 rule_engine = RuleEngine()
 llm_evaluator = LLMEvaluator()
@@ -402,6 +438,7 @@ async def login_page(request: Request):
 
 @app.post("/login", response_class=HTMLResponse)
 async def login_submit(request: Request, email: str = Form(...), password: str = Form(...)):
+    enforce_rate_limit(request, "login", limit=10, window_seconds=300)
     db = next(get_db())
     user = db.query(User).filter(User.email == email.lower().strip()).first()
     if not user or not verify_password(password, user.password_hash):
@@ -416,7 +453,9 @@ async def login_submit(request: Request, email: str = Form(...), password: str =
 @app.get("/register", response_class=HTMLResponse)
 async def register_page(request: Request):
     analytics.record_event(request, "signup_started")
-    return templates.TemplateResponse("register.html", {"request": request, "error": None})
+    return templates.TemplateResponse("register.html", {
+        "request": request, "error": None, "turnstile_site_key": captcha.TURNSTILE_SITE_KEY,
+    })
 
 
 @app.post("/register", response_class=HTMLResponse)
@@ -427,16 +466,24 @@ async def register_submit(
     confirm_password: str = Form(...),
     name: str = Form(""),
     company: str = Form(""),
+    cf_turnstile_response: str = Form("", alias="cf-turnstile-response"),
 ):
+    enforce_rate_limit(request, "register", limit=10, window_seconds=600)
+    if not await captcha.verify(request, cf_turnstile_response):
+        return templates.TemplateResponse("register.html", {
+            "request": request, "error": "Verification failed. Please try again.",
+            "turnstile_site_key": captcha.TURNSTILE_SITE_KEY,
+        })
+
     db = next(get_db())
     email = email.lower().strip()
 
     if password != confirm_password:
-        return templates.TemplateResponse("register.html", {"request": request, "error": "Passwords do not match."})
+        return templates.TemplateResponse("register.html", {"request": request, "error": "Passwords do not match.", "turnstile_site_key": captcha.TURNSTILE_SITE_KEY})
     if len(password) < 8:
-        return templates.TemplateResponse("register.html", {"request": request, "error": "Password must be at least 8 characters."})
+        return templates.TemplateResponse("register.html", {"request": request, "error": "Password must be at least 8 characters.", "turnstile_site_key": captcha.TURNSTILE_SITE_KEY})
     if db.query(User).filter(User.email == email).first():
-        return templates.TemplateResponse("register.html", {"request": request, "error": "An account with this email already exists."})
+        return templates.TemplateResponse("register.html", {"request": request, "error": "An account with this email already exists.", "turnstile_site_key": captcha.TURNSTILE_SITE_KEY})
 
     user = User(
         email=email,
@@ -588,15 +635,26 @@ def _find_user_by_reset_token(db: DBSession, token: str) -> Optional[User]:
 async def forgot_password_page(request: Request):
     return templates.TemplateResponse("forgot_password.html", {
         "request": request, "error": None, "sent": False,
+        "turnstile_site_key": captcha.TURNSTILE_SITE_KEY,
     })
 
 
 @app.post("/forgot-password", response_class=HTMLResponse)
-def forgot_password_submit(request: Request, email: str = Form(...)):
+async def forgot_password_submit(
+    request: Request, email: str = Form(...),
+    cf_turnstile_response: str = Form("", alias="cf-turnstile-response"),
+):
+    enforce_rate_limit(request, "forgot-password", limit=5, window_seconds=600)
+    if not await captcha.verify(request, cf_turnstile_response):
+        return templates.TemplateResponse("forgot_password.html", {
+            "request": request, "sent": False, "error": "Verification failed. Please try again.",
+            "turnstile_site_key": captcha.TURNSTILE_SITE_KEY,
+        })
     if not emailer.is_configured():
         return templates.TemplateResponse("forgot_password.html", {
             "request": request, "sent": False,
             "error": "Password reset email is temporarily unavailable. Please reach out via the contact page and we'll restore your access.",
+            "turnstile_site_key": captcha.TURNSTILE_SITE_KEY,
         })
 
     email = email.lower().strip()
@@ -634,6 +692,7 @@ def forgot_password_submit(request: Request, email: str = Form(...)):
             return templates.TemplateResponse("forgot_password.html", {
                 "request": request, "sent": False,
                 "error": "We couldn't send the email. Please try again in a few minutes or reach out via the contact page.",
+                "turnstile_site_key": captcha.TURNSTILE_SITE_KEY,
             })
 
     # Same response whether or not the account exists (prevents email enumeration)
@@ -1507,6 +1566,7 @@ async def view_shared_report(request: Request, share_token: str):
 
 @app.post("/shared/{share_token}", response_class=HTMLResponse)
 async def view_shared_report_auth(request: Request, share_token: str, password: str = Form(...)):
+    enforce_rate_limit(request, "shared-report-auth", limit=10, window_seconds=300)
     db = next(get_db())
     contract = db.query(Contract).filter(Contract.share_token == share_token).first()
     if not contract:
@@ -1955,13 +2015,20 @@ async def contact_page(request: Request):
     user = get_current_user(request, db)
     return templates.TemplateResponse("contact.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
+        "turnstile_site_key": captcha.TURNSTILE_SITE_KEY,
     })
 
 
 @app.post("/contact", response_class=HTMLResponse)
-async def contact_submit(request: Request):
+async def contact_submit(request: Request, cf_turnstile_response: str = Form("", alias="cf-turnstile-response")):
+    enforce_rate_limit(request, "contact", limit=5, window_seconds=600)
     db = next(get_db())
     user = get_current_user(request, db)
+    if not await captcha.verify(request, cf_turnstile_response):
+        return templates.TemplateResponse("contact.html", {
+            "request": request, "user": user, "current_year": datetime.now().year,
+            "turnstile_site_key": captcha.TURNSTILE_SITE_KEY, "error": "Verification failed. Please try again.",
+        })
     return templates.TemplateResponse("contact.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
         "success": True,
