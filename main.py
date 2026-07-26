@@ -17,6 +17,7 @@ import json
 import logging
 import secrets
 import re
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
@@ -52,10 +53,12 @@ from evaluator import LLMEvaluator
 from database import get_db, check_db_health, check_redis_health
 from auth import (
     hash_password, verify_password, create_session, get_current_user,
-    logout as auth_logout, check_usage_limit,
+    logout as auth_logout, check_usage_limit, invalidate_all_sessions,
+    mark_mfa_verified, is_mfa_verified,
 )
 from rate_limiter import enforce_rate_limit
 import captcha
+import admin_mfa
 from models import User, Contract, Playbook
 from analytics_models import UserAcquisition, UserSession, UserEvent, ContractEvent
 from playbook_engine import PlaybookEngine
@@ -102,6 +105,8 @@ if not DEV_MODE:
         raise ValueError("STRIPE_WEBHOOK_SECRET required in production mode")
     if not OPENAI_API_KEY:
         raise ValueError("OPENAI_API_KEY required in production mode")
+    if APP_HMAC_SECRET == "dev_secret_change_me":
+        raise ValueError("APP_HMAC_SECRET required in production mode (set to a random value, e.g. `openssl rand -hex 32`)")
     stripe.api_key = STRIPE_SECRET_KEY
 else:
     stripe.api_key = STRIPE_SECRET_KEY if STRIPE_SECRET_KEY else ""
@@ -233,8 +238,11 @@ def require_user(request: Request, db: DBSession) -> User:
     return user
 
 
-def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
-    ext = os.path.splitext(filename.lower())[1]
+_FILE_PARSE_TIMEOUT_SECONDS = 30
+_file_parse_executor = ThreadPoolExecutor(max_workers=4, thread_name_prefix="file-parse")
+
+
+def _parse_file_bytes(file_bytes: bytes, ext: str) -> str:
     if ext == ".txt":
         try:
             return file_bytes.decode("utf-8", errors="ignore")
@@ -247,6 +255,19 @@ def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
         doc = Document(io.BytesIO(file_bytes))
         return "\n".join(p.text for p in doc.paragraphs)
     raise ValueError("Unsupported file type")
+
+
+def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
+    """Parse an uploaded file off the request path with a hard time limit —
+    malformed/adversarial PDFs and DOCX files have a history of hanging
+    parsers (decompression loops, pathological structures); a single upload
+    should never be able to tie up a worker indefinitely."""
+    ext = os.path.splitext(filename.lower())[1]
+    future = _file_parse_executor.submit(_parse_file_bytes, file_bytes, ext)
+    try:
+        return future.result(timeout=_FILE_PARSE_TIMEOUT_SECONDS)
+    except FuturesTimeoutError:
+        raise HTTPException(status_code=422, detail="That document took too long to process. It may be corrupted or malformed.")
 
 
 def run_analysis(contract_text: str) -> Dict:
@@ -743,6 +764,9 @@ async def reset_password_submit(
     user.reset_token_hash = None
     user.reset_token_expires_at = None
     db.commit()
+    # A password reset usually means the user suspects unauthorized access —
+    # revoke every existing session so it doesn't survive the reset.
+    invalidate_all_sessions(user.id)
     return RedirectResponse(url="/login?reset=success", status_code=302)
 
 
@@ -780,6 +804,7 @@ async def account_change_password(
     new_password: str = Form(...),
     confirm_password: str = Form(...),
 ):
+    enforce_rate_limit(request, "account-password", limit=10, window_seconds=600)
     db = next(get_db())
     user = require_user(request, db)
 
@@ -799,10 +824,18 @@ async def account_change_password(
 
     user.password_hash = hash_password(new_password)
     db.commit()
-    return templates.TemplateResponse("account.html", {
-        "request": request, "user": user, "error": None, "success": "Password updated.",
+
+    # Revoke every other active session (all devices) so a leaked/stolen
+    # session cookie doesn't survive a password change, then re-issue a
+    # fresh session for this browser so the user stays logged in here.
+    invalidate_all_sessions(user.id)
+    response = templates.TemplateResponse("account.html", {
+        "request": request, "user": user, "error": None,
+        "success": "Password updated. You've been signed out on all other devices.",
         "current_year": datetime.now().year,
     })
+    create_session(user.id, response)
+    return response
 
 
 # ============================================================
@@ -863,11 +896,19 @@ async def delete_account(request: Request):
     db = next(get_db())
     user = require_user(request, db)
 
+    # Full erasure: also purge analytics/event rows tied to this user, not
+    # just their contracts/playbooks — those tables hold PII (IPs, referrers,
+    # filenames) that would otherwise survive "account deletion".
+    db.query(ContractEvent).filter(ContractEvent.user_id == user.id).delete()
+    db.query(UserEvent).filter(UserEvent.user_id == user.id).delete()
+    db.query(UserSession).filter(UserSession.user_id == user.id).delete()
+    db.query(UserAcquisition).filter(UserAcquisition.user_id == user.id).delete()
     db.query(Contract).filter(Contract.user_id == user.id).delete()
     db.query(Playbook).filter(Playbook.user_id == user.id).delete()
     db.delete(user)
     db.commit()
 
+    invalidate_all_sessions(user.id)
     response = RedirectResponse(url="/", status_code=302)
     auth_logout(request, response)
     return response
@@ -2256,7 +2297,33 @@ def require_admin(request: Request, db: DBSession) -> User:
     user = require_user(request, db)
     if user.email.lower() != ADMIN_EMAIL.lower():
         raise HTTPException(status_code=403, detail="Forbidden")
+    if admin_mfa.is_configured() and not is_mfa_verified(request):
+        raise HTTPException(status_code=302, headers={"Location": "/admin/mfa"})
     return user
+
+
+@app.get("/admin/mfa", response_class=HTMLResponse)
+async def admin_mfa_page(request: Request):
+    db = next(get_db())
+    user = require_user(request, db)
+    if user.email.lower() != ADMIN_EMAIL.lower():
+        raise HTTPException(status_code=403, detail="Forbidden")
+    if not admin_mfa.is_configured() or is_mfa_verified(request):
+        return RedirectResponse(url="/admin", status_code=302)
+    return templates.TemplateResponse("admin_mfa.html", {"request": request, "error": None})
+
+
+@app.post("/admin/mfa", response_class=HTMLResponse)
+async def admin_mfa_submit(request: Request, code: str = Form(...)):
+    enforce_rate_limit(request, "admin-mfa", limit=10, window_seconds=300)
+    db = next(get_db())
+    user = require_user(request, db)
+    if user.email.lower() != ADMIN_EMAIL.lower():
+        raise HTTPException(status_code=403, detail="Forbidden")
+    if not admin_mfa.verify_code(code):
+        return templates.TemplateResponse("admin_mfa.html", {"request": request, "error": "Invalid or expired code."})
+    mark_mfa_verified(request)
+    return RedirectResponse(url="/admin", status_code=302)
 
 
 @app.get("/admin", response_class=HTMLResponse)

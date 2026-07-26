@@ -13,6 +13,8 @@ xhtml2pdf==0.2.15
 python-dotenv>=1.0.0
 user-agents>=2.2.0
 httpx>=0.24.0
+cryptography>=42.0.0
+pyotp>=2.9.0
 
 # Note: pytest removed - not needed in production
 # Note: scipy and numpy removed - only used in experiments/

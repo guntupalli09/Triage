@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Verification — Triage Counsel</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/tailwind.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #0f1117; color: #e2e8f0; }
+    .card { background: #1a1d27; border: 1px solid #2d3148; border-radius: 12px; }
+    input#code {
+      background:#0f1117; border:1px solid #2d3148; color:#e2e8f0; border-radius:8px;
+      padding:10px 14px; width:100%; letter-spacing: 0.3em; font-size: 1.25rem; text-align: center;
+    }
+    input#code:focus { outline:none; border-color:#6366f1; }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4">
+  <div class="card p-8 w-full max-w-sm">
+    <h1 class="text-lg font-bold text-white mb-1">Admin verification</h1>
+    <p class="text-sm text-slate-400 mb-6">Enter the 6-digit code from your authenticator app.</p>
+
+    {% if error %}
+    <div class="mb-4 rounded-lg bg-red-950 border border-red-900 p-3">
+      <p class="text-sm text-red-400">{{ error }}</p>
+    </div>
+    {% endif %}
+
+    <form action="/admin/mfa" method="post" class="space-y-4">
+      <input type="text" id="code" name="code" inputmode="numeric" pattern="[0-9]*" maxlength="6"
+        autocomplete="one-time-code" autofocus required placeholder="000000">
+      <button type="submit" class="w-full py-2.5 rounded-lg text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition">
+        Verify
+      </button>
+    </form>
+  </div>
+</body>
+</html>

@@ -13,6 +13,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 
 from database import Base
+from crypto_fields import EncryptedText
 
 
 class User(Base):
@@ -59,7 +60,7 @@ class Contract(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     filename = Column(String(255), nullable=False)
-    contract_text = Column(Text, nullable=False)
+    contract_text = Column(EncryptedText, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     # Analysis results (stored as JSON for flexibility)
