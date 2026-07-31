@@ -31,6 +31,7 @@ from party_resolver import (
 )
 from risk_dashboard import compute_risk_dashboard
 from structure_checker import analyze_structure
+from clause_quality import analyze_arbitration_clause
 
 logger = logging.getLogger(__name__)
 
@@ -4631,6 +4632,7 @@ class RuleEngine:
         workflow = self._compute_workflow_decision(suppressed_findings)
         risk_dashboard = compute_risk_dashboard(suppressed_findings)
         structure_report = analyze_structure(text)
+        arbitration_quality = analyze_arbitration_clause(text)
 
         return {
             "findings": suppressed_findings,
@@ -4659,6 +4661,12 @@ class RuleEngine:
             # severity/overall_risk: unused/duplicate/undefined terms and
             # references to sections/exhibits/schedules that don't exist.
             "structure_report": structure_report.as_dict(),
+            # Deterministic Clause Quality Engine — see clause_quality.py.
+            # First module: arbitration completeness (institution, seat,
+            # rules, arbitrator count, language, emergency relief, conflict
+            # with a competing litigation clause). Additive to the existing
+            # M_ARBITRATION_01 presence-only finding, not a replacement.
+            "clause_quality": {"arbitration": arbitration_quality.as_dict()},
         }
 
     def build_missing_sections(self, findings: List[Finding]) -> List[str]:

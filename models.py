@@ -94,6 +94,12 @@ class Contract(Base):
     # references to sections/exhibits/schedules), independent of severity.
     structure_report_json = Column(JSON, nullable=True)
 
+    # Deterministic Clause Quality Engine — see clause_quality.py. First
+    # module: arbitration completeness (institution/seat/rules/arbitrator
+    # count/language/emergency relief/litigation conflict), 0-100 or
+    # null/not-applicable when no arbitration clause is present.
+    clause_quality_json = Column(JSON, nullable=True)
+
     # Playbook comparison
     playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=True)
     deviations_json = Column(JSON, nullable=True)

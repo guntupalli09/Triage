@@ -266,6 +266,8 @@ def run_analysis(contract_text: str) -> Dict:
         "risk_dashboard": analysis.get("risk_dashboard", {}),
         # Defined-terms & cross-reference integrity — see structure_checker.py.
         "structure_report": analysis.get("structure_report", {}),
+        # Deterministic Clause Quality Engine — see clause_quality.py.
+        "clause_quality": analysis.get("clause_quality", {}),
     }
 
 
@@ -986,6 +988,7 @@ async def upload_contract(
             negotiation_difficulty_score=analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
             risk_dashboard_json=analysis.get("risk_dashboard"),
             structure_report_json=analysis.get("structure_report"),
+            clause_quality_json=analysis.get("clause_quality"),
         )
         db.add(contract)
         db.flush()  # assigns contract.id without ending the transaction
@@ -1114,6 +1117,7 @@ async def batch_upload_submit(
             negotiation_difficulty_score=analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
             risk_dashboard_json=analysis.get("risk_dashboard"),
             structure_report_json=analysis.get("structure_report"),
+            clause_quality_json=analysis.get("clause_quality"),
         )
         db.add(contract)
         contracts.append(contract)
@@ -1314,6 +1318,7 @@ async def view_contract(request: Request, contract_id: int):
         "negotiation_difficulty_score": contract.negotiation_difficulty_score,
         "risk_dashboard": contract.risk_dashboard_json,
         "structure_report": contract.structure_report_json,
+        "clause_quality": contract.clause_quality_json,
     })
 
 
@@ -1936,6 +1941,7 @@ async def demo_analysis(request: Request):
         "negotiation_difficulty_score": analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
         "risk_dashboard": analysis.get("risk_dashboard"),
         "structure_report": analysis.get("structure_report"),
+        "clause_quality": analysis.get("clause_quality"),
     })
 
 
@@ -2147,6 +2153,7 @@ async def results_legacy(request: Request, token: str):
         "negotiation_difficulty_score": analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
         "risk_dashboard": analysis.get("risk_dashboard"),
         "structure_report": analysis.get("structure_report"),
+        "clause_quality": analysis.get("clause_quality"),
     })
 
 
