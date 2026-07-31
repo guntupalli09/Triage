@@ -264,6 +264,8 @@ def run_analysis(contract_text: str) -> Dict:
         # Three-score risk dashboard (Legal Risk / Business Risk /
         # Negotiation Difficulty) — see risk_dashboard.py.
         "risk_dashboard": analysis.get("risk_dashboard", {}),
+        # Defined-terms & cross-reference integrity — see structure_checker.py.
+        "structure_report": analysis.get("structure_report", {}),
     }
 
 
@@ -983,6 +985,7 @@ async def upload_contract(
             business_risk_score=analysis.get("risk_dashboard", {}).get("business_risk_score"),
             negotiation_difficulty_score=analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
             risk_dashboard_json=analysis.get("risk_dashboard"),
+            structure_report_json=analysis.get("structure_report"),
         )
         db.add(contract)
         db.flush()  # assigns contract.id without ending the transaction
@@ -1110,6 +1113,7 @@ async def batch_upload_submit(
             business_risk_score=analysis.get("risk_dashboard", {}).get("business_risk_score"),
             negotiation_difficulty_score=analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
             risk_dashboard_json=analysis.get("risk_dashboard"),
+            structure_report_json=analysis.get("structure_report"),
         )
         db.add(contract)
         contracts.append(contract)
@@ -1309,6 +1313,7 @@ async def view_contract(request: Request, contract_id: int):
         "business_risk_score": contract.business_risk_score,
         "negotiation_difficulty_score": contract.negotiation_difficulty_score,
         "risk_dashboard": contract.risk_dashboard_json,
+        "structure_report": contract.structure_report_json,
     })
 
 
@@ -1930,6 +1935,7 @@ async def demo_analysis(request: Request):
         "business_risk_score": analysis.get("risk_dashboard", {}).get("business_risk_score"),
         "negotiation_difficulty_score": analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
         "risk_dashboard": analysis.get("risk_dashboard"),
+        "structure_report": analysis.get("structure_report"),
     })
 
 
@@ -2140,6 +2146,7 @@ async def results_legacy(request: Request, token: str):
         "business_risk_score": analysis.get("risk_dashboard", {}).get("business_risk_score"),
         "negotiation_difficulty_score": analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
         "risk_dashboard": analysis.get("risk_dashboard"),
+        "structure_report": analysis.get("structure_report"),
     })
 
 

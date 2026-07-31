@@ -139,6 +139,9 @@ def _run_migrations():
             if "risk_dashboard_json" not in contract_cols:
                 conn.execute(text(f"ALTER TABLE contracts ADD COLUMN risk_dashboard_json {json_col_type}"))
                 logger.info("Migration applied: contracts.risk_dashboard_json column")
+            if "structure_report_json" not in contract_cols:
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN structure_report_json {json_col_type}"))
+                logger.info("Migration applied: contracts.structure_report_json column")
 
 
 def init_db():

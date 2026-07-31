@@ -89,6 +89,11 @@ class Contract(Base):
     negotiation_difficulty_score = Column(Integer, nullable=True)
     risk_dashboard_json = Column(JSON, nullable=True)
 
+    # Defined-terms & cross-reference integrity — see structure_checker.py.
+    # Document-hygiene findings (unused/duplicate/undefined terms, broken
+    # references to sections/exhibits/schedules), independent of severity.
+    structure_report_json = Column(JSON, nullable=True)
+
     # Playbook comparison
     playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=True)
     deviations_json = Column(JSON, nullable=True)

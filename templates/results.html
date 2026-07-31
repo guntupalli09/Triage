@@ -209,6 +209,62 @@
     </div>
     {% endif %}
 
+    {% if structure_report and structure_report.total_issue_count and structure_report.total_issue_count > 0 %}
+    <!-- Document Structure Check -->
+    <div class="report-card p-6 mb-6 fade-in">
+        <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
+            <h2 class="text-lg font-bold text-[#0F172A]">Document Structure Check</h2>
+            <span class="text-xs text-[#64748B]">{{ structure_report.defined_term_count }} defined term(s) found &middot; {{ structure_report.total_issue_count }} issue(s)</span>
+        </div>
+        <div class="space-y-4">
+            {% if structure_report.used_but_undefined %}
+            <div>
+                <div class="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-2">Used but not defined</div>
+                <ul class="space-y-1.5">
+                    {% for i in structure_report.used_but_undefined %}
+                    <li class="text-sm text-[#334155] pl-3 border-l-2 border-red-200 py-0.5">{{ i.detail }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if structure_report.duplicate_definitions %}
+            <div>
+                <div class="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-2">Duplicate definitions</div>
+                <ul class="space-y-1.5">
+                    {% for i in structure_report.duplicate_definitions %}
+                    <li class="text-sm text-[#334155] pl-3 border-l-2 border-amber-200 py-0.5">{{ i.detail }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if structure_report.broken_cross_references %}
+            <div>
+                <div class="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-2">References to sections/exhibits not found in this document</div>
+                <div class="flex gap-1.5 flex-wrap">
+                    {% for r in structure_report.broken_cross_references %}
+                    <span class="px-2.5 py-1 text-xs font-medium rounded bg-amber-50 text-amber-800 mono">{{ r.reference_text }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% if structure_report.unused_terms %}
+            <details>
+                <summary class="text-xs font-semibold text-[#64748B] cursor-pointer hover:text-[#1E293B]">{{ structure_report.unused_terms|length }} defined term(s) never used elsewhere</summary>
+                <ul class="space-y-1.5 mt-2">
+                    {% for i in structure_report.unused_terms %}
+                    <li class="text-sm text-[#334155] pl-3 border-l-2 border-slate-200 py-0.5">{{ i.detail }}</li>
+                    {% endfor %}
+                </ul>
+            </details>
+            {% endif %}
+        </div>
+        <details class="mt-4">
+            <summary class="text-xs font-semibold text-[#64748B] cursor-pointer hover:text-[#1E293B]">Methodology &amp; limitations</summary>
+            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">{{ structure_report.methodology_note }}</p>
+        </details>
+    </div>
+    {% endif %}
+
     {% if payment_terms and (payment_terms.due_days or payment_terms.currency or payment_terms.billing_frequency or payment_terms.invoice_trigger) %}
     <!-- Verified Commercial Terms -->
     <div class="report-card p-6 mb-6 fade-in">

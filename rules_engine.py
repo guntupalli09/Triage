@@ -30,6 +30,7 @@ from party_resolver import (
     resolve_party_roles,
 )
 from risk_dashboard import compute_risk_dashboard
+from structure_checker import analyze_structure
 
 logger = logging.getLogger(__name__)
 
@@ -4629,6 +4630,7 @@ class RuleEngine:
         overall = self._compute_overall_risk(suppressed_findings, counts)
         workflow = self._compute_workflow_decision(suppressed_findings)
         risk_dashboard = compute_risk_dashboard(suppressed_findings)
+        structure_report = analyze_structure(text)
 
         return {
             "findings": suppressed_findings,
@@ -4652,6 +4654,11 @@ class RuleEngine:
             # third lens on the same findings, not a replacement for
             # overall_risk or signature_readiness.
             "risk_dashboard": risk_dashboard.as_dict(),
+            # Defined-terms & cross-reference integrity — see
+            # structure_checker.py. Document-hygiene pass, independent of
+            # severity/overall_risk: unused/duplicate/undefined terms and
+            # references to sections/exhibits/schedules that don't exist.
+            "structure_report": structure_report.as_dict(),
         }
 
     def build_missing_sections(self, findings: List[Finding]) -> List[str]:
