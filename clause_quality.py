@@ -41,6 +41,8 @@ import re
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
 
+from reasoning_chains import get_reasoning_chain
+
 # Same detection as rules_engine.py's M_ARBITRATION_01 rule (kept
 # independent, not imported, so this module has no dependency on
 # rules_engine — same pattern as risk_dashboard.py / structure_checker.py).
@@ -111,6 +113,12 @@ class ClauseElement:
     present: bool
     weight: int
     detail: str
+    # Negotiation Reasoning Chain (see reasoning_chains.py) — only ever set
+    # for a DEFICIENT (present=False) element, and only where one has
+    # actually been authored; None means "not yet covered," never a
+    # fabricated chain. as_dict() form (not the ReasoningChain dataclass
+    # itself) so ClauseElement stays a plain, JSON-serializable record.
+    reasoning_chain: Optional[Dict[str, Any]] = None
 
 
 @dataclass(frozen=True)
@@ -133,7 +141,10 @@ class ArbitrationQualityReport:
             "applicable": self.applicable,
             "score": self.score,
             "elements": [
-                {"key": e.key, "label": e.label, "present": e.present, "weight": e.weight, "detail": e.detail}
+                {
+                    "key": e.key, "label": e.label, "present": e.present, "weight": e.weight,
+                    "detail": e.detail, "reasoning_chain": e.reasoning_chain,
+                }
                 for e in self.elements
             ],
             "conflict_with_litigation_clause": self.conflict_with_litigation_clause,
@@ -182,11 +193,17 @@ def analyze_arbitration_clause(text: str) -> ArbitrationQualityReport:
     elements: List[ClauseElement] = []
     for key, label, pattern, missing_detail, present_detail in checks:
         present = bool(pattern.search(text))
+        chain = None if present else get_reasoning_chain("arbitration", key)
         elements.append(ClauseElement(
             key=key, label=label, present=present, weight=_ELEMENT_WEIGHT[key],
             detail=present_detail if present else missing_detail,
+            reasoning_chain=chain.as_dict() if chain else None,
         ))
 
+    # Element key is "no_litigation_conflict" and it's "present" precisely
+    # when there is NO conflict — so the chain (only relevant to a
+    # deficiency) is looked up when a conflict WAS found.
+    no_conflict_chain = get_reasoning_chain("arbitration", "no_litigation_conflict") if has_conflict else None
     elements.append(ClauseElement(
         key="no_litigation_conflict", label="No conflicting exclusive-litigation clause",
         weight=_ELEMENT_WEIGHT["no_litigation_conflict"], present=not has_conflict,
@@ -195,6 +212,7 @@ def analyze_arbitration_clause(text: str) -> ArbitrationQualityReport:
             "conflicts with the arbitration clause and creates real ambiguity about which forum governs."
             if has_conflict else "No conflicting exclusive-litigation clause was found."
         ),
+        reasoning_chain=no_conflict_chain.as_dict() if no_conflict_chain else None,
     ))
 
     score = sum(e.weight for e in elements if e.present)
@@ -286,7 +304,10 @@ class LiabilityQualityReport:
             "applicable": self.applicable,
             "score": self.score,
             "elements": [
-                {"key": e.key, "label": e.label, "present": e.present, "weight": e.weight, "detail": e.detail}
+                {
+                    "key": e.key, "label": e.label, "present": e.present, "weight": e.weight,
+                    "detail": e.detail, "reasoning_chain": e.reasoning_chain,
+                }
                 for e in self.elements
             ],
             "methodology_note": self.methodology_note,
@@ -455,7 +476,10 @@ class ConfidentialityQualityReport:
             "applicable": self.applicable,
             "score": self.score,
             "elements": [
-                {"key": e.key, "label": e.label, "present": e.present, "weight": e.weight, "detail": e.detail}
+                {
+                    "key": e.key, "label": e.label, "present": e.present, "weight": e.weight,
+                    "detail": e.detail, "reasoning_chain": e.reasoning_chain,
+                }
                 for e in self.elements
             ],
             "methodology_note": self.methodology_note,
@@ -587,7 +611,10 @@ class IndemnificationQualityReport:
             "applicable": self.applicable,
             "score": self.score,
             "elements": [
-                {"key": e.key, "label": e.label, "present": e.present, "weight": e.weight, "detail": e.detail}
+                {
+                    "key": e.key, "label": e.label, "present": e.present, "weight": e.weight,
+                    "detail": e.detail, "reasoning_chain": e.reasoning_chain,
+                }
                 for e in self.elements
             ],
             "methodology_note": self.methodology_note,
@@ -713,7 +740,10 @@ class TerminationQualityReport:
             "applicable": self.applicable,
             "score": self.score,
             "elements": [
-                {"key": e.key, "label": e.label, "present": e.present, "weight": e.weight, "detail": e.detail}
+                {
+                    "key": e.key, "label": e.label, "present": e.present, "weight": e.weight,
+                    "detail": e.detail, "reasoning_chain": e.reasoning_chain,
+                }
                 for e in self.elements
             ],
             "methodology_note": self.methodology_note,
@@ -837,7 +867,10 @@ class IPQualityReport:
             "applicable": self.applicable,
             "score": self.score,
             "elements": [
-                {"key": e.key, "label": e.label, "present": e.present, "weight": e.weight, "detail": e.detail}
+                {
+                    "key": e.key, "label": e.label, "present": e.present, "weight": e.weight,
+                    "detail": e.detail, "reasoning_chain": e.reasoning_chain,
+                }
                 for e in self.elements
             ],
             "methodology_note": self.methodology_note,
