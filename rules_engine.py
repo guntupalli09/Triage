@@ -37,6 +37,7 @@ from clause_quality import (
     analyze_confidentiality_clause,
     analyze_indemnification_clause,
     analyze_termination_clause,
+    analyze_ip_clause,
 )
 from metadata_extractor import extract_metadata
 
@@ -4644,6 +4645,7 @@ class RuleEngine:
         confidentiality_quality = analyze_confidentiality_clause(text)
         indemnification_quality = analyze_indemnification_clause(text)
         termination_quality = analyze_termination_clause(text)
+        ip_quality = analyze_ip_clause(text)
         metadata = extract_metadata(text)
 
         return {
@@ -4687,6 +4689,7 @@ class RuleEngine:
                 "confidentiality": confidentiality_quality.as_dict(),
                 "indemnification": indemnification_quality.as_dict(),
                 "termination": termination_quality.as_dict(),
+                "ip": ip_quality.as_dict(),
             },
             # Deterministic party/effective-date/contract-type extraction —
             # see metadata_extractor.py. Parties reuse party_resolver.py's

@@ -759,3 +759,129 @@ def analyze_termination_clause(text: str) -> TerminationQualityReport:
 
     score = sum(e.weight for e in elements if e.present)
     return TerminationQualityReport(applicable=True, score=score, elements=elements)
+
+
+# ---------------------------------------------------------------------------
+# Intellectual Property module
+# ---------------------------------------------------------------------------
+
+_IP_TOPIC_RE = re.compile(
+    r'\bintellectual\s+property\b|'
+    # "work product" alone triggers applicability UNLESS it's the
+    # litigation-privilege idiom ("attorney work product", "work product
+    # doctrine/privilege") — verified against a real estate PSA fixture
+    # where "attorney-client privilege or...attorney work product" (a
+    # discovery/privilege reference, unrelated to IP ownership) incorrectly
+    # marked the module applicable.
+    r'(?<!attorney[\s-])\bwork\s+product\b(?!\s+(?:doctrine|privilege))',
+    re.IGNORECASE,
+)
+
+_IP_OWNERSHIP_RE = re.compile(
+    r'\bshall\s+(?:be\s+)?(?:the\s+sole\s+and\s+exclusive\s+)?own(?:ed)?\b.{0,60}?'
+    r'\b(?:work\s+product|intellectual\s+property|deliverables?)\b|'
+    r'\b(?:work\s+product|intellectual\s+property|deliverables?)\b.{0,60}?'
+    r'\bshall\s+be\s+(?:owned\s+by|the\s+property\s+of)\b|'
+    r'\bowns?\s+all\s+right,?\s*title,?\s*and\s+interest\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_IP_BACKGROUND_RE = re.compile(
+    r'\bbackground\s+(?:intellectual\s+property|ip|technology)\b|'
+    r'\bpre-?existing\s+(?:intellectual\s+property|ip|materials?|technology)\b|'
+    r'\bretain(?:s)?\b.{0,60}?\b(?:rights?|ownership)\b.{0,60}?\bpre-?existing\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_IP_DERIVATIVE_WORKS_RE = re.compile(r'\bderivative\s+works?\b', re.IGNORECASE)
+
+_IP_ASSIGNMENT_RE = re.compile(
+    r'\bhereby\s+assigns?\b|\bassigns?,?\s+transfers?,?\s+and\s+conveys?\b|\bshall\s+assign\b',
+    re.IGNORECASE,
+)
+
+_IP_LICENSE_GRANT_RE = re.compile(
+    r'\bgrants?\b.{0,60}?\blicense\b|\bnon-?exclusive,?\s+(?:non-?transferable\s+)?license\b|'
+    r'\blicense\s+to\s+use\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_IP_SOURCE_CODE_RE = re.compile(r'\bsource\s+code\b', re.IGNORECASE)
+
+_IP_ELEMENT_WEIGHT: Dict[str, int] = {
+    "ownership_clearly_stated": 25,
+    "background_ip_reserved": 20,
+    "derivative_works_addressed": 15,
+    "assignment_language_present": 15,
+    "license_grant_present": 15,
+    "source_code_ownership_addressed": 10,
+}
+
+
+@dataclass(frozen=True)
+class IPQualityReport:
+    applicable: bool
+    score: Optional[int]
+    elements: List[ClauseElement]
+    methodology_note: str = (
+        "Only scored when an intellectual property / work product clause is present in this "
+        "document. Each element is detected via pattern matching for standard drafting language, "
+        "not a legal-sufficiency judgment; unconventional phrasing can be missed. "
+        "\"source_code_ownership_addressed\" is software-contract-specific and lower-weight — its "
+        "absence in a non-software agreement is expected, not a defect. Treat a low score as a "
+        "prompt to read the clause, not a certified defect."
+    )
+
+    def as_dict(self) -> Dict[str, Any]:
+        return {
+            "applicable": self.applicable,
+            "score": self.score,
+            "elements": [
+                {"key": e.key, "label": e.label, "present": e.present, "weight": e.weight, "detail": e.detail}
+                for e in self.elements
+            ],
+            "methodology_note": self.methodology_note,
+        }
+
+
+def analyze_ip_clause(text: str) -> IPQualityReport:
+    """Pure function: normalized contract text -> IPQualityReport."""
+    if not _IP_TOPIC_RE.search(text):
+        return IPQualityReport(applicable=False, score=None, elements=[])
+
+    checks = [
+        ("ownership_clearly_stated", "Ownership of work product/IP is clearly stated", _IP_OWNERSHIP_RE,
+         "No clear statement of who owns work product or IP created under this Agreement was found.",
+         "Ownership of work product/IP is clearly stated."),
+        ("background_ip_reserved", "Background/pre-existing IP is reserved", _IP_BACKGROUND_RE,
+         "No carve-out reserving each party's pre-existing (\"background\") IP was found — without "
+         "this, an assignment or ownership clause could be read to sweep in IP that predates the "
+         "engagement.",
+         "Background/pre-existing IP is reserved to its original owner."),
+        ("derivative_works_addressed", "Derivative works addressed", _IP_DERIVATIVE_WORKS_RE,
+         "No mention of derivative works was found — ownership of works that build on existing IP "
+         "may be unclear.",
+         "Derivative works are addressed."),
+        ("assignment_language_present", "Formal assignment language present", _IP_ASSIGNMENT_RE,
+         "No formal assignment language (\"hereby assigns\") was found — an ownership statement "
+         "without formal assignment language may be legally insufficient to actually transfer title.",
+         "Formal assignment language is present."),
+        ("license_grant_present", "A license grant is stated", _IP_LICENSE_GRANT_RE,
+         "No license grant was found — if IP is not assigned outright, the other party's right to "
+         "actually use it may be unaddressed.",
+         "A license grant is stated."),
+        ("source_code_ownership_addressed", "Source code ownership addressed", _IP_SOURCE_CODE_RE,
+         "No mention of source code was found — may not be applicable to this contract type.",
+         "Source code ownership is specifically addressed."),
+    ]
+
+    elements: List[ClauseElement] = []
+    for key, label, pattern, missing_detail, present_detail in checks:
+        present = bool(pattern.search(text))
+        elements.append(ClauseElement(
+            key=key, label=label, present=present, weight=_IP_ELEMENT_WEIGHT[key],
+            detail=present_detail if present else missing_detail,
+        ))
+
+    score = sum(e.weight for e in elements if e.present)
+    return IPQualityReport(applicable=True, score=score, elements=elements)
