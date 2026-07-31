@@ -351,3 +351,165 @@ def analyze_liability_clause(text: str) -> LiabilityQualityReport:
 
     score = sum(e.weight for e in elements if e.present)
     return LiabilityQualityReport(applicable=True, score=score, elements=elements)
+
+
+# ---------------------------------------------------------------------------
+# Confidentiality module
+# ---------------------------------------------------------------------------
+
+_CONFIDENTIALITY_TOPIC_RE = re.compile(
+    r'\bconfidential(?:ity)?\b|\bnon[-\s]?disclosure\b', re.IGNORECASE,
+)
+
+_CONF_DEFINITION_PRESENT_RE = re.compile(
+    r'\bconfidential\s+information\b.{0,60}?\b(?:means|shall\s+mean|defined\s+as|refers?\s+to)\b|'
+    r'\b(?:means|shall\s+mean)\b.{0,60}?\bconfidential\s+information\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+# The four standard confidentiality exceptions. Checked individually so the
+# "present" element can require a majority, not just any one — a
+# confidentiality clause missing 3 of 4 standard exceptions is a materially
+# different (and worse) document than one missing 1 of 4.
+_EXCEPTION_PUBLIC_RE = re.compile(
+    r'\bpublicly\s+available\b|\bpublic\s+domain\b|\balready\s+(?:known\s+to\s+the\s+)?public\b|'
+    r'\bknown\s+to\s+the\s+public\b|\bpublic\s+through\s+no\s+fault\b',
+    re.IGNORECASE,
+)
+_EXCEPTION_ALREADY_KNOWN_RE = re.compile(
+    r'\balready\s+(?:in\s+(?:its|the\s+recipient\'?s)\s+possession|known\s+to)\b|'
+    r'\brightfully\s+(?:possess|known)\b|\bprior\s+to\s+disclosure\b|'
+    r'\bpossession\s+of\s+the\s+receiving\s+party\s+prior\s+to\b',
+    re.IGNORECASE,
+)
+_EXCEPTION_INDEPENDENT_DEV_RE = re.compile(
+    r'\bindependently\s+develop(?:ed)?\b', re.IGNORECASE,
+)
+# Verified against a real fixture ("has been properly obtained without
+# restriction from a third party who is not bound by an obligation of
+# confidentiality") where none of the original three phrasings matched —
+# real drafting varies the verb ("received"/"obtained"/"disclosed") and the
+# no-breach language ("without breach"/"who is not bound by an obligation")
+# far more than the original narrow alternation covered.
+_EXCEPTION_THIRD_PARTY_RE = re.compile(
+    r'\b(?:received|obtained|disclosed|acquired)\b.{0,40}?\bfrom\s+a\s+third\s+part(?:y|ies)\b|'
+    r'\bthird\s+part(?:y|ies)\b.{0,60}?\bwithout\s+(?:breach|violat\w+)\b|'
+    r'\bwithout\s+(?:breach|violation)\s+of\s+(?:any\s+)?obligation\b|'
+    r'\bthird\s+part(?:y|ies)\b.{0,40}?\bnot\s+bound\s+by\s+(?:an\s+)?obligation\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_DURATION_SPECIFIED_RE = re.compile(
+    r'\bfor\s+a\s+period\s+of\s+\d+\s+years?\b|\bsurvive\b.{0,40}?\b\d+\s+years?\b|'
+    r'\b\d+\s+years?\s+(?:from|after|following)\b.{0,40}?\btermination\b|'
+    r'\bperiod\s+of\s+\d+\s*\(\d+\)?\s*years?\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_RETURN_DESTRUCTION_RE = re.compile(
+    r'\breturn\s+or\s+destroy\b|\bdestroy\s+or\s+return\b|\bshall\s+return\b.{0,60}?\bconfidential\b|'
+    r'\bdestroy\b.{0,60}?\bconfidential\b|\bcertificate\s+of\s+destruction\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_GOV_DISCLOSURE_CARVEOUT_RE = re.compile(
+    r'\brequired\s+by\s+(?:law|court\s+order|subpoena)\b|\bcompelled\s+by\s+(?:law|legal\s+process)\b|'
+    r'\bgovernmental\s+(?:authority|order)\b.{0,80}?\bdisclos\w+\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_RESIDUAL_KNOWLEDGE_RE = re.compile(
+    r'\bresidual(?:s)?\b.{0,60}?\b(?:knowledge|information)\b|\bunaided\s+memory\b|\bmental\s+impressions\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_CONFIDENTIALITY_ELEMENT_WEIGHT: Dict[str, int] = {
+    "definition_present": 20,
+    "standard_exceptions": 25,
+    "duration_specified": 15,
+    "return_or_destruction": 20,
+    "government_disclosure_carveout": 10,
+    "residual_knowledge": 10,
+}
+
+
+@dataclass(frozen=True)
+class ConfidentialityQualityReport:
+    applicable: bool
+    score: Optional[int]
+    elements: List[ClauseElement]
+    methodology_note: str = (
+        "Only scored when a confidentiality/non-disclosure clause is present in this document. "
+        "\"standard_exceptions\" requires at least 3 of the 4 conventional exceptions (public domain, "
+        "already known, independently developed, received from a third party) to count as present — "
+        "a clause missing most of them is materially weaker than one missing just one. Each element "
+        "is detected via pattern matching for standard drafting language, not a legal-sufficiency "
+        "judgment; unconventional phrasing can be missed. \"residual_knowledge\" (carve-out for "
+        "information retained in unaided memory) is a real but less universal drafting choice — its "
+        "absence is a lower-weight signal than the others. Treat a low score as a prompt to read the "
+        "clause, not a certified defect."
+    )
+
+    def as_dict(self) -> Dict[str, Any]:
+        return {
+            "applicable": self.applicable,
+            "score": self.score,
+            "elements": [
+                {"key": e.key, "label": e.label, "present": e.present, "weight": e.weight, "detail": e.detail}
+                for e in self.elements
+            ],
+            "methodology_note": self.methodology_note,
+        }
+
+
+def analyze_confidentiality_clause(text: str) -> ConfidentialityQualityReport:
+    """Pure function: normalized contract text -> ConfidentialityQualityReport."""
+    if not _CONFIDENTIALITY_TOPIC_RE.search(text):
+        return ConfidentialityQualityReport(applicable=False, score=None, elements=[])
+
+    exception_hits = sum(bool(p.search(text)) for p in (
+        _EXCEPTION_PUBLIC_RE, _EXCEPTION_ALREADY_KNOWN_RE, _EXCEPTION_INDEPENDENT_DEV_RE, _EXCEPTION_THIRD_PARTY_RE,
+    ))
+    exceptions_present = exception_hits >= 3
+
+    checks = [
+        ("definition_present", "\"Confidential Information\" is defined", _CONF_DEFINITION_PRESENT_RE,
+         "No definitional clause for \"Confidential Information\" was found.",
+         "\"Confidential Information\" is defined."),
+        ("duration_specified", "Duration of the obligation is specified", _DURATION_SPECIFIED_RE,
+         "No specific duration (e.g. \"for a period of N years\") was found for the confidentiality "
+         "obligation — it may be perpetual/indefinite, or simply unstated.",
+         "A specific duration is stated for the confidentiality obligation."),
+        ("return_or_destruction", "Return/destruction obligation on termination", _RETURN_DESTRUCTION_RE,
+         "No obligation to return or destroy confidential information (e.g. on termination or request) "
+         "was found.",
+         "An obligation to return or destroy confidential information is stated."),
+        ("government_disclosure_carveout", "Permitted disclosure if legally compelled",
+         _GOV_DISCLOSURE_CARVEOUT_RE,
+         "No carve-out permitting disclosure when required by law, court order, or subpoena was found.",
+         "Disclosure required by law/court order/subpoena is addressed."),
+        ("residual_knowledge", "Residual knowledge carve-out", _RESIDUAL_KNOWLEDGE_RE,
+         "No carve-out for information retained in unaided memory (\"residual knowledge\") was found — "
+         "a real but less universal drafting choice, lower-weight than the other elements.",
+         "A residual-knowledge carve-out is present."),
+    ]
+
+    elements: List[ClauseElement] = [
+        ClauseElement(
+            key="standard_exceptions", label="Standard exceptions present (public/known/independent/third-party)",
+            weight=_CONFIDENTIALITY_ELEMENT_WEIGHT["standard_exceptions"], present=exceptions_present,
+            detail=(
+                f"{exception_hits} of the 4 standard exceptions were found "
+                f"({'meets' if exceptions_present else 'below'} the 3-of-4 threshold)."
+            ),
+        ),
+    ]
+    for key, label, pattern, missing_detail, present_detail in checks:
+        present = bool(pattern.search(text))
+        elements.append(ClauseElement(
+            key=key, label=label, present=present, weight=_CONFIDENTIALITY_ELEMENT_WEIGHT[key],
+            detail=present_detail if present else missing_detail,
+        ))
+
+    score = sum(e.weight for e in elements if e.present)
+    return ConfidentialityQualityReport(applicable=True, score=score, elements=elements)
