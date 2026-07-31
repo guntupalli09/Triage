@@ -513,3 +513,128 @@ def analyze_confidentiality_clause(text: str) -> ConfidentialityQualityReport:
 
     score = sum(e.weight for e in elements if e.present)
     return ConfidentialityQualityReport(applicable=True, score=score, elements=elements)
+
+
+# ---------------------------------------------------------------------------
+# Indemnification module
+# ---------------------------------------------------------------------------
+
+_INDEMNIFICATION_TOPIC_RE = re.compile(r'\bindemnif\w+\b', re.IGNORECASE)
+
+_INDEM_MUTUAL_RE = re.compile(
+    r'\b(?:either|both|each)\s+part(?:y|ies)\s+(?:shall|will|agrees?\s+to)\s+'
+    r'(?:defend,?\s+)?indemnif\w+\b|'
+    r'\bmutual(?:ly)?\s+indemnif\w+\b',
+    re.IGNORECASE,
+)
+
+_INDEM_IP_RE = re.compile(
+    r'\bindemnif\w+\b.{0,150}?\b(?:infring\w+|intellectual\s+property)\b|'
+    r'\b(?:infring\w+|intellectual\s+property)\b.{0,150}?\bindemnif\w+\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_INDEM_THIRD_PARTY_SCOPE_RE = re.compile(
+    r'\bthird[-\s]?part(?:y|ies)\s+claims?\b|\bclaims?\b.{0,40}?\b(?:brought|made|asserted)\s+by\s+a?\s*'
+    r'third\s+part(?:y|ies)\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_INDEM_DEFENSE_OBLIGATION_RE = re.compile(
+    r'\bshall\s+defend\b|\bdefend,?\s+indemnify\b|\bindemnify,?\s+defend\b|\bduty\s+to\s+defend\b',
+    re.IGNORECASE,
+)
+
+_INDEM_NOTIFICATION_RE = re.compile(
+    r'\bprompt(?:ly)?\s+(?:written\s+)?notif\w+\b|\bwritten\s+notice\s+of\s+(?:any\s+)?(?:such\s+)?claims?\b|'
+    r'\bnotify\b.{0,60}?\bclaims?\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_INDEM_LIMITATIONS_PROCEDURE_RE = re.compile(
+    r'\bsole\s+control\s+of\s+(?:the\s+)?defense\b|\bcontrol\s+(?:of\s+)?the\s+defense\b|'
+    r'\breasonable\s+cooperation\b|\bsettle\b.{0,60}?\bwithout\s+(?:the\s+)?(?:prior\s+)?(?:written\s+)?consent\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_INDEMNIFICATION_ELEMENT_WEIGHT: Dict[str, int] = {
+    "mutual_or_reciprocal": 20,
+    "ip_indemnity": 20,
+    "third_party_claims_scope": 15,
+    "defense_obligation": 15,
+    "notification_requirement": 15,
+    "limitations_or_procedure": 15,
+}
+
+
+@dataclass(frozen=True)
+class IndemnificationQualityReport:
+    applicable: bool
+    score: Optional[int]
+    elements: List[ClauseElement]
+    methodology_note: str = (
+        "Only scored when an indemnification clause is present in this document. Each element is "
+        "detected via pattern matching for standard drafting language, not a legal-sufficiency "
+        "judgment; unconventional phrasing can be missed. \"mutual_or_reciprocal\" being absent does "
+        "not by itself mean the clause is defective — a one-way indemnity can be an intentional, "
+        "market-standard allocation depending on the parties' relative risk (e.g. a vendor "
+        "indemnifying a customer for IP infringement); it is a signal worth checking, not an "
+        "automatic defect. Treat a low score as a prompt to read the clause, not a certified defect."
+    )
+
+    def as_dict(self) -> Dict[str, Any]:
+        return {
+            "applicable": self.applicable,
+            "score": self.score,
+            "elements": [
+                {"key": e.key, "label": e.label, "present": e.present, "weight": e.weight, "detail": e.detail}
+                for e in self.elements
+            ],
+            "methodology_note": self.methodology_note,
+        }
+
+
+def analyze_indemnification_clause(text: str) -> IndemnificationQualityReport:
+    """Pure function: normalized contract text -> IndemnificationQualityReport."""
+    if not _INDEMNIFICATION_TOPIC_RE.search(text):
+        return IndemnificationQualityReport(applicable=False, score=None, elements=[])
+
+    checks = [
+        ("mutual_or_reciprocal", "Indemnification obligations are mutual", _INDEM_MUTUAL_RE,
+         "No mutual/reciprocal indemnification language (\"either party shall indemnify\") was found — "
+         "the obligation may run in only one direction.",
+         "Indemnification obligations are stated as mutual/reciprocal."),
+        ("ip_indemnity", "IP infringement indemnity addressed", _INDEM_IP_RE,
+         "No indemnification specifically for intellectual property infringement claims was found.",
+         "Indemnification for IP infringement claims is addressed."),
+        ("third_party_claims_scope", "Scope explicitly covers third-party claims", _INDEM_THIRD_PARTY_SCOPE_RE,
+         "No explicit reference to third-party claims was found — indemnification clauses exist "
+         "specifically to cover claims BY third parties, not disputes between the two contracting "
+         "parties; unclear scope here is a real gap.",
+         "The clause explicitly covers third-party claims."),
+        ("defense_obligation", "Obligation to defend (not just indemnify)", _INDEM_DEFENSE_OBLIGATION_RE,
+         "No \"shall defend\" language was found — an indemnification obligation without a defense "
+         "obligation may leave the indemnified party to fund its own defense while a claim is pending.",
+         "An obligation to defend (not just indemnify) is stated."),
+        ("notification_requirement", "Prompt notice of claims required", _INDEM_NOTIFICATION_RE,
+         "No requirement that the indemnified party give prompt notice of a claim was found — absent "
+         "this, disputes can arise over whether notice was timely.",
+         "Prompt notice of claims is required."),
+        ("limitations_or_procedure", "Defense/settlement control procedure specified",
+         _INDEM_LIMITATIONS_PROCEDURE_RE,
+         "No provision addresses who controls the defense or whether settlement requires consent — "
+         "absent this, the indemnifying party could settle in a way that harms the indemnified party, "
+         "or vice versa.",
+         "Defense/settlement control is addressed."),
+    ]
+
+    elements: List[ClauseElement] = []
+    for key, label, pattern, missing_detail, present_detail in checks:
+        present = bool(pattern.search(text))
+        elements.append(ClauseElement(
+            key=key, label=label, present=present, weight=_INDEMNIFICATION_ELEMENT_WEIGHT[key],
+            detail=present_detail if present else missing_detail,
+        ))
+
+    score = sum(e.weight for e in elements if e.present)
+    return IndemnificationQualityReport(applicable=True, score=score, elements=elements)

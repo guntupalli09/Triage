@@ -31,7 +31,12 @@ from party_resolver import (
 )
 from risk_dashboard import compute_risk_dashboard
 from structure_checker import analyze_structure
-from clause_quality import analyze_arbitration_clause, analyze_liability_clause, analyze_confidentiality_clause
+from clause_quality import (
+    analyze_arbitration_clause,
+    analyze_liability_clause,
+    analyze_confidentiality_clause,
+    analyze_indemnification_clause,
+)
 from metadata_extractor import extract_metadata
 
 logger = logging.getLogger(__name__)
@@ -4636,6 +4641,7 @@ class RuleEngine:
         arbitration_quality = analyze_arbitration_clause(text)
         liability_quality = analyze_liability_clause(text)
         confidentiality_quality = analyze_confidentiality_clause(text)
+        indemnification_quality = analyze_indemnification_clause(text)
         metadata = extract_metadata(text)
 
         return {
@@ -4677,6 +4683,7 @@ class RuleEngine:
                 "arbitration": arbitration_quality.as_dict(),
                 "liability": liability_quality.as_dict(),
                 "confidentiality": confidentiality_quality.as_dict(),
+                "indemnification": indemnification_quality.as_dict(),
             },
             # Deterministic party/effective-date/contract-type extraction —
             # see metadata_extractor.py. Parties reuse party_resolver.py's
