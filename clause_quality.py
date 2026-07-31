@@ -638,3 +638,124 @@ def analyze_indemnification_clause(text: str) -> IndemnificationQualityReport:
 
     score = sum(e.weight for e in elements if e.present)
     return IndemnificationQualityReport(applicable=True, score=score, elements=elements)
+
+
+# ---------------------------------------------------------------------------
+# Termination module
+# ---------------------------------------------------------------------------
+
+_TERMINATION_TOPIC_RE = re.compile(r'\btermin(?:ate[sd]?|ation)\b', re.IGNORECASE)
+
+_TERM_FOR_CAUSE_RE = re.compile(
+    r'\bterminat\w+\b.{0,80}?\bfor\s+cause\b|\bfor\s+cause\b.{0,80}?\bterminat\w+\b|'
+    r'\bmaterial\s+breach\b.{0,100}?\bterminat\w+\b|\bterminat\w+\b.{0,100}?\bmaterial\s+breach\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_TERM_CURE_PERIOD_RE = re.compile(
+    r'\bcure\s+period\b|\b\d+\s*\(?\d*\)?\s*days?\s+to\s+cure\b|\bfails?\s+to\s+cure\b.{0,60}?\bwithin\b|'
+    r'\bopportunity\s+to\s+cure\b|\bwithin\s+\d+\s*\(?\d*\)?\s*days?\s+(?:after|of|following)\s+(?:written\s+)?'
+    r'notice\b.{0,40}?\bcure\b|'
+    r'\b(?:not\s+)?cured\s+within\s+\d+\s*\(?\d*\)?\s*days?\b|\bcure\s+(?:such|the)\s+breach\s+within\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_TERM_FOR_CONVENIENCE_RE = re.compile(
+    r'\bfor\s+convenience\b|\bwithout\s+cause\b|\bfor\s+any\s+reason\b|\bfor\s+no\s+reason\b',
+    re.IGNORECASE,
+)
+
+_TERM_NOTICE_PERIOD_RE = re.compile(
+    r'\b\d+\s*\(?\d*\)?\s*days?\s+(?:prior\s+)?(?:written\s+)?notice\b|'
+    r'\b\d+\s*\(?\d*\)?\s*days?\s+(?:after|following|of)\s+(?:receipt\s+of\s+)?(?:written\s+)?notice\b',
+    re.IGNORECASE,
+)
+
+_TERM_SURVIVAL_RE = re.compile(
+    r'\bsurvive[sd]?\b.{0,60}?\btermination\b|\bshall\s+survive\b|\bsurvival\s+of\s+(?:terms|provisions|obligations)\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_TERM_BANKRUPTCY_RE = re.compile(
+    r'\bbankrupt(?:cy)?\b|\binsolven(?:t|cy)\b|\breceivership\b|'
+    r'\bassignment\s+for\s+the\s+benefit\s+of\s+creditors\b',
+    re.IGNORECASE,
+)
+
+_TERMINATION_ELEMENT_WEIGHT: Dict[str, int] = {
+    "termination_for_cause": 20,
+    "cure_period": 15,
+    "notice_period_specified": 20,
+    "survival_clause": 20,
+    "termination_for_convenience": 10,
+    "bankruptcy_termination": 15,
+}
+
+
+@dataclass(frozen=True)
+class TerminationQualityReport:
+    applicable: bool
+    score: Optional[int]
+    elements: List[ClauseElement]
+    methodology_note: str = (
+        "Only scored when a termination clause is present in this document. Each element is "
+        "detected via pattern matching for standard drafting language, not a legal-sufficiency "
+        "judgment; unconventional phrasing can be missed. \"termination_for_convenience\" being "
+        "absent is not automatically a defect — many commercial contracts deliberately omit a "
+        "convenience-termination right to protect the non-drafting party's expected term; its "
+        "presence and MUTUALITY are a separate, already-covered finding (rules_engine.py's "
+        "H_TERM_CONVENIENCE_01 flags a one-sided convenience right). Treat a low score as a prompt "
+        "to read the clause, not a certified defect."
+    )
+
+    def as_dict(self) -> Dict[str, Any]:
+        return {
+            "applicable": self.applicable,
+            "score": self.score,
+            "elements": [
+                {"key": e.key, "label": e.label, "present": e.present, "weight": e.weight, "detail": e.detail}
+                for e in self.elements
+            ],
+            "methodology_note": self.methodology_note,
+        }
+
+
+def analyze_termination_clause(text: str) -> TerminationQualityReport:
+    """Pure function: normalized contract text -> TerminationQualityReport."""
+    if not _TERMINATION_TOPIC_RE.search(text):
+        return TerminationQualityReport(applicable=False, score=None, elements=[])
+
+    checks = [
+        ("termination_for_cause", "Termination for cause/material breach", _TERM_FOR_CAUSE_RE,
+         "No explicit right to terminate for cause or material breach was found.",
+         "A right to terminate for cause/material breach is stated."),
+        ("cure_period", "Cure period before termination for cause", _TERM_CURE_PERIOD_RE,
+         "No cure period was found — termination for cause may be immediate, without an opportunity "
+         "to fix the breach first.",
+         "A cure period is specified before termination for cause takes effect."),
+        ("notice_period_specified", "Notice period specified", _TERM_NOTICE_PERIOD_RE,
+         "No specific notice period (e.g. \"30 days prior written notice\") was found.",
+         "A specific notice period is stated."),
+        ("survival_clause", "Survival of key obligations addressed", _TERM_SURVIVAL_RE,
+         "No survival clause was found — it may be unclear whether confidentiality, payment, IP, or "
+         "liability provisions continue to apply after termination.",
+         "A survival clause addresses which obligations continue after termination."),
+        ("termination_for_convenience", "Termination for convenience addressed", _TERM_FOR_CONVENIENCE_RE,
+         "No termination-for-convenience right was found — this may be a deliberate choice, not a "
+         "defect (see methodology note).",
+         "A termination-for-convenience right is stated."),
+        ("bankruptcy_termination", "Bankruptcy/insolvency termination right", _TERM_BANKRUPTCY_RE,
+         "No right to terminate upon the other party's bankruptcy or insolvency was found.",
+         "A bankruptcy/insolvency termination right is stated."),
+    ]
+
+    elements: List[ClauseElement] = []
+    for key, label, pattern, missing_detail, present_detail in checks:
+        present = bool(pattern.search(text))
+        elements.append(ClauseElement(
+            key=key, label=label, present=present, weight=_TERMINATION_ELEMENT_WEIGHT[key],
+            detail=present_detail if present else missing_detail,
+        ))
+
+    score = sum(e.weight for e in elements if e.present)
+    return TerminationQualityReport(applicable=True, score=score, elements=elements)
