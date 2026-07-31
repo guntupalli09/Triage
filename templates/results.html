@@ -121,6 +121,30 @@
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Status</div>
                 <div class="text-sm font-semibold status-pass">Verification Completed</div>
             </div>
+            {% if metadata and metadata.contract_type %}
+            <div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Contract Type</div>
+                <div class="text-sm font-semibold text-[#0F172A]">{{ metadata.contract_type }}
+                    {% if metadata.contract_type_confidence == "medium" %}<span class="text-xs font-normal text-[#94A3B8]">(medium confidence)</span>{% endif %}
+                </div>
+            </div>
+            {% endif %}
+            {% if metadata and metadata.effective_date %}
+            <div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Effective Date</div>
+                <div class="text-sm font-semibold text-[#0F172A]">{{ metadata.effective_date }}</div>
+            </div>
+            {% endif %}
+            {% if metadata and metadata.parties %}
+            <div style="grid-column: 1 / -1;">
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Parties</div>
+                <div class="text-sm font-semibold text-[#0F172A] flex flex-wrap gap-x-4 gap-y-1">
+                    {% for p in metadata.parties %}
+                    <span>{{ p.full_name }}{% if p.short_name %} ("{{ p.short_name }}"){% endif %}{% if p.role and p.role != "unknown" %} <span class="text-xs font-normal text-[#64748B] capitalize">— {{ p.role }}</span>{% endif %}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 

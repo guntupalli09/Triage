@@ -100,6 +100,11 @@ class Contract(Base):
     # null/not-applicable when no arbitration clause is present.
     clause_quality_json = Column(JSON, nullable=True)
 
+    # Deterministic party/effective-date/contract-type extraction — see
+    # metadata_extractor.py. A field this couldn't confidently extract is
+    # null/empty, never a guess.
+    metadata_json = Column(JSON, nullable=True)
+
     # Playbook comparison
     playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=True)
     deviations_json = Column(JSON, nullable=True)

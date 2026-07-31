@@ -32,6 +32,7 @@ from party_resolver import (
 from risk_dashboard import compute_risk_dashboard
 from structure_checker import analyze_structure
 from clause_quality import analyze_arbitration_clause
+from metadata_extractor import extract_metadata
 
 logger = logging.getLogger(__name__)
 
@@ -4633,6 +4634,7 @@ class RuleEngine:
         risk_dashboard = compute_risk_dashboard(suppressed_findings)
         structure_report = analyze_structure(text)
         arbitration_quality = analyze_arbitration_clause(text)
+        metadata = extract_metadata(text)
 
         return {
             "findings": suppressed_findings,
@@ -4667,6 +4669,12 @@ class RuleEngine:
             # with a competing litigation clause). Additive to the existing
             # M_ARBITRATION_01 presence-only finding, not a replacement.
             "clause_quality": {"arbitration": arbitration_quality.as_dict()},
+            # Deterministic party/effective-date/contract-type extraction —
+            # see metadata_extractor.py. Parties reuse party_resolver.py's
+            # existing role resolution rather than duplicating it; a party
+            # or field this can't confidently extract is None/empty, never
+            # a guess.
+            "metadata": metadata.as_dict(),
         }
 
     def build_missing_sections(self, findings: List[Finding]) -> List[str]:

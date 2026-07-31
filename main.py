@@ -268,6 +268,9 @@ def run_analysis(contract_text: str) -> Dict:
         "structure_report": analysis.get("structure_report", {}),
         # Deterministic Clause Quality Engine — see clause_quality.py.
         "clause_quality": analysis.get("clause_quality", {}),
+        # Deterministic party/effective-date/contract-type extraction — see
+        # metadata_extractor.py.
+        "metadata": analysis.get("metadata", {}),
     }
 
 
@@ -989,6 +992,7 @@ async def upload_contract(
             risk_dashboard_json=analysis.get("risk_dashboard"),
             structure_report_json=analysis.get("structure_report"),
             clause_quality_json=analysis.get("clause_quality"),
+            metadata_json=analysis.get("metadata"),
         )
         db.add(contract)
         db.flush()  # assigns contract.id without ending the transaction
@@ -1118,6 +1122,7 @@ async def batch_upload_submit(
             risk_dashboard_json=analysis.get("risk_dashboard"),
             structure_report_json=analysis.get("structure_report"),
             clause_quality_json=analysis.get("clause_quality"),
+            metadata_json=analysis.get("metadata"),
         )
         db.add(contract)
         contracts.append(contract)
@@ -1319,6 +1324,7 @@ async def view_contract(request: Request, contract_id: int):
         "risk_dashboard": contract.risk_dashboard_json,
         "structure_report": contract.structure_report_json,
         "clause_quality": contract.clause_quality_json,
+        "metadata": contract.metadata_json,
     })
 
 
@@ -1942,6 +1948,7 @@ async def demo_analysis(request: Request):
         "risk_dashboard": analysis.get("risk_dashboard"),
         "structure_report": analysis.get("structure_report"),
         "clause_quality": analysis.get("clause_quality"),
+        "metadata": analysis.get("metadata"),
     })
 
 
@@ -2154,6 +2161,7 @@ async def results_legacy(request: Request, token: str):
         "risk_dashboard": analysis.get("risk_dashboard"),
         "structure_report": analysis.get("structure_report"),
         "clause_quality": analysis.get("clause_quality"),
+        "metadata": analysis.get("metadata"),
     })
 
 
