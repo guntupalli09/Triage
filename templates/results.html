@@ -176,6 +176,39 @@
         </div>
     </div>
 
+    {% if legal_risk_score is not none and business_risk_score is not none and negotiation_difficulty_score is not none %}
+    <!-- Three-Score Risk Dashboard -->
+    <div class="report-card p-6 mb-6 fade-in">
+        <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
+            <h2 class="text-lg font-bold text-[#0F172A]">Risk Dashboard</h2>
+            <span class="text-xs text-[#64748B]">Three independent readings — not a blended score</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="text-center p-4 rounded-md border border-slate-100 bg-slate-50">
+                <div class="text-3xl font-extrabold mono {% if legal_risk_score >= 70 %}text-red-600{% elif legal_risk_score >= 35 %}text-amber-600{% else %}text-green-600{% endif %}">{{ legal_risk_score }}</div>
+                <div class="text-xs font-medium text-[#475569] mt-1 uppercase tracking-wider">Legal Risk</div>
+                <div class="text-[11px] text-[#94A3B8] mt-1">Enforceability, governing law, arbitration structure</div>
+            </div>
+            <div class="text-center p-4 rounded-md border border-slate-100 bg-slate-50">
+                <div class="text-3xl font-extrabold mono {% if business_risk_score >= 70 %}text-red-600{% elif business_risk_score >= 35 %}text-amber-600{% else %}text-green-600{% endif %}">{{ business_risk_score }}</div>
+                <div class="text-xs font-medium text-[#475569] mt-1 uppercase tracking-wider">Business Risk</div>
+                <div class="text-[11px] text-[#94A3B8] mt-1">Financial exposure — liability, indemnity, fees</div>
+            </div>
+            <div class="text-center p-4 rounded-md border border-slate-100 bg-slate-50">
+                <div class="text-3xl font-extrabold mono {% if negotiation_difficulty_score >= 70 %}text-red-600{% elif negotiation_difficulty_score >= 35 %}text-amber-600{% else %}text-green-600{% endif %}">{{ negotiation_difficulty_score }}</div>
+                <div class="text-xs font-medium text-[#475569] mt-1 uppercase tracking-wider">Negotiation Difficulty</div>
+                <div class="text-[11px] text-[#94A3B8] mt-1">One-sidedness, unilateral rights, exclusivity</div>
+            </div>
+        </div>
+        {% if risk_dashboard and risk_dashboard.methodology_note %}
+        <details class="mt-4">
+            <summary class="text-xs font-semibold text-[#64748B] cursor-pointer hover:text-[#1E293B]">How these scores are calculated</summary>
+            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">{{ risk_dashboard.methodology_note }}</p>
+        </details>
+        {% endif %}
+    </div>
+    {% endif %}
+
     {% if payment_terms and (payment_terms.due_days or payment_terms.currency or payment_terms.billing_frequency or payment_terms.invoice_trigger) %}
     <!-- Verified Commercial Terms -->
     <div class="report-card p-6 mb-6 fade-in">

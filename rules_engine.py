@@ -29,6 +29,7 @@ from party_resolver import (
     UNKNOWN_ROLE,
     resolve_party_roles,
 )
+from risk_dashboard import compute_risk_dashboard
 
 logger = logging.getLogger(__name__)
 
@@ -4627,6 +4628,7 @@ class RuleEngine:
 
         overall = self._compute_overall_risk(suppressed_findings, counts)
         workflow = self._compute_workflow_decision(suppressed_findings)
+        risk_dashboard = compute_risk_dashboard(suppressed_findings)
 
         return {
             "findings": suppressed_findings,
@@ -4645,6 +4647,11 @@ class RuleEngine:
             # Structured contract-to-cash terms, for comparison against an
             # actual invoice configuration (not just "Net 30 mentioned").
             "payment_terms": _extract_payment_terms(text),
+            # Three-score risk dashboard (Legal Risk / Business Risk /
+            # Negotiation Difficulty) — see risk_dashboard.py. Additive,
+            # third lens on the same findings, not a replacement for
+            # overall_risk or signature_readiness.
+            "risk_dashboard": risk_dashboard.as_dict(),
         }
 
     def build_missing_sections(self, findings: List[Finding]) -> List[str]:

@@ -261,6 +261,9 @@ def run_analysis(contract_text: str) -> Dict:
         # Structured contract-to-cash terms for comparison against an actual
         # invoice configuration (due_days, currency, billing_frequency, invoice_trigger).
         "payment_terms": analysis.get("payment_terms", {}),
+        # Three-score risk dashboard (Legal Risk / Business Risk /
+        # Negotiation Difficulty) — see risk_dashboard.py.
+        "risk_dashboard": analysis.get("risk_dashboard", {}),
     }
 
 
@@ -976,6 +979,10 @@ async def upload_contract(
             payment_terms_json=analysis.get("payment_terms"),
             blocking_findings_json=analysis.get("blocking_findings"),
             policy_blocked_findings_json=analysis.get("policy_blocked_findings"),
+            legal_risk_score=analysis.get("risk_dashboard", {}).get("legal_risk_score"),
+            business_risk_score=analysis.get("risk_dashboard", {}).get("business_risk_score"),
+            negotiation_difficulty_score=analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
+            risk_dashboard_json=analysis.get("risk_dashboard"),
         )
         db.add(contract)
         db.flush()  # assigns contract.id without ending the transaction
@@ -1099,6 +1106,10 @@ async def batch_upload_submit(
             payment_terms_json=analysis.get("payment_terms"),
             blocking_findings_json=analysis.get("blocking_findings"),
             policy_blocked_findings_json=analysis.get("policy_blocked_findings"),
+            legal_risk_score=analysis.get("risk_dashboard", {}).get("legal_risk_score"),
+            business_risk_score=analysis.get("risk_dashboard", {}).get("business_risk_score"),
+            negotiation_difficulty_score=analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
+            risk_dashboard_json=analysis.get("risk_dashboard"),
         )
         db.add(contract)
         contracts.append(contract)
@@ -1292,6 +1303,12 @@ async def view_contract(request: Request, contract_id: int):
         "payment_terms": contract.payment_terms_json,
         "blocking_findings": contract.blocking_findings_json or [],
         "policy_blocked_findings": contract.policy_blocked_findings_json or [],
+        # Three-score risk dashboard. May be None for contracts analyzed
+        # before this field was persisted.
+        "legal_risk_score": contract.legal_risk_score,
+        "business_risk_score": contract.business_risk_score,
+        "negotiation_difficulty_score": contract.negotiation_difficulty_score,
+        "risk_dashboard": contract.risk_dashboard_json,
     })
 
 
@@ -1538,6 +1555,9 @@ def _render_shared_report(request: Request, contract: Contract) -> HTMLResponse:
         "rule_counts": rule_counts,
         "rule_engine_version": contract.rule_engine_version or "1.0.3",
         "current_year": datetime.now().year,
+        "legal_risk_score": contract.legal_risk_score,
+        "business_risk_score": contract.business_risk_score,
+        "negotiation_difficulty_score": contract.negotiation_difficulty_score,
     })
 
 
@@ -1906,6 +1926,10 @@ async def demo_analysis(request: Request):
         "payment_terms": analysis.get("payment_terms"),
         "blocking_findings": analysis.get("blocking_findings", []),
         "policy_blocked_findings": analysis.get("policy_blocked_findings", []),
+        "legal_risk_score": analysis.get("risk_dashboard", {}).get("legal_risk_score"),
+        "business_risk_score": analysis.get("risk_dashboard", {}).get("business_risk_score"),
+        "negotiation_difficulty_score": analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
+        "risk_dashboard": analysis.get("risk_dashboard"),
     })
 
 
@@ -2112,6 +2136,10 @@ async def results_legacy(request: Request, token: str):
         "payment_terms": analysis.get("payment_terms"),
         "blocking_findings": analysis.get("blocking_findings", []),
         "policy_blocked_findings": analysis.get("policy_blocked_findings", []),
+        "legal_risk_score": analysis.get("risk_dashboard", {}).get("legal_risk_score"),
+        "business_risk_score": analysis.get("risk_dashboard", {}).get("business_risk_score"),
+        "negotiation_difficulty_score": analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
+        "risk_dashboard": analysis.get("risk_dashboard"),
     })
 
 

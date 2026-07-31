@@ -127,6 +127,18 @@ def _run_migrations():
             if "policy_blocked_findings_json" not in contract_cols:
                 conn.execute(text(f"ALTER TABLE contracts ADD COLUMN policy_blocked_findings_json {json_col_type}"))
                 logger.info("Migration applied: contracts.policy_blocked_findings_json column")
+            if "legal_risk_score" not in contract_cols:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN legal_risk_score INTEGER"))
+                logger.info("Migration applied: contracts.legal_risk_score column")
+            if "business_risk_score" not in contract_cols:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN business_risk_score INTEGER"))
+                logger.info("Migration applied: contracts.business_risk_score column")
+            if "negotiation_difficulty_score" not in contract_cols:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN negotiation_difficulty_score INTEGER"))
+                logger.info("Migration applied: contracts.negotiation_difficulty_score column")
+            if "risk_dashboard_json" not in contract_cols:
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN risk_dashboard_json {json_col_type}"))
+                logger.info("Migration applied: contracts.risk_dashboard_json column")
 
 
 def init_db():

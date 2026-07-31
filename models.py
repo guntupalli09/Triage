@@ -79,6 +79,16 @@ class Contract(Base):
     blocking_findings_json = Column(JSON, nullable=True)
     policy_blocked_findings_json = Column(JSON, nullable=True)
 
+    # Three-score risk dashboard (Legal Risk / Business Risk / Negotiation
+    # Difficulty) — see risk_dashboard.py. Additive to overall_risk, not a
+    # replacement. The three ints are persisted directly for cheap
+    # display/sorting; risk_dashboard_json carries the full breakdown
+    # (top contributing findings per score + methodology note).
+    legal_risk_score = Column(Integer, nullable=True)
+    business_risk_score = Column(Integer, nullable=True)
+    negotiation_difficulty_score = Column(Integer, nullable=True)
+    risk_dashboard_json = Column(JSON, nullable=True)
+
     # Playbook comparison
     playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=True)
     deviations_json = Column(JSON, nullable=True)
