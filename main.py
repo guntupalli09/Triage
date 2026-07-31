@@ -271,6 +271,8 @@ def run_analysis(contract_text: str) -> Dict:
         # Deterministic party/effective-date/contract-type extraction — see
         # metadata_extractor.py.
         "metadata": analysis.get("metadata", {}),
+        # Risk Allocation & Clause Balance Score — see risk_balance.py.
+        "risk_balance": analysis.get("risk_balance", {}),
     }
 
 
@@ -993,6 +995,7 @@ async def upload_contract(
             structure_report_json=analysis.get("structure_report"),
             clause_quality_json=analysis.get("clause_quality"),
             metadata_json=analysis.get("metadata"),
+            risk_balance_json=analysis.get("risk_balance"),
         )
         db.add(contract)
         db.flush()  # assigns contract.id without ending the transaction
@@ -1123,6 +1126,7 @@ async def batch_upload_submit(
             structure_report_json=analysis.get("structure_report"),
             clause_quality_json=analysis.get("clause_quality"),
             metadata_json=analysis.get("metadata"),
+            risk_balance_json=analysis.get("risk_balance"),
         )
         db.add(contract)
         contracts.append(contract)
@@ -1325,6 +1329,7 @@ async def view_contract(request: Request, contract_id: int):
         "structure_report": contract.structure_report_json,
         "clause_quality": contract.clause_quality_json,
         "metadata": contract.metadata_json,
+        "risk_balance": contract.risk_balance_json,
     })
 
 
@@ -1949,6 +1954,7 @@ async def demo_analysis(request: Request):
         "structure_report": analysis.get("structure_report"),
         "clause_quality": analysis.get("clause_quality"),
         "metadata": analysis.get("metadata"),
+        "risk_balance": analysis.get("risk_balance"),
     })
 
 
@@ -2162,6 +2168,7 @@ async def results_legacy(request: Request, token: str):
         "structure_report": analysis.get("structure_report"),
         "clause_quality": analysis.get("clause_quality"),
         "metadata": analysis.get("metadata"),
+        "risk_balance": analysis.get("risk_balance"),
     })
 
 

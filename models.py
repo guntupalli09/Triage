@@ -105,6 +105,12 @@ class Contract(Base):
     # null/empty, never a guess.
     metadata_json = Column(JSON, nullable=True)
 
+    # Risk Allocation & Clause Balance Score — see risk_balance.py.
+    # Aggregates existing per-finding favorability data; null/not-
+    # applicable when the engine found no directionally classifiable
+    # findings.
+    risk_balance_json = Column(JSON, nullable=True)
+
     # Playbook comparison
     playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=True)
     deviations_json = Column(JSON, nullable=True)

@@ -145,6 +145,9 @@ def _run_migrations():
             if "clause_quality_json" not in contract_cols:
                 conn.execute(text(f"ALTER TABLE contracts ADD COLUMN clause_quality_json {json_col_type}"))
                 logger.info("Migration applied: contracts.clause_quality_json column")
+            if "risk_balance_json" not in contract_cols:
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN risk_balance_json {json_col_type}"))
+                logger.info("Migration applied: contracts.risk_balance_json column")
             if "metadata_json" not in contract_cols:
                 conn.execute(text(f"ALTER TABLE contracts ADD COLUMN metadata_json {json_col_type}"))
                 logger.info("Migration applied: contracts.metadata_json column")

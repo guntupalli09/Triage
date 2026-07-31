@@ -40,6 +40,7 @@ from clause_quality import (
     analyze_ip_clause,
 )
 from metadata_extractor import extract_metadata
+from risk_balance import compute_risk_balance
 
 logger = logging.getLogger(__name__)
 
@@ -4647,6 +4648,7 @@ class RuleEngine:
         termination_quality = analyze_termination_clause(text)
         ip_quality = analyze_ip_clause(text)
         metadata = extract_metadata(text)
+        risk_balance = compute_risk_balance(suppressed_findings)
 
         return {
             "findings": suppressed_findings,
@@ -4697,6 +4699,11 @@ class RuleEngine:
             # or field this can't confidently extract is None/empty, never
             # a guess.
             "metadata": metadata.as_dict(),
+            # Risk Allocation & Clause Balance Score — see risk_balance.py.
+            # Aggregates the existing per-finding perspective/favorability
+            # classification into a single document-level number; no new
+            # detection.
+            "risk_balance": risk_balance.as_dict(),
         }
 
     def build_missing_sections(self, findings: List[Finding]) -> List[str]:

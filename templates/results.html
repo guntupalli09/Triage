@@ -233,6 +233,28 @@
     </div>
     {% endif %}
 
+    {% if risk_balance and risk_balance.applicable %}
+    <!-- Risk Allocation & Clause Balance -->
+    <div class="report-card p-6 mb-6 fade-in">
+        <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+            <h2 class="text-lg font-bold text-[#0F172A]">Risk Allocation Balance</h2>
+            <span class="text-2xl font-extrabold mono {% if risk_balance.balance_score >= 70 %}text-red-600{% elif risk_balance.balance_score >= 35 %}text-amber-600{% else %}text-green-600{% endif %}">{{ risk_balance.balance_score }}<span class="text-sm text-[#94A3B8]">/100</span></span>
+        </div>
+        <p class="text-sm text-[#475569] mb-4">Of the one-sided clauses this engine could classify, {{ risk_balance.balance_score }}% favor the counterparty rather than the reviewing party ({{ risk_balance.unfavorable_count }} unfavorable vs. {{ risk_balance.favorable_count }} favorable{% if risk_balance.neutral_count or risk_balance.unclear_count %}; {{ risk_balance.neutral_count }} mutual, {{ risk_balance.unclear_count }} unclear{% endif %}).</p>
+        {% if risk_balance.top_unfavorable_contributors %}
+        <div class="flex gap-1.5 flex-wrap">
+            {% for c in risk_balance.top_unfavorable_contributors %}
+            <span class="px-2.5 py-1 text-xs font-medium rounded bg-red-50 text-red-800 mono">{{ c.rule_id }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <details class="mt-4">
+            <summary class="text-xs font-semibold text-[#64748B] cursor-pointer hover:text-[#1E293B]">Methodology &amp; limitations</summary>
+            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">{{ risk_balance.methodology_note }}</p>
+        </details>
+    </div>
+    {% endif %}
+
     {% if structure_report and structure_report.total_issue_count and structure_report.total_issue_count > 0 %}
     <!-- Document Structure Check -->
     <div class="report-card p-6 mb-6 fade-in">
