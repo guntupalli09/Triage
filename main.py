@@ -47,6 +47,7 @@ from docx import Document
 from sqlalchemy.orm import Session as DBSession
 
 from rules_engine import RuleEngine, FINDING_TYPE_LABELS
+from confidence_index import build_confidence_breakdown
 from evaluator import LLMEvaluator
 from database import get_db, check_db_health, check_redis_health
 from auth import (
@@ -218,6 +219,7 @@ def run_analysis(contract_text: str) -> Dict:
     findings = analysis["findings"]
     overall_risk = analysis["overall_risk"]
 
+    contradiction_log = analysis.get("contradiction_log", {})
     findings_dict = [
         {
             "rule_id": f.rule_id, "rule_name": f.rule_name, "title": f.title,
@@ -230,6 +232,10 @@ def run_analysis(contract_text: str) -> Dict:
             "party_direction": f.party_direction,
             "finding_type": f.finding_type,
             "finding_type_label": FINDING_TYPE_LABELS.get(f.finding_type, f.finding_type),
+            # Lawyer Confidence Index — see confidence_index.py. Restructures
+            # the confidence/confidence_reason this finding already carries
+            # into an explicit, checkable breakdown; no new detection.
+            "confidence_breakdown": build_confidence_breakdown(f, contradiction_log).as_dict(),
         }
         for f in findings
     ]
@@ -339,6 +345,8 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
         enhanced["finding_type_label"] = finding.get(
             "finding_type_label", FINDING_TYPE_LABELS.get(enhanced["finding_type"], enhanced["finding_type"])
         )
+        if finding.get("confidence_breakdown"):
+            enhanced["confidence_breakdown"] = finding["confidence_breakdown"]
 
         all_issues.append(enhanced)
 
