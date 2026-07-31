@@ -31,7 +31,7 @@ from party_resolver import (
 )
 from risk_dashboard import compute_risk_dashboard
 from structure_checker import analyze_structure
-from clause_quality import analyze_arbitration_clause
+from clause_quality import analyze_arbitration_clause, analyze_liability_clause
 from metadata_extractor import extract_metadata
 
 logger = logging.getLogger(__name__)
@@ -4634,6 +4634,7 @@ class RuleEngine:
         risk_dashboard = compute_risk_dashboard(suppressed_findings)
         structure_report = analyze_structure(text)
         arbitration_quality = analyze_arbitration_clause(text)
+        liability_quality = analyze_liability_clause(text)
         metadata = extract_metadata(text)
 
         return {
@@ -4664,11 +4665,17 @@ class RuleEngine:
             # references to sections/exhibits/schedules that don't exist.
             "structure_report": structure_report.as_dict(),
             # Deterministic Clause Quality Engine — see clause_quality.py.
-            # First module: arbitration completeness (institution, seat,
-            # rules, arbitrator count, language, emergency relief, conflict
-            # with a competing litigation clause). Additive to the existing
-            # M_ARBITRATION_01 presence-only finding, not a replacement.
-            "clause_quality": {"arbitration": arbitration_quality.as_dict()},
+            # Arbitration module: completeness (institution, seat, rules,
+            # arbitrator count, language, emergency relief, conflict with a
+            # competing litigation clause). Liability module: cap presence,
+            # mutuality, consequential-damages exclusion, high-severity
+            # carve-outs, fraud exception, cap-negating language. Additive
+            # to the existing M_ARBITRATION_01/H_LOL_01 presence-only
+            # findings, not a replacement.
+            "clause_quality": {
+                "arbitration": arbitration_quality.as_dict(),
+                "liability": liability_quality.as_dict(),
+            },
             # Deterministic party/effective-date/contract-type extraction —
             # see metadata_extractor.py. Parties reuse party_resolver.py's
             # existing role resolution rather than duplicating it; a party

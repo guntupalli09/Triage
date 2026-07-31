@@ -315,6 +315,32 @@
     </div>
     {% endif %}
 
+    {% if clause_quality and clause_quality.liability and clause_quality.liability.applicable %}
+    {% set liab = clause_quality.liability %}
+    <!-- Liability Clause Inspector -->
+    <div class="report-card p-6 mb-6 fade-in">
+        <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+            <h2 class="text-lg font-bold text-[#0F172A]">Liability Clause Inspector</h2>
+            <span class="text-2xl font-extrabold mono {% if liab.score >= 70 %}text-green-600{% elif liab.score >= 35 %}text-amber-600{% else %}text-red-600{% endif %}">{{ liab.score }}<span class="text-sm text-[#94A3B8]">/100</span></span>
+        </div>
+        <div class="space-y-2">
+            {% for el in liab.elements %}
+            <div class="flex items-start gap-3 p-3 rounded-md {% if el.present %}bg-slate-50{% else %}bg-red-50{% endif %}">
+                <span class="text-sm font-bold mt-0.5 {% if el.present %}text-green-600{% else %}text-red-600{% endif %}">{% if el.present %}&#10003;{% else %}&#10007;{% endif %}</span>
+                <div>
+                    <div class="text-sm font-semibold text-[#0F172A]">{{ el.label }}</div>
+                    <div class="text-xs text-[#475569] mt-0.5">{{ el.detail }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <details class="mt-4">
+            <summary class="text-xs font-semibold text-[#64748B] cursor-pointer hover:text-[#1E293B]">Methodology &amp; limitations</summary>
+            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">{{ liab.methodology_note }}</p>
+        </details>
+    </div>
+    {% endif %}
+
     {% if payment_terms and (payment_terms.due_days or payment_terms.currency or payment_terms.billing_frequency or payment_terms.invoice_trigger) %}
     <!-- Verified Commercial Terms -->
     <div class="report-card p-6 mb-6 fade-in">

@@ -1,34 +1,39 @@
 """
-Deterministic Clause Quality Engine — Arbitration module.
+Deterministic Clause Quality Engine — Arbitration and Liability modules.
 
 Product roadmap Feature 4 (the anchor feature; see the product memo, Rev.
-2): generalizes "does an arbitration clause exist" — the only thing
-rules_engine.py's M_ARBITRATION_01 currently checks — into "how complete is
-it." This is the same element-by-element checklist an arbitrator or
-international-disputes lawyer runs by habit on a first read: administering
+2): generalizes "does an arbitration/liability clause exist" — the only
+thing rules_engine.py's M_ARBITRATION_01/H_LOL_01 etc. currently check —
+into "how complete is it." This is the same element-by-element checklist a
+lawyer runs by habit on a first read. For arbitration: administering
 institution, seat, governing rules, number of arbitrators, language, and
 emergency/interim relief, plus a same-document conflict check against a
-competing exclusive-litigation-jurisdiction clause.
+competing exclusive-litigation-jurisdiction clause. For liability: whether
+a cap exists at all, whether it applies mutually, whether consequential
+damages are excluded, whether standard high-severity carve-outs (IP,
+confidentiality, indemnification) and a fraud/willful-misconduct exception
+are present, and whether adverse "shall not be limited" language undermines
+the cap the document otherwise states.
 
 Scope, stated honestly:
 
-- This module only ever activates when an arbitration clause is actually
-  present in the document. A contract that chooses litigation over
-  arbitration is not scored or penalized here — that is a legitimate
-  drafting choice, not a deficiency. Same "topic must be in scope before
-  absence is a finding" principle rules_engine.py's REQUIRED_SECTION rules
-  already use.
+- Each module only ever activates when that clause type is actually present
+  in the document. A contract that chooses litigation over arbitration, or
+  simply has no limitation-of-liability clause, is not scored or penalized
+  — that is either a legitimate drafting choice or a separate, already-
+  covered finding (rules_engine.py's H_LOL_01 flags an absent/weak cap on
+  its own). Same "topic must be in scope before absence is a finding"
+  principle rules_engine.py's REQUIRED_SECTION rules already use.
 - Each element is detected via pattern matching for standard drafting
-  language (named institutions, "seat of arbitration", "language of the
-  arbitration," etc.) — not a legal-sufficiency judgment. Unconventional
-  phrasing can be missed; a low score is a prompt to read the clause, not a
-  certified defect.
-- This is the FIRST module of what the roadmap describes as a Clause
+  language — not a legal-sufficiency judgment. Unconventional phrasing can
+  be missed; a low score is a prompt to read the clause, not a certified
+  defect.
+- These are the first two modules of what the roadmap describes as a Clause
   Quality Engine intended to eventually generalize the same weighted-
-  checklist pattern to other clause types (Liability, Indemnification,
-  Confidentiality, IP, Termination, ...). Those modules are not built yet —
-  see the roadmap for sequencing. Do not read the presence of only an
-  arbitration module here as those other modules existing.
+  checklist pattern to other clause types (Indemnification, Confidentiality,
+  IP, Termination, ...). Those modules are not built yet — see the roadmap
+  for sequencing. Do not read the presence of these two modules as those
+  other clause types being covered.
 """
 from __future__ import annotations
 
@@ -196,3 +201,153 @@ def analyze_arbitration_clause(text: str) -> ArbitrationQualityReport:
     return ArbitrationQualityReport(
         applicable=True, score=score, elements=elements, conflict_with_litigation_clause=has_conflict,
     )
+
+
+# ---------------------------------------------------------------------------
+# Liability module
+# ---------------------------------------------------------------------------
+
+# Applicability gate: a limitation-of-liability topic is present at all —
+# same detection concept as rules_engine.py's H_LOL_01 anchors.
+_LIABILITY_TOPIC_RE = re.compile(
+    r'\blimitation\s+of\s+liability\b|\bliability\s+cap\b|\baggregate\s+liability\b|'
+    r'\bmaximum\s+liability\b', re.IGNORECASE,
+)
+
+_CAP_PRESENT_RE = re.compile(
+    r'\bshall\s+not\s+exceed\b|\blimited\s+to\b.{0,60}?\b(?:fees|amounts?|damages?)\b|'
+    r'\bin\s+no\s+event\s+shall\b.{0,80}?\bexceed\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_MUTUAL_APPLICATION_RE = re.compile(
+    r"\beither\s+party'?s?\s+(?:aggregate\s+)?liability\b|\bboth\s+parties'?\s+liability\b|"
+    r"\beach\s+party'?s\s+(?:aggregate\s+)?liability\b|\bneither\s+party\s+shall\s+be\s+liable\b",
+    re.IGNORECASE,
+)
+
+_CONSEQUENTIAL_EXCLUDED_RE = re.compile(
+    r'\b(?:consequential|indirect|special|incidental|punitive)\s+damages?\b.{0,100}?'
+    r'\b(?:waive[sd]?|exclude[sd]?|shall\s+not\s+be\s+liable|no\s+liability|not\s+be\s+responsible)\b|'
+    r'\b(?:waive[sd]?|exclude[sd]?|neither\s+party\s+shall\s+be\s+liable|'
+    r'in\s+no\s+event\s+shall\b.{0,40}?\bbe\s+liable)\b.{0,100}?'
+    r'\b(?:consequential|indirect|special|incidental|punitive)\s+damages?\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_HIGH_SEVERITY_CARVEOUTS_RE = re.compile(
+    r'\bexcept(?:ion)?s?\s+(?:for|to)\b.{0,120}?\b(?:indemnif\w+|confidential\w*|intellectual\s+property|IP)\b|'
+    r'\bshall\s+not\s+apply\s+to\b.{0,120}?\b(?:indemnif\w+|confidential\w*|intellectual\s+property)\b|'
+    r'\bexcluding\b.{0,120}?\b(?:indemnif\w+|confidential\w*|intellectual\s+property)\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+_FRAUD_EXCEPTION_RE = re.compile(
+    r'\b(?:except|excluding|other\s+than)\b.{0,250}?\b(?:fraud|willful\s+misconduct|gross\s+negligence)\b|'
+    r'\b(?:fraud|willful\s+misconduct|gross\s+negligence)\b.{0,80}?\b(?:not\s+(?:subject\s+to|limited)|excluded\s+from)\b.{0,40}?\blimitation\b',
+    re.IGNORECASE | re.DOTALL,
+)
+
+# Adverse language that undermines/negates a cap the document otherwise
+# states — same concept as rules_engine.py's H_LOL_01 nearby patterns.
+_CAP_NEGATING_LANGUAGE_RE = re.compile(
+    r'\bshall\s+not\s+be\s+limited\b|\bwithout\s+limit(?:ation)?\b|\bnot\s+be\s+limited\b',
+    re.IGNORECASE,
+)
+
+_LIABILITY_ELEMENT_WEIGHT: Dict[str, int] = {
+    "cap_present": 25,
+    "mutual_application": 20,
+    "consequential_damages_excluded": 20,
+    "high_severity_carveouts": 15,
+    "fraud_exception": 10,
+    "no_cap_negating_language": 10,
+}
+
+
+@dataclass(frozen=True)
+class LiabilityQualityReport:
+    applicable: bool
+    score: Optional[int]
+    elements: List[ClauseElement]
+    methodology_note: str = (
+        "Only scored when a limitation-of-liability clause is present in this document. Each "
+        "element is detected via pattern matching for standard drafting language, not a legal-"
+        "sufficiency judgment; unconventional phrasing can be missed. Note: unlike the arbitration "
+        "module, a low score here does not always mean \"add more language\" — for example, the "
+        "absence of a cap at all is a separate, more direct finding already covered by rule "
+        "H_LOL_01, and \"high_severity_carveouts\"/\"fraud_exception\" being present is the FAVORABLE "
+        "state (it means catastrophic claims aren't artificially capped), not a defect to add "
+        "elsewhere. Treat a low score as a prompt to read the clause, not a certified defect."
+    )
+
+    def as_dict(self) -> Dict[str, Any]:
+        return {
+            "applicable": self.applicable,
+            "score": self.score,
+            "elements": [
+                {"key": e.key, "label": e.label, "present": e.present, "weight": e.weight, "detail": e.detail}
+                for e in self.elements
+            ],
+            "methodology_note": self.methodology_note,
+        }
+
+
+def analyze_liability_clause(text: str) -> LiabilityQualityReport:
+    """Pure function: normalized contract text -> LiabilityQualityReport.
+
+    Callers should pass already-normalized text, same convention as
+    analyze_arbitration_clause / structure_checker.analyze_structure.
+    """
+    if not _LIABILITY_TOPIC_RE.search(text):
+        return LiabilityQualityReport(applicable=False, score=None, elements=[])
+
+    checks = [
+        ("cap_present", "A liability cap is stated", _CAP_PRESENT_RE,
+         "No specific cap amount, formula, or ceiling language (e.g. \"shall not exceed\") was found — "
+         "a limitation-of-liability heading exists, but the actual limiting language may be missing or "
+         "phrased unconventionally.",
+         "A liability cap or ceiling is stated."),
+        ("mutual_application", "Cap applies mutually to both parties", _MUTUAL_APPLICATION_RE,
+         "No explicit mutual-application language (\"either party's liability\", \"neither party shall "
+         "be liable\") was found — the cap may apply to only one party.",
+         "The cap explicitly applies to both parties."),
+        ("consequential_damages_excluded", "Consequential/indirect damages excluded",
+         _CONSEQUENTIAL_EXCLUDED_RE,
+         "No waiver or exclusion of consequential, indirect, special, incidental, or punitive damages "
+         "was found.",
+         "Consequential/indirect/special damages are excluded."),
+        ("high_severity_carveouts", "Carve-outs for IP/confidentiality/indemnification claims",
+         _HIGH_SEVERITY_CARVEOUTS_RE,
+         "No carve-out excludes IP infringement, confidentiality breach, or indemnification "
+         "obligations from the cap — if present, this cap may apply even to the most severe claim "
+         "categories, which is a favorable state for a drafter benefiting from the cap but a risk to "
+         "the party accepting it.",
+         "The cap carves out IP, confidentiality, or indemnification claims."),
+        ("fraud_exception", "Fraud/willful misconduct exception", _FRAUD_EXCEPTION_RE,
+         "No exception for fraud, willful misconduct, or gross negligence was found — absent this, "
+         "the cap may shield even bad-faith conduct.",
+         "Fraud or willful misconduct is excepted from the cap."),
+    ]
+
+    elements: List[ClauseElement] = []
+    for key, label, pattern, missing_detail, present_detail in checks:
+        present = bool(pattern.search(text))
+        elements.append(ClauseElement(
+            key=key, label=label, present=present, weight=_LIABILITY_ELEMENT_WEIGHT[key],
+            detail=present_detail if present else missing_detail,
+        ))
+
+    has_negating_language = bool(_CAP_NEGATING_LANGUAGE_RE.search(text))
+    elements.append(ClauseElement(
+        key="no_cap_negating_language", label="No language undermining the stated cap",
+        weight=_LIABILITY_ELEMENT_WEIGHT["no_cap_negating_language"], present=not has_negating_language,
+        detail=(
+            "Adverse language elsewhere (\"shall not be limited\", \"without limit\") appears to "
+            "undermine or negate the cap this document otherwise states."
+            if has_negating_language else "No language undermining the stated cap was found."
+        ),
+    ))
+
+    score = sum(e.weight for e in elements if e.present)
+    return LiabilityQualityReport(applicable=True, score=score, elements=elements)
