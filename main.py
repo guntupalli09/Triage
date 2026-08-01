@@ -48,6 +48,7 @@ from sqlalchemy.orm import Session as DBSession
 
 from rules_engine import RuleEngine, FINDING_TYPE_LABELS
 from confidence_index import build_confidence_breakdown
+from redline_templates import render_redline
 from evaluator import LLMEvaluator
 from database import get_db, check_db_health, check_redis_health
 from auth import (
@@ -220,6 +221,7 @@ def run_analysis(contract_text: str) -> Dict:
     overall_risk = analysis["overall_risk"]
 
     contradiction_log = analysis.get("contradiction_log", {})
+    metadata = analysis.get("metadata", {})
     findings_dict = [
         {
             "rule_id": f.rule_id, "rule_name": f.rule_name, "title": f.title,
@@ -236,6 +238,11 @@ def run_analysis(contract_text: str) -> Dict:
             # the confidence/confidence_reason this finding already carries
             # into an explicit, checkable breakdown; no new detection.
             "confidence_breakdown": build_confidence_breakdown(f, contradiction_log).as_dict(),
+            # Deterministic Legal Work Product — see redline_templates.py.
+            # One reviewed default redline per rule_id; None when this
+            # finding's rule isn't in the curated covered set yet — never a
+            # generated fallback.
+            "redline": render_redline(f, metadata),
         }
         for f in findings
     ]
@@ -347,6 +354,8 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
         )
         if finding.get("confidence_breakdown"):
             enhanced["confidence_breakdown"] = finding["confidence_breakdown"]
+        if finding.get("redline"):
+            enhanced["redline"] = finding["redline"]
 
         all_issues.append(enhanced)
 

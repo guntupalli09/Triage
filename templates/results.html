@@ -609,6 +609,29 @@
                         </div>
                         {% endif %}
 
+                        {% if issue.redline %}
+                        <div class="rounded-md border border-slate-200 p-4 bg-slate-50">
+                            <div class="flex items-center justify-between flex-wrap gap-2 mb-3">
+                                <span class="text-xs font-bold text-[#0F172A] uppercase tracking-wider">Deterministic Redline — {{ issue.redline.issue }}</span>
+                                <div class="flex gap-1.5">
+                                    <span class="px-2 py-0.5 text-xs font-bold rounded {% if issue.redline.negotiation_difficulty == 'Low' %}bg-green-100 text-green-800{% elif issue.redline.negotiation_difficulty == 'Medium' %}bg-amber-100 text-amber-800{% else %}bg-red-100 text-red-800{% endif %}">{{ issue.redline.negotiation_difficulty|upper }} FRICTION</span>
+                                    <span class="px-2 py-0.5 text-xs font-bold rounded {% if issue.redline.confidence == 'High' %}bg-green-100 text-green-800{% elif issue.redline.confidence == 'Medium' %}bg-amber-100 text-amber-800{% else %}bg-red-100 text-red-800{% endif %}">{{ issue.redline.confidence|upper }} CONFIDENCE</span>
+                                </div>
+                            </div>
+                            <div class="space-y-3 text-xs">
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Problem</span><p class="text-[#334155] mt-0.5">{{ issue.redline.problem }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Legal Rationale</span><p class="text-[#334155] mt-0.5">{{ issue.redline.legal_rationale }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Business Impact</span><p class="text-[#334155] mt-0.5">{{ issue.redline.business_impact }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Recommended Change</span><p class="text-[#334155] mt-0.5">{{ issue.redline.recommended_change }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Suggested Redline</span><p class="evidence-block mt-1">{{ issue.redline.suggested_redline }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Why This Wording</span><p class="text-[#334155] mt-0.5">{{ issue.redline.why_this_wording }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Expected Counterparty Position</span><p class="text-[#334155] mt-0.5">{{ issue.redline.expected_counterparty_position }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Fallback Position</span><p class="text-[#334155] mt-0.5">{{ issue.redline.fallback_position }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Supporting Deterministic Rule(s)</span><p class="text-[#334155] mt-0.5 mono">{{ issue.redline.supporting_deterministic_rules|join(", ") }}</p></div>
+                            </div>
+                        </div>
+                        {% endif %}
+
                         {% if issue.confidence_breakdown %}
                         <details>
                             <summary class="text-xs font-semibold text-[#64748B] uppercase tracking-wider cursor-pointer hover:text-[#1E293B]">
