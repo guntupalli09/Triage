@@ -1206,6 +1206,13 @@ async def download_batch_pdfs(request: Request, batch_id: str):
             pdf_bytes = _build_pdf_bytes(
                 contract.filename, contract.overall_risk, rule_counts,
                 contract.rule_engine_version, llm_result.get("summary_bullets", []), all_issues,
+                metadata=contract.metadata_json,
+                legal_risk_score=contract.legal_risk_score,
+                business_risk_score=contract.business_risk_score,
+                negotiation_difficulty_score=contract.negotiation_difficulty_score,
+                risk_balance=contract.risk_balance_json,
+                structure_report=contract.structure_report_json,
+                clause_quality=contract.clause_quality_json,
             )
             safe_name = sanitize_filename(contract.filename)
             zf.writestr(f"TriageAI_{safe_name}_{contract.id}.pdf", pdf_bytes)
@@ -1397,8 +1404,31 @@ def _pdf_safe(text: str) -> str:
     return translated.encode("latin-1", "replace").decode("latin-1")
 
 
+_CLAUSE_QUALITY_MODULE_LABELS = {
+    "arbitration": "Arbitration Clause Inspector",
+    "liability": "Liability Clause Inspector",
+    "confidentiality": "Confidentiality Clause Inspector",
+    "indemnification": "Indemnification Clause Inspector",
+    "termination": "Termination Clause Inspector",
+    "ip": "Intellectual Property Clause Inspector",
+}
+
+
+def _pdf_section_heading(pdf: "FPDF", text: str) -> None:
+    pdf.set_font("Helvetica", "B", 12)
+    pdf.cell(0, 8, text, new_x="LMARGIN", new_y="NEXT")
+    pdf.set_font("Helvetica", "", 10)
+
+
 def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_engine_version: str,
-                      summary_bullets: list, all_issues: list) -> bytes:
+                      summary_bullets: list, all_issues: list, *,
+                      metadata: Optional[dict] = None,
+                      legal_risk_score: Optional[int] = None,
+                      business_risk_score: Optional[int] = None,
+                      negotiation_difficulty_score: Optional[int] = None,
+                      risk_balance: Optional[dict] = None,
+                      structure_report: Optional[dict] = None,
+                      clause_quality: Optional[dict] = None) -> bytes:
     pdf = FPDF()
     pdf.set_auto_page_break(auto=True, margin=20)
     pdf.add_page()
@@ -1409,6 +1439,17 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
     pdf.cell(0, 6, f"File: {_pdf_safe(filename)}", new_x="LMARGIN", new_y="NEXT")
     pdf.cell(0, 6, f"Date: {datetime.utcnow().strftime('%B %d, %Y')}", new_x="LMARGIN", new_y="NEXT")
     pdf.cell(0, 6, f"Rule Engine: v{rule_engine_version or '2.0.0'}", new_x="LMARGIN", new_y="NEXT")
+
+    if metadata:
+        if metadata.get("contract_type"):
+            pdf.cell(0, 6, f"Contract Type: {_pdf_safe(metadata['contract_type'])}", new_x="LMARGIN", new_y="NEXT")
+        if metadata.get("effective_date"):
+            pdf.cell(0, 6, f"Effective Date: {_pdf_safe(metadata['effective_date'])}", new_x="LMARGIN", new_y="NEXT")
+        parties = metadata.get("parties") or []
+        if parties:
+            names = ", ".join(_pdf_safe(p.get("full_name") or p.get("short_name") or "") for p in parties if p.get("full_name") or p.get("short_name"))
+            if names:
+                pdf.cell(0, 6, f"Parties: {names}", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(6)
 
     risk_label = (overall_risk or "low").upper()
@@ -1418,10 +1459,50 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
     pdf.cell(0, 6, f"High: {rule_counts.get('high', 0)}  |  Medium: {rule_counts.get('medium', 0)}  |  Low: {rule_counts.get('low', 0)}", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(4)
 
+    if legal_risk_score is not None and business_risk_score is not None and negotiation_difficulty_score is not None:
+        _pdf_section_heading(pdf, "Risk Dashboard (three independent readings, not a blended score)")
+        pdf.cell(0, 6, f"Legal Risk: {legal_risk_score}/100  |  Business Risk: {business_risk_score}/100  |  Negotiation Difficulty: {negotiation_difficulty_score}/100", new_x="LMARGIN", new_y="NEXT")
+        pdf.ln(4)
+
+    if risk_balance and risk_balance.get("applicable"):
+        _pdf_section_heading(pdf, "Risk Allocation Balance")
+        pdf.multi_cell(
+            0, 5,
+            f"{risk_balance.get('balance_score', 0)}/100 - of the one-sided clauses this engine could classify, "
+            f"{risk_balance.get('balance_score', 0)}% favor the counterparty rather than the reviewing party "
+            f"({risk_balance.get('unfavorable_count', 0)} unfavorable vs. {risk_balance.get('favorable_count', 0)} favorable).",
+            new_x="LMARGIN", new_y="NEXT",
+        )
+        pdf.ln(4)
+
+    if structure_report and structure_report.get("total_issue_count"):
+        _pdf_section_heading(pdf, f"Document Structure Check ({structure_report['total_issue_count']} issue(s))")
+        for i in structure_report.get("used_but_undefined", []):
+            pdf.multi_cell(0, 5, f"  - Used but undefined: {_pdf_safe(i.get('term', ''))} - {_pdf_safe(i.get('detail', ''))}", new_x="LMARGIN", new_y="NEXT")
+        for i in structure_report.get("duplicate_definitions", []):
+            pdf.multi_cell(0, 5, f"  - Duplicate definition: {_pdf_safe(i.get('term', ''))} - {_pdf_safe(i.get('detail', ''))}", new_x="LMARGIN", new_y="NEXT")
+        for r in structure_report.get("broken_cross_references", []):
+            pdf.multi_cell(0, 5, f"  - Broken cross-reference: {_pdf_safe(r.get('reference_text', ''))}", new_x="LMARGIN", new_y="NEXT")
+        pdf.ln(4)
+
+    if clause_quality:
+        for key, label in _CLAUSE_QUALITY_MODULE_LABELS.items():
+            module = clause_quality.get(key)
+            if not module or not module.get("applicable"):
+                continue
+            _pdf_section_heading(pdf, f"{label} ({module.get('score', 0)}/100)")
+            for el in module.get("elements", []):
+                mark = "[x]" if el.get("present") else "[ ]"
+                pdf.set_font("Helvetica", "B" if not el.get("present") else "", 9)
+                pdf.multi_cell(0, 5, f"  {mark} {_pdf_safe(el.get('label', ''))}", new_x="LMARGIN", new_y="NEXT")
+                if el.get("detail"):
+                    pdf.set_font("Helvetica", "", 8)
+                    pdf.multi_cell(0, 4, f"      {_pdf_safe(el['detail'])}", new_x="LMARGIN", new_y="NEXT")
+            pdf.set_font("Helvetica", "", 10)
+            pdf.ln(3)
+
     if summary_bullets:
-        pdf.set_font("Helvetica", "B", 12)
-        pdf.cell(0, 8, "Executive Summary", new_x="LMARGIN", new_y="NEXT")
-        pdf.set_font("Helvetica", "", 10)
+        _pdf_section_heading(pdf, "Executive Summary")
         for bullet in summary_bullets:
             pdf.multi_cell(0, 5, f"  - {_pdf_safe(bullet)}", new_x="LMARGIN", new_y="NEXT")
         pdf.ln(4)
@@ -1444,6 +1525,49 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
                 displayed_excerpt = _truncate_excerpt_for_display(excerpt)
                 clean_excerpt = _pdf_safe(displayed_excerpt)
                 pdf.multi_cell(0, 4, f'   "{clean_excerpt}"', new_x="LMARGIN", new_y="NEXT")
+
+            confidence_breakdown = issue.get("confidence_breakdown")
+            if confidence_breakdown:
+                pdf.set_font("Helvetica", "B", 8)
+                pdf.cell(0, 5, f"   Confidence: {str(confidence_breakdown.get('confidence', '')).upper()}", new_x="LMARGIN", new_y="NEXT")
+                if confidence_breakdown.get("reason"):
+                    pdf.set_font("Helvetica", "", 8)
+                    pdf.multi_cell(0, 4, f"   {_pdf_safe(confidence_breakdown['reason'])}", new_x="LMARGIN", new_y="NEXT")
+
+            redline = issue.get("redline")
+            if redline:
+                pdf.ln(1)
+                pdf.set_font("Helvetica", "B", 9)
+                pdf.multi_cell(
+                    0, 5,
+                    f"   DETERMINISTIC REDLINE - {_pdf_safe(redline.get('issue', ''))} "
+                    f"({redline.get('negotiation_difficulty', '')} friction, {redline.get('confidence', '')} confidence)",
+                    new_x="LMARGIN", new_y="NEXT",
+                )
+                redline_fields = [
+                    ("Problem", "problem"),
+                    ("Legal Rationale", "legal_rationale"),
+                    ("Business Impact", "business_impact"),
+                    ("Recommended Change", "recommended_change"),
+                    ("Suggested Redline", "suggested_redline"),
+                    ("Why This Wording", "why_this_wording"),
+                    ("Expected Counterparty Position", "expected_counterparty_position"),
+                    ("Fallback Position", "fallback_position"),
+                ]
+                for field_label, field_key in redline_fields:
+                    value = redline.get(field_key)
+                    if not value:
+                        continue
+                    pdf.set_font("Helvetica", "B", 8)
+                    pdf.multi_cell(0, 4, f"   {field_label}:", new_x="LMARGIN", new_y="NEXT")
+                    pdf.set_font("Helvetica", "", 8)
+                    pdf.multi_cell(0, 4, f"   {_pdf_safe(value)}", new_x="LMARGIN", new_y="NEXT")
+                rules = redline.get("supporting_deterministic_rules") or []
+                if rules:
+                    pdf.set_font("Helvetica", "I", 8)
+                    pdf.multi_cell(0, 4, f"   Supporting Deterministic Rule(s): {', '.join(rules)}", new_x="LMARGIN", new_y="NEXT")
+
+            pdf.set_font("Helvetica", "", 10)
             pdf.ln(2)
 
     pdf.ln(6)
@@ -1469,6 +1593,13 @@ async def download_contract_pdf(request: Request, contract_id: int):
     pdf_bytes = _build_pdf_bytes(
         contract.filename, contract.overall_risk, rule_counts,
         contract.rule_engine_version, llm_result.get("summary_bullets", []), all_issues,
+        metadata=contract.metadata_json,
+        legal_risk_score=contract.legal_risk_score,
+        business_risk_score=contract.business_risk_score,
+        negotiation_difficulty_score=contract.negotiation_difficulty_score,
+        risk_balance=contract.risk_balance_json,
+        structure_report=contract.structure_report_json,
+        clause_quality=contract.clause_quality_json,
     )
 
     safe_name = sanitize_filename(contract.filename)
@@ -1506,9 +1637,17 @@ async def download_pdf_token(request: Request, token: str):
     analysis = run_analysis(entry.get("text", ""))
     all_issues = build_enhanced_issues(analysis["findings_dict"], analysis["llm_result"])
 
+    risk_dashboard = analysis.get("risk_dashboard") or {}
     pdf_bytes = _build_pdf_bytes(
         filename, analysis["overall_risk"], analysis["rule_counts"],
         analysis["version"], analysis["llm_result"].get("summary_bullets", []), all_issues,
+        metadata=analysis.get("metadata"),
+        legal_risk_score=risk_dashboard.get("legal_risk_score"),
+        business_risk_score=risk_dashboard.get("business_risk_score"),
+        negotiation_difficulty_score=risk_dashboard.get("negotiation_difficulty_score"),
+        risk_balance=analysis.get("risk_balance"),
+        structure_report=analysis.get("structure_report"),
+        clause_quality=analysis.get("clause_quality"),
     )
 
     safe_name = sanitize_filename(filename)
