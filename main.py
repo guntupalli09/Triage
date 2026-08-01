@@ -47,6 +47,8 @@ from docx import Document
 from sqlalchemy.orm import Session as DBSession
 
 from rules_engine import RuleEngine, FINDING_TYPE_LABELS
+from confidence_index import build_confidence_breakdown
+from redline_templates import render_redline
 from evaluator import LLMEvaluator
 from database import get_db, check_db_health, check_redis_health
 from auth import (
@@ -218,6 +220,8 @@ def run_analysis(contract_text: str) -> Dict:
     findings = analysis["findings"]
     overall_risk = analysis["overall_risk"]
 
+    contradiction_log = analysis.get("contradiction_log", {})
+    metadata = analysis.get("metadata", {})
     findings_dict = [
         {
             "rule_id": f.rule_id, "rule_name": f.rule_name, "title": f.title,
@@ -230,6 +234,15 @@ def run_analysis(contract_text: str) -> Dict:
             "party_direction": f.party_direction,
             "finding_type": f.finding_type,
             "finding_type_label": FINDING_TYPE_LABELS.get(f.finding_type, f.finding_type),
+            # Lawyer Confidence Index — see confidence_index.py. Restructures
+            # the confidence/confidence_reason this finding already carries
+            # into an explicit, checkable breakdown; no new detection.
+            "confidence_breakdown": build_confidence_breakdown(f, contradiction_log).as_dict(),
+            # Deterministic Legal Work Product — see redline_templates.py.
+            # One reviewed default redline per rule_id; None when this
+            # finding's rule isn't in the curated covered set yet — never a
+            # generated fallback.
+            "redline": render_redline(f, metadata),
         }
         for f in findings
     ]
@@ -261,6 +274,18 @@ def run_analysis(contract_text: str) -> Dict:
         # Structured contract-to-cash terms for comparison against an actual
         # invoice configuration (due_days, currency, billing_frequency, invoice_trigger).
         "payment_terms": analysis.get("payment_terms", {}),
+        # Three-score risk dashboard (Legal Risk / Business Risk /
+        # Negotiation Difficulty) — see risk_dashboard.py.
+        "risk_dashboard": analysis.get("risk_dashboard", {}),
+        # Defined-terms & cross-reference integrity — see structure_checker.py.
+        "structure_report": analysis.get("structure_report", {}),
+        # Deterministic Clause Quality Engine — see clause_quality.py.
+        "clause_quality": analysis.get("clause_quality", {}),
+        # Deterministic party/effective-date/contract-type extraction — see
+        # metadata_extractor.py.
+        "metadata": analysis.get("metadata", {}),
+        # Risk Allocation & Clause Balance Score — see risk_balance.py.
+        "risk_balance": analysis.get("risk_balance", {}),
     }
 
 
@@ -327,6 +352,10 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
         enhanced["finding_type_label"] = finding.get(
             "finding_type_label", FINDING_TYPE_LABELS.get(enhanced["finding_type"], enhanced["finding_type"])
         )
+        if finding.get("confidence_breakdown"):
+            enhanced["confidence_breakdown"] = finding["confidence_breakdown"]
+        if finding.get("redline"):
+            enhanced["redline"] = finding["redline"]
 
         all_issues.append(enhanced)
 
@@ -976,6 +1005,14 @@ async def upload_contract(
             payment_terms_json=analysis.get("payment_terms"),
             blocking_findings_json=analysis.get("blocking_findings"),
             policy_blocked_findings_json=analysis.get("policy_blocked_findings"),
+            legal_risk_score=analysis.get("risk_dashboard", {}).get("legal_risk_score"),
+            business_risk_score=analysis.get("risk_dashboard", {}).get("business_risk_score"),
+            negotiation_difficulty_score=analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
+            risk_dashboard_json=analysis.get("risk_dashboard"),
+            structure_report_json=analysis.get("structure_report"),
+            clause_quality_json=analysis.get("clause_quality"),
+            metadata_json=analysis.get("metadata"),
+            risk_balance_json=analysis.get("risk_balance"),
         )
         db.add(contract)
         db.flush()  # assigns contract.id without ending the transaction
@@ -1099,6 +1136,14 @@ async def batch_upload_submit(
             payment_terms_json=analysis.get("payment_terms"),
             blocking_findings_json=analysis.get("blocking_findings"),
             policy_blocked_findings_json=analysis.get("policy_blocked_findings"),
+            legal_risk_score=analysis.get("risk_dashboard", {}).get("legal_risk_score"),
+            business_risk_score=analysis.get("risk_dashboard", {}).get("business_risk_score"),
+            negotiation_difficulty_score=analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
+            risk_dashboard_json=analysis.get("risk_dashboard"),
+            structure_report_json=analysis.get("structure_report"),
+            clause_quality_json=analysis.get("clause_quality"),
+            metadata_json=analysis.get("metadata"),
+            risk_balance_json=analysis.get("risk_balance"),
         )
         db.add(contract)
         contracts.append(contract)
@@ -1292,6 +1337,16 @@ async def view_contract(request: Request, contract_id: int):
         "payment_terms": contract.payment_terms_json,
         "blocking_findings": contract.blocking_findings_json or [],
         "policy_blocked_findings": contract.policy_blocked_findings_json or [],
+        # Three-score risk dashboard. May be None for contracts analyzed
+        # before this field was persisted.
+        "legal_risk_score": contract.legal_risk_score,
+        "business_risk_score": contract.business_risk_score,
+        "negotiation_difficulty_score": contract.negotiation_difficulty_score,
+        "risk_dashboard": contract.risk_dashboard_json,
+        "structure_report": contract.structure_report_json,
+        "clause_quality": contract.clause_quality_json,
+        "metadata": contract.metadata_json,
+        "risk_balance": contract.risk_balance_json,
     })
 
 
@@ -1538,6 +1593,9 @@ def _render_shared_report(request: Request, contract: Contract) -> HTMLResponse:
         "rule_counts": rule_counts,
         "rule_engine_version": contract.rule_engine_version or "1.0.3",
         "current_year": datetime.now().year,
+        "legal_risk_score": contract.legal_risk_score,
+        "business_risk_score": contract.business_risk_score,
+        "negotiation_difficulty_score": contract.negotiation_difficulty_score,
     })
 
 
@@ -1906,6 +1964,14 @@ async def demo_analysis(request: Request):
         "payment_terms": analysis.get("payment_terms"),
         "blocking_findings": analysis.get("blocking_findings", []),
         "policy_blocked_findings": analysis.get("policy_blocked_findings", []),
+        "legal_risk_score": analysis.get("risk_dashboard", {}).get("legal_risk_score"),
+        "business_risk_score": analysis.get("risk_dashboard", {}).get("business_risk_score"),
+        "negotiation_difficulty_score": analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
+        "risk_dashboard": analysis.get("risk_dashboard"),
+        "structure_report": analysis.get("structure_report"),
+        "clause_quality": analysis.get("clause_quality"),
+        "metadata": analysis.get("metadata"),
+        "risk_balance": analysis.get("risk_balance"),
     })
 
 
@@ -2112,6 +2178,14 @@ async def results_legacy(request: Request, token: str):
         "payment_terms": analysis.get("payment_terms"),
         "blocking_findings": analysis.get("blocking_findings", []),
         "policy_blocked_findings": analysis.get("policy_blocked_findings", []),
+        "legal_risk_score": analysis.get("risk_dashboard", {}).get("legal_risk_score"),
+        "business_risk_score": analysis.get("risk_dashboard", {}).get("business_risk_score"),
+        "negotiation_difficulty_score": analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
+        "risk_dashboard": analysis.get("risk_dashboard"),
+        "structure_report": analysis.get("structure_report"),
+        "clause_quality": analysis.get("clause_quality"),
+        "metadata": analysis.get("metadata"),
+        "risk_balance": analysis.get("risk_balance"),
     })
 
 

@@ -29,6 +29,18 @@ from party_resolver import (
     UNKNOWN_ROLE,
     resolve_party_roles,
 )
+from risk_dashboard import compute_risk_dashboard
+from structure_checker import analyze_structure
+from clause_quality import (
+    analyze_arbitration_clause,
+    analyze_liability_clause,
+    analyze_confidentiality_clause,
+    analyze_indemnification_clause,
+    analyze_termination_clause,
+    analyze_ip_clause,
+)
+from metadata_extractor import extract_metadata
+from risk_balance import compute_risk_balance
 
 logger = logging.getLogger(__name__)
 
@@ -4368,6 +4380,116 @@ class RuleEngine:
                 window=350,
                 aliases=["oci_unilateral_termination", "organizational_conflict_of_interest_termination"],
             ),
+
+            # ---------------- v7.2: AI governance / security / SLA response-time coverage ----------------
+            Rule(
+                rule_id="M_AI_OUTPUT_OWNERSHIP_01",
+                rule_name="ai_output_ownership_missing",
+                title="Ownership of AI-generated output not addressed",
+                severity=Severity.MEDIUM,
+                rationale="Contracts involving AI/machine-generated content increasingly need to state who owns that output — copyright and ownership of AI-generated material is an unsettled and actively evolving area, and silence leaves both parties exposed to a dispute over content neither side clearly owns.",
+                # anchors+nearby (not a bare co-occurrence pattern=): the topic
+                # word "AI" appearing near an ownership word is NOT itself
+                # adverse — a well-drafted clause that actually addresses
+                # ownership also has AI and ownership words near each other.
+                # nearby requires genuine negation/silence language, so this
+                # only fires as a direct chunked match on an explicit adverse
+                # statement, not on every contract that happens to address
+                # ownership correctly (verified: an earlier bare-pattern
+                # version fired even on "...generated using AI shall be owned
+                # by Client", which is the well-drafted case this rule exists
+                # to distinguish FROM).
+                anchors=[r"\b(?:artificial\s+intelligence|\bAI\b|generative\s+AI|machine\s+learning)\b"],
+                nearby=[
+                    r"\bno\s+(?:provision|clause|language|statement)\b.{0,60}?\bown",
+                    r"\bownership\b.{0,60}?\bnot\s+(?:addressed|specified|stated|established)\b",
+                    r"\bsilent\s+(?:as\s+to|on|regarding)\b.{0,60}?\bownership\b",
+                ],
+                window=200,
+                aliases=["ai_output_ownership", "generative_ai_ownership_gap"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[
+                    r"\b(?:artificial\s+intelligence|\bAI\b|generative\s+AI|machine\s+learning)\b.{0,150}?"
+                    r"\b(?:output|content|generated\s+work|work\s+product)\b|"
+                    r"\b(?:output|content|generated\s+work|work\s+product)\b.{0,150}?"
+                    r"\b(?:artificial\s+intelligence|\bAI\b|generative\s+AI|machine\s+learning)\b"
+                ],
+                # Mirrors the topic_patterns' AI alternation (not the
+                # narrower "AI-generated"/"AI output" compound phrase) paired
+                # with ownership words, bidirectionally — verified: a
+                # narrower first version required literally "AI-generated" or
+                # "AI output" and missed "generated USING ARTIFICIAL
+                # INTELLIGENCE ... shall be owned by Client", a real,
+                # well-drafted phrasing that should have suppressed the
+                # finding.
+                protective_patterns=[
+                    r"\b(?:shall\s+own|ownership\s+of|title\s+to|owned\s+by|shall\s+be\s+owned|belongs?\s+to)\b.{0,150}?"
+                    r"\b(?:artificial\s+intelligence|\bAI\b|generative\s+AI|machine\s+learning)\b|"
+                    r"\b(?:artificial\s+intelligence|\bAI\b|generative\s+AI|machine\s+learning)\b.{0,150}?"
+                    r"\b(?:shall\s+own|ownership\s+of|title\s+to|owned\s+by|shall\s+be\s+owned|belongs?\s+to)\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_AI_HUMAN_REVIEW_01",
+                rule_name="ai_no_human_review_requirement",
+                title="No human review requirement for AI-generated output",
+                severity=Severity.MEDIUM,
+                rationale="AI-generated content and recommendations can be inaccurate (\"hallucinated\") in ways that are not obvious on their face; a contract that permits reliance on AI output with no requirement for human review before that output is used or delivered removes the one check most likely to catch such an error before it causes harm.",
+                pattern=r"\bwithout\s+human\s+review\b|\bno\s+(?:human\s+)?review\s+(?:is\s+)?required\b.{0,80}?"
+                        r"\b(?:AI|artificial\s+intelligence|generative)\b",
+                aliases=["ai_no_human_review", "unreviewed_ai_output"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[
+                    r"\b(?:artificial\s+intelligence|\bAI\b|generative\s+AI|machine\s+learning)\b.{0,150}?"
+                    r"\b(?:output|content|generated|recommendations?|advice|decisions?)\b|"
+                    r"\b(?:output|content|generated|recommendations?|advice|decisions?)\b.{0,150}?"
+                    r"\b(?:artificial\s+intelligence|\bAI\b|generative\s+AI|machine\s+learning)\b"
+                ],
+                protective_patterns=[
+                    r"\bhuman\s+review\b|\breviewed\s+by\s+a\s+(?:qualified\s+)?(?:human|professional|person)\b|"
+                    r"\bmanually\s+reviewed\b|\bhuman\s+oversight\b|\bhuman[\s-]in[\s-]the[\s-]loop\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_SECURITY_CERT_MISSING_01",
+                rule_name="security_certification_missing",
+                title="No recognized security certification required",
+                severity=Severity.MEDIUM,
+                rationale="A contract that discusses security measures or safeguards but never requires a recognized independent certification (SOC 2, ISO 27001, PCI-DSS, etc.) gives the customer no objective, third-party-verified way to confirm the vendor's security posture actually meets the standard described.",
+                pattern=r"\bno\s+(?:security\s+)?certification\s+(?:is\s+)?required\b",
+                aliases=["no_security_certification", "security_cert_gap"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                # "safeguards" alone is too generic a word (verified: matched
+                # "Buyer will take all appropriate measures to SAFEGUARD the
+                # CONFIDENTIALITY of..." in a real PSA — ordinary
+                # confidentiality-protection prose, nothing to do with
+                # information-security posture at all). Requiring the
+                # HIPAA/GDPR-style qualifier ("administrative/physical/
+                # technical safeguards") keeps the InfoSec-specific meaning
+                # without the bare-verb false positive.
+                topic_patterns=[
+                    r"\b(?:data|information|cyber)\s+security\b|\bsecurity\s+measures?\b|"
+                    r"\b(?:administrative|physical|technical)\s+safeguards?\b"
+                ],
+                protective_patterns=[
+                    r"\bSOC\s*2\b|\bISO[\s/]?27001\b|\bPCI[\s-]?DSS\b|\bFedRAMP\b|\bHITRUST\b",
+                ],
+            ),
+            Rule(
+                rule_id="M_SLA_RESPONSE_TIME_01",
+                rule_name="sla_no_response_time",
+                title="Service level commitment lacks a specific response time",
+                severity=Severity.MEDIUM,
+                rationale="An SLA that never specifies how quickly the vendor must respond to a reported issue leaves 'support' undefined in practice — without a stated response-time commitment, there is no contractual trigger for escalation or service credits when a reported issue simply sits unaddressed.",
+                pattern=r"\bno\s+(?:defined\s+|specific\s+)?response\s+time\b",
+                aliases=["no_sla_response_time", "sla_response_time_gap"],
+                rule_class=RuleClass.REQUIRED_SECTION,
+                topic_patterns=[r"\bservice\s+level\s+agreement\b|\bSLA\b"],
+                protective_patterns=[
+                    r"\brespond\b.{0,40}?\bwithin\b.{0,20}?\b(?:hours?|minutes?|days?)\b|"
+                    r"\bresponse\s+time\b.{0,60}?\b(?:hours?|minutes?|days?)\b",
+                ],
+            ),
         ]
 
     def analyze(self, text: str, suppression_enabled: bool = True) -> Dict:
@@ -4627,6 +4749,16 @@ class RuleEngine:
 
         overall = self._compute_overall_risk(suppressed_findings, counts)
         workflow = self._compute_workflow_decision(suppressed_findings)
+        risk_dashboard = compute_risk_dashboard(suppressed_findings)
+        structure_report = analyze_structure(text)
+        arbitration_quality = analyze_arbitration_clause(text)
+        liability_quality = analyze_liability_clause(text)
+        confidentiality_quality = analyze_confidentiality_clause(text)
+        indemnification_quality = analyze_indemnification_clause(text)
+        termination_quality = analyze_termination_clause(text)
+        ip_quality = analyze_ip_clause(text)
+        metadata = extract_metadata(text)
+        risk_balance = compute_risk_balance(suppressed_findings)
 
         return {
             "findings": suppressed_findings,
@@ -4645,6 +4777,43 @@ class RuleEngine:
             # Structured contract-to-cash terms, for comparison against an
             # actual invoice configuration (not just "Net 30 mentioned").
             "payment_terms": _extract_payment_terms(text),
+            # Three-score risk dashboard (Legal Risk / Business Risk /
+            # Negotiation Difficulty) — see risk_dashboard.py. Additive,
+            # third lens on the same findings, not a replacement for
+            # overall_risk or signature_readiness.
+            "risk_dashboard": risk_dashboard.as_dict(),
+            # Defined-terms & cross-reference integrity — see
+            # structure_checker.py. Document-hygiene pass, independent of
+            # severity/overall_risk: unused/duplicate/undefined terms and
+            # references to sections/exhibits/schedules that don't exist.
+            "structure_report": structure_report.as_dict(),
+            # Deterministic Clause Quality Engine — see clause_quality.py.
+            # Arbitration module: completeness (institution, seat, rules,
+            # arbitrator count, language, emergency relief, conflict with a
+            # competing litigation clause). Liability module: cap presence,
+            # mutuality, consequential-damages exclusion, high-severity
+            # carve-outs, fraud exception, cap-negating language. Additive
+            # to the existing M_ARBITRATION_01/H_LOL_01 presence-only
+            # findings, not a replacement.
+            "clause_quality": {
+                "arbitration": arbitration_quality.as_dict(),
+                "liability": liability_quality.as_dict(),
+                "confidentiality": confidentiality_quality.as_dict(),
+                "indemnification": indemnification_quality.as_dict(),
+                "termination": termination_quality.as_dict(),
+                "ip": ip_quality.as_dict(),
+            },
+            # Deterministic party/effective-date/contract-type extraction —
+            # see metadata_extractor.py. Parties reuse party_resolver.py's
+            # existing role resolution rather than duplicating it; a party
+            # or field this can't confidently extract is None/empty, never
+            # a guess.
+            "metadata": metadata.as_dict(),
+            # Risk Allocation & Clause Balance Score — see risk_balance.py.
+            # Aggregates the existing per-finding perspective/favorability
+            # classification into a single document-level number; no new
+            # detection.
+            "risk_balance": risk_balance.as_dict(),
         }
 
     def build_missing_sections(self, findings: List[Finding]) -> List[str]:

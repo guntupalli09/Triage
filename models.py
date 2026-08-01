@@ -79,6 +79,38 @@ class Contract(Base):
     blocking_findings_json = Column(JSON, nullable=True)
     policy_blocked_findings_json = Column(JSON, nullable=True)
 
+    # Three-score risk dashboard (Legal Risk / Business Risk / Negotiation
+    # Difficulty) — see risk_dashboard.py. Additive to overall_risk, not a
+    # replacement. The three ints are persisted directly for cheap
+    # display/sorting; risk_dashboard_json carries the full breakdown
+    # (top contributing findings per score + methodology note).
+    legal_risk_score = Column(Integer, nullable=True)
+    business_risk_score = Column(Integer, nullable=True)
+    negotiation_difficulty_score = Column(Integer, nullable=True)
+    risk_dashboard_json = Column(JSON, nullable=True)
+
+    # Defined-terms & cross-reference integrity — see structure_checker.py.
+    # Document-hygiene findings (unused/duplicate/undefined terms, broken
+    # references to sections/exhibits/schedules), independent of severity.
+    structure_report_json = Column(JSON, nullable=True)
+
+    # Deterministic Clause Quality Engine — see clause_quality.py. First
+    # module: arbitration completeness (institution/seat/rules/arbitrator
+    # count/language/emergency relief/litigation conflict), 0-100 or
+    # null/not-applicable when no arbitration clause is present.
+    clause_quality_json = Column(JSON, nullable=True)
+
+    # Deterministic party/effective-date/contract-type extraction — see
+    # metadata_extractor.py. A field this couldn't confidently extract is
+    # null/empty, never a guess.
+    metadata_json = Column(JSON, nullable=True)
+
+    # Risk Allocation & Clause Balance Score — see risk_balance.py.
+    # Aggregates existing per-finding favorability data; null/not-
+    # applicable when the engine found no directionally classifiable
+    # findings.
+    risk_balance_json = Column(JSON, nullable=True)
+
     # Playbook comparison
     playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=True)
     deviations_json = Column(JSON, nullable=True)

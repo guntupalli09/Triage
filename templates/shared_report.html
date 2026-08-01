@@ -184,6 +184,27 @@
             {% endif %}
         </div>
 
+        {% if legal_risk_score is not none and business_risk_score is not none and negotiation_difficulty_score is not none %}
+        <!-- Three-Score Risk Dashboard -->
+        <div class="premium-card p-6 sm:p-8 mb-8 fade-in">
+            <h2 class="text-2xl font-bold text-[#0F172A] mb-6">Risk Dashboard</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <div class="stat-number {% if legal_risk_score >= 70 %}text-red-600{% elif legal_risk_score >= 35 %}text-amber-600{% else %}text-green-600{% endif %} mb-2">{{ legal_risk_score }}</div>
+                    <div class="text-sm font-medium text-gray-600">Legal Risk</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <div class="stat-number {% if business_risk_score >= 70 %}text-red-600{% elif business_risk_score >= 35 %}text-amber-600{% else %}text-green-600{% endif %} mb-2">{{ business_risk_score }}</div>
+                    <div class="text-sm font-medium text-gray-600">Business Risk</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <div class="stat-number {% if negotiation_difficulty_score >= 70 %}text-red-600{% elif negotiation_difficulty_score >= 35 %}text-amber-600{% else %}text-green-600{% endif %} mb-2">{{ negotiation_difficulty_score }}</div>
+                    <div class="text-sm font-medium text-gray-600">Negotiation Difficulty</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
         <!-- Executive Summary -->
         {% if summary_bullets %}
         <div class="premium-card p-6 sm:p-8 mb-8 fade-in">

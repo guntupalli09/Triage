@@ -1185,6 +1185,38 @@ _add("M_GOVCON_OCI_TERMINATION_01", "GovernmentContracting", "Subcontractor", _v
     REV=(1, "A terminated subcontract is a lost-opportunity harm, ordinarily disputable rather than structurally irreversible."),
 ))
 
+# ---------------------------------------------------------------------
+# v7.2 -- AI governance / security / SLA response-time coverage. All four
+# are REQUIRED_SECTION absence findings (a missing protection, not adverse
+# language present), which is why none touch PE/RW/CR/AT/UD/SC/OC: those
+# factors describe the SEVERITY of an adverse right actually granted in
+# the text, and there is no such right here to characterize -- only a gap.
+# ---------------------------------------------------------------------
+
+_add("M_AI_OUTPUT_OWNERSHIP_01", "AIGovernance", "BothParties", _vec(
+    RS=(1, "AI-generated content ownership is an emerging but not yet uniformly codified regulatory/case-law area -- real but not yet a settled, named statutory exposure the way GDPR/HIPAA are."),
+    REV=(1, "A dispute over who owns AI-generated material already delivered/used is not easily undone after the fact -- the content exists and has likely already been relied upon or distributed."),
+    DUR=(1, "The gap persists for as long as AI-generated output continues to be produced under the agreement -- not a one-time, bounded exposure."),
+))
+
+_add("M_AI_HUMAN_REVIEW_01", "AIGovernance", "BothParties", _vec(
+    RS=(1, "Reliance on unreviewed AI output touches emerging AI-governance expectations (e.g. draft AI-liability frameworks increasingly expect a human-in-the-loop step), though not yet a uniformly codified requirement."),
+    REV=(1, "Harm from an unreviewed, inaccurate ('hallucinated') AI output that is acted upon before anyone checks it is not easily undone once relied upon."),
+    DUR=(1, "The exposure recurs every time AI output is produced and used under the agreement, not a single bounded event."),
+))
+
+_add("M_SECURITY_CERT_MISSING_01", "Security", "BothParties", _vec(
+    RS=(1, "Recognized security certifications (SOC 2, ISO 27001, PCI-DSS) exist specifically because they map to regulatory/contractual security expectations across many frameworks -- their absence is a real, if not independently statutory, compliance-posture gap."),
+    REV=(1, "A security incident traceable to an unverified security posture (no independent certification ever required) is not something a later contract amendment can undo."),
+    DUR=(1, "The uncertainty about the vendor's actual security posture persists for the life of the agreement, not a one-time determination."),
+))
+
+_add("M_SLA_RESPONSE_TIME_01", "ServiceLevel", "Customer", _vec(
+    FB=(1, "The practical cost of an unaddressed issue (lost business/productivity while waiting on an undefined 'support' commitment) is real but not itself an unbounded payment obligation the way an uncapped indemnity is."),
+    REV=(1, "Time lost waiting on an issue with no response-time trigger for escalation cannot be recovered after the fact, even once the underlying issue is eventually fixed."),
+    DUR=(1, "This gap recurs for every support request for the life of the agreement, not a single bounded event."),
+))
+
 
 # ---------------------------------------------------------------------
 # Public exports

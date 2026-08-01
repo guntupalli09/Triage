@@ -121,6 +121,30 @@
                 <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Status</div>
                 <div class="text-sm font-semibold status-pass">Verification Completed</div>
             </div>
+            {% if metadata and metadata.contract_type %}
+            <div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Contract Type</div>
+                <div class="text-sm font-semibold text-[#0F172A]">{{ metadata.contract_type }}
+                    {% if metadata.contract_type_confidence == "medium" %}<span class="text-xs font-normal text-[#94A3B8]">(medium confidence)</span>{% endif %}
+                </div>
+            </div>
+            {% endif %}
+            {% if metadata and metadata.effective_date %}
+            <div>
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Effective Date</div>
+                <div class="text-sm font-semibold text-[#0F172A]">{{ metadata.effective_date }}</div>
+            </div>
+            {% endif %}
+            {% if metadata and metadata.parties %}
+            <div style="grid-column: 1 / -1;">
+                <div class="text-xs font-medium text-[#64748B] uppercase tracking-wider mb-1">Parties</div>
+                <div class="text-sm font-semibold text-[#0F172A] flex flex-wrap gap-x-4 gap-y-1">
+                    {% for p in metadata.parties %}
+                    <span>{{ p.full_name }}{% if p.short_name %} ("{{ p.short_name }}"){% endif %}{% if p.role and p.role != "unknown" %} <span class="text-xs font-normal text-[#64748B] capitalize">— {{ p.role }}</span>{% endif %}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 
@@ -175,6 +199,289 @@
             </div>
         </div>
     </div>
+
+    {% if legal_risk_score is not none and business_risk_score is not none and negotiation_difficulty_score is not none %}
+    <!-- Three-Score Risk Dashboard -->
+    <div class="report-card p-6 mb-6 fade-in">
+        <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
+            <h2 class="text-lg font-bold text-[#0F172A]">Risk Dashboard</h2>
+            <span class="text-xs text-[#64748B]">Three independent readings — not a blended score</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="text-center p-4 rounded-md border border-slate-100 bg-slate-50">
+                <div class="text-3xl font-extrabold mono {% if legal_risk_score >= 70 %}text-red-600{% elif legal_risk_score >= 35 %}text-amber-600{% else %}text-green-600{% endif %}">{{ legal_risk_score }}</div>
+                <div class="text-xs font-medium text-[#475569] mt-1 uppercase tracking-wider">Legal Risk</div>
+                <div class="text-[11px] text-[#94A3B8] mt-1">Enforceability, governing law, arbitration structure</div>
+            </div>
+            <div class="text-center p-4 rounded-md border border-slate-100 bg-slate-50">
+                <div class="text-3xl font-extrabold mono {% if business_risk_score >= 70 %}text-red-600{% elif business_risk_score >= 35 %}text-amber-600{% else %}text-green-600{% endif %}">{{ business_risk_score }}</div>
+                <div class="text-xs font-medium text-[#475569] mt-1 uppercase tracking-wider">Business Risk</div>
+                <div class="text-[11px] text-[#94A3B8] mt-1">Financial exposure — liability, indemnity, fees</div>
+            </div>
+            <div class="text-center p-4 rounded-md border border-slate-100 bg-slate-50">
+                <div class="text-3xl font-extrabold mono {% if negotiation_difficulty_score >= 70 %}text-red-600{% elif negotiation_difficulty_score >= 35 %}text-amber-600{% else %}text-green-600{% endif %}">{{ negotiation_difficulty_score }}</div>
+                <div class="text-xs font-medium text-[#475569] mt-1 uppercase tracking-wider">Negotiation Difficulty</div>
+                <div class="text-[11px] text-[#94A3B8] mt-1">One-sidedness, unilateral rights, exclusivity</div>
+            </div>
+        </div>
+        {% if risk_dashboard and risk_dashboard.methodology_note %}
+        <details class="mt-4">
+            <summary class="text-xs font-semibold text-[#64748B] cursor-pointer hover:text-[#1E293B]">How these scores are calculated</summary>
+            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">{{ risk_dashboard.methodology_note }}</p>
+        </details>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if risk_balance and risk_balance.applicable %}
+    <!-- Risk Allocation & Clause Balance -->
+    <div class="report-card p-6 mb-6 fade-in">
+        <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+            <h2 class="text-lg font-bold text-[#0F172A]">Risk Allocation Balance</h2>
+            <span class="text-2xl font-extrabold mono {% if risk_balance.balance_score >= 70 %}text-red-600{% elif risk_balance.balance_score >= 35 %}text-amber-600{% else %}text-green-600{% endif %}">{{ risk_balance.balance_score }}<span class="text-sm text-[#94A3B8]">/100</span></span>
+        </div>
+        <p class="text-sm text-[#475569] mb-4">Of the one-sided clauses this engine could classify, {{ risk_balance.balance_score }}% favor the counterparty rather than the reviewing party ({{ risk_balance.unfavorable_count }} unfavorable vs. {{ risk_balance.favorable_count }} favorable{% if risk_balance.neutral_count or risk_balance.unclear_count %}; {{ risk_balance.neutral_count }} mutual, {{ risk_balance.unclear_count }} unclear{% endif %}).</p>
+        {% if risk_balance.top_unfavorable_contributors %}
+        <div class="flex gap-1.5 flex-wrap">
+            {% for c in risk_balance.top_unfavorable_contributors %}
+            <span class="px-2.5 py-1 text-xs font-medium rounded bg-red-50 text-red-800 mono">{{ c.rule_id }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <details class="mt-4">
+            <summary class="text-xs font-semibold text-[#64748B] cursor-pointer hover:text-[#1E293B]">Methodology &amp; limitations</summary>
+            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">{{ risk_balance.methodology_note }}</p>
+        </details>
+    </div>
+    {% endif %}
+
+    {% if structure_report and structure_report.total_issue_count and structure_report.total_issue_count > 0 %}
+    <!-- Document Structure Check -->
+    <div class="report-card p-6 mb-6 fade-in">
+        <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
+            <h2 class="text-lg font-bold text-[#0F172A]">Document Structure Check</h2>
+            <span class="text-xs text-[#64748B]">{{ structure_report.defined_term_count }} defined term(s) found &middot; {{ structure_report.total_issue_count }} issue(s)</span>
+        </div>
+        <div class="space-y-4">
+            {% if structure_report.used_but_undefined %}
+            <div>
+                <div class="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-2">Used but not defined</div>
+                <ul class="space-y-1.5">
+                    {% for i in structure_report.used_but_undefined %}
+                    <li class="text-sm text-[#334155] pl-3 border-l-2 border-red-200 py-0.5">{{ i.detail }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if structure_report.duplicate_definitions %}
+            <div>
+                <div class="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-2">Duplicate definitions</div>
+                <ul class="space-y-1.5">
+                    {% for i in structure_report.duplicate_definitions %}
+                    <li class="text-sm text-[#334155] pl-3 border-l-2 border-amber-200 py-0.5">{{ i.detail }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if structure_report.broken_cross_references %}
+            <div>
+                <div class="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-2">References to sections/exhibits not found in this document</div>
+                <div class="flex gap-1.5 flex-wrap">
+                    {% for r in structure_report.broken_cross_references %}
+                    <span class="px-2.5 py-1 text-xs font-medium rounded bg-amber-50 text-amber-800 mono">{{ r.reference_text }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% if structure_report.unused_terms %}
+            <details>
+                <summary class="text-xs font-semibold text-[#64748B] cursor-pointer hover:text-[#1E293B]">{{ structure_report.unused_terms|length }} defined term(s) never used elsewhere</summary>
+                <ul class="space-y-1.5 mt-2">
+                    {% for i in structure_report.unused_terms %}
+                    <li class="text-sm text-[#334155] pl-3 border-l-2 border-slate-200 py-0.5">{{ i.detail }}</li>
+                    {% endfor %}
+                </ul>
+            </details>
+            {% endif %}
+        </div>
+        <details class="mt-4">
+            <summary class="text-xs font-semibold text-[#64748B] cursor-pointer hover:text-[#1E293B]">Methodology &amp; limitations</summary>
+            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">{{ structure_report.methodology_note }}</p>
+        </details>
+    </div>
+    {% endif %}
+
+    {% if clause_quality and clause_quality.arbitration and clause_quality.arbitration.applicable %}
+    {% set arb = clause_quality.arbitration %}
+    <!-- Arbitration Clause Inspector -->
+    <div class="report-card p-6 mb-6 fade-in">
+        <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+            <h2 class="text-lg font-bold text-[#0F172A]">Arbitration Clause Inspector</h2>
+            <span class="text-2xl font-extrabold mono {% if arb.score >= 70 %}text-green-600{% elif arb.score >= 35 %}text-amber-600{% else %}text-red-600{% endif %}">{{ arb.score }}<span class="text-sm text-[#94A3B8]">/100</span></span>
+        </div>
+        <div class="space-y-2">
+            {% for el in arb.elements %}
+            <div class="rounded-md {% if el.present %}bg-slate-50{% else %}bg-red-50{% endif %}">
+                <div class="flex items-start gap-3 p-3">
+                    <span class="text-sm font-bold mt-0.5 {% if el.present %}text-green-600{% else %}text-red-600{% endif %}">{% if el.present %}&#10003;{% else %}&#10007;{% endif %}</span>
+                    <div class="flex-1">
+                        <div class="text-sm font-semibold text-[#0F172A]">{{ el.label }}</div>
+                        <div class="text-xs text-[#475569] mt-0.5">{{ el.detail }}</div>
+                    </div>
+                </div>
+                {% if el.reasoning_chain %}
+                <details class="px-3 pb-3">
+                    <summary class="text-xs font-semibold text-red-700 cursor-pointer hover:text-red-900 ml-7">Negotiation reasoning &amp; suggested redline</summary>
+                    <div class="ml-7 mt-2 space-y-2 text-xs">
+                        <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Legal Risk</span><p class="text-[#334155] mt-0.5">{{ el.reasoning_chain.legal_risk }}</p></div>
+                        <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Business Risk</span><p class="text-[#334155] mt-0.5">{{ el.reasoning_chain.business_risk }}</p></div>
+                        <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Market Standard</span><p class="text-[#334155] mt-0.5">{{ el.reasoning_chain.market_standard }}</p></div>
+                        <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Suggested Revision</span><p class="text-[#334155] mt-0.5">{{ el.reasoning_chain.suggested_revision }}</p></div>
+                        <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Suggested Redline</span><p class="evidence-block mt-0.5">{{ el.reasoning_chain.suggested_redline }}</p></div>
+                        <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Expected Counterparty Objection</span><p class="text-[#334155] mt-0.5">{{ el.reasoning_chain.expected_counterparty_objection }}</p></div>
+                        <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Fallback Position</span><p class="text-[#334155] mt-0.5">{{ el.reasoning_chain.fallback_position }}</p></div>
+                    </div>
+                </details>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <details class="mt-4">
+            <summary class="text-xs font-semibold text-[#64748B] cursor-pointer hover:text-[#1E293B]">Methodology &amp; limitations</summary>
+            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">{{ arb.methodology_note }}</p>
+        </details>
+    </div>
+    {% endif %}
+
+    {% if clause_quality and clause_quality.liability and clause_quality.liability.applicable %}
+    {% set liab = clause_quality.liability %}
+    <!-- Liability Clause Inspector -->
+    <div class="report-card p-6 mb-6 fade-in">
+        <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+            <h2 class="text-lg font-bold text-[#0F172A]">Liability Clause Inspector</h2>
+            <span class="text-2xl font-extrabold mono {% if liab.score >= 70 %}text-green-600{% elif liab.score >= 35 %}text-amber-600{% else %}text-red-600{% endif %}">{{ liab.score }}<span class="text-sm text-[#94A3B8]">/100</span></span>
+        </div>
+        <div class="space-y-2">
+            {% for el in liab.elements %}
+            <div class="flex items-start gap-3 p-3 rounded-md {% if el.present %}bg-slate-50{% else %}bg-red-50{% endif %}">
+                <span class="text-sm font-bold mt-0.5 {% if el.present %}text-green-600{% else %}text-red-600{% endif %}">{% if el.present %}&#10003;{% else %}&#10007;{% endif %}</span>
+                <div>
+                    <div class="text-sm font-semibold text-[#0F172A]">{{ el.label }}</div>
+                    <div class="text-xs text-[#475569] mt-0.5">{{ el.detail }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <details class="mt-4">
+            <summary class="text-xs font-semibold text-[#64748B] cursor-pointer hover:text-[#1E293B]">Methodology &amp; limitations</summary>
+            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">{{ liab.methodology_note }}</p>
+        </details>
+    </div>
+    {% endif %}
+
+    {% if clause_quality and clause_quality.confidentiality and clause_quality.confidentiality.applicable %}
+    {% set conf = clause_quality.confidentiality %}
+    <!-- Confidentiality Clause Inspector -->
+    <div class="report-card p-6 mb-6 fade-in">
+        <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+            <h2 class="text-lg font-bold text-[#0F172A]">Confidentiality Clause Inspector</h2>
+            <span class="text-2xl font-extrabold mono {% if conf.score >= 70 %}text-green-600{% elif conf.score >= 35 %}text-amber-600{% else %}text-red-600{% endif %}">{{ conf.score }}<span class="text-sm text-[#94A3B8]">/100</span></span>
+        </div>
+        <div class="space-y-2">
+            {% for el in conf.elements %}
+            <div class="flex items-start gap-3 p-3 rounded-md {% if el.present %}bg-slate-50{% else %}bg-red-50{% endif %}">
+                <span class="text-sm font-bold mt-0.5 {% if el.present %}text-green-600{% else %}text-red-600{% endif %}">{% if el.present %}&#10003;{% else %}&#10007;{% endif %}</span>
+                <div>
+                    <div class="text-sm font-semibold text-[#0F172A]">{{ el.label }}</div>
+                    <div class="text-xs text-[#475569] mt-0.5">{{ el.detail }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <details class="mt-4">
+            <summary class="text-xs font-semibold text-[#64748B] cursor-pointer hover:text-[#1E293B]">Methodology &amp; limitations</summary>
+            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">{{ conf.methodology_note }}</p>
+        </details>
+    </div>
+    {% endif %}
+
+    {% if clause_quality and clause_quality.indemnification and clause_quality.indemnification.applicable %}
+    {% set indem = clause_quality.indemnification %}
+    <!-- Indemnification Clause Inspector -->
+    <div class="report-card p-6 mb-6 fade-in">
+        <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+            <h2 class="text-lg font-bold text-[#0F172A]">Indemnification Clause Inspector</h2>
+            <span class="text-2xl font-extrabold mono {% if indem.score >= 70 %}text-green-600{% elif indem.score >= 35 %}text-amber-600{% else %}text-red-600{% endif %}">{{ indem.score }}<span class="text-sm text-[#94A3B8]">/100</span></span>
+        </div>
+        <div class="space-y-2">
+            {% for el in indem.elements %}
+            <div class="flex items-start gap-3 p-3 rounded-md {% if el.present %}bg-slate-50{% else %}bg-red-50{% endif %}">
+                <span class="text-sm font-bold mt-0.5 {% if el.present %}text-green-600{% else %}text-red-600{% endif %}">{% if el.present %}&#10003;{% else %}&#10007;{% endif %}</span>
+                <div>
+                    <div class="text-sm font-semibold text-[#0F172A]">{{ el.label }}</div>
+                    <div class="text-xs text-[#475569] mt-0.5">{{ el.detail }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <details class="mt-4">
+            <summary class="text-xs font-semibold text-[#64748B] cursor-pointer hover:text-[#1E293B]">Methodology &amp; limitations</summary>
+            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">{{ indem.methodology_note }}</p>
+        </details>
+    </div>
+    {% endif %}
+
+    {% if clause_quality and clause_quality.termination and clause_quality.termination.applicable %}
+    {% set term = clause_quality.termination %}
+    <!-- Termination Clause Inspector -->
+    <div class="report-card p-6 mb-6 fade-in">
+        <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+            <h2 class="text-lg font-bold text-[#0F172A]">Termination Clause Inspector</h2>
+            <span class="text-2xl font-extrabold mono {% if term.score >= 70 %}text-green-600{% elif term.score >= 35 %}text-amber-600{% else %}text-red-600{% endif %}">{{ term.score }}<span class="text-sm text-[#94A3B8]">/100</span></span>
+        </div>
+        <div class="space-y-2">
+            {% for el in term.elements %}
+            <div class="flex items-start gap-3 p-3 rounded-md {% if el.present %}bg-slate-50{% else %}bg-red-50{% endif %}">
+                <span class="text-sm font-bold mt-0.5 {% if el.present %}text-green-600{% else %}text-red-600{% endif %}">{% if el.present %}&#10003;{% else %}&#10007;{% endif %}</span>
+                <div>
+                    <div class="text-sm font-semibold text-[#0F172A]">{{ el.label }}</div>
+                    <div class="text-xs text-[#475569] mt-0.5">{{ el.detail }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <details class="mt-4">
+            <summary class="text-xs font-semibold text-[#64748B] cursor-pointer hover:text-[#1E293B]">Methodology &amp; limitations</summary>
+            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">{{ term.methodology_note }}</p>
+        </details>
+    </div>
+    {% endif %}
+
+    {% if clause_quality and clause_quality.ip and clause_quality.ip.applicable %}
+    {% set ipq = clause_quality.ip %}
+    <!-- IP Clause Inspector -->
+    <div class="report-card p-6 mb-6 fade-in">
+        <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+            <h2 class="text-lg font-bold text-[#0F172A]">Intellectual Property Clause Inspector</h2>
+            <span class="text-2xl font-extrabold mono {% if ipq.score >= 70 %}text-green-600{% elif ipq.score >= 35 %}text-amber-600{% else %}text-red-600{% endif %}">{{ ipq.score }}<span class="text-sm text-[#94A3B8]">/100</span></span>
+        </div>
+        <div class="space-y-2">
+            {% for el in ipq.elements %}
+            <div class="flex items-start gap-3 p-3 rounded-md {% if el.present %}bg-slate-50{% else %}bg-red-50{% endif %}">
+                <span class="text-sm font-bold mt-0.5 {% if el.present %}text-green-600{% else %}text-red-600{% endif %}">{% if el.present %}&#10003;{% else %}&#10007;{% endif %}</span>
+                <div>
+                    <div class="text-sm font-semibold text-[#0F172A]">{{ el.label }}</div>
+                    <div class="text-xs text-[#475569] mt-0.5">{{ el.detail }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <details class="mt-4">
+            <summary class="text-xs font-semibold text-[#64748B] cursor-pointer hover:text-[#1E293B]">Methodology &amp; limitations</summary>
+            <p class="text-xs text-[#64748B] mt-2 leading-relaxed">{{ ipq.methodology_note }}</p>
+        </details>
+    </div>
+    {% endif %}
 
     {% if payment_terms and (payment_terms.due_days or payment_terms.currency or payment_terms.billing_frequency or payment_terms.invoice_trigger) %}
     <!-- Verified Commercial Terms -->
@@ -300,6 +607,48 @@
                             <div class="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-1">Negotiation Recommendation</div>
                             <div class="text-[#334155]">{{ issue.negotiation_consideration }}</div>
                         </div>
+                        {% endif %}
+
+                        {% if issue.redline %}
+                        <div class="rounded-md border border-slate-200 p-4 bg-slate-50">
+                            <div class="flex items-center justify-between flex-wrap gap-2 mb-3">
+                                <span class="text-xs font-bold text-[#0F172A] uppercase tracking-wider">Deterministic Redline — {{ issue.redline.issue }}</span>
+                                <div class="flex gap-1.5">
+                                    <span class="px-2 py-0.5 text-xs font-bold rounded {% if issue.redline.negotiation_difficulty == 'Low' %}bg-green-100 text-green-800{% elif issue.redline.negotiation_difficulty == 'Medium' %}bg-amber-100 text-amber-800{% else %}bg-red-100 text-red-800{% endif %}">{{ issue.redline.negotiation_difficulty|upper }} FRICTION</span>
+                                    <span class="px-2 py-0.5 text-xs font-bold rounded {% if issue.redline.confidence == 'High' %}bg-green-100 text-green-800{% elif issue.redline.confidence == 'Medium' %}bg-amber-100 text-amber-800{% else %}bg-red-100 text-red-800{% endif %}">{{ issue.redline.confidence|upper }} CONFIDENCE</span>
+                                </div>
+                            </div>
+                            <div class="space-y-3 text-xs">
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Problem</span><p class="text-[#334155] mt-0.5">{{ issue.redline.problem }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Legal Rationale</span><p class="text-[#334155] mt-0.5">{{ issue.redline.legal_rationale }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Business Impact</span><p class="text-[#334155] mt-0.5">{{ issue.redline.business_impact }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Recommended Change</span><p class="text-[#334155] mt-0.5">{{ issue.redline.recommended_change }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Suggested Redline</span><p class="evidence-block mt-1">{{ issue.redline.suggested_redline }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Why This Wording</span><p class="text-[#334155] mt-0.5">{{ issue.redline.why_this_wording }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Expected Counterparty Position</span><p class="text-[#334155] mt-0.5">{{ issue.redline.expected_counterparty_position }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Fallback Position</span><p class="text-[#334155] mt-0.5">{{ issue.redline.fallback_position }}</p></div>
+                                <div><span class="font-semibold text-[#64748B] uppercase tracking-wider">Supporting Deterministic Rule(s)</span><p class="text-[#334155] mt-0.5 mono">{{ issue.redline.supporting_deterministic_rules|join(", ") }}</p></div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if issue.confidence_breakdown %}
+                        <details>
+                            <summary class="text-xs font-semibold text-[#64748B] uppercase tracking-wider cursor-pointer hover:text-[#1E293B]">
+                                Confidence: <span class="{% if issue.confidence_breakdown.confidence == 'high' %}text-green-700{% elif issue.confidence_breakdown.confidence == 'medium' %}text-amber-700{% else %}text-red-700{% endif %} font-bold">{{ issue.confidence_breakdown.confidence|upper }}</span>
+                            </summary>
+                            <ul class="mt-2 space-y-1">
+                                {% for item in issue.confidence_breakdown.checklist %}
+                                <li class="text-xs flex items-start gap-1.5 {% if item.met %}text-[#334155]{% else %}text-red-700{% endif %}">
+                                    <span class="font-bold">{% if item.met %}&#10003;{% else %}&#10007;{% endif %}</span>
+                                    <span>{{ item.label }}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% if issue.confidence_breakdown.reason %}
+                            <p class="text-xs text-[#64748B] mt-2">{{ issue.confidence_breakdown.reason }}</p>
+                            {% endif %}
+                        </details>
                         {% endif %}
 
                         <div class="flex gap-4 pt-2 border-t border-slate-100">

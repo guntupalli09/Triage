@@ -64,7 +64,7 @@ for rule_id, live_rule in _LIVE_RULES.items():
         )
     )
 
-assert len(FULL_MIGRATION) == 185, f"expected 185 scored rules, got {len(FULL_MIGRATION)}"
+assert len(FULL_MIGRATION) == 189, f"expected 189 scored rules, got {len(FULL_MIGRATION)}"
 
 
 # ---------------------------------------------------------------------

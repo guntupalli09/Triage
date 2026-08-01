@@ -13,7 +13,7 @@ def test_v3_rule_inventory_counts_and_version():
     engine = RuleEngine()
     counts = Counter(rule.severity.value for rule in engine.rules)
 
-    assert engine.version == "7.1.0"
+    assert engine.version == "7.2.0"
     # 91 rules through v5.0 (see rules/version.json) + 26 rules added in the
     # v6.0 small/midsize law firm broad-practice expansion pass covering
     # commercial leases, loans/guaranties, employment offer/severance,
@@ -24,9 +24,12 @@ def test_v3_rule_inventory_counts_and_version():
     # licensing, and deeper franchise/settlement/employment/M&A/construction
     # coverage + 5 rules added in v7.1 covering gaps surfaced by running the
     # engine against real SEC EDGAR contracts (see rules/version.json's
-    # v7.1 changelog entry and tests/test_v7_1_real_document_gap_rules.py).
-    assert len(engine.rules) == 185
-    assert counts == {"critical": 9, "high": 42, "medium": 105, "low": 29}
+    # v7.1 changelog entry and tests/test_v7_1_real_document_gap_rules.py)
+    # + 4 rules added in v7.2 covering AI governance, security certification,
+    # and SLA response-time gaps (see rules/version.json's v7.2 changelog
+    # entry and tests/test_ai_security_sla_rules.py).
+    assert len(engine.rules) == 189
+    assert counts == {"critical": 9, "high": 42, "medium": 109, "low": 29}
 
 
 def test_high_stored_card_authorization_rule():
