@@ -2090,6 +2090,16 @@ async def research_page(request: Request, db: DBSession = Depends(get_db)):
     })
 
 
+@app.get("/benchmark", response_class=HTMLResponse)
+async def benchmark_page(request: Request, db: DBSession = Depends(get_db)):
+    user = get_current_user(request, db)
+    analytics.record_event(request, "benchmark_view", user=user)
+    return templates.TemplateResponse("benchmark.html", {
+        "request": request, "user": user,
+        "current_year": datetime.now().year,
+    })
+
+
 # ============================================================
 # STRIPE SUBSCRIPTION
 # ============================================================

@@ -1,0 +1,1061 @@
+{% extends "base_marketing.html" %}
+
+{% block title %}Engine Validation — TriageCounsel Benchmark{% endblock %}
+{% block meta_description %}4,190 real SEC-filed contracts. 189 deterministic rules. 813 automated tests. 100% replay, verification, and export success. The full TriageBench methodology, results, and known limitations.{% endblock %}
+{% block canonical_url %}https://triagecounsel.com/benchmark{% endblock %}
+{% block og_title %}Engine Validation — TriageCounsel Benchmark{% endblock %}
+{% block og_description %}4,190 real SEC-filed contracts. 189 deterministic rules. 100% replay, verification, and export success. GO release verdict.{% endblock %}
+{% block twitter_title %}Engine Validation — TriageCounsel Benchmark{% endblock %}
+{% block twitter_description %}4,190 real SEC-filed contracts. 189 deterministic rules. 100% replay, verification, and export success. GO release verdict.{% endblock %}
+
+{% block extra_head %}
+<style>
+    :root {
+        --mono: 'SF Mono', 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+    }
+
+    .bm-section {
+        max-width: 72rem;
+        margin: 0 auto;
+        padding: 5rem 1.5rem;
+    }
+
+    .bm-section + .bm-section {
+        border-top: 1px solid var(--border);
+    }
+
+    .bm-kicker {
+        font-size: 0.6875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #94A3B8;
+        margin-bottom: 0.75rem;
+    }
+
+    .bm-h2 {
+        font-size: 1.75rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--navy);
+        line-height: 1.2;
+    }
+
+    /* KPI cards */
+    .kpi-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 1.75rem 1.25rem;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .kpi-card.in-view {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .kpi-value {
+        font-family: var(--mono);
+        font-size: 2.1rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: var(--navy);
+        line-height: 1;
+    }
+
+    .kpi-value.ok { color: #15803D; }
+
+    .kpi-label {
+        margin-top: 0.6rem;
+        font-size: 0.75rem;
+        color: #64748B;
+        font-weight: 500;
+        line-height: 1.35;
+    }
+
+    /* Research lineage */
+    .lineage-wrap {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0;
+        align-items: stretch;
+    }
+
+    .lineage-node {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem 1.1rem;
+        border: 1px solid var(--border);
+        background: #fff;
+        text-decoration: none;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .lineage-node:hover {
+        border-color: #CBD5E1;
+        box-shadow: 0 6px 18px rgba(15,23,42,0.07);
+        transform: translateY(-2px);
+        z-index: 2;
+    }
+
+    .lineage-node + .lineage-node { border-left: none; }
+    .lineage-node:first-child { border-radius: 12px 0 0 12px; }
+    .lineage-node:last-child { border-radius: 0 12px 12px 0; border-left: none; }
+
+    .lineage-node.is-product {
+        background: var(--navy);
+        border-color: var(--navy);
+    }
+
+    .lineage-node::after {
+        content: "";
+        position: absolute;
+        right: -13px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #fff;
+        border: 1px solid var(--border);
+        z-index: 3;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2394A3B8'%3E%3Cpath fill-rule='evenodd' d='M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H4a1 1 0 110-2h8.586l-2.293-2.293a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14px;
+    }
+
+    .lineage-node:last-child::after { display: none; }
+
+    .lineage-status {
+        font-size: 0.625rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #94A3B8;
+        margin-bottom: 0.6rem;
+    }
+
+    .lineage-node.is-product .lineage-status { color: #94A3B8; }
+
+    .lineage-title {
+        font-size: 0.9375rem;
+        font-weight: 800;
+        color: var(--navy);
+        line-height: 1.2;
+        margin-bottom: 0.35rem;
+    }
+
+    .lineage-node.is-product .lineage-title { color: #fff; }
+
+    .lineage-detail {
+        font-size: 0.75rem;
+        color: #64748B;
+        line-height: 1.45;
+        flex-grow: 1;
+    }
+
+    .lineage-node.is-product .lineage-detail { color: #CBD5E1; }
+
+    .lineage-arrow-mobile {
+        display: none;
+    }
+
+    @media (max-width: 900px) {
+        .lineage-wrap {
+            grid-template-columns: 1fr;
+        }
+        .lineage-node {
+            border-radius: 0 !important;
+            border-left: 1px solid var(--border) !important;
+            border-top: none;
+        }
+        .lineage-node:first-child { border-radius: 12px 12px 0 0 !important; border-top: 1px solid var(--border) !important; }
+        .lineage-node:last-child { border-radius: 0 0 12px 12px !important; }
+        .lineage-node::after {
+            right: 50%;
+            top: auto;
+            bottom: -13px;
+            transform: translate(50%, 0) rotate(90deg);
+        }
+    }
+
+    /* Pipeline */
+    .pipeline-rail {
+        position: relative;
+        padding-left: 2.25rem;
+    }
+
+    .pipeline-rail::before {
+        content: "";
+        position: absolute;
+        left: 0.85rem;
+        top: 0.85rem;
+        bottom: 0.85rem;
+        width: 2px;
+        background: var(--border);
+    }
+
+    .pipeline-stage {
+        position: relative;
+        margin-bottom: 0.5rem;
+        border: 1px solid var(--border);
+        background: #fff;
+        border-radius: 10px;
+        padding: 0.9rem 1.1rem;
+        cursor: default;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .pipeline-stage:hover {
+        border-color: #CBD5E1;
+        box-shadow: 0 4px 14px rgba(15,23,42,0.06);
+        transform: translateX(2px);
+    }
+
+    .pipeline-stage::before {
+        content: "";
+        position: absolute;
+        left: -1.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #16A34A;
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 2px #16A34A;
+    }
+
+    .pipeline-stage .stage-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+    }
+
+    .pipeline-stage .stage-name {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--navy);
+    }
+
+    .pipeline-stage .stage-num {
+        font-family: var(--mono);
+        font-size: 0.6875rem;
+        color: #94A3B8;
+    }
+
+    .pipeline-stage .stage-status {
+        font-size: 0.6875rem;
+        font-weight: 700;
+        color: #15803D;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .pipeline-stage .stage-detail {
+        display: none;
+        margin-top: 0.5rem;
+        font-size: 0.8125rem;
+        color: #64748B;
+        line-height: 1.5;
+        border-top: 1px dashed var(--border);
+        padding-top: 0.5rem;
+    }
+
+    .pipeline-stage:hover .stage-detail,
+    .pipeline-stage.pinned .stage-detail {
+        display: block;
+    }
+
+    /* Category cards */
+    .corpus-card {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #fff;
+        padding: 1.5rem;
+    }
+
+    .corpus-card .n {
+        font-family: var(--mono);
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: var(--navy);
+    }
+
+    /* Methodology timeline */
+    .method-rail {
+        position: relative;
+        padding-left: 2.25rem;
+    }
+
+    .method-rail::before {
+        content: "";
+        position: absolute;
+        left: 0.6rem;
+        top: 0.4rem;
+        bottom: 0.4rem;
+        width: 2px;
+        background: var(--border);
+    }
+
+    .method-step {
+        position: relative;
+        padding-bottom: 1.6rem;
+        opacity: 0;
+        transform: translateX(-8px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .method-step.in-view {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .method-step::before {
+        content: "";
+        position: absolute;
+        left: -1.95rem;
+        top: 0.15rem;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--navy);
+    }
+
+    .method-step .m-title {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--navy);
+    }
+
+    .method-step .m-detail {
+        font-size: 0.8125rem;
+        color: #64748B;
+        margin-top: 0.15rem;
+    }
+
+    /* Results table */
+    .results-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.875rem;
+    }
+
+    .results-table th {
+        text-align: left;
+        font-size: 0.6875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #94A3B8;
+        font-weight: 700;
+        padding: 0.6rem 1.25rem;
+        background: #F8FAFC;
+    }
+
+    .results-table td {
+        padding: 0.7rem 1.25rem;
+        border-top: 1px solid var(--border);
+        color: #334155;
+    }
+
+    .results-table td.num {
+        font-family: var(--mono);
+        font-weight: 700;
+        text-align: right;
+    }
+
+    .results-table td.ok { color: #15803D; }
+
+    /* Defects */
+    .defect-card {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: #fff;
+        padding: 1.5rem;
+    }
+
+    .defect-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.6875rem;
+        font-weight: 700;
+        color: #15803D;
+        background: #F0FDF4;
+        border: 1px solid #BBF7D0;
+        padding: 3px 10px;
+        border-radius: 9999px;
+    }
+
+    /* Explorer tabs */
+    .explorer-tab {
+        padding: 0.55rem 1.1rem;
+        border-radius: 8px;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: #64748B;
+        border: 1px solid var(--border);
+        background: #fff;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+
+    .explorer-tab.active {
+        background: var(--navy);
+        color: #fff;
+        border-color: var(--navy);
+    }
+
+    .explorer-panel { display: none; }
+    .explorer-panel.active { display: block; }
+
+    /* Version timeline */
+    .version-track {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.75rem;
+        align-items: end;
+    }
+
+    .version-col {
+        text-align: center;
+    }
+
+    .version-bar {
+        background: #E2E8F0;
+        border-radius: 6px 6px 0 0;
+        margin: 0 auto;
+        width: 60%;
+        transition: height 1s cubic-bezier(0.22, 1, 0.36, 1);
+        height: 0;
+    }
+
+    .version-bar.current { background: var(--navy); }
+
+    .version-col .v-count {
+        font-family: var(--mono);
+        font-size: 0.8125rem;
+        font-weight: 700;
+        color: var(--navy);
+        margin-top: 0.4rem;
+    }
+
+    .version-col .v-label {
+        font-size: 0.6875rem;
+        color: #94A3B8;
+        margin-top: 0.1rem;
+    }
+
+    /* Downloads */
+    .dl-card {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: #fff;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .dl-card .dl-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 9px;
+        background: #F8FAFC;
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.9rem;
+    }
+
+    .meta-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.65rem 0;
+        border-top: 1px solid var(--border);
+        font-size: 0.8125rem;
+    }
+
+    .meta-row:first-child { border-top: none; }
+
+    .meta-row .meta-key { color: #94A3B8; }
+
+    .meta-row .meta-val {
+        font-family: var(--mono);
+        color: var(--navy);
+        font-weight: 600;
+        text-align: right;
+        word-break: break-all;
+        max-width: 65%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ============================= HERO ============================= -->
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 text-center">
+    <p class="bm-kicker">Engine Validation</p>
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#0F172A] leading-[1.08] mb-6">
+        4,190 Real Contracts.<br>
+        100% Deterministic.<br>
+        <span class="text-gray-400">100% Replayable.</span>
+    </h1>
+    <p class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed mb-3">
+        A finding you can't reproduce or explain isn't defensible in a legal workflow. Every
+        production release is benchmarked against real, publicly filed contracts before it
+        ships — not sampled, not synthetic — specifically to prove ours are.
+    </p>
+    <p class="text-sm text-gray-400 max-w-xl mx-auto leading-relaxed mb-10">
+        This page is the evidence, not a claim about it.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="#methodology" class="btn-primary py-3.5 px-8 rounded-lg text-sm inline-flex items-center justify-center">
+            View Methodology
+        </a>
+        <a href="#downloads" class="btn-secondary py-3.5 px-8 rounded-lg text-sm inline-flex items-center justify-center">
+            Download Benchmark Report
+        </a>
+    </div>
+</section>
+
+<!-- ============================= KPI OVERVIEW ============================= -->
+<section class="bm-section">
+    <p class="bm-kicker text-center">Benchmark Overview</p>
+    <h2 class="bm-h2 text-center mb-10">Reference run <span class="font-mono text-lg text-gray-400">20260802T164957Z</span></h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="kpi-card"><div class="kpi-value">4,190</div><div class="kpi-label">Real Contracts Benchmarked</div></div>
+        <div class="kpi-card"><div class="kpi-value">189</div><div class="kpi-label">Deterministic Rules</div></div>
+        <div class="kpi-card"><div class="kpi-value">813</div><div class="kpi-label">Automated Tests Passing</div></div>
+        <div class="kpi-card"><div class="kpi-value ok">100%</div><div class="kpi-label">Replay Success</div></div>
+        <div class="kpi-card"><div class="kpi-value ok">100%</div><div class="kpi-label">Verification Success</div></div>
+        <div class="kpi-card"><div class="kpi-value ok">100%</div><div class="kpi-label">DOCX Export Success</div></div>
+        <div class="kpi-card"><div class="kpi-value ok">0</div><div class="kpi-label">Critical Blockers</div></div>
+        <div class="kpi-card"><div class="kpi-value ok">GO</div><div class="kpi-label">Release Verdict</div></div>
+    </div>
+    <p class="text-xs text-gray-400 text-center mt-6">
+        4,131 of 4,190 contracts (98.59%) reached a clean terminal state; the remaining 59 (1.41%) are a
+        non-blocking, secondary parsing cross-check flag, detailed in <a href="#limitations" class="underline hover:text-gray-600">Known Limitations</a> — not a rule-engine, export, or replay defect.
+    </p>
+</section>
+
+<!-- ============================= RESEARCH LINEAGE ============================= -->
+<section class="bm-section">
+    <p class="bm-kicker">Research</p>
+    <h2 class="bm-h2 mb-4">Built on published work, not ad hoc prompting</h2>
+    <p class="text-base text-gray-500 max-w-2xl mb-10 leading-relaxed">
+        Every layer on this page traces back to a peer-reviewed architecture, not a prompt that happened to
+        work. Two papers, one architecture, one benchmark, one product — in that order.
+    </p>
+    <div class="lineage-wrap">
+        <a href="/research" class="lineage-node">
+            <span class="lineage-status">Accepted &middot; Springer LNCS</span>
+            <span class="lineage-title">ICCS 2026</span>
+            <span class="lineage-detail">Deterministic execution frameworks for hybrid symbolic&ndash;probabilistic pipelines &mdash; the original architecture paper.</span>
+        </a>
+        <a href="/research" class="lineage-node">
+            <span class="lineage-status">Submitted &middot; Decision pending</span>
+            <span class="lineage-title">IEEE TPS 2026</span>
+            <span class="lineage-detail">Cyber-resilience properties of the same deterministic&ndash;LLM hybrid architecture, evaluated against a pure-LLM baseline.</span>
+        </a>
+        <a href="/research#architecture" class="lineage-node">
+            <span class="lineage-status">Implemented</span>
+            <span class="lineage-title">Architecture</span>
+            <span class="lineage-detail">The rule engine, severity model, and LLM-lockdown boundary described in both papers, as actually built.</span>
+        </a>
+        <a href="#results" class="lineage-node">
+            <span class="lineage-status">This page</span>
+            <span class="lineage-title">Benchmark</span>
+            <span class="lineage-detail">4,190 real contracts, 189 rules, 100% replay &mdash; the architecture validated at production scale.</span>
+        </a>
+        <a href="/" class="lineage-node is-product">
+            <span class="lineage-status">Live</span>
+            <span class="lineage-title">Product</span>
+            <span class="lineage-detail">triagecounsel.com &mdash; the benchmarked engine, running for real customers today.</span>
+        </a>
+    </div>
+</section>
+
+<!-- ============================= WHY BENCHMARK ============================= -->
+<section class="bm-section">
+    <p class="bm-kicker">Why Benchmark?</p>
+    <h2 class="bm-h2 mb-4">Legal software has a different bar than most software</h2>
+    <p class="text-base text-gray-500 max-w-2xl mb-10 leading-relaxed">
+        A finding that can't be reproduced, traced, or explained isn't useful in a legal workflow —
+        it's a liability. TriageBench exists to make four specific properties measurable, not assumed.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="card p-5">
+            <div class="check-icon mb-3"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/></svg></div>
+            <h3 class="text-sm font-bold text-[#0F172A] mb-1.5">Reproducible</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">The same contract in produces the same findings out, every time, on every run.</p>
+        </div>
+        <div class="card p-5">
+            <div class="check-icon mb-3"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9zM4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg></div>
+            <h3 class="text-sm font-bold text-[#0F172A] mb-1.5">Auditable</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">Every finding cites the rule ID and exact clause text that produced it — nothing is opaque.</p>
+        </div>
+        <div class="card p-5">
+            <div class="check-icon mb-3"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 12a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg></div>
+            <h3 class="text-sm font-bold text-[#0F172A] mb-1.5">Explainable</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">The AI only explains an already-final finding in plain English &mdash; it never decides.</p>
+        </div>
+        <div class="card p-5">
+            <div class="check-icon mb-3"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg></div>
+            <h3 class="text-sm font-bold text-[#0F172A] mb-1.5">Deterministic</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">189 explicit rules decide. No statistical weighting, no learned parameters, no randomness.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================= PIPELINE ============================= -->
+<section class="bm-section" id="methodology">
+    <p class="bm-kicker">What Is TriageBench?</p>
+    <h2 class="bm-h2 mb-4">The same ten-stage pipeline, run against every contract</h2>
+    <p class="text-base text-gray-500 max-w-2xl mb-10 leading-relaxed">
+        TriageBench runs TriageCounsel's real deterministic pipeline in-process — independent of
+        the web application and database, with no dependency on the LLM layer. Hover any stage for detail.
+    </p>
+    <div class="pipeline-rail">
+        <div class="pipeline-stage">
+            <div class="stage-top"><span class="stage-name"><span class="stage-num">01&nbsp;&middot;&nbsp;</span>Upload</span><span class="stage-status">&#10003; Passed</span></div>
+            <div class="stage-detail">Raw document bytes are read and the primary HTML-to-text extractor runs — the same extraction path production uses.</div>
+        </div>
+        <div class="pipeline-stage">
+            <div class="stage-top"><span class="stage-name"><span class="stage-num">02&nbsp;&middot;&nbsp;</span>Parser / Normalizer</span><span class="stage-status">&#10003; Passed</span></div>
+            <div class="stage-detail">Text is chunked and structured for analysis. A secondary, independent extractor cross-checks this stage in the Audit step below.</div>
+        </div>
+        <div class="pipeline-stage">
+            <div class="stage-top"><span class="stage-name"><span class="stage-num">03&nbsp;&middot;&nbsp;</span>Deterministic Rule Engine</span><span class="stage-status">&#10003; Passed</span></div>
+            <div class="stage-detail">All 189 rules are executed against the document. Severity, rule-trigger counts, and per-rule aggregation are recorded.</div>
+        </div>
+        <div class="pipeline-stage">
+            <div class="stage-top"><span class="stage-name"><span class="stage-num">04&nbsp;&middot;&nbsp;</span>Evidence Engine</span><span class="stage-status">&#10003; Passed</span></div>
+            <div class="stage-detail">Every finding's clause-level evidence span is validated against the source contract text — no unanchored findings.</div>
+        </div>
+        <div class="pipeline-stage">
+            <div class="stage-top"><span class="stage-name"><span class="stage-num">05&nbsp;&middot;&nbsp;</span>Verification</span><span class="stage-status">&#10003; Passed</span></div>
+            <div class="stage-detail">The engine re-runs and every finding is checked to reproduce exactly, matched by rule ID, start index, and exact snippet.</div>
+        </div>
+        <div class="pipeline-stage">
+            <div class="stage-top"><span class="stage-name"><span class="stage-num">06&nbsp;&middot;&nbsp;</span>Redline Generation</span><span class="stage-status">&#10003; Passed</span></div>
+            <div class="stage-detail">A fixed, documented synthetic review policy stands in for a human reviewer, exercising the same redline code paths production uses.</div>
+        </div>
+        <div class="pipeline-stage">
+            <div class="stage-top"><span class="stage-name"><span class="stage-num">07&nbsp;&middot;&nbsp;</span>Negotiation Package</span><span class="stage-status">&#10003; Passed</span></div>
+            <div class="stage-detail">Cover memo, audit trail, and package assembly are generated from the review decisions above.</div>
+        </div>
+        <div class="pipeline-stage">
+            <div class="stage-top"><span class="stage-name"><span class="stage-num">08&nbsp;&middot;&nbsp;</span>DOCX Export</span><span class="stage-status">&#10003; Passed</span></div>
+            <div class="stage-detail">The redlined Word document (native Track Changes + comments) is built and validated as well-formed OOXML.</div>
+        </div>
+        <div class="pipeline-stage">
+            <div class="stage-top"><span class="stage-name"><span class="stage-num">09&nbsp;&middot;&nbsp;</span>Replay</span><span class="stage-status">&#10003; Passed</span></div>
+            <div class="stage-detail">The whole-document output of two independent runs is compared byte-for-byte: finding sequence, rule counts, overall risk.</div>
+        </div>
+        <div class="pipeline-stage">
+            <div class="stage-top"><span class="stage-name"><span class="stage-num">10&nbsp;&middot;&nbsp;</span>Audit</span><span class="stage-status">&#10003; Passed</span></div>
+            <div class="stage-detail">A second, independent HTML extractor cross-checks the primary parse as a corpus-integrity sanity check.</div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================= CORPUS ============================= -->
+<section class="bm-section">
+    <p class="bm-kicker">Real Contract Corpus</p>
+    <h2 class="bm-h2 mb-4">4,190 real SEC-filed exhibits &mdash; nothing synthetic</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="corpus-card"><div class="n">2,455</div><p class="text-sm font-semibold text-[#0F172A] mt-1">Employment</p><p class="text-xs text-gray-400 mt-1">58.6% of corpus</p></div>
+        <div class="corpus-card"><div class="n">1,007</div><p class="text-sm font-semibold text-[#0F172A] mt-1">Purchases</p><p class="text-xs text-gray-400 mt-1">24.0% of corpus</p></div>
+        <div class="corpus-card"><div class="n">664</div><p class="text-sm font-semibold text-[#0F172A] mt-1">Services</p><p class="text-xs text-gray-400 mt-1">15.8% of corpus</p></div>
+        <div class="corpus-card"><div class="n">64</div><p class="text-sm font-semibold text-[#0F172A] mt-1">Lease</p><p class="text-xs text-gray-400 mt-1">1.5% of corpus</p></div>
+    </div>
+    <div class="flex flex-wrap gap-3">
+        <div class="badge"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> No synthetic contracts</div>
+        <div class="badge"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> No AI-generated examples</div>
+        <div class="badge"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> No toy datasets</div>
+        <div class="badge"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Public SEC EDGAR filings</div>
+    </div>
+</section>
+
+<!-- ============================= METHODOLOGY TIMELINE ============================= -->
+<section class="bm-section">
+    <p class="bm-kicker">Benchmark Methodology</p>
+    <h2 class="bm-h2 mb-10">Every contract, the same ten checks, in order</h2>
+    <div class="method-rail">
+        <div class="method-step"><div class="m-title">Parse</div><div class="m-detail">Primary HTML-to-text extraction.</div></div>
+        <div class="method-step"><div class="m-title">Normalize</div><div class="m-detail">Chunk and structure text for rule matching.</div></div>
+        <div class="method-step"><div class="m-title">Execute all 189 deterministic rules</div><div class="m-detail">Full rule engine pass — same code path as production.</div></div>
+        <div class="method-step"><div class="m-title">Collect evidence</div><div class="m-detail">Validate every finding's clause-level span against source text.</div></div>
+        <div class="method-step"><div class="m-title">Verify findings</div><div class="m-detail">Re-run and confirm every finding reproduces exactly.</div></div>
+        <div class="method-step"><div class="m-title">Generate negotiation package</div><div class="m-detail">Cover memo, audit trail, and package assembly.</div></div>
+        <div class="method-step"><div class="m-title">Export DOCX</div><div class="m-detail">Build and validate the redlined Word document as well-formed OOXML.</div></div>
+        <div class="method-step"><div class="m-title">Replay complete execution</div><div class="m-detail">Second independent run of the full pipeline.</div></div>
+        <div class="method-step"><div class="m-title">Compare outputs</div><div class="m-detail">Byte-for-byte comparison of both runs' complete output.</div></div>
+        <div class="method-step"><div class="m-title">Pass / Fail</div><div class="m-detail">Terminal status recorded per contract, per stage, with severity classification on any failure.</div></div>
+    </div>
+</section>
+
+<!-- ============================= RESULTS ============================= -->
+<section class="bm-section" id="results">
+    <p class="bm-kicker">Results</p>
+    <h2 class="bm-h2 mb-8">Reference run: full metrics</h2>
+    <div class="card overflow-hidden mb-6">
+        <table class="results-table">
+            <thead><tr><th>Metric</th><th class="text-right">Value</th></tr></thead>
+            <tbody>
+                <tr><td>Contracts scheduled / accounted for</td><td class="num ok">4,190 / 4,190</td></tr>
+                <tr><td>Contracts reaching clean terminal state</td><td class="num">4,131 (98.59%)</td></tr>
+                <tr><td>Parser success rate (no P0/P1 defects)</td><td class="num ok">100.0%</td></tr>
+                <tr><td>Verify / replay success rate</td><td class="num ok">100.0%</td></tr>
+                <tr><td>DOCX export success rate</td><td class="num ok">100.0%</td></tr>
+                <tr><td>Negotiation Package success rate</td><td class="num ok">100.0%</td></tr>
+                <tr><td>Critical blockers</td><td class="num ok">0</td></tr>
+                <tr><td>Engine reliability score</td><td class="num">99 / 100</td></tr>
+                <tr><td>Parser reliability score</td><td class="num">100 / 100</td></tr>
+                <tr><td>Determinism score</td><td class="num">100 / 100</td></tr>
+                <tr><td>Evidence-anchoring score</td><td class="num">100 / 100</td></tr>
+                <tr><td>DOCX / export reliability score</td><td class="num">100 / 100</td></tr>
+                <tr><td>Commercial readiness score</td><td class="num">97 / 100</td></tr>
+                <tr><td class="font-semibold text-[#0F172A]">Go / No-Go verdict</td><td class="num ok">GO</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <p class="text-xs text-gray-400 max-w-2xl">
+        Scores below 100 are stated, not smoothed over. Engine reliability sits at 99 because 59 contracts (1.41%)
+        were flagged by a secondary, independent parsing cross-check — see <a href="#limitations" class="underline hover:text-gray-600">Known Limitations</a>.
+        Commercial readiness (97) is a composite score, not a marketing number.
+    </p>
+</section>
+
+<!-- ============================= TRIAGEBENCH LIVE ============================= -->
+<section class="bm-section">
+    <p class="bm-kicker">TriageBench Live</p>
+    <h2 class="bm-h2 mb-4">A separate suite validates the deployed application itself</h2>
+    <p class="text-base text-gray-500 max-w-2xl mb-8 leading-relaxed">
+        TriageBench validates the deterministic engine, in-process. TriageBench Live validates the
+        <em>deployed product</em> — exactly as a customer uses it, against the real running server.
+        It never imports an engine or application module; that boundary is enforced automatically by
+        an AST-based test, not just convention.
+    </p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+        <div class="badge">Real signup</div>
+        <div class="badge">Real login</div>
+        <div class="badge">Real upload</div>
+        <div class="badge">Real browser</div>
+        <div class="badge">Real download</div>
+        <div class="badge">Real report</div>
+        <div class="badge">Real export</div>
+        <div class="badge">No mocked APIs</div>
+    </div>
+    <div class="card p-5">
+        <p class="text-sm text-gray-600 leading-relaxed">
+            TriageBench Live's concurrency suite is what actually found a real production defect this
+            release: a database-session lifecycle leak under sustained load. See <a href="#defects" class="underline hover:text-gray-600">Engineering Defects Found</a> below for exactly how it was caught, fixed, and re-verified with zero leakage under both sequential and concurrent sustained traffic.
+        </p>
+    </div>
+</section>
+
+<!-- ============================= DEFECTS FOUND ============================= -->
+<section class="bm-section" id="defects">
+    <p class="bm-kicker">Engineering Defects Found</p>
+    <h2 class="bm-h2 mb-4">The benchmark's job is to find real defects &mdash; here's what it found</h2>
+    <p class="text-base text-gray-500 max-w-2xl mb-10 leading-relaxed">
+        We are not showing this section to claim a spotless system. We're showing it because a benchmark
+        that never catches anything isn't validating anything. These are the real defects TriageBench and
+        TriageBench Live found in this release cycle, and exactly how each was fixed and re-verified.
+    </p>
+    <div class="space-y-4">
+        <div class="defect-card">
+            <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+                <h3 class="text-sm font-bold text-[#0F172A]">DOCX export crash on XML-illegal characters</h3>
+                <span class="defect-status">&#10003; Fixed &amp; verified</span>
+            </div>
+            <p class="text-sm text-gray-500 leading-relaxed mb-2">
+                <strong class="text-gray-700">Found by:</strong> the full 4,190-contract TriageBench run &mdash;
+                a legacy page-break artifact (a form-feed character) in one SEC filing's extracted text was
+                illegal under the XML 1.0 character spec and crashed DOCX export.
+            </p>
+            <p class="text-sm text-gray-500 leading-relaxed">
+                <strong class="text-gray-700">Fixed by:</strong> implementing the exact XML 1.0 <code class="font-mono text-xs">Char</code> production,
+                verified character-by-character against lxml's own acceptance behavior, applied everywhere raw
+                contract text enters a generated document. <strong class="text-gray-700">Verified by:</strong> 15 new targeted
+                tests plus independent cross-validation against Mammoth, a third-party OOXML parser, then a full corpus re-run.
+            </p>
+        </div>
+        <div class="defect-card">
+            <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+                <h3 class="text-sm font-bold text-[#0F172A]">Database session-lifecycle leak under sustained load</h3>
+                <span class="defect-status">&#10003; Fixed &amp; verified</span>
+            </div>
+            <p class="text-sm text-gray-500 leading-relaxed mb-2">
+                <strong class="text-gray-700">Found by:</strong> TriageBench Live's concurrency suite &mdash;
+                59 route and exception-handler call sites obtained a database session outside FastAPI's
+                dependency injection, so nothing guaranteed the session closed; under sustained traffic the
+                connection pool exhausted permanently.
+            </p>
+            <p class="text-sm text-gray-500 leading-relaxed">
+                <strong class="text-gray-700">Fixed by:</strong> converting every call site to FastAPI's own
+                <code class="font-mono text-xs">Depends(get_db)</code>, plus SQLite WAL mode with an explicit busy timeout.
+                <strong class="text-gray-700">Verified by:</strong> a dedicated proof suite exercising sequential,
+                at-capacity, and above-capacity concurrent bursts &mdash; zero leakage confirmed under both sequential and concurrent sustained load.
+            </p>
+        </div>
+        <div class="defect-card">
+            <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+                <h3 class="text-sm font-bold text-[#0F172A]">Production deployment packaging defect</h3>
+                <span class="defect-status">&#10003; Fixed &amp; verified</span>
+            </div>
+            <p class="text-sm text-gray-500 leading-relaxed mb-2">
+                <strong class="text-gray-700">Found by:</strong> a direct audit of the live deployment &mdash;
+                the benchmark corpus had been committed to the repository without a bundle-exclusion rule, pushing
+                the deployed function to 795&nbsp;MB against a 500&nbsp;MB platform ceiling. Every deployment since
+                had been silently failing to build.
+            </p>
+            <p class="text-sm text-gray-500 leading-relaxed">
+                <strong class="text-gray-700">Fixed by:</strong> correcting the deployment exclusion rules.
+                <strong class="text-gray-700">Verified by:</strong> confirming the resulting build completed, then
+                independently checking the live production domain returns HTTP 200 with working registration and login flows.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================= LIMITATIONS ============================= -->
+<section class="bm-section" id="limitations">
+    <p class="bm-kicker">Known Limitations</p>
+    <h2 class="bm-h2 mb-8">What this benchmark does &mdash; and does not &mdash; validate</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+            <h3 class="text-sm font-bold text-green-700 mb-3 uppercase tracking-wide">This benchmark validates</h3>
+            <div class="space-y-3">
+                <div class="check-item"><div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div><span class="text-sm text-gray-600">Deterministic execution</span></div>
+                <div class="check-item"><div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div><span class="text-sm text-gray-600">Replay consistency</span></div>
+                <div class="check-item"><div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div><span class="text-sm text-gray-600">Export reliability</span></div>
+                <div class="check-item"><div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div><span class="text-sm text-gray-600">Evidence tracing</span></div>
+                <div class="check-item"><div class="check-icon"><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div><span class="text-sm text-gray-600">Rule execution against the full ruleset</span></div>
+            </div>
+        </div>
+        <div>
+            <h3 class="text-sm font-bold text-red-700 mb-3 uppercase tracking-wide">This benchmark does not validate</h3>
+            <div class="space-y-3">
+                <div class="flex items-start gap-3"><svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-600">Attorney judgment</span></div>
+                <div class="flex items-start gap-3"><svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-600">Jurisdiction-specific legal advice</span></div>
+                <div class="flex items-start gap-3"><svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-600">Novel legal reasoning outside the rulebook</span></div>
+                <div class="flex items-start gap-3"><svg class="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg><span class="text-sm text-gray-600">Matters outside current rule coverage</span></div>
+            </div>
+            <p class="text-xs text-gray-400 mt-4 leading-relaxed">
+                Every report TriageCounsel generates states this directly &mdash; not only this page.
+                A clean benchmark run means the engine did what it was built to do reliably. It does not mean
+                the engine covers every legal question a document might raise.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================= METADATA ============================= -->
+<section class="bm-section">
+    <p class="bm-kicker">Benchmark Metadata</p>
+    <h2 class="bm-h2 mb-8">Reproducible by design</h2>
+    <div class="card p-6 sm:p-8 max-w-2xl">
+        <div class="meta-row"><span class="meta-key">Run ID</span><span class="meta-val">20260802T164957Z</span></div>
+        <div class="meta-row"><span class="meta-key">Commit hash</span><span class="meta-val">d47ccae11fea…9b0c9</span></div>
+        <div class="meta-row"><span class="meta-key">Corpus manifest hash</span><span class="meta-val">cb10c8febce1…5e9da306f</span></div>
+        <div class="meta-row"><span class="meta-key">Ruleset version</span><span class="meta-val">7.2.0</span></div>
+        <div class="meta-row"><span class="meta-key">Started</span><span class="meta-val">2026-08-02T16:49:57Z</span></div>
+        <div class="meta-row"><span class="meta-key">Finished</span><span class="meta-val">2026-08-02T17:36:39Z</span></div>
+        <div class="meta-row"><span class="meta-key">Wall-clock duration</span><span class="meta-val">2,801.6s</span></div>
+        <div class="meta-row"><span class="meta-key">Production status</span><span class="meta-val text-green-700">Merged &amp; live</span></div>
+    </div>
+</section>
+
+<!-- ============================= EXPLORER ============================= -->
+<section class="bm-section">
+    <p class="bm-kicker">Interactive Benchmark Explorer</p>
+    <h2 class="bm-h2 mb-8">Inspect results by contract category</h2>
+    <div class="flex flex-wrap gap-2 mb-6" role="tablist">
+        <button class="explorer-tab active" data-tab="employment">Employment</button>
+        <button class="explorer-tab" data-tab="purchases">Purchases</button>
+        <button class="explorer-tab" data-tab="services">Services</button>
+        <button class="explorer-tab" data-tab="lease">Lease</button>
+    </div>
+
+    <div class="explorer-panel active" data-panel="employment">
+        <div class="card overflow-hidden"><table class="results-table"><tbody>
+            <tr><td>Contracts in category</td><td class="num">2,455</td></tr>
+            <tr><td>Rules executed per contract</td><td class="num">189</td></tr>
+            <tr><td>Mean redline coverage</td><td class="num">6.94%</td></tr>
+            <tr><td>Median analysis latency</td><td class="num">938 ms</td></tr>
+            <tr><td>Parser / verify / export success</td><td class="num ok">100%</td></tr>
+        </tbody></table></div>
+    </div>
+    <div class="explorer-panel" data-panel="purchases">
+        <div class="card overflow-hidden"><table class="results-table"><tbody>
+            <tr><td>Contracts in category</td><td class="num">1,007</td></tr>
+            <tr><td>Rules executed per contract</td><td class="num">189</td></tr>
+            <tr><td>Mean redline coverage</td><td class="num">6.77%</td></tr>
+            <tr><td>Median analysis latency</td><td class="num">3,247 ms</td></tr>
+            <tr><td>Parser / verify / export success</td><td class="num ok">100%</td></tr>
+        </tbody></table></div>
+    </div>
+    <div class="explorer-panel" data-panel="services">
+        <div class="card overflow-hidden"><table class="results-table"><tbody>
+            <tr><td>Contracts in category</td><td class="num">664</td></tr>
+            <tr><td>Rules executed per contract</td><td class="num">189</td></tr>
+            <tr><td>Mean redline coverage</td><td class="num">7.65%</td></tr>
+            <tr><td>Median analysis latency</td><td class="num">812 ms</td></tr>
+            <tr><td>Parser / verify / export success</td><td class="num ok">100%</td></tr>
+        </tbody></table></div>
+    </div>
+    <div class="explorer-panel" data-panel="lease">
+        <div class="card overflow-hidden"><table class="results-table"><tbody>
+            <tr><td>Contracts in category</td><td class="num">64</td></tr>
+            <tr><td>Rules executed per contract</td><td class="num">189</td></tr>
+            <tr><td>Mean redline coverage</td><td class="num">11.49%</td></tr>
+            <tr><td>Median analysis latency</td><td class="num">2,487 ms</td></tr>
+            <tr><td>Parser / verify / export success</td><td class="num ok">100%</td></tr>
+        </tbody></table></div>
+    </div>
+    <p class="text-xs text-gray-400 mt-4">Latency figures are median wall-clock engine time per contract from the reference run, not a promised SLA.</p>
+</section>
+
+<!-- ============================= VERSION TIMELINE ============================= -->
+<section class="bm-section">
+    <p class="bm-kicker">Timeline</p>
+    <h2 class="bm-h2 mb-10">Ruleset growth, release over release</h2>
+    <div class="version-track" id="versionTrack">
+        <div class="version-col"><div class="version-bar" data-h="46" style="height:0"></div><div class="v-count">91</div><div class="v-label">v5.0</div></div>
+        <div class="version-col"><div class="version-bar" data-h="59" style="height:0"></div><div class="v-count">117</div><div class="v-label">v6.0</div></div>
+        <div class="version-col"><div class="version-bar" data-h="91" style="height:0"></div><div class="v-count">180</div><div class="v-label">v7.0</div></div>
+        <div class="version-col"><div class="version-bar" data-h="93" style="height:0"></div><div class="v-count">185</div><div class="v-label">v7.1</div></div>
+        <div class="version-col"><div class="version-bar current" data-h="100" style="height:0"></div><div class="v-count">189</div><div class="v-label">v7.2 (current)</div></div>
+    </div>
+    <p class="text-xs text-gray-400 mt-6 text-center">Bar height is rule count, scaled to v7.2. Every release is re-benchmarked against the full corpus before shipping.</p>
+</section>
+
+<!-- ============================= DOWNLOADS ============================= -->
+<section class="bm-section" id="downloads">
+    <p class="bm-kicker">Downloads</p>
+    <h2 class="bm-h2 mb-8">Take the evidence with you</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a href="/static/reports/benchmark-executive-report.md" download class="dl-card hover:border-gray-300 transition-colors">
+            <div class="dl-icon"><svg class="w-4 h-4 text-[#0F172A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 014-4h4m-4-5l5 5-5 5M5 3v4M3 5h4"/></svg></div>
+            <h3 class="text-sm font-bold text-[#0F172A] mb-1">Benchmark Executive Report</h3>
+            <p class="text-xs text-gray-500 leading-relaxed flex-grow">The full reference-run report: every metric on this page, in the raw generated document.</p>
+            <span class="text-xs font-semibold text-[#0F172A] mt-3 inline-flex items-center gap-1">Download .md &rarr;</span>
+        </a>
+        <a href="/static/reports/TriageCounsel-Technical-Executive-Brief.pdf" download class="dl-card hover:border-gray-300 transition-colors">
+            <div class="dl-icon"><svg class="w-4 h-4 text-[#0F172A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
+            <h3 class="text-sm font-bold text-[#0F172A] mb-1">Technical Executive Brief</h3>
+            <p class="text-xs text-gray-500 leading-relaxed flex-grow">Architecture, severity model, and full benchmark results in one PDF.</p>
+            <span class="text-xs font-semibold text-[#0F172A] mt-3 inline-flex items-center gap-1">Download PDF &rarr;</span>
+        </a>
+        <a href="/research" class="dl-card hover:border-gray-300 transition-colors">
+            <div class="dl-icon"><svg class="w-4 h-4 text-[#0F172A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s4.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></div>
+            <h3 class="text-sm font-bold text-[#0F172A] mb-1">Research Paper</h3>
+            <p class="text-xs text-gray-500 leading-relaxed flex-grow">The peer-reviewed ICCS 2026 paper behind the architecture, plus published benchmarks.</p>
+            <span class="text-xs font-semibold text-[#0F172A] mt-3 inline-flex items-center gap-1">Read on /research &rarr;</span>
+        </a>
+        <a href="/static/reports/benchmark-methodology.md" download class="dl-card hover:border-gray-300 transition-colors">
+            <div class="dl-icon"><svg class="w-4 h-4 text-[#0F172A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div>
+            <h3 class="text-sm font-bold text-[#0F172A] mb-1">Methodology</h3>
+            <p class="text-xs text-gray-500 leading-relaxed flex-grow">The exact ten-stage pipeline, corpus, and scoring definitions used to produce this page.</p>
+            <span class="text-xs font-semibold text-[#0F172A] mt-3 inline-flex items-center gap-1">Download .md &rarr;</span>
+        </a>
+    </div>
+</section>
+
+<!-- ============================= FINAL CTA ============================= -->
+<section class="bm-section text-center">
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0F172A] mb-4">Trust should be measurable.</h2>
+    <p class="text-lg text-gray-500 max-w-xl mx-auto mb-10 leading-relaxed">
+        Don't take our word for it. Inspect the benchmark. Read the methodology. Run your own contract.
+    </p>
+    {% if user %}
+    <a href="/dashboard" class="btn-primary py-3.5 px-8 rounded-lg text-sm inline-flex items-center justify-center">Go to Dashboard</a>
+    {% else %}
+    <a href="/register" class="btn-primary py-3.5 px-8 rounded-lg text-sm inline-flex items-center justify-center">Start Free Review</a>
+    {% endif %}
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+    // Fade/count-in KPI cards + method-steps on scroll.
+    // Safety net: content must never stay invisible waiting on the observer
+    // (slow devices, thrown-off timing, or a browser without IO support) —
+    // every card is force-revealed shortly after load regardless of scroll.
+    var revealTargets = document.querySelectorAll('.kpi-card, .method-step');
+    var reveal = function (el) { el.classList.add('in-view'); };
+
+    if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                    reveal(e.target);
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px 150px 0px' });
+        revealTargets.forEach(function (el) { io.observe(el); });
+    } else {
+        revealTargets.forEach(reveal);
+    }
+
+    window.setTimeout(function () {
+        revealTargets.forEach(reveal);
+    }, 1200);
+
+    // Pipeline stage tap-to-pin on touch devices
+    document.querySelectorAll('.pipeline-stage').forEach(function (el) {
+        el.addEventListener('click', function () { el.classList.toggle('pinned'); });
+    });
+
+    // Explorer tabs
+    document.querySelectorAll('.explorer-tab').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+            document.querySelectorAll('.explorer-tab').forEach(function (t) { t.classList.remove('active'); });
+            document.querySelectorAll('.explorer-panel').forEach(function (p) { p.classList.remove('active'); });
+            tab.classList.add('active');
+            document.querySelector('.explorer-panel[data-panel="' + tab.dataset.tab + '"]').classList.add('active');
+        });
+    });
+
+    // Version bars animate to height once in view
+    var track = document.getElementById('versionTrack');
+    if (track) {
+        var growBars = function () {
+            track.querySelectorAll('.version-bar').forEach(function (bar) {
+                var h = bar.getAttribute('data-h');
+                bar.style.height = (h * 1.4) + 'px';
+            });
+        };
+        if ('IntersectionObserver' in window) {
+            var barIo = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) {
+                        growBars();
+                        barIo.unobserve(track);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px 150px 0px' });
+            barIo.observe(track);
+        } else {
+            growBars();
+        }
+        window.setTimeout(growBars, 1200);
+    }
+})();
+</script>
+{% endblock %}
