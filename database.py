@@ -151,6 +151,12 @@ def _run_migrations():
             if "metadata_json" not in contract_cols:
                 conn.execute(text(f"ALTER TABLE contracts ADD COLUMN metadata_json {json_col_type}"))
                 logger.info("Migration applied: contracts.metadata_json column")
+            if "review_decisions_json" not in contract_cols:
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN review_decisions_json {json_col_type}"))
+                logger.info("Migration applied: contracts.review_decisions_json column")
+            if "review_finalized_at" not in contract_cols:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN review_finalized_at TIMESTAMP"))
+                logger.info("Migration applied: contracts.review_finalized_at column")
 
 
 def init_db():

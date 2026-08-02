@@ -49,6 +49,15 @@ from sqlalchemy.orm import Session as DBSession
 from rules_engine import RuleEngine, FINDING_TYPE_LABELS
 from confidence_index import build_confidence_breakdown
 from redline_templates import render_redline
+from review_workflow import (
+    DecisionValidationError,
+    build_audit_trail_text,
+    build_cover_memo_text,
+    compute_progress,
+    finding_key,
+    validate_decision,
+)
+from docx_export import build_redlined_docx
 from evaluator import LLMEvaluator
 from database import get_db, check_db_health, check_redis_health
 from auth import (
@@ -1206,6 +1215,13 @@ async def download_batch_pdfs(request: Request, batch_id: str):
             pdf_bytes = _build_pdf_bytes(
                 contract.filename, contract.overall_risk, rule_counts,
                 contract.rule_engine_version, llm_result.get("summary_bullets", []), all_issues,
+                metadata=contract.metadata_json,
+                legal_risk_score=contract.legal_risk_score,
+                business_risk_score=contract.business_risk_score,
+                negotiation_difficulty_score=contract.negotiation_difficulty_score,
+                risk_balance=contract.risk_balance_json,
+                structure_report=contract.structure_report_json,
+                clause_quality=contract.clause_quality_json,
             )
             safe_name = sanitize_filename(contract.filename)
             zf.writestr(f"TriageAI_{safe_name}_{contract.id}.pdf", pdf_bytes)
@@ -1347,6 +1363,7 @@ async def view_contract(request: Request, contract_id: int):
         "clause_quality": contract.clause_quality_json,
         "metadata": contract.metadata_json,
         "risk_balance": contract.risk_balance_json,
+        "progress": compute_progress(contract.findings_json or [], contract.review_decisions_json or {}).as_dict(),
     })
 
 
@@ -1397,8 +1414,31 @@ def _pdf_safe(text: str) -> str:
     return translated.encode("latin-1", "replace").decode("latin-1")
 
 
+_CLAUSE_QUALITY_MODULE_LABELS = {
+    "arbitration": "Arbitration Clause Inspector",
+    "liability": "Liability Clause Inspector",
+    "confidentiality": "Confidentiality Clause Inspector",
+    "indemnification": "Indemnification Clause Inspector",
+    "termination": "Termination Clause Inspector",
+    "ip": "Intellectual Property Clause Inspector",
+}
+
+
+def _pdf_section_heading(pdf: "FPDF", text: str) -> None:
+    pdf.set_font("Helvetica", "B", 12)
+    pdf.cell(0, 8, text, new_x="LMARGIN", new_y="NEXT")
+    pdf.set_font("Helvetica", "", 10)
+
+
 def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_engine_version: str,
-                      summary_bullets: list, all_issues: list) -> bytes:
+                      summary_bullets: list, all_issues: list, *,
+                      metadata: Optional[dict] = None,
+                      legal_risk_score: Optional[int] = None,
+                      business_risk_score: Optional[int] = None,
+                      negotiation_difficulty_score: Optional[int] = None,
+                      risk_balance: Optional[dict] = None,
+                      structure_report: Optional[dict] = None,
+                      clause_quality: Optional[dict] = None) -> bytes:
     pdf = FPDF()
     pdf.set_auto_page_break(auto=True, margin=20)
     pdf.add_page()
@@ -1409,6 +1449,17 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
     pdf.cell(0, 6, f"File: {_pdf_safe(filename)}", new_x="LMARGIN", new_y="NEXT")
     pdf.cell(0, 6, f"Date: {datetime.utcnow().strftime('%B %d, %Y')}", new_x="LMARGIN", new_y="NEXT")
     pdf.cell(0, 6, f"Rule Engine: v{rule_engine_version or '2.0.0'}", new_x="LMARGIN", new_y="NEXT")
+
+    if metadata:
+        if metadata.get("contract_type"):
+            pdf.cell(0, 6, f"Contract Type: {_pdf_safe(metadata['contract_type'])}", new_x="LMARGIN", new_y="NEXT")
+        if metadata.get("effective_date"):
+            pdf.cell(0, 6, f"Effective Date: {_pdf_safe(metadata['effective_date'])}", new_x="LMARGIN", new_y="NEXT")
+        parties = metadata.get("parties") or []
+        if parties:
+            names = ", ".join(_pdf_safe(p.get("full_name") or p.get("short_name") or "") for p in parties if p.get("full_name") or p.get("short_name"))
+            if names:
+                pdf.cell(0, 6, f"Parties: {names}", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(6)
 
     risk_label = (overall_risk or "low").upper()
@@ -1418,10 +1469,50 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
     pdf.cell(0, 6, f"High: {rule_counts.get('high', 0)}  |  Medium: {rule_counts.get('medium', 0)}  |  Low: {rule_counts.get('low', 0)}", new_x="LMARGIN", new_y="NEXT")
     pdf.ln(4)
 
+    if legal_risk_score is not None and business_risk_score is not None and negotiation_difficulty_score is not None:
+        _pdf_section_heading(pdf, "Risk Dashboard (three independent readings, not a blended score)")
+        pdf.cell(0, 6, f"Legal Risk: {legal_risk_score}/100  |  Business Risk: {business_risk_score}/100  |  Negotiation Difficulty: {negotiation_difficulty_score}/100", new_x="LMARGIN", new_y="NEXT")
+        pdf.ln(4)
+
+    if risk_balance and risk_balance.get("applicable"):
+        _pdf_section_heading(pdf, "Risk Allocation Balance")
+        pdf.multi_cell(
+            0, 5,
+            f"{risk_balance.get('balance_score', 0)}/100 - of the one-sided clauses this engine could classify, "
+            f"{risk_balance.get('balance_score', 0)}% favor the counterparty rather than the reviewing party "
+            f"({risk_balance.get('unfavorable_count', 0)} unfavorable vs. {risk_balance.get('favorable_count', 0)} favorable).",
+            new_x="LMARGIN", new_y="NEXT",
+        )
+        pdf.ln(4)
+
+    if structure_report and structure_report.get("total_issue_count"):
+        _pdf_section_heading(pdf, f"Document Structure Check ({structure_report['total_issue_count']} issue(s))")
+        for i in structure_report.get("used_but_undefined", []):
+            pdf.multi_cell(0, 5, f"  - Used but undefined: {_pdf_safe(i.get('term', ''))} - {_pdf_safe(i.get('detail', ''))}", new_x="LMARGIN", new_y="NEXT")
+        for i in structure_report.get("duplicate_definitions", []):
+            pdf.multi_cell(0, 5, f"  - Duplicate definition: {_pdf_safe(i.get('term', ''))} - {_pdf_safe(i.get('detail', ''))}", new_x="LMARGIN", new_y="NEXT")
+        for r in structure_report.get("broken_cross_references", []):
+            pdf.multi_cell(0, 5, f"  - Broken cross-reference: {_pdf_safe(r.get('reference_text', ''))}", new_x="LMARGIN", new_y="NEXT")
+        pdf.ln(4)
+
+    if clause_quality:
+        for key, label in _CLAUSE_QUALITY_MODULE_LABELS.items():
+            module = clause_quality.get(key)
+            if not module or not module.get("applicable"):
+                continue
+            _pdf_section_heading(pdf, f"{label} ({module.get('score', 0)}/100)")
+            for el in module.get("elements", []):
+                mark = "[x]" if el.get("present") else "[ ]"
+                pdf.set_font("Helvetica", "B" if not el.get("present") else "", 9)
+                pdf.multi_cell(0, 5, f"  {mark} {_pdf_safe(el.get('label', ''))}", new_x="LMARGIN", new_y="NEXT")
+                if el.get("detail"):
+                    pdf.set_font("Helvetica", "", 8)
+                    pdf.multi_cell(0, 4, f"      {_pdf_safe(el['detail'])}", new_x="LMARGIN", new_y="NEXT")
+            pdf.set_font("Helvetica", "", 10)
+            pdf.ln(3)
+
     if summary_bullets:
-        pdf.set_font("Helvetica", "B", 12)
-        pdf.cell(0, 8, "Executive Summary", new_x="LMARGIN", new_y="NEXT")
-        pdf.set_font("Helvetica", "", 10)
+        _pdf_section_heading(pdf, "Executive Summary")
         for bullet in summary_bullets:
             pdf.multi_cell(0, 5, f"  - {_pdf_safe(bullet)}", new_x="LMARGIN", new_y="NEXT")
         pdf.ln(4)
@@ -1444,6 +1535,49 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
                 displayed_excerpt = _truncate_excerpt_for_display(excerpt)
                 clean_excerpt = _pdf_safe(displayed_excerpt)
                 pdf.multi_cell(0, 4, f'   "{clean_excerpt}"', new_x="LMARGIN", new_y="NEXT")
+
+            confidence_breakdown = issue.get("confidence_breakdown")
+            if confidence_breakdown:
+                pdf.set_font("Helvetica", "B", 8)
+                pdf.cell(0, 5, f"   Confidence: {str(confidence_breakdown.get('confidence', '')).upper()}", new_x="LMARGIN", new_y="NEXT")
+                if confidence_breakdown.get("reason"):
+                    pdf.set_font("Helvetica", "", 8)
+                    pdf.multi_cell(0, 4, f"   {_pdf_safe(confidence_breakdown['reason'])}", new_x="LMARGIN", new_y="NEXT")
+
+            redline = issue.get("redline")
+            if redline:
+                pdf.ln(1)
+                pdf.set_font("Helvetica", "B", 9)
+                pdf.multi_cell(
+                    0, 5,
+                    f"   DETERMINISTIC REDLINE - {_pdf_safe(redline.get('issue', ''))} "
+                    f"({redline.get('negotiation_difficulty', '')} friction, {redline.get('confidence', '')} confidence)",
+                    new_x="LMARGIN", new_y="NEXT",
+                )
+                redline_fields = [
+                    ("Problem", "problem"),
+                    ("Legal Rationale", "legal_rationale"),
+                    ("Business Impact", "business_impact"),
+                    ("Recommended Change", "recommended_change"),
+                    ("Suggested Redline", "suggested_redline"),
+                    ("Why This Wording", "why_this_wording"),
+                    ("Expected Counterparty Position", "expected_counterparty_position"),
+                    ("Fallback Position", "fallback_position"),
+                ]
+                for field_label, field_key in redline_fields:
+                    value = redline.get(field_key)
+                    if not value:
+                        continue
+                    pdf.set_font("Helvetica", "B", 8)
+                    pdf.multi_cell(0, 4, f"   {field_label}:", new_x="LMARGIN", new_y="NEXT")
+                    pdf.set_font("Helvetica", "", 8)
+                    pdf.multi_cell(0, 4, f"   {_pdf_safe(value)}", new_x="LMARGIN", new_y="NEXT")
+                rules = redline.get("supporting_deterministic_rules") or []
+                if rules:
+                    pdf.set_font("Helvetica", "I", 8)
+                    pdf.multi_cell(0, 4, f"   Supporting Deterministic Rule(s): {', '.join(rules)}", new_x="LMARGIN", new_y="NEXT")
+
+            pdf.set_font("Helvetica", "", 10)
             pdf.ln(2)
 
     pdf.ln(6)
@@ -1469,6 +1603,13 @@ async def download_contract_pdf(request: Request, contract_id: int):
     pdf_bytes = _build_pdf_bytes(
         contract.filename, contract.overall_risk, rule_counts,
         contract.rule_engine_version, llm_result.get("summary_bullets", []), all_issues,
+        metadata=contract.metadata_json,
+        legal_risk_score=contract.legal_risk_score,
+        business_risk_score=contract.business_risk_score,
+        negotiation_difficulty_score=contract.negotiation_difficulty_score,
+        risk_balance=contract.risk_balance_json,
+        structure_report=contract.structure_report_json,
+        clause_quality=contract.clause_quality_json,
     )
 
     safe_name = sanitize_filename(contract.filename)
@@ -1506,9 +1647,17 @@ async def download_pdf_token(request: Request, token: str):
     analysis = run_analysis(entry.get("text", ""))
     all_issues = build_enhanced_issues(analysis["findings_dict"], analysis["llm_result"])
 
+    risk_dashboard = analysis.get("risk_dashboard") or {}
     pdf_bytes = _build_pdf_bytes(
         filename, analysis["overall_risk"], analysis["rule_counts"],
         analysis["version"], analysis["llm_result"].get("summary_bullets", []), all_issues,
+        metadata=analysis.get("metadata"),
+        legal_risk_score=risk_dashboard.get("legal_risk_score"),
+        business_risk_score=risk_dashboard.get("business_risk_score"),
+        negotiation_difficulty_score=risk_dashboard.get("negotiation_difficulty_score"),
+        risk_balance=analysis.get("risk_balance"),
+        structure_report=analysis.get("structure_report"),
+        clause_quality=analysis.get("clause_quality"),
     )
 
     safe_name = sanitize_filename(filename)
@@ -1542,6 +1691,200 @@ async def create_share_link(request: Request, contract_id: int, password: str = 
 
     share_url = f"{get_base_url(request)}/shared/{contract.share_token}"
     return {"share_url": share_url, "token": contract.share_token}
+
+
+# ============================================================
+# REVIEW WORKFLOW — the merged findings+redlines review pass.
+# See review_workflow.py (decision logic) and docx_export.py (the
+# Negotiation Package's redlined .docx). One decision per finding, in-
+# document, with a real re-run of the deterministic engine backing the
+# "Verify" action — not a canned animation.
+# ============================================================
+
+def _get_owned_contract(db: DBSession, user, contract_id: int) -> Contract:
+    contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
+    if not contract:
+        raise HTTPException(status_code=404, detail="Contract not found")
+    return contract
+
+
+@app.get("/contract/{contract_id}/review", response_class=HTMLResponse)
+async def review_contract(request: Request, contract_id: int):
+    db = next(get_db())
+    user = require_user(request, db)
+    contract = _get_owned_contract(db, user, contract_id)
+
+    findings = contract.findings_json or []
+    decisions = contract.review_decisions_json or {}
+    progress = compute_progress(findings, decisions)
+
+    return templates.TemplateResponse("review.html", {
+        "request": request, "user": user, "contract_id": contract.id,
+        "filename": contract.filename, "overall_risk": contract.overall_risk,
+        "rule_engine_version": contract.rule_engine_version or "2.0.0",
+        "contract_text": contract.contract_text,
+        "findings": findings, "decisions": decisions, "progress": progress.as_dict(),
+        "clause_quality": contract.clause_quality_json,
+        "legal_risk_score": contract.legal_risk_score,
+        "business_risk_score": contract.business_risk_score,
+        "negotiation_difficulty_score": contract.negotiation_difficulty_score,
+        "metadata": contract.metadata_json,
+        "is_finalized": contract.review_finalized_at is not None,
+        "current_year": datetime.now().year,
+    })
+
+
+def _get_finding_by_index(contract: Contract, finding_index: int) -> Dict:
+    findings = contract.findings_json or []
+    if finding_index < 0 or finding_index >= len(findings):
+        raise HTTPException(status_code=404, detail="Finding not found on this contract")
+    return findings[finding_index]
+
+
+@app.post("/contract/{contract_id}/review/decision")
+async def submit_review_decision(
+    request: Request, contract_id: int,
+    finding_index: int = Form(...), action: str = Form(...),
+    reason: str = Form(""), edited_text: str = Form(""),
+):
+    db = next(get_db())
+    user = require_user(request, db)
+    contract = _get_owned_contract(db, user, contract_id)
+
+    findings = contract.findings_json or []
+    finding = _get_finding_by_index(contract, finding_index)
+    key = finding_key(finding_index, finding["rule_id"])
+
+    try:
+        validate_decision(key, action, bool(finding.get("redline")), reason, edited_text)
+    except DecisionValidationError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    decisions = dict(contract.review_decisions_json or {})
+    entry = {"action": action, "rule_id": finding["rule_id"], "decided_at": datetime.utcnow().isoformat()}
+    if reason.strip():
+        entry["reason"] = reason.strip()
+    if action == "edited":
+        entry["edited_text"] = edited_text.strip()
+    # a decision replaces any prior decision on this finding, but a comment
+    # left before the decision was made should survive the overwrite
+    prior_comment = (contract.review_decisions_json or {}).get(key, {}).get("comment")
+    if prior_comment:
+        entry["comment"] = prior_comment
+    decisions[key] = entry
+    contract.review_decisions_json = decisions
+    db.commit()
+
+    progress = compute_progress(findings, decisions)
+    analytics.record_event(request, "review_decision", user=user, metadata={"contract_id": contract.id, "rule_id": finding["rule_id"], "finding_index": finding_index, "action": action})
+    return {"progress": progress.as_dict()}
+
+
+@app.post("/contract/{contract_id}/review/comment")
+async def submit_review_comment(request: Request, contract_id: int, finding_index: int = Form(...), comment: str = Form(...)):
+    db = next(get_db())
+    user = require_user(request, db)
+    contract = _get_owned_contract(db, user, contract_id)
+
+    finding = _get_finding_by_index(contract, finding_index)
+    key = finding_key(finding_index, finding["rule_id"])
+    if not comment.strip():
+        raise HTTPException(status_code=400, detail="comment cannot be empty")
+
+    decisions = dict(contract.review_decisions_json or {})
+    entry = dict(decisions.get(key, {}))
+    entry["comment"] = comment.strip()
+    decisions[key] = entry
+    contract.review_decisions_json = decisions
+    db.commit()
+
+    return {"ok": True}
+
+
+@app.post("/contract/{contract_id}/review/verify")
+async def verify_review_finding(request: Request, contract_id: int, finding_index: int = Form(...)):
+    """The Deterministic Replay 'aha' moment, done for real: re-runs the full
+    rule engine against the stored contract text and confirms the same rule
+    still fires against the same exact text — not a canned animation. Matches
+    the replayed finding by rule_id AND exact position, not rule_id alone —
+    the same rule can fire more than once in one document, and verifying
+    finding #2 must not silently compare against finding #1's match."""
+    db = next(get_db())
+    user = require_user(request, db)
+    contract = _get_owned_contract(db, user, contract_id)
+
+    original = _get_finding_by_index(contract, finding_index)
+
+    replay = rule_engine.analyze(contract.contract_text)
+    match = next(
+        (
+            f for f in replay["findings"]
+            if f.rule_id == original["rule_id"] and f.start_index == original.get("start_index")
+        ),
+        None,
+    )
+    verified = bool(match) and match.exact_snippet == original.get("exact_snippet")
+
+    return {
+        "verified": verified,
+        "rule_id": original["rule_id"],
+        "exact_snippet": match.exact_snippet if match else None,
+    }
+
+
+@app.post("/contract/{contract_id}/review/finalize")
+async def finalize_review(request: Request, contract_id: int):
+    db = next(get_db())
+    user = require_user(request, db)
+    contract = _get_owned_contract(db, user, contract_id)
+
+    findings = contract.findings_json or []
+    decisions = contract.review_decisions_json or {}
+    progress = compute_progress(findings, decisions)
+    if not progress.is_complete:
+        raise HTTPException(status_code=400, detail=f"{progress.total - progress.resolved} finding(s) still need a decision")
+
+    contract.review_finalized_at = datetime.utcnow()
+    db.commit()
+    analytics.record_event(request, "review_finalized", user=user, metadata={"contract_id": contract.id})
+    return {"progress": progress.as_dict(), "finalized_at": contract.review_finalized_at.isoformat()}
+
+
+@app.get("/contract/{contract_id}/review/package")
+async def download_negotiation_package(request: Request, contract_id: int):
+    db = next(get_db())
+    user = require_user(request, db)
+    contract = _get_owned_contract(db, user, contract_id)
+
+    findings = contract.findings_json or []
+    decisions = contract.review_decisions_json or {}
+    progress = compute_progress(findings, decisions)
+    if not progress.is_complete:
+        raise HTTPException(status_code=400, detail="Finish reviewing every finding before generating the package")
+
+    docx_bytes, skipped = build_redlined_docx(
+        contract.filename, contract.contract_text, findings, decisions,
+        author=user.name or user.email,
+    )
+    memo_text = build_cover_memo_text(contract.filename, findings, decisions)
+    audit_text = build_audit_trail_text(contract.filename, contract.rule_engine_version or "2.0.0", findings, decisions)
+
+    safe_name = sanitize_filename(contract.filename)
+    zip_buffer = io.BytesIO()
+    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr(f"Redlined_{safe_name}.docx", docx_bytes)
+        zf.writestr("Cover_Memo.txt", memo_text)
+        zf.writestr("Audit_Trail.txt", audit_text)
+
+    analytics.record_event(
+        request, "negotiation_package_generated", user=user,
+        metadata={"contract_id": contract.id, "skipped_redlines": skipped},
+    )
+
+    return Response(
+        content=zip_buffer.getvalue(), media_type="application/zip",
+        headers={"Content-Disposition": f'attachment; filename="NegotiationPackage_{safe_name}.zip"'},
+    )
 
 
 @app.get("/shared/{share_token}", response_class=HTMLResponse)

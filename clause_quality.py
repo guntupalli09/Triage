@@ -229,7 +229,11 @@ def analyze_arbitration_clause(text: str) -> ArbitrationQualityReport:
 # same detection concept as rules_engine.py's H_LOL_01 anchors.
 _LIABILITY_TOPIC_RE = re.compile(
     r'\blimitation\s+of\s+liability\b|\bliability\s+cap\b|\baggregate\s+liability\b|'
-    r'\bmaximum\s+liability\b', re.IGNORECASE,
+    r'\bmaximum\s+liability\b|'
+    r'\blimit(?:ation)?\s+(?:on|of)\s+(?:each\s+party\'?s?\s+|the\s+parties\'?\s+)?liabilit(?:y|ies)\b|'
+    r'\bliabilit(?:y|ies)\b.{0,30}?\b(?:shall|will|is|are|may)?\s*(?:not\s+)?be\s+(?:limited|capped)\b|'
+    r'\bliabilit(?:y|ies)\b.{0,40}?\bshall\s+not\s+exceed\b',
+    re.IGNORECASE | re.DOTALL,
 )
 
 _CAP_PRESENT_RE = re.compile(

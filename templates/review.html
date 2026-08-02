@@ -1,0 +1,555 @@
+{% extends "base_app.html" %}
+
+{% block title %}Review — {{ filename }}{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1">/</span>
+<a href="/contract/{{ contract_id }}" class="hover:text-gray-900 transition-colors">Contract</a>
+<span class="mx-1">/</span>
+<span class="text-gray-600">Review</span>
+{% endblock %}
+
+{% block extra_head %}
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace; }
+
+    /* status bar */
+    .review-topbar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 12px 0; }
+    .status-chip { font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 5px 12px; border-radius: 999px; background: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE; }
+    .status-chip.complete { background: #D1FAE5; color: #065F46; border-color: #A7F3D0; }
+    .finalize-reason { font-size: 11.5px; color: #64748B; }
+    .finalize-reason a { color: #4F46E5; cursor: pointer; text-decoration: underline; }
+
+    /* document + margin map */
+    .review-body { display: grid; grid-template-columns: minmax(0,1fr) 20px; gap: 0; max-width: 800px; margin: 0 auto; position: relative; }
+    .doc-heading-line { font-weight: 700; color: #0F172A; margin: 24px 0 10px; font-size: 14px; }
+    .doc-text p { margin: 0 0 15px; color: #334155; line-height: 1.75; }
+    .doc-text { font-size: 15px; }
+
+    .mark { border-bottom: 2px solid; cursor: pointer; border-radius: 2px; padding-bottom: 1px; }
+    .mark.sev-critical { border-color: #DC2626; background: #FEF2F2; }
+    .mark.sev-high { border-color: #DC2626; background: #FEF2F2; }
+    .mark.sev-medium { border-color: #D97706; background: #FFFBEB; }
+    .mark.sev-low { border-color: #2563EB; background: #EFF6FF; }
+    .mark.resolved { border-bottom-style: dotted; opacity: 0.55; }
+    .mark.open-now { outline: 2px solid #4F46E5; outline-offset: 1px; }
+    .mark-chip { display: inline-flex; align-items: center; justify-content: center; min-width: 15px; height: 15px; padding: 0 3px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 700; color: #fff; vertical-align: super; margin-right: 2px; }
+    .mark-chip.sev-critical, .mark-chip.sev-high { background: #DC2626; }
+    .mark-chip.sev-medium { background: #D97706; }
+    .mark-chip.sev-low { background: #2563EB; }
+    .mark-chip.done { background: #94A3B8; }
+    .strike-text { text-decoration: line-through; color: #991B1B; opacity: 0.75; }
+    .insert-text { color: #065F46; background: #ECFDF5; border-radius: 3px; padding: 0 2px; }
+    .edited-badge { font-size: 10px; font-weight: 700; color: #4338CA; background: #EEF2FF; padding: 1px 6px; border-radius: 5px; margin-left: 4px; }
+
+    .margin-map { position: sticky; top: 74px; align-self: start; height: calc(100vh - 100px); }
+    .mm-track { position: relative; width: 6px; height: 100%; background: #F1F5F9; border-radius: 4px; margin: 0 auto; }
+    .mm-seg { position: absolute; width: 6px; border-radius: 4px; opacity: 0.55; }
+    .mm-seg.good { background: #059669; }
+    .mm-seg.warn { background: #D97706; }
+    .mm-seg.bad { background: #DC2626; }
+    .mm-tick { position: absolute; left: -5px; width: 16px; height: 8px; border-radius: 3px; cursor: pointer; border: 1.5px solid #fff; }
+    .mm-tick.sev-critical, .mm-tick.sev-high { background: #DC2626; }
+    .mm-tick.sev-medium { background: #D97706; }
+    .mm-tick.sev-low { background: #2563EB; }
+    .mm-tick.resolved { background: #94A3B8; opacity: 0.6; }
+
+    /* popover */
+    .popover { border: 1px solid #E2E8F0; background: #fff; border-radius: 12px; box-shadow: 0 8px 28px rgba(15,23,42,0.12); margin: 6px 0 22px; padding: 18px 20px; animation: pop-in 0.15s ease; }
+    @keyframes pop-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    .pop-top { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+    .pop-title { font-weight: 600; font-size: 15px; flex: 1; color: #0F172A; }
+    .verify-btn { background: #F8FAFC; border: 1px solid #E2E8F0; color: #334155; font-size: 11.5px; font-weight: 600; padding: 5px 10px; border-radius: 7px; display: inline-flex; align-items: center; gap: 5px; }
+    .verify-btn:hover { background: #EEF2FF; color: #4338CA; border-color: #C7D2FE; }
+    .verify-btn.loading { opacity: 0.6; pointer-events: none; }
+    .verify-stamp { display: none; font-size: 12px; color: #059669; font-weight: 600; margin-top: 8px; align-items: flex-start; gap: 6px; }
+    .verify-stamp.show { display: flex; }
+    .verify-stamp.fail { color: #DC2626; }
+    .pop-rationale { font-size: 13px; color: #475569; margin-bottom: 12px; line-height: 1.6; }
+    .diff-box { background: #F8FAFC; border-radius: 8px; padding: 12px 14px; margin-bottom: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.75; }
+    .diff-box .del { color: #991B1B; text-decoration: line-through; }
+    .diff-box .ins { color: #065F46; background: #ECFDF5; border-radius: 3px; padding: 0 2px; }
+    .pop-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .pop-btn { border-radius: 7px; padding: 8px 13px; font-size: 12.5px; font-weight: 600; border: 1px solid #E2E8F0; background: #fff; color: #334155; display: inline-flex; align-items: center; gap: 5px; }
+    .pop-btn:hover { background: #F8FAFC; }
+    .pop-btn.primary { background: #059669; border-color: #059669; color: #fff; }
+    .pop-btn.primary:hover { background: #047857; }
+    .pop-btn.danger:hover { background: #FEF2F2; color: #DC2626; border-color: #FEE2E2; }
+    .pop-btn:disabled { opacity: 0.5; pointer-events: none; }
+    .pop-conf { margin-left: auto; font-size: 11px; color: #94A3B8; font-family: 'JetBrains Mono', monospace; }
+    .pop-inline-input { margin-top: 12px; display: none; }
+    .pop-inline-input.show { display: block; }
+    .pop-inline-input textarea { width: 100%; border: 1px solid #E2E8F0; border-radius: 7px; padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: #0F172A; background: #F8FAFC; resize: vertical; min-height: 60px; }
+    .pop-inline-input .save-row { display: flex; gap: 8px; margin-top: 8px; }
+    .reject-reason-note { font-size: 12px; color: #DC2626; margin-top: 8px; font-style: italic; }
+    .comment-flag { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #4F46E5; vertical-align: super; margin-left: 2px; }
+    .pop-error { font-size: 12px; color: #DC2626; margin-top: 8px; }
+
+    /* keyboard sheet */
+    .kbd-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.45); display: none; align-items: center; justify-content: center; z-index: 100; }
+    .kbd-overlay.show { display: flex; }
+    .kbd-sheet { background: #fff; border-radius: 12px; box-shadow: 0 10px 32px rgba(15,23,42,0.18); padding: 26px 30px; width: min(360px, 88vw); }
+    .kbd-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; border-top: 1px solid #F1F5F9; }
+    .kbd-row:first-of-type { border-top: none; }
+    .kbd-row kbd { font-family: 'JetBrains Mono', monospace; background: #F1F5F9; border: 1px solid #E2E8F0; border-radius: 5px; padding: 1px 7px; font-size: 11.5px; }
+
+    /* completion */
+    #completion-screen { display: none; text-align: center; padding: 60px 20px; }
+    #completion-screen.active { display: block; }
+    .done-check { width: 56px; height: 56px; border-radius: 50%; background: #D1FAE5; color: #059669; display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 20px; }
+    .done-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 24px 0 10px; }
+    .replay-result { margin-top: 16px; font-size: 12.5px; color: #059669; font-family: 'JetBrains Mono', monospace; display: none; align-items: center; justify-content: center; gap: 6px; }
+    .replay-result.show { display: flex; }
+    .replay-result.fail { color: #DC2626; }
+
+    @media (max-width: 820px) { .review-body { grid-template-columns: 1fr; } .margin-map { display: none; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="review-screen" class="{% if not is_finalized %}active{% endif %}">
+    <div class="review-topbar">
+        <div class="text-sm font-semibold text-[#0F172A]">{{ filename }}</div>
+        <span class="text-xs font-bold uppercase tracking-wide {% if overall_risk == 'high' %}text-red-600{% elif overall_risk == 'medium' %}text-amber-600{% else %}text-emerald-600{% endif %}">{{ overall_risk|upper }} RISK</span>
+        <div class="status-chip {% if progress.is_complete %}complete{% endif %}" id="status-chip"></div>
+        <div class="ml-auto flex items-center gap-3">
+            <span class="text-xs text-gray-400 mono hidden sm:inline">press <kbd>?</kbd> for shortcuts</span>
+            <span class="finalize-reason" id="finalize-reason"></span>
+            <button class="btn-new-review" id="finalize-btn" disabled>Finalize Review</button>
+        </div>
+    </div>
+
+    <div class="review-body">
+        <div class="min-w-0">
+            <div class="doc-text" id="doc-text"></div>
+        </div>
+        <div class="margin-map"><div class="mm-track" id="mm-track"></div></div>
+    </div>
+</div>
+
+<div class="kbd-overlay" id="kbd-overlay">
+    <div class="kbd-sheet">
+        <h3 class="text-base font-bold text-[#0F172A] mb-4">Keyboard shortcuts</h3>
+        <div class="kbd-row"><span>Next unresolved item</span><kbd>j</kbd></div>
+        <div class="kbd-row"><span>Previous item</span><kbd>k</kbd></div>
+        <div class="kbd-row"><span>Accept redline</span><kbd>a</kbd></div>
+        <div class="kbd-row"><span>Edit redline</span><kbd>e</kbd></div>
+        <div class="kbd-row"><span>Reject</span><kbd>r</kbd></div>
+        <div class="kbd-row"><span>Comment</span><kbd>c</kbd></div>
+        <div class="kbd-row"><span>Verify (deterministic replay)</span><kbd>v</kbd></div>
+        <div class="kbd-row"><span>Finalize review</span><kbd>&#8984; Enter</kbd></div>
+        <div class="kbd-row"><span>Close this sheet</span><kbd>Esc</kbd></div>
+    </div>
+</div>
+
+<div id="completion-screen" class="{% if is_finalized %}active{% endif %}">
+    <div class="done-check">&#10003;</div>
+    <h1 class="text-2xl font-extrabold text-[#0F172A] mb-2">Review complete</h1>
+    <div class="text-sm text-gray-500 mb-1" id="done-stats"></div>
+    <div class="text-xs text-gray-400">Estimated review time saved vs. manual redlining: ~45 min</div>
+    <div class="done-actions">
+        <button class="btn-secondary py-2.5 px-4 rounded-lg text-sm" id="replay-btn">&#8635; Run it again &mdash; verify determinism</button>
+        <a class="btn-new-review" id="package-link" href="/contract/{{ contract_id }}/review/package">Generate Negotiation Package &rarr;</a>
+    </div>
+    <div class="replay-result" id="replay-result"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const CONTRACT_ID = {{ contract_id }};
+const CONTRACT_TEXT = {{ contract_text | tojson }};
+const FINDINGS = {{ findings | tojson }};
+let DECISIONS = {{ decisions | tojson }};
+const CLAUSE_QUALITY = {{ clause_quality | tojson }};
+const CLAUSE_MODULE_HEADING_HINTS = {
+    liability: /liab/i, confidentiality: /confidential/i, indemnification: /indemn/i,
+    ip: /intellectual property/i, arbitration: /arbitrat/i, termination: /terminat/i,
+};
+const SEV_LABEL = { critical: "Critical", high: "High", medium: "Medium", low: "Low" };
+
+function esc(s) { return (s || "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+// The same rule can fire more than once in one document (e.g. the same
+// fee-shifting language showing up in two clauses) — rule_id alone is not
+// a unique identity for a finding. fkey mirrors review_workflow.finding_key
+// exactly: "{rule_id}#{index in FINDINGS}". Every decision is keyed by this,
+// never by bare rule_id.
+function fkey(i) { return FINDINGS[i].rule_id + "#" + i; }
+function csrfSafeBody(obj) {
+    const params = new URLSearchParams();
+    Object.entries(obj).forEach(([k, v]) => params.append(k, v == null ? "" : v));
+    return params;
+}
+async function postForm(url, obj) {
+    const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: csrfSafeBody(obj) });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.detail || "Request failed");
+    return data;
+}
+
+let openIdx = null;
+
+/* ---------- group findings into non-overlapping display spans ---------- */
+function buildMarkGroups() {
+    const docLen = CONTRACT_TEXT.length;
+    const anchored = [];
+    const unanchored = [];
+    FINDINGS.forEach((f, i) => {
+        const ok = f.start_index != null && f.end_index != null && f.end_index > f.start_index && (f.end_index - f.start_index) < docLen * 0.4;
+        (ok ? anchored : unanchored).push(i);
+    });
+    anchored.sort((a, b) => FINDINGS[a].start_index - FINDINGS[b].start_index);
+    const groups = [];
+    for (const i of anchored) {
+        const f = FINDINGS[i];
+        const last = groups[groups.length - 1];
+        if (last && f.start_index < last.end) {
+            last.idxs.push(i);
+            last.end = Math.max(last.end, f.end_index);
+        } else {
+            groups.push({ start: f.start_index, end: f.end_index, idxs: [i] });
+        }
+    }
+    return { groups, unanchored };
+}
+
+function severityRank(sev) { return { critical: 0, high: 1, medium: 2, low: 3 }[sev] ?? 4; }
+
+function renderDocument() {
+    const { groups, unanchored } = buildMarkGroups();
+    let html = "";
+    if (unanchored.length) {
+        html += `<div class="doc-heading-line">General findings (not anchored to a specific passage)</div>`;
+        unanchored.forEach(i => {
+            const f = FINDINGS[i];
+            const resolved = DECISIONS[fkey(i)];
+            html += `<p><span class="mark sev-${f.severity} ${resolved ? 'resolved' : ''}" data-idxs="${i}" id="mark-${i}"><span class="mark-chip sev-${f.severity} ${resolved ? 'done' : ''}">${i+1}</span>${esc(f.title)}</span></p>`;
+        });
+        html += `<div class="doc-heading-line">Document</div>`;
+    }
+
+    let cursor = 0;
+    for (const g of groups) {
+        html += esc(CONTRACT_TEXT.slice(cursor, g.start)).replace(/\n\n+/g, "</p><p>").replace(/^/, cursor === 0 ? "<p>" : "");
+        const primary = g.idxs.slice().sort((a, b) => severityRank(FINDINGS[a].severity) - severityRank(FINDINGS[b].severity))[0];
+        const allResolved = g.idxs.every(i => DECISIONS[fkey(i)]);
+        const chips = g.idxs.map(i => {
+            const f = FINDINGS[i];
+            const resolved = DECISIONS[fkey(i)];
+            return `<span class="mark-chip sev-${f.severity} ${resolved ? 'done' : ''}" data-idxs="${i}">${i+1}</span>`;
+        }).join("");
+        html += `<span class="mark sev-${FINDINGS[primary].severity} ${allResolved ? 'resolved' : ''}" data-idxs="${g.idxs.join(',')}" id="mark-${g.idxs[0]}">${chips}${esc(CONTRACT_TEXT.slice(g.start, g.end))}</span>`;
+        cursor = g.end;
+    }
+    html += esc(CONTRACT_TEXT.slice(cursor)).replace(/\n\n+/g, "</p><p>") + "</p>";
+
+    document.getElementById("doc-text").innerHTML = html;
+    document.querySelectorAll(".mark, .mark-chip").forEach(el => {
+        el.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const idxs = el.dataset.idxs.split(",").map(Number);
+            // if this exact element is a chip, open that finding; otherwise open the first unresolved (or first) in the group
+            const target = el.classList.contains("mark-chip") ? idxs[0] : (idxs.find(i => !DECISIONS[fkey(i)]) ?? idxs[0]);
+            openFinding(target);
+        });
+    });
+    for (const i of unanchored) document.getElementById("mark-" + i)?.setAttribute("data-anchor", "true");
+}
+
+function findMarkIdEl(i) {
+    const direct = document.getElementById("mark-" + i);
+    if (direct) return direct;
+    return Array.from(document.querySelectorAll(".mark")).find(el => el.dataset.idxs.split(",").map(Number).includes(i));
+}
+
+function renderMarginMap() {
+    const track = document.getElementById("mm-track");
+    const docLen = CONTRACT_TEXT.length;
+    const tierOf = s => s >= 70 ? "good" : s >= 35 ? "warn" : "bad";
+    let html = "";
+    if (CLAUSE_QUALITY) {
+        for (const [mod, cq] of Object.entries(CLAUSE_QUALITY)) {
+            if (!cq || !cq.applicable) continue;
+            const hint = CLAUSE_MODULE_HEADING_HINTS[mod];
+            if (!hint) continue;
+            const m = CONTRACT_TEXT.match(hint);
+            if (!m) continue;
+            const start = Math.max(0, m.index - 40) / docLen * 100;
+            html += `<div class="mm-seg ${tierOf(cq.score)}" style="top:${start}%;height:6%" title="${mod}: ${cq.score}/100"></div>`;
+        }
+    }
+    FINDINGS.forEach((f, i) => {
+        if (f.start_index == null) return;
+        const top = f.start_index / docLen * 100;
+        const resolved = DECISIONS[fkey(i)];
+        html += `<div class="mm-tick sev-${f.severity} ${resolved ? 'resolved' : ''}" style="top:${top}%" data-idx="${i}" title="${esc(f.title)}"></div>`;
+    });
+    track.innerHTML = html;
+    track.querySelectorAll(".mm-tick").forEach(el => el.addEventListener("click", () => openFinding(+el.dataset.idx)));
+}
+
+/* ---------- popover ---------- */
+function closePopover() {
+    document.getElementById("active-popover")?.remove();
+    document.querySelectorAll(".mark.open-now").forEach(el => el.classList.remove("open-now"));
+    openIdx = null;
+}
+
+function popoverHTML(f, i) {
+    const rl = f.redline;
+    const cb = f.confidence_breakdown;
+    const decision = DECISIONS[fkey(i)];
+    const original = f.exact_snippet || f.matched_excerpt || "";
+
+    const diffHTML = rl ? `<div class="diff-box"><span class="del">${esc(original.slice(0, 90))}${original.length > 90 ? "…" : ""}</span> &rarr;<br><span class="ins">${esc(rl.suggested_redline)}</span></div>` : "";
+
+    const actions = rl ? `
+        <button class="pop-btn primary" data-act="accepted">&#10003; Accept<span class="mono text-[10px] opacity-70 ml-1">a</span></button>
+        <button class="pop-btn" data-act="edit">&#9998; Edit<span class="mono text-[10px] opacity-70 ml-1">e</span></button>
+        <button class="pop-btn danger" data-act="rejected">&#10005; Reject<span class="mono text-[10px] opacity-70 ml-1">r</span></button>
+        <button class="pop-btn" data-act="comment">&#128172; Comment<span class="mono text-[10px] opacity-70 ml-1">c</span></button>
+        <span class="pop-conf">${cb ? esc(cb.confidence).toUpperCase() : ''} confidence</span>
+    ` : `
+        <button class="pop-btn primary" data-act="flagged">&#128204; Flag for Manual Drafting</button>
+        <button class="pop-btn" data-act="dismissed">Dismiss</button>
+        <button class="pop-btn" data-act="comment">&#128172; Comment<span class="mono text-[10px] opacity-70 ml-1">c</span></button>
+    `;
+
+    return `
+        <div class="pop-top">
+            <span class="text-[10.5px] font-bold uppercase tracking-wide px-2 py-0.5 rounded ${f.severity === 'high' || f.severity === 'critical' ? 'bg-red-50 text-red-700' : f.severity === 'medium' ? 'bg-amber-50 text-amber-700' : 'bg-blue-50 text-blue-700'}">${SEV_LABEL[f.severity] || f.severity}</span>
+            <span class="pop-title">${esc(f.title)} <span class="mono text-[10.5px] text-gray-400 font-normal">${esc(f.rule_id)}</span></span>
+            <button class="verify-btn" id="verify-btn">&#8635; Verify</button>
+        </div>
+        <div class="pop-rationale">${esc(f.rationale || "")}</div>
+        ${diffHTML}
+        <div class="pop-actions">${actions}</div>
+        <div class="verify-stamp" id="verify-stamp"></div>
+        <div class="pop-error" id="pop-error"></div>
+        <div class="pop-inline-input" id="edit-input">
+            <textarea id="edit-textarea">${rl ? esc(rl.suggested_redline) : ''}</textarea>
+            <div class="save-row"><button class="pop-btn primary" id="edit-save">Save edit</button><button class="pop-btn" id="edit-cancel">Cancel</button></div>
+        </div>
+        <div class="pop-inline-input" id="reject-input">
+            <textarea id="reject-textarea" placeholder="Why are you rejecting this? (required — goes in the review record)"></textarea>
+            <div class="save-row"><button class="pop-btn danger" id="reject-save">Confirm reject</button><button class="pop-btn" id="reject-cancel">Cancel</button></div>
+        </div>
+        <div class="pop-inline-input" id="comment-input">
+            <textarea id="comment-textarea" placeholder="Add a note for yourself or a colleague...">${decision && decision.comment ? esc(decision.comment) : ''}</textarea>
+            <div class="save-row"><button class="pop-btn primary" id="comment-save">Save comment</button><button class="pop-btn" id="comment-cancel">Cancel</button></div>
+        </div>
+        ${decision && decision.reason ? `<div class="reject-reason-note">Rejected: "${esc(decision.reason)}"</div>` : ""}
+    `;
+}
+
+function openFinding(i) {
+    closePopover();
+    openIdx = i;
+    const f = FINDINGS[i];
+    const markEl = findMarkIdEl(i);
+    if (!markEl) return;
+    markEl.classList.add("open-now");
+    const pop = document.createElement("div");
+    pop.className = "popover";
+    pop.id = "active-popover";
+    pop.innerHTML = popoverHTML(f, i);
+    const hostP = markEl.closest("p") || markEl;
+    hostP.parentNode.insertBefore(pop, hostP.nextSibling);
+    markEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    wirePopover(f, i, pop);
+}
+
+function wirePopover(f, i, pop) {
+    pop.querySelector("#verify-btn").addEventListener("click", async (e) => {
+        const btn = e.currentTarget;
+        btn.classList.add("loading");
+        const stamp = pop.querySelector("#verify-stamp");
+        try {
+            const data = await postForm(`/contract/${CONTRACT_ID}/review/verify`, { finding_index: i });
+            stamp.classList.remove("fail");
+            stamp.innerHTML = data.verified
+                ? `&#10003; Re-ran all 189 rules against this contract. Rule <span class="mono">${esc(f.rule_id)}</span> matched this exact language again. Same result, every time.`
+                : `Re-analysis no longer matches this exact text — the stored finding may be stale.`;
+            if (!data.verified) stamp.classList.add("fail");
+            stamp.classList.add("show");
+        } catch (err) {
+            stamp.classList.add("show", "fail");
+            stamp.textContent = "Verify failed: " + err.message;
+        } finally {
+            btn.classList.remove("loading");
+        }
+    });
+
+    pop.querySelectorAll("[data-act]").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const act = btn.dataset.act;
+            if (act === "edit") return toggle(pop, "edit-input");
+            if (act === "rejected") return toggle(pop, "reject-input");
+            if (act === "comment") return toggle(pop, "comment-input");
+            submitDecision(f, i, act, {});
+        });
+    });
+
+    pop.querySelector("#edit-save")?.addEventListener("click", () => {
+        const text = pop.querySelector("#edit-textarea").value.trim();
+        submitDecision(f, i, "edited", { edited_text: text });
+    });
+    pop.querySelector("#edit-cancel")?.addEventListener("click", () => toggle(pop, "edit-input", true));
+
+    pop.querySelector("#reject-save")?.addEventListener("click", () => {
+        const reason = pop.querySelector("#reject-textarea").value.trim();
+        submitDecision(f, i, "rejected", { reason });
+    });
+    pop.querySelector("#reject-cancel")?.addEventListener("click", () => toggle(pop, "reject-input", true));
+
+    pop.querySelector("#comment-save")?.addEventListener("click", async () => {
+        const comment = pop.querySelector("#comment-textarea").value.trim();
+        if (!comment) return toggle(pop, "comment-input", true);
+        try {
+            await postForm(`/contract/${CONTRACT_ID}/review/comment`, { finding_index: i, comment });
+            DECISIONS[fkey(i)] = { ...(DECISIONS[fkey(i)] || {}), comment };
+            const markEl = findMarkIdEl(i);
+            if (markEl && !markEl.querySelector(".comment-flag")) markEl.insertAdjacentHTML("beforeend", '<span class="comment-flag" title="has a comment"></span>');
+        } catch (err) {
+            pop.querySelector("#pop-error").textContent = err.message;
+        }
+        toggle(pop, "comment-input", true);
+    });
+    pop.querySelector("#comment-cancel")?.addEventListener("click", () => toggle(pop, "comment-input", true));
+}
+
+function toggle(pop, id, forceHide) {
+    ["edit-input", "reject-input", "comment-input"].forEach(other => pop.querySelector("#" + other)?.classList.remove("show"));
+    if (!forceHide) pop.querySelector("#" + id).classList.add("show");
+}
+
+async function submitDecision(f, i, action, extra) {
+    const errEl = document.getElementById("active-popover")?.querySelector("#pop-error");
+    try {
+        const data = await postForm(`/contract/${CONTRACT_ID}/review/decision`, { finding_index: i, action, ...extra });
+        DECISIONS[fkey(i)] = { action, rule_id: f.rule_id, ...extra, decided_at: new Date().toISOString() };
+
+        const markEl = findMarkIdEl(i);
+        if (markEl) {
+            markEl.classList.add("resolved");
+            const chip = markEl.classList.contains("mark-chip") ? markEl : markEl.querySelector(`.mark-chip[data-idxs="${i}"]`);
+            if (chip) chip.classList.add("done");
+        }
+        if ((action === "accepted" || action === "edited") && markEl && markEl.classList.contains("mark")) {
+            const finalText = action === "edited" ? extra.edited_text : f.redline.suggested_redline;
+            const original = f.exact_snippet || f.matched_excerpt || "";
+            const textPart = markEl.childNodes[markEl.childNodes.length - 1];
+            markEl.innerHTML = markEl.innerHTML.replace(esc(original), `<span class="strike-text">${esc(original.slice(0,80))}${original.length>80?'…':''}</span> &rarr; <span class="insert-text">${esc(finalText)}</span>${action === "edited" ? '<span class="edited-badge">EDITED</span>' : ''}`);
+        }
+
+        updateStatus(data.progress);
+        renderMarginMap();
+        closePopover();
+
+        if (!data.progress.is_complete) {
+            const nextIdx = FINDINGS.findIndex((ff, idx) => idx > i && !DECISIONS[fkey(idx)]);
+            const fallback = nextIdx === -1 ? FINDINGS.findIndex((ff, idx) => !DECISIONS[fkey(idx)]) : nextIdx;
+            if (fallback !== -1) setTimeout(() => openFinding(fallback), 260);
+        }
+    } catch (err) {
+        if (errEl) errEl.textContent = err.message;
+    }
+}
+
+function updateStatus(progress) {
+    const chip = document.getElementById("status-chip");
+    const btn = document.getElementById("finalize-btn");
+    const reasonEl = document.getElementById("finalize-reason");
+    if (progress.is_complete) {
+        chip.textContent = "Ready to finalize";
+        chip.classList.add("complete");
+        btn.disabled = false;
+        reasonEl.textContent = "";
+    } else {
+        chip.textContent = `In Review · ${progress.resolved} of ${progress.total} resolved`;
+        chip.classList.remove("complete");
+        btn.disabled = true;
+        reasonEl.innerHTML = `<a id="jump-unresolved">${progress.total - progress.resolved} item(s) need a decision</a>`;
+        document.getElementById("jump-unresolved")?.addEventListener("click", () => {
+            const idx = FINDINGS.findIndex((f, i) => fkey(i) === progress.first_unresolved_key);
+            if (idx !== -1) openFinding(idx);
+        });
+    }
+}
+
+document.getElementById("finalize-btn").addEventListener("click", async () => {
+    try {
+        const data = await postForm(`/contract/${CONTRACT_ID}/review/finalize`, {});
+        closePopover();
+        document.getElementById("review-screen").classList.remove("active");
+        document.getElementById("completion-screen").classList.add("active");
+        document.getElementById("done-stats").textContent =
+            `${data.progress.accepted + data.progress.edited} accepted${data.progress.edited ? ` (${data.progress.edited} edited)` : ""} · ${data.progress.rejected} rejected · ${data.progress.flagged + data.progress.dismissed} manual/dismissed`;
+    } catch (err) {
+        alert(err.message);
+    }
+});
+
+document.getElementById("replay-btn").addEventListener("click", async (e) => {
+    const btn = e.currentTarget;
+    btn.disabled = true;
+    const original = btn.textContent;
+    btn.textContent = "Re-running 189 rules…";
+    const r = document.getElementById("replay-result");
+    try {
+        const results = await Promise.all(FINDINGS.map((f, i) => postForm(`/contract/${CONTRACT_ID}/review/verify`, { finding_index: i })));
+        const allVerified = results.every(res => res.verified);
+        r.classList.toggle("fail", !allVerified);
+        r.innerHTML = allVerified
+            ? `&#10003; Same contract, run twice. <b>0 differences.</b> All ${results.length} finding(s) matched again — that's what deterministic means.`
+            : `${results.filter(res => !res.verified).length} of ${results.length} finding(s) didn't reproduce — worth a second look.`;
+        r.classList.add("show");
+    } catch (err) {
+        r.classList.add("show", "fail");
+        r.textContent = "Replay failed: " + err.message;
+    } finally {
+        btn.disabled = false;
+        btn.textContent = original;
+    }
+});
+
+/* ---------- keyboard ---------- */
+document.addEventListener("keydown", (e) => {
+    if (e.target.tagName === "TEXTAREA") { if (e.key === "Escape") e.target.blur(); return; }
+    if (!document.getElementById("review-screen").classList.contains("active")) return;
+    if (e.key === "?") { document.getElementById("kbd-overlay").classList.add("show"); return; }
+    if (e.key === "Escape") { document.getElementById("kbd-overlay").classList.remove("show"); return; }
+
+    if (e.key === "j" || e.key === "n") {
+        const next = openIdx === null ? FINDINGS.findIndex((f, i) => !DECISIONS[fkey(i)]) : (openIdx + 1 < FINDINGS.length ? openIdx + 1 : -1);
+        if (next !== -1) openFinding(next);
+    } else if (e.key === "k" || e.key === "p") {
+        if (openIdx !== null && openIdx > 0) openFinding(openIdx - 1);
+    } else if (openIdx !== null) {
+        const pop = document.getElementById("active-popover");
+        if (!pop) return;
+        const f = FINDINGS[openIdx];
+        if (e.key === "a" && f.redline) pop.querySelector('[data-act="accepted"]')?.click();
+        if (e.key === "e" && f.redline) pop.querySelector('[data-act="edit"]')?.click();
+        if (e.key === "r") pop.querySelector('[data-act="rejected"], [data-act="dismissed"]')?.click();
+        if (e.key === "c") pop.querySelector('[data-act="comment"]')?.click();
+        if (e.key === "v") pop.querySelector("#verify-btn")?.click();
+    }
+    if ((e.metaKey || e.ctrlKey) && e.key === "Enter") document.getElementById("finalize-btn").click();
+});
+document.getElementById("kbd-overlay").addEventListener("click", (e) => { if (e.target.id === "kbd-overlay") e.target.classList.remove("show"); });
+
+/* ---------- init ---------- */
+renderDocument();
+renderMarginMap();
+updateStatus({{ progress | tojson }});
+{% if not is_finalized %}
+(function () {
+    const firstUnresolved = FINDINGS.findIndex((f, i) => !DECISIONS[fkey(i)]);
+    if (firstUnresolved !== -1) openFinding(firstUnresolved);
+})();
+{% endif %}
+</script>
+{% endblock %}
