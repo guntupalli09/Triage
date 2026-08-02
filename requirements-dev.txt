@@ -7,6 +7,7 @@
 # Testing
 pytest>=7.4.0
 pytest-asyncio>=0.21.0
+mammoth>=1.6.0  # independent third-party OOXML parser, used to cross-validate docx_export.py's output
 
 # Experimental analysis (only needed for experiments/ directory)
 scipy>=1.11.0
