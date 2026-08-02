@@ -29,6 +29,7 @@ rejected/flagged/dismissed findings belong in the cover memo
 """
 
 import io
+import re
 import zipfile
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
@@ -42,10 +43,41 @@ COMMENTS_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.wordproce
 COMMENTS_RELATIONSHIP_TYPE = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments"
 ENGINE_AUTHOR = "TriageCounsel Deterministic Engine"
 
+# XML 1.0 Char production (https://www.w3.org/TR/xml/#charsets):
+#   Char ::= #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+# Anything outside that is not legal XML text content — OOXML is XML, so a
+# character outside this set anywhere in a run/comment either raises
+# (python-docx/lxml validate on assignment, which is how this was originally
+# caught) or, worse, gets embedded unchecked into a hand-built XML string
+# (see _inject_comments_part, which builds word/comments.xml by string
+# formatting, not through lxml's element API) and produces a .docx that
+# LOOKS like it saved successfully but contains invalid OOXML a stricter
+# parser than lxml could reject later. This pattern matches every character
+# NOT in the legal set, so sanitizing is `pattern.sub("", text)`.
+_ILLEGAL_XML_CHARS_RE = re.compile(
+    "[^\u0009\u000A\u000D\u0020-\uD7FF\uE000-\uFFFD\U00010000-\U0010FFFF]"
+)
+
+
+def _sanitize_xml_text(text: Optional[str]) -> str:
+    """Strips characters illegal in XML 1.0 text content before they reach
+    python-docx or a hand-built OOXML string. Contract text pulled from
+    PDFs, scanned/OCR'd exhibits, or legacy encodings occasionally carries
+    stray C0 control bytes (NUL is the common case) that are extraction
+    artifacts, not meaningful legal language — removing just those
+    characters preserves the surrounding text's meaning while producing
+    valid XML. This does not touch legitimate whitespace (tab/LF/CR) or any
+    normal Unicode text, including supplementary-plane characters (emoji,
+    rare CJK, etc.) or smart quotes/em dashes, all of which are valid XML
+    Char values and pass through completely unchanged."""
+    if not text:
+        return text or ""
+    return _ILLEGAL_XML_CHARS_RE.sub("", text)
+
 
 def _xml_escape(text: str) -> str:
     return (
-        (text or "")
+        _sanitize_xml_text(text)
         .replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
         .replace('"', "&quot;").replace("'", "&apos;")
     )
@@ -68,7 +100,7 @@ def _text_run(text: str, delete: bool = False):
     r = OxmlElement("w:r")
     t = OxmlElement("w:delText" if delete else "w:t")
     t.set(qn("xml:space"), "preserve")
-    t.text = text
+    t.text = _sanitize_xml_text(text)
     r.append(t)
     return r
 
@@ -120,6 +152,11 @@ def _flush_text(doc: Document, para, text_chunk: str):
     paragraphs on blank lines and line breaks on single newlines."""
     if not text_chunk:
         return para
+    # Sanitized before splitting, not after: \n/\r are themselves legal XML
+    # Char values (see _sanitize_xml_text) and are left untouched, so the
+    # paragraph/line-break splitting below still sees exactly the same
+    # newline structure — only illegal control characters are removed.
+    text_chunk = _sanitize_xml_text(text_chunk)
     for i, block in enumerate(text_chunk.split("\n\n")):
         if i > 0:
             para = doc.add_paragraph()
@@ -288,7 +325,7 @@ def build_redlined_docx(
         cursor_end = a["end"]
 
     doc = Document()
-    doc.add_heading(f"Redlined Draft — {filename}", level=1)
+    doc.add_heading(f"Redlined Draft — {_sanitize_xml_text(filename)}", level=1)
     note = doc.add_paragraph()
     note_run = note.add_run(
         "This redline uses native Word Track Changes. Each suggested edit carries a comment "

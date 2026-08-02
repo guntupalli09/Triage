@@ -18,6 +18,11 @@ from docx import Document
 from docx.oxml.ns import qn
 from lxml import etree
 
+try:
+    import mammoth
+except ImportError:
+    mammoth = None
+
 from docx_export import build_redlined_docx
 from review_workflow import finding_key as fk
 
@@ -457,3 +462,221 @@ class TestAgainstRealEngineOutput:
         decisions = {fk(0, findings[0]["rule_id"]): {"action": "flagged"}}
         docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
         assert docx_bytes
+
+
+@pytest.mark.skipif(mammoth is None, reason="mammoth not installed — pip install -r requirements-dev.txt")
+class TestIllegalXmlCharacterSanitization:
+    """Regression coverage for the full-corpus-benchmark-discovered bug:
+    contract text containing characters illegal in XML 1.0 (NUL bytes, C0
+    control characters — see docx_export._ILLEGAL_XML_CHARS_RE) crashed
+    build_redlined_docx with a raw lxml ValueError instead of producing a
+    valid document. Every case here must, at minimum:
+      1. Export without raising.
+      2. Reopen cleanly in python-docx.
+      3. Parse cleanly with mammoth (an independent, unrelated OOXML parser).
+      4. Have every OOXML part be well-formed XML.
+      5. Preserve Track Changes (w:ins/w:del) and comment anchoring exactly
+         as the equivalent clean-text case would.
+      6. Read back with the illegal character(s) removed and every other
+         character — including legitimate "exotic" ones: smart quotes, em
+         dashes, tabs, CR, supplementary-plane Unicode — unchanged.
+    """
+
+    def _validate_and_open(self, docx_bytes: bytes):
+        """Shared validation every case below runs: well-formed zip, every
+        OOXML part well-formed XML, python-docx reopen, mammoth parse with
+        zero errors. Returns the reopened python-docx Document."""
+        zf = zipfile.ZipFile(io.BytesIO(docx_bytes))
+        assert zf.testzip() is None
+        for name in zf.namelist():
+            if name.endswith(".xml") or name.endswith(".rels"):
+                etree.fromstring(zf.read(name))  # raises on malformed XML
+        doc = _open(docx_bytes)
+        mammoth_result = mammoth.convert_to_html(io.BytesIO(docx_bytes))
+        assert not mammoth_result.messages, f"mammoth reported issues: {mammoth_result.messages}"
+        return doc
+
+    def test_embedded_null_byte_in_untracked_text(self):
+        """The exact shape of the original benchmark failure: a NUL byte in
+        plain (non-redlined) contract text flowing through _flush_text."""
+        text = "Recital clause with a stray byte: \x00 right in the middle. End of recital."
+        docx_bytes, skipped = build_redlined_docx("ex-21.htm", text, [], {})
+        doc = self._validate_and_open(docx_bytes)
+        full_text = "\n".join(p.text for p in doc.paragraphs)
+        assert "\x00" not in full_text
+        assert "Recital clause with a stray byte:" in full_text
+        assert "right in the middle. End of recital." in full_text
+
+    def test_all_illegal_c0_control_characters_stripped(self):
+        """Every C0 control character XML 1.0 actually forbids (tab/LF/CR
+        are legal and deliberately excluded from this set)."""
+        illegal_codepoints = list(range(0x00, 0x09)) + [0x0B, 0x0C] + list(range(0x0E, 0x20))
+        junk = "".join(chr(cp) for cp in illegal_codepoints)
+        text = f"Before{junk}After"
+        docx_bytes, _ = build_redlined_docx("test.docx", text, [], {})
+        doc = self._validate_and_open(docx_bytes)
+        full_text = "".join(p.text for p in doc.paragraphs)
+        for cp in illegal_codepoints:
+            assert chr(cp) not in full_text, f"illegal codepoint {hex(cp)} survived into the document"
+        assert "Before" in full_text and "After" in full_text
+
+    def test_mixed_legal_and_illegal_characters_preserves_legal_ones(self):
+        text = "Party A\x00 shall\x01 pay\x02 Party B\x03 within\x04 30\x05 days\x06."
+        docx_bytes, _ = build_redlined_docx("test.docx", text, [], {})
+        doc = self._validate_and_open(docx_bytes)
+        full_text = "".join(p.text for p in doc.paragraphs)
+        assert "Party A shall pay Party B within 30 days." in full_text
+        for cp in range(0x00, 0x07):
+            assert chr(cp) not in full_text
+
+    def test_unicode_edge_cases_bmp_noncharacters_stripped_supplementary_plane_kept(self):
+        # U+FFFE / U+FFFD-adjacent noncharacters are illegal XML Char values;
+        # a supplementary-plane character (an emoji) is fully legal and must
+        # survive untouched.
+        text = "Fee￾ structure \U0001F4B0 applies to all invoices."
+        docx_bytes, _ = build_redlined_docx("test.docx", text, [], {})
+        doc = self._validate_and_open(docx_bytes)
+        full_text = "".join(p.text for p in doc.paragraphs)
+        assert "￾" not in full_text
+        assert "\U0001F4B0" in full_text
+        assert "Fee" in full_text and "structure" in full_text and "applies to all invoices." in full_text
+
+    def test_smart_quotes_and_em_dash_are_legal_and_preserved(self):
+        text = "The Vendor’s obligations — as defined herein — include “prompt” delivery."
+        docx_bytes, _ = build_redlined_docx("test.docx", text, [], {})
+        doc = self._validate_and_open(docx_bytes)
+        full_text = "".join(p.text for p in doc.paragraphs)
+        assert "’" in full_text  # right single quote
+        assert "—" in full_text  # em dash
+        assert "“" in full_text and "”" in full_text  # curly double quotes
+
+    def test_tabs_preserved(self):
+        text = "Column A\tColumn B\tColumn C values here."
+        docx_bytes, _ = build_redlined_docx("test.docx", text, [], {})
+        doc = self._validate_and_open(docx_bytes)
+        full_text = "".join(p.text for p in doc.paragraphs)
+        assert "\t" in full_text
+
+    def test_carriage_returns_do_not_crash_and_content_survives(self):
+        text = "Line one.\r\nLine two.\r\nLine three with a null\x00 in it."
+        docx_bytes, _ = build_redlined_docx("test.docx", text, [], {})
+        doc = self._validate_and_open(docx_bytes)
+        full_text = "\n".join(p.text for p in doc.paragraphs)
+        assert "\x00" not in full_text
+        assert "Line one." in full_text and "Line two." in full_text and "Line three with a null" in full_text
+
+    def test_multi_line_clause_with_illegal_characters_across_paragraphs(self):
+        text = (
+            "SECTION 1. DEFINITIONS\n\n"
+            "\"Confidential Information\" means any\x00 data disclosed\x01 by either party.\n\n"
+            "SECTION 2. TERM\n\n"
+            "This Agreement is effective as of the date first written above\x02."
+        )
+        docx_bytes, _ = build_redlined_docx("test.docx", text, [], {})
+        doc = self._validate_and_open(docx_bytes)
+        assert len(doc.paragraphs) >= 4
+        full_text = "\n".join(p.text for p in doc.paragraphs)
+        assert "\x00" not in full_text and "\x01" not in full_text and "\x02" not in full_text
+        assert "SECTION 1. DEFINITIONS" in full_text
+        assert "SECTION 2. TERM" in full_text
+
+    def test_very_large_paragraph_with_scattered_illegal_characters(self):
+        # ~50k characters, an illegal byte scattered every ~500 chars —
+        # exercises the same code path as the real 845KB/128K-word contract
+        # that originally triggered this bug in the full-corpus benchmark.
+        chunk = "This is a representative sentence of a large commercial contract clause. "
+        illegal = "\x00\x0B\x1F"
+        pieces = []
+        for i in range(700):
+            pieces.append(chunk)
+            if i % 10 == 0:
+                pieces.append(illegal[i % len(illegal)])
+        text = "".join(pieces)
+        assert len(text) > 50_000
+        docx_bytes, _ = build_redlined_docx("large.docx", text, [], {})
+        doc = self._validate_and_open(docx_bytes)
+        full_text = "".join(p.text for p in doc.paragraphs)
+        assert "\x00" not in full_text and "\x0B" not in full_text and "\x1F" not in full_text
+        assert full_text.count("This is a representative sentence") == 700
+
+    def test_overlapping_redlines_containing_illegal_characters(self):
+        """Two findings whose spans overlap AND whose underlying text
+        contains illegal characters: the overlap-skip logic and the
+        sanitization must both apply correctly — the surviving (first,
+        left-to-right) redline's tracked change must be clean, and the
+        skipped one must not corrupt the document."""
+        text = "Liability\x00 is uncapped\x01 and unlimited\x02 for both parties in all cases."
+        findings = [
+            _finding("R1", 0, 26, "Liability\x00 is uncapped\x01", "Liability is capped", rationale="rationale one\x00"),
+            _finding("R2", 10, 40, "is uncapped\x01 and unlimited\x02", "is capped", rationale="rationale two\x01"),
+        ]
+        decisions = {
+            fk(0, "R1"): {"action": "accepted"},
+            fk(1, "R2"): {"action": "accepted"},
+        }
+        docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
+        assert skipped == ["R2"]  # second span starts before the first ends -> skipped, unchanged from non-illegal-char behavior
+        doc = self._validate_and_open(docx_bytes)
+
+        ins_texts = _all_text(doc, "w:t")
+        del_texts = _all_text(doc, "w:delText")
+        assert "\x00" not in ins_texts and "\x01" not in ins_texts and "\x02" not in ins_texts
+        assert "\x00" not in del_texts and "\x01" not in del_texts and "\x02" not in del_texts
+        assert "Liability is capped" in ins_texts
+        assert "Liability" in del_texts
+
+        comments_xml = _part_xml(docx_bytes, "word/comments.xml")
+        assert "\x00" not in comments_xml
+        assert "rationale one" in comments_xml
+
+    def test_accepted_reading_unchanged_except_for_illegal_xml_normalization(self):
+        """The core correctness property: sanitization must be exactly
+        equivalent to reading the same text with illegal characters already
+        stripped — nothing else about content, structure, or track-changes
+        behavior may differ."""
+        from docx_export import _sanitize_xml_text
+
+        dirty = "Payment\x00 due within\x0B thirty (30) days\x1F of invoice\x00 receipt."
+        clean = _sanitize_xml_text(dirty)
+        assert clean == "Payment due within thirty (30) days of invoice receipt."
+
+        docx_dirty, _ = build_redlined_docx("test.docx", dirty, [], {})
+        docx_clean, _ = build_redlined_docx("test.docx", clean, [], {})
+
+        doc_dirty = self._validate_and_open(docx_dirty)
+        doc_clean = _open(docx_clean)
+        text_dirty = "".join(p.text for p in doc_dirty.paragraphs)
+        text_clean = "".join(p.text for p in doc_clean.paragraphs)
+        assert text_dirty == text_clean
+
+    def test_illegal_characters_in_filename_heading_do_not_crash(self):
+        docx_bytes, _ = build_redlined_docx("weird\x00name.htm", "Some contract text here.", [], {})
+        doc = self._validate_and_open(docx_bytes)
+        heading_text = doc.paragraphs[0].text
+        assert "\x00" not in heading_text
+        assert "weirdname.htm" in heading_text or "weird" in heading_text
+
+    def test_track_changes_and_comment_attachment_intact_with_illegal_characters(self):
+        """Confirms Track Changes + comment anchoring survive sanitization
+        exactly as they do in the clean-text case — same element counts,
+        same relationships, just without the illegal bytes."""
+        text = "The Contractor\x00 shall indemnify\x01 the Company for all claims\x02 arising hereunder."
+        findings = [_finding("R1", 0, 40, "The Contractor\x00 shall indemnify\x01", "The Contractor shall not indemnify", rationale="mutual indemnity\x00 expected")]
+        decisions = {fk(0, "R1"): {"action": "accepted"}}
+        docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
+        assert skipped == []
+        doc = self._validate_and_open(docx_bytes)
+
+        ins_elements = _elements(doc, "w:ins")
+        del_elements = _elements(doc, "w:del")
+        assert len(ins_elements) == 1
+        assert len(del_elements) == 1
+
+        comment_refs = []
+        for p in doc.paragraphs:
+            comment_refs.extend(p._p.iter(qn("w:commentReference")))
+        assert len(comment_refs) == 1
+
+        comments_xml = _part_xml(docx_bytes, "word/comments.xml")
+        assert comments_xml.count("<w:comment ") == 1
+        assert "\x00" not in comments_xml and "\x01" not in comments_xml

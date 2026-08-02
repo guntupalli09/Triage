@@ -59,7 +59,7 @@ from review_workflow import (
 )
 from docx_export import build_redlined_docx
 from evaluator import LLMEvaluator
-from database import get_db, check_db_health, check_redis_health
+from database import get_db, db_session, check_db_health, check_redis_health
 from auth import (
     hash_password, verify_password, create_session, get_current_user,
     logout as auth_logout, check_usage_limit,
@@ -429,8 +429,8 @@ async def global_exception_handler(request: Request, exc: Exception):
 # ============================================================
 
 @app.get("/login", response_class=HTMLResponse)
-async def login_page(request: Request):
-    user = get_current_user(request, next(get_db()))
+async def login_page(request: Request, db: DBSession = Depends(get_db)):
+    user = get_current_user(request, db)
     if user:
         return RedirectResponse(url="/dashboard", status_code=302)
     notice = "Your password has been updated. Log in with your new password." \
@@ -439,8 +439,7 @@ async def login_page(request: Request):
 
 
 @app.post("/login", response_class=HTMLResponse)
-async def login_submit(request: Request, email: str = Form(...), password: str = Form(...)):
-    db = next(get_db())
+async def login_submit(request: Request, email: str = Form(...), password: str = Form(...), db: DBSession = Depends(get_db)):
     user = db.query(User).filter(User.email == email.lower().strip()).first()
     if not user or not verify_password(password, user.password_hash):
         return templates.TemplateResponse("login.html", {"request": request, "error": "Invalid email or password."})
@@ -465,8 +464,8 @@ async def register_submit(
     confirm_password: str = Form(...),
     name: str = Form(""),
     company: str = Form(""),
+    db: DBSession = Depends(get_db),
 ):
-    db = next(get_db())
     email = email.lower().strip()
 
     if password != confirm_password:
@@ -498,8 +497,7 @@ async def register_submit(
 
 
 @app.get("/logout")
-async def logout_route(request: Request):
-    db = next(get_db())
+async def logout_route(request: Request, db: DBSession = Depends(get_db)):
     current = get_current_user(request, db)
     if current:
         analytics.record_event(request, "logout", user=current)
@@ -539,7 +537,7 @@ def google_signin_start(request: Request):
 
 
 @app.get("/auth/google/callback")
-def google_signin_callback(request: Request, code: str = "", state: str = "", error: str = ""):
+def google_signin_callback(request: Request, code: str = "", state: str = "", error: str = "", db: DBSession = Depends(get_db)):
     def fail(message: str):
         return templates.TemplateResponse("login.html", {"request": request, "error": message})
 
@@ -565,7 +563,6 @@ def google_signin_callback(request: Request, code: str = "", state: str = "", er
     if not email or not google_sub:
         return fail("Google did not return the required account details.")
 
-    db = next(get_db())
     user = db.query(User).filter(User.google_sub == google_sub).first()
     is_new_user = False
     if not user:
@@ -630,7 +627,7 @@ async def forgot_password_page(request: Request):
 
 
 @app.post("/forgot-password", response_class=HTMLResponse)
-def forgot_password_submit(request: Request, email: str = Form(...)):
+def forgot_password_submit(request: Request, email: str = Form(...), db: DBSession = Depends(get_db)):
     if not emailer.is_configured():
         return templates.TemplateResponse("forgot_password.html", {
             "request": request, "sent": False,
@@ -638,7 +635,6 @@ def forgot_password_submit(request: Request, email: str = Form(...)):
         })
 
     email = email.lower().strip()
-    db = next(get_db())
     user = db.query(User).filter(User.email == email).first()
     if user:
         token = secrets.token_urlsafe(32)
@@ -681,8 +677,7 @@ def forgot_password_submit(request: Request, email: str = Form(...)):
 
 
 @app.get("/reset-password", response_class=HTMLResponse)
-async def reset_password_page(request: Request, token: str = ""):
-    db = next(get_db())
+async def reset_password_page(request: Request, token: str = "", db: DBSession = Depends(get_db)):
     user = _find_user_by_reset_token(db, token)
     if not user:
         return templates.TemplateResponse("reset_password.html", {
@@ -699,8 +694,8 @@ async def reset_password_submit(
     token: str = Form(...),
     password: str = Form(...),
     confirm_password: str = Form(...),
+    db: DBSession = Depends(get_db),
 ):
-    db = next(get_db())
     user = _find_user_by_reset_token(db, token)
     if not user:
         return templates.TemplateResponse("reset_password.html", {
@@ -729,8 +724,7 @@ async def reset_password_submit(
 # ============================================================
 
 @app.get("/account", response_class=HTMLResponse)
-async def account_page(request: Request):
-    db = next(get_db())
+async def account_page(request: Request, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     return templates.TemplateResponse("account.html", {
         "request": request, "user": user, "error": None, "success": None,
@@ -739,8 +733,7 @@ async def account_page(request: Request):
 
 
 @app.post("/account", response_class=HTMLResponse)
-async def account_update(request: Request, name: str = Form(""), company: str = Form("")):
-    db = next(get_db())
+async def account_update(request: Request, name: str = Form(""), company: str = Form(""), db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     user.name = name.strip() or None
     user.company = company.strip() or None
@@ -757,8 +750,8 @@ async def account_change_password(
     current_password: str = Form(...),
     new_password: str = Form(...),
     confirm_password: str = Form(...),
+    db: DBSession = Depends(get_db),
 ):
-    db = next(get_db())
     user = require_user(request, db)
 
     error = None
@@ -788,8 +781,7 @@ async def account_change_password(
 # ============================================================
 
 @app.get("/billing", response_class=HTMLResponse)
-async def billing_page(request: Request):
-    db = next(get_db())
+async def billing_page(request: Request, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     return templates.TemplateResponse("billing.html", {
         "request": request, "user": user, "error": None, "success": None,
@@ -798,8 +790,7 @@ async def billing_page(request: Request):
 
 
 @app.post("/billing/cancel")
-async def billing_cancel(request: Request):
-    db = next(get_db())
+async def billing_cancel(request: Request, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
 
     if user.stripe_subscription_id and stripe.api_key:
@@ -827,8 +818,7 @@ async def billing_cancel(request: Request):
 # ============================================================
 
 @app.get("/settings", response_class=HTMLResponse)
-async def settings_page(request: Request):
-    db = next(get_db())
+async def settings_page(request: Request, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     return templates.TemplateResponse("settings.html", {
         "request": request, "user": user, "error": None,
@@ -837,8 +827,7 @@ async def settings_page(request: Request):
 
 
 @app.post("/settings/delete-account")
-async def delete_account(request: Request):
-    db = next(get_db())
+async def delete_account(request: Request, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
 
     db.query(Contract).filter(Contract.user_id == user.id).delete()
@@ -856,8 +845,7 @@ async def delete_account(request: Request):
 # ============================================================
 
 @app.get("/dashboard", response_class=HTMLResponse)
-async def dashboard(request: Request):
-    db = next(get_db())
+async def dashboard(request: Request, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     analytics.record_event(request, "dashboard_view", user=user)
     contracts = db.query(Contract).filter(
@@ -886,8 +874,7 @@ async def dashboard(request: Request):
 # ============================================================
 
 @app.get("/history", response_class=HTMLResponse)
-async def history(request: Request, q: str = "", risk: str = "", page: int = 1):
-    db = next(get_db())
+async def history(request: Request, q: str = "", risk: str = "", page: int = 1, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     per_page = 25
 
@@ -914,8 +901,7 @@ async def history(request: Request, q: str = "", risk: str = "", page: int = 1):
 # ============================================================
 
 @app.get("/upload-page", response_class=HTMLResponse)
-async def upload_page(request: Request):
-    db = next(get_db())
+async def upload_page(request: Request, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     playbooks = db.query(Playbook).filter(Playbook.user_id == user.id).all()
     return templates.TemplateResponse("upload.html", {
@@ -929,8 +915,8 @@ async def upload_contract(
     request: Request,
     file: UploadFile = File(...),
     playbook_id: Optional[int] = Form(None),
+    db: DBSession = Depends(get_db),
 ):
-    db = next(get_db())
     user = get_current_user(request, db)
 
     def upload_error(message: str, status_code: int = 400):
@@ -1063,8 +1049,7 @@ async def upload_contract(
 # ============================================================
 
 @app.get("/batch-upload", response_class=HTMLResponse)
-async def batch_upload_page(request: Request):
-    db = next(get_db())
+async def batch_upload_page(request: Request, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     playbooks = db.query(Playbook).filter(Playbook.user_id == user.id).all()
     return templates.TemplateResponse("batch_upload.html", {
@@ -1078,8 +1063,8 @@ async def batch_upload_submit(
     request: Request,
     files: List[UploadFile] = File(...),
     playbook_id: Optional[int] = Form(None),
+    db: DBSession = Depends(get_db),
 ):
-    db = next(get_db())
     user = require_user(request, db)
 
     def batch_error(message: str, status_code: int = 400):
@@ -1166,8 +1151,7 @@ async def batch_upload_submit(
 
 
 @app.get("/batch/{batch_id}", response_class=HTMLResponse)
-async def batch_results_page(request: Request, batch_id: str):
-    db = next(get_db())
+async def batch_results_page(request: Request, batch_id: str, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     contracts = db.query(Contract).filter(
         Contract.batch_id == batch_id, Contract.user_id == user.id
@@ -1198,8 +1182,7 @@ async def batch_results_page(request: Request, batch_id: str):
 
 
 @app.get("/batch/{batch_id}/download-all")
-async def download_batch_pdfs(request: Request, batch_id: str):
-    db = next(get_db())
+async def download_batch_pdfs(request: Request, batch_id: str, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     contracts = db.query(Contract).filter(Contract.batch_id == batch_id, Contract.user_id == user.id).all()
     if not contracts:
@@ -1294,8 +1277,7 @@ def _build_rule_categories(findings_dict, engine):
 # ============================================================
 
 @app.get("/contract/{contract_id}", response_class=HTMLResponse)
-async def view_contract(request: Request, contract_id: int):
-    db = next(get_db())
+async def view_contract(request: Request, contract_id: int, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
     if not contract:
@@ -1588,8 +1570,7 @@ def _build_pdf_bytes(filename: str, overall_risk: str, rule_counts: dict, rule_e
 
 
 @app.get("/contract/{contract_id}/pdf")
-async def download_contract_pdf(request: Request, contract_id: int):
-    db = next(get_db())
+async def download_contract_pdf(request: Request, contract_id: int, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
     if not contract:
@@ -1674,8 +1655,7 @@ async def download_pdf_token(request: Request, token: str):
 # ============================================================
 
 @app.post("/contract/{contract_id}/share")
-async def create_share_link(request: Request, contract_id: int, password: str = Form("")):
-    db = next(get_db())
+async def create_share_link(request: Request, contract_id: int, password: str = Form(""), db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
     if not contract:
@@ -1709,8 +1689,7 @@ def _get_owned_contract(db: DBSession, user, contract_id: int) -> Contract:
 
 
 @app.get("/contract/{contract_id}/review", response_class=HTMLResponse)
-async def review_contract(request: Request, contract_id: int):
-    db = next(get_db())
+async def review_contract(request: Request, contract_id: int, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
 
@@ -1746,8 +1725,8 @@ async def submit_review_decision(
     request: Request, contract_id: int,
     finding_index: int = Form(...), action: str = Form(...),
     reason: str = Form(""), edited_text: str = Form(""),
+    db: DBSession = Depends(get_db),
 ):
-    db = next(get_db())
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
 
@@ -1781,8 +1760,7 @@ async def submit_review_decision(
 
 
 @app.post("/contract/{contract_id}/review/comment")
-async def submit_review_comment(request: Request, contract_id: int, finding_index: int = Form(...), comment: str = Form(...)):
-    db = next(get_db())
+async def submit_review_comment(request: Request, contract_id: int, finding_index: int = Form(...), comment: str = Form(...), db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
 
@@ -1802,14 +1780,13 @@ async def submit_review_comment(request: Request, contract_id: int, finding_inde
 
 
 @app.post("/contract/{contract_id}/review/verify")
-async def verify_review_finding(request: Request, contract_id: int, finding_index: int = Form(...)):
+async def verify_review_finding(request: Request, contract_id: int, finding_index: int = Form(...), db: DBSession = Depends(get_db)):
     """The Deterministic Replay 'aha' moment, done for real: re-runs the full
     rule engine against the stored contract text and confirms the same rule
     still fires against the same exact text — not a canned animation. Matches
     the replayed finding by rule_id AND exact position, not rule_id alone —
     the same rule can fire more than once in one document, and verifying
     finding #2 must not silently compare against finding #1's match."""
-    db = next(get_db())
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
 
@@ -1833,8 +1810,7 @@ async def verify_review_finding(request: Request, contract_id: int, finding_inde
 
 
 @app.post("/contract/{contract_id}/review/finalize")
-async def finalize_review(request: Request, contract_id: int):
-    db = next(get_db())
+async def finalize_review(request: Request, contract_id: int, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
 
@@ -1851,8 +1827,7 @@ async def finalize_review(request: Request, contract_id: int):
 
 
 @app.get("/contract/{contract_id}/review/package")
-async def download_negotiation_package(request: Request, contract_id: int):
-    db = next(get_db())
+async def download_negotiation_package(request: Request, contract_id: int, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
 
@@ -1888,8 +1863,7 @@ async def download_negotiation_package(request: Request, contract_id: int):
 
 
 @app.get("/shared/{share_token}", response_class=HTMLResponse)
-async def view_shared_report(request: Request, share_token: str):
-    db = next(get_db())
+async def view_shared_report(request: Request, share_token: str, db: DBSession = Depends(get_db)):
     contract = db.query(Contract).filter(Contract.share_token == share_token).first()
     if not contract:
         raise HTTPException(status_code=404, detail="Report not found")
@@ -1904,8 +1878,7 @@ async def view_shared_report(request: Request, share_token: str):
 
 
 @app.post("/shared/{share_token}", response_class=HTMLResponse)
-async def view_shared_report_auth(request: Request, share_token: str, password: str = Form(...)):
-    db = next(get_db())
+async def view_shared_report_auth(request: Request, share_token: str, password: str = Form(...), db: DBSession = Depends(get_db)):
     contract = db.query(Contract).filter(Contract.share_token == share_token).first()
     if not contract:
         raise HTTPException(status_code=404, detail="Report not found")
@@ -1947,8 +1920,7 @@ def _render_shared_report(request: Request, contract: Contract) -> HTMLResponse:
 # ============================================================
 
 @app.get("/playbooks", response_class=HTMLResponse)
-async def playbooks_list(request: Request):
-    db = next(get_db())
+async def playbooks_list(request: Request, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     playbooks = db.query(Playbook).filter(Playbook.user_id == user.id).order_by(Playbook.created_at.desc()).all()
     plan = PLAN_LIMITS.get(user.plan, {"monthly_limit": 0, "batch_max": 1, "playbooks_max": 0})
@@ -1961,8 +1933,7 @@ async def playbooks_list(request: Request):
 
 
 @app.get("/playbooks/new", response_class=HTMLResponse)
-async def playbook_new_page(request: Request):
-    db = next(get_db())
+async def playbook_new_page(request: Request, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     plan = PLAN_LIMITS.get(user.plan, {"monthly_limit": 0, "batch_max": 1, "playbooks_max": 0})
     existing = db.query(Playbook).filter(Playbook.user_id == user.id).count()
@@ -1981,8 +1952,8 @@ async def playbook_new_submit(
     contract_type: str = Form(""),
     description: str = Form(""),
     file: UploadFile = File(...),
+    db: DBSession = Depends(get_db),
 ):
-    db = next(get_db())
     user = require_user(request, db)
 
     if not file.filename:
@@ -2030,8 +2001,7 @@ async def playbook_new_submit(
 
 
 @app.get("/playbooks/{playbook_id}/edit", response_class=HTMLResponse)
-async def playbook_edit_page(request: Request, playbook_id: int):
-    db = next(get_db())
+async def playbook_edit_page(request: Request, playbook_id: int, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
     if not playbook:
@@ -2047,8 +2017,8 @@ async def playbook_edit_submit(
     request: Request, playbook_id: int,
     name: str = Form(...), contract_type: str = Form(""),
     description: str = Form(""), file: Optional[UploadFile] = File(None),
+    db: DBSession = Depends(get_db),
 ):
-    db = next(get_db())
     user = require_user(request, db)
     playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
     if not playbook:
@@ -2082,8 +2052,7 @@ async def playbook_edit_submit(
 
 
 @app.post("/playbooks/{playbook_id}/delete")
-async def playbook_delete(request: Request, playbook_id: int):
-    db = next(get_db())
+async def playbook_delete(request: Request, playbook_id: int, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
     playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
     if not playbook:
@@ -2098,8 +2067,7 @@ async def playbook_delete(request: Request, playbook_id: int):
 # ============================================================
 
 @app.get("/pricing", response_class=HTMLResponse)
-async def pricing_page(request: Request):
-    db = next(get_db())
+async def pricing_page(request: Request, db: DBSession = Depends(get_db)):
     user = get_current_user(request, db)
     analytics.record_event(request, "pricing_view", user=user)
     return templates.TemplateResponse("pricing.html", {
@@ -2113,8 +2081,7 @@ async def pricing_page(request: Request):
 # ============================================================
 
 @app.get("/research", response_class=HTMLResponse)
-async def research_page(request: Request):
-    db = next(get_db())
+async def research_page(request: Request, db: DBSession = Depends(get_db)):
     user = get_current_user(request, db)
     analytics.record_event(request, "research_view", user=user)
     return templates.TemplateResponse("research.html", {
@@ -2128,8 +2095,7 @@ async def research_page(request: Request):
 # ============================================================
 
 @app.post("/subscribe/{plan}")
-async def subscribe(request: Request, plan: str):
-    db = next(get_db())
+async def subscribe(request: Request, plan: str, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
 
     if plan not in PLAN_LIMITS:
@@ -2187,7 +2153,7 @@ async def subscribe(request: Request, plan: str):
 
 
 @app.post("/stripe-webhook")
-async def stripe_webhook(request: Request):
+async def stripe_webhook(request: Request, db: DBSession = Depends(get_db)):
     if DEV_MODE:
         return {"status": "ignored"}
 
@@ -2201,7 +2167,6 @@ async def stripe_webhook(request: Request):
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid webhook signature")
 
-    db = next(get_db())
 
     if event["type"] == "checkout.session.completed":
         session = event["data"]["object"]
@@ -2323,8 +2288,7 @@ async def demo_analysis(request: Request):
 # ============================================================
 
 @app.get("/security", response_class=HTMLResponse)
-async def security_page(request: Request):
-    db = next(get_db())
+async def security_page(request: Request, db: DBSession = Depends(get_db)):
     user = get_current_user(request, db)
     return templates.TemplateResponse("security.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
@@ -2332,8 +2296,7 @@ async def security_page(request: Request):
 
 
 @app.get("/faq", response_class=HTMLResponse)
-async def faq_page(request: Request):
-    db = next(get_db())
+async def faq_page(request: Request, db: DBSession = Depends(get_db)):
     user = get_current_user(request, db)
     return templates.TemplateResponse("faq.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
@@ -2341,8 +2304,7 @@ async def faq_page(request: Request):
 
 
 @app.get("/about", response_class=HTMLResponse)
-async def about_page(request: Request):
-    db = next(get_db())
+async def about_page(request: Request, db: DBSession = Depends(get_db)):
     user = get_current_user(request, db)
     return templates.TemplateResponse("about.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
@@ -2350,8 +2312,7 @@ async def about_page(request: Request):
 
 
 @app.get("/partners", response_class=HTMLResponse)
-async def partners_page(request: Request):
-    db = next(get_db())
+async def partners_page(request: Request, db: DBSession = Depends(get_db)):
     user = get_current_user(request, db)
     return templates.TemplateResponse("partners.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
@@ -2359,8 +2320,7 @@ async def partners_page(request: Request):
 
 
 @app.get("/contact", response_class=HTMLResponse)
-async def contact_page(request: Request):
-    db = next(get_db())
+async def contact_page(request: Request, db: DBSession = Depends(get_db)):
     user = get_current_user(request, db)
     return templates.TemplateResponse("contact.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
@@ -2368,8 +2328,7 @@ async def contact_page(request: Request):
 
 
 @app.post("/contact", response_class=HTMLResponse)
-async def contact_submit(request: Request):
-    db = next(get_db())
+async def contact_submit(request: Request, db: DBSession = Depends(get_db)):
     user = get_current_user(request, db)
     return templates.TemplateResponse("contact.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
@@ -2378,8 +2337,7 @@ async def contact_submit(request: Request):
 
 
 @app.get("/privacy", response_class=HTMLResponse)
-async def privacy_page(request: Request):
-    db = next(get_db())
+async def privacy_page(request: Request, db: DBSession = Depends(get_db)):
     user = get_current_user(request, db)
     return templates.TemplateResponse("privacy.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
@@ -2387,8 +2345,7 @@ async def privacy_page(request: Request):
 
 
 @app.get("/terms", response_class=HTMLResponse)
-async def terms_page(request: Request):
-    db = next(get_db())
+async def terms_page(request: Request, db: DBSession = Depends(get_db)):
     user = get_current_user(request, db)
     return templates.TemplateResponse("terms.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
@@ -2403,8 +2360,8 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 @app.exception_handler(404)
 async def not_found_handler(request: Request, exc):
-    db = next(get_db())
-    user = get_current_user(request, db)
+    with db_session() as db:
+        user = get_current_user(request, db)
     return templates.TemplateResponse("errors/404.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
     }, status_code=404)
@@ -2412,11 +2369,11 @@ async def not_found_handler(request: Request, exc):
 
 @app.exception_handler(500)
 async def server_error_handler(request: Request, exc):
-    db = next(get_db())
-    try:
-        user = get_current_user(request, db)
-    except Exception:
-        user = None
+    with db_session() as db:
+        try:
+            user = get_current_user(request, db)
+        except Exception:
+            user = None
     return templates.TemplateResponse("errors/500.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
     }, status_code=500)
@@ -2427,8 +2384,7 @@ async def server_error_handler(request: Request, exc):
 # ============================================================
 
 @app.get("/", response_class=HTMLResponse)
-async def index(request: Request):
-    db = next(get_db())
+async def index(request: Request, db: DBSession = Depends(get_db)):
     user = get_current_user(request, db)
     return templates.TemplateResponse("home.html", {
         "request": request, "current_year": datetime.now().year,
@@ -2547,8 +2503,7 @@ def require_admin(request: Request, db: DBSession) -> User:
 
 
 @app.get("/admin", response_class=HTMLResponse)
-async def admin_dashboard(request: Request):
-    db = next(get_db())
+async def admin_dashboard(request: Request, db: DBSession = Depends(get_db)):
     user = require_admin(request, db)
 
     from sqlalchemy import func, cast, Date
@@ -2664,8 +2619,7 @@ async def admin_dashboard(request: Request):
 # ============================================================
 
 @app.get("/admin/analytics", response_class=HTMLResponse)
-async def admin_analytics(request: Request, q: str = "", channel: str = ""):
-    db = next(get_db())
+async def admin_analytics(request: Request, q: str = "", channel: str = "", db: DBSession = Depends(get_db)):
     user = require_admin(request, db)
 
     from sqlalchemy import func
@@ -2764,8 +2718,7 @@ async def admin_analytics(request: Request, q: str = "", channel: str = ""):
 
 
 @app.get("/admin/analytics/user/{target_user_id}", response_class=HTMLResponse)
-async def admin_analytics_user_detail(request: Request, target_user_id: int):
-    db = next(get_db())
+async def admin_analytics_user_detail(request: Request, target_user_id: int, db: DBSession = Depends(get_db)):
     user = require_admin(request, db)
 
     target = db.query(User).filter(User.id == target_user_id).first()
@@ -2790,8 +2743,7 @@ async def admin_analytics_user_detail(request: Request, target_user_id: int):
 
 
 @app.get("/admin/analytics/export.csv")
-async def admin_analytics_export_csv(request: Request):
-    db = next(get_db())
+async def admin_analytics_export_csv(request: Request, db: DBSession = Depends(get_db)):
     require_admin(request, db)
 
     import csv

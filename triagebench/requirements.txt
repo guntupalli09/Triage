@@ -1,0 +1,8 @@
+# TriageBench dependencies, on top of the application's own requirements.txt
+# (rules_engine.py etc. need python-docx, PyPDF2, fpdf2, python-dotenv,
+# sqlalchemy, user-agents — install with `pip install -r requirements.txt`
+# from the repo root first).
+#
+# Install with: pip install -r triagebench/requirements.txt
+pandas>=2.0.0
+pyarrow>=14.0.0

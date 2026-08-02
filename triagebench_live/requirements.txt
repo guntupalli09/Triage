@@ -1,0 +1,9 @@
+# TriageBench Live dependencies, on top of the application's own
+# requirements.txt (install that first) and triagebench/requirements.txt
+# (corpus discovery + HTML extraction, reused for upload-payload prep).
+#
+# Install with: pip install -r triagebench_live/requirements.txt
+requests>=2.31.0
+mammoth>=1.6.0
+playwright>=1.40.0
+-r ../triagebench/requirements.txt
