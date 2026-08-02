@@ -171,6 +171,12 @@ const CLAUSE_MODULE_HEADING_HINTS = {
 const SEV_LABEL = { critical: "Critical", high: "High", medium: "Medium", low: "Low" };
 
 function esc(s) { return (s || "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+// The same rule can fire more than once in one document (e.g. the same
+// fee-shifting language showing up in two clauses) — rule_id alone is not
+// a unique identity for a finding. fkey mirrors review_workflow.finding_key
+// exactly: "{rule_id}#{index in FINDINGS}". Every decision is keyed by this,
+// never by bare rule_id.
+function fkey(i) { return FINDINGS[i].rule_id + "#" + i; }
 function csrfSafeBody(obj) {
     const params = new URLSearchParams();
     Object.entries(obj).forEach(([k, v]) => params.append(k, v == null ? "" : v));
@@ -218,7 +224,7 @@ function renderDocument() {
         html += `<div class="doc-heading-line">General findings (not anchored to a specific passage)</div>`;
         unanchored.forEach(i => {
             const f = FINDINGS[i];
-            const resolved = DECISIONS[f.rule_id];
+            const resolved = DECISIONS[fkey(i)];
             html += `<p><span class="mark sev-${f.severity} ${resolved ? 'resolved' : ''}" data-idxs="${i}" id="mark-${i}"><span class="mark-chip sev-${f.severity} ${resolved ? 'done' : ''}">${i+1}</span>${esc(f.title)}</span></p>`;
         });
         html += `<div class="doc-heading-line">Document</div>`;
@@ -228,10 +234,10 @@ function renderDocument() {
     for (const g of groups) {
         html += esc(CONTRACT_TEXT.slice(cursor, g.start)).replace(/\n\n+/g, "</p><p>").replace(/^/, cursor === 0 ? "<p>" : "");
         const primary = g.idxs.slice().sort((a, b) => severityRank(FINDINGS[a].severity) - severityRank(FINDINGS[b].severity))[0];
-        const allResolved = g.idxs.every(i => DECISIONS[FINDINGS[i].rule_id]);
+        const allResolved = g.idxs.every(i => DECISIONS[fkey(i)]);
         const chips = g.idxs.map(i => {
             const f = FINDINGS[i];
-            const resolved = DECISIONS[f.rule_id];
+            const resolved = DECISIONS[fkey(i)];
             return `<span class="mark-chip sev-${f.severity} ${resolved ? 'done' : ''}" data-idxs="${i}">${i+1}</span>`;
         }).join("");
         html += `<span class="mark sev-${FINDINGS[primary].severity} ${allResolved ? 'resolved' : ''}" data-idxs="${g.idxs.join(',')}" id="mark-${g.idxs[0]}">${chips}${esc(CONTRACT_TEXT.slice(g.start, g.end))}</span>`;
@@ -245,7 +251,7 @@ function renderDocument() {
             e.stopPropagation();
             const idxs = el.dataset.idxs.split(",").map(Number);
             // if this exact element is a chip, open that finding; otherwise open the first unresolved (or first) in the group
-            const target = el.classList.contains("mark-chip") ? idxs[0] : (idxs.find(i => !DECISIONS[FINDINGS[i].rule_id]) ?? idxs[0]);
+            const target = el.classList.contains("mark-chip") ? idxs[0] : (idxs.find(i => !DECISIONS[fkey(i)]) ?? idxs[0]);
             openFinding(target);
         });
     });
@@ -277,7 +283,7 @@ function renderMarginMap() {
     FINDINGS.forEach((f, i) => {
         if (f.start_index == null) return;
         const top = f.start_index / docLen * 100;
-        const resolved = DECISIONS[f.rule_id];
+        const resolved = DECISIONS[fkey(i)];
         html += `<div class="mm-tick sev-${f.severity} ${resolved ? 'resolved' : ''}" style="top:${top}%" data-idx="${i}" title="${esc(f.title)}"></div>`;
     });
     track.innerHTML = html;
@@ -291,10 +297,10 @@ function closePopover() {
     openIdx = null;
 }
 
-function popoverHTML(f) {
+function popoverHTML(f, i) {
     const rl = f.redline;
     const cb = f.confidence_breakdown;
-    const decision = DECISIONS[f.rule_id];
+    const decision = DECISIONS[fkey(i)];
     const original = f.exact_snippet || f.matched_excerpt || "";
 
     const diffHTML = rl ? `<div class="diff-box"><span class="del">${esc(original.slice(0, 90))}${original.length > 90 ? "…" : ""}</span> &rarr;<br><span class="ins">${esc(rl.suggested_redline)}</span></div>` : "";
@@ -348,7 +354,7 @@ function openFinding(i) {
     const pop = document.createElement("div");
     pop.className = "popover";
     pop.id = "active-popover";
-    pop.innerHTML = popoverHTML(f);
+    pop.innerHTML = popoverHTML(f, i);
     const hostP = markEl.closest("p") || markEl;
     hostP.parentNode.insertBefore(pop, hostP.nextSibling);
     markEl.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -361,7 +367,7 @@ function wirePopover(f, i, pop) {
         btn.classList.add("loading");
         const stamp = pop.querySelector("#verify-stamp");
         try {
-            const data = await postForm(`/contract/${CONTRACT_ID}/review/verify`, { rule_id: f.rule_id });
+            const data = await postForm(`/contract/${CONTRACT_ID}/review/verify`, { finding_index: i });
             stamp.classList.remove("fail");
             stamp.innerHTML = data.verified
                 ? `&#10003; Re-ran all 189 rules against this contract. Rule <span class="mono">${esc(f.rule_id)}</span> matched this exact language again. Same result, every time.`
@@ -402,8 +408,8 @@ function wirePopover(f, i, pop) {
         const comment = pop.querySelector("#comment-textarea").value.trim();
         if (!comment) return toggle(pop, "comment-input", true);
         try {
-            await postForm(`/contract/${CONTRACT_ID}/review/comment`, { rule_id: f.rule_id, comment });
-            DECISIONS[f.rule_id] = { ...(DECISIONS[f.rule_id] || {}), comment };
+            await postForm(`/contract/${CONTRACT_ID}/review/comment`, { finding_index: i, comment });
+            DECISIONS[fkey(i)] = { ...(DECISIONS[fkey(i)] || {}), comment };
             const markEl = findMarkIdEl(i);
             if (markEl && !markEl.querySelector(".comment-flag")) markEl.insertAdjacentHTML("beforeend", '<span class="comment-flag" title="has a comment"></span>');
         } catch (err) {
@@ -422,8 +428,8 @@ function toggle(pop, id, forceHide) {
 async function submitDecision(f, i, action, extra) {
     const errEl = document.getElementById("active-popover")?.querySelector("#pop-error");
     try {
-        const data = await postForm(`/contract/${CONTRACT_ID}/review/decision`, { rule_id: f.rule_id, action, ...extra });
-        DECISIONS[f.rule_id] = { action, ...extra, decided_at: new Date().toISOString() };
+        const data = await postForm(`/contract/${CONTRACT_ID}/review/decision`, { finding_index: i, action, ...extra });
+        DECISIONS[fkey(i)] = { action, rule_id: f.rule_id, ...extra, decided_at: new Date().toISOString() };
 
         const markEl = findMarkIdEl(i);
         if (markEl) {
@@ -443,8 +449,8 @@ async function submitDecision(f, i, action, extra) {
         closePopover();
 
         if (!data.progress.is_complete) {
-            const nextIdx = FINDINGS.findIndex((ff, idx) => idx > i && !DECISIONS[ff.rule_id]);
-            const fallback = nextIdx === -1 ? FINDINGS.findIndex(ff => !DECISIONS[ff.rule_id]) : nextIdx;
+            const nextIdx = FINDINGS.findIndex((ff, idx) => idx > i && !DECISIONS[fkey(idx)]);
+            const fallback = nextIdx === -1 ? FINDINGS.findIndex((ff, idx) => !DECISIONS[fkey(idx)]) : nextIdx;
             if (fallback !== -1) setTimeout(() => openFinding(fallback), 260);
         }
     } catch (err) {
@@ -467,7 +473,7 @@ function updateStatus(progress) {
         btn.disabled = true;
         reasonEl.innerHTML = `<a id="jump-unresolved">${progress.total - progress.resolved} item(s) need a decision</a>`;
         document.getElementById("jump-unresolved")?.addEventListener("click", () => {
-            const idx = FINDINGS.findIndex(f => f.rule_id === progress.first_unresolved_rule_id);
+            const idx = FINDINGS.findIndex((f, i) => fkey(i) === progress.first_unresolved_key);
             if (idx !== -1) openFinding(idx);
         });
     }
@@ -493,7 +499,7 @@ document.getElementById("replay-btn").addEventListener("click", async (e) => {
     btn.textContent = "Re-running 189 rules…";
     const r = document.getElementById("replay-result");
     try {
-        const results = await Promise.all(FINDINGS.map(f => postForm(`/contract/${CONTRACT_ID}/review/verify`, { rule_id: f.rule_id })));
+        const results = await Promise.all(FINDINGS.map((f, i) => postForm(`/contract/${CONTRACT_ID}/review/verify`, { finding_index: i })));
         const allVerified = results.every(res => res.verified);
         r.classList.toggle("fail", !allVerified);
         r.innerHTML = allVerified
@@ -517,7 +523,7 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") { document.getElementById("kbd-overlay").classList.remove("show"); return; }
 
     if (e.key === "j" || e.key === "n") {
-        const next = openIdx === null ? FINDINGS.findIndex(f => !DECISIONS[f.rule_id]) : (openIdx + 1 < FINDINGS.length ? openIdx + 1 : -1);
+        const next = openIdx === null ? FINDINGS.findIndex((f, i) => !DECISIONS[fkey(i)]) : (openIdx + 1 < FINDINGS.length ? openIdx + 1 : -1);
         if (next !== -1) openFinding(next);
     } else if (e.key === "k" || e.key === "p") {
         if (openIdx !== null && openIdx > 0) openFinding(openIdx - 1);
@@ -541,7 +547,7 @@ renderMarginMap();
 updateStatus({{ progress | tojson }});
 {% if not is_finalized %}
 (function () {
-    const firstUnresolved = FINDINGS.findIndex(f => !DECISIONS[f.rule_id]);
+    const firstUnresolved = FINDINGS.findIndex((f, i) => !DECISIONS[fkey(i)]);
     if (firstUnresolved !== -1) openFinding(firstUnresolved);
 })();
 {% endif %}

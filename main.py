@@ -54,6 +54,7 @@ from review_workflow import (
     build_audit_trail_text,
     build_cover_memo_text,
     compute_progress,
+    finding_key,
     validate_decision,
 )
 from docx_export import build_redlined_docx
@@ -1733,10 +1734,17 @@ async def review_contract(request: Request, contract_id: int):
     })
 
 
+def _get_finding_by_index(contract: Contract, finding_index: int) -> Dict:
+    findings = contract.findings_json or []
+    if finding_index < 0 or finding_index >= len(findings):
+        raise HTTPException(status_code=404, detail="Finding not found on this contract")
+    return findings[finding_index]
+
+
 @app.post("/contract/{contract_id}/review/decision")
 async def submit_review_decision(
     request: Request, contract_id: int,
-    rule_id: str = Form(...), action: str = Form(...),
+    finding_index: int = Form(...), action: str = Form(...),
     reason: str = Form(""), edited_text: str = Form(""),
 ):
     db = next(get_db())
@@ -1744,51 +1752,49 @@ async def submit_review_decision(
     contract = _get_owned_contract(db, user, contract_id)
 
     findings = contract.findings_json or []
-    finding = next((f for f in findings if f["rule_id"] == rule_id), None)
-    if not finding:
-        raise HTTPException(status_code=404, detail="Finding not found on this contract")
+    finding = _get_finding_by_index(contract, finding_index)
+    key = finding_key(finding_index, finding["rule_id"])
 
     try:
-        validate_decision(rule_id, action, bool(finding.get("redline")), reason, edited_text)
+        validate_decision(key, action, bool(finding.get("redline")), reason, edited_text)
     except DecisionValidationError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
     decisions = dict(contract.review_decisions_json or {})
-    entry = {"action": action, "decided_at": datetime.utcnow().isoformat()}
+    entry = {"action": action, "rule_id": finding["rule_id"], "decided_at": datetime.utcnow().isoformat()}
     if reason.strip():
         entry["reason"] = reason.strip()
     if action == "edited":
         entry["edited_text"] = edited_text.strip()
     # a decision replaces any prior decision on this finding, but a comment
     # left before the decision was made should survive the overwrite
-    prior_comment = (contract.review_decisions_json or {}).get(rule_id, {}).get("comment")
+    prior_comment = (contract.review_decisions_json or {}).get(key, {}).get("comment")
     if prior_comment:
         entry["comment"] = prior_comment
-    decisions[rule_id] = entry
+    decisions[key] = entry
     contract.review_decisions_json = decisions
     db.commit()
 
     progress = compute_progress(findings, decisions)
-    analytics.record_event(request, "review_decision", user=user, metadata={"contract_id": contract.id, "rule_id": rule_id, "action": action})
+    analytics.record_event(request, "review_decision", user=user, metadata={"contract_id": contract.id, "rule_id": finding["rule_id"], "finding_index": finding_index, "action": action})
     return {"progress": progress.as_dict()}
 
 
 @app.post("/contract/{contract_id}/review/comment")
-async def submit_review_comment(request: Request, contract_id: int, rule_id: str = Form(...), comment: str = Form(...)):
+async def submit_review_comment(request: Request, contract_id: int, finding_index: int = Form(...), comment: str = Form(...)):
     db = next(get_db())
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
 
-    findings = contract.findings_json or []
-    if not any(f["rule_id"] == rule_id for f in findings):
-        raise HTTPException(status_code=404, detail="Finding not found on this contract")
+    finding = _get_finding_by_index(contract, finding_index)
+    key = finding_key(finding_index, finding["rule_id"])
     if not comment.strip():
         raise HTTPException(status_code=400, detail="comment cannot be empty")
 
     decisions = dict(contract.review_decisions_json or {})
-    entry = dict(decisions.get(rule_id, {}))
+    entry = dict(decisions.get(key, {}))
     entry["comment"] = comment.strip()
-    decisions[rule_id] = entry
+    decisions[key] = entry
     contract.review_decisions_json = decisions
     db.commit()
 
@@ -1796,25 +1802,32 @@ async def submit_review_comment(request: Request, contract_id: int, rule_id: str
 
 
 @app.post("/contract/{contract_id}/review/verify")
-async def verify_review_finding(request: Request, contract_id: int, rule_id: str = Form(...)):
+async def verify_review_finding(request: Request, contract_id: int, finding_index: int = Form(...)):
     """The Deterministic Replay 'aha' moment, done for real: re-runs the full
     rule engine against the stored contract text and confirms the same rule
-    still fires against the same exact text — not a canned animation."""
+    still fires against the same exact text — not a canned animation. Matches
+    the replayed finding by rule_id AND exact position, not rule_id alone —
+    the same rule can fire more than once in one document, and verifying
+    finding #2 must not silently compare against finding #1's match."""
     db = next(get_db())
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
 
-    original = next((f for f in (contract.findings_json or []) if f["rule_id"] == rule_id), None)
-    if not original:
-        raise HTTPException(status_code=404, detail="Finding not found on this contract")
+    original = _get_finding_by_index(contract, finding_index)
 
     replay = rule_engine.analyze(contract.contract_text)
-    match = next((f for f in replay["findings"] if f.rule_id == rule_id), None)
+    match = next(
+        (
+            f for f in replay["findings"]
+            if f.rule_id == original["rule_id"] and f.start_index == original.get("start_index")
+        ),
+        None,
+    )
     verified = bool(match) and match.exact_snippet == original.get("exact_snippet")
 
     return {
         "verified": verified,
-        "rule_id": rule_id,
+        "rule_id": original["rule_id"],
         "exact_snippet": match.exact_snippet if match else None,
     }
 

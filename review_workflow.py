@@ -9,14 +9,20 @@ A comment can be attached alongside any of those. This module is pure logic
 the same way rules_engine.py/clause_quality.py are: testable without the app,
 reusable by any route that needs it.
 
-Decisions are keyed by rule_id and never recomputed from findings_json — a
-decision is a record of what the attorney actually did, and has to survive
-even if a later rule-engine version would classify the same clause
-differently.
+Decisions are keyed by finding_key — NOT bare rule_id. A rule can fire more
+than once in the same document (the same fee-shifting or liability language
+showing up in two different clauses is common in real contracts), so rule_id
+alone is not a unique identifier for a finding — deciding on one occurrence
+would silently apply that decision to every occurrence of the same rule.
+finding_key is "{rule_id}#{position in the findings list}", unique per
+finding regardless of how many other findings share its rule_id. Decisions
+are never recomputed from findings_json — a decision is a record of what the
+attorney actually did, and has to survive even if a later rule-engine
+version would classify the same clause differently.
 """
 
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Sequence
 
 REDLINE_ACTIONS = {"accepted", "edited", "rejected"}
 NO_REDLINE_ACTIONS = {"flagged", "dismissed"}
@@ -31,23 +37,38 @@ class DecisionValidationError(Exception):
     pass
 
 
+def finding_key(index: int, rule_id: str) -> str:
+    """The stable identity of one finding *occurrence* — see module
+    docstring for why rule_id alone can't be used as this key."""
+    return f"{rule_id}#{index}"
+
+
+def _rule_id_of(f: Any) -> str:
+    return f["rule_id"] if isinstance(f, dict) else f.rule_id
+
+
+def keyed_findings(findings: Sequence[Any]) -> List[Any]:
+    """Every finding paired with its finding_key, in document order."""
+    return [(finding_key(i, _rule_id_of(f)), f) for i, f in enumerate(findings)]
+
+
 def validate_decision(
-    rule_id: str, action: str, has_redline: bool, reason: Optional[str], edited_text: Optional[str]
+    finding_key: str, action: str, has_redline: bool, reason: Optional[str], edited_text: Optional[str]
 ) -> None:
     """Raises DecisionValidationError if this decision doesn't make sense for
     this finding. Never silently coerces an invalid action into a valid one —
     a bad request should fail loudly, not get reinterpreted."""
-    if not rule_id:
-        raise DecisionValidationError("rule_id is required")
+    if not finding_key:
+        raise DecisionValidationError("finding_key is required")
     if action not in VALID_ACTIONS:
         raise DecisionValidationError(f"'{action}' is not a valid decision action")
     if has_redline and action in NO_REDLINE_ACTIONS:
         raise DecisionValidationError(
-            f"'{action}' is only valid for a finding with no authored redline; {rule_id} has one"
+            f"'{action}' is only valid for a finding with no authored redline; {finding_key} has one"
         )
     if not has_redline and action in REDLINE_ACTIONS:
         raise DecisionValidationError(
-            f"'{action}' requires an authored redline; {rule_id} has none — use 'flagged' or 'dismissed'"
+            f"'{action}' requires an authored redline; {finding_key} has none — use 'flagged' or 'dismissed'"
         )
     if action == "rejected" and not (reason or "").strip():
         raise DecisionValidationError("a rejection requires a non-empty reason")
@@ -65,7 +86,7 @@ class ReviewProgress:
     flagged: int
     dismissed: int
     is_complete: bool
-    first_unresolved_rule_id: Optional[str]
+    first_unresolved_key: Optional[str]
 
     def as_dict(self) -> Dict[str, Any]:
         return {
@@ -77,7 +98,7 @@ class ReviewProgress:
             "flagged": self.flagged,
             "dismissed": self.dismissed,
             "is_complete": self.is_complete,
-            "first_unresolved_rule_id": self.first_unresolved_rule_id,
+            "first_unresolved_key": self.first_unresolved_key,
         }
 
 
@@ -88,13 +109,12 @@ def compute_progress(findings: List[Any], decisions: Dict[str, Dict[str, Any]]) 
     decisions = decisions or {}
     counts = {"accepted": 0, "edited": 0, "rejected": 0, "flagged": 0, "dismissed": 0}
     first_unresolved = None
-    for f in findings:
-        rule_id = f["rule_id"] if isinstance(f, dict) else f.rule_id
-        d = decisions.get(rule_id)
+    for key, _f in keyed_findings(findings):
+        d = decisions.get(key)
         if d and d.get("action") in RESOLVING_ACTIONS:
             counts[d["action"]] += 1
         elif first_unresolved is None:
-            first_unresolved = rule_id
+            first_unresolved = key
 
     resolved = sum(counts.values())
     return ReviewProgress(
@@ -106,7 +126,7 @@ def compute_progress(findings: List[Any], decisions: Dict[str, Dict[str, Any]]) 
         flagged=counts["flagged"],
         dismissed=counts["dismissed"],
         is_complete=resolved == len(findings) and len(findings) > 0,
-        first_unresolved_rule_id=first_unresolved,
+        first_unresolved_key=first_unresolved,
     )
 
 
@@ -121,17 +141,10 @@ def build_cover_memo_text(filename: str, findings: List[Dict[str, Any]], decisio
         "=" * 60,
         "",
     ]
-    rejected = [(f, decisions[f["rule_id"]]) for f in findings if decisions.get(f["rule_id"], {}).get("action") == "rejected"]
-    flagged = [
-        (f, decisions[f["rule_id"]])
-        for f in findings
-        if decisions.get(f["rule_id"], {}).get("action") in ("flagged", "dismissed")
-    ]
-    accepted = [
-        (f, decisions[f["rule_id"]])
-        for f in findings
-        if decisions.get(f["rule_id"], {}).get("action") in ("accepted", "edited")
-    ]
+    kf = keyed_findings(findings)
+    rejected = [(f, decisions[k]) for k, f in kf if decisions.get(k, {}).get("action") == "rejected"]
+    flagged = [(f, decisions[k]) for k, f in kf if decisions.get(k, {}).get("action") in ("flagged", "dismissed")]
+    accepted = [(f, decisions[k]) for k, f in kf if decisions.get(k, {}).get("action") in ("accepted", "edited")]
 
     lines.append(f"{len(accepted)} accepted, {len(rejected)} rejected, {len(flagged)} flagged for manual drafting.")
     lines.append("")
@@ -172,8 +185,8 @@ def build_audit_trail_text(filename: str, rule_engine_version: str, findings: Li
         "=" * 60,
         "",
     ]
-    for f in findings:
-        d = decisions.get(f["rule_id"], {})
+    for key, f in keyed_findings(findings):
+        d = decisions.get(key, {})
         lines.append(f"[{f['rule_id']}] {f['title']} ({f['severity'].upper()})")
         lines.append(f"  Matched: {f.get('exact_snippet') or f.get('matched_excerpt', '')}")
         if d:

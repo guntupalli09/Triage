@@ -4,6 +4,10 @@ python-docx's paragraph.text/paragraph.runs deliberately don't see inside
 w:ins/w:del wrappers (it wasn't built with revision tracking in mind), so
 these tests read the raw OOXML directly via lxml/docx's own element tree —
 the same thing a real consumer (Word, or any other OOXML-aware tool) reads.
+
+Decisions are keyed by finding_key ("{rule_id}#{index in the findings
+list}"), not bare rule_id — see review_workflow.py's module docstring for
+why: the same rule can fire more than once in one real document.
 """
 
 import io
@@ -15,6 +19,7 @@ from docx.oxml.ns import qn
 from lxml import etree
 
 from docx_export import build_redlined_docx
+from review_workflow import finding_key as fk
 
 
 def _finding(rule_id, start, end, exact_snippet, redline_text=None, title=None, rationale="why it matters"):
@@ -64,7 +69,7 @@ class TestTrackedInsertDelete:
     def test_accepted_redline_is_a_real_ins_and_del(self):
         text = "The Vendor shall have unlimited liability under this Agreement."
         findings = [_finding("H_LOL_01", 11, 32, "shall have unlimited", "shall cap aggregate")]
-        decisions = {"H_LOL_01": {"action": "accepted"}}
+        decisions = {fk(0, "H_LOL_01"): {"action": "accepted"}}
         docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions, author="Jane Attorney")
         assert skipped == []
         doc = _open(docx_bytes)
@@ -76,7 +81,7 @@ class TestTrackedInsertDelete:
     def test_ins_and_del_elements_present(self):
         text = "Original clause text here."
         findings = [_finding("R1", 0, 8, "Original", "Revised")]
-        decisions = {"R1": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
         doc = _open(docx_bytes)
         assert len(_elements(doc, "w:ins")) >= 1
@@ -85,7 +90,7 @@ class TestTrackedInsertDelete:
     def test_track_changes_author_is_the_reviewing_attorney(self):
         text = "Original clause text here."
         findings = [_finding("R1", 0, 8, "Original", "Revised")]
-        decisions = {"R1": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions, author="Jane Attorney")
         doc = _open(docx_bytes)
         ins_els = _elements(doc, "w:ins")
@@ -96,7 +101,7 @@ class TestTrackedInsertDelete:
     def test_falls_back_to_a_generic_author_if_none_given(self):
         text = "Original clause text here."
         findings = [_finding("R1", 0, 8, "Original", "Revised")]
-        decisions = {"R1": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
         doc = _open(docx_bytes)
         assert _elements(doc, "w:ins")[0].get(qn("w:author"))
@@ -104,18 +109,61 @@ class TestTrackedInsertDelete:
     def test_ins_del_ids_are_unique(self):
         text = "AAAA BBBB CCCC DDDD"
         findings = [_finding("R1", 0, 4, "AAAA", "first-new"), _finding("R2", 10, 14, "CCCC", "second-new")]
-        decisions = {"R1": {"action": "accepted"}, "R2": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}, fk(1, "R2"): {"action": "accepted"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
         doc = _open(docx_bytes)
         ids = [el.get(qn("w:id")) for el in _elements(doc, "w:ins") + _elements(doc, "w:del")]
         assert len(ids) == len(set(ids)), "revision ids must be unique or Word can't tell them apart"
 
 
+class TestDuplicateRuleId:
+    """The same rule can fire more than once in one real document — deciding
+    on one occurrence must never affect another occurrence of the same
+    rule_id. This is a real bug found live against a real contract, not a
+    hypothetical."""
+
+    def test_accepting_one_occurrence_does_not_apply_to_another(self):
+        text = "AAAA BBBB CCCC DDDD"
+        findings = [
+            _finding("H_ATTFEE_01", 0, 4, "AAAA", "first-redline"),
+            _finding("H_ATTFEE_01", 10, 14, "CCCC", "second-redline"),
+        ]
+        # only accept the FIRST occurrence
+        decisions = {fk(0, "H_ATTFEE_01"): {"action": "accepted"}}
+        docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
+        assert skipped == []
+        doc = _open(docx_bytes)
+        assert "first-redline" in _all_text(doc, "w:t")
+        assert "second-redline" not in _all_text(doc, "w:t")
+        # the second occurrence's original text must be untouched, not deleted
+        assert "CCCC" in _all_text(doc, "w:t")
+        assert "CCCC" not in _all_text(doc, "w:delText")
+
+    def test_rejecting_one_occurrence_does_not_reject_another(self):
+        text = "AAAA BBBB CCCC DDDD"
+        findings = [
+            _finding("H_ATTFEE_01", 0, 4, "AAAA", "first-redline"),
+            _finding("H_ATTFEE_01", 10, 14, "CCCC", "second-redline"),
+        ]
+        decisions = {
+            fk(0, "H_ATTFEE_01"): {"action": "accepted"},
+            fk(1, "H_ATTFEE_01"): {"action": "rejected", "reason": "already mutual"},
+        }
+        docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
+        assert skipped == []
+        doc = _open(docx_bytes)
+        assert "first-redline" in _all_text(doc, "w:t")  # accepted one applied
+        assert "second-redline" not in _all_text(doc, "w:t")  # rejected one NOT applied
+        comments_xml = _part_xml(docx_bytes, "word/comments.xml")
+        assert comments_xml.count("<w:comment ") == 2  # one rationale comment + one reject-note comment
+        assert "already mutual" in comments_xml
+
+
 class TestEditedRedlines:
     def test_edited_text_used_instead_of_original_redline(self):
         text = "Some clause here that needs work."
         findings = [_finding("R1", 5, 11, "clause", "engine's suggestion")]
-        decisions = {"R1": {"action": "edited", "edited_text": "attorney's custom wording"}}
+        decisions = {fk(0, "R1"): {"action": "edited", "edited_text": "attorney's custom wording"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
         doc = _open(docx_bytes)
         assert "attorney's custom wording" in _all_text(doc, "w:t")
@@ -124,7 +172,7 @@ class TestEditedRedlines:
     def test_edit_is_noted_in_the_comment_not_the_document_body(self):
         text = "Some clause here."
         findings = [_finding("R1", 5, 11, "clause", "engine text", rationale="original rationale")]
-        decisions = {"R1": {"action": "edited", "edited_text": "new text"}}
+        decisions = {fk(0, "R1"): {"action": "edited", "edited_text": "new text"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
         # the body should read like a normal human edit — no visible "[edited]" tag
         assert "[edited by reviewer]" not in _all_text(_open(docx_bytes), "w:t")
@@ -136,7 +184,7 @@ class TestComments:
     def test_comment_part_exists_when_there_are_accepted_redlines(self):
         text = "Original clause text here."
         findings = [_finding("R1", 0, 8, "Original", "Revised", rationale="uncapped exposure")]
-        decisions = {"R1": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
         assert _part_exists(docx_bytes, "word/comments.xml")
 
@@ -147,7 +195,7 @@ class TestComments:
     def test_comment_cites_the_rule_id_and_rationale(self):
         text = "Original clause text here."
         findings = [_finding("H_LOL_01", 0, 8, "Original", "Revised", rationale="uncapped exposure is risky")]
-        decisions = {"H_LOL_01": {"action": "accepted"}}
+        decisions = {fk(0, "H_LOL_01"): {"action": "accepted"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
         comments_xml = _part_xml(docx_bytes, "word/comments.xml")
         assert "H_LOL_01" in comments_xml
@@ -156,7 +204,7 @@ class TestComments:
     def test_comment_authored_by_the_engine_not_the_attorney(self):
         text = "Original clause text here."
         findings = [_finding("R1", 0, 8, "Original", "Revised")]
-        decisions = {"R1": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions, author="Jane Attorney")
         comments_xml = _part_xml(docx_bytes, "word/comments.xml")
         assert 'w:author="TriageCounsel Deterministic Engine"' in comments_xml
@@ -165,7 +213,7 @@ class TestComments:
     def test_content_types_and_relationship_are_registered(self):
         text = "Original clause text here."
         findings = [_finding("R1", 0, 8, "Original", "Revised")]
-        decisions = {"R1": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
         content_types = _part_xml(docx_bytes, "[Content_Types].xml")
         rels = _part_xml(docx_bytes, "word/_rels/document.xml.rels")
@@ -175,7 +223,7 @@ class TestComments:
     def test_comment_reference_style_is_registered(self):
         text = "Original clause text here."
         findings = [_finding("R1", 0, 8, "Original", "Revised")]
-        decisions = {"R1": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
         styles = _part_xml(docx_bytes, "word/styles.xml")
         assert 'w:styleId="CommentReference"' in styles
@@ -183,7 +231,7 @@ class TestComments:
     def test_one_comment_per_applied_redline(self):
         text = "AAAA BBBB CCCC DDDD"
         findings = [_finding("R1", 0, 4, "AAAA", "first-new"), _finding("R2", 10, 14, "CCCC", "second-new")]
-        decisions = {"R1": {"action": "accepted"}, "R2": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}, fk(1, "R2"): {"action": "accepted"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
         comments_xml = _part_xml(docx_bytes, "word/comments.xml")
         assert comments_xml.count("<w:comment ") == 2
@@ -193,7 +241,7 @@ class TestTrackChangesEnabled:
     def test_track_changes_turned_on_when_redlines_applied(self):
         text = "Original clause text here."
         findings = [_finding("R1", 0, 8, "Original", "Revised")]
-        decisions = {"R1": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
         settings = _part_xml(docx_bytes, "word/settings.xml")
         assert "<w:trackChanges" in settings
@@ -210,7 +258,7 @@ class TestRejectedFindings:
     def test_rejected_redline_text_is_not_applied(self):
         text = "The Vendor shall have unlimited liability."
         findings = [_finding("R1", 11, 32, "shall have unlimited", "shall cap liability")]
-        decisions = {"R1": {"action": "rejected", "reason": "not applicable"}}
+        decisions = {fk(0, "R1"): {"action": "rejected", "reason": "not applicable"}}
         docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
         doc = _open(docx_bytes)
         assert "shall cap liability" not in _all_text(doc, "w:t")
@@ -222,7 +270,7 @@ class TestRejectedFindings:
     def test_rejected_finding_gets_a_comment_with_the_reason(self):
         text = "The Vendor shall have unlimited liability under this Agreement."
         findings = [_finding("H_LOL_01", 11, 32, "shall have unlimited", "shall cap liability", title="Unlimited Liability")]
-        decisions = {"H_LOL_01": {"action": "rejected", "reason": "deal size too small to matter"}}
+        decisions = {fk(0, "H_LOL_01"): {"action": "rejected", "reason": "deal size too small to matter"}}
         docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
         assert _part_exists(docx_bytes, "word/comments.xml")
         comments_xml = _part_xml(docx_bytes, "word/comments.xml")
@@ -233,7 +281,7 @@ class TestRejectedFindings:
     def test_rejected_finding_comment_is_authored_by_the_attorney_not_the_engine(self):
         text = "The Vendor shall have unlimited liability."
         findings = [_finding("R1", 11, 32, "shall have unlimited", "shall cap liability")]
-        decisions = {"R1": {"action": "rejected", "reason": "not applicable"}}
+        decisions = {fk(0, "R1"): {"action": "rejected", "reason": "not applicable"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions, author="Jane Attorney")
         comments_xml = _part_xml(docx_bytes, "word/comments.xml")
         assert 'w:author="Jane Attorney"' in comments_xml
@@ -242,7 +290,7 @@ class TestRejectedFindings:
     def test_rejected_finding_produces_no_ins_or_del(self):
         text = "The Vendor shall have unlimited liability."
         findings = [_finding("R1", 11, 32, "shall have unlimited", "shall cap liability")]
-        decisions = {"R1": {"action": "rejected", "reason": "not applicable"}}
+        decisions = {fk(0, "R1"): {"action": "rejected", "reason": "not applicable"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
         doc = _open(docx_bytes)
         assert _elements(doc, "w:ins") == []
@@ -254,7 +302,7 @@ class TestRejectedFindings:
             _finding("R1", 0, 4, "AAAA", "first-new", title="First"),
             _finding("R2", 10, 14, "CCCC", None, title="Second"),
         ]
-        decisions = {"R1": {"action": "accepted"}, "R2": {"action": "rejected", "reason": "no thanks"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}, fk(1, "R2"): {"action": "rejected", "reason": "no thanks"}}
         docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
         assert skipped == []
         doc = _open(docx_bytes)
@@ -269,14 +317,14 @@ class TestRejectedFindings:
         # produce a blank comment if it somehow does
         text = "The Vendor shall have unlimited liability."
         findings = [_finding("R1", 11, 32, "shall have unlimited", "shall cap liability")]
-        decisions = {"R1": {"action": "rejected", "reason": "  "}}
+        decisions = {fk(0, "R1"): {"action": "rejected", "reason": "  "}}
         docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
         assert not _part_exists(docx_bytes, "word/comments.xml")
 
     def test_rejected_comment_initials_reflect_the_attorney_not_the_engine(self):
         text = "The Vendor shall have unlimited liability."
         findings = [_finding("R1", 11, 32, "shall have unlimited", "shall cap liability")]
-        decisions = {"R1": {"action": "rejected", "reason": "not applicable"}}
+        decisions = {fk(0, "R1"): {"action": "rejected", "reason": "not applicable"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions, author="Jane Attorney")
         comments_xml = _part_xml(docx_bytes, "word/comments.xml")
         assert 'w:initials="JA"' in comments_xml
@@ -287,7 +335,7 @@ class TestRejectedFindings:
             _finding("R1", 0, 10, text[0:10], "FIRST-REPLACEMENT"),
             _finding("R2", 5, 15, text[5:15], None),
         ]
-        decisions = {"R1": {"action": "accepted"}, "R2": {"action": "rejected", "reason": "overlaps"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}, fk(1, "R2"): {"action": "rejected", "reason": "overlaps"}}
         docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
         assert skipped == ["R2"]
 
@@ -296,7 +344,7 @@ class TestOtherSkippedDecisions:
     def test_flagged_findings_with_no_redline_are_not_applied(self):
         text = "Some indemnification clause text."
         findings = [_finding("R1", 5, 22, "indemnification")]
-        decisions = {"R1": {"action": "flagged"}}
+        decisions = {fk(0, "R1"): {"action": "flagged"}}
         docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
         doc = _open(docx_bytes)
         assert "indemnification" in _all_text(doc, "w:t")
@@ -311,7 +359,7 @@ class TestOtherSkippedDecisions:
 
     def test_missing_position_data_is_skipped_not_crashed(self):
         findings = [{"rule_id": "R1", "start_index": None, "end_index": None, "exact_snippet": "x", "redline": {"suggested_redline": "y"}}]
-        decisions = {"R1": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}}
         docx_bytes, skipped = build_redlined_docx("test.docx", "some text", findings, decisions)
         assert docx_bytes
 
@@ -323,7 +371,7 @@ class TestOverlappingSpans:
             _finding("R1", 0, 10, text[0:10], "FIRST-REPLACEMENT"),
             _finding("R2", 5, 15, text[5:15], "SECOND-REPLACEMENT"),
         ]
-        decisions = {"R1": {"action": "accepted"}, "R2": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}, fk(1, "R2"): {"action": "accepted"}}
         docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
         assert skipped == ["R2"]
         doc = _open(docx_bytes)
@@ -333,7 +381,7 @@ class TestOverlappingSpans:
     def test_non_overlapping_findings_both_applied_in_order(self):
         text = "AAAA BBBB CCCC DDDD"
         findings = [_finding("R1", 0, 4, "AAAA", "first-new"), _finding("R2", 10, 14, "CCCC", "second-new")]
-        decisions = {"R1": {"action": "accepted"}, "R2": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}, fk(1, "R2"): {"action": "accepted"}}
         docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
         assert skipped == []
         full_text = _all_text(_open(docx_bytes), "w:t")
@@ -368,7 +416,7 @@ class TestPackageIntegrity:
     def test_output_is_a_well_formed_zip(self):
         text = "Original clause text here."
         findings = [_finding("R1", 0, 8, "Original", "Revised")]
-        decisions = {"R1": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
         zf = zipfile.ZipFile(io.BytesIO(docx_bytes))
         assert zf.testzip() is None  # None means every member's CRC checked out
@@ -376,7 +424,7 @@ class TestPackageIntegrity:
     def test_every_injected_part_is_well_formed_xml(self):
         text = "Original clause text here."
         findings = [_finding("R1", 0, 8, "Original", "Revised")]
-        decisions = {"R1": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
         zf = zipfile.ZipFile(io.BytesIO(docx_bytes))
         for name in ("[Content_Types].xml", "word/_rels/document.xml.rels", "word/styles.xml",
@@ -386,7 +434,7 @@ class TestPackageIntegrity:
     def test_document_reopens_cleanly_in_python_docx(self):
         text = "Original clause text here. More text follows."
         findings = [_finding("R1", 0, 8, "Original", "Revised")]
-        decisions = {"R1": {"action": "accepted"}}
+        decisions = {fk(0, "R1"): {"action": "accepted"}}
         docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
         doc = _open(docx_bytes)  # must not raise
         assert len(doc.paragraphs) > 0
@@ -406,7 +454,6 @@ class TestAgainstRealEngineOutput:
         ]
         if not findings:
             pytest.skip("no findings on this fixture text")
-        rid = findings[0]["rule_id"]
-        decisions = {rid: {"action": "flagged"}}
+        decisions = {fk(0, findings[0]["rule_id"]): {"action": "flagged"}}
         docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
         assert docx_bytes

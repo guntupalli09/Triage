@@ -33,6 +33,7 @@ import zipfile
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
 
+import review_workflow
 from docx import Document
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
@@ -244,8 +245,8 @@ def build_redlined_docx(
     date_iso = _iso_now()
 
     items = []
-    for f in findings:
-        d = decisions.get(f["rule_id"])
+    for idx, f in enumerate(findings):
+        d = decisions.get(review_workflow.finding_key(idx, f["rule_id"]))
         if not d:
             continue
         start, end = f.get("start_index"), f.get("end_index")
