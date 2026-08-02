@@ -54,6 +54,15 @@ def _iso_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def _initials_of(author: str) -> str:
+    words = [w for w in (author or "").replace(".", " ").split() if w]
+    if not words:
+        return "TC"
+    if len(words) == 1:
+        return words[0][:2].upper()
+    return (words[0][0] + words[-1][0]).upper()
+
+
 def _text_run(text: str, delete: bool = False):
     r = OxmlElement("w:r")
     t = OxmlElement("w:delText" if delete else "w:t")
@@ -132,7 +141,7 @@ def _inject_comments_part(docx_bytes: bytes, comments: List[Dict[str, str]]) -> 
 
     comment_items = "".join(
         f'<w:comment w:id="{c["id"]}" w:author="{_xml_escape(c["author"])}" '
-        f'w:initials="{_xml_escape(c.get("initials", "TC"))}" w:date="{c["date"]}">'
+        f'w:initials="{_xml_escape(c.get("initials") or _initials_of(c["author"]))}" w:date="{c["date"]}">'
         f'<w:p><w:r><w:t xml:space="preserve">{_xml_escape(c["text"])}</w:t></w:r></w:p></w:comment>'
         for c in comments
     )
@@ -211,41 +220,66 @@ def build_redlined_docx(
 ) -> Tuple[bytes, List[str]]:
     """Returns (docx_bytes, skipped_rule_ids). author is the reviewing
     attorney's name/email — becomes the Track Changes author of record for
-    every accepted/edited redline, exactly as Word attributes any other
-    edit to whoever is signed in. Falls back to a generic label only if the
-    caller genuinely has nothing better (should not happen for an
-    authenticated review session)."""
+    every accepted/edited redline (accepting one makes it their edit, the
+    same way accepting a Grammarly/Copilot suggestion attributes the change
+    to the human), and the author of every "reviewed and declined" comment
+    on a rejected finding (that comment IS the attorney's own note — unlike
+    the rule-rationale comment on an accepted redline, which stays
+    attributed to the engine that computed it). Falls back to a generic
+    label only if the caller genuinely has nothing better (should not
+    happen for an authenticated review session).
+
+    Two kinds of span get placed in the document, in one combined
+    left-to-right pass so overlap detection covers both together:
+      - "redline": accepted/edited — mutates the text (w:del the original,
+        w:ins the new language) and carries a rule-rationale comment.
+      - "reject_note": rejected — leaves the original text untouched and
+        wraps it in a comment recording that it was reviewed and declined,
+        with the attorney's stated reason. Flagged/dismissed findings (no
+        redline exists to accept or reject) are not annotated here — they
+        stay in the cover memo only, same as before.
+    """
     author = author or "TriageCounsel Reviewer"
     decisions = decisions or {}
     date_iso = _iso_now()
 
-    applicable = []
+    items = []
     for f in findings:
         d = decisions.get(f["rule_id"])
-        if not d or d.get("action") not in ("accepted", "edited"):
+        if not d:
             continue
         start, end = f.get("start_index"), f.get("end_index")
         if start is None or end is None or start >= end or end > len(contract_text):
             continue
-        if d["action"] == "edited":
-            new_text = (d.get("edited_text") or "").strip()
-        else:
-            redline = f.get("redline") or {}
-            new_text = redline.get("suggested_redline", "")
-        if not new_text:
-            continue
-        applicable.append({
-            "rule_id": f["rule_id"], "start": start, "end": end,
-            "original": contract_text[start:end], "new_text": new_text,
-            "edited": d["action"] == "edited",
-            "issue": (f.get("redline") or {}).get("issue", f.get("title", f["rule_id"])),
-            "rationale": (f.get("redline") or {}).get("legal_rationale") or f.get("rationale", ""),
-        })
 
-    applicable.sort(key=lambda a: a["start"])
+        if d.get("action") in ("accepted", "edited"):
+            if d["action"] == "edited":
+                new_text = (d.get("edited_text") or "").strip()
+            else:
+                new_text = (f.get("redline") or {}).get("suggested_redline", "")
+            if not new_text:
+                continue
+            items.append({
+                "kind": "redline", "rule_id": f["rule_id"], "start": start, "end": end,
+                "original": contract_text[start:end], "new_text": new_text,
+                "edited": d["action"] == "edited",
+                "issue": (f.get("redline") or {}).get("issue", f.get("title", f["rule_id"])),
+                "rationale": (f.get("redline") or {}).get("legal_rationale") or f.get("rationale", ""),
+            })
+        elif d.get("action") == "rejected":
+            reason = (d.get("reason") or "").strip()
+            if not reason:
+                continue
+            items.append({
+                "kind": "reject_note", "rule_id": f["rule_id"], "start": start, "end": end,
+                "original": contract_text[start:end], "reason": reason,
+                "issue": f.get("title", f["rule_id"]),
+            })
+
+    items.sort(key=lambda a: a["start"])
     applied, skipped = [], []
     cursor_end = -1
-    for a in applicable:
+    for a in items:
         if a["start"] < cursor_end:
             skipped.append(a["rule_id"])
             continue
@@ -257,8 +291,8 @@ def build_redlined_docx(
     note = doc.add_paragraph()
     note_run = note.add_run(
         "This redline uses native Word Track Changes. Each suggested edit carries a comment "
-        "explaining the deterministic rule behind it — accept, reject, or edit them exactly as "
-        "you would any other tracked change."
+        "explaining the deterministic rule behind it, and each declined suggestion carries the "
+        "reviewer's note — accept, reject, or edit them exactly as you would any other tracked change."
     )
     note_run.italic = True
     doc.add_paragraph()
@@ -270,22 +304,32 @@ def build_redlined_docx(
     comment_id = 0
     for a in applied:
         para = _flush_text(doc, para, contract_text[cursor:a["start"]])
-        para._p.append(_del_element(author, date_iso, rev_id, a["original"]))
-        rev_id += 1
 
-        para._p.append(_comment_range_start(comment_id))
-        para._p.append(_ins_element(author, date_iso, rev_id, a["new_text"]))
-        rev_id += 1
-        end_el, ref_run = _comment_range_end_with_reference(comment_id)
-        para._p.append(end_el)
-        para._p.append(ref_run)
+        if a["kind"] == "redline":
+            para._p.append(_del_element(author, date_iso, rev_id, a["original"]))
+            rev_id += 1
+            para._p.append(_comment_range_start(comment_id))
+            para._p.append(_ins_element(author, date_iso, rev_id, a["new_text"]))
+            rev_id += 1
+            end_el, ref_run = _comment_range_end_with_reference(comment_id)
+            para._p.append(end_el)
+            para._p.append(ref_run)
 
-        comment_text = f"Rule {a['rule_id']} — {a['issue']}. {a['rationale']}".strip()
-        if a["edited"]:
-            comment_text += " (Suggested redline was edited by the reviewer before acceptance.)"
-        comments_meta.append({"id": str(comment_id), "author": ENGINE_AUTHOR, "date": date_iso, "text": comment_text})
+            comment_text = f"Rule {a['rule_id']} — {a['issue']}. {a['rationale']}".strip()
+            if a["edited"]:
+                comment_text += " (Suggested redline was edited by the reviewer before acceptance.)"
+            comments_meta.append({"id": str(comment_id), "author": ENGINE_AUTHOR, "initials": "TC", "date": date_iso, "text": comment_text})
+        else:  # reject_note — text is untouched, just annotated
+            para._p.append(_comment_range_start(comment_id))
+            para = _flush_text(doc, para, a["original"])
+            end_el, ref_run = _comment_range_end_with_reference(comment_id)
+            para._p.append(end_el)
+            para._p.append(ref_run)
+
+            comment_text = f"Reviewed and declined ({a['rule_id']} — {a['issue']}): {a['reason']}"
+            comments_meta.append({"id": str(comment_id), "author": author, "date": date_iso, "text": comment_text})
+
         comment_id += 1
-
         cursor = a["end"]
     _flush_text(doc, para, contract_text[cursor:])
 

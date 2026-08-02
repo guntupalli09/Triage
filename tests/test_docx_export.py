@@ -206,18 +206,93 @@ class TestTrackChangesEnabled:
         assert "<w:trackChanges" in settings
 
 
-class TestSkippedDecisions:
-    def test_rejected_findings_are_not_applied(self):
+class TestRejectedFindings:
+    def test_rejected_redline_text_is_not_applied(self):
         text = "The Vendor shall have unlimited liability."
-        findings = [_finding("R1", 12, 32, "shall have unlimited", "shall cap liability")]
+        findings = [_finding("R1", 11, 32, "shall have unlimited", "shall cap liability")]
         decisions = {"R1": {"action": "rejected", "reason": "not applicable"}}
         docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
         doc = _open(docx_bytes)
         assert "shall cap liability" not in _all_text(doc, "w:t")
         assert "shall have unlimited" in _all_text(doc, "w:t")  # untouched plain text, not a deletion
-        assert skipped == []  # rejected isn't "skipped", it's just never applicable
+        assert skipped == []
+        # original text is untouched — no deletion was made, even though a comment exists
+        assert "shall have unlimited" not in _all_text(doc, "w:delText")
+
+    def test_rejected_finding_gets_a_comment_with_the_reason(self):
+        text = "The Vendor shall have unlimited liability under this Agreement."
+        findings = [_finding("H_LOL_01", 11, 32, "shall have unlimited", "shall cap liability", title="Unlimited Liability")]
+        decisions = {"H_LOL_01": {"action": "rejected", "reason": "deal size too small to matter"}}
+        docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
+        assert _part_exists(docx_bytes, "word/comments.xml")
+        comments_xml = _part_xml(docx_bytes, "word/comments.xml")
+        assert "H_LOL_01" in comments_xml
+        assert "deal size too small to matter" in comments_xml
+        assert "Reviewed and declined" in comments_xml
+
+    def test_rejected_finding_comment_is_authored_by_the_attorney_not_the_engine(self):
+        text = "The Vendor shall have unlimited liability."
+        findings = [_finding("R1", 11, 32, "shall have unlimited", "shall cap liability")]
+        decisions = {"R1": {"action": "rejected", "reason": "not applicable"}}
+        docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions, author="Jane Attorney")
+        comments_xml = _part_xml(docx_bytes, "word/comments.xml")
+        assert 'w:author="Jane Attorney"' in comments_xml
+        assert 'w:author="TriageCounsel Deterministic Engine"' not in comments_xml
+
+    def test_rejected_finding_produces_no_ins_or_del(self):
+        text = "The Vendor shall have unlimited liability."
+        findings = [_finding("R1", 11, 32, "shall have unlimited", "shall cap liability")]
+        decisions = {"R1": {"action": "rejected", "reason": "not applicable"}}
+        docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions)
+        doc = _open(docx_bytes)
+        assert _elements(doc, "w:ins") == []
+        assert _elements(doc, "w:del") == []
+
+    def test_rejected_and_accepted_findings_both_annotated_in_one_pass(self):
+        text = "AAAA BBBB CCCC DDDD"
+        findings = [
+            _finding("R1", 0, 4, "AAAA", "first-new", title="First"),
+            _finding("R2", 10, 14, "CCCC", None, title="Second"),
+        ]
+        decisions = {"R1": {"action": "accepted"}, "R2": {"action": "rejected", "reason": "no thanks"}}
+        docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
+        assert skipped == []
+        doc = _open(docx_bytes)
+        assert "first-new" in _all_text(doc, "w:t")
+        assert "CCCC" in _all_text(doc, "w:t")  # rejected span untouched
+        comments_xml = _part_xml(docx_bytes, "word/comments.xml")
+        assert comments_xml.count("<w:comment ") == 2
+        assert "no thanks" in comments_xml
+
+    def test_rejected_with_empty_reason_is_not_annotated(self):
+        # shouldn't happen given review_workflow's validation, but must not crash or
+        # produce a blank comment if it somehow does
+        text = "The Vendor shall have unlimited liability."
+        findings = [_finding("R1", 11, 32, "shall have unlimited", "shall cap liability")]
+        decisions = {"R1": {"action": "rejected", "reason": "  "}}
+        docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
         assert not _part_exists(docx_bytes, "word/comments.xml")
 
+    def test_rejected_comment_initials_reflect_the_attorney_not_the_engine(self):
+        text = "The Vendor shall have unlimited liability."
+        findings = [_finding("R1", 11, 32, "shall have unlimited", "shall cap liability")]
+        decisions = {"R1": {"action": "rejected", "reason": "not applicable"}}
+        docx_bytes, _ = build_redlined_docx("test.docx", text, findings, decisions, author="Jane Attorney")
+        comments_xml = _part_xml(docx_bytes, "word/comments.xml")
+        assert 'w:initials="JA"' in comments_xml
+
+    def test_rejected_finding_overlapping_an_accepted_one_is_skipped(self):
+        text = "0123456789ABCDEFGHIJ"
+        findings = [
+            _finding("R1", 0, 10, text[0:10], "FIRST-REPLACEMENT"),
+            _finding("R2", 5, 15, text[5:15], None),
+        ]
+        decisions = {"R1": {"action": "accepted"}, "R2": {"action": "rejected", "reason": "overlaps"}}
+        docx_bytes, skipped = build_redlined_docx("test.docx", text, findings, decisions)
+        assert skipped == ["R2"]
+
+
+class TestOtherSkippedDecisions:
     def test_flagged_findings_with_no_redline_are_not_applied(self):
         text = "Some indemnification clause text."
         findings = [_finding("R1", 5, 22, "indemnification")]
