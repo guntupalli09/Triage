@@ -49,6 +49,14 @@ from sqlalchemy.orm import Session as DBSession
 from rules_engine import RuleEngine, FINDING_TYPE_LABELS
 from confidence_index import build_confidence_breakdown
 from redline_templates import render_redline
+from review_workflow import (
+    DecisionValidationError,
+    build_audit_trail_text,
+    build_cover_memo_text,
+    compute_progress,
+    validate_decision,
+)
+from docx_export import build_redlined_docx
 from evaluator import LLMEvaluator
 from database import get_db, check_db_health, check_redis_health
 from auth import (
@@ -1354,6 +1362,7 @@ async def view_contract(request: Request, contract_id: int):
         "clause_quality": contract.clause_quality_json,
         "metadata": contract.metadata_json,
         "risk_balance": contract.risk_balance_json,
+        "progress": compute_progress(contract.findings_json or [], contract.review_decisions_json or {}).as_dict(),
     })
 
 
@@ -1681,6 +1690,185 @@ async def create_share_link(request: Request, contract_id: int, password: str = 
 
     share_url = f"{get_base_url(request)}/shared/{contract.share_token}"
     return {"share_url": share_url, "token": contract.share_token}
+
+
+# ============================================================
+# REVIEW WORKFLOW — the merged findings+redlines review pass.
+# See review_workflow.py (decision logic) and docx_export.py (the
+# Negotiation Package's redlined .docx). One decision per finding, in-
+# document, with a real re-run of the deterministic engine backing the
+# "Verify" action — not a canned animation.
+# ============================================================
+
+def _get_owned_contract(db: DBSession, user, contract_id: int) -> Contract:
+    contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
+    if not contract:
+        raise HTTPException(status_code=404, detail="Contract not found")
+    return contract
+
+
+@app.get("/contract/{contract_id}/review", response_class=HTMLResponse)
+async def review_contract(request: Request, contract_id: int):
+    db = next(get_db())
+    user = require_user(request, db)
+    contract = _get_owned_contract(db, user, contract_id)
+
+    findings = contract.findings_json or []
+    decisions = contract.review_decisions_json or {}
+    progress = compute_progress(findings, decisions)
+
+    return templates.TemplateResponse("review.html", {
+        "request": request, "user": user, "contract_id": contract.id,
+        "filename": contract.filename, "overall_risk": contract.overall_risk,
+        "rule_engine_version": contract.rule_engine_version or "2.0.0",
+        "contract_text": contract.contract_text,
+        "findings": findings, "decisions": decisions, "progress": progress.as_dict(),
+        "clause_quality": contract.clause_quality_json,
+        "legal_risk_score": contract.legal_risk_score,
+        "business_risk_score": contract.business_risk_score,
+        "negotiation_difficulty_score": contract.negotiation_difficulty_score,
+        "metadata": contract.metadata_json,
+        "is_finalized": contract.review_finalized_at is not None,
+        "current_year": datetime.now().year,
+    })
+
+
+@app.post("/contract/{contract_id}/review/decision")
+async def submit_review_decision(
+    request: Request, contract_id: int,
+    rule_id: str = Form(...), action: str = Form(...),
+    reason: str = Form(""), edited_text: str = Form(""),
+):
+    db = next(get_db())
+    user = require_user(request, db)
+    contract = _get_owned_contract(db, user, contract_id)
+
+    findings = contract.findings_json or []
+    finding = next((f for f in findings if f["rule_id"] == rule_id), None)
+    if not finding:
+        raise HTTPException(status_code=404, detail="Finding not found on this contract")
+
+    try:
+        validate_decision(rule_id, action, bool(finding.get("redline")), reason, edited_text)
+    except DecisionValidationError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    decisions = dict(contract.review_decisions_json or {})
+    entry = {"action": action, "decided_at": datetime.utcnow().isoformat()}
+    if reason.strip():
+        entry["reason"] = reason.strip()
+    if action == "edited":
+        entry["edited_text"] = edited_text.strip()
+    # a decision replaces any prior decision on this finding, but a comment
+    # left before the decision was made should survive the overwrite
+    prior_comment = (contract.review_decisions_json or {}).get(rule_id, {}).get("comment")
+    if prior_comment:
+        entry["comment"] = prior_comment
+    decisions[rule_id] = entry
+    contract.review_decisions_json = decisions
+    db.commit()
+
+    progress = compute_progress(findings, decisions)
+    analytics.record_event(request, "review_decision", user=user, metadata={"contract_id": contract.id, "rule_id": rule_id, "action": action})
+    return {"progress": progress.as_dict()}
+
+
+@app.post("/contract/{contract_id}/review/comment")
+async def submit_review_comment(request: Request, contract_id: int, rule_id: str = Form(...), comment: str = Form(...)):
+    db = next(get_db())
+    user = require_user(request, db)
+    contract = _get_owned_contract(db, user, contract_id)
+
+    findings = contract.findings_json or []
+    if not any(f["rule_id"] == rule_id for f in findings):
+        raise HTTPException(status_code=404, detail="Finding not found on this contract")
+    if not comment.strip():
+        raise HTTPException(status_code=400, detail="comment cannot be empty")
+
+    decisions = dict(contract.review_decisions_json or {})
+    entry = dict(decisions.get(rule_id, {}))
+    entry["comment"] = comment.strip()
+    decisions[rule_id] = entry
+    contract.review_decisions_json = decisions
+    db.commit()
+
+    return {"ok": True}
+
+
+@app.post("/contract/{contract_id}/review/verify")
+async def verify_review_finding(request: Request, contract_id: int, rule_id: str = Form(...)):
+    """The Deterministic Replay 'aha' moment, done for real: re-runs the full
+    rule engine against the stored contract text and confirms the same rule
+    still fires against the same exact text — not a canned animation."""
+    db = next(get_db())
+    user = require_user(request, db)
+    contract = _get_owned_contract(db, user, contract_id)
+
+    original = next((f for f in (contract.findings_json or []) if f["rule_id"] == rule_id), None)
+    if not original:
+        raise HTTPException(status_code=404, detail="Finding not found on this contract")
+
+    replay = rule_engine.analyze(contract.contract_text)
+    match = next((f for f in replay["findings"] if f.rule_id == rule_id), None)
+    verified = bool(match) and match.exact_snippet == original.get("exact_snippet")
+
+    return {
+        "verified": verified,
+        "rule_id": rule_id,
+        "exact_snippet": match.exact_snippet if match else None,
+    }
+
+
+@app.post("/contract/{contract_id}/review/finalize")
+async def finalize_review(request: Request, contract_id: int):
+    db = next(get_db())
+    user = require_user(request, db)
+    contract = _get_owned_contract(db, user, contract_id)
+
+    findings = contract.findings_json or []
+    decisions = contract.review_decisions_json or {}
+    progress = compute_progress(findings, decisions)
+    if not progress.is_complete:
+        raise HTTPException(status_code=400, detail=f"{progress.total - progress.resolved} finding(s) still need a decision")
+
+    contract.review_finalized_at = datetime.utcnow()
+    db.commit()
+    analytics.record_event(request, "review_finalized", user=user, metadata={"contract_id": contract.id})
+    return {"progress": progress.as_dict(), "finalized_at": contract.review_finalized_at.isoformat()}
+
+
+@app.get("/contract/{contract_id}/review/package")
+async def download_negotiation_package(request: Request, contract_id: int):
+    db = next(get_db())
+    user = require_user(request, db)
+    contract = _get_owned_contract(db, user, contract_id)
+
+    findings = contract.findings_json or []
+    decisions = contract.review_decisions_json or {}
+    progress = compute_progress(findings, decisions)
+    if not progress.is_complete:
+        raise HTTPException(status_code=400, detail="Finish reviewing every finding before generating the package")
+
+    docx_bytes, skipped = build_redlined_docx(contract.filename, contract.contract_text, findings, decisions)
+    memo_text = build_cover_memo_text(contract.filename, findings, decisions)
+    audit_text = build_audit_trail_text(contract.filename, contract.rule_engine_version or "2.0.0", findings, decisions)
+
+    safe_name = sanitize_filename(contract.filename)
+    zip_buffer = io.BytesIO()
+    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr(f"Redlined_{safe_name}.docx", docx_bytes)
+        zf.writestr("Cover_Memo.txt", memo_text)
+        zf.writestr("Audit_Trail.txt", audit_text)
+
+    analytics.record_event(
+        request, "negotiation_package_generated", user=user,
+        metadata={"contract_id": contract.id, "skipped_redlines": skipped},
+    )
+
+    return Response(
+        content=zip_buffer.getvalue(), media_type="application/zip",
+        headers={"Content-Disposition": f'attachment; filename="NegotiationPackage_{safe_name}.zip"'},
+    )
 
 
 @app.get("/shared/{share_token}", response_class=HTMLResponse)

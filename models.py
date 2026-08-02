@@ -115,6 +115,17 @@ class Contract(Base):
     playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=True)
     deviations_json = Column(JSON, nullable=True)
 
+    # Review workflow — one decision per finding (rule_id -> {action, reason,
+    # edited_text, decided_at}), recorded as the attorney works through the
+    # merged findings+redlines review pass. See review_workflow.py. action is
+    # one of: accepted, edited, rejected, flagged, dismissed, commented (a
+    # comment can be added alongside any other action). Never recomputed from
+    # findings_json — a decision is what the attorney actually did, which
+    # must survive even if a later rule-engine version would classify the
+    # same clause differently.
+    review_decisions_json = Column(JSON, nullable=True)
+    review_finalized_at = Column(DateTime, nullable=True)
+
     # Sharing
     share_token = Column(String(64), nullable=True, unique=True, index=True)
     share_password_hash = Column(String(255), nullable=True)
