@@ -22,9 +22,9 @@ def ensure_run_dir(run_id: str) -> Path:
 
 
 def write_manifest(run_id: str, manifest: Dict[str, Any]) -> None:
-    (config.run_dir(run_id) / "production_manifest.json").write_text(
-        json.dumps(manifest, indent=2, default=str), encoding="utf-8"
-    )
+    d = config.run_dir(run_id)
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "production_manifest.json").write_text(json.dumps(manifest, indent=2, default=str), encoding="utf-8")
 
 
 def read_manifest(run_id: str) -> Dict[str, Any]:
@@ -36,7 +36,11 @@ def contract_results_path(run_id: str) -> Path:
 
 
 def append_contract_result(run_id: str, record: Dict[str, Any]) -> None:
-    with contract_results_path(run_id).open("a", encoding="utf-8") as f:
+    path = contract_results_path(run_id)
+    path.parent.mkdir(parents=True, exist_ok=True)  # defensive: a run's own
+    # directory disappearing mid-flight (e.g. concurrent cleanup elsewhere,
+    # an ephemeral filesystem) should not lose an already-computed result.
+    with path.open("a", encoding="utf-8") as f:
         f.write(json.dumps(record, default=str))
         f.write("\n")
 
@@ -84,7 +88,9 @@ def load_contract_results(run_id: str) -> List[Dict[str, Any]]:
 
 
 def write_json(run_id: str, filename: str, payload: Any) -> None:
-    (config.run_dir(run_id) / filename).write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
+    d = config.run_dir(run_id)
+    d.mkdir(parents=True, exist_ok=True)
+    (d / filename).write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
 
 
 def load_json(run_id: str, filename: str) -> Any:
