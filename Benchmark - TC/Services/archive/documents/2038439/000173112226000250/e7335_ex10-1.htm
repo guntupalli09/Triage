@@ -1,0 +1,265 @@
+<DOCUMENT>
+<TYPE>EX-10.1
+<SEQUENCE>2
+<FILENAME>e7335_ex10-1.htm
+<DESCRIPTION>EXHIBIT 10.1
+<TEXT>
+<HTML>
+<HEAD>
+     <TITLE></TITLE>
+</HEAD>
+<BODY STYLE="font: 10pt Times New Roman, Times, Serif">
+
+<P STYLE="margin: 0"></P>
+
+ <DIV STYLE="margin-top: 12pt; margin-bottom: 3pt; width: 100%"><DIV STYLE="font-size: 1pt; border-top: Black 2pt solid; border-bottom: Black 1pt solid">&nbsp;</DIV></DIV> 
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: right; margin-top: 0; margin-bottom: 0"><B>EXHIBIT 10.1</B></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_001.jpg">qSpeed-Mine™ - SOW Proprietary<br>qSpeed-Mine™ Bitcoin Mining Acceleration &amp;<br>1000-Node Mining Fabric<br>Reference Topology « Mining KPI Targets ¢ Test/Acceptance Checklist (for Signoff)<br>Statement of Work (SOW)<br>Client / Prime VisionWave Inc. (“VisionWave”)<br>Program Name qSpeed-Mine™<br>Author Dr. Danny Rittman<br>Document Statement of Work (SOW)<br>Version v1.1<br>Date 2026-01-25<br>Scope Develop, validate, and deploy a qSpeed-based acceleration and<br>orchestration stack optimized for Bitcoin (SHA-256d) mining, scalable<br>to ~1000 machines.<br>- This document’s textual content was created by a human, without the assistance of LLMs<br>or other AI/ML technologies. The document was enhanced for grammar, style, and spelling<br>using Grammarly.</p>&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_002.jpg">qSpeed-Mine™ - SOW Proprietary<br>Table of Contents<br>1. Background and Objectives... ecscessecsesssessteeseeseescesseesneeseesseesnseseeseeseesnseacesseesnseaceeseeaeeeseeaneeaceeiesaneanteaneeseesneeaneesess 4<br>Tel, BaCK 8 POU G istics crennnnannnranrreenaennmrennannnnran an arora arena 4<br>1.2 ODJOCCIVES occ cescecsteseestesstesseeseecseesesseesueesneeseessessseeseesseesesueesueeseesaeeaneeseessesssesnseaseesesneeaneeseesseeseesneeeseeaiesnteaeeseeeinenneeaess 4<br>2. SCOP Of WOK .aceeecesccsssessessneeseeeseesnesseesneesceeseeseesneeaneeseesueesneeseesseesesnsesueessesneeseeescesneesneeaceeeesneeaceeseeaeeseeaneeaeeeeeeateenseaetaneenten 4<br>2.1 WS-A — Mining Workload Analysis &amp; qSpeed Mapping (SHA-256).....eccesseseeseseeesteseeteee 5<br>2.2 WS-B — Benchmark &amp; KPI Definition (Mining-Specific). occ ceceessessteeseeeeeteestesneeseeeeeesnseeeeeeieen 5<br>2.3 WS-C — qSpeed-Mine Core Engine (Software Acceleration Layer).....ccccsssesseeseeeesseseeneseeeee 5<br>2.4 WS-D — Fleet Orchestration for ~1000 Machines (Control Plane)... ccccesseseeseeteeeeeesnteseeneeee 5<br>2.5 WS-E — Observability, Reporting, and “Mining Bench” HarneS.......c..ccescecsessesseseeseeeteestesneeseeateeeeans 6<br>2.6 WS-F — Security, Compliance, and Hardening (Mining Operations Grade).......cccescssseeeeeeeeee 6<br>2.7 WS-G — Deployment Engineering (Power/Thermal/Facility Integration) ....... eee 6<br>2.8 WS-H — Optional Hardware Acceleration Track (FPGA/ASIC Feasibility) ..... cee 6<br>3B. Deliverables... escssesssessneesnsesssesstesssessseerscersnessneesnsersneesnesntesstessseesaessseesseensnensseeraensnensnensensnssaessnesnsessesseeraneraensenenanenay 6<br>4. QUEOT SCOP C essen cimnnrorasiemarnn an mranieraanreanieneeonan one an aman ennn eran 7<br>5. Roles &amp; Responsibilities (RACT) oc. ccscessesecsessesseesseesneeseeeessesneesneesceeseesnseaceeseesseenseeseeeseeseesnteaneeseeenseanseaieeneeanseaten 7<br>6, Acceptance Criteria... csccsecsssssecssssessessssesssesssseesesssessesnsenesnsesesneessesceesesnesneeseeasesseatsneeseeaeeesesneetesnsenesnseaeeatenseaneeteaneetesneens 7<br>6.1 Software/Fleet Acceptance (Mandatory)...c.cecccsssecssessessseeseescesseesneeseeseesseesneescesteeseesnsesneessesneesnseateeinenieeneees 7<br>6.2 Optional Hardware Track Acceptance (If WS-H enabled)... ccecesccsesseesseeseeseesceeseesnteseeseesseesneeateeeeass 8<br>7. Schedule &amp; Milestones (Indicative)... ceccsecsesessssseessesseeeeeseesseesneesceeceesseeseeeseessesneesaseaceestesnsesneeseeesesnneeateeeeeeneeaees 8<br>8. Process, REVieWS, and REPOruNn G seinen ae ace ae enn am eeanen creme 8<br>9. Technical Environment &amp; Standards... cecscssessecseessseesneesesseesssessseesstessseerscersneesnseesneesnseesneesnsesneeseerseessreranenanenaes 8<br>LL TOOLING cece cess tessecsseesceeseeseesneesneesceeseessesueesneesesueesneeseesseessecaseeseesseesesneesceeseessesaseeseeeseenesnseaeesesnseaneeseerseeneesnseeseeneeeneen 8<br>9,2 Operations Stack (SUPSeStEd) cciisniarcannencrm aren an arnomer annonce amemare 8<br>10. Inputs &amp; Dependencies .....eeccecsecsssessecsesseeeseesneeseeseessessseescesceeseesneeaneeseesaeesnseseesseesnsesseaneeseesnseaneeanesseesteanseaeesieeneeaneeses 9<br>TL. Risks 8 Mitigation... ceccccsesesssessecsneeseescesseesneeseeseesseesneesceecesseesnseseeseesaseaneescessesaseeseeeceesteeaieeseestesseenseeacerineanesntennees 9<br>12. IP; Confidentiality, and LICENSING wissen meviinnsemimnirannecmenme mtn aeanmTNTATTTTS 9<br>13. Payment &amp; Commercials (Option A — Fixed-Fee Milestone Contract)... cesceeseeseeteeeeieeieeneen 9<br>13.1 Total Contract Value (TCV)... csccesssssesseesesseessestesseesneesceeseeseesneesneestesneesneeaceeeeseesneeseesseensesneeaneeniesnseaneeaneaneeaens 9<br>13.2 Milestone Payment Schedule (Fixed Fee)... ceccessscssesssesseseeseescesseesnsesceeseessesseeseeesesssesnsesceeseesnseaeeaeeeass 10<br>13.3 Milestone Evidence Package RequiremMents........escecscssessseseesesseesstecneesneeseessessneesceeseeseesntesneestesneesnseeeenesns 10<br>13.4 Invoicing and Payment Teri ......eccescessecsesseessesseesseesseeseeecesseesnseseeseesneeaneeseessesseesnsesseeseesneeaneesceeaeesneeaceestesns 10<br>13.5 Holdbaek / R@taiNa G6 vesicrsrenmcemnann annem naman nnroennarnnnnornanamnnnan 11</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_003.jpg">qSpeed-Mine™ - SOW Proprietary<br>13.6 Acceptance and Partial ACCEptance oo... ceseecseessesssesseesseesncestesseesneeseeeseestesneeseeseesneesnsesiesseesneeacersesnseatesnseaneenesns 11<br>13.7 Change Requests (CR) and Scope Control ...ceececceesesssesssesseesseessesseescesseesneesceeseessesneesneessesseesnseaceeseeeseeaeeaeenass 11<br>13.8 Warranty (Included) ....ceceesccesceseesesseeeseessesseesneeseesseeseesneesneeseesneesneesceeseesesnseeseeesesnesnsesiesseesnseaeeseesnteaneesseaceeaaeans 11<br>13.9 Optional Post-Acceptance SUPPOTT un. cescecsesessesstesssesseeseescesseesnesseeeseessesneeeseessesseesnseaceeseesteeaneeseeeseeseesneeanetess 11<br>13.10 Termination and Ramp-Down (Comme ial) ...cecccscscesseesesseesseesneeseeseessesseesnseseeseesneeaneeseesneesneeacersteans 11<br>Appendix - qSpeed-Mine™ Bitcoin Mining Acceleration &amp; 1000-Node Mining Fabric... 13<br>Al. Concrete 1000-Node Reference Topology ....seesecseesssecsesessssssteseeseeseestesnsesneeacesseesnseseessestesneesnsessneneesnseaeress 13<br>Al1.1 Physical layout (racks, rows, failure COMAINS) oes ceseesecseeseesseesneeseesceeseesnseeseestesneesseeseesneesneeaneeseeans 13<br>A1.2 Logical architecture (Controller HA, racks, segmentation) .....cescccessesecseseeseeeesneeseeseestesneesneeseeees 13<br>A1.3 HA controller cluster SiZinng ....ceseecseesssssesseessseeecsseesceeseesneeseeseescesseesnssaceeseessesneesneeseeeseeseesntsnseesceeieeaseanseaneeateeass 14<br>A1.4 Network Segmentation ...ecccceccecsecsesessseececsneeseeeseessesseesneescessessneesceeseesesneesneesuesseesnsesceeseeseesnseaneesseentesneeaceeseeass 14<br>A1.5 Rack Sroup MOE sisi renner annanannmnimme ren aren arent 15<br>A1.6 Suggested topology diagram (textual) ....cesceccesssessesessseeseesneeseeseestessecsneescesseesnseseeseessesntesnsesseeneesnseaerees 15<br>A2. Mining KPI Target Table (Example Thresholds) o0..c.cescceesssseesesseeseesseesneeseeeseessesneesnseaceeseesneesceeaeesteeneeaneesass 16<br>A2.1 Rollout guardrails (automatic stop CONCItIONS) ues cesseesesseeeseestesseesneeseesteestesneesneesteeteeseesneeaneeaeesaes 17<br>A3B.1 Fimal SiQtof fe... cessecsesseeseesseesneesseeseessesseesnsesceessesnseaneeseessesseesncesseesesnseaneeseessesaneescesseeseesnseaeeseesnseaneeaeeeseenseans 18<br>Appendix B — GIOSSALY uneeeeseessscssessessesssesseessecsseeseeecesneesueesceeseesseecesueeescesseeseesnsesueeseessesaneeseeseesaesnseaneeseesnseaneeaeereesneeaneeaeeass 19<br>Appendix € — Wirihe [NStruCtlONs wrcsscccnnnennnrannnnnwranerenmnenanwren ea eaneren 22</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_004.jpg">qSpeed-Mine™ - SOW Proprietary<br>1. Background and Objectives<br>1.1 Background<br>Bitcoin mining is fundamentally a large-scale, highly-parallel search over nonces and header<br>variations for SHA-256 double-hash (SHA-256d) solutions. While the cryptographic workload itself<br>is deterministic and brute-force, meaningful performance and profitability improvements are<br>routinely achieved via:<br>e Compute-path optimization (kernels, vectorization, reduced overhead, tighter loops)<br>e Scheduling and work distribution (lower coordination latency, fewer stale shares, improved<br>load balance)<br>e Energy efficiency and stability (undervolt/clock tuning, thermal control, adaptive policies)<br>e Reliability/uptime (fleet orchestration, failover, auto-remediation)<br>e Protocol/pool efficiency (Stratum performance, job negotiation efficiency, reduced rejects)<br>1.2 Objectives<br>VisionWave will design and deliver qSpeed-Mine™, a comprehensive mining acceleration and<br>control platform that:<br>e Maximizes effective hashrate at constant or improved stability.<br>e Improves Joules per TH (J/TH) via adaptive tuning policies and fleet-level optimization.<br>e Reduces stale re ect share rates throu _h faster_ob distribution and better scheduler design.<br>° ocumentation consistent<br>Pro ucesa enc mar suite,repro uci e arness, SDK APIs, an<br>with the qSpeed framework approach.<br>2. Scope of Work<br>Important note on claims: This SOW targets improvements in effective hashrate, overhead<br>reduction, stale share reduction, and energy efficiency. It does not claim cryptographic shortcuts or<br>reducing SHA-256d security assumptions; gains are derived from implementation efficiency,<br>orchestration, and (optional) accelerator hardware.<br>Workstreams (WS):<br>Workstream Description<br>WS-A Mining Workload Analysis &amp; qSpeed Mapping<br>(SHA-256d)<br>WS-B Benchmark &amp; KPI Definition (Mining-Specific)<br>WS-C qSpeed-Mine Core Engine (Software<br>Acceleration La er<br>WS-D</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_005.jpg">qSpeed-Mine™ - SOW Proprietary<br>WS-E Observability, Reporting, and “Mining Bench”<br>Harness<br>WS-F Security, Compliance, and Hardening (Mining<br>Operations Grade)<br>WS-G Deployment Engineering<br>(Power/Thermal/Facility Integration)<br>WS-H Optional Hardware Acceleration Track<br>(FPGA/ASIC Feasibility)<br>2.1 WS-A — Mining Workload Analysis &amp; qSpeed Mapping (SHA-256d)<br>Activities include:<br>e Formalize the mining pipeline (block header assembly — midstate reuse ~ SHA-256d loop &gt;<br>share validation &gt; submission).<br>e Identify acceleration candidates: kernel micro-optimizations, batching, CPU@GPU/ASIC<br>overhead reduction, Stratum job handling latency, fleet scheduling and work chunk sizing.<br>e Produce a Methods Blueprint adapted to mining: fast low-cost iteration + heuristic guidance +<br>stability guardrails + termination criteria.<br>2.2 WS-B — Benchmark &amp; KPI Definition (Mining-Specific)<br>Define mining KPIs and acceptance thresholds, including:<br>e Performance KPIs: Effective hashrate, pool-side accepted share rate, stale share rate, reject rate,<br>e =6Efficiency KPIs: J/T equency/voltage stability and error<br>, ,<br>rates.<br>e Reliability KPIs: fleet uptime, MTBF/MTTR, auto-recovery success rate, node churn tolerance.<br>e Security/Integrity KPIs: secure configuration compliance, signed artifact verification pass rate.<br>2.3 WS-C — qSpeed-Mine Core Engine (Software Acceleration Layer)<br>Deliver a production-grade software layer that optimizes mining efficiency and orchestrates work,<br>including:<br>e Mining work scheduler (qSpeed-Mine Engine): adaptive chunk sizing, concurrency, per-device<br>tuning envelopes, and fleet-level optimization coordination.<br>e Device abstraction with a plugin interface for different miner backends (ASIC vendor APIs,<br>custom agent control, integrations).<br>e Share handling pipeline: fast verification and submission, backpressure handling to minimize<br>stales/rejects.<br>2.4 WS-D — Fleet Orchestration for ~1000 Machines (Control Plane)<br>e Node agent per machine for telemetry, policy updates, miner control, watchdog/auto-heal.<br>e Central controller for policy distribution, canary rollouts, staged deployment, configuration<br>management, and scheduling coordination.</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_006.jpg">qSpeed-Mine™ - SOW Proprietary<br>High availability (redundant controllers, resilient message bus) and failure-domain isolation<br>(racks/rows/sites).<br>2.5 WS-E — Observability, Reporting, and “Mining Bench” Harness<br>e Deterministic test modes (synthetic job injection, replay of Stratum traffic captures).<br>Metrics capture (JSONL/TSDB), artifacting, dashboards.<br>e Comparative reports: baseline vs qSpeed-Mine policies, per-rig and fleet rollups.<br>2.6 WS-F — Security, Compliance, and Hardening (Mining Operations Grade)<br>e Secrets management for pool credentials and controller keys.<br>e Signed releases and SBOM generation.<br>e Network segmentation, least privilege, OS hardening baseline.<br>e Tamper detection for agent binaries and configurations; audited break-glass access model.<br>2.7 WS-G — Deployment Engineering (Power/Thermal/Facility Integration)<br>e Reference architecture for rack layout assumptions, airflow and thermal limits.<br>e Power budgeting model, per-circuit caps, peak/average planning.<br>e Thermal policy engine inputs (temperature sensors, fan curves, throttling rules).<br>e Automated safe-mode behavior for heat spikes, breaker risk, fan failures.<br>2.8 WS-H — Optional Hardware Acceleration Track (FPGA/ASIC Feasibility)<br>If VisionWave authorizes a hardware track:<br>e Feasibility study for hardware acceleration impact on J/TH and throughput.<br>e FPGA prototype design plan OR ASIC partner specification.<br>e Cost/performance model and manufacturing/supply-chain risk analysis.<br>3. Deliverables<br>ID Deliverable<br>D1 qSpeed-Mine Methods Blueprint (PDF): mining<br>workload mapping, architecture diagrams,<br>pseudocode, policy loops.<br>D2 Benchmark Plan &amp; KPI Matrix (YAML + PDF):<br>baselines, thresholds, test procedures, pass/fail<br>gates.<br>D3 qSpeed-Mine Core Engine (Repo): scheduler,<br>policy engine, plugin interfaces, miner<br>adapters, tests.<br>D4 1000-Node Control Plane + Node Agent:<br>controller services, agent, secure rollout<br>tooling, HA topology.<br>D5 Mining Bench Harness + Dashboards:<br>reproducible runs, artifacts, reports<br>(HTML/PDF).</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_007.jpg">qSpeed-Mine™ - SOW<br>Proprietary<br>D6<br>Security Package: SBOM, signing pipeline,<br>vulnerability scanning outputs, hardening<br>guide.<br>D7<br>Operational Documentation: deployment<br>guide, tuning guide, incident runbooks,<br>architecture walkthroughs.<br>D8<br>Knowledge Transfer Workshop: recorded<br>walkthroughs and Q&amp;A.<br>4. Out of Scope<br>5. Roles &amp; Responsibilities (RACI)<br>Claims or work related to cryptographic shortcuts or reducing SHA-256d security assumptions.<br>Any activity intended to compromise pools, networks, or third parties.<br>Bypassing regulations or operating illegal facilities.<br>Hardware manufacturing unless the optional WS-H is explicitly authorized.<br>Area VisionWave Dev Team/Vendor Notes<br>Product direction &amp; A/R C/I VisionWave owns<br>approvals roadmap<br>Mining KPI definition | A/R R/C Joint KPI working<br>group<br>Core engine C/I A/R Build + unit/perf tests<br>implementation<br>Control plane + agent | C/I A/R Scale to 1000 nodes<br>Security hardening A/R R/C SBOM/signing<br>required<br>Benchmark harness &amp; | C/I A/R Reproducible artifacts<br>reports<br>Deploymentrunbooks | A/R R/C Ops-grade<br>documentation<br>6. Acceptance Criteria<br>6.1 Software/Fleet Acceptance (Mandatory)<br>Effective performance: Demonstrate measurable improvement in at least two of: effective<br>hashrate (constant stability), lower stale/reject rate, lower job-to-work p95 latency.<br>Efficiency: Demonstrate measurable improvement in J/TH and/or W/TH under controlled<br>thermal/power constraints.<br>Scale: Successfully operate a staged rollout culminating in ~1000 nodes, sustaining target<br>uptime and auto-remediation success rate.<br>Quality gates: Automated CI, reproducible harness, versioned APIs, signed artifacts, and<br>required security scans.</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_008.jpg">qSpeed-Mine™ - SOW Proprietary<br>6.2 Optional Hardware Track Acceptance (If WS-H enabled)<br>Demonstrate a validated prototype path (FPGA or ASIC specification) showing clear<br>projected gains in J/TH and/or throughput versus reference configurations, with a realistic cost<br>model.<br>7. Schedule &amp; Milestones (Indicative)<br>Indicative milestone plan (subject to final resourcing and procurement):<br>Mil Description<br>MO Kickoff, baseline capture plan,<br>repo/Cl/security scaffolding<br>Methods Blueprint + Mining KPI Matrix +<br>Benchmark Plan draft; baseline captured and<br>frozen<br>POC delivered: qSpeed-Mine engine alpha +<br>miner adapter + Mining Bench harness;<br>demonstrated on representative subset with<br>KPI report<br>Control plane + node agent beta; staged rollout<br>tooling; job-latency optimization<br>sg 250 node pilot; dashboards; tuning<br>policies; reliability hardening<br>mee node scale; HA controller; security<br>hardening complete<br>Final acceptance runs; final documentation;<br>knowledge transfer; final delivery package<br>M1<br>2 — POC Delivery<br>6)<br>8. Process, Reviews, and Reporting<br>e Weekly stand-up; bi-weekly technical review; monthly steering committee.<br>e Sprint notes, decision log, risk register, KPI dashboards.<br>e Change control via formal Change Request with scope/cost/schedule impact.<br>9. Technical Environment &amp; Standards<br>9.1 Tooling<br>e C++20 / Python 3.11 components where appropriate.<br>e Deterministic benchmarking harness; immutable container images when feasible.<br>e Artifact storage for configs, run IDs, logs, and reports; semantic versioning.<br>9.2 Operations Stack (Suggested)<br>e Metrics: TSDB + dashboards (per rig + aggregate).<br>e Logs: centralized logging with retention policies.</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_009.jpg">qSpeed-Mine™ - SOW Proprietary<br>e Secure remote access: bastion + audit trails; least privilege for automation.<br>10. Inputs &amp; Dependencies<br>Provided by VisionWave:<br>e Target miner hardware list (ASIC models and/or GPU rigs), firmware constraints.<br>e Facility constraints (power/cooling/network) or assumed operating envelopes.<br>e Pool preferences and credentials for test environments.<br>e Baseline miner configuration and operational policies.<br>Provided by Dev Team/Vendor:<br>e Engineering team, CI/CD, benchmarking harness, and documentation deliverables.<br>e Secure packaging and release processes for signed artifacts and SBOM outputs.<br>11. Risks &amp; Mitigations<br>Risk Mitigation<br>Thermal instability at scale Adaptive policies, staged rollout, safe-mode<br>throttling, thermal alarms<br>Stale shares due to network latency Optimize job distribution, local buffering,<br>p95/p99 targets and alerting<br>Heterogeneous hardware variance Device profiling, per-class policies, plugin<br>model and compatibility matrix<br>Security exposure (credentials / access) Secrets management, signing, mTLS, least<br>privilege, audited access<br>Facility power constraints Circuit-aware scheduling, peak shaving<br>policies, load caps and breaker alarms<br>12. IP, Confidentiality, and Licensing<br>e All work product is work-for-hire and owned by VisionWave, unless otherwise agreed in<br>writing.<br>e No publication or disclosure without written consent from VisionWave.<br>e Dependency licensing must be compliant; SBOM is required for deliverables.<br>e Security posture includes signed releases and controlled distribution of credentials and keys.<br>13. Payment &amp; Commercials (Option A — Fixed-Fee Milestone Contract)<br>13.1 Total Contract Value (TCV)<br>e Total Contract Value (Fixed Fee): $10,000,000 USD<br>e Commercial Model: Option A — Fixed-Fee Milestone Contract<br>e Contract Currency: USD</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_010.jpg">qSpeed-Mine™ - SOW Proprietary<br>13.2 Milestone Payment Schedule (Fixed Fee)<br>Payments are due upon contract execution (Signing) and upon completion of each<br>milestone, subject to delivery of the associated Evidence Package (benchmark results, release<br>artifacts, and acceptance checklist items applicable to the milestone).<br>Milestone Description Payment % Payment Amount<br>(USD)<br>Signing Upon contract 3.5% $350,000<br>execution (signing)<br>M1 Methods Blueprint + 2.5% $250,000<br>KPI Matrix +<br>Benchmark Plan<br>M2 (POC) POC delivery: qSpeed- | 4.0% $400,000<br>Mine Core Engine<br>(Alpha) + miner<br>adapter + initial<br>harness<br>M3 Control Plane + Node 20.0% $2,000,000<br>Agent (Beta) + staged<br>rollout tooling<br>M4 100-250 node pilot+ | 20.0% $2,000,000<br>dashboards + tuning<br>policies + reliability<br>hardening<br>M5 500-1000 node scale 20.0% $2,000,000<br>+ HA controller +<br>security hardening<br>complete<br>M6 (Final) Final delivery: final 30.0% $3,000,000<br>acceptance runs +<br>final documentation +<br>knowledge transfer<br>Total 100.0% $10,000,000<br>13.3 Milestone Evidence Package Requirements<br>Each milestone invoice must include an Evidence Package containing, at minimum:<br>Delivery Memo (what was delivered, versions, deployment scope, known limits).<br>Release Manifest (component versions, hashes, signed artifacts, SBOM where applicable).<br>Benchmark / Operational Proof (dashboard exports, test logs, harness artifacts, KPI deltas).<br>Acceptance checklist items relevant to the milestone marked Pass/Fail with evidence links.<br>Updated risk register and mitigation status, plus open issues list<br>a eFwWwnN bP<br>13.4 Invoicing and Payment Terms<br>e Invoice timing: Vendor may invoice upon milestone completion and delivery of the Evidence<br>Package.<br>e Payment terms: Net 30 days from receipt of a correct invoice.<br>10</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_011.jpg">qSpeed-Mine™ - SOW Proprietary<br>e Dispute window: VisionWave will notify Vendor of any invoice dispute within 10 business days;<br>undisputed portions remain payable on time.<br>13.5 Holdback / Retainage<br>Holdback / retainage: None (final payment is $3,000,000 upon Final Delivery).<br>13.6 Acceptance and Partial Acceptance<br>e Amilestone is Accepted when corresponding deliverables are delivered and the Evidence<br>Package supports meeting the milestone acceptance criteria.<br>e VisionWave may grant Conditional Acceptance if minor defects remain, provided there is a<br>mutually agreed remediation plan. Conditional Acceptance permits payment unless defects<br>materially prevent intended use.<br>13.7 Change Requests (CR) and Scope Control<br>Any scope, schedule, or deliverable changes must be executed through a written Change Request<br>that includes:<br>e Description of change and rationale.<br>e Impact analysis (cost, schedule, risk).<br>e Updated deliverables and acceptance criteria.<br>e Revised milestone allocation if needed.<br>No out-of-scope work proceeds without written CR approval by VisionWave.<br>13.8 Warranty (Included)<br>e Warranty period: 90 days after Final Acceptance (M6).<br>e During Warranty, Vendor will remedy at no additional cost any defects that materially reduce<br>performance below accepted thresholds, materially impact stability/uptime, or violate security<br>requirements.<br>e Exclusions: facility power/cooling faults, unauthorized firmware changes, third-party pool<br>outages, or hardware failures beyond Vendor control.<br>13.9 Optional Post-Acceptance Support<br>VisionWave may add a support retainer as a separate SOW addendum (pricing to be negotiated):<br>e Bronze: Business-hours support + monthly health report.<br>e Silver: 24/5 on-call + weekly optimization review.<br>e Gold: 24/7 on-call + SLA-backed response times + continuous tuning support.<br>13.10 Termination and Ramp-Down (Commercial)<br>e Termination for convenience: VisionWave may terminate with 30 days notice. VisionWave pays<br>accepted milestones in full, plus pro-rated work-in-progress for the current milestone up to<br>50% of that milestone value, subject to delivery of all work products created to date (repos,<br>configs, docs, artifacts).<br>11</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_012.jpg">qSpeed-Mine™ - SOW Proprietary<br>e Termination for cause: includes a cure period (15-30 days). If uncured, Vendor must deliver all<br>work-in-progress artifacts and transition materials; VisionWave pays only for accepted<br>milestones.<br>12</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_013.jpg">qSpeed-Mine™ - SOW Proprietary<br>Appendix — qSpeed-Mine™ Bitcoin Mining Acceleration &amp; 1000-Node Mining<br>Fabric<br>A1. Concrete 1000-Node Reference Topology<br>This reference topology is designed to support approximately 1000 mining nodes with high<br>availability, operational safety, and clear segmentation between management, mining traffic, and<br>telemetry. It is provided as an implementation-ready baseline and may be adapted to site<br>power/cooling constraints.<br>A1.1 Physical layout (racks, rows, failure domains)<br>e Node count: 1000 mining nodes (ASIC hosts or GPU rigs), grouped into failure domains by rack<br>and row.<br>e Example rack plan: 20 racks x 50 nodes (or 25 racks x 40 nodes).<br>e Row grouping: 4-5 racks per row, each row treated as an independent failure domain for safe<br>rollouts and throttling.<br>e Top-of-rack (ToR) switching: dual ToR per rack (A/B), each node dual-homed where practical;<br>otherwise A/B rack split.<br>e Power domains: circuit-aware grouping (PDU A/B) to ensure policy engine can cap load per<br>circuit and avoid breaker trips.<br>e Service zones: dedicate at least one ‘services rack' (or separate room) for<br>controllers/observability/storage with redundant power.<br>A1.2 Logical architecture (Controller HA, racks, segmentation)<br>Core logical components:<br>e qSpeed-Mine Controller Cluster (HA): policy engine, rollout manager, fleet scheduler,<br>configuration service.<br>e Message bus / work distribution: reliable low-latency channel for job routing and node<br>coordination.<br>e Metrics/logging pipeline: TSDB + log aggregation + dashboards; long-term cold storage<br>optional.<br>e Secrets &amp; identity: centralized secrets store, mTLS identity for nodes, signed configuration<br>bundles.<br>e Node Agents: local miner control, telemetry collection, watchdog/auto-heal, safe-mode<br>enforcement.<br>13</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_014.jpg">qSpeed-Mine™ - SOW<br>A1.3 HA controller cluster sizing<br>Proprietary<br>Component Quantity (HA) Placement Notes<br>Controller nodes 3 (odd quorum) Services rack / Active/active; supports<br>separate room canary &amp; staged<br>rollouts<br>Load balancers 2 Services rack VRRP/keepalived or<br>appliance pair<br>Message bus 3 Services rack NATS/Kafka/RabbitMQ<br>class; choose per<br>latency/ops tradeoffs<br>Secrets store 2-3 Services rack Vault or equivalent;<br>mTLS enrollment,<br>rotation<br>Metrics TSDB 2 Services rack HA pair; retention<br>policies<br>Log aggregator 2 Services rack Centralized logs;<br>searchable for incident<br>response<br>Artifact registry 2 Services rack Signed images/config<br>bundles; immutable<br>versioning<br>A1.4 Network segmentation<br>Segmentation reduces blast radius, protects credentials, and keeps mining traffic deterministic. The<br>following VLANs/subnets are examples; adapt to site addressing plans.<br>Network Purpose Example VLAN Example Subnet | Allowed Flows<br>(summary)<br>OOB / BMC Out-of-band 10 Jump host &gt;<br>management (if BMC only; no<br>available) internet<br>Mgmt Node agent 20 Controller<br>control plane + agents; bastion<br>SSH bastion © nodes<br>Mining Stratum/pool 30 Eee Nodes &gt; pool<br>traffic and job endpoints;<br>routing controller may<br>proxy<br>Telemetry Metrics/logs to 40 Agents &gt;<br>central stack metrics/logs; no<br>inbound to nodes<br>Services Controllers, 50 Internal<br>message bus, east/west;<br>registries limited ingress<br>14</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_015.jpg">qSpeed-Mine™ - SOW Proprietary<br>A1.5 Rack group model<br>Define rack groups to enable staged rollouts and rapid containment:<br>Group size: 25-50 nodes per group (usually a single rack).<br>Rollout order: Canary group (1 rack) &gt; Early adopters (3 racks) &gt; Row rollout &gt; Full fleet.<br>Automatic pause conditions: stale share spike, reject spike, temperature excursion, PSU/PDU<br>alarms, or network jitter above thresholds.<br>Fallback: one-click revert to last-known-good policy bundle; nodes enter safe-mode if controller<br>unavailable.<br>A1.6 Suggested topology diagram (textual)<br>The following textual diagram can be used as a reference when translating the topology into a<br>formal network diagram:<br>15</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_016.jpg">qSpeed-Mine™ - SOW<br>A2. Mining KPI Target Table (Example Thresholds)<br>Proprietary<br>These example KPI targets are intended for acceptance testing and ongoing operations.<br>Targets must be calibrated to the specific miner hardware, pool configuration, and site constraints.<br>Baseline values should be collected during MO/M1 and frozen for comparison.<br>KPI Target Window Scope Measurement | Notes<br>(Example)<br>Effective 2=+2% vs 24h Fleet Pool-accepted | Must not<br>Hashrate baseline rate + device | increase<br>(same power telemetry rejects/stales<br>cap)<br>J/TH 23% 24h Fleet Power Normalize for<br>(Efficiency) improvement metering + temperature<br>vs baseline hashrate<br>Stale Share &lt; 0.5% 24h Fleet Pool stats Lower is<br>Rate better; pause<br>rollout if spike<br>Reject Rate &lt; 0.2% 24h Fleet Pool stats Includes<br>(non-stale) invalid shares;<br>indicates<br>instability<br>Job-to-Work | &lt;250 ms 4h Per rack Controller p99 also<br>Latency p95 timestamps+ | tracked<br>agent<br>Job-to-Work | &lt;500 ms 4h Per rack Controller Network jitter<br>Latency p99 timestamps + | sensitivity<br>agent<br>Uptime 299.0% 30d Fleet Agent Excludes<br>heartbeats planned<br>maintenance<br>by policy<br>Auto- =90% 30d Fleet Incident logs Reboots, miner<br>Remediation | resolved restarts, safe-<br>Success without mode actions<br>human<br>Thermal &lt; 1% nodes 24h Fleet Temp sensors | Safe-mode<br>Excursions exceeding triggers<br>limit enforced<br>Configuration | = 98% on 7d Fleet Controller Canary<br>Compliance desired inventory exceptions<br>version allowed<br>Controller 299.5% 30d Services LB health + HA failover<br>Availability SLO verified<br>Security: 100% Per deploy Fleet Agentchecks | Block unsigned<br>Signed required configs/images<br>Artifact<br>Verification<br>16</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_017.jpg">qSpeed-Mine™ - SOW Proprietary<br>A2.1 Rollout guardrails (automatic stop conditions)<br>During canary and staged deployment, the rollout manager must automatically pause if any of<br>the following trigger:<br>Stale share rate increases by &gt; 0.3% absolute from baseline for the canary rack for &gt; 15<br>minutes.<br>Reject rate (non-stale) increases by &gt; 0.1% absolute from baseline for &gt; 15 minutes.<br>Any node group exceeds thermal limit for &gt; 5 minutes, or fan failure alarms exceed threshold.<br>Job-to-work latency p99 exceeds 1.0 s for &gt; 10 minutes (indicative of network or controller<br>issues).<br>Controller health checks fail or message bus backlog exceeds defined high-water mark.<br>17</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_018.jpg">qSpeed-Mine™ - SOW Proprietary<br>A3.1 Final Signoff<br>By signing below, the parties acknowledge that the acceptance checklist has been executed and the<br>deliverables meet the agreed acceptance criteria.<br>VisionWave Approver [ Name, Title ]: Dr. Danny Rittman, CTO<br>Signature:<br>Date:<br>Date: |<br>18</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_019.jpg">qSpeed-Mine™ - SOW<br>Appendix B — Glossary<br>Proprietary<br>The following glossary defines key terms used throughout this SOW.<br>Term Definition<br>ASIC Application-Specific Integrated Circuit.<br>Specialized hardware commonly used for<br>Bitcoin mining (SHA-256d).<br>Baseline The frozen reference configuration and<br>measured KPI set used to compare<br>improvements from qSpeed-Mine changes.<br>Benchmark Plan<br>Documented procedures, tools, and thresholds<br>used to measure KPIs consistently and<br>reproducibly.<br>Canary Rollout<br>A staged deployment approach where changes<br>are first applied to a small subset (e.g., one<br>rack) before wider rollout<br>Change Request (CR)<br>A formal written request to change scope,<br>schedule, deliverables, or price, including<br>impact analysis and approvals.<br>CI/CD<br>Continuous Integration / Continuous Delivery.<br>Automated build, test, and release pipeline.<br>Controller Cluster<br>High-availability set of services that coordinate<br>policy distribution, scheduling, rollouts, and<br>fleet control.<br>Control Plane<br>The management layer that configures,<br>monitors, and orchestrates nodes (distinct<br>from mining data traffic).<br>EH/s, TH/s<br>Exahashes per second / Terahashes per<br>second. Hashrate units for mining throughput.<br>Evidence Package<br>Required artifacts submitted with a milestone<br>invoice: release manifest, benchmark outputs,<br>logs, reports, and checklist results.<br>Failover<br>Automatic switching to redundant components<br>when a primary component fails (e.g.,<br>controllers, message bus, network paths).<br>Fleet<br>The full set of mining nodes under<br>management (target scale ~1000 nodes).<br>Guardrails<br>Automated safety thresholds that pause or roll<br>back rollouts when KPIs degrade (e.g.,<br>stale/reject spikes, thermal events).<br>HA<br>High Availability. Architecture and deployment<br>strategy designed to avoid single points of<br>failure.<br>Hashrate<br>Computational throughput for SHA-256d<br>hashing, typically measured at device and pool-<br>accepted levels.<br>J/TH<br>Joules per Terahash. Energy efficiency metric.<br>Lower is better.<br>19</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_020.jpg">qSpeed-Mine™ - SOW<br>Proprietary<br>Job<br>A mining work assignment (typically received<br>via Stratum) specifying header parameters and<br>target.<br>Job-to-Work Latency<br>Time from job receipt (controller or node) to<br>active hashing work running on the miner<br>hardware.<br>KPI<br>Key Performance Indicator. Quantitative<br>measures used for acceptance and operations<br>(hashrate, J /TH, stale rate, uptime, etc.).<br>Message Bus<br>Reliable low-latency communication system<br>used for distributing updates, telemetry, and<br>control messages (e.g., NATS/Kafka-like).<br>Midstate<br>Intermediate SHA-256 state that can be reused<br>to reduce repeated computation in mining<br>loops.<br>Mining Bench<br>Reproducible benchmarking harness for<br>qSpeed-Mine (test modes, artifact capture,<br>reports, KPI comparisons).<br>Mining Fabric<br>The integrated 1000-node operational<br>environment: nodes, networking,<br>orchestration, telemetry, and control plane.<br>mTLS<br>Mutual TLS. Two-way certificate authentication<br>for secure communications between nodes and<br>services.<br>Node Agent<br>Lightweight software on each mining node<br>providing telemetry, miner control, watchdog,<br>and policy enforcement.<br>OOB / BMC<br>Out-of-band management / Baseboard<br>Management Controller. Separate management<br>interface for remote hardware control (if<br>present).<br>POC<br>Proof of Concept. A milestone deliverable<br>demonstrating feasibility and performance on<br>a representative subset before full scale.<br>Policy Bundle<br>Versioned configuration package controlling<br>tuning, scheduling, guardrails, and rollout<br>parameters distributed to nodes.<br>Pool<br>Mining pool service coordinating jobs and<br>share submissions; provides accepted/rejected<br>share statistics.<br>Reject Rate<br>Percentage of submitted shares rejected by the<br>pool (excluding stales unless specified).<br>Indicates instability or invalid work.<br>Rollback<br>Automated reversion to a last-known-good<br>configuration/policy upon guardrail triggers or<br>operational failures.<br>Safe Mode<br>A reduced-power, stability-first operating<br>mode triggered by thermal /power/network<br>anomalies to protect hardware and uptime.<br>20</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_021.jpg">qSpeed-Mine™ - SOW Proprietary<br>SBOM Software Bill of Materials. Inventory of<br>software components and dependencies used<br>for security/compliance.<br>Scheduler Component that assigns work, controls chunk<br>sizing, manages concurrency, and balances<br>load across nodes.<br>Sev-1 Defect Severity-1 defect. A critical issue causing<br>system outage, major KPI failure, security<br>exposure, or unsafe operation.<br>SHA-256d Double SHA-256 hashing algorithm used by<br>Bitcoin mining (SHA-256 applied twice).<br>Signed Artifacts Cryptographically signed<br>binaries/configs/images to prevent tampering<br>and enforce integrity.<br>Stale Share A share submitted too late (block template<br>changed) and rejected as stale; commonly<br>caused by latency or delayed job updates.<br>Stratum Widely used protocol between miners and<br>pools for job distribution and share<br>submission.<br>TCV Total Contract Value. Total fixed fee in Option A<br>($10,000,000).<br>Telemetry Metrics and logs collected from nodes and<br>services (hashrate, temps, power, rejects,<br>health signals).<br>ToR Switch Top-of-Rack network switch connecting nodes<br>in a rack to the upstream network.<br>21</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ 
+    <DIV STYLE="margin-top: 6pt; margin-bottom: 6pt; border-bottom: Black 2pt solid"><P STYLE="font: 10pt Times New Roman, Times, Serif; text-align: center; margin-top: 0pt; margin-bottom: 0pt"></P></DIV>
+    <DIV STYLE="break-before: page; margin-top: 6pt; margin-bottom: 6pt"><P STYLE="margin: 0pt">&nbsp;</P></DIV>
+     
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;<p class="ocr-transcription" data-image="img_022.jpg">qSpeed-Mine™ - SOW Proprietary<br>Appendix C — Wiring Instructions<br>22</p></P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0"></P>
+
+ <DIV STYLE="margin-top: 3pt; margin-bottom: 3pt; width: 100%"><DIV STYLE="font-size: 1pt; border-top: Black 2pt solid">&nbsp;</DIV></DIV> 
+
+<P STYLE="text-align: center; margin-top: 0; margin-bottom: 0">&nbsp;</P>
+
+</BODY>
+</HTML>
+</TEXT>
+</DOCUMENT>
