@@ -160,11 +160,20 @@ def stage_rule_engine(analysis: Dict[str, Any]) -> Dict[str, Any]:
     findings = analysis["findings"]
     counts = analysis.get("rule_counts", {})
     rules_triggered = sorted({f.rule_id for f in findings})
+    # Per-rule occurrence counts (how many times each rule fired in THIS
+    # contract, not just whether it fired) — needed for corpus-wide
+    # occurrence statistics (total occurrences, occurrences-per-triggered-
+    # contract distribution) that a deduplicated rule_ids_fired set alone
+    # cannot answer. Cheap: findings is already fully materialized above.
+    occurrence_counts: Dict[str, int] = {}
+    for f in findings:
+        occurrence_counts[f.rule_id] = occurrence_counts.get(f.rule_id, 0) + 1
     return {
         "rules_executed": eb.rules_total(),
         "rules_triggered": len(rules_triggered),
         "rules_never_fired_here": eb.rules_total() - len(rules_triggered),
         "rule_ids_fired": rules_triggered,
+        "rule_occurrence_counts": occurrence_counts,
         "findings_count": len(findings),
         "critical": counts.get("critical", 0),
         "high": counts.get("high", 0),
