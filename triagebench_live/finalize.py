@@ -24,18 +24,23 @@ def finalize(run_id: str, baseline_run_id: Optional[str] = None, set_as_latest: 
     failure_results = storage.load_json(run_id, "failure_results.json")
     concurrency_results = storage.load_json(run_id, "concurrency_results.json")
     browser_results = storage.load_json(run_id, "browser_results.json")
+    try:
+        db_lifecycle_results = storage.load_json(run_id, "db_lifecycle_results.json")
+    except FileNotFoundError:
+        db_lifecycle_results = []  # runs from before this suite existed
 
     if baseline_run_id is None:
         baseline_run_id = storage.get_latest_run_id(exclude=run_id)
     comparison = regression_mod.run_regression(run_id, baseline_run_id)
 
     report_counts = reports.generate_all(
-        run_id, contract_records, security_findings, failure_results, concurrency_results, browser_results
+        run_id, contract_records, security_findings, failure_results, concurrency_results,
+        browser_results, db_lifecycle_results,
     )
 
     html = dashboard.generate_summary(
         run_id, manifest, contract_records, security_findings, failure_results,
-        concurrency_results, browser_results, comparison,
+        concurrency_results, browser_results, db_lifecycle_results, comparison,
     )
     dashboard.write_summary(run_id, html)
 

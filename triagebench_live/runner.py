@@ -27,6 +27,7 @@ from typing import List
 from . import concurrency as concurrency_mod
 from . import config as cfg
 from . import corpus_source
+from . import db_lifecycle_proof as db_lifecycle_mod
 from . import failure_tests as failure_mod
 from . import security as security_mod
 from . import storage
@@ -133,6 +134,16 @@ def run(config: cfg.LiveConfig) -> str:
                 "check": f"{name}_suite_incomplete", "name": f"{name}_suite_incomplete",
                 "passed": False, "severity": "critical", "detail": msg,
             }]
+
+    # Runs before security/failure/concurrency, not after: it's the most
+    # targeted, most important signal in this whole run (it directly tests
+    # for the exact bug class this suite originally found), and running it
+    # first means a database-session regression is caught and reported even
+    # if a later suite degrades the target enough to make everything else
+    # noisy.
+    db_lifecycle_results = _run_suite("db-lifecycle-proof", config.run_db_lifecycle_proof,
+                                       lambda: db_lifecycle_mod.run_db_lifecycle_proof(config.base_url))
+    storage.write_json(run_id, "db_lifecycle_results.json", db_lifecycle_results)
 
     security_findings = _run_suite("security", config.run_security,
                                     lambda: security_mod.run_security_suite(config.base_url, config.timeout_s))

@@ -81,10 +81,12 @@ def generate_summary(
     failure_results: List[Dict[str, Any]],
     concurrency_results: List[Dict[str, Any]],
     browser_results: List[Dict[str, Any]],
+    db_lifecycle_results: List[Dict[str, Any]],
     regression: Optional[Dict[str, Any]],
 ) -> str:
     issues = readiness.collect_issues(
-        contract_records, security_findings, failure_results, concurrency_results, browser_results, regression
+        contract_records, security_findings, failure_results, concurrency_results, browser_results,
+        db_lifecycle_results, regression,
     )
     scores = readiness.compute_scores(contract_records, security_findings, browser_results, issues)
     priorities = readiness.top_priorities(issues)
@@ -118,10 +120,15 @@ def generate_summary(
         return [[f'<span class="sev-{sev}">{_e(i.title)}</span>', _e(i.source), _e(i.detail)[:400]]
                 for i in issues_by_sev.get(sev, [])]
 
+    db_lifecycle_passed = sum(1 for f in db_lifecycle_results if f.get("passed"))
+    db_lifecycle_total = len(db_lifecycle_results)
+
     tiles = "".join([
         _tile("Contracts tested", wf["contracts_processed"]),
         _tile("Workflow pass rate", f"{scores['workflow_pass_rate_pct']}%",
               "ok" if scores["workflow_pass_rate_pct"] >= 95 else "warn"),
+        _tile("DB session lifecycle", f"{db_lifecycle_passed}/{db_lifecycle_total}",
+              "ok" if db_lifecycle_total and db_lifecycle_passed == db_lifecycle_total else ("bad" if db_lifecycle_total else "warn")),
         _tile("Security checks passed", f"{sec_summary['total_checks'] - sec_summary['failed_checks']}/{sec_summary['total_checks']}",
               "ok" if sec_summary["all_passed"] else "bad"),
         _tile("Browsers available", len(browser_summary["browsers_available"])),
@@ -130,6 +137,11 @@ def generate_summary(
         _tile("Failure-injection checks", len(failure_results)),
         _tile("Concurrency checks", len(concurrency_results)),
     ])
+
+    db_lifecycle_rows = [
+        [f['name'], "✓ pass" if f["passed"] else "✗ FAIL", _e(f['detail'])]
+        for f in db_lifecycle_results
+    ]
 
     perf_rows = [[step, str(v["count"]), f"{v['mean_ms']} ms", f"{v['p95_ms']} ms", f"{v['max_ms']} ms"]
                  for step, v in perf.items()]
@@ -179,6 +191,14 @@ commit <code>{_e(manifest.get('git_commit') or '—')}</code> · {_e(manifest.ge
 <section><h2>Top engineering priorities</h2>{priorities_html}</section>
 
 <div class="tiles">{tiles}</div>
+
+<section><h2>Database session lifecycle proof ({db_lifecycle_passed}/{db_lifecycle_total})</h2>
+<p>Targeted regression test for the specific connection-pool exhaustion bug this suite originally found and
+that was fixed (main.py routes now use <code>Depends(get_db)</code>; the two exception handlers use
+<code>database.db_session()</code> — see <code>triagebench_live/db_lifecycle_proof.py</code> and
+<code>triagebench_live/README.md</code> for the full methodology and incident writeup).</p>
+{_table(['Phase', 'Result', 'Detail'], db_lifecycle_rows, 'Not run this session.')}
+</section>
 
 {regression_html}
 

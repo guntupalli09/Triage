@@ -51,6 +51,7 @@ class LiveConfig:
     run_failure_tests: bool = True
     run_concurrency: bool = True
     run_browser: bool = True
+    run_db_lifecycle_proof: bool = True
     browsers: List[str] = field(default_factory=lambda: ["chromium", "firefox", "webkit", "msedge"])
     timeout_s: int = DEFAULT_HTTP_TIMEOUT_S
     git_commit: Optional[str] = None

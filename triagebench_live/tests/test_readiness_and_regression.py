@@ -34,7 +34,7 @@ class TestReadinessScoring:
         contracts = [_contract(f"c{i}") for i in range(10)]
         security = [{"check": "idor", "passed": True, "severity": "critical", "detail": ""}]
         browsers = [{"browser": "chromium", "available": True, "overall_status": "pass", "steps": []}]
-        issues = readiness.collect_issues(contracts, security, [], [], browsers, None)
+        issues = readiness.collect_issues(contracts, security, [], [], browsers)
         scores = readiness.compute_scores(contracts, security, browsers, issues)
         assert scores["verdict"] == "GO"
         assert scores["critical_count"] == 0
@@ -43,7 +43,7 @@ class TestReadinessScoring:
         contracts = [_contract(f"c{i}") for i in range(10)]
         security = [{"check": "idor_download_package", "passed": False, "severity": "critical", "detail": "leak"}]
         browsers = [{"browser": "chromium", "available": True, "overall_status": "pass", "steps": []}]
-        issues = readiness.collect_issues(contracts, security, [], [], browsers, None)
+        issues = readiness.collect_issues(contracts, security, [], [], browsers)
         scores = readiness.compute_scores(contracts, security, browsers, issues)
         assert scores["verdict"] == "NO-GO"
         assert scores["critical_count"] >= 1
@@ -54,7 +54,7 @@ class TestReadinessScoring:
             "ReadTimeout ... sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, "
             "connection timed out"
         )
-        issues = readiness.collect_issues(contracts, [], [], [], [], None)
+        issues = readiness.collect_issues(contracts, [], [], [], [])
         titles = [i.title for i in issues]
         assert any("connection pool exhaustion" in t.lower() for t in titles)
         assert any(i.severity == "critical" for i in issues)
@@ -65,8 +65,29 @@ class TestReadinessScoring:
             {"browser": "chromium", "available": True, "overall_status": "pass", "steps": []},
             {"browser": "firefox", "available": False, "overall_status": "skipped", "steps": []},
         ]
-        issues = readiness.collect_issues(contracts, [], [], [], browsers, None)
+        issues = readiness.collect_issues(contracts, [], [], [], browsers)
         assert not any("firefox" in i.title.lower() for i in issues)
+
+    def test_failed_db_lifecycle_phase_is_critical_and_forces_nogo(self):
+        contracts = [_contract(f"c{i}") for i in range(10)]
+        db_lifecycle = [
+            {"name": "sustained_sequential", "passed": True, "detail": "150/150 ok"},
+            {"name": "repeated_bursts_above_capacity", "passed": False, "detail": "did not recover within 30s"},
+        ]
+        issues = readiness.collect_issues(contracts, [], [], [], [], db_lifecycle)
+        scores = readiness.compute_scores(contracts, [], [], issues)
+        assert scores["verdict"] == "NO-GO"
+        assert any("db session lifecycle" in i.title.lower() for i in issues)
+
+    def test_all_db_lifecycle_phases_passing_raises_no_issue(self):
+        contracts = [_contract(f"c{i}") for i in range(10)]
+        db_lifecycle = [
+            {"name": "sustained_sequential", "passed": True, "detail": "150/150 ok"},
+            {"name": "concurrent_at_pool_capacity", "passed": True, "detail": "15/15 ok"},
+            {"name": "repeated_bursts_above_capacity", "passed": True, "detail": "recovered every time"},
+        ]
+        issues = readiness.collect_issues(contracts, [], [], [], [], db_lifecycle)
+        assert not any(i.source == "db_lifecycle" for i in issues)
 
 
 class TestRegression:

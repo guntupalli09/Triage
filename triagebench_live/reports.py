@@ -35,6 +35,7 @@ def generate_all(
     failure_results: List[Dict[str, Any]],
     concurrency_results: List[Dict[str, Any]],
     browser_results: List[Dict[str, Any]],
+    db_lifecycle_results: List[Dict[str, Any]] = (),
 ) -> Dict[str, int]:
     out_dir = storage.config.run_dir(run_id) / "reports"
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -84,6 +85,10 @@ def generate_all(
         for b in browser_results if b.get("available")
         for s in b.get("steps", []) if s.get("status") in ("fail", "error")
     ]
+    failure_rows += [
+        {"source": "db_lifecycle_proof", "name": f["name"], "severity": "critical", "detail": f["detail"][:300]}
+        for f in db_lifecycle_results if not f.get("passed")
+    ]
     _write_csv(out_dir / "production_failures.csv", failure_rows, ["source", "name", "severity", "detail"])
     counts["production_failures.csv"] = len(failure_rows)
 
@@ -127,6 +132,15 @@ def generate_all(
     ]
     _write_csv(out_dir / "security_results.csv", sec_rows, ["check", "passed", "severity", "detail"])
     counts["security_results.csv"] = len(sec_rows)
+
+    # db_lifecycle_proof.csv — the targeted sequential/concurrent connection-
+    # pool leak proof (see db_lifecycle_proof.py)
+    db_rows = [
+        {"phase": f["name"], "passed": f["passed"], "detail": f["detail"]}
+        for f in db_lifecycle_results
+    ]
+    _write_csv(out_dir / "db_lifecycle_proof.csv", db_rows, ["phase", "passed", "detail"])
+    counts["db_lifecycle_proof.csv"] = len(db_rows)
 
     # production_regressions.csv is written by regression.py — placeholder
     # kept present so the file always exists, even for a run with no

@@ -7,9 +7,10 @@ from __future__ import annotations
 import os
 import time
 import logging
+from contextlib import contextmanager
 from pathlib import Path
 
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, event, text
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 
 logger = logging.getLogger(__name__)
@@ -22,7 +23,12 @@ DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{DB_PATH}")
 
 _is_sqlite = "sqlite" in DATABASE_URL
 
-_connect_args = {"check_same_thread": False} if _is_sqlite else {}
+# timeout=30 matches pool_timeout below: without it, sqlite3's own default
+# 5-second busy-wait raises "database is locked" well before a request
+# would otherwise have queued successfully for a pool connection, turning
+# an ordinary write-contention wait into a hard failure under concurrent
+# writers.
+_connect_args = {"check_same_thread": False, "timeout": 30} if _is_sqlite else {}
 
 _engine_kwargs = {}
 if not _is_sqlite:
@@ -37,12 +43,56 @@ if not _is_sqlite:
 engine = create_engine(DATABASE_URL, connect_args=_connect_args, **_engine_kwargs)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
+if _is_sqlite:
+    @event.listens_for(engine, "connect")
+    def _sqlite_pragmas(dbapi_connection, connection_record):
+        """WAL mode lets readers proceed without blocking on a writer (and
+        vice versa) instead of SQLite's default rollback-journal mode,
+        where every writer takes an exclusive file lock that blocks every
+        other connection — reader or writer — for the transaction's
+        duration. Under concurrent traffic (multiple requests each opening
+        their own pooled connection) that default serializes far more work
+        than necessary and, combined with a short busy-timeout, was
+        observed compounding into cascading connection-pool timeouts under
+        bursty concurrent load. WAL is standard, safe, and strictly better
+        for this access pattern; it has no effect on PostgreSQL, which
+        already handles concurrent writers via MVCC."""
+        cursor = dbapi_connection.cursor()
+        cursor.execute("PRAGMA journal_mode=WAL")
+        cursor.execute("PRAGMA busy_timeout=30000")
+        cursor.close()
+
 
 class Base(DeclarativeBase):
     pass
 
 
 def get_db():
+    """FastAPI dependency (`Depends(get_db)`): FastAPI drives this generator
+    itself and guarantees `.close()` runs via its own exit-stack handling
+    once the request finishes, regardless of whether the route raised.
+    Never call this directly with `next(get_db())` — nothing then owns
+    advancing the generator past its `yield`, so `db.close()` never runs
+    deterministically; cleanup would depend on the generator eventually
+    being garbage-collected, which is not guaranteed to happen promptly
+    under load and is exactly how a connection-pool exhaustion bug was
+    found and fixed in this codebase (see git history / triagebench_live's
+    README for the full incident writeup)."""
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+@contextmanager
+def db_session():
+    """Explicit context-manager form of get_db(), for the few call sites
+    that are NOT invoked through FastAPI's dependency-injection graph and
+    so cannot use `Depends(get_db)` — namely `@app.exception_handler`
+    callbacks, which Starlette calls directly as `handler(request, exc)`
+    with no DI resolution at all. Guarantees the same deterministic
+    `db.close()` on the `with` block's exit, success or exception."""
     db = SessionLocal()
     try:
         yield db

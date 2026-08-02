@@ -54,8 +54,13 @@ def _cmd_run(args: argparse.Namespace) -> int:
     failure_results = storage.load_json(run_id, "failure_results.json")
     concurrency_results = storage.load_json(run_id, "concurrency_results.json")
     browser_results = storage.load_json(run_id, "browser_results.json")
+    try:
+        db_lifecycle_results = storage.load_json(run_id, "db_lifecycle_results.json")
+    except FileNotFoundError:
+        db_lifecycle_results = []
     issues = readiness.collect_issues(
-        contract_records, security_findings, failure_results, concurrency_results, browser_results, regression
+        contract_records, security_findings, failure_results, concurrency_results, browser_results,
+        db_lifecycle_results, regression,
     )
     scores = readiness.compute_scores(contract_records, security_findings, browser_results, issues)
 

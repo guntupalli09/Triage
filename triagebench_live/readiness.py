@@ -27,18 +27,18 @@ class Issue:
 
 
 def _detect_infra_issues(contract_records: List[Dict[str, Any]]) -> List[Issue]:
-    """Scans step errors for known infrastructure failure signatures — most
-    notably DB connection-pool exhaustion, which TriageBench Live's own
-    development run against a local instance of this exact codebase
-    reproduced: `next(get_db())` in main.py never explicitly closes the
-    session (no `Depends(get_db)`, no context manager), so cleanup depends
-    on CPython garbage-collecting the generator promptly — which does not
-    happen reliably under sustained request volume, and the pool (5 +
-    10 overflow, the SQLAlchemy default main.py never overrides) exhausts,
-    turning every subsequent request into a 30s hang until the pool frees
-    up. This is a real, reproducible, severity-critical finding, not a
-    hypothetical — it happened during this suite's own development against
-    the unmodified application code."""
+    """Regression guard, not a currently-open bug: this originally detected
+    DB connection-pool exhaustion from main.py's `next(get_db())` pattern
+    (a real, reproducible bug TriageBench Live's own development run
+    found). That has since been fixed — every route now uses
+    `Depends(get_db)`, the two `@app.exception_handler` callbacks use
+    `database.db_session()` — and `db_lifecycle_proof.py` is the dedicated,
+    targeted test that actively proves the fix under load rather than
+    waiting to notice it by accident. This scan stays in place as a
+    trip-wire: if the same failure signature ever reappears (a future
+    route added with `next(get_db())` again, a new leak elsewhere), it is
+    caught here immediately rather than only showing up as sporadic
+    unrelated-looking contract failures."""
     hangs = 0
     for rec in contract_records:
         for step in (rec.get("steps") or {}).values():
@@ -52,15 +52,10 @@ def _detect_infra_issues(contract_records: List[Dict[str, Any]]) -> List[Issue]:
         title="Database connection pool exhaustion under sustained load",
         detail=(
             f"{hangs} request(s) across this run failed or hung with a SQLAlchemy QueuePool timeout. "
-            f"Root cause: main.py calls `db = next(get_db())` directly instead of `Depends(get_db)` or a "
-            f"context manager on nearly every route; the generator's `finally: db.close()` only runs when "
-            f"CPython garbage-collects the abandoned generator, which is not guaranteed to happen promptly "
-            f"under load. Once the pool (default: 5 + 10 overflow) is exhausted, every subsequent request "
-            f"blocks for the full pool timeout (30s) before failing. This reproduces against the unmodified "
-            f"application under nothing more than sequential, single-process TriageBench Live traffic — a "
-            f"real production deployment under concurrent customer load would hit this materially faster. "
-            f"Fix: use `Depends(get_db)` (FastAPI closes it automatically after the response) everywhere "
-            f"main.py currently does `next(get_db())`."
+            f"This exact failure signature was previously caused by main.py calling `db = next(get_db())` "
+            f"directly instead of `Depends(get_db)`/`database.db_session()` — that was fixed, so this "
+            f"reproducing again means either a new call site regressed back to the old pattern, or a "
+            f"genuinely different leak. See db_lifecycle_proof.csv for the targeted, isolated reproduction."
         ),
         source="infrastructure",
     )]
@@ -72,10 +67,21 @@ def collect_issues(
     failure_results: List[Dict[str, Any]],
     concurrency_results: List[Dict[str, Any]],
     browser_results: List[Dict[str, Any]],
-    regression: Optional[Dict[str, Any]],
+    db_lifecycle_results: Optional[List[Dict[str, Any]]] = None,
+    regression: Optional[Dict[str, Any]] = None,
 ) -> List[Issue]:
     issues: List[Issue] = []
     issues.extend(_detect_infra_issues(contract_records))
+
+    # The targeted DB session-lifecycle proof (db_lifecycle_proof.py) is
+    # the single most direct signal in this run — a failure here means the
+    # exact bug class this suite was built to catch is present right now,
+    # so it is always critical regardless of which phase failed.
+    for f in (db_lifecycle_results or []):
+        if not f.get("passed"):
+            issues.append(Issue(
+                "critical", f"DB session lifecycle: {f['name']}", f["detail"], "db_lifecycle",
+            ))
 
     for f in security_findings:
         if not f.get("passed"):
