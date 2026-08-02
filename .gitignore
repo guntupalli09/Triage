@@ -19,3 +19,6 @@ data/
 # CI should publish these as build artifacts, not commit them. See
 # triagebench/README.md ("Where run history lives").
 triagebench_runs/
+
+# TriageBench Live run outputs — same rationale, see triagebench_live/README.md.
+triagebench_live_runs/
