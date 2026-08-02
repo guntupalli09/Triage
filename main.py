@@ -1849,7 +1849,10 @@ async def download_negotiation_package(request: Request, contract_id: int):
     if not progress.is_complete:
         raise HTTPException(status_code=400, detail="Finish reviewing every finding before generating the package")
 
-    docx_bytes, skipped = build_redlined_docx(contract.filename, contract.contract_text, findings, decisions)
+    docx_bytes, skipped = build_redlined_docx(
+        contract.filename, contract.contract_text, findings, decisions,
+        author=user.name or user.email,
+    )
     memo_text = build_cover_memo_text(contract.filename, findings, decisions)
     audit_text = build_audit_trail_text(contract.filename, contract.rule_engine_version or "2.0.0", findings, decisions)
 
