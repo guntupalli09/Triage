@@ -1,5 +1,8 @@
 # Exclude large directories that aren't needed for production
 experiments/
+Benchmark - TC/
+triagebench_runs/
+triagebench_live_runs/
 __pycache__/
 *.pyc
 *.pyo
