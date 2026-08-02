@@ -89,7 +89,7 @@
                             </td>
                             <td class="py-3 px-2 text-gray-500">{{ c.playbook.name if c.playbook else '—' }}</td>
                             <td class="py-3 px-2 text-right space-x-3">
-                                <a href="/contract/{{ c.id }}" class="text-[#0F172A] hover:text-[#1E293B] font-medium transition-colors">View</a>
+                                <a href="/contract/{{ c.id }}/review" class="text-[#0F172A] hover:text-[#1E293B] font-medium transition-colors">View</a>
                                 <button onclick="shareContract({{ c.id }})" class="text-gray-400 hover:text-gray-600 font-medium transition-colors">Share</button>
                                 <a href="/contract/{{ c.id }}/pdf" class="text-gray-400 hover:text-gray-600 font-medium transition-colors">PDF</a>
                             </td>

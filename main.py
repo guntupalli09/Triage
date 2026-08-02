@@ -1027,7 +1027,7 @@ async def upload_contract(
             "contract_id": contract.id, "filename": file.filename, "overall_risk": contract.overall_risk,
         })
 
-        return RedirectResponse(url=f"/contract/{contract.id}", status_code=303)
+        return RedirectResponse(url=f"/contract/{contract.id}/review", status_code=303)
 
     # Anonymous flow (legacy: pay-per-use via Stripe)
     if DEV_MODE:
