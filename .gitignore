@@ -14,3 +14,8 @@ Thumbs.db
 # Database
 data/
 *.db
+
+# TriageBench run outputs — reproducible from the corpus + engine on demand;
+# CI should publish these as build artifacts, not commit them. See
+# triagebench/README.md ("Where run history lives").
+triagebench_runs/
