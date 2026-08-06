@@ -768,6 +768,65 @@
     </div>
     {% endif %}
 
+    <!-- Policy Evaluation (firm policy engine — additive to Playbook Deviations above) -->
+    {% if policy_decisions %}
+    <div class="report-card p-6 mb-6 fade-in">
+        <h2 class="text-lg font-bold text-[#0F172A] mb-1">Policy Evaluation</h2>
+        <p class="text-sm text-[#475569] mb-4">{{ policy_decisions|length }} finding(s) evaluated against firm policy</p>
+        <div class="space-y-2">
+            {% for d in policy_decisions %}
+            <div class="p-3 rounded-md {% if d.policy_status == 'PROHIBITED' %}severity-high{% elif d.policy_status in ('ESCALATE', 'NEGOTIABLE', 'PARTIALLY_COMPLIANT') %}severity-medium{% else %}severity-low{% endif %}" style="border-left-width: 3px;">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="text-sm font-semibold text-[#0F172A]">{{ d.rule_id }}</span>
+                    <span class="px-2 py-0.5 text-xs font-bold rounded {% if d.policy_status == 'PROHIBITED' %}badge-high{% elif d.policy_status in ('ESCALATE', 'NEGOTIABLE', 'PARTIALLY_COMPLIANT') %}badge-medium{% else %}badge-low{% endif %}">{{ d.policy_status }}</span>
+                    {% if d.escalation_required %}
+                    <span class="px-2 py-0.5 text-xs font-bold rounded badge-high">ESCALATION REQUIRED</span>
+                    {% endif %}
+                </div>
+                <p class="text-sm text-[#475569]">{{ d.reason }}</p>
+                {% if d.preferred_position %}
+                <p class="text-xs text-[#475569] mt-1"><span class="font-semibold">Preferred:</span> {{ d.preferred_position }}</p>
+                {% endif %}
+                {% if d.fallback_position %}
+                <p class="text-xs text-[#475569]"><span class="font-semibold">Fallback:</span> {{ d.fallback_position }}</p>
+                {% endif %}
+                <button type="button" class="text-xs font-semibold text-[#475569] hover:text-[#1E293B] underline mt-1" onclick="this.nextElementSibling.classList.toggle('hidden')">Override this decision</button>
+                <div class="mt-2 hidden" data-override-panel data-decision-id="{{ d.id }}">
+                    <select data-override-status-select class="text-xs border border-slate-200 rounded px-2 py-1">
+                        <option value="COMPLIANT">Mark compliant</option>
+                        <option value="NEGOTIABLE" selected>Mark negotiable</option>
+                        <option value="ESCALATE">Escalate</option>
+                    </select>
+                    <input type="text" data-override-reason placeholder="Override reason (required)" class="text-xs border border-slate-200 rounded px-2 py-1 w-64" />
+                    <button type="button" class="text-xs font-semibold text-[#1E293B] underline ml-2" onclick="submitPolicyOverride(this)">Submit override</button>
+                    <span class="text-xs text-[#475569] ml-2" data-override-status></span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+    async function submitPolicyOverride(btn) {
+        const panel = btn.closest('[data-override-panel]');
+        const reason = panel.querySelector('[data-override-reason]').value.trim();
+        const overriddenStatus = panel.querySelector('[data-override-status-select]').value;
+        const statusEl = panel.querySelector('[data-override-status]');
+        if (!reason) { statusEl.textContent = 'Reason is required.'; return; }
+        const decisionId = panel.getAttribute('data-decision-id');
+        try {
+            const res = await fetch(`/api/policy/decisions/${decisionId}/override`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ reason: reason, overridden_status: overriddenStatus }),
+            });
+            statusEl.textContent = res.ok ? 'Override recorded.' : 'Could not record override.';
+        } catch (e) {
+            statusEl.textContent = 'Could not record override.';
+        }
+    }
+    </script>
+    {% endif %}
+
     <!-- Rule Execution Summary -->
     <div class="report-card p-6 mb-6 fade-in">
         <h2 class="text-lg font-bold text-[#0F172A] mb-4">Rule Execution Summary</h2>

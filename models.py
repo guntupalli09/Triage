@@ -38,6 +38,12 @@ class User(Base):
     contracts_this_month = Column(Integer, default=0)
     usage_reset_at = Column(DateTime, default=datetime.utcnow)
 
+    # Policy engine tenancy — see playbook/db_models.py. Fast-path cache of
+    # "the current user's firm" for the common single-firm case; FirmMembership
+    # (playbook/db_models.py) remains the source of truth for multi-attorney
+    # firms. Set by playbook/migration.py for every pre-existing User.
+    default_firm_id = Column(Integer, ForeignKey("firms.id"), nullable=True)
+
     contracts = relationship("Contract", back_populates="user", order_by="desc(Contract.created_at)")
     playbooks = relationship("Playbook", back_populates="user")
 
@@ -111,9 +117,17 @@ class Contract(Base):
     # findings.
     risk_balance_json = Column(JSON, nullable=True)
 
-    # Playbook comparison
+    # Playbook comparison (legacy — untouched, see playbook_engine.py)
     playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=True)
     deviations_json = Column(JSON, nullable=True)
+
+    # Policy engine — see playbook/db_models.py and playbook/decision_engine.py.
+    # Additive to, and independent of, the legacy playbook_id/deviations_json
+    # pair above. matter_id is optional (NULL = evaluated against Firm-level
+    # policy only); policy_evaluation_id points at the latest evaluation run's
+    # header row for quick lookup from a contract page.
+    matter_id = Column(Integer, ForeignKey("matters.id"), nullable=True, index=True)
+    policy_evaluation_id = Column(Integer, ForeignKey("policy_evaluations.id"), nullable=True)
 
     # Review workflow — one decision per finding (rule_id -> {action, reason,
     # edited_text, decided_at}), recorded as the attorney works through the

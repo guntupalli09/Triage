@@ -1,0 +1,44 @@
+{% extends "base_app.html" %}
+
+{% block title %}Policy Audit Trail{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1">/</span>
+<span>Audit Trail</span>
+{% endblock %}
+
+{% block content %}
+        <div class="mb-8 fade-in">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">Policy <span class="gradient-text">Audit Trail</span></h1>
+            <p class="text-gray-600 mt-2 max-w-2xl leading-relaxed">Every decision, override, publish, rollback, clone, archive, import, and export action recorded against your firm's policy sets — append-only, never edited or deleted.</p>
+        </div>
+
+        <div class="premium-card overflow-x-auto fade-in">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100">
+                        <th class="px-4 py-3">Time</th>
+                        <th class="px-4 py-3">Action</th>
+                        <th class="px-4 py-3">Entity</th>
+                        <th class="px-4 py-3">Actor</th>
+                        <th class="px-4 py-3">Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in entries %}
+                    <tr class="border-b border-gray-50">
+                        <td class="px-4 py-3 text-gray-500 mono text-xs">{{ e.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td class="px-4 py-3 font-medium text-[#0F172A]">{{ e.action|upper }}</td>
+                        <td class="px-4 py-3 mono text-xs">{{ e.entity_type }} #{{ e.entity_id }}</td>
+                        <td class="px-4 py-3 text-gray-500">{% if e.actor_user_id %}user #{{ e.actor_user_id }}{% else %}system{% endif %}</td>
+                        <td class="px-4 py-3 text-gray-500">{{ e.reason or '—' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if not entries %}
+            <p class="text-center text-gray-400 py-10">No audit entries recorded yet.</p>
+            {% endif %}
+        </div>
+{% endblock %}

@@ -208,15 +208,37 @@ def _run_migrations():
                 conn.execute(text("ALTER TABLE contracts ADD COLUMN review_finalized_at TIMESTAMP"))
                 logger.info("Migration applied: contracts.review_finalized_at column")
 
+            # Policy engine — see playbook/db_models.py. Requires the new
+            # firms/matters/policy_evaluations tables to already exist
+            # (create_all runs before _run_migrations in init_db()).
+            if "matter_id" not in contract_cols:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN matter_id INTEGER"))
+                conn.execute(text("CREATE INDEX IF NOT EXISTS contracts_matter_id_idx ON contracts (matter_id)"))
+                logger.info("Migration applied: contracts.matter_id column + index")
+            if "policy_evaluation_id" not in contract_cols:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN policy_evaluation_id INTEGER"))
+                logger.info("Migration applied: contracts.policy_evaluation_id column")
+
+        if "default_firm_id" not in cols:
+            conn.execute(text("ALTER TABLE users ADD COLUMN default_firm_id INTEGER"))
+            logger.info("Migration applied: users.default_firm_id column")
+
 
 def init_db():
     import models  # noqa: F401 — registers all models
     import analytics_models  # noqa: F401 — registers acquisition/session/event models
+    import playbook.db_models  # noqa: F401 — registers policy engine models
     Base.metadata.create_all(bind=engine)
     try:
         _run_migrations()
     except Exception:
         logger.exception("Schema migration failed — Google sign-in may not work until resolved")
+    try:
+        from playbook.migration import run_legacy_playbook_migration
+        with db_session() as db:
+            run_legacy_playbook_migration(db)
+    except Exception:
+        logger.exception("Legacy playbook -> policy set migration failed")
     logger.info(f"Database initialized: {'PostgreSQL' if not _is_sqlite else 'SQLite'}")
 
 

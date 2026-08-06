@@ -1,0 +1,60 @@
+{% extends "base_app.html" %}
+
+{% block title %}{{ policy_set.name }}{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1">/</span>
+<a href="/policy-sets" class="hover:text-gray-900 transition-colors">Policy Sets</a>
+<span class="mx-1">/</span>
+<span>{{ policy_set.name }}</span>
+{% endblock %}
+
+{% block content %}
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-8 fade-in">
+            <div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">{{ policy_set.name }}</h1>
+                <p class="text-gray-600 mt-2">v{{ policy_set.version_major }}.{{ policy_set.version_minor }} — <span class="font-semibold">{{ policy_set.status|upper }}</span>{% if policy_set.deprecated %} (deprecated){% endif %}</p>
+                {% if policy_set.description %}<p class="text-gray-500 mt-1">{{ policy_set.description }}</p>{% endif %}
+            </div>
+            <div class="flex gap-3 mt-4 sm:mt-0">
+                {% if policy_set.status == 'draft' %}
+                <form method="post" action="/api/policy/sets/{{ policy_set.id }}/publish"><button class="btn-primary px-4 py-2 rounded-lg text-sm" type="submit">Publish</button></form>
+                {% endif %}
+                <form method="post" action="/api/policy/sets/{{ policy_set.id }}/clone"><button class="text-sm font-medium text-[#0F172A] hover:underline" type="submit">Clone as draft</button></form>
+                {% if policy_set.status != 'deprecated' %}
+                <form method="post" action="/api/policy/sets/{{ policy_set.id }}/archive" onsubmit="return confirm('Archive this policy set?');"><button class="text-sm font-medium text-gray-400 hover:text-red-600" type="submit">Archive</button></form>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="premium-card overflow-x-auto fade-in">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100">
+                        <th class="px-4 py-3">Topic</th>
+                        <th class="px-4 py-3">Title</th>
+                        <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3">Preferred Position</th>
+                        <th class="px-4 py-3">Fallback</th>
+                        <th class="px-4 py-3">Escalation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in policy_set.rules %}
+                    <tr class="border-b border-gray-50">
+                        <td class="px-4 py-3 mono text-xs">{{ r.policy_topic }}</td>
+                        <td class="px-4 py-3 font-medium text-[#0F172A]">{{ r.title }}</td>
+                        <td class="px-4 py-3">{{ r.status }}</td>
+                        <td class="px-4 py-3 text-gray-500">{{ r.preferred_position or '—' }}</td>
+                        <td class="px-4 py-3 text-gray-500">{{ r.fallback_position or '—' }}</td>
+                        <td class="px-4 py-3 text-gray-500">{% if r.approval_required %}{{ r.escalation_owner or 'Required' }}{% else %}—{% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if not policy_set.rules %}
+            <p class="text-center text-gray-400 py-10">No rules authored yet — add one via <span class="mono">POST /api/policy/sets/{{ policy_set.id }}/rules</span>.</p>
+            {% endif %}
+        </div>
+{% endblock %}

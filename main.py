@@ -37,7 +37,7 @@ else:
 
 import stripe
 from fastapi import FastAPI, File, UploadFile, Request, HTTPException, Form, Depends
-from fastapi.responses import HTMLResponse, RedirectResponse, Response
+from fastapi.responses import HTMLResponse, RedirectResponse, Response, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.cors import CORSMiddleware
@@ -175,6 +175,12 @@ app.add_middleware(RequestIDMiddleware)
 rule_engine = RuleEngine()
 llm_evaluator = LLMEvaluator()
 playbook_engine = PlaybookEngine()
+
+from playbook.api import router as policy_router
+from playbook.decision_engine import DecisionEngine
+from playbook.migration import ensure_default_firm
+from playbook import repository, audit_engine
+app.include_router(policy_router)
 
 # Legacy in-memory session store (for backward compat with unsigned uploads)
 session_store: Dict[str, Dict] = {}
@@ -1012,6 +1018,21 @@ async def upload_contract(
         db.add(contract)
         db.flush()  # assigns contract.id without ending the transaction
 
+        # Policy engine evaluation — additive to, and independent of, the
+        # legacy playbook_engine.compare() above. Always runs, even with no
+        # matter assigned yet (falls back to Firm-level policy), so every
+        # contract gets a policy evaluation regardless of UI adoption.
+        try:
+            firm = ensure_default_firm(db, user)
+            evaluation = DecisionEngine.evaluate(
+                db, contract_id=contract.id, findings=analysis["findings_dict"],
+                firm_id=firm.id, rule_engine_version=analysis["version"],
+                matter_id=contract.matter_id,
+            )
+            contract.policy_evaluation_id = evaluation.id
+        except Exception:
+            logger.exception("Policy engine evaluation failed for contract %s", contract.id)
+
         contract_event = analytics.build_contract_event(
             request, contract_id=contract.id, user_id=user.id,
             filename=file.filename, file_bytes=file_bytes,
@@ -1140,6 +1161,19 @@ async def batch_upload_submit(
             risk_balance_json=analysis.get("risk_balance"),
         )
         db.add(contract)
+        db.flush()  # assigns contract.id without ending the transaction
+
+        try:
+            firm = ensure_default_firm(db, user)
+            evaluation = DecisionEngine.evaluate(
+                db, contract_id=contract.id, findings=analysis["findings_dict"],
+                firm_id=firm.id, rule_engine_version=analysis["version"],
+                matter_id=contract.matter_id,
+            )
+            contract.policy_evaluation_id = evaluation.id
+        except Exception:
+            logger.exception("Policy engine evaluation failed for contract %s", contract.id)
+
         contracts.append(contract)
 
     user.contracts_this_month += len(contracts)
@@ -1308,6 +1342,24 @@ async def view_contract(request: Request, contract_id: int, db: DBSession = Depe
 
     rule_categories = _build_rule_categories(findings_dict, rule_engine)
 
+    policy_decisions = None
+    if contract.policy_evaluation_id:
+        from playbook.db_models import PolicyEvaluation
+        policy_evaluation = db.query(PolicyEvaluation).filter(
+            PolicyEvaluation.id == contract.policy_evaluation_id
+        ).first()
+        if policy_evaluation:
+            policy_decisions = [
+                {
+                    "id": d.id, "rule_id": d.rule_id, "policy_status": d.policy_status,
+                    "reason": d.reason, "preferred_position": d.preferred_position,
+                    "fallback_position": d.fallback_position,
+                    "escalation_required": d.escalation_required,
+                }
+                for d in policy_evaluation.decisions
+                if d.policy_status != "NOT_APPLICABLE"
+            ]
+
     return templates.TemplateResponse("results.html", {
         "request": request, "user": user,
         "filename": contract.filename,
@@ -1346,6 +1398,7 @@ async def view_contract(request: Request, contract_id: int, db: DBSession = Depe
         "metadata": contract.metadata_json,
         "risk_balance": contract.risk_balance_json,
         "progress": compute_progress(contract.findings_json or [], contract.review_decisions_json or {}).as_dict(),
+        "policy_decisions": policy_decisions,
     })
 
 
@@ -2063,6 +2116,50 @@ async def playbook_delete(request: Request, playbook_id: int, db: DBSession = De
 
 
 # ============================================================
+# POLICY SETS (minimal read-only UI over the /api/policy JSON API — see
+# playbook/api.py for creation/editing, which is API-only in this pass)
+# ============================================================
+
+@app.get("/policy-sets", response_class=HTMLResponse)
+async def policy_sets_page(request: Request, db: DBSession = Depends(get_db)):
+    user = require_user(request, db)
+    firm = ensure_default_firm(db, user)
+    db.commit()
+    policy_sets = repository.list_policy_sets(db, firm.id)
+    return templates.TemplateResponse("policy_sets.html", {
+        "request": request, "user": user, "policy_sets": policy_sets,
+        "current_year": datetime.now().year,
+    })
+
+
+@app.get("/policy-sets/{policy_set_id}", response_class=HTMLResponse)
+async def policy_set_detail_page(request: Request, policy_set_id: int, db: DBSession = Depends(get_db)):
+    user = require_user(request, db)
+    firm = ensure_default_firm(db, user)
+    db.commit()
+    try:
+        policy_set = repository.get_policy_set(db, firm.id, policy_set_id)
+    except repository.NotFoundError:
+        raise HTTPException(status_code=404, detail="Policy set not found")
+    return templates.TemplateResponse("policy_set_detail.html", {
+        "request": request, "user": user, "policy_set": policy_set,
+        "current_year": datetime.now().year,
+    })
+
+
+@app.get("/policy-audit", response_class=HTMLResponse)
+async def policy_audit_page(request: Request, db: DBSession = Depends(get_db)):
+    user = require_user(request, db)
+    firm = ensure_default_firm(db, user)
+    db.commit()
+    entries = audit_engine.query(db, firm.id)
+    return templates.TemplateResponse("policy_audit.html", {
+        "request": request, "user": user, "entries": entries,
+        "current_year": datetime.now().year,
+    })
+
+
+# ============================================================
 # PRICING PAGE
 # ============================================================
 
@@ -2370,6 +2467,9 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 @app.exception_handler(404)
 async def not_found_handler(request: Request, exc):
+    if request.url.path.startswith("/api/"):
+        detail = getattr(exc, "detail", "Not found")
+        return JSONResponse({"detail": detail}, status_code=404)
     with db_session() as db:
         user = get_current_user(request, db)
     return templates.TemplateResponse("errors/404.html", {
