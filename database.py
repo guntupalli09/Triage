@@ -162,20 +162,35 @@ def _run_migrations():
             conn.execute(text("ALTER TABLE users ALTER COLUMN password_hash DROP NOT NULL"))
             logger.info("Migration applied: users.password_hash now nullable")
 
+        # Columns storing EncryptedJSON (encryption.py) — TEXT-backed, not
+        # JSON/JSONB, because an encrypted blob is not valid JSON. Used both
+        # for ADD COLUMN on old databases missing these entirely, and for
+        # the JSON->TEXT column-type migration below on databases that
+        # already have them as JSON/JSONB (PostgreSQL only — SQLite's JSON
+        # type is already TEXT-backed under the hood, so no ALTER is needed
+        # there even though the Python-side type changed).
+        encrypted_json_col_type = "TEXT"
+        contract_encrypted_json_columns = [
+            "findings_json", "llm_result_json", "payment_terms_json",
+            "blocking_findings_json", "policy_blocked_findings_json",
+            "risk_dashboard_json", "structure_report_json", "clause_quality_json",
+            "metadata_json", "risk_balance_json", "deviations_json", "review_decisions_json",
+        ]
+
         if "contracts" in insp.get_table_names():
-            contract_cols = {c["name"] for c in insp.get_columns("contracts")}
-            json_col_type = "JSON" if not _is_sqlite else "JSON"
+            contract_cols_info = {c["name"]: c for c in insp.get_columns("contracts")}
+            contract_cols = set(contract_cols_info)
             if "signature_readiness" not in contract_cols:
                 conn.execute(text("ALTER TABLE contracts ADD COLUMN signature_readiness VARCHAR(40)"))
                 logger.info("Migration applied: contracts.signature_readiness column")
             if "payment_terms_json" not in contract_cols:
-                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN payment_terms_json {json_col_type}"))
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN payment_terms_json {encrypted_json_col_type}"))
                 logger.info("Migration applied: contracts.payment_terms_json column")
             if "blocking_findings_json" not in contract_cols:
-                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN blocking_findings_json {json_col_type}"))
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN blocking_findings_json {encrypted_json_col_type}"))
                 logger.info("Migration applied: contracts.blocking_findings_json column")
             if "policy_blocked_findings_json" not in contract_cols:
-                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN policy_blocked_findings_json {json_col_type}"))
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN policy_blocked_findings_json {encrypted_json_col_type}"))
                 logger.info("Migration applied: contracts.policy_blocked_findings_json column")
             if "legal_risk_score" not in contract_cols:
                 conn.execute(text("ALTER TABLE contracts ADD COLUMN legal_risk_score INTEGER"))
@@ -187,22 +202,22 @@ def _run_migrations():
                 conn.execute(text("ALTER TABLE contracts ADD COLUMN negotiation_difficulty_score INTEGER"))
                 logger.info("Migration applied: contracts.negotiation_difficulty_score column")
             if "risk_dashboard_json" not in contract_cols:
-                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN risk_dashboard_json {json_col_type}"))
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN risk_dashboard_json {encrypted_json_col_type}"))
                 logger.info("Migration applied: contracts.risk_dashboard_json column")
             if "structure_report_json" not in contract_cols:
-                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN structure_report_json {json_col_type}"))
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN structure_report_json {encrypted_json_col_type}"))
                 logger.info("Migration applied: contracts.structure_report_json column")
             if "clause_quality_json" not in contract_cols:
-                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN clause_quality_json {json_col_type}"))
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN clause_quality_json {encrypted_json_col_type}"))
                 logger.info("Migration applied: contracts.clause_quality_json column")
             if "risk_balance_json" not in contract_cols:
-                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN risk_balance_json {json_col_type}"))
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN risk_balance_json {encrypted_json_col_type}"))
                 logger.info("Migration applied: contracts.risk_balance_json column")
             if "metadata_json" not in contract_cols:
-                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN metadata_json {json_col_type}"))
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN metadata_json {encrypted_json_col_type}"))
                 logger.info("Migration applied: contracts.metadata_json column")
             if "review_decisions_json" not in contract_cols:
-                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN review_decisions_json {json_col_type}"))
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN review_decisions_json {encrypted_json_col_type}"))
                 logger.info("Migration applied: contracts.review_decisions_json column")
             if "review_finalized_at" not in contract_cols:
                 conn.execute(text("ALTER TABLE contracts ADD COLUMN review_finalized_at TIMESTAMP"))
@@ -222,6 +237,32 @@ def _run_migrations():
                 # model's nullable=False without a separate backfill pass.
                 conn.execute(text("ALTER TABLE contracts ADD COLUMN share_view_count INTEGER NOT NULL DEFAULT 0"))
                 logger.info("Migration applied: contracts.share_view_count column")
+
+            # JSON/JSONB -> TEXT for columns that already existed before
+            # EncryptedJSON was introduced. Existing values are valid JSON
+            # text either way, so `col::text` is a safe, lossless cast —
+            # this does NOT encrypt existing data (that's backfill_encryption.py's
+            # job); it only changes the column's storage type so encrypted
+            # writes (which are TEXT, not valid JSON) can be stored at all.
+            if not _is_sqlite:
+                for col_name in contract_encrypted_json_columns:
+                    info = contract_cols_info.get(col_name)
+                    if info is not None and "JSON" in str(info["type"]).upper():
+                        conn.execute(text(
+                            f"ALTER TABLE contracts ALTER COLUMN {col_name} TYPE TEXT USING {col_name}::text"
+                        ))
+                        logger.info(f"Migration applied: contracts.{col_name} JSON/JSONB -> TEXT (for encryption)")
+
+        if "playbooks" in insp.get_table_names():
+            playbook_cols_info = {c["name"]: c for c in insp.get_columns("playbooks")}
+            if not _is_sqlite:
+                info = playbook_cols_info.get("template_findings_json")
+                if info is not None and "JSON" in str(info["type"]).upper():
+                    conn.execute(text(
+                        "ALTER TABLE playbooks ALTER COLUMN template_findings_json TYPE TEXT "
+                        "USING template_findings_json::text"
+                    ))
+                    logger.info("Migration applied: playbooks.template_findings_json JSON/JSONB -> TEXT (for encryption)")
 
 
 def init_db():

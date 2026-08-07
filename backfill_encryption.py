@@ -1,22 +1,32 @@
 """
 One-off backfill: encrypt any legacy-plaintext contract_text/template_text
-rows under the current ENCRYPTION_KEYS/ENCRYPTION_KEY_CURRENT (see
-encryption.py). Not run automatically — operators run this on their own
-schedule after configuring encryption, and again after rotating to a new
-current key if they want old rows re-encrypted under it (existing encrypted
-rows keep decrypting fine under a retired key either way; this script is
-about intentional re-encryption, not a correctness requirement).
+and JSON analysis columns (findings_json, llm_result_json, etc. — see
+models.py for the full list of EncryptedJSON columns) under the current
+ENCRYPTION_KEYS/ENCRYPTION_KEY_CURRENT (see encryption.py). Not run
+automatically — operators run this on their own schedule after
+configuring encryption, and again after rotating to a new current key if
+they want old rows re-encrypted under it (existing encrypted rows keep
+decrypting fine under a retired key either way; this script is about
+intentional re-encryption, not a correctness requirement).
 
 Idempotent: a row whose stored value already starts with the "enc:v1:"
 envelope prefix is left untouched (counted as "already encrypted", not
 re-encrypted) — running this script twice in a row is a safe no-op on the
 second run. Uses raw parameterized SQL (not the ORM) deliberately: reading
 through the mapped Column would transparently decrypt already-encrypted
-rows via EncryptedText.process_result_value, and re-assigning that decrypted
-value back would encrypt it again under a fresh nonce — which is not wrong,
-exactly, but makes "did this actually change anything" impossible to answer
-for --dry-run reporting. Reading the true raw stored string here makes the
-already-encrypted check exact.
+rows via EncryptedText/EncryptedJSON.process_result_value, and
+re-assigning that decrypted value back would encrypt it again under a
+fresh nonce — which is not wrong, exactly, but makes "did this actually
+change anything" impossible to answer for --dry-run reporting. Reading
+the true raw stored string here makes the already-encrypted check exact.
+
+JSON columns need no special handling here: at the byte level a
+JSON-serialized value and a plain string are both just "a string to
+encrypt" — encrypt(raw_value) on an already-json.dumps'd column value
+produces exactly what EncryptedJSON.process_bind_param would produce.
+On PostgreSQL, these columns must already be migrated from JSON/JSONB to
+TEXT (see database.py's _run_migrations()) before this script can update
+them — the migration runs automatically on app startup.
 
 Usage:
     python backfill_encryption.py --dry-run
@@ -39,8 +49,14 @@ logging.basicConfig(level="INFO", format="%(asctime)s %(levelname)s %(message)s"
 logger = logging.getLogger("backfill_encryption")
 
 _TARGETS = {
-    "contracts": "contract_text",
-    "playbooks": "template_text",
+    "contracts": [
+        "contract_text",
+        "findings_json", "llm_result_json", "payment_terms_json",
+        "blocking_findings_json", "policy_blocked_findings_json",
+        "risk_dashboard_json", "structure_report_json", "clause_quality_json",
+        "metadata_json", "risk_balance_json", "deviations_json", "review_decisions_json",
+    ],
+    "playbooks": ["template_text", "template_findings_json"],
 }
 
 
@@ -106,14 +122,15 @@ def main() -> int:
     targets = _TARGETS if args.table == "all" else {args.table: _TARGETS[args.table]}
 
     overall_errors = 0
-    for table, column in targets.items():
-        stats = _backfill_table(table, column, dry_run=args.dry_run, batch_size=args.batch_size)
-        overall_errors += stats["errors"]
-        logger.info(
-            f"{table}: total={stats['total']} "
-            f"{'would_encrypt' if args.dry_run else 'encrypted'}={stats['encrypted']} "
-            f"already_encrypted={stats['already_encrypted']} empty={stats['empty']} errors={stats['errors']}"
-        )
+    for table, columns in targets.items():
+        for column in columns:
+            stats = _backfill_table(table, column, dry_run=args.dry_run, batch_size=args.batch_size)
+            overall_errors += stats["errors"]
+            logger.info(
+                f"{table}.{column}: total={stats['total']} "
+                f"{'would_encrypt' if args.dry_run else 'encrypted'}={stats['encrypted']} "
+                f"already_encrypted={stats['already_encrypted']} empty={stats['empty']} errors={stats['errors']}"
+            )
 
     if args.dry_run:
         logger.info("Dry run complete — no changes were written.")

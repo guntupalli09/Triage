@@ -13,7 +13,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 
 from database import Base
-from encryption import EncryptedText
+from encryption import EncryptedJSON, EncryptedText
 
 
 class User(Base):
@@ -67,10 +67,13 @@ class Contract(Base):
     contract_text = Column(EncryptedText, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 
-    # Analysis results (stored as JSON for flexibility)
+    # Analysis results. Encrypted (EncryptedJSON — see encryption.py)
+    # wherever the payload can embed verbatim contract excerpts;
+    # rule_counts_json is just severity counts ({"high": 2, ...}) with no
+    # contract-derived text, so it stays a plain JSON column.
     overall_risk = Column(String(20), nullable=True)
-    findings_json = Column(JSON, nullable=True)
-    llm_result_json = Column(JSON, nullable=True)
+    findings_json = Column(EncryptedJSON, nullable=True)
+    llm_result_json = Column(EncryptedJSON, nullable=True)
     rule_counts_json = Column(JSON, nullable=True)
     rule_engine_version = Column(String(20), nullable=True)
     analysis_completed = Column(Boolean, default=False)
@@ -80,9 +83,9 @@ class Contract(Base):
     # reflects exactly what was shown at analysis time, even if the
     # blocking/policy-block rule classification changes in a later release.
     signature_readiness = Column(String(40), nullable=True)
-    payment_terms_json = Column(JSON, nullable=True)
-    blocking_findings_json = Column(JSON, nullable=True)
-    policy_blocked_findings_json = Column(JSON, nullable=True)
+    payment_terms_json = Column(EncryptedJSON, nullable=True)
+    blocking_findings_json = Column(EncryptedJSON, nullable=True)
+    policy_blocked_findings_json = Column(EncryptedJSON, nullable=True)
 
     # Three-score risk dashboard (Legal Risk / Business Risk / Negotiation
     # Difficulty) — see risk_dashboard.py. Additive to overall_risk, not a
@@ -92,33 +95,33 @@ class Contract(Base):
     legal_risk_score = Column(Integer, nullable=True)
     business_risk_score = Column(Integer, nullable=True)
     negotiation_difficulty_score = Column(Integer, nullable=True)
-    risk_dashboard_json = Column(JSON, nullable=True)
+    risk_dashboard_json = Column(EncryptedJSON, nullable=True)
 
     # Defined-terms & cross-reference integrity — see structure_checker.py.
     # Document-hygiene findings (unused/duplicate/undefined terms, broken
     # references to sections/exhibits/schedules), independent of severity.
-    structure_report_json = Column(JSON, nullable=True)
+    structure_report_json = Column(EncryptedJSON, nullable=True)
 
     # Deterministic Clause Quality Engine — see clause_quality.py. First
     # module: arbitration completeness (institution/seat/rules/arbitrator
     # count/language/emergency relief/litigation conflict), 0-100 or
     # null/not-applicable when no arbitration clause is present.
-    clause_quality_json = Column(JSON, nullable=True)
+    clause_quality_json = Column(EncryptedJSON, nullable=True)
 
     # Deterministic party/effective-date/contract-type extraction — see
     # metadata_extractor.py. A field this couldn't confidently extract is
     # null/empty, never a guess.
-    metadata_json = Column(JSON, nullable=True)
+    metadata_json = Column(EncryptedJSON, nullable=True)
 
     # Risk Allocation & Clause Balance Score — see risk_balance.py.
     # Aggregates existing per-finding favorability data; null/not-
     # applicable when the engine found no directionally classifiable
     # findings.
-    risk_balance_json = Column(JSON, nullable=True)
+    risk_balance_json = Column(EncryptedJSON, nullable=True)
 
     # Playbook comparison
     playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=True)
-    deviations_json = Column(JSON, nullable=True)
+    deviations_json = Column(EncryptedJSON, nullable=True)
 
     # Review workflow — one decision per finding (rule_id -> {action, reason,
     # edited_text, decided_at}), recorded as the attorney works through the
@@ -128,7 +131,7 @@ class Contract(Base):
     # findings_json — a decision is what the attorney actually did, which
     # must survive even if a later rule-engine version would classify the
     # same clause differently.
-    review_decisions_json = Column(JSON, nullable=True)
+    review_decisions_json = Column(EncryptedJSON, nullable=True)
     review_finalized_at = Column(DateTime, nullable=True)
 
     # Sharing. share_token identifies the link; the fields below govern
@@ -169,8 +172,9 @@ class Playbook(Base):
     # The standard contract text to compare against. Encrypted at rest
     # (AES-256-GCM) — see encryption.py / Contract.contract_text above.
     template_text = Column(EncryptedText, nullable=False)
-    # Pre-computed analysis of the template
-    template_findings_json = Column(JSON, nullable=True)
+    # Pre-computed analysis of the template. Encrypted — embeds verbatim
+    # excerpts of the template text (see encryption.EncryptedJSON).
+    template_findings_json = Column(EncryptedJSON, nullable=True)
     template_risk = Column(String(20), nullable=True)
 
     user = relationship("User", back_populates="playbooks")

@@ -39,6 +39,7 @@ from __future__ import annotations
 
 import base64
 import binascii
+import json
 import os
 from typing import Dict, Optional
 
@@ -213,3 +214,39 @@ class EncryptedText(TypeDecorator):
 
     def process_result_value(self, value, dialect):
         return decrypt(value)
+
+
+class EncryptedJSON(TypeDecorator):
+    """Same encryption as EncryptedText, for columns that hold a JSON-
+    serializable value (dict/list) rather than a plain string — e.g.
+    Contract.findings_json, which embeds verbatim contract excerpts inside
+    each finding.
+
+    The value is JSON-serialized, then encrypted; on read, decrypted, then
+    JSON-deserialized. Storage type is TEXT, not JSON/JSONB — an encrypted
+    blob is not valid JSON, so a column switching from `JSON` to this type
+    on PostgreSQL must first be migrated to TEXT at the schema level (see
+    database.py's migration: `ALTER COLUMN ... TYPE TEXT USING col::text`,
+    safe because the existing values are valid JSON text either way).
+    SQLite's `JSON` type is already TEXT-backed, so no schema change is
+    needed there.
+
+    Legacy rows (valid JSON text, no enc:v1: prefix) keep reading
+    correctly through the same tolerant-plaintext path decrypt() already
+    provides for EncryptedText — decrypt() returns them unchanged, and
+    json.loads() parses them exactly as the old plain `JSON` column type
+    would have.
+    """
+
+    impl = Text
+    cache_ok = True
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return None
+        return encrypt(json.dumps(value))
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return None
+        return json.loads(decrypt(value))

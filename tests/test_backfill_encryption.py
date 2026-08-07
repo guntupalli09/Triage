@@ -186,3 +186,43 @@ def test_main_returns_nonzero_exit_code_on_errors(engine_and_key, monkeypatch):
     monkeypatch.setattr(sys, "argv", ["backfill_encryption.py", "--table", "contracts"])
     exit_code = backfill_encryption.main()
     assert exit_code == 1
+
+
+def test_targets_include_json_analysis_columns(engine_and_key):
+    """P2b: the CLI must cover the JSON columns that can embed contract
+    excerpts, not just contract_text/template_text."""
+    assert "findings_json" in backfill_encryption._TARGETS["contracts"]
+    assert "llm_result_json" in backfill_encryption._TARGETS["contracts"]
+    assert "review_decisions_json" in backfill_encryption._TARGETS["contracts"]
+    assert "template_findings_json" in backfill_encryption._TARGETS["playbooks"]
+    # rule_counts_json deliberately stays plain JSON — not encrypted.
+    assert "rule_counts_json" not in backfill_encryption._TARGETS["contracts"]
+
+
+def test_main_encrypts_legacy_findings_json_end_to_end(engine_and_key, monkeypatch):
+    engine = engine_and_key
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    user = User(email="firm@example.com", password_hash="x")
+    session.add(user)
+    session.commit()
+    c = Contract(user_id=user.id, filename="c.txt", contract_text="placeholder")
+    session.add(c)
+    session.commit()
+    row_id = c.id
+    session.close()
+
+    with engine.begin() as conn:
+        conn.execute(
+            text("UPDATE contracts SET findings_json = :v WHERE id = :id"),
+            {"v": '{"rule_id": "r1", "matched_excerpt": "legacy excerpt text"}', "id": row_id},
+        )
+
+    monkeypatch.setattr(sys, "argv", ["backfill_encryption.py", "--table", "contracts"])
+    exit_code = backfill_encryption.main()
+    assert exit_code == 0
+
+    raw = _raw_values(engine, table="contracts", column="findings_json")
+    assert raw[row_id].startswith("enc:v1:")
+    import json
+    assert json.loads(encryption.decrypt(raw[row_id])) == {"rule_id": "r1", "matched_excerpt": "legacy excerpt text"}
