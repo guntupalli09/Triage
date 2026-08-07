@@ -1,23 +1,42 @@
 """
 Google Sign-In (OpenID Connect) helpers.
 
-Standard library only — no extra dependencies. The ID token is fetched
-directly from Google's token endpoint over TLS, so per Google's OIDC docs
-it can be decoded without signature verification; we still validate the
-issuer, audience, and expiry claims.
+The ID token's RS256 signature is verified against Google's published JWKS
+(https://www.googleapis.com/oauth2/v3/certs) using PyJWT, in addition to the
+issuer/audience/expiry claim checks. Signature verification is the standard
+OIDC requirement and is what actually proves the token was issued by Google
+and unmodified in transit — claim checks alone (the previous implementation)
+only reject *malformed* or *mismatched* tokens, not forged ones. PyJWT's
+PyJWKClient fetches/caches the key set using stdlib urllib under the hood,
+so this adds no HTTP-client dependency beyond PyJWT + cryptography.
 """
 from __future__ import annotations
 
-import base64
 import json
 import os
-import time
 import urllib.parse
 import urllib.request
 
+import jwt
+from jwt import PyJWKClient
+from jwt.exceptions import PyJWTError
+
 AUTH_ENDPOINT = "https://accounts.google.com/o/oauth2/v2/auth"
 TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token"
+JWKS_ENDPOINT = "https://www.googleapis.com/oauth2/v3/certs"
 VALID_ISSUERS = ("https://accounts.google.com", "accounts.google.com")
+
+# Module-level so the fetched key set is cached (and reused) across requests
+# within a worker process. PyJWKClient's own cache (default lifespan: 5
+# minutes) handles picking up Google's periodic key rotation.
+_jwks_client: PyJWKClient | None = None
+
+
+def _get_jwks_client() -> PyJWKClient:
+    global _jwks_client
+    if _jwks_client is None:
+        _jwks_client = PyJWKClient(JWKS_ENDPOINT, cache_jwk_set=True, lifespan=300)
+    return _jwks_client
 
 
 def _client_id() -> str:
@@ -62,20 +81,25 @@ def exchange_code(code: str, redirect_uri: str) -> dict:
         return json.loads(resp.read().decode())
 
 
-def _b64url_decode(segment: str) -> bytes:
-    return base64.urlsafe_b64decode(segment + "=" * (-len(segment) % 4))
-
-
 def decode_id_token(id_token: str) -> dict:
-    """Decode the ID token payload and validate issuer, audience, and expiry."""
-    parts = id_token.split(".")
-    if len(parts) != 3:
-        raise ValueError("Malformed id_token")
-    claims = json.loads(_b64url_decode(parts[1]))
+    """Verify the ID token's RS256 signature against Google's JWKS, then
+    validate issuer, audience, and expiry. Raises ValueError on any failure
+    (malformed token, unknown/rotated signing key, bad signature, wrong
+    issuer/audience, or expiry) so callers can keep their existing
+    `except Exception` handling around this call."""
+    try:
+        signing_key = _get_jwks_client().get_signing_key_from_jwt(id_token)
+        claims = jwt.decode(
+            id_token,
+            signing_key.key,
+            algorithms=["RS256"],
+            audience=_client_id(),
+            # Google uses both forms across token versions; verified below.
+            options={"verify_iss": False},
+        )
+    except PyJWTError as e:
+        raise ValueError(f"id_token signature verification failed: {e}") from e
+
     if claims.get("iss") not in VALID_ISSUERS:
         raise ValueError(f"Invalid issuer: {claims.get('iss')}")
-    if claims.get("aud") != _client_id():
-        raise ValueError("id_token audience does not match GOOGLE_CLIENT_ID")
-    if float(claims.get("exp", 0)) < time.time():
-        raise ValueError("id_token expired")
     return claims
