@@ -17,7 +17,7 @@ document.
 |---|---|---|
 | Contract text (extracted from uploads) | Yes | `contracts.contract_text` (encrypted at rest, AES-256-GCM) |
 | Playbook template text | Yes | `playbooks.template_text` (encrypted at rest) |
-| Deterministic findings, risk scores, AI explanations | Yes | JSON columns on `contracts` (not yet encrypted — see `SOC2_ROADMAP.md`) |
+| Deterministic findings, risk scores, AI explanations | Yes | JSON columns on `contracts` (encrypted at rest, AES-256-GCM; `rule_counts_json` deliberately stays plain as it contains no contract text) |
 | Account info (email, name, company) | Yes | `users` table |
 | Password | Yes, hashed only (PBKDF2-HMAC-SHA256) — never stored or logged in plaintext | `users.password_hash` |
 | IP address, user agent, referrer, UTM/acquisition data | Yes | `analytics_models.py` tables (`UserSession`, `UserEvent`, `UserAcquisition`) |
@@ -34,9 +34,12 @@ document.
   for any row written after encryption was enabled. See `SECURITY.md` for
   the encryption architecture.
 - Other analysis fields (findings, AI explanations, risk scores, review
-  decisions) are stored as JSON and are **not yet encrypted** — some of
-  these fields can contain short verbatim excerpts of contract text. This
-  is a known, tracked gap — see `SOC2_ROADMAP.md`.
+  decisions) are also stored as JSON and are **encrypted at rest** the
+  same way — these fields can contain short verbatim excerpts of contract
+  text, so they're covered by the same AES-256-GCM encryption
+  (`EncryptedJSON` in `encryption.py`). `rule_counts_json` is deliberately
+  left unencrypted since it contains only aggregate counts, never contract
+  text.
 
 ## What Is Sent to OpenAI
 

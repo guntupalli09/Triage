@@ -8,46 +8,51 @@
 {% block content %}
 <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 fade-in">
     <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight mb-8">Privacy Policy</h1>
-    <p class="text-sm text-gray-400 mb-10">Last updated: January 2026</p>
+    <p class="text-sm text-gray-400 mb-10">Last updated: August 2026 &mdash; see our <a href="/security" class="text-[#0F172A] hover:underline">Security page</a> for the technical controls behind these commitments.</p>
 
     <div class="prose-sm space-y-8 text-gray-600 leading-relaxed">
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">1. Information We Collect</h2>
-            <p class="text-sm">We collect information you provide when creating an account (name, email, password) and usage data related to your contract analyses (findings, risk scores, metadata). We do not collect or store the original documents you upload.</p>
+            <p class="text-sm">We collect information you provide when creating an account (name, email, password) and the contract data you submit for analysis &mdash; the extracted text of each document, plus the findings, risk scores, and AI explanations generated from it. We also automatically collect basic usage and acquisition data (IP address, user agent, referrer, and UTM parameters) so we can secure the service and understand how it's used. We do not collect payment card details &mdash; those go directly to Stripe.</p>
         </div>
 
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">2. Document Handling</h2>
-            <p class="text-sm">Uploaded documents are processed in memory and immediately discarded after analysis. Only the structured analysis results are stored. Original documents are never written to disk, stored in databases, or transmitted to third parties.</p>
+            <p class="text-sm">The original file you upload (the PDF or DOCX bytes) is never written to disk or persisted &mdash; only the extracted text is stored, in our database, so you can revisit your analysis later. That stored text, along with the findings and AI explanations derived from it, is encrypted at rest with AES-256-GCM before it touches the database. We do not use object storage or any third-party file host for your documents.</p>
         </div>
 
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">3. How We Use Your Information</h2>
-            <p class="text-sm">Account information is used to provide and maintain your TriageCounsel account, process payments, and communicate service updates. Analysis metadata is used solely to display your contract review history and results.</p>
+            <p class="text-sm">Account information is used to provide and maintain your TriageCounsel account, process payments, and communicate service updates. Contract data is used solely to generate and display your analysis and review history. Usage and acquisition data is used to secure the platform (rate limiting, abuse detection, audit logging) and to understand product usage &mdash; never to profile or advertise to you.</p>
         </div>
 
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">4. AI and Data Training</h2>
-            <p class="text-sm">Your documents and analysis results are never used to train AI models. The LLM explanation layer receives only extracted clause snippets necessary to generate plain-language explanations.</p>
+            <p class="text-sm">Your documents and analysis results are never used to train AI models &mdash; by us or, per OpenAI's standard API terms, by OpenAI. The LLM never receives your full contract text: this is enforced in code, not just policy. It receives only short, already-detected excerpts (capped at 300 characters, screened for prompt-injection attempts) needed to write a plain-language explanation of a finding our deterministic rule engine already made. The AI cannot create findings or change your risk score &mdash; those are computed entirely outside the AI.</p>
         </div>
 
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">5. Data Security</h2>
-            <p class="text-sm">All data in transit is encrypted with 256-bit TLS. Passwords are hashed using PBKDF2 with per-user salts. Sessions are managed with HttpOnly cookies.</p>
+            <p class="text-sm">Contract text and the detailed analysis derived from it are encrypted at rest with AES-256-GCM, with support for key rotation. All data in transit is encrypted with TLS. Passwords are hashed with PBKDF2-HMAC-SHA256 and never stored in plaintext. You can enable optional two-factor authentication (TOTP) on your account. Every account, contract, and playbook query is scoped to your account, so other customers cannot reach your data through the application. Uploads, exports, deletions, shares, and admin access are all recorded in an append-only audit log. See our <a href="/security" class="text-[#0F172A] font-medium hover:underline">Security page</a> for the full list of controls.</p>
         </div>
 
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">6. Data Retention and Deletion</h2>
-            <p class="text-sm">Analysis records are retained while your account is active. You can delete individual contract records at any time. When you delete your account, all associated data is permanently removed.</p>
+            <p class="text-sm">Your contracts are retained while your account is active, unless you delete them sooner. You can permanently delete an individual contract &mdash; its text, findings, and share link &mdash; from your history page at any time; this is a hard deletion, not a soft flag. Deleting your account permanently deletes all of your contracts and playbooks along with it. Every deletion is recorded in our audit log, though the audit record itself (that a deletion happened, by whom, and when) is retained even after the underlying contract data is gone.</p>
         </div>
 
         <div>
             <h2 class="text-lg font-bold text-[#0F172A] mb-2">7. Third-Party Services</h2>
-            <p class="text-sm">We use Stripe for payment processing. Stripe receives only the payment information necessary to process your subscription. We do not share document content or analysis results with any third party.</p>
+            <p class="text-sm">We use Stripe for payment processing (Stripe receives only what's needed to process your subscription; we never see or store your card details), OpenAI for the AI explanation layer (bounded excerpts only, as described in section 4), and Google for optional sign-in. We do not sell your data or share your document content or analysis results with any other third party.</p>
         </div>
 
         <div>
-            <h2 class="text-lg font-bold text-[#0F172A] mb-2">8. Contact</h2>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">8. Your Rights</h2>
+            <p class="text-sm">You can access, export, and delete your contract data at any time from your account. Deleting a contract or your account is a real, permanent deletion, and is available to you directly &mdash; you don't need to file a request and wait for us to act on it.</p>
+        </div>
+
+        <div>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">9. Contact</h2>
             <p class="text-sm">For privacy-related questions, contact us at <a href="/contact" class="text-[#0F172A] font-medium hover:underline">our contact page</a>.</p>
         </div>
     </div>
