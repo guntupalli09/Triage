@@ -68,6 +68,7 @@ from auth import (
     logout as auth_logout, check_usage_limit, SESSION_SECRET,
 )
 from models import User, Contract, Playbook
+from encryption import validate_startup as validate_encryption_startup, EncryptionConfigError
 from analytics_models import UserAcquisition, UserSession, UserEvent, ContractEvent
 from playbook_engine import PlaybookEngine
 import google_oauth
@@ -139,8 +140,13 @@ if not DEV_MODE:
             f"(>={_MIN_SECRET_LENGTH} chars) in production. "
             "Generate one with: openssl rand -hex 32"
         )
+    try:
+        validate_encryption_startup(dev_mode=False)
+    except EncryptionConfigError as e:
+        raise ValueError(f"Encryption configuration invalid: {e}") from e
     stripe.api_key = STRIPE_SECRET_KEY
 else:
+    validate_encryption_startup(dev_mode=True)
     stripe.api_key = STRIPE_SECRET_KEY if STRIPE_SECRET_KEY else ""
 
 MAX_UPLOAD_BYTES = 10 * 1024 * 1024

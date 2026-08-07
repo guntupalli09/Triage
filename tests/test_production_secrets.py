@@ -7,12 +7,15 @@ tests spawn a subprocess per case rather than importing main.py in-process —
 reload-based testing of a module with this many top-level side effects
 (DB init hooks, Stripe client config, route registration) is unreliable.
 """
+import base64
 import os
 import subprocess
 import sys
 import textwrap
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+_TEST_ENCRYPTION_KEY = base64.b64encode(b"k" * 32).decode("ascii")
 
 _BASE_PROD_ENV = {
     "DEV_MODE": "false",
@@ -21,6 +24,8 @@ _BASE_PROD_ENV = {
     "OPENAI_API_KEY": "sk-x",
     "APP_HMAC_SECRET": "a" * 64,
     "SESSION_SECRET": "b" * 64,
+    "ENCRYPTION_KEYS": f"k1:{_TEST_ENCRYPTION_KEY}",
+    "ENCRYPTION_KEY_CURRENT": "k1",
     "DATABASE_URL": "sqlite:///:memory:",
 }
 

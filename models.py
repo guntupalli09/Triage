@@ -13,6 +13,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 
 from database import Base
+from encryption import EncryptedText
 
 
 class User(Base):
@@ -59,7 +60,11 @@ class Contract(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     filename = Column(String(255), nullable=False)
-    contract_text = Column(Text, nullable=False)
+    # Encrypted at rest (AES-256-GCM) — see encryption.py. Transparent to
+    # every reader/writer of this attribute; the DB column stores an
+    # "enc:v1:<kid>:<nonce>:<ciphertext>" envelope, never plaintext, for any
+    # row written after this column type was applied.
+    contract_text = Column(EncryptedText, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     # Analysis results (stored as JSON for flexibility)
@@ -153,8 +158,9 @@ class Playbook(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    # The standard contract text to compare against
-    template_text = Column(Text, nullable=False)
+    # The standard contract text to compare against. Encrypted at rest
+    # (AES-256-GCM) — see encryption.py / Contract.contract_text above.
+    template_text = Column(EncryptedText, nullable=False)
     # Pre-computed analysis of the template
     template_findings_json = Column(JSON, nullable=True)
     template_risk = Column(String(20), nullable=True)
