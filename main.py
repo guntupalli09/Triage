@@ -76,6 +76,7 @@ import emailer
 import analytics
 import audit_log
 import upload_security
+import rbac
 from analytics_middleware import AnalyticsMiddleware
 from channel_classifier import CHANNELS as ACQUISITION_CHANNELS
 
@@ -222,10 +223,20 @@ session_store: Dict[str, Dict] = {}
 
 @app.on_event("startup")
 def on_startup():
-    from database import DATABASE_URL, init_db
+    from database import DATABASE_URL, init_db, SessionLocal
     # Ensure tables exist regardless of server (gunicorn hooks don't run under
     # uvicorn or serverless); create_all is a no-op when the schema is present.
     init_db()
+
+    _rbac_db = SessionLocal()
+    try:
+        rbac.ensure_seed_roles_and_permissions(_rbac_db)
+        rbac.bootstrap_initial_admin(_rbac_db)
+    except Exception:
+        logger.exception("RBAC startup seeding failed — admin access may not work until resolved")
+    finally:
+        _rbac_db.close()
+
     db_type = "PostgreSQL" if "postgresql" in DATABASE_URL else "SQLite"
     redis_url = os.getenv("REDIS_URL")
     logger.info(f"Triage Counsel worker ready | mode={'DEMO' if DEV_MODE else 'PROD'} | db={db_type} | redis={'yes' if redis_url else 'no'} | pid={os.getpid()}")
@@ -554,6 +565,7 @@ async def register_submit(
     db.add(user)
     db.commit()
     db.refresh(user)
+    rbac.grant_role(db, user, "user")
 
     analytics.persist_user_acquisition(db, user, request)
     analytics.mark_session_authenticated(request, user)
@@ -669,6 +681,8 @@ def google_signin_callback(request: Request, code: str = "", state: str = "", er
     analytics.persist_user_acquisition(db, user, request)
     analytics.mark_session_authenticated(request, user)
     analytics.record_event(request, "signup_completed" if is_new_user else "login", user=user)
+    if is_new_user:
+        rbac.grant_role(db, user, "user")
 
     response = RedirectResponse(url="/dashboard", status_code=302)
     response.delete_cookie(GOOGLE_STATE_COOKIE)
@@ -2851,16 +2865,17 @@ async def results_legacy(request: Request, token: str):
 # ADMIN DASHBOARD
 # ============================================================
 
-ADMIN_EMAIL = "santhosh.guntupalli09@gmail.com"
-
-
 def require_admin(request: Request, db: DBSession) -> User:
+    """Role-based (P8) — see rbac.py. Replaces the previous single
+    hardcoded-admin-email comparison; who holds the "admin" role is now
+    data (the user_roles table), managed via manage_roles.py, not a
+    constant baked into this file."""
     user = require_user(request, db)
-    if user.email.lower() != ADMIN_EMAIL.lower():
+    if not rbac.user_has_permission(db, user, "admin.dashboard.view"):
         audit_log.record_event(
             db, "admin_access_denied", request=request, actor_user_id=user.id,
             target_type="route", target_id=None, success=False,
-            detail="not_admin", metadata={"path": request.url.path},
+            detail="missing_permission:admin.dashboard.view", metadata={"path": request.url.path},
         )
         raise HTTPException(status_code=403, detail="Forbidden")
     return user

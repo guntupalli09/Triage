@@ -170,10 +170,13 @@ def test_non_admin_accessing_admin_route_is_audit_logged_as_denied(client):
     assert r.status_code == 403
 
     events = _events("admin_access_denied")
-    assert any(e.detail == "not_admin" and e.metadata_json.get("path") == "/admin" for e in events)
+    assert any(
+        e.detail == "missing_permission:admin.dashboard.view" and e.metadata_json.get("path") == "/admin"
+        for e in events
+    )
 
 
-def test_admin_dashboard_access_is_audit_logged(monkeypatch):
+def test_admin_dashboard_access_is_audit_logged():
     """The audit_log call in admin_dashboard() runs immediately after the
     require_admin() check succeeds, before the route's own (pre-existing,
     unrelated to this security pass) analytics queries — see
@@ -181,10 +184,19 @@ def test_admin_dashboard_access_is_audit_logged(monkeypatch):
     queries hit. raise_server_exceptions=False lets this test observe the
     audit write despite that unrelated route bug, rather than depending on
     a clean 200 response the route doesn't currently produce."""
+    import rbac
+    from database import SessionLocal
+
     admin_email = "admin-audit-test@example.com"
-    monkeypatch.setattr(main, "ADMIN_EMAIL", admin_email)
     with TestClient(main.app, raise_server_exceptions=False) as c:
         token = _register(c, admin_email)
+        db = SessionLocal()
+        try:
+            from models import User
+            user = db.query(User).filter(User.email == admin_email).first()
+            rbac.grant_role(db, user, "admin")
+        finally:
+            db.close()
         c.get("/admin")
 
     events = _events("admin_dashboard_accessed")

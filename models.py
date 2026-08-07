@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 
 from sqlalchemy import (
     Column, Integer, String, Text, DateTime, Boolean, Float,
-    ForeignKey, JSON, Enum as SAEnum,
+    ForeignKey, JSON, Enum as SAEnum, Table, UniqueConstraint,
 )
 from sqlalchemy.orm import relationship
 
@@ -201,3 +201,51 @@ class AuditLog(Base):
     detail = Column(String(255), nullable=True)
     metadata_json = Column(JSON, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow, index=True)
+
+
+# --- RBAC (P8) — replaces the single hardcoded-admin-email check. See
+# rbac.py for the seeding, permission-check, and grant/revoke logic that
+# operates on these tables; manage_roles.py is the operator-facing CLI for
+# assigning roles (no admin UI exists for this yet).
+
+role_permissions = Table(
+    "role_permissions", Base.metadata,
+    Column("role_id", Integer, ForeignKey("roles.id"), primary_key=True),
+    Column("permission_id", Integer, ForeignKey("permissions.id"), primary_key=True),
+)
+
+
+class Role(Base):
+    __tablename__ = "roles"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(64), unique=True, nullable=False, index=True)
+    description = Column(String(255), nullable=True)
+
+    permissions = relationship("Permission", secondary=role_permissions, back_populates="roles")
+
+
+class Permission(Base):
+    __tablename__ = "permissions"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(128), unique=True, nullable=False, index=True)
+    description = Column(String(255), nullable=True)
+
+    roles = relationship("Role", secondary=role_permissions, back_populates="permissions")
+
+
+class UserRole(Base):
+    """A role assignment: which user has which role, when, and (if known)
+    who granted it. A user can hold more than one role."""
+    __tablename__ = "user_roles"
+    __table_args__ = (UniqueConstraint("user_id", "role_id", name="uq_user_role"),)
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    role_id = Column(Integer, ForeignKey("roles.id"), nullable=False, index=True)
+    granted_at = Column(DateTime, default=datetime.utcnow)
+    granted_by_user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+
+    user = relationship("User", foreign_keys=[user_id])
+    role = relationship("Role")
