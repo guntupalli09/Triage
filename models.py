@@ -39,6 +39,19 @@ class User(Base):
     contracts_this_month = Column(Integer, default=0)
     usage_reset_at = Column(DateTime, default=datetime.utcnow)
 
+    # Multi-factor authentication (TOTP) — see mfa.py. Opt-in per user, off
+    # by default. mfa_secret is encrypted at rest (EncryptedText) since it
+    # lets anyone who reads it generate valid codes indefinitely.
+    # mfa_secret is set as soon as enrollment starts (before mfa_enabled is
+    # true) so the QR code stays stable across a page reload during setup;
+    # it isn't a live credential until mfa_enabled flips to True.
+    mfa_secret = Column(EncryptedText, nullable=True)
+    mfa_enabled = Column(Boolean, nullable=False, default=False)
+    mfa_enrolled_at = Column(DateTime, nullable=True)
+    # [{"hash": sha256hex, "used_at": iso-datetime|None}, ...] — one-way
+    # hashes only, never the plaintext codes (see mfa.py).
+    mfa_recovery_codes_json = Column(JSON, nullable=True)
+
     contracts = relationship("Contract", back_populates="user", order_by="desc(Contract.created_at)")
     playbooks = relationship("Playbook", back_populates="user")
 

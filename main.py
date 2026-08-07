@@ -66,7 +66,9 @@ from database import get_db, db_session, check_db_health, check_redis_health
 from auth import (
     hash_password, verify_password, create_session, get_current_user,
     logout as auth_logout, check_usage_limit, SESSION_SECRET,
+    create_mfa_pending, get_mfa_pending_user_id, clear_mfa_pending,
 )
+import mfa
 from models import User, Contract, Playbook
 from encryption import validate_startup as validate_encryption_startup, EncryptionConfigError
 from analytics_models import UserAcquisition, UserSession, UserEvent, ContractEvent
@@ -517,6 +519,15 @@ async def login_submit(
             success=False, detail="invalid_credentials", metadata={"email": normalized_email},
         )
         return templates.TemplateResponse("login.html", {"request": request, "error": "Invalid email or password."})
+    if user.mfa_enabled:
+        response = RedirectResponse(url="/login/mfa", status_code=302)
+        create_mfa_pending(user.id, response)
+        audit_log.record_event(
+            db, "login_mfa_challenge", request=request, actor_user_id=user.id,
+            target_type="user", target_id=user.id, success=True,
+        )
+        return response
+
     response = RedirectResponse(url="/dashboard", status_code=302)
     create_session(user.id, response)
     analytics.mark_session_authenticated(request, user)
@@ -525,6 +536,65 @@ async def login_submit(
         db, "login", request=request, actor_user_id=user.id,
         target_type="user", target_id=user.id, success=True,
     )
+    return response
+
+
+@app.get("/login/mfa", response_class=HTMLResponse)
+async def login_mfa_page(request: Request, db: DBSession = Depends(get_db)):
+    user_id = get_mfa_pending_user_id(request)
+    if not user_id:
+        return RedirectResponse(url="/login", status_code=302)
+    return templates.TemplateResponse("login_mfa.html", {"request": request, "error": None})
+
+
+@app.post("/login/mfa", response_class=HTMLResponse)
+async def login_mfa_submit(
+    request: Request, code: str = Form(...), db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("login-mfa", limit=8, window_seconds=300)),
+    _csrf: None = Depends(csrf_protect),
+):
+    user_id = get_mfa_pending_user_id(request)
+    if not user_id:
+        return RedirectResponse(url="/login", status_code=302)
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user or not user.mfa_enabled:
+        return RedirectResponse(url="/login", status_code=302)
+
+    used_recovery_code = False
+    ok = mfa.verify_totp_code(user.mfa_secret, code)
+    if not ok:
+        matched, updated_codes = mfa.verify_and_consume_recovery_code(user.mfa_recovery_codes_json, code)
+        if matched:
+            ok = True
+            used_recovery_code = True
+            user.mfa_recovery_codes_json = updated_codes
+            db.commit()
+
+    if not ok:
+        audit_log.record_event(
+            db, "login_mfa_failed", request=request, actor_user_id=user.id,
+            target_type="user", target_id=user.id, success=False,
+        )
+        return templates.TemplateResponse("login_mfa.html", {
+            "request": request, "error": "That code isn’t valid. Please try again.",
+        })
+
+    response = RedirectResponse(url="/dashboard", status_code=302)
+    create_session(user.id, response)
+    clear_mfa_pending(request, response)
+    analytics.mark_session_authenticated(request, user)
+    analytics.record_event(request, "login", user=user)
+    audit_log.record_event(
+        db, "login", request=request, actor_user_id=user.id,
+        target_type="user", target_id=user.id, success=True,
+        detail="mfa_recovery_code" if used_recovery_code else "mfa_totp",
+    )
+    if used_recovery_code:
+        audit_log.record_event(
+            db, "mfa_recovery_code_used", request=request, actor_user_id=user.id,
+            target_type="user", target_id=user.id, success=True,
+            metadata={"remaining_codes": mfa.count_remaining_recovery_codes(user.mfa_recovery_codes_json)},
+        )
     return response
 
 
@@ -925,6 +995,108 @@ async def settings_page(request: Request, db: DBSession = Depends(get_db)):
         "request": request, "user": user, "error": None,
         "current_year": datetime.now().year,
     })
+
+
+# ============================================================
+# TWO-FACTOR AUTHENTICATION (TOTP) — see mfa.py. Opt-in per user.
+# ============================================================
+
+@app.get("/settings/mfa", response_class=HTMLResponse)
+async def mfa_settings_page(request: Request, db: DBSession = Depends(get_db)):
+    user = require_user(request, db)
+    return templates.TemplateResponse("mfa_settings.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+        "remaining_recovery_codes": mfa.count_remaining_recovery_codes(user.mfa_recovery_codes_json),
+    })
+
+
+@app.get("/settings/mfa/setup", response_class=HTMLResponse)
+async def mfa_setup_page(request: Request, db: DBSession = Depends(get_db)):
+    user = require_user(request, db)
+    if user.mfa_enabled:
+        return RedirectResponse(url="/settings/mfa", status_code=302)
+    # A secret already exists from a previous, unfinished setup attempt —
+    # reuse it so the QR code the user is looking at stays valid instead
+    # of silently going stale if they reload this page.
+    if not user.mfa_secret:
+        user.mfa_secret = mfa.generate_secret()
+        db.commit()
+    uri = mfa.provisioning_uri(user.mfa_secret, user.email)
+    return templates.TemplateResponse("mfa_setup.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+        "qr_code_data_uri": mfa.qr_code_svg_data_uri(uri),
+        "manual_key": user.mfa_secret, "error": None,
+    })
+
+
+@app.post("/settings/mfa/setup", response_class=HTMLResponse)
+async def mfa_setup_confirm(
+    request: Request, code: str = Form(...), db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("mfa-setup", limit=8, window_seconds=300)),
+    _csrf: None = Depends(csrf_protect),
+):
+    user = require_user(request, db)
+    if user.mfa_enabled:
+        return RedirectResponse(url="/settings/mfa", status_code=302)
+    if not user.mfa_secret:
+        return RedirectResponse(url="/settings/mfa/setup", status_code=302)
+
+    if not mfa.verify_totp_code(user.mfa_secret, code):
+        uri = mfa.provisioning_uri(user.mfa_secret, user.email)
+        return templates.TemplateResponse("mfa_setup.html", {
+            "request": request, "user": user, "current_year": datetime.now().year,
+            "qr_code_data_uri": mfa.qr_code_svg_data_uri(uri),
+            "manual_key": user.mfa_secret,
+            "error": "That code isn’t valid. Make sure your authenticator app’s clock is correct, then try again.",
+        })
+
+    recovery_codes = mfa.generate_recovery_codes()
+    user.mfa_enabled = True
+    user.mfa_enrolled_at = datetime.utcnow()
+    user.mfa_recovery_codes_json = mfa.build_recovery_codes_record(recovery_codes)
+    db.commit()
+
+    audit_log.record_event(
+        db, "mfa_enabled", request=request, actor_user_id=user.id,
+        target_type="user", target_id=user.id, success=True,
+    )
+    return templates.TemplateResponse("mfa_recovery_codes.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+        "recovery_codes": recovery_codes,
+    })
+
+
+@app.post("/settings/mfa/disable")
+async def mfa_disable(
+    request: Request, password: str = Form(""), db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("mfa-disable", limit=8, window_seconds=300)),
+    _csrf: None = Depends(csrf_protect),
+):
+    user = require_user(request, db)
+    if not user.mfa_enabled:
+        raise HTTPException(status_code=400, detail="Two-factor authentication is not enabled")
+    # Re-confirms the current password so a hijacked session token alone
+    # can't silently turn off MFA. Google-only accounts have no password
+    # to check (password_hash is None) — nothing further to verify here
+    # within this codebase's scope for that case.
+    if user.password_hash and not verify_password(password, user.password_hash):
+        return templates.TemplateResponse("mfa_settings.html", {
+            "request": request, "user": user, "current_year": datetime.now().year,
+            "remaining_recovery_codes": mfa.count_remaining_recovery_codes(user.mfa_recovery_codes_json),
+            "error": "Incorrect password.",
+        }, status_code=403)
+
+    user.mfa_enabled = False
+    user.mfa_secret = None
+    user.mfa_recovery_codes_json = None
+    user.mfa_enrolled_at = None
+    db.commit()
+
+    audit_log.record_event(
+        db, "mfa_disabled", request=request, actor_user_id=user.id,
+        target_type="user", target_id=user.id, success=True,
+    )
+    return RedirectResponse(url="/settings/mfa", status_code=302)
 
 
 @app.post("/settings/delete-account")

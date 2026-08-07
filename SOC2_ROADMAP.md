@@ -4,7 +4,10 @@ Current control posture and the remaining path to SOC 2 readiness. This
 supersedes the assessment date on `docs/security/soc2_readiness_assessment.md`
 (2026-07-22, pre-hardening) — that file is kept as a historical record of
 the starting point; this document reflects the state after the P1–P9
-security hardening pass tracked in this repository's git history.
+security hardening pass tracked in this repository's git history, plus
+two subsequent fixes (JSON-analysis-column encryption at rest, and TOTP
+multi-factor authentication) closing gaps this document itself had
+flagged as open.
 
 **This is not a certification and does not substitute for an independent
 audit.** It's an honest internal accounting of what's implemented, based
@@ -24,7 +27,7 @@ blockers. Of those:
 | Google ID tokens decoded without signature verification | ✅ Fixed — full JWKS/RS256 verification |
 | No security headers / TLS enforcement in app config | ✅ Fixed — CSP/HSTS/X-Frame-Options/etc. middleware |
 | Default dev secrets could reach production | ✅ Fixed — production startup refuses to run with them |
-| No MFA | ❌ Still open |
+| No MFA | ✅ Fixed — opt-in TOTP with recovery codes (`mfa.py`) |
 | No audit-log immutability / admin action logging | ✅ Largely fixed — append-only `audit_logs` table covering auth, uploads, exports, deletes, shares, playbook changes, admin access |
 | No backup/restore, DR evidence | ❌ Still open — infrastructure, not application code |
 | No auditable CI/CD, dependency/secret scanning | ❌ Still open |
@@ -40,14 +43,14 @@ blockers. Of those:
 | Rate limiting | 🟢 Implemented | Auth, reset, share, upload |
 | Security headers | 🟢 Implemented | CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy |
 | Encryption in transit | 🟡 Partially — app-level | Headers assume HTTPS; actual TLS termination is infra |
-| Encryption at rest | 🟡 Partially | `contract_text`/`template_text` encrypted; other JSON fields (findings, AI output) are not yet |
+| Encryption at rest | 🟢 Implemented | `contract_text`/`template_text` and all JSON analysis columns that can embed contract excerpts (findings, AI output, review decisions, etc.) are AES-256-GCM encrypted with key rotation support; `rule_counts_json` deliberately stays plain (no contract text in it) |
 | Upload validation | 🟢 Implemented | Magic bytes, zip/PDF bomb guards, filename sanitization |
 | Malware scanning | 🟡 Interface implemented, off by default | Requires operator ClamAV setup |
 | Audit logging | 🟢 Implemented | Append-only, covers the major event categories |
 | RBAC | 🟢 Implemented | Roles/permissions/assignments, no hardcoded admin |
 | Data retention | 🟡 Implemented, opt-in | Off by default; requires operator scheduling (cron/CronJob/HTTP) |
 | Secrets management | 🟡 Partially | Production-required strength checks; no rotation automation or secret-scanning in CI |
-| MFA | ❌ Not implemented | — |
+| MFA | 🟢 Implemented, opt-in | TOTP + recovery codes (`mfa.py`); not enforced for any account |
 | Backups / DR | ❌ Not implemented | Application code has no backup mechanism — infrastructure responsibility |
 | CI/CD security gates | ❌ Not implemented | No `.github/workflows`, no dependency/secret/SAST scanning found in repo |
 | Vulnerability management | ❌ Not implemented | No Dependabot/pip-audit configured |
@@ -55,29 +58,29 @@ blockers. Of those:
 
 ## Remaining Blockers (Ranked)
 
-1. **No MFA**, including for admin accounts. SOC 2 auditors commonly
-   expect this for privileged and/or customer-facing access.
+1. **MFA is opt-in, not enforced.** TOTP + recovery codes are implemented
+   (`mfa.py`) and available to every account, but nothing requires an
+   admin (or any user) to actually turn it on. SOC 2 auditors commonly
+   expect MFA to be *required* for privileged access specifically —
+   enforcing that is a policy decision (would need e.g. "admin role
+   requires MFA before the grant takes effect"), not implemented here
+   since it changes account-management behavior beyond making the
+   capability available.
 2. **No backups/DR evidence.** Purely an infrastructure gap — this
    application has no backup mechanism of its own; whoever operates a
    deployment needs to add managed database backups, test restores, and
    define RPO/RTO.
-3. **JSON-column fields beyond contract text are unencrypted at rest.**
-   `findings_json`, `llm_result_json`, `deviations_json`, `review_
-   decisions_json`, and others can contain short verbatim contract
-   excerpts. The `EncryptedText` pattern used for `contract_text` could
-   extend to these as an opaque-blob encryption of the serialized JSON —
-   tracked as a follow-up, not yet implemented.
-4. **No CI/CD security gates** — no automated tests-on-PR, dependency
+3. **No CI/CD security gates** — no automated tests-on-PR, dependency
    scanning, secret scanning, or SAST configured in this repository.
-5. **No vulnerability/dependency scanning** — `requirements*.txt` pin most
+4. **No vulnerability/dependency scanning** — `requirements*.txt` pin most
    versions but nothing automatically flags known CVEs in them.
-6. **No vendor risk / DPA documentation** — Stripe, OpenAI, Google, and
+5. **No vendor risk / DPA documentation** — Stripe, OpenAI, Google, and
    the hosting provider are all subprocessors without a documented review
    or data processing agreement template in this repo.
-7. **Session resilience**: in-memory session fallback if Redis is
+6. **Session resilience**: in-memory session fallback if Redis is
    unreachable in production should fail closed (reject the request) or
    at minimum alert loudly, rather than silently degrading.
-8. **Admin dashboard reliability bug** (unrelated to security, but affects
+7. **Admin dashboard reliability bug** (unrelated to security, but affects
    operational trust) — see `docs/security/known_issues.md`.
 
 ## What an Actual SOC 2 Engagement Would Still Need
@@ -100,9 +103,10 @@ itself:
 
 ## Estimated Effort
 
-The application-code portion of the remaining gaps (MFA, extending
-encryption to JSON fields, CI/CD scanning setup) is roughly **1-3 weeks**
-for a small team. The infrastructure and organizational-process portions
+The application-code portion of the remaining gaps (CI/CD scanning setup,
+enforcing MFA for privileged roles specifically) is now small — most of
+what was originally scoped here (MFA capability, JSON-field encryption)
+is done. The infrastructure and organizational-process portions
 (backups, IAM, policies, incident response, penetration testing, and the
 observation period itself) are the larger, longer-lead-time piece and are
 not primarily a coding effort.

@@ -161,6 +161,20 @@ def _run_migrations():
         if not _is_sqlite and "password_hash" in cols and not cols["password_hash"]["nullable"]:
             conn.execute(text("ALTER TABLE users ALTER COLUMN password_hash DROP NOT NULL"))
             logger.info("Migration applied: users.password_hash now nullable")
+        if "mfa_secret" not in cols:
+            # TEXT, not VARCHAR — EncryptedText columns store an
+            # "enc:v1:..." envelope, longer than the raw base32 secret.
+            conn.execute(text("ALTER TABLE users ADD COLUMN mfa_secret TEXT"))
+            logger.info("Migration applied: users.mfa_secret column")
+        if "mfa_enabled" not in cols:
+            conn.execute(text("ALTER TABLE users ADD COLUMN mfa_enabled BOOLEAN NOT NULL DEFAULT false"))
+            logger.info("Migration applied: users.mfa_enabled column")
+        if "mfa_enrolled_at" not in cols:
+            conn.execute(text("ALTER TABLE users ADD COLUMN mfa_enrolled_at TIMESTAMP"))
+            logger.info("Migration applied: users.mfa_enrolled_at column")
+        if "mfa_recovery_codes_json" not in cols:
+            conn.execute(text("ALTER TABLE users ADD COLUMN mfa_recovery_codes_json JSON"))
+            logger.info("Migration applied: users.mfa_recovery_codes_json column")
 
         # Columns storing EncryptedJSON (encryption.py) — TEXT-backed, not
         # JSON/JSONB, because an encrypted blob is not valid JSON. Used both

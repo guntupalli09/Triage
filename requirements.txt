@@ -13,6 +13,8 @@ sqlalchemy>=2.0.0
 user-agents>=2.2.0
 PyJWT[crypto]>=2.8.0,<3.0.0
 cryptography>=42.0.0
+pyotp>=2.9.0,<3.0.0
+qrcode>=7.4.0,<8.3.0
 
 # Development/Testing dependencies (not needed for Vercel deployment)
 # Install with: pip install -r requirements-dev.txt

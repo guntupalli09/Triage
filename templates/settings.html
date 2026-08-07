@@ -25,6 +25,20 @@
     </div>
 
     <div class="premium-card p-6 sm:p-8 mb-6 fade-in">
+        <h2 class="text-lg font-bold text-[#0F172A] mb-2">Two-Factor Authentication</h2>
+        <p class="text-sm text-gray-500 mb-4">
+            {% if user.mfa_enabled %}
+            Enabled — your account requires a code from your authenticator app to sign in.
+            {% else %}
+            Add an authenticator-app code requirement to your login, on top of your password.
+            {% endif %}
+        </p>
+        <a href="/settings/mfa" class="btn-secondary inline-block py-2.5 px-6 rounded-lg font-semibold">
+            {% if user.mfa_enabled %}Manage Two-Factor Authentication{% else %}Set Up Two-Factor Authentication{% endif %}
+        </a>
+    </div>
+
+    <div class="premium-card p-6 sm:p-8 mb-6 fade-in">
         <h2 class="text-lg font-bold text-[#0F172A] mb-2">Billing</h2>
         <p class="text-sm text-gray-500 mb-4">View your plan, usage, and manage your subscription.</p>
         <a href="/billing" class="btn-secondary inline-block py-2.5 px-6 rounded-lg font-semibold">Go to Billing</a>

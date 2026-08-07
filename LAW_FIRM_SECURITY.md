@@ -44,8 +44,9 @@ policy directly for your own diligence.
 
 ## How are contracts protected?
 
-- **Encrypted at rest**: contract text is encrypted with AES-256-GCM
-  before it touches the database.
+- **Encrypted at rest**: contract text and the detailed analysis data
+  derived from it (findings, AI explanations, review notes) are encrypted
+  with AES-256-GCM before touching the database.
 - **Access-controlled**: every contract query is scoped to your account.
 - **CSRF-protected**: actions like uploading, sharing, or deleting a
   contract require a token tied to your browser session, so a malicious
@@ -55,8 +56,11 @@ policy directly for your own diligence.
 - **Audit-logged**: uploads, exports, deletions, shares, and admin access
   are recorded with who, what, and when.
 
-We do **not** currently offer multi-factor authentication (MFA) for any
-account, including admin. This is a known gap — see `SOC2_ROADMAP.md`.
+- **Two-factor authentication (optional)**: you can require an
+  authenticator-app code (on top of your password) to sign in, with
+  single-use recovery codes if you lose access to the app. It's opt-in —
+  we don't currently force it on any account, including admin. Enable it
+  from Settings → Two-Factor Authentication.
 
 ## Can I delete my contracts?
 

@@ -78,10 +78,14 @@ test coverage, not a single choke point. New routes touching `Contract`/
 ### T2 — Credential compromise (brute force, credential stuffing)
 **Threat:** Attacker guesses or stuffs credentials against `/login`.
 **Mitigation:** PBKDF2-HMAC-SHA256 password hashing, rate limiting
-(10/min per IP on `/login`), audit-logged failed attempts for monitoring.
-**Residual risk:** No account lockout beyond rate limiting, no MFA. A
-distributed (multi-IP) credential-stuffing attack would not be caught by
-the current per-IP rate limit.
+(10/min per IP on `/login`, separately rate-limited MFA challenge at
+`/login/mfa`), audit-logged failed attempts for monitoring. Opt-in TOTP
+MFA (`mfa.py`) means a leaked/guessed password alone is insufficient for
+any account that has enabled it.
+**Residual risk:** No account lockout beyond rate limiting. MFA is opt-in,
+not enforced — an account that hasn't enabled it is still protected by
+password + rate limiting only. A distributed (multi-IP) credential-
+stuffing attack would not be caught by the current per-IP rate limit.
 
 ### T3 — Cross-site request forgery
 **Threat:** A malicious page tricks a logged-in user's browser into

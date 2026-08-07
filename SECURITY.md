@@ -38,6 +38,13 @@ reasonable window to remediate before any public disclosure.
   default outside `DEV_MODE`.
 - Production startup refuses to run with default/weak
   `SESSION_SECRET`/`APP_HMAC_SECRET` (`main.py`).
+- Opt-in TOTP multi-factor authentication (`mfa.py`) — standard 6-digit
+  authenticator-app codes (RFC 6238), single-use SHA-256-hashed recovery
+  codes (never stored in plaintext), enrollment requires confirming a live
+  code before it's enabled, and disabling requires re-entering the account
+  password. The MFA secret itself is encrypted at rest
+  (`User.mfa_secret`, `EncryptedText`). Not enforced for any account,
+  including admin — enabling it is each user's choice.
 
 ### Authorization
 - Every user-owned resource (contracts, playbooks) is queried scoped by
@@ -116,7 +123,6 @@ reasonable window to remediate before any public disclosure.
 - **JSON-column fields beyond contract text are not yet encrypted at
   rest** (`findings_json`, `llm_result_json`, etc. can contain short
   contract excerpts). See `SOC2_ROADMAP.md` for the planned follow-up.
-- **No MFA** for any account, including admin.
 - **Admin dashboard has a pre-existing, unrelated SQLite date-grouping
   bug** under real usage data — see `docs/security/known_issues.md`. Not
   a security issue but affects operational reliability.

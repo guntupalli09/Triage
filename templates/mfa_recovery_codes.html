@@ -1,0 +1,35 @@
+{% extends "base_app.html" %}
+
+{% block title %}Save Your Recovery Codes{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1.5">/</span>
+<a href="/settings" class="hover:text-gray-900 transition-colors">Settings</a>
+<span class="mx-1.5">/</span>
+<span class="text-gray-900">Two-Factor Authentication</span>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl">
+    <h1 class="text-2xl font-bold text-[#0F172A] mb-2 fade-in">Two-Factor Authentication Enabled</h1>
+    <p class="text-sm text-gray-500 mb-6 fade-in">Save these recovery codes somewhere safe. Each one can be used once to sign in if you lose access to your authenticator app. They will not be shown again.</p>
+
+    <div class="premium-card p-6 sm:p-8 mb-6 fade-in">
+        <div class="grid grid-cols-2 gap-3 font-mono text-sm text-[#0F172A]">
+            {% for code in recovery_codes %}
+            <div class="bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-center tracking-wider">{{ code }}</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="bg-amber-50 border border-amber-200/60 rounded-xl p-5 mb-6 fade-in">
+        <p class="text-sm text-amber-800">
+            Store these somewhere secure (a password manager, printed and locked away). If you lose both your
+            authenticator app and these codes, you will need to contact support to regain access to your account.
+        </p>
+    </div>
+
+    <a href="/settings/mfa" class="btn-primary inline-block py-2.5 px-6 rounded-lg font-semibold">I've saved these codes — Continue</a>
+</div>
+{% endblock %}

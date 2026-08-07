@@ -15,6 +15,8 @@ redis>=5.0.0
 user-agents>=2.2.0
 PyJWT[crypto]>=2.8.0,<3.0.0
 cryptography>=42.0.0
+pyotp>=2.9.0,<3.0.0
+qrcode>=7.4.0,<8.3.0
 # Optional: install geoip2 + set GEOIP_CITY_DB_PATH / GEOIP_ASN_DB_PATH env
 # vars to enable local MaxMind GeoLite2 lookups (see docs/analytics_architecture.md)
 # geoip2>=4.8.0
