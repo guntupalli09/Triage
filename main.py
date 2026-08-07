@@ -77,6 +77,7 @@ import analytics
 import audit_log
 import upload_security
 import rbac
+import retention
 from analytics_middleware import AnalyticsMiddleware
 from channel_classifier import CHANNELS as ACQUISITION_CHANNELS
 
@@ -2785,6 +2786,39 @@ async def health_check():
 @app.get("/config")
 async def get_config():
     return {"dev_mode": DEV_MODE, "stripe_enabled": not DEV_MODE and bool(STRIPE_SECRET_KEY)}
+
+
+@app.post("/internal/retention/cleanup")
+async def internal_retention_cleanup(
+    request: Request, db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("retention-cleanup", limit=6, window_seconds=3600)),
+):
+    """Scheduled retention cleanup, triggered over HTTP (see retention.py's
+    module docstring) — for platforms that schedule jobs via a URL rather
+    than a shell, e.g. Vercel Cron Jobs. Requires CRON_SECRET to be
+    configured; without it, this route always 404s rather than exposing an
+    unauthenticated deletion endpoint by default. Not the primary path for
+    the Docker deployment — see run_retention_cleanup.py for cron/systemd/
+    Kubernetes CronJob use there."""
+    cron_secret = os.getenv("CRON_SECRET", "").strip()
+    if not cron_secret:
+        raise HTTPException(status_code=404)
+
+    auth_header = request.headers.get("authorization", "")
+    provided = auth_header[len("Bearer "):] if auth_header.startswith("Bearer ") else ""
+    if not provided or not hmac.compare_digest(provided, cron_secret):
+        audit_log.record_event(
+            db, "retention_cleanup_denied", request=request, target_type="route",
+            target_id=None, success=False, detail="invalid_cron_secret",
+        )
+        raise HTTPException(status_code=403, detail="Forbidden")
+
+    stats = retention.run_cleanup(db)
+    audit_log.record_event(
+        db, "retention_cleanup_run", request=request, target_type="route",
+        target_id=None, success=stats["errors"] == 0, metadata=stats,
+    )
+    return stats
 
 
 @app.get("/results", response_class=HTMLResponse)
