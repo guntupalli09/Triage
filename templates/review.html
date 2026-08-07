@@ -181,6 +181,8 @@ function fkey(i) { return FINDINGS[i].rule_id + "#" + i; }
 function csrfSafeBody(obj) {
     const params = new URLSearchParams();
     Object.entries(obj).forEach(([k, v]) => params.append(k, v == null ? "" : v));
+    const meta = document.querySelector('meta[name="csrf-token"]');
+    params.append("csrf_token", meta ? meta.content : "");
     return params;
 }
 async function postForm(url, obj) {

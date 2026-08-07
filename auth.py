@@ -63,10 +63,10 @@ def verify_password(password: str, stored: str) -> bool:
         return False
 
 
-def _store_session(token: str, data: dict):
+def _store_session(token: str, data: dict, ttl: int = SESSION_MAX_AGE):
     r = _get_redis()
     if r:
-        r.setex(f"session:{token}", SESSION_MAX_AGE, json.dumps(data, default=str))
+        r.setex(f"session:{token}", ttl, json.dumps(data, default=str))
     else:
         _sessions[token] = data
 
@@ -126,6 +126,58 @@ def logout(request: Request, response: Response):
     if token:
         _delete_session(token)
     response.delete_cookie(SESSION_COOKIE)
+
+
+MFA_PENDING_COOKIE = "mfa_pending"
+MFA_PENDING_MAX_AGE = 5 * 60  # 5 minutes — long enough to enter a code, short enough that a stolen cookie is useless soon after
+
+# Shares the same underlying store as sessions (_store_session/_load_session/
+# _delete_session) with a distinct key prefix so an MFA-pending token can
+# never collide with — or be mistaken for — an authenticated session token;
+# it grants no access to anything until a valid TOTP/recovery code is
+# presented at POST /login/mfa.
+_MFA_PENDING_PREFIX = "mfapending:"
+
+
+def create_mfa_pending(user_id: int, response: Response) -> str:
+    token = secrets.token_urlsafe(32)
+    _store_session(
+        f"{_MFA_PENDING_PREFIX}{token}",
+        {
+            "user_id": user_id,
+            "expires_at": (datetime.utcnow() + timedelta(seconds=MFA_PENDING_MAX_AGE)).isoformat(),
+        },
+        ttl=MFA_PENDING_MAX_AGE,
+    )
+    response.set_cookie(
+        MFA_PENDING_COOKIE,
+        token,
+        max_age=MFA_PENDING_MAX_AGE,
+        httponly=True,
+        samesite="lax",
+        secure=os.getenv("SECURE_COOKIES", "false").lower() == "true",
+    )
+    return token
+
+
+def get_mfa_pending_user_id(request: Request) -> Optional[int]:
+    token = request.cookies.get(MFA_PENDING_COOKIE)
+    if not token:
+        return None
+    data = _load_session(f"{_MFA_PENDING_PREFIX}{token}")
+    if not data:
+        return None
+    if datetime.utcnow() > datetime.fromisoformat(data["expires_at"]):
+        _delete_session(f"{_MFA_PENDING_PREFIX}{token}")
+        return None
+    return data["user_id"]
+
+
+def clear_mfa_pending(request: Request, response: Response):
+    token = request.cookies.get(MFA_PENDING_COOKIE)
+    if token:
+        _delete_session(f"{_MFA_PENDING_PREFIX}{token}")
+    response.delete_cookie(MFA_PENDING_COOKIE)
 
 
 def check_usage_limit(user: User) -> bool:

@@ -128,6 +128,7 @@
             {% endif %}
 
             <form action="/register" method="post" class="space-y-5">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
                 <div>
                     <label for="name" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Name</label>
                     <input type="text" id="name" name="name" required

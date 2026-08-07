@@ -41,6 +41,9 @@ from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.cors import CORSMiddleware
+from security_headers import SecurityHeadersMiddleware
+from rate_limit import rate_limit
+from csrf import CSRFCookieMiddleware, csrf_protect, get_csrf_token
 from fpdf import FPDF
 from PyPDF2 import PdfReader
 from docx import Document
@@ -62,14 +65,21 @@ from evaluator import LLMEvaluator
 from database import get_db, db_session, check_db_health, check_redis_health
 from auth import (
     hash_password, verify_password, create_session, get_current_user,
-    logout as auth_logout, check_usage_limit,
+    logout as auth_logout, check_usage_limit, SESSION_SECRET,
+    create_mfa_pending, get_mfa_pending_user_id, clear_mfa_pending,
 )
+import mfa
 from models import User, Contract, Playbook
+from encryption import validate_startup as validate_encryption_startup, EncryptionConfigError
 from analytics_models import UserAcquisition, UserSession, UserEvent, ContractEvent
 from playbook_engine import PlaybookEngine
 import google_oauth
 import emailer
 import analytics
+import audit_log
+import upload_security
+import rbac
+import retention
 from analytics_middleware import AnalyticsMiddleware
 from channel_classifier import CHANNELS as ACQUISITION_CHANNELS
 
@@ -100,8 +110,22 @@ else:
 
 DEV_MODE = os.getenv("DEV_MODE", "false").strip().lower() == "true"
 
+# Secure cookies by default outside dev mode. auth.py reads SECURE_COOKIES
+# via os.getenv() at cookie-set time (not at import time), so setting this
+# default here — before any request is served — is enough; an operator can
+# still explicitly set SECURE_COOKIES=false to opt out (e.g. an internal
+# deployment behind a TLS-terminating proxy that strips the scheme), but the
+# default no longer silently ships session cookies over plaintext HTTP.
+os.environ.setdefault("SECURE_COOKIES", "false" if DEV_MODE else "true")
+
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "").strip()
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "").strip()
+
+# Secrets that must never reach production: the hardcoded development
+# fallbacks from auth.py / this module, and anything implausibly short to be
+# a real random secret (openssl rand -hex 32 produces 64 hex chars).
+_DEV_DEFAULT_SECRETS = {"dev_secret_change_me", "dev_session_secret_change_me"}
+_MIN_SECRET_LENGTH = 32
 
 if not DEV_MODE:
     if not STRIPE_SECRET_KEY:
@@ -110,8 +134,25 @@ if not DEV_MODE:
         raise ValueError("STRIPE_WEBHOOK_SECRET required in production mode")
     if not OPENAI_API_KEY:
         raise ValueError("OPENAI_API_KEY required in production mode")
+    if APP_HMAC_SECRET in _DEV_DEFAULT_SECRETS or len(APP_HMAC_SECRET) < _MIN_SECRET_LENGTH:
+        raise ValueError(
+            "APP_HMAC_SECRET must be set to a strong random value "
+            f"(>={_MIN_SECRET_LENGTH} chars) in production. "
+            "Generate one with: openssl rand -hex 32"
+        )
+    if SESSION_SECRET in _DEV_DEFAULT_SECRETS or len(SESSION_SECRET) < _MIN_SECRET_LENGTH:
+        raise ValueError(
+            "SESSION_SECRET must be set to a strong random value "
+            f"(>={_MIN_SECRET_LENGTH} chars) in production. "
+            "Generate one with: openssl rand -hex 32"
+        )
+    try:
+        validate_encryption_startup(dev_mode=False)
+    except EncryptionConfigError as e:
+        raise ValueError(f"Encryption configuration invalid: {e}") from e
     stripe.api_key = STRIPE_SECRET_KEY
 else:
+    validate_encryption_startup(dev_mode=True)
     stripe.api_key = STRIPE_SECRET_KEY if STRIPE_SECRET_KEY else ""
 
 MAX_UPLOAD_BYTES = 10 * 1024 * 1024
@@ -148,6 +189,7 @@ PLAN_LIMITS = {
 # --- App setup ---
 templates = Jinja2Templates(directory="templates")
 templates.env.globals["google_signin_enabled"] = google_oauth.is_configured()
+templates.env.globals["csrf_token"] = get_csrf_token
 app = FastAPI(title="Contract Risk TriageCounsel Tool", version="2.0.0")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 CORS_ORIGINS = os.getenv("CORS_ORIGINS", BASE_URL).split(",")
@@ -171,6 +213,8 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
 
 app.add_middleware(AnalyticsMiddleware)
 app.add_middleware(RequestIDMiddleware)
+app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(CSRFCookieMiddleware)
 
 rule_engine = RuleEngine()
 llm_evaluator = LLMEvaluator()
@@ -182,10 +226,20 @@ session_store: Dict[str, Dict] = {}
 
 @app.on_event("startup")
 def on_startup():
-    from database import DATABASE_URL, init_db
+    from database import DATABASE_URL, init_db, SessionLocal
     # Ensure tables exist regardless of server (gunicorn hooks don't run under
     # uvicorn or serverless); create_all is a no-op when the schema is present.
     init_db()
+
+    _rbac_db = SessionLocal()
+    try:
+        rbac.ensure_seed_roles_and_permissions(_rbac_db)
+        rbac.bootstrap_initial_admin(_rbac_db)
+    except Exception:
+        logger.exception("RBAC startup seeding failed — admin access may not work until resolved")
+    finally:
+        _rbac_db.close()
+
     db_type = "PostgreSQL" if "postgresql" in DATABASE_URL else "SQLite"
     redis_url = os.getenv("REDIS_URL")
     logger.info(f"Triage Counsel worker ready | mode={'DEMO' if DEV_MODE else 'PROD'} | db={db_type} | redis={'yes' if redis_url else 'no'} | pid={os.getpid()}")
@@ -208,7 +262,15 @@ def require_user(request: Request, db: DBSession) -> User:
 
 
 def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
+    """Single choke point for every upload path (single/batch contract
+    upload, playbook create/edit) — see upload_security.py. Magic-byte
+    validation, malware scanning, and the zip/PDF-bomb guards all happen
+    here so every call site gets them without duplicating the checks."""
     ext = os.path.splitext(filename.lower())[1]
+
+    upload_security.validate_magic_bytes(file_bytes, ext)
+    upload_security.scan_for_malware(file_bytes)
+
     if ext == ".txt":
         try:
             return file_bytes.decode("utf-8", errors="ignore")
@@ -216,10 +278,14 @@ def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
             return file_bytes.decode("latin-1", errors="ignore")
     if ext == ".pdf":
         reader = PdfReader(io.BytesIO(file_bytes))
-        return "\n".join(p.extract_text() or "" for p in reader.pages)
+        upload_security.validate_pdf_page_count(len(reader.pages))
+        text = "\n".join(p.extract_text() or "" for p in reader.pages)
+        return upload_security.enforce_extracted_text_limit(text)
     if ext == ".docx":
+        upload_security.validate_docx_zip_safety(file_bytes)
         doc = Document(io.BytesIO(file_bytes))
-        return "\n".join(p.text for p in doc.paragraphs)
+        text = "\n".join(p.text for p in doc.paragraphs)
+        return upload_security.enforce_extracted_text_limit(text)
     raise ValueError("Unsupported file type")
 
 
@@ -439,14 +505,96 @@ async def login_page(request: Request, db: DBSession = Depends(get_db)):
 
 
 @app.post("/login", response_class=HTMLResponse)
-async def login_submit(request: Request, email: str = Form(...), password: str = Form(...), db: DBSession = Depends(get_db)):
-    user = db.query(User).filter(User.email == email.lower().strip()).first()
+async def login_submit(
+    request: Request, email: str = Form(...), password: str = Form(...), db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("login", limit=10, window_seconds=60)),
+    _csrf: None = Depends(csrf_protect),
+):
+    normalized_email = email.lower().strip()
+    user = db.query(User).filter(User.email == normalized_email).first()
     if not user or not verify_password(password, user.password_hash):
+        audit_log.record_event(
+            db, "login_failed", request=request, actor_user_id=user.id if user else None,
+            target_type="user", target_id=user.id if user else None,
+            success=False, detail="invalid_credentials", metadata={"email": normalized_email},
+        )
         return templates.TemplateResponse("login.html", {"request": request, "error": "Invalid email or password."})
+    if user.mfa_enabled:
+        response = RedirectResponse(url="/login/mfa", status_code=302)
+        create_mfa_pending(user.id, response)
+        audit_log.record_event(
+            db, "login_mfa_challenge", request=request, actor_user_id=user.id,
+            target_type="user", target_id=user.id, success=True,
+        )
+        return response
+
     response = RedirectResponse(url="/dashboard", status_code=302)
     create_session(user.id, response)
     analytics.mark_session_authenticated(request, user)
     analytics.record_event(request, "login", user=user)
+    audit_log.record_event(
+        db, "login", request=request, actor_user_id=user.id,
+        target_type="user", target_id=user.id, success=True,
+    )
+    return response
+
+
+@app.get("/login/mfa", response_class=HTMLResponse)
+async def login_mfa_page(request: Request, db: DBSession = Depends(get_db)):
+    user_id = get_mfa_pending_user_id(request)
+    if not user_id:
+        return RedirectResponse(url="/login", status_code=302)
+    return templates.TemplateResponse("login_mfa.html", {"request": request, "error": None})
+
+
+@app.post("/login/mfa", response_class=HTMLResponse)
+async def login_mfa_submit(
+    request: Request, code: str = Form(...), db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("login-mfa", limit=8, window_seconds=300)),
+    _csrf: None = Depends(csrf_protect),
+):
+    user_id = get_mfa_pending_user_id(request)
+    if not user_id:
+        return RedirectResponse(url="/login", status_code=302)
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user or not user.mfa_enabled:
+        return RedirectResponse(url="/login", status_code=302)
+
+    used_recovery_code = False
+    ok = mfa.verify_totp_code(user.mfa_secret, code)
+    if not ok:
+        matched, updated_codes = mfa.verify_and_consume_recovery_code(user.mfa_recovery_codes_json, code)
+        if matched:
+            ok = True
+            used_recovery_code = True
+            user.mfa_recovery_codes_json = updated_codes
+            db.commit()
+
+    if not ok:
+        audit_log.record_event(
+            db, "login_mfa_failed", request=request, actor_user_id=user.id,
+            target_type="user", target_id=user.id, success=False,
+        )
+        return templates.TemplateResponse("login_mfa.html", {
+            "request": request, "error": "That code isn’t valid. Please try again.",
+        })
+
+    response = RedirectResponse(url="/dashboard", status_code=302)
+    create_session(user.id, response)
+    clear_mfa_pending(request, response)
+    analytics.mark_session_authenticated(request, user)
+    analytics.record_event(request, "login", user=user)
+    audit_log.record_event(
+        db, "login", request=request, actor_user_id=user.id,
+        target_type="user", target_id=user.id, success=True,
+        detail="mfa_recovery_code" if used_recovery_code else "mfa_totp",
+    )
+    if used_recovery_code:
+        audit_log.record_event(
+            db, "mfa_recovery_code_used", request=request, actor_user_id=user.id,
+            target_type="user", target_id=user.id, success=True,
+            metadata={"remaining_codes": mfa.count_remaining_recovery_codes(user.mfa_recovery_codes_json)},
+        )
     return response
 
 
@@ -465,6 +613,8 @@ async def register_submit(
     name: str = Form(""),
     company: str = Form(""),
     db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("register", limit=5, window_seconds=60)),
+    _csrf: None = Depends(csrf_protect),
 ):
     email = email.lower().strip()
 
@@ -486,10 +636,15 @@ async def register_submit(
     db.add(user)
     db.commit()
     db.refresh(user)
+    rbac.grant_role(db, user, "user")
 
     analytics.persist_user_acquisition(db, user, request)
     analytics.mark_session_authenticated(request, user)
     analytics.record_event(request, "signup_completed", user=user)
+    audit_log.record_event(
+        db, "account_created", request=request, actor_user_id=user.id,
+        target_type="user", target_id=user.id, success=True,
+    )
 
     response = RedirectResponse(url="/dashboard", status_code=302)
     create_session(user.id, response)
@@ -501,6 +656,10 @@ async def logout_route(request: Request, db: DBSession = Depends(get_db)):
     current = get_current_user(request, db)
     if current:
         analytics.record_event(request, "logout", user=current)
+        audit_log.record_event(
+            db, "logout", request=request, actor_user_id=current.id,
+            target_type="user", target_id=current.id, success=True,
+        )
     analytics.end_session(request)
     response = RedirectResponse(url="/", status_code=302)
     auth_logout(request, response)
@@ -593,6 +752,8 @@ def google_signin_callback(request: Request, code: str = "", state: str = "", er
     analytics.persist_user_acquisition(db, user, request)
     analytics.mark_session_authenticated(request, user)
     analytics.record_event(request, "signup_completed" if is_new_user else "login", user=user)
+    if is_new_user:
+        rbac.grant_role(db, user, "user")
 
     response = RedirectResponse(url="/dashboard", status_code=302)
     response.delete_cookie(GOOGLE_STATE_COOKIE)
@@ -627,7 +788,11 @@ async def forgot_password_page(request: Request):
 
 
 @app.post("/forgot-password", response_class=HTMLResponse)
-def forgot_password_submit(request: Request, email: str = Form(...), db: DBSession = Depends(get_db)):
+def forgot_password_submit(
+    request: Request, email: str = Form(...), db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("forgot-password", limit=5, window_seconds=900)),
+    _csrf: None = Depends(csrf_protect),
+):
     if not emailer.is_configured():
         return templates.TemplateResponse("forgot_password.html", {
             "request": request, "sent": False,
@@ -695,6 +860,8 @@ async def reset_password_submit(
     password: str = Form(...),
     confirm_password: str = Form(...),
     db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("reset-password", limit=10, window_seconds=3600)),
+    _csrf: None = Depends(csrf_protect),
 ):
     user = _find_user_by_reset_token(db, token)
     if not user:
@@ -733,7 +900,10 @@ async def account_page(request: Request, db: DBSession = Depends(get_db)):
 
 
 @app.post("/account", response_class=HTMLResponse)
-async def account_update(request: Request, name: str = Form(""), company: str = Form(""), db: DBSession = Depends(get_db)):
+async def account_update(
+    request: Request, name: str = Form(""), company: str = Form(""), db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
     user = require_user(request, db)
     user.name = name.strip() or None
     user.company = company.strip() or None
@@ -751,6 +921,7 @@ async def account_change_password(
     new_password: str = Form(...),
     confirm_password: str = Form(...),
     db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
 
@@ -790,7 +961,7 @@ async def billing_page(request: Request, db: DBSession = Depends(get_db)):
 
 
 @app.post("/billing/cancel")
-async def billing_cancel(request: Request, db: DBSession = Depends(get_db)):
+async def billing_cancel(request: Request, db: DBSession = Depends(get_db), _csrf: None = Depends(csrf_protect)):
     user = require_user(request, db)
 
     if user.stripe_subscription_id and stripe.api_key:
@@ -826,14 +997,127 @@ async def settings_page(request: Request, db: DBSession = Depends(get_db)):
     })
 
 
-@app.post("/settings/delete-account")
-async def delete_account(request: Request, db: DBSession = Depends(get_db)):
+# ============================================================
+# TWO-FACTOR AUTHENTICATION (TOTP) — see mfa.py. Opt-in per user.
+# ============================================================
+
+@app.get("/settings/mfa", response_class=HTMLResponse)
+async def mfa_settings_page(request: Request, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
+    return templates.TemplateResponse("mfa_settings.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+        "remaining_recovery_codes": mfa.count_remaining_recovery_codes(user.mfa_recovery_codes_json),
+    })
+
+
+@app.get("/settings/mfa/setup", response_class=HTMLResponse)
+async def mfa_setup_page(request: Request, db: DBSession = Depends(get_db)):
+    user = require_user(request, db)
+    if user.mfa_enabled:
+        return RedirectResponse(url="/settings/mfa", status_code=302)
+    # A secret already exists from a previous, unfinished setup attempt —
+    # reuse it so the QR code the user is looking at stays valid instead
+    # of silently going stale if they reload this page.
+    if not user.mfa_secret:
+        user.mfa_secret = mfa.generate_secret()
+        db.commit()
+    uri = mfa.provisioning_uri(user.mfa_secret, user.email)
+    return templates.TemplateResponse("mfa_setup.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+        "qr_code_data_uri": mfa.qr_code_svg_data_uri(uri),
+        "manual_key": user.mfa_secret, "error": None,
+    })
+
+
+@app.post("/settings/mfa/setup", response_class=HTMLResponse)
+async def mfa_setup_confirm(
+    request: Request, code: str = Form(...), db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("mfa-setup", limit=8, window_seconds=300)),
+    _csrf: None = Depends(csrf_protect),
+):
+    user = require_user(request, db)
+    if user.mfa_enabled:
+        return RedirectResponse(url="/settings/mfa", status_code=302)
+    if not user.mfa_secret:
+        return RedirectResponse(url="/settings/mfa/setup", status_code=302)
+
+    if not mfa.verify_totp_code(user.mfa_secret, code):
+        uri = mfa.provisioning_uri(user.mfa_secret, user.email)
+        return templates.TemplateResponse("mfa_setup.html", {
+            "request": request, "user": user, "current_year": datetime.now().year,
+            "qr_code_data_uri": mfa.qr_code_svg_data_uri(uri),
+            "manual_key": user.mfa_secret,
+            "error": "That code isn’t valid. Make sure your authenticator app’s clock is correct, then try again.",
+        })
+
+    recovery_codes = mfa.generate_recovery_codes()
+    user.mfa_enabled = True
+    user.mfa_enrolled_at = datetime.utcnow()
+    user.mfa_recovery_codes_json = mfa.build_recovery_codes_record(recovery_codes)
+    db.commit()
+
+    audit_log.record_event(
+        db, "mfa_enabled", request=request, actor_user_id=user.id,
+        target_type="user", target_id=user.id, success=True,
+    )
+    return templates.TemplateResponse("mfa_recovery_codes.html", {
+        "request": request, "user": user, "current_year": datetime.now().year,
+        "recovery_codes": recovery_codes,
+    })
+
+
+@app.post("/settings/mfa/disable")
+async def mfa_disable(
+    request: Request, password: str = Form(""), db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("mfa-disable", limit=8, window_seconds=300)),
+    _csrf: None = Depends(csrf_protect),
+):
+    user = require_user(request, db)
+    if not user.mfa_enabled:
+        raise HTTPException(status_code=400, detail="Two-factor authentication is not enabled")
+    # Re-confirms the current password so a hijacked session token alone
+    # can't silently turn off MFA. Google-only accounts have no password
+    # to check (password_hash is None) — nothing further to verify here
+    # within this codebase's scope for that case.
+    if user.password_hash and not verify_password(password, user.password_hash):
+        return templates.TemplateResponse("mfa_settings.html", {
+            "request": request, "user": user, "current_year": datetime.now().year,
+            "remaining_recovery_codes": mfa.count_remaining_recovery_codes(user.mfa_recovery_codes_json),
+            "error": "Incorrect password.",
+        }, status_code=403)
+
+    user.mfa_enabled = False
+    user.mfa_secret = None
+    user.mfa_recovery_codes_json = None
+    user.mfa_enrolled_at = None
+    db.commit()
+
+    audit_log.record_event(
+        db, "mfa_disabled", request=request, actor_user_id=user.id,
+        target_type="user", target_id=user.id, success=True,
+    )
+    return RedirectResponse(url="/settings/mfa", status_code=302)
+
+
+@app.post("/settings/delete-account")
+async def delete_account(request: Request, db: DBSession = Depends(get_db), _csrf: None = Depends(csrf_protect)):
+    user = require_user(request, db)
+    user_id, user_email = user.id, user.email
 
     db.query(Contract).filter(Contract.user_id == user.id).delete()
     db.query(Playbook).filter(Playbook.user_id == user.id).delete()
     db.delete(user)
     db.commit()
+
+    # Logged after the deletion commits (not before): AuditLog.target_id has
+    # no FK constraint specifically so this record can outlive the user row
+    # it describes, but record_event() does its own commit — running it
+    # first would just commit this transaction early rather than after.
+    audit_log.record_event(
+        db, "account_deleted", request=request, actor_user_id=user_id,
+        target_type="user", target_id=user_id, success=True,
+        metadata={"email": user_email},
+    )
 
     response = RedirectResponse(url="/", status_code=302)
     auth_logout(request, response)
@@ -916,6 +1200,8 @@ async def upload_contract(
     file: UploadFile = File(...),
     playbook_id: Optional[int] = Form(None),
     db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("upload", limit=30, window_seconds=3600)),
+    _csrf: None = Depends(csrf_protect),
 ):
     user = get_current_user(request, db)
 
@@ -934,9 +1220,10 @@ async def upload_contract(
 
     if not file.filename:
         return upload_error("No file selected. Choose a PDF, DOCX, or TXT contract to analyze.")
-    ext = os.path.splitext(file.filename.lower())[1]
+    filename = upload_security.sanitize_filename(file.filename)
+    ext = os.path.splitext(filename.lower())[1]
     if ext not in ALLOWED_EXTENSIONS:
-        return upload_error(f"“{file.filename}” isn’t a supported format. Upload a PDF, DOCX, or TXT file.")
+        return upload_error(f"“{filename}” isn’t a supported format. Upload a PDF, DOCX, or TXT file.")
 
     file_bytes = await file.read()
     if not file_bytes:
@@ -945,11 +1232,13 @@ async def upload_contract(
         return upload_error("That file is larger than the 10MB limit. Try compressing it or splitting the document.")
 
     try:
-        contract_text = extract_text_from_file(file_bytes, file.filename)
+        contract_text = extract_text_from_file(file_bytes, filename)
         if not contract_text or not contract_text.strip():
             return upload_error("We couldn’t find any text in that document. If it’s a scanned PDF, run OCR first and re-upload.")
     except HTTPException:
         raise
+    except upload_security.UploadRejected as e:
+        return upload_error(str(e))
     except Exception:
         return upload_error("We couldn’t read that document. Make sure it opens correctly, then try again.")
 
@@ -966,13 +1255,13 @@ async def upload_contract(
                 "dev_mode": DEV_MODE,
             })
 
-        analytics.record_event(request, "upload_started", user=user, metadata={"filename": file.filename})
+        analytics.record_event(request, "upload_started", user=user, metadata={"filename": filename})
 
         started_at = time.perf_counter()
-        analytics.record_event(request, "analysis_started", user=user, metadata={"filename": file.filename})
+        analytics.record_event(request, "analysis_started", user=user, metadata={"filename": filename})
         analysis = run_analysis(contract_text)
         analytics.record_event(request, "analysis_completed", user=user, metadata={
-            "filename": file.filename, "overall_risk": analysis.get("overall_risk"),
+            "filename": filename, "overall_risk": analysis.get("overall_risk"),
         })
         processing_time = time.perf_counter() - started_at
 
@@ -986,7 +1275,7 @@ async def upload_contract(
 
         contract = Contract(
             user_id=user.id,
-            filename=file.filename,
+            filename=filename,
             contract_text=contract_text,
             overall_risk=analysis["overall_risk"],
             findings_json=analysis["findings_dict"],
@@ -1014,7 +1303,7 @@ async def upload_contract(
 
         contract_event = analytics.build_contract_event(
             request, contract_id=contract.id, user_id=user.id,
-            filename=file.filename, file_bytes=file_bytes,
+            filename=filename, file_bytes=file_bytes,
             status="completed", processing_time=processing_time,
         )
         db.add(contract_event)
@@ -1024,8 +1313,13 @@ async def upload_contract(
         db.refresh(contract)
 
         analytics.record_event(request, "upload_completed", user=user, metadata={
-            "contract_id": contract.id, "filename": file.filename, "overall_risk": contract.overall_risk,
+            "contract_id": contract.id, "filename": filename, "overall_risk": contract.overall_risk,
         })
+        audit_log.record_event(
+            db, "contract_uploaded", request=request, actor_user_id=user.id,
+            target_type="contract", target_id=contract.id, success=True,
+            metadata={"filename": filename, "overall_risk": contract.overall_risk},
+        )
 
         return RedirectResponse(url=f"/contract/{contract.id}/review", status_code=303)
 
@@ -1035,7 +1329,7 @@ async def upload_contract(
         sig = hmac.new(APP_HMAC_SECRET.encode(), app_session_id.encode(), hashlib.sha256).hexdigest()
         token = f"{app_session_id}:{sig}"
         session_store[app_session_id] = {
-            "paid": True, "text": contract_text, "filename": file.filename,
+            "paid": True, "text": contract_text, "filename": filename,
             "stripe_session_id": None, "expires_at": datetime.now() + timedelta(hours=24),
         }
         current_base_url = get_base_url(request)
@@ -1064,6 +1358,8 @@ async def batch_upload_submit(
     files: List[UploadFile] = File(...),
     playbook_id: Optional[int] = Form(None),
     db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("batch-upload", limit=10, window_seconds=3600)),
+    _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
 
@@ -1098,7 +1394,8 @@ async def batch_upload_submit(
     for f in files:
         if not f.filename:
             continue
-        ext = os.path.splitext(f.filename.lower())[1]
+        batch_filename = upload_security.sanitize_filename(f.filename)
+        ext = os.path.splitext(batch_filename.lower())[1]
         if ext not in ALLOWED_EXTENSIONS:
             continue
 
@@ -1107,7 +1404,7 @@ async def batch_upload_submit(
             continue
 
         try:
-            text = extract_text_from_file(file_bytes, f.filename)
+            text = extract_text_from_file(file_bytes, batch_filename)
             if not text or not text.strip():
                 continue
         except Exception:
@@ -1121,7 +1418,7 @@ async def batch_upload_submit(
             deviations = comparison
 
         contract = Contract(
-            user_id=user.id, filename=f.filename, contract_text=text,
+            user_id=user.id, filename=batch_filename, contract_text=text,
             overall_risk=analysis["overall_risk"], findings_json=analysis["findings_dict"],
             llm_result_json=analysis["llm_result"], rule_counts_json=analysis["rule_counts"],
             rule_engine_version=analysis["version"], analysis_completed=True,
@@ -1597,6 +1894,10 @@ async def download_contract_pdf(request: Request, contract_id: int, db: DBSessio
     date_str = datetime.utcnow().strftime("%Y-%m-%d")
 
     analytics.record_event(request, "download_pdf", user=user, metadata={"contract_id": contract.id})
+    audit_log.record_event(
+        db, "contract_exported", request=request, actor_user_id=user.id,
+        target_type="contract", target_id=contract.id, success=True, detail="pdf",
+    )
 
     return Response(
         content=pdf_bytes, media_type="application/pdf",
@@ -1654,23 +1955,120 @@ async def download_pdf_token(request: Request, token: str):
 # REPORT SHARING
 # ============================================================
 
+SHARE_MAX_EXPIRY_DAYS = 365
+SHARE_MAX_VIEWS_LIMIT = 100_000
+
+
+def _parse_positive_int_form_field(raw: str, field_name: str, max_value: int) -> Optional[int]:
+    """Blank/whitespace-only means "no limit" (None). A present value must
+    be a positive integer within a sane bound — otherwise a typo like
+    "999999999999" could effectively disable the limit anyway."""
+    raw = (raw or "").strip()
+    if not raw:
+        return None
+    try:
+        value = int(raw)
+    except ValueError:
+        raise HTTPException(status_code=400, detail=f"{field_name} must be a whole number")
+    if value < 1 or value > max_value:
+        raise HTTPException(status_code=400, detail=f"{field_name} must be between 1 and {max_value}")
+    return value
+
+
 @app.post("/contract/{contract_id}/share")
-async def create_share_link(request: Request, contract_id: int, password: str = Form(""), db: DBSession = Depends(get_db)):
+async def create_share_link(
+    request: Request, contract_id: int,
+    password: str = Form(""),
+    expires_in_days: str = Form(""),
+    max_views: str = Form(""),
+    db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
+    user = require_user(request, db)
+    contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
+    if not contract:
+        raise HTTPException(status_code=404, detail="Contract not found")
+
+    expires_days = _parse_positive_int_form_field(expires_in_days, "expires_in_days", SHARE_MAX_EXPIRY_DAYS)
+    views_limit = _parse_positive_int_form_field(max_views, "max_views", SHARE_MAX_VIEWS_LIMIT)
+
+    is_new_link = not contract.share_token
+    if is_new_link:
+        contract.generate_share_token()
+    if password:
+        contract.share_password_hash = hash_password(password)
+    contract.share_expires_at = (datetime.utcnow() + timedelta(days=expires_days)) if expires_days else None
+    contract.share_max_views = views_limit
+    # (Re)sharing un-revokes a previously revoked link and starts the view
+    # count fresh under the new settings — an explicit, visible action the
+    # owner took, not something that happens silently on its own.
+    contract.share_revoked_at = None
+    contract.share_view_count = 0
+    db.commit()
+
+    analytics.record_event(request, "share_report", user=user, metadata={"contract_id": contract.id})
+    audit_log.record_event(
+        db, "share_link_created" if is_new_link else "share_link_updated",
+        request=request, actor_user_id=user.id, target_type="contract", target_id=contract.id,
+        success=True,
+        metadata={
+            "has_password": bool(contract.share_password_hash),
+            "expires_in_days": expires_days,
+            "max_views": views_limit,
+        },
+    )
+
+    share_url = f"{get_base_url(request)}/shared/{contract.share_token}"
+    return {
+        "share_url": share_url,
+        "token": contract.share_token,
+        "expires_at": contract.share_expires_at.isoformat() if contract.share_expires_at else None,
+        "max_views": contract.share_max_views,
+    }
+
+
+@app.post("/contract/{contract_id}/share/revoke")
+async def revoke_share_link(
+    request: Request, contract_id: int, db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
     user = require_user(request, db)
     contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
     if not contract:
         raise HTTPException(status_code=404, detail="Contract not found")
 
     if not contract.share_token:
-        contract.generate_share_token()
-    if password:
-        contract.share_password_hash = hash_password(password)
+        raise HTTPException(status_code=400, detail="This contract has no share link to revoke")
+
+    contract.share_revoked_at = datetime.utcnow()
     db.commit()
 
-    analytics.record_event(request, "share_report", user=user, metadata={"contract_id": contract.id})
+    audit_log.record_event(
+        db, "share_link_revoked", request=request, actor_user_id=user.id,
+        target_type="contract", target_id=contract.id, success=True,
+    )
+    return {"revoked": True}
 
-    share_url = f"{get_base_url(request)}/shared/{contract.share_token}"
-    return {"share_url": share_url, "token": contract.share_token}
+
+@app.get("/contract/{contract_id}/share/status")
+async def share_link_status(request: Request, contract_id: int, db: DBSession = Depends(get_db)):
+    user = require_user(request, db)
+    contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
+    if not contract:
+        raise HTTPException(status_code=404, detail="Contract not found")
+
+    if not contract.share_token:
+        return {"has_link": False}
+
+    return {
+        "has_link": True,
+        "share_url": f"{get_base_url(request)}/shared/{contract.share_token}",
+        "has_password": bool(contract.share_password_hash),
+        "expires_at": contract.share_expires_at.isoformat() if contract.share_expires_at else None,
+        "max_views": contract.share_max_views,
+        "view_count": contract.share_view_count,
+        "revoked": contract.share_revoked_at is not None,
+    }
 
 
 # ============================================================
@@ -1686,6 +2084,36 @@ def _get_owned_contract(db: DBSession, user, contract_id: int) -> Contract:
     if not contract:
         raise HTTPException(status_code=404, detail="Contract not found")
     return contract
+
+
+@app.post("/contract/{contract_id}/delete")
+async def delete_contract(
+    request: Request, contract_id: int, db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
+    """Permanently deletes a single contract: extracted text, findings,
+    every derived analysis field (LLM output, risk scores, structure/clause-
+    quality/metadata reports, review decisions), and its share link/settings
+    — the whole row. ContractEvent rows cascade-delete with it (see
+    analytics_models.py's ondelete="CASCADE" + the ORM relationship's
+    cascade="all, delete-orphan" on Contract.events). Exported PDFs/DOCX are
+    generated on demand from this row and never written to disk (see
+    docx_export.py / _build_pdf_bytes), so there is nothing else to clean up.
+    The playbook this contract was compared against is a reusable template
+    owned separately and is not affected."""
+    user = require_user(request, db)
+    contract = _get_owned_contract(db, user, contract_id)
+
+    filename = contract.filename
+    db.delete(contract)
+    db.commit()
+
+    audit_log.record_event(
+        db, "contract_deleted", request=request, actor_user_id=user.id,
+        target_type="contract", target_id=contract_id, success=True,
+        metadata={"filename": filename},
+    )
+    return {"deleted": True}
 
 
 @app.get("/contract/{contract_id}/review", response_class=HTMLResponse)
@@ -1726,6 +2154,7 @@ async def submit_review_decision(
     finding_index: int = Form(...), action: str = Form(...),
     reason: str = Form(""), edited_text: str = Form(""),
     db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
@@ -1760,7 +2189,10 @@ async def submit_review_decision(
 
 
 @app.post("/contract/{contract_id}/review/comment")
-async def submit_review_comment(request: Request, contract_id: int, finding_index: int = Form(...), comment: str = Form(...), db: DBSession = Depends(get_db)):
+async def submit_review_comment(
+    request: Request, contract_id: int, finding_index: int = Form(...), comment: str = Form(...),
+    db: DBSession = Depends(get_db), _csrf: None = Depends(csrf_protect),
+):
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
 
@@ -1780,7 +2212,10 @@ async def submit_review_comment(request: Request, contract_id: int, finding_inde
 
 
 @app.post("/contract/{contract_id}/review/verify")
-async def verify_review_finding(request: Request, contract_id: int, finding_index: int = Form(...), db: DBSession = Depends(get_db)):
+async def verify_review_finding(
+    request: Request, contract_id: int, finding_index: int = Form(...), db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
     """The Deterministic Replay 'aha' moment, done for real: re-runs the full
     rule engine against the stored contract text and confirms the same rule
     still fires against the same exact text — not a canned animation. Matches
@@ -1810,7 +2245,10 @@ async def verify_review_finding(request: Request, contract_id: int, finding_inde
 
 
 @app.post("/contract/{contract_id}/review/finalize")
-async def finalize_review(request: Request, contract_id: int, db: DBSession = Depends(get_db)):
+async def finalize_review(
+    request: Request, contract_id: int, db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
 
@@ -1855,11 +2293,45 @@ async def download_negotiation_package(request: Request, contract_id: int, db: D
         request, "negotiation_package_generated", user=user,
         metadata={"contract_id": contract.id, "skipped_redlines": skipped},
     )
+    audit_log.record_event(
+        db, "contract_exported", request=request, actor_user_id=user.id,
+        target_type="contract", target_id=contract.id, success=True, detail="negotiation_package",
+    )
 
     return Response(
         content=zip_buffer.getvalue(), media_type="application/zip",
         headers={"Content-Disposition": f'attachment; filename="NegotiationPackage_{safe_name}.zip"'},
     )
+
+
+def _evaluate_share_link_access(contract: Contract) -> Optional[str]:
+    """Returns None if the link currently grants access, or a short reason
+    code otherwise ("revoked", "expired", "max_views_exceeded"). Checked
+    before the password gate — a revoked/expired/exhausted link is
+    unavailable regardless of whether the visitor has the password."""
+    if contract.share_revoked_at is not None:
+        return "revoked"
+    if contract.share_expires_at is not None and datetime.utcnow() > contract.share_expires_at:
+        return "expired"
+    if contract.share_max_views is not None and contract.share_view_count >= contract.share_max_views:
+        return "max_views_exceeded"
+    return None
+
+
+_SHARE_UNAVAILABLE_MESSAGES = {
+    "revoked": "This link has been revoked by its owner and is no longer available.",
+    "expired": "This link has expired and is no longer available.",
+    "max_views_exceeded": "This link has reached its maximum number of views and is no longer available.",
+}
+
+
+def _share_unavailable_response(request: Request, contract: Contract, reason: str) -> HTMLResponse:
+    return templates.TemplateResponse("shared_report.html", {
+        "request": request, "link_unavailable": True,
+        "link_unavailable_message": _SHARE_UNAVAILABLE_MESSAGES[reason],
+        "password_required": False, "password_error": False,
+        "filename": contract.filename, "current_year": datetime.now().year,
+    })
 
 
 @app.get("/shared/{share_token}", response_class=HTMLResponse)
@@ -1868,31 +2340,62 @@ async def view_shared_report(request: Request, share_token: str, db: DBSession =
     if not contract:
         raise HTTPException(status_code=404, detail="Report not found")
 
+    denial_reason = _evaluate_share_link_access(contract)
+    if denial_reason:
+        audit_log.record_event(
+            db, "share_link_accessed", request=request, target_type="contract",
+            target_id=contract.id, success=False, detail=denial_reason,
+        )
+        return _share_unavailable_response(request, contract, denial_reason)
+
     if contract.share_password_hash:
         return templates.TemplateResponse("shared_report.html", {
             "request": request, "password_required": True, "password_error": False,
             "filename": contract.filename, "current_year": datetime.now().year,
         })
 
-    return _render_shared_report(request, contract)
+    return _render_shared_report(request, contract, db)
 
 
 @app.post("/shared/{share_token}", response_class=HTMLResponse)
-async def view_shared_report_auth(request: Request, share_token: str, password: str = Form(...), db: DBSession = Depends(get_db)):
+async def view_shared_report_auth(
+    request: Request, share_token: str, password: str = Form(...), db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("shared-report-password", limit=10, window_seconds=300)),
+    _csrf: None = Depends(csrf_protect),
+):
     contract = db.query(Contract).filter(Contract.share_token == share_token).first()
     if not contract:
         raise HTTPException(status_code=404, detail="Report not found")
 
+    denial_reason = _evaluate_share_link_access(contract)
+    if denial_reason:
+        audit_log.record_event(
+            db, "share_link_accessed", request=request, target_type="contract",
+            target_id=contract.id, success=False, detail=denial_reason,
+        )
+        return _share_unavailable_response(request, contract, denial_reason)
+
     if contract.share_password_hash and not verify_password(password, contract.share_password_hash):
+        audit_log.record_event(
+            db, "share_link_accessed", request=request, target_type="contract",
+            target_id=contract.id, success=False, detail="wrong_password",
+        )
         return templates.TemplateResponse("shared_report.html", {
             "request": request, "password_required": True, "password_error": True,
             "filename": contract.filename, "current_year": datetime.now().year,
         })
 
-    return _render_shared_report(request, contract)
+    return _render_shared_report(request, contract, db)
 
 
-def _render_shared_report(request: Request, contract: Contract) -> HTMLResponse:
+def _render_shared_report(request: Request, contract: Contract, db: DBSession) -> HTMLResponse:
+    contract.share_view_count += 1
+    db.commit()
+    audit_log.record_event(
+        db, "share_link_accessed", request=request, target_type="contract",
+        target_id=contract.id, success=True, detail="viewed",
+    )
+
     findings_dict = contract.findings_json or []
     llm_result = contract.llm_result_json or {}
     all_issues = build_enhanced_issues(findings_dict, llm_result)
@@ -1953,6 +2456,7 @@ async def playbook_new_submit(
     description: str = Form(""),
     file: UploadFile = File(...),
     db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
 
@@ -1962,7 +2466,8 @@ async def playbook_new_submit(
             "error": "Please upload a template file.", "current_year": datetime.now().year,
         })
 
-    ext = os.path.splitext(file.filename.lower())[1]
+    playbook_filename = upload_security.sanitize_filename(file.filename)
+    ext = os.path.splitext(playbook_filename.lower())[1]
     if ext not in ALLOWED_EXTENSIONS:
         return templates.TemplateResponse("playbook_form.html", {
             "request": request, "user": user, "playbook": None,
@@ -1971,7 +2476,12 @@ async def playbook_new_submit(
 
     file_bytes = await file.read()
     try:
-        template_text = extract_text_from_file(file_bytes, file.filename)
+        template_text = extract_text_from_file(file_bytes, playbook_filename)
+    except upload_security.UploadRejected as e:
+        return templates.TemplateResponse("playbook_form.html", {
+            "request": request, "user": user, "playbook": None,
+            "error": str(e), "current_year": datetime.now().year,
+        })
     except Exception:
         return templates.TemplateResponse("playbook_form.html", {
             "request": request, "user": user, "playbook": None,
@@ -1996,6 +2506,11 @@ async def playbook_new_submit(
     db.commit()
 
     analytics.record_event(request, "playbook_created", user=user, metadata={"playbook_id": playbook.id})
+    audit_log.record_event(
+        db, "playbook_created", request=request, actor_user_id=user.id,
+        target_type="playbook", target_id=playbook.id, success=True,
+        metadata={"name": playbook.name},
+    )
 
     return RedirectResponse(url="/playbooks", status_code=302)
 
@@ -2018,6 +2533,7 @@ async def playbook_edit_submit(
     name: str = Form(...), contract_type: str = Form(""),
     description: str = Form(""), file: Optional[UploadFile] = File(None),
     db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
     playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
@@ -2029,11 +2545,12 @@ async def playbook_edit_submit(
     playbook.description = description.strip() or None
 
     if file and file.filename:
-        ext = os.path.splitext(file.filename.lower())[1]
+        edit_filename = upload_security.sanitize_filename(file.filename)
+        ext = os.path.splitext(edit_filename.lower())[1]
         if ext in ALLOWED_EXTENSIONS:
             file_bytes = await file.read()
             try:
-                template_text = extract_text_from_file(file_bytes, file.filename)
+                template_text = extract_text_from_file(file_bytes, edit_filename)
                 playbook.template_text = template_text
                 analysis = rule_engine.analyze(template_text)
                 playbook.template_findings_json = [
@@ -2048,17 +2565,30 @@ async def playbook_edit_submit(
 
     db.commit()
     analytics.record_event(request, "playbook_updated", user=user, metadata={"playbook_id": playbook.id})
+    audit_log.record_event(
+        db, "playbook_updated", request=request, actor_user_id=user.id,
+        target_type="playbook", target_id=playbook.id, success=True,
+    )
     return RedirectResponse(url="/playbooks", status_code=302)
 
 
 @app.post("/playbooks/{playbook_id}/delete")
-async def playbook_delete(request: Request, playbook_id: int, db: DBSession = Depends(get_db)):
+async def playbook_delete(
+    request: Request, playbook_id: int, db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
     user = require_user(request, db)
     playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
     if not playbook:
         raise HTTPException(status_code=404, detail="Playbook not found")
+    playbook_name = playbook.name
     db.delete(playbook)
     db.commit()
+    audit_log.record_event(
+        db, "playbook_deleted", request=request, actor_user_id=user.id,
+        target_type="playbook", target_id=playbook_id, success=True,
+        metadata={"name": playbook_name},
+    )
     return RedirectResponse(url="/playbooks", status_code=302)
 
 
@@ -2105,7 +2635,10 @@ async def benchmark_page(request: Request, db: DBSession = Depends(get_db)):
 # ============================================================
 
 @app.post("/subscribe/{plan}")
-async def subscribe(request: Request, plan: str, db: DBSession = Depends(get_db)):
+async def subscribe(
+    request: Request, plan: str, db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
     user = require_user(request, db)
 
     if plan not in PLAN_LIMITS:
@@ -2338,7 +2871,10 @@ async def contact_page(request: Request, db: DBSession = Depends(get_db)):
 
 
 @app.post("/contact", response_class=HTMLResponse)
-async def contact_submit(request: Request, db: DBSession = Depends(get_db)):
+async def contact_submit(
+    request: Request, db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
     user = get_current_user(request, db)
     return templates.TemplateResponse("contact.html", {
         "request": request, "user": user, "current_year": datetime.now().year,
@@ -2424,6 +2960,39 @@ async def get_config():
     return {"dev_mode": DEV_MODE, "stripe_enabled": not DEV_MODE and bool(STRIPE_SECRET_KEY)}
 
 
+@app.post("/internal/retention/cleanup")
+async def internal_retention_cleanup(
+    request: Request, db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("retention-cleanup", limit=6, window_seconds=3600)),
+):
+    """Scheduled retention cleanup, triggered over HTTP (see retention.py's
+    module docstring) — for platforms that schedule jobs via a URL rather
+    than a shell, e.g. Vercel Cron Jobs. Requires CRON_SECRET to be
+    configured; without it, this route always 404s rather than exposing an
+    unauthenticated deletion endpoint by default. Not the primary path for
+    the Docker deployment — see run_retention_cleanup.py for cron/systemd/
+    Kubernetes CronJob use there."""
+    cron_secret = os.getenv("CRON_SECRET", "").strip()
+    if not cron_secret:
+        raise HTTPException(status_code=404)
+
+    auth_header = request.headers.get("authorization", "")
+    provided = auth_header[len("Bearer "):] if auth_header.startswith("Bearer ") else ""
+    if not provided or not hmac.compare_digest(provided, cron_secret):
+        audit_log.record_event(
+            db, "retention_cleanup_denied", request=request, target_type="route",
+            target_id=None, success=False, detail="invalid_cron_secret",
+        )
+        raise HTTPException(status_code=403, detail="Forbidden")
+
+    stats = retention.run_cleanup(db)
+    audit_log.record_event(
+        db, "retention_cleanup_run", request=request, target_type="route",
+        target_id=None, success=stats["errors"] == 0, metadata=stats,
+    )
+    return stats
+
+
 @app.get("/results", response_class=HTMLResponse)
 async def results_legacy(request: Request, token: str):
     """Legacy token-based results (for anonymous users)."""
@@ -2502,12 +3071,18 @@ async def results_legacy(request: Request, token: str):
 # ADMIN DASHBOARD
 # ============================================================
 
-ADMIN_EMAIL = "santhosh.guntupalli09@gmail.com"
-
-
 def require_admin(request: Request, db: DBSession) -> User:
+    """Role-based (P8) — see rbac.py. Replaces the previous single
+    hardcoded-admin-email comparison; who holds the "admin" role is now
+    data (the user_roles table), managed via manage_roles.py, not a
+    constant baked into this file."""
     user = require_user(request, db)
-    if user.email.lower() != ADMIN_EMAIL.lower():
+    if not rbac.user_has_permission(db, user, "admin.dashboard.view"):
+        audit_log.record_event(
+            db, "admin_access_denied", request=request, actor_user_id=user.id,
+            target_type="route", target_id=None, success=False,
+            detail="missing_permission:admin.dashboard.view", metadata={"path": request.url.path},
+        )
         raise HTTPException(status_code=403, detail="Forbidden")
     return user
 
@@ -2515,6 +3090,10 @@ def require_admin(request: Request, db: DBSession) -> User:
 @app.get("/admin", response_class=HTMLResponse)
 async def admin_dashboard(request: Request, db: DBSession = Depends(get_db)):
     user = require_admin(request, db)
+    audit_log.record_event(
+        db, "admin_dashboard_accessed", request=request, actor_user_id=user.id,
+        target_type="route", target_id=None, success=True,
+    )
 
     from sqlalchemy import func, cast, Date
 

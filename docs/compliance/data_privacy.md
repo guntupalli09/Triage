@@ -1,5 +1,14 @@
 # Data Privacy
 
+> **⚠️ Superseded — this document describes an old, no-longer-current
+> architecture** (anonymous in-memory-only sessions, no user accounts, no
+> database, 24-hour TTL, "IP addresses not logged"). The application now
+> has persistent user accounts, a database, encryption at rest, and
+> analytics that captures IP addresses. **For accurate, current
+> information, see [`/PRIVACY.md`](../../PRIVACY.md) at the repository
+> root.** This file is kept for historical reference only and should not
+> be used to answer customer or compliance questions.
+
 ## Privacy-First Design
 
 The Contract Risk TriageCounsel Tool is designed with privacy as a core principle. The system minimizes data collection, storage, and retention.

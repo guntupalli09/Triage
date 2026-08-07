@@ -97,6 +97,7 @@
                                     <a href="/contract/{{ contract.id }}/review" class="text-[#0F172A] hover:text-[#1E293B] font-medium transition-colors">View</a>
                                     <a href="/contract/{{ contract.id }}/pdf" class="text-gray-500 hover:text-gray-700 font-medium transition-colors">PDF</a>
                                     <button onclick="shareContract({{ contract.id }})" class="text-gray-500 hover:text-gray-700 font-medium transition-colors">Share</button>
+                                    <button onclick="deleteContract({{ contract.id }}, {{ contract.filename|tojson }})" class="text-gray-400 hover:text-red-600 font-medium transition-colors">Delete</button>
                                 </div>
                             </td>
                         </tr>
@@ -135,6 +136,22 @@
             </div>
             {% endif %}
         </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function deleteContract(contractId, filename) {
+    if (!confirm('Permanently delete "' + filename + '"? This removes the contract text, findings, and any share link. This cannot be undone.')) return;
+    fetch('/contract/' + contractId + '/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'csrf_token=' + encodeURIComponent(getCsrfToken()),
+    })
+        .then(function(r) { if (!r.ok) throw new Error('delete failed'); return r.json(); })
+        .then(function() { window.location.reload(); })
+        .catch(function() { alert("Couldn't delete this contract. Please try again."); });
+}
+</script>
 {% endblock %}
 
 

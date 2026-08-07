@@ -26,6 +26,7 @@
     <div class="premium-card p-6 sm:p-8 mb-6 fade-in">
         <h2 class="text-lg font-bold text-[#0F172A] mb-5">Profile</h2>
         <form action="/account" method="post" class="space-y-5">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
             <div>
                 <label for="name" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Name</label>
                 <input type="text" id="name" name="name" value="{{ user.name or '' }}"
@@ -53,6 +54,7 @@
     <div class="premium-card p-6 sm:p-8 fade-in">
         <h2 class="text-lg font-bold text-[#0F172A] mb-5">Change Password</h2>
         <form action="/account/password" method="post" class="space-y-5">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
             <div>
                 <label for="current_password" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Current Password</label>
                 <input type="password" id="current_password" name="current_password" required

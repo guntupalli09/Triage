@@ -1,0 +1,63 @@
+{% extends "base_app.html" %}
+
+{% block title %}Two-Factor Authentication{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1.5">/</span>
+<a href="/settings" class="hover:text-gray-900 transition-colors">Settings</a>
+<span class="mx-1.5">/</span>
+<span class="text-gray-900">Two-Factor Authentication</span>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl">
+    <h1 class="text-2xl font-bold text-[#0F172A] mb-6 fade-in">Two-Factor Authentication</h1>
+
+    {% if error %}
+    <div class="mb-6 rounded-lg bg-red-50 border border-red-200 p-4">
+        <p class="text-sm text-red-700">{{ error }}</p>
+    </div>
+    {% endif %}
+
+    {% if user.mfa_enabled %}
+    <div class="premium-card p-6 sm:p-8 mb-6 fade-in">
+        <div class="flex items-center gap-2 mb-2">
+            <span class="inline-block w-2 h-2 rounded-full bg-green-500"></span>
+            <h2 class="text-lg font-bold text-[#0F172A]">Enabled</h2>
+        </div>
+        <p class="text-sm text-gray-500 mb-1">
+            Enabled since {{ user.mfa_enrolled_at.strftime('%B %d, %Y') if user.mfa_enrolled_at else '—' }}.
+        </p>
+        <p class="text-sm text-gray-500 mb-4">
+            {{ remaining_recovery_codes }} unused recovery code{{ 's' if remaining_recovery_codes != 1 else '' }} remaining.
+        </p>
+    </div>
+
+    <div class="premium-card p-6 sm:p-8 fade-in border-red-100">
+        <h2 class="text-lg font-bold text-[#0F172A] mb-2">Disable Two-Factor Authentication</h2>
+        <p class="text-sm text-gray-500 mb-4">Enter your password to confirm. Anyone with your password will then be able to sign in without a code.</p>
+        <form action="/settings/mfa/disable" method="post" onsubmit="return confirm('Disable two-factor authentication for your account?');" class="space-y-4">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+            {% if user.password_hash %}
+            <div>
+                <label for="password" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Password</label>
+                <input type="password" id="password" name="password" required
+                    class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#0F172A] focus:border-transparent transition">
+            </div>
+            {% endif %}
+            <button type="submit" class="btn-secondary py-2.5 px-6 rounded-lg font-semibold text-red-600">Disable Two-Factor Authentication</button>
+        </form>
+    </div>
+    {% else %}
+    <div class="premium-card p-6 sm:p-8 fade-in">
+        <h2 class="text-lg font-bold text-[#0F172A] mb-2">Not Enabled</h2>
+        <p class="text-sm text-gray-500 mb-4">
+            Two-factor authentication adds a code from an authenticator app (like Google Authenticator, Authy, or 1Password)
+            to your login, on top of your password.
+        </p>
+        <a href="/settings/mfa/setup" class="btn-primary inline-block py-2.5 px-6 rounded-lg font-semibold">Set Up Two-Factor Authentication</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
