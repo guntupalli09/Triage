@@ -496,13 +496,23 @@ async def login_submit(
     _rl: None = Depends(rate_limit("login", limit=10, window_seconds=60)),
     _csrf: None = Depends(csrf_protect),
 ):
-    user = db.query(User).filter(User.email == email.lower().strip()).first()
+    normalized_email = email.lower().strip()
+    user = db.query(User).filter(User.email == normalized_email).first()
     if not user or not verify_password(password, user.password_hash):
+        audit_log.record_event(
+            db, "login_failed", request=request, actor_user_id=user.id if user else None,
+            target_type="user", target_id=user.id if user else None,
+            success=False, detail="invalid_credentials", metadata={"email": normalized_email},
+        )
         return templates.TemplateResponse("login.html", {"request": request, "error": "Invalid email or password."})
     response = RedirectResponse(url="/dashboard", status_code=302)
     create_session(user.id, response)
     analytics.mark_session_authenticated(request, user)
     analytics.record_event(request, "login", user=user)
+    audit_log.record_event(
+        db, "login", request=request, actor_user_id=user.id,
+        target_type="user", target_id=user.id, success=True,
+    )
     return response
 
 
@@ -548,6 +558,10 @@ async def register_submit(
     analytics.persist_user_acquisition(db, user, request)
     analytics.mark_session_authenticated(request, user)
     analytics.record_event(request, "signup_completed", user=user)
+    audit_log.record_event(
+        db, "account_created", request=request, actor_user_id=user.id,
+        target_type="user", target_id=user.id, success=True,
+    )
 
     response = RedirectResponse(url="/dashboard", status_code=302)
     create_session(user.id, response)
@@ -559,6 +573,10 @@ async def logout_route(request: Request, db: DBSession = Depends(get_db)):
     current = get_current_user(request, db)
     if current:
         analytics.record_event(request, "logout", user=current)
+        audit_log.record_event(
+            db, "logout", request=request, actor_user_id=current.id,
+            target_type="user", target_id=current.id, success=True,
+        )
     analytics.end_session(request)
     response = RedirectResponse(url="/", status_code=302)
     auth_logout(request, response)
@@ -897,11 +915,22 @@ async def settings_page(request: Request, db: DBSession = Depends(get_db)):
 @app.post("/settings/delete-account")
 async def delete_account(request: Request, db: DBSession = Depends(get_db), _csrf: None = Depends(csrf_protect)):
     user = require_user(request, db)
+    user_id, user_email = user.id, user.email
 
     db.query(Contract).filter(Contract.user_id == user.id).delete()
     db.query(Playbook).filter(Playbook.user_id == user.id).delete()
     db.delete(user)
     db.commit()
+
+    # Logged after the deletion commits (not before): AuditLog.target_id has
+    # no FK constraint specifically so this record can outlive the user row
+    # it describes, but record_event() does its own commit — running it
+    # first would just commit this transaction early rather than after.
+    audit_log.record_event(
+        db, "account_deleted", request=request, actor_user_id=user_id,
+        target_type="user", target_id=user_id, success=True,
+        metadata={"email": user_email},
+    )
 
     response = RedirectResponse(url="/", status_code=302)
     auth_logout(request, response)
@@ -1099,6 +1128,11 @@ async def upload_contract(
         analytics.record_event(request, "upload_completed", user=user, metadata={
             "contract_id": contract.id, "filename": filename, "overall_risk": contract.overall_risk,
         })
+        audit_log.record_event(
+            db, "contract_uploaded", request=request, actor_user_id=user.id,
+            target_type="contract", target_id=contract.id, success=True,
+            metadata={"filename": filename, "overall_risk": contract.overall_risk},
+        )
 
         return RedirectResponse(url=f"/contract/{contract.id}/review", status_code=303)
 
@@ -1673,6 +1707,10 @@ async def download_contract_pdf(request: Request, contract_id: int, db: DBSessio
     date_str = datetime.utcnow().strftime("%Y-%m-%d")
 
     analytics.record_event(request, "download_pdf", user=user, metadata={"contract_id": contract.id})
+    audit_log.record_event(
+        db, "contract_exported", request=request, actor_user_id=user.id,
+        target_type="contract", target_id=contract.id, success=True, detail="pdf",
+    )
 
     return Response(
         content=pdf_bytes, media_type="application/pdf",
@@ -2068,6 +2106,10 @@ async def download_negotiation_package(request: Request, contract_id: int, db: D
         request, "negotiation_package_generated", user=user,
         metadata={"contract_id": contract.id, "skipped_redlines": skipped},
     )
+    audit_log.record_event(
+        db, "contract_exported", request=request, actor_user_id=user.id,
+        target_type="contract", target_id=contract.id, success=True, detail="negotiation_package",
+    )
 
     return Response(
         content=zip_buffer.getvalue(), media_type="application/zip",
@@ -2277,6 +2319,11 @@ async def playbook_new_submit(
     db.commit()
 
     analytics.record_event(request, "playbook_created", user=user, metadata={"playbook_id": playbook.id})
+    audit_log.record_event(
+        db, "playbook_created", request=request, actor_user_id=user.id,
+        target_type="playbook", target_id=playbook.id, success=True,
+        metadata={"name": playbook.name},
+    )
 
     return RedirectResponse(url="/playbooks", status_code=302)
 
@@ -2331,6 +2378,10 @@ async def playbook_edit_submit(
 
     db.commit()
     analytics.record_event(request, "playbook_updated", user=user, metadata={"playbook_id": playbook.id})
+    audit_log.record_event(
+        db, "playbook_updated", request=request, actor_user_id=user.id,
+        target_type="playbook", target_id=playbook.id, success=True,
+    )
     return RedirectResponse(url="/playbooks", status_code=302)
 
 
@@ -2343,8 +2394,14 @@ async def playbook_delete(
     playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
     if not playbook:
         raise HTTPException(status_code=404, detail="Playbook not found")
+    playbook_name = playbook.name
     db.delete(playbook)
     db.commit()
+    audit_log.record_event(
+        db, "playbook_deleted", request=request, actor_user_id=user.id,
+        target_type="playbook", target_id=playbook_id, success=True,
+        metadata={"name": playbook_name},
+    )
     return RedirectResponse(url="/playbooks", status_code=302)
 
 
@@ -2800,6 +2857,11 @@ ADMIN_EMAIL = "santhosh.guntupalli09@gmail.com"
 def require_admin(request: Request, db: DBSession) -> User:
     user = require_user(request, db)
     if user.email.lower() != ADMIN_EMAIL.lower():
+        audit_log.record_event(
+            db, "admin_access_denied", request=request, actor_user_id=user.id,
+            target_type="route", target_id=None, success=False,
+            detail="not_admin", metadata={"path": request.url.path},
+        )
         raise HTTPException(status_code=403, detail="Forbidden")
     return user
 
@@ -2807,6 +2869,10 @@ def require_admin(request: Request, db: DBSession) -> User:
 @app.get("/admin", response_class=HTMLResponse)
 async def admin_dashboard(request: Request, db: DBSession = Depends(get_db)):
     user = require_admin(request, db)
+    audit_log.record_event(
+        db, "admin_dashboard_accessed", request=request, actor_user_id=user.id,
+        target_type="route", target_id=None, success=True,
+    )
 
     from sqlalchemy import func, cast, Date
 
