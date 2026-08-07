@@ -41,6 +41,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.cors import CORSMiddleware
+from security_headers import SecurityHeadersMiddleware
 from fpdf import FPDF
 from PyPDF2 import PdfReader
 from docx import Document
@@ -171,6 +172,7 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
 
 app.add_middleware(AnalyticsMiddleware)
 app.add_middleware(RequestIDMiddleware)
+app.add_middleware(SecurityHeadersMiddleware)
 
 rule_engine = RuleEngine()
 llm_evaluator = LLMEvaluator()
