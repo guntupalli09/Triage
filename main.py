@@ -42,6 +42,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.cors import CORSMiddleware
 from security_headers import SecurityHeadersMiddleware
+from rate_limit import rate_limit
 from fpdf import FPDF
 from PyPDF2 import PdfReader
 from docx import Document
@@ -467,7 +468,10 @@ async def login_page(request: Request, db: DBSession = Depends(get_db)):
 
 
 @app.post("/login", response_class=HTMLResponse)
-async def login_submit(request: Request, email: str = Form(...), password: str = Form(...), db: DBSession = Depends(get_db)):
+async def login_submit(
+    request: Request, email: str = Form(...), password: str = Form(...), db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("login", limit=10, window_seconds=60)),
+):
     user = db.query(User).filter(User.email == email.lower().strip()).first()
     if not user or not verify_password(password, user.password_hash):
         return templates.TemplateResponse("login.html", {"request": request, "error": "Invalid email or password."})
@@ -493,6 +497,7 @@ async def register_submit(
     name: str = Form(""),
     company: str = Form(""),
     db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("register", limit=5, window_seconds=60)),
 ):
     email = email.lower().strip()
 
@@ -655,7 +660,10 @@ async def forgot_password_page(request: Request):
 
 
 @app.post("/forgot-password", response_class=HTMLResponse)
-def forgot_password_submit(request: Request, email: str = Form(...), db: DBSession = Depends(get_db)):
+def forgot_password_submit(
+    request: Request, email: str = Form(...), db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("forgot-password", limit=5, window_seconds=900)),
+):
     if not emailer.is_configured():
         return templates.TemplateResponse("forgot_password.html", {
             "request": request, "sent": False,
@@ -723,6 +731,7 @@ async def reset_password_submit(
     password: str = Form(...),
     confirm_password: str = Form(...),
     db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("reset-password", limit=10, window_seconds=3600)),
 ):
     user = _find_user_by_reset_token(db, token)
     if not user:
@@ -944,6 +953,7 @@ async def upload_contract(
     file: UploadFile = File(...),
     playbook_id: Optional[int] = Form(None),
     db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("upload", limit=30, window_seconds=3600)),
 ):
     user = get_current_user(request, db)
 
@@ -1092,6 +1102,7 @@ async def batch_upload_submit(
     files: List[UploadFile] = File(...),
     playbook_id: Optional[int] = Form(None),
     db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("batch-upload", limit=10, window_seconds=3600)),
 ):
     user = require_user(request, db)
 
@@ -1906,7 +1917,10 @@ async def view_shared_report(request: Request, share_token: str, db: DBSession =
 
 
 @app.post("/shared/{share_token}", response_class=HTMLResponse)
-async def view_shared_report_auth(request: Request, share_token: str, password: str = Form(...), db: DBSession = Depends(get_db)):
+async def view_shared_report_auth(
+    request: Request, share_token: str, password: str = Form(...), db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("shared-report-password", limit=10, window_seconds=300)),
+):
     contract = db.query(Contract).filter(Contract.share_token == share_token).first()
     if not contract:
         raise HTTPException(status_code=404, detail="Report not found")
