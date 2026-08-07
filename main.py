@@ -1844,6 +1844,36 @@ def _get_owned_contract(db: DBSession, user, contract_id: int) -> Contract:
     return contract
 
 
+@app.post("/contract/{contract_id}/delete")
+async def delete_contract(
+    request: Request, contract_id: int, db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
+    """Permanently deletes a single contract: extracted text, findings,
+    every derived analysis field (LLM output, risk scores, structure/clause-
+    quality/metadata reports, review decisions), and its share link/settings
+    — the whole row. ContractEvent rows cascade-delete with it (see
+    analytics_models.py's ondelete="CASCADE" + the ORM relationship's
+    cascade="all, delete-orphan" on Contract.events). Exported PDFs/DOCX are
+    generated on demand from this row and never written to disk (see
+    docx_export.py / _build_pdf_bytes), so there is nothing else to clean up.
+    The playbook this contract was compared against is a reusable template
+    owned separately and is not affected."""
+    user = require_user(request, db)
+    contract = _get_owned_contract(db, user, contract_id)
+
+    filename = contract.filename
+    db.delete(contract)
+    db.commit()
+
+    audit_log.record_event(
+        db, "contract_deleted", request=request, actor_user_id=user.id,
+        target_type="contract", target_id=contract_id, success=True,
+        metadata={"filename": filename},
+    )
+    return {"deleted": True}
+
+
 @app.get("/contract/{contract_id}/review", response_class=HTMLResponse)
 async def review_contract(request: Request, contract_id: int, db: DBSession = Depends(get_db)):
     user = require_user(request, db)
