@@ -75,6 +75,7 @@ import google_oauth
 import emailer
 import analytics
 import audit_log
+import upload_security
 from analytics_middleware import AnalyticsMiddleware
 from channel_classifier import CHANNELS as ACQUISITION_CHANNELS
 
@@ -247,7 +248,15 @@ def require_user(request: Request, db: DBSession) -> User:
 
 
 def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
+    """Single choke point for every upload path (single/batch contract
+    upload, playbook create/edit) — see upload_security.py. Magic-byte
+    validation, malware scanning, and the zip/PDF-bomb guards all happen
+    here so every call site gets them without duplicating the checks."""
     ext = os.path.splitext(filename.lower())[1]
+
+    upload_security.validate_magic_bytes(file_bytes, ext)
+    upload_security.scan_for_malware(file_bytes)
+
     if ext == ".txt":
         try:
             return file_bytes.decode("utf-8", errors="ignore")
@@ -255,10 +264,14 @@ def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
             return file_bytes.decode("latin-1", errors="ignore")
     if ext == ".pdf":
         reader = PdfReader(io.BytesIO(file_bytes))
-        return "\n".join(p.extract_text() or "" for p in reader.pages)
+        upload_security.validate_pdf_page_count(len(reader.pages))
+        text = "\n".join(p.extract_text() or "" for p in reader.pages)
+        return upload_security.enforce_extracted_text_limit(text)
     if ext == ".docx":
+        upload_security.validate_docx_zip_safety(file_bytes)
         doc = Document(io.BytesIO(file_bytes))
-        return "\n".join(p.text for p in doc.paragraphs)
+        text = "\n".join(p.text for p in doc.paragraphs)
+        return upload_security.enforce_extracted_text_limit(text)
     raise ValueError("Unsupported file type")
 
 
@@ -991,9 +1004,10 @@ async def upload_contract(
 
     if not file.filename:
         return upload_error("No file selected. Choose a PDF, DOCX, or TXT contract to analyze.")
-    ext = os.path.splitext(file.filename.lower())[1]
+    filename = upload_security.sanitize_filename(file.filename)
+    ext = os.path.splitext(filename.lower())[1]
     if ext not in ALLOWED_EXTENSIONS:
-        return upload_error(f"“{file.filename}” isn’t a supported format. Upload a PDF, DOCX, or TXT file.")
+        return upload_error(f"“{filename}” isn’t a supported format. Upload a PDF, DOCX, or TXT file.")
 
     file_bytes = await file.read()
     if not file_bytes:
@@ -1002,11 +1016,13 @@ async def upload_contract(
         return upload_error("That file is larger than the 10MB limit. Try compressing it or splitting the document.")
 
     try:
-        contract_text = extract_text_from_file(file_bytes, file.filename)
+        contract_text = extract_text_from_file(file_bytes, filename)
         if not contract_text or not contract_text.strip():
             return upload_error("We couldn’t find any text in that document. If it’s a scanned PDF, run OCR first and re-upload.")
     except HTTPException:
         raise
+    except upload_security.UploadRejected as e:
+        return upload_error(str(e))
     except Exception:
         return upload_error("We couldn’t read that document. Make sure it opens correctly, then try again.")
 
@@ -1023,13 +1039,13 @@ async def upload_contract(
                 "dev_mode": DEV_MODE,
             })
 
-        analytics.record_event(request, "upload_started", user=user, metadata={"filename": file.filename})
+        analytics.record_event(request, "upload_started", user=user, metadata={"filename": filename})
 
         started_at = time.perf_counter()
-        analytics.record_event(request, "analysis_started", user=user, metadata={"filename": file.filename})
+        analytics.record_event(request, "analysis_started", user=user, metadata={"filename": filename})
         analysis = run_analysis(contract_text)
         analytics.record_event(request, "analysis_completed", user=user, metadata={
-            "filename": file.filename, "overall_risk": analysis.get("overall_risk"),
+            "filename": filename, "overall_risk": analysis.get("overall_risk"),
         })
         processing_time = time.perf_counter() - started_at
 
@@ -1043,7 +1059,7 @@ async def upload_contract(
 
         contract = Contract(
             user_id=user.id,
-            filename=file.filename,
+            filename=filename,
             contract_text=contract_text,
             overall_risk=analysis["overall_risk"],
             findings_json=analysis["findings_dict"],
@@ -1071,7 +1087,7 @@ async def upload_contract(
 
         contract_event = analytics.build_contract_event(
             request, contract_id=contract.id, user_id=user.id,
-            filename=file.filename, file_bytes=file_bytes,
+            filename=filename, file_bytes=file_bytes,
             status="completed", processing_time=processing_time,
         )
         db.add(contract_event)
@@ -1081,7 +1097,7 @@ async def upload_contract(
         db.refresh(contract)
 
         analytics.record_event(request, "upload_completed", user=user, metadata={
-            "contract_id": contract.id, "filename": file.filename, "overall_risk": contract.overall_risk,
+            "contract_id": contract.id, "filename": filename, "overall_risk": contract.overall_risk,
         })
 
         return RedirectResponse(url=f"/contract/{contract.id}/review", status_code=303)
@@ -1092,7 +1108,7 @@ async def upload_contract(
         sig = hmac.new(APP_HMAC_SECRET.encode(), app_session_id.encode(), hashlib.sha256).hexdigest()
         token = f"{app_session_id}:{sig}"
         session_store[app_session_id] = {
-            "paid": True, "text": contract_text, "filename": file.filename,
+            "paid": True, "text": contract_text, "filename": filename,
             "stripe_session_id": None, "expires_at": datetime.now() + timedelta(hours=24),
         }
         current_base_url = get_base_url(request)
@@ -1157,7 +1173,8 @@ async def batch_upload_submit(
     for f in files:
         if not f.filename:
             continue
-        ext = os.path.splitext(f.filename.lower())[1]
+        batch_filename = upload_security.sanitize_filename(f.filename)
+        ext = os.path.splitext(batch_filename.lower())[1]
         if ext not in ALLOWED_EXTENSIONS:
             continue
 
@@ -1166,7 +1183,7 @@ async def batch_upload_submit(
             continue
 
         try:
-            text = extract_text_from_file(file_bytes, f.filename)
+            text = extract_text_from_file(file_bytes, batch_filename)
             if not text or not text.strip():
                 continue
         except Exception:
@@ -1180,7 +1197,7 @@ async def batch_upload_submit(
             deviations = comparison
 
         contract = Contract(
-            user_id=user.id, filename=f.filename, contract_text=text,
+            user_id=user.id, filename=batch_filename, contract_text=text,
             overall_risk=analysis["overall_risk"], findings_json=analysis["findings_dict"],
             llm_result_json=analysis["llm_result"], rule_counts_json=analysis["rule_counts"],
             rule_engine_version=analysis["version"], analysis_completed=True,
@@ -2220,7 +2237,8 @@ async def playbook_new_submit(
             "error": "Please upload a template file.", "current_year": datetime.now().year,
         })
 
-    ext = os.path.splitext(file.filename.lower())[1]
+    playbook_filename = upload_security.sanitize_filename(file.filename)
+    ext = os.path.splitext(playbook_filename.lower())[1]
     if ext not in ALLOWED_EXTENSIONS:
         return templates.TemplateResponse("playbook_form.html", {
             "request": request, "user": user, "playbook": None,
@@ -2229,7 +2247,12 @@ async def playbook_new_submit(
 
     file_bytes = await file.read()
     try:
-        template_text = extract_text_from_file(file_bytes, file.filename)
+        template_text = extract_text_from_file(file_bytes, playbook_filename)
+    except upload_security.UploadRejected as e:
+        return templates.TemplateResponse("playbook_form.html", {
+            "request": request, "user": user, "playbook": None,
+            "error": str(e), "current_year": datetime.now().year,
+        })
     except Exception:
         return templates.TemplateResponse("playbook_form.html", {
             "request": request, "user": user, "playbook": None,
@@ -2288,11 +2311,12 @@ async def playbook_edit_submit(
     playbook.description = description.strip() or None
 
     if file and file.filename:
-        ext = os.path.splitext(file.filename.lower())[1]
+        edit_filename = upload_security.sanitize_filename(file.filename)
+        ext = os.path.splitext(edit_filename.lower())[1]
         if ext in ALLOWED_EXTENSIONS:
             file_bytes = await file.read()
             try:
-                template_text = extract_text_from_file(file_bytes, file.filename)
+                template_text = extract_text_from_file(file_bytes, edit_filename)
                 playbook.template_text = template_text
                 analysis = rule_engine.analyze(template_text)
                 playbook.template_findings_json = [

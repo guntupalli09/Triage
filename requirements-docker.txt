@@ -18,3 +18,7 @@ cryptography>=42.0.0
 # Optional: install geoip2 + set GEOIP_CITY_DB_PATH / GEOIP_ASN_DB_PATH env
 # vars to enable local MaxMind GeoLite2 lookups (see docs/analytics_architecture.md)
 # geoip2>=4.8.0
+# Optional: install clamd + set MALWARE_SCANNER=clamd to enable real
+# malware scanning of uploads against a ClamAV daemon (see
+# docs/security/upload_hardening_infra.md)
+# clamd>=1.0.2
