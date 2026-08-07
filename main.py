@@ -63,7 +63,7 @@ from evaluator import LLMEvaluator
 from database import get_db, db_session, check_db_health, check_redis_health
 from auth import (
     hash_password, verify_password, create_session, get_current_user,
-    logout as auth_logout, check_usage_limit,
+    logout as auth_logout, check_usage_limit, SESSION_SECRET,
 )
 from models import User, Contract, Playbook
 from analytics_models import UserAcquisition, UserSession, UserEvent, ContractEvent
@@ -101,8 +101,22 @@ else:
 
 DEV_MODE = os.getenv("DEV_MODE", "false").strip().lower() == "true"
 
+# Secure cookies by default outside dev mode. auth.py reads SECURE_COOKIES
+# via os.getenv() at cookie-set time (not at import time), so setting this
+# default here — before any request is served — is enough; an operator can
+# still explicitly set SECURE_COOKIES=false to opt out (e.g. an internal
+# deployment behind a TLS-terminating proxy that strips the scheme), but the
+# default no longer silently ships session cookies over plaintext HTTP.
+os.environ.setdefault("SECURE_COOKIES", "false" if DEV_MODE else "true")
+
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "").strip()
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "").strip()
+
+# Secrets that must never reach production: the hardcoded development
+# fallbacks from auth.py / this module, and anything implausibly short to be
+# a real random secret (openssl rand -hex 32 produces 64 hex chars).
+_DEV_DEFAULT_SECRETS = {"dev_secret_change_me", "dev_session_secret_change_me"}
+_MIN_SECRET_LENGTH = 32
 
 if not DEV_MODE:
     if not STRIPE_SECRET_KEY:
@@ -111,6 +125,18 @@ if not DEV_MODE:
         raise ValueError("STRIPE_WEBHOOK_SECRET required in production mode")
     if not OPENAI_API_KEY:
         raise ValueError("OPENAI_API_KEY required in production mode")
+    if APP_HMAC_SECRET in _DEV_DEFAULT_SECRETS or len(APP_HMAC_SECRET) < _MIN_SECRET_LENGTH:
+        raise ValueError(
+            "APP_HMAC_SECRET must be set to a strong random value "
+            f"(>={_MIN_SECRET_LENGTH} chars) in production. "
+            "Generate one with: openssl rand -hex 32"
+        )
+    if SESSION_SECRET in _DEV_DEFAULT_SECRETS or len(SESSION_SECRET) < _MIN_SECRET_LENGTH:
+        raise ValueError(
+            "SESSION_SECRET must be set to a strong random value "
+            f"(>={_MIN_SECRET_LENGTH} chars) in production. "
+            "Generate one with: openssl rand -hex 32"
+        )
     stripe.api_key = STRIPE_SECRET_KEY
 else:
     stripe.api_key = STRIPE_SECRET_KEY if STRIPE_SECRET_KEY else ""

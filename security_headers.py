@@ -47,10 +47,19 @@ def _build_csp() -> str:
 
 _CSP_VALUE = _build_csp()
 
-# HSTS only makes sense to advertise once the deployment actually terminates
-# TLS; advertising it over plain HTTP (e.g. local dev) is harmless but
-# pointless, so gate it the same way cookies already are.
-_SECURE_DEPLOYMENT = os.getenv("SECURE_COOKIES", "false").strip().lower() == "true"
+
+def _secure_deployment() -> bool:
+    """Read SECURE_COOKIES at call time, not at module-import time.
+
+    main.py computes a DEV_MODE-aware default for SECURE_COOKIES (secure
+    unless explicitly running in dev mode) but does so *after* this module
+    is imported, so caching the value once at import would freeze in
+    whatever was set (or unset) before that default ran. HSTS only makes
+    sense to advertise once the deployment actually terminates TLS;
+    advertising it over plain HTTP (e.g. local dev) is harmless but
+    pointless, so gate it the same way cookies already are.
+    """
+    return os.getenv("SECURE_COOKIES", "false").strip().lower() == "true"
 
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
@@ -69,7 +78,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         # X-Frame-Options above already covers modern ones.
         response.headers.setdefault("X-XSS-Protection", "0")
 
-        if _SECURE_DEPLOYMENT:
+        if _secure_deployment():
             response.headers["Strict-Transport-Security"] = (
                 "max-age=63072000; includeSubDomains; preload"
             )

@@ -2,7 +2,6 @@
 Security headers middleware tests (Priority 1a of the enterprise security
 hardening pass — see docs/security/audit findings).
 """
-import importlib
 import os
 
 import pytest
@@ -68,7 +67,7 @@ def _minimal_app_with_middleware() -> FastAPI:
 def test_hsts_absent_when_not_secure_deployment(monkeypatch):
     """HSTS must not be advertised for a deployment that hasn't opted into
     SECURE_COOKIES=true (i.e. isn't guaranteed to be served over HTTPS)."""
-    monkeypatch.setattr(security_headers, "_SECURE_DEPLOYMENT", False)
+    monkeypatch.setenv("SECURE_COOKIES", "false")
     app = _minimal_app_with_middleware()
     with TestClient(app) as c:
         r = c.get("/ping")
@@ -78,21 +77,19 @@ def test_hsts_absent_when_not_secure_deployment(monkeypatch):
 def test_hsts_present_when_secure_deployment(monkeypatch):
     """Once the deployment sets SECURE_COOKIES=true (HTTPS is guaranteed),
     HSTS must be advertised so browsers enforce it on future visits."""
-    monkeypatch.setattr(security_headers, "_SECURE_DEPLOYMENT", True)
+    monkeypatch.setenv("SECURE_COOKIES", "true")
     app = _minimal_app_with_middleware()
     with TestClient(app) as c:
         r = c.get("/ping")
         assert "max-age=" in r.headers.get("Strict-Transport-Security", "")
 
 
-def test_secure_deployment_flag_reads_env_at_import_time(monkeypatch):
-    """Guards against a future refactor accidentally reading SECURE_COOKIES
-    per-request instead of once at import (the current, intentional design:
-    it mirrors how auth.py gates the Secure cookie flag)."""
+def test_secure_deployment_reads_env_per_request_not_at_import(monkeypatch):
+    """Regression guard: main.py computes SECURE_COOKIES's production
+    default *after* importing this module, so caching the flag once at
+    import time would freeze in the wrong value. It must be read live."""
     monkeypatch.setenv("SECURE_COOKIES", "true")
-    importlib.reload(security_headers)
-    assert security_headers._SECURE_DEPLOYMENT is True
+    assert security_headers._secure_deployment() is True
 
     monkeypatch.setenv("SECURE_COOKIES", "false")
-    importlib.reload(security_headers)
-    assert security_headers._SECURE_DEPLOYMENT is False
+    assert security_headers._secure_deployment() is False
