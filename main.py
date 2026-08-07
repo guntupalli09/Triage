@@ -43,6 +43,7 @@ from fastapi.templating import Jinja2Templates
 from starlette.middleware.cors import CORSMiddleware
 from security_headers import SecurityHeadersMiddleware
 from rate_limit import rate_limit
+from csrf import CSRFCookieMiddleware, csrf_protect, get_csrf_token
 from fpdf import FPDF
 from PyPDF2 import PdfReader
 from docx import Document
@@ -176,6 +177,7 @@ PLAN_LIMITS = {
 # --- App setup ---
 templates = Jinja2Templates(directory="templates")
 templates.env.globals["google_signin_enabled"] = google_oauth.is_configured()
+templates.env.globals["csrf_token"] = get_csrf_token
 app = FastAPI(title="Contract Risk TriageCounsel Tool", version="2.0.0")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 CORS_ORIGINS = os.getenv("CORS_ORIGINS", BASE_URL).split(",")
@@ -200,6 +202,7 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
 app.add_middleware(AnalyticsMiddleware)
 app.add_middleware(RequestIDMiddleware)
 app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(CSRFCookieMiddleware)
 
 rule_engine = RuleEngine()
 llm_evaluator = LLMEvaluator()
@@ -471,6 +474,7 @@ async def login_page(request: Request, db: DBSession = Depends(get_db)):
 async def login_submit(
     request: Request, email: str = Form(...), password: str = Form(...), db: DBSession = Depends(get_db),
     _rl: None = Depends(rate_limit("login", limit=10, window_seconds=60)),
+    _csrf: None = Depends(csrf_protect),
 ):
     user = db.query(User).filter(User.email == email.lower().strip()).first()
     if not user or not verify_password(password, user.password_hash):
@@ -498,6 +502,7 @@ async def register_submit(
     company: str = Form(""),
     db: DBSession = Depends(get_db),
     _rl: None = Depends(rate_limit("register", limit=5, window_seconds=60)),
+    _csrf: None = Depends(csrf_protect),
 ):
     email = email.lower().strip()
 
@@ -663,6 +668,7 @@ async def forgot_password_page(request: Request):
 def forgot_password_submit(
     request: Request, email: str = Form(...), db: DBSession = Depends(get_db),
     _rl: None = Depends(rate_limit("forgot-password", limit=5, window_seconds=900)),
+    _csrf: None = Depends(csrf_protect),
 ):
     if not emailer.is_configured():
         return templates.TemplateResponse("forgot_password.html", {
@@ -732,6 +738,7 @@ async def reset_password_submit(
     confirm_password: str = Form(...),
     db: DBSession = Depends(get_db),
     _rl: None = Depends(rate_limit("reset-password", limit=10, window_seconds=3600)),
+    _csrf: None = Depends(csrf_protect),
 ):
     user = _find_user_by_reset_token(db, token)
     if not user:
@@ -770,7 +777,10 @@ async def account_page(request: Request, db: DBSession = Depends(get_db)):
 
 
 @app.post("/account", response_class=HTMLResponse)
-async def account_update(request: Request, name: str = Form(""), company: str = Form(""), db: DBSession = Depends(get_db)):
+async def account_update(
+    request: Request, name: str = Form(""), company: str = Form(""), db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
     user = require_user(request, db)
     user.name = name.strip() or None
     user.company = company.strip() or None
@@ -788,6 +798,7 @@ async def account_change_password(
     new_password: str = Form(...),
     confirm_password: str = Form(...),
     db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
 
@@ -827,7 +838,7 @@ async def billing_page(request: Request, db: DBSession = Depends(get_db)):
 
 
 @app.post("/billing/cancel")
-async def billing_cancel(request: Request, db: DBSession = Depends(get_db)):
+async def billing_cancel(request: Request, db: DBSession = Depends(get_db), _csrf: None = Depends(csrf_protect)):
     user = require_user(request, db)
 
     if user.stripe_subscription_id and stripe.api_key:
@@ -864,7 +875,7 @@ async def settings_page(request: Request, db: DBSession = Depends(get_db)):
 
 
 @app.post("/settings/delete-account")
-async def delete_account(request: Request, db: DBSession = Depends(get_db)):
+async def delete_account(request: Request, db: DBSession = Depends(get_db), _csrf: None = Depends(csrf_protect)):
     user = require_user(request, db)
 
     db.query(Contract).filter(Contract.user_id == user.id).delete()
@@ -954,6 +965,7 @@ async def upload_contract(
     playbook_id: Optional[int] = Form(None),
     db: DBSession = Depends(get_db),
     _rl: None = Depends(rate_limit("upload", limit=30, window_seconds=3600)),
+    _csrf: None = Depends(csrf_protect),
 ):
     user = get_current_user(request, db)
 
@@ -1103,6 +1115,7 @@ async def batch_upload_submit(
     playbook_id: Optional[int] = Form(None),
     db: DBSession = Depends(get_db),
     _rl: None = Depends(rate_limit("batch-upload", limit=10, window_seconds=3600)),
+    _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
 
@@ -1694,7 +1707,10 @@ async def download_pdf_token(request: Request, token: str):
 # ============================================================
 
 @app.post("/contract/{contract_id}/share")
-async def create_share_link(request: Request, contract_id: int, password: str = Form(""), db: DBSession = Depends(get_db)):
+async def create_share_link(
+    request: Request, contract_id: int, password: str = Form(""), db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
     user = require_user(request, db)
     contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
     if not contract:
@@ -1765,6 +1781,7 @@ async def submit_review_decision(
     finding_index: int = Form(...), action: str = Form(...),
     reason: str = Form(""), edited_text: str = Form(""),
     db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
@@ -1799,7 +1816,10 @@ async def submit_review_decision(
 
 
 @app.post("/contract/{contract_id}/review/comment")
-async def submit_review_comment(request: Request, contract_id: int, finding_index: int = Form(...), comment: str = Form(...), db: DBSession = Depends(get_db)):
+async def submit_review_comment(
+    request: Request, contract_id: int, finding_index: int = Form(...), comment: str = Form(...),
+    db: DBSession = Depends(get_db), _csrf: None = Depends(csrf_protect),
+):
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
 
@@ -1819,7 +1839,10 @@ async def submit_review_comment(request: Request, contract_id: int, finding_inde
 
 
 @app.post("/contract/{contract_id}/review/verify")
-async def verify_review_finding(request: Request, contract_id: int, finding_index: int = Form(...), db: DBSession = Depends(get_db)):
+async def verify_review_finding(
+    request: Request, contract_id: int, finding_index: int = Form(...), db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
     """The Deterministic Replay 'aha' moment, done for real: re-runs the full
     rule engine against the stored contract text and confirms the same rule
     still fires against the same exact text — not a canned animation. Matches
@@ -1849,7 +1872,10 @@ async def verify_review_finding(request: Request, contract_id: int, finding_inde
 
 
 @app.post("/contract/{contract_id}/review/finalize")
-async def finalize_review(request: Request, contract_id: int, db: DBSession = Depends(get_db)):
+async def finalize_review(
+    request: Request, contract_id: int, db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
 
@@ -1920,6 +1946,7 @@ async def view_shared_report(request: Request, share_token: str, db: DBSession =
 async def view_shared_report_auth(
     request: Request, share_token: str, password: str = Form(...), db: DBSession = Depends(get_db),
     _rl: None = Depends(rate_limit("shared-report-password", limit=10, window_seconds=300)),
+    _csrf: None = Depends(csrf_protect),
 ):
     contract = db.query(Contract).filter(Contract.share_token == share_token).first()
     if not contract:
@@ -1995,6 +2022,7 @@ async def playbook_new_submit(
     description: str = Form(""),
     file: UploadFile = File(...),
     db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
 
@@ -2060,6 +2088,7 @@ async def playbook_edit_submit(
     name: str = Form(...), contract_type: str = Form(""),
     description: str = Form(""), file: Optional[UploadFile] = File(None),
     db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
     playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
@@ -2094,7 +2123,10 @@ async def playbook_edit_submit(
 
 
 @app.post("/playbooks/{playbook_id}/delete")
-async def playbook_delete(request: Request, playbook_id: int, db: DBSession = Depends(get_db)):
+async def playbook_delete(
+    request: Request, playbook_id: int, db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
     user = require_user(request, db)
     playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
     if not playbook:
@@ -2147,7 +2179,10 @@ async def benchmark_page(request: Request, db: DBSession = Depends(get_db)):
 # ============================================================
 
 @app.post("/subscribe/{plan}")
-async def subscribe(request: Request, plan: str, db: DBSession = Depends(get_db)):
+async def subscribe(
+    request: Request, plan: str, db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
     user = require_user(request, db)
 
     if plan not in PLAN_LIMITS:
@@ -2380,7 +2415,10 @@ async def contact_page(request: Request, db: DBSession = Depends(get_db)):
 
 
 @app.post("/contact", response_class=HTMLResponse)
-async def contact_submit(request: Request, db: DBSession = Depends(get_db)):
+async def contact_submit(
+    request: Request, db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
     user = get_current_user(request, db)
     return templates.TemplateResponse("contact.html", {
         "request": request, "user": user, "current_year": datetime.now().year,

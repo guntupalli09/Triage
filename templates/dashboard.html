@@ -132,7 +132,11 @@
 {% block scripts %}
 <script>
 function shareContract(contractId) {
-    fetch('/contract/' + contractId + '/share', {method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+    fetch('/contract/' + contractId + '/share', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'csrf_token=' + encodeURIComponent(getCsrfToken()),
+    })
         .then(r => r.json())
         .then(data => {
             if (data.share_url) {

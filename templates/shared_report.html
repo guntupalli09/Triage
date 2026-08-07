@@ -129,6 +129,7 @@
                 </div>
                 {% endif %}
                 <form method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
                     <div class="mb-4">
                         <label for="password" class="block text-sm font-semibold text-[#0F172A] mb-2">Password</label>
                         <input type="password" id="password" name="password" required

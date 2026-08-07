@@ -51,6 +51,7 @@
         <!-- Form -->
         <div class="premium-card p-6 sm:p-8 fade-in" style="transform: none;">
             <form action="{% if playbook %}/playbooks/{{ playbook.id }}/edit{% else %}/playbooks/new{% endif %}" method="post" enctype="multipart/form-data" id="playbookForm">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
                 <!-- Name -->
                 <div class="mb-6">
                     <label for="name" class="block text-sm font-semibold text-[#0F172A] mb-2">Playbook Name <span class="text-red-500">*</span></label>

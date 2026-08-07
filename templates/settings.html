@@ -34,6 +34,7 @@
         <h2 class="text-lg font-bold text-[#0F172A] mb-2">Delete Account</h2>
         <p class="text-sm text-gray-500 mb-4">Permanently delete your account and all associated contracts and playbooks. This cannot be undone.</p>
         <form action="/settings/delete-account" method="post" onsubmit="return confirm('This will permanently delete your account and all data. This cannot be undone. Continue?');">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
             <button type="submit" class="btn-secondary py-2.5 px-6 rounded-lg font-semibold text-red-600">Delete Account</button>
         </form>
     </div>
