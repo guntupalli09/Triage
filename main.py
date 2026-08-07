@@ -74,6 +74,7 @@ from playbook_engine import PlaybookEngine
 import google_oauth
 import emailer
 import analytics
+import audit_log
 from analytics_middleware import AnalyticsMiddleware
 from channel_classifier import CHANNELS as ACQUISITION_CHANNELS
 
@@ -1712,9 +1713,81 @@ async def download_pdf_token(request: Request, token: str):
 # REPORT SHARING
 # ============================================================
 
+SHARE_MAX_EXPIRY_DAYS = 365
+SHARE_MAX_VIEWS_LIMIT = 100_000
+
+
+def _parse_positive_int_form_field(raw: str, field_name: str, max_value: int) -> Optional[int]:
+    """Blank/whitespace-only means "no limit" (None). A present value must
+    be a positive integer within a sane bound — otherwise a typo like
+    "999999999999" could effectively disable the limit anyway."""
+    raw = (raw or "").strip()
+    if not raw:
+        return None
+    try:
+        value = int(raw)
+    except ValueError:
+        raise HTTPException(status_code=400, detail=f"{field_name} must be a whole number")
+    if value < 1 or value > max_value:
+        raise HTTPException(status_code=400, detail=f"{field_name} must be between 1 and {max_value}")
+    return value
+
+
 @app.post("/contract/{contract_id}/share")
 async def create_share_link(
-    request: Request, contract_id: int, password: str = Form(""), db: DBSession = Depends(get_db),
+    request: Request, contract_id: int,
+    password: str = Form(""),
+    expires_in_days: str = Form(""),
+    max_views: str = Form(""),
+    db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+):
+    user = require_user(request, db)
+    contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
+    if not contract:
+        raise HTTPException(status_code=404, detail="Contract not found")
+
+    expires_days = _parse_positive_int_form_field(expires_in_days, "expires_in_days", SHARE_MAX_EXPIRY_DAYS)
+    views_limit = _parse_positive_int_form_field(max_views, "max_views", SHARE_MAX_VIEWS_LIMIT)
+
+    is_new_link = not contract.share_token
+    if is_new_link:
+        contract.generate_share_token()
+    if password:
+        contract.share_password_hash = hash_password(password)
+    contract.share_expires_at = (datetime.utcnow() + timedelta(days=expires_days)) if expires_days else None
+    contract.share_max_views = views_limit
+    # (Re)sharing un-revokes a previously revoked link and starts the view
+    # count fresh under the new settings — an explicit, visible action the
+    # owner took, not something that happens silently on its own.
+    contract.share_revoked_at = None
+    contract.share_view_count = 0
+    db.commit()
+
+    analytics.record_event(request, "share_report", user=user, metadata={"contract_id": contract.id})
+    audit_log.record_event(
+        db, "share_link_created" if is_new_link else "share_link_updated",
+        request=request, actor_user_id=user.id, target_type="contract", target_id=contract.id,
+        success=True,
+        metadata={
+            "has_password": bool(contract.share_password_hash),
+            "expires_in_days": expires_days,
+            "max_views": views_limit,
+        },
+    )
+
+    share_url = f"{get_base_url(request)}/shared/{contract.share_token}"
+    return {
+        "share_url": share_url,
+        "token": contract.share_token,
+        "expires_at": contract.share_expires_at.isoformat() if contract.share_expires_at else None,
+        "max_views": contract.share_max_views,
+    }
+
+
+@app.post("/contract/{contract_id}/share/revoke")
+async def revoke_share_link(
+    request: Request, contract_id: int, db: DBSession = Depends(get_db),
     _csrf: None = Depends(csrf_protect),
 ):
     user = require_user(request, db)
@@ -1723,15 +1796,37 @@ async def create_share_link(
         raise HTTPException(status_code=404, detail="Contract not found")
 
     if not contract.share_token:
-        contract.generate_share_token()
-    if password:
-        contract.share_password_hash = hash_password(password)
+        raise HTTPException(status_code=400, detail="This contract has no share link to revoke")
+
+    contract.share_revoked_at = datetime.utcnow()
     db.commit()
 
-    analytics.record_event(request, "share_report", user=user, metadata={"contract_id": contract.id})
+    audit_log.record_event(
+        db, "share_link_revoked", request=request, actor_user_id=user.id,
+        target_type="contract", target_id=contract.id, success=True,
+    )
+    return {"revoked": True}
 
-    share_url = f"{get_base_url(request)}/shared/{contract.share_token}"
-    return {"share_url": share_url, "token": contract.share_token}
+
+@app.get("/contract/{contract_id}/share/status")
+async def share_link_status(request: Request, contract_id: int, db: DBSession = Depends(get_db)):
+    user = require_user(request, db)
+    contract = db.query(Contract).filter(Contract.id == contract_id, Contract.user_id == user.id).first()
+    if not contract:
+        raise HTTPException(status_code=404, detail="Contract not found")
+
+    if not contract.share_token:
+        return {"has_link": False}
+
+    return {
+        "has_link": True,
+        "share_url": f"{get_base_url(request)}/shared/{contract.share_token}",
+        "has_password": bool(contract.share_password_hash),
+        "expires_at": contract.share_expires_at.isoformat() if contract.share_expires_at else None,
+        "max_views": contract.share_max_views,
+        "view_count": contract.share_view_count,
+        "revoked": contract.share_revoked_at is not None,
+    }
 
 
 # ============================================================
@@ -1933,11 +2028,49 @@ async def download_negotiation_package(request: Request, contract_id: int, db: D
     )
 
 
+def _evaluate_share_link_access(contract: Contract) -> Optional[str]:
+    """Returns None if the link currently grants access, or a short reason
+    code otherwise ("revoked", "expired", "max_views_exceeded"). Checked
+    before the password gate — a revoked/expired/exhausted link is
+    unavailable regardless of whether the visitor has the password."""
+    if contract.share_revoked_at is not None:
+        return "revoked"
+    if contract.share_expires_at is not None and datetime.utcnow() > contract.share_expires_at:
+        return "expired"
+    if contract.share_max_views is not None and contract.share_view_count >= contract.share_max_views:
+        return "max_views_exceeded"
+    return None
+
+
+_SHARE_UNAVAILABLE_MESSAGES = {
+    "revoked": "This link has been revoked by its owner and is no longer available.",
+    "expired": "This link has expired and is no longer available.",
+    "max_views_exceeded": "This link has reached its maximum number of views and is no longer available.",
+}
+
+
+def _share_unavailable_response(request: Request, contract: Contract, reason: str) -> HTMLResponse:
+    return templates.TemplateResponse("shared_report.html", {
+        "request": request, "link_unavailable": True,
+        "link_unavailable_message": _SHARE_UNAVAILABLE_MESSAGES[reason],
+        "password_required": False, "password_error": False,
+        "filename": contract.filename, "current_year": datetime.now().year,
+    })
+
+
 @app.get("/shared/{share_token}", response_class=HTMLResponse)
 async def view_shared_report(request: Request, share_token: str, db: DBSession = Depends(get_db)):
     contract = db.query(Contract).filter(Contract.share_token == share_token).first()
     if not contract:
         raise HTTPException(status_code=404, detail="Report not found")
+
+    denial_reason = _evaluate_share_link_access(contract)
+    if denial_reason:
+        audit_log.record_event(
+            db, "share_link_accessed", request=request, target_type="contract",
+            target_id=contract.id, success=False, detail=denial_reason,
+        )
+        return _share_unavailable_response(request, contract, denial_reason)
 
     if contract.share_password_hash:
         return templates.TemplateResponse("shared_report.html", {
@@ -1945,7 +2078,7 @@ async def view_shared_report(request: Request, share_token: str, db: DBSession =
             "filename": contract.filename, "current_year": datetime.now().year,
         })
 
-    return _render_shared_report(request, contract)
+    return _render_shared_report(request, contract, db)
 
 
 @app.post("/shared/{share_token}", response_class=HTMLResponse)
@@ -1958,16 +2091,35 @@ async def view_shared_report_auth(
     if not contract:
         raise HTTPException(status_code=404, detail="Report not found")
 
+    denial_reason = _evaluate_share_link_access(contract)
+    if denial_reason:
+        audit_log.record_event(
+            db, "share_link_accessed", request=request, target_type="contract",
+            target_id=contract.id, success=False, detail=denial_reason,
+        )
+        return _share_unavailable_response(request, contract, denial_reason)
+
     if contract.share_password_hash and not verify_password(password, contract.share_password_hash):
+        audit_log.record_event(
+            db, "share_link_accessed", request=request, target_type="contract",
+            target_id=contract.id, success=False, detail="wrong_password",
+        )
         return templates.TemplateResponse("shared_report.html", {
             "request": request, "password_required": True, "password_error": True,
             "filename": contract.filename, "current_year": datetime.now().year,
         })
 
-    return _render_shared_report(request, contract)
+    return _render_shared_report(request, contract, db)
 
 
-def _render_shared_report(request: Request, contract: Contract) -> HTMLResponse:
+def _render_shared_report(request: Request, contract: Contract, db: DBSession) -> HTMLResponse:
+    contract.share_view_count += 1
+    db.commit()
+    audit_log.record_event(
+        db, "share_link_accessed", request=request, target_type="contract",
+        target_id=contract.id, success=True, detail="viewed",
+    )
+
     findings_dict = contract.findings_json or []
     llm_result = contract.llm_result_json or {}
     all_issues = build_enhanced_issues(findings_dict, llm_result)

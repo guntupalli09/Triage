@@ -207,6 +207,21 @@ def _run_migrations():
             if "review_finalized_at" not in contract_cols:
                 conn.execute(text("ALTER TABLE contracts ADD COLUMN review_finalized_at TIMESTAMP"))
                 logger.info("Migration applied: contracts.review_finalized_at column")
+            if "share_expires_at" not in contract_cols:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN share_expires_at TIMESTAMP"))
+                logger.info("Migration applied: contracts.share_expires_at column")
+            if "share_revoked_at" not in contract_cols:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN share_revoked_at TIMESTAMP"))
+                logger.info("Migration applied: contracts.share_revoked_at column")
+            if "share_max_views" not in contract_cols:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN share_max_views INTEGER"))
+                logger.info("Migration applied: contracts.share_max_views column")
+            if "share_view_count" not in contract_cols:
+                # DEFAULT 0 so existing rows (all pre-hardening, so all
+                # legitimately "0 views recorded so far") satisfy the
+                # model's nullable=False without a separate backfill pass.
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN share_view_count INTEGER NOT NULL DEFAULT 0"))
+                logger.info("Migration applied: contracts.share_view_count column")
 
 
 def init_db():

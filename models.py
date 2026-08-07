@@ -131,9 +131,17 @@ class Contract(Base):
     review_decisions_json = Column(JSON, nullable=True)
     review_finalized_at = Column(DateTime, nullable=True)
 
-    # Sharing
+    # Sharing. share_token identifies the link; the fields below govern
+    # whether it currently grants access — see main.py's
+    # _evaluate_share_link_access(). None/0 means "no limit" for expiry/max
+    # views, matching the pre-hardening behavior for any link created before
+    # these columns existed (nullable, so old rows default to unrestricted).
     share_token = Column(String(64), nullable=True, unique=True, index=True)
     share_password_hash = Column(String(255), nullable=True)
+    share_expires_at = Column(DateTime, nullable=True)
+    share_revoked_at = Column(DateTime, nullable=True)
+    share_max_views = Column(Integer, nullable=True)
+    share_view_count = Column(Integer, nullable=False, default=0)
 
     # Batch tracking
     batch_id = Column(String(64), nullable=True, index=True)
@@ -166,3 +174,30 @@ class Playbook(Base):
     template_risk = Column(String(20), nullable=True)
 
     user = relationship("User", back_populates="playbooks")
+
+
+class AuditLog(Base):
+    """Append-only security/activity audit trail (P3: share-link events;
+    P7 extends this with login/upload/delete/export/admin/etc. event types).
+    Immutable by convention — no route in this codebase ever issues an
+    UPDATE or DELETE against this table; every write is an INSERT.
+
+    event_type is a short machine-readable string, e.g.
+    "share_link_created", "share_link_revoked", "share_link_accessed".
+    target_type/target_id identify what the event happened to (e.g.
+    "contract", 42). success/detail capture the outcome for access-attempt
+    events (e.g. success=False, detail="expired").
+    """
+    __tablename__ = "audit_logs"
+
+    id = Column(Integer, primary_key=True)
+    event_type = Column(String(64), nullable=False, index=True)
+    actor_user_id = Column(Integer, ForeignKey("users.id"), nullable=True, index=True)
+    target_type = Column(String(64), nullable=True)
+    target_id = Column(Integer, nullable=True, index=True)
+    ip_address = Column(String(45), nullable=True)  # IPv4 or IPv6
+    user_agent = Column(Text, nullable=True)
+    success = Column(Boolean, nullable=True)
+    detail = Column(String(255), nullable=True)
+    metadata_json = Column(JSON, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
