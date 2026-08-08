@@ -45,6 +45,28 @@ VENDOR_ROLE = "vendor"
 CUSTOMER_ROLE = "customer"
 UNKNOWN_ROLE = "unknown"
 
+# Contract types where the underlying relationship is actually
+# vendor-provides / customer-pays shaped. Outside this list — an Employment
+# Agreement, an LLC Operating Agreement, a Lease, a Settlement, a Franchise,
+# a Credit Agreement, an Asset/Stock Purchase Agreement, etc. — neither
+# party is a "vendor" or "customer" in any meaningful sense, and cue-word
+# counting (see resolve_party_roles) will still confidently pick one: e.g.
+# an executive's employment agreement scored the Executive AND the Company
+# both "vendor", because ordinary boilerplate ("Executive shall perform his
+# duties", "Company shall provide certain benefits") trips the same verbs a
+# real vendor/customer contract uses. That's the same failure shape as
+# reading a currency code out of an unrelated defined-term acronym: a
+# confident label attached to the wrong axis entirely. Forcing every party
+# outside this allowlist to UNKNOWN_ROLE means the report shows no role
+# label rather than a wrong one — consistent with this codebase's existing
+# "missing is None, never guessed" rule for structured extraction.
+VENDOR_CUSTOMER_CONTRACT_TYPES = {
+    "Non-Disclosure / Confidentiality Agreement",
+    "Master Services Agreement",
+    "SaaS / Subscription Agreement",
+    "License Agreement",
+}
+
 # Generic contract words that are sometimes used AS the defined short name
 # but never tell us anything about role on their own — excluded so we don't
 # treat "Party" or "Agreement" as if it were a resolvable party name.
@@ -138,10 +160,20 @@ class PartyRoleMap:
         return "favorable" if role == reviewing_role else "unfavorable"
 
 
-def resolve_party_roles(text: str) -> PartyRoleMap:
+def resolve_party_roles(text: str, contract_type: Optional[str] = None) -> PartyRoleMap:
     """
     Deterministically resolve each defined party name in `text` to a
     vendor/customer role. See module docstring for the method.
+
+    contract_type: the document's classified type (see
+    metadata_extractor.classify_contract_type), if known. When it's known
+    AND it's not one of VENDOR_CUSTOMER_CONTRACT_TYPES, every party is
+    resolved to UNKNOWN_ROLE without running the cue-word scan at all — the
+    vendor/customer axis doesn't describe this contract's relationship, so
+    scoring it would only produce a confident wrong label, never a useful
+    right one. contract_type=None (unclassified, or the caller hasn't
+    classified yet) falls back to the pre-existing cue-word behavior, since
+    an unclassified document may still genuinely be a vendor contract.
     """
     # Defined names are declared early in the document (PARTIES/preamble);
     # restrict the search so a coincidental parenthetical quote deep in the
@@ -157,8 +189,13 @@ def resolve_party_roles(text: str) -> PartyRoleMap:
     if not seen:
         return PartyRoleMap()
 
+    axis_applies = contract_type is None or contract_type in VENDOR_CUSTOMER_CONTRACT_TYPES
+
     name_to_role: Dict[str, str] = {}
     for name in seen:
+        if not axis_applies:
+            name_to_role[name.lower()] = UNKNOWN_ROLE
+            continue
         name_re = re.compile(rf"\b{re.escape(name)}\b")
         vendor_hits = 0
         customer_hits = 0
