@@ -15,17 +15,27 @@
             See a real contract get triaged
         </h1>
         <p class="text-lg text-gray-500 max-w-2xl mx-auto">
-            Below is a real mutual NDA. TriageCounsel's deterministic rule engine has already found {{ finding_count }} issues in it —
-            including at least one high-severity one-sided clause. Open the full report to see every finding, the risk
-            dashboard, and the interactive redline workspace.
+            TriageCounsel's deterministic rule engine has already found {{ finding_count }} issue{{ 's' if finding_count != 1 else '' }} in the
+            document below. Open the full report to see every finding, the risk dashboard, and the interactive redline workspace.
         </p>
     </div>
+
+    <div class="flex items-center justify-center gap-2 mb-6" role="tablist" aria-label="Sample contract">
+        {% for key, s in samples.items() %}
+        <a href="/demo?sample={{ key }}"
+           class="px-4 py-2 rounded-lg text-sm font-semibold border transition-colors {% if key == sample_key %}bg-[#0F172A] text-white border-[#0F172A]{% else %}bg-white text-gray-500 border-gray-200 hover:border-gray-300{% endif %}"
+           role="tab" aria-selected="{{ 'true' if key == sample_key else 'false' }}">
+            {{ s.label }}
+        </a>
+        {% endfor %}
+    </div>
+    <p class="text-sm text-gray-500 text-center max-w-2xl mx-auto mb-8">{{ sample_info.description }}</p>
 
     <div class="card p-0 overflow-hidden mb-8">
         <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50">
             <div class="flex items-center gap-2.5">
                 <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                <span class="text-sm font-semibold text-[#0F172A]">Sample_Mutual_NDA.txt</span>
+                <span class="text-sm font-semibold text-[#0F172A]">{{ sample_info.doc_label }}</span>
             </div>
             <span class="text-xs font-bold uppercase tracking-wide text-red-600">{{ overall_risk|upper }} Risk</span>
         </div>
@@ -43,6 +53,7 @@
         </p>
         <form method="post" action="/demo/start">
             <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+            <input type="hidden" name="sample" value="{{ sample_key }}">
             <button type="submit" class="btn-primary py-3 px-8 rounded-lg text-base">
                 Click to see the full report &amp; redlines &rarr;
             </button>

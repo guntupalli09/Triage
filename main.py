@@ -19,7 +19,7 @@ import secrets
 import re
 from pathlib import Path
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 from dotenv import load_dotenv
 
@@ -2772,45 +2772,91 @@ DEMO_CONTRACT = """MUTUAL NON-DISCLOSURE AGREEMENT
 8. Attorneys' Fees. In the event of any dispute, the prevailing party shall be entitled to recover reasonable attorneys' fees and costs from the non-prevailing party.
 """
 
+# A real, messy, real-world executive employment agreement — sourced from a
+# public SEC EDGAR filing (see sample_contracts/ — same corpus as
+# tests/fixtures/real_contracts), party names swapped for fictional ones
+# since a live public demo shouldn't put a real named executive's actual
+# compensation terms under a "HIGH RISK" banner. Every formatting quirk (a
+# single ~30,000-character paragraph with no line breaks, "EX-10.1" filing
+# header cruft) is untouched — that messiness is the point: it shows the
+# engine working on the kind of extraction quality a lawyer actually gets
+# from a scanned or HTML-derived exhibit, not a hand-formatted sample.
+_MESSY_DEMO_CONTRACT_PATH = Path(__file__).parent / "sample_contracts" / "messy_executive_employment_agreement.txt"
+MESSY_DEMO_CONTRACT = _MESSY_DEMO_CONTRACT_PATH.read_text(encoding="utf-8")
 
-_DEMO_PREVIEW_HIGHLIGHTS = ("in perpetuity", "without limit")
+DEMO_SAMPLES = {
+    "clean": {
+        "text": DEMO_CONTRACT,
+        "filename": "Sample NDA (Demo)",
+        "label": "Clean NDA",
+        "doc_label": "Sample_Mutual_NDA.txt",
+        "description": "A short, cleanly formatted mutual NDA — good for seeing every part of a report at a glance.",
+        "highlights": ("in perpetuity", "without limit"),
+    },
+    "messy": {
+        "text": MESSY_DEMO_CONTRACT,
+        "filename": "Sample Executive Employment Agreement (Messy, Demo)",
+        "label": "Messy Real-World Contract",
+        "doc_label": "exhibit_10.1_employment_agreement.txt",
+        "description": "See how our tool works with messy contracts — this one is a single ~30,000-character block with no paragraph breaks and leftover SEC filing header text, exactly as it came out of the original exhibit.",
+        "highlights": (),
+    },
+}
+_DEFAULT_DEMO_SAMPLE = "clean"
 
 
-def _build_demo_preview_html(contract_text: str) -> str:
-    """Escape the sample contract for safe HTML display and wrap a couple of
-    its known one-sided phrases in the same red "finding" mark styling the
-    real redline workspace uses, so the preview reads as a teaser of that
-    feature rather than a plain text dump. Only the first few clauses are
-    shown (the template clips/fades the rest) — this is marketing copy, not
-    the analysis itself, so no need to render the whole document here."""
-    preview_source = "\n\n".join(contract_text.strip().split("\n\n")[:5])
-    escaped = html.escape(preview_source)
-    for phrase in _DEMO_PREVIEW_HIGHLIGHTS:
+def _demo_sample_key(raw: Optional[str]) -> str:
+    return raw if raw in DEMO_SAMPLES else _DEFAULT_DEMO_SAMPLE
+
+
+def _build_demo_preview_html(contract_text: str, highlights: Tuple[str, ...], max_chars: int = 900) -> str:
+    """Escape the sample contract for safe HTML display and wrap any known
+    one-sided phrases in the same red "finding" mark styling the real
+    redline workspace uses, so the preview reads as a teaser of that
+    feature rather than a plain text dump. Truncates to max_chars at the
+    last word boundary rather than splitting on blank lines — some real
+    contracts (see the messy sample) have no blank-line paragraph breaks at
+    all, so a paragraph-based cut would grab the entire document instead of
+    a short preview."""
+    source = contract_text.strip()
+    truncated = len(source) > max_chars
+    if truncated:
+        source = source[:max_chars].rsplit(" ", 1)[0]
+    escaped = html.escape(source)
+    for phrase in highlights:
         escaped = escaped.replace(
             html.escape(phrase),
             f'<span style="border-bottom:2px solid #DC2626;background:#FEF2F2;border-radius:2px;">{html.escape(phrase)}</span>',
         )
-    return escaped.replace("\n", "<br>")
+    result = escaped.replace("\n", "<br>")
+    return result + "&hellip;" if truncated else result
 
 
 @app.get("/demo", response_class=HTMLResponse)
-async def demo_preview(request: Request):
+async def demo_preview(request: Request, sample: str = "clean"):
     """Public, non-mutating preview of a sample contract analysis — no
     account, no database write. The CTA on this page posts to /demo/start,
-    which is what actually provisions a live, interactive copy."""
-    analysis = run_analysis(DEMO_CONTRACT)
+    which is what actually provisions a live, interactive copy. `sample`
+    toggles between the curated clean NDA and a real, messy SEC exhibit."""
+    sample_key = _demo_sample_key(sample)
+    sample_info = DEMO_SAMPLES[sample_key]
+    analysis = run_analysis(sample_info["text"])
     return templates.TemplateResponse("demo_preview.html", {
         "request": request, "user": None,
         "current_year": datetime.now().year,
         "overall_risk": analysis["overall_risk"],
         "finding_count": len(analysis["findings_dict"]),
-        "preview_html": _build_demo_preview_html(DEMO_CONTRACT),
+        "preview_html": _build_demo_preview_html(sample_info["text"], sample_info["highlights"]),
+        "samples": DEMO_SAMPLES,
+        "sample_key": sample_key,
+        "sample_info": sample_info,
     })
 
 
 @app.post("/demo/start")
 async def demo_start(
     request: Request,
+    sample: str = Form("clean"),
     db: DBSession = Depends(get_db),
     _rl: None = Depends(rate_limit("demo_start", limit=10, window_seconds=3600)),
     _csrf: None = Depends(csrf_protect),
@@ -2827,6 +2873,9 @@ async def demo_start(
     cookie, so every downstream route (ownership checks, redline actions,
     PDF export, share links) works completely unmodified — the guest IS a
     real account, just one nobody had to fill out a form to create.
+
+    `sample` picks which DEMO_SAMPLES entry to provision — whichever one
+    the visitor was previewing on /demo.
     """
     user = get_current_user(request, db)
     new_guest = user is None
@@ -2843,11 +2892,12 @@ async def demo_start(
         rbac.grant_role(db, user, "user")
         analytics.record_event(request, "demo_guest_created", user=user)
 
-    analysis = run_analysis(DEMO_CONTRACT)
+    sample_info = DEMO_SAMPLES[_demo_sample_key(sample)]
+    analysis = run_analysis(sample_info["text"])
     contract = Contract(
         user_id=user.id,
-        filename="Sample NDA (Demo)",
-        contract_text=DEMO_CONTRACT,
+        filename=sample_info["filename"],
+        contract_text=sample_info["text"],
         overall_risk=analysis["overall_risk"],
         findings_json=analysis["findings_dict"],
         llm_result_json=analysis["llm_result"],
