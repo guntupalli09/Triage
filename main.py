@@ -12,6 +12,7 @@ import time
 import zipfile
 import hmac
 import hashlib
+import html
 import json
 import logging
 import secrets
@@ -2772,58 +2773,109 @@ DEMO_CONTRACT = """MUTUAL NON-DISCLOSURE AGREEMENT
 """
 
 
+_DEMO_PREVIEW_HIGHLIGHTS = ("in perpetuity", "without limit")
+
+
+def _build_demo_preview_html(contract_text: str) -> str:
+    """Escape the sample contract for safe HTML display and wrap a couple of
+    its known one-sided phrases in the same red "finding" mark styling the
+    real redline workspace uses, so the preview reads as a teaser of that
+    feature rather than a plain text dump. Only the first few clauses are
+    shown (the template clips/fades the rest) — this is marketing copy, not
+    the analysis itself, so no need to render the whole document here."""
+    preview_source = "\n\n".join(contract_text.strip().split("\n\n")[:5])
+    escaped = html.escape(preview_source)
+    for phrase in _DEMO_PREVIEW_HIGHLIGHTS:
+        escaped = escaped.replace(
+            html.escape(phrase),
+            f'<span style="border-bottom:2px solid #DC2626;background:#FEF2F2;border-radius:2px;">{html.escape(phrase)}</span>',
+        )
+    return escaped.replace("\n", "<br>")
+
+
 @app.get("/demo", response_class=HTMLResponse)
-async def demo_analysis(request: Request):
-    """Free demo: pre-loaded sample contract analysis, no account needed."""
+async def demo_preview(request: Request):
+    """Public, non-mutating preview of a sample contract analysis — no
+    account, no database write. The CTA on this page posts to /demo/start,
+    which is what actually provisions a live, interactive copy."""
     analysis = run_analysis(DEMO_CONTRACT)
-    all_issues = build_enhanced_issues(analysis["findings_dict"], analysis["llm_result"])
-
-    findings_objs = [type('F', (), {"rule_id": f["rule_id"]})() for f in analysis["findings_dict"]]
-    rule_based_sections = rule_engine.build_missing_sections(findings_objs)
-
-    import json as _json
-    version_path = Path(__file__).parent / "rules" / "version.json"
-    try:
-        ruleset_meta = _json.loads(version_path.read_text())
-    except Exception:
-        ruleset_meta = {}
-    total_rule_count = sum(ruleset_meta.get("rule_count", {}).values()) if ruleset_meta.get("rule_count") else len(rule_engine.rules)
-
-    rule_categories = _build_rule_categories(analysis["findings_dict"], rule_engine)
-
-    return templates.TemplateResponse("results.html", {
+    return templates.TemplateResponse("demo_preview.html", {
         "request": request, "user": None,
-        "filename": "Sample NDA (Demo)",
-        "overall_risk": analysis["overall_risk"],
-        "summary_bullets": analysis["llm_result"].get("summary_bullets", []),
-        "top_issues": all_issues,
-        "possible_missing_sections": rule_based_sections[:6],
-        "disclaimer": "This is a demo using a sample contract. Sign up to analyze your own contracts.",
-        "findings_count": len(all_issues),
-        "rule_counts": display_rule_stats(all_issues),
-        "rule_engine_version": analysis["version"],
         "current_year": datetime.now().year,
-        "token": None, "contract_id": None, "deviations": None,
-        "is_demo": True,
-        "explanation_source": analysis["llm_result"].get("explanation_source"),
-        "total_rule_count": total_rule_count,
-        "rule_categories": rule_categories,
-        "findings_dict": analysis["findings_dict"],
-        "analysis_id": f"DEMO-{datetime.now().strftime('%Y%m%d')}",
-        "generated_at": datetime.now().strftime("%Y-%m-%d %I:%M %p UTC"),
-        "signature_readiness": analysis.get("signature_readiness"),
-        "payment_terms": analysis.get("payment_terms"),
-        "blocking_findings": analysis.get("blocking_findings", []),
-        "policy_blocked_findings": analysis.get("policy_blocked_findings", []),
-        "legal_risk_score": analysis.get("risk_dashboard", {}).get("legal_risk_score"),
-        "business_risk_score": analysis.get("risk_dashboard", {}).get("business_risk_score"),
-        "negotiation_difficulty_score": analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
-        "risk_dashboard": analysis.get("risk_dashboard"),
-        "structure_report": analysis.get("structure_report"),
-        "clause_quality": analysis.get("clause_quality"),
-        "metadata": analysis.get("metadata"),
-        "risk_balance": analysis.get("risk_balance"),
+        "overall_risk": analysis["overall_risk"],
+        "finding_count": len(analysis["findings_dict"]),
+        "preview_html": _build_demo_preview_html(DEMO_CONTRACT),
     })
+
+
+@app.post("/demo/start")
+async def demo_start(
+    request: Request,
+    db: DBSession = Depends(get_db),
+    _rl: None = Depends(rate_limit("demo_start", limit=10, window_seconds=3600)),
+    _csrf: None = Depends(csrf_protect),
+):
+    """Provisions a live, private copy of the demo analysis so a visitor can
+    use the real product end to end — the Verification Report, the risk
+    dashboard, and the interactive redline workspace (accept/edit/reject/
+    comment) — without creating an account first.
+
+    An already-logged-in visitor gets the demo contract added to their own
+    account, same as any upload. An anonymous visitor gets a throwaway
+    guest account (no password, a recognizable @guest.triagecounsel.local
+    address) created transparently and logged into via a normal session
+    cookie, so every downstream route (ownership checks, redline actions,
+    PDF export, share links) works completely unmodified — the guest IS a
+    real account, just one nobody had to fill out a form to create.
+    """
+    user = get_current_user(request, db)
+    new_guest = user is None
+
+    if not user:
+        guest_email = f"demo-{secrets.token_hex(8)}@guest.triagecounsel.local"
+        user = User(
+            email=guest_email, password_hash=None, name="Demo Visitor",
+            plan="free", monthly_limit=3,
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+        rbac.grant_role(db, user, "user")
+        analytics.record_event(request, "demo_guest_created", user=user)
+
+    analysis = run_analysis(DEMO_CONTRACT)
+    contract = Contract(
+        user_id=user.id,
+        filename="Sample NDA (Demo)",
+        contract_text=DEMO_CONTRACT,
+        overall_risk=analysis["overall_risk"],
+        findings_json=analysis["findings_dict"],
+        llm_result_json=analysis["llm_result"],
+        rule_counts_json=analysis["rule_counts"],
+        rule_engine_version=analysis["version"],
+        analysis_completed=True,
+        signature_readiness=analysis.get("signature_readiness"),
+        payment_terms_json=analysis.get("payment_terms"),
+        blocking_findings_json=analysis.get("blocking_findings"),
+        policy_blocked_findings_json=analysis.get("policy_blocked_findings"),
+        legal_risk_score=analysis.get("risk_dashboard", {}).get("legal_risk_score"),
+        business_risk_score=analysis.get("risk_dashboard", {}).get("business_risk_score"),
+        negotiation_difficulty_score=analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
+        risk_dashboard_json=analysis.get("risk_dashboard"),
+        structure_report_json=analysis.get("structure_report"),
+        clause_quality_json=analysis.get("clause_quality"),
+        metadata_json=analysis.get("metadata"),
+    )
+    db.add(contract)
+    db.commit()
+    db.refresh(contract)
+
+    analytics.record_event(request, "demo_started", user=user, metadata={"contract_id": contract.id})
+
+    response = RedirectResponse(url=f"/contract/{contract.id}/review", status_code=303)
+    if new_guest:
+        create_session(user.id, response)
+    return response
 
 
 # ============================================================
