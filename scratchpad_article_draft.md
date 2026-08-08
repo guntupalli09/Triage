@@ -12,17 +12,19 @@ Most legal AI marketing — and most legal AI due diligence — still centers on
 
 If a tool gives you a different risk assessment on Tuesday than it gave you on Monday, for the exact same contract, accuracy becomes a moving target. You can't audit a result you can't reproduce. You can't defend a finding in front of a partner, a regulator, or opposing counsel if the system might have said something else had you clicked "analyze" a second time.
 
-That's not a hypothetical. It's what the experiment measured directly. Beyond the output variance, the two systems were also scored on determinism (whether repeated runs on identical inputs produce identical results) and traceability (whether every output can be linked to a stable identifier and an exact span of the source text). The deterministic hybrid architecture scored 100% on both. The pure LLM baseline scored 0% on both.
+That's not a hypothetical. It's what the experiment measured directly. Beyond the output variance, the two systems were also scored on determinism (whether repeated runs on identical inputs produce identical results) and traceability (whether every output can be linked to a stable identifier and an exact span of the source text). In this experimental setup, the deterministic hybrid architecture scored 100% on both metrics, while the pure LLM baseline scored 0%.
 
 ## Why this happens
 
-The instinct is to blame the model — a bigger, better, more carefully fine-tuned LLM will fix this eventually. It won't, not fully. Non-determinism isn't a bug in any particular model; it's a structural property of probabilistic text generation. Sampling from a probability distribution, even a very good one, does not guarantee the same output twice. That's true of every general-purpose LLM in production today, and it will remain true as models improve, because it's inherent to how they generate text, not a symptom of how well they're trained.
+The instinct is to blame the model — a bigger, better, more carefully fine-tuned LLM will eventually fix this. That's only partly true. Techniques like fixed seeds, constrained decoding, and structured output schemas can reduce variance, and some of those tools are improving quickly. But as an architectural default, LLM-based decision pipelines generally do not provide reproducibility as a guarantee — the way a versioned, rule-based system can. Reproducibility has to be engineered in deliberately; it isn't a property that comes for free from a better model.
 
-Which means the fix isn't a smarter model. It's an architectural decision about which parts of a legal AI system are allowed to make decisions at all, and which parts are only allowed to explain decisions someone — or something — else already made.
+Which means the fix isn't only a smarter model. It's also an architectural decision about which parts of a legal AI system are allowed to make decisions at all, and which parts are only allowed to explain decisions someone — or something — else already made.
 
 ## Decision engine vs. explanation layer
 
-In the architecture I built and tested for contract risk triage, this separation is treated as a hard boundary, not a best practice. A deterministic rule engine — versioned, auditable, built on explicit pattern logic rather than statistical inference — is solely responsible for identifying risk in a contract. It never guesses. It matches known patterns, applies context rules, and produces findings that are always the same for the same input.
+In the architecture I built and tested for contract risk triage, this separation is treated as a hard boundary, not a best practice. A deterministic rule engine — versioned, auditable, built on explicit pattern logic rather than statistical inference — is solely responsible for identifying risk in a contract. It matches known patterns, applies context rules, and produces findings that are always the same for the same input.
+
+Determinism does not guarantee that a rule is correct. It guarantees something different: that the same rule applied to the same evidence produces the same result, making errors inspectable, reproducible, and correctable. A deterministic system can still encode an imperfect rule, or miss a clause it was never taught to recognize. What it cannot do is give you a different answer to the same question on a different day. That distinction — consistency, not correctness — is the actual guarantee on offer, and it's a more honest one than most vendors make.
 
 The LLM sits downstream of that engine, not inside it. It never sees the raw contract. It receives only the structured findings the deterministic engine has already produced, and its job is narrow: explain, in plain language, why a given finding might matter. It cannot introduce a risk the deterministic layer didn't flag. It cannot change a severity rating. If the LLM component fails outright, the deterministic findings are still complete and usable — the system degrades safely instead of failing silently.
 
@@ -30,9 +32,19 @@ The result, measured directly rather than assumed, is a system where the parts t
 
 ## Where the market is heading
 
-In a recent conversation, legal community builder and podcast host Robert Hanna made a distinction worth sitting with: as legal AI model performance becomes increasingly commoditized, differentiation will shift toward trust, explainability, and accountability. He also pointed out something more specific — that firms are already asking for this today, just indirectly, through governance requirements, audit demands, and risk controls, even if "reproducibility" isn't yet the word they're using at the negotiating table.
+In conversations across the legal technology community, I keep hearing a related distinction: firms may not explicitly ask vendors for "reproducibility," but they are increasingly asking for the properties around it — governance, auditability, risk controls, and accountability. As model performance becomes increasingly commoditized across vendors, those properties are what's left to differentiate on.
 
 That tracks with what the experiment suggests. The market doesn't need to wait for a high-profile AI failure to start asking the right question. The question is already available, and it's a simple one to put to any vendor: run this analysis twice, and show me it comes back the same.
+
+Here are five worth asking before adopting a legal AI system:
+
+1. If we submit the same document twice, will the substantive findings remain the same?
+2. Can every finding be traced to the source language and the logic that produced it?
+3. What part of the workflow is controlled by an LLM?
+4. Can the model add, remove, or change substantive legal findings?
+5. What happens when the model fails or is unavailable?
+
+Question four is the one most vendors will be least comfortable answering. That's exactly why it's worth asking.
 
 ## The nuance that matters
 
@@ -40,8 +52,10 @@ None of this is an argument that probabilistic AI is bad, or that deterministic 
 
 The point is narrower and more defensible: probabilistic generation and authoritative decision-making should not automatically live in the same architectural layer in high-stakes legal workflows. Let the model do what it's good at — explaining. Don't let it do what it's structurally unsuited for — deciding, in a way that has to be reproducible and defensible after the fact.
 
-That's a design choice, not a technology limitation. And it's one legal teams can start evaluating for now, before reproducibility becomes the industry's next headline.
+That's a design choice, not a technology limitation.
+
+Model performance may win the demo. Practical value may win the pilot. But in legal work, systems eventually have to survive a harder test: can you show exactly how the decision was made — and make the same decision again?
 
 ---
 
-*Santhosh Guntupalli is an independent researcher and the builder of TriageCounsel, a contract risk analysis platform. His paper on deterministic execution frameworks for hybrid symbolic-probabilistic pipelines was published at ICCS 2026.*
+*Santhosh Guntupalli is an independent researcher and the founder of TriageCounsel, a contract risk analysis platform. His paper, "Deterministic Execution Frameworks for Hybrid Symbolic–Probabilistic Computational Pipelines," was published at ICCS 2026. [Link to paper, if permitted.]*
