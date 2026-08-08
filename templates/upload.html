@@ -122,8 +122,12 @@
 
     <!-- Contextual footer -->
     <div class="flex items-center justify-between mt-6 text-sm text-gray-500 fade-in flex-wrap gap-3">
+        {% if user %}
         <span>{{ user.contracts_this_month }} of {{ user.monthly_limit }} reviews used this month{% if user.plan in ('none', 'free') or not user.plan %} · <a href="/pricing" class="font-medium text-[#0F172A] hover:underline">Upgrade for more</a>{% endif %}</span>
         <a href="/batch-upload" class="font-medium text-[#0F172A] hover:underline">Reviewing multiple contracts? Batch upload →</a>
+        {% else %}
+        <span>3 free reviews a month, no credit card. <a href="/login" class="font-medium text-[#0F172A] hover:underline">Already have an account? Log in</a></span>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

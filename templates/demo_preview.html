@@ -1,0 +1,64 @@
+{% extends "base_marketing.html" %}
+
+{% block title %}Live Demo — Triage Counsel{% endblock %}
+{% block meta_description %}See TriageCounsel analyze a real NDA — deterministic risk findings, an auditable Verification Report, and the interactive redline workspace. No account required to preview.{% endblock %}
+{% block canonical_url %}https://triagecounsel.com/demo{% endblock %}
+
+{% block content %}
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 fade-in">
+    <div class="text-center mb-10">
+        <span class="badge">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Live demo &middot; no account required to preview
+        </span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0F172A] mt-5 mb-4">
+            See a real contract get triaged
+        </h1>
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto">
+            TriageCounsel's deterministic rule engine has already found {{ finding_count }} issue{{ 's' if finding_count != 1 else '' }} in the
+            document below. Open the full report to see every finding, the risk dashboard, and the interactive redline workspace.
+        </p>
+    </div>
+
+    <div class="flex items-center justify-center gap-2 mb-6" role="tablist" aria-label="Sample contract">
+        {% for key, s in samples.items() %}
+        <a href="/demo?sample={{ key }}"
+           class="px-4 py-2 rounded-lg text-sm font-semibold border transition-colors {% if key == sample_key %}bg-[#0F172A] text-white border-[#0F172A]{% else %}bg-white text-gray-500 border-gray-200 hover:border-gray-300{% endif %}"
+           role="tab" aria-selected="{{ 'true' if key == sample_key else 'false' }}">
+            {{ s.label }}
+        </a>
+        {% endfor %}
+    </div>
+    <p class="text-sm text-gray-500 text-center max-w-2xl mx-auto mb-8">{{ sample_info.description }}</p>
+
+    <div class="card p-0 overflow-hidden mb-8">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50">
+            <div class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span class="text-sm font-semibold text-[#0F172A]">{{ sample_info.doc_label }}</span>
+            </div>
+            <span class="text-xs font-bold uppercase tracking-wide text-red-600">{{ overall_risk|upper }} Risk</span>
+        </div>
+        <div class="relative px-6 py-6 font-mono text-[13px] leading-relaxed text-[#334155] max-h-72 overflow-hidden">
+            {{ preview_html | safe }}
+            <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
+        </div>
+    </div>
+
+    <div class="card p-8 text-center">
+        <h2 class="text-xl font-bold text-[#0F172A] mb-2">Ready to see everything TriageCounsel found?</h2>
+        <p class="text-sm text-gray-500 mb-6 max-w-lg mx-auto">
+            One click builds you a live, private copy of this analysis — the full Verification Report, the risk
+            dashboard, and the redline workspace where you can accept, edit, reject, or comment on every finding.
+        </p>
+        <form method="post" action="/demo/start">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+            <input type="hidden" name="sample" value="{{ sample_key }}">
+            <button type="submit" class="btn-primary py-3 px-8 rounded-lg text-base">
+                Click to see the full report &amp; redlines &rarr;
+            </button>
+        </form>
+        <p class="text-xs text-gray-400 mt-4">No credit card. You can create a real account any time from inside the demo.</p>
+    </div>
+</section>
+{% endblock %}

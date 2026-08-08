@@ -16,7 +16,13 @@
     .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace; }
 
     /* status bar */
-    .review-topbar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 12px 0; }
+    .review-topbar {
+        display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 12px 0;
+        position: sticky; top: 73px; z-index: 40;
+        background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);
+        border-bottom: 1px solid #E2E8F0;
+        margin: 0 -4px; padding-left: 4px; padding-right: 4px;
+    }
     .status-chip { font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 5px 12px; border-radius: 999px; background: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE; }
     .status-chip.complete { background: #D1FAE5; color: #065F46; border-color: #A7F3D0; }
     .finalize-reason { font-size: 11.5px; color: #64748B; }
@@ -44,7 +50,7 @@
     .insert-text { color: #065F46; background: #ECFDF5; border-radius: 3px; padding: 0 2px; }
     .edited-badge { font-size: 10px; font-weight: 700; color: #4338CA; background: #EEF2FF; padding: 1px 6px; border-radius: 5px; margin-left: 4px; }
 
-    .margin-map { position: sticky; top: 74px; align-self: start; height: calc(100vh - 100px); }
+    .margin-map { position: sticky; top: 132px; align-self: start; height: calc(100vh - 158px); }
     .mm-track { position: relative; width: 6px; height: 100%; background: #F1F5F9; border-radius: 4px; margin: 0 auto; }
     .mm-seg { position: absolute; width: 6px; border-radius: 4px; opacity: 0.55; }
     .mm-seg.good { background: #059669; }

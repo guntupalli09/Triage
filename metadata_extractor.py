@@ -121,9 +121,14 @@ class Party:
     role: str  # "vendor" | "customer" | "unknown" — see party_resolver.py
 
 
-def extract_parties(text: str) -> List[Party]:
+def extract_parties(text: str, contract_type: Optional[str] = None) -> List[Party]:
     """Full legal party names paired with defined short names and resolved
     role.
+
+    contract_type (see classify_contract_type) is threaded through to
+    resolve_party_roles so vendor/customer labeling is only attempted on
+    contract types actually shaped that way — see that function's
+    docstring.
 
     Deliberately scans a MUCH shorter window (~1000 chars) than
     party_resolver.py's own 3000-char defined-name search: the genuine
@@ -138,7 +143,7 @@ def extract_parties(text: str) -> List[Party]:
     inside a wider lookback window.
     """
     preamble = text[:1000]
-    role_map = resolve_party_roles(text)
+    role_map = resolve_party_roles(text, contract_type)
 
     matches = [
         m for m in _SHORT_NAME_RE.finditer(preamble)
@@ -349,8 +354,9 @@ class ContractMetadata:
 
 def extract_metadata(text: str) -> ContractMetadata:
     """Pure function: normalized contract text -> ContractMetadata."""
+    contract_type_result = classify_contract_type(text)
     return ContractMetadata(
-        parties=extract_parties(text),
+        parties=extract_parties(text, contract_type_result.contract_type),
         effective_date=extract_effective_date(text),
-        contract_type_result=classify_contract_type(text),
+        contract_type_result=contract_type_result,
     )

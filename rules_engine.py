@@ -28,6 +28,7 @@ from party_resolver import (
     CUSTOMER_ROLE,
     UNKNOWN_ROLE,
     resolve_party_roles,
+    VENDOR_CUSTOMER_CONTRACT_TYPES,
 )
 from risk_dashboard import compute_risk_dashboard
 from structure_checker import analyze_structure
@@ -39,7 +40,7 @@ from clause_quality import (
     analyze_termination_clause,
     analyze_ip_clause,
 )
-from metadata_extractor import extract_metadata
+from metadata_extractor import extract_metadata, classify_contract_type
 from risk_balance import compute_risk_balance
 
 logger = logging.getLogger(__name__)
@@ -214,6 +215,22 @@ class Rule:
     topic_patterns: Optional[List[str]] = None
     protective_patterns: Optional[List[str]] = None
 
+    # Contract types (see metadata_extractor.classify_contract_type labels)
+    # this rule's subject matter actually applies to — e.g. an M&A
+    # indemnification-basket rule set to ("Asset / Stock Purchase
+    # Agreement",). None (the default) means the rule is general-purpose
+    # and applies regardless of contract type (attorneys' fees,
+    # termination-for-convenience, and similar clauses that show up across
+    # every contract family). Rules scoped to one vertical are gated by
+    # _rule_applies_to_contract_type at match time — see that function for
+    # why a REQUIRED_SECTION rule's document-wide keyword co-occurrence
+    # check (e.g. "indemnif*" + "representations and warranties" appearing
+    # ANYWHERE in the document) is exactly the kind of check that misfires
+    # across contract types without this gate: both phrases are common
+    # boilerplate on their own, and neither proves the document is the
+    # M&A-style agreement the rule was written for.
+    contract_types: Optional[Tuple[str, ...]] = None
+
     def __post_init__(self):
         # Ensure aliases is a list (dataclass frozen=True requires this pattern)
         if self.aliases is None:
@@ -221,6 +238,51 @@ class Rule:
         if self.rule_class == RuleClass.REQUIRED_SECTION:
             assert self.topic_patterns, f"{self.rule_id}: REQUIRED_SECTION rules must define topic_patterns"
             assert self.protective_patterns, f"{self.rule_id}: REQUIRED_SECTION rules must define protective_patterns"
+
+
+def _rule_applies_to_contract_type(rule: Rule, contract_type: Optional[str], confidence: str) -> bool:
+    """
+    Contract-type gate checked before a rule is allowed to fire at all.
+
+    A rule with contract_types=None is general-purpose and always applies.
+    A rule scoped to specific contract_types only applies when the
+    document's classified type is one of them.
+
+    Classification absence or low confidence never suppresses a rule: an
+    unclassified or ambiguous document might still genuinely be the rule's
+    intended contract type, and treating "we're not sure" as "definitely
+    not this type" would trade one guess for another. Suppression only
+    happens when we're reasonably confident the document is something
+    else entirely — the same "prefer under-reporting to a confident wrong
+    answer" principle this codebase already applies to structured
+    extraction (metadata fields are None, not guessed, when uncertain).
+    """
+    if not rule.contract_types:
+        return True
+    if contract_type is None or confidence == "low":
+        return True
+    return contract_type in rule.contract_types
+
+
+# Contract types where a commercial insurance obligation (minimum coverage
+# amounts, additional-insured/subrogation endorsements) is a genuine,
+# commonly-negotiated topic — as opposed to an employment agreement or an
+# M&A closing, where "no minimum insurance requirement" isn't a real gap
+# because there was never a vendor-style insurance obligation to begin
+# with. Confirmed by running the affected rules against real fixture
+# contracts from each vertical (tests/fixtures/real_contracts): insurance
+# topic language legitimately appears in vendor/SaaS/license agreements,
+# real estate purchase agreements, construction contracts, and franchise
+# agreements, but firing "No minimum insurance requirements" against an
+# executive employment agreement — which mentions insurance only in the
+# context of D&O coverage for the executive, not a contractual obligation
+# the other party owes — is the same contract-type-blindness failure shape
+# as the original M&A-indemnification-on-an-employment-agreement bug.
+_INSURANCE_RELEVANT_CONTRACT_TYPES = tuple(VENDOR_CUSTOMER_CONTRACT_TYPES) + (
+    "Real Estate Purchase & Sale Agreement",
+    "Construction Contract",
+    "Franchise Agreement",
+)
 
 
 def _looks_like_escaped_newlines(text: str) -> bool:
@@ -778,6 +840,37 @@ def _infer_ip_assignment_perspective(
     }
 
 
+_CURRENCY_CODE_RE = re.compile(r"\b(USD|EUR|GBP|CAD|AUD|United\s+States\s+Dollars?)\b", re.IGNORECASE)
+_QUOTE_CHARS = "\"'‘’“”"
+
+
+def _find_stated_currency_code(text: str) -> Optional[str]:
+    """First currency code/name actually used as a currency, or None.
+
+    A currency-code-shaped token can also be a document's own locally
+    declared abbreviation for something unrelated — e.g. "Computer Aided
+    Designs (“CAD”)" inside a confidentiality clause's list of
+    proprietary-information categories. That's a defined TERM, not a
+    statement that the contract is priced in Canadian dollars, and reading
+    the acronym as a currency here is the same failure shape as any other
+    unverified string match: confident, wrong, and indistinguishable from a
+    correct answer unless someone checks. The tell is structural and
+    deterministic: the token sits immediately inside quote marks (the
+    standard "Full Name (“SHORT”)" contract convention), which a
+    real currency mention never does. Skip such matches and keep looking
+    rather than asserting the wrong currency; run out of candidates -> None,
+    same as any other "couldn't confidently extract this" result.
+    """
+    for m in _CURRENCY_CODE_RE.finditer(text):
+        before = text[max(0, m.start() - 1):m.start()]
+        after = text[m.end():m.end() + 1]
+        if before in _QUOTE_CHARS and after in _QUOTE_CHARS:
+            continue
+        raw = m.group(1).upper()
+        return "USD" if "DOLLAR" in raw else raw
+    return None
+
+
 def _extract_payment_terms(text: str) -> Dict[str, Optional[object]]:
     """
     Extract structured payment terms so a contract-to-cash consumer (e.g.
@@ -794,17 +887,14 @@ def _extract_payment_terms(text: str) -> Dict[str, Optional[object]]:
     if m:
         due_days = int(m.group(1))
 
-    currency: Optional[str] = None
-    m = re.search(r"\b(USD|EUR|GBP|CAD|AUD|United\s+States\s+Dollars?)\b", text, re.IGNORECASE)
-    if m:
-        raw = m.group(1).upper()
-        currency = "USD" if "DOLLAR" in raw else raw
-    elif re.search(r"€", text):
-        currency = "EUR"
-    elif re.search(r"£", text):
-        currency = "GBP"
-    elif re.search(r"\$\s?[\d,]", text):
-        currency = "USD"  # heuristic: bare "$" with no explicit code, assume USD
+    currency: Optional[str] = _find_stated_currency_code(text)
+    if currency is None:
+        if re.search(r"€", text):
+            currency = "EUR"
+        elif re.search(r"£", text):
+            currency = "GBP"
+        elif re.search(r"\$\s?[\d,]", text):
+            currency = "USD"  # heuristic: bare "$" with no explicit code, assume USD
 
     billing_frequency: Optional[str] = None
     for pattern, label in (
@@ -1798,6 +1888,7 @@ class RuleEngine:
             ),
             Rule(
                 rule_id="H_DATA_TERMINATION_01",
+                contract_types=tuple(VENDOR_CUSTOMER_CONTRACT_TYPES),
                 rule_name="no_data_portability",
                 title="No data return or deletion on termination",
                 severity=Severity.HIGH,
@@ -1880,6 +1971,7 @@ class RuleEngine:
             ),
             Rule(
                 rule_id="H_INDEM_SCOPE_NARROW_01",
+                contract_types=tuple(VENDOR_CUSTOMER_CONTRACT_TYPES) + ("Asset / Stock Purchase Agreement",),
                 rule_name="narrow_indemnification_scope",
                 title="Indemnification scope may be too narrow",
                 severity=Severity.HIGH,
@@ -1975,6 +2067,7 @@ class RuleEngine:
             ),
             Rule(
                 rule_id="M_DELETION_CERT_MISSING_01",
+                contract_types=tuple(VENDOR_CUSTOMER_CONTRACT_TYPES),
                 rule_name="deletion_certification_missing",
                 title="No deletion certification on termination",
                 severity=Severity.MEDIUM,
@@ -2038,6 +2131,7 @@ class RuleEngine:
                     r"\binsurance\b(?:[^.]|\.(?=\d)){0,150}\$\s?[\d,]+",
                     r"\$\s?[\d,]+(?:[^.]|\.(?=\d)){0,150}\binsurance\b",
                 ],
+                contract_types=_INSURANCE_RELEVANT_CONTRACT_TYPES,
             ),
             Rule(
                 rule_id="M_REG_RESPONSIBILITY_UNALLOCATED_01",
@@ -2536,6 +2630,7 @@ class RuleEngine:
                     r"\bcertificate\s+of\s+insurance\b",
                     r"\binsurance\b[^.]{0,60}\$[\d,]+",
                 ],
+                contract_types=_INSURANCE_RELEVANT_CONTRACT_TYPES,
             ),
             Rule(
                 rule_id="M_FORCE_MAJEURE_01",
@@ -2585,6 +2680,14 @@ class RuleEngine:
                     r"\d{1,3}(?:\.\d+)?\s?%(?:[^.]|\.(?=\d)){0,60}\b(uptime|availability)\b",
                     r"\b(uptime|availability)\b(?:[^.]|\.(?=\d)){0,60}\d{1,3}(?:\.\d+)?\s?%",
                 ],
+                # topic_patterns above ("service|platform|software|application|
+                # system|SaaS") is broad enough to match almost any commercial
+                # document — confirmed empirically: this rule fired "No
+                # service level or uptime commitment" against a real estate
+                # purchase agreement, a construction contract, a franchise
+                # agreement, and an executive employment agreement, none of
+                # which have an uptime/SLA relationship to begin with.
+                contract_types=tuple(VENDOR_CUSTOMER_CONTRACT_TYPES),
             ),
             Rule(
                 rule_id="M_MFN_01",
@@ -2753,6 +2856,7 @@ class RuleEngine:
             # ---------------- MEDIUM (v2.1 additions) ----------------
             Rule(
                 rule_id="M_DATA_PORTABILITY_01",
+                contract_types=tuple(VENDOR_CUSTOMER_CONTRACT_TYPES),
                 rule_name="no_data_portability_rights",
                 title="No data portability or export rights on exit",
                 severity=Severity.MEDIUM,
@@ -3397,6 +3501,15 @@ class RuleEngine:
                     r"\bnothing\s+in\s+this\s+(?:releas\w*|agreement)\b(?:[^.]|\.(?=\d)){0,150}\b(?:right\s+to\s+file|EEOC|agency\s+charge|whistleblow\w*)\b",
                     r"\bright\s+to\s+file\s+a\s+charge\b",
                 ],
+                # "\bsever\w*\b" also matches "severally" (joint-and-several
+                # liability boilerplate in real estate, construction, and
+                # M&A agreements) and "release ... claims" is common closing/
+                # settlement language outside employment entirely — confirmed
+                # empirically firing "Severance release may lack statutory
+                # rights carve-out" against a real estate purchase agreement,
+                # a construction contract, and a franchise agreement, none of
+                # which involve an actual employment severance.
+                contract_types=("Employment Agreement",),
             ),
             Rule(
                 rule_id="M_EMPLOY_NONSOLICIT_EMPLOYEE_01",
@@ -3443,6 +3556,18 @@ class RuleEngine:
             # -- M&A / partnership & operating agreements --
             Rule(
                 rule_id="H_MA_INDEM_BASKET_MISSING_01",
+                # Real Estate Purchase & Sale is included alongside Asset /
+                # Stock Purchase: the two share enough vocabulary ("purchase
+                # price", "closing date") that the keyword classifier
+                # sometimes calls a real stock/asset purchase agreement a
+                # real estate deal instead (verified against a real fixture,
+                # 10_stock_purchase_agreement_leeds_equity_datamark_ecollege_2003.txt,
+                # classified "Real Estate Purchase & Sale Agreement" at HIGH
+                # confidence). Real estate PSAs also commonly negotiate a
+                # reps-and-warranties indemnification basket/threshold, so
+                # this isn't just a workaround for classifier noise — it's a
+                # legitimate second home for the same issue.
+                contract_types=("Asset / Stock Purchase Agreement", "Real Estate Purchase & Sale Agreement"),
                 rule_name="ma_indemnification_basket_missing",
                 title="Indemnification for reps and warranties lacks a basket/threshold",
                 severity=Severity.HIGH,
@@ -3473,6 +3598,7 @@ class RuleEngine:
             ),
             Rule(
                 rule_id="M_PARTNERSHIP_DEADLOCK_01",
+                contract_types=("LLC Operating Agreement", "Asset / Stock Purchase Agreement"),
                 rule_name="partnership_deadlock_missing",
                 title="No deadlock-resolution mechanism",
                 severity=Severity.MEDIUM,
@@ -3968,6 +4094,7 @@ class RuleEngine:
             ),
             Rule(
                 rule_id="M_IPLICENSE_ROYALTY_AUDIT_MISSING_01",
+                contract_types=("License Agreement", "Franchise Agreement"),
                 rule_name="iplicense_royalty_audit_missing",
                 title="No royalty audit rights for licensor",
                 severity=Severity.LOW,
@@ -4529,17 +4656,30 @@ class RuleEngine:
         # See normalize_contract_text() docstring for details.
         text = normalize_contract_text(text)
 
+        # Classify contract type once per document (see
+        # metadata_extractor.classify_contract_type) so both the
+        # vendor/customer party-role axis and any contract-type-scoped
+        # rule (see Rule.contract_types) can be gated by it instead of
+        # applying a vendor-contract lens — or an M&A/franchise/vendor-
+        # specific rule — to every document regardless of what it actually
+        # is.
+        contract_type_result = classify_contract_type(text)
+
         # Resolve the contract's own defined party names to vendor/customer
         # roles once per document (see party_resolver.py) so party-direction
         # classification below can use them instead of guessing from
         # generic role words alone.
-        party_map = resolve_party_roles(text)
+        party_map = resolve_party_roles(text, contract_type_result.contract_type)
 
         chunks = _chunk_text(text)
 
         findings: List[Finding] = []
         for chunk_start, chunk in chunks:
             for rule in self.rules:
+                if not _rule_applies_to_contract_type(
+                    rule, contract_type_result.contract_type, contract_type_result.confidence
+                ):
+                    continue
                 if rule.pattern:
                     for m in _find_all(rule.pattern, chunk):
                         s, e = m.span()
@@ -4664,6 +4804,10 @@ class RuleEngine:
         adverse_rule_ids_found = {f.rule_id for f in findings}
         for rule in self.rules:
             if rule.rule_class != RuleClass.REQUIRED_SECTION:
+                continue
+            if not _rule_applies_to_contract_type(
+                rule, contract_type_result.contract_type, contract_type_result.confidence
+            ):
                 continue
             if rule.rule_id in adverse_rule_ids_found:
                 continue  # adverse language already found; that's the finding

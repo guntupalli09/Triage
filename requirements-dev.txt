@@ -8,6 +8,11 @@
 pytest>=7.4.0
 pytest-asyncio>=0.21.0
 mammoth>=1.6.0  # independent third-party OOXML parser, used to cross-validate docx_export.py's output
+# httpx>=0.28 dropped the `app=` shortcut TestClient.__init__ relies on
+# (starlette 0.27's TestClient still calls it that way) — pinned below 0.28
+# so `pip install -r requirements-dev.txt` doesn't silently break every
+# TestClient-based route test in tests/.
+httpx<0.28
 
 # Experimental analysis (only needed for experiments/ directory)
 scipy>=1.11.0

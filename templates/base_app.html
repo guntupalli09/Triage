@@ -388,6 +388,15 @@
         </div>
     </header>
 
+    {% if user and user.email.endswith('@guest.triagecounsel.local') %}
+    <div class="bg-amber-50 border-b border-amber-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-center gap-3 flex-wrap text-sm">
+            <span class="text-amber-800">You're in a temporary guest session — it's saved for now, but you'll lose access if you clear cookies or switch devices.</span>
+            <a href="/register" class="font-semibold text-amber-900 underline hover:no-underline">Add a password to keep it &rarr;</a>
+        </div>
+    </div>
+    {% endif %}
+
     <!-- Breadcrumbs -->
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-5 mb-6">
         <nav class="text-xs text-gray-400 font-medium">

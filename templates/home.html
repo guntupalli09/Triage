@@ -47,10 +47,9 @@
         Built for small and mid-sized law firms. Upload any client contract and get an auditable risk report in seconds — deterministic rules catch what matters, AI only explains why.
     </p>
     <div class="flex items-center justify-center gap-4 flex-wrap">
-        {% if user %}
-        <a href="/upload-page" class="btn-primary py-3 px-8 rounded-lg text-base">{% if user.plan in ('professional', 'team') %}Start Review{% else %}Start Free Review{% endif %}</a>
-        {% else %}
-        <a href="/register" class="btn-primary py-3 px-8 rounded-lg text-base">Start Free Review</a>
+        <a href="/upload-page" class="btn-primary py-3 px-8 rounded-lg text-base">{% if user and user.plan in ('professional', 'team') %}Start Review{% else %}Start Free Review{% endif %}</a>
+        {% if not user %}
+        <a href="/demo" class="btn-secondary py-3 px-8 rounded-lg text-base">Watch the Demo</a>
         {% endif %}
         <a href="/#how-it-works" class="btn-secondary py-3 px-8 rounded-lg text-base">How It Works</a>
     </div>
@@ -283,13 +282,8 @@
 <section class="bg-[#0F172A] py-20">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">Start reviewing contracts today</h2>
-        {% if user %}
-        <p class="text-gray-400 text-lg mb-8">Upload your next contract in seconds.</p>
-        <a href="/upload-page" class="bg-white text-[#0F172A] font-bold py-3 px-8 rounded-lg text-base inline-block hover:bg-gray-100 transition-colors">{% if user.plan in ('professional', 'team') %}Start Review{% else %}Start Free Review{% endif %}</a>
-        {% else %}
-        <p class="text-gray-400 text-lg mb-8">Upload your first contract free. No credit card required.</p>
-        <a href="/register" class="bg-white text-[#0F172A] font-bold py-3 px-8 rounded-lg text-base inline-block hover:bg-gray-100 transition-colors">Start Free Review</a>
-        {% endif %}
+        <p class="text-gray-400 text-lg mb-8">{% if user %}Upload your next contract in seconds.{% else %}Upload your first contract free. No credit card required.{% endif %}</p>
+        <a href="/upload-page" class="bg-white text-[#0F172A] font-bold py-3 px-8 rounded-lg text-base inline-block hover:bg-gray-100 transition-colors">{% if user and user.plan in ('professional', 'team') %}Start Review{% else %}Start Free Review{% endif %}</a>
     </div>
 </section>
 {% endblock %}
