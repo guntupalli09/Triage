@@ -1,10 +1,12 @@
 # Stop Asking If Legal AI Is Accurate. Start Asking If It's Reproducible.
 
-Run the same contract through the same AI system 20 times. Should a lawyer expect the same legal findings 20 times?
+Quick question before you trust any legal AI demo: run the same contract through the same system 20 times. Should a lawyer expect the same findings 20 times?
 
 In experiments from my research published at ICCS 2026, the answer for a pure large-language-model pipeline was no. Across identical repeated executions on the same documents, the LLM baseline produced an average of 18.3 distinct output sets out of 20 runs. A deterministic hybrid architecture, evaluated on the same corpus, produced one.
 
 That gap points to a question legal teams should be asking AI vendors far more often than they currently do: **Can your system make the same decision twice?**
+
+I've spent the last two years building and testing that question directly — first as a research problem, then as TriageCounsel, a contract risk platform designed around the answer.
 
 ## The accuracy question is the wrong first question
 
@@ -16,13 +18,13 @@ That's not a hypothetical. It's what the experiment measured directly. Beyond th
 
 ## Why this happens
 
-The instinct is to blame the model — a bigger, better, more carefully fine-tuned LLM will eventually fix this. That's only partly true. Techniques like fixed seeds, constrained decoding, and structured output schemas can reduce variance, and some of those tools are improving quickly. But as an architectural default, LLM-based decision pipelines generally do not provide reproducibility as a guarantee — the way a versioned, rule-based system can. Reproducibility has to be engineered in deliberately; it isn't a property that comes for free from a better model.
+The instinct is to blame the model — a smarter, better-tuned LLM will eventually fix this. Only partly true. Fixed seeds and structured output schemas can reduce variance, but as an architectural default, LLM-based decision pipelines generally don't provide reproducibility as a guarantee the way a versioned, rule-based system can. It has to be engineered in — deliberately, at the architecture level, not hoped for from a better model.
 
-Which means the fix isn't only a smarter model. It's also an architectural decision about which parts of a legal AI system are allowed to make decisions at all, and which parts are only allowed to explain decisions someone — or something — else already made.
+Which means the fix is less about a smarter model, and more about deciding which parts of a legal AI system are allowed to make decisions at all — and which parts are only allowed to explain decisions someone, or something, else already made.
 
 ## Decision engine vs. explanation layer
 
-In the architecture I built and tested for contract risk triage, this separation is treated as a hard boundary, not a best practice. A deterministic rule engine — versioned, auditable, built on explicit pattern logic rather than statistical inference — is solely responsible for identifying risk in a contract. It matches known patterns, applies context rules, and produces findings that are always the same for the same input.
+In that architecture, the separation is a hard boundary, not a best practice. A deterministic rule engine — versioned, auditable, built on explicit pattern logic rather than statistical inference — is solely responsible for identifying risk in a contract. It matches known patterns, applies context rules, and produces findings that are always the same for the same input.
 
 Determinism does not guarantee that a rule is correct. It guarantees something different: that the same rule applied to the same evidence produces the same result, making errors inspectable, reproducible, and correctable. A deterministic system can still encode an imperfect rule, or miss a clause it was never taught to recognize. What it cannot do is give you a different answer to the same question on a different day. That distinction — consistency, not correctness — is the actual guarantee on offer, and it's a more honest one than most vendors make.
 
