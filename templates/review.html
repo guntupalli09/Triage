@@ -25,11 +25,32 @@
     }
     .status-chip { font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 5px 12px; border-radius: 999px; background: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE; }
     .status-chip.complete { background: #D1FAE5; color: #065F46; border-color: #A7F3D0; }
-    .finalize-reason { font-size: 11.5px; color: #64748B; }
+    .finalize-reason { font-size: 11.5px; color: #64748B; white-space: nowrap; }
     .finalize-reason a { color: #4F46E5; cursor: pointer; text-decoration: underline; }
 
-    /* document + margin map */
-    .review-body { display: grid; grid-template-columns: minmax(0,1fr) 20px; gap: 0; max-width: 800px; margin: 0 auto; position: relative; }
+    .topbar-info { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; min-width: 0; }
+    .topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .topbar-divider { width: 1px; height: 22px; background: #E2E8F0; }
+    .report-link-btn {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: 12.5px; font-weight: 600; color: #334155;
+        background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 7px;
+        padding: 6px 12px; white-space: nowrap; transition: all 0.15s ease;
+    }
+    .report-link-btn:hover { background: #EEF2FF; color: #4338CA; border-color: #C7D2FE; }
+    .report-link-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .kbd-hint-btn {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 26px; height: 26px; border-radius: 999px;
+        background: #F8FAFC; border: 1px solid #E2E8F0; color: #94A3B8;
+        font-size: 12px; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+        cursor: pointer; transition: all 0.15s ease; flex-shrink: 0;
+    }
+    .kbd-hint-btn:hover { background: #EEF2FF; color: #4338CA; border-color: #C7D2FE; }
+    @media (max-width: 640px) { .report-link-btn span { display: none; } }
+
+    /* document + margin map + finding panel */
+    .review-body { display: grid; grid-template-columns: minmax(0,1fr) 20px minmax(300px,360px); gap: 28px; max-width: 1220px; margin: 0 auto; position: relative; }
     .doc-heading-line { font-weight: 700; color: #0F172A; margin: 24px 0 10px; font-size: 14px; }
     .doc-text p { margin: 0 0 15px; color: #334155; line-height: 1.75; }
     .doc-text { font-size: 15px; }
@@ -50,7 +71,7 @@
     .insert-text { color: #065F46; background: #ECFDF5; border-radius: 3px; padding: 0 2px; }
     .edited-badge { font-size: 10px; font-weight: 700; color: #4338CA; background: #EEF2FF; padding: 1px 6px; border-radius: 5px; margin-left: 4px; }
 
-    .margin-map { position: sticky; top: 132px; align-self: start; height: calc(100vh - 158px); }
+    .margin-map { position: sticky; top: var(--panel-top, 132px); align-self: start; height: calc(100vh - var(--panel-top, 132px) - 26px); }
     .mm-track { position: relative; width: 6px; height: 100%; background: #F1F5F9; border-radius: 4px; margin: 0 auto; }
     .mm-seg { position: absolute; width: 6px; border-radius: 4px; opacity: 0.55; }
     .mm-seg.good { background: #059669; }
@@ -61,6 +82,38 @@
     .mm-tick.sev-medium { background: #D97706; }
     .mm-tick.sev-low { background: #2563EB; }
     .mm-tick.resolved { background: #94A3B8; opacity: 0.6; }
+
+    /* finding panel — a persistent reading companion beside the document,
+       so opening a finding never shifts the paragraph the reader is on.
+       Sticky at the same offset as the margin map (computed at runtime from
+       the actual header + topbar height — see syncStickyOffsets() — rather
+       than a hardcoded guess, since the topbar can wrap to one or two lines
+       depending on filename length and viewport width). Panel is the only
+       scroll container here — the list body doesn't get its own nested
+       scrollbar, which would trap scrolling inside a small box. */
+    .finding-panel { position: sticky; top: var(--panel-top, 132px); align-self: start; max-height: calc(100vh - var(--panel-top, 132px) - 26px); overflow-y: auto; }
+    .panel-card { border: 1px solid #E2E8F0; background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(15,23,42,0.06); }
+    .panel-list-head { padding: 14px 16px; border-bottom: 1px solid #F1F5F9; display: flex; align-items: center; justify-content: space-between; }
+    .panel-list-head h3 { font-size: 13px; font-weight: 700; color: #0F172A; margin: 0; }
+    .panel-list-head .panel-count { font-size: 11.5px; color: #94A3B8; font-family: 'JetBrains Mono', monospace; }
+    .panel-list-item {
+        display: flex; align-items: flex-start; gap: 9px; padding: 11px 16px;
+        cursor: pointer; border-bottom: 1px solid #F8FAFC; transition: background 0.12s ease;
+    }
+    .panel-list-item:last-child { border-bottom: none; }
+    .panel-list-item:hover { background: #F8FAFC; }
+    .panel-list-item.current { background: #EEF2FF; }
+    .panel-list-item .pli-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+    .panel-list-item .pli-dot.sev-critical, .panel-list-item .pli-dot.sev-high { background: #DC2626; }
+    .panel-list-item .pli-dot.sev-medium { background: #D97706; }
+    .panel-list-item .pli-dot.sev-low { background: #2563EB; }
+    .panel-list-item.is-resolved .pli-dot { background: #94A3B8; }
+    .panel-list-item .pli-title { font-size: 12.5px; font-weight: 600; color: #0F172A; line-height: 1.4; }
+    .panel-list-item.is-resolved .pli-title { color: #94A3B8; text-decoration: line-through; text-decoration-color: #CBD5E1; }
+    .panel-list-item .pli-check { color: #059669; font-size: 12px; margin-left: auto; flex-shrink: 0; }
+    .panel-empty-note { padding: 22px 18px; text-align: center; font-size: 12.5px; color: #94A3B8; }
+    .panel-back { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; color: #64748B; padding: 12px 16px 0; cursor: pointer; }
+    .panel-back:hover { color: #4338CA; }
 
     /* popover */
     .popover { border: 1px solid #E2E8F0; background: #fff; border-radius: 12px; box-shadow: 0 8px 28px rgba(15,23,42,0.12); margin: 6px 0 22px; padding: 18px 20px; animation: pop-in 0.15s ease; }
@@ -110,19 +163,36 @@
     .replay-result.show { display: flex; }
     .replay-result.fail { color: #DC2626; }
 
-    @media (max-width: 820px) { .review-body { grid-template-columns: 1fr; } .margin-map { display: none; } }
+    @media (max-width: 1020px) {
+        .review-body { grid-template-columns: 1fr; }
+        .margin-map { display: none; }
+        .finding-panel {
+            position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 45;
+            max-height: 50vh; border-radius: 16px 16px 0 0;
+            box-shadow: 0 -8px 28px rgba(15,23,42,0.14);
+            background: #fff; border-top: 1px solid #E2E8F0;
+        }
+        .finding-panel .panel-card { border: none; border-radius: 16px 16px 0 0; box-shadow: none; }
+        .finding-panel .panel-list-body { max-height: calc(50vh - 50px); }
+    }
 </style>
 {% endblock %}
 
 {% block content %}
 <div id="review-screen" class="{% if not is_finalized %}active{% endif %}">
     <div class="review-topbar">
-        <div class="text-sm font-semibold text-[#0F172A]">{{ filename }}</div>
-        <span class="text-xs font-bold uppercase tracking-wide {% if overall_risk == 'high' %}text-red-600{% elif overall_risk == 'medium' %}text-amber-600{% else %}text-emerald-600{% endif %}">{{ overall_risk|upper }} RISK</span>
-        <div class="status-chip {% if progress.is_complete %}complete{% endif %}" id="status-chip"></div>
-        <div class="ml-auto flex items-center gap-3">
-            <span class="text-xs text-gray-400 mono hidden sm:inline">press <kbd>?</kbd> for shortcuts</span>
-            <a href="/contract/{{ contract_id }}" class="text-xs font-medium text-gray-500 hover:text-[#0F172A] transition-colors">Full Report &amp; Audit Trail</a>
+        <div class="topbar-info">
+            <div class="text-sm font-semibold text-[#0F172A]">{{ filename }}</div>
+            <span class="text-xs font-bold uppercase tracking-wide {% if overall_risk == 'high' %}text-red-600{% elif overall_risk == 'medium' %}text-amber-600{% else %}text-emerald-600{% endif %}">{{ overall_risk|upper }} RISK</span>
+            <div class="status-chip {% if progress.is_complete %}complete{% endif %}" id="status-chip"></div>
+        </div>
+        <div class="topbar-actions">
+            <a href="/contract/{{ contract_id }}" class="report-link-btn" title="Open the full Verification Report and audit trail" aria-label="Full Report &amp; Audit Trail">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 2.5h6l3.5 3.5v11a1 1 0 01-1 1H6a1 1 0 01-1-1v-13.5a1 1 0 011-1z"/><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 10.5h5M7.5 13.5h5"/></svg>
+                <span>Full Report &amp; Audit Trail</span>
+            </a>
+            <button type="button" class="kbd-hint-btn" id="kbd-hint-btn" title="Keyboard shortcuts (press ?)" aria-label="Keyboard shortcuts">?</button>
+            <div class="topbar-divider"></div>
             <span class="finalize-reason" id="finalize-reason"></span>
             <button class="btn-new-review" id="finalize-btn" disabled>Finalize Review</button>
         </div>
@@ -133,6 +203,7 @@
             <div class="doc-text" id="doc-text"></div>
         </div>
         <div class="margin-map"><div class="mm-track" id="mm-track"></div></div>
+        <div class="finding-panel" id="finding-panel"></div>
     </div>
 </div>
 
@@ -299,11 +370,40 @@ function renderMarginMap() {
     track.querySelectorAll(".mm-tick").forEach(el => el.addEventListener("click", () => openFinding(+el.dataset.idx)));
 }
 
-/* ---------- popover ---------- */
+/* ---------- finding panel ----------
+   A persistent reading companion beside the document (a bottom sheet on
+   narrow screens) rather than a card injected into the document flow.
+   Two states: the list (every finding, click to open) and the detail view
+   for whichever finding is currently open — never both at once, and
+   opening one never reflows the paragraph the reader was just on. */
+function renderPanelList() {
+    const panel = document.getElementById("finding-panel");
+    const total = FINDINGS.length;
+    const resolvedCount = FINDINGS.filter((f, i) => DECISIONS[fkey(i)]).length;
+    const rows = FINDINGS.map((f, i) => {
+        const resolved = !!DECISIONS[fkey(i)];
+        return `<div class="panel-list-item ${resolved ? 'is-resolved' : ''}" data-idx="${i}">
+            <span class="pli-dot sev-${f.severity}"></span>
+            <span class="pli-title">${i + 1}. ${esc(f.title)}</span>
+            ${resolved ? '<span class="pli-check">&#10003;</span>' : ''}
+        </div>`;
+    }).join("");
+    panel.innerHTML = `
+        <div class="panel-card">
+            <div class="panel-list-head"><h3>Findings</h3><span class="panel-count">${resolvedCount}/${total} resolved</span></div>
+            <div class="panel-list-body">${rows || '<div class="panel-empty-note">No findings in this document.</div>'}</div>
+        </div>
+    `;
+    panel.querySelectorAll(".panel-list-item").forEach(el => {
+        el.addEventListener("click", () => openFinding(+el.dataset.idx));
+    });
+}
+
+/* ---------- popover (rendered into the finding panel, not the document) ---------- */
 function closePopover() {
-    document.getElementById("active-popover")?.remove();
     document.querySelectorAll(".mark.open-now").forEach(el => el.classList.remove("open-now"));
     openIdx = null;
+    renderPanelList();
 }
 
 function popoverHTML(f, i) {
@@ -354,20 +454,21 @@ function popoverHTML(f, i) {
 }
 
 function openFinding(i) {
-    closePopover();
+    document.querySelectorAll(".mark.open-now").forEach(el => el.classList.remove("open-now"));
     openIdx = i;
     const f = FINDINGS[i];
     const markEl = findMarkIdEl(i);
-    if (!markEl) return;
-    markEl.classList.add("open-now");
-    const pop = document.createElement("div");
-    pop.className = "popover";
-    pop.id = "active-popover";
-    pop.innerHTML = popoverHTML(f, i);
-    const hostP = markEl.closest("p") || markEl;
-    hostP.parentNode.insertBefore(pop, hostP.nextSibling);
-    markEl.scrollIntoView({ behavior: "smooth", block: "center" });
-    wirePopover(f, i, pop);
+    if (markEl) {
+        markEl.classList.add("open-now");
+        markEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    const panel = document.getElementById("finding-panel");
+    panel.innerHTML = `
+        <div class="panel-back" id="panel-back">&larr; All findings</div>
+        <div class="popover" id="active-popover">${popoverHTML(f, i)}</div>
+    `;
+    document.getElementById("panel-back").addEventListener("click", closePopover);
+    wirePopover(f, i, panel);
 }
 
 function wirePopover(f, i, pop) {
@@ -486,6 +587,10 @@ function updateStatus(progress) {
             if (idx !== -1) openFinding(idx);
         });
     }
+    // Chip/reason text length changes here can change whether the topbar
+    // wraps to one or two lines — resync so the panel's offset never
+    // drifts out of step with it (see syncStickyOffsets()).
+    if (typeof syncStickyOffsets === "function") requestAnimationFrame(syncStickyOffsets);
 }
 
 document.getElementById("finalize-btn").addEventListener("click", async () => {
@@ -549,11 +654,29 @@ document.addEventListener("keydown", (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key === "Enter") document.getElementById("finalize-btn").click();
 });
 document.getElementById("kbd-overlay").addEventListener("click", (e) => { if (e.target.id === "kbd-overlay") e.target.classList.remove("show"); });
+document.getElementById("kbd-hint-btn").addEventListener("click", () => document.getElementById("kbd-overlay").classList.add("show"));
+
+/* The sticky topbar can wrap to one or two lines depending on filename
+   length and viewport width (see .topbar-info / .topbar-actions), so the
+   margin map and finding panel — sticky just below it — measure its real
+   rendered bottom edge instead of assuming a fixed height. Without this,
+   a wrapped two-line topbar and a hardcoded offset disagree by exactly
+   enough to make the topbar visually and functionally overlap the top of
+   the panel, silently swallowing clicks meant for it. */
+function syncStickyOffsets() {
+    const topbar = document.querySelector(".review-topbar");
+    if (!topbar) return;
+    const bottom = Math.ceil(topbar.getBoundingClientRect().bottom);
+    document.documentElement.style.setProperty("--panel-top", bottom + "px");
+}
+window.addEventListener("resize", syncStickyOffsets);
 
 /* ---------- init ---------- */
 renderDocument();
 renderMarginMap();
+renderPanelList();
 updateStatus({{ progress | tojson }});
+syncStickyOffsets();
 {% if not is_finalized %}
 (function () {
     const firstUnresolved = FINDINGS.findIndex((f, i) => !DECISIONS[fkey(i)]);
