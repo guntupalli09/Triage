@@ -264,6 +264,27 @@ def _rule_applies_to_contract_type(rule: Rule, contract_type: Optional[str], con
     return contract_type in rule.contract_types
 
 
+# Contract types where a commercial insurance obligation (minimum coverage
+# amounts, additional-insured/subrogation endorsements) is a genuine,
+# commonly-negotiated topic — as opposed to an employment agreement or an
+# M&A closing, where "no minimum insurance requirement" isn't a real gap
+# because there was never a vendor-style insurance obligation to begin
+# with. Confirmed by running the affected rules against real fixture
+# contracts from each vertical (tests/fixtures/real_contracts): insurance
+# topic language legitimately appears in vendor/SaaS/license agreements,
+# real estate purchase agreements, construction contracts, and franchise
+# agreements, but firing "No minimum insurance requirements" against an
+# executive employment agreement — which mentions insurance only in the
+# context of D&O coverage for the executive, not a contractual obligation
+# the other party owes — is the same contract-type-blindness failure shape
+# as the original M&A-indemnification-on-an-employment-agreement bug.
+_INSURANCE_RELEVANT_CONTRACT_TYPES = tuple(VENDOR_CUSTOMER_CONTRACT_TYPES) + (
+    "Real Estate Purchase & Sale Agreement",
+    "Construction Contract",
+    "Franchise Agreement",
+)
+
+
 def _looks_like_escaped_newlines(text: str) -> bool:
     """
     Detect source text that uses literal two-character "\\n" (and "\\r\\n")
@@ -2110,6 +2131,7 @@ class RuleEngine:
                     r"\binsurance\b(?:[^.]|\.(?=\d)){0,150}\$\s?[\d,]+",
                     r"\$\s?[\d,]+(?:[^.]|\.(?=\d)){0,150}\binsurance\b",
                 ],
+                contract_types=_INSURANCE_RELEVANT_CONTRACT_TYPES,
             ),
             Rule(
                 rule_id="M_REG_RESPONSIBILITY_UNALLOCATED_01",
@@ -2608,6 +2630,7 @@ class RuleEngine:
                     r"\bcertificate\s+of\s+insurance\b",
                     r"\binsurance\b[^.]{0,60}\$[\d,]+",
                 ],
+                contract_types=_INSURANCE_RELEVANT_CONTRACT_TYPES,
             ),
             Rule(
                 rule_id="M_FORCE_MAJEURE_01",
@@ -2657,6 +2680,14 @@ class RuleEngine:
                     r"\d{1,3}(?:\.\d+)?\s?%(?:[^.]|\.(?=\d)){0,60}\b(uptime|availability)\b",
                     r"\b(uptime|availability)\b(?:[^.]|\.(?=\d)){0,60}\d{1,3}(?:\.\d+)?\s?%",
                 ],
+                # topic_patterns above ("service|platform|software|application|
+                # system|SaaS") is broad enough to match almost any commercial
+                # document — confirmed empirically: this rule fired "No
+                # service level or uptime commitment" against a real estate
+                # purchase agreement, a construction contract, a franchise
+                # agreement, and an executive employment agreement, none of
+                # which have an uptime/SLA relationship to begin with.
+                contract_types=tuple(VENDOR_CUSTOMER_CONTRACT_TYPES),
             ),
             Rule(
                 rule_id="M_MFN_01",
@@ -3470,6 +3501,15 @@ class RuleEngine:
                     r"\bnothing\s+in\s+this\s+(?:releas\w*|agreement)\b(?:[^.]|\.(?=\d)){0,150}\b(?:right\s+to\s+file|EEOC|agency\s+charge|whistleblow\w*)\b",
                     r"\bright\s+to\s+file\s+a\s+charge\b",
                 ],
+                # "\bsever\w*\b" also matches "severally" (joint-and-several
+                # liability boilerplate in real estate, construction, and
+                # M&A agreements) and "release ... claims" is common closing/
+                # settlement language outside employment entirely — confirmed
+                # empirically firing "Severance release may lack statutory
+                # rights carve-out" against a real estate purchase agreement,
+                # a construction contract, and a franchise agreement, none of
+                # which involve an actual employment severance.
+                contract_types=("Employment Agreement",),
             ),
             Rule(
                 rule_id="M_EMPLOY_NONSOLICIT_EMPLOYEE_01",

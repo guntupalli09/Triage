@@ -599,10 +599,17 @@ async def login_mfa_submit(
     return response
 
 
+def _is_guest_account(user: Optional[User]) -> bool:
+    return bool(user and user.email.endswith("@guest.triagecounsel.local"))
+
+
 @app.get("/register", response_class=HTMLResponse)
-async def register_page(request: Request):
+async def register_page(request: Request, db: DBSession = Depends(get_db)):
+    current = get_current_user(request, db)
     analytics.record_event(request, "signup_started")
-    return templates.TemplateResponse("register.html", {"request": request, "error": None})
+    return templates.TemplateResponse("register.html", {
+        "request": request, "error": None, "claiming": _is_guest_account(current),
+    })
 
 
 @app.post("/register", response_class=HTMLResponse)
@@ -618,13 +625,39 @@ async def register_submit(
     _csrf: None = Depends(csrf_protect),
 ):
     email = email.lower().strip()
+    current = get_current_user(request, db)
+    claiming = _is_guest_account(current)
+
+    def error(message: str):
+        return templates.TemplateResponse("register.html", {"request": request, "error": message, "claiming": claiming})
 
     if password != confirm_password:
-        return templates.TemplateResponse("register.html", {"request": request, "error": "Passwords do not match."})
+        return error("Passwords do not match.")
     if len(password) < 8:
-        return templates.TemplateResponse("register.html", {"request": request, "error": "Password must be at least 8 characters."})
-    if db.query(User).filter(User.email == email).first():
-        return templates.TemplateResponse("register.html", {"request": request, "error": "An account with this email already exists."})
+        return error("Password must be at least 8 characters.")
+    existing = db.query(User).filter(User.email == email).first()
+    if existing and not (claiming and existing.id == current.id):
+        return error("An account with this email already exists.")
+
+    if claiming:
+        # Upgrade the existing guest account in place — same row, same id,
+        # so every contract it already owns (from the demo or from an
+        # anonymous "Start Free Review" upload) stays exactly where it is,
+        # just now reachable from a real, permanent, password-protected
+        # account instead of a throwaway one nobody could log back into.
+        user = current
+        user.email = email
+        user.password_hash = hash_password(password)
+        user.name = name.strip() or None
+        user.company = company.strip() or None
+        db.commit()
+        analytics.record_event(request, "guest_account_claimed", user=user)
+        audit_log.record_event(
+            db, "account_created", request=request, actor_user_id=user.id,
+            target_type="user", target_id=user.id, success=True,
+            metadata={"claimed_guest_account": True},
+        )
+        return RedirectResponse(url="/dashboard", status_code=302)
 
     user = User(
         email=email,
@@ -1182,13 +1215,36 @@ async def history(request: Request, q: str = "", risk: str = "", page: int = 1, 
 
 
 # ============================================================
-# SINGLE CONTRACT UPLOAD (authenticated)
+# SINGLE CONTRACT UPLOAD (real accounts and one-click guest trials)
 # ============================================================
+
+def _create_guest_user(db: DBSession, request: Request, name: str = "Guest") -> User:
+    """A throwaway, no-password account for a visitor who hasn't created a
+    real one — same mechanism whether they got here via the demo or via
+    "Start Free Review" with their own contract. A recognizable
+    @guest.triagecounsel.local address and free-tier limits (3
+    contracts/month, same as a real free account) so every downstream
+    route (ownership checks, ordinary usage limits, redline actions, PDF
+    export, share links) works completely unmodified — the guest IS a
+    real account, just one nobody had to fill out a form to create.
+    """
+    guest_email = f"demo-{secrets.token_hex(8)}@guest.triagecounsel.local"
+    user = User(
+        email=guest_email, password_hash=None, name=name,
+        plan="free", monthly_limit=3,
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    rbac.grant_role(db, user, "user")
+    analytics.record_event(request, "guest_account_created", user=user)
+    return user
+
 
 @app.get("/upload-page", response_class=HTMLResponse)
 async def upload_page(request: Request, db: DBSession = Depends(get_db)):
-    user = require_user(request, db)
-    playbooks = db.query(Playbook).filter(Playbook.user_id == user.id).all()
+    user = get_current_user(request, db)
+    playbooks = db.query(Playbook).filter(Playbook.user_id == user.id).all() if user else []
     return templates.TemplateResponse("upload.html", {
         "request": request, "current_year": datetime.now().year,
         "dev_mode": DEV_MODE, "user": user, "playbooks": playbooks,
@@ -1213,7 +1269,7 @@ async def upload_contract(
         if not accepts_html:
             raise HTTPException(status_code=status_code, detail=message)
         playbooks = db.query(Playbook).filter(Playbook.user_id == user.id).all() if user else []
-        return templates.TemplateResponse("upload.html" if user else "index.html", {
+        return templates.TemplateResponse("upload.html", {
             "request": request, "error": message, "user": user,
             "playbooks": playbooks, "current_year": datetime.now().year,
             "dev_mode": DEV_MODE,
@@ -1243,100 +1299,97 @@ async def upload_contract(
     except Exception:
         return upload_error("We couldn’t read that document. Make sure it opens correctly, then try again.")
 
-    # If user is logged in, save to DB
-    if user:
-        if not check_usage_limit(user):
-            return templates.TemplateResponse("upload.html", {
-                "request": request,
-                "error": "You’ve used all of this month’s reviews on your current plan.",
-                "error_upgrade": True,
-                "user": user,
-                "playbooks": db.query(Playbook).filter(Playbook.user_id == user.id).all() if user else [],
-                "current_year": datetime.now().year,
-                "dev_mode": DEV_MODE,
-            })
+    # A visitor without an account yet gets a throwaway guest account here —
+    # the same mechanism /demo/start uses — instead of being sent to a
+    # signup form before they've seen any value. Created only now, after
+    # the file has actually validated, so a bad/empty upload attempt never
+    # burns an account on its own. From this point on a guest is handled
+    # identically to a real logged-in user for the rest of this function.
+    new_guest = user is None
+    if new_guest:
+        user = _create_guest_user(db, request)
 
-        analytics.record_event(request, "upload_started", user=user, metadata={"filename": filename})
-
-        started_at = time.perf_counter()
-        analytics.record_event(request, "analysis_started", user=user, metadata={"filename": filename})
-        analysis = run_analysis(contract_text)
-        analytics.record_event(request, "analysis_completed", user=user, metadata={
-            "filename": filename, "overall_risk": analysis.get("overall_risk"),
+    if not check_usage_limit(user):
+        return templates.TemplateResponse("upload.html", {
+            "request": request,
+            "error": "You’ve used all of this month’s reviews on your current plan.",
+            "error_upgrade": True,
+            "user": user,
+            "playbooks": db.query(Playbook).filter(Playbook.user_id == user.id).all() if user else [],
+            "current_year": datetime.now().year,
+            "dev_mode": DEV_MODE,
         })
-        processing_time = time.perf_counter() - started_at
 
-        # Playbook comparison
-        deviations = None
-        if playbook_id:
-            playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
-            if playbook and playbook.template_findings_json:
-                comparison = playbook_engine.compare(analysis["findings_dict"], playbook.template_findings_json)
-                deviations = comparison
+    analytics.record_event(request, "upload_started", user=user, metadata={"filename": filename})
 
-        contract = Contract(
-            user_id=user.id,
-            filename=filename,
-            contract_text=contract_text,
-            overall_risk=analysis["overall_risk"],
-            findings_json=analysis["findings_dict"],
-            llm_result_json=analysis["llm_result"],
-            rule_counts_json=analysis["rule_counts"],
-            rule_engine_version=analysis["version"],
-            analysis_completed=True,
-            playbook_id=playbook_id,
-            deviations_json=deviations,
-            signature_readiness=analysis.get("signature_readiness"),
-            payment_terms_json=analysis.get("payment_terms"),
-            blocking_findings_json=analysis.get("blocking_findings"),
-            policy_blocked_findings_json=analysis.get("policy_blocked_findings"),
-            legal_risk_score=analysis.get("risk_dashboard", {}).get("legal_risk_score"),
-            business_risk_score=analysis.get("risk_dashboard", {}).get("business_risk_score"),
-            negotiation_difficulty_score=analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
-            risk_dashboard_json=analysis.get("risk_dashboard"),
-            structure_report_json=analysis.get("structure_report"),
-            clause_quality_json=analysis.get("clause_quality"),
-            metadata_json=analysis.get("metadata"),
-            risk_balance_json=analysis.get("risk_balance"),
-        )
-        db.add(contract)
-        db.flush()  # assigns contract.id without ending the transaction
+    started_at = time.perf_counter()
+    analytics.record_event(request, "analysis_started", user=user, metadata={"filename": filename})
+    analysis = run_analysis(contract_text)
+    analytics.record_event(request, "analysis_completed", user=user, metadata={
+        "filename": filename, "overall_risk": analysis.get("overall_risk"),
+    })
+    processing_time = time.perf_counter() - started_at
 
-        contract_event = analytics.build_contract_event(
-            request, contract_id=contract.id, user_id=user.id,
-            filename=filename, file_bytes=file_bytes,
-            status="completed", processing_time=processing_time,
-        )
-        db.add(contract_event)
+    # Playbook comparison
+    deviations = None
+    if playbook_id:
+        playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
+        if playbook and playbook.template_findings_json:
+            comparison = playbook_engine.compare(analysis["findings_dict"], playbook.template_findings_json)
+            deviations = comparison
 
-        user.contracts_this_month += 1
-        db.commit()
-        db.refresh(contract)
+    contract = Contract(
+        user_id=user.id,
+        filename=filename,
+        contract_text=contract_text,
+        overall_risk=analysis["overall_risk"],
+        findings_json=analysis["findings_dict"],
+        llm_result_json=analysis["llm_result"],
+        rule_counts_json=analysis["rule_counts"],
+        rule_engine_version=analysis["version"],
+        analysis_completed=True,
+        playbook_id=playbook_id,
+        deviations_json=deviations,
+        signature_readiness=analysis.get("signature_readiness"),
+        payment_terms_json=analysis.get("payment_terms"),
+        blocking_findings_json=analysis.get("blocking_findings"),
+        policy_blocked_findings_json=analysis.get("policy_blocked_findings"),
+        legal_risk_score=analysis.get("risk_dashboard", {}).get("legal_risk_score"),
+        business_risk_score=analysis.get("risk_dashboard", {}).get("business_risk_score"),
+        negotiation_difficulty_score=analysis.get("risk_dashboard", {}).get("negotiation_difficulty_score"),
+        risk_dashboard_json=analysis.get("risk_dashboard"),
+        structure_report_json=analysis.get("structure_report"),
+        clause_quality_json=analysis.get("clause_quality"),
+        metadata_json=analysis.get("metadata"),
+        risk_balance_json=analysis.get("risk_balance"),
+    )
+    db.add(contract)
+    db.flush()  # assigns contract.id without ending the transaction
 
-        analytics.record_event(request, "upload_completed", user=user, metadata={
-            "contract_id": contract.id, "filename": filename, "overall_risk": contract.overall_risk,
-        })
-        audit_log.record_event(
-            db, "contract_uploaded", request=request, actor_user_id=user.id,
-            target_type="contract", target_id=contract.id, success=True,
-            metadata={"filename": filename, "overall_risk": contract.overall_risk},
-        )
+    contract_event = analytics.build_contract_event(
+        request, contract_id=contract.id, user_id=user.id,
+        filename=filename, file_bytes=file_bytes,
+        status="completed", processing_time=processing_time,
+    )
+    db.add(contract_event)
 
-        return RedirectResponse(url=f"/contract/{contract.id}/review", status_code=303)
+    user.contracts_this_month += 1
+    db.commit()
+    db.refresh(contract)
 
-    # Anonymous flow (legacy: pay-per-use via Stripe)
-    if DEV_MODE:
-        app_session_id = secrets.token_urlsafe(18)
-        sig = hmac.new(APP_HMAC_SECRET.encode(), app_session_id.encode(), hashlib.sha256).hexdigest()
-        token = f"{app_session_id}:{sig}"
-        session_store[app_session_id] = {
-            "paid": True, "text": contract_text, "filename": filename,
-            "stripe_session_id": None, "expires_at": datetime.now() + timedelta(hours=24),
-        }
-        current_base_url = get_base_url(request)
-        return RedirectResponse(url=f"{current_base_url}/results?token={token}", status_code=303)
+    analytics.record_event(request, "upload_completed", user=user, metadata={
+        "contract_id": contract.id, "filename": filename, "overall_risk": contract.overall_risk,
+    })
+    audit_log.record_event(
+        db, "contract_uploaded", request=request, actor_user_id=user.id,
+        target_type="contract", target_id=contract.id, success=True,
+        metadata={"filename": filename, "overall_risk": contract.overall_risk},
+    )
 
-    raise HTTPException(status_code=401, detail="Please log in or create an account")
+    response = RedirectResponse(url=f"/contract/{contract.id}/review", status_code=303)
+    if new_guest:
+        create_session(user.id, response)
+    return response
 
 
 # ============================================================
@@ -2881,15 +2934,7 @@ async def demo_start(
     new_guest = user is None
 
     if not user:
-        guest_email = f"demo-{secrets.token_hex(8)}@guest.triagecounsel.local"
-        user = User(
-            email=guest_email, password_hash=None, name="Demo Visitor",
-            plan="free", monthly_limit=3,
-        )
-        db.add(user)
-        db.commit()
-        db.refresh(user)
-        rbac.grant_role(db, user, "user")
+        user = _create_guest_user(db, request, name="Demo Visitor")
         analytics.record_event(request, "demo_guest_created", user=user)
 
     sample_info = DEMO_SAMPLES[_demo_sample_key(sample)]
