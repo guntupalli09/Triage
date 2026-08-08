@@ -2835,7 +2835,10 @@ DEMO_CONTRACT = """MUTUAL NON-DISCLOSURE AGREEMENT
 # engine working on the kind of extraction quality a lawyer actually gets
 # from a scanned or HTML-derived exhibit, not a hand-formatted sample.
 _MESSY_DEMO_CONTRACT_PATH = Path(__file__).parent / "sample_contracts" / "messy_executive_employment_agreement.txt"
-MESSY_DEMO_CONTRACT = _MESSY_DEMO_CONTRACT_PATH.read_text(encoding="utf-8")
+try:
+    MESSY_DEMO_CONTRACT = _MESSY_DEMO_CONTRACT_PATH.read_text(encoding="utf-8")
+except FileNotFoundError:
+    MESSY_DEMO_CONTRACT = DEMO_CONTRACT
 
 DEMO_SAMPLES = {
     "clean": {
