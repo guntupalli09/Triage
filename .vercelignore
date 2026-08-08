@@ -42,6 +42,7 @@ Submission/
 experiments/**/*.json
 experiments/**/*.txt
 !rules/version.json
+!sample_contracts/*.txt
 
 # Exclude build artifacts
 build/
