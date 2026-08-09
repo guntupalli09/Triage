@@ -44,7 +44,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Protocol, Tuple
+from typing import Any, Dict, List, Optional, Protocol, Tuple
 
 
 RULE_ID = "POLICY_LOL_CAP"
@@ -57,6 +57,17 @@ PROHIBITED = "PROHIBITED"
 ESCALATE = "ESCALATE"
 REQUIRES_REVIEW = "REQUIRES_REVIEW"
 NOT_APPLICABLE = "NOT_APPLICABLE"
+
+# Typed cap basis — what a multiplier cap is a multiple OF. Only BASIS_FEES
+# is comparable to a policy threshold (defined as "Nx annual fees"); every
+# other basis is preserved with its exact source language but routed to
+# REQUIRES_REVIEW rather than silently compared as if it were fee-based.
+BASIS_FEES = "FEES"
+BASIS_PURCHASE_PRICE = "PURCHASE_PRICE"
+BASIS_CONTRACT_VALUE = "CONTRACT_VALUE"
+BASIS_FIXED_AMOUNT = "FIXED_AMOUNT"
+BASIS_OTHER = "OTHER"
+BASIS_UNRESOLVED = "UNRESOLVED"
 
 _LADDER_ORDER = [ACCEPT, ACCEPT_WITH_NOTE, NEGOTIATE, ESCALATE, PROHIBITED]
 
@@ -87,7 +98,7 @@ _WORD_NUMBERS = {
     "seven": 7, "eight": 8, "nine": 9, "ten": 10,
 }
 
-_ANCHOR_RE = re.compile(r"limitation of liability|liability cap", re.I)
+_ANCHOR_RE = re.compile(r"limitation\s+of\s+liability|liability\s+cap", re.I)
 _UNLIMITED_RE = re.compile(
     r"unlimited liability|no limit(?:ation)?\s+(?:on|of)\s+liability"
     r"|liability shall not be limited|without limitation as to (?:the )?amount"
@@ -97,22 +108,34 @@ _UNLIMITED_RE = re.compile(
     r"|there (?:is|shall be) no (?:cap|limit)(?:ation)?",
     re.I,
 )
+_BASIS_WORD_FRAGMENT = r"(fees?|purchase price|contract value|order form value)"
 _MULTIPLIER_NUM_RE = re.compile(
-    r"(\d+(?:\.\d+)?)\s*(?:x|times)\s*(?:the\s+)?(?:total\s+|aggregate\s+)?(?:annual\s+)?fees?"
-    r"(?:\s+paid)?(?:\s+(?:in|during)\s+the\s+(?:twelve|12)\s*\(?12\)?\s*months?)?",
+    r"(\d+(?:\.\d+)?)\s*(?:x|times)\s*(?:the\s+)?(?:total\s+|aggregate\s+)?(?:annual\s+)?" + _BASIS_WORD_FRAGMENT
+    + r"(?:\s+paid)?(?:\s+(?:in|during)\s+the\s+(?:twelve|12)\s*\(?12\)?\s*months?)?",
     re.I,
 )
 _MULTIPLIER_WORD_RE = re.compile(
     r"\b(" + "|".join(_WORD_NUMBERS) + r")\s*(?:\(\d+\))?\s*times?\s*(?:the\s+)?(?:total\s+|aggregate\s+)?"
-    r"(?:annual\s+)?fees?",
+    r"(?:annual\s+)?" + _BASIS_WORD_FRAGMENT,
     re.I,
 )
+
+
+def _classify_basis(basis_word: str) -> str:
+    w = basis_word.lower()
+    if "fee" in w:
+        return BASIS_FEES
+    if "purchase price" in w:
+        return BASIS_PURCHASE_PRICE
+    if "contract value" in w:
+        return BASIS_CONTRACT_VALUE
+    return BASIS_OTHER
 _FIXED_AMOUNT_RE = re.compile(
     r"(?:maximum(?:\s+aggregate)?\s+liability(?:\s+of\s+(?:either\s+party)?)?\s*(?:shall\s+not\s+exceed|shall\s+exceed|exceed|of|:)?"
     r"|liable\s+for\s+(?:an\s+amount\s+)?(?:in\s+excess\s+of|more\s+than)"
     r"|limited\s+to"
     r"|(?:is\s+)?capped\s+at"
-    r"|(?:a\s+)?cap\s+of"
+    r"|(?:a\s+)?cap(?:\s+\w+){0,4}\s+of"
     r"|shall\s+not\s+exceed)\s*\$\s*([\d,]+(?:\.\d{2})?)",
     re.I,
 )
@@ -156,6 +179,21 @@ _AMENDMENT_SIGNAL_RE = re.compile(
     re.I,
 )
 
+# Cross-reference detection: the LoL provision delegates or modifies its cap
+# through another named provision instead of stating one directly. Each
+# pattern with a capture group names the referenced location so it can be
+# located and, if unambiguous, resolved deterministically — never guessed
+# at when multiple candidate targets exist (see _resolve_cross_reference).
+_CROSS_REF_TARGET_PATTERNS = [
+    re.compile(r"(?:as\s+)?set\s+forth\s+in\s+(Schedule\s+[A-Z0-9]+|Exhibit\s+[A-Z0-9]+|Appendix\s+[A-Z0-9]+|Section\s+\d+(?:\.\d+)?)", re.I),
+    re.compile(r"(?:as\s+)?set\s+forth\s+in\s+(the\s+(?:applicable\s+)?Order\s+Form)", re.I),
+    re.compile(r"(?:as\s+)?set\s+forth\s+in\s+(the\s+DPA|the\s+Data\s+Processing\s+Addendum)", re.I),
+    re.compile(r"governed\s+(?:exclusively\s+)?by\s+(Schedule\s+[A-Z0-9]+|Exhibit\s+[A-Z0-9]+)", re.I),
+    re.compile(r"\bsee\s+(Schedule\s+[A-Z0-9]+|Exhibit\s+[A-Z0-9]+|Appendix\s+[A-Z0-9]+)", re.I),
+    re.compile(r"incorporated(?:\s+herein)?\s+by\s+reference", re.I),  # no target name captured
+]
+_CROSS_REF_RESOLUTION_WINDOW = 2000
+
 _PROVISION_WINDOW_CHARS = 3000
 _LOCAL_WINDOW_CHARS = 180
 _ANCHOR_DEDUP_GAP = 300  # a second anchor this close to a prior one is the same clause, not a new provision
@@ -176,6 +214,12 @@ _AGGREGATE_SCOPE_RE = re.compile(r"\baggregate\b|in the aggregate|across all cla
 @dataclass
 class CapValue:
     kind: str  # "fee_multiplier" | "fixed_amount" | "unlimited"
+    # Typed cap basis — what the multiplier is OF. A multiplier is only
+    # comparable to a policy threshold (defined as "Nx annual fees") when
+    # basis == BASIS_FEES; any other basis is preserved verbatim but must
+    # never be silently evaluated as if it were fee-based (see
+    # evaluate_liability_policy's basis gate).
+    basis: str = BASIS_UNRESOLVED
     multiplier: Optional[float] = None
     fixed_amount: Optional[float] = None
     raw_excerpt: str = ""
@@ -186,7 +230,10 @@ class CapValue:
         if self.kind == "unlimited":
             return "Unlimited"
         if self.kind == "fee_multiplier":
-            return f"{self.multiplier:g}x annual fees"
+            if self.basis == BASIS_FEES:
+                return f"{self.multiplier:g}x annual fees"
+            basis_label = self.basis.replace("_", " ").title() if self.basis else "unspecified basis"
+            return f"{self.multiplier:g}x {basis_label}"
         if self.kind == "fixed_amount":
             return f"${self.fixed_amount:,.2f} fixed"
         return "unspecified"
@@ -318,6 +365,7 @@ class Provision:
     consequential_damages_excluded: Optional[bool]
     consequential_damages_established: bool
     consequential_damages_carveouts: List[str]
+    cross_reference: Optional[Dict[str, Any]] = None  # {"label", "resolved", "reason"} — see _resolve_cross_reference
 
     def provision_label(self) -> str:
         if self.section_label:
@@ -466,17 +514,17 @@ def _find_cap_values(window: str) -> List[CapValue]:
         )))
     for m in _MULTIPLIER_NUM_RE.finditer(window):
         matches.append((m.start(), m.end(), CapValue(
-            kind="fee_multiplier", multiplier=float(m.group(1)),
+            kind="fee_multiplier", basis=_classify_basis(m.group(2)), multiplier=float(m.group(1)),
             raw_excerpt=window[m.start():m.end()], start_index=m.start(), end_index=m.end(),
         )))
     for m in _MULTIPLIER_WORD_RE.finditer(window):
         matches.append((m.start(), m.end(), CapValue(
-            kind="fee_multiplier", multiplier=float(_WORD_NUMBERS[m.group(1).lower()]),
+            kind="fee_multiplier", basis=_classify_basis(m.group(2)), multiplier=float(_WORD_NUMBERS[m.group(1).lower()]),
             raw_excerpt=window[m.start():m.end()], start_index=m.start(), end_index=m.end(),
         )))
     for m in _FIXED_AMOUNT_RE.finditer(window):
         matches.append((m.start(), m.end(), CapValue(
-            kind="fixed_amount", fixed_amount=float(m.group(1).replace(",", "")),
+            kind="fixed_amount", basis=BASIS_FIXED_AMOUNT, fixed_amount=float(m.group(1).replace(",", "")),
             raw_excerpt=window[m.start():m.end()], start_index=m.start(), end_index=m.end(),
         )))
 
@@ -636,7 +684,7 @@ def _classify_general_cap_expression(
 
     has_unlimited = any(c.kind == "unlimited" for c in unclaimed)
     numeric = [c for c in unclaimed if c.kind != "unlimited"]
-    distinct_numeric_values = {(c.kind, c.multiplier, c.fixed_amount) for c in numeric}
+    distinct_numeric_values = {(c.kind, c.basis, c.multiplier, c.fixed_amount) for c in numeric}
 
     if has_unlimited and numeric:
         return _unresolved(
@@ -710,6 +758,58 @@ def _section_label_before(text: str, anchor_start: int) -> Optional[str]:
     return nums[-1] if nums else None
 
 
+def _detect_cross_reference(window: str) -> Optional[Tuple[str, int, int]]:
+    """Returns (label, start, end) for the first cross-reference signal
+    found — label is "" for a generic "incorporated by reference" with no
+    named target. None if no cross-reference language is present at all."""
+    for pat in _CROSS_REF_TARGET_PATTERNS:
+        m = pat.search(window)
+        if m:
+            label = m.group(1) if m.groups() else ""
+            return label, m.start(), m.end()
+    return None
+
+
+def _resolve_cross_reference(
+    text: str, provision_start: int, provision_end: int, label: str,
+) -> Tuple[Optional[CapValue], str]:
+    """Searches the full document for the named reference target (e.g.
+    "Schedule C") outside the current provision and attempts to locate a
+    cap value stated near it. Resolves deterministically only when exactly
+    one candidate location yields a value (or every candidate agrees) —
+    otherwise returns (None, reason) naming why it couldn't, never a guess
+    among multiple candidates."""
+    occurrences = [
+        m for m in re.finditer(re.escape(label), text, re.I)
+        if not (provision_start <= m.start() <= provision_end)
+    ]
+    if not occurrences:
+        return None, f"referenced provision \"{label}\" was not found elsewhere in the extracted document text"
+
+    resolved: List[Tuple[re.Match, CapValue]] = []
+    for m in occurrences:
+        forward = text[m.end():min(len(text), m.end() + _CROSS_REF_RESOLUTION_WINDOW)]
+        caps = _find_cap_values(forward)
+        if caps:
+            cap = caps[0]
+            cap.start_index += m.end()
+            cap.end_index += m.end()
+            resolved.append((m, cap))
+
+    if not resolved:
+        return None, (
+            f"referenced provision \"{label}\" was found but no cap value could be located near it"
+        )
+
+    distinct_values = {(c.kind, c.basis, c.multiplier, c.fixed_amount) for _, c in resolved}
+    if len(distinct_values) > 1:
+        return None, (
+            f"multiple mentions of \"{label}\" were found with different cap values; "
+            f"cannot determine which governs without attorney review"
+        )
+    return resolved[0][1], ""
+
+
 def _extract_provision(text: str, anchor_match: re.Match, index: int) -> Provision:
     window_start = anchor_match.start()
     window_end = min(len(text), window_start + _PROVISION_WINDOW_CHARS)
@@ -726,6 +826,47 @@ def _extract_provision(text: str, anchor_match: re.Match, index: int) -> Provisi
 
     lookback_start = max(0, window_start - 300)
     is_amendment = bool(_AMENDMENT_SIGNAL_RE.search(text[lookback_start:window_end]))
+
+    # Cross-reference: the provision states no cap of its own and instead
+    # delegates to another named section/schedule/exhibit/order form/DPA.
+    # Prefer resolving it deterministically when the referenced provision
+    # exists in the document and is unambiguous; otherwise this becomes
+    # REQUIRES_REVIEW (naming the reference) rather than the misleading
+    # MUST_REDLINE ("insert cap language") — a delegated cap isn't missing,
+    # it's just not stated here.
+    cross_reference_info = None
+    if not general_cap_expr.components and general_cap_expr.structure == "simple":
+        cross_ref = _detect_cross_reference(window)
+        if cross_ref:
+            label, sig_start, sig_end = cross_ref
+            if label:
+                resolved_cap, reason = _resolve_cross_reference(text, window_start, window_end, label)
+                if resolved_cap is not None:
+                    # _resolve_cross_reference searched the full document, so
+                    # its offsets are already absolute — convert back to
+                    # window-relative here so the generic re-anchor pass
+                    # below (which adds window_start once) stays uniform
+                    # across every code path instead of needing a special case.
+                    resolved_cap.start_index -= window_start
+                    resolved_cap.end_index -= window_start
+                    general_cap_expr = CapExpression(
+                        structure="simple", components=[resolved_cap],
+                        raw_excerpt=resolved_cap.raw_excerpt,
+                        start_index=resolved_cap.start_index, end_index=resolved_cap.end_index,
+                    )
+                    cross_reference_info = {"label": label, "resolved": True, "reason": ""}
+                else:
+                    general_cap_expr = _unresolved(
+                        f"delegates to \"{label}\" — {reason}",
+                        raw_excerpt=_excerpt(window, sig_start, sig_end), start_index=sig_start, end_index=sig_end,
+                    )
+                    cross_reference_info = {"label": label, "resolved": False, "reason": reason}
+            else:
+                general_cap_expr = _unresolved(
+                    "delegates to a cross-referenced provision that could not be identified by name",
+                    raw_excerpt=_excerpt(window, sig_start, sig_end), start_index=sig_start, end_index=sig_end,
+                )
+                cross_reference_info = {"label": "", "resolved": False, "reason": "no named reference target"}
 
     cap, _ = general_cap_expr.effective_cap() if general_cap_expr.structure != "unresolved" else (None, None)
     if general_cap_expr.components or general_cap_expr.structure == "unresolved":
@@ -756,6 +897,7 @@ def _extract_provision(text: str, anchor_match: re.Match, index: int) -> Provisi
         general_cap_expression=general_cap_expr, category_treatments=category_treatments,
         party_positions=party_positions, consequential_damages_excluded=consequential_excluded,
         consequential_damages_established=consequential_established, consequential_damages_carveouts=carveouts,
+        cross_reference=cross_reference_info,
     )
 
 
@@ -954,6 +1096,18 @@ def evaluate_liability_policy(
     general_cap, general_cap_reason = general_cap_expr.effective_cap()
     if general_cap_reason:
         unresolved_facts.append(f"general liability cap ({general_cap_reason})")
+    elif general_cap is not None and general_cap.kind == "fee_multiplier" and general_cap.basis != BASIS_FEES:
+        # A multiplier of purchase price / contract value / some other
+        # basis is not comparable to a policy threshold defined as "Nx
+        # annual fees" — preserve the exact source language, don't force
+        # it into fee-multiplier semantics by comparing it anyway.
+        basis_label = (general_cap.basis or BASIS_OTHER).replace("_", " ").title()
+        general_cap_reason = (
+            f"cap is expressed as a multiplier of {basis_label}, not fees — policy thresholds are "
+            f"defined as a multiplier of annual fees and this cannot be compared without additional information"
+        )
+        unresolved_facts.append(f"general liability cap ({general_cap_reason})")
+        general_cap = None
 
     for cat in required_exceptions:
         treatment = provision.category_treatments.get(cat)

@@ -451,3 +451,110 @@ class TestConsequentialDamagesPolicy:
         )
         d = evaluate(text, require_consequential_damages_exclusion=False)
         assert d.state == lpe.ACCEPT
+
+
+# ---------------------------------------------------------------------------
+# Final hardening pass — cross-reference resolution, typed cap basis,
+# per-claim/aggregate completion, anchor whitespace tolerance
+# ---------------------------------------------------------------------------
+
+class TestCrossReferenceResolution:
+    def test_unresolvable_reference_requires_review_not_must_redline(self):
+        text = (
+            "12. Limitation of Liability. The limitation of liability applicable to this "
+            "Agreement shall be as set forth in Schedule C (Liability Terms)."
+        )
+        d = evaluate(text)
+        assert d.state == lpe.REQUIRES_REVIEW
+        assert "Schedule C" in d.explanation
+
+    def test_resolvable_reference_resolves_deterministically(self):
+        text = (
+            "12. Limitation of Liability. The limitation of liability applicable to this "
+            "Agreement shall be as set forth in Schedule C. " + ("Filler text. " * 50)
+            + "Schedule C (Liability Terms). Aggregate liability under this Schedule shall not "
+            "exceed 1 times the total annual fees paid."
+        )
+        d = evaluate(text)
+        assert d.state == lpe.ACCEPT
+
+    def test_multiple_conflicting_candidates_require_review_not_a_guess(self):
+        text = (
+            "12. Limitation of Liability. The limitation of liability applicable to this "
+            "Agreement shall be as set forth in Schedule C. "
+            "Schedule C (Draft, superseded). Liability shall not exceed 5 times the total "
+            "annual fees paid. "
+            "Schedule C (Final). Liability shall not exceed 1 times the total annual fees paid."
+        )
+        d = evaluate(text)
+        assert d.state == lpe.REQUIRES_REVIEW
+
+    def test_generic_incorporation_by_reference_with_no_named_target_requires_review(self):
+        text = (
+            "12. Limitation of Liability. Liability caps for each Order Form are set forth in "
+            "the applicable Order Form and incorporated herein by reference."
+        )
+        d = evaluate(text)
+        assert d.state == lpe.REQUIRES_REVIEW
+
+
+class TestTypedCapBasis:
+    def test_purchase_price_basis_is_not_compared_as_if_it_were_fees(self):
+        text = (
+            "12. Limitation of Liability. Buyer's liability under this Agreement is limited to "
+            "1 times the purchase price."
+        )
+        facts = lpe.extract_liability_facts(text)
+        cap, reason = facts.controlling_provision.general_cap_expression.effective_cap()
+        assert cap.basis == lpe.BASIS_PURCHASE_PRICE
+        d = evaluate(text)
+        # 1x would ACCEPT under DEFAULT_POLICY if treated as fees — it must not be.
+        assert d.state == lpe.REQUIRES_REVIEW
+        assert "purchase price" in d.explanation.lower() or "Purchase Price" in d.explanation
+
+    def test_contract_value_basis_is_preserved_verbatim_and_not_compared(self):
+        text = (
+            "12. Limitation of Liability. Aggregate liability shall not exceed 1 times the "
+            "total contract value."
+        )
+        d = evaluate(text)
+        assert d.state == lpe.REQUIRES_REVIEW
+
+    def test_fees_basis_still_evaluates_normally(self):
+        text = (
+            "12. Limitation of Liability. Aggregate liability shall not exceed 1 times the "
+            "total annual fees paid."
+        )
+        d = evaluate(text)
+        assert d.state == lpe.ACCEPT
+
+
+class TestPerClaimAndAggregateCompletion:
+    def test_differing_fixed_amount_scopes_require_review(self):
+        text = (
+            "12. Limitation of Liability. Each claim is subject to a cap of $100,000, subject "
+            "to an aggregate cap across all claims of $500,000 in any twelve-month period."
+        )
+        facts = lpe.extract_liability_facts(text)
+        expr = facts.controlling_provision.general_cap_expression
+        assert expr.structure == "per_claim_and_aggregate"
+        d = evaluate(text)
+        assert d.state == lpe.REQUIRES_REVIEW
+
+
+class TestAnchorWhitespaceTolerance:
+    def test_repeated_whitespace_in_heading_is_tolerated(self):
+        text = (
+            "12.  Limitation   of   Liability.    In no event  shall  liability   exceed  2x  "
+            "the  fees    paid     annually."
+        )
+        d = evaluate(text)
+        assert d.state != lpe.NOT_APPLICABLE
+
+    def test_unrelated_liability_language_still_does_not_match(self):
+        # Guard against the whitespace tolerance broadening the anchor too
+        # far — plain "liability" mentions elsewhere must not be mistaken
+        # for a Limitation of Liability clause.
+        text = "9. Indemnification. Each party's liability for indemnified claims shall be as set forth herein."
+        d = evaluate(text)
+        assert d.state == lpe.NOT_APPLICABLE

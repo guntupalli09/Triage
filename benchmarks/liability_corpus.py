@@ -30,6 +30,35 @@ assumed to be "not_addressed"; it is simply not asserted for that case.
 """
 from typing import Any, Dict, List, Optional
 
+
+# Cases where a hardening pass gave the engine a capability it didn't have
+# when the label was written, and the new (different-from-label) output is
+# plausibly more correct than the original label — not a demonstrated
+# error, a genuine judgment call. Per instruction: report these for human
+# review, never silently relabel to raise accuracy.
+GROUND_TRUTH_REVIEW_REQUIRED = {
+    "amendment-02": (
+        "Label was REQUIRES_REVIEW, recorded before document-wide provision discovery existed "
+        "(the engine could not see past its old ~3000-char window at all). The engine now finds "
+        "the amendment, recognizes its explicit 'hereby amended and restated' language, and "
+        "deterministically resolves to the amendment's 6x figure -> ESCALATE. Priority 1's own "
+        "spec calls deterministic resolution one of the two acceptable outcomes (the other being "
+        "REQUIRES_REVIEW) — so ESCALATE may be the better answer now, not a regression. Recommend: "
+        "accept ESCALATE as correct and update the label in a future pass, but not as part of this "
+        "one, since that would be tuning a label using the same change that produced the mismatch."
+    ),
+    "partial-01": (
+        "Label was ACCEPT, on a carve-out worded 'gross negligence in performing its data security "
+        "obligations' credited against a required_exceptions list of [gross_negligence, data_breach]. "
+        "The original note already flagged uncertainty: crediting this narrow, compound carve-out as "
+        "satisfying a general data_breach requirement was a judgment call, not a clear-cut reading. "
+        "The engine now returns NEGOTIATE because data_breach isn't independently addressed — "
+        "arguably the more conservative, defensible legal reading (the carve-out is scoped to "
+        "negligence in a specific obligation, not to data breaches generally). Recommend: review with "
+        "a lawyer; do not resolve by adjusting the engine to match the original guess."
+    ),
+}
+
 DEFAULT_POLICY = {
     "preferred_multiplier": 1.0,
     "acceptable_max_multiplier": 2.0,
@@ -542,24 +571,29 @@ CASES += [
     case("xref-01", ["cross_reference"],
          "12. Limitation of Liability. The limitation of liability applicable to this Agreement "
          "shall be as set forth in Schedule C (Liability Terms).",
-         "REQUIRES_REVIEW", {"kind": "not_stated"},
-         notes="No number in the clause itself — the real cap lives in a schedule the engine never reads. MUST_REDLINE ('insert cap language') is a misleading instruction here; ideal is REQUIRES_REVIEW ('verify Schedule C'). Still non-ACCEPT either way."),
+         "REQUIRES_REVIEW", {"kind": "unresolved"},
+         notes="No number in the clause itself — the real cap lives in a schedule. Fact-level label "
+               "corrected after the cross-reference-awareness pass: the fact taxonomy now "
+               "distinguishes 'not_stated' (no cap, no cross-reference — insert language) from "
+               "'unresolved via cross-reference' (a cap exists but is delegated elsewhere and "
+               "couldn't be located/resolved) — this case is the latter, not the former. The "
+               "policy-state expectation (REQUIRES_REVIEW) was already correct and is unchanged."),
     case("xref-02", ["cross_reference"],
          "12. Limitation of Liability. Liability caps for each Order Form are set forth in the "
          "applicable Order Form and incorporated herein by reference.",
-         "REQUIRES_REVIEW", {"kind": "not_stated"}),
+         "REQUIRES_REVIEW", {"kind": "unresolved"}),
     case("xref-03", ["cross_reference"],
          "12. Limitation of Liability. See Exhibit B for the applicable liability caps and "
          "carve-outs, which are incorporated into this Section by reference.",
-         "REQUIRES_REVIEW", {"kind": "not_stated"}),
+         "REQUIRES_REVIEW", {"kind": "unresolved"}),
     case("xref-04", ["cross_reference"],
          "12. Limitation of Liability. The parties' respective liability caps are set forth in "
          "Section 3 of the Master Services Agreement referenced in Recital A.",
-         "REQUIRES_REVIEW", {"kind": "not_stated"}),
+         "REQUIRES_REVIEW", {"kind": "unresolved"}),
     case("xref-05", ["cross_reference"],
          "12. Limitation of Liability. Notwithstanding anything to the contrary, liability limits "
          "for Professional Services are governed exclusively by Schedule D.",
-         "REQUIRES_REVIEW", {"kind": "not_stated"}),
+         "REQUIRES_REVIEW", {"kind": "unresolved"}),
 ]
 
 # ---------------------------------------------------------------------------
@@ -639,8 +673,13 @@ CASES += [
     case("malformed-02", ["malformed"],
          "12.  Limitation   of   Liability.    In no event  shall  liability   exceed  2x  the  "
          "fees    paid     annually     under      this      Agreement     structure.",
-         "ACCEPT_WITH_NOTE", {"kind": "not_stated"},
-         notes="Excess whitespace, and '2x' shorthand instead of '2 times'/'two times' — regex requires the literal word 'times' or 'x' with a following space, so this specific shorthand form is a known miss; documents the gap rather than asserting a false pass."),
+         "ACCEPT_WITH_NOTE", {"kind": "fee_multiplier", "multiplier": 2.0},
+         notes="Excess whitespace throughout, including inside the anchor phrase itself — now "
+               "tolerated after the anchor-hardening pass (\\s+ between words). Fact-level label "
+               "corrected: the original note claimed the multiplier regex required a space before "
+               "'x' and would miss '2x' shorthand — that was incorrect, the regex already used \\s* "
+               "(zero-or-more) there and matches '2x' with no space, as confirmed once the anchor "
+               "match stopped masking it. Not an engine change, a corrected prediction."),
     case("malformed-03", ["malformed"],
          "12. Limitation of Liability.\x00\x00 In no event shall aggregate liability exceed 1 "
          "times the total annual fees paid.\x01",

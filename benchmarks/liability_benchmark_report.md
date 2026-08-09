@@ -1,6 +1,6 @@
 # Limitation of Liability Policy Engine — Benchmark Report
 
-Corpus size: **109** cases across 25 drafting-pattern tags.
+Corpus size: **109** cases across 25 drafting-pattern tags. Corpus unchanged in this pass except demonstrably incorrect ground-truth corrections (documented individually below and in `benchmarks/liability_corpus.py`) — no label was tuned to raise a metric.
 
 ## Headline safety metric
 
@@ -8,93 +8,60 @@ Corpus size: **109** cases across 25 drafting-pattern tags.
 
 Zero false-safe cases in this run.
 
+## Second safety direction: false-escalation ("annoying automation")
+
+**False-escalation rate: 0 / 109 (0.0%)** — cases where the correct answer was clear-cut (not REQUIRES_REVIEW) but the engine sent it to REQUIRES_REVIEW anyway. A system that hits zero false-safe by refusing to ever decide would score perfectly on the headline metric while being useless — this is the metric that would have caught that. It didn't need to catch anything this round, but it is now a permanent part of every future run, including Indemnification's.
+
+Zero false-escalation cases in this run.
+
+## Release gate check
+
+| Gate | Target | Actual | Result |
+|---|---|---|---|
+| False-safe | = 0 | 0 | **PASS** |
+| Policy-state accuracy | > 95% | 98.2% | **PASS** |
+| General-cap extraction accuracy | > 98% | 100.0% | **PASS** |
+| Category-treatment accuracy | > 95% | 100.0% | **PASS** |
+| Determinism | = 100% | 100.0% | **PASS** |
+
+**Overall: PASS**
+
 ## Metrics
 
-| Metric | Result | Target |
-|---|---|---|
-| Policy-state accuracy | 90.8% (109 cases) | >95% |
-| General-cap extraction accuracy | 98.7% (75 scored) | >98% |
-| Category-treatment accuracy | 100.0% (27 scored) | >95% |
-| Consequential-damages-exclusion accuracy | 100.0% (8 scored) | — |
-| Ambiguity detection recall (REQUIRES_REVIEW) | 79.5% (31/39) | very high |
-| False-safe rate | 0.0% (0/109) | ≈0% |
-| Determinism (5x repeat, byte-identical) | 109/109 identical | 100% |
-
-## Failures by drafting pattern
-
-Grouped by tag so recurring gaps in one drafting pattern are visible together, rather than as N isolated case failures. Extraction logic was not modified to force individual cases to pass — these are the actual current gaps.
-
-### `cross_reference` — 5 failing case(s)
-
-- `xref-01`: expected state `REQUIRES_REVIEW`, got `MUST_REDLINE`
-- `xref-02`: expected state `REQUIRES_REVIEW`, got `MUST_REDLINE`
-- `xref-03`: expected state `REQUIRES_REVIEW`, got `MUST_REDLINE`
-- `xref-04`: expected state `REQUIRES_REVIEW`, got `MUST_REDLINE`
-- `xref-05`: expected state `REQUIRES_REVIEW`, got `MUST_REDLINE`
-
-### `separate_caps` — 1 failing case(s)
-
-- `separate-05`: expected state `REQUIRES_REVIEW`, got `MUST_REDLINE`
-
-### `per_claim_vs_aggregate` — 1 failing case(s)
-
-- `perclaim-05`: expected state `REQUIRES_REVIEW`, got `ESCALATE`
-
-### `partial_carveout` — 1 failing case(s)
-
-- `partial-01`: expected state `ACCEPT`, got `NEGOTIATE`
-
-### `malformed` — 1 failing case(s)
-
-- `malformed-02`: expected state `ACCEPT_WITH_NOTE`, got `NOT_APPLICABLE`; general-cap extraction mismatch
-
-### `amendment` — 1 failing case(s)
-
-- `amendment-02`: expected state `REQUIRES_REVIEW`, got `ESCALATE`
-
-### `window_boundary` — 1 failing case(s)
-
-- `amendment-02`: expected state `REQUIRES_REVIEW`, got `ESCALATE`
-
-## Remediation pass — before/after
-
-|  | Before | After |
-|---|---|---|
-| False-safe count | **15** | **0** |
-| Policy-state accuracy | 73.4% | 90.8% |
-| General-cap extraction accuracy | 96.0% | 98.7% |
-| Category-treatment accuracy | 92.6% | 100.0% |
-| Consequential-damages accuracy | not consumed by evaluator at all | 100.0%, and now a real policy input |
-| Ambiguity detection recall | 38.5% | 79.5% |
-| Determinism | 109/109 | 109/109 |
-
-**Release gate: PASS.** Zero false-safe cases. The corpus was rerun unchanged except one demonstrably incorrect ground-truth label (`multisupercap-04`: 1.5x is above the 1.0x preferred threshold under `DEFAULT_POLICY`, so `ACCEPT_WITH_NOTE` is arithmetically correct, not `ACCEPT` — a labeling arithmetic error, not an engine gap) and two labels corrected in the prior review pass (malformed clauses whose heading itself is destroyed). No label was adjusted to make a case pass; each correction is noted individually with its rationale.
+| Metric | Before this pass | After this pass | Target |
+|---|---|---|---|
+| False-safe count | 0 | 0 | 0 |
+| False-escalation count | not tracked | 0 | tracked |
+| Policy-state accuracy | 90.8% | 98.2% | >95% |
+| General-cap extraction accuracy | 98.7% | 100.0% | >98% |
+| Category-treatment accuracy | 100.0% | 100.0% | >95% |
+| Consequential-damages-exclusion accuracy | 100.0% | 100.0% | — |
+| Ambiguity detection recall | 79.5% | 97.4% | very high |
+| Determinism | 109/109 | 109/109 | 100% |
 
 ## What changed, by priority
 
-**Priority 1 — document-wide provision discovery.** `extract_liability_facts` now finds every `_ANCHOR_RE` match across the full document, not just the first, and builds a `Provision` per anchor (deduping anchors within 300 characters as the same clause mentioning itself twice). Multiple provisions are reconciled deterministically: an explicit amendment/restatement signal (`hereby amended`, `amended and restated`, `supersedes`, ...) makes the superseding provision controlling; provisions that agree are treated as consistent duplicates; anything else is `REQUIRES_REVIEW` listing every candidate provision and its value, never a silent first-pick. This directly fixed both `window_boundary` false-safes (`multisection-02`, and `amendment-02`'s *false-safe* component specifically — see below). Verified with a dedicated regression test using a >3000-character document where the superseding cap sits well past the old fixed window.
+**1. Cross-reference awareness.** New `_detect_cross_reference` / `_resolve_cross_reference`: when a provision states no cap of its own and instead delegates to a named Schedule/Exhibit/Appendix/Order Form/DPA/Section, the engine now searches the full document for that target. If exactly one candidate location yields a cap (or all candidates agree), it resolves deterministically and evaluates that cap — verified directly: a `Schedule C` reference that exists elsewhere with a clean `1x` cap now resolves to `ACCEPT`, not a shrug. If the target isn't found, or multiple candidates disagree, the provision becomes `REQUIRES_REVIEW` naming the reference and the reason — never `MUST_REDLINE`'s misleading "insert cap language" for a cap that isn't missing, just not stated here. All 5 `cross_reference` corpus cases now pass (previously the accuracy gap in this category, `MUST_REDLINE` vs. ideal `REQUIRES_REVIEW`, was fully closed).
 
-**Priority 2 — typed `CapExpression`.** Replaced the flat `CapValue` general-cap field with `CapExpression`, representing `simple`, `greater_of`, `lesser_of`, and `per_claim_and_aggregate` structures explicitly. `effective_cap()` resolves a structure to one comparable value only when that's deterministically possible (e.g. greater-of two multipliers reduces via `max()`) and returns a specific unresolved reason otherwise (e.g. "cannot resolve a greater of structure mixing a fee multiplier and a fixed dollar amount without the actual annual fee value"). This is what took `greater_of`/`lesser_of` from 8 false-safes to 0.
+**2. Typed cap basis.** `CapValue` gained a `basis` field (`FEES` / `PURCHASE_PRICE` / `CONTRACT_VALUE` / `FIXED_AMOUNT` / `OTHER` / `UNRESOLVED`); the multiplier regexes now capture the basis word ("purchase price", "contract value") instead of assuming fees. `evaluate_liability_policy` gates on this: a multiplier of a non-fee basis is never silently compared against a fees-based policy threshold — it's routed to `REQUIRES_REVIEW`, quoting the exact source language and naming the basis. This closed the `separate-05` gap ("1 times the purchase price") — previously invisible to extraction entirely, now correctly detected and correctly refused as non-comparable rather than either ignored or wrongly compared.
 
-**Priority 3 — directional/asymmetric positions.** `PartyPosition` tracks each named role's cap independently; `_resolve_directional_position` maps "ours" from `policy.contract_side`. A `mutual`-configured policy facing a contract with unequal party-specific caps returns `REQUIRES_REVIEW` rather than guessing; a `buy_side`/`sell_side` policy resolves to *our* position specifically (verified: evaluating a sell-side policy against a contract where the Vendor's stated cap is worse than the Customer's correctly drives the decision off the Vendor figure, not the easier-to-parse Customer one). Unrecognized/unmappable role names never fall back to evaluating whichever side happened to parse — they return `REQUIRES_REVIEW` naming the roles that couldn't be mapped.
+**3. Per-claim + aggregate representation.** Already structurally represented as independent `CapExpression` components from the prior pass; the remaining failure (`perclaim-05`) turned out to be a narrower bug — `_FIXED_AMOUNT_RE`'s "cap of $X" pattern didn't tolerate a scope descriptor between "cap" and "of" ("aggregate cap **across all claims** of $500,000"). Broadened to allow up to 4 intervening words. Now resolves as `per_claim_and_aggregate` with two differing fixed-amount values → `REQUIRES_REVIEW`, as designed.
 
-**Priority 4 — safe-direction defects, regression-tested first.** Two real bugs were found and fixed, both diagnosed by reading engine output directly before changing anything:
-- `_EXCLUDE_PHRASE_RE` (consequential-damages exclusion detection) missed "neither party shall be liable," "shall Supplier be liable" (no "either/any party" wording), and "damages are excluded" — broadened to a more general `in no event shall (?:\w+\s+){0,3}be liable` plus explicit "excluded" phrasing.
-- The category exclusion-signal check (used for carve-out detection like "except for breaches of fraud") was replaced entirely: instead of local-window proximity checks (which both under- and over-attributed carve-outs to the wrong category — see `multisupercap-01/-03/-05` in the original report), it now computes one forward-coverage span per exclusion signal across the whole provision, crediting every category named within that span up to the next sentence/clause boundary. This correctly credits a coordinated list ("...shall not apply to fraud or gross negligence.") to *both* categories while still stopping at a new independent clause ("...misconduct, **and** liability for confidentiality breaches **shall not exceed** 4x...") so an unrelated category's own cap doesn't get swept in.
+**4. Section-anchor hardening.** `_ANCHOR_RE` now tolerates arbitrary whitespace between "Limitation", "of", "Liability" (`\s+` instead of literal spaces) — covers repeated spaces, tabs, and line breaks from PDF text extraction, without broadening to match unrelated liability language (still requires the literal ordered phrase). This closed `malformed-02` (multi-space heading) and, as a side effect, revealed that the "2x" shorthand multiplier pattern had already worked correctly all along — the original corpus label was simply wrong about a regex detail, now corrected.
 
-**Priority 5 — consequential damages as real policy inputs.** `PolicyRule` gained `require_consequential_damages_exclusion` and `required_consequential_carveouts_json`. `evaluate_liability_policy` now folds these into the same unresolved-facts gate as everything else (ambiguous language → `REQUIRES_REVIEW`) and the same missing-protection downgrade as category exceptions (required but absent → `NEGOTIATE`). Previously these facts were extracted and silently unused — the exact "false sense of coverage" the review flagged.
+**5. Ground-truth review semantics.** Two cases where a new capability changed the engine's output relative to a label written before that capability existed are now reported as `GROUND_TRUTH_REVIEW_REQUIRED` — `amendment-02` (engine now deterministically resolves the amendment to `ESCALATE`, arguably better than the old `REQUIRES_REVIEW` fallback) and `partial-01` (engine is now more conservative than the original hedged guess about a narrowly-scoped carve-out). Neither was relabeled. Both are flagged with individual reasoning in `benchmarks/liability_corpus.py`'s new `GROUND_TRUTH_REVIEW_REQUIRED` dict and excluded from the ordinary failures-by-tag listing so they're visible as judgment calls, not silently absorbed into either "pass" or "fail."
 
-**Provenance.** Every `PolicyDecision` now carries `controlling_provision` (section label, excerpt, offsets), and `our_position`/`counterparty_position` when directional resolution engaged. `PolicyDecision.render_evidence_report()` produces the section-labeled, evidence-quoting block requested in the review, wired into the review UI's finding popover (source line, our/counterparty position chips) and the "Apply approved redline" flow unchanged.
+## Demonstrable ground-truth corrections made this pass
 
-## Remaining gaps (all non-catastrophic — none is a false ACCEPT)
+Distinct from `GROUND_TRUTH_REVIEW_REQUIRED` above — these are corrections, not judgment calls, each with a specific, checkable reason:
 
-- **`cross_reference` (5 cases).** A clause that states no number and instead points to a schedule/exhibit for the actual cap resolves to `MUST_REDLINE` ("insert cap language"), which is a safe but slightly misleading instruction — the ideal is `REQUIRES_REVIEW` ("verify the referenced schedule"). Out of scope for this pass: resolving a cross-reference would mean reading and correlating a different section of the document by name, not just failing safe on the current one.
-- **`separate_caps` (`separate-05`, 1 case).** Uses "purchase price" instead of "fees" as the basis word — the extractor's cap-value patterns are fee-scoped by design; a non-fee basis is a distinct, documented gap, not a directional-resolution failure.
-- **`per_claim_vs_aggregate` (`perclaim-05`, 1 case).** "Each claim is subject to a cap of $100,000, subject to an aggregate cap... of $500,000" — both values are fixed amounts, so the fallback ambiguity path (which only compares fee multipliers or flags mixed kinds) sends this to `ESCALATE` rather than the more precise `REQUIRES_REVIEW` for an unrepresented per-claim/aggregate split. Still safe, still routes to a human.
-- **`partial_carveout` (`partial-01`, 1 case).** A carve-out scoped narrowly ("gross negligence *in performing data security obligations*") no longer gets credited as satisfying a *separate* `data_breach` requirement — this is the engine now being **more conservative** than the original hedged ground-truth guess, not a regression; the note on this case when it was written already flagged uncertainty about whether it should count.
-- **`malformed-02` (1 case).** Excess whitespace between words in "Limitation   of   Liability" breaks the literal-space anchor regex; a genuine, narrow, documented robustness gap, not attempted in this pass.
-- **`amendment-02` (1 case, listed under both `amendment` and `window_boundary`).** This is the corpus's headline stress test, and it no longer fails unsafely — but its exact recorded state (`REQUIRES_REVIEW`, chosen when the label was written before this capability existed) no longer matches what the engine now does: it deterministically reconciles the amendment (explicit "hereby amended and restated" language) and resolves to `ESCALATE` on the amendment's 6x figure. Per the instruction not to tune labels to improve metrics, this label was left unchanged rather than "corrected" to match a capability that didn't exist when it was written — but a deterministic, evidence-backed `ESCALATE` is arguably the *better* answer, not a worse one, and is explicitly one of the two acceptable reconciliation outcomes (deterministic resolution or `REQUIRES_REVIEW`) called for in Priority 1.
+- **`xref-01` through `xref-05`**: fact-level label changed from `{"kind": "not_stated"}` to `{"kind": "unresolved"}`. The fact taxonomy gained a new distinction this pass (a delegated-but-unresolved cross-reference is not the same fact as "no cap stated at all") — the original label predates that distinction existing. The policy-state expectation (`REQUIRES_REVIEW`) was already correct and is unchanged.
+- **`malformed-02`**: fact-level label changed from `{"kind": "not_stated"}` to `{"kind": "fee_multiplier", "multiplier": 2.0}`. The original note claimed the multiplier regex required a space before "x" and would miss "2x" shorthand — that was simply incorrect (the regex used `\s*`, zero-or-more, there all along). Confirmed once the anchor-hardening fix stopped masking it behind an anchor-match failure.
+
+## Failures by drafting pattern
+
+None. Every corpus case now resolves to its expected state or is accounted for above as `GROUND_TRUTH_REVIEW_REQUIRED`.
 
 ## Indemnification
 
-Not started. Per the review checkpoint, this report is for review before any further clause-type work begins.
+Not started. Per the review checkpoint, this report is for review before any further clause-type work begins. The user's proposed architecture — a shared Policy Engine Core (structured facts → policy evaluator → decision engine → evidence/redline/audit) with clause-specific adapters, rather than a duplicated `indemnification_policy_engine.py` — has not yet been attempted or validated against this codebase; that remains an open design question for when Indemnification work is authorized.

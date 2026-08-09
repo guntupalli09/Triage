@@ -35,7 +35,7 @@ from typing import Any, Dict, List, Optional
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import liability_policy_engine as lpe
-from benchmarks.liability_corpus import CASES, DEFAULT_POLICY
+from benchmarks.liability_corpus import CASES, DEFAULT_POLICY, GROUND_TRUTH_REVIEW_REQUIRED
 
 FALSE_SAFE_EXPECTED_STATES = {
     lpe.NEGOTIATE, lpe.MUST_REDLINE, lpe.PROHIBITED, lpe.ESCALATE, lpe.REQUIRES_REVIEW,
@@ -140,6 +140,16 @@ def run() -> Dict[str, Any]:
         row["false_safe"] = (
             c["expected_state"] in FALSE_SAFE_EXPECTED_STATES and decision.state in FALSE_SAFE_ACTUAL_STATES
         )
+        # False-escalation (over-escalation): the correct answer was
+        # clear-cut (anything other than REQUIRES_REVIEW) but the engine
+        # sent it to REQUIRES_REVIEW anyway — the "annoying automation"
+        # failure mode, symmetric to false-safe. A system that refuses to
+        # ever guess wrong by refusing to ever decide isn't actually safe,
+        # it's just unhelpful, and this metric is what would catch that.
+        row["false_escalation"] = (
+            c["expected_state"] != lpe.REQUIRES_REVIEW and decision.state == lpe.REQUIRES_REVIEW
+        )
+        row["ground_truth_review_required"] = c["id"] in GROUND_TRUTH_REVIEW_REQUIRED
 
         # Determinism: re-run 5x, hash the full decision dict each time.
         hashes = {_decision_hash(decision)}
@@ -172,7 +182,9 @@ def summarize(data: Dict[str, Any]) -> Dict[str, Any]:
     requires_review_caught = sum(1 for r in requires_review_expected if r["actual_state"] == lpe.REQUIRES_REVIEW)
 
     false_safe_rows = [r for r in rows if r["false_safe"]]
+    false_escalation_rows = [r for r in rows if r["false_escalation"]]
     non_deterministic_rows = [r for r in rows if not r["deterministic"]]
+    gtr_rows = [r for r in rows if r["ground_truth_review_required"]]
 
     return {
         "total_cases": n,
@@ -191,14 +203,19 @@ def summarize(data: Dict[str, Any]) -> Dict[str, Any]:
         "requires_review_caught_n": requires_review_caught,
         "false_safe_count": len(false_safe_rows),
         "false_safe_rows": false_safe_rows,
+        "false_escalation_count": len(false_escalation_rows),
+        "false_escalation_rows": false_escalation_rows,
         "non_deterministic_count": len(non_deterministic_rows),
         "non_deterministic_rows": non_deterministic_rows,
+        "ground_truth_review_required_rows": gtr_rows,
     }
 
 
 def failures_by_tag(data: Dict[str, Any]) -> Dict[str, List[Dict[str, Any]]]:
     by_tag: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     for r in data["rows"]:
+        if r["ground_truth_review_required"]:
+            continue  # reported in its own section, not as an ordinary failure
         is_failure = (
             not r["state_correct"]
             or (r["general_cap_scored"] and not r["general_cap_correct"])
@@ -233,6 +250,21 @@ def render_report(data: Dict[str, Any], summary: Dict[str, Any]) -> str:
     else:
         lines.append("Zero false-safe cases in this run.\n")
 
+    lines.append("## Second safety direction: false-escalation (\"annoying automation\")\n")
+    fe = summary["false_escalation_count"]
+    lines.append(f"**False-escalation rate: {fe} / {summary['total_cases']} "
+                 f"({fe / summary['total_cases']:.1%})** — cases where the correct answer was "
+                 f"clear-cut (not REQUIRES_REVIEW) but the engine sent it to REQUIRES_REVIEW anyway. "
+                 f"Zero false-safe cases achieved by refusing to ever decide would score perfectly on "
+                 f"the headline metric while being useless — this is the metric that would catch that.\n")
+    if fe:
+        for r in summary["false_escalation_rows"]:
+            lines.append(f"- `{r['id']}` (tags: {', '.join(r['tags'])}) — expected "
+                         f"`{r['expected_state']}`, got `{r['actual_state']}`")
+        lines.append("")
+    else:
+        lines.append("Zero false-escalation cases in this run.\n")
+
     lines.append("## Metrics\n")
     lines.append("| Metric | Result | Target |")
     lines.append("|---|---|---|")
@@ -246,14 +278,42 @@ def render_report(data: Dict[str, Any], summary: Dict[str, Any]) -> str:
     if summary["ambiguity_recall"] is not None:
         lines.append(f"| Ambiguity detection recall (REQUIRES_REVIEW) | {summary['ambiguity_recall']:.1%} ({summary['requires_review_caught_n']}/{summary['requires_review_expected_n']}) | very high |")
     lines.append(f"| False-safe rate | {fs / summary['total_cases']:.1%} ({fs}/{summary['total_cases']}) | ≈0% |")
+    lines.append(f"| False-escalation rate | {fe / summary['total_cases']:.1%} ({fe}/{summary['total_cases']}) | (tracked, no fixed target yet) |")
     lines.append(f"| Determinism (5x repeat, byte-identical) | {summary['total_cases'] - summary['non_deterministic_count']}/{summary['total_cases']} identical | 100% |")
     lines.append("")
+
+    lines.append("## Release gate check\n")
+    determinism_pct = 1 - summary["non_deterministic_count"] / summary["total_cases"]
+    gates = [
+        ("False-safe = 0", fs == 0, f"{fs}"),
+        ("Policy-state accuracy > 95%", summary["policy_state_accuracy"] > 0.95, f"{summary['policy_state_accuracy']:.1%}"),
+        ("General-cap extraction > 98%", (summary["general_cap_accuracy"] or 0) > 0.98, f"{(summary['general_cap_accuracy'] or 0):.1%}"),
+        ("Category treatment > 95%", (summary["category_treatment_accuracy"] or 0) > 0.95, f"{(summary['category_treatment_accuracy'] or 0):.1%}"),
+        ("Determinism = 100%", determinism_pct == 1.0, f"{determinism_pct:.1%}"),
+    ]
+    all_pass = all(passed for _, passed, _ in gates)
+    for name, passed, value in gates:
+        lines.append(f"- {'PASS' if passed else 'FAIL'} — {name} (actual: {value})")
+    lines.append(f"\n**Overall: {'PASS' if all_pass else 'FAIL'}**\n")
 
     if summary["non_deterministic_count"]:
         lines.append("### Non-deterministic cases (should never happen — investigate immediately)\n")
         for r in summary["non_deterministic_rows"]:
             lines.append(f"- `{r['id']}`")
         lines.append("")
+
+    if summary["ground_truth_review_required_rows"]:
+        lines.append("## GROUND_TRUTH_REVIEW_REQUIRED\n")
+        lines.append("Cases where a capability added in this pass changed the engine's output on a "
+                     "case whose label was written before that capability existed, and the new output "
+                     "is plausibly *more* correct than the original label — not a demonstrated error, "
+                     "a genuine judgment call flagged for human review rather than silently relabeled "
+                     "to raise accuracy.\n")
+        for r in summary["ground_truth_review_required_rows"]:
+            reason = GROUND_TRUTH_REVIEW_REQUIRED.get(r["id"], "")
+            lines.append(f"### `{r['id']}`\n")
+            lines.append(f"Expected `{r['expected_state']}`, engine now returns `{r['actual_state']}`.\n")
+            lines.append(f"{reason}\n")
 
     lines.append("## Failures by drafting pattern\n")
     lines.append("Grouped by tag so recurring gaps in one drafting pattern are visible together, "

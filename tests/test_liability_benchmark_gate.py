@@ -1,18 +1,14 @@
 """
-Release gate: the Limitation of Liability benchmark's false-safe rate must
-be zero before this engine (or its architecture) is extended to a second
-clause type. See benchmarks/run_liability_benchmark.py and
-benchmarks/liability_benchmark_report.md for the full corpus, metrics, and
-root-cause analysis.
+Release gate for the Limitation of Liability policy engine — the complete
+quality gate, not just the safety gate. See benchmarks/run_liability_benchmark.py
+and benchmarks/liability_benchmark_report.md for the full corpus, metrics,
+and root-cause analysis.
 
-This test is EXPECTED TO FAIL as of the benchmark's first run — it exists
-to make the gate visible in the normal test suite, not to assert the
-engine is already safe. See the report's "Root-cause analysis" section for
-the 5 diagnosed causes and "Recommendations" for what unblocks this gate.
-Do not silence this failure by loosening the assertion, marking it xfail,
-or deleting cases from the corpus to make it pass — fix the underlying
-false-safe cause (primarily: the fixed-size extraction window silently
-dropping superseding cap language beyond ~3000 characters) instead.
+Do not silence a failure here by loosening an assertion, marking it xfail,
+or deleting/relabeling corpus cases to make it pass — fix the underlying
+cause. Ground-truth corrections belong in benchmarks/liability_corpus.py,
+justified individually in that case's `notes`, never made merely to raise
+a number here.
 """
 import sys
 from pathlib import Path
@@ -22,15 +18,38 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from benchmarks.run_liability_benchmark import run, summarize
 
 
-def test_liability_policy_engine_has_zero_false_safe_cases():
+def test_zero_false_safe_cases():
+    """The hard safety gate: the engine must never return ACCEPT/
+    ACCEPT_WITH_NOTE where the correct answer required attorney attention."""
     data = run()
     summary = summarize(data)
     false_safe_ids = [r["id"] for r in summary["false_safe_rows"]]
     assert summary["false_safe_count"] == 0, (
-        f"{summary['false_safe_count']} false-safe case(s) — the engine returned "
-        f"ACCEPT/ACCEPT_WITH_NOTE where the correct answer required attorney "
-        f"attention: {false_safe_ids}. See benchmarks/liability_benchmark_report.md."
+        f"{summary['false_safe_count']} false-safe case(s): {false_safe_ids}. "
+        f"See benchmarks/liability_benchmark_report.md."
     )
+
+
+def test_policy_state_accuracy_above_95_percent():
+    data = run()
+    summary = summarize(data)
+    assert summary["policy_state_accuracy"] > 0.95, (
+        f"Policy-state accuracy {summary['policy_state_accuracy']:.1%} <= 95% target."
+    )
+
+
+def test_general_cap_extraction_accuracy_above_98_percent():
+    data = run()
+    summary = summarize(data)
+    acc = summary["general_cap_accuracy"] or 0.0
+    assert acc > 0.98, f"General-cap extraction accuracy {acc:.1%} <= 98% target."
+
+
+def test_category_treatment_accuracy_above_95_percent():
+    data = run()
+    summary = summarize(data)
+    acc = summary["category_treatment_accuracy"] or 0.0
+    assert acc > 0.95, f"Category-treatment accuracy {acc:.1%} <= 95% target."
 
 
 def test_liability_policy_engine_is_fully_deterministic():
