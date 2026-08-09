@@ -252,6 +252,94 @@ class TestDefenseAndNotice:
         assert d.state == core.NEGOTIATE
 
 
+class TestThirdPartyOnlyScopeSilence:
+    """Phase 1 corpus expansion (scope-05) found that a required-third-
+    party-only policy was silently satisfied by scope that was never
+    affirmatively stated at all — 'exposure.scope == "not_addressed"' was
+    treated the same as a confirmed 'third_party_only' reading. Since the
+    benchmark corpus's DEFAULT_POLICY sets require_exposure_third_party_only
+    True, this affected any exposure text that never used the phrase
+    'third-party claims' at all, not just texts using broadening language.
+    """
+
+    def test_unstated_scope_negotiates_when_third_party_only_is_required(self):
+        text = (
+            "12. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from "
+            "and against any claims arising from Vendor's gross negligence. Vendor's "
+            "indemnification obligations shall not exceed 1 times the total annual fees paid."
+        )
+        d = evaluate(text, require_exposure_third_party_only=True)
+        assert d.state == core.NEGOTIATE
+
+    def test_explicit_third_party_only_still_accepts(self):
+        # Regression guard: the fix must not turn every clean case into a
+        # false NEGOTIATE — an affirmatively-stated third-party-only scope
+        # must still accept.
+        text = (
+            "12. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from "
+            "and against any third-party claims arising from Vendor's gross negligence. Vendor's "
+            "indemnification obligations shall not exceed 1 times the total annual fees paid."
+        )
+        d = evaluate(text)
+        assert d.state == core.ACCEPT
+
+
+class TestFirstPartySignalPhrasing:
+    def test_whether_direct_or_third_party_idiom_is_recognized_as_broadening(self):
+        text = (
+            "12. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from "
+            "and against any claims, whether direct or third-party, arising from Vendor's gross "
+            "negligence. Vendor's indemnification obligations shall not exceed 1 times the total "
+            "annual fees paid."
+        )
+        d = evaluate(text, require_exposure_third_party_only=True)
+        assert d.state == core.NEGOTIATE
+
+    def test_claims_by_one_named_party_against_another_is_recognized_as_broadening(self):
+        text = (
+            "12. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from "
+            "and against any third-party claims, including claims by Customer against Vendor "
+            "arising under this Agreement, resulting from Vendor's gross negligence. Vendor's "
+            "indemnification obligations shall not exceed 1 times the total annual fees paid."
+        )
+        d = evaluate(text, require_exposure_third_party_only=True)
+        assert d.state == core.NEGOTIATE
+
+
+class TestExplicitNegationDetection:
+    """Phase 1 corpus expansion (no-obligation-01/02) found that a clause
+    which explicitly and unambiguously states no indemnification
+    obligation exists ('no party shall have any indemnification
+    obligation...') still returned REQUIRES_REVIEW rather than
+    NOT_APPLICABLE, because the anchor-negation guard only looks ~15
+    characters immediately before an anchor match, not at an explicit
+    negation stated elsewhere in the same document. A human reading these
+    two sentences together has no ambiguity; this closes that gap without
+    touching the local negation guard's existing (narrower, still correct)
+    behavior for cases where the anchor itself is directly negated.
+    """
+
+    def test_unambiguous_document_wide_negation_is_not_applicable(self):
+        text = (
+            "12. Indemnification. The parties acknowledge the general concept of contractual "
+            "indemnification. For the avoidance of doubt, no party shall have any indemnification "
+            "obligation to the other under this Agreement."
+        )
+        d = evaluate(text)
+        assert d.state == core.NOT_APPLICABLE
+
+    def test_regular_clause_is_unaffected(self):
+        # Regression guard: a normal, real obligation must not be swept up
+        # by the new negation check.
+        text = (
+            "12. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from "
+            "and against any third-party claims arising from Vendor's gross negligence. Vendor's "
+            "indemnification obligations shall not exceed 1 times the total annual fees paid."
+        )
+        d = evaluate(text)
+        assert d.state == core.ACCEPT
+
+
 class TestEvidenceProvenance:
     def test_evidence_report_uses_indemnification_specific_labels(self):
         d = evaluate(

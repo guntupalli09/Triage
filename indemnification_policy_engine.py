@@ -74,6 +74,21 @@ _TRIGGER_KEYWORD_RE = {
 }
 
 _ANCHOR_RE = re.compile(r"indemnif\w*", re.I)
+# An explicit, document-wide statement that no indemnification obligation
+# exists at all. Distinct from the anchor-negation guard below (which only
+# filters an anchor match immediately preceded by "no " — i.e. the SAME
+# mention being negated): this catches the common drafting pattern where
+# the word "indemnification" is used once in passing (e.g. acknowledging
+# the concept exists) and a SEPARATE sentence elsewhere unambiguously
+# states no obligation was created. Only used when no directional
+# obligation could otherwise be parsed — it never overrides a real,
+# parsed obligation.
+_EXPLICIT_NO_OBLIGATION_RE = re.compile(
+    r"no\s+part(?:y|ies)\s+shall\s+have\s+any\s+indemnification\s+obligation"
+    r"|no\s+indemnification\s+obligation\s+(?:is|shall\s+be|exists|is\s+created|shall\s+arise)"
+    r"|shall\s+not\s+have\s+any\s+indemnification\s+obligation",
+    re.I,
+)
 _OBLIGATION_RE = re.compile(
     # No blanket re.I: [A-Z] must stay case-SENSITIVE, or it silently
     # matches lowercase too (Python re applies IGNORECASE to character
@@ -96,7 +111,13 @@ _MUTUAL_RECIPROCAL_RE = re.compile(
 _THIRD_PARTY_ONLY_RE = re.compile(r"third[\s-]part(?:y|ies)\s+claims?", re.I)
 _FIRST_PARTY_SIGNAL_RE = re.compile(
     r"first[\s-]part(?:y|ies)\s+claims?|whether\s+or\s+not\s+(?:asserted\s+by\s+)?a\s+third\s+party"
-    r"|regardless\s+of\s+whether\s+.{0,30}third\s+party|direct\s+claims?\s+between\s+the\s+parties",
+    r"|regardless\s+of\s+whether\s+.{0,30}third\s+party|direct\s+claims?\s+between\s+the\s+parties"
+    r"|whether\s+direct\s+or\s+third[\s-]part(?:y|ies)"
+    # [A-Z] deliberately kept case-sensitive within the overall re.I
+    # compile via (?-i:...) — role names in contracts are capitalized
+    # defined terms, and this is the same re.I-over-[A-Z] hazard already
+    # fixed elsewhere in this file's _OBLIGATION_RE.
+    r"|(?i:claims?\s+by\s+)(?-i:[A-Z][A-Za-z]{2,25})(?i:\s+against\s+)(?-i:[A-Z][A-Za-z]{2,25})",
     re.I,
 )
 
@@ -412,6 +433,14 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
         seen_spans.append((m.start(), m.end()))
 
     if not obligations:
+        if _EXPLICIT_NO_OBLIGATION_RE.search(text):
+            # No directional promise was parsed, AND the document contains
+            # an unambiguous statement that no obligation exists — treat
+            # this the same as no clause being present at all, rather than
+            # an unparseable-but-present clause. Deliberately narrow (fixed
+            # phrases only): this must not fire on an ordinary "indemnif..."
+            # mention that simply failed to parse for an unrelated reason.
+            return None
         # "indemnif..." appears somewhere (e.g. a heading or a cross-
         # reference to an indemnification section elsewhere) but no
         # directional promise could be parsed from it.
@@ -616,8 +645,16 @@ def evaluate_indemnification_policy(
             notes.append(f"exposure covers prohibited trigger(s): {', '.join(prohibited_hit)}")
             worst_state = _worse(worst_state, NEGOTIATE)
 
-        if policy.require_exposure_third_party_only and exposure.scope == "includes_first_party":
-            notes.append("exposure is not limited to third-party claims")
+        # A scope that was never affirmatively confirmed as third-party-only
+        # ("not_addressed" — the text simply never said "third-party
+        # claims") is not the same fact as a confirmed third-party-only
+        # limitation, and must not be silently treated as satisfying a
+        # policy that specifically requires that limitation to be stated.
+        # See tests/test_indemnification_policy_engine.py::
+        # TestThirdPartyOnlyScopeSilence and benchmarks/
+        # indemnification_benchmark_report.md's scope-05 finding.
+        if policy.require_exposure_third_party_only and exposure.scope != "third_party_only":
+            notes.append("exposure is not affirmatively limited to third-party claims")
             worst_state = _worse(worst_state, NEGOTIATE)
 
         if policy.require_defense_control_for_exposure and exposure.defense_control not in ("indemnifying_party", "shared"):
