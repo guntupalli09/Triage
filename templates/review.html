@@ -138,6 +138,32 @@
     .pop-btn.danger:hover { background: #FEF2F2; color: #DC2626; border-color: #FEE2E2; }
     .pop-btn:disabled { opacity: 0.5; pointer-events: none; }
     .pop-conf { margin-left: auto; font-size: 11px; color: #94A3B8; font-family: 'JetBrains Mono', monospace; }
+    .pop-ladder { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; font-size: 11px; font-family: 'JetBrains Mono', monospace; }
+    .ladder-step { padding: 3px 7px; border-radius: 5px; background: #F1F5F9; color: #94A3B8; white-space: nowrap; }
+    .ladder-step.current { background: #0F172A; color: #fff; font-weight: 700; }
+    .ladder-step.passed { background: #ECFDF5; color: #065F46; }
+    .ladder-arrow { color: #CBD5E1; }
+    .pop-source { font-size: 11px; color: #94A3B8; margin-bottom: 10px; }
+
+    .policy-banner {
+        display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+        margin: 14px 0; padding: 10px 16px; border-radius: 10px;
+        background: #F8FAFC; border: 1px solid #E2E8F0; font-size: 13px;
+    }
+    .policy-banner-state {
+        font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.02em; padding: 4px 10px; border-radius: 999px;
+        background: #F1F5F9; color: #475569;
+    }
+    .policy-banner.state-prohibited .policy-banner-state,
+    .policy-banner.state-must-redline .policy-banner-state { background: #FEE2E2; color: #991B1B; }
+    .policy-banner.state-escalate .policy-banner-state { background: #FFEDD5; color: #9A3412; }
+    .policy-banner.state-negotiate .policy-banner-state { background: #FEF3C7; color: #92400E; }
+    .policy-banner.state-accept .policy-banner-state,
+    .policy-banner.state-accept-with-note .policy-banner-state { background: #D1FAE5; color: #065F46; }
+    .policy-banner-label { font-weight: 700; color: #0F172A; }
+    .policy-banner-detail { color: #475569; }
+    .policy-banner-source { margin-left: auto; font-size: 11.5px; color: #94A3B8; }
     .pop-inline-input { margin-top: 12px; display: none; }
     .pop-inline-input.show { display: block; }
     .pop-inline-input textarea { width: 100%; border: 1px solid #E2E8F0; border-radius: 7px; padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: #0F172A; background: #F8FAFC; resize: vertical; min-height: 60px; }
@@ -197,6 +223,16 @@
             <button class="btn-new-review" id="finalize-btn" disabled>Finalize Review</button>
         </div>
     </div>
+
+    {% if policy_decisions and policy_decisions.limitation_of_liability and policy_decisions.limitation_of_liability.state != 'NOT_APPLICABLE' %}
+    {% set lol = policy_decisions.limitation_of_liability %}
+    <div class="policy-banner state-{{ lol.state|lower|replace('_', '-') }}">
+        <span class="policy-banner-state">{{ lol.state|replace('_', ' ') }}</span>
+        <span class="policy-banner-label">Limitation of Liability</span>
+        <span class="policy-banner-detail">{{ lol.extracted_summary }} — policy allows up to {{ lol.policy_limit_summary }}</span>
+        {% if lol.source %}<span class="policy-banner-source">{{ lol.source }}</span>{% endif %}
+    </div>
+    {% endif %}
 
     <div class="review-body">
         <div class="min-w-0">
@@ -413,6 +449,8 @@ function popoverHTML(f, i) {
     const original = f.exact_snippet || f.matched_excerpt || "";
 
     const diffHTML = rl ? `<div class="diff-box"><span class="del">${esc(original.slice(0, 90))}${original.length > 90 ? "…" : ""}</span> &rarr;<br><span class="ins">${esc(rl.suggested_redline)}</span></div>` : "";
+    const ladderHTML = f.negotiation_ladder ? `<div class="pop-ladder">${f.negotiation_ladder.map(s => `<span class="ladder-step ${s.status}" title="${esc(s.description)}">${esc(s.label)}</span>`).join('<span class="ladder-arrow">&rarr;</span>')}</div>` : "";
+    const sourceHTML = f.policy_source ? `<div class="pop-source">Source: ${esc(f.policy_source)}</div>` : "";
 
     const actions = rl ? `
         <button class="pop-btn primary" data-act="accepted">&#10003; Accept<span class="mono text-[10px] opacity-70 ml-1">a</span></button>
@@ -428,11 +466,13 @@ function popoverHTML(f, i) {
 
     return `
         <div class="pop-top">
-            <span class="text-[10.5px] font-bold uppercase tracking-wide px-2 py-0.5 rounded ${f.severity === 'high' || f.severity === 'critical' ? 'bg-red-50 text-red-700' : f.severity === 'medium' ? 'bg-amber-50 text-amber-700' : 'bg-blue-50 text-blue-700'}">${SEV_LABEL[f.severity] || f.severity}</span>
+            <span class="text-[10.5px] font-bold uppercase tracking-wide px-2 py-0.5 rounded ${f.severity === 'high' || f.severity === 'critical' ? 'bg-red-50 text-red-700' : f.severity === 'medium' ? 'bg-amber-50 text-amber-700' : 'bg-blue-50 text-blue-700'}">${f.policy_state ? f.policy_state.replace(/_/g, ' ') : (SEV_LABEL[f.severity] || f.severity)}</span>
             <span class="pop-title">${esc(f.title)} <span class="mono text-[10.5px] text-gray-400 font-normal">${esc(f.rule_id)}</span></span>
             <button class="verify-btn" id="verify-btn">&#8635; Verify</button>
         </div>
+        ${sourceHTML}
         <div class="pop-rationale">${esc(f.rationale || "")}</div>
+        ${ladderHTML}
         ${diffHTML}
         <div class="pop-actions">${actions}</div>
         <div class="verify-stamp" id="verify-stamp"></div>

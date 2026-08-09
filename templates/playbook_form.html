@@ -128,6 +128,70 @@
                     </div>
                 </div>
 
+                <!-- Limitation of Liability Policy Rule -->
+                <div class="mb-8 border border-gray-200 rounded-xl p-5">
+                    <label class="flex items-center gap-2 mb-4 cursor-pointer">
+                        <input type="checkbox" id="lol_enabled" name="lol_enabled" {% if policy_rule %}checked{% endif %} class="rounded border-gray-300">
+                        <span class="text-sm font-semibold text-[#0F172A]">Enforce a Limitation of Liability policy</span>
+                    </label>
+                    <p class="text-xs text-gray-500 mb-4">Every contract analyzed against this playbook is checked deterministically against these positions — not just diffed against the template text.</p>
+
+                    <div id="lol_fields" class="space-y-5 {% if not policy_rule %}hidden{% endif %}">
+                        <div>
+                            <label for="lol_side" class="block text-xs font-semibold text-[#0F172A] mb-1.5">Contract side</label>
+                            <select id="lol_side" name="lol_side" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white">
+                                <option value="mutual" {% if not policy_rule or policy_rule.contract_side == 'mutual' %}selected{% endif %}>Mutual</option>
+                                <option value="buy_side" {% if policy_rule and policy_rule.contract_side == 'buy_side' %}selected{% endif %}>Buy-side (we're the customer)</option>
+                                <option value="sell_side" {% if policy_rule and policy_rule.contract_side == 'sell_side' %}selected{% endif %}>Sell-side (we're the vendor)</option>
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-3">
+                            <div>
+                                <label for="lol_preferred" class="block text-xs font-semibold text-[#0F172A] mb-1.5">Preferred (x annual fees)</label>
+                                <input type="number" step="0.1" min="0" id="lol_preferred" name="lol_preferred" value="{{ policy_rule.preferred_multiplier if policy_rule and policy_rule.preferred_multiplier is not none else '' }}" placeholder="1.0" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                            </div>
+                            <div>
+                                <label for="lol_acceptable_max" class="block text-xs font-semibold text-[#0F172A] mb-1.5">Auto-accept up to</label>
+                                <input type="number" step="0.1" min="0" id="lol_acceptable_max" name="lol_acceptable_max" value="{{ policy_rule.acceptable_max_multiplier if policy_rule and policy_rule.acceptable_max_multiplier is not none else '' }}" placeholder="2.0" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                            </div>
+                            <div>
+                                <label for="lol_negotiate_max" class="block text-xs font-semibold text-[#0F172A] mb-1.5">Negotiate up to</label>
+                                <input type="number" step="0.1" min="0" id="lol_negotiate_max" name="lol_negotiate_max" value="{{ policy_rule.negotiate_max_multiplier if policy_rule and policy_rule.negotiate_max_multiplier is not none else '' }}" placeholder="3.0" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 -mt-3">Above "negotiate up to" the clause is routed to escalation instead of an auto-generated redline.</p>
+
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="lol_prohibit_unlimited" name="lol_prohibit_unlimited" {% if not policy_rule or policy_rule.prohibit_unlimited %}checked{% endif %} class="rounded border-gray-300">
+                            <span class="text-sm text-[#0F172A]">Prohibit unlimited liability (blocks rather than escalates)</span>
+                        </label>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-[#0F172A] mb-1.5">Required exceptions to the cap</label>
+                            <div class="flex flex-wrap gap-x-5 gap-y-2">
+                                {% for et in exception_types %}
+                                <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+                                    <input type="checkbox" name="lol_required_exceptions" value="{{ et }}" {% if policy_rule and policy_rule.required_exceptions_json and et in policy_rule.required_exceptions_json %}checked{% endif %} class="rounded border-gray-300">
+                                    {{ et|replace('_', ' ')|title }}
+                                </label>
+                                {% endfor %}
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">If a required exception isn't present in the clause, the decision is downgraded to Negotiate even when the cap itself is acceptable.</p>
+                        </div>
+
+                        <div>
+                            <label for="lol_escalation_authority" class="block text-xs font-semibold text-[#0F172A] mb-1.5">Escalate to</label>
+                            <input type="text" id="lol_escalation_authority" name="lol_escalation_authority" value="{{ policy_rule.escalation_approval_authority if policy_rule else '' }}" placeholder="e.g. Legal Director" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                        </div>
+
+                        <div>
+                            <label for="lol_fallback_text" class="block text-xs font-semibold text-[#0F172A] mb-1.5">Approved fallback clause text</label>
+                            <textarea id="lol_fallback_text" name="lol_fallback_text" rows="4" placeholder="The replacement language offered as a one-click redline when a contract must be fixed..." class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none">{{ policy_rule.fallback_text if policy_rule else '' }}</textarea>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Submit -->
                 <button type="submit" class="btn-primary w-full py-3.5 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0F172A]">
                     {% if playbook %}Update Playbook{% else %}Create Playbook{% endif %}
@@ -178,6 +242,12 @@
 
         uploadArea.addEventListener('click', function() {
             fileInput.click();
+        });
+
+        const lolEnabled = document.getElementById('lol_enabled');
+        const lolFields = document.getElementById('lol_fields');
+        lolEnabled.addEventListener('change', function() {
+            lolFields.classList.toggle('hidden', !lolEnabled.checked);
         });
     </script>
 {% endblock %}

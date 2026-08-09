@@ -136,6 +136,16 @@ class Contract(Base):
     playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=True)
     deviations_json = Column(EncryptedJSON, nullable=True)
 
+    # Deterministic policy-rule evaluation (see liability_policy_engine.py).
+    # One entry per evaluated clause type ("limitation_of_liability" today);
+    # each value is the PolicyDecision dict (state, evidence, negotiation
+    # ladder, source playbook/rule). Persisted independently of
+    # findings_json/deviations_json because it is not a rule-engine finding
+    # or a template diff — it is a policy verdict against a specific
+    # PolicyRule, and it must survive even if that PolicyRule is later
+    # edited or deleted. Encrypted — embeds verbatim contract excerpts.
+    policy_decisions_json = Column(EncryptedJSON, nullable=True)
+
     # Review workflow — one decision per finding (rule_id -> {action, reason,
     # edited_text, decided_at}), recorded as the attorney works through the
     # merged findings+redlines review pass. See review_workflow.py. action is
@@ -191,6 +201,58 @@ class Playbook(Base):
     template_risk = Column(String(20), nullable=True)
 
     user = relationship("User", back_populates="playbooks")
+    policy_rules = relationship("PolicyRule", back_populates="playbook", cascade="all, delete-orphan")
+
+
+class PolicyRule(Base):
+    """A deterministic policy rule for one clause type on one playbook —
+    see liability_policy_engine.py for the evaluator that consumes this.
+
+    Modeled as its own table (rather than columns on Playbook) because a
+    playbook is meant to eventually hold one PolicyRule per clause type
+    (limitation_of_liability today; indemnification/termination/etc. are
+    the natural next additions), each independently created/edited/removed.
+
+    Thresholds are stored as a multiplier of annual contract fees (e.g. 1.0
+    = "1x annual fees") since that is how liability caps are conventionally
+    negotiated; a fixed-amount cap is normalized to a multiplier at
+    evaluation time when the contract's fee value is known, or compared
+    directly when it is not (see liability_policy_engine.evaluate).
+    """
+    __tablename__ = "policy_rules"
+    __table_args__ = (UniqueConstraint("playbook_id", "clause_type", name="uq_policy_rule_playbook_clause"),)
+
+    id = Column(Integer, primary_key=True)
+    playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=False, index=True)
+    clause_type = Column(String(64), nullable=False)  # "limitation_of_liability" (only type implemented today)
+    contract_side = Column(String(20), nullable=False, default="mutual")  # buy_side, sell_side, mutual
+    version = Column(Integer, nullable=False, default=1)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Position thresholds, as a multiplier of annual fees. preferred is the
+    # ideal ask; acceptable_max auto-clears without comment; negotiate_max
+    # is the ceiling of what's negotiable before escalation is required.
+    preferred_multiplier = Column(Float, nullable=True)
+    acceptable_max_multiplier = Column(Float, nullable=True)
+    negotiate_max_multiplier = Column(Float, nullable=True)
+    prohibit_unlimited = Column(Boolean, nullable=False, default=True)
+
+    # Required carve-outs (e.g. ["fraud", "confidentiality", "ip_infringement"]).
+    # A cap that is otherwise acceptable but silent on a required exception
+    # is downgraded to NEGOTIATE — see evaluate().
+    required_exceptions_json = Column(JSON, nullable=True)
+
+    # Fallback clause text offered when a redline is required. Encrypted —
+    # this is drafted contract language, same sensitivity as template_text.
+    fallback_text = Column(EncryptedText, nullable=True)
+
+    # Escalation: crossing negotiate_max_multiplier (or hitting a prohibited
+    # position) routes to this named approval authority instead of auto-
+    # generating a redline the reviewing attorney can accept solo.
+    escalation_approval_authority = Column(String(255), nullable=True)
+
+    playbook = relationship("Playbook", back_populates="policy_rules")
 
 
 class AuditLog(Base):

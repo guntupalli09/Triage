@@ -189,6 +189,7 @@ def _run_migrations():
             "blocking_findings_json", "policy_blocked_findings_json",
             "risk_dashboard_json", "structure_report_json", "clause_quality_json",
             "metadata_json", "risk_balance_json", "deviations_json", "review_decisions_json",
+            "policy_decisions_json",
         ]
 
         if "contracts" in insp.get_table_names():
@@ -233,6 +234,9 @@ def _run_migrations():
             if "review_decisions_json" not in contract_cols:
                 conn.execute(text(f"ALTER TABLE contracts ADD COLUMN review_decisions_json {encrypted_json_col_type}"))
                 logger.info("Migration applied: contracts.review_decisions_json column")
+            if "policy_decisions_json" not in contract_cols:
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN policy_decisions_json {encrypted_json_col_type}"))
+                logger.info("Migration applied: contracts.policy_decisions_json column")
             if "review_finalized_at" not in contract_cols:
                 conn.execute(text("ALTER TABLE contracts ADD COLUMN review_finalized_at TIMESTAMP"))
                 logger.info("Migration applied: contracts.review_finalized_at column")
