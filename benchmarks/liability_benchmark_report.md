@@ -70,10 +70,33 @@ Distinct from `GROUND_TRUTH_REVIEW_REQUIRED` above — these are corrections, no
 - **`xref-01` through `xref-05`**: fact-level label changed from `{"kind": "not_stated"}` to `{"kind": "unresolved"}`. The fact taxonomy gained a new distinction this pass (a delegated-but-unresolved cross-reference is not the same fact as "no cap stated at all") — the original label predates that distinction existing. The policy-state expectation (`REQUIRES_REVIEW`) was already correct and is unchanged.
 - **`malformed-02`**: fact-level label changed from `{"kind": "not_stated"}` to `{"kind": "fee_multiplier", "multiplier": 2.0}`. The original note claimed the multiplier regex required a space before "x" and would miss "2x" shorthand — that was simply incorrect (the regex used `\s*`, zero-or-more, there all along). Confirmed once the anchor-hardening fix stopped masking it behind an anchor-match failure.
 
+## Post-Indemnification follow-up: `_ROLE_POSITION_RE` case-sensitivity fix
+
+The architecture report on the second (Indemnification) adapter flagged, but explicitly did not fix, a latent bug: `_ROLE_POSITION_RE` was compiled with a blanket `re.I`, applied over its own `[A-Z][A-Za-z]{2,20}` role-name capture group. Python's `re.IGNORECASE` applies to character classes, not only literals, so `[A-Z]` under `re.I` also matches lowercase — the same bug class found and fixed in Indemnification's `_OBLIGATION_RE`. Per instruction, this was investigated in isolation, with regression tests written and confirmed failing against the unfixed code *before* any fix was applied — no golden-snapshot change was made speculatively.
+
+**Regression tests first.** Three tests were added to `tests/test_liability_policy_engine.py` (`TestRolePositionRegexCaseSensitivity`), built directly from real corpus text rather than hypothetical adversarial text:
+
+- `test_maximum_aggregate_liability_idiom_is_not_captured_as_a_role` — `fixed-02`'s exact phrasing ("Supplier's maximum aggregate liability shall not exceed $1,000,000.00 under this Agreement.") was, under the unfixed regex, captured as if "maximum" were a party role.
+- `test_per_occurrence_and_annual_are_not_captured_as_party_roles` — `perclaim-04`'s exact phrasing produced **two** spurious role captures, "occurrence" and "annual".
+- `test_bogus_directional_reason_does_not_appear_for_a_non_party_structure` — asserts no "asymmetric liability positions" text appears in `unresolved_facts` for a per-claim/aggregate fixed-dollar clause that has nothing to do with two parties.
+
+Run against the unfixed code, 2 of the 3 failed, confirming the bug is real and currently observable in the frozen 109-case corpus — not just theoretically possible.
+
+**Corpus impact, checked directly against all 109 cases, not assumed.** The bug fires (produces a spurious role capture) on three cases: `fixed-02` (role="maximum"), `perclaim-04` (roles="occurrence" and "annual"), and `amendment-02` (role="that"). Of these, only `perclaim-04` has more than one spurious capture, and the >=2-position code path is the only one that feeds into directional-position resolution — so it's the only case where the bug reaches `decision.as_dict()`. There, it added a bogus `"directional liability position (contract defines asymmetric liability positions by party...)"` entry to `unresolved_facts`, even though `perclaim-04` is a per-claim-vs-aggregate structure with nothing to do with two parties holding different cap values. The decision **state** was unaffected — `perclaim-04` was already correctly `REQUIRES_REVIEW` via its legitimate per-claim/aggregate reasoning, both before and after this fix.
+
+**Fix applied.** Same pattern already used for Indemnification's `_OBLIGATION_RE`: removed the blanket `re.I`, scoped `(?i:...)` around the verb-phrase literals only, kept the `[A-Z][A-Za-z]{2,20}` role-capture group case-sensitive.
+
+**Verification.**
+- All 49 tests in `tests/test_liability_policy_engine.py` pass (46 pre-existing + 3 new).
+- Full 109-case golden snapshot re-diffed against the fixed code: **exactly one case changed — `perclaim-04`.** State unchanged (`REQUIRES_REVIEW` → `REQUIRES_REVIEW`); `unresolved_facts` went from 2 entries to 1, with the bogus party-directionality reason removed. No other case's output changed by a single byte.
+- Full benchmark re-run: all numbers identical to the table above (False-safe 0/109, False-escalation 0/109, policy-state accuracy 98.2%, general-cap 100.0%, category-treatment 100.0%, determinism 109/109). All release gates still PASS.
+
+This is the documented, justified exception anticipated going in: the golden snapshot is not byte-identical, but the one case that changed is named, the reason is a demonstrated bug (not a preference), and the fix corrects an explanation-correctness defect without altering any decision state.
+
 ## Failures by drafting pattern
 
 None. Every corpus case now resolves to its expected state or is accounted for above as `GROUND_TRUTH_REVIEW_REQUIRED`.
 
 ## Indemnification
 
-Not started. Per the review checkpoint, this report is for review before any further clause-type work begins. The user's proposed architecture — a shared Policy Engine Core (structured facts → policy evaluator → decision engine → evidence/redline/audit) with clause-specific adapters, rather than a duplicated `indemnification_policy_engine.py` — has not yet been attempted or validated against this codebase; that remains an open design question for when Indemnification work is authorized.
+Built as a second clause adapter over a shared `policy_engine_core.py`, extracted from this Liability implementation with the 109-case golden snapshot verified byte-identical across the extraction. See `benchmarks/policy_engine_core_architecture_report.md` for the architecture findings and `benchmarks/indemnification_benchmark_report.md` (if present) or `benchmarks/run_indemnification_benchmark.py` output for Indemnification's own benchmark results. Indemnification-specific corpus hardening (expansion past 43 cases) is tracked separately and is not part of this report's scope.

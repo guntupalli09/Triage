@@ -161,10 +161,21 @@ _AMBIGUITY_SIGNAL_RE = re.compile(
 )
 _MUTUAL_PHRASE_RE = re.compile(r"\beither party\b|\bboth parties\b|\bneither party\b", re.I)
 _ROLE_POSITION_RE = re.compile(
-    r"([A-Z][A-Za-z]{2,20})(?:'s)?\s+(?:aggregate\s+|maximum\s+)?liability\s+(?:under this Agreement\s+)?"
-    r"(?:shall not exceed|is (?:capped|limited) (?:at|to)|shall be (?:capped|limited) (?:at|to)"
-    r"|is not subject to|shall not be liable for)",
-    re.I,
+    # No blanket re.I: [A-Z] must stay case-SENSITIVE, or Python's
+    # IGNORECASE (which applies to character classes, not just literals)
+    # lets it match lowercase too — e.g. "maximum" in "Supplier's maximum
+    # aggregate liability shall not exceed..." or "occurrence"/"annual" in
+    # "per-occurrence liability is capped at... annual liability is capped
+    # at..." get captured as if they were party role names, producing
+    # spurious PartyPositions and a misleading "asymmetric positions by
+    # party" reason for clauses that have nothing to do with two parties.
+    # See tests/test_liability_policy_engine.py::TestRolePositionRegexCaseSensitivity
+    # and benchmarks/liability_benchmark_report.md for the specific
+    # corpus case this changes. The verb-phrase literals alone are scoped
+    # case-insensitive via (?i:...) so "Shall"/"SHALL"/"shall" still match.
+    r"([A-Z][A-Za-z]{2,20})(?:'s)?\s+(?i:aggregate\s+|maximum\s+)?liability\s+(?i:under this Agreement\s+)?"
+    r"(?i:shall not exceed|is (?:capped|limited) (?:at|to)|shall be (?:capped|limited) (?:at|to)"
+    r"|is not subject to|shall not be liable for)"
 )
 _CONSEQUENTIAL_RE = re.compile(r"\b(consequential|indirect|special|incidental|punitive)\b[^.]{0,60}\bdamages\b", re.I)
 _EXCLUDE_PHRASE_RE = re.compile(

@@ -558,3 +558,56 @@ class TestAnchorWhitespaceTolerance:
         text = "9. Indemnification. Each party's liability for indemnified claims shall be as set forth herein."
         d = evaluate(text)
         assert d.state == lpe.NOT_APPLICABLE
+
+
+class TestRolePositionRegexCaseSensitivity:
+    """_ROLE_POSITION_RE is compiled with re.I over a pattern whose role-name
+    capture group is [A-Z][A-Za-z]{2,20} — Python's IGNORECASE applies to
+    character classes, not just literals, so [A-Z] under re.I matches
+    lowercase too. This lets common lowercase words immediately preceding
+    "aggregate/maximum liability shall not exceed..." get captured as if
+    they were party role names. Regression cases here demonstrate the
+    actual, currently-observable effect on real corpus text (not a
+    hypothetical) before any fix is applied — see benchmarks/liability_
+    benchmark_report.md for the specific case whose golden output changes
+    once this is fixed, and why the new output is the correct one."""
+
+    def test_maximum_aggregate_liability_idiom_is_not_captured_as_a_role(self):
+        # fixed-02's exact phrasing: "maximum" sits directly before
+        # "aggregate liability shall not exceed" and gets captured as a
+        # spurious role today. It's legal boilerplate, not a party name.
+        text = (
+            "12. Limitation of Liability. Supplier's maximum aggregate liability shall not "
+            "exceed $1,000,000.00 under this Agreement."
+        )
+        facts = lpe.extract_liability_facts(text)
+        roles = {k for p in facts.provisions for k in p.party_positions}
+        assert "maximum" not in roles
+
+    def test_per_occurrence_and_annual_are_not_captured_as_party_roles(self):
+        # perclaim-04's exact phrasing: "per-occurrence liability is capped
+        # at..." and "...annual liability is capped at..." spuriously
+        # produce TWO fake "party" positions with different values, which
+        # today incorrectly triggers directional/asymmetric-position logic
+        # for a clause that has nothing to do with two different parties —
+        # it's a per-claim-vs-aggregate structure. The bogus reason
+        # ("contract defines asymmetric liability positions by party...")
+        # pollutes unresolved_facts even though it doesn't (here) flip the
+        # final state.
+        text = (
+            "12. Limitation of Liability. Liability shall not exceed 1.5 times the total annual "
+            "fees paid. Notwithstanding the foregoing, per-occurrence liability is capped at 1 "
+            "times the total annual fees paid, and annual liability is capped at 2 times the "
+            "total annual fees paid."
+        )
+        facts = lpe.extract_liability_facts(text)
+        roles = {k for p in facts.provisions for k in p.party_positions}
+        assert not ({"occurrence", "annual"} & roles)
+
+    def test_bogus_directional_reason_does_not_appear_for_a_non_party_structure(self):
+        text = (
+            "12. Limitation of Liability. Each claim is subject to a cap of $100,000, subject "
+            "to an aggregate cap across all claims of $500,000 in any twelve-month period."
+        )
+        d = evaluate(text)
+        assert not any("asymmetric liability positions" in f for f in d.unresolved_facts)
