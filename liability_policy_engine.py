@@ -59,6 +59,7 @@ from policy_engine_core import (
     ACCEPT, ACCEPT_WITH_NOTE, NEGOTIATE, MUST_REDLINE, PROHIBITED, ESCALATE,
     REQUIRES_REVIEW, NOT_APPLICABLE, LADDER_ORDER,
     LadderStep, PolicyDecision, PositionCandidate,
+    BUY_SIDE_ROLES, SELL_SIDE_ROLES, side_for_role,
     build_ladder as _core_build_ladder,
     classify_by_threshold, escalate_to_for_state, fallback_text_for_state,
     resolve_directional_position as _core_resolve_directional_position,
@@ -82,9 +83,6 @@ CATEGORIES = [
     "indemnification", "fraud", "gross_negligence", "willful_misconduct",
 ]
 EXCEPTION_TYPES = list(CATEGORIES)
-
-BUY_SIDE_ROLES = {"customer", "client", "licensee", "buyer", "purchaser", "recipient"}
-SELL_SIDE_ROLES = {"supplier", "vendor", "contractor", "licensor", "provider", "seller", "company"}
 
 _CATEGORY_KEYWORD_RE = {
     "data_breach": re.compile(r"\bdata breach(?:es)?\b|\bsecurity breach(?:es)?\b", re.I),

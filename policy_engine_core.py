@@ -50,6 +50,27 @@ NOT_APPLICABLE = "NOT_APPLICABLE"
 LADDER_ORDER = [ACCEPT, ACCEPT_WITH_NOTE, NEGOTIATE, ESCALATE, PROHIBITED]
 
 
+# Party-role vocabulary: which named roles conventionally sit on which
+# side of a commercial contract. Genuinely clause-agnostic — a "Customer"
+# is buy-side whether the clause in question is Limitation of Liability or
+# Indemnification — so it lives here rather than being duplicated per
+# adapter. An adapter maps a role word found in its own clause-specific
+# text extraction through this vocabulary to resolve "ours vs. theirs";
+# the vocabulary itself has no opinion about what kind of position the
+# role holds.
+BUY_SIDE_ROLES = {"customer", "client", "licensee", "buyer", "purchaser", "recipient"}
+SELL_SIDE_ROLES = {"supplier", "vendor", "contractor", "licensor", "provider", "seller", "company"}
+
+
+def side_for_role(role: str) -> Optional[str]:
+    role_key = role.lower()
+    if role_key in BUY_SIDE_ROLES:
+        return "buy_side"
+    if role_key in SELL_SIDE_ROLES:
+        return "sell_side"
+    return None
+
+
 class BasePolicyRuleLike(Protocol):
     """The minimum any clause-specific PolicyRule-like object must expose
     for the shared core to route escalation and fallback language. Clause
@@ -221,7 +242,13 @@ class PolicyDecision:
     our_position: Optional[Dict[str, str]] = None
     counterparty_position: Optional[Dict[str, str]] = None
     reconciliation: Optional[str] = None
-    summary_label: str = "General cap"  # evidence-report label for extracted_summary; adapter-overridable
+    # Evidence-report labels — default values reproduce the original LoL
+    # wording exactly; other adapters override these rather than the core
+    # ever guessing what to call a clause-specific concept ("liability",
+    # "exposure", "cap", ...).
+    summary_label: str = "General cap"
+    our_position_label: str = "Our liability"
+    counterparty_position_label: str = "Counterparty cap"
 
     def as_dict(self) -> dict:
         return {
@@ -270,9 +297,9 @@ class PolicyDecision:
                 lines.append(f"{ct['category'].replace('_', ' ').title()}: {ct['treatment'].replace('_', ' ').title()}"
                               + (f" ({ct['cap_summary']})" if ct.get("cap_summary") else ""))
         if self.counterparty_position:
-            lines.append(f"Counterparty cap: {self.counterparty_position['summary']}")
+            lines.append(f"{self.counterparty_position_label}: {self.counterparty_position['summary']}")
         if self.our_position:
-            lines.append(f"Our liability: {self.our_position['summary']}")
+            lines.append(f"{self.our_position_label}: {self.our_position['summary']}")
         if self.source:
             lines.append(f"Playbook: {self.source}")
         lines.append(f"Policy: {self.policy_limit_summary}")

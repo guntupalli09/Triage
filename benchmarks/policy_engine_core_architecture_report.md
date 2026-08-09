@@ -1,0 +1,65 @@
+# Policy Engine Core — Architecture Findings from the Second Adapter
+
+Indemnification was built as the second clause adapter specifically to test whether `policy_engine_core.py` (extracted from Limitation of Liability alone) is genuinely reusable or was shaped around LoL's specifics without anyone noticing. This report answers that question directly: what survived unchanged, what required legitimate generalization, and where the boundary was wrong.
+
+## Headline result
+
+Both adapters hold their release gates simultaneously, and the LoL golden snapshot (all 109 cases' full decision output) is **byte-identical** to before this work started — confirmed by diff, not assumption.
+
+| | Liability (109 cases) | Indemnification (43 cases) |
+|---|---|---|
+| False-safe | 0 | 0 |
+| False-escalation | 0 | 0 |
+| Determinism | 100% | 100% |
+| Policy-state accuracy | 98.2% | 100% (first pass — see caveat below) |
+
+**Caveat on the 100%:** this is a first pass on a corpus I wrote *and* debugged against in the same session, unlike LoL's corpus, which was hardened across three separate review cycles with a genuinely adversarial gap between authoring and fixing. Two real labeling errors were caught and corrected as part of getting here (below) — the process was honest, but 43 cases with one debugging pass behind them is not yet the same evidentiary weight as 109 cases with three. Treat 100% as "no known failures in this corpus," not "solved."
+
+## What survived unchanged (genuinely clause-agnostic, validated by reuse)
+
+- **Decision-state vocabulary** (`ACCEPT` … `NOT_APPLICABLE`) and the negotiation-ladder ordering. Indemnification uses all eight states with no new ones needed — the review's instruction ("support policy states through the existing vocabulary rather than inventing clause-specific outcome states") held with zero pressure to violate it.
+- **`build_ladder`** — indemnification's ladder is "exposure cap" instead of "general cap" in the descriptions, but the passed/current/not-reached mechanics are untouched.
+- **`classify_by_threshold`** — used exactly as designed for the exposure monetary cap. This is the piece the review specifically flagged as likely reusable ("cap treatment can plug into the generic threshold machinery later"), and it did, with zero modification.
+- **`escalate_to_for_state` / `fallback_text_for_state`** — reused directly.
+- **`PolicyDecision` / evidence rendering** — reused, with one real gap found and fixed (below).
+- **Benchmark safety metrics** (`is_false_safe`, `is_false_escalation`, `check_deterministic`) — both benchmark harnesses import the same functions from core. Nothing clause-specific leaked into them.
+- **`BUY_SIDE_ROLES` / `SELL_SIDE_ROLES` / `side_for_role`** — promoted to core *during this work* (see "required legitimate generalization" below), then immediately validated by a second, independent consumer.
+
+## What required legitimate generalization (the core was incomplete, not wrong)
+
+**1. Evidence-report labels were hardcoded LoL wording.** `render_evidence_report()` printed literal `"Counterparty cap:"` and `"Our liability:"` — fine when there was one adapter, actively wrong once a second one existed (indemnification isn't a "cap," it's an "exposure"). Fixed by adding `our_position_label` / `counterparty_position_label` / `summary_label` fields with defaults that reproduce the original LoL strings exactly (verified: the LoL evidence report text is unchanged), overridable per adapter. This is exactly the kind of thing a single adapter can't reveal on its own — it takes a second consumer to notice a hardcoded string masquerading as a shared format.
+
+**2. Party-role vocabulary (`BUY_SIDE_ROLES`/`SELL_SIDE_ROLES`) was sitting in the LoL adapter.** Genuinely clause-agnostic — a "Customer" is buy-side whether the clause is about liability caps or indemnification. Promoted to core, LoL now imports it instead of defining it locally. Re-verified against the golden snapshot after the move: zero diffs.
+
+**3. `resolve_directional_position`'s abstention wording was LoL-specific.** The message text ("cannot determine which cap applies to us") is now built from adapter-supplied `position_label`/`value_label` parameters rather than hardcoded. Indemnification doesn't use this function at all (see below), but the fix was necessary infrastructure work regardless, done and verified before indemnification needed anything from it.
+
+## What proved wrong — the core boundary mismatches, reported honestly
+
+**`resolve_directional_position` does not fit indemnification's directionality, and indemnification does not use it.** This is the central finding the review asked me to surface if I found it, and I found it immediately at the design stage, before writing extraction code.
+
+LoL's asymmetry is: two named parties, **each has their own value for the same concept** (a liability cap), and the question is "which of these two values is ours." That's a same-concept-different-value shape, and `resolve_directional_position`'s `PositionCandidate(role, side, dedup_key, summary)` — dedup by value equality, pick the one matching our side — fits it exactly.
+
+Indemnification's asymmetry is: **a directed relationship between two different roles** — "Vendor indemnifies Customer" is not a value Vendor holds that Customer also holds a different value of; it's a promise pointing from one named role to another. The question is not "which of two values is ours," it's "which of these directed edges points away from us (our exposure) and which points toward us (our protection)" — and a reciprocal clause can state a symmetric pair of such edges that are *both simultaneously true*, which has no LoL analog at all (LoL's multiple-provisions case always means "these are competing candidates for the one true value," never "these are both correct at once").
+
+I built `_resolve_obligations_for_side` as adapter-local code rather than forcing this into `resolve_directional_position`. It shares the *philosophy* (never guess; an unmappable role or a mutual-policy-facing-directional-contract returns a reason, not a default) but not the mechanism. I did not attempt to retrofit `resolve_directional_position` into something that could serve both shapes — that would have meant either weakening LoL's simpler, already-battle-tested version, or building an abstraction general enough to cover "same-value asymmetry" and "directed-relationship asymmetry" under one API, which is a materially harder generalization I don't have a second directional clause type's evidence to justify yet. Recommendation: leave this as two adapter-local implementations until a *third* clause type reveals which shape (or a third shape) actually recurs — generalizing from n=2 here would be guessing.
+
+**`CapValue`/`CapExpression` (LoL's typed cap representation) is not in core, and indemnification needed a smaller, separately-implemented version of the same underlying regex family.** Indemnification's `MonetaryTreatment` supports multiplier/fixed/unlimited/cross-reference/not-stated — a real subset of what `CapExpression` supports (no greater-of/lesser-of/per-claim-and-aggregate compound structures; indemnification monetary language in practice is simpler than liability caps, at least in this corpus). This is genuine duplication: two adapters now each own a "parse a dollar-multiplier-or-fixed-amount-or-unlimited expression from English" regex family, independently maintained. Unlike the abstention-topology mismatch above, this one *is* a plausible future promotion — the underlying concept ("a monetary expression, typed by basis, possibly compound") is not liability-specific, and the review predicted this exact tension. I did not do the migration in this pass: moving `CapValue`/`CapExpression` out of the benchmark-locked LoL adapter mid-PR, in the same change that also ships a new adapter, is exactly the kind of compound risk the golden-snapshot discipline exists to avoid. Recommendation: if a third clause type also needs typed monetary expressions, that's the trigger to extract a shared `MonetaryExpression` primitive — two data points, not one, and not bundled with unrelated adapter work.
+
+**A regex correctness bug, exposed by testing indemnification's reciprocal-clause pattern, revealed a latent issue with the same shape in the LoL adapter (not touched, but worth flagging).** `_OBLIGATION_RE` was compiled with `re.I` applied to the *entire* pattern, including its `[A-Z][A-Za-z]{2,25}` role-name capture groups. Python's `re.IGNORECASE` applies to character classes, not just literals — so `[A-Z]` under `re.I` matches lowercase too, and the regex silently captured `"party"`/`"the"` as role names out of "**Each party** shall indemnify … **the** other party." Fixed by removing the blanket flag and scoping `(?i:...)` to just the verb-phrase literals, leaving the role-name character classes case-sensitive (which is also more correct: real contract role names are capitalized defined terms). **LoL's `_ROLE_POSITION_RE` has the identical `re.I`-over-`[A-Z]` construction** and was not modified in this pass — the golden-snapshot discipline (requirement 1: preserve LoL exactly) means a bug fix there is out of scope for this change even though it's the same latent risk. Flagging explicitly rather than silently leaving it undiscovered: this is a real, if currently unobserved, extraction gap in the LoL adapter, worth its own follow-up with proper regression tests, not bundled into an unrelated adapter's PR.
+
+## Bugs found and fixed in the indemnification adapter itself (not core findings, listed for completeness)
+
+Three real bugs surfaced by the benchmark, all fixed before this report:
+1. The `re.I`-over-`[A-Z]` bug above, which made every reciprocal-clause case fail (false-escalation, since the corrupted role names couldn't be mapped to a side).
+2. `_resolve_obligations_for_side` flagged *any* second same-direction obligation as an unresolvable conflict, even when its terms agreed with the first — should only flag genuine disagreement (mirrors the LoL adapter's "consistent duplicate" leniency, reimplemented locally since the shapes differ as described above).
+3. A monetary treatment of `"not_stated"` on the exposure obligation was explicitly *not* penalized in the first draft — a direct repeat of the exact "extracted but not consumed" mistake flagged in the Liability work's Priority 5. Caught by the corpus, not by review discipline, which is itself worth noting: the benchmark is doing the job it's for.
+
+Two labeling errors in my own corpus were also caught and corrected (documented individually in `benchmarks/indemnification_corpus.py`, not silently fixed): `asym-01` had exposure and protection swapped, and `malformed-01`'s expected state was corrected from `REQUIRES_REVIEW` to `NOT_APPLICABLE` once I re-applied the same reasoning already established for the LoL corpus's malformed-heading cases (a destroyed anchor means honestly finding nothing, not a redline instruction implying a clause exists).
+
+## Overall verdict
+
+The core survived as a real, validated boundary for: decision states, ladder mechanics, threshold classification, escalation/fallback routing, evidence structure, and benchmark metrics. It required two small, well-justified generalizations (evidence labels, role vocabulary) that a single adapter genuinely could not have revealed. It was **correctly not extended** to cover indemnification's directional-obligation topology, because that topology is a different shape, not a parametrization of LoL's — building a forced joint abstraction here would have been the "ugly special case" the review warned against. One duplication (monetary expression parsing) is flagged as a plausible future promotion, deliberately not acted on with only two data points.
+
+This is not yet proof of a fully general contract-policy platform — it's proof that the *specific* boundary drawn after one adapter correctly separated "genuinely universal" from "looked universal because there was only one example," and that the process for finding out which was which (build the second adapter, let its benchmark find the seams, report honestly) works. A third clause type is the next real test, particularly for the monetary-expression duplication and for whether `resolve_directional_position` vs. adapter-local resolution turns out to be the right long-term split or just the right split for these two.
+
+Per instruction: no third clause type started. Stopping here for review.
