@@ -4,9 +4,9 @@ Corpus size: **100** cases across 38 drafting-pattern tags (expanded from 43 to 
 
 ## Headline safety metric
 
-**False-safe rate: 1 / 100 (1.0%)**
+**False-safe rate: 0 / 100 (0.0%)**
 
-- `false-reciprocal-01` (tags: reciprocal, adversarial) — expected `ESCALATE`, got `ACCEPT`
+Zero false-safe cases in this run.
 
 ## False-escalation
 
@@ -25,18 +25,18 @@ Zero false-escalation cases in this run.
 | 5 | Covered-claim/category extraction | 90.9% | 22 |
 | 6 | Reciprocal/unilateral classification | 100.0% | 20 |
 | 7 | Monetary/cap treatment | 100.0% | 72 |
-| 8 | Policy-state accuracy | 96.0% | 100 (all cases) |
-| 9 | False-safe rate | 1.0% | 100 (all cases) |
+| 8 | Policy-state accuracy | 97.0% | 100 (all cases) |
+| 9 | False-safe rate | 0.0% | 100 (all cases) |
 | 10 | False-escalation rate | 0.0% | 100 (all cases) |
 | 11 | Determinism (5x repeat) | 100.0% | 100 (all cases) |
 
 Supplementary (not one of the 11): protection-obligation presence accuracy — 100.0% (7 scored).
 
-Supplementary: ambiguity detection recall (REQUIRES_REVIEW) — 88.9% (18 expected).
+Supplementary: ambiguity detection recall (REQUIRES_REVIEW) — 89.5% (19 expected).
 
 ## Release gate check
 
-- FAIL — False-safe = 0 (actual: 1)
+- PASS — False-safe = 0 (actual: 0)
 - PASS — False-escalation = 0 (actual: 0)
 - PASS — Determinism = 100% (actual: 100.0%)
 
@@ -44,16 +44,15 @@ Policy-state accuracy and the other extraction-quality metrics are reported hone
 
 ## Failures by drafting pattern
 
-### `adversarial` — 3 failing case(s)
-
-- `xref-03`: expected `REQUIRES_REVIEW`, got `MUST_REDLINE`
-- `cap-excluded-01`: expected `PROHIBITED`, got `MUST_REDLINE`
-- `false-reciprocal-01` ⚠️ FALSE-SAFE: expected `ESCALATE`, got `ACCEPT`
-
 ### `cross_referenced_cap` — 2 failing case(s)
 
 - `xref-03`: expected `REQUIRES_REVIEW`, got `MUST_REDLINE`
 - `xref-04`: expected `REQUIRES_REVIEW`, got `MUST_REDLINE`
+
+### `adversarial` — 2 failing case(s)
+
+- `xref-03`: expected `REQUIRES_REVIEW`, got `MUST_REDLINE`
+- `cap-excluded-01`: expected `PROHIBITED`, got `MUST_REDLINE`
 
 ### `special_cap` — 2 failing case(s)
 
@@ -63,7 +62,3 @@ Policy-state accuracy and the other extraction-quality metrics are reported hone
 ### `cap_interaction` — 1 failing case(s)
 
 - `cap-excluded-01`: expected `PROHIBITED`, got `MUST_REDLINE`
-
-### `reciprocal` — 1 failing case(s)
-
-- `false-reciprocal-01` ⚠️ FALSE-SAFE: expected `ESCALATE`, got `ACCEPT`

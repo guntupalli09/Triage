@@ -130,6 +130,154 @@ class TestReciprocalVsUnilateral:
         assert d.state == core.ACCEPT
 
 
+class TestReciprocalSymmetryVerification:
+    """A clause can open with symmetric ("each party"/"mutual") language
+    while stating materially DIFFERENT terms per named party elsewhere in
+    the same provision — a third directional shape distinct from both
+    LoL's same-concept-different-value asymmetry and indemnification's
+    ordinary directed-edge topology: here the clause itself makes a
+    symmetry CLAIM that may or may not be true, and the engine must verify
+    it against the rest of the provision rather than trust the opener.
+
+    These variants exercise: genuine reciprocity (no attribution, or
+    attribution that agrees — must still ACCEPT), pure two-obligation
+    unilateral/asymmetric drafting (already covered above, unaffected by
+    this mechanism since it never sets is_mutual_reciprocal), and
+    superficially-reciprocal text broken out across each axis the
+    per-party terms can disagree on: monetary, trigger coverage, claim
+    scope, defense control, and indemnified-party group (beneficiaries).
+    """
+
+    def test_genuinely_reciprocal_with_no_per_party_attribution_still_accepts(self):
+        # Baseline / regression guard: ordinary reciprocal language with no
+        # named-party attribution at all must be completely unaffected.
+        text = (
+            "12. Indemnification. Each party shall indemnify, defend, and hold harmless the other "
+            "party from and against any third-party claims arising from the indemnifying party's "
+            "gross negligence. Each party's indemnification obligations shall not exceed 1 times "
+            "the total annual fees paid."
+        )
+        d = evaluate(text)
+        assert d.state == core.ACCEPT
+
+    def test_genuinely_reciprocal_with_agreeing_per_party_attribution_still_accepts(self):
+        # Both parties are named explicitly, but their terms genuinely
+        # agree — this must NOT be flagged as asymmetric.
+        text = (
+            "12. Indemnification. Each party shall indemnify, defend, and hold harmless the other "
+            "party from and against any third-party claims arising from the indemnifying party's "
+            "gross negligence. Vendor's indemnification obligations under this Section shall not "
+            "exceed 1 times the total annual fees paid. Customer's indemnification obligations "
+            "under this Section shall not exceed 1 times the total annual fees paid."
+        )
+        d = evaluate(text)
+        assert d.state == core.ACCEPT
+
+    def test_two_independent_unilateral_obligations_are_unaffected(self):
+        # No "each party"/mutual opener at all — ordinary two-directional
+        # drafting must never engage the reciprocal-symmetry mechanism.
+        text = (
+            "12. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from "
+            "and against any third-party claims arising from Vendor's gross negligence, subject to "
+            "a cap of 1 times the total annual fees paid. Customer shall indemnify, defend, and "
+            "hold harmless Vendor from and against any third-party claims arising from Customer's "
+            "misuse of the deliverables, subject to a cap of 5 times the total annual fees paid."
+        )
+        d = evaluate(text, contract_side="sell_side")
+        assert d.state == core.ACCEPT
+
+    def test_differentiated_monetary_terms_requires_review(self):
+        text = (
+            "12. Indemnification. Each party shall indemnify, defend, and hold harmless the other "
+            "party from and against any third-party claims arising from the indemnifying party's "
+            "gross negligence; provided, that Customer's indemnification obligations under this "
+            "Section shall not exceed 1 times the total annual fees paid, and Vendor's "
+            "indemnification obligations under this Section shall not exceed 5 times the total "
+            "annual fees paid."
+        )
+        d = evaluate(text, contract_side="sell_side")
+        assert d.state == core.REQUIRES_REVIEW
+
+    def test_differentiated_trigger_coverage_requires_review(self):
+        text = (
+            "12. Indemnification. Each party shall indemnify, defend, and hold harmless the other "
+            "party from and against any third-party claims arising from the indemnifying party's "
+            "conduct. Vendor's indemnification obligations under this Section cover claims arising "
+            "from gross negligence only, and shall not exceed 1 times the total annual fees paid. "
+            "Customer's indemnification obligations under this Section cover claims arising from "
+            "gross negligence, willful misconduct, and infringement of intellectual property "
+            "rights, and shall not exceed 1 times the total annual fees paid."
+        )
+        d = evaluate(text)
+        assert d.state == core.REQUIRES_REVIEW
+
+    def test_differentiated_claim_scope_requires_review(self):
+        text = (
+            "12. Indemnification. Each party shall indemnify, defend, and hold harmless the other "
+            "party from and against claims arising from the indemnifying party's gross negligence. "
+            "Vendor's indemnification obligations under this Section apply to third-party claims "
+            "only, and shall not exceed 1 times the total annual fees paid. Customer's "
+            "indemnification obligations under this Section apply to any claims, whether direct or "
+            "third-party, and shall not exceed 1 times the total annual fees paid."
+        )
+        d = evaluate(text)
+        assert d.state == core.REQUIRES_REVIEW
+
+    def test_differentiated_defense_control_requires_review(self):
+        text = (
+            "12. Indemnification. Each party shall indemnify, defend, and hold harmless the other "
+            "party from and against any third-party claims arising from the indemnifying party's "
+            "gross negligence. Vendor's indemnification obligations under this Section provide "
+            "that the indemnifying party shall control the defense of any such claim. Customer's "
+            "indemnification obligations under this Section provide that the indemnified party "
+            "shall control its own defense at Customer's expense."
+        )
+        d = evaluate(text)
+        assert d.state == core.REQUIRES_REVIEW
+
+    def test_differentiated_indemnified_party_group_requires_review(self):
+        text = (
+            "12. Indemnification. Each party shall indemnify, defend, and hold harmless the other "
+            "party from and against any third-party claims arising from the indemnifying party's "
+            "gross negligence. Vendor's indemnification obligations under this Section extend to "
+            "Customer and its affiliates, officers, directors, employees, and agents, and shall "
+            "not exceed 1 times the total annual fees paid. Customer's indemnification obligations "
+            "under this Section extend to Vendor only, and shall not exceed 1 times the total "
+            "annual fees paid."
+        )
+        d = evaluate(text)
+        assert d.state == core.REQUIRES_REVIEW
+
+    def test_mutual_indemnify_each_other_phrasing_with_differentiated_terms(self):
+        # A different reciprocal-opener idiom ("the parties shall mutually
+        # indemnify each other") than "each party...the other party" —
+        # confirms the check applies regardless of which _MUTUAL_
+        # RECIPROCAL_RE alternative matched.
+        text = (
+            "12. Indemnification. The parties shall mutually indemnify each other from and "
+            "against any third-party claims arising from gross negligence. Vendor's "
+            "indemnification obligations under this Section shall not exceed 1 times the total "
+            "annual fees paid. Customer's indemnification obligations under this Section shall "
+            "not exceed 6 times the total annual fees paid."
+        )
+        d = evaluate(text)
+        assert d.state == core.REQUIRES_REVIEW
+
+    def test_differentiated_terms_explanation_names_the_disagreement(self):
+        # The escalation/review explanation should be informative, not a
+        # bare state change — a reviewer should be able to see WHY.
+        text = (
+            "12. Indemnification. Each party shall indemnify, defend, and hold harmless the other "
+            "party from and against any third-party claims arising from the indemnifying party's "
+            "gross negligence; provided, that Customer's indemnification obligations under this "
+            "Section shall not exceed 1 times the total annual fees paid, and Vendor's "
+            "indemnification obligations under this Section shall not exceed 5 times the total "
+            "annual fees paid."
+        )
+        d = evaluate(text)
+        assert "different monetary terms" in " ".join(d.unresolved_facts)
+
+
 class TestMonetaryTreatment:
     def test_uncapped_exposure_prohibited_by_default(self):
         d = evaluate(

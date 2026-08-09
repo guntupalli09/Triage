@@ -1073,17 +1073,23 @@ CASES += [
          "Section shall not exceed 1 times the total annual fees paid, and Vendor's "
          "indemnification obligations under this Section shall not exceed 5 times the total "
          "annual fees paid.",
-         "ESCALATE", "SKIP",
+         "REQUIRES_REVIEW", "SKIP",
          notes="Opens with 'each party shall indemnify... the other party' (matching the reciprocal "
                "pattern) but the proviso then states DIFFERENT monetary caps per named party (1x "
-               "for Customer, 5x for Vendor) — not actually symmetric. We are Vendor (sell_side "
-               "default): our real exposure is 5x, not the reciprocal clause's blended/symmetric "
-               "treatment. If the engine's mutual-reciprocal regex fires on the opening clause and "
-               "treats this as one symmetric 'both directions get the same terms' obligation "
-               "(ignoring the differentiated proviso), it would misclassify our actual 5x exposure "
-               "as something lower — expected_exposure_monetary intentionally SKIP since which "
-               "figure the engine actually extracts is exactly the open question this case probes; "
-               "the state mismatch (ESCALATE expected for a real 5x exposure) is the finding."),
+               "for Customer, 5x for Vendor) — not actually symmetric. CORRECTED after the "
+               "reciprocal-symmetry-verification fix: originally labeled ESCALATE on the theory "
+               "that our real (Vendor) exposure is confidently identifiable as 5x. On reflection "
+               "that assumes a reading the drafting doesn't actually support — a clause that opens "
+               "with a symmetric claim and then states different numbers per party is genuinely "
+               "ambiguous about which figure is truly controlling (is the reciprocal opener the "
+               "operative term with the proviso merely illustrative, or do the named figures "
+               "override the opener for each party specifically); confidently picking 5x as 'our "
+               "number' is itself a guess, just a differently-shaped one than picking 1x. "
+               "REQUIRES_REVIEW — a human resolving which figure actually governs — is the more "
+               "defensible answer, consistent with this project's own abstention discipline (never "
+               "guess when a fact can't be established) and with the explicit instruction that "
+               "verified-symmetry failures should return REQUIRES_REVIEW or an escalation state, "
+               "not a confident accept OR a confident guess at which value is real."),
 ]
 
 # ---------------------------------------------------------------------------

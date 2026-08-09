@@ -41,7 +41,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Protocol, Tuple
+from typing import Any, Dict, List, Optional, Protocol, Tuple
 
 from policy_engine_core import (
     ACCEPT, ACCEPT_WITH_NOTE, NEGOTIATE, MUST_REDLINE, PROHIBITED, ESCALATE,
@@ -162,8 +162,28 @@ _MONETARY_CROSS_REF_RE = re.compile(
     re.I,
 )
 
+# A mutual/reciprocal ("each party"/"the parties shall mutually indemnify")
+# match claims symmetric treatment. This finds sub-clauses that attribute
+# terms to one SPECIFIC named party within that same window ("Vendor's
+# indemnification obligations...", "Customer's obligations under this
+# Section...") so those per-party terms can be compared against each other
+# — see _detect_reciprocal_asymmetry. [A-Z] is deliberately kept case-
+# sensitive within the overall re.I compile via (?-i:...), the same
+# re.I-over-[A-Z] hazard already fixed elsewhere in this file.
+_ROLE_ATTRIBUTION_RE = re.compile(
+    r"(?-i:([A-Z][A-Za-z]{2,25}))(?:'s)?\s+(?i:indemnification\s+)?(?i:obligations?)\s+"
+    r"(?i:under\s+this\s+(?:Section|Agreement)\s+)?",
+    re.I,
+)
+_GENERIC_ROLE_WORDS = {
+    "each", "the", "any", "such", "this", "that", "both", "either", "all",
+    "party", "parties", "indemnifying", "indemnified", "other",
+}
+_BROAD_BENEFICIARY_RE = re.compile(r"affiliates|officers|directors|employees|agents", re.I)
+
 _PROVISION_WINDOW_CHARS = 2000
 _LOCAL_WINDOW_CHARS = 160
+_ROLE_ATTRIBUTION_LOCAL_CHARS = 220
 
 
 # ---------------------------------------------------------------------------
@@ -216,6 +236,12 @@ class IndemnityObligation:
     end_index: int
     section_label: Optional[str]
     is_mutual_reciprocal: bool = False
+    # Only ever populated for is_mutual_reciprocal=True obligations — see
+    # _detect_reciprocal_asymmetry. A non-empty list means the clause opens
+    # with symmetric ("each party"/"mutual") language but states materially
+    # different terms per named party somewhere in the same window, so the
+    # opener's symmetry claim could not be verified.
+    asymmetry_reasons: List[str] = field(default_factory=list)
 
     def label(self) -> str:
         prefix = f"Section {self.section_label} — " if self.section_label else ""
@@ -366,6 +392,94 @@ def _classify_monetary(window: str, obligation_start: int) -> MonetaryTreatment:
     return MonetaryTreatment(kind="fixed", fixed_amount=float(fixed.group(1).replace(",", "")), raw_excerpt=_excerpt(window, fixed.start(), fixed.end()))
 
 
+def _monetary_key(m: MonetaryTreatment) -> Tuple[str, Optional[float], Optional[float]]:
+    return (m.kind, m.multiplier, m.fixed_amount)
+
+
+def _local_clause_window(text: str, start: int, max_chars: int = _ROLE_ATTRIBUTION_LOCAL_CHARS) -> str:
+    hi = min(len(text), start + max_chars)
+    boundary = re.search(r"\.\s|;", text[start:hi])
+    if boundary:
+        hi = start + boundary.start() + 1
+    return text[start:hi]
+
+
+def _detect_reciprocal_asymmetry(window: str) -> List[str]:
+    """A mutual/reciprocal match ("each party shall indemnify... the other
+    party" / "the parties shall mutually indemnify each other") claims
+    symmetric treatment. Real drafting sometimes layers differentiated,
+    per-party-NAMED terms on top of that symmetric opener — a proviso that
+    states different monetary caps, different covered triggers, different
+    claim scope, different defense-control terms, or a different
+    indemnified-party group for one named role than another. A genuinely
+    reciprocal clause never does this; when it happens, the opener's
+    symmetry claim cannot be trusted and must not be treated as
+    established fact.
+
+    Scans the window for sub-clauses attributing terms to a SPECIFIC named
+    role ("Vendor's indemnification obligations...", not "each party's" or
+    "the indemnifying party's" — those are generic, not asymmetry
+    evidence) and compares those role-local snapshots pairwise. Returns a
+    list of human-readable disagreement reasons; empty means either no
+    per-party attribution was found (nothing to compare — not itself
+    evidence of asymmetry) or all attributed roles agree.
+    """
+    snapshots: Dict[str, Dict[str, Any]] = {}
+    for m in _ROLE_ATTRIBUTION_RE.finditer(window):
+        role = m.group(1)
+        if role.lower() in _GENERIC_ROLE_WORDS:
+            continue
+        local = _local_clause_window(window, m.end())
+        # Later mentions of the same role in the same window (rare) don't
+        # overwrite an earlier snapshot — first mention governs, matching
+        # the "earliest stated position wins" convention used elsewhere.
+        snapshots.setdefault(role, {
+            "monetary": _classify_monetary(local, 0),
+            "scope": _classify_scope(local),
+            "defense_control": _classify_defense_control(local),
+            "triggers": frozenset(
+                trig for trig, kw_re in _TRIGGER_KEYWORD_RE.items() if kw_re.search(local)
+            ),
+            "broad_beneficiary": bool(_BROAD_BENEFICIARY_RE.search(local)),
+        })
+
+    roles = list(snapshots.keys())
+    if len(roles) < 2:
+        return []
+
+    reasons: List[str] = []
+    base_role = roles[0]
+    base = snapshots[base_role]
+    for role in roles[1:]:
+        snap = snapshots[role]
+        if (
+            base["monetary"].kind != "not_stated" and snap["monetary"].kind != "not_stated"
+            and _monetary_key(base["monetary"]) != _monetary_key(snap["monetary"])
+        ):
+            reasons.append(
+                f"{base_role} and {role} state different monetary terms "
+                f"({base['monetary'].summary()} vs {snap['monetary'].summary()})"
+            )
+        if base["triggers"] and snap["triggers"] and base["triggers"] != snap["triggers"]:
+            reasons.append(f"{base_role} and {role} cover different trigger sets")
+        if (
+            base["scope"] not in ("not_addressed", "unresolved")
+            and snap["scope"] not in ("not_addressed", "unresolved")
+            and base["scope"] != snap["scope"]
+        ):
+            reasons.append(f"{base_role} and {role} state different claim scope")
+        if (
+            base["defense_control"] not in ("not_addressed", "unresolved")
+            and snap["defense_control"] not in ("not_addressed", "unresolved")
+            and base["defense_control"] != snap["defense_control"]
+        ):
+            reasons.append(f"{base_role} and {role} state different defense-control terms")
+        if base["broad_beneficiary"] != snap["broad_beneficiary"]:
+            reasons.append(f"{base_role} and {role} name different indemnified-party groups")
+
+    return reasons
+
+
 def _extract_obligation_window(text: str, start: int, end: int) -> str:
     return text[start:min(len(text), start + _PROVISION_WINDOW_CHARS)]
 
@@ -429,6 +543,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             start_index=m.start(), end_index=m.end(),
             section_label=_section_label_before(text, m.start()),
             is_mutual_reciprocal=True,
+            asymmetry_reasons=_detect_reciprocal_asymmetry(window),
         ))
         seen_spans.append((m.start(), m.end()))
 
@@ -487,10 +602,29 @@ def _resolve_obligations_for_side(
     named = [o for o in obligations if not o.is_mutual_reciprocal]
 
     if reciprocal and not named:
+        obligation = reciprocal[0]
+        if obligation.asymmetry_reasons:
+            # The clause opens with symmetric ("each party"/"mutual")
+            # language, but states materially different terms for at
+            # least one named party elsewhere in the same provision — the
+            # opener's symmetry claim could not be verified, so it must
+            # not be trusted as both our exposure AND our protection.
+            # Never guess which named party's terms are actually ours;
+            # route to REQUIRES_REVIEW instead of ACCEPT. See
+            # tests/test_indemnification_policy_engine.py::
+            # TestReciprocalSymmetryVerification and
+            # benchmarks/indemnification_benchmark_report.md.
+            reasons.append(
+                "clause opens with reciprocal ('each party'/'mutual') language, but states "
+                "materially different terms per named party (" + "; ".join(obligation.asymmetry_reasons) +
+                ") — cannot confirm the clause is actually symmetric, so which named party's terms "
+                "are ours cannot be determined from this opener alone"
+            )
+            return None, None, reasons
         # A symmetric mutual clause applies the same terms in both
         # directions — usable as both exposure and protection regardless
         # of contract_side, since the terms don't differ by party.
-        return reciprocal[0], reciprocal[0], reasons
+        return obligation, obligation, reasons
 
     if contract_side == "mutual":
         if named:
@@ -500,17 +634,14 @@ def _resolve_obligations_for_side(
             )
         return None, None, reasons
 
-    def _monetary_key(o: IndemnityObligation):
-        return (o.monetary.kind, o.monetary.multiplier, o.monetary.fixed_amount)
-
     for o in named:
         if o.indemnifying_side == contract_side and o.indemnified_side is not None and o.indemnified_side != contract_side:
-            if exposure is not None and _monetary_key(exposure) != _monetary_key(o):
+            if exposure is not None and _monetary_key(exposure.monetary) != _monetary_key(o.monetary):
                 reasons.append("multiple obligations found where we are the indemnifying party, with different monetary terms — cannot determine which governs")
             elif exposure is None:
                 exposure = o
         elif o.indemnified_side == contract_side and o.indemnifying_side is not None and o.indemnifying_side != contract_side:
-            if protection is not None and _monetary_key(protection) != _monetary_key(o):
+            if protection is not None and _monetary_key(protection.monetary) != _monetary_key(o.monetary):
                 reasons.append("multiple obligations found where we are the indemnified party, with different monetary terms — cannot determine which governs")
             elif protection is None:
                 protection = o
