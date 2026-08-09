@@ -370,6 +370,7 @@ _POLICY_STATE_SEVERITY = {
     liability_policy_engine.PROHIBITED: "critical",
     liability_policy_engine.ESCALATE: "high",
     liability_policy_engine.MUST_REDLINE: "high",
+    liability_policy_engine.REQUIRES_REVIEW: "high",
     liability_policy_engine.NEGOTIATE: "medium",
     liability_policy_engine.ACCEPT_WITH_NOTE: "low",
     liability_policy_engine.ACCEPT: "low",
@@ -394,14 +395,15 @@ def apply_liability_policy(db: DBSession, playbook: Optional[Playbook], contract
     if not policy:
         return None
 
-    extraction = liability_policy_engine.extract_liability_cap(contract_text)
+    facts = liability_policy_engine.extract_liability_facts(contract_text)
     decision = liability_policy_engine.evaluate_liability_policy(
-        extraction, policy, source=f"{playbook.name} v{policy.version}",
+        facts, policy, source=f"{playbook.name} v{policy.version}",
     )
 
     actionable_states = {
         liability_policy_engine.NEGOTIATE, liability_policy_engine.MUST_REDLINE,
         liability_policy_engine.PROHIBITED, liability_policy_engine.ESCALATE,
+        liability_policy_engine.REQUIRES_REVIEW,
     }
     if decision.state in actionable_states and decision.start_index is not None:
         findings_dict.append({
