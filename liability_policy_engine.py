@@ -1,10 +1,18 @@
 """
-Deterministic Limitation-of-Liability Policy Engine.
+Limitation-of-Liability clause adapter, over policy_engine_core.
 
-Vertical slice of the policy-first playbook design. Three architectural
-commitments distinguish this from a naive "find a number, compare it"
-extractor, each driven by a real failure the benchmark corpus surfaced
-(see benchmarks/liability_benchmark_report.md):
+This module owns everything specific to liability caps: finding LoL-
+anchored provisions in a document and reconciling multiple ones, the typed
+CapExpression model (simple/greater-of/lesser-of/per-claim-and-aggregate),
+category carve-out classification, consequential-damages detection,
+cross-reference resolution, and named-party position extraction. It owns
+no part of the decision model, evidence structure, ladder mechanics, or
+directional-resolution algorithm — those live in policy_engine_core.py and
+are shared with every other clause adapter.
+
+Three architectural commitments distinguish this from a naive "find a
+number, compare it" extractor, each driven by a real failure the benchmark
+corpus surfaced (see benchmarks/liability_benchmark_report.md):
 
 1. DOCUMENT-WIDE PROVISION DISCOVERY. A contract can contain more than one
    Limitation of Liability provision — a later exhibit, schedule, or an
@@ -31,9 +39,10 @@ extractor, each driven by a real failure the benchmark corpus surfaced
 3. DIRECTIONAL (ASYMMETRIC) POSITIONS. When a contract states different
    caps — or an uncapped position — for each named party, there is no
    single "the cap" to extract. PartyPosition tracks each side
-   independently; evaluation maps "us" from the playbook's configured
-   contract_side and never silently evaluates whichever side's language
-   happened to be easier to parse while ignoring the other.
+   independently; policy_engine_core.resolve_directional_position maps
+   "us" from the playbook's configured contract_side and never silently
+   evaluates whichever side's language happened to be easier to parse
+   while ignoring the other.
 
 Every decision states, deterministically, no confidence score at any
 branch: ACCEPT / ACCEPT_WITH_NOTE / NEGOTIATE / MUST_REDLINE / PROHIBITED /
@@ -46,17 +55,16 @@ import re
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Protocol, Tuple
 
+from policy_engine_core import (
+    ACCEPT, ACCEPT_WITH_NOTE, NEGOTIATE, MUST_REDLINE, PROHIBITED, ESCALATE,
+    REQUIRES_REVIEW, NOT_APPLICABLE, LADDER_ORDER,
+    LadderStep, PolicyDecision, PositionCandidate,
+    build_ladder as _core_build_ladder,
+    classify_by_threshold, escalate_to_for_state, fallback_text_for_state,
+    resolve_directional_position as _core_resolve_directional_position,
+)
 
 RULE_ID = "POLICY_LOL_CAP"
-
-ACCEPT = "ACCEPT"
-ACCEPT_WITH_NOTE = "ACCEPT_WITH_NOTE"
-NEGOTIATE = "NEGOTIATE"
-MUST_REDLINE = "MUST_REDLINE"
-PROHIBITED = "PROHIBITED"
-ESCALATE = "ESCALATE"
-REQUIRES_REVIEW = "REQUIRES_REVIEW"
-NOT_APPLICABLE = "NOT_APPLICABLE"
 
 # Typed cap basis — what a multiplier cap is a multiple OF. Only BASIS_FEES
 # is comparable to a policy threshold (defined as "Nx annual fees"); every
@@ -68,8 +76,6 @@ BASIS_CONTRACT_VALUE = "CONTRACT_VALUE"
 BASIS_FIXED_AMOUNT = "FIXED_AMOUNT"
 BASIS_OTHER = "OTHER"
 BASIS_UNRESOLVED = "UNRESOLVED"
-
-_LADDER_ORDER = [ACCEPT, ACCEPT_WITH_NOTE, NEGOTIATE, ESCALATE, PROHIBITED]
 
 CATEGORIES = [
     "data_breach", "ip_infringement", "confidentiality",
@@ -385,7 +391,10 @@ class LiabilityFacts:
 class PolicyRuleLike(Protocol):
     """Structural type for whatever ORM row (or test double) is passed to
     evaluate() — deliberately not importing models.PolicyRule, so this
-    engine has no database dependency and stays independently testable."""
+    engine has no database dependency and stays independently testable.
+    Structurally includes policy_engine_core.BasePolicyRuleLike's fields
+    (contract_side, escalation_approval_authority, fallback_text) plus
+    everything specific to a liability-cap policy."""
     preferred_multiplier: Optional[float]
     acceptable_max_multiplier: Optional[float]
     negotiate_max_multiplier: Optional[float]
@@ -398,93 +407,8 @@ class PolicyRuleLike(Protocol):
     required_consequential_carveouts_json: Optional[List[str]]
 
 
-@dataclass
-class LadderStep:
-    label: str
-    description: str
-    status: str  # "passed" | "current" | "not_reached"
-
-
-@dataclass
-class PolicyDecision:
-    rule_id: str
-    clause_type: str
-    state: str
-    contract_language: str
-    extracted_summary: str
-    policy_limit_summary: str
-    required_action: str
-    explanation: str
-    negotiation_ladder: List[LadderStep]
-    category_treatments: List[Dict[str, str]]
-    unresolved_facts: List[str]
-    start_index: Optional[int]
-    end_index: Optional[int]
-    escalate_to: Optional[str] = None
-    fallback_text: Optional[str] = None
-    source: Optional[str] = None
-    controlling_provision: Optional[Dict[str, str]] = None
-    our_position: Optional[Dict[str, str]] = None
-    counterparty_position: Optional[Dict[str, str]] = None
-    reconciliation: Optional[str] = None
-
-    def as_dict(self) -> dict:
-        return {
-            "rule_id": self.rule_id,
-            "clause_type": self.clause_type,
-            "state": self.state,
-            "contract_language": self.contract_language,
-            "extracted_summary": self.extracted_summary,
-            "policy_limit_summary": self.policy_limit_summary,
-            "required_action": self.required_action,
-            "explanation": self.explanation,
-            "negotiation_ladder": [
-                {"label": s.label, "description": s.description, "status": s.status}
-                for s in self.negotiation_ladder
-            ],
-            "category_treatments": self.category_treatments,
-            "unresolved_facts": self.unresolved_facts,
-            "start_index": self.start_index,
-            "end_index": self.end_index,
-            "escalate_to": self.escalate_to,
-            "fallback_text": self.fallback_text,
-            "source": self.source,
-            "controlling_provision": self.controlling_provision,
-            "our_position": self.our_position,
-            "counterparty_position": self.counterparty_position,
-            "reconciliation": self.reconciliation,
-        }
-
-    def render_evidence_report(self) -> str:
-        """Human-readable provenance block — the format a lawyer can point
-        to as the basis for the decision, e.g.:
-
-            PROHIBITED
-            Controlling provision: Section 12.4 — Limitation of Liability
-            General cap: 2x fees paid in preceding 12 months
-            ...
-            Result: PROHIBITED
-            Evidence: "<exact contract language>"
-        """
-        lines = [self.state]
-        if self.controlling_provision:
-            lines.append(f"Controlling provision: {self.controlling_provision['label']}")
-        lines.append(f"General cap: {self.extracted_summary}")
-        for ct in self.category_treatments:
-            if ct["treatment"] not in ("not_addressed",):
-                lines.append(f"{ct['category'].replace('_', ' ').title()}: {ct['treatment'].replace('_', ' ').title()}"
-                              + (f" ({ct['cap_summary']})" if ct.get("cap_summary") else ""))
-        if self.counterparty_position:
-            lines.append(f"Counterparty cap: {self.counterparty_position['summary']}")
-        if self.our_position:
-            lines.append(f"Our liability: {self.our_position['summary']}")
-        if self.source:
-            lines.append(f"Playbook: {self.source}")
-        lines.append(f"Policy: {self.policy_limit_summary}")
-        lines.append(f"Result: {self.state}")
-        lines.append(f'Evidence: "{self.contract_language}"')
-        return "\n".join(lines)
-
+# LadderStep and PolicyDecision are clause-agnostic — imported from
+# policy_engine_core above, not redefined here.
 
 # ---------------------------------------------------------------------------
 # Extraction helpers
@@ -974,19 +898,14 @@ def _fmt_multiplier(value: Optional[float]) -> str:
 
 
 def _build_ladder(policy: PolicyRuleLike, state: str) -> List[LadderStep]:
-    steps = [
-        LadderStep("IDEAL", f"Preferred position: {_fmt_multiplier(policy.preferred_multiplier)}", "not_reached"),
-        LadderStep("ACCEPTABLE", f"Auto-accept up to {_fmt_multiplier(policy.acceptable_max_multiplier)}", "not_reached"),
-        LadderStep("FALLBACK", f"Negotiate up to {_fmt_multiplier(policy.negotiate_max_multiplier)}", "not_reached"),
-        LadderStep("ESCALATE", f"Beyond negotiable range — route to {policy.escalation_approval_authority or 'Legal Director'}", "not_reached"),
-        LadderStep("WALK-AWAY", "Unlimited liability — prohibited by policy" if policy.prohibit_unlimited else "Unlimited liability", "not_reached"),
+    step_specs = [
+        ("IDEAL", f"Preferred position: {_fmt_multiplier(policy.preferred_multiplier)}"),
+        ("ACCEPTABLE", f"Auto-accept up to {_fmt_multiplier(policy.acceptable_max_multiplier)}"),
+        ("FALLBACK", f"Negotiate up to {_fmt_multiplier(policy.negotiate_max_multiplier)}"),
+        ("ESCALATE", f"Beyond negotiable range — route to {policy.escalation_approval_authority or 'Legal Director'}"),
+        ("WALK-AWAY", "Unlimited liability — prohibited by policy" if policy.prohibit_unlimited else "Unlimited liability"),
     ]
-    if state not in _LADDER_ORDER:
-        return steps
-    idx = _LADDER_ORDER.index(state)
-    for i, step in enumerate(steps):
-        step.status = "passed" if i < idx else ("current" if i == idx else "not_reached")
-    return steps
+    return _core_build_ladder(state, step_specs)
 
 
 def _category_treatments_dict(provision: Provision) -> List[Dict[str, str]]:
@@ -1006,39 +925,31 @@ def _resolve_directional_position(
     """When a provision states 2+ distinct named-role positions with
     different cap expressions, determines which is "ours" per
     policy.contract_side. Returns (our_cap_expression, our_position_dict,
-    counterparty_position_dict, unresolved_reason). Never silently returns
-    only the recognized side — an unrecognized or unmappable role pair
-    yields (None, None, None, reason) so the caller abstains."""
+    counterparty_position_dict, unresolved_reason). Thin LoL-specific
+    wrapper over policy_engine_core.resolve_directional_position: builds
+    PositionCandidates from CapExpressions, delegates the actual
+    ours-vs-theirs algorithm to the shared core, then maps the chosen
+    candidate back to its CapExpression."""
     positions = list(provision.party_positions.values())
-    if len(positions) < 2:
-        return None, None, None, None  # not a directional structure at all
-
-    distinct_values = {
-        (pp.cap_expression.components[0].kind, pp.cap_expression.components[0].compare_key())
-        for pp in positions if pp.cap_expression.components
-    }
-    if len(distinct_values) <= 1:
-        return None, None, None, None  # all sides state the same position — not asymmetric
-
-    if policy.contract_side == "mutual":
-        return None, None, None, (
-            "contract defines asymmetric liability positions by party, but this playbook is "
-            "configured for a mutual position — cannot determine which cap applies to us"
+    candidates = [
+        PositionCandidate(
+            role=pp.role, side=pp.side,
+            dedup_key=(
+                (pp.cap_expression.components[0].kind, pp.cap_expression.components[0].compare_key())
+                if pp.cap_expression.components else None
+            ),
+            summary=pp.cap_expression.summary(),
         )
-
-    our_side = policy.contract_side
-    ours = [pp for pp in positions if pp.side == our_side]
-    theirs = [pp for pp in positions if pp.side is not None and pp.side != our_side]
-    if len(ours) != 1 or len(theirs) != 1:
-        return None, None, None, (
-            "contract defines asymmetric liability positions but the named parties "
-            "(" + ", ".join(pp.role for pp in positions) + ") could not be confidently mapped "
-            f"to our configured contract side ({our_side})"
-        )
-    our_pp, their_pp = ours[0], theirs[0]
-    our_dict = {"role": our_pp.role, "summary": our_pp.cap_expression.summary()}
-    their_dict = {"role": their_pp.role, "summary": their_pp.cap_expression.summary()}
-    return our_pp.cap_expression, our_dict, their_dict, None
+        for pp in positions
+    ]
+    chosen, our_dict, their_dict, reason = _core_resolve_directional_position(
+        candidates, policy.contract_side,
+        position_label="asymmetric liability positions", value_label="cap",
+    )
+    if chosen is None:
+        return None, our_dict, their_dict, reason
+    matching_pp = next(pp for pp in positions if pp.role == chosen.role)
+    return matching_pp.cap_expression, our_dict, their_dict, reason
 
 
 def evaluate_liability_policy(
@@ -1180,14 +1091,9 @@ def evaluate_liability_policy(
     else:  # fee_multiplier
         value = general_cap.multiplier
         extracted_summary = general_cap.summary()
-        if policy.preferred_multiplier is not None and value <= policy.preferred_multiplier:
-            state = ACCEPT
-        elif policy.acceptable_max_multiplier is not None and value <= policy.acceptable_max_multiplier:
-            state = ACCEPT_WITH_NOTE
-        elif policy.negotiate_max_multiplier is not None and value <= policy.negotiate_max_multiplier:
-            state = NEGOTIATE
-        else:
-            state = ESCALATE
+        state = classify_by_threshold(
+            value, policy.preferred_multiplier, policy.acceptable_max_multiplier, policy.negotiate_max_multiplier,
+        )
 
         if state in (ACCEPT, ACCEPT_WITH_NOTE) and (missing_exceptions or missing_consequential or missing_consequential_carveouts):
             state = NEGOTIATE
@@ -1227,8 +1133,8 @@ def evaluate_liability_policy(
         negotiation_ladder=_build_ladder(policy, state),
         category_treatments=_category_treatments_dict(provision), unresolved_facts=unresolved_facts,
         start_index=provision.start_index, end_index=provision.end_index,
-        escalate_to=policy.escalation_approval_authority if state in (ESCALATE, PROHIBITED) else None,
-        fallback_text=policy.fallback_text if state in (MUST_REDLINE, PROHIBITED, NEGOTIATE) else None,
+        escalate_to=escalate_to_for_state(state, policy.escalation_approval_authority),
+        fallback_text=fallback_text_for_state(state, policy.fallback_text, (MUST_REDLINE, PROHIBITED, NEGOTIATE)),
         source=source, controlling_provision=controlling_provision_dict,
         our_position=our_position, counterparty_position=counterparty_position,
         reconciliation=facts.reconciliation,

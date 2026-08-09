@@ -2,6 +2,18 @@
 
 Corpus size: **109** cases across 25 drafting-pattern tags. Corpus unchanged in this pass except demonstrably incorrect ground-truth corrections (documented individually below and in `benchmarks/liability_corpus.py`) — no label was tuned to raise a metric.
 
+## Architecture refactor: Policy Engine Core extraction
+
+`liability_policy_engine.py` was refactored into a clause adapter over a new shared `policy_engine_core.py`, which now owns everything clause-agnostic: the decision-state vocabulary (`ACCEPT`/`ACCEPT_WITH_NOTE`/`NEGOTIATE`/`MUST_REDLINE`/`PROHIBITED`/`ESCALATE`/`REQUIRES_REVIEW`/`NOT_APPLICABLE`), the `PolicyDecision`/`LadderStep` dataclasses and evidence rendering (`render_evidence_report()`), the negotiation-ladder builder, the three-tier threshold classifier (`classify_by_threshold`), escalation/fallback routing rules, the directional-position resolution algorithm (`resolve_directional_position`), and the benchmark safety metrics (`is_false_safe`, `is_false_escalation`, `check_deterministic`). The LoL adapter keeps only what's actually specific to liability caps: document-wide provision discovery and reconciliation, the typed `CapExpression` model, category carve-out classification, consequential-damages detection, cross-reference resolution, and the regex-level extraction of named-party positions from contract text.
+
+**This was a pure refactor — no logic was rewritten, only relocated and parameterized.** Verified two ways:
+1. A golden snapshot of every one of the 109 corpus cases' full `decision.as_dict()` output was captured before the refactor and diffed against the same 109 cases after. **Zero diffs.**
+2. The full benchmark report (this file, mechanically regenerated) is byte-identical before and after, aside from this section being added.
+
+`benchmarks/run_liability_benchmark.py` now imports its false-safe/false-escalation/determinism-check logic from `policy_engine_core` instead of reimplementing it locally — the same functions a future Indemnification benchmark harness would use.
+
+One deliberate wording generalization: the directional-resolution abstention message ("contract defines {position_label} ... cannot determine which {value_label} applies to us") is now built from adapter-supplied labels rather than hardcoded LoL wording, so the shared algorithm doesn't know the word "liability." The LoL adapter passes `position_label="asymmetric liability positions", value_label="cap"`, which reproduces the original wording exactly — confirmed by the golden-snapshot diff, since that string is part of `decision.explanation`/`unresolved_facts`.
+
 ## Headline safety metric
 
 **False-safe rate: 0 / 109 (0.0%)** — cases where the correct answer required attorney attention (NEGOTIATE / MUST_REDLINE / PROHIBITED / ESCALATE / REQUIRES_REVIEW) but the engine returned ACCEPT or ACCEPT_WITH_NOTE.

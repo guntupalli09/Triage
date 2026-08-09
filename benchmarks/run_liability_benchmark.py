@@ -24,8 +24,6 @@ review, not to be silently "fixed" by loosening the scoring.
 from __future__ import annotations
 
 import argparse
-import hashlib
-import json
 import sys
 from collections import defaultdict
 from dataclasses import dataclass
@@ -35,12 +33,8 @@ from typing import Any, Dict, List, Optional
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import liability_policy_engine as lpe
+import policy_engine_core as core
 from benchmarks.liability_corpus import CASES, DEFAULT_POLICY, GROUND_TRUTH_REVIEW_REQUIRED
-
-FALSE_SAFE_EXPECTED_STATES = {
-    lpe.NEGOTIATE, lpe.MUST_REDLINE, lpe.PROHIBITED, lpe.ESCALATE, lpe.REQUIRES_REVIEW,
-}
-FALSE_SAFE_ACTUAL_STATES = {lpe.ACCEPT, lpe.ACCEPT_WITH_NOTE}
 
 
 @dataclass
@@ -95,10 +89,6 @@ def _general_cap_matches(facts: Optional[lpe.LiabilityFacts], expected: Any) -> 
     return True  # "unlimited"
 
 
-def _decision_hash(decision: lpe.PolicyDecision) -> str:
-    return hashlib.sha256(json.dumps(decision.as_dict(), sort_keys=True).encode()).hexdigest()
-
-
 def run() -> Dict[str, Any]:
     results = []
     for c in CASES:
@@ -137,27 +127,19 @@ def run() -> Dict[str, Any]:
 
         row["mutuality_scored"] = False
 
-        row["false_safe"] = (
-            c["expected_state"] in FALSE_SAFE_EXPECTED_STATES and decision.state in FALSE_SAFE_ACTUAL_STATES
-        )
-        # False-escalation (over-escalation): the correct answer was
-        # clear-cut (anything other than REQUIRES_REVIEW) but the engine
-        # sent it to REQUIRES_REVIEW anyway — the "annoying automation"
-        # failure mode, symmetric to false-safe. A system that refuses to
-        # ever guess wrong by refusing to ever decide isn't actually safe,
-        # it's just unhelpful, and this metric is what would catch that.
-        row["false_escalation"] = (
-            c["expected_state"] != lpe.REQUIRES_REVIEW and decision.state == lpe.REQUIRES_REVIEW
-        )
+        # False-safe/false-escalation and the determinism check are all
+        # clause-agnostic — computed by policy_engine_core, shared with
+        # whatever the next clause adapter's benchmark harness turns out
+        # to be, not reimplemented per clause type.
+        row["false_safe"] = core.is_false_safe(c["expected_state"], decision.state)
+        row["false_escalation"] = core.is_false_escalation(c["expected_state"], decision.state)
         row["ground_truth_review_required"] = c["id"] in GROUND_TRUTH_REVIEW_REQUIRED
 
-        # Determinism: re-run 5x, hash the full decision dict each time.
-        hashes = {_decision_hash(decision)}
-        for _ in range(4):
-            f2 = lpe.extract_liability_facts(c["text"])
-            d2 = lpe.evaluate_liability_policy(f2, policy, source="Benchmark v1")
-            hashes.add(_decision_hash(d2))
-        row["deterministic"] = len(hashes) == 1
+        def _evaluate_once(text=c["text"], policy=policy):
+            f = lpe.extract_liability_facts(text)
+            return lpe.evaluate_liability_policy(f, policy, source="Benchmark v1")
+
+        row["deterministic"] = core.check_deterministic(_evaluate_once, repeats=5)
 
         results.append(row)
     return {"rows": results}
@@ -178,8 +160,8 @@ def summarize(data: Dict[str, Any]) -> Dict[str, Any]:
     conseq_scored = [r for r in rows if r["consequential_scored"]]
     conseq_correct = sum(1 for r in conseq_scored if r["consequential_correct"])
 
-    requires_review_expected = [r for r in rows if r["expected_state"] == lpe.REQUIRES_REVIEW]
-    requires_review_caught = sum(1 for r in requires_review_expected if r["actual_state"] == lpe.REQUIRES_REVIEW)
+    requires_review_expected = [r for r in rows if r["expected_state"] == core.REQUIRES_REVIEW]
+    requires_review_caught = sum(1 for r in requires_review_expected if r["actual_state"] == core.REQUIRES_REVIEW)
 
     false_safe_rows = [r for r in rows if r["false_safe"]]
     false_escalation_rows = [r for r in rows if r["false_escalation"]]
@@ -196,7 +178,7 @@ def summarize(data: Dict[str, Any]) -> Dict[str, Any]:
         "consequential_accuracy": conseq_correct / len(conseq_scored) if conseq_scored else None,
         "consequential_scored_n": len(conseq_scored),
         "ambiguity_recall": (
-            len([r for r in requires_review_expected if r["actual_state"] == lpe.REQUIRES_REVIEW])
+            len([r for r in requires_review_expected if r["actual_state"] == core.REQUIRES_REVIEW])
             / len(requires_review_expected) if requires_review_expected else None
         ),
         "requires_review_expected_n": len(requires_review_expected),
