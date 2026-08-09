@@ -144,6 +144,10 @@
     .ladder-step.passed { background: #ECFDF5; color: #065F46; }
     .ladder-arrow { color: #CBD5E1; }
     .pop-source { font-size: 11px; color: #94A3B8; margin-bottom: 10px; }
+    .pop-positions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .position-chip { font-size: 11.5px; padding: 4px 9px; border-radius: 7px; font-weight: 600; }
+    .position-chip.ours { background: #EEF2FF; color: #3730A3; }
+    .position-chip.theirs { background: #F1F5F9; color: #475569; }
 
     .policy-banner {
         display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
@@ -451,7 +455,11 @@ function popoverHTML(f, i) {
 
     const diffHTML = rl ? `<div class="diff-box"><span class="del">${esc(original.slice(0, 90))}${original.length > 90 ? "…" : ""}</span> &rarr;<br><span class="ins">${esc(rl.suggested_redline)}</span></div>` : "";
     const ladderHTML = f.negotiation_ladder ? `<div class="pop-ladder">${f.negotiation_ladder.map(s => `<span class="ladder-step ${s.status}" title="${esc(s.description)}">${esc(s.label)}</span>`).join('<span class="ladder-arrow">&rarr;</span>')}</div>` : "";
-    const sourceHTML = f.policy_source ? `<div class="pop-source">Source: ${esc(f.policy_source)}</div>` : "";
+    const sourceHTML = f.policy_source ? `<div class="pop-source">${f.controlling_provision ? esc(f.controlling_provision.label) + ' &mdash; ' : ''}Source: ${esc(f.policy_source)}</div>` : "";
+    const positionsHTML = (f.our_position && f.counterparty_position) ? `<div class="pop-positions">
+        <span class="position-chip ours">Our liability (${esc(f.our_position.role)}): ${esc(f.our_position.summary)}</span>
+        <span class="position-chip theirs">Counterparty (${esc(f.counterparty_position.role)}): ${esc(f.counterparty_position.summary)}</span>
+    </div>` : "";
 
     const actions = rl ? `
         <button class="pop-btn primary" data-act="accepted">&#10003; Accept<span class="mono text-[10px] opacity-70 ml-1">a</span></button>
@@ -472,6 +480,7 @@ function popoverHTML(f, i) {
             <button class="verify-btn" id="verify-btn">&#8635; Verify</button>
         </div>
         ${sourceHTML}
+        ${positionsHTML}
         <div class="pop-rationale">${esc(f.rationale || "")}</div>
         ${ladderHTML}
         ${diffHTML}

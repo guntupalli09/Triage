@@ -282,6 +282,18 @@ def _run_migrations():
                     ))
                     logger.info("Migration applied: playbooks.template_findings_json JSON/JSONB -> TEXT (for encryption)")
 
+        if "policy_rules" in insp.get_table_names():
+            policy_rule_cols = {c["name"] for c in insp.get_columns("policy_rules")}
+            if "require_consequential_damages_exclusion" not in policy_rule_cols:
+                conn.execute(text(
+                    "ALTER TABLE policy_rules ADD COLUMN require_consequential_damages_exclusion "
+                    "BOOLEAN NOT NULL DEFAULT false"
+                ))
+                logger.info("Migration applied: policy_rules.require_consequential_damages_exclusion column")
+            if "required_consequential_carveouts_json" not in policy_rule_cols:
+                conn.execute(text("ALTER TABLE policy_rules ADD COLUMN required_consequential_carveouts_json JSON"))
+                logger.info("Migration applied: policy_rules.required_consequential_carveouts_json column")
+
 
 def init_db():
     import models  # noqa: F401 — registers all models

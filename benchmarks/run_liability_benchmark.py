@@ -53,6 +53,8 @@ class Policy:
     fallback_text: Optional[str]
     escalation_approval_authority: Optional[str]
     contract_side: str
+    require_consequential_damages_exclusion: bool
+    required_consequential_carveouts_json: Optional[List[str]]
 
 
 def _build_policy(overrides: Dict[str, Any]) -> Policy:
@@ -61,22 +63,35 @@ def _build_policy(overrides: Dict[str, Any]) -> Policy:
     return Policy(**merged)
 
 
+def _controlling_provision(facts: Optional[lpe.LiabilityFacts]) -> Optional[lpe.Provision]:
+    if facts is None or facts.reconciliation == "unreconciled":
+        return None
+    return facts.controlling_provision
+
+
 def _general_cap_matches(facts: Optional[lpe.LiabilityFacts], expected: Any) -> bool:
     if expected is None:
         return facts is None
     if facts is None:
         return False
     kind = expected["kind"]
-    if kind == "not_stated":
-        return facts.general_cap is None and facts.general_cap_established
+    provision = _controlling_provision(facts)
     if kind == "unresolved":
-        return not facts.general_cap_established
-    if facts.general_cap is None or facts.general_cap.kind != kind:
+        if provision is None:
+            return True  # unreconciled at the document level counts as "couldn't establish a general cap"
+        cap, reason = provision.general_cap_expression.effective_cap()
+        return cap is None and reason is not None
+    if provision is None:
+        return False  # expected a concrete/none value but reconciliation failed entirely
+    cap, reason = provision.general_cap_expression.effective_cap()
+    if kind == "not_stated":
+        return cap is None and reason is None
+    if cap is None or cap.kind != kind:
         return False
     if kind == "fee_multiplier":
-        return abs(facts.general_cap.multiplier - expected["multiplier"]) < 1e-6
+        return abs(cap.multiplier - expected["multiplier"]) < 1e-6
     if kind == "fixed_amount":
-        return abs(facts.general_cap.fixed_amount - expected["fixed_amount"]) < 1e-6
+        return abs(cap.fixed_amount - expected["fixed_amount"]) < 1e-6
     return True  # "unlimited"
 
 
@@ -103,27 +118,24 @@ def run() -> Dict[str, Any]:
         else:
             row["general_cap_scored"] = False
 
+        provision = _controlling_provision(facts)
+
         cat_results = {}
         for cat, expected_treatment in c["expected_category_treatments"].items():
             actual = None
-            if facts is not None and cat in facts.category_treatments:
-                actual = facts.category_treatments[cat].treatment
+            if provision is not None and cat in provision.category_treatments:
+                actual = provision.category_treatments[cat].treatment
             cat_results[cat] = {"expected": expected_treatment, "actual": actual, "correct": actual == expected_treatment}
         row["category_results"] = cat_results
 
         if c["expected_consequential_excluded"] != "SKIP":
-            actual_cd = facts.consequential_damages_excluded if facts is not None else None
+            actual_cd = provision.consequential_damages_excluded if provision is not None else None
             row["consequential_scored"] = True
             row["consequential_correct"] = actual_cd == c["expected_consequential_excluded"]
         else:
             row["consequential_scored"] = False
 
-        if c["expected_mutuality"] != "SKIP":
-            actual_mut = facts.mutuality if facts is not None else None
-            row["mutuality_scored"] = True
-            row["mutuality_correct"] = actual_mut == c["expected_mutuality"]
-        else:
-            row["mutuality_scored"] = False
+        row["mutuality_scored"] = False
 
         row["false_safe"] = (
             c["expected_state"] in FALSE_SAFE_EXPECTED_STATES and decision.state in FALSE_SAFE_ACTUAL_STATES

@@ -427,6 +427,10 @@ def apply_liability_policy(db: DBSession, playbook: Optional[Playbook], contract
                 for s in decision.as_dict()["negotiation_ladder"]
             ],
             "policy_source": decision.source,
+            "controlling_provision": decision.controlling_provision,
+            "our_position": decision.our_position,
+            "counterparty_position": decision.counterparty_position,
+            "evidence_report": decision.render_evidence_report(),
         })
     return {"limitation_of_liability": decision.as_dict()}
 
@@ -2592,6 +2596,8 @@ def _upsert_liability_policy_rule(
     lol_preferred: str, lol_acceptable_max: str, lol_negotiate_max: str,
     lol_prohibit_unlimited: str, lol_required_exceptions: List[str],
     lol_fallback_text: str, lol_escalation_authority: str,
+    lol_require_consequential_exclusion: str = "",
+    lol_required_consequential_carveouts: Optional[List[str]] = None,
 ):
     """Creates/updates/removes the playbook's limitation-of-liability
     PolicyRule from the submitted form fields. Deleting is legitimate (the
@@ -2625,6 +2631,10 @@ def _upsert_liability_policy_rule(
     rule.required_exceptions_json = [e for e in (lol_required_exceptions or []) if e in liability_policy_engine.EXCEPTION_TYPES]
     rule.fallback_text = lol_fallback_text.strip() or None
     rule.escalation_approval_authority = lol_escalation_authority.strip() or None
+    rule.require_consequential_damages_exclusion = lol_require_consequential_exclusion == "on"
+    rule.required_consequential_carveouts_json = [
+        e for e in (lol_required_consequential_carveouts or []) if e in liability_policy_engine.EXCEPTION_TYPES
+    ]
     if existing:
         rule.version = (existing.version or 1) + 1
     if not existing:
@@ -2647,6 +2657,8 @@ async def playbook_new_submit(
     lol_required_exceptions: List[str] = Form([]),
     lol_fallback_text: str = Form(""),
     lol_escalation_authority: str = Form(""),
+    lol_require_consequential_exclusion: str = Form(""),
+    lol_required_consequential_carveouts: List[str] = Form([]),
     db: DBSession = Depends(get_db),
     _csrf: None = Depends(csrf_protect),
 ):
@@ -2699,6 +2711,7 @@ async def playbook_new_submit(
     _upsert_liability_policy_rule(
         db, playbook, lol_enabled, lol_side, lol_preferred, lol_acceptable_max, lol_negotiate_max,
         lol_prohibit_unlimited, lol_required_exceptions, lol_fallback_text, lol_escalation_authority,
+        lol_require_consequential_exclusion, lol_required_consequential_carveouts,
     )
     db.commit()
 
@@ -2742,6 +2755,8 @@ async def playbook_edit_submit(
     lol_required_exceptions: List[str] = Form([]),
     lol_fallback_text: str = Form(""),
     lol_escalation_authority: str = Form(""),
+    lol_require_consequential_exclusion: str = Form(""),
+    lol_required_consequential_carveouts: List[str] = Form([]),
     db: DBSession = Depends(get_db),
     _csrf: None = Depends(csrf_protect),
 ):
@@ -2756,6 +2771,7 @@ async def playbook_edit_submit(
     _upsert_liability_policy_rule(
         db, playbook, lol_enabled, lol_side, lol_preferred, lol_acceptable_max, lol_negotiate_max,
         lol_prohibit_unlimited, lol_required_exceptions, lol_fallback_text, lol_escalation_authority,
+        lol_require_consequential_exclusion, lol_required_consequential_carveouts,
     )
 
     if file and file.filename:

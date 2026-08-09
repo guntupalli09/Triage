@@ -252,6 +252,15 @@ class PolicyRule(Base):
     # generating a redline the reviewing attorney can accept solo.
     escalation_approval_authority = Column(String(255), nullable=True)
 
+    # Consequential/indirect-damages policy — see liability_policy_engine.py's
+    # evaluate_liability_policy(). Previously the engine extracted whether a
+    # clause excluded consequential damages but never consumed that fact;
+    # these fields make it a real, consumed policy input: when required,
+    # a missing exclusion (or one missing a required carve-out) downgrades
+    # the decision the same way a missing required exception does.
+    require_consequential_damages_exclusion = Column(Boolean, nullable=False, default=False)
+    required_consequential_carveouts_json = Column(JSON, nullable=True)
+
     playbook = relationship("Playbook", back_populates="policy_rules")
 
 

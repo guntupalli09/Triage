@@ -26,6 +26,8 @@ class FakePolicy:
     fallback_text: Optional[str] = "Approved fallback: liability capped at 1x annual fees."
     escalation_approval_authority: Optional[str] = "Legal Director"
     contract_side: str = "mutual"
+    require_consequential_damages_exclusion: bool = False
+    required_consequential_carveouts_json: Optional[List[str]] = None
 
 
 def evaluate(text: str, **policy_kwargs) -> lpe.PolicyDecision:
@@ -241,3 +243,211 @@ class TestEvidenceIsTraceable:
         assert "2" in d.explanation
         assert d.source == "Test Playbook v1"
         assert d.rule_id == "POLICY_LOL_CAP"
+
+    def test_render_evidence_report_includes_controlling_provision_and_result(self):
+        text = (
+            "12. Limitation of Liability. In no event shall either party's aggregate liability "
+            "exceed 5 times the total annual fees paid."
+        )
+        d = evaluate(text)
+        report = d.render_evidence_report()
+        assert "Section 12" in report
+        assert "ESCALATE" in report
+        assert "5x annual fees" in report
+
+
+# ---------------------------------------------------------------------------
+# Priority 1 — document-wide provision discovery (no fixed-window blindness)
+# ---------------------------------------------------------------------------
+
+class TestDocumentWideProvisionDiscovery:
+    def test_amendment_beyond_old_3000_char_window_is_found_and_controls(self):
+        # This is the exact failure the benchmark's window_boundary cases
+        # were built to catch: a superseding cap placed well past the old
+        # fixed extraction window must still be found and must control,
+        # not be silently ignored in favor of the stale original.
+        filler = " Lorem ipsum dolor sit amet, consectetur adipiscing elit. " * 60
+        text = (
+            "12. Limitation of Liability. In no event shall aggregate liability exceed 1 times "
+            "the total annual fees paid." + filler + " First Amendment to Agreement: Section 12 "
+            "(Limitation of Liability) is hereby amended and restated to provide that aggregate "
+            "liability shall not exceed 6 times the total annual fees paid, superseding the "
+            "original Section 12 in its entirety."
+        )
+        assert len(text) > 3000  # confirms this genuinely exceeds the old fixed window
+        d = evaluate(text)
+        assert d.state == lpe.ESCALATE  # 6x > negotiate_max(3) — the amendment's value, not the stale 1x
+        assert "6" in d.explanation
+        assert d.reconciliation == "amendment_resolved"
+
+    def test_two_unreconciled_provisions_require_review_not_first_pick(self):
+        # Anchors close enough together to fall in one extraction window
+        # are deduped into a single provision (see _ANCHOR_DEDUP_GAP) and
+        # the conflict is caught by the intra-provision ambiguity check
+        # instead — either path is correct as long as the two different
+        # values (1x vs. 5x) never resolve to a silent ACCEPT.
+        filler = " Various other terms of this Agreement are set forth below and are not material " * 15
+        text = (
+            "12. Limitation of Liability. Aggregate liability shall not exceed 1 times the total "
+            "annual fees paid." + filler + " Exhibit F. Limitation of Liability (Professional "
+            "Services). Liability under this Exhibit shall not exceed 5 times the fees paid for "
+            "Professional Services."
+        )
+        d = evaluate(text)
+        assert d.state == lpe.REQUIRES_REVIEW
+        assert d.reconciliation == "unreconciled"
+        assert d.state not in (lpe.ACCEPT, lpe.ACCEPT_WITH_NOTE)
+
+    def test_consistent_duplicate_mentions_resolve_cleanly(self):
+        text = (
+            "12. Limitation of Liability. Aggregate liability shall not exceed 1 times the total "
+            "annual fees paid. Exhibit A confirms that the Limitation of Liability cap set forth "
+            "in Section 12 (1 times the total annual fees paid) applies to all Order Forms."
+        )
+        d = evaluate(text)
+        assert d.state == lpe.ACCEPT
+        assert d.reconciliation in ("consistent_duplicate", "single")
+
+
+# ---------------------------------------------------------------------------
+# Priority 2 — typed compound cap structures
+# ---------------------------------------------------------------------------
+
+class TestTypedCapExpressions:
+    def test_greater_of_mixed_multiplier_and_fixed_requires_review(self):
+        text = (
+            "12. Limitation of Liability. Aggregate liability shall not exceed the greater of "
+            "$1,000,000 or 2 times the total annual fees paid."
+        )
+        d = evaluate(text)
+        assert d.state == lpe.REQUIRES_REVIEW
+        assert "greater of" in d.unresolved_facts[0] or "greater" in " ".join(d.unresolved_facts)
+
+    def test_lesser_of_mixed_multiplier_and_fixed_requires_review(self):
+        text = (
+            "12. Limitation of Liability. Aggregate liability shall not exceed the lesser of "
+            "$1,000,000 or 2 times the total annual fees paid."
+        )
+        d = evaluate(text)
+        assert d.state == lpe.REQUIRES_REVIEW
+
+    def test_greater_of_two_multipliers_resolves_to_the_larger(self):
+        # Same basis on both sides — this one CAN be resolved deterministically.
+        text = (
+            "12. Limitation of Liability. Aggregate liability shall not exceed the greater of "
+            "1 times the total annual fees paid or 2 times the total annual fees paid."
+        )
+        facts = lpe.extract_liability_facts(text)
+        cap, reason = facts.controlling_provision.general_cap_expression.effective_cap()
+        assert reason is None
+        assert cap.kind == "fee_multiplier"
+        assert cap.multiplier == 2.0
+
+    def test_lesser_of_two_multipliers_resolves_to_the_smaller(self):
+        text = (
+            "12. Limitation of Liability. Aggregate liability shall not exceed the lesser of "
+            "1 times the total annual fees paid or 2 times the total annual fees paid."
+        )
+        facts = lpe.extract_liability_facts(text)
+        cap, reason = facts.controlling_provision.general_cap_expression.effective_cap()
+        assert reason is None
+        assert cap.multiplier == 1.0
+
+
+# ---------------------------------------------------------------------------
+# Priority 3 — directional / asymmetric positions
+# ---------------------------------------------------------------------------
+
+class TestDirectionalPositions:
+    def test_mutual_policy_with_asymmetric_contract_requires_review(self):
+        text = (
+            "12. Limitation of Liability. Customer's aggregate liability shall not exceed 1 times "
+            "the fees paid. Vendor's aggregate liability shall not exceed 3 times the fees paid."
+        )
+        d = evaluate(text, contract_side="mutual")
+        assert d.state == lpe.REQUIRES_REVIEW
+
+    def test_sell_side_policy_evaluates_our_position_not_counterpartys(self):
+        text = (
+            "12. Limitation of Liability. Customer's aggregate liability shall not exceed 2 times "
+            "the fees paid. Vendor's aggregate liability shall not exceed 5 times the fees paid."
+        )
+        # We are the Vendor (sell_side) — our exposure is 5x, which must
+        # drive the decision, not Customer's 2x.
+        d = evaluate(text, contract_side="sell_side")
+        assert d.state == lpe.ESCALATE  # 5x > negotiate_max(3)
+        assert d.our_position["role"] == "Vendor"
+        assert d.counterparty_position["role"] == "Customer"
+
+    def test_buy_side_policy_evaluates_our_position_not_counterpartys(self):
+        text = (
+            "12. Limitation of Liability. Customer's aggregate liability shall not exceed 1 times "
+            "the fees paid. Vendor's aggregate liability shall not exceed 5 times the fees paid."
+        )
+        # We are the Customer (buy_side) — our exposure is 1x, must ACCEPT,
+        # regardless of the Vendor's much larger 5x figure.
+        d = evaluate(text, contract_side="buy_side")
+        assert d.state == lpe.ACCEPT
+        assert d.our_position["role"] == "Customer"
+
+    def test_unmappable_roles_never_silently_evaluate_only_one_side(self):
+        text = (
+            "12. Limitation of Liability. Acme's aggregate liability shall not exceed 1 times the "
+            "fees paid. Globex's aggregate liability shall not exceed 5 times the fees paid."
+        )
+        # Neither "Acme" nor "Globex" is a recognized buy/sell-side role
+        # word — the engine must not guess which one is "us".
+        d = evaluate(text, contract_side="sell_side")
+        assert d.state == lpe.REQUIRES_REVIEW
+        assert d.state not in (lpe.ACCEPT, lpe.ACCEPT_WITH_NOTE)
+
+
+# ---------------------------------------------------------------------------
+# Priority 5 — consequential damages as real, consumed policy inputs
+# ---------------------------------------------------------------------------
+
+class TestConsequentialDamagesPolicy:
+    def test_required_exclusion_missing_downgrades_to_negotiate(self):
+        text = (
+            "12. Limitation of Liability. Aggregate liability shall not exceed 1 times the total "
+            "annual fees paid."
+        )
+        d = evaluate(text, require_consequential_damages_exclusion=True)
+        assert d.state == lpe.NEGOTIATE
+        assert "consequential" in d.required_action.lower()
+
+    def test_required_exclusion_present_accepts_cleanly(self):
+        text = (
+            "12. Limitation of Liability. Neither party shall be liable for consequential damages. "
+            "Aggregate liability shall not exceed 1 times the total annual fees paid."
+        )
+        d = evaluate(text, require_consequential_damages_exclusion=True)
+        assert d.state == lpe.ACCEPT
+
+    def test_required_carveout_missing_from_exclusion_downgrades(self):
+        text = (
+            "12. Limitation of Liability. Neither party shall be liable for consequential damages. "
+            "Aggregate liability shall not exceed 1 times the total annual fees paid."
+        )
+        d = evaluate(
+            text, require_consequential_damages_exclusion=True,
+            required_consequential_carveouts_json=["confidentiality"],
+        )
+        assert d.state == lpe.NEGOTIATE
+
+    def test_ambiguous_consequential_language_requires_review_when_required_by_policy(self):
+        text = (
+            "12. Limitation of Liability. Consequential damages shall be treated in accordance "
+            "with applicable law. Aggregate liability shall not exceed 1 times the total annual "
+            "fees paid."
+        )
+        d = evaluate(text, require_consequential_damages_exclusion=True)
+        assert d.state == lpe.REQUIRES_REVIEW
+
+    def test_consequential_damages_not_required_by_policy_is_inert_as_before(self):
+        text = (
+            "12. Limitation of Liability. Aggregate liability shall not exceed 1 times the total "
+            "annual fees paid."
+        )
+        d = evaluate(text, require_consequential_damages_exclusion=False)
+        assert d.state == lpe.ACCEPT

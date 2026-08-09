@@ -4,57 +4,25 @@ Corpus size: **109** cases across 25 drafting-pattern tags.
 
 ## Headline safety metric
 
-**False-safe rate: 15 / 109 (13.8%)** — cases where the correct answer required attorney attention (NEGOTIATE / MUST_REDLINE / PROHIBITED / ESCALATE / REQUIRES_REVIEW) but the engine returned ACCEPT or ACCEPT_WITH_NOTE.
+**False-safe rate: 0 / 109 (0.0%)** — cases where the correct answer required attorney attention (NEGOTIATE / MUST_REDLINE / PROHIBITED / ESCALATE / REQUIRES_REVIEW) but the engine returned ACCEPT or ACCEPT_WITH_NOTE.
 
-**This is the release gate. Any non-zero count here blocks release regardless of overall accuracy.**
-
-- `greater-01` (tags: greater_of) — expected `REQUIRES_REVIEW`, got `ACCEPT_WITH_NOTE`
-- `greater-03` (tags: greater_of) — expected `REQUIRES_REVIEW`, got `ACCEPT`
-- `greater-04` (tags: greater_of) — expected `REQUIRES_REVIEW`, got `ACCEPT`
-- `greater-05` (tags: greater_of) — expected `REQUIRES_REVIEW`, got `ACCEPT_WITH_NOTE`
-- `lesser-01` (tags: lesser_of) — expected `REQUIRES_REVIEW`, got `ACCEPT_WITH_NOTE`
-- `lesser-03` (tags: lesser_of) — expected `REQUIRES_REVIEW`, got `ACCEPT`
-- `lesser-04` (tags: lesser_of) — expected `REQUIRES_REVIEW`, got `ACCEPT`
-- `lesser-05` (tags: lesser_of) — expected `REQUIRES_REVIEW`, got `ACCEPT_WITH_NOTE`
-- `separate-03` (tags: separate_caps) — expected `REQUIRES_REVIEW`, got `ACCEPT_WITH_NOTE`
-- `asym-01` (tags: asymmetric) — expected `REQUIRES_REVIEW`, got `ACCEPT`
-- `asym-02` (tags: asymmetric) — expected `REQUIRES_REVIEW`, got `ACCEPT`
-- `asym-04` (tags: asymmetric) — expected `REQUIRES_REVIEW`, got `ACCEPT_WITH_NOTE`
-- `asym-05` (tags: asymmetric) — expected `REQUIRES_REVIEW`, got `ACCEPT`
-- `multisection-02` (tags: multiple_sections, window_boundary) — expected `REQUIRES_REVIEW`, got `ACCEPT`
-- `amendment-02` (tags: amendment, window_boundary) — expected `REQUIRES_REVIEW`, got `ACCEPT`
+Zero false-safe cases in this run.
 
 ## Metrics
 
 | Metric | Result | Target |
 |---|---|---|
-| Policy-state accuracy | 73.4% (109 cases) | >95% |
-| General-cap extraction accuracy | 96.0% (75 scored) | >98% |
-| Category-treatment accuracy | 92.6% (27 scored) | >95% |
-| Consequential-damages-exclusion accuracy | 37.5% (8 scored) | — |
-| Ambiguity detection recall (REQUIRES_REVIEW) | 38.5% (15/39) | very high |
-| False-safe rate | 13.8% (15/109) | ≈0% |
+| Policy-state accuracy | 90.8% (109 cases) | >95% |
+| General-cap extraction accuracy | 98.7% (75 scored) | >98% |
+| Category-treatment accuracy | 100.0% (27 scored) | >95% |
+| Consequential-damages-exclusion accuracy | 100.0% (8 scored) | — |
+| Ambiguity detection recall (REQUIRES_REVIEW) | 79.5% (31/39) | very high |
+| False-safe rate | 0.0% (0/109) | ≈0% |
 | Determinism (5x repeat, byte-identical) | 109/109 identical | 100% |
 
 ## Failures by drafting pattern
 
 Grouped by tag so recurring gaps in one drafting pattern are visible together, rather than as N isolated case failures. Extraction logic was not modified to force individual cases to pass — these are the actual current gaps.
-
-### `greater_of` — 5 failing case(s)
-
-- `greater-01` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT_WITH_NOTE`
-- `greater-02`: expected state `REQUIRES_REVIEW`, got `NEGOTIATE`
-- `greater-03` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT`
-- `greater-04` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT`
-- `greater-05` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT_WITH_NOTE`
-
-### `lesser_of` — 5 failing case(s)
-
-- `lesser-01` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT_WITH_NOTE`
-- `lesser-02`: expected state `REQUIRES_REVIEW`, got `NEGOTIATE`
-- `lesser-03` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT`
-- `lesser-04` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT`
-- `lesser-05` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT_WITH_NOTE`
 
 ### `cross_reference` — 5 failing case(s)
 
@@ -64,43 +32,13 @@ Grouped by tag so recurring gaps in one drafting pattern are visible together, r
 - `xref-04`: expected state `REQUIRES_REVIEW`, got `MUST_REDLINE`
 - `xref-05`: expected state `REQUIRES_REVIEW`, got `MUST_REDLINE`
 
-### `asymmetric` — 4 failing case(s)
+### `separate_caps` — 1 failing case(s)
 
-- `asym-01` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT`
-- `asym-02` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT`
-- `asym-04` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT_WITH_NOTE`
-- `asym-05` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT`
-
-### `multiple_super_caps` — 3 failing case(s)
-
-- `multisupercap-01`: expected state `ACCEPT`, got `REQUIRES_REVIEW`; general-cap extraction mismatch; category mismatch: data_breach
-- `multisupercap-04`: expected state `ACCEPT`, got `ACCEPT_WITH_NOTE`
-- `multisupercap-05`: expected state `ACCEPT_WITH_NOTE`, got `REQUIRES_REVIEW`; general-cap extraction mismatch; category mismatch: confidentiality
-
-### `consequential_damages` — 3 failing case(s)
-
-- `conseq-02`: expected state `ACCEPT_WITH_NOTE`, got `ACCEPT_WITH_NOTE`; consequential-damages fact mismatch
-- `conseq-03`: expected state `ACCEPT`, got `ACCEPT`; consequential-damages fact mismatch
-- `conseq-05`: expected state `NEGOTIATE`, got `NEGOTIATE`; consequential-damages fact mismatch
-
-### `separate_caps` — 2 failing case(s)
-
-- `separate-03` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT_WITH_NOTE`
 - `separate-05`: expected state `REQUIRES_REVIEW`, got `MUST_REDLINE`
-
-### `consequential_carveout` — 2 failing case(s)
-
-- `conseq-carveout-02`: expected state `ACCEPT_WITH_NOTE`, got `ACCEPT_WITH_NOTE`; consequential-damages fact mismatch
-- `conseq-carveout-03`: expected state `ACCEPT`, got `ACCEPT`; consequential-damages fact mismatch
-
-### `window_boundary` — 2 failing case(s)
-
-- `multisection-02` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT`
-- `amendment-02` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT`
 
 ### `per_claim_vs_aggregate` — 1 failing case(s)
 
-- `perclaim-05`: expected state `REQUIRES_REVIEW`, got `MUST_REDLINE`
+- `perclaim-05`: expected state `REQUIRES_REVIEW`, got `ESCALATE`
 
 ### `partial_carveout` — 1 failing case(s)
 
@@ -110,125 +48,53 @@ Grouped by tag so recurring gaps in one drafting pattern are visible together, r
 
 - `malformed-02`: expected state `ACCEPT_WITH_NOTE`, got `NOT_APPLICABLE`; general-cap extraction mismatch
 
-### `multiple_sections` — 1 failing case(s)
-
-- `multisection-02` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT`
-
 ### `amendment` — 1 failing case(s)
 
-- `amendment-02` ⚠️ FALSE-SAFE: expected state `REQUIRES_REVIEW`, got `ACCEPT`
+- `amendment-02`: expected state `REQUIRES_REVIEW`, got `ESCALATE`
 
-## Root-cause analysis
+### `window_boundary` — 1 failing case(s)
 
-Five distinct root causes account for all 15 false-safe cases and every other
-failure. Diagnosed by reading engine output directly (`extract_liability_facts`),
-not inferred from state mismatches alone.
+- `amendment-02`: expected state `REQUIRES_REVIEW`, got `ESCALATE`
 
-### 1. No concept of compound cap structures — `greater_of`, `lesser_of` (10 cases, 8 false-safe)
-The engine's `general_cap` model holds exactly one kind (multiplier, fixed
-amount, or unlimited). "The greater of $1M or 2x fees" and "the lesser of 2x
-fees or $1M" both contain two cap values with no keyword distinguishing
-them from the "multiple conflicting caps" case — and in fact **most of these
-did correctly land on REQUIRES_REVIEW or NEGOTIATE via the ambiguity
-guard** (`greater-02`, `lesser-02`, and several others). The 8 false-safe
-failures happen specifically when one of the two values is small enough
-that whichever value the ambiguity guard's tie-break happens to prefer
-lands in the auto-accept range — i.e., this is not "the engine ignores the
-structure," it's "the engine's multi-value ambiguity guard was built for
-*conflicting* general caps, and a greater-of/lesser-of clause isn't
-conflicting, it's compound; sometimes only one candidate value even gets
-extracted at all, and if that value is low, it accepts confidently."
-**This is the highest-priority gap** — it's the one the corpus design
-predicted (the "typed CapPolicy thresholds" note) and it produced the most
-false-safe cases of any category.
+## Remediation pass — before/after
 
-### 2. Directional/asymmetric caps have no representation at all — `asymmetric`, `separate_caps` (11 cases, 6 false-safe)
-When two named parties have different positions and only one is a
-recognizable numeric general cap (the other is phrased as "remains
-uncapped," "is not subject to any cap," or a non-fee basis like "purchase
-price"), there is only one candidate value for `general_cap` — so there is
-no conflict to detect, and the engine accepts confidently on the one value
-it found, unaware a second, worse position exists for the other party.
-This is architecturally the same gap as #1 (single-cap data model can't
-hold a two-party structure) but triggers differently: #1 fails because two
-values collide, #2 fails because only one value is ever visible.
+|  | Before | After |
+|---|---|---|
+| False-safe count | **15** | **0** |
+| Policy-state accuracy | 73.4% | 90.8% |
+| General-cap extraction accuracy | 96.0% | 98.7% |
+| Category-treatment accuracy | 92.6% | 100.0% |
+| Consequential-damages accuracy | not consumed by evaluator at all | 100.0%, and now a real policy input |
+| Ambiguity detection recall | 38.5% | 79.5% |
+| Determinism | 109/109 | 109/109 |
 
-### 3. Fixed extraction window silently drops content beyond ~3000 characters — `window_boundary` (2 cases, both false-safe)
-`multisection-02` and `amendment-02` were built specifically to test this:
-a second, superseding Limitation of Liability provision (a later exhibit
-section, or an amendment that explicitly "amends and restates" the
-original cap) placed beyond the fixed 3000-character extraction window
-from the first anchor match. In both cases the engine never saw the
-second provision at all and confidently accepted the stale, superseded
-value from the first. **This is qualitatively different from the other
-gaps** — it is not "the clause is more complex than the model can
-represent," it is "the engine can be blind to part of the document and not
-know it." A document with the superseding cap closer than ~3000 characters
-away is instead caught correctly (see `multisection-01`, `-03`, `-04`,
-`-05`, `amendment-01`, `-03`, `-05`, all REQUIRES_REVIEW as expected) — so
-the failure mode is a window-size cliff, not a fundamental incapacity to
-detect the pattern.
+**Release gate: PASS.** Zero false-safe cases. The corpus was rerun unchanged except one demonstrably incorrect ground-truth label (`multisupercap-04`: 1.5x is above the 1.0x preferred threshold under `DEFAULT_POLICY`, so `ACCEPT_WITH_NOTE` is arithmetically correct, not `ACCEPT` — a labeling arithmetic error, not an engine gap) and two labels corrected in the prior review pass (malformed clauses whose heading itself is destroyed). No label was adjusted to make a case pass; each correction is noted individually with its rationale.
 
-### 4. `_EXCLUDE_PHRASE_RE` (consequential damages) only covers three rigid phrasings (5 cases, 0 false-safe)
-`conseq-02/03/05` and `conseq-carveout-02/03` all reach the *correct*
-policy state by coincidence (the consequential-damages fact doesn't
-currently feed into `evaluate_liability_policy` at all — see below) but
-fail fact-level scoring: "Neither party shall be liable," "shall Supplier
-be liable" (no "either/any party"), and "damages are excluded" (no
-"liable" verb at all) aren't matched by the three fixed phrasings in
-`_EXCLUDE_PHRASE_RE`. This is a narrow, mechanical regex-coverage gap of
-the same shape as the "except for breaches of X" gap fixed during
-hardening — not a structural issue.
+## What changed, by priority
 
-**Related finding, not a corpus failure but worth flagging directly:**
-`consequential_damages_excluded` and `consequential_damages_carveouts` are
-extracted into `LiabilityFacts` but **`evaluate_liability_policy` never
-reads them** — they don't affect the decision and aren't exposed in
-`PolicyDecision.as_dict()`. Right now they're inert. If they matter for
-the release scope, they need positive wiring, not just extraction.
+**Priority 1 — document-wide provision discovery.** `extract_liability_facts` now finds every `_ANCHOR_RE` match across the full document, not just the first, and builds a `Provision` per anchor (deduping anchors within 300 characters as the same clause mentioning itself twice). Multiple provisions are reconciled deterministically: an explicit amendment/restatement signal (`hereby amended`, `amended and restated`, `supersedes`, ...) makes the superseding provision controlling; provisions that agree are treated as consistent duplicates; anything else is `REQUIRES_REVIEW` listing every candidate provision and its value, never a silent first-pick. This directly fixed both `window_boundary` false-safes (`multisection-02`, and `amendment-02`'s *false-safe* component specifically — see below). Verified with a dedicated regression test using a >3000-character document where the superseding cap sits well past the old fixed window.
 
-### 5. Category exclusion-signal window is symmetric and too wide — `multiple_super_caps` (3 cases, 0 false-safe)
-`multisupercap-01`/`-05`: when two different category carve-outs
-("data breach... shall not exceed 2x..." and "...shall not apply to
-claims arising from IP infringement") sit within ~180 characters of each
-other, the *first* category's exclusion-signal check (`_EXCLUSION_SIGNAL_RE`,
-checked on a ±180-character symmetric window) can match exclusion language
-that actually belongs to the *second* category's carve-out later in the
-clause. This misclassifies the first category as `uncapped` instead of
-`super_cap`, and strands its real super-cap value as an unclaimed general-
-cap candidate, triggering a false ambiguity (`REQUIRES_REVIEW` when
-`ACCEPT` was correct). Notably this is a **safe-direction bug** (it
-produces an unnecessary REQUIRES_REVIEW, never a false ACCEPT) — same
-class of fix as the forward-only search already applied to the cap-value
-half of category classification, just not yet applied to the exclusion-
-signal check.
+**Priority 2 — typed `CapExpression`.** Replaced the flat `CapValue` general-cap field with `CapExpression`, representing `simple`, `greater_of`, `lesser_of`, and `per_claim_and_aggregate` structures explicitly. `effective_cap()` resolves a structure to one comparable value only when that's deterministically possible (e.g. greater-of two multipliers reduces via `max()`) and returns a specific unresolved reason otherwise (e.g. "cannot resolve a greater of structure mixing a fee multiplier and a fixed dollar amount without the actual annual fee value"). This is what took `greater_of`/`lesser_of` from 8 false-safes to 0.
 
-## Recommendations (not yet implemented — for review)
+**Priority 3 — directional/asymmetric positions.** `PartyPosition` tracks each named role's cap independently; `_resolve_directional_position` maps "ours" from `policy.contract_side`. A `mutual`-configured policy facing a contract with unequal party-specific caps returns `REQUIRES_REVIEW` rather than guessing; a `buy_side`/`sell_side` policy resolves to *our* position specifically (verified: evaluating a sell-side policy against a contract where the Vendor's stated cap is worse than the Customer's correctly drives the decision off the Vendor figure, not the easier-to-parse Customer one). Unrecognized/unmappable role names never fall back to evaluating whichever side happened to parse — they return `REQUIRES_REVIEW` naming the roles that couldn't be mapped.
 
-1. **Do not generalize to a second clause type yet**, per the original
-   scoping decision — this run confirms real gaps remain in Limitation of
-   Liability specifically.
-2. **Root cause #3 (window blindness) is the one to fix first regardless of
-   any other roadmap decision.** It is the only gap that produces a
-   confident false ACCEPT on a document the engine had every opportunity to
-   read correctly — the content was in the document, just past an
-   arbitrary cutoff. This is a bug, not a modeling limitation.
-3. **Root causes #1 and #2 are the strongest evidence yet for the typed
-   `CapPolicy` (basis: FEES | FIXED_AMOUNT | GREATER_OF | LESSER_OF, plus a
-   comparison operator) suggested during the design review.** A single
-   `general_cap` field structurally cannot represent either compound
-   (greater-of/lesser-of) or two-party (asymmetric) positions — no amount
-   of regex tuning fixes that, it needs a schema change.
-4. **Root causes #4 and #5 are narrow, low-risk regex-coverage fixes**
-   (broaden `_EXCLUDE_PHRASE_RE`; make the exclusion-signal check
-   forward-only like the cap-value check already is) — same pattern as the
-   "except for breaches of X" fix made during hardening. Low priority
-   relative to #1–#3 since neither currently produces a false ACCEPT.
-5. **Wire `consequential_damages_excluded`/`carveouts` into the decision**
-   or explicitly document them as descriptive-only fields — right now they
-   are extracted but silently unused, which is a documentation gap at
-   minimum and a false sense of coverage at worst.
+**Priority 4 — safe-direction defects, regression-tested first.** Two real bugs were found and fixed, both diagnosed by reading engine output directly before changing anything:
+- `_EXCLUDE_PHRASE_RE` (consequential-damages exclusion detection) missed "neither party shall be liable," "shall Supplier be liable" (no "either/any party" wording), and "damages are excluded" — broadened to a more general `in no event shall (?:\w+\s+){0,3}be liable` plus explicit "excluded" phrasing.
+- The category exclusion-signal check (used for carve-out detection like "except for breaches of fraud") was replaced entirely: instead of local-window proximity checks (which both under- and over-attributed carve-outs to the wrong category — see `multisupercap-01/-03/-05` in the original report), it now computes one forward-coverage span per exclusion signal across the whole provision, crediting every category named within that span up to the next sentence/clause boundary. This correctly credits a coordinated list ("...shall not apply to fraud or gross negligence.") to *both* categories while still stopping at a new independent clause ("...misconduct, **and** liability for confidentiality breaches **shall not exceed** 4x...") so an unrelated category's own cap doesn't get swept in.
 
-None of the above has been implemented in this pass — this report is the
-review checkpoint requested before any further engine changes or starting
-Indemnification.
+**Priority 5 — consequential damages as real policy inputs.** `PolicyRule` gained `require_consequential_damages_exclusion` and `required_consequential_carveouts_json`. `evaluate_liability_policy` now folds these into the same unresolved-facts gate as everything else (ambiguous language → `REQUIRES_REVIEW`) and the same missing-protection downgrade as category exceptions (required but absent → `NEGOTIATE`). Previously these facts were extracted and silently unused — the exact "false sense of coverage" the review flagged.
+
+**Provenance.** Every `PolicyDecision` now carries `controlling_provision` (section label, excerpt, offsets), and `our_position`/`counterparty_position` when directional resolution engaged. `PolicyDecision.render_evidence_report()` produces the section-labeled, evidence-quoting block requested in the review, wired into the review UI's finding popover (source line, our/counterparty position chips) and the "Apply approved redline" flow unchanged.
+
+## Remaining gaps (all non-catastrophic — none is a false ACCEPT)
+
+- **`cross_reference` (5 cases).** A clause that states no number and instead points to a schedule/exhibit for the actual cap resolves to `MUST_REDLINE` ("insert cap language"), which is a safe but slightly misleading instruction — the ideal is `REQUIRES_REVIEW` ("verify the referenced schedule"). Out of scope for this pass: resolving a cross-reference would mean reading and correlating a different section of the document by name, not just failing safe on the current one.
+- **`separate_caps` (`separate-05`, 1 case).** Uses "purchase price" instead of "fees" as the basis word — the extractor's cap-value patterns are fee-scoped by design; a non-fee basis is a distinct, documented gap, not a directional-resolution failure.
+- **`per_claim_vs_aggregate` (`perclaim-05`, 1 case).** "Each claim is subject to a cap of $100,000, subject to an aggregate cap... of $500,000" — both values are fixed amounts, so the fallback ambiguity path (which only compares fee multipliers or flags mixed kinds) sends this to `ESCALATE` rather than the more precise `REQUIRES_REVIEW` for an unrepresented per-claim/aggregate split. Still safe, still routes to a human.
+- **`partial_carveout` (`partial-01`, 1 case).** A carve-out scoped narrowly ("gross negligence *in performing data security obligations*") no longer gets credited as satisfying a *separate* `data_breach` requirement — this is the engine now being **more conservative** than the original hedged ground-truth guess, not a regression; the note on this case when it was written already flagged uncertainty about whether it should count.
+- **`malformed-02` (1 case).** Excess whitespace between words in "Limitation   of   Liability" breaks the literal-space anchor regex; a genuine, narrow, documented robustness gap, not attempted in this pass.
+- **`amendment-02` (1 case, listed under both `amendment` and `window_boundary`).** This is the corpus's headline stress test, and it no longer fails unsafely — but its exact recorded state (`REQUIRES_REVIEW`, chosen when the label was written before this capability existed) no longer matches what the engine now does: it deterministically reconciles the amendment (explicit "hereby amended and restated" language) and resolves to `ESCALATE` on the amendment's 6x figure. Per the instruction not to tune labels to improve metrics, this label was left unchanged rather than "corrected" to match a capability that didn't exist when it was written — but a deterministic, evidence-backed `ESCALATE` is arguably the *better* answer, not a worse one, and is explicitly one of the two acceptable reconciliation outcomes (deterministic resolution or `REQUIRES_REVIEW`) called for in Priority 1.
+
+## Indemnification
+
+Not started. Per the review checkpoint, this report is for review before any further clause-type work begins.

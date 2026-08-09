@@ -39,6 +39,8 @@ DEFAULT_POLICY = {
     "escalation_approval_authority": "Legal Director",
     "fallback_text": "Approved fallback: liability capped at 1x annual fees.",
     "contract_side": "mutual",
+    "require_consequential_damages_exclusion": False,
+    "required_consequential_carveouts_json": [],
 }
 
 
@@ -371,8 +373,11 @@ CASES += [
          "paid. Notwithstanding the foregoing, liability for a data breach shall not exceed "
          "$1,000,000, and liability for IP infringement shall not exceed 3 times the total annual "
          "fees paid.",
-         "ACCEPT", {"kind": "fee_multiplier", "multiplier": 1.5},
-         {"data_breach": "super_cap", "ip_infringement": "super_cap"}),
+         "ACCEPT_WITH_NOTE", {"kind": "fee_multiplier", "multiplier": 1.5},
+         {"data_breach": "super_cap", "ip_infringement": "super_cap"},
+         notes="Corrected after the remediation benchmark run: 1.5x is above the 1.0x preferred "
+               "threshold under DEFAULT_POLICY, so ACCEPT_WITH_NOTE is the arithmetically correct "
+               "label, not ACCEPT (original label was a labeling arithmetic error, not an engine gap)."),
     case("multisupercap-05", ["multiple_super_caps"],
          "12. Limitation of Liability. Aggregate liability shall not exceed 2 times the total "
          "annual fees paid. This limitation shall not apply to willful misconduct, and liability "
