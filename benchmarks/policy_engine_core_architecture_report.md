@@ -167,3 +167,38 @@ Termination rights can be stated reciprocally ("either party may terminate...") 
 The core boundary drawn after one adapter, and re-validated after a second, held through a third adapter deliberately chosen to reason differently from both. Nothing needed to be added to `policy_engine_core.py` to build Termination. Two duplication questions that were legitimately "not enough evidence yet" after two adapters (typed monetary expressions, directed-resolution-by-side) now have a third independent data point each and are worth a dedicated promotion review — separately from any fourth clause type, not bundled with one. `resolve_directional_position` remains validated as correctly LoL-specific, not under-generalized core.
 
 Per the review's own framing: this is the point where the architecture stops being "promising" and starts being a credible reusable pattern — three adapters, three different reasoning shapes, one unmodified core, zero false-safe across all of them. The batches (Confidentiality/Assignment/Governing Law, IP ownership/Data protection/Insurance/Payment terms, Warranty/Force majeure/Audit rights/Non-solicit) and the product-layer work (policy hierarchy, governance, authoring UX, redline workflow, analytics) described in the authorizing review are **not started** — this report covers clause #3 only, per the same "report and stop" discipline used after clause #2.
+
+---
+
+## Batch A — Confidentiality, Assignment, Governing Law
+
+Per instruction, Batch A was built for breadth rather than as another deep architecture exercise — one combined report, not three per-adapter essays. All three reuse the established core (decision states, ladder, evidence rendering, safety metrics) with zero changes to `policy_engine_core.py`.
+
+### Headline result
+
+| | Liability (109) | Indemnification (100) | Termination (40) | Confidentiality (24) | Assignment (19) | Governing Law (22) |
+|---|---|---|---|---|---|---|
+| False-safe | 0 | 0 | 0 | 0 | 0 | 0 |
+| False-escalation | 0 | 0 | 0 | 0 | 0 | 0 |
+| Determinism | 100% | 100% | 100% | 100% | 100% | 100% |
+| Policy-state accuracy | 98.2% | 97.0% | 100%* | 100%* | 100%* | 100%* |
+
+\* First-pass corpora (19–40 cases), authored and debugged in the same session — the same "no known failures yet, not solved" caveat given to every prior adapter's first pass. Per your explicit instruction, Termination's 40-case corpus was not expanded before starting this batch; none of the three new corpora were hardened past a first pass either. All six gates hold; that's the meaningful signal at this stage, not the accuracy percentages.
+
+### Confidentiality and Assignment: the pattern recurs a fourth and fifth time
+
+Both reuse the "resolve directed facts into ours-vs-theirs by role, verify reciprocal-symmetry claims" shape independently, adapter-local, not shared code — the same idea now implemented five times (LoL's `resolve_directional_position` is the odd one out at a *different*, same-value shape; Indemnification, Termination, Confidentiality, and Assignment all independently built their own resolver for "directed facts, possibly reciprocal, possibly asymmetric despite a symmetric opener"). This is not a new finding so much as the same one getting harder to ignore each time; it's tracked, not acted on, per the standing "needs a dedicated promotion review, not a rider on an unrelated adapter" position.
+
+### A real, generalizable bug found and fixed proactively — not just reactively
+
+Building Assignment's reciprocal-symmetry check surfaced a genuine defect: the per-role local window used to classify a differentiated proviso ("Vendor's... reasonable care, and Customer's... sole discretion.") only cut at the next sentence period, and two attributions separated by ", and" inside one semicolon-joined sentence share a single trailing period — so a role's own classification window could bleed into the NEXT role's clause. For a *positional* fact (a number, found via leftmost-match search) this self-corrects, because each role's own value is the nearest one ahead in its own window. For a *priority-ordered* classification (Assignment's consent standard checks "sole discretion" before "reasonable" regardless of position; Confidentiality's standard-of-care check has the identical shape) the bleed silently produced the WRONG answer — a role whose own clause said "reasonable" could misclassify as "sole discretion" merely because that phrase appeared later, in the other role's clause, inside the bled-over window.
+
+Found while building Assignment, fixed there with a proper before/after test, and — because the same priority-ordered-classification shape was recognized as the cause — proactively checked against Confidentiality's structurally identical `_classify_care` function *before* shipping it, without waiting for its own corpus to happen to expose it. It hadn't yet: a quick targeted check confirmed the same bug was live and silent there too, fixed identically, with its own regression test. This is a different discipline than the reactive "adversarial corpus finds a bug, then we fix it" pattern used throughout this project so far — recognizing a bug CLASS from one adapter and checking a sibling adapter for the same defect before its own benchmark would have found it. Recorded here because it's a better process than what came before it, not because either engine shipped with the bug live.
+
+### Governing Law: the first adapter that does NOT need the recurring pattern
+
+Governing Law was chosen deliberately as the structural outlier of the batch: it is a categorical/set-membership problem (is the named jurisdiction on a preferred/acceptable/prohibited list), not a directional graph at all. There is no "our side vs. their side" — governing law binds both parties identically, `contract_side` is read nowhere in the evaluator, and `no-directionality-02` in its corpus explicitly asserts that a `contract_side="mutual"` configuration is never itself an unresolved fact here, unlike every other adapter built so far. This is an honest, useful negative result: not every clause needs the directed-resolution shape the other five converged on, and Governing Law was not forced into it. `classify_by_threshold` also goes unused here (there's no numeric ladder — jurisdiction membership is a lookup, not a threshold), the second core function (after `resolve_directional_position`) now confirmed as legitimately adapter-specific-in-usage rather than universal.
+
+### Net assessment
+
+Six adapters, three genuinely different reasoning shapes (comparative-value, directed-fact-resolution-with-reciprocal-verification, categorical-lookup-with-no-directionality), one core untouched since Liability's extraction. Batch A is complete. Per instruction, Batch B (IP ownership, Data/Security, Insurance, Payment Terms) and the product-layer work (Playbook Authoring UX and beyond) are **not started**.
