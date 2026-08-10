@@ -1,0 +1,18 @@
+{% extends "playbook_position_edit_base.html" %}
+{% from "_playbook_macros.html" import tristate, jurisdiction_list, dispute_resolution_control %}
+
+{% block clause_fields %}
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Governing law</h3>
+{{ jurisdiction_list('preferred_jurisdictions_json', cfg.get('preferred_jurisdictions_json'), field_labels.preferred_jurisdictions_json) }}
+{{ jurisdiction_list('acceptable_jurisdictions_json', cfg.get('acceptable_jurisdictions_json'), field_labels.acceptable_jurisdictions_json) }}
+{{ jurisdiction_list('prohibited_jurisdictions_json', cfg.get('prohibited_jurisdictions_json'), field_labels.prohibited_jurisdictions_json) }}
+<p class="text-xs text-gray-400 -mt-2 mb-4">Separate jurisdictions with commas. These are free text — there's no fixed list, since jurisdictions vary by deal.</p>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+    {{ dispute_resolution_control('required_dispute_resolution', cfg.get('required_dispute_resolution'), field_statuses.get('required_dispute_resolution', 'NOT_ESTABLISHED'),
+        field_labels.required_dispute_resolution) }}
+
+    {{ tristate('require_jury_trial_waiver', cfg.get('require_jury_trial_waiver'), field_statuses.get('require_jury_trial_waiver', 'NOT_ESTABLISHED'),
+        field_labels.require_jury_trial_waiver) }}
+</div>
+{% endblock %}

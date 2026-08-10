@@ -82,6 +82,7 @@ import audit_log
 import upload_security
 import rbac
 import retention
+import playbook_workbench
 from analytics_middleware import AnalyticsMiddleware
 from channel_classifier import CHANNELS as ACQUISITION_CHANNELS
 
@@ -217,6 +218,8 @@ app.add_middleware(AnalyticsMiddleware)
 app.add_middleware(RequestIDMiddleware)
 app.add_middleware(SecurityHeadersMiddleware)
 app.add_middleware(CSRFCookieMiddleware)
+
+app.include_router(playbook_workbench.router)
 
 rule_engine = RuleEngine()
 llm_evaluator = LLMEvaluator()

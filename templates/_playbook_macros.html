@@ -1,0 +1,110 @@
+{# Shared plain-English form controls for Policy Workbench authoring pages.
+   Every boolean here is a three-way radio group (Yes / No / Not decided
+   yet) — never a checkbox — so an unanswered question can never be
+   confused with an explicit "No" (see playbook_authoring.parse_tristate_bool). #}
+
+{% macro tristate(name, value, status, label, help='') %}
+<div class="mb-4">
+    <p class="text-sm font-semibold text-[#0F172A] mb-1">{{ label }}</p>
+    {% if help %}<p class="text-xs text-gray-500 mb-2">{{ help }}</p>{% endif %}
+    <div class="flex flex-wrap gap-x-5 gap-y-1">
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="{{ name }}" value="yes" {% if status == 'ESTABLISHED' and value == True %}checked{% endif %} class="border-gray-300">
+            Yes, require this
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="{{ name }}" value="no" {% if status == 'ESTABLISHED' and value == False %}checked{% endif %} class="border-gray-300">
+            No, we explicitly do not require this
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-500 cursor-pointer">
+            <input type="radio" name="{{ name }}" value="unset" {% if status != 'ESTABLISHED' %}checked{% endif %} class="border-gray-300">
+            Not decided yet
+        </label>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro number_input(name, value, status, label, suffix='', help='', step='1', min='0') %}
+<div class="mb-4">
+    <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">{{ label }}{% if suffix %} <span class="font-normal text-gray-400">({{ suffix }})</span>{% endif %}</label>
+    {% if help %}<p class="text-xs text-gray-500 mb-1.5">{{ help }}</p>{% endif %}
+    <input type="number" step="{{ step }}" min="{{ min }}" name="{{ name }}"
+        value="{{ value if (status == 'ESTABLISHED' and value is not none) else '' }}"
+        placeholder="Not yet decided" class="w-full sm:w-64 px-3 py-2 border border-gray-200 rounded-lg text-sm">
+</div>
+{% endmacro %}
+
+{% macro ladder_group(preferred_field, acceptable_field, negotiate_field, cfg, label, help='') %}
+<div class="mb-5">
+    <p class="text-sm font-semibold text-[#0F172A] mb-1">{{ label }}</p>
+    {% if help %}<p class="text-xs text-gray-500 mb-2">{{ help }}</p>{% endif %}
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div>
+            <label class="block text-xs font-semibold text-gray-500 mb-1">Preferred</label>
+            <input type="number" step="0.1" min="0" name="{{ preferred_field }}"
+                value="{{ cfg.get(preferred_field) if cfg.get(preferred_field) is not none else '' }}"
+                placeholder="e.g. 1.0" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+        </div>
+        <div>
+            <label class="block text-xs font-semibold text-gray-500 mb-1">Auto-accept up to</label>
+            <input type="number" step="0.1" min="0" name="{{ acceptable_field }}"
+                value="{{ cfg.get(acceptable_field) if cfg.get(acceptable_field) is not none else '' }}"
+                placeholder="e.g. 2.0" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+        </div>
+        <div>
+            <label class="block text-xs font-semibold text-gray-500 mb-1">Negotiate up to</label>
+            <input type="number" step="0.1" min="0" name="{{ negotiate_field }}"
+                value="{{ cfg.get(negotiate_field) if cfg.get(negotiate_field) is not none else '' }}"
+                placeholder="e.g. 3.0" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+        </div>
+    </div>
+    <p class="text-xs text-gray-400 mt-1.5">Multiples of annual fees. Anything above "negotiate up to" is routed to escalation. Leave any of these blank if not yet decided — nothing is guessed on your behalf.</p>
+</div>
+{% endmacro %}
+
+{% macro checklist(name, selected, options, label, help='') %}
+<div class="mb-4">
+    <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">{{ label }}</label>
+    {% if help %}<p class="text-xs text-gray-500 mb-2">{{ help }}</p>{% endif %}
+    <div class="flex flex-wrap gap-x-5 gap-y-2">
+        {% for opt in options %}
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="checkbox" name="{{ name }}" value="{{ opt }}" {% if selected and opt in selected %}checked{% endif %} class="rounded border-gray-300">
+            {{ opt|replace('_', ' ')|title }}
+        </label>
+        {% endfor %}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro jurisdiction_list(name, values, label, help='') %}
+<div class="mb-4">
+    <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">{{ label }}</label>
+    {% if help %}<p class="text-xs text-gray-500 mb-1.5">{{ help }}</p>{% endif %}
+    <input type="text" name="{{ name }}" value="{{ (values or [])|join(', ') }}" placeholder="e.g. Delaware, New York" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+</div>
+{% endmacro %}
+
+{% macro dispute_resolution_control(name, value, status, label) %}
+<div class="mb-4">
+    <p class="text-sm font-semibold text-[#0F172A] mb-1.5">{{ label }}</p>
+    <div class="flex flex-col gap-1.5">
+        <label class="flex items-center gap-1.5 text-sm text-gray-500 cursor-pointer">
+            <input type="radio" name="{{ name }}" value="" {% if status != 'ESTABLISHED' %}checked{% endif %} class="border-gray-300">
+            Not decided yet
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="{{ name }}" value="no_preference" {% if status == 'ESTABLISHED' and value is none %}checked{% endif %} class="border-gray-300">
+            No preference — either is acceptable
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="{{ name }}" value="arbitration" {% if status == 'ESTABLISHED' and value == 'arbitration' %}checked{% endif %} class="border-gray-300">
+            Require arbitration
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="{{ name }}" value="litigation" {% if status == 'ESTABLISHED' and value == 'litigation' %}checked{% endif %} class="border-gray-300">
+            Require litigation
+        </label>
+    </div>
+</div>
+{% endmacro %}

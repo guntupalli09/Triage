@@ -30,9 +30,12 @@ module. PolicyRule remains the thing main.py actually reads until Phase
 
 from __future__ import annotations
 
+import re
 import typing
+from dataclasses import dataclass, field as dataclass_field
+from datetime import datetime
 from types import SimpleNamespace
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 import assignment_policy_engine
 import confidentiality_policy_engine
@@ -40,7 +43,7 @@ import governing_law_policy_engine
 import indemnification_policy_engine
 import liability_policy_engine
 import termination_policy_engine
-from models import PolicyPosition, PolicyPositionField, PolicyRule
+from models import Playbook, PolicyPosition, PolicyPositionApproval, PolicyPositionField, PolicyRule
 
 # Fields every engine's *PolicyRuleLike Protocol has in common — real
 # columns on PolicyPosition, never part of config_json (design doc §4.1).
@@ -222,6 +225,14 @@ def _validate_field(clause_type: str, field_name: str, value: Any, hint: Any) ->
     return errors
 
 
+def vocabulary_for(clause_type: str, field_name: str) -> Optional[Tuple[str, ...]]:
+    """Public accessor for a field's bounded vocabulary (or None if the
+    field is free text) — used by the authoring templates to render
+    checklist options without reaching into _BOUNDED_VOCABULARIES
+    directly."""
+    return _BOUNDED_VOCABULARIES.get(clause_type, {}).get(field_name)
+
+
 def validate_config(clause_type: str, config: Optional[Dict[str, Any]]) -> Dict[str, Any]:
     """Structural validation for a clause type's config_json: every
     supplied value is checked against the corresponding
@@ -397,6 +408,14 @@ def _current_field_statuses(position: PolicyPosition) -> Dict[str, str]:
     return {f.field_name: f.status for f in position.fields if f.superseded_by_field_id is None}
 
 
+def current_field_statuses(position: PolicyPosition) -> Dict[str, str]:
+    """Public alias of _current_field_statuses — routes/templates need
+    per-field ESTABLISHED/NOT_ESTABLISHED/CONFLICTING status to render
+    "Not answered" vs a real value; this is the one function that answers
+    that question, reused rather than re-derived at the route layer."""
+    return _current_field_statuses(position)
+
+
 def validate_position_for_activation(position: PolicyPosition) -> None:
     """The enforcement-readiness gate. A position may sit in DRAFT or
     NEEDS_REVIEW indefinitely with gaps — that's expected, that's what
@@ -539,3 +558,732 @@ def migrate_all_legacy_policy_rules(db) -> List[PolicyPosition]:
     positions = [migrate_legacy_policy_rule(db, rule) for rule in db.query(PolicyRule).all()]
     db.commit()
     return positions
+
+
+# ---------------------------------------------------------------------------
+# Phase 1: manual authoring — engine function lookup (for preview)
+# ---------------------------------------------------------------------------
+
+_ENGINE_FUNCS: Dict[str, Tuple[Any, Any]] = {
+    "limitation_of_liability": (liability_policy_engine.extract_liability_facts, liability_policy_engine.evaluate_liability_policy),
+    "indemnification": (indemnification_policy_engine.extract_indemnification_facts, indemnification_policy_engine.evaluate_indemnification_policy),
+    "termination": (termination_policy_engine.extract_termination_facts, termination_policy_engine.evaluate_termination_policy),
+    "confidentiality": (confidentiality_policy_engine.extract_confidentiality_facts, confidentiality_policy_engine.evaluate_confidentiality_policy),
+    "assignment": (assignment_policy_engine.extract_assignment_facts, assignment_policy_engine.evaluate_assignment_policy),
+    "governing_law": (governing_law_policy_engine.extract_governing_law_facts, governing_law_policy_engine.evaluate_governing_law_policy),
+}
+
+CLAUSE_TYPE_LABELS: Dict[str, str] = {
+    "limitation_of_liability": "Limitation of Liability",
+    "indemnification": "Indemnification",
+    "termination": "Termination",
+    "confidentiality": "Confidentiality",
+    "assignment": "Assignment",
+    "governing_law": "Governing Law",
+}
+
+
+# ---------------------------------------------------------------------------
+# Phase 1: form-value parsing — preserves NOT_ESTABLISHED vs explicit False
+#
+# This is the one non-negotiable property of everything below: a boolean
+# that the lawyer never answered must come out of parsing as
+# (None, "NOT_ESTABLISHED"), and an explicit "No" must come out as
+# (False, "ESTABLISHED"). Nothing here uses HTML checkboxes for a
+# require_*/prohibit_* field (checkboxes are absent from the POST body
+# entirely when unchecked, which is indistinguishable from "field wasn't
+# rendered at all" — exactly the trap this must not fall into). Every
+# boolean control is rendered as a three-way radio group instead (see
+# templates/policy_position_fields/*.html), so "the browser sent nothing
+# for this name" can only happen if the whole control was never on the
+# page — never as a side effect of the lawyer's actual choice.
+# ---------------------------------------------------------------------------
+
+class PositionFormError(ValueError):
+    """A value submitted from the authoring form doesn't parse — e.g. a
+    non-numeric string in a number field. Distinct from
+    PolicyConfigValidationError (which fires after parsing, on a
+    structurally-assembled config dict) so a route can catch this closer
+    to "which literal form field was the problem" for a plain-English
+    error message."""
+
+
+TRISTATE_YES = "yes"
+TRISTATE_NO = "no"
+TRISTATE_UNSET = "unset"
+
+DISPUTE_RESOLUTION_NOT_DECIDED = ""
+DISPUTE_RESOLUTION_NO_PREFERENCE = "no_preference"
+
+
+def parse_tristate_bool(raw: Optional[str]) -> Tuple[Optional[bool], str]:
+    """raw is one of "yes"/"no"/"unset"/None (radio group value, or
+    nothing if the group somehow wasn't submitted). "unset" and "missing"
+    deliberately collapse to the same (None, NOT_ESTABLISHED) result —
+    the whole point is that there is no way to observe, from the parsed
+    result, whether the lawyer explicitly clicked "not decided yet" or
+    the request simply didn't include the field; both are "nobody made a
+    decision here," full stop."""
+    if raw == TRISTATE_YES:
+        return True, "ESTABLISHED"
+    if raw == TRISTATE_NO:
+        return False, "ESTABLISHED"
+    return None, "NOT_ESTABLISHED"
+
+
+def parse_optional_float(raw: Optional[str]) -> Tuple[Optional[float], str]:
+    raw = (raw or "").strip()
+    if not raw:
+        return None, "NOT_ESTABLISHED"
+    try:
+        return float(raw), "ESTABLISHED"
+    except ValueError:
+        raise PositionFormError(f"{raw!r} is not a number")
+
+
+def parse_optional_int(raw: Optional[str]) -> Tuple[Optional[int], str]:
+    raw = (raw or "").strip()
+    if not raw:
+        return None, "NOT_ESTABLISHED"
+    try:
+        return int(raw), "ESTABLISHED"
+    except ValueError:
+        raise PositionFormError(f"{raw!r} is not a whole number")
+
+
+def parse_checklist(raw_values: List[str], vocabulary: Tuple[str, ...]) -> Tuple[List[str], str]:
+    """Checklist fields (required_exceptions_json and similar) are always
+    ESTABLISHED once the form is submitted, even if nothing is checked —
+    an empty list is a legitimate, meaningful answer ("no specific
+    carve-outs required"), not an unanswered question. This is safe
+    specifically because none of these fields are activation-required
+    (see policy_engine reasoning in validate_position_for_activation) —
+    an empty checklist can never silently disable a whole risk check the
+    way an un-set require_* boolean could."""
+    return [v for v in raw_values if v in vocabulary], "ESTABLISHED"
+
+
+def parse_jurisdiction_list(raw: Optional[str]) -> Tuple[List[str], str]:
+    """Free-text jurisdictions (comma- or newline-separated) — no bounded
+    vocabulary exists for these anywhere in governing_law_policy_engine
+    (see the Phase 0.1 report's "too weak to validate" note), so this
+    only tokenizes; validate_config's List[str] element-type check is
+    everything else in play. Always ESTABLISHED once submitted, same
+    reasoning as checklists."""
+    items = [part.strip() for part in re.split(r"[,\n]", raw or "") if part.strip()]
+    return items, "ESTABLISHED"
+
+
+def parse_dispute_resolution(raw: Optional[str]) -> Tuple[Optional[str], str]:
+    """Four-way choice, not three: "not decided yet" (NOT_ESTABLISHED,
+    None) is distinct from the engine's own legitimate "no preference"
+    value (ESTABLISHED, None) — governing_law_policy_engine.py's
+    required_dispute_resolution docstring defines None as a real policy
+    stance ("no preference"), not an absence. Collapsing those two would
+    make it impossible for a lawyer to ever record "we truly don't care"
+    as opposed to "nobody has looked at this yet.\""""
+    if raw in (None, DISPUTE_RESOLUTION_NOT_DECIDED):
+        return None, "NOT_ESTABLISHED"
+    if raw == DISPUTE_RESOLUTION_NO_PREFERENCE:
+        return None, "ESTABLISHED"
+    if raw in ("arbitration", "litigation"):
+        return raw, "ESTABLISHED"
+    raise PositionFormError(f"unrecognized dispute resolution option: {raw!r}")
+
+
+def parse_optional_text(raw: Optional[str]) -> Tuple[Optional[str], str]:
+    raw = (raw or "").strip()
+    return (raw or None), "ESTABLISHED"
+
+
+def _parse_config_field(clause_type: str, field_name: str, form: Any) -> Tuple[Any, str]:
+    """Dispatches one config_json field to the right parser above, based
+    on that field's own Protocol type (and, where relevant, its bounded
+    vocabulary) — the same introspection Phase 0.1's validate_config
+    already does, reused here so the two can never disagree about a
+    field's shape. `form` is a Starlette FormData (supports .get() and
+    .getlist())."""
+    hints = typing.get_type_hints(_ENGINE_PROTOCOLS[clause_type])
+    hint = hints[field_name]
+    optional = _is_optional(hint)
+    inner = _non_none_arm(hint) if optional else hint
+    origin = typing.get_origin(inner)
+
+    if inner is bool:
+        return parse_tristate_bool(form.get(field_name))
+    if origin is list:
+        vocab = _BOUNDED_VOCABULARIES.get(clause_type, {}).get(field_name)
+        if vocab is not None:
+            return parse_checklist(form.getlist(field_name), vocab)
+        return parse_jurisdiction_list(form.get(field_name))
+    if inner is float:
+        return parse_optional_float(form.get(field_name))
+    if inner is int:
+        return parse_optional_int(form.get(field_name))
+    if inner is str:
+        if clause_type == "governing_law" and field_name == "required_dispute_resolution":
+            return parse_dispute_resolution(form.get(field_name))
+        return parse_optional_text(form.get(field_name))
+    raise PositionFormError(f"no form parser for {clause_type}.{field_name} ({hint!r})")
+
+
+def parse_clause_form(clause_type: str, form: Any) -> Dict[str, Tuple[Any, str]]:
+    """Parses every config_json field for a clause type out of a
+    submitted form. Returns {field_name: (value, status)}. Raises
+    PositionFormError on the first malformed value (a number field that
+    doesn't parse) — callers should catch this and re-render the form
+    with a plain-English error rather than a 500."""
+    return {
+        field_name: _parse_config_field(clause_type, field_name, form)
+        for field_name in CLAUSE_TYPE_CONFIG_FIELDS[clause_type]
+    }
+
+
+CONTRACT_SIDES = ("mutual", "buy_side", "sell_side")
+
+
+def parse_contract_side(raw: Optional[str]) -> str:
+    return raw if raw in CONTRACT_SIDES else "mutual"
+
+
+# ---------------------------------------------------------------------------
+# Phase 1: revisions — the row-family model behind "editing an ACTIVE
+# position must never mutate it in place"
+#
+# Within one playbook_id + clause_type "family" of PolicyPosition rows:
+#   - at most one row is ever ACTIVE (enforced by activate_position, which
+#     archives any existing ACTIVE sibling before activating a new row)
+#   - at most one row is ever the "current" editable/pending row (DRAFT,
+#     NEEDS_REVIEW, or APPROVED) — a new one is only ever created by
+#     get_or_build_editable_position, and only when no such row exists
+#   - every other row is ARCHIVED (history, never read by the Workbench
+#     or by evaluate_*_policy())
+#
+# _current_position always resolves to "the row the Workbench should
+# show" — the pending row if one exists, else the ACTIVE row, else None.
+# ---------------------------------------------------------------------------
+
+def _current_position(db, playbook_id: int, clause_type: str) -> Optional[PolicyPosition]:
+    return (
+        db.query(PolicyPosition)
+        .filter(
+            PolicyPosition.playbook_id == playbook_id,
+            PolicyPosition.clause_type == clause_type,
+            PolicyPosition.status != "ARCHIVED",
+        )
+        .order_by(PolicyPosition.created_at.desc(), PolicyPosition.id.desc())
+        .first()
+    )
+
+
+def get_position_for_display(db, playbook_id: int, clause_type: str) -> Optional[PolicyPosition]:
+    """Read-only lookup for the Workbench card / review pages — never
+    creates a row. Public alias of _current_position for callers outside
+    this module."""
+    return _current_position(db, playbook_id, clause_type)
+
+
+def get_or_build_editable_position(db, playbook: Playbook, clause_type: str) -> Tuple[PolicyPosition, bool]:
+    """Returns (position, is_new_revision) for the authoring form.
+
+    If the current position is already editable (DRAFT/NEEDS_REVIEW/
+    APPROVED), returns it directly. If the current position is ACTIVE, or
+    nothing exists yet, a new DRAFT row is created — config_json and
+    field rows copied from the ACTIVE row if there was one — WITHOUT
+    modifying the ACTIVE row itself. This is the entire mechanism behind
+    the Phase 1 release-gate requirement that editing an ACTIVE policy
+    must not silently change the currently approved legal position: there
+    is no code path in this module that writes to a PolicyPosition whose
+    status is ACTIVE (apply_position_update asserts this defensively)."""
+    current = _current_position(db, playbook.id, clause_type)
+    if current is not None and current.status != "ACTIVE":
+        return current, False
+
+    new_position = PolicyPosition(
+        playbook_id=playbook.id, clause_type=clause_type, status="DRAFT",
+        contract_side=current.contract_side if current else "mutual",
+        escalation_approval_authority=current.escalation_approval_authority if current else None,
+        fallback_text=current.fallback_text if current else None,
+        config_json=dict(current.config_json or {}) if current else {},
+        source_type="MANUAL",
+    )
+    db.add(new_position)
+    db.flush()
+
+    if current is not None:
+        for old_field in current.fields:
+            if old_field.superseded_by_field_id is not None:
+                continue
+            db.add(PolicyPositionField(
+                policy_position_id=new_position.id, field_name=old_field.field_name,
+                value_json=old_field.value_json, source=old_field.source, status=old_field.status,
+                confirmed_by_user_id=old_field.confirmed_by_user_id, confirmed_at=old_field.confirmed_at,
+                evidence_document_id=old_field.evidence_document_id, evidence_excerpt=old_field.evidence_excerpt,
+                evidence_start_index=old_field.evidence_start_index, evidence_end_index=old_field.evidence_end_index,
+            ))
+        db.flush()
+
+    return new_position, True
+
+
+def apply_position_update(
+    db, position: PolicyPosition, *, clause_field_updates: Dict[str, Tuple[Any, str]],
+    contract_side: str, escalation_approval_authority: Optional[str], fallback_text: Optional[str], user,
+) -> None:
+    """Writes a full field-level update to a DRAFT/NEEDS_REVIEW/APPROVED
+    position. Refuses an ACTIVE position outright (defense in depth —
+    routes.py should never call this on one, since
+    get_or_build_editable_position never returns an ACTIVE row to edit,
+    but this function does not trust that unchecked).
+
+    Editing content after NEEDS_REVIEW or APPROVED reverts status back to
+    DRAFT: those states assert "a lawyer looked at this and it was
+    correct," and silently keeping that assertion true after the content
+    changed underneath it would be exactly the kind of silent-authority
+    bug this whole design exists to prevent. The lawyer must re-submit
+    for review after any edit past that checkpoint."""
+    if position.status == "ACTIVE":
+        raise PolicyEnforcementGuardError(
+            "Refusing to edit an ACTIVE PolicyPosition in place; use "
+            "get_or_build_editable_position to obtain a revision first."
+        )
+
+    # NOT_ESTABLISHED fields are omitted from config_json entirely, never
+    # stored as an explicit None — this matters even for Optional fields
+    # (where None would otherwise validate fine) because it keeps
+    # "unanswered" represented one way everywhere: absent from config_json
+    # AND status=NOT_ESTABLISHED on the field row, never divergent. It is
+    # non-negotiable for non-Optional bool fields specifically: every
+    # require_*/prohibit_* Protocol field is `bool`, not `Optional[bool]`
+    # (Phase 0.1 confirmed this holds for all six adapters without
+    # exception), so writing an explicit None for one of these into
+    # config_json would fail validate_config's own type check — config_json
+    # only ever holds fields whose value is actually known.
+    config = dict(position.config_json or {})
+    for field_name, (value, status) in clause_field_updates.items():
+        if status == "NOT_ESTABLISHED":
+            config.pop(field_name, None)
+        else:
+            config[field_name] = value
+    validate_config(position.clause_type, config)
+
+    position.config_json = config
+    position.contract_side = contract_side
+    position.escalation_approval_authority = escalation_approval_authority
+    position.fallback_text = fallback_text
+    if position.status in ("NEEDS_REVIEW", "APPROVED"):
+        position.status = "DRAFT"
+
+    now = datetime.utcnow()
+    existing_fields = {f.field_name: f for f in position.fields if f.superseded_by_field_id is None}
+
+    def _upsert_field(field_name: str, value: Any, status: str) -> None:
+        row = existing_fields.get(field_name)
+        if row is None:
+            row = PolicyPositionField(policy_position_id=position.id, field_name=field_name)
+            db.add(row)
+        row.value_json = value
+        row.source = "MANUAL"
+        row.status = status
+        row.confirmed_by_user_id = user.id if (status == "ESTABLISHED" and user) else None
+        row.confirmed_at = now if status == "ESTABLISHED" else None
+
+    for field_name, (value, status) in clause_field_updates.items():
+        _upsert_field(field_name, value, status)
+    _upsert_field("contract_side", contract_side, "ESTABLISHED")
+    _upsert_field("escalation_approval_authority", escalation_approval_authority, "ESTABLISHED")
+    _upsert_field("fallback_text", fallback_text, "ESTABLISHED")
+
+
+# ---------------------------------------------------------------------------
+# Phase 1: lifecycle transitions — DRAFT -> NEEDS_REVIEW -> APPROVED -> ACTIVE
+# ---------------------------------------------------------------------------
+
+class PositionLifecycleError(ValueError):
+    """An invalid state transition was requested — e.g. activating a
+    position that is still DRAFT. Routes should catch this and show the
+    lawyer why, never 500."""
+
+
+def _record_transition(db, position: PolicyPosition, user, action: str, from_status: str, to_status: str, reason: Optional[str] = None) -> None:
+    db.add(PolicyPositionApproval(
+        policy_position_id=position.id, actor_user_id=user.id if user else None,
+        action=action, from_status=from_status, to_status=to_status, reason=reason,
+    ))
+
+
+def mark_ready_for_review(db, position: PolicyPosition, user) -> None:
+    if position.status != "DRAFT":
+        raise PositionLifecycleError(f"Cannot submit for review from status={position.status!r}; must be DRAFT")
+    validate_config(position.clause_type, position.config_json)
+    _record_transition(db, position, user, "MARKED_REVIEWED", "DRAFT", "NEEDS_REVIEW")
+    position.status = "NEEDS_REVIEW"
+
+
+def return_to_draft(db, position: PolicyPosition, user, reason: Optional[str] = None) -> None:
+    if position.status not in ("NEEDS_REVIEW", "APPROVED"):
+        raise PositionLifecycleError(f"Cannot return to draft from status={position.status!r}")
+    _record_transition(db, position, user, "REVERTED", position.status, "DRAFT", reason)
+    position.status = "DRAFT"
+
+
+def approve_position(db, position: PolicyPosition, user, reason: Optional[str] = None) -> None:
+    """NEEDS_REVIEW -> APPROVED. Runs the Phase 0.1 activation validator
+    first — approval and activation share the same readiness bar in
+    Phase 1 (both require every require_* gate to be ESTABLISHED); they
+    remain two separate actions/permission points per the design doc so a
+    later "second approver activates" policy can be added without
+    touching this function."""
+    if position.status != "NEEDS_REVIEW":
+        raise PositionLifecycleError(f"Cannot approve from status={position.status!r}; must be NEEDS_REVIEW")
+    validate_position_for_activation(position)
+    _record_transition(db, position, user, "APPROVED", "NEEDS_REVIEW", "APPROVED", reason)
+    position.status = "APPROVED"
+
+
+def activate_position(db, position: PolicyPosition, user, reason: Optional[str] = None) -> None:
+    """APPROVED -> ACTIVE. Archives any existing ACTIVE sibling for the
+    same playbook_id/clause_type first (in the same transaction) — this
+    is the enforcement of "at most one ACTIVE row per clause type" that
+    the model's docstring describes; there is no DB constraint doing it."""
+    if position.status != "APPROVED":
+        raise PositionLifecycleError(f"Cannot activate from status={position.status!r}; must be APPROVED")
+    validate_position_for_activation(position)
+
+    sibling_active = (
+        db.query(PolicyPosition)
+        .filter(
+            PolicyPosition.playbook_id == position.playbook_id,
+            PolicyPosition.clause_type == position.clause_type,
+            PolicyPosition.status == "ACTIVE",
+            PolicyPosition.id != position.id,
+        )
+        .first()
+    )
+    if sibling_active is not None:
+        _record_transition(
+            db, sibling_active, user, "ARCHIVED", "ACTIVE", "ARCHIVED",
+            reason=f"Superseded by PolicyPosition id={position.id}",
+        )
+        sibling_active.status = "ARCHIVED"
+
+    _record_transition(db, position, user, "ACTIVATED", "APPROVED", "ACTIVE", reason)
+    position.status = "ACTIVE"
+    position.activated_at = datetime.utcnow()
+    position.activated_by_user_id = user.id if user else None
+
+
+# ---------------------------------------------------------------------------
+# Phase 1: coverage — enforceable coverage, not database-row coverage
+# ---------------------------------------------------------------------------
+
+@dataclass
+class ClauseCoverage:
+    clause_type: str
+    label: str
+    status_bucket: str  # "ACTIVE" | "NEEDS_ATTENTION" | "NOT_CONFIGURED"
+    position: Optional[PolicyPosition]
+
+
+@dataclass
+class CoverageSummary:
+    active_count: int
+    needs_attention_count: int
+    not_configured_count: int
+    coverage_pct: float
+    high_impact_gaps: List[str]
+    clauses: List[ClauseCoverage] = dataclass_field(default_factory=list)
+
+
+# Fixed, documented ranking — never inferred from data. Ordered by typical
+# financial/legal exposure if left unconfigured: an uncapped liability or
+# indemnification exposure is direct, often-unbounded dollar risk;
+# confidentiality and termination carry real but usually bounded
+# operational risk; assignment and governing law are comparatively
+# lower-stakes defaults most counterparties won't aggressively push on.
+# This exists so "high-impact gaps" is deterministic and explainable, and
+# is expected to be revisited (not silently reordered) once Batch B
+# clause types exist alongside these six.
+CLAUSE_TYPE_IMPORTANCE: Tuple[str, ...] = (
+    "limitation_of_liability", "indemnification", "confidentiality",
+    "termination", "assignment", "governing_law",
+)
+
+
+def compute_coverage(db, playbook) -> CoverageSummary:
+    """Coverage counts ACTIVE positions only — a DRAFT or NEEDS_REVIEW row
+    existing for a clause type does not count as covered (it isn't
+    enforceable; evaluate_*_policy() will never read it), so it is
+    bucketed as NEEDS_ATTENTION, distinct from both ACTIVE and
+    NOT_CONFIGURED. This is deliberate: the coverage bar must represent
+    what actually governs a contract review today, not how many rows
+    exist in the database."""
+    clauses: List[ClauseCoverage] = []
+    for clause_type in CLAUSE_TYPES:
+        position = _current_position(db, playbook.id, clause_type)
+        if position is not None and position.status == "ACTIVE":
+            bucket = "ACTIVE"
+        elif position is not None:
+            bucket = "NEEDS_ATTENTION"
+        else:
+            bucket = "NOT_CONFIGURED"
+        clauses.append(ClauseCoverage(clause_type=clause_type, label=CLAUSE_TYPE_LABELS[clause_type], status_bucket=bucket, position=position))
+
+    bucket_by_type = {c.clause_type: c.status_bucket for c in clauses}
+    active_count = sum(1 for b in bucket_by_type.values() if b == "ACTIVE")
+    needs_attention_count = sum(1 for b in bucket_by_type.values() if b == "NEEDS_ATTENTION")
+    not_configured_count = sum(1 for b in bucket_by_type.values() if b == "NOT_CONFIGURED")
+    coverage_pct = round(100.0 * active_count / len(CLAUSE_TYPES), 1)
+    high_impact_gaps = [ct for ct in CLAUSE_TYPE_IMPORTANCE if bucket_by_type[ct] != "ACTIVE"]
+
+    return CoverageSummary(
+        active_count=active_count, needs_attention_count=needs_attention_count,
+        not_configured_count=not_configured_count, coverage_pct=coverage_pct,
+        high_impact_gaps=high_impact_gaps, clauses=clauses,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Phase 1: plain-English summaries — never a JSON dump
+# ---------------------------------------------------------------------------
+
+def _fmt_mult(value: Optional[float]) -> str:
+    if value is None:
+        return "Not yet decided"
+    return f"{value:g}× fees"
+
+
+def _fmt_bool(value: Optional[bool], yes: str, no: str) -> str:
+    if value is None:
+        return "Not yet decided"
+    return yes if value else no
+
+
+def _fmt_list(values: Optional[List[str]], empty: str = "None specified") -> str:
+    if not values:
+        return empty
+    return ", ".join(v.replace("_", " ") for v in values)
+
+
+def _fmt_days(value: Optional[int]) -> str:
+    return "Not yet decided" if value is None else f"{value} days"
+
+
+def _fmt_years(value: Optional[int]) -> str:
+    if value is None:
+        return "Not yet decided"
+    return "Indefinite/perpetual" if value == 0 else f"{value} year(s)"
+
+
+def _summarize_liability(cfg: Dict[str, Any]) -> List[str]:
+    lines = [
+        f"Unlimited liability → {_fmt_bool(cfg.get('prohibit_unlimited'), 'Prohibited', 'Allowed only with escalation')}",
+        f"Preferred cap → {_fmt_mult(cfg.get('preferred_multiplier'))}",
+        f"Accept without escalation up to → {_fmt_mult(cfg.get('acceptable_max_multiplier'))}",
+        f"Maximum negotiable before escalation → {_fmt_mult(cfg.get('negotiate_max_multiplier'))}",
+        f"Required exceptions to the cap → {_fmt_list(cfg.get('required_exceptions_json'))}",
+        f"Consequential damages exclusion required → {_fmt_bool(cfg.get('require_consequential_damages_exclusion'), 'Yes', 'No')}",
+    ]
+    if cfg.get("require_consequential_damages_exclusion"):
+        lines.append(f"Required carve-outs from that exclusion → {_fmt_list(cfg.get('required_consequential_carveouts_json'))}")
+    return lines
+
+
+def _summarize_indemnification(cfg: Dict[str, Any]) -> List[str]:
+    return [
+        f"They must indemnify us for → {_fmt_list(cfg.get('required_protection_triggers_json'))}",
+        f"We will never indemnify for → {_fmt_list(cfg.get('prohibited_exposure_triggers_json'))}",
+        f"Our indemnity limited to third-party claims only → {_fmt_bool(cfg.get('require_exposure_third_party_only'), 'Required', 'Not required')}",
+        f"We must control our own defense → {_fmt_bool(cfg.get('require_defense_control_for_exposure'), 'Required', 'Not required')}",
+        f"Prompt notice and cooperation required first → {_fmt_bool(cfg.get('require_notice_and_cooperation_for_exposure'), 'Required', 'Not required')}",
+        f"Uncapped indemnity exposure → {_fmt_bool(cfg.get('prohibit_uncapped_exposure'), 'Prohibited', 'Allowed only with escalation')}",
+        f"Preferred indemnity cap → {_fmt_mult(cfg.get('exposure_preferred_multiplier'))}",
+        f"Accept without escalation up to → {_fmt_mult(cfg.get('exposure_acceptable_max_multiplier'))}",
+        f"Maximum negotiable before escalation → {_fmt_mult(cfg.get('exposure_negotiate_max_multiplier'))}",
+    ]
+
+
+def _summarize_termination(cfg: Dict[str, Any]) -> List[str]:
+    return [
+        f"We must have the same walk-away right they do → {_fmt_bool(cfg.get('require_mutual_convenience_termination'), 'Required', 'Not required')}",
+        f"Minimum notice before they can end the deal → {_fmt_days(cfg.get('min_notice_days_against_us'))}",
+        f"Minimum cure period before termination for cause → {_fmt_days(cfg.get('min_cure_days_against_us'))}",
+        f"Immediate termination for cause with no cure → {_fmt_bool(cfg.get('prohibit_immediate_termination_for_cause'), 'Prohibited', 'Allowed only with escalation')}",
+        f"Must survive termination → {_fmt_list(cfg.get('required_survival_topics_json'))}",
+        f"Uncapped termination fee → {_fmt_bool(cfg.get('prohibit_uncapped_termination_fee'), 'Prohibited', 'Allowed only with escalation')}",
+        f"Preferred termination fee cap → {_fmt_mult(cfg.get('fee_preferred_multiplier'))}",
+        f"Accept without escalation up to → {_fmt_mult(cfg.get('fee_acceptable_max_multiplier'))}",
+        f"Maximum negotiable before escalation → {_fmt_mult(cfg.get('fee_negotiate_max_multiplier'))}",
+    ]
+
+
+def _summarize_confidentiality(cfg: Dict[str, Any]) -> List[str]:
+    return [
+        f"Standard carve-outs required → {_fmt_list(cfg.get('required_exclusions_json'))}",
+        f"Minimum years they must protect our information → {_fmt_years(cfg.get('min_protection_duration_years'))}",
+        f"Maximum years we'll protect theirs → {_fmt_years(cfg.get('max_exposure_duration_years'))}",
+        f"Protection must run both ways → {_fmt_bool(cfg.get('require_mutual_confidentiality'), 'Required', 'Not required')}",
+    ]
+
+
+def _summarize_assignment(cfg: Dict[str, Any]) -> List[str]:
+    return [
+        f"Assignment allowed without consent for → {_fmt_list(cfg.get('required_exceptions_json'))}",
+        f"\"Sole discretion\" consent language → {_fmt_bool(cfg.get('prohibit_sole_discretion_consent'), 'Prohibited', 'Allowed')}",
+        f"They need our consent too, if we need theirs → {_fmt_bool(cfg.get('require_consent_for_counterparty_assignment'), 'Required', 'Not required')}",
+    ]
+
+
+_DISPUTE_RESOLUTION_LABELS = {
+    None: "Not yet decided",
+    "no_preference": "No preference (either is acceptable)",
+    "arbitration": "Arbitration required",
+    "litigation": "Litigation required",
+}
+
+
+def _summarize_governing_law(cfg: Dict[str, Any], field_statuses: Dict[str, str]) -> List[str]:
+    dispute_value = cfg.get("required_dispute_resolution")
+    dispute_status = field_statuses.get("required_dispute_resolution", "NOT_ESTABLISHED")
+    if dispute_status == "NOT_ESTABLISHED":
+        dispute_label = "Not yet decided"
+    elif dispute_value is None:
+        dispute_label = _DISPUTE_RESOLUTION_LABELS["no_preference"]
+    else:
+        dispute_label = _DISPUTE_RESOLUTION_LABELS.get(dispute_value, dispute_value)
+    return [
+        f"Preferred jurisdiction(s) → {_fmt_list(cfg.get('preferred_jurisdictions_json'), 'Unspecified')}",
+        f"Also acceptable → {_fmt_list(cfg.get('acceptable_jurisdictions_json'), 'Unspecified')}",
+        f"Never acceptable → {_fmt_list(cfg.get('prohibited_jurisdictions_json'), 'None specified')}",
+        f"Dispute resolution → {dispute_label}",
+        f"Jury trial waiver required → {_fmt_bool(cfg.get('require_jury_trial_waiver'), 'Required', 'Not required')}",
+    ]
+
+
+_SUMMARIZERS = {
+    "limitation_of_liability": lambda cfg, statuses: _summarize_liability(cfg),
+    "indemnification": lambda cfg, statuses: _summarize_indemnification(cfg),
+    "termination": lambda cfg, statuses: _summarize_termination(cfg),
+    "confidentiality": lambda cfg, statuses: _summarize_confidentiality(cfg),
+    "assignment": lambda cfg, statuses: _summarize_assignment(cfg),
+    "governing_law": lambda cfg, statuses: _summarize_governing_law(cfg, statuses),
+}
+
+
+def summarize_position(position: PolicyPosition) -> List[str]:
+    """The human-readable policy summary a lawyer approves — never a
+    JSON/field-name dump. Used on both the Workbench clause card (a
+    trimmed version) and the pre-approval review page (in full)."""
+    cfg = position.config_json or {}
+    statuses = _current_field_statuses(position)
+    lines = _SUMMARIZERS[position.clause_type](cfg, statuses)
+    if position.escalation_approval_authority:
+        lines.append(f"Escalation authority → {position.escalation_approval_authority}")
+    else:
+        lines.append("Escalation authority → Not set")
+    lines.append(f"Fallback/redline language → {'Provided' if position.fallback_text else 'Not provided'}")
+    return lines
+
+
+def card_headline(position: Optional[PolicyPosition]) -> str:
+    """One short line for the Workbench tile — not the full summary."""
+    if position is None:
+        return "Not configured"
+    lines = summarize_position(position)
+    return lines[0] if lines else "Configured"
+
+
+# ---------------------------------------------------------------------------
+# Phase 1: preview — pure function, no DB writes, no production effect
+# ---------------------------------------------------------------------------
+
+def run_preview(position: PolicyPosition, sample_text: str):
+    """Runs the SAME extractor + evaluator the real engine uses (imported
+    directly, never modified, never wrapped) against lawyer-pasted sample
+    text and this position's current config — via the same BUILDERS
+    function used everywhere else, so there is no separate "preview
+    evaluator" to drift out of sync with production logic. Read-only: no
+    Contract or Contract-review record is created, and nothing here
+    touches PolicyRule or any table this module doesn't already own.
+    Safe to call on a DRAFT/NEEDS_REVIEW/APPROVED/ACTIVE position alike —
+    unlike apply_position_update, preview never writes anything, so the
+    ACTIVE-guard that protects mutation doesn't apply to it."""
+    extract_fn, evaluate_fn = _ENGINE_FUNCS[position.clause_type]
+    rule = BUILDERS[position.clause_type](position)
+    facts = extract_fn(sample_text)
+    return evaluate_fn(facts, rule, source="Preview (not enforced)")
+
+
+# ---------------------------------------------------------------------------
+# Phase 1: plain-English field labels — single source of truth reused by
+# both route-level "missing requirements" messages and the authoring
+# templates' control labels, so the two can never say different things
+# about what a field means.
+# ---------------------------------------------------------------------------
+
+FIELD_LABELS: Dict[str, Dict[str, str]] = {
+    "limitation_of_liability": {
+        "preferred_multiplier": "Preferred liability cap",
+        "acceptable_max_multiplier": "Auto-accept up to",
+        "negotiate_max_multiplier": "Maximum negotiable before escalation",
+        "prohibit_unlimited": "Never accept unlimited liability",
+        "required_exceptions_json": "Carve-outs that must stay uncapped",
+        "require_consequential_damages_exclusion": "Require exclusion of consequential/indirect damages",
+        "required_consequential_carveouts_json": "Required carve-outs from that exclusion",
+    },
+    "indemnification": {
+        "required_protection_triggers_json": "They must indemnify us for",
+        "prohibited_exposure_triggers_json": "We will never indemnify for",
+        "require_exposure_third_party_only": "Our indemnity only covers third-party claims",
+        "require_defense_control_for_exposure": "We must control our own defense",
+        "require_notice_and_cooperation_for_exposure": "Require prompt notice and cooperation first",
+        "prohibit_uncapped_exposure": "Never accept uncapped indemnity",
+        "exposure_preferred_multiplier": "Preferred indemnity cap",
+        "exposure_acceptable_max_multiplier": "Auto-accept up to",
+        "exposure_negotiate_max_multiplier": "Maximum negotiable before escalation",
+    },
+    "termination": {
+        "require_mutual_convenience_termination": "We must have the same walk-away right they do",
+        "min_notice_days_against_us": "Minimum notice before they can end the deal",
+        "min_cure_days_against_us": "Minimum time to fix a problem before termination for cause",
+        "prohibit_immediate_termination_for_cause": "Never allow immediate termination without a chance to fix it",
+        "required_survival_topics_json": "Must survive termination",
+        "prohibit_uncapped_termination_fee": "Never accept an uncapped termination fee",
+        "fee_preferred_multiplier": "Preferred termination fee cap",
+        "fee_acceptable_max_multiplier": "Auto-accept up to",
+        "fee_negotiate_max_multiplier": "Maximum negotiable before escalation",
+    },
+    "confidentiality": {
+        "required_exclusions_json": "Standard carve-outs that must be included",
+        "min_protection_duration_years": "Minimum years they must protect our information",
+        "max_exposure_duration_years": "Maximum years we'll protect theirs",
+        "require_mutual_confidentiality": "Protection must run both ways",
+    },
+    "assignment": {
+        "required_exceptions_json": "Allow assignment without consent for",
+        "prohibit_sole_discretion_consent": "Never accept \"sole discretion\" consent language",
+        "require_consent_for_counterparty_assignment": "They need our consent too, if we need theirs",
+    },
+    "governing_law": {
+        "preferred_jurisdictions_json": "Preferred jurisdiction(s)",
+        "acceptable_jurisdictions_json": "Also acceptable",
+        "prohibited_jurisdictions_json": "Never acceptable",
+        "required_dispute_resolution": "Dispute resolution requirement",
+        "require_jury_trial_waiver": "Require jury trial waiver",
+    },
+}
+
+SHARED_FIELD_LABELS: Dict[str, str] = {
+    "contract_side": "Which side are we?",
+    "escalation_approval_authority": "Who signs off if this needs escalation?",
+    "fallback_text": "Fallback language to propose",
+}
+
+
+def missing_field_labels(clause_type: str, missing_fields: List[str]) -> List[str]:
+    """Turns validate_position_for_activation's internal field names into
+    the same plain-English labels the authoring form itself uses — so a
+    lawyer sees "Our indemnity only covers third-party claims" as an
+    unanswered question, never require_exposure_third_party_only."""
+    labels = FIELD_LABELS[clause_type]
+    return [labels.get(f, f) for f in missing_fields]

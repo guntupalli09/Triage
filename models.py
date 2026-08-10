@@ -305,9 +305,22 @@ class PolicyPosition(Base):
     Protocol at write time by playbook_authoring.py — never a separate,
     driftable schema. See design doc §4.1 for why this shape was chosen
     over one-column-per-field or a fully generic EAV table.
+
+    NOT globally unique on (playbook_id, clause_type) — deliberately, as
+    of Phase 1. Revising an ACTIVE position must never mutate its fields
+    in place (Phase 1 release-gate requirement: editing an ACTIVE policy
+    must not silently change the currently approved legal position), so
+    "edit an ACTIVE position" creates a second row (status=DRAFT, a
+    revision) for the same playbook_id/clause_type rather than touching
+    the ACTIVE row's config_json. The invariant "at most one ACTIVE row
+    per playbook_id/clause_type" is therefore enforced in application
+    code (playbook_authoring.activate_position, which archives any
+    existing ACTIVE sibling before activating the new one), not by a DB
+    constraint — a DB-level uniqueness check has no "status" dimension to
+    condition on. See playbook_authoring.py's "Phase 1: revisions" section
+    for the full row-family model.
     """
     __tablename__ = "policy_positions"
-    __table_args__ = (UniqueConstraint("playbook_id", "clause_type", name="uq_policy_position_playbook_clause"),)
 
     id = Column(Integer, primary_key=True)
     playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=False, index=True)

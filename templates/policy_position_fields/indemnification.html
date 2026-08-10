@@ -1,0 +1,32 @@
+{% extends "playbook_position_edit_base.html" %}
+{% from "_playbook_macros.html" import tristate, ladder_group, checklist %}
+
+{% block clause_fields %}
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">What they owe us</h3>
+{{ checklist('required_protection_triggers_json', cfg.get('required_protection_triggers_json'), vocab.required_protection_triggers_json,
+    field_labels.required_protection_triggers_json,
+    'Conduct that must trigger the counterparty\'s duty to indemnify us.') }}
+
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3 pt-4 mt-2 border-t border-gray-100">What we're willing to owe them</h3>
+{{ checklist('prohibited_exposure_triggers_json', cfg.get('prohibited_exposure_triggers_json'), vocab.prohibited_exposure_triggers_json,
+    field_labels.prohibited_exposure_triggers_json,
+    'Conduct we will never agree to indemnify the counterparty for.') }}
+
+{{ tristate('require_exposure_third_party_only', cfg.get('require_exposure_third_party_only'), field_statuses.get('require_exposure_third_party_only', 'NOT_ESTABLISHED'),
+    field_labels.require_exposure_third_party_only,
+    'If "Yes," our indemnity obligations must be limited to third-party claims — direct claims between us and the counterparty don\'t count.') }}
+
+{{ tristate('require_defense_control_for_exposure', cfg.get('require_defense_control_for_exposure'), field_statuses.get('require_defense_control_for_exposure', 'NOT_ESTABLISHED'),
+    field_labels.require_defense_control_for_exposure) }}
+
+{{ tristate('require_notice_and_cooperation_for_exposure', cfg.get('require_notice_and_cooperation_for_exposure'), field_statuses.get('require_notice_and_cooperation_for_exposure', 'NOT_ESTABLISHED'),
+    field_labels.require_notice_and_cooperation_for_exposure) }}
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+    {{ tristate('prohibit_uncapped_exposure', cfg.get('prohibit_uncapped_exposure'), field_statuses.get('prohibit_uncapped_exposure', 'NOT_ESTABLISHED'),
+        field_labels.prohibit_uncapped_exposure,
+        'If "No," uncapped exposure still gets flagged for escalation instead of being auto-blocked.') }}
+    {{ ladder_group('exposure_preferred_multiplier', 'exposure_acceptable_max_multiplier', 'exposure_negotiate_max_multiplier', cfg,
+        'What cap do you want on our indemnity exposure?') }}
+</div>
+{% endblock %}

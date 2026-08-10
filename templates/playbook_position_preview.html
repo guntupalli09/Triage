@@ -1,0 +1,70 @@
+{% extends "base_app.html" %}
+
+{% block title %}Preview {{ clause_label }} Policy{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1">/</span>
+<a href="/playbooks" class="hover:text-gray-900 transition-colors">Playbooks</a>
+<span class="mx-1">/</span>
+<a href="/playbooks/{{ playbook.id }}/workbench" class="hover:text-gray-900 transition-colors">{{ playbook.name }}</a>
+<span class="mx-1">/</span>
+<span>{{ clause_label }} — Preview</span>
+{% endblock %}
+
+{% block content %}
+<div class="mb-6 fade-in">
+    <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight">Test this policy</h1>
+    <div class="mt-2 inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
+        PREVIEW ONLY — nothing here is saved, and no contract or review record is created
+    </div>
+</div>
+
+<div class="premium-card p-6 sm:p-8 fade-in mb-6" style="transform:none;">
+    <p class="text-sm text-gray-600 mb-4">Paste sample clause language below to see what this {{ clause_label }} position — using its <strong>current saved fields</strong> ({{ position.status.replace('_', ' ')|title }}) — would decide. Save your changes on the edit page first if you want to test the latest version.</p>
+    <form action="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/preview" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+        <textarea name="sample_text" rows="8" placeholder="Paste a clause here, e.g. &quot;Except for breaches of confidentiality, each party's liability shall not exceed one times the fees paid...&quot;" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm font-mono resize-y mb-4">{{ sample_text }}</textarea>
+        <button type="submit" class="btn-primary py-2.5 px-6 rounded-lg font-semibold text-sm">Run preview</button>
+    </form>
+</div>
+
+{% if decision %}
+<div class="premium-card p-6 sm:p-8 fade-in" style="transform:none;">
+    <h2 class="text-sm font-semibold text-[#0F172A] mb-3">Preview result</h2>
+    <div class="flex items-center gap-2 mb-4">
+        <span class="text-xs font-bold px-3 py-1.5 rounded-full
+            {% if decision.state in ('ACCEPT', 'ACCEPT_WITH_NOTE') %}bg-green-100 text-green-800
+            {% elif decision.state in ('NEGOTIATE', 'MUST_REDLINE') %}bg-amber-100 text-amber-800
+            {% elif decision.state in ('ESCALATE', 'PROHIBITED', 'REQUIRES_REVIEW') %}bg-red-100 text-red-800
+            {% else %}bg-gray-100 text-gray-600{% endif %}">
+            {{ decision.state.replace('_', ' ') }}
+        </span>
+    </div>
+    <dl class="space-y-3 text-sm">
+        <div>
+            <dt class="font-semibold text-gray-500 text-xs uppercase tracking-wide">What was found</dt>
+            <dd class="text-gray-800">{{ decision.extracted_summary }}</dd>
+        </div>
+        <div>
+            <dt class="font-semibold text-gray-500 text-xs uppercase tracking-wide">Why</dt>
+            <dd class="text-gray-800">{{ decision.explanation }}</dd>
+        </div>
+        {% if decision.required_action %}
+        <div>
+            <dt class="font-semibold text-gray-500 text-xs uppercase tracking-wide">Required action</dt>
+            <dd class="text-gray-800">{{ decision.required_action }}</dd>
+        </div>
+        {% endif %}
+        {% if decision.contract_language %}
+        <div>
+            <dt class="font-semibold text-gray-500 text-xs uppercase tracking-wide">Matched language</dt>
+            <dd class="text-gray-800 font-mono text-xs bg-gray-50 border border-gray-100 rounded-lg p-3 mt-1">{{ decision.contract_language }}</dd>
+        </div>
+        {% endif %}
+    </dl>
+</div>
+{% endif %}
+
+<a href="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/edit" class="inline-block mt-6 text-sm font-medium text-gray-500 hover:text-[#0F172A] hover:underline">← Back to editing</a>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "base_app.html" %}
+
+{% block title %}Review {{ clause_label }} Policy{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1">/</span>
+<a href="/playbooks" class="hover:text-gray-900 transition-colors">Playbooks</a>
+<span class="mx-1">/</span>
+<a href="/playbooks/{{ playbook.id }}/workbench" class="hover:text-gray-900 transition-colors">{{ playbook.name }}</a>
+<span class="mx-1">/</span>
+<span>{{ clause_label }} — Review</span>
+{% endblock %}
+
+{% block content %}
+<div class="mb-6 fade-in">
+    <div class="flex items-center gap-3 mb-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight">{{ clause_label }}</h1>
+        <span class="text-xs font-semibold px-2.5 py-1 rounded-full
+            {% if position.status == 'ACTIVE' %}bg-green-100 text-green-800
+            {% elif position.status == 'APPROVED' %}bg-blue-100 text-blue-800
+            {% elif position.status == 'NEEDS_REVIEW' %}bg-amber-100 text-amber-800
+            {% else %}bg-gray-100 text-gray-600{% endif %}">
+            {{ position.status.replace('_', ' ')|title }}
+        </span>
+    </div>
+    <p class="text-sm text-gray-500">This is the legal position you're approving — not a technical field dump.</p>
+</div>
+
+{% if error %}
+<div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl fade-in">
+    <p class="text-sm text-red-700 font-medium">{{ error }}</p>
+</div>
+{% endif %}
+
+<div class="premium-card p-6 sm:p-8 fade-in mb-6" style="transform:none;">
+    <h2 class="text-sm font-semibold text-[#0F172A] mb-4">What this policy will enforce</h2>
+    <ul class="space-y-2 mb-2">
+        {% for line in summary_lines %}
+        <li class="text-sm text-gray-700 flex items-start gap-2">
+            <span class="text-gray-300 mt-0.5">—</span>
+            <span>{{ line }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% if missing_required %}
+<div class="premium-card p-6 sm:p-8 fade-in mb-6 border-amber-200" style="transform:none;">
+    <h2 class="text-sm font-semibold text-amber-800 mb-3">Before this can be approved or activated</h2>
+    <p class="text-sm text-gray-600 mb-3">These questions haven't been answered yet — an unanswered question is never silently treated as "No":</p>
+    <ul class="space-y-1.5">
+        {% for label in missing_required %}
+        <li class="text-sm text-amber-800 flex items-start gap-2">
+            <span>⚠</span><span>{{ label }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/edit" class="inline-block mt-4 text-sm font-semibold text-[#0F172A] hover:underline">Go answer these →</a>
+</div>
+{% endif %}
+
+<div class="premium-card p-6 sm:p-8 fade-in mb-6" style="transform:none;">
+    <div class="flex flex-wrap gap-3">
+        {% if position.status == 'NEEDS_REVIEW' %}
+        <form action="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/approve" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+            <button type="submit" class="btn-primary py-2.5 px-6 rounded-lg font-semibold text-sm" {% if missing_required %}disabled title="Answer the unresolved questions first"{% endif %}>Approve this position</button>
+        </form>
+        <form action="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/return-to-draft" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+            <button type="submit" class="py-2.5 px-6 rounded-lg font-semibold text-sm text-gray-600 border border-gray-200 hover:bg-gray-50">Return to draft</button>
+        </form>
+        {% elif position.status == 'APPROVED' %}
+        <form action="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/activate" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+            <button type="submit" class="btn-primary py-2.5 px-6 rounded-lg font-semibold text-sm" {% if missing_required %}disabled title="Answer the unresolved questions first"{% endif %}>Activate this position</button>
+        </form>
+        <form action="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/return-to-draft" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+            <button type="submit" class="py-2.5 px-6 rounded-lg font-semibold text-sm text-gray-600 border border-gray-200 hover:bg-gray-50">Return to draft</button>
+        </form>
+        <p class="text-xs text-gray-400 self-center">Approving and activating are separate steps — approving records that this position is correct; activating makes it govern live contract review.</p>
+        {% elif position.status == 'ACTIVE' %}
+        <p class="text-sm text-green-700 font-medium">This position is Active and governs contract review for this clause type.</p>
+        {% endif %}
+        <a href="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/edit" class="text-sm font-medium text-gray-500 hover:text-[#0F172A] hover:underline self-center">Edit fields</a>
+    </div>
+</div>
+
+{% if history %}
+<div class="premium-card p-6 sm:p-8 fade-in" style="transform:none;">
+    <h2 class="text-sm font-semibold text-[#0F172A] mb-3">Approval history</h2>
+    <ul class="space-y-2">
+        {% for h in history %}
+        <li class="text-xs text-gray-500">
+            <span class="font-medium text-gray-700">{{ h.action.replace('_', ' ')|title }}</span>
+            ({{ h.from_status or '—' }} → {{ h.to_status }}) — {{ h.created_at.strftime('%b %d, %Y %H:%M') }}
+            {% if h.reason %}— {{ h.reason }}{% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endblock %}

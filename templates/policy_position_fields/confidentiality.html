@@ -1,0 +1,20 @@
+{% extends "playbook_position_edit_base.html" %}
+{% from "_playbook_macros.html" import tristate, checklist, number_input %}
+
+{% block clause_fields %}
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Confidentiality position</h3>
+{{ checklist('required_exclusions_json', cfg.get('required_exclusions_json'), vocab.required_exclusions_json,
+    field_labels.required_exclusions_json,
+    'Standard carve-outs (information that was public, independently developed, etc.) that must be present.') }}
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6">
+    {{ number_input('min_protection_duration_years', cfg.get('min_protection_duration_years'), field_statuses.get('min_protection_duration_years', 'NOT_ESTABLISHED'),
+        field_labels.min_protection_duration_years, suffix='years') }}
+    {{ number_input('max_exposure_duration_years', cfg.get('max_exposure_duration_years'), field_statuses.get('max_exposure_duration_years', 'NOT_ESTABLISHED'),
+        field_labels.max_exposure_duration_years, suffix='years') }}
+</div>
+
+{{ tristate('require_mutual_confidentiality', cfg.get('require_mutual_confidentiality'), field_statuses.get('require_mutual_confidentiality', 'NOT_ESTABLISHED'),
+    field_labels.require_mutual_confidentiality,
+    'If "Yes," a one-sided confidentiality clause (protecting only one party\'s information) gets flagged.') }}
+{% endblock %}

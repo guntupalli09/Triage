@@ -1,0 +1,72 @@
+{% extends "base_app.html" %}
+
+{% block title %}Policy Workbench — {{ playbook.name }}{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1">/</span>
+<a href="/playbooks" class="hover:text-gray-900 transition-colors">Playbooks</a>
+<span class="mx-1">/</span>
+<span>{{ playbook.name }}</span>
+{% endblock %}
+
+{% block content %}
+<div class="mb-6 fade-in">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">{{ playbook.name }}</h1>
+    <p class="text-gray-600 mt-1">Configure deterministic policy positions for each clause type. Only <strong>Active</strong> positions govern contract review.</p>
+</div>
+
+<div class="premium-card p-6 mb-8 fade-in" style="transform:none;">
+    <div class="flex items-center justify-between mb-2">
+        <h2 class="text-sm font-semibold text-[#0F172A]">Policy coverage</h2>
+        <span class="text-sm font-bold text-[#0F172A]">{{ coverage.coverage_pct }}%</span>
+    </div>
+    <div class="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden mb-4">
+        <div class="h-full bg-gradient-to-r from-[#0F172A] to-[#4F46E5] rounded-full" style="width: {{ coverage.coverage_pct }}%"></div>
+    </div>
+    <div class="flex flex-wrap gap-x-8 gap-y-2 text-sm mb-4">
+        <div><span class="font-bold text-green-700">{{ coverage.active_count }}</span> <span class="text-gray-500">Active</span></div>
+        <div><span class="font-bold text-amber-700">{{ coverage.needs_attention_count }}</span> <span class="text-gray-500">Needs review</span></div>
+        <div><span class="font-bold text-gray-500">{{ coverage.not_configured_count }}</span> <span class="text-gray-500">Not configured</span></div>
+    </div>
+    {% if coverage.high_impact_gaps %}
+    <div class="pt-3 border-t border-gray-100">
+        <p class="text-xs font-semibold text-gray-500 mb-2">High-impact gaps (not yet Active), by typical exposure:</p>
+        <div class="flex flex-wrap gap-2">
+            {% for ct in coverage.high_impact_gaps %}
+            <a href="/playbooks/{{ playbook.id }}/positions/{{ ct }}/edit" class="text-xs font-medium px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100">
+                ⚠ {{ coverage.clauses|selectattr('clause_type', 'equalto', ct)|map(attribute='label')|first }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <p class="text-xs text-green-700 font-medium pt-3 border-t border-gray-100">All supported clause types are Active.</p>
+    {% endif %}
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 fade-in">
+    {% for card in cards %}
+    <div class="premium-card p-5 flex flex-col">
+        <div class="flex items-center justify-between mb-2">
+            <h3 class="text-base font-bold text-[#0F172A]">{{ card.label }}</h3>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full
+                {% if card.status_bucket == 'ACTIVE' %}bg-green-100 text-green-800
+                {% elif card.status_bucket == 'NEEDS_ATTENTION' %}bg-amber-100 text-amber-800
+                {% else %}bg-gray-100 text-gray-500{% endif %}">
+                {% if card.status_bucket == 'ACTIVE' %}● Active
+                {% elif card.status_bucket == 'NEEDS_ATTENTION' %}⚠ {{ card.position.status.replace('_', ' ')|title }}
+                {% else %}○ Not set{% endif %}
+            </span>
+        </div>
+        <p class="text-sm text-gray-600 mb-3 flex-1">{{ card.headline }}</p>
+        {% if card.missing_required %}
+        <p class="text-xs text-amber-700 mb-3">{{ card.missing_required|length }} question(s) still need an answer.</p>
+        {% endif %}
+        <a href="/playbooks/{{ playbook.id }}/positions/{{ card.clause_type }}/edit" class="text-sm font-semibold text-[#0F172A] hover:underline">
+            {% if card.position %}Open →{% else %}Configure →{% endif %}
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

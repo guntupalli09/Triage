@@ -1,0 +1,31 @@
+{% extends "playbook_position_edit_base.html" %}
+{% from "_playbook_macros.html" import tristate, ladder_group, checklist, number_input %}
+
+{% block clause_fields %}
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Termination rights</h3>
+{{ tristate('require_mutual_convenience_termination', cfg.get('require_mutual_convenience_termination'), field_statuses.get('require_mutual_convenience_termination', 'NOT_ESTABLISHED'),
+    field_labels.require_mutual_convenience_termination,
+    'If the counterparty has a walk-away (termination for convenience) right, do we need the same right?') }}
+
+{{ number_input('min_notice_days_against_us', cfg.get('min_notice_days_against_us'), field_statuses.get('min_notice_days_against_us', 'NOT_ESTABLISHED'),
+    field_labels.min_notice_days_against_us, suffix='days', step='1') }}
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+    {{ number_input('min_cure_days_against_us', cfg.get('min_cure_days_against_us'), field_statuses.get('min_cure_days_against_us', 'NOT_ESTABLISHED'),
+        field_labels.min_cure_days_against_us, suffix='days', step='1') }}
+    {{ tristate('prohibit_immediate_termination_for_cause', cfg.get('prohibit_immediate_termination_for_cause'), field_statuses.get('prohibit_immediate_termination_for_cause', 'NOT_ESTABLISHED'),
+        field_labels.prohibit_immediate_termination_for_cause,
+        'If "No," immediate termination with no cure period still gets flagged for escalation instead of being auto-blocked.') }}
+</div>
+
+{{ checklist('required_survival_topics_json', cfg.get('required_survival_topics_json'), vocab.required_survival_topics_json,
+    field_labels.required_survival_topics_json) }}
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+    {{ tristate('prohibit_uncapped_termination_fee', cfg.get('prohibit_uncapped_termination_fee'), field_statuses.get('prohibit_uncapped_termination_fee', 'NOT_ESTABLISHED'),
+        field_labels.prohibit_uncapped_termination_fee,
+        'If "No," an uncapped termination fee still gets flagged for escalation instead of being auto-blocked.') }}
+    {{ ladder_group('fee_preferred_multiplier', 'fee_acceptable_max_multiplier', 'fee_negotiate_max_multiplier', cfg,
+        'What cap do you want on the termination fee, if any?') }}
+</div>
+{% endblock %}
