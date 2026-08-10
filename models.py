@@ -202,6 +202,8 @@ class Playbook(Base):
 
     user = relationship("User", back_populates="playbooks")
     policy_rules = relationship("PolicyRule", back_populates="playbook", cascade="all, delete-orphan")
+    policy_positions = relationship("PolicyPosition", back_populates="playbook", cascade="all, delete-orphan")
+    source_documents = relationship("PlaybookSourceDocument", back_populates="playbook", cascade="all, delete-orphan")
 
 
 class PolicyRule(Base):
@@ -262,6 +264,166 @@ class PolicyRule(Base):
     required_consequential_carveouts_json = Column(JSON, nullable=True)
 
     playbook = relationship("Playbook", back_populates="policy_rules")
+
+
+# --- Playbook Authoring (Phase 0) ---------------------------------------
+#
+# PolicyPosition is the authoring-side analogue of PolicyRule, extended
+# with lifecycle (DRAFT/NEEDS_REVIEW/APPROVED/ACTIVE/ARCHIVED) and
+# provenance. See docs/architecture/playbook_authoring_ux_design.md for
+# the full design; §4 covers the data-model rationale in detail. As of
+# Phase 0, these tables exist and are backfillable but are not yet read
+# by any route or evaluate_*_policy() call site — evaluate_liability_policy
+# still reads PolicyRule directly until Phase 4's cutover.
+#
+# clause_type values match each engine's own vocabulary:
+# "limitation_of_liability", "indemnification", "termination",
+# "confidentiality", "assignment", "governing_law".
+
+POLICY_POSITION_STATUSES = ("DRAFT", "NEEDS_REVIEW", "APPROVED", "ACTIVE", "ARCHIVED")
+POLICY_POSITION_SOURCE_TYPES = ("NONE", "UPLOADED_PLAYBOOK", "UPLOADED_TEMPLATE", "MANUAL", "MIXED")
+POLICY_POSITION_FIELD_SOURCES = ("EXTRACTED", "INFERRED", "MANUAL")
+# Categorical, not a confidence score — see the design doc's "No
+# lawyer-facing confidence score" note (§4.2). ESTABLISHED means the field
+# has a value; NOT_ESTABLISHED means no source has stated one yet (never
+# guessed at); CONFLICTING means two sources disagreed (§5.4) and the
+# conflict is surfaced rather than silently resolved.
+POLICY_POSITION_FIELD_STATUSES = ("ESTABLISHED", "NOT_ESTABLISHED", "CONFLICTING")
+POLICY_POSITION_APPROVAL_ACTIONS = ("MARKED_REVIEWED", "APPROVED", "ACTIVATED", "REVERTED", "ARCHIVED")
+PLAYBOOK_SOURCE_DOCUMENT_TYPES = ("LEGAL_PLAYBOOK", "TEMPLATE_CONTRACT")
+
+
+class PolicyPosition(Base):
+    """One clause-type position within a playbook's authoring layer — the
+    thing a lawyer builds up (via Path 1/2/3, see the design doc) before
+    it becomes a PolicyRule-equivalent object usable by evaluate_*_policy().
+
+    config_json holds the clause-specific fields (everything in each
+    engine's *PolicyRuleLike Protocol beyond contract_side/escalation_
+    approval_authority/fallback_text, which are real columns here since
+    every clause type shares them). Validated against the owning engine's
+    Protocol at write time by playbook_authoring.py — never a separate,
+    driftable schema. See design doc §4.1 for why this shape was chosen
+    over one-column-per-field or a fully generic EAV table.
+    """
+    __tablename__ = "policy_positions"
+    __table_args__ = (UniqueConstraint("playbook_id", "clause_type", name="uq_policy_position_playbook_clause"),)
+
+    id = Column(Integer, primary_key=True)
+    playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=False, index=True)
+    clause_type = Column(String(64), nullable=False)
+    status = Column(String(20), nullable=False, default="DRAFT")
+
+    contract_side = Column(String(20), nullable=False, default="mutual")
+    escalation_approval_authority = Column(String(255), nullable=True)
+    fallback_text = Column(EncryptedText, nullable=True)
+    config_json = Column(EncryptedJSON, nullable=True)
+
+    source_type = Column(String(20), nullable=False, default="NONE")
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    activated_at = Column(DateTime, nullable=True)
+    activated_by_user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+
+    playbook = relationship("Playbook", back_populates="policy_positions")
+    fields = relationship("PolicyPositionField", back_populates="policy_position", cascade="all, delete-orphan")
+    approvals = relationship("PolicyPositionApproval", back_populates="policy_position", cascade="all, delete-orphan", order_by="PolicyPositionApproval.created_at")
+
+
+class PolicyPositionField(Base):
+    """One individually-sourced field within a PolicyPosition. This is the
+    granularity that makes extraction/inference/manual provenance and
+    per-field evidence possible — a clause card is a set of independently
+    sourced facts grouped by clause type for review, not one blob with one
+    status.
+
+    History is field-level and append-only rather than a parallel version
+    table: editing a field that already has confirmed_at set writes a new
+    row and sets superseded_by_field_id on the old one (design doc §4.3),
+    so "what did the lawyer actually confirm, and when" is never ambiguous
+    after the fact.
+    """
+    __tablename__ = "policy_position_fields"
+
+    id = Column(Integer, primary_key=True)
+    policy_position_id = Column(Integer, ForeignKey("policy_positions.id"), nullable=False, index=True)
+    field_name = Column(String(100), nullable=False)
+
+    value_json = Column(EncryptedJSON, nullable=True)  # null when status=NOT_ESTABLISHED
+    source = Column(String(20), nullable=False)
+    status = Column(String(20), nullable=False, default="NOT_ESTABLISHED")
+
+    # Internal-only ranking signal for ordering multiple candidate
+    # proposals (e.g. future Path 1 output). Never rendered to a lawyer
+    # and never read by bulk-approval eligibility (design doc §4.2) — the
+    # lawyer-facing state is the categorical `status` above, nothing else.
+    rank_score = Column(Float, nullable=True)
+
+    evidence_document_id = Column(Integer, ForeignKey("playbook_source_documents.id"), nullable=True)
+    evidence_excerpt = Column(EncryptedText, nullable=True)
+    evidence_start_index = Column(Integer, nullable=True)
+    evidence_end_index = Column(Integer, nullable=True)
+
+    confirmed_by_user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    confirmed_at = Column(DateTime, nullable=True)
+    superseded_by_field_id = Column(Integer, ForeignKey("policy_position_fields.id"), nullable=True)
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    policy_position = relationship("PolicyPosition", back_populates="fields")
+
+
+class PlaybookSourceDocument(Base):
+    """A document uploaded to feed the playbook-authoring pipeline (Path 1
+    or Path 2). Additive relative to Playbook.template_text, not a
+    replacement — see design doc §8.2. The two boolean flags let a single
+    upload drive both the legacy template-findings/deviations mechanism
+    and the new PolicyPosition extraction pipeline without requiring the
+    lawyer to upload the same file twice; each flag independently gates
+    whether that mechanism's code path runs against this document.
+    """
+    __tablename__ = "playbook_source_documents"
+
+    id = Column(Integer, primary_key=True)
+    playbook_id = Column(Integer, ForeignKey("playbooks.id"), nullable=False, index=True)
+    uploaded_by_user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    document_type = Column(String(20), nullable=False)
+
+    original_filename = Column(String(255), nullable=True)
+    extracted_text = Column(EncryptedText, nullable=False)
+
+    use_as_deviation_baseline = Column(Boolean, nullable=False, default=False)
+    use_for_policy_extraction = Column(Boolean, nullable=False, default=False)
+
+    uploaded_at = Column(DateTime, default=datetime.utcnow)
+
+    playbook = relationship("Playbook", back_populates="source_documents")
+
+
+class PolicyPositionApproval(Base):
+    """Append-only approval/activation history for a PolicyPosition —
+    mirrors AuditLog's own "never UPDATE/DELETE" convention, but scoped as
+    domain history a lawyer needs to see inline on a clause card ("Sarah
+    approved this Feb 3, reason: matches firm standard"), which would be
+    an awkward query against the generic AuditLog. Every write here is
+    still mirrored into AuditLog (one line, event_type=
+    "policy_position_approved") so existing security/compliance tooling
+    watching AuditLog doesn't need to learn a second table — see design
+    doc §4.2.
+    """
+    __tablename__ = "policy_position_approvals"
+
+    id = Column(Integer, primary_key=True)
+    policy_position_id = Column(Integer, ForeignKey("policy_positions.id"), nullable=False, index=True)
+    actor_user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    action = Column(String(20), nullable=False)
+    from_status = Column(String(20), nullable=True)
+    to_status = Column(String(20), nullable=False)
+    reason = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+
+    policy_position = relationship("PolicyPosition", back_populates="approvals")
 
 
 class AuditLog(Base):
