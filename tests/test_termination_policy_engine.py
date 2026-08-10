@@ -323,3 +323,38 @@ class TestReciprocalRightSymmetryVerification:
         )
         d = evaluate(text)
         assert d.state == core.ACCEPT
+
+
+class TestRightAsymmetryWindowBleed:
+    """Regression coverage for the same window-bleed failure class
+    documented in tests/test_indemnification_policy_engine.py::
+    TestReciprocalAsymmetryWindowBleed (see benchmarks/duplication_
+    promotion_review.md, section 2 and 9b). _detect_right_asymmetry uses
+    the same unbounded _local_clause_window as the pre-fix Assignment/
+    Confidentiality code. Confirmed reproducible before any fix: expected
+    to FAIL against the current implementation.
+    """
+
+    def test_differentiated_immediacy_is_not_masked_by_window_bleed(self):
+        # Vendor's own clause states a 30-day cure period (not immediate);
+        # Customer's own clause (bled into Vendor's classification window
+        # because they're joined by ", and" rather than a period) states
+        # immediate termination with no cure opportunity. _IMMEDIATE_RE is
+        # a bare presence check over the (bled) window, so Vendor's own
+        # snapshot picks up Customer's "immediately, without opportunity
+        # to cure" language and incorrectly reports immediate=True for
+        # Vendor too, even though Vendor's actual text never said that —
+        # masking a real, material difference between the two rights.
+        text = (
+            "15. Termination. Either party may terminate this Agreement for cause upon a "
+            "material breach by the other party; provided, that Vendor's right to terminate "
+            "under this Section requires a 30 days cure period, and Customer's right to "
+            "terminate under this Section may occur immediately, without opportunity to cure."
+        )
+        facts = te.extract_termination_facts(text)
+        right = facts.rights[0]
+        assert right.asymmetry_reasons, (
+            "expected the differing immediacy (30-day cure vs. immediate/no-cure) to be "
+            "detected as asymmetric; window bleed lets Vendor's own snapshot pick up "
+            "Customer's 'immediately' language, masking the real difference"
+        )

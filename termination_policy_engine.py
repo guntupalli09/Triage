@@ -59,6 +59,9 @@ from policy_engine_core import (
     BUY_SIDE_ROLES, SELL_SIDE_ROLES, side_for_role,
     build_ladder as _core_build_ladder,
     classify_by_threshold, escalate_to_for_state, fallback_text_for_state,
+    excerpt as _excerpt, section_label_before as _section_label_before,
+    requires_review_explanation, requires_review_required_action,
+    detect_role_attributed_asymmetry,
 )
 
 RULE_ID = "POLICY_TERMINATION"
@@ -284,33 +287,8 @@ class TerminationPolicyRuleLike(Protocol):
 # Extraction
 # ---------------------------------------------------------------------------
 
-def _excerpt(text: str, start: int, end: int, pad: int = 60) -> str:
-    lo = max(0, start - pad)
-    hi = min(len(text), end + pad)
-    if lo > 0:
-        space = text.rfind(" ", 0, lo)
-        if space != -1:
-            lo = space + 1
-    if hi < len(text):
-        space = text.find(" ", hi)
-        if space != -1:
-            hi = space
-    return text[lo:hi].strip()
-
-
-def _section_label_before(text: str, anchor_start: int) -> Optional[str]:
-    look = text[max(0, anchor_start - 30):anchor_start]
-    nums = re.findall(r"\d{1,3}(?:\.\d{1,2})?", look)
-    return nums[-1] if nums else None
-
-
-def _local_clause_window(text: str, start: int, max_chars: int) -> str:
-    hi = min(len(text), start + max_chars)
-    boundary = re.search(r"\.\s|;", text[start:hi])
-    if boundary:
-        hi = start + boundary.start() + 1
-    return text[start:hi]
-
+# _excerpt / _section_label_before are imported from policy_engine_core
+# (promoted — see policy_engine_core.excerpt / section_label_before).
 
 def _classify_trigger_type(window: str) -> str:
     # Insolvency and non-payment are checked first: they're the most
@@ -352,41 +330,42 @@ def _monetary_key_fee(f: TerminationFee) -> Tuple[str, Optional[float], Optional
     return (f.kind, f.multiplier, f.fixed_amount)
 
 
+def _snapshot_right_attribution(local: str) -> Dict[str, Any]:
+    return {
+        "notice": _extract_notice_days(local),
+        "cure": _extract_cure_days(local),
+        "immediate": bool(_IMMEDIATE_RE.search(local)),
+    }
+
+
+def _compare_right_attribution(base_role: str, base: Dict[str, Any], role: str, snap: Dict[str, Any]) -> List[str]:
+    reasons: List[str] = []
+    if base["notice"] is not None and snap["notice"] is not None and base["notice"] != snap["notice"]:
+        reasons.append(f"{base_role} and {role} state different notice periods ({base['notice']} vs {snap['notice']} days)")
+    if base["cure"] is not None and snap["cure"] is not None and base["cure"] != snap["cure"]:
+        reasons.append(f"{base_role} and {role} state different cure periods ({base['cure']} vs {snap['cure']} days)")
+    if base["immediate"] != snap["immediate"]:
+        reasons.append(f"{base_role} and {role} differ on whether termination is immediate")
+    return reasons
+
+
 def _detect_right_asymmetry(window: str) -> List[str]:
     """Same verification idea as indemnification_policy_engine's
     _detect_reciprocal_asymmetry: a mutual ("either party"/"each party")
     right claims symmetric treatment. This scans for sub-clauses
     attributing terms to a SPECIFIC named role ("Vendor's right to
     terminate...", not generic "either party's") within the same window
-    and flags disagreement on notice period, cure period, or immediacy."""
-    snapshots: Dict[str, Dict[str, Any]] = {}
-    for m in _ROLE_ATTRIBUTION_RE.finditer(window):
-        role = m.group(1)
-        if role.lower() in _GENERIC_ROLE_WORDS:
-            continue
-        local = _local_clause_window(window, m.end(), _ROLE_ATTRIBUTION_LOCAL_CHARS)
-        snapshots.setdefault(role, {
-            "notice": _extract_notice_days(local),
-            "cure": _extract_cure_days(local),
-            "immediate": bool(_IMMEDIATE_RE.search(local)),
-        })
+    and flags disagreement on notice period, cure period, or immediacy.
 
-    roles = list(snapshots.keys())
-    if len(roles) < 2:
-        return []
-
-    reasons: List[str] = []
-    base_role = roles[0]
-    base = snapshots[base_role]
-    for role in roles[1:]:
-        snap = snapshots[role]
-        if base["notice"] is not None and snap["notice"] is not None and base["notice"] != snap["notice"]:
-            reasons.append(f"{base_role} and {role} state different notice periods ({base['notice']} vs {snap['notice']} days)")
-        if base["cure"] is not None and snap["cure"] is not None and base["cure"] != snap["cure"]:
-            reasons.append(f"{base_role} and {role} state different cure periods ({base['cure']} vs {snap['cure']} days)")
-        if base["immediate"] != snap["immediate"]:
-            reasons.append(f"{base_role} and {role} differ on whether termination is immediate")
-    return reasons
+    The scan/window/compare mechanics are shared (see policy_engine_core.
+    detect_role_attributed_asymmetry) — only the attribution regex, the
+    generic-role stoplist, and the snapshot/compare functions stay
+    adapter-owned."""
+    return detect_role_attributed_asymmetry(
+        window, _ROLE_ATTRIBUTION_RE, _GENERIC_ROLE_WORDS,
+        _snapshot_right_attribution, _compare_right_attribution,
+        max_chars=_ROLE_ATTRIBUTION_LOCAL_CHARS,
+    )
 
 
 def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
@@ -604,16 +583,12 @@ def evaluate_termination_policy(
 
     if unresolved_facts:
         controlling = (their_rights or our_rights or facts.rights)[0]
-        explanation = (
-            f"Contract language: \"{controlling.raw_excerpt}\". This termination structure could not be "
-            f"evaluated deterministically — the following fact(s) required for a policy decision could not "
-            f"be reliably established: {'; '.join(unresolved_facts)}. Result: {REQUIRES_REVIEW}."
-        )
+        explanation = requires_review_explanation("termination structure", controlling.raw_excerpt, unresolved_facts)
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="termination", state=REQUIRES_REVIEW,
             contract_language=controlling.raw_excerpt, extracted_summary="Could not be reliably established",
             policy_limit_summary="N/A",
-            required_action="Manual review required — " + "; ".join(unresolved_facts),
+            required_action=requires_review_required_action(unresolved_facts),
             explanation=explanation, negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW),
             category_treatments=[], unresolved_facts=unresolved_facts,
             start_index=controlling.start_index, end_index=controlling.end_index, source=source,

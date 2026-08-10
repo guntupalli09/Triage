@@ -63,6 +63,8 @@ from policy_engine_core import (
     build_ladder as _core_build_ladder,
     classify_by_threshold, escalate_to_for_state, fallback_text_for_state,
     resolve_directional_position as _core_resolve_directional_position,
+    excerpt as _excerpt, section_label_before as _section_label_before,
+    requires_review_explanation, requires_review_required_action,
 )
 
 RULE_ID = "POLICY_LOL_CAP"
@@ -212,7 +214,6 @@ _CROSS_REF_RESOLUTION_WINDOW = 2000
 _PROVISION_WINDOW_CHARS = 3000
 _LOCAL_WINDOW_CHARS = 180
 _ANCHOR_DEDUP_GAP = 300  # a second anchor this close to a prior one is the same clause, not a new provision
-_SECTION_LABEL_LOOKBACK = 30
 _GREATER_LESSER_RE = re.compile(
     r"(?P<greater>greater of|whichever is (?:the )?(?:greater|higher))"
     r"|(?P<lesser>lesser of|whichever is (?:the )?(?:lesser|lower))",
@@ -423,19 +424,8 @@ class PolicyRuleLike(Protocol):
 # Extraction helpers
 # ---------------------------------------------------------------------------
 
-def _excerpt(text: str, start: int, end: int, pad: int = 60) -> str:
-    lo = max(0, start - pad)
-    hi = min(len(text), end + pad)
-    if lo > 0:
-        space = text.rfind(" ", 0, lo)
-        if space != -1:
-            lo = space + 1
-    if hi < len(text):
-        space = text.find(" ", hi)
-        if space != -1:
-            hi = space
-    return text[lo:hi].strip()
-
+# _excerpt / _section_label_before are imported from policy_engine_core
+# (promoted — see policy_engine_core.excerpt / section_label_before).
 
 def _find_cap_values(window: str) -> List[CapValue]:
     """All cap-value mentions in the window, in document order. Overlapping
@@ -683,12 +673,6 @@ def _find_party_positions(window: str) -> Dict[str, PartyPosition]:
         side = "buy_side" if role_key in BUY_SIDE_ROLES else ("sell_side" if role_key in SELL_SIDE_ROLES else None)
         positions[role_key] = PartyPosition(role=role, side=side, cap_expression=_simple(cap))
     return positions
-
-
-def _section_label_before(text: str, anchor_start: int) -> Optional[str]:
-    look = text[max(0, anchor_start - _SECTION_LABEL_LOOKBACK):anchor_start]
-    nums = re.findall(r"\d{1,3}(?:\.\d{1,2})?", look)
-    return nums[-1] if nums else None
 
 
 def _detect_cross_reference(window: str) -> Optional[Tuple[str, int, int]]:
@@ -1039,16 +1023,12 @@ def evaluate_liability_policy(
 
     if unresolved_facts:
         state = REQUIRES_REVIEW
-        explanation = (
-            f"Contract language: \"{provision.raw_excerpt}\". This clause could not be evaluated "
-            f"deterministically — the following fact(s) required for a policy decision could not be "
-            f"reliably established: {'; '.join(unresolved_facts)}. Result: {state}."
-        )
+        explanation = requires_review_explanation("clause", provision.raw_excerpt, unresolved_facts)
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="limitation_of_liability", state=state,
             contract_language=provision.raw_excerpt, extracted_summary="Could not be reliably established",
             policy_limit_summary=_fmt_multiplier(policy.negotiate_max_multiplier),
-            required_action="Manual review required — " + "; ".join(unresolved_facts),
+            required_action=requires_review_required_action(unresolved_facts),
             explanation=explanation, negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW),
             category_treatments=_category_treatments_dict(provision), unresolved_facts=unresolved_facts,
             start_index=provision.start_index, end_index=provision.end_index, source=source,

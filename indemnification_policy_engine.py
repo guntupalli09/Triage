@@ -50,6 +50,9 @@ from policy_engine_core import (
     BUY_SIDE_ROLES, SELL_SIDE_ROLES, side_for_role,
     build_ladder as _core_build_ladder,
     classify_by_threshold, escalate_to_for_state, fallback_text_for_state,
+    excerpt as _excerpt, section_label_before as _section_label_before,
+    requires_review_explanation, requires_review_required_action,
+    detect_role_attributed_asymmetry,
 )
 
 RULE_ID = "POLICY_INDEMNIFICATION"
@@ -273,25 +276,8 @@ class IndemnificationPolicyRuleLike(Protocol):
 # Extraction
 # ---------------------------------------------------------------------------
 
-def _excerpt(text: str, start: int, end: int, pad: int = 60) -> str:
-    lo = max(0, start - pad)
-    hi = min(len(text), end + pad)
-    if lo > 0:
-        space = text.rfind(" ", 0, lo)
-        if space != -1:
-            lo = space + 1
-    if hi < len(text):
-        space = text.find(" ", hi)
-        if space != -1:
-            hi = space
-    return text[lo:hi].strip()
-
-
-def _section_label_before(text: str, anchor_start: int) -> Optional[str]:
-    look = text[max(0, anchor_start - 30):anchor_start]
-    nums = re.findall(r"\d{1,3}(?:\.\d{1,2})?", look)
-    return nums[-1] if nums else None
-
+# _excerpt / _section_label_before are imported from policy_engine_core
+# (promoted — see policy_engine_core.excerpt / section_label_before).
 
 def _classify_triggers(window: str) -> Dict[str, TriggerTreatment]:
     """Mirrors liability_policy_engine's forward-coverage-span exclusion
@@ -396,12 +382,45 @@ def _monetary_key(m: MonetaryTreatment) -> Tuple[str, Optional[float], Optional[
     return (m.kind, m.multiplier, m.fixed_amount)
 
 
-def _local_clause_window(text: str, start: int, max_chars: int = _ROLE_ATTRIBUTION_LOCAL_CHARS) -> str:
-    hi = min(len(text), start + max_chars)
-    boundary = re.search(r"\.\s|;", text[start:hi])
-    if boundary:
-        hi = start + boundary.start() + 1
-    return text[start:hi]
+def _snapshot_indemnity_attribution(local: str) -> Dict[str, Any]:
+    return {
+        "monetary": _classify_monetary(local, 0),
+        "scope": _classify_scope(local),
+        "defense_control": _classify_defense_control(local),
+        "triggers": frozenset(
+            trig for trig, kw_re in _TRIGGER_KEYWORD_RE.items() if kw_re.search(local)
+        ),
+        "broad_beneficiary": bool(_BROAD_BENEFICIARY_RE.search(local)),
+    }
+
+
+def _compare_indemnity_attribution(base_role: str, base: Dict[str, Any], role: str, snap: Dict[str, Any]) -> List[str]:
+    reasons: List[str] = []
+    if (
+        base["monetary"].kind != "not_stated" and snap["monetary"].kind != "not_stated"
+        and _monetary_key(base["monetary"]) != _monetary_key(snap["monetary"])
+    ):
+        reasons.append(
+            f"{base_role} and {role} state different monetary terms "
+            f"({base['monetary'].summary()} vs {snap['monetary'].summary()})"
+        )
+    if base["triggers"] and snap["triggers"] and base["triggers"] != snap["triggers"]:
+        reasons.append(f"{base_role} and {role} cover different trigger sets")
+    if (
+        base["scope"] not in ("not_addressed", "unresolved")
+        and snap["scope"] not in ("not_addressed", "unresolved")
+        and base["scope"] != snap["scope"]
+    ):
+        reasons.append(f"{base_role} and {role} state different claim scope")
+    if (
+        base["defense_control"] not in ("not_addressed", "unresolved")
+        and snap["defense_control"] not in ("not_addressed", "unresolved")
+        and base["defense_control"] != snap["defense_control"]
+    ):
+        reasons.append(f"{base_role} and {role} state different defense-control terms")
+    if base["broad_beneficiary"] != snap["broad_beneficiary"]:
+        reasons.append(f"{base_role} and {role} name different indemnified-party groups")
+    return reasons
 
 
 def _detect_reciprocal_asymmetry(window: str) -> List[str]:
@@ -416,68 +435,17 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
     symmetry claim cannot be trusted and must not be treated as
     established fact.
 
-    Scans the window for sub-clauses attributing terms to a SPECIFIC named
-    role ("Vendor's indemnification obligations...", not "each party's" or
-    "the indemnifying party's" — those are generic, not asymmetry
-    evidence) and compares those role-local snapshots pairwise. Returns a
-    list of human-readable disagreement reasons; empty means either no
-    per-party attribution was found (nothing to compare — not itself
-    evidence of asymmetry) or all attributed roles agree.
+    The scan/window/compare mechanics are shared (see policy_engine_core.
+    detect_role_attributed_asymmetry) — only the attribution regex, the
+    generic-role stoplist, and what a "snapshot" contains/how two
+    snapshots disagree stay adapter-owned, via
+    _snapshot_indemnity_attribution / _compare_indemnity_attribution.
     """
-    snapshots: Dict[str, Dict[str, Any]] = {}
-    for m in _ROLE_ATTRIBUTION_RE.finditer(window):
-        role = m.group(1)
-        if role.lower() in _GENERIC_ROLE_WORDS:
-            continue
-        local = _local_clause_window(window, m.end())
-        # Later mentions of the same role in the same window (rare) don't
-        # overwrite an earlier snapshot — first mention governs, matching
-        # the "earliest stated position wins" convention used elsewhere.
-        snapshots.setdefault(role, {
-            "monetary": _classify_monetary(local, 0),
-            "scope": _classify_scope(local),
-            "defense_control": _classify_defense_control(local),
-            "triggers": frozenset(
-                trig for trig, kw_re in _TRIGGER_KEYWORD_RE.items() if kw_re.search(local)
-            ),
-            "broad_beneficiary": bool(_BROAD_BENEFICIARY_RE.search(local)),
-        })
-
-    roles = list(snapshots.keys())
-    if len(roles) < 2:
-        return []
-
-    reasons: List[str] = []
-    base_role = roles[0]
-    base = snapshots[base_role]
-    for role in roles[1:]:
-        snap = snapshots[role]
-        if (
-            base["monetary"].kind != "not_stated" and snap["monetary"].kind != "not_stated"
-            and _monetary_key(base["monetary"]) != _monetary_key(snap["monetary"])
-        ):
-            reasons.append(
-                f"{base_role} and {role} state different monetary terms "
-                f"({base['monetary'].summary()} vs {snap['monetary'].summary()})"
-            )
-        if base["triggers"] and snap["triggers"] and base["triggers"] != snap["triggers"]:
-            reasons.append(f"{base_role} and {role} cover different trigger sets")
-        if (
-            base["scope"] not in ("not_addressed", "unresolved")
-            and snap["scope"] not in ("not_addressed", "unresolved")
-            and base["scope"] != snap["scope"]
-        ):
-            reasons.append(f"{base_role} and {role} state different claim scope")
-        if (
-            base["defense_control"] not in ("not_addressed", "unresolved")
-            and snap["defense_control"] not in ("not_addressed", "unresolved")
-            and base["defense_control"] != snap["defense_control"]
-        ):
-            reasons.append(f"{base_role} and {role} state different defense-control terms")
-        if base["broad_beneficiary"] != snap["broad_beneficiary"]:
-            reasons.append(f"{base_role} and {role} name different indemnified-party groups")
-
-    return reasons
+    return detect_role_attributed_asymmetry(
+        window, _ROLE_ATTRIBUTION_RE, _GENERIC_ROLE_WORDS,
+        _snapshot_indemnity_attribution, _compare_indemnity_attribution,
+        max_chars=_ROLE_ATTRIBUTION_LOCAL_CHARS,
+    )
 
 
 def _extract_obligation_window(text: str, start: int, end: int) -> str:
@@ -725,16 +693,12 @@ def evaluate_indemnification_policy(
 
     if unresolved_facts:
         controlling = exposure or protection or facts.obligations[0]
-        explanation = (
-            f"Contract language: \"{controlling.raw_excerpt}\". This indemnification structure could not be "
-            f"evaluated deterministically — the following fact(s) required for a policy decision could not be "
-            f"reliably established: {'; '.join(unresolved_facts)}. Result: {REQUIRES_REVIEW}."
-        )
+        explanation = requires_review_explanation("indemnification structure", controlling.raw_excerpt, unresolved_facts)
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="indemnification", state=REQUIRES_REVIEW,
             contract_language=controlling.raw_excerpt, extracted_summary="Could not be reliably established",
             policy_limit_summary=_fmt_multiplier(policy.exposure_negotiate_max_multiplier),
-            required_action="Manual review required — " + "; ".join(unresolved_facts),
+            required_action=requires_review_required_action(unresolved_facts),
             explanation=explanation, negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW),
             category_treatments=[], unresolved_facts=unresolved_facts,
             start_index=controlling.start_index, end_index=controlling.end_index, source=source,

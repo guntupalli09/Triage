@@ -35,6 +35,7 @@ from policy_engine_core import (
     LadderStep, PolicyDecision,
     build_ladder as _core_build_ladder,
     escalate_to_for_state, fallback_text_for_state,
+    excerpt as _excerpt, section_label_before as _section_label_before,
 )
 
 RULE_ID = "POLICY_GOVERNING_LAW"
@@ -83,25 +84,15 @@ class GoverningLawPolicyRuleLike(Protocol):
     require_jury_trial_waiver: bool
 
 
-def _excerpt(text: str, start: int, end: int, pad: int = 60) -> str:
-    lo = max(0, start - pad)
-    hi = min(len(text), end + pad)
-    if lo > 0:
-        space = text.rfind(" ", 0, lo)
-        if space != -1:
-            lo = space + 1
-    if hi < len(text):
-        space = text.find(" ", hi)
-        if space != -1:
-            hi = space
-    return text[lo:hi].strip()
-
-
-def _section_label_before(text: str, anchor_start: int) -> Optional[str]:
-    look = text[max(0, anchor_start - 30):anchor_start]
-    nums = re.findall(r"\d{1,3}(?:\.\d{1,2})?", look)
-    return nums[-1] if nums else None
-
+# _excerpt / _section_label_before are imported from policy_engine_core
+# (promoted — see policy_engine_core.excerpt / section_label_before). No
+# other promoted primitive applies here: Governing Law has no
+# directionality (detect_role_attributed_asymmetry doesn't apply — there
+# is no reciprocal/mutual concept) and its REQUIRES_REVIEW branch is a
+# fixed string, not the "unresolved facts" template
+# (requires_review_explanation doesn't apply either). This is the negative
+# control working as intended — only the primitives this adapter
+# genuinely needs are consumed.
 
 def _normalize_jurisdiction(raw: str) -> str:
     return re.sub(r"\s+", " ", raw).strip()

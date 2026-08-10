@@ -34,6 +34,9 @@ from policy_engine_core import (
     BUY_SIDE_ROLES, SELL_SIDE_ROLES, side_for_role,
     build_ladder as _core_build_ladder,
     escalate_to_for_state, fallback_text_for_state,
+    excerpt as _excerpt, section_label_before as _section_label_before,
+    requires_review_explanation, requires_review_required_action,
+    detect_role_attributed_asymmetry,
 )
 
 RULE_ID = "POLICY_CONFIDENTIALITY"
@@ -131,33 +134,8 @@ class ConfidentialityPolicyRuleLike(Protocol):
     require_mutual_confidentiality: bool
 
 
-def _excerpt(text: str, start: int, end: int, pad: int = 60) -> str:
-    lo = max(0, start - pad)
-    hi = min(len(text), end + pad)
-    if lo > 0:
-        space = text.rfind(" ", 0, lo)
-        if space != -1:
-            lo = space + 1
-    if hi < len(text):
-        space = text.find(" ", hi)
-        if space != -1:
-            hi = space
-    return text[lo:hi].strip()
-
-
-def _section_label_before(text: str, anchor_start: int) -> Optional[str]:
-    look = text[max(0, anchor_start - 30):anchor_start]
-    nums = re.findall(r"\d{1,3}(?:\.\d{1,2})?", look)
-    return nums[-1] if nums else None
-
-
-def _local_clause_window(text: str, start: int, max_chars: int = 220) -> str:
-    hi = min(len(text), start + max_chars)
-    boundary = re.search(r"\.\s", text[start:hi])
-    if boundary:
-        hi = start + boundary.start() + 1
-    return text[start:hi]
-
+# _excerpt / _section_label_before are imported from policy_engine_core
+# (promoted — see policy_engine_core.excerpt / section_label_before).
 
 def _classify_exclusions(window: str) -> Dict[str, bool]:
     return {topic: bool(rex.search(window)) for topic, rex in _EXCLUSION_RE.items()}
@@ -180,46 +158,35 @@ def _classify_duration(window: str) -> Tuple[Optional[int], bool]:
     return None, False
 
 
-def _detect_confidentiality_asymmetry(window: str) -> List[str]:
-    matches = [m for m in _ROLE_ATTRIBUTION_RE.finditer(window) if m.group(1).lower() not in _GENERIC_ROLE_WORDS]
-    snapshots: Dict[str, Dict[str, Any]] = {}
-    for i, m in enumerate(matches):
-        role = m.group(1)
-        # Bound this role's local window at the START of the next role
-        # attribution, not just the next sentence period — see the
-        # identical fix (and its explanation) in
-        # assignment_policy_engine._detect_restriction_asymmetry, found
-        # while building that adapter and back-ported here since
-        # _classify_care is the same kind of priority-ordered
-        # classification (checks "same as own" before "reasonable"
-        # regardless of position) that bug silently corrupts.
-        next_start = matches[i + 1].start() if i + 1 < len(matches) else len(window)
-        local = _local_clause_window(window, m.end(), max_chars=max(0, min(220, next_start - m.end())))
-        duration_years, perpetual = _classify_duration(local)
-        snapshots.setdefault(role, {
-            "duration_years": duration_years, "perpetual": perpetual,
-            "care": _classify_care(local),
-        })
+def _snapshot_confidentiality_attribution(local: str) -> Dict[str, Any]:
+    duration_years, perpetual = _classify_duration(local)
+    return {"duration_years": duration_years, "perpetual": perpetual, "care": _classify_care(local)}
 
-    roles = list(snapshots.keys())
-    if len(roles) < 2:
-        return []
 
+def _compare_confidentiality_attribution(base_role: str, base: Dict[str, Any], role: str, snap: Dict[str, Any]) -> List[str]:
     reasons: List[str] = []
-    base_role = roles[0]
-    base = snapshots[base_role]
-    for role in roles[1:]:
-        snap = snapshots[role]
-        if base["perpetual"] != snap["perpetual"]:
-            reasons.append(f"{base_role} and {role} differ on whether the obligation is perpetual")
-        elif (
-            base["duration_years"] is not None and snap["duration_years"] is not None
-            and base["duration_years"] != snap["duration_years"]
-        ):
-            reasons.append(f"{base_role} and {role} state different durations ({base['duration_years']} vs {snap['duration_years']} years)")
-        if base["care"] not in ("not_stated",) and snap["care"] not in ("not_stated",) and base["care"] != snap["care"]:
-            reasons.append(f"{base_role} and {role} state different standards of care")
+    if base["perpetual"] != snap["perpetual"]:
+        reasons.append(f"{base_role} and {role} differ on whether the obligation is perpetual")
+    elif (
+        base["duration_years"] is not None and snap["duration_years"] is not None
+        and base["duration_years"] != snap["duration_years"]
+    ):
+        reasons.append(f"{base_role} and {role} state different durations ({base['duration_years']} vs {snap['duration_years']} years)")
+    if base["care"] not in ("not_stated",) and snap["care"] not in ("not_stated",) and base["care"] != snap["care"]:
+        reasons.append(f"{base_role} and {role} state different standards of care")
     return reasons
+
+
+def _detect_confidentiality_asymmetry(window: str) -> List[str]:
+    """The scan/window/compare mechanics are shared (see policy_engine_core.
+    detect_role_attributed_asymmetry, which also owns the next-attribution-
+    bounded local window fix originally found and fixed here) — only the
+    attribution regex, the generic-role stoplist, and the snapshot/compare
+    functions stay adapter-owned."""
+    return detect_role_attributed_asymmetry(
+        window, _ROLE_ATTRIBUTION_RE, _GENERIC_ROLE_WORDS,
+        _snapshot_confidentiality_attribution, _compare_confidentiality_attribution,
+    )
 
 
 def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
@@ -381,16 +348,12 @@ def evaluate_confidentiality_policy(
 
     if unresolved_facts:
         controlling = exposure or protection or facts.obligations[0]
-        explanation = (
-            f"Contract language: \"{controlling.raw_excerpt}\". This confidentiality structure could not "
-            f"be evaluated deterministically — the following fact(s) required for a policy decision could "
-            f"not be reliably established: {'; '.join(unresolved_facts)}. Result: {REQUIRES_REVIEW}."
-        )
+        explanation = requires_review_explanation("confidentiality structure", controlling.raw_excerpt, unresolved_facts)
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="confidentiality", state=REQUIRES_REVIEW,
             contract_language=controlling.raw_excerpt, extracted_summary="Could not be reliably established",
             policy_limit_summary="N/A",
-            required_action="Manual review required — " + "; ".join(unresolved_facts),
+            required_action=requires_review_required_action(unresolved_facts),
             explanation=explanation, negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW),
             category_treatments=[], unresolved_facts=unresolved_facts,
             start_index=controlling.start_index, end_index=controlling.end_index, source=source,

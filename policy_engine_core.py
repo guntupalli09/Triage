@@ -28,8 +28,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, Hashable, List, Optional, Protocol, Tuple
+from typing import Any, Callable, Dict, Hashable, List, Optional, Pattern, Protocol, Tuple
 
 # ---------------------------------------------------------------------------
 # Decision states — shared vocabulary across every clause type.
@@ -69,6 +70,144 @@ def side_for_role(role: str) -> Optional[str]:
     if role_key in SELL_SIDE_ROLES:
         return "sell_side"
     return None
+
+
+# ---------------------------------------------------------------------------
+# Pure text utilities — no clause semantics, byte-identical across every
+# adapter before promotion (see benchmarks/duplication_promotion_review.md,
+# section 9a). Promoted because there was nothing adapter-specific left to
+# parameterize: every adapter, including Governing Law (the negative
+# control with no directionality and almost no windowing machinery at all),
+# used the exact same implementation.
+# ---------------------------------------------------------------------------
+
+def excerpt(text: str, start: int, end: int, pad: int = 60) -> str:
+    """Word-boundary-trimmed excerpt around [start, end), for human-readable
+    evidence quotes — never cuts a word in half at the pad boundary."""
+    lo = max(0, start - pad)
+    hi = min(len(text), end + pad)
+    if lo > 0:
+        space = text.rfind(" ", 0, lo)
+        if space != -1:
+            lo = space + 1
+    if hi < len(text):
+        space = text.find(" ", hi)
+        if space != -1:
+            hi = space
+    return text[lo:hi].strip()
+
+
+def section_label_before(text: str, anchor_start: int, lookback: int = 30) -> Optional[str]:
+    """The last 1-3 digit (optionally decimal, e.g. "12.4") number found in
+    the `lookback` characters before `anchor_start` — used to label
+    "Section 12" from an anchor match's position. Returns None if no such
+    number precedes the anchor within range."""
+    look = text[max(0, anchor_start - lookback):anchor_start]
+    nums = re.findall(r"\d{1,3}(?:\.\d{1,2})?", look)
+    return nums[-1] if nums else None
+
+
+# ---------------------------------------------------------------------------
+# Formulaic REQUIRES_REVIEW explanation/action text — the string-formatting
+# half of the "unresolved facts -> abstain" pattern used by every adapter
+# with a directional or multi-fact structure (see benchmarks/duplication_
+# promotion_review.md, section 5). Deliberately NOT a PolicyDecision
+# builder: each adapter's REQUIRES_REVIEW PolicyDecision carries different
+# fields (LoL includes category_treatments/our_position/reconciliation;
+# the others pass empty/None for those) and forcing one shared constructor
+# to cover every adapter's field set would either bloat every call site
+# with mostly-unused parameters or silently drop fields an adapter actually
+# needs. Only the two pure strings — which carry zero decision-shape
+# information — are shared.
+# ---------------------------------------------------------------------------
+
+def requires_review_explanation(clause_description: str, contract_language: str, unresolved_facts: List[str]) -> str:
+    """`clause_description` is the noun phrase naming what couldn't be
+    evaluated, e.g. "indemnification structure", "termination structure",
+    or plain "clause" (LoL's phrasing)."""
+    return (
+        f"Contract language: \"{contract_language}\". This {clause_description} could not be evaluated "
+        f"deterministically — the following fact(s) required for a policy decision could not be reliably "
+        f"established: {'; '.join(unresolved_facts)}. Result: {REQUIRES_REVIEW}."
+    )
+
+
+def requires_review_required_action(unresolved_facts: List[str]) -> str:
+    return "Manual review required — " + "; ".join(unresolved_facts)
+
+
+# ---------------------------------------------------------------------------
+# Reciprocal-symmetry verification mechanics — the scan/window/compare
+# skeleton independently implemented four times (Indemnification,
+# Termination, Confidentiality, Assignment; see benchmarks/duplication_
+# promotion_review.md, section 2). A mutual/reciprocal clause opener
+# ("each party"/"either party"/"neither party"...) claims symmetric
+# treatment; real drafting sometimes layers a differentiated, per-party-
+# NAMED proviso on top of that opener. This scans a window for sub-clauses
+# attributing terms to a SPECIFIC named role, snapshots each role's terms
+# via an adapter-supplied function, and compares snapshots pairwise via an
+# adapter-supplied comparison function — the attribution regex, the
+# generic-role-word stoplist, what a "snapshot" contains, and how two
+# snapshots disagree are all clause-specific and stay adapter-owned.
+#
+# The local window for each role's own attribution is bounded at the START
+# of the NEXT role attribution (not just the next sentence period) — a
+# role's own classification window bleeding into the next role's clause,
+# when two attributions are joined by ", and" inside one semicolon-joined
+# sentence rather than separated by a period, was found and fixed
+# independently in Assignment and Confidentiality before being centralized
+# here, and confirmed (via regression tests written and shown failing
+# before this promotion) to reproduce identically in Indemnification and
+# Termination's pre-promotion implementations.
+# ---------------------------------------------------------------------------
+
+def detect_role_attributed_asymmetry(
+    window: str,
+    attribution_re: Pattern[str],
+    generic_role_words: Any,
+    snapshot_fn: Callable[[str], Dict[str, Any]],
+    compare_fn: Callable[[str, Dict[str, Any], str, Dict[str, Any]], List[str]],
+    max_chars: int = 220,
+) -> List[str]:
+    """Returns a list of human-readable disagreement reasons; empty means
+    either fewer than two distinct named-role attributions were found
+    (nothing to compare — not itself evidence of asymmetry) or every
+    attributed role's snapshot agrees per `compare_fn`.
+
+    `attribution_re` must have exactly one capturing group (the role name).
+    `generic_role_words` is checked against the captured role, lowercased.
+    `snapshot_fn(local_text) -> dict` builds one role's fact snapshot from
+    its own bounded local window. `compare_fn(base_role, base_snapshot,
+    other_role, other_snapshot) -> List[str]` compares the first-seen
+    role's snapshot against every other role's snapshot pairwise and
+    returns zero or more reason strings for that pair.
+    """
+    matches = [m for m in attribution_re.finditer(window) if m.group(1).lower() not in generic_role_words]
+    if len(matches) < 2:
+        return []
+
+    snapshots: Dict[str, Dict[str, Any]] = {}
+    for i, m in enumerate(matches):
+        role = m.group(1)
+        if role in snapshots:
+            continue  # first mention of a role governs
+        next_start = matches[i + 1].start() if i + 1 < len(matches) else len(window)
+        hi = min(len(window), m.end() + max_chars, next_start)
+        boundary = re.search(r"\.\s", window[m.end():hi])
+        if boundary:
+            hi = m.end() + boundary.start() + 1
+        snapshots[role] = snapshot_fn(window[m.end():hi])
+
+    roles = list(snapshots.keys())
+    if len(roles) < 2:
+        return []
+
+    reasons: List[str] = []
+    base_role = roles[0]
+    base_snapshot = snapshots[base_role]
+    for role in roles[1:]:
+        reasons.extend(compare_fn(base_role, base_snapshot, role, snapshots[role]))
+    return reasons
 
 
 class BasePolicyRuleLike(Protocol):

@@ -278,6 +278,50 @@ class TestReciprocalSymmetryVerification:
         assert "different monetary terms" in " ".join(d.unresolved_facts)
 
 
+class TestReciprocalAsymmetryWindowBleed:
+    """Regression coverage for the window-bleed failure class found and
+    fixed in assignment_policy_engine.py and confidentiality_policy_engine.py
+    (see benchmarks/duplication_promotion_review.md, section 2 and 9b):
+    a per-role local window bounded only by the next sentence period (not
+    the next role attribution's own start) lets one role's classification
+    window bleed into the NEXT role's clause when they're separated by
+    ", and" inside one semicolon-joined sentence rather than a period.
+
+    Confirmed reproducible here before any fix: _detect_reciprocal_asymmetry
+    uses the same unbounded _local_clause_window as the pre-fix Assignment/
+    Confidentiality code did. These tests capture the CORRECT expected
+    behavior and are expected to FAIL against the current implementation —
+    that failure is the demonstration this class exists to record.
+    """
+
+    def test_differentiated_scope_is_not_masked_by_window_bleed(self):
+        # Vendor's own clause states third-party-only scope; Customer's
+        # own clause (bled into Vendor's classification window because
+        # they're joined by ", and" rather than a period) states an
+        # explicit first-party-inclusive signal. The scope classifier
+        # checks first-party before third-party-only (priority order, not
+        # position order), so the bleed lets Customer's first-party
+        # language silently flip Vendor's own snapshot to
+        # "includes_first_party" even though Vendor's actual text never
+        # said that — and the asymmetry between the two roles goes
+        # undetected as a result.
+        text = (
+            "12. Indemnification. Each party shall indemnify, defend, and hold harmless the "
+            "other party from and against any third-party claims arising from the "
+            "indemnifying party's gross negligence; provided, that Vendor's indemnification "
+            "obligations under this Section apply to third-party claims only, and Customer's "
+            "indemnification obligations under this Section apply to any claims, whether "
+            "direct or third-party."
+        )
+        facts = ie.extract_indemnification_facts(text)
+        obligation = facts.obligations[0]
+        assert obligation.asymmetry_reasons, (
+            "expected the differing scope (third_party_only vs. includes_first_party) to be "
+            "detected as asymmetric; window bleed lets Vendor's own snapshot pick up "
+            "Customer's first-party language, masking the real difference"
+        )
+
+
 class TestMonetaryTreatment:
     def test_uncapped_exposure_prohibited_by_default(self):
         d = evaluate(
