@@ -113,4 +113,57 @@ This mechanism has known, honestly-scoped limits worth naming rather than glossi
 
 ### Net assessment against the stated bar for a third clause type
 
-Per the review's stated bar: Liability holds 109 cases, 0 false-safe, 0 false-escalation, 100% determinism, and is unchanged except for one named, justified exception. Indemnification now holds 100 cases, **0 false-safe**, 0 false-escalation, 100% determinism, and 97.0% policy-state accuracy (up from 96.0%, since fixing the reciprocal-symmetry gap at its cause also corrected the one case it was masking). Indemnification now meets the same zero-false-safe, zero-false-escalation, 100%-determinism bar Liability holds. No third clause type work has been started.
+Per the review's stated bar: Liability holds 109 cases, 0 false-safe, 0 false-escalation, 100% determinism, and is unchanged except for one named, justified exception. Indemnification now holds 100 cases, **0 false-safe**, 0 false-escalation, 100% determinism, and 97.0% policy-state accuracy (up from 96.0%, since fixing the reciprocal-symmetry gap at its cause also corrected the one case it was masking). Indemnification now meets the same zero-false-safe, zero-false-escalation, 100%-determinism bar Liability holds. **This bar was met, and clause #3 (Termination) was subsequently authorized** — see the next section.
+
+---
+
+## Clause #3 — Termination
+
+Termination was chosen deliberately, per the authorizing review, to stress a reasoning shape neither prior adapter exercises. This section reports what building it found, at the same level of honesty as the sections above: what survived unchanged, what required genuine generalization, what stayed adapter-local, and what the third data point changes about earlier "not yet, only two data points" judgment calls.
+
+### Headline result
+
+| | Liability (109 cases) | Indemnification (100 cases) | Termination (40 cases) |
+|---|---|---|---|
+| False-safe | 0 | 0 | 0 |
+| False-escalation | 0 | 0 | 0 |
+| Determinism | 100% | 100% | 100% |
+| Policy-state accuracy | 98.2% | 97.0% | 100% (first pass — see caveat) |
+
+**Caveat on the 100%, same one given for Indemnification's first pass:** a 40-case corpus authored and debugged in the same session as the adapter is "no known failures in this corpus," not "solved." The number that matters more at this stage is that the false-safe/false-escalation/determinism gates hold at all on a genuinely new reasoning shape, not the accuracy percentage.
+
+### The reasoning shape, characterized
+
+Liability is a comparative-value problem: two parties, one concept (a cap), which value is ours. Indemnification is a directed-obligation-graph problem: a promise pointing from one named role to another, possibly stated reciprocally. Termination is neither — it is **a catalog of independently-true contingent rights**. A single document routinely states three or more separately-triggered rights (convenience, for-cause, insolvency, non-payment) in adjacent sentences, each with its own trigger, its own conditions (notice period, cure period, or immediate/no-cure), and none of them competing candidates for one "true" answer the way Liability's multiple cap mentions do. This is the same "track independently, don't reconcile" discipline Indemnification already established for its obligations — reused as a design PRINCIPLE, not as shared code, since a `TerminationRight` (trigger/notice/cure) and an `IndemnityObligation` (trigger/scope/monetary) are different fact shapes.
+
+### What survived unchanged, a third time
+
+Every core primitive Indemnification validated held again with zero modification: decision-state vocabulary (Termination uses ACCEPT/ACCEPT_WITH_NOTE/NEGOTIATE/MUST_REDLINE/PROHIBITED/ESCALATE/REQUIRES_REVIEW/NOT_APPLICABLE, no new states needed), `build_ladder`, `classify_by_threshold` (reused directly for the termination-fee multiplier — third independent consumer), `escalate_to_for_state`/`fallback_text_for_state`, `PolicyDecision`/evidence rendering (via adapter-supplied `summary_label`/`our_position_label`/`counterparty_position_label`, same mechanism as the other two), the benchmark safety-metric functions, and `BUY_SIDE_ROLES`/`SELL_SIDE_ROLES`/`side_for_role`. Three adapters now import the identical role vocabulary without any adapter needing its own.
+
+### A real bug, found before the benchmark even ran
+
+Termination clauses routinely stack multiple rights as consecutive sentences in one paragraph ("...for convenience upon 90 days notice. ...for cause if...fails to cure within 30 days. ...immediately upon insolvency."). An initial implementation used a single large fixed-size window per right for trigger/notice/cure classification — large enough to hold one right's own trailing clause, but also large enough for the NEXT right's trigger keyword (e.g. "insolvency") to leak into the classification of an earlier right, misclassifying its trigger type. This was caught by a direct sanity check before the benchmark corpus was even written, and fixed by bounding classification to the right's own sentence. Notably, Indemnification never surfaced this failure mode because it rarely states more than one or two directional obligations in tight sequence the way a Termination section conventionally lists three or four distinct rights — this is a finding specific to Termination's "catalog of several independently-true facts, densely packed" shape, and is itself evidence the reasoning-shape choice was a good stress test, not just a formality.
+
+### The reciprocal-symmetry pattern recurs — reused as principle, not code, a third time
+
+Termination rights can be stated reciprocally ("either party may terminate...") with a differentiated proviso naming different notice/cure terms per party afterward — the identical "opener claims symmetry, provisos may contradict it" shape found and fixed in Indemnification. `_detect_right_asymmetry()` in `termination_policy_engine.py` reimplements the same verification LOGIC locally (role-attribution scan, pairwise comparison, refuse-to-treat-as-both-sides-if-disagreeing), deliberately not importing or generalizing Indemnification's `_detect_reciprocal_asymmetry()`. Building it a second time surfaced a real generalization the first implementation didn't need: the window used for asymmetry detection must extend past semicolons (a differentiated proviso is conventionally punctuated as one semicolon-joined sentence with the reciprocal opener, not a new sentence), while the window used for trigger-type classification must NOT extend past sentence periods (see the bug above) — two different windowing needs serving the same provision, resolved with two different cut rules in the same adapter. This is now the **third independent instance** of the same underlying idea (a claimed-symmetric relationship whose truth must be verified against differentiated per-party language elsewhere in its own window) — see the promotion discussion below.
+
+### Duplication candidates — a third data point on two separate open questions
+
+**Monetary/fee expression parsing.** `TerminationFee` is a third adapter-local reimplementation of "parse a dollar-multiplier-or-fixed-amount-or-unlimited expression from English," alongside LoL's `CapExpression`/`CapValue` and Indemnification's `MonetaryTreatment`. Three independent implementations of the same underlying concept is real pressure — this report still does not promote it (that decision belongs to a dedicated pass, not a side effect of building an unrelated third adapter), but the "two data points isn't enough" reasoning from the Indemnification report no longer applies verbatim. This is now the strongest promotion candidate in the codebase.
+
+**The "resolve directed facts into ours-vs-theirs" pattern.** Both Indemnification's `_resolve_obligations_for_side` and Termination's `_resolve_rights_for_side` independently implement: split a list of directional/attributable facts into "ours" and "the counterparty's against us" by role-to-side mapping, never guessing on an unmapped role, and handling a mutual/reciprocal item as applying to both lists unless proven asymmetric. This is now genuinely a candidate DIFFERENT from `resolve_directional_position` (LoL's same-concept-different-value shape) — a second, distinct recurring shape with two independent implementations. Not promoted here either, for the same reason as the fee-parsing duplication: a promotion decision deserves its own dedicated review with regression discipline, not a rider on the clause-#3 report. Flagged explicitly so it isn't lost.
+
+**`resolve_directional_position` itself remains unused by a third adapter.** Termination did not reach for it, for the same reason Indemnification didn't: a termination right is a privilege held by a role, not a same-concept-different-value comparison. Three adapters, zero uses outside LoL, is now reasonably strong evidence this function is LoL-specific rather than a general primitive that happened to be extracted early — worth naming plainly rather than continuing to hedge.
+
+### What Termination needed that neither prior adapter did
+
+- **A window-cutting rule sensitive to punctuation convention** (period vs. semicolon), driven by the fact that Termination clauses pack multiple independently-true facts more densely than either prior clause type typically does.
+- **A trigger classification with a same-clause priority order** (insolvency and non-payment checked before the more generic "material breach" pattern, since insolvency language is sometimes itself framed as a breach) — a clause-specific vocabulary decision, fully adapter-local, no core involvement.
+- Nothing else. The rest of the adapter — extraction dataclasses, per-role attribution scanning, worst-state accumulation via a local `_worse()` helper (same pattern as Indemnification's), REQUIRES_REVIEW-first abstention — is a direct application of patterns already established, not new core surface.
+
+### Overall verdict
+
+The core boundary drawn after one adapter, and re-validated after a second, held through a third adapter deliberately chosen to reason differently from both. Nothing needed to be added to `policy_engine_core.py` to build Termination. Two duplication questions that were legitimately "not enough evidence yet" after two adapters (typed monetary expressions, directed-resolution-by-side) now have a third independent data point each and are worth a dedicated promotion review — separately from any fourth clause type, not bundled with one. `resolve_directional_position` remains validated as correctly LoL-specific, not under-generalized core.
+
+Per the review's own framing: this is the point where the architecture stops being "promising" and starts being a credible reusable pattern — three adapters, three different reasoning shapes, one unmodified core, zero false-safe across all of them. The batches (Confidentiality/Assignment/Governing Law, IP ownership/Data protection/Insurance/Payment terms, Warranty/Force majeure/Audit rights/Non-solicit) and the product-layer work (policy hierarchy, governance, authoring UX, redline workflow, analytics) described in the authorizing review are **not started** — this report covers clause #3 only, per the same "report and stop" discipline used after clause #2.
