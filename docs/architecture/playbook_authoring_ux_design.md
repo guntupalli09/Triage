@@ -1,6 +1,9 @@
 # Playbook Authoring UX & Architecture — Design Report
 
-Status: **design only, nothing implemented**. This closes out the policy-engine
+Status: **design only, nothing implemented**. Revised after review — see
+"Revisions from review" below for what changed and why; the rest of the
+document has been updated in place rather than left to contradict this
+note. This closes out the policy-engine
 architecture phase (Liability, Indemnification, Termination, Confidentiality,
 Assignment, Governing Law — six adapters, one shared core, `benchmarks/
 policy_engine_core_architecture_report.md` and `benchmarks/duplication_
@@ -13,6 +16,37 @@ architecture that *consumes* the six engines as a fixed, already-verified
 substrate — extraction functions, `PolicyDecision`, decision states, and the
 `*PolicyRuleLike` Protocols are treated as read-only inputs to this design,
 not things this document revises.
+
+### Revisions from review
+
+Five changes made after the first draft was reviewed:
+
+1. **No inferred negotiation ladders from a single template data point**
+   (§5.2). A template stating "2x fees" is evidence of the preferred
+   position only. It is not evidence of an acceptable range, a negotiate
+   ceiling, or an escalation threshold. The proposal builder no longer
+   guesses those; unestablished ladder fields are surfaced as `NOT
+   ESTABLISHED` and the UI asks the lawyer directly.
+2. **No confidence scores in the lawyer-facing UI** (§3.3, §4.2, §2.5.1).
+   Replaced with categorical provenance: *Extracted from source* /
+   *Proposed from source* / *Entered by lawyer* / *Conflicting sources* /
+   *Not established*. Bulk approval is gated on direct source evidence +
+   schema validity + no conflicts + no unresolved dependencies, not a
+   numeric threshold.
+3. **The LLM privacy boundary is now an explicit, named product decision**
+   (§5.3), not an implementation detail: "Deterministic/private import"
+   (Path 2, no LLM, on by default) vs. "AI-assisted playbook import"
+   (Path 1, explicit opt-in per use, and disable-able org-wide).
+4. **One document upload, explicit dual-use checkboxes** (§8.2), not two
+   separate uploads for the same file.
+5. **Workbench coverage indicator added** (§3.2) — a playbook-level
+   coverage bar and high-impact-gap list, framed for when Batch B expands
+   the number of supported clause types.
+
+The phased implementation order (§10) is also revised: manual authoring
+(all six clause types) now ships before either import path, and the two
+import paths are reordered so deterministic/private import ships before
+AI-assisted import.
 
 ---
 
@@ -174,17 +208,19 @@ Four workflows, all converging on the same clause-card review surface.
    facts** — what the document's own language actually says (e.g. "the
    template's Section 12 caps liability at 2x fees, excludes data
    breach and IP infringement from that cap").
-3. Those facts are then run through a **proposal builder** (new, §5.2)
-   that turns "here is the one position this document states" into "here
-   is a full policy ladder" — e.g. proposing `preferred_multiplier = 2x`
-   (what the template says), and a plausible `acceptable_max`/
-   `negotiate_max` band, clearly marked as *inferred*, not extracted,
-   since the source document only ever states one number, not a range.
-4. Clause cards distinguish, per field, extraction (what the document
-   says, high confidence, exact quote) from inference (a proposed
-   generalization from that one data point, lower confidence, always
-   editable, never silently accepted) — see §6.
-5. Same bulk-approval flow as Path 1.
+3. Those facts are run through a **proposal builder** (new, §5.2) that
+   populates only the fields the document actually establishes — e.g.
+   `preferred_multiplier = 2x` (what the template says, `EXTRACTED`).
+   Fields the template gives no evidence for — `acceptable_max`,
+   `negotiate_max`, escalation thresholds — are **not** guessed. They are
+   written as explicit `NOT ESTABLISHED` fields that the Needs-Review
+   queue surfaces with a direct question ("Your template establishes the
+   preferred position. How far may negotiators deviate?").
+4. Clause cards distinguish extraction (what the document says, exact
+   quote, `EXTRACTED`) from gaps (`NOT ESTABLISHED`, nothing proposed,
+   nothing to silently accept) — see §6.
+5. Same bulk-approval flow as Path 1, but bulk approval never closes a
+   `NOT ESTABLISHED` field — those always require a lawyer's answer.
 
 ### 2.4 Path 3 — Build manually
 
@@ -199,12 +235,15 @@ Four workflows, all converging on the same clause-card review surface.
 
 ### 2.5 Reviewing, approving, activating
 
-1. **Bulk approval** for anything the system is confident about and the
-   lawyer doesn't want to inspect field-by-field: "Approve all high-
-   confidence positions" approves every `NEEDS_REVIEW` clause card whose
-   *every* field is either extraction-sourced or above a configurable
-   confidence floor, in one action, with a single confirmation showing
-   exactly what's being approved (never a silent bulk action).
+1. **Bulk approval** for anything the system doesn't need the lawyer to
+   inspect field-by-field: "Approve all clean positions" approves every
+   `NEEDS_REVIEW` clause card whose *every* field satisfies **all** of:
+   direct source evidence (`EXTRACTED`), valid against the clause type's
+   schema, no conflicting proposal from another source (§5.4), and no
+   `NOT ESTABLISHED` dependency left open. This is a categorical bar, not
+   a numeric confidence threshold — see the note on confidence in §4.2.
+   One action, one confirmation showing exactly what's being approved
+   (never a silent bulk action).
 2. **Clause-level editing** for anything the lawyer wants to inspect or
    change: open the card, see the source evidence next to each field,
    adjust, save. Editing a field marks that specific field
@@ -234,9 +273,9 @@ Playbook
      ├─ shared fields (contract_side, escalation authority, fallback text)
      ├─ clause-specific config (the *PolicyRuleLike fields, plain-English-labeled)
      ├─ PolicyPositionField[] — one row per individual field, each carrying:
-     │    - value
+     │    - value (or none, if status is NOT_ESTABLISHED)
      │    - source: EXTRACTED | INFERRED | MANUAL
-     │    - confidence (for INFERRED)
+     │    - status: ESTABLISHED | NOT_ESTABLISHED | CONFLICTING (categorical, no score)
      │    - evidence (source document + excerpt span, if any)
      │    - confirmed_by / confirmed_at (once a lawyer has looked at it)
      └─ PolicyPositionApproval[] — append-only approval/activation history
@@ -245,14 +284,39 @@ Playbook
 A `PolicyPosition` is the authoring-side analogue of today's `PolicyRule`
 row, extended with lifecycle and provenance. The field-level granularity
 (`PolicyPositionField`) is what makes "extraction vs. inference vs.
-manual," per-field confidence, and per-field evidence possible — a clause
-card is not one blob with one confidence score, it's a set of independently
-sourced facts that happen to be grouped by clause type for review.
+manual," per-field provenance, and per-field evidence possible — a clause
+card is not one blob with one score, it's a set of independently sourced
+facts that happen to be grouped by clause type for review.
 
 ### 3.2 The Playbook Workbench (replaces the current single-page `playbook_form.html`)
 
-One page per playbook, six clause cards in a fixed grid (not a form to
-scroll through — a dashboard):
+One page per playbook, a coverage summary above a fixed grid of clause
+cards (not a form to scroll through — a dashboard):
+
+```
+Acme Vendor MSA
+
+Policy coverage
+████████████████░░  82%
+
+Active policies        4
+Needs review            1
+Not configured           1
+
+High-impact gaps
+⚠ Indemnification      Needs review — 3 fields need your input
+○ Assignment            Not activated
+```
+
+This is deliberately a coverage/gap summary, not a raw "5/6 configured"
+count — it is the surface that has to keep making sense as the number of
+supported clause types grows past six (Batch B and beyond), so it is
+framed here as "how much of what we support is actually governing this
+playbook" rather than a fraction tied to today's specific clause count.
+"High-impact gaps" ranks unconfigured/unreviewed positions by clause type
+importance (a fixed, documented ranking — not inferred), so a lawyer
+scanning the Workbench sees what's missing that matters most, not just
+what's missing.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -292,9 +356,14 @@ Three regions, top to bottom:
    applied see the same shape).
 2. **Field groups**, plain-English labeled (§7 has the full mapping per
    clause type), each field showing:
-   - Its current value (editable in place)
-   - A small provenance chip: `Extracted` / `Proposed` / `You entered
-     this`
+   - Its current value (editable in place), or, if the field has no
+     established value yet, an explicit `Not established` state with an
+     inline prompt for the lawyer to answer
+   - A provenance chip using categorical labels only, never a numeric
+     score: `Extracted from source` / `Proposed from source` / `You
+     entered this` / `Conflicting sources` / `Not established` (§4.2 has
+     the full rationale for why this is categorical, not a confidence
+     percentage)
    - For extracted/proposed fields, an expandable evidence panel: source
      document name, the exact excerpt, and (for template-contract
      extraction) the same kind of controlling-provision citation
@@ -373,21 +442,49 @@ PolicyPosition
 
 PolicyPositionField
   id, policy_position_id (FK), field_name,
-  value_json (EncryptedJSON)   -- the field's current value
+  value_json (EncryptedJSON, nullable)  -- null when status=NOT_ESTABLISHED
   source: EXTRACTED | INFERRED | MANUAL
-  confidence: Float, nullable  -- only meaningful for INFERRED
+  status: ESTABLISHED | NOT_ESTABLISHED | CONFLICTING
+  rank_score: Float, nullable  -- internal-only, for proposal ordering;
+                               -- never rendered to a lawyer, never a
+                               -- factor in bulk-approval eligibility (see
+                               -- note below)
   evidence_document_id (nullable FK -> PlaybookSourceDocument)
   evidence_excerpt (EncryptedText, nullable)
   evidence_start_index / evidence_end_index (nullable)
   confirmed_by_user_id (nullable FK), confirmed_at (nullable)
   superseded_by_field_id (nullable, self-FK) -- see 4.3, history
   created_at
+```
 
+**No lawyer-facing confidence score.** The first draft of this design had
+a `confidence: Float` column and proposed bulk-approving anything above a
+configurable threshold. Removed. TriageCounsel's whole premise is
+deterministic, defensible decision-making — putting "87% confidence" in
+front of a lawyer during policy authoring undercuts that premise at the
+one moment it matters most (deciding what becomes an enforceable rule).
+Two things replace it:
+
+1. **Categorical status**, shown to the lawyer: `ESTABLISHED` (has a
+   value, from extraction/inference/manual entry) / `NOT_ESTABLISHED` (no
+   source ever stated this) / `CONFLICTING` (two sources disagreed, §5.4).
+   No numeric gradient anywhere in this state.
+2. **`rank_score`**, internal only, never rendered: if a future proposal
+   builder or Path 1 LLM step genuinely needs to order multiple candidate
+   values for internal tie-breaking, that's a private ranking signal, not
+   a UX element and not an eligibility test. Bulk-approval eligibility
+   (§2.5.1) is a categorical bar — direct evidence, valid schema, no
+   conflict, no open `NOT_ESTABLISHED` dependency — that never reads
+   `rank_score`.
+
+```
 PlaybookSourceDocument
   id, playbook_id (FK), uploaded_by_user_id (FK),
   document_type: LEGAL_PLAYBOOK | TEMPLATE_CONTRACT
   original_filename, extracted_text (EncryptedText),
   uploaded_at
+  use_as_deviation_baseline: Boolean, default False  -- see 8.2
+  use_for_policy_extraction: Boolean, default False  -- see 8.2
 
 PolicyPositionApproval
   id, policy_position_id (FK), actor_user_id (FK),
@@ -461,34 +558,72 @@ document text
       - facts that map directly become EXTRACTED fields, evidence = the
         Facts object's own raw_excerpt/start_index/end_index (already
         computed by the engine — reused, not recomputed)
-      - facts that require generalizing a single stated number into a
-        ladder (preferred/acceptable/negotiate) become INFERRED fields,
-        with an explicit, auditable rule for how the guess was made
-        (e.g. "acceptable_max = preferred x 1.5, rounded" — a fixed,
-        documented heuristic, not a model call) and confidence fixed at
-        a conservative constant (inference-by-formula is 100% deterministic,
-        so "confidence" here really means "how much this deserves a
-        second look," not statistical uncertainty)
-      - anything the extractor couldn't establish (its own REQUIRES_REVIEW-
-        shaped abstention) surfaces as an empty field explicitly flagged
-        "not found in this document," never silently omitted
+      - facts that would require generalizing a single stated number into
+        a ladder (preferred → acceptable → negotiate → escalate) are
+        NOT inferred. A template stating one number is evidence for that
+        one number, not for a range around it — inventing a ladder from a
+        single data point is a deterministic-looking guess, still a
+        guess. These fields are written as NOT_ESTABLISHED, with the
+        already-extracted preferred value shown alongside so the lawyer
+        sees exactly what the template did and didn't establish
+      - anything the extractor couldn't establish at all (its own
+        REQUIRES_REVIEW-shaped abstention) also surfaces as NOT_ESTABLISHED,
+        with the same "not found in this document" framing — the two
+        cases (found-one-value-but-not-a-range vs. found-nothing) are
+        distinguished by whether the field has a value, not by a
+        different status
   → PolicyPosition(status=NEEDS_REVIEW) + PolicyPositionField[] rows
 ```
 
-No LLM anywhere in Path 2. This path is exactly as deterministic and
-reproducible as contract review already is — the same extraction functions,
-the same evidence shape, just pointed at a template instead of an
-incoming contract, and its output written to `PolicyPositionField` instead
-of `Contract.policy_decisions_json`.
+No LLM anywhere in Path 2, and no formula-based guessing either. This
+path only ever writes what the document's own language states. This is
+"deterministic/private import" (§5.3 draws the line here, not just on the
+LLM question): it never leaves the machine, uses no external model call,
+and produces no field the source document doesn't directly support. The
+tradeoff, made deliberately: more `NOT_ESTABLISHED` fields land in the
+Needs-Review queue than a first draft of this design would have produced,
+in exchange for zero risk of a plausible-looking invented number becoming
+policy.
 
-### 5.3 Path 1 — bounded LLM proposal (new boundary, not a relaxation of the existing one)
+### 5.3 Path 1 — "AI-assisted playbook import" (new boundary, explicit product decision, not just an implementation detail)
 
 This is the one place in the whole design where a model reads free text
-and proposes structure. It must be held to a standard at least as strict
-as `evaluator.py`'s existing one, adapted to a different job (existing:
-explain pre-detected findings; this: propose structure from prose that
-has no pre-detected findings to anchor it, because it isn't a contract).
-Concretely:
+and proposes structure, and it is the first place in the product where a
+full uploaded document — not a short rule-selected excerpt — reaches an
+LLM prompt. That is a genuine, user-visible product distinction, not an
+internal implementation detail, so it is surfaced as one:
+
+- **Path 2 is named "Deterministic/private import"** in the product:
+  upload a template contract, the existing deterministic extractors run,
+  nothing ever leaves the system, no LLM involved. This is the default
+  path and requires no opt-in.
+- **Path 1 is named "AI-assisted playbook import"** in the product: upload
+  a prose playbook document, and the UI states plainly, before upload
+  completes, that an AI model will read the full document to propose
+  positions. This requires **explicit per-use opt-in** — a lawyer must
+  affirmatively choose this path each time, it is never the default or an
+  automatic fallback if Path 2's extraction comes back empty.
+- **Organization-wide disable switch**: an org admin can turn off Path 1
+  entirely for the organization. When disabled, the "AI-assisted playbook
+  import" option is not offered at all — Path 2 and Path 3 remain fully
+  available. This is a real architectural constraint on the feature, not
+  a cosmetic toggle: the upload endpoint checks the org setting before
+  invoking anything in §5.3 below, and a disabled org's traffic never
+  reaches the model call.
+
+This product-level framing exists because TriageCounsel's differentiation
+partly rests on "your contract text never reaches a model beyond a
+sanitized excerpt used only to explain a finding we already made
+deterministically." Path 1 is a deliberate, bounded exception to that
+claim for a different kind of document (a playbook, not a contract), and
+pretending otherwise — folding it into Path 2's messaging, defaulting to
+it, or omitting the org-level kill switch — would weaken a claim the
+product depends on. Everything below in this section describes how the
+model call itself is bounded once a lawyer has opted in; it must be held
+to a standard at least as strict as `evaluator.py`'s existing one, adapted
+to a different job (existing: explain pre-detected findings; this:
+propose structure from prose that has no pre-detected findings to anchor
+it, because it isn't a contract). Concretely:
 
 1. **Scope of what the model sees**: the full text of the uploaded
    playbook document — this is unavoidable, since prose about legal
@@ -720,15 +855,28 @@ deprecated in this phase, and not silently reinterpreted.**
    lawyer's existing playbooks keep producing the same deviations report
    they do today, byte for byte, after this feature ships.
 2. **`PlaybookSourceDocument` is a new, additive concept, not a
-   replacement for `template_text`.** Uploading a template contract
-   under Path 2 does not touch `template_text` — it's a separate upload,
-   stored separately, feeding only the new `PolicyPosition` extraction
-   pipeline. A lawyer who wants a document to serve *both* roles (the
-   rule-engine diff baseline *and* the source for extracted policy
-   positions) uploads it twice, once into each flow — an explicit,
-   visible choice rather than an implicit dual-use that could surprise
-   someone later if the two mechanisms ever diverge in what they
-   consider "the same document."
+   replacement for `template_text`, but a single upload can power both
+   mechanisms.** Uploading a template contract does not touch
+   `template_text` directly, but the upload UI presents two independent
+   checkboxes so the lawyer doesn't have to upload the same file twice:
+
+   ```
+   Use this document for:
+   ☑ Contract deviation baseline   (feeds template_findings_json, as today)
+   ☑ Extract proposed playbook positions   (feeds PolicyPosition, §5.2)
+   ```
+
+   Checking the first box runs the existing `rules_engine.analyze()` path
+   and writes `Playbook.template_text`/`template_findings_json` exactly as
+   it does today (unchanged code, unchanged output). Checking the second
+   runs the new Path 2 extraction pipeline against the same uploaded
+   bytes. The two `PlaybookSourceDocument` boolean columns (§4.2) record
+   which were selected; a lawyer can revisit the same document later and
+   turn on the box they skipped, without re-uploading. This keeps the two
+   mechanisms's outputs fully independent (checking one box never writes
+   to the other mechanism's tables) while removing the duplicate-upload
+   step — same explicit semantics as two separate uploads, without the
+   redundant UX.
 3. **Existing `PolicyRule` (Liability-only) rows migrate, not
    disappear.** A one-time backfill creates a `PolicyPosition(clause_
    type="limitation_of_liability", status=ACTIVE, source_type=MANUAL,
@@ -770,9 +918,12 @@ deprecated in this phase, and not silently reinterpreted.**
   substance or document text uses the existing `EncryptedText`/
   `EncryptedJSON` types (§4.4), inheriting key rotation and the
   existing envelope format for free.
-- **New attack surface: the Path 1 LLM proposal step.** This is the
-  first place in the product where a full uploaded document (not a
-  short rule-selected excerpt) reaches a model prompt. Mitigations,
+- **New attack surface: the Path 1 ("AI-assisted playbook import") LLM
+  proposal step.** This is the first place in the product where a full
+  uploaded document (not a short rule-selected excerpt) reaches a model
+  prompt — which is why §5.3 treats it as an explicit, opt-in, org-
+  disable-able product surface rather than a variant of existing
+  extraction. Mitigations,
   restated from §5.3 because they are the security-relevant core of
   this whole document: schema-locked output, citation-required (every
   field must resolve to a real substring of the source, or it's
@@ -814,39 +965,52 @@ deprecated in this phase, and not silently reinterpreted.**
 Ordered so each phase ships something usable and de-risks the next one,
 rather than one large release.
 
-**Phase 0 — Data model + builders, no UI.** `PolicyPosition`/
-`PolicyPositionField`/`PlaybookSourceDocument`/`PolicyPositionApproval`
-tables. Six policy-rule builder functions (one per engine, §4.1). Migration
-script for existing `PolicyRule` rows (§8.3), run and verified against a
-copy of production data, but the new tables not yet wired to any route —
-this phase is pure plumbing, independently testable (build a
-`PolicyPosition`, run it through a builder, confirm it produces byte-
-identical output to today's `PolicyRule`→`PolicyRuleLike` path for
-Liability).
+**Phase 0 — Data architecture + builders + migration tests.**
+`PolicyPosition`/`PolicyPositionField`/`PlaybookSourceDocument`/
+`PolicyPositionApproval` tables. Six policy-rule builder functions (one
+per engine, §4.1). Migration script for existing `PolicyRule` rows (§8.3),
+run and verified against a copy of production data, but the new tables
+not yet wired to any route — this phase is pure plumbing, independently
+testable (build a `PolicyPosition`, run it through a builder, confirm it
+produces byte-identical output to today's `PolicyRule`→`PolicyRuleLike`
+path for Liability).
 
-**Phase 1 — Manual authoring (Path 3) for all six clause types.** The
-Workbench + clause-card UI (§3), plain-English field mapping (§7), full
+**Phase 1 — Manual authoring (Path 3) for all six clause types.** No AI,
+no import path, deliberately. The Workbench + clause-card UI (§3, incl.
+the coverage indicator), plain-English field mapping (§7), full
 DRAFT→APPROVED→ACTIVE lifecycle (no NEEDS_REVIEW yet — nothing to infer
-without an import path). This alone already fixes the "five engines are
-orphaned" gap from §1 and is shippable/valuable on its own.
+without an import path). This is the phase that must be excellent before
+anything else is layered on: create playbook → configure six policies →
+approve → activate → upload contract → policies enforce correctly →
+redlines generated, end to end, working well. This alone already fixes
+the "five engines are orphaned" gap from §1 and is shippable/valuable on
+its own.
 
-**Phase 2 — Path 2 (template contract upload), deterministic only.** No
-LLM. Proposal builders (§5.2) on top of the already-shipped extraction
-functions. `NEEDS_REVIEW` state, evidence panels, bulk approval. This is
-lower-risk than Path 1's LLM step and delivers most of the "minimum lawyer
-effort" value (a real template contract is the most common thing a lawyer
-already has).
+**Phase 2 — Path 2, "Deterministic/private import" (template contract
+upload).** No LLM, no inferred ladders (§5.2 — only what the document
+actually states becomes `EXTRACTED`; everything else is `NOT_ESTABLISHED`
+and left for the lawyer). `NEEDS_REVIEW` state, evidence panels, bulk
+approval gated on the categorical bar in §2.5.1. This is the lower-risk
+import path and, being purely deterministic, requires no new privacy
+disclosure or opt-in.
 
-**Phase 3 — Path 1 (playbook document upload), bounded LLM.** The new
-LLM boundary (§5.3), citation verification, schema-locked output, updated
-`LLM_BOUNDARY.md`. Shipped last and separately because it's the one
-component genuinely different in kind from everything else in this design
-and deserves its own focused security review before going live.
+**Phase 3 — Path 1, "AI-assisted playbook import" (playbook document
+upload), bounded LLM, explicit opt-in.** The new LLM boundary (§5.3),
+named as a distinct product surface with its own consent UI and the
+org-wide disable switch, citation verification, schema-locked output,
+updated `LLM_BOUNDARY.md`. Shipped last and separately because it's the
+one component genuinely different in kind from everything else in this
+design and deserves its own focused security review before going live.
 
 **Phase 4 — Migration cutover + legacy cleanup.** Switch `apply_liability_
 policy()`'s call site from `PolicyRule` to `PolicyPosition` (§8.3), run
 the deprecation window, then remove the old form/route/columns in a
 separate, reversible-until-merged change.
+
+Batch B clause types are not started before Phase 4 completes — the
+authoring layer needs to prove itself on the six already-built engines
+first, and `config_json` (§4.1) means Batch B needs no schema work when
+its turn comes.
 
 Each phase includes its own before/after verification against the
 existing benchmark corpora pattern already established for the six
@@ -866,7 +1030,9 @@ path, exactly the discipline used throughout the engine-promotion work.
 | Two import paths silently overwrite each other's confirmed work. | `EXTRACTED`/`INFERRED`/`MANUAL` are permanent provenance tags on each field, not just at creation; conflicting values are surfaced, not silently replaced (§5.4); once `confirmed_at` is set, further changes create a new field row rather than mutating the confirmed one (§4.3), so "what did the lawyer actually confirm" is never ambiguous after the fact. |
 | A migrated Liability policy silently stops being enforced (or starts being enforced with different values) the day this ships. | Migration writes `status=ACTIVE` immediately for existing rows (§8.3), and the evaluation call site isn't switched to the new table until Phase 4, after independent golden-output verification — there is no moment where an existing policy is live under the old path and silently inactive under the new one. |
 | The legacy template-findings/deviations report quietly breaks or starts disagreeing with the new clause cards. | Explicitly not touched by this design (§8.1) — separate storage, separate route, separate template, no shared code path with the new `PolicyPosition` machinery. |
-| A lawyer bulk-approves something they didn't actually mean to approve. | Bulk approval only ever targets fields already above the confidence/extraction bar (§2.5.1) and always shows the exact set being approved before confirming — never a blind "approve everything" action. |
+| A lawyer bulk-approves something they didn't actually mean to approve. | Bulk approval only ever targets fields meeting the categorical bar in §2.5.1 (direct evidence, valid schema, no conflict, no open gap) — never a numeric confidence threshold — and always shows the exact set being approved before confirming, never a blind "approve everything" action. |
+| A deterministic-looking inferred negotiation range (e.g. "acceptable = preferred × 1.5") is treated as fact because it came from a formula, not a guess. | Removed from the design entirely (§5.2 revision) — Path 2 never infers a ladder from a single template data point. Unestablished ladder fields are always `NOT_ESTABLISHED` and require a lawyer's direct answer. |
+| A lawyer uses "AI-assisted playbook import" without realizing their document's full text is being sent to a model, or an org's compliance stance requires disabling that entirely. | Path 1 is a named, opt-in product surface with disclosure before upload completes (§5.3), and an org-wide disable switch that removes the option from the UI and blocks the upload endpoint before any model call — not a per-request client-side toggle. |
 | A prompt-injection attempt inside an uploaded playbook document tries to manipulate the LLM proposal step. | Same sanitization discipline as `matched_excerpt` today, applied to the (necessarily larger) document text (§5.3.1); and even a fully successful injection is bounded to producing a rejectable `NEEDS_REVIEW` proposal, never an active policy (§9) — the blast radius argument, not just the input-filtering one. |
 | Field-level history becomes unreadable/unaudit-able after many edits. | `superseded_by_field_id` chains (§4.3) plus `PolicyPositionApproval`'s append-only log (§4.2) together answer both "what does this field say now" and "who confirmed what, when" without a parallel version table to keep in sync. |
 | A Batch B clause type (out of scope to build now, but the architecture must not preclude it later) requires a schema migration just to get a clause card. | `config_json` (§4.1) means a new clause type needs a new builder function and a new §7-style field mapping, not a new set of columns — validated directly against that engine's own Protocol, so the schema can never drift from what the engine actually accepts. |
