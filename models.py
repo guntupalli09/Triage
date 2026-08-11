@@ -146,6 +146,22 @@ class Contract(Base):
     # edited or deleted. Encrypted — embeds verbatim contract excerpts.
     policy_decisions_json = Column(EncryptedJSON, nullable=True)
 
+    # Phase 4: revision pinning. One entry per clause_type actually
+    # evaluated (policy_decisions_json.keys()), recording enough immutable
+    # metadata to identify the EXACT ACTIVE PolicyPosition revision that
+    # produced that decision: policy_position_id, revision_activated_at,
+    # a deterministic config_hash (see policy_enforcement.py), and
+    # source_type (MANUAL/UPLOADED_TEMPLATE/UPLOADED_PLAYBOOK/MIXED — the
+    # position's own provenance, so "how was this policy authored" never
+    # affects enforcement semantics but stays inspectable). Deliberately a
+    # plain (not encrypted) JSON column — it holds only ids/hashes/
+    # timestamps, never contract or policy text, so a historical review
+    # stays explainable even if the playbook is later edited, without
+    # widening what the encrypted columns need to protect. Never
+    # recomputed from the current playbook state — see
+    # policy_enforcement.apply_policies_for_review.
+    policy_revision_metadata_json = Column(JSON, nullable=True)
+
     # Review workflow — one decision per finding (rule_id -> {action, reason,
     # edited_text, decided_at}), recorded as the attorney works through the
     # merged findings+redlines review pass. See review_workflow.py. action is

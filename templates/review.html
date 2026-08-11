@@ -229,14 +229,15 @@
         </div>
     </div>
 
-    {% if policy_decisions and policy_decisions.limitation_of_liability and policy_decisions.limitation_of_liability.state != 'NOT_APPLICABLE' %}
-    {% set lol = policy_decisions.limitation_of_liability %}
-    <div class="policy-banner state-{{ lol.state|lower|replace('_', '-') }}">
-        <span class="policy-banner-state">{{ lol.state|replace('_', ' ') }}</span>
-        <span class="policy-banner-label">Limitation of Liability</span>
-        <span class="policy-banner-detail">{{ lol.extracted_summary }} — policy allows up to {{ lol.policy_limit_summary }}</span>
-        {% if lol.source %}<span class="policy-banner-source">{{ lol.source }}</span>{% endif %}
+    {% if policy_decisions %}
+    {% for clause_type, pd in policy_decisions.items() if pd and pd.state != 'NOT_APPLICABLE' %}
+    <div class="policy-banner state-{{ pd.state|lower|replace('_', '-') }}">
+        <span class="policy-banner-state">{{ pd.state|replace('_', ' ') }}</span>
+        <span class="policy-banner-label">{{ clause_type|replace('_', ' ')|title }}</span>
+        <span class="policy-banner-detail">{{ pd.extracted_summary }} — policy allows up to {{ pd.policy_limit_summary }}</span>
+        {% if pd.source %}<span class="policy-banner-source">{{ pd.source }}</span>{% endif %}
     </div>
+    {% endfor %}
     {% endif %}
 
     <div class="review-body">

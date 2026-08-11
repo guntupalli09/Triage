@@ -309,6 +309,12 @@ def _run_migrations():
                     conn.execute(text("ALTER TABLE policy_position_fields ALTER COLUMN status TYPE VARCHAR(40)"))
                     logger.info("Migration applied: policy_position_fields.status widened to VARCHAR(40)")
 
+        if "contracts" in insp.get_table_names():
+            contract_cols_now = {c["name"] for c in insp.get_columns("contracts")}
+            if "policy_revision_metadata_json" not in contract_cols_now:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN policy_revision_metadata_json JSON"))
+                logger.info("Migration applied: contracts.policy_revision_metadata_json column")
+
 
 def init_db():
     import models  # noqa: F401 — registers all models

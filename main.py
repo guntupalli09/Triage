@@ -83,6 +83,7 @@ import upload_security
 import rbac
 import retention
 import playbook_workbench
+import policy_enforcement
 from analytics_middleware import AnalyticsMiddleware
 from channel_classifier import CHANNELS as ACQUISITION_CHANNELS
 
@@ -251,6 +252,17 @@ def on_startup():
     if not DEV_MODE and "sqlite" in DATABASE_URL:
         logger.warning("Running production mode with SQLite — use PostgreSQL for reliability")
 
+    # Phase 4 release gate (requirement 7): refuse to boot in cutover mode
+    # if any legacy limitation_of_liability PolicyRule lacks an equivalent
+    # ACTIVE PolicyPosition — fail closed rather than silently dropping
+    # enforcement for that playbook's live contract review.
+    if policy_enforcement.get_enforcement_mode() == "cutover":
+        _gate_db = SessionLocal()
+        try:
+            policy_enforcement.verify_migration_coverage_or_fail_closed(_gate_db)
+        finally:
+            _gate_db.close()
+
 
 @app.on_event("shutdown")
 def on_shutdown():
@@ -369,73 +381,13 @@ def run_analysis(contract_text: str) -> Dict:
     }
 
 
-_POLICY_STATE_SEVERITY = {
-    liability_policy_engine.PROHIBITED: "critical",
-    liability_policy_engine.ESCALATE: "high",
-    liability_policy_engine.MUST_REDLINE: "high",
-    liability_policy_engine.REQUIRES_REVIEW: "high",
-    liability_policy_engine.NEGOTIATE: "medium",
-    liability_policy_engine.ACCEPT_WITH_NOTE: "low",
-    liability_policy_engine.ACCEPT: "low",
-}
-
-
-def apply_liability_policy(db: DBSession, playbook: Optional[Playbook], contract_text: str, findings_dict: List[Dict]) -> Optional[Dict]:
-    """If `playbook` has a limitation-of-liability PolicyRule, evaluates the
-    contract's liability cap deterministically against it and, when the
-    result requires attorney attention (anything but ACCEPT/ACCEPT_WITH_NOTE/
-    NOT_APPLICABLE), appends a synthetic finding to `findings_dict` (mutated
-    in place) so it flows through the existing review/accept/redline/audit
-    pipeline exactly like a rule-engine finding — same Track Changes export,
-    same accept/edit/reject decision recording. Returns the policy decision
-    dict (always, even when ACCEPT/NOT_APPLICABLE) for Contract.policy_decisions_json,
-    or None if no policy rule is configured on this playbook."""
-    if not playbook:
-        return None
-    policy = db.query(PolicyRule).filter(
-        PolicyRule.playbook_id == playbook.id, PolicyRule.clause_type == "limitation_of_liability",
-    ).first()
-    if not policy:
-        return None
-
-    facts = liability_policy_engine.extract_liability_facts(contract_text)
-    decision = liability_policy_engine.evaluate_liability_policy(
-        facts, policy, source=f"{playbook.name} v{policy.version}",
-    )
-
-    actionable_states = {
-        liability_policy_engine.NEGOTIATE, liability_policy_engine.MUST_REDLINE,
-        liability_policy_engine.PROHIBITED, liability_policy_engine.ESCALATE,
-        liability_policy_engine.REQUIRES_REVIEW,
-    }
-    if decision.state in actionable_states and decision.start_index is not None:
-        findings_dict.append({
-            "rule_id": decision.rule_id, "rule_name": "Limitation of Liability Policy",
-            "title": f"Limitation of Liability — {decision.state.replace('_', ' ')}",
-            "severity": _POLICY_STATE_SEVERITY.get(decision.state, "medium"),
-            "rationale": decision.explanation,
-            "matched_excerpt": decision.contract_language, "position": None, "context": None,
-            "clause_number": None, "matched_keywords": [], "aliases": [],
-            "start_index": decision.start_index, "end_index": decision.end_index,
-            "exact_snippet": decision.contract_language, "evidence": None,
-            "party_direction": None, "finding_type": "policy_decision",
-            "finding_type_label": "Policy Decision", "confidence_breakdown": None,
-            "redline": {
-                "issue": decision.required_action, "legal_rationale": decision.explanation,
-                "suggested_redline": decision.fallback_text or "",
-            } if decision.fallback_text else None,
-            "policy_state": decision.state,
-            "negotiation_ladder": [
-                {"label": s["label"], "description": s["description"], "status": s["status"]}
-                for s in decision.as_dict()["negotiation_ladder"]
-            ],
-            "policy_source": decision.source,
-            "controlling_provision": decision.controlling_provision,
-            "our_position": decision.our_position,
-            "counterparty_position": decision.counterparty_position,
-            "evidence_report": decision.render_evidence_report(),
-        })
-    return {"limitation_of_liability": decision.as_dict()}
+# Phase 4: policy enforcement (which policy source is authoritative — legacy
+# PolicyRule vs ACTIVE PolicyPosition — and how each is evaluated) now lives
+# entirely in policy_enforcement.py; apply_liability_policy is re-exported
+# here unchanged so nothing else in this file (or any external call site)
+# needs to change its import. See policy_enforcement.apply_policies_for_review
+# for the mode-dispatching entry point this file actually calls below.
+apply_liability_policy = policy_enforcement.apply_liability_policy
 
 
 def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[Dict]:
@@ -1412,7 +1364,18 @@ async def upload_contract(
             comparison = playbook_engine.compare(analysis["findings_dict"], playbook.template_findings_json)
             deviations = comparison
 
-    policy_decisions = apply_liability_policy(db, playbook, contract_text, analysis["findings_dict"])
+    # Policy enforcement (Phase 4) — mutates analysis["findings_dict"] in
+    # place (appends synthetic policy findings), so it must run before
+    # Contract is constructed below (findings_json is set from that same
+    # list at construction time; mutating it afterward without a
+    # reassignment wouldn't reliably mark the encrypted JSON column dirty).
+    # contract_id is not yet known at this point (no row exists yet) —
+    # shadow-mode AuditLog entries from this call carry target_id=None,
+    # which is fine since target_type="contract" combined with playbook_id
+    # in the log payload is enough to trace it.
+    policy_result = policy_enforcement.apply_policies_for_review(
+        db, playbook, contract_text, analysis["findings_dict"],
+    )
 
     contract = Contract(
         user_id=user.id,
@@ -1426,7 +1389,8 @@ async def upload_contract(
         analysis_completed=True,
         playbook_id=playbook_id,
         deviations_json=deviations,
-        policy_decisions_json=policy_decisions,
+        policy_decisions_json=policy_result["policy_decisions"],
+        policy_revision_metadata_json=policy_result["policy_revision_metadata"],
         signature_readiness=analysis.get("signature_readiness"),
         payment_terms_json=analysis.get("payment_terms"),
         blocking_findings_json=analysis.get("blocking_findings"),
@@ -1548,14 +1512,18 @@ async def batch_upload_submit(
             comparison = playbook_engine.compare(analysis["findings_dict"], template_findings)
             deviations = comparison
 
-        policy_decisions = apply_liability_policy(db, playbook, text, analysis["findings_dict"])
+        policy_result = policy_enforcement.apply_policies_for_review(
+            db, playbook, text, analysis["findings_dict"],
+        )
 
         contract = Contract(
             user_id=user.id, filename=batch_filename, contract_text=text,
             overall_risk=analysis["overall_risk"], findings_json=analysis["findings_dict"],
             llm_result_json=analysis["llm_result"], rule_counts_json=analysis["rule_counts"],
             rule_engine_version=analysis["version"], analysis_completed=True,
-            playbook_id=playbook_id, deviations_json=deviations, policy_decisions_json=policy_decisions,
+            playbook_id=playbook_id, deviations_json=deviations,
+            policy_decisions_json=policy_result["policy_decisions"],
+            policy_revision_metadata_json=policy_result["policy_revision_metadata"],
             batch_id=batch_id,
             signature_readiness=analysis.get("signature_readiness"),
             payment_terms_json=analysis.get("payment_terms"),
