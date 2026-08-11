@@ -100,3 +100,73 @@ None. Every corpus case now resolves to its expected state or is accounted for a
 ## Indemnification
 
 Built as a second clause adapter over a shared `policy_engine_core.py`, extracted from this Liability implementation with the 109-case golden snapshot verified byte-identical across the extraction. See `benchmarks/policy_engine_core_architecture_report.md` for the architecture findings and `benchmarks/indemnification_benchmark_report.md` (if present) or `benchmarks/run_indemnification_benchmark.py` output for Indemnification's own benchmark results. Indemnification-specific corpus hardening (expansion past 43 cases) is tracked separately and is not part of this report's scope.
+
+---
+
+## Pass: P0-3 provision-discovery broadening (Playbook UX walkthrough remediation)
+
+**Corpus size: 109 → 125 cases** (+16, no case removed, no existing label changed).
+
+`liability_policy_engine` previously discovered a provision only where the literal
+phrase "limitation of liability" or "liability cap" appeared, so ordinary commercial
+cap drafting with no heading returned `NOT_APPLICABLE` — "this contract does not
+address liability caps" — for text that is unambiguously a liability limitation
+(artifacts/playbook_ux_walkthrough/ux_walkthrough_report.md, Finding P0-3).
+Discovery is now two-layered, in the same style as the other five adapters: the
+labelled anchor as before, plus `_SECONDARY_ANCHOR_RE`, a set of drafting anchors
+(aggregate/total/maximum liability shall not exceed, capped at, limited to, in no
+event shall … liability exceed, unlimited/uncapped liability, no cap on liability).
+Layer-2 anchors are suppressed inside an already-discovered labelled provision and
+disqualified by insurance context, so they add provisions rather than duplicate or
+invent them.
+
+New cases:
+- `unheaded-01` … `unheaded-10` — unheaded provisions, including `unheaded-01`, the
+  **verbatim** Northstar MSA §3 body from
+  `artifacts/playbook_ux_walkthrough/northstar_msa_test_contract.txt` with only the
+  section heading removed (not edited to make the engine pass).
+- `notlol-01` … `notlol-06` — adversarial negative controls: indemnities, insurance
+  covenants (dollar limits + "aggregate" + "liability"), joint-and-several liability
+  allocation, a governing-law sentence naming liability, and a standalone
+  non-excludable-liability savings clause. All must stay `NOT_APPLICABLE`.
+
+### Metrics (125 cases)
+
+| Metric | Before (109) | After (125) |
+|---|---|---|
+| Policy-state accuracy | 98.2% | 97.6% |
+| General-cap extraction | 100.0% (75 scored) | 98.9% (90 scored) |
+| Category treatment | 100.0% (27 scored) | 100.0% (27 scored) |
+| False-safe | 0 | **0** |
+| False-escalation | 0 | **0** |
+| Determinism (5× repeat) | 100% | **100%** |
+
+**No existing case changed output.** Verified by diffing every one of the original
+109 cases' `actual_state` / `state_correct` / `general_cap_correct` / `false_safe` /
+`false_escalation` / `category_results` before and after the change: **zero diffs.**
+The accuracy movements above come entirely from the 16 new cases.
+
+The two state misses are the pre-existing `partial-01` / `amendment-02` ground-truth
+review items above, plus one new one:
+
+- `unheaded-08` — "liability is limited to the fees paid in the twelve (12) months
+  preceding the claim." Labeled `ACCEPT` because a reviewer reads an unquantified
+  fee-basis cap as 1x fees; the engine extracts no multiplier and returns
+  `MUST_REDLINE`. Conservative, not a false-safe. Recorded as a genuine gap rather
+  than relabeled to match the engine. It is also the single general-cap extraction
+  miss (89/90).
+
+### Known gap recorded, deliberately not asserted
+
+`unheaded-01`'s category treatments are **not** asserted. A lawyer reads all seven
+named categories as uncapped ("liability shall be unlimited for …" plus "Neither
+limitation shall apply to …"); the engine returns `confidentiality=uncapped`,
+`data_breach=not_addressed` ("data security obligations" is not a `data_breach`
+keyword phrasing) and `within_general_cap` for the other five. **This behavior is
+byte-identical with the section heading restored**, i.e. it is a category-
+classification gap that predates and is unaffected by this discovery change — it was
+simply unmeasurable before, because the clause was never discovered at all.
+Asserting it here would have failed the >95% category-treatment gate on a defect this
+pass did not introduce and (per scope) did not touch; relabeling it to match the
+engine would have hidden it. It is therefore recorded verbatim in the corpus notes
+for `unheaded-01` and flagged here for a dedicated category-classification pass.

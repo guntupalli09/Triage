@@ -1,0 +1,49 @@
+# Phase 4.1 Production Shadow Readiness Report
+
+Generated: 2026-08-11T19:00:58.266706
+Current POLICY_ENFORCEMENT_MODE: `shadow`
+
+## 0. Production enforcement authority
+- ACTIVE PolicyPositions are **NOT authoritative** for user-visible contract review outcomes right now.
+- In `shadow` mode since 2026-08-11T18:59:54.736917 (0.0 day(s)).
+- A deployment can stay here indefinitely and every Playbook will still show a green "Active" badge — that is why this section exists. Cutover remains a deliberate, human-authorized action backed by the shadow evidence below.
+
+## 1. Migration coverage
+- Total legacy limitation_of_liability PolicyRule rows: 0
+- Migrated to an equivalent ACTIVE PolicyPosition: 0
+- Unmigrated: 0 (playbook_ids=[])
+- Coverage: 100.0%
+
+## 2. Live shadow-mode comparison history
+- Total comparisons recorded: **0**  <- sample size; not a synthetic minimum
+- Matching: 0
+- Divergent: 0
+- Evaluation errors (migrated path could not run): 0
+- Divergence rate: n/a (no comparisons yet)
+- Distinct playbooks exercised: 0
+- Distinct contracts/reviews exercised: 0
+- Oldest comparison: None
+- Newest comparison: None
+
+**This script does not decide whether the sample size above is large enough.** That is an explicit deployment-operator judgment call, not an automated one — see the task's own instruction not to invent a synthetic minimum contract count.
+
+## 3. Six-adapter benchmark gates (current status)
+
+## 4. Phase 4 109-case offline equivalence gate
+- FAIL
+
+## 5. Full test suite
+- FAIL — (skipped)
+
+## Operational notices (not cutover blockers)
+- Policy enforcement is NOT authoritative in production: mode is 'shadow' and has been for 0.0 day(s). ACTIVE Playbook positions are being checked, not enforced — no contract review outcome depends on them yet, however green the Workbench looks.
+
+## Verdict
+**NOT_READY_FOR_CUTOVER**
+
+Blocking reasons:
+- No live shadow comparisons recorded yet — there is no live evidence to evaluate. This is reported, not assumed passing: 0 comparisons is not the same as 0 divergences.
+- Benchmark gates were not run for this report (run_benchmarks=False) — status unknown.
+- Full test suite was not run for this report (run_tests=False) — status unknown.
+
+This report does not change POLICY_ENFORCEMENT_MODE. Flipping it to `cutover` remains a separate, explicit, human-authorized deployment action — see docs/architecture/phase4_cutover.md.

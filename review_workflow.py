@@ -37,6 +37,35 @@ class DecisionValidationError(Exception):
     pass
 
 
+# Policy states whose recommendation is authoritative governance: blocked
+# language, mandatory redlines, and escalations. Departing from one of
+# these is an exception to policy and must carry a documented reason (UX
+# walkthrough P0-5). Kept here, next to the validator every decision path
+# goes through, so no route/template/JS handler can decide for itself
+# whether a reason is required — templates/review.html mirrors this list
+# for labelling only, never for enforcement.
+GOVERNANCE_POLICY_STATES = frozenset({"PROHIBITED", "MUST_REDLINE", "ESCALATE"})
+
+# Actions that follow the deterministic recommendation as-authored. Every
+# other action on a governance finding overrides, excepts, or materially
+# departs from it.
+_POLICY_CONFORMING_ACTIONS = frozenset({"accepted"})
+
+
+def requires_policy_exception_reason(
+    action: str, policy_state: Optional[str], finding_type: Optional[str]
+) -> bool:
+    """True when this decision is a departure from an authoritative policy
+    recommendation and therefore requires an explicit reason. The single
+    server-side predicate — used by validate_decision, and by nothing that
+    can be skipped from the client."""
+    if finding_type != "policy_decision":
+        return False
+    if policy_state not in GOVERNANCE_POLICY_STATES:
+        return False
+    return action not in _POLICY_CONFORMING_ACTIONS
+
+
 def finding_key(index: int, rule_id: str) -> str:
     """The stable identity of one finding *occurrence* — see module
     docstring for why rule_id alone can't be used as this key."""
@@ -53,11 +82,20 @@ def keyed_findings(findings: Sequence[Any]) -> List[Any]:
 
 
 def validate_decision(
-    finding_key: str, action: str, has_redline: bool, reason: Optional[str], edited_text: Optional[str]
+    finding_key: str, action: str, has_redline: bool, reason: Optional[str], edited_text: Optional[str],
+    policy_state: Optional[str] = None, finding_type: Optional[str] = None,
 ) -> None:
     """Raises DecisionValidationError if this decision doesn't make sense for
     this finding. Never silently coerces an invalid action into a valid one —
-    a bad request should fail loudly, not get reinterpreted."""
+    a bad request should fail loudly, not get reinterpreted.
+
+    `policy_state`/`finding_type` describe the finding being decided on;
+    when they identify a governance-grade policy recommendation, any
+    departure from it requires a non-empty, non-whitespace reason. This is
+    the ONLY place that decision is made — the previous behavior (reason
+    required for "rejected" only) meant an ESCALATE/MUST_REDLINE finding
+    with no fallback text could be excepted through the "flagged" path with
+    no reason captured at all (UX walkthrough P0-5)."""
     if not finding_key:
         raise DecisionValidationError("finding_key is required")
     if action not in VALID_ACTIONS:
@@ -72,6 +110,11 @@ def validate_decision(
         )
     if action == "rejected" and not (reason or "").strip():
         raise DecisionValidationError("a rejection requires a non-empty reason")
+    if requires_policy_exception_reason(action, policy_state, finding_type) and not (reason or "").strip():
+        raise DecisionValidationError(
+            "This decision departs from an approved policy position, so it requires a written "
+            "reason for the audit record. Enter why this exception is being granted."
+        )
     if action == "edited" and not (edited_text or "").strip():
         raise DecisionValidationError("an edit requires non-empty edited_text")
 

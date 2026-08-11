@@ -76,6 +76,11 @@
 <div class="premium-card p-6 sm:p-8 fade-in mb-4" style="transform:none;">
     <form action="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/save" method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+        {# Marks this POST as carrying the full authoring payload, so
+           "Submit for review" (a formaction button on this same form, see
+           below) persists exactly what's on screen before transitioning
+           instead of submitting a stale saved row — UX walkthrough P0-1. #}
+        <input type="hidden" name="authoring_form" value="1">
 
         {% block clause_fields %}{% endblock %}
 
@@ -84,36 +89,34 @@
             <div class="mb-4">
                 <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">{{ shared_field_labels.contract_side }}</label>
                 <select name="contract_side" class="w-full sm:w-96 px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white">
-                    <option value="mutual" {% if not position or position.contract_side == 'mutual' %}selected{% endif %}>Position applies equally to both sides</option>
-                    <option value="buy_side" {% if position and position.contract_side == 'buy_side' %}selected{% endif %}>We're the Customer/Buyer</option>
-                    <option value="sell_side" {% if position and position.contract_side == 'sell_side' %}selected{% endif %}>We're the Vendor/Seller</option>
+                    <option value="mutual" {% if form_contract_side == 'mutual' %}selected{% endif %}>Position applies equally to both sides</option>
+                    <option value="buy_side" {% if form_contract_side == 'buy_side' %}selected{% endif %}>We're the Customer/Buyer</option>
+                    <option value="sell_side" {% if form_contract_side == 'sell_side' %}selected{% endif %}>We're the Vendor/Seller</option>
                 </select>
             </div>
             <div class="mb-4">
                 <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">{{ shared_field_labels.escalation_approval_authority }}</label>
-                <input type="text" name="escalation_approval_authority" value="{{ position.escalation_approval_authority if position and position.escalation_approval_authority else '' }}" placeholder="e.g. General Counsel" class="w-full sm:w-96 px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                <input type="text" name="escalation_approval_authority" value="{{ form_escalation_approval_authority }}" placeholder="e.g. General Counsel" class="w-full sm:w-96 px-3 py-2 border border-gray-200 rounded-lg text-sm">
             </div>
             <div class="mb-2">
                 <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">{{ shared_field_labels.fallback_text }}</label>
-                <textarea name="fallback_text" rows="4" placeholder="The replacement language offered as a redline when this clause must be fixed..." class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none">{{ position.fallback_text if position and position.fallback_text else '' }}</textarea>
+                <textarea name="fallback_text" rows="4" placeholder="The replacement language offered as a redline when this clause must be fixed..." class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none">{{ form_fallback_text }}</textarea>
             </div>
         </div>
 
-        <div class="flex items-center gap-3 pt-5 mt-2 border-t border-gray-100">
+        <div class="flex flex-wrap items-center gap-3 pt-5 mt-2 border-t border-gray-100">
             <button type="submit" class="btn-primary py-2.5 px-6 rounded-lg font-semibold text-sm">Save draft</button>
             {% if not position or position.status == 'DRAFT' %}
-            <span class="text-xs text-gray-400">Save, then submit for review when this position is complete.</span>
+            {# Same form, so this submits every value currently on screen and
+               the server saves it before transitioning (P0-1). #}
+            <button type="submit" formaction="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/submit-for-review"
+                    class="py-2.5 px-6 rounded-lg font-semibold text-sm border border-gray-300 text-[#0F172A] hover:bg-gray-50">Submit for review →</button>
+            <span class="text-xs text-gray-400">Submitting for review saves what's on this page first — you won't lose anything you've typed.</span>
             {% endif %}
         </div>
     </form>
 
     <div class="flex flex-wrap gap-x-6 gap-y-2 pt-4 mt-4 border-t border-gray-100">
-        {% if position and position.status == 'DRAFT' %}
-        <form action="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/submit-for-review" method="post">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
-            <button type="submit" class="text-sm font-semibold text-[#0F172A] hover:underline">Submit for review →</button>
-        </form>
-        {% endif %}
         {% if position and position.status in ('NEEDS_REVIEW', 'APPROVED') %}
         <a href="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/review" class="text-sm font-semibold text-[#0F172A] hover:underline">Go to review &amp; approval →</a>
         {% endif %}

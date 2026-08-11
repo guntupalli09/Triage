@@ -14,9 +14,19 @@
 <div class="mb-6 fade-in flex items-start justify-between flex-wrap gap-3">
     <div>
         <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">{{ playbook.name }}</h1>
-        <p class="text-gray-600 mt-1">Configure deterministic policy positions for each clause type. Only <strong>Active</strong> positions govern contract review.</p>
+        <p class="text-gray-600 mt-1">Configure deterministic policy positions for each clause type. Only <strong>Active</strong> positions are used in contract review{% if not enforcement.authoritative %} — and only once your administrator turns policy enforcement on (see below){% endif %}.</p>
     </div>
     <a href="/playbooks/{{ playbook.id }}/import" class="btn-primary px-5 py-2.5 rounded-lg text-sm font-semibold whitespace-nowrap">Import a template</a>
+</div>
+
+{# "Active" is a lifecycle state; whether an Active position actually decides
+   a contract review is a separate, server-side fact (P0-2). Never imply the
+   two are the same. Plain English only — no env-var terminology here. #}
+<div class="premium-card p-4 mb-4 fade-in {% if not enforcement.authoritative %}border-amber-200 bg-amber-50{% endif %}" style="transform:none;">
+    <p class="text-sm font-semibold text-[#0F172A]">
+        Policy enforcement: {{ enforcement.label }}
+    </p>
+    <p class="text-xs text-gray-600 mt-1">{{ enforcement.detail }}</p>
 </div>
 
 <div class="premium-card p-6 mb-8 fade-in" style="transform:none;">

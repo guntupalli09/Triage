@@ -739,6 +739,27 @@ def parse_clause_form(clause_type: str, form: Any) -> Dict[str, Tuple[Any, str]]
     }
 
 
+def parse_clause_form_best_effort(clause_type: str, form: Any) -> Dict[str, Any]:
+    """Same parse as parse_clause_form, but field-by-field and never
+    raising: fields that parse cleanly are returned as a config-shaped
+    dict, and the one(s) that don't are simply omitted.
+
+    Used only to re-render an authoring form after a validation failure so
+    the lawyer's other entered values survive the round trip (UX
+    walkthrough P0-1: an invalid submission must not blank the form). It
+    is never a persistence path — nothing calls this to write config_json.
+    """
+    out: Dict[str, Any] = {}
+    for field_name in CLAUSE_TYPE_CONFIG_FIELDS[clause_type]:
+        try:
+            value, status = _parse_config_field(clause_type, field_name, form)
+        except (PositionFormError, ValueError):
+            continue
+        if status != "NOT_ESTABLISHED":
+            out[field_name] = value
+    return out
+
+
 CONTRACT_SIDES = ("mutual", "buy_side", "sell_side")
 
 
