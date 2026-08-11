@@ -11,9 +11,12 @@
 {% endblock %}
 
 {% block content %}
-<div class="mb-6 fade-in">
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">{{ playbook.name }}</h1>
-    <p class="text-gray-600 mt-1">Configure deterministic policy positions for each clause type. Only <strong>Active</strong> positions govern contract review.</p>
+<div class="mb-6 fade-in flex items-start justify-between flex-wrap gap-3">
+    <div>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">{{ playbook.name }}</h1>
+        <p class="text-gray-600 mt-1">Configure deterministic policy positions for each clause type. Only <strong>Active</strong> positions govern contract review.</p>
+    </div>
+    <a href="/playbooks/{{ playbook.id }}/import" class="btn-primary px-5 py-2.5 rounded-lg text-sm font-semibold whitespace-nowrap">Import a template</a>
 </div>
 
 <div class="premium-card p-6 mb-8 fade-in" style="transform:none;">

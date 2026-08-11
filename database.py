@@ -294,6 +294,12 @@ def _run_migrations():
                 conn.execute(text("ALTER TABLE policy_rules ADD COLUMN required_consequential_carveouts_json JSON"))
                 logger.info("Migration applied: policy_rules.required_consequential_carveouts_json column")
 
+        if "policy_position_fields" in insp.get_table_names():
+            position_field_cols = {c["name"] for c in insp.get_columns("policy_position_fields")}
+            if "extraction_version" not in position_field_cols:
+                conn.execute(text("ALTER TABLE policy_position_fields ADD COLUMN extraction_version VARCHAR(40)"))
+                logger.info("Migration applied: policy_position_fields.extraction_version column")
+
 
 def init_db():
     import models  # noqa: F401 — registers all models

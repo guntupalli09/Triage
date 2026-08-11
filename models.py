@@ -377,6 +377,13 @@ class PolicyPositionField(Base):
     evidence_excerpt = Column(EncryptedText, nullable=True)
     evidence_start_index = Column(Integer, nullable=True)
     evidence_end_index = Column(Integer, nullable=True)
+    # Which extraction pass produced this EXTRACTED field (e.g.
+    # "phase2-deterministic-v1") — never set for MANUAL fields. Lets a
+    # later extractor improvement be identified against historical
+    # proposals instead of silently looking like a different bug (Phase 2
+    # determinism requirement: same document + same version must produce
+    # byte-identical output; this is what "same version" refers to).
+    extraction_version = Column(String(40), nullable=True)
 
     confirmed_by_user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     confirmed_at = Column(DateTime, nullable=True)

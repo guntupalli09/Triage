@@ -1,0 +1,84 @@
+{% extends "base_app.html" %}
+
+{% block title %}Import Template — {{ playbook.name }}{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1">/</span>
+<a href="/playbooks" class="hover:text-gray-900 transition-colors">Playbooks</a>
+<span class="mx-1">/</span>
+<a href="/playbooks/{{ playbook.id }}/workbench" class="hover:text-gray-900 transition-colors">{{ playbook.name }}</a>
+<span class="mx-1">/</span>
+<span>Import template</span>
+{% endblock %}
+
+{% block content %}
+<div class="mb-6 fade-in">
+    <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight">Import a template contract</h1>
+    <div class="mt-2 inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
+        DETERMINISTIC &amp; PRIVATE — no document content is ever sent to an AI model
+    </div>
+</div>
+
+{% if error %}
+<div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl fade-in">
+    <p class="text-sm text-red-700 font-medium">{{ error }}</p>
+</div>
+{% endif %}
+
+<div class="premium-card p-6 sm:p-8 fade-in" style="transform:none;">
+    <form action="/playbooks/{{ playbook.id }}/import" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+
+        <div class="mb-6">
+            <label for="file" class="block text-sm font-semibold text-[#0F172A] mb-1.5">Template contract</label>
+            <input type="file" id="file" name="file" accept=".txt,.pdf,.docx" required class="w-full text-sm border border-gray-200 rounded-lg px-3 py-2.5">
+            <p class="text-xs text-gray-500 mt-1">.txt, .pdf, or .docx. This is one upload — choose below what it should be used for.</p>
+        </div>
+
+        <div class="mb-6 border border-gray-200 rounded-xl p-5">
+            <p class="text-sm font-semibold text-[#0F172A] mb-3">Use this document for:</p>
+            <label class="flex items-start gap-2 mb-3 cursor-pointer">
+                <input type="checkbox" name="use_as_deviation_baseline" class="rounded border-gray-300 mt-0.5">
+                <span class="text-sm text-gray-700">
+                    <span class="font-medium">Contract deviation baseline</span> — powers the existing findings-comparison report on this playbook, unchanged.
+                </span>
+            </label>
+            <label class="flex items-start gap-2 cursor-pointer">
+                <input type="checkbox" name="use_for_policy_extraction" id="use_for_policy_extraction" class="rounded border-gray-300 mt-0.5">
+                <span class="text-sm text-gray-700">
+                    <span class="font-medium">Extract proposed policy positions</span> — deterministically reads this document's own clauses and proposes DRAFT positions for you to review and approve. Nothing is activated automatically.
+                </span>
+            </label>
+        </div>
+
+        <div id="contract_side_field" class="mb-6 hidden">
+            <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">Which side is this template written from?</label>
+            <select name="contract_side" class="w-full sm:w-96 px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white">
+                <option value="mutual" selected>Position applies equally to both sides</option>
+                <option value="buy_side">We're the Customer/Buyer in this template</option>
+                <option value="sell_side">We're the Vendor/Seller in this template</option>
+            </select>
+            <p class="text-xs text-gray-500 mt-1">Needed to tell "what we owe them" apart from "what they owe us" for directional clauses like indemnification and termination. Not itself extracted from the document.</p>
+        </div>
+
+        <button type="submit" class="btn-primary py-2.5 px-6 rounded-lg font-semibold text-sm">Import</button>
+    </form>
+</div>
+
+<div class="premium-card p-6 mt-6 fade-in" style="transform:none;">
+    <h2 class="text-sm font-semibold text-[#0F172A] mb-2">What extraction can and can't do</h2>
+    <p class="text-sm text-gray-600 mb-2">A template stating a 2× liability cap establishes a <strong>preferred cap of 2×</strong>. It does not establish what's acceptable, negotiable, or grounds for escalation — those stay unanswered until you decide them.</p>
+    <p class="text-sm text-gray-600">Every proposed value shows the exact source excerpt it came from. Anything the document doesn't clearly establish is left unanswered, never guessed.</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const checkbox = document.getElementById('use_for_policy_extraction');
+    const sideField = document.getElementById('contract_side_field');
+    checkbox.addEventListener('change', function () {
+        sideField.classList.toggle('hidden', !checkbox.checked);
+    });
+</script>
+{% endblock %}
