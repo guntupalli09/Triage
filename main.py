@@ -83,7 +83,9 @@ import upload_security
 import rbac
 import retention
 import playbook_workbench
+import playbook_authoring as pa
 import policy_enforcement
+import review_queue
 from analytics_middleware import AnalyticsMiddleware
 from channel_classifier import CHANNELS as ACQUISITION_CHANNELS
 
@@ -2226,6 +2228,14 @@ async def review_contract(request: Request, contract_id: int, db: DBSession = De
     findings = contract.findings_json or []
     decisions = contract.review_decisions_json or {}
     progress = compute_progress(findings, decisions)
+    # Exception-queue view-model (P0 remediation of
+    # docs/architecture/contract_review_exception_ux.md) — computed here,
+    # server-side, so the passed-vs-actionable-vs-not-applicable-vs-
+    # evaluation-error classification is unit-tested against real
+    # PolicyDecision output (see review_queue.py and
+    # tests/test_review_queue.py) rather than inferred client-side in
+    # JavaScript from the mere absence of a finding.
+    queue = review_queue.build_review_queue(findings, contract.policy_decisions_json)
 
     return templates.TemplateResponse("review.html", {
         "request": request, "user": user, "contract_id": contract.id,
@@ -2239,6 +2249,8 @@ async def review_contract(request: Request, contract_id: int, db: DBSession = De
         "negotiation_difficulty_score": contract.negotiation_difficulty_score,
         "metadata": contract.metadata_json,
         "policy_decisions": contract.policy_decisions_json,
+        "queue": queue.as_dict(),
+        "clause_labels": pa.CLAUSE_TYPE_LABELS,
         "is_finalized": contract.review_finalized_at is not None,
         "current_year": datetime.now().year,
     })
