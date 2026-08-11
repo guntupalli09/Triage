@@ -1,0 +1,62 @@
+Negotiation Package — Cover Memo
+Contract: northstar_msa_test_contract.txt
+============================================================
+
+3 accepted, 1 rejected, 16 flagged for manual drafting.
+
+REJECTED — reviewer did not accept the suggested redline
+------------------------------------------------------------
+[POLICY_TERMINATION] Termination — PROHIBITED
+  Reason: Strategic enterprise customer — exception approved for this agreement.
+
+FLAGGED FOR MANUAL DRAFTING — no deterministic redline exists for these
+------------------------------------------------------------
+[H_ASSIGN_CHANGE_CTRL_01] Assignment restricted on change of control — Dismissed
+  Restrictions on assignment during a merger, acquisition, or change of control can block fundraising or exits.
+
+[H_DATA_TERMINATION_01] No data return or deletion on termination — Dismissed
+  Absence of data return, export, or deletion obligations on termination can leave your data locked in a vendor's system with no recourse. No protective language for this topic was found anywhere in the document.
+
+[H_INDEM_SCOPE_NARROW_01] Indemnification scope may be too narrow — Dismissed
+  An indemnification obligation limited to a short enumerated list of triggers (e.g. IP infringement, unauthorized data use) leaves other major risk categories — data breach, negligence, confidentiality breach, security incidents, regulatory violations — without indemnification coverage, even though those are often the more likely real-world failure modes. No protective language for this topic was found anywhere in the document.
+
+[H_LEASE_ASSIGN_SUBLET_01] Landlord assignment/sublet consent lacks reasonableness standard — Dismissed
+  Requiring landlord consent to assign or sublet without a 'not unreasonably withheld' standard lets the landlord block a sale, merger, or space downsize for any reason, including no reason at all.
+
+[H_LOL_CARVEOUT_01] Liability cap carve-outs may negate protection — Dismissed
+  Liability caps that exclude indemnity, confidentiality, or IP claims often negate the practical benefit of the cap entirely.
+
+[M_DATA_PORTABILITY_01] No data portability or export rights on exit — Dismissed
+  Without explicit data portability or export rights, you may be unable to retrieve your data in a usable format after the relationship ends. No protective language for this topic was found anywhere in the document.
+
+[M_FINAL_INVOICE_01] Final invoice timing on termination not specified — Dismissed
+  Without a defined timeline for issuing a final invoice after termination, billing close-out and reconciliation can be delayed indefinitely. No protective language for this topic was found anywhere in the document.
+
+[M_INSURANCE_01] No minimum insurance requirements — Dismissed
+  Lack of insurance requirements means the counterparty may not have financial backing to cover claims, leaving indemnity and liability protections hollow. No protective language for this topic was found anywhere in the document.
+
+[M_PAYMENT_TRIGGER_01] No invoice trigger event specified — Dismissed
+  Without a defined invoicing trigger (e.g. upon execution, service activation, or delivery), it is unclear when billing may begin, which can cause invoice timing mismatches. No protective language for this topic was found anywhere in the document.
+
+[M_RESIDUALS_01] No residuals / knowledge carve-out — Dismissed
+  Absence of a residuals clause can restrict use of general knowledge gained during discussions. No protective language for this topic was found anywhere in the document.
+
+[M_SECURITY_CERT_MISSING_01] No recognized security certification required — Dismissed
+  A contract that discusses security measures or safeguards but never requires a recognized independent certification (SOC 2, ISO 27001, PCI-DSS, etc.) gives the customer no objective, third-party-verified way to confirm the vendor's security posture actually meets the standard described. No protective language for this topic was found anywhere in the document.
+
+[M_SLA_01] No service level or uptime commitment — Dismissed
+  Absence of defined service levels, uptime commitments, or remedies for downtime means you have no contractual recourse for service failures. No protective language for this topic was found anywhere in the document.
+
+[L_GOVLAW_01] Specific governing law or venue — Dismissed
+  Governing law and venue choices can affect enforcement cost and strategy.
+
+[L_LATEFEE_01] Late fees / high interest — Dismissed
+  Penalty terms can increase costs if payment timing slips.
+
+[POLICY_LOL_CAP] Limitation of Liability — ESCALATE — Needs manual drafting
+  Contract language: "five times the fees". Extracted value: 5x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ESCALATE.
+
+[POLICY_INDEMNIFICATION] Indemnification — MUST REDLINE — Dismissed
+  Contract language: "services, violation of applicable law, or breach of this Agreement. Provider
+shall indemnify Customer against third-party claims that the services, as delivered by
+Provider". protection missing required trigger(s): ip_infringement, data_breach, confidentiality, gross_negligence, willful_misconduct; we do not control (or share control of) the defense of claims we must indemnify; exposure obligation lacks a notice-and-cooperation precondition; exposure obligation states no monetary treatment at all. Result: MUST_REDLINE.

@@ -811,3 +811,156 @@ CASES += [
          "REQUIRES_REVIEW", "SKIP",
          notes="Conditional/temporary amendment (only for one renewal term) — even a system that handled amendment precedence would need to know which term is currently active; correct default is to flag for review."),
 ]
+
+
+# ---------------------------------------------------------------------------
+# 24. Unheaded provisions — commercially standard cap drafting with no
+#     "Limitation of Liability" heading and no "liability cap" phrase.
+#
+#     Added after the Playbook UX walkthrough (artifacts/playbook_ux_
+#     walkthrough/ux_walkthrough_report.md, Finding P0-3) found that the
+#     engine returned NOT_APPLICABLE — "this contract does not address
+#     liability caps" — for the exact adverse paragraph the product's own
+#     "Test Policy" screen is meant to catch, purely because the paragraph
+#     carried no heading. `unheaded-01` is the Northstar clause verbatim
+#     from artifacts/playbook_ux_walkthrough/northstar_msa_test_contract.txt
+#     (§3 body, heading stripped, as a lawyer would paste it out of a
+#     redline exchange); it is NOT edited to make the engine pass.
+# ---------------------------------------------------------------------------
+CASES += [
+    case("unheaded-01", ["unheaded", "northstar_walkthrough", "carveouts"],
+         "Except for Customer's payment obligations, Provider's liability shall be unlimited for "
+         "breaches of confidentiality, data security obligations, intellectual property "
+         "infringement, and indemnification obligations. For all other claims, Provider's "
+         "aggregate liability shall not exceed five times the fees paid under this Agreement. "
+         "Neither limitation shall apply to Provider's gross negligence, willful misconduct, or "
+         "fraud.",
+         "ESCALATE", {"kind": "fee_multiplier", "multiplier": 5.0},
+         notes="CATEGORY TREATMENTS DELIBERATELY NOT ASSERTED — see the paragraph below. "
+               "Verbatim Northstar MSA §3 body with the section heading removed — the exact text "
+               "that returned a false NOT_APPLICABLE before provision discovery was broadened. "
+               "Ground truth ESCALATE, not PROHIBITED: prohibit_unlimited governs the GENERAL cap, "
+               "and the general cap here is a stated 5x — beyond the 3x negotiable ceiling, so it "
+               "routes to the escalation authority. The uncapped items are carve-outs from that "
+               "cap (conventional drafting for fraud/willful misconduct/confidentiality), not an "
+               "unlimited general cap.\n\n"
+               "KNOWN, PRE-EXISTING CATEGORY-CLASSIFICATION GAP (recorded, not asserted): a lawyer "
+               "reads all seven named categories here as UNCAPPED — confidentiality, data "
+               "security, IP infringement and indemnification via 'liability shall be unlimited "
+               "for...', and gross negligence/willful misconduct/fraud via 'Neither limitation "
+               "shall apply to...'. The engine currently returns confidentiality=uncapped, "
+               "data_breach=not_addressed ('data security obligations' is not one of "
+               "_CATEGORY_KEYWORD_RE's data_breach phrasings) and within_general_cap for the other "
+               "five. This behavior is IDENTICAL with the section heading restored, i.e. it is a "
+               "category-classification gap that predates (and is unaffected by) the P0-3 "
+               "provision-discovery broadening — it was simply unmeasurable before, because this "
+               "clause was never discovered at all. Expected category treatments are therefore "
+               "left unasserted in this pass rather than either (a) relabeled to match the engine, "
+               "which would hide the gap, or (b) asserted and 'fixed' by changing classification "
+               "logic in the same pass that changed discovery. Flagged here for a dedicated "
+               "category-classification pass."),
+    case("unheaded-02", ["unheaded", "clean_multiplier"],
+         "Provider's aggregate liability shall not exceed 2 times the fees paid under this "
+         "Agreement in the twelve (12) months preceding the claim.",
+         "ACCEPT_WITH_NOTE", {"kind": "fee_multiplier", "multiplier": 2.0},
+         notes="'aggregate liability shall not exceed' with no heading."),
+    case("unheaded-03", ["unheaded", "clean_multiplier"],
+         "The total liability of either party under this Agreement shall not exceed 1 times the "
+         "total annual fees paid.",
+         "ACCEPT", {"kind": "fee_multiplier", "multiplier": 1.0},
+         notes="'total liability shall not exceed' with no heading."),
+    case("unheaded-04", ["unheaded", "fixed_amount"],
+         "Supplier's liability is capped at $250,000.00 in the aggregate.",
+         "ESCALATE", {"kind": "fixed_amount", "fixed_amount": 250000.0},
+         notes="'liability capped at' with no heading. Fixed amounts escalate for manual "
+               "comparison, consistent with the fixed-* cases above — the engine cannot normalize "
+               "dollars against a fee multiple."),
+    case("unheaded-05", ["unheaded", "clean_multiplier"],
+         "Vendor's maximum liability under this Agreement shall not exceed 3 times the annual fees "
+         "paid.",
+         "NEGOTIATE", {"kind": "fee_multiplier", "multiplier": 3.0},
+         notes="'maximum liability' with no heading; 3x is the boundary of the negotiable range."),
+    case("unheaded-06", ["unheaded", "clean_multiplier"],
+         "In no event shall Provider's liability exceed 5 times the total fees paid under this "
+         "Agreement.",
+         "ESCALATE", {"kind": "fee_multiplier", "multiplier": 5.0},
+         notes="'in no event shall liability exceed' with no heading."),
+    case("unheaded-07", ["unheaded", "clean_multiplier"],
+         "Each party's liability under this Agreement is limited to 1 times the fees paid in the "
+         "twelve (12) months preceding the claim.",
+         "ACCEPT", {"kind": "fee_multiplier", "multiplier": 1.0},
+         notes="'liability limited to' with a quantified multiple, no heading."),
+    case("unheaded-08", ["unheaded", "unquantified_cap"],
+         "Each party's liability is limited to the fees paid in the twelve (12) months preceding "
+         "the claim.",
+         "ACCEPT", {"kind": "fee_multiplier", "multiplier": 1.0},
+         notes="KNOWN GAP, labeled by legal reading rather than engine output: a reviewer reads "
+               "'limited to the fees paid' as a 1x fee cap, which is within policy. The engine "
+               "extracts no multiplier from an unquantified fee basis and returns MUST_REDLINE "
+               "('state a numeric cap') — conservative and not a false-safe, but not the answer a "
+               "lawyer would give. Recorded as a genuine gap rather than relabeled to match the "
+               "engine."),
+    case("unheaded-09", ["unheaded", "unlimited"],
+         "Provider shall have unlimited liability for all claims arising under this Agreement.",
+         "PROHIBITED", {"kind": "unlimited"},
+         notes="'unlimited liability' as the general position, no heading — prohibit_unlimited "
+               "applies directly."),
+    case("unheaded-10", ["unheaded", "carveouts", "conflict"],
+         "Provider's aggregate liability shall not exceed 1 times the fees paid, except for "
+         "breaches of confidentiality, gross negligence, willful misconduct, or fraud, which shall "
+         "be uncapped.",
+         "REQUIRES_REVIEW", "SKIP",
+         notes="General cap plus uncapped carve-outs, no heading. The engine sees both a numeric "
+               "cap and unlimited language in one sentence and abstains rather than guessing which "
+               "governs — the correct conservative behavior for a compound statement."),
+]
+
+# ---------------------------------------------------------------------------
+# 25. Adversarial negative controls for broadened provision discovery —
+#     provisions that talk about liability but are NOT limitation-of-
+#     liability provisions. These exist specifically so the layer-2
+#     drafting anchors (liability_policy_engine._SECONDARY_ANCHOR_RE)
+#     cannot over-fire and misclassify an unrelated clause as an LoL
+#     provision; NOT_APPLICABLE is the correct answer for every one.
+# ---------------------------------------------------------------------------
+CASES += [
+    case("notlol-01", ["no_clause", "negative_control"],
+         "Customer shall indemnify, defend, and hold harmless Provider from and against any and "
+         "all third-party claims, damages, liabilities, costs, and expenses (including reasonable "
+         "attorneys' fees) arising out of Customer's misuse of the services, violation of "
+         "applicable law, or breach of this Agreement.",
+         "NOT_APPLICABLE", None,
+         notes="Indemnification clause naming 'liabilities' — no cap, no limitation."),
+    case("notlol-02", ["no_clause", "negative_control"],
+         "Each party shall maintain commercial general liability insurance with limits of not less "
+         "than $2,000,000 per occurrence and $5,000,000 in the aggregate, and shall name the other "
+         "party as an additional insured.",
+         "NOT_APPLICABLE", None,
+         notes="Insurance covenant: 'liability' + 'limits' + dollar figures + 'aggregate' — the "
+               "single most likely false positive for cap-shaped discovery."),
+    case("notlol-03", ["no_clause", "negative_control"],
+         "The obligations of the Customer entities under this Agreement are joint and several, and "
+         "each such entity accepts liability for the acts and omissions of the others.",
+         "NOT_APPLICABLE", None,
+         notes="Liability allocation between affiliated entities — assigns liability, does not "
+               "limit it."),
+    case("notlol-04", ["no_clause", "negative_control"],
+         "Any liability arising under this Agreement shall be determined in accordance with the "
+         "laws of the State of Delaware, without regard to its conflict of laws principles.",
+         "NOT_APPLICABLE", None,
+         notes="Governing-law clause mentioning liability in passing."),
+    case("notlol-05", ["no_clause", "negative_control"],
+         "Provider maintains professional liability coverage and will provide certificates of "
+         "insurance upon request. Coverage limits are set forth in Schedule C.",
+         "NOT_APPLICABLE", None,
+         notes="Insurance again, this time cross-referencing a schedule — must not be resolved as "
+               "a delegated liability cap."),
+    case("notlol-06", ["no_clause", "negative_control"],
+         "Nothing in this Agreement limits either party's liability for death or personal injury "
+         "caused by its negligence, for fraud, or for any other liability that cannot lawfully be "
+         "limited.",
+         "NOT_APPLICABLE", None,
+         notes="A non-excludable-liability savings clause standing alone (no cap stated anywhere) "
+               "is not itself a limitation of liability — it qualifies one. Discovery must not "
+               "treat it as the provision."),
+]

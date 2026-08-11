@@ -24,6 +24,30 @@ class Deviation:
     incoming_excerpt: Optional[str] = None
     template_excerpt: Optional[str] = None
 
+    def to_dict(self) -> Dict[str, Optional[str]]:
+        """The one explicit JSON representation of a Deviation.
+
+        compare()'s result crosses a persistence boundary (it is written
+        straight into Contract.deviations_json, an encrypted JSON column)
+        and a template-rendering boundary. Before this existed, compare()
+        returned raw dataclass instances under "added_risks"/
+        "missing_protections", so any Playbook whose own template produced
+        findings crashed the upload with
+        `TypeError: Object of type Deviation is not JSON serializable`
+        (UX walkthrough P0-4). Every field is listed explicitly — not
+        `asdict()` and not `default=str` — so adding a field to the
+        dataclass is a deliberate decision about what gets persisted and
+        rendered, and nothing is silently stringified."""
+        return {
+            "rule_id": self.rule_id,
+            "title": self.title,
+            "severity": self.severity,
+            "deviation_type": self.deviation_type,
+            "description": self.description,
+            "incoming_excerpt": self.incoming_excerpt,
+            "template_excerpt": self.template_excerpt,
+        }
+
 
 class PlaybookEngine:
     def __init__(self):
@@ -94,21 +118,13 @@ class PlaybookEngine:
                 "severity_changed": severity_changed,
             })
 
+        # Every value below is JSON-serializable by construction: this dict
+        # is persisted verbatim into Contract.deviations_json. Deviation
+        # objects never leave this method (P0-4).
         return {
-            "deviations": [
-                {
-                    "rule_id": d.rule_id,
-                    "title": d.title,
-                    "severity": d.severity,
-                    "deviation_type": d.deviation_type,
-                    "description": d.description,
-                    "incoming_excerpt": d.incoming_excerpt,
-                    "template_excerpt": d.template_excerpt,
-                }
-                for d in deviations
-            ],
-            "added_risks": [d for d in deviations if d.deviation_type == "added_risk"],
-            "missing_protections": [d for d in deviations if d.deviation_type == "missing_protection"],
+            "deviations": [d.to_dict() for d in deviations],
+            "added_risks": [d.to_dict() for d in deviations if d.deviation_type == "added_risk"],
+            "missing_protections": [d.to_dict() for d in deviations if d.deviation_type == "missing_protection"],
             "shared_findings": shared,
             "deviation_count": len(deviations),
             "added_risk_count": len(added_risk_ids),

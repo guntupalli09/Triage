@@ -104,7 +104,61 @@ _WORD_NUMBERS = {
     "seven": 7, "eight": 8, "nine": 9, "ten": 10,
 }
 
+# Provision discovery, in the same two-layer style the other five engines
+# use (a broad anchor pattern + local disqualifiers — cf.
+# termination_policy_engine._ANCHOR_RE / indemnification_policy_engine's
+# "\bno\s+$" lookback filter).
+#
+# Layer 1 — the labelled anchor: a heading or self-reference that names the
+# provision outright.
 _ANCHOR_RE = re.compile(r"limitation\s+of\s+liability|liability\s+cap", re.I)
+
+# Layer 2 — drafting anchors: the operative sentence patterns commercial
+# liability caps are actually written in, for the (very common) case where
+# the clause carries no heading at all — a pasted redline excerpt, an email
+# thread, an order-form rider. Before this existed, extract_liability_facts
+# returned None for any liability limitation that didn't literally contain
+# the words "limitation of liability" or "liability cap", producing a
+# confident, false "this contract does not address liability caps" on
+# genuinely adverse language (UX walkthrough P0-3).
+#
+# Every alternative requires the word "liability" adjacent to a cap/exclusion
+# verb phrase — never "liability" alone — so provisions that merely mention
+# liability in passing (indemnities, insurance covenants, joint-and-several
+# allocations, governing-law sentences) are not misclassified as
+# limitation-of-liability provisions. See _SECONDARY_DISQUALIFIER_RE for the
+# local-context guard on top of that.
+_SECONDARY_ANCHOR_RE = re.compile(
+    # "<Party>'s aggregate/total/maximum/cumulative/overall liability ..."
+    r"\b(?:aggregate|total|maximum|cumulative|overall|entire)\s+liability\b"
+    # "... liability shall not exceed / is capped at / is limited to ..."
+    r"|\bliability\b(?:\s+[\w'’]+){0,8}?\s+(?:shall\s+not\s+exceed|shall\s+in\s+no\s+event\s+exceed"
+    r"|(?:is|are|shall\s+be)\s+(?:capped|limited)\s+(?:at|to)|(?:is|are|shall\s+be)\s+capped\b)"
+    # "in no event shall <Party> be liable ... in excess of / exceed ..."
+    r"|in\s+no\s+event\s+shall(?:\s+[\w'’]+){0,6}?\s+liability\s+exceed"
+    # "liability shall be unlimited" / "unlimited liability" / "uncapped liability"
+    r"|\bunlimited\s+liability\b|\bliability\s+shall\s+be\s+unlimited\b"
+    r"|\buncapped\s+liability\b|\bliability\s+(?:shall\s+be|is|remains?)\s+uncapped\b"
+    # "no cap/limit on liability"
+    r"|\bno\s+(?:cap|limit(?:ation)?)\s+(?:on|of)\s+liability\b",
+    re.I,
+)
+
+# Local-context disqualifiers for a LAYER-2 anchor only (never applied to an
+# explicitly labelled provision): contexts where cap-shaped language around
+# the word "liability" belongs to a different kind of provision. Insurance
+# covenants are the important one — "commercial general liability insurance
+# with limits of not less than $2,000,000" is a coverage requirement, not a
+# limitation of the counterparty's liability to us.
+_SECONDARY_DISQUALIFIER_RE = re.compile(
+    r"\binsurance\b|\binsurer\b|\bcoverage\s+limits?\b|\bpolicy\s+of\s+insurance\b",
+    re.I,
+)
+_SECONDARY_LOCAL_WINDOW = 200
+# How far back a layer-2 anchor's provision window is extended so the
+# operative sentence isn't truncated mid-clause (the anchor typically lands
+# on the cap phrase itself, several words into the sentence).
+_SECONDARY_LOOKBACK = 400
 _UNLIMITED_RE = re.compile(
     r"unlimited liability|no limit(?:ation)?\s+(?:on|of)\s+liability"
     r"|liability shall not be limited|without limitation as to (?:the )?amount"
@@ -727,8 +781,8 @@ def _resolve_cross_reference(
     return resolved[0][1], ""
 
 
-def _extract_provision(text: str, anchor_match: re.Match, index: int) -> Provision:
-    window_start = anchor_match.start()
+def _extract_provision(text: str, anchor_start: int, index: int) -> Provision:
+    window_start = anchor_start
     window_end = min(len(text), window_start + _PROVISION_WINDOW_CHARS)
     window = text[window_start:window_end]
 
@@ -818,21 +872,65 @@ def _extract_provision(text: str, anchor_match: re.Match, index: int) -> Provisi
     )
 
 
+def _sentence_start_before(text: str, index: int) -> int:
+    """Start of the sentence/paragraph containing `index`, bounded by
+    _SECONDARY_LOOKBACK. Deterministic and purely positional — no
+    heuristics about content."""
+    lower_bound = max(0, index - _SECONDARY_LOOKBACK)
+    segment = text[lower_bound:index]
+    best = 0
+    for boundary in (". ", ".\n", "\n\n", "; "):
+        pos = segment.rfind(boundary)
+        if pos != -1:
+            best = max(best, pos + len(boundary))
+    return lower_bound + best
+
+
+def _discover_anchors(text: str) -> List[Tuple[int, bool]]:
+    """Every provision anchor in the document as (window_start, is_labelled),
+    in document order, deduplicated.
+
+    Layer 1 (labelled) anchors are taken as-is. Layer 2 (drafting) anchors
+    are only accepted when they are NOT already inside/near a labelled
+    provision — a cap sentence sitting under a "Limitation of Liability"
+    heading is the same provision, not a second one — and when their local
+    context doesn't disqualify them (see _SECONDARY_DISQUALIFIER_RE)."""
+    primary = [(m.start(), True) for m in _ANCHOR_RE.finditer(text)]
+
+    secondary: List[Tuple[int, bool]] = []
+    for m in _SECONDARY_ANCHOR_RE.finditer(text):
+        local = text[max(0, m.start() - _SECONDARY_LOCAL_WINDOW): m.end() + _SECONDARY_LOCAL_WINDOW]
+        if _SECONDARY_DISQUALIFIER_RE.search(local):
+            continue
+        # Suppressed when a labelled provision already covers this text —
+        # its own window (_PROVISION_WINDOW_CHARS) will read this sentence.
+        if any(p_start <= m.start() < p_start + _PROVISION_WINDOW_CHARS for p_start, _ in primary):
+            continue
+        secondary.append((_sentence_start_before(text, m.start()), False))
+
+    candidates = sorted(primary + secondary, key=lambda a: a[0])
+
+    accepted: List[Tuple[int, bool]] = []
+    for start, is_labelled in candidates:
+        if accepted and start - accepted[-1][0] < _ANCHOR_DEDUP_GAP:
+            continue  # same clause mentioning itself again, not a new provision
+        accepted.append((start, is_labelled))
+    return accepted
+
+
 def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
-    """Discovers every Limitation-of-Liability-anchored provision in the
-    full document (not just the first) and reconciles them. Returns None
-    only when no such provision exists at all anywhere in the document."""
-    anchors = list(_ANCHOR_RE.finditer(text))
-    if not anchors:
+    """Discovers every liability-limitation provision in the full document
+    (not just the first) and reconciles them. Returns None only when no such
+    provision exists at all anywhere in the document.
+
+    Discovery is two-layered — an explicitly labelled provision, or ordinary
+    commercial cap drafting with no heading at all. See _ANCHOR_RE /
+    _SECONDARY_ANCHOR_RE."""
+    accepted_anchors = _discover_anchors(text)
+    if not accepted_anchors:
         return None
 
-    accepted_anchors = []
-    for m in anchors:
-        if accepted_anchors and m.start() - accepted_anchors[-1].start() < _ANCHOR_DEDUP_GAP:
-            continue  # same clause mentioning itself again, not a new provision
-        accepted_anchors.append(m)
-
-    provisions = [_extract_provision(text, m, i) for i, m in enumerate(accepted_anchors)]
+    provisions = [_extract_provision(text, start, i) for i, (start, _) in enumerate(accepted_anchors)]
 
     if len(provisions) == 1:
         return LiabilityFacts(clause_found=True, provisions=provisions, controlling_provision=provisions[0],

@@ -35,6 +35,7 @@ import google_oauth
 import playbook_ai_extraction as pai
 import playbook_authoring as pa
 import playbook_extraction as pex
+import policy_enforcement
 import upload_security
 from auth import get_current_user
 from csrf import csrf_protect, get_csrf_token
@@ -116,7 +117,25 @@ def _base_context(request: Request, user, playbook: Playbook, clause_type: str, 
         "is_new_revision": False,
         "current_year": datetime.now().year,
         "error": None,
+        # Shared-field values the form should re-display. Normally the
+        # persisted position's; overridden with what was just submitted when
+        # a save/submit fails validation, so nothing typed is lost (P0-1).
+        "form_contract_side": position.contract_side if position else "mutual",
+        "form_escalation_approval_authority": (position.escalation_approval_authority if position else None) or "",
+        "form_fallback_text": (position.fallback_text if position else None) or "",
     }
+
+
+def _apply_submitted_values(ctx: dict, clause_type: str, form) -> None:
+    """Re-render an authoring form with the values the lawyer actually
+    submitted rather than whatever is (or isn't) persisted — the whole
+    point of P0-1's "if validation fails, preserve entered values"
+    requirement."""
+    ctx["cfg"] = pa.parse_clause_form_best_effort(clause_type, form)
+    ctx["field_statuses"] = {name: "ESTABLISHED" for name in ctx["cfg"]}
+    ctx["form_contract_side"] = pa.parse_contract_side(form.get("contract_side"))
+    ctx["form_escalation_approval_authority"] = (form.get("escalation_approval_authority") or "").strip()
+    ctx["form_fallback_text"] = (form.get("fallback_text") or "").strip()
 
 
 def _extract_text_from_file(file_bytes: bytes, filename: str) -> str:
@@ -174,6 +193,9 @@ async def playbook_workbench(request: Request, playbook_id: int, db: DBSession =
     return templates.TemplateResponse("playbook_workbench.html", {
         "request": request, "user": user, "playbook": playbook,
         "coverage": coverage, "cards": cards, "current_year": datetime.now().year,
+        # Lifecycle status ("Active") is not production authority — see
+        # policy_enforcement.is_policy_authoritative (P0-2).
+        "enforcement": policy_enforcement.enforcement_disclosure(),
     })
 
 
@@ -222,8 +244,10 @@ async def position_save(
         )
     except (pa.PositionFormError, pa.PolicyConfigValidationError) as exc:
         db.rollback()
-        ctx = _base_context(request, user, playbook, clause_type, None)
-        ctx["position"] = None
+        # Preserve what was typed (P0-1) rather than re-rendering a blank
+        # form — the values only exist in this request body.
+        ctx = _base_context(request, user, playbook, clause_type, pa.get_position_for_display(db, playbook.id, clause_type))
+        _apply_submitted_values(ctx, clause_type, form)
         ctx["is_new_revision"] = is_new_revision
         ctx["error"] = str(exc)
         return templates.TemplateResponse(f"policy_position_fields/{clause_type}.html", ctx, status_code=400)
@@ -254,16 +278,55 @@ async def position_submit_for_review(
     request: Request, playbook_id: int, clause_type: str,
     db: DBSession = Depends(get_db), _csrf: None = Depends(csrf_protect),
 ):
+    """Persist-then-transition, atomically, in one request (UX walkthrough
+    P0-1). This route used to read ONLY the last-persisted row, so a lawyer
+    who filled in the authoring form and clicked "Submit for review" without
+    first clicking "Save draft" silently submitted the stale row and lost
+    every value on screen.
+
+    The authoring form now posts its full field payload here (via
+    formaction, marked with the `authoring_form` hidden input), and this
+    route runs the exact same persist step position_save runs — same
+    pa.parse_clause_form / pa.apply_position_update pair, not a second
+    parallel implementation — before transitioning. If validation fails,
+    the transaction is rolled back, the form is re-rendered with the
+    submitted values and an actionable error, and NO lifecycle transition
+    occurs.
+
+    A post that carries no authoring payload (no `authoring_form` marker —
+    e.g. the review page's own transition action, or an API caller that
+    already saved) keeps the previous transition-only behavior."""
     user = _require_user(request, db)
     playbook = _get_owned_playbook(db, user, playbook_id)
     clause_type = _require_clause_type(clause_type)
-    position = _get_current_position_or_404(db, playbook, clause_type)
+
+    form = await request.form()
+    carries_form_state = bool(form.get("authoring_form"))
+
+    if carries_form_state:
+        position, _is_new_revision = pa.get_or_build_editable_position(db, playbook, clause_type)
+    else:
+        position = _get_current_position_or_404(db, playbook, clause_type)
 
     try:
+        if carries_form_state:
+            pa.apply_position_update(
+                db, position,
+                clause_field_updates=pa.parse_clause_form(clause_type, form),
+                contract_side=pa.parse_contract_side(form.get("contract_side")),
+                escalation_approval_authority=(form.get("escalation_approval_authority") or "").strip() or None,
+                fallback_text=(form.get("fallback_text") or "").strip() or None,
+                user=user,
+            )
+            db.flush()
         pa.mark_ready_for_review(db, position, user)
-    except (pa.PositionLifecycleError, pa.PolicyConfigValidationError) as exc:
+    except (pa.PositionFormError, pa.PositionLifecycleError, pa.PolicyConfigValidationError) as exc:
         db.rollback()
-        ctx = _base_context(request, user, playbook, clause_type, position)
+        # Re-render with what the lawyer actually typed, never a blank form
+        # or a stale DB row — losing the input is the bug being fixed.
+        ctx = _base_context(request, user, playbook, clause_type, pa.get_position_for_display(db, playbook.id, clause_type))
+        if carries_form_state:
+            _apply_submitted_values(ctx, clause_type, form)
         ctx["error"] = str(exc)
         return templates.TemplateResponse(f"policy_position_fields/{clause_type}.html", ctx, status_code=400)
 

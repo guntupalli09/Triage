@@ -54,6 +54,26 @@ def _format_report(report: pr.ReadinessReport) -> str:
     lines = ["# Phase 4.1 Production Shadow Readiness Report", ""]
     lines.append(f"Generated: {d['generated_at']}")
     lines.append(f"Current POLICY_ENFORCEMENT_MODE: `{d['current_mode']}`")
+    em = d["enforcement_mode"]
+    lines.append("")
+    lines.append("## 0. Production enforcement authority")
+    lines.append(
+        f"- ACTIVE PolicyPositions are **{'AUTHORITATIVE' if em['authoritative_in_production'] else 'NOT authoritative'}** "
+        f"for user-visible contract review outcomes right now."
+    )
+    if em["start_time_recorded"]:
+        lines.append(f"- In `{em['mode']}` mode since {em['since']} ({em['days_in_mode']} day(s)).")
+    else:
+        lines.append(
+            f"- In `{em['mode']}` mode; no mode-change observation has been recorded yet, so its "
+            f"age is unknown (one is recorded the next time a contract review runs)."
+        )
+    if not em["authoritative_in_production"]:
+        lines.append(
+            "- A deployment can stay here indefinitely and every Playbook will still show a green "
+            "\"Active\" badge — that is why this section exists. Cutover remains a deliberate, "
+            "human-authorized action backed by the shadow evidence below."
+        )
     lines.append("")
 
     m = d["migration_coverage"]
@@ -96,6 +116,12 @@ def _format_report(report: pr.ReadinessReport) -> str:
     lines.append("## 5. Full test suite")
     lines.append(f"- {d['full_test_suite']['status']} — {d['full_test_suite']['summary']}")
     lines.append("")
+
+    if d.get("operational_notices"):
+        lines.append("## Operational notices (not cutover blockers)")
+        for notice in d["operational_notices"]:
+            lines.append(f"- {notice}")
+        lines.append("")
 
     lines.append("## Verdict")
     lines.append(f"**{d['verdict']}**")
