@@ -70,10 +70,11 @@ from auth import (
     create_mfa_pending, get_mfa_pending_user_id, clear_mfa_pending,
 )
 import mfa
-from models import User, Contract, Playbook
+from models import User, Contract, Playbook, PolicyRule
 from encryption import validate_startup as validate_encryption_startup, EncryptionConfigError
 from analytics_models import UserAcquisition, UserSession, UserEvent, ContractEvent
 from playbook_engine import PlaybookEngine
+import liability_policy_engine
 import google_oauth
 import emailer
 import analytics
@@ -81,6 +82,8 @@ import audit_log
 import upload_security
 import rbac
 import retention
+import playbook_workbench
+import policy_enforcement
 from analytics_middleware import AnalyticsMiddleware
 from channel_classifier import CHANNELS as ACQUISITION_CHANNELS
 
@@ -217,6 +220,8 @@ app.add_middleware(RequestIDMiddleware)
 app.add_middleware(SecurityHeadersMiddleware)
 app.add_middleware(CSRFCookieMiddleware)
 
+app.include_router(playbook_workbench.router)
+
 rule_engine = RuleEngine()
 llm_evaluator = LLMEvaluator()
 playbook_engine = PlaybookEngine()
@@ -246,6 +251,17 @@ def on_startup():
     logger.info(f"Triage Counsel worker ready | mode={'DEMO' if DEV_MODE else 'PROD'} | db={db_type} | redis={'yes' if redis_url else 'no'} | pid={os.getpid()}")
     if not DEV_MODE and "sqlite" in DATABASE_URL:
         logger.warning("Running production mode with SQLite — use PostgreSQL for reliability")
+
+    # Phase 4 release gate (requirement 7): refuse to boot in cutover mode
+    # if any legacy limitation_of_liability PolicyRule lacks an equivalent
+    # ACTIVE PolicyPosition — fail closed rather than silently dropping
+    # enforcement for that playbook's live contract review.
+    if policy_enforcement.get_enforcement_mode() == "cutover":
+        _gate_db = SessionLocal()
+        try:
+            policy_enforcement.verify_migration_coverage_or_fail_closed(_gate_db)
+        finally:
+            _gate_db.close()
 
 
 @app.on_event("shutdown")
@@ -363,6 +379,15 @@ def run_analysis(contract_text: str) -> Dict:
         # Risk Allocation & Clause Balance Score — see risk_balance.py.
         "risk_balance": analysis.get("risk_balance", {}),
     }
+
+
+# Phase 4: policy enforcement (which policy source is authoritative — legacy
+# PolicyRule vs ACTIVE PolicyPosition — and how each is evaluated) now lives
+# entirely in policy_enforcement.py; apply_liability_policy is re-exported
+# here unchanged so nothing else in this file (or any external call site)
+# needs to change its import. See policy_enforcement.apply_policies_for_review
+# for the mode-dispatching entry point this file actually calls below.
+apply_liability_policy = policy_enforcement.apply_liability_policy
 
 
 def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[Dict]:
@@ -1332,11 +1357,25 @@ async def upload_contract(
 
     # Playbook comparison
     deviations = None
+    playbook = None
     if playbook_id:
         playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
         if playbook and playbook.template_findings_json:
             comparison = playbook_engine.compare(analysis["findings_dict"], playbook.template_findings_json)
             deviations = comparison
+
+    # Policy enforcement (Phase 4) — mutates analysis["findings_dict"] in
+    # place (appends synthetic policy findings), so it must run before
+    # Contract is constructed below (findings_json is set from that same
+    # list at construction time; mutating it afterward without a
+    # reassignment wouldn't reliably mark the encrypted JSON column dirty).
+    # contract_id is not yet known at this point (no row exists yet) —
+    # shadow-mode AuditLog entries from this call carry target_id=None,
+    # which is fine since target_type="contract" combined with playbook_id
+    # in the log payload is enough to trace it.
+    policy_result = policy_enforcement.apply_policies_for_review(
+        db, playbook, contract_text, analysis["findings_dict"],
+    )
 
     contract = Contract(
         user_id=user.id,
@@ -1350,6 +1389,8 @@ async def upload_contract(
         analysis_completed=True,
         playbook_id=playbook_id,
         deviations_json=deviations,
+        policy_decisions_json=policy_result["policy_decisions"],
+        policy_revision_metadata_json=policy_result["policy_revision_metadata"],
         signature_readiness=analysis.get("signature_readiness"),
         payment_terms_json=analysis.get("payment_terms"),
         blocking_findings_json=analysis.get("blocking_findings"),
@@ -1471,12 +1512,19 @@ async def batch_upload_submit(
             comparison = playbook_engine.compare(analysis["findings_dict"], template_findings)
             deviations = comparison
 
+        policy_result = policy_enforcement.apply_policies_for_review(
+            db, playbook, text, analysis["findings_dict"],
+        )
+
         contract = Contract(
             user_id=user.id, filename=batch_filename, contract_text=text,
             overall_risk=analysis["overall_risk"], findings_json=analysis["findings_dict"],
             llm_result_json=analysis["llm_result"], rule_counts_json=analysis["rule_counts"],
             rule_engine_version=analysis["version"], analysis_completed=True,
-            playbook_id=playbook_id, deviations_json=deviations, batch_id=batch_id,
+            playbook_id=playbook_id, deviations_json=deviations,
+            policy_decisions_json=policy_result["policy_decisions"],
+            policy_revision_metadata_json=policy_result["policy_revision_metadata"],
+            batch_id=batch_id,
             signature_readiness=analysis.get("signature_readiness"),
             payment_terms_json=analysis.get("payment_terms"),
             blocking_findings_json=analysis.get("blocking_findings"),
@@ -2190,6 +2238,7 @@ async def review_contract(request: Request, contract_id: int, db: DBSession = De
         "business_risk_score": contract.business_risk_score,
         "negotiation_difficulty_score": contract.negotiation_difficulty_score,
         "metadata": contract.metadata_json,
+        "policy_decisions": contract.policy_decisions_json,
         "is_finalized": contract.review_finalized_at is not None,
         "current_year": datetime.now().year,
     })
@@ -2223,7 +2272,16 @@ async def submit_review_decision(
         raise HTTPException(status_code=400, detail=str(e))
 
     decisions = dict(contract.review_decisions_json or {})
-    entry = {"action": action, "rule_id": finding["rule_id"], "decided_at": datetime.utcnow().isoformat()}
+    entry = {
+        "action": action, "rule_id": finding["rule_id"], "decided_at": datetime.utcnow().isoformat(),
+        "decided_by": user.name or user.email,
+    }
+    if finding.get("finding_type") == "policy_decision":
+        # Policy overrides must never be silent: the finding already carries
+        # the original deterministic recommendation (policy_state) in
+        # findings_json, permanently, regardless of what's decided here —
+        # this just records which decision it was overridden with and why.
+        entry["policy_original_recommendation"] = finding.get("policy_state")
     if reason.strip():
         entry["reason"] = reason.strip()
     if action == "edited":
@@ -2497,9 +2555,61 @@ async def playbook_new_page(request: Request, db: DBSession = Depends(get_db)):
     if existing >= plan["playbooks_max"]:
         return RedirectResponse(url="/playbooks", status_code=302)
     return templates.TemplateResponse("playbook_form.html", {
-        "request": request, "user": user, "playbook": None, "error": None,
-        "current_year": datetime.now().year,
+        "request": request, "user": user, "playbook": None, "policy_rule": None,
+        "exception_types": liability_policy_engine.EXCEPTION_TYPES,
+        "error": None, "current_year": datetime.now().year,
     })
+
+
+def _upsert_liability_policy_rule(
+    db: DBSession, playbook: Playbook,
+    lol_enabled: str, lol_side: str,
+    lol_preferred: str, lol_acceptable_max: str, lol_negotiate_max: str,
+    lol_prohibit_unlimited: str, lol_required_exceptions: List[str],
+    lol_fallback_text: str, lol_escalation_authority: str,
+    lol_require_consequential_exclusion: str = "",
+    lol_required_consequential_carveouts: Optional[List[str]] = None,
+):
+    """Creates/updates/removes the playbook's limitation-of-liability
+    PolicyRule from the submitted form fields. Deleting is legitimate (the
+    lawyer unchecked "enable policy") — always look up the existing row
+    first so a re-save with the checkbox off actually removes it rather
+    than leaving a stale rule the engine would keep enforcing silently."""
+    existing = db.query(PolicyRule).filter(
+        PolicyRule.playbook_id == playbook.id, PolicyRule.clause_type == "limitation_of_liability",
+    ).first()
+
+    if lol_enabled != "on":
+        if existing:
+            db.delete(existing)
+        return
+
+    def _to_float(v: str) -> Optional[float]:
+        v = (v or "").strip()
+        if not v:
+            return None
+        try:
+            return float(v)
+        except ValueError:
+            return None
+
+    rule = existing or PolicyRule(playbook_id=playbook.id, clause_type="limitation_of_liability")
+    rule.contract_side = lol_side if lol_side in ("buy_side", "sell_side", "mutual") else "mutual"
+    rule.preferred_multiplier = _to_float(lol_preferred)
+    rule.acceptable_max_multiplier = _to_float(lol_acceptable_max)
+    rule.negotiate_max_multiplier = _to_float(lol_negotiate_max)
+    rule.prohibit_unlimited = lol_prohibit_unlimited == "on"
+    rule.required_exceptions_json = [e for e in (lol_required_exceptions or []) if e in liability_policy_engine.EXCEPTION_TYPES]
+    rule.fallback_text = lol_fallback_text.strip() or None
+    rule.escalation_approval_authority = lol_escalation_authority.strip() or None
+    rule.require_consequential_damages_exclusion = lol_require_consequential_exclusion == "on"
+    rule.required_consequential_carveouts_json = [
+        e for e in (lol_required_consequential_carveouts or []) if e in liability_policy_engine.EXCEPTION_TYPES
+    ]
+    if existing:
+        rule.version = (existing.version or 1) + 1
+    if not existing:
+        db.add(rule)
 
 
 @app.post("/playbooks/new")
@@ -2509,6 +2619,17 @@ async def playbook_new_submit(
     contract_type: str = Form(""),
     description: str = Form(""),
     file: UploadFile = File(...),
+    lol_enabled: str = Form(""),
+    lol_side: str = Form("mutual"),
+    lol_preferred: str = Form(""),
+    lol_acceptable_max: str = Form(""),
+    lol_negotiate_max: str = Form(""),
+    lol_prohibit_unlimited: str = Form(""),
+    lol_required_exceptions: List[str] = Form([]),
+    lol_fallback_text: str = Form(""),
+    lol_escalation_authority: str = Form(""),
+    lol_require_consequential_exclusion: str = Form(""),
+    lol_required_consequential_carveouts: List[str] = Form([]),
     db: DBSession = Depends(get_db),
     _csrf: None = Depends(csrf_protect),
 ):
@@ -2557,6 +2678,12 @@ async def playbook_new_submit(
         template_findings_json=template_findings, template_risk=analysis["overall_risk"],
     )
     db.add(playbook)
+    db.flush()  # assigns playbook.id without ending the transaction
+    _upsert_liability_policy_rule(
+        db, playbook, lol_enabled, lol_side, lol_preferred, lol_acceptable_max, lol_negotiate_max,
+        lol_prohibit_unlimited, lol_required_exceptions, lol_fallback_text, lol_escalation_authority,
+        lol_require_consequential_exclusion, lol_required_consequential_carveouts,
+    )
     db.commit()
 
     analytics.record_event(request, "playbook_created", user=user, metadata={"playbook_id": playbook.id})
@@ -2575,8 +2702,12 @@ async def playbook_edit_page(request: Request, playbook_id: int, db: DBSession =
     playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
     if not playbook:
         raise HTTPException(status_code=404, detail="Playbook not found")
+    policy_rule = db.query(PolicyRule).filter(
+        PolicyRule.playbook_id == playbook.id, PolicyRule.clause_type == "limitation_of_liability",
+    ).first()
     return templates.TemplateResponse("playbook_form.html", {
-        "request": request, "user": user, "playbook": playbook,
+        "request": request, "user": user, "playbook": playbook, "policy_rule": policy_rule,
+        "exception_types": liability_policy_engine.EXCEPTION_TYPES,
         "error": None, "current_year": datetime.now().year,
     })
 
@@ -2586,6 +2717,17 @@ async def playbook_edit_submit(
     request: Request, playbook_id: int,
     name: str = Form(...), contract_type: str = Form(""),
     description: str = Form(""), file: Optional[UploadFile] = File(None),
+    lol_enabled: str = Form(""),
+    lol_side: str = Form("mutual"),
+    lol_preferred: str = Form(""),
+    lol_acceptable_max: str = Form(""),
+    lol_negotiate_max: str = Form(""),
+    lol_prohibit_unlimited: str = Form(""),
+    lol_required_exceptions: List[str] = Form([]),
+    lol_fallback_text: str = Form(""),
+    lol_escalation_authority: str = Form(""),
+    lol_require_consequential_exclusion: str = Form(""),
+    lol_required_consequential_carveouts: List[str] = Form([]),
     db: DBSession = Depends(get_db),
     _csrf: None = Depends(csrf_protect),
 ):
@@ -2597,6 +2739,11 @@ async def playbook_edit_submit(
     playbook.name = name.strip()
     playbook.contract_type = contract_type.strip() or None
     playbook.description = description.strip() or None
+    _upsert_liability_policy_rule(
+        db, playbook, lol_enabled, lol_side, lol_preferred, lol_acceptable_max, lol_negotiate_max,
+        lol_prohibit_unlimited, lol_required_exceptions, lol_fallback_text, lol_escalation_authority,
+        lol_require_consequential_exclusion, lol_required_consequential_carveouts,
+    )
 
     if file and file.filename:
         edit_filename = upload_security.sanitize_filename(file.filename)

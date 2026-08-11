@@ -1,0 +1,129 @@
+{% extends "base_app.html" %}
+
+{% block title %}{{ clause_label }} Policy{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1">/</span>
+<a href="/playbooks" class="hover:text-gray-900 transition-colors">Playbooks</a>
+<span class="mx-1">/</span>
+<a href="/playbooks/{{ playbook.id }}/workbench" class="hover:text-gray-900 transition-colors">{{ playbook.name }}</a>
+<span class="mx-1">/</span>
+<span>{{ clause_label }}</span>
+{% endblock %}
+
+{% block content %}
+<div class="mb-6 fade-in">
+    <div class="flex items-center gap-3 mb-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight">{{ clause_label }}</h1>
+        {% if position %}
+        <span class="text-xs font-semibold px-2.5 py-1 rounded-full
+            {% if position.status == 'ACTIVE' %}bg-green-100 text-green-800
+            {% elif position.status == 'APPROVED' %}bg-blue-100 text-blue-800
+            {% elif position.status == 'NEEDS_REVIEW' %}bg-amber-100 text-amber-800
+            {% else %}bg-gray-100 text-gray-600{% endif %}">
+            {{ position.status.replace('_', ' ')|title }}
+        </span>
+        {% endif %}
+    </div>
+    {% if position %}
+    <p class="text-xs text-gray-500">
+        Source: {% if position.source_type == 'MANUAL' %}Entered manually{% else %}{{ position.source_type }}{% endif %}
+        {% if position.status == 'ACTIVE' and position.activated_at %} · Active since {{ position.activated_at.strftime('%b %d, %Y') }}{% endif %}
+    </p>
+    {% endif %}
+    {% if is_new_revision %}
+    <div class="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
+        You're editing a new revision of this policy. The currently <strong>Active</strong> position keeps governing contract reviews exactly as approved until this revision is activated — nothing changes for live enforcement until then.
+    </div>
+    {% endif %}
+</div>
+
+{% if error %}
+<div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl fade-in">
+    <p class="text-sm text-red-700 font-medium">{{ error }}</p>
+</div>
+{% endif %}
+
+{% set extracted_fields = field_evidence.items()|selectattr('1.source', 'equalto', 'EXTRACTED')|list %}
+{% set conflicting_fields = field_evidence.items()|selectattr('1.status', 'equalto', 'CONFLICTING')|list %}
+{% if extracted_fields or conflicting_fields %}
+<div class="premium-card p-6 fade-in mb-4 border-indigo-100" style="transform:none;">
+    <h3 class="text-sm font-semibold text-[#0F172A] mb-3">Why TriageCounsel proposed these values</h3>
+    {% if conflicting_fields %}
+    <div class="mb-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+        <p class="text-xs font-semibold text-red-700 uppercase tracking-wide mb-1">Conflicting sources</p>
+        {% for name, ev in conflicting_fields %}
+        <p class="text-xs text-red-700"><span class="font-medium">{{ field_labels.get(name, name) }}</span> — pick the correct value below.</p>
+        <blockquote class="text-xs text-red-600 font-mono bg-white border border-red-100 rounded p-2 my-1">{{ ev.excerpt }}</blockquote>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if extracted_fields %}
+    <ul class="space-y-1.5">
+        {% for name, ev in extracted_fields %}
+        <li class="text-xs text-gray-600">
+            <span class="font-medium text-gray-700">{{ field_labels.get(name, name) }}</span> — extracted from
+            {{ ev.document_filename or "an imported document" }}
+            {% if ev.excerpt %}<span class="italic">("{{ ev.excerpt[:120] }}{% if ev.excerpt|length > 120 %}…{% endif %}")</span>{% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endif %}
+
+<div class="premium-card p-6 sm:p-8 fade-in mb-4" style="transform:none;">
+    <form action="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/save" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+
+        {% block clause_fields %}{% endblock %}
+
+        <div class="pt-5 mt-2 border-t border-gray-100">
+            <h3 class="text-sm font-semibold text-[#0F172A] mb-3">Escalation &amp; fallback</h3>
+            <div class="mb-4">
+                <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">{{ shared_field_labels.contract_side }}</label>
+                <select name="contract_side" class="w-full sm:w-96 px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white">
+                    <option value="mutual" {% if not position or position.contract_side == 'mutual' %}selected{% endif %}>Position applies equally to both sides</option>
+                    <option value="buy_side" {% if position and position.contract_side == 'buy_side' %}selected{% endif %}>We're the Customer/Buyer</option>
+                    <option value="sell_side" {% if position and position.contract_side == 'sell_side' %}selected{% endif %}>We're the Vendor/Seller</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">{{ shared_field_labels.escalation_approval_authority }}</label>
+                <input type="text" name="escalation_approval_authority" value="{{ position.escalation_approval_authority if position and position.escalation_approval_authority else '' }}" placeholder="e.g. General Counsel" class="w-full sm:w-96 px-3 py-2 border border-gray-200 rounded-lg text-sm">
+            </div>
+            <div class="mb-2">
+                <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">{{ shared_field_labels.fallback_text }}</label>
+                <textarea name="fallback_text" rows="4" placeholder="The replacement language offered as a redline when this clause must be fixed..." class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none">{{ position.fallback_text if position and position.fallback_text else '' }}</textarea>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3 pt-5 mt-2 border-t border-gray-100">
+            <button type="submit" class="btn-primary py-2.5 px-6 rounded-lg font-semibold text-sm">Save draft</button>
+            {% if not position or position.status == 'DRAFT' %}
+            <span class="text-xs text-gray-400">Save, then submit for review when this position is complete.</span>
+            {% endif %}
+        </div>
+    </form>
+
+    <div class="flex flex-wrap gap-x-6 gap-y-2 pt-4 mt-4 border-t border-gray-100">
+        {% if position and position.status == 'DRAFT' %}
+        <form action="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/submit-for-review" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+            <button type="submit" class="text-sm font-semibold text-[#0F172A] hover:underline">Submit for review →</button>
+        </form>
+        {% endif %}
+        {% if position and position.status in ('NEEDS_REVIEW', 'APPROVED') %}
+        <a href="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/review" class="text-sm font-semibold text-[#0F172A] hover:underline">Go to review &amp; approval →</a>
+        {% endif %}
+        {% if position and position.status == 'ACTIVE' %}
+        <a href="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/review" class="text-sm font-medium text-gray-500 hover:text-[#0F172A] hover:underline">View approved position &amp; history →</a>
+        {% endif %}
+        {% if position %}
+        <a href="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/preview" class="text-sm font-medium text-gray-500 hover:text-[#0F172A] hover:underline">Test this policy against sample text →</a>
+        {% endif %}
+        <a href="/playbooks/{{ playbook.id }}/workbench" class="text-sm font-medium text-gray-400 hover:text-[#0F172A] hover:underline">← Back to Workbench</a>
+    </div>
+</div>
+{% endblock %}

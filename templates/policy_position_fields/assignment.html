@@ -1,0 +1,17 @@
+{% extends "playbook_position_edit_base.html" %}
+{% from "_playbook_macros.html" import tristate, checklist %}
+
+{% block clause_fields %}
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Assignment position</h3>
+{{ checklist('required_exceptions_json', cfg.get('required_exceptions_json'), vocab.required_exceptions_json,
+    field_labels.required_exceptions_json,
+    'Situations where assignment should be allowed without needing separate consent.') }}
+
+{{ tristate('prohibit_sole_discretion_consent', cfg.get('prohibit_sole_discretion_consent'), field_statuses.get('prohibit_sole_discretion_consent', 'NOT_ESTABLISHED'),
+    field_labels.prohibit_sole_discretion_consent,
+    'If "No," "sole discretion" consent language still gets flagged for escalation instead of being auto-blocked.') }}
+
+{{ tristate('require_consent_for_counterparty_assignment', cfg.get('require_consent_for_counterparty_assignment'), field_statuses.get('require_consent_for_counterparty_assignment', 'NOT_ESTABLISHED'),
+    field_labels.require_consent_for_counterparty_assignment,
+    'If we need their consent to assign, do they need ours too?') }}
+{% endblock %}

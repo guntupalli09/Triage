@@ -1,0 +1,26 @@
+{% extends "playbook_position_edit_base.html" %}
+{% from "_playbook_macros.html" import tristate, ladder_group, checklist %}
+
+{% block clause_fields %}
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Liability cap</h3>
+{{ ladder_group('preferred_multiplier', 'acceptable_max_multiplier', 'negotiate_max_multiplier', cfg,
+    'What cap do you want on total liability?',
+    'Expressed as a multiple of annual contract fees — the way liability caps are conventionally negotiated.') }}
+
+{{ tristate('prohibit_unlimited', cfg.get('prohibit_unlimited'), field_statuses.get('prohibit_unlimited', 'NOT_ESTABLISHED'),
+    field_labels.prohibit_unlimited,
+    'If "No," an uncapped liability clause still gets flagged for escalation instead of being auto-blocked.') }}
+
+{{ checklist('required_exceptions_json', cfg.get('required_exceptions_json'), vocab.required_exceptions_json,
+    field_labels.required_exceptions_json,
+    'If one of these is missing from the cap\'s carve-outs, the decision is downgraded to Negotiate even when the cap itself is acceptable.') }}
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+    {{ tristate('require_consequential_damages_exclusion', cfg.get('require_consequential_damages_exclusion'), field_statuses.get('require_consequential_damages_exclusion', 'NOT_ESTABLISHED'),
+        field_labels.require_consequential_damages_exclusion,
+        'If required but missing (or missing a carve-out below), the decision is downgraded to Negotiate — the same treatment as a missing required exception.') }}
+    {{ checklist('required_consequential_carveouts_json', cfg.get('required_consequential_carveouts_json'), vocab.required_consequential_carveouts_json,
+        field_labels.required_consequential_carveouts_json,
+        'Only applies if the exclusion above is required.') }}
+</div>
+{% endblock %}

@@ -189,6 +189,7 @@ def _run_migrations():
             "blocking_findings_json", "policy_blocked_findings_json",
             "risk_dashboard_json", "structure_report_json", "clause_quality_json",
             "metadata_json", "risk_balance_json", "deviations_json", "review_decisions_json",
+            "policy_decisions_json",
         ]
 
         if "contracts" in insp.get_table_names():
@@ -233,6 +234,9 @@ def _run_migrations():
             if "review_decisions_json" not in contract_cols:
                 conn.execute(text(f"ALTER TABLE contracts ADD COLUMN review_decisions_json {encrypted_json_col_type}"))
                 logger.info("Migration applied: contracts.review_decisions_json column")
+            if "policy_decisions_json" not in contract_cols:
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN policy_decisions_json {encrypted_json_col_type}"))
+                logger.info("Migration applied: contracts.policy_decisions_json column")
             if "review_finalized_at" not in contract_cols:
                 conn.execute(text("ALTER TABLE contracts ADD COLUMN review_finalized_at TIMESTAMP"))
                 logger.info("Migration applied: contracts.review_finalized_at column")
@@ -277,6 +281,39 @@ def _run_migrations():
                         "USING template_findings_json::text"
                     ))
                     logger.info("Migration applied: playbooks.template_findings_json JSON/JSONB -> TEXT (for encryption)")
+
+        if "policy_rules" in insp.get_table_names():
+            policy_rule_cols = {c["name"] for c in insp.get_columns("policy_rules")}
+            if "require_consequential_damages_exclusion" not in policy_rule_cols:
+                conn.execute(text(
+                    "ALTER TABLE policy_rules ADD COLUMN require_consequential_damages_exclusion "
+                    "BOOLEAN NOT NULL DEFAULT false"
+                ))
+                logger.info("Migration applied: policy_rules.require_consequential_damages_exclusion column")
+            if "required_consequential_carveouts_json" not in policy_rule_cols:
+                conn.execute(text("ALTER TABLE policy_rules ADD COLUMN required_consequential_carveouts_json JSON"))
+                logger.info("Migration applied: policy_rules.required_consequential_carveouts_json column")
+
+        if "policy_position_fields" in insp.get_table_names():
+            position_field_cols_info = {c["name"]: c for c in insp.get_columns("policy_position_fields")}
+            position_field_cols = set(position_field_cols_info)
+            if "extraction_version" not in position_field_cols:
+                conn.execute(text("ALTER TABLE policy_position_fields ADD COLUMN extraction_version VARCHAR(40)"))
+                logger.info("Migration applied: policy_position_fields.extraction_version column")
+            if not _is_sqlite:
+                # Widened for Phase 3's REQUIRES_LAWYER_INTERPRETATION (30
+                # chars) -- SQLite never enforces VARCHAR length so this is
+                # a no-op there, but PostgreSQL does.
+                status_info = position_field_cols_info.get("status")
+                if status_info is not None and getattr(status_info["type"], "length", None) not in (None, 40):
+                    conn.execute(text("ALTER TABLE policy_position_fields ALTER COLUMN status TYPE VARCHAR(40)"))
+                    logger.info("Migration applied: policy_position_fields.status widened to VARCHAR(40)")
+
+        if "contracts" in insp.get_table_names():
+            contract_cols_now = {c["name"] for c in insp.get_columns("contracts")}
+            if "policy_revision_metadata_json" not in contract_cols_now:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN policy_revision_metadata_json JSON"))
+                logger.info("Migration applied: contracts.policy_revision_metadata_json column")
 
 
 def init_db():
