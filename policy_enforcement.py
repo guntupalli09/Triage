@@ -438,11 +438,22 @@ def run_shadow_comparison(
     migrated_outcome = migrated_outcomes[0] if migrated_outcomes else None
 
     legacy_dict = legacy_decision.as_dict()
+    # is_error and diverged are deliberately distinct signals (Phase 4.1):
+    # a comparison where the migrated path couldn't even run is an
+    # OPERATIONAL failure (the evaluation itself broke), not necessarily
+    # evidence that the two policy representations disagree — conflating
+    # them would make policy_readiness.py's separate "shadow evaluation
+    # errors" and "live shadow divergence" release-gate checks
+    # indistinguishable from AuditLog alone. is_error implies diverged
+    # (there's no valid migrated state to call "matching"), but not the
+    # reverse.
     if migrated_outcome is None or migrated_outcome.error is not None:
+        is_error = True
         diverged = True
         diff_fields = ["EVALUATION_ERROR"]
         migrated_state = None
     else:
+        is_error = False
         migrated_dict = migrated_outcome.decision.as_dict()
         diff_fields = _diff_decision_dicts(legacy_dict, migrated_dict)
         diverged = bool(diff_fields)
@@ -455,6 +466,7 @@ def run_shadow_comparison(
         "legacy_state": legacy_dict["state"],
         "migrated_state": migrated_state,
         "diverged": diverged,
+        "is_error": is_error,
         "diff_fields": diff_fields,
     }
 
@@ -463,7 +475,7 @@ def run_shadow_comparison(
         actor_user_id=None,
         target_type="contract", target_id=contract_id,
         success=not diverged,
-        detail="diverged" if diverged else "match",
+        detail="error" if is_error else ("diverged" if diverged else "match"),
         metadata_json=comparison,
     ))
     return comparison
