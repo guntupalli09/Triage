@@ -1,0 +1,62 @@
+{% extends "base_app.html" %}
+
+{% block title %}Set up {{ playbook.name }}{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/dashboard" class="hover:text-gray-900 transition-colors">Dashboard</a>
+<span class="mx-1">/</span>
+<a href="/playbooks" class="hover:text-gray-900 transition-colors">Playbooks</a>
+<span class="mx-1">/</span>
+<span>{{ playbook.name }}</span>
+{% endblock %}
+
+{% block content %}
+<div class="mb-8 fade-in">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">
+        How would you like to set up <span class="gradient-text">{{ playbook.name }}</span>?
+    </h1>
+    <p class="text-gray-600 mt-2 max-w-2xl leading-relaxed">
+        Every path below builds the same thing: reviewable policy positions for each clause type, which you
+        confirm and approve before anything is enforced. You can combine paths later — e.g. import a template,
+        then manually fill in what it couldn't establish.
+    </p>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 fade-in">
+    <a href="/playbooks/{{ playbook.id }}/ai-import" class="premium-card p-6 flex flex-col hover:border-indigo-200 transition-colors">
+        <div class="mb-3 inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 self-start">
+            AI-ASSISTED
+        </div>
+        <h3 class="text-lg font-bold text-[#0F172A] mb-2">Upload your legal playbook</h3>
+        <p class="text-sm text-gray-500 leading-relaxed flex-1">
+            Turn a written guidelines memo into reviewable policy positions. Sends document excerpts to an
+            external AI provider, with your explicit consent — nothing is enforced until you review and approve it.
+        </p>
+        <span class="mt-4 text-sm font-semibold text-[#0F172A]">Start with AI-assisted import →</span>
+    </a>
+
+    <a href="/playbooks/{{ playbook.id }}/import" class="premium-card p-6 flex flex-col hover:border-indigo-200 transition-colors">
+        <div class="mb-3 inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 self-start">
+            DETERMINISTIC &amp; PRIVATE
+        </div>
+        <h3 class="text-lg font-bold text-[#0F172A] mb-2">Upload a standard contract</h3>
+        <p class="text-sm text-gray-500 leading-relaxed flex-1">
+            Extract positions directly from your own template's clauses. No document content is ever sent to
+            an AI model — this path never leaves the server.
+        </p>
+        <span class="mt-4 text-sm font-semibold text-[#0F172A]">Start with deterministic import →</span>
+    </a>
+
+    <a href="/playbooks/{{ playbook.id }}/workbench" class="premium-card p-6 flex flex-col hover:border-indigo-200 transition-colors">
+        <div class="mb-3 inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-gray-100 text-gray-600 border border-gray-200 self-start">
+            MANUAL
+        </div>
+        <h3 class="text-lg font-bold text-[#0F172A] mb-2">Build it yourself</h3>
+        <p class="text-sm text-gray-500 leading-relaxed flex-1">
+            Answer plain-English questions for each of the six clause types directly in the Policy Workbench.
+            No document required.
+        </p>
+        <span class="mt-4 text-sm font-semibold text-[#0F172A]">Go to the Workbench →</span>
+    </a>
+</div>
+{% endblock %}

@@ -144,6 +144,9 @@
     .ladder-step.passed { background: #ECFDF5; color: #065F46; }
     .ladder-arrow { color: #CBD5E1; }
     .pop-source { font-size: 11px; color: #94A3B8; margin-bottom: 10px; }
+    .pop-escalate { font-size: 12px; color: #9A3412; background: #FFEDD5; border: 1px solid #FED7AA; border-radius: 7px; padding: 6px 10px; margin-bottom: 10px; }
+    .policy-decision-record { font-size: 12px; color: #475569; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 10px 12px; margin-top: 10px; line-height: 1.6; }
+    .policy-decision-record .pdr-label { font-weight: 600; color: #334155; }
     .pop-positions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
     .position-chip { font-size: 11.5px; padding: 4px 9px; border-radius: 7px; font-weight: 600; }
     .position-chip.ours { background: #EEF2FF; color: #3730A3; }
@@ -448,11 +451,20 @@ function closePopover() {
     renderPanelList();
 }
 
+// Policy governance states (Phase 4.1 UX remediation, P1 items 3+4 —
+// docs/architecture/playbook_ux_audit.md): a policy_decision finding in
+// one of these states represents a considered legal exception, not a
+// tooling false-positive, and gets distinct action copy + a visible
+// escalation/override record instead of the generic rule-engine wording.
+const POLICY_GOVERNANCE_STATES = new Set(["PROHIBITED", "MUST_REDLINE", "ESCALATE"]);
+
 function popoverHTML(f, i) {
     const rl = f.redline;
     const cb = f.confidence_breakdown;
     const decision = DECISIONS[fkey(i)];
     const original = f.exact_snippet || f.matched_excerpt || "";
+    const isPolicyDecision = f.finding_type === "policy_decision";
+    const isGovernance = isPolicyDecision && POLICY_GOVERNANCE_STATES.has(f.policy_state);
 
     const diffHTML = rl ? `<div class="diff-box"><span class="del">${esc(original.slice(0, 90))}${original.length > 90 ? "…" : ""}</span> &rarr;<br><span class="ins">${esc(rl.suggested_redline)}</span></div>` : "";
     const ladderHTML = f.negotiation_ladder ? `<div class="pop-ladder">${f.negotiation_ladder.map(s => `<span class="ladder-step ${s.status}" title="${esc(s.description)}">${esc(s.label)}</span>`).join('<span class="ladder-arrow">&rarr;</span>')}</div>` : "";
@@ -461,11 +473,35 @@ function popoverHTML(f, i) {
         <span class="position-chip ours">Our liability (${esc(f.our_position.role)}): ${esc(f.our_position.summary)}</span>
         <span class="position-chip theirs">Counterparty (${esc(f.counterparty_position.role)}): ${esc(f.counterparty_position.summary)}</span>
     </div>` : "";
+    // escalate_to (P0-3 fix): the engine already computes who must
+    // approve an ESCALATE decision — this was being silently dropped
+    // before it ever reached the UI.
+    const escalateHTML = f.escalate_to ? `<div class="pop-escalate">Requires approval from <strong>${esc(f.escalate_to)}</strong></div>` : "";
+    // Once a policy_decision finding has been decided, show the
+    // governance record inline — original recommendation, resulting
+    // decision, who, when, and why — rather than only a rejection-reason
+    // note. Never overwrites policy_original_recommendation on redecision
+    // (main.py always re-derives it from the finding, not the prior
+    // decision), so this stays accurate even if a lawyer changes their
+    // mind and decides again.
+    const governanceRecordHTML = (isPolicyDecision && decision) ? `<div class="policy-decision-record">
+        <div><span class="pdr-label">Original recommendation:</span> ${esc((decision.policy_original_recommendation || f.policy_state || "").replace(/_/g, " "))}</div>
+        <div><span class="pdr-label">Decision:</span> ${esc((decision.action || "").replace(/_/g, " "))}${decision.decided_by ? ` by ${esc(decision.decided_by)}` : ""}${decision.decided_at ? ` &middot; ${esc(new Date(decision.decided_at).toLocaleString())}` : ""}</div>
+        ${decision.reason ? `<div><span class="pdr-label">Reason:</span> ${esc(decision.reason)}</div>` : ""}
+    </div>` : "";
+
+    const acceptLabel = isPolicyDecision && rl
+        ? "&#10003; Apply approved redline"
+        : "&#10003; Accept";
+    const rejectLabel = isGovernance ? "&#10005; Request exception" : "&#10005; Reject";
+    const rejectPlaceholder = isGovernance
+        ? "Why should this exception be granted? (required — goes in the audit record)"
+        : "Why are you rejecting this? (required — goes in the review record)";
 
     const actions = rl ? `
-        <button class="pop-btn primary" data-act="accepted">&#10003; Accept<span class="mono text-[10px] opacity-70 ml-1">a</span></button>
+        <button class="pop-btn primary" data-act="accepted">${acceptLabel}<span class="mono text-[10px] opacity-70 ml-1">a</span></button>
         <button class="pop-btn" data-act="edit">&#9998; Edit<span class="mono text-[10px] opacity-70 ml-1">e</span></button>
-        <button class="pop-btn danger" data-act="rejected">&#10005; Reject<span class="mono text-[10px] opacity-70 ml-1">r</span></button>
+        <button class="pop-btn danger" data-act="rejected">${rejectLabel}<span class="mono text-[10px] opacity-70 ml-1">r</span></button>
         <button class="pop-btn" data-act="comment">&#128172; Comment<span class="mono text-[10px] opacity-70 ml-1">c</span></button>
         <span class="pop-conf">${cb ? esc(cb.confidence).toUpperCase() : ''} confidence</span>
     ` : `
@@ -481,6 +517,7 @@ function popoverHTML(f, i) {
             <button class="verify-btn" id="verify-btn">&#8635; Verify</button>
         </div>
         ${sourceHTML}
+        ${escalateHTML}
         ${positionsHTML}
         <div class="pop-rationale">${esc(f.rationale || "")}</div>
         ${ladderHTML}
@@ -493,14 +530,15 @@ function popoverHTML(f, i) {
             <div class="save-row"><button class="pop-btn primary" id="edit-save">Save edit</button><button class="pop-btn" id="edit-cancel">Cancel</button></div>
         </div>
         <div class="pop-inline-input" id="reject-input">
-            <textarea id="reject-textarea" placeholder="Why are you rejecting this? (required — goes in the review record)"></textarea>
-            <div class="save-row"><button class="pop-btn danger" id="reject-save">Confirm reject</button><button class="pop-btn" id="reject-cancel">Cancel</button></div>
+            <textarea id="reject-textarea" placeholder="${rejectPlaceholder}"></textarea>
+            <div class="save-row"><button class="pop-btn danger" id="reject-save">${isGovernance ? "Confirm exception" : "Confirm reject"}</button><button class="pop-btn" id="reject-cancel">Cancel</button></div>
         </div>
         <div class="pop-inline-input" id="comment-input">
             <textarea id="comment-textarea" placeholder="Add a note for yourself or a colleague...">${decision && decision.comment ? esc(decision.comment) : ''}</textarea>
             <div class="save-row"><button class="pop-btn primary" id="comment-save">Save comment</button><button class="pop-btn" id="comment-cancel">Cancel</button></div>
         </div>
-        ${decision && decision.reason ? `<div class="reject-reason-note">Rejected: "${esc(decision.reason)}"</div>` : ""}
+        ${governanceRecordHTML}
+        ${(!isPolicyDecision && decision && decision.reason) ? `<div class="reject-reason-note">Rejected: "${esc(decision.reason)}"</div>` : ""}
     `;
 }
 
@@ -530,9 +568,22 @@ function wirePopover(f, i, pop) {
         try {
             const data = await postForm(`/contract/${CONTRACT_ID}/review/verify`, { finding_index: i });
             stamp.classList.remove("fail");
-            stamp.innerHTML = data.verified
-                ? `&#10003; Re-ran all 189 rules against this contract. Rule <span class="mono">${esc(f.rule_id)}</span> matched this exact language again. Same result, every time.`
-                : `Re-analysis no longer matches this exact text — the stored finding may be stale.`;
+            if (data.policy_verification) {
+                // Policy-decision verify (Phase 4.1 fix, P0-2): replays the
+                // exact pinned policy revision through the same
+                // deterministic engine — never the 189-rule pattern
+                // replay, which never contained this finding's rule_id to
+                // begin with (that was the bug: it always reported "may
+                // be stale" for every policy decision, regardless of
+                // truth).
+                stamp.innerHTML = data.verified
+                    ? `&#10003; Re-ran your policy against this contract using the exact approved policy revision. Result: <span class="mono">${esc((data.replayed_state || "").replace(/_/g, " "))}</span>. Same result, every time.`
+                    : esc(data.reason || "Re-evaluating this policy produced a different result than what's shown.");
+            } else {
+                stamp.innerHTML = data.verified
+                    ? `&#10003; Re-ran the deterministic rule set against this contract. Rule <span class="mono">${esc(f.rule_id)}</span> matched this exact language again. Same result, every time.`
+                    : `Re-analysis no longer matches this exact text — the stored finding may be stale.`;
+            }
             if (!data.verified) stamp.classList.add("fail");
             stamp.classList.add("show");
         } catch (err) {
@@ -590,7 +641,13 @@ async function submitDecision(f, i, action, extra) {
     const errEl = document.getElementById("active-popover")?.querySelector("#pop-error");
     try {
         const data = await postForm(`/contract/${CONTRACT_ID}/review/decision`, { finding_index: i, action, ...extra });
-        DECISIONS[fkey(i)] = { action, rule_id: f.rule_id, ...extra, decided_at: new Date().toISOString() };
+        // Use the server's own stored entry (data.entry) rather than an
+        // optimistic client-side guess — it's the only way to show
+        // decided_by and, for a policy_decision finding,
+        // policy_original_recommendation correctly right away instead of
+        // only after a reload (Phase 4.1 UX remediation, override-history
+        // visibility).
+        DECISIONS[fkey(i)] = data.entry || { action, rule_id: f.rule_id, ...extra, decided_at: new Date().toISOString() };
 
         const markEl = findMarkIdEl(i);
         if (markEl) {

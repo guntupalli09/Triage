@@ -66,5 +66,8 @@
 </div>
 {% endif %}
 
-<a href="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/edit" class="inline-block mt-6 text-sm font-medium text-gray-500 hover:text-[#0F172A] hover:underline">← Back to editing</a>
+<div class="mt-6 flex items-center gap-5">
+    <a href="/playbooks/{{ playbook.id }}/positions/{{ clause_type }}/edit" class="text-sm font-medium text-gray-500 hover:text-[#0F172A] hover:underline">← Back to editing</a>
+    <a href="/playbooks/{{ playbook.id }}/workbench" class="text-sm font-medium text-gray-500 hover:text-[#0F172A] hover:underline">← Back to Workbench</a>
+</div>
 {% endblock %}

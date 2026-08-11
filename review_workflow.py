@@ -190,9 +190,17 @@ def build_audit_trail_text(filename: str, rule_engine_version: str, findings: Li
         lines.append(f"[{f['rule_id']}] {f['title']} ({f['severity'].upper()})")
         lines.append(f"  Matched: {f.get('exact_snippet') or f.get('matched_excerpt', '')}")
         if d:
+            if d.get("policy_original_recommendation"):
+                # Policy overrides must never be silent in the exported
+                # record either — this is the original deterministic
+                # recommendation this decision overrode, not what was
+                # decided (see main.py's submit_review_decision).
+                lines.append(f"  Original policy recommendation: {d['policy_original_recommendation']}")
             lines.append(f"  Decision: {d.get('action', 'unresolved')}")
             if d.get("reason"):
                 lines.append(f"  Reason: {d['reason']}")
+            if d.get("decided_by"):
+                lines.append(f"  Decided by: {d['decided_by']}")
             if d.get("decided_at"):
                 lines.append(f"  Decided at: {d['decided_at']}")
         else:

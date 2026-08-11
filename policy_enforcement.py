@@ -47,7 +47,7 @@ from sqlalchemy.orm import Session as DBSession
 
 import liability_policy_engine
 import playbook_authoring as pa
-from models import AuditLog, Playbook, PolicyPosition, PolicyRule
+from models import AuditLog, Contract, Playbook, PolicyPosition, PolicyRule
 
 DEFAULT_MODE = "shadow"
 
@@ -115,6 +115,15 @@ def apply_liability_policy(db: DBSession, playbook: Optional[Playbook], contract
                 "suggested_redline": decision.fallback_text or "",
             } if decision.fallback_text else None,
             "policy_state": decision.state,
+            # clause_type identifies which deterministic engine produced
+            # this finding — needed by verify_policy_finding (Phase 4.1)
+            # to know which extract_fn/evaluate_fn pair to replay.
+            "clause_type": "limitation_of_liability",
+            # escalate_to (UX audit P0-3): the engine already computes who
+            # must approve an ESCALATE state (policy_engine_core.
+            # escalate_to_for_state) — this is the one place it was being
+            # silently dropped before reaching the UI.
+            "escalate_to": decision.escalate_to,
             "negotiation_ladder": [
                 {"label": s["label"], "description": s["description"], "status": s["status"]}
                 for s in decision.as_dict()["negotiation_ladder"]
@@ -302,6 +311,10 @@ def _finding_from_decision(clause_type: str, decision) -> Optional[Dict[str, Any
             "suggested_redline": decision.fallback_text or "",
         } if decision.fallback_text else None,
         "policy_state": decision.state,
+        # clause_type / escalate_to — see apply_liability_policy's matching
+        # comment; same rationale, generalized to all six adapters.
+        "clause_type": clause_type,
+        "escalate_to": decision.escalate_to,
         "negotiation_ladder": [
             {"label": s["label"], "description": s["description"], "status": s["status"]}
             for s in decision.as_dict()["negotiation_ladder"]
@@ -337,6 +350,7 @@ def _error_finding(clause_type: str) -> Dict[str, Any]:
         "redline": None, "policy_state": "EVALUATION_ERROR", "negotiation_ladder": [],
         "policy_source": None, "controlling_provision": None, "our_position": None,
         "counterparty_position": None, "evidence_report": None,
+        "clause_type": clause_type, "escalate_to": None,
     }
 
 
@@ -562,3 +576,114 @@ def apply_policies_for_review(
             pass
 
     return {"policy_decisions": legacy_decisions, "policy_revision_metadata": None}
+
+
+# ---------------------------------------------------------------------------
+# Phase 4.1 UX remediation — policy-decision Verify (P0-2 from
+# docs/architecture/playbook_ux_audit.md)
+#
+# The existing rule-engine "Verify" action (main.py's /review/verify)
+# only ever replays rule_engine.analyze() — the pattern-match rule set.
+# Every policy engine's RULE_ID (e.g. liability_policy_engine.RULE_ID ==
+# "POLICY_LOL_CAP") never appears in that replay, so verifying a
+# policy_decision finding through the old path always returns
+# verified=False and the UI incorrectly reports the finding "may be
+# stale," regardless of whether the underlying policy actually changed.
+# This is a distinct verification question needing its own replay: does
+# THIS deterministic policy engine, evaluated against THIS contract text
+# under the EXACT policy configuration that produced the original
+# decision, reproduce the same result? "Exact configuration" means the
+# pinned revision (Contract.policy_revision_metadata_json, Phase 4) when
+# one exists — never today's current ACTIVE position, which may since
+# have been superseded — falling back to the current legacy PolicyRule
+# for findings produced while in "legacy"/"shadow" mode, where no
+# revision was pinned because PolicyRule has no revisioning at all (it is
+# mutated in place, so "the current row" IS "the row that produced this
+# decision," unlike PolicyPosition).
+# ---------------------------------------------------------------------------
+
+def verify_policy_finding(db: DBSession, contract: Contract, finding: Dict[str, Any]) -> Dict[str, Any]:
+    """Re-evaluates a single policy_decision finding and reports whether
+    the deterministic engine reproduces the same state. Ownership is
+    re-derived from contract.playbook_id (the caller has already checked
+    contract.user_id == the requesting user — see main.py's
+    _get_owned_contract) — a pinned policy_position_id is only ever
+    looked up scoped to that playbook_id, never trusted bare, so this
+    cannot be used to read another user's policy configuration.
+
+    Returns one of:
+      {"policy_verification": True, "verified": True/False,
+       "replayed_state": <state or None>, "original_state": <state>,
+       "reason": <short, safe, no contract/policy text>}
+    """
+    clause_type = finding.get("clause_type")
+    original_state = finding.get("policy_state")
+
+    if clause_type not in pa.CLAUSE_TYPES:
+        return {
+            "policy_verification": True, "verified": False,
+            "replayed_state": None, "original_state": original_state,
+            "reason": "This finding does not identify a known policy clause type.",
+        }
+
+    extract_fn, evaluate_fn = pa._ENGINE_FUNCS[clause_type]
+    revision_meta = (contract.policy_revision_metadata_json or {}).get(clause_type)
+
+    if revision_meta and revision_meta.get("policy_position_id") is not None and not revision_meta.get("error"):
+        # cutover-mode finding — replay against the EXACT pinned revision,
+        # by id, regardless of whether it is still ACTIVE today (it may
+        # have since been superseded by a newer revision — see module
+        # docstring). Scoped to this contract's own playbook, never a bare
+        # id lookup.
+        position = db.query(PolicyPosition).filter(
+            PolicyPosition.id == revision_meta["policy_position_id"],
+            PolicyPosition.playbook_id == contract.playbook_id,
+        ).first()
+        if position is None:
+            return {
+                "policy_verification": True, "verified": False,
+                "replayed_state": None, "original_state": original_state,
+                "reason": "The exact policy revision that produced this decision no longer exists.",
+            }
+        if config_hash_for_position(position) != revision_meta.get("config_hash"):
+            # Should not happen under the revision-not-mutation invariant
+            # (Phase 1) — an ACTIVE row is never mutated in place, and this
+            # pinned row is looked up by id regardless of current status.
+            # Reported as a distinct, honest reason rather than folded into
+            # a generic "stale" message if it is ever observed.
+            return {
+                "policy_verification": True, "verified": False,
+                "replayed_state": None, "original_state": original_state,
+                "reason": "The pinned policy revision's content does not match what was recorded at review time.",
+            }
+        rule = pa.BUILDERS[clause_type](position)
+        source_label = f"Verify replay — pinned revision #{position.id}"
+    elif clause_type == "limitation_of_liability":
+        # legacy/shadow-mode finding — PolicyRule has no revisioning of its
+        # own (rows are mutated in place), so "the row that produced this
+        # decision" and "the current row" are the same row by construction.
+        rule = db.query(PolicyRule).filter(
+            PolicyRule.playbook_id == contract.playbook_id, PolicyRule.clause_type == clause_type,
+        ).first()
+        if rule is None:
+            return {
+                "policy_verification": True, "verified": False,
+                "replayed_state": None, "original_state": original_state,
+                "reason": "This playbook no longer has a Limitation of Liability policy configured.",
+            }
+        source_label = "Verify replay — current policy"
+    else:
+        return {
+            "policy_verification": True, "verified": False,
+            "replayed_state": None, "original_state": original_state,
+            "reason": "No policy revision was recorded for this decision.",
+        }
+
+    facts = extract_fn(contract.contract_text)
+    replay_decision = evaluate_fn(facts, rule, source=source_label)
+    verified = replay_decision.state == original_state
+    return {
+        "policy_verification": True, "verified": verified,
+        "replayed_state": replay_decision.state, "original_state": original_state,
+        "reason": None if verified else "Re-evaluating this policy against the contract produced a different result.",
+    }
