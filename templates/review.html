@@ -115,6 +115,66 @@
     .panel-back { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; color: #64748B; padding: 12px 16px 0; cursor: pointer; }
     .panel-back:hover { color: #4338CA; }
 
+    /* exception queue — P0 remediation of
+       docs/architecture/contract_review_exception_ux.md. Two labeled
+       rails (Playbook Exceptions, Other Contract Findings) rather than
+       one flat list, plus a collapsed passed-checks section computed
+       server-side (review_queue.py) from actual PolicyDecision output,
+       never from the mere absence of a finding. */
+    .queue-summary { padding: 14px 16px; border-bottom: 1px solid #F1F5F9; }
+    .queue-summary-headline { font-size: 13px; font-weight: 700; color: #0F172A; margin-bottom: 6px; }
+    .queue-summary-counts { display: flex; flex-wrap: wrap; gap-x: 10px; gap: 4px 10px; font-size: 11.5px; }
+    .queue-summary-count { color: #64748B; }
+    .queue-summary-count b { color: #0F172A; }
+    .queue-summary-count.tier-top b { color: #B91C1C; }
+    .queue-summary-count.tier-negotiate b { color: #92400E; }
+    .queue-summary-count.tier-review b { color: #3730A3; }
+    .queue-summary-note { font-size: 12px; color: #94A3B8; padding: 10px 16px; }
+
+    .queue-section-head { font-size: 11px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: #64748B; padding: 10px 16px 4px; }
+    .queue-row { padding: 11px 16px; border-bottom: 1px solid #F8FAFC; cursor: pointer; transition: background 0.12s ease; }
+    .queue-row:hover { background: #F8FAFC; }
+    .queue-row.is-resolved { opacity: 0.72; }
+    .queue-row-top { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-bottom: 3px; }
+    .queue-state-badge { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; padding: 2px 7px; border-radius: 999px; background: #F1F5F9; color: #475569; flex-shrink: 0; }
+    .queue-state-badge.state-prohibited, .queue-state-badge.state-must-redline { background: #FEE2E2; color: #991B1B; }
+    .queue-state-badge.state-escalate { background: #FFEDD5; color: #9A3412; }
+    .queue-state-badge.state-negotiate { background: #FEF3C7; color: #92400E; }
+    .queue-state-badge.state-requires-review { background: #E0E7FF; color: #3730A3; }
+    .queue-state-badge.state-evaluation-error { background: #FEE2E2; color: #7F1D1D; }
+    .queue-clause { font-size: 12.5px; font-weight: 600; color: #0F172A; }
+    .row-escalate-badge { font-size: 10px; font-weight: 600; color: #9A3412; background: #FFEDD5; border-radius: 999px; padding: 1px 7px; white-space: nowrap; }
+    .row-status-badge { font-size: 10px; font-weight: 700; color: #065F46; background: #D1FAE5; border-radius: 999px; padding: 1px 7px; margin-left: auto; white-space: nowrap; }
+    .queue-row-detail { font-size: 12px; color: #64748B; line-height: 1.55; }
+    .qrd-label { font-weight: 600; color: #475569; }
+    .queue-row-action { font-size: 12px; color: #334155; margin-top: 2px; }
+    .queue-row.is-resolved .queue-row-detail, .queue-row.is-resolved .queue-row-action { color: #94A3B8; }
+
+    .other-finding-row { display: flex; align-items: flex-start; gap: 9px; padding: 9px 16px; cursor: pointer; border-bottom: 1px solid #F8FAFC; }
+    .other-finding-row:hover { background: #F8FAFC; }
+
+    .passed-toggle { display: flex; align-items: center; gap: 6px; padding: 12px 16px; cursor: pointer; font-size: 12.5px; font-weight: 600; color: #059669; border-top: 1px solid #F1F5F9; }
+    .passed-toggle:hover { background: #F8FAFC; }
+    .passed-toggle .caret { transition: transform 0.15s ease; display: inline-block; }
+    .passed-toggle.open .caret { transform: rotate(90deg); }
+    .passed-list { display: none; padding: 0 16px 12px; }
+    .passed-list.open { display: block; }
+    .passed-item { font-size: 12px; color: #475569; padding: 6px 0; border-top: 1px solid #F8FAFC; line-height: 1.5; }
+    .passed-item:first-child { border-top: none; }
+    .passed-item .pi-clause { font-weight: 600; color: #0F172A; }
+    .not-applicable-note { font-size: 11.5px; color: #94A3B8; padding: 8px 16px; }
+
+    /* progressive disclosure inside the popover */
+    .pop-details { margin-bottom: 10px; }
+    .pop-details summary { font-size: 12.5px; font-weight: 600; color: #334155; cursor: pointer; padding: 4px 0; list-style: none; }
+    .pop-details summary::-webkit-details-marker { display: none; }
+    .pop-details summary::before { content: "▸ "; color: #94A3B8; }
+    .pop-details[open] summary::before { content: "▾ "; }
+    .pop-details .pop-details-body { padding: 6px 0 4px 14px; }
+    .pop-evidence-report { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #475569; white-space: pre-wrap; line-height: 1.6; background: #F8FAFC; border-radius: 8px; padding: 10px 12px; }
+    .pop-queue-context { font-size: 12.5px; color: #475569; margin-bottom: 10px; line-height: 1.55; }
+    .pop-queue-context .pqc-label { font-weight: 600; color: #334155; }
+
     /* popover */
     .popover { border: 1px solid #E2E8F0; background: #fff; border-radius: 12px; box-shadow: 0 8px 28px rgba(15,23,42,0.12); margin: 6px 0 22px; padding: 18px 20px; animation: pop-in 0.15s ease; }
     @keyframes pop-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
@@ -144,6 +204,9 @@
     .ladder-step.passed { background: #ECFDF5; color: #065F46; }
     .ladder-arrow { color: #CBD5E1; }
     .pop-source { font-size: 11px; color: #94A3B8; margin-bottom: 10px; }
+    .pop-escalate { font-size: 12px; color: #9A3412; background: #FFEDD5; border: 1px solid #FED7AA; border-radius: 7px; padding: 6px 10px; margin-bottom: 10px; }
+    .policy-decision-record { font-size: 12px; color: #475569; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 10px 12px; margin-top: 10px; line-height: 1.6; }
+    .policy-decision-record .pdr-label { font-weight: 600; color: #334155; }
     .pop-positions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
     .position-chip { font-size: 11.5px; padding: 4px 9px; border-radius: 7px; font-weight: 600; }
     .position-chip.ours { background: #EEF2FF; color: #3730A3; }
@@ -284,6 +347,16 @@ const CONTRACT_TEXT = {{ contract_text | tojson }};
 const FINDINGS = {{ findings | tojson }};
 let DECISIONS = {{ decisions | tojson }};
 const CLAUSE_QUALITY = {{ clause_quality | tojson }};
+// Exception-queue view-model (P0 remediation of
+// docs/architecture/contract_review_exception_ux.md) — computed
+// server-side by review_queue.py from actual PolicyDecision output.
+// FINDINGS/DECISIONS remain the source of truth for finding content and
+// resolution state; QUEUE only supplies ORDERING and the PASSED/NOT-
+// APPLICABLE classification, which is never inferred here in JS from
+// the absence of a finding.
+const QUEUE = {{ queue | tojson }};
+const POLICY_DECISIONS = {{ policy_decisions | tojson }};
+const CLAUSE_LABELS = {{ clause_labels | tojson }};
 const CLAUSE_MODULE_HEADING_HINTS = {
     liability: /liab/i, confidentiality: /confidential/i, indemnification: /indemn/i,
     ip: /intellectual property/i, arbitration: /arbitrat/i, termination: /terminat/i,
@@ -418,26 +491,153 @@ function renderMarginMap() {
    Two states: the list (every finding, click to open) and the detail view
    for whichever finding is currently open — never both at once, and
    opening one never reflows the paragraph the reader was just on. */
+// Presentation-only translation of the authoritative policy_state
+// constant, mirroring the same states policy_engine_core.py defines —
+// analogous to the existing SEV_LABEL map above. Never used to decide
+// *whether* something is actionable (that's QUEUE.summary/tier_rank,
+// computed server-side in review_queue.py) — only how to word it.
+const POLICY_STATE_LABELS = {
+    PROHIBITED: "Prohibited", MUST_REDLINE: "Must Redline", ESCALATE: "Escalate",
+    NEGOTIATE: "Negotiate", REQUIRES_REVIEW: "Needs Review", EVALUATION_ERROR: "Evaluation Failed",
+};
+function policyStateLabel(state) { return POLICY_STATE_LABELS[state] || (state || "").replace(/_/g, " "); }
+function policyStateClass(state) { return "state-" + (state || "").toLowerCase().replace(/_/g, "-"); }
+
+// The recommended-action line is always an engine-computed string
+// (decision.required_action, surfaced via f.redline.issue) or, when no
+// redline applies, the engine's own rationale — never text invented here.
+function recommendedActionText(f) {
+    if (f.redline && f.redline.issue) return f.redline.issue;
+    return f.rationale || "";
+}
+
+function rowStatusBadgeHTML(i) {
+    const d = DECISIONS[fkey(i)];
+    if (!d) return "";
+    const f = FINDINGS[i];
+    const isPolicyDecision = f.finding_type === "policy_decision";
+    let label;
+    if (d.action === "accepted") label = "Applied";
+    else if (d.action === "edited") label = "Applied (edited)";
+    else if (d.action === "rejected") label = (isPolicyDecision && d.policy_original_recommendation) ? "Exception granted" : "Rejected";
+    else if (d.action === "flagged") label = (isPolicyDecision && POLICY_GOVERNANCE_STATES.has(f.policy_state)) ? "Exception requested" : "Flagged";
+    else if (d.action === "dismissed") label = "Dismissed";
+    else label = d.action;
+    return `<span class="row-status-badge">&#10003; ${esc(label)}</span>`;
+}
+
+function policyQueueRowHTML(i) {
+    const f = FINDINGS[i];
+    const resolved = !!DECISIONS[fkey(i)];
+    const decision = POLICY_DECISIONS && POLICY_DECISIONS[f.clause_type];
+    const clauseLabel = CLAUSE_LABELS[f.clause_type] || (f.clause_type || "").replace(/_/g, " ");
+    const escalateBadge = f.escalate_to ? `<span class="row-escalate-badge">&#9873; ${esc(f.escalate_to)}</span>` : "";
+    const counterparty = decision && decision.extracted_summary ? decision.extracted_summary : (f.matched_excerpt || "");
+    const playbookLine = decision && decision.policy_limit_summary ? decision.policy_limit_summary : "";
+    return `<div class="queue-row ${resolved ? 'is-resolved' : ''}" data-idx="${i}">
+        <div class="queue-row-top">
+            <span class="queue-state-badge ${policyStateClass(f.policy_state)}">${esc(policyStateLabel(f.policy_state))}</span>
+            <span class="queue-clause">${esc(clauseLabel)}</span>
+            ${escalateBadge}
+            ${resolved ? rowStatusBadgeHTML(i) : ""}
+        </div>
+        <div class="queue-row-detail">
+            ${counterparty ? `<div><span class="qrd-label">Counterparty:</span> ${esc(counterparty)}</div>` : ""}
+            ${playbookLine ? `<div><span class="qrd-label">Your playbook:</span> ${esc(playbookLine)}</div>` : ""}
+        </div>
+        ${recommendedActionText(f) ? `<div class="queue-row-action">&rarr; ${esc(recommendedActionText(f))}</div>` : ""}
+    </div>`;
+}
+
+function otherFindingRowHTML(i) {
+    const f = FINDINGS[i];
+    const resolved = !!DECISIONS[fkey(i)];
+    return `<div class="other-finding-row ${resolved ? 'is-resolved' : ''}" data-idx="${i}">
+        <span class="pli-dot sev-${f.severity}"></span>
+        <span class="pli-title">${esc(f.title)}</span>
+        ${resolved ? '<span class="pli-check">&#10003;</span>' : ''}
+    </div>`;
+}
+
+function passedListHTML() {
+    const checks = QUEUE.passed_checks || [];
+    const notApplicable = QUEUE.not_applicable_checks || [];
+    if (!checks.length && !notApplicable.length) return "";
+    const items = checks.map(c => `<div class="passed-item"><span class="pi-clause">${esc(c.label)}:</span> ${esc(c.extracted_summary)} &mdash; within policy (${esc(c.policy_limit_summary)})</div>`).join("");
+    const naNote = notApplicable.length
+        ? `<div class="not-applicable-note">${notApplicable.length} clause type(s) not addressed in this contract: ${notApplicable.map(c => esc(c.label)).join(", ")}</div>`
+        : "";
+    return `
+        <div class="passed-toggle" id="passed-toggle">
+            <span class="caret">&#9656;</span>
+            <span id="passed-toggle-label">${checks.length} policy check${checks.length === 1 ? '' : 's'} passed</span>
+        </div>
+        <div class="passed-list" id="passed-list">${items}${naNote}</div>
+    `;
+}
+
 function renderPanelList() {
     const panel = document.getElementById("finding-panel");
     const total = FINDINGS.length;
     const resolvedCount = FINDINGS.filter((f, i) => DECISIONS[fkey(i)]).length;
-    const rows = FINDINGS.map((f, i) => {
-        const resolved = !!DECISIONS[fkey(i)];
-        return `<div class="panel-list-item ${resolved ? 'is-resolved' : ''}" data-idx="${i}">
-            <span class="pli-dot sev-${f.severity}"></span>
-            <span class="pli-title">${i + 1}. ${esc(f.title)}</span>
-            ${resolved ? '<span class="pli-check">&#10003;</span>' : ''}
-        </div>`;
-    }).join("");
-    panel.innerHTML = `
-        <div class="panel-card">
-            <div class="panel-list-head"><h3>Findings</h3><span class="panel-count">${resolvedCount}/${total} resolved</span></div>
-            <div class="panel-list-body">${rows || '<div class="panel-empty-note">No findings in this document.</div>'}</div>
+    const s = QUEUE.summary;
+
+    const summaryHTML = `
+        <div class="queue-summary">
+            <div class="queue-summary-headline">${s.needs_attention} need${s.needs_attention === 1 ? 's' : ''} attention</div>
+            <div class="queue-summary-counts">
+                ${s.top_tier ? `<span class="queue-summary-count tier-top"><b>${s.top_tier}</b> Prohibited / Must Redline / Escalate</span>` : ""}
+                ${s.negotiate ? `<span class="queue-summary-count tier-negotiate"><b>${s.negotiate}</b> Negotiate</span>` : ""}
+                ${s.requires_review ? `<span class="queue-summary-count tier-review"><b>${s.requires_review}</b> Needs Review</span>` : ""}
+                ${s.evaluation_error ? `<span class="queue-summary-count tier-top"><b>${s.evaluation_error}</b> Evaluation Failed</span>` : ""}
+                ${s.passed ? `<span class="queue-summary-count"><b>${s.passed}</b> Passed</span>` : ""}
+            </div>
         </div>
     `;
-    panel.querySelectorAll(".panel-list-item").forEach(el => {
+
+    const policyIdxs = QUEUE.policy_exception_indices || [];
+    const otherIdxs = QUEUE.other_finding_indices || [];
+
+    let noPolicyNote = "";
+    if (!policyIdxs.length && !s.passed && !s.not_applicable) {
+        noPolicyNote = `<div class="queue-summary-note">No active policy positions governed this review — only ordinary contract findings (if any) are shown below.</div>`;
+    } else if (!policyIdxs.length && (s.passed || s.not_applicable)) {
+        noPolicyNote = `<div class="queue-summary-note">All evaluated policy checks passed. See "policy checks passed" below.</div>`;
+    }
+
+    const exceptionsHTML = policyIdxs.length ? `
+        <div class="queue-section-head">Playbook Exceptions</div>
+        ${policyIdxs.map(policyQueueRowHTML).join("")}
+    ` : "";
+
+    const othersHTML = otherIdxs.length ? `
+        ${policyIdxs.length ? '<div class="queue-section-head">Other Contract Findings</div>' : ''}
+        ${otherIdxs.map(otherFindingRowHTML).join("")}
+    ` : "";
+
+    const emptyHTML = (!policyIdxs.length && !otherIdxs.length)
+        ? '<div class="panel-empty-note">No findings in this document.</div>' : "";
+
+    panel.innerHTML = `
+        <div class="panel-card">
+            <div class="panel-list-head"><h3>Review Queue</h3><span class="panel-count">${resolvedCount}/${total} resolved</span></div>
+            ${summaryHTML}
+            ${noPolicyNote}
+            <div class="panel-list-body">
+                ${exceptionsHTML}
+                ${othersHTML}
+                ${emptyHTML}
+            </div>
+            ${passedListHTML()}
+        </div>
+    `;
+    panel.querySelectorAll(".queue-row, .other-finding-row").forEach(el => {
         el.addEventListener("click", () => openFinding(+el.dataset.idx));
+    });
+    const passedToggle = document.getElementById("passed-toggle");
+    passedToggle?.addEventListener("click", () => {
+        passedToggle.classList.toggle("open");
+        document.getElementById("passed-list")?.classList.toggle("open");
     });
 }
 
@@ -448,44 +648,115 @@ function closePopover() {
     renderPanelList();
 }
 
+// Policy governance states (Phase 4.1 UX remediation, P1 items 3+4 —
+// docs/architecture/playbook_ux_audit.md): a policy_decision finding in
+// one of these states represents a considered legal exception, not a
+// tooling false-positive, and gets distinct action copy + a visible
+// escalation/override record instead of the generic rule-engine wording.
+const POLICY_GOVERNANCE_STATES = new Set(["PROHIBITED", "MUST_REDLINE", "ESCALATE"]);
+
 function popoverHTML(f, i) {
     const rl = f.redline;
     const cb = f.confidence_breakdown;
     const decision = DECISIONS[fkey(i)];
     const original = f.exact_snippet || f.matched_excerpt || "";
+    const isPolicyDecision = f.finding_type === "policy_decision";
+    const isGovernance = isPolicyDecision && POLICY_GOVERNANCE_STATES.has(f.policy_state);
+    const policyDecisionRow = isPolicyDecision && POLICY_DECISIONS ? POLICY_DECISIONS[f.clause_type] : null;
 
     const diffHTML = rl ? `<div class="diff-box"><span class="del">${esc(original.slice(0, 90))}${original.length > 90 ? "…" : ""}</span> &rarr;<br><span class="ins">${esc(rl.suggested_redline)}</span></div>` : "";
-    const ladderHTML = f.negotiation_ladder ? `<div class="pop-ladder">${f.negotiation_ladder.map(s => `<span class="ladder-step ${s.status}" title="${esc(s.description)}">${esc(s.label)}</span>`).join('<span class="ladder-arrow">&rarr;</span>')}</div>` : "";
+    const ladderHTML = f.negotiation_ladder && f.negotiation_ladder.length ? `<div class="pop-ladder">${f.negotiation_ladder.map(s => `<span class="ladder-step ${s.status}" title="${esc(s.description)}">${esc(s.label)}</span>`).join('<span class="ladder-arrow">&rarr;</span>')}</div>` : "";
     const sourceHTML = f.policy_source ? `<div class="pop-source">${f.controlling_provision ? esc(f.controlling_provision.label) + ' &mdash; ' : ''}Source: ${esc(f.policy_source)}</div>` : "";
     const positionsHTML = (f.our_position && f.counterparty_position) ? `<div class="pop-positions">
         <span class="position-chip ours">Our liability (${esc(f.our_position.role)}): ${esc(f.our_position.summary)}</span>
         <span class="position-chip theirs">Counterparty (${esc(f.counterparty_position.role)}): ${esc(f.counterparty_position.summary)}</span>
     </div>` : "";
+    // escalate_to (P0-3 fix): the engine already computes who must
+    // approve an ESCALATE/PROHIBITED decision — this was being silently
+    // dropped before it ever reached the UI.
+    const escalateHTML = f.escalate_to ? `<div class="pop-escalate">Requires approval from <strong>${esc(f.escalate_to)}</strong></div>` : "";
+    // Decision → Counterparty position → Your playbook, at the top of the
+    // popover, mirroring the queue row and reusing the SAME engine-
+    // computed summaries (decision.extracted_summary/policy_limit_summary)
+    // — never re-derived or paraphrased here.
+    const queueContextHTML = (isPolicyDecision && policyDecisionRow) ? `<div class="pop-queue-context">
+        ${policyDecisionRow.extracted_summary ? `<div><span class="pqc-label">Counterparty position:</span> ${esc(policyDecisionRow.extracted_summary)}</div>` : ""}
+        ${policyDecisionRow.policy_limit_summary ? `<div><span class="pqc-label">Your playbook:</span> ${esc(policyDecisionRow.policy_limit_summary)}</div>` : ""}
+    </div>` : "";
+    // Once a policy_decision finding has been decided, show the
+    // governance record inline — original recommendation, resulting
+    // decision, who, when, and why — rather than only a rejection-reason
+    // note. Never overwrites policy_original_recommendation on redecision
+    // (main.py always re-derives it from the finding, not the prior
+    // decision), so this stays accurate even if a lawyer changes their
+    // mind and decides again.
+    const governanceRecordHTML = (isPolicyDecision && decision) ? `<div class="policy-decision-record">
+        <div><span class="pdr-label">Original recommendation:</span> ${esc((decision.policy_original_recommendation || f.policy_state || "").replace(/_/g, " "))}</div>
+        <div><span class="pdr-label">Decision:</span> ${esc((decision.action || "").replace(/_/g, " "))}${decision.decided_by ? ` by ${esc(decision.decided_by)}` : ""}${decision.decided_at ? ` &middot; ${esc(new Date(decision.decided_at).toLocaleString())}` : ""}</div>
+        ${decision.reason ? `<div><span class="pdr-label">Reason:</span> ${esc(decision.reason)}</div>` : ""}
+    </div>` : "";
+    // "Contract evidence" — decision.render_evidence_report(), already
+    // computed server-side (contract excerpt -> detected position ->
+    // your playbook -> decision), simply not rendered anywhere until now.
+    const evidenceReportHTML = f.evidence_report ? `<pre class="pop-evidence-report">${esc(f.evidence_report)}</pre>` : "";
+    // "Playbook evidence" — citation + directional-position chips + the
+    // negotiation ladder, grouped as the deeper basis for the decision.
+    const playbookEvidenceHTML = (sourceHTML || positionsHTML || ladderHTML)
+        ? `${sourceHTML}${positionsHTML}${ladderHTML}` : "";
+
+    // NEGOTIATE uses distinct wording ("apply fallback language") from
+    // PROHIBITED/MUST_REDLINE's "apply approved redline" — same action,
+    // different legal framing (task section 6).
+    let acceptLabel = "&#10003; Accept";
+    if (isPolicyDecision && rl) {
+        acceptLabel = f.policy_state === "NEGOTIATE" ? "&#10003; Apply fallback language" : "&#10003; Apply approved redline";
+    }
+    const rejectLabel = isGovernance ? "&#10005; Request exception" : "&#10005; Reject";
+    const rejectPlaceholder = isGovernance
+        ? "Why should this exception be granted? (required — goes in the audit record)"
+        : "Why are you rejecting this? (required — goes in the review record)";
+    // ESCALATE never carries a redline (fallback_text_for_state excludes
+    // it by design — escalation is inherently a human-approval question,
+    // not an auto-fallback one), so without this the "Request exception"
+    // framing could never reach an ESCALATE finding at all. flaggedLabel
+    // still maps to action="flagged" — existing review-decision
+    // validation/semantics are unchanged, only the button's wording is.
+    const flaggedLabel = isGovernance ? "&#128204; Request exception" : "&#128204; Flag for Manual Drafting";
+    // REQUIRES_REVIEW means the engine reached no conclusion at all — its
+    // primary action must not be styled as if accepting a recommendation
+    // (there isn't one to accept), so it does not get the "primary" class
+    // other no-redline governance states get.
+    const noRedlinePrimaryClass = (f.policy_state === "REQUIRES_REVIEW") ? "" : "primary";
 
     const actions = rl ? `
-        <button class="pop-btn primary" data-act="accepted">&#10003; Accept<span class="mono text-[10px] opacity-70 ml-1">a</span></button>
+        <button class="pop-btn primary" data-act="accepted">${acceptLabel}<span class="mono text-[10px] opacity-70 ml-1">a</span></button>
         <button class="pop-btn" data-act="edit">&#9998; Edit<span class="mono text-[10px] opacity-70 ml-1">e</span></button>
-        <button class="pop-btn danger" data-act="rejected">&#10005; Reject<span class="mono text-[10px] opacity-70 ml-1">r</span></button>
+        <button class="pop-btn danger" data-act="rejected">${rejectLabel}<span class="mono text-[10px] opacity-70 ml-1">r</span></button>
         <button class="pop-btn" data-act="comment">&#128172; Comment<span class="mono text-[10px] opacity-70 ml-1">c</span></button>
         <span class="pop-conf">${cb ? esc(cb.confidence).toUpperCase() : ''} confidence</span>
     ` : `
-        <button class="pop-btn primary" data-act="flagged">&#128204; Flag for Manual Drafting</button>
+        <button class="pop-btn ${noRedlinePrimaryClass}" data-act="flagged">${flaggedLabel}</button>
         <button class="pop-btn" data-act="dismissed">Dismiss</button>
         <button class="pop-btn" data-act="comment">&#128172; Comment<span class="mono text-[10px] opacity-70 ml-1">c</span></button>
     `;
+    // Actionable policy states carrying no redline text at all (missing
+    // fallback — edge case: an ACTIVE policy position with no fallback_text
+    // configured) get an explicit note rather than silently offering fewer
+    // options with no explanation.
+    const missingFallbackNote = (isPolicyDecision && !rl && f.policy_state !== "REQUIRES_REVIEW" && f.policy_state !== "EVALUATION_ERROR")
+        ? `<p class="text-xs text-gray-400 mt-2">No approved fallback language is configured for this policy — flag for manual drafting${f.escalate_to ? ` or escalate to ${esc(f.escalate_to)} directly` : ""}.</p>`
+        : "";
 
     return `
         <div class="pop-top">
-            <span class="text-[10.5px] font-bold uppercase tracking-wide px-2 py-0.5 rounded ${f.severity === 'high' || f.severity === 'critical' ? 'bg-red-50 text-red-700' : f.severity === 'medium' ? 'bg-amber-50 text-amber-700' : 'bg-blue-50 text-blue-700'}">${f.policy_state ? f.policy_state.replace(/_/g, ' ') : (SEV_LABEL[f.severity] || f.severity)}</span>
+            <span class="text-[10.5px] font-bold uppercase tracking-wide px-2 py-0.5 rounded ${f.severity === 'high' || f.severity === 'critical' ? 'bg-red-50 text-red-700' : f.severity === 'medium' ? 'bg-amber-50 text-amber-700' : 'bg-blue-50 text-blue-700'}">${f.policy_state ? esc(policyStateLabel(f.policy_state)) : (SEV_LABEL[f.severity] || f.severity)}</span>
             <span class="pop-title">${esc(f.title)} <span class="mono text-[10.5px] text-gray-400 font-normal">${esc(f.rule_id)}</span></span>
             <button class="verify-btn" id="verify-btn">&#8635; Verify</button>
         </div>
-        ${sourceHTML}
-        ${positionsHTML}
-        <div class="pop-rationale">${esc(f.rationale || "")}</div>
-        ${ladderHTML}
-        ${diffHTML}
+        ${queueContextHTML}
+        ${escalateHTML}
         <div class="pop-actions">${actions}</div>
+        ${missingFallbackNote}
         <div class="verify-stamp" id="verify-stamp"></div>
         <div class="pop-error" id="pop-error"></div>
         <div class="pop-inline-input" id="edit-input">
@@ -493,14 +764,19 @@ function popoverHTML(f, i) {
             <div class="save-row"><button class="pop-btn primary" id="edit-save">Save edit</button><button class="pop-btn" id="edit-cancel">Cancel</button></div>
         </div>
         <div class="pop-inline-input" id="reject-input">
-            <textarea id="reject-textarea" placeholder="Why are you rejecting this? (required — goes in the review record)"></textarea>
-            <div class="save-row"><button class="pop-btn danger" id="reject-save">Confirm reject</button><button class="pop-btn" id="reject-cancel">Cancel</button></div>
+            <textarea id="reject-textarea" placeholder="${rejectPlaceholder}"></textarea>
+            <div class="save-row"><button class="pop-btn danger" id="reject-save">${isGovernance ? "Confirm exception" : "Confirm reject"}</button><button class="pop-btn" id="reject-cancel">Cancel</button></div>
         </div>
         <div class="pop-inline-input" id="comment-input">
             <textarea id="comment-textarea" placeholder="Add a note for yourself or a colleague...">${decision && decision.comment ? esc(decision.comment) : ''}</textarea>
             <div class="save-row"><button class="pop-btn primary" id="comment-save">Save comment</button><button class="pop-btn" id="comment-cancel">Cancel</button></div>
         </div>
-        ${decision && decision.reason ? `<div class="reject-reason-note">Rejected: "${esc(decision.reason)}"</div>` : ""}
+        ${diffHTML}
+        ${f.rationale ? `<details class="pop-details"><summary>Why this decision?</summary><div class="pop-details-body"><div class="pop-rationale">${esc(f.rationale)}</div></div></details>` : ""}
+        ${evidenceReportHTML ? `<details class="pop-details"><summary>Contract evidence</summary><div class="pop-details-body">${evidenceReportHTML}</div></details>` : ""}
+        ${playbookEvidenceHTML ? `<details class="pop-details"><summary>Playbook evidence</summary><div class="pop-details-body">${playbookEvidenceHTML}</div></details>` : ""}
+        ${governanceRecordHTML}
+        ${(!isPolicyDecision && decision && decision.reason) ? `<div class="reject-reason-note">Rejected: "${esc(decision.reason)}"</div>` : ""}
     `;
 }
 
@@ -530,9 +806,22 @@ function wirePopover(f, i, pop) {
         try {
             const data = await postForm(`/contract/${CONTRACT_ID}/review/verify`, { finding_index: i });
             stamp.classList.remove("fail");
-            stamp.innerHTML = data.verified
-                ? `&#10003; Re-ran all 189 rules against this contract. Rule <span class="mono">${esc(f.rule_id)}</span> matched this exact language again. Same result, every time.`
-                : `Re-analysis no longer matches this exact text — the stored finding may be stale.`;
+            if (data.policy_verification) {
+                // Policy-decision verify (Phase 4.1 fix, P0-2): replays the
+                // exact pinned policy revision through the same
+                // deterministic engine — never the 189-rule pattern
+                // replay, which never contained this finding's rule_id to
+                // begin with (that was the bug: it always reported "may
+                // be stale" for every policy decision, regardless of
+                // truth).
+                stamp.innerHTML = data.verified
+                    ? `&#10003; Re-ran your policy against this contract using the exact approved policy revision. Result: <span class="mono">${esc((data.replayed_state || "").replace(/_/g, " "))}</span>. Same result, every time.`
+                    : esc(data.reason || "Re-evaluating this policy produced a different result than what's shown.");
+            } else {
+                stamp.innerHTML = data.verified
+                    ? `&#10003; Re-ran the deterministic rule set against this contract. Rule <span class="mono">${esc(f.rule_id)}</span> matched this exact language again. Same result, every time.`
+                    : `Re-analysis no longer matches this exact text — the stored finding may be stale.`;
+            }
             if (!data.verified) stamp.classList.add("fail");
             stamp.classList.add("show");
         } catch (err) {
@@ -590,7 +879,13 @@ async function submitDecision(f, i, action, extra) {
     const errEl = document.getElementById("active-popover")?.querySelector("#pop-error");
     try {
         const data = await postForm(`/contract/${CONTRACT_ID}/review/decision`, { finding_index: i, action, ...extra });
-        DECISIONS[fkey(i)] = { action, rule_id: f.rule_id, ...extra, decided_at: new Date().toISOString() };
+        // Use the server's own stored entry (data.entry) rather than an
+        // optimistic client-side guess — it's the only way to show
+        // decided_by and, for a policy_decision finding,
+        // policy_original_recommendation correctly right away instead of
+        // only after a reload (Phase 4.1 UX remediation, override-history
+        // visibility).
+        DECISIONS[fkey(i)] = data.entry || { action, rule_id: f.rule_id, ...extra, decided_at: new Date().toISOString() };
 
         const markEl = findMarkIdEl(i);
         if (markEl) {

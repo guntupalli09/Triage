@@ -128,13 +128,23 @@
                     </div>
                 </div>
 
-                <!-- Limitation of Liability Policy Rule -->
+                <!-- Legacy Limitation of Liability policy rule — edit mode only.
+                     Deliberately NOT shown when creating a new playbook: the
+                     six-clause-type Policy Workbench (PolicyPosition) is the
+                     authoritative authoring system as of Phase 4.1's UX
+                     remediation (see docs/architecture/playbook_ux_audit.md,
+                     P0-1). This section is kept only so a playbook created
+                     before that change remains editable/rollback-able —
+                     never delete PolicyRule storage or routes merely to
+                     simplify the UI (Phase 4.1 constraint). -->
+                {% if playbook %}
                 <div class="mb-8 border border-gray-200 rounded-xl p-5">
+                    <p class="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-2">Legacy — internal use only</p>
                     <label class="flex items-center gap-2 mb-4 cursor-pointer">
                         <input type="checkbox" id="lol_enabled" name="lol_enabled" {% if policy_rule %}checked{% endif %} class="rounded border-gray-300">
-                        <span class="text-sm font-semibold text-[#0F172A]">Enforce a Limitation of Liability policy</span>
+                        <span class="text-sm font-semibold text-[#0F172A]">Enforce a Limitation of Liability policy (legacy)</span>
                     </label>
-                    <p class="text-xs text-gray-500 mb-4">Every contract analyzed against this playbook is checked deterministically against these positions — not just diffed against the template text.</p>
+                    <p class="text-xs text-gray-500 mb-4">Superseded by the Policy Workbench, which covers all six clause types with a fuller review/approve/activate lifecycle. Configure Limitation of Liability there instead — this section exists only for compatibility with playbooks configured before the Workbench existed.</p>
 
                     <div id="lol_fields" class="space-y-5 {% if not policy_rule %}hidden{% endif %}">
                         <div>
@@ -208,6 +218,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
 
                 <!-- Submit -->
                 <button type="submit" class="btn-primary w-full py-3.5 px-6 rounded-lg font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0F172A]">
@@ -263,8 +274,10 @@
 
         const lolEnabled = document.getElementById('lol_enabled');
         const lolFields = document.getElementById('lol_fields');
-        lolEnabled.addEventListener('change', function() {
-            lolFields.classList.toggle('hidden', !lolEnabled.checked);
-        });
+        if (lolEnabled && lolFields) {
+            lolEnabled.addEventListener('change', function() {
+                lolFields.classList.toggle('hidden', !lolEnabled.checked);
+            });
+        }
     </script>
 {% endblock %}

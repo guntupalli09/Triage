@@ -83,7 +83,9 @@ import upload_security
 import rbac
 import retention
 import playbook_workbench
+import playbook_authoring as pa
 import policy_enforcement
+import review_queue
 from analytics_middleware import AnalyticsMiddleware
 from channel_classifier import CHANNELS as ACQUISITION_CHANNELS
 
@@ -2226,6 +2228,14 @@ async def review_contract(request: Request, contract_id: int, db: DBSession = De
     findings = contract.findings_json or []
     decisions = contract.review_decisions_json or {}
     progress = compute_progress(findings, decisions)
+    # Exception-queue view-model (P0 remediation of
+    # docs/architecture/contract_review_exception_ux.md) — computed here,
+    # server-side, so the passed-vs-actionable-vs-not-applicable-vs-
+    # evaluation-error classification is unit-tested against real
+    # PolicyDecision output (see review_queue.py and
+    # tests/test_review_queue.py) rather than inferred client-side in
+    # JavaScript from the mere absence of a finding.
+    queue = review_queue.build_review_queue(findings, contract.policy_decisions_json)
 
     return templates.TemplateResponse("review.html", {
         "request": request, "user": user, "contract_id": contract.id,
@@ -2239,6 +2249,8 @@ async def review_contract(request: Request, contract_id: int, db: DBSession = De
         "negotiation_difficulty_score": contract.negotiation_difficulty_score,
         "metadata": contract.metadata_json,
         "policy_decisions": contract.policy_decisions_json,
+        "queue": queue.as_dict(),
+        "clause_labels": pa.CLAUSE_TYPE_LABELS,
         "is_finalized": contract.review_finalized_at is not None,
         "current_year": datetime.now().year,
     })
@@ -2297,7 +2309,13 @@ async def submit_review_decision(
 
     progress = compute_progress(findings, decisions)
     analytics.record_event(request, "review_decision", user=user, metadata={"contract_id": contract.id, "rule_id": finding["rule_id"], "finding_index": finding_index, "action": action})
-    return {"progress": progress.as_dict()}
+    # `entry` (not just `progress`) is returned so the client can show the
+    # authoritative record immediately — including decided_by and, for a
+    # policy_decision finding, policy_original_recommendation — without
+    # waiting for a page reload to see what the server actually stored
+    # (Phase 4.1 UX remediation: override history must be visible right
+    # away, not just after a refresh).
+    return {"progress": progress.as_dict(), "entry": entry}
 
 
 @app.post("/contract/{contract_id}/review/comment")
@@ -2333,11 +2351,24 @@ async def verify_review_finding(
     still fires against the same exact text — not a canned animation. Matches
     the replayed finding by rule_id AND exact position, not rule_id alone —
     the same rule can fire more than once in one document, and verifying
-    finding #2 must not silently compare against finding #1's match."""
+    finding #2 must not silently compare against finding #1's match.
+
+    A policy_decision finding (from the deterministic policy engine, not
+    the pattern rule engine) is a different verification question and is
+    routed to policy_enforcement.verify_policy_finding instead — see that
+    function's docstring for why the two are structurally distinct in
+    what "verified" even means. This branch is what fixes the Phase 4.1
+    UX audit's P0-2 finding: verifying a policy_decision finding through
+    this rule-engine-only path always returned verified=False regardless
+    of whether the policy actually changed, since policy engines' RULE_IDs
+    (e.g. "POLICY_LOL_CAP") never appear in rule_engine.analyze()'s output."""
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
 
     original = _get_finding_by_index(contract, finding_index)
+
+    if original.get("finding_type") == "policy_decision":
+        return policy_enforcement.verify_policy_finding(db, contract, original)
 
     replay = rule_engine.analyze(contract.contract_text)
     match = next(
@@ -2693,7 +2724,34 @@ async def playbook_new_submit(
         metadata={"name": playbook.name},
     )
 
-    return RedirectResponse(url="/playbooks", status_code=302)
+    # Phase 4.1 UX remediation (P0-1, docs/architecture/playbook_ux_audit.md):
+    # a new playbook has no policy configured yet — route straight into the
+    # three-path setup chooser rather than back to the plain playbooks list,
+    # so a lawyer can never mistake "I uploaded a template" for "my policy
+    # is configured." /playbooks/{id}/setup is the one entry point into the
+    # Workbench/PolicyPosition authoring system from here on.
+    return RedirectResponse(url=f"/playbooks/{playbook.id}/setup", status_code=302)
+
+
+@app.get("/playbooks/{playbook_id}/setup", response_class=HTMLResponse)
+async def playbook_setup_choice(request: Request, playbook_id: int, db: DBSession = Depends(get_db)):
+    """The one entry point into the Policy Workbench authoring system
+    (Phase 4.1 UX remediation, P0-1). Presents the three ways to populate
+    a playbook's policy positions — AI-assisted import, deterministic/
+    private template import, or manual setup — all of which converge on
+    the same Workbench -> Review -> Approve -> Activate lifecycle. This
+    page deliberately does not offer the legacy single-clause PolicyRule
+    checkbox form (still reachable at /playbooks/{id}/edit for
+    compatibility with playbooks configured before this change, never
+    removed — see docs/architecture/phase4_cutover.md's rollback
+    requirements) as a way to "finish setting up" a playbook."""
+    user = require_user(request, db)
+    playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
+    if not playbook:
+        raise HTTPException(status_code=404, detail="Playbook not found")
+    return templates.TemplateResponse("playbook_setup_choice.html", {
+        "request": request, "user": user, "playbook": playbook, "current_year": datetime.now().year,
+    })
 
 
 @app.get("/playbooks/{playbook_id}/edit", response_class=HTMLResponse)
