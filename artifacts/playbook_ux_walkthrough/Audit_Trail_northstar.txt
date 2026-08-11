@@ -1,0 +1,146 @@
+Audit Trail — northstar_msa_test_contract.txt
+Rule Engine: v7.2.0
+============================================================
+
+[H_ASYMMETRIC_LIABILITY_01] Asymmetric liability cap (CRITICAL)
+  Matched: LIABILITY. Except for Customer's payment obligations, Provider's
+liability shall be unlimited for breaches of confidentiality, data security obligations,
+intellectual property infringement, and indemnification obligations. For all other claims,
+Provider's aggregate liability shall not exceed
+  Decision: accepted
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.358023
+
+[H_ASSIGN_CHANGE_CTRL_01] Assignment restricted on change of control (HIGH)
+  Matched: may not assign, delegate, or otherwise transfer this Agreement
+or any of its rights or obligations under this Agreement, in whole or in part, without
+Provider's prior written consent, which Provider may withhold in its sole and absolute
+discretion. Provider may assign this Agreement without Customer's consent, including
+in connection with a merger
+  Decision: dismissed
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.379485
+
+[H_DATA_TERMINATION_01] No data return or deletion on termination (HIGH)
+  Matched: TERMINATION
+  Decision: dismissed
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.398623
+
+[H_INDEM_01] Potentially unlimited indemnification (HIGH)
+  Matched: unlimited for breaches of confidentiality, data security obligations,
+intellectual property infringement, and indemnification
+  Decision: accepted
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.418041
+
+[H_INDEM_SCOPE_NARROW_01] Indemnification scope may be too narrow (HIGH)
+  Matched: indemnification
+  Decision: dismissed
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.439629
+
+[H_LEASE_ASSIGN_SUBLET_01] Landlord assignment/sublet consent lacks reasonableness standard (HIGH)
+  Matched: sole and absolute
+discretion. Provider may assign this Agreement without Customer's consent, including
+in connection with a merger, acquisition, corporate reorganization, or sale of all or
+substantially all of its assets. Any attempted assignment
+  Decision: dismissed
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.479310
+
+[H_LOL_CARVEOUT_01] Liability cap carve-outs may negate protection (HIGH)
+  Matched: LIMITATION OF LIABILITY. Except for Customer's payment obligations, Provider's
+liability shall be unlimited for breaches of confidentiality, data security obligations,
+intellectual property infringement, and indemnification
+  Decision: dismissed
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.499594
+
+[H_TERM_CONVENIENCE_01] Mutual termination for convenience (MEDIUM)
+  Matched: for
+convenience upon ninety (90) days' prior written notice to the other party. Either party
+may terminate
+  Decision: accepted
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.518797
+
+[M_DATA_PORTABILITY_01] No data portability or export rights on exit (MEDIUM)
+  Matched: TERMINATION
+  Decision: dismissed
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.537291
+
+[M_FINAL_INVOICE_01] Final invoice timing on termination not specified (MEDIUM)
+  Matched: TERMINATION
+  Decision: dismissed
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.556147
+
+[M_INSURANCE_01] No minimum insurance requirements (MEDIUM)
+  Matched: SERVICES
+  Decision: dismissed
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.573078
+
+[M_PAYMENT_TRIGGER_01] No invoice trigger event specified (MEDIUM)
+  Matched: PAYMENT
+  Decision: dismissed
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.590689
+
+[M_RESIDUALS_01] No residuals / knowledge carve-out (MEDIUM)
+  Matched: Confidential Information
+  Decision: dismissed
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.605855
+
+[M_SECURITY_CERT_MISSING_01] No recognized security certification required (MEDIUM)
+  Matched: data security
+  Decision: dismissed
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.621176
+
+[M_SLA_01] No service level or uptime commitment (MEDIUM)
+  Matched: Software
+  Decision: dismissed
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.637012
+
+[L_GOVLAW_01] Specific governing law or venue (LOW)
+  Matched: exclusive jurisdiction
+  Decision: dismissed
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.654296
+
+[L_LATEFEE_01] Late fees / high interest (LOW)
+  Matched: Late payments accrue interest at 1.5%
+  Decision: dismissed
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.671149
+
+[POLICY_LOL_CAP] Limitation of Liability — ESCALATE (HIGH)
+  Matched: five times the fees
+  Original policy recommendation: ESCALATE
+  Decision: flagged
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:21:14.511940
+
+[POLICY_INDEMNIFICATION] Indemnification — MUST REDLINE (HIGH)
+  Matched: services, violation of applicable law, or breach of this Agreement. Provider
+shall indemnify Customer against third-party claims that the services, as delivered by
+Provider
+  Original policy recommendation: MUST_REDLINE
+  Decision: dismissed
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:26:39.688113
+
+[POLICY_TERMINATION] Termination — PROHIBITED (CRITICAL)
+  Matched: least sixty (60) days before
+the end of the then-current term. Either party may terminate this Agreement for
+convenience upon ninety (90) days' prior written notice
+  Original policy recommendation: PROHIBITED
+  Decision: rejected
+  Reason: Strategic enterprise customer — exception approved for this agreement.
+  Decided by: Sarah Chen
+  Decided at: 2026-08-11T06:24:24.520606

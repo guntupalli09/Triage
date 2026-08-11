@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TriageCounsel Playbook UX Walkthrough — Contact Sheet</title>
+<style>
+  :root { color-scheme: light; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: #f3f4f6; color: #111827; margin: 0; padding: 24px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  p.sub { color: #6b7280; margin: 0 0 20px; font-size: 13px; }
+  .section { margin: 28px 0 12px; padding-top: 12px; border-top: 2px solid #d1d5db; }
+  .section h2 { font-size: 15px; margin: 0 0 10px; color: #1f2937; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
+  .card img { width: 100%; display: block; border-bottom: 1px solid #e5e7eb; cursor: zoom-in; background: #f9fafb; }
+  .card .meta { padding: 8px 10px; }
+  .card .num { font-family: ui-monospace, monospace; font-size: 11px; color: #6b7280; }
+  .card .title { font-weight: 600; font-size: 13px; margin: 2px 0 4px; }
+  .card .desc { font-size: 12px; color: #4b5563; line-height: 1.4; }
+  .missing { background: #fff7ed; border: 1px dashed #fdba74; border-radius: 8px; padding: 10px 12px; font-size: 12.5px; color: #7c2d12; }
+  .missing b { display: block; margin-bottom: 2px; }
+  dialog { border: none; border-radius: 8px; padding: 0; max-width: 95vw; max-height: 95vh; }
+  dialog img { max-width: 95vw; max-height: 90vh; display: block; }
+  dialog::backdrop { background: rgba(0,0,0,0.7); }
+</style>
+</head>
+<body>
+<h1>TriageCounsel Playbook UX Walkthrough — Contact Sheet</h1>
+<p class="sub">Sequential, unedited screenshots from the full Playbook walkthrough (persona: Sarah Chen, Commercial Counsel, Acme Software Inc.). Click any thumbnail to view full size. See <a href="ux_walkthrough_report.md">ux_walkthrough_report.md</a> for the full critique.</p>
+
+<div class="section"><h2>A. Entry / Landing Experience</h2><div class="grid" id="g-a"></div></div>
+<div class="section"><h2>B. Manual Playbook Creation</h2><div class="grid" id="g-b"></div></div>
+<div class="section"><h2>C. Completed Playbook</h2><div class="grid" id="g-c"></div></div>
+<div class="section"><h2>D. Test Policy</h2><div class="grid" id="g-d"></div>
+  <div class="missing"><b>Not captured: 20-test-policy-evidence.png</b>The adverse Liability paragraph mandated by the spec, tested in isolation, returned NOT_APPLICABLE ("No limitation-of-liability clause found") — the engine's clause anchor regex requires the literal phrase "limitation of liability" or "liability cap", which the mandated test paragraph does not contain. With no matched clause, there is no evidence/detail section to expand. See report for full analysis.</div>
+</div>
+<div class="section"><h2>E. Contract Upload</h2><div class="grid" id="g-e"></div></div>
+<div class="section"><h2>F. Processing</h2><div class="grid" id="g-f"></div>
+  <div class="missing"><b>No 23a/23b/23c — no distinct processing stages exist</b>Contract analysis is fully synchronous on the server; the browser goes directly from clicking "Analyze Contract" to a fully-rendered review page with no observable intermediate loading state (confirmed by capturing at multiple timing offsets, including immediately after the click event). Not fabricated per the spec's own instruction.</div>
+</div>
+<div class="section"><h2>G. Contract Review</h2><div class="grid" id="g-g"></div></div>
+<div class="section"><h2>H. Severe Exception (Prohibited Finding)</h2><div class="grid" id="g-h"></div>
+  <div class="missing"><b>Not captured: 33-negotiation-guidance.png</b>No separate "negotiation guidance" expandable control exists in the UI. The negotiation ladder is rendered inline inside the "Playbook evidence" `&lt;details&gt;` block (see 32-playbook-policy.png) alongside the policy source citation and directional position chips — there is no distinct affordance to screenshot separately. Not fabricated per the spec's own instruction.</div>
+</div>
+<div class="section"><h2>I. Redline</h2><div class="grid" id="g-i"></div></div>
+<div class="section"><h2>J. Exception / Escalation</h2><div class="grid" id="g-j"></div></div>
+<div class="section"><h2>K. Verify</h2><div class="grid" id="g-k"></div></div>
+<div class="section"><h2>L. Finalize / Export</h2><div class="grid" id="g-l"></div></div>
+<div class="section"><h2>M. Deterministic Import UX</h2><div class="grid" id="g-m"></div></div>
+<div class="section"><h2>N. AI-Assisted Import UX</h2><div class="grid" id="g-n"></div></div>
+
+<dialog id="lightbox"><img id="lightbox-img" src="" alt=""></dialog>
+
+<script>
+const DATA = {
+  "g-a": [
+    ["01-dashboard.png","01 — Dashboard","Landing page immediately after login (Free plan, no contracts yet)."],
+    ["02-playbooks-list.png","02 — Playbooks list (empty)","Playbooks index before the Acme MSA Playbook is created."],
+    ["03-create-playbook.png","03 — Create Playbook form","Name / contract type / description / required template-file upload."],
+    ["04-setup-method.png","04 — Setup method chooser","The three-path chooser: AI-assisted, Deterministic & Private, Manual."]
+  ],
+  "g-b": [
+    ["05-workbench-empty.png","05 — Workbench (empty)","All six clause cards in 'Not configured' state, 0% coverage."],
+    ["06-liability-authoring-top.png","06 — Liability authoring (top, filled)","Cap ladder, unlimited-liability prohibition, carve-outs, consequential exclusion."],
+    ["07-liability-authoring-bottom.png","07 — Liability authoring (bottom, filled)","Consequential carve-outs, contract side, escalation authority, fallback language, Save/Submit."],
+    ["08-liability-review.png","08 — Liability policy review","Plain-English summary of the position pending approval."],
+    ["09-liability-active.png","09 — Workbench after Liability ACTIVE","One of six cards now Active; coverage 16.7%."],
+    ["10-indemnification-authoring.png","10 — Indemnification authoring","Protection triggers, exposure cap ladder, defense/notice requirements."],
+    ["11-termination-authoring.png","11 — Termination authoring","Convenience/for-cause terms, notice & cure days, survival topics."],
+    ["12-confidentiality-authoring.png","12 — Confidentiality authoring","Mutual confidentiality requirement, exclusions, protection duration."],
+    ["13-assignment-authoring.png","13 — Assignment authoring","Consent requirement, sole-discretion standard, carve-outs."],
+    ["14-governing-law-authoring.png","14 — Governing Law authoring","Preferred jurisdiction (Delaware), dispute resolution, jury waiver."]
+  ],
+  "g-c": [
+    ["15-workbench-complete-top.png","15 — Completed Workbench (top)","All six clauses Active, 100% policy coverage."],
+    ["16-workbench-complete-bottom.png","16 — Completed Workbench (bottom)","Scrolled view confirming all six cards and Test Policy links."]
+  ],
+  "g-d": [
+    ["17-test-policy-empty.png","17 — Test Policy (empty)","Preview tool before any sample clause is pasted."],
+    ["18-test-policy-input.png","18 — Test Policy (input)","The exact spec-mandated adverse Liability paragraph pasted in, before running."],
+    ["19-test-policy-result.png","19 — Test Policy (result)","Result: NOT_APPLICABLE — 'No limitation-of-liability clause found.' A real, reproducible engine miss (see report)."]
+  ],
+  "g-e": [
+    ["21-contract-upload.png","21 — Contract upload (empty)","New Review screen before any file is chosen."],
+    ["22-contract-upload-configured.png","22 — Contract upload (configured)","Northstar MSA selected, Acme Customer MSA Playbook selected, ready to submit."]
+  ],
+  "g-f": [
+    ["23-processing.png","23 — Processing","Captured immediately post-submit; already the fully rendered result (see note below — no distinct loading state exists)."]
+  ],
+  "g-g": [
+    ["24-review-first-impression.png","24 — Review, first impression","Exact arrival state: six policy-exception banners atop the annotated contract text, first ordinary finding auto-opened."],
+    ["25-review-exception-queue.png","25 — Exception queue","Right-rail 'Playbook Exceptions' queue: ESCALATE / MUST REDLINE / PROHIBITED rows with counterparty-vs-playbook summaries."],
+    ["26-review-other-findings.png","26 — Other contract findings","Ordinary (non-playbook) rule-engine findings list beneath the policy exceptions."],
+    ["27-review-passed-collapsed.png","27 — '1 policy check passed' (collapsed)","Collapsed passed-checks toggle at the bottom of the queue."],
+    ["28-review-passed-expanded.png","28 — '1 policy check passed' (expanded)","Expanded: Governing Law — Delaware, within policy."]
+  ],
+  "g-h": [
+    ["29-prohibited-finding.png","29 — PROHIBITED finding (Termination)","Full finding detail: counterparty position, playbook position, escalation-required banner, redline diff, actions."],
+    ["30-why-this-decision.png","30 — 'Why this decision?' expanded","Plain-language explanation citing the exact contract language and the policy rule applied."],
+    ["31-contract-evidence.png","31 — 'Contract evidence' expanded","Machine-readable evidence trail: controlling provision, extracted values, contract excerpt."],
+    ["32-playbook-policy.png","32 — 'Playbook evidence' expanded","Source citation, negotiation ladder (IDEAL→WALK-AWAY), and policy position reference."]
+  ],
+  "g-i": [
+    ["34-redline-before.png","34 — Redline, before applying","Termination finding open, approved redline diff visible, not yet applied."],
+    ["35-redline-after.png","35 — Redline, after applying","Redline accepted: 1 of 20 resolved, inline marker struck through in the document text."]
+  ],
+  "g-j": [
+    ["36-request-exception.png","36 — 'Request exception' available","Termination (PROHIBITED) finding reopened, showing the Request exception action."],
+    ["37-exception-reason.png","37 — Exception reason entry","Reason textarea open with the required audit-record justification typed in, before confirming."],
+    ["38-exception-approved-row.png","38 — Exception granted (queue row)","Queue now shows 'Exception granted' badge on Termination and 'Exception requested' on Limitation of Liability."]
+  ],
+  "g-k": [
+    ["40-policy-verify.png","40 — Policy Verify","Deterministic replay of the pinned policy revision against the contract; confirms 'Same result, every time.'"]
+  ],
+  "g-l": [
+    ["41-finalize-review.png","41 — Ready to finalize","All 20 items resolved; 'Finalize Review' now enabled."],
+    ["42-export-options.png","42 — Post-finalize screen","Same screen as 43 — clicking Finalize does not visually replace the review UI (a CSS gap, see report); this is the 'Generate Negotiation Package' link, the only export action available."],
+    ["43-review-complete.png","43 — Review complete","Completion banner ('Review complete', time-saved estimate, Generate Negotiation Package) rendered below the still-visible original review UI."]
+  ],
+  "g-m": [
+    ["44-deterministic-upload.png","44 — Deterministic import (upload)","Import-a-template-contract screen, explicitly labeled 'no document content is ever sent to an AI model'."],
+    ["45-deterministic-options.png","45 — Deterministic import (options)","Northstar MSA selected, both use-cases checked, contract side selected."],
+    ["46-deterministic-processing.png","46 — Deterministic import (processing)","Blank transitional frame — like contract analysis, this import is synchronous with no real loading state."],
+    ["47-deterministic-review.png","47 — Deterministic import review","Extracted DRAFT positions per clause with 'Directly established' vs 'Needs your input' sections."],
+    ["48-deterministic-missing-fields.png","48 — Missing/unanswered fields","'NEEDS YOUR INPUT' section — fields the extractor explicitly refused to guess."],
+    ["49-deterministic-source-evidence.png","49 — Source evidence expanded","'View evidence' expanded, showing the exact source excerpt behind an extracted value."]
+  ],
+  "g-n": [
+    ["50-ai-import-disabled.png","50 — AI-assisted import (disabled)","Real, unmodified disabled state — AI_ASSISTED_IMPORT_ENABLED is unset in this environment."]
+  ]
+};
+
+for (const [gridId, items] of Object.entries(DATA)) {
+  const grid = document.getElementById(gridId);
+  for (const [file, title, desc] of items) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `<img src="${file}" alt="${title}" loading="lazy">
+      <div class="meta"><div class="num">${file}</div><div class="title">${title}</div><div class="desc">${desc}</div></div>`;
+    grid.appendChild(card);
+  }
+}
+
+const dlg = document.getElementById('lightbox');
+const dlgImg = document.getElementById('lightbox-img');
+document.body.addEventListener('click', (e) => {
+  if (e.target.tagName === 'IMG' && e.target.closest('.card')) {
+    dlgImg.src = e.target.src;
+    dlg.showModal();
+  }
+});
+dlg.addEventListener('click', () => dlg.close());
+</script>
+</body>
+</html>
