@@ -196,7 +196,7 @@ class TestProposalLayer:
         r = _import(client, token, pb_id, deviation=None, extraction="on")
         review = client.get(r.headers["location"])
         assert review.status_code == 200
-        assert "Established from your template" in review.text
+        assert "Directly established" in review.text
         assert "Needs your input" in review.text
         assert "preferred_multiplier" not in review.text
         assert "config_json" not in review.text

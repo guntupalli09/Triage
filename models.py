@@ -288,7 +288,17 @@ POLICY_POSITION_FIELD_SOURCES = ("EXTRACTED", "INFERRED", "MANUAL")
 # has a value; NOT_ESTABLISHED means no source has stated one yet (never
 # guessed at); CONFLICTING means two sources disagreed (§5.4) and the
 # conflict is surfaced rather than silently resolved.
-POLICY_POSITION_FIELD_STATUSES = ("ESTABLISHED", "NOT_ESTABLISHED", "CONFLICTING")
+# REQUIRES_LAWYER_INTERPRETATION (Phase 3): distinct from NOT_ESTABLISHED.
+# There IS supporting evidence — a real, verified quote from the source —
+# but it's qualitative, or a quantitative claim that couldn't be grounded
+# to a specific number in that quote, and so cannot be presented as a
+# fact the source establishes. NOT_ESTABLISHED means no evidence was
+# found at all; REQUIRES_LAWYER_INTERPRETATION means evidence exists but
+# turning it into a specific value requires a human judgment call. Both
+# are non-authoritative (neither is ever written into config_json), but
+# only REQUIRES_LAWYER_INTERPRETATION carries an evidence excerpt worth
+# showing the lawyer.
+POLICY_POSITION_FIELD_STATUSES = ("ESTABLISHED", "NOT_ESTABLISHED", "CONFLICTING", "REQUIRES_LAWYER_INTERPRETATION")
 POLICY_POSITION_APPROVAL_ACTIONS = ("MARKED_REVIEWED", "APPROVED", "ACTIVATED", "REVERTED", "ARCHIVED")
 PLAYBOOK_SOURCE_DOCUMENT_TYPES = ("LEGAL_PLAYBOOK", "TEMPLATE_CONTRACT")
 
@@ -365,7 +375,8 @@ class PolicyPositionField(Base):
 
     value_json = Column(EncryptedJSON, nullable=True)  # null when status=NOT_ESTABLISHED
     source = Column(String(20), nullable=False)
-    status = Column(String(20), nullable=False, default="NOT_ESTABLISHED")
+    # 40, not 20 -- "REQUIRES_LAWYER_INTERPRETATION" (Phase 3) is 30 chars.
+    status = Column(String(40), nullable=False, default="NOT_ESTABLISHED")
 
     # Internal-only ranking signal for ordering multiple candidate
     # proposals (e.g. future Path 1 output). Never rendered to a lawyer

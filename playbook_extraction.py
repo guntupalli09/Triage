@@ -50,14 +50,19 @@ EXTRACTION_VERSION = "phase2-deterministic-v1"
 class ProposedField:
     """One proposed value for one config_json field, before it's written
     to the database. `status` is the only thing that determines what
-    happens to `value` downstream (NOT_ESTABLISHED/CONFLICTING values are
-    never written into config_json — see _apply_proposal)."""
-    status: str  # "ESTABLISHED" | "NOT_ESTABLISHED" | "CONFLICTING"
+    happens to `value` downstream (only ESTABLISHED values are ever
+    written into config_json — see _apply_proposal). `source` defaults to
+    "EXTRACTED" (Phase 2's only producer); Phase 3 (playbook_ai_extraction.py)
+    sets it explicitly to "EXTRACTED" or "INFERRED" per candidate, and may
+    also produce status="REQUIRES_LAWYER_INTERPRETATION" (models.py's 4th
+    field status, unreachable from Phase 2's deterministic path)."""
+    status: str  # "ESTABLISHED" | "NOT_ESTABLISHED" | "CONFLICTING" | "REQUIRES_LAWYER_INTERPRETATION"
     value: Any = None
     evidence_excerpt: Optional[str] = None
     evidence_start_index: Optional[int] = None
     evidence_end_index: Optional[int] = None
-    reason: Optional[str] = None  # human-readable, shown for NOT_ESTABLISHED/CONFLICTING
+    reason: Optional[str] = None  # human-readable, shown for non-ESTABLISHED statuses
+    source: str = "EXTRACTED"
 
 
 def _not_established(reason: str) -> ProposedField:
@@ -390,14 +395,20 @@ def propose_fields(clause_type: str, facts: Any, contract_side: str) -> Dict[str
 
 def _apply_proposal(
     db, position: PolicyPosition, proposed: Dict[str, ProposedField],
-    source_document: PlaybookSourceDocument, user,
+    source_document: PlaybookSourceDocument, user, *, extraction_version: str = EXTRACTION_VERSION,
 ) -> None:
     """Merges a proposal into a position. A field the lawyer has already
     manually confirmed (source=MANUAL, status=ESTABLISHED) is never
     overwritten by a re-extraction — re-importing a document must not
     silently clobber a decision a human already made. Fields with no
     usable evidence this run (status=NOT_ESTABLISHED) are left alone
-    entirely: they neither create a row nor downgrade an existing one."""
+    entirely: they neither create a row nor downgrade an existing one.
+    CONFLICTING and REQUIRES_LAWYER_INTERPRETATION (Phase 3) both write a
+    field row with evidence but never a config_json value — reused
+    unmodified by playbook_ai_extraction.py, which is the only caller
+    that ever produces REQUIRES_LAWYER_INTERPRETATION or source=INFERRED
+    proposals; this function itself has no Phase-2-vs-3 branching, only
+    generic status/source handling."""
     config = dict(position.config_json or {})
     existing_fields = {f.field_name: f for f in position.fields if f.superseded_by_field_id is None}
     now = datetime.utcnow()
@@ -412,7 +423,7 @@ def _apply_proposal(
 
         if proposal.status == "ESTABLISHED":
             config[field_name] = proposal.value
-        else:  # CONFLICTING
+        else:  # CONFLICTING | REQUIRES_LAWYER_INTERPRETATION
             config.pop(field_name, None)
 
         if existing is None:
@@ -421,13 +432,13 @@ def _apply_proposal(
             existing_fields[field_name] = existing
 
         existing.value_json = proposal.value if proposal.status == "ESTABLISHED" else None
-        existing.source = "EXTRACTED"
+        existing.source = proposal.source
         existing.status = proposal.status
         existing.evidence_document_id = source_document.id
         existing.evidence_excerpt = proposal.evidence_excerpt
         existing.evidence_start_index = proposal.evidence_start_index
         existing.evidence_end_index = proposal.evidence_end_index
-        existing.extraction_version = EXTRACTION_VERSION
+        existing.extraction_version = extraction_version
         existing.confirmed_by_user_id = None
         existing.confirmed_at = None
 

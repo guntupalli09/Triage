@@ -32,6 +32,7 @@ from sqlalchemy.orm import Session as DBSession
 
 import audit_log
 import google_oauth
+import playbook_ai_extraction as pai
 import playbook_authoring as pa
 import playbook_extraction as pex
 import upload_security
@@ -587,8 +588,16 @@ async def playbook_import_review(request: Request, playbook_id: int, document_id
 
         established = [
             {"field_name": name, "label": pa.FIELD_LABELS[clause_type].get(name, name),
-             "value": _display_value(f.value_json), "excerpt": f.evidence_excerpt}
+             "value": _display_value(f.value_json), "excerpt": f.evidence_excerpt, "source": f.source}
             for name, f in from_this_doc.items() if f.status == "ESTABLISHED"
+        ]
+        # AI-only bucket: real evidence exists, but it's qualitative or an
+        # unverified quantitative claim — never silently folded into
+        # "established," always a distinct, visually separate section
+        # (Phase 3 task item 9).
+        proposed_interpretation = [
+            {"field_name": name, "label": pa.FIELD_LABELS[clause_type].get(name, name), "excerpt": f.evidence_excerpt}
+            for name, f in from_this_doc.items() if f.status == "REQUIRES_LAWYER_INTERPRETATION"
         ]
         conflicting = [
             {"field_name": name, "label": pa.FIELD_LABELS[clause_type].get(name, name), "excerpt": f.evidence_excerpt}
@@ -602,11 +611,90 @@ async def playbook_import_review(request: Request, playbook_id: int, document_id
 
         clauses.append({
             "clause_type": clause_type, "label": pa.CLAUSE_TYPE_LABELS[clause_type],
-            "position": position, "established": established, "conflicting": conflicting,
-            "needs_input": missing_labels,
+            "position": position, "established": established,
+            "proposed_interpretation": proposed_interpretation,
+            "conflicting": conflicting, "needs_input": missing_labels,
         })
 
     return templates.TemplateResponse("playbook_import_review.html", {
         "request": request, "user": user, "playbook": playbook, "source_document": source_document,
         "clauses": clauses, "current_year": datetime.now().year,
     })
+
+
+# ---------------------------------------------------------------------------
+# Phase 3 — AI-Assisted Prose Playbook Import
+# ---------------------------------------------------------------------------
+
+@router.get("/playbooks/{playbook_id}/ai-import", response_class=HTMLResponse)
+async def playbook_ai_import_page(request: Request, playbook_id: int, db: DBSession = Depends(get_db)):
+    user = _require_user(request, db)
+    playbook = _get_owned_playbook(db, user, playbook_id)
+    return templates.TemplateResponse("playbook_ai_import.html", {
+        "request": request, "user": user, "playbook": playbook,
+        "ai_import_enabled": pai.is_ai_import_enabled(),
+        "error": None, "current_year": datetime.now().year,
+    })
+
+
+@router.post("/playbooks/{playbook_id}/ai-import", response_class=HTMLResponse)
+async def playbook_ai_import_submit(
+    request: Request, playbook_id: int,
+    file: UploadFile = File(...),
+    consent: str = Form(""),
+    db: DBSession = Depends(get_db), _csrf: None = Depends(csrf_protect),
+):
+    user = _require_user(request, db)
+    playbook = _get_owned_playbook(db, user, playbook_id)
+
+    def _error(message: str):
+        return templates.TemplateResponse("playbook_ai_import.html", {
+            "request": request, "user": user, "playbook": playbook,
+            "ai_import_enabled": pai.is_ai_import_enabled(),
+            "error": message, "current_year": datetime.now().year,
+        }, status_code=403 if not pai.is_ai_import_enabled() else 400)
+
+    # Server-side enforcement — checked here regardless of what the
+    # submitted form contains. A disabled server never reaches the
+    # consent check, the upload, or any document content.
+    if not pai.is_ai_import_enabled():
+        return _error("AI-assisted import is disabled for this server. Ask an administrator to enable it, or use deterministic template import instead.")
+    if consent != "on":
+        return _error("You must confirm the disclosure below before uploading — this document's content will be sent to the configured AI provider.")
+
+    if not file.filename:
+        return _error("Please choose a file to upload.")
+    ext = os.path.splitext(file.filename.lower())[1]
+    if ext not in ALLOWED_IMPORT_EXTENSIONS:
+        return _error("Unsupported file type. Upload a .txt, .pdf, or .docx file.")
+
+    file_bytes = await file.read()
+    try:
+        extracted_text = _extract_text_from_file(file_bytes, file.filename)
+    except Exception:
+        return _error("Could not read this file. Make sure it's a valid .txt, .pdf, or .docx document.")
+
+    source_document = PlaybookSourceDocument(
+        playbook_id=playbook.id, uploaded_by_user_id=user.id, document_type="LEGAL_PLAYBOOK",
+        original_filename=upload_security.sanitize_filename(file.filename), extracted_text=extracted_text,
+        use_as_deviation_baseline=False, use_for_policy_extraction=True,
+    )
+    db.add(source_document)
+    db.flush()
+
+    try:
+        positions, cost_report = pai.import_ai_playbook(db, playbook, source_document, user, consent=True)
+    except (pai.AIImportDisabledError, pai.AIImportConsentRequiredError) as exc:
+        db.rollback()
+        return _error(str(exc))
+
+    db.commit()
+    # Cost/operational metadata only -- never raw playbook text (task item 13).
+    audit_log.record_event(
+        db, "playbook_ai_import_completed", request=request, actor_user_id=user.id,
+        target_type="playbook_source_document", target_id=source_document.id, success=True,
+        metadata={"playbook_id": playbook.id, "clause_types_proposed": list(positions.keys()), **cost_report.to_metadata()},
+    )
+    db.commit()
+
+    return RedirectResponse(url=f"/playbooks/{playbook.id}/import/{source_document.id}/review", status_code=302)

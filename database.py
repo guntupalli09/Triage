@@ -295,10 +295,19 @@ def _run_migrations():
                 logger.info("Migration applied: policy_rules.required_consequential_carveouts_json column")
 
         if "policy_position_fields" in insp.get_table_names():
-            position_field_cols = {c["name"] for c in insp.get_columns("policy_position_fields")}
+            position_field_cols_info = {c["name"]: c for c in insp.get_columns("policy_position_fields")}
+            position_field_cols = set(position_field_cols_info)
             if "extraction_version" not in position_field_cols:
                 conn.execute(text("ALTER TABLE policy_position_fields ADD COLUMN extraction_version VARCHAR(40)"))
                 logger.info("Migration applied: policy_position_fields.extraction_version column")
+            if not _is_sqlite:
+                # Widened for Phase 3's REQUIRES_LAWYER_INTERPRETATION (30
+                # chars) -- SQLite never enforces VARCHAR length so this is
+                # a no-op there, but PostgreSQL does.
+                status_info = position_field_cols_info.get("status")
+                if status_info is not None and getattr(status_info["type"], "length", None) not in (None, 40):
+                    conn.execute(text("ALTER TABLE policy_position_fields ALTER COLUMN status TYPE VARCHAR(40)"))
+                    logger.info("Migration applied: policy_position_fields.status widened to VARCHAR(40)")
 
 
 def init_db():

@@ -105,3 +105,122 @@ style preferences:
   `THREAT_MODEL.md` T6 for the accepted residual risk and why the blast
   radius stays bounded regardless (the model still can't alter
   deterministic findings or risk level even if an injection succeeds).
+
+## Phase 3 — AI-Assisted Prose Playbook Import (playbook_ai_extraction.py)
+
+A second, separate LLM boundary, distinct from the one above and
+reviewed on its own terms rather than folded into it — see
+docs/architecture/playbook_authoring_ux_design.md §5.3 for why. The two
+boundaries protect different things and are not interchangeable:
+
+|  | Contract-review LLM (`evaluator.py`) | Playbook-import LLM (`playbook_ai_extraction.py`) |
+|---|---|---|
+| Input | A short, rule-selected `matched_excerpt` (never full contract text) | A deterministically-discovered section of an uploaded playbook document (never a full contract) |
+| Job | Explain a pre-detected finding | Propose a structured field value from prose |
+| Output authority | Explanatory text only; `overall_risk` always overwritten | Never authoritative at all — see the trust boundary below |
+| Enabled by default | Yes (if `OPENAI_API_KEY` set) | **No** — `AI_ASSISTED_IMPORT_ENABLED` env var, off unless explicitly set |
+| Per-use consent | Not applicable (not user-initiated per-document) | Required on every import — a checkbox, enforced server-side |
+
+**The hard trust boundary**, enforced entirely in code, not by prompt
+wording alone:
+
+```
+source document -> LLM candidate -> schema validation ->
+evidence verification -> proposal -> lawyer confirmation ->
+approval -> activation
+```
+
+There is no function in this codebase that writes an LLM-derived value
+directly into `PolicyPosition.config_json` (the only thing
+`build_*_policy_rule()` ever reads) without first passing through
+`playbook_ai_extraction.verify_and_classify_candidate()`, and even a
+candidate that reaches `ESTABLISHED` status there is still just a DRAFT
+`PolicyPositionField` — the same Phase 1 lifecycle gate
+(`validate_position_for_activation`) that blocks every other
+authoring path from reaching ACTIVE applies identically here, with zero
+special-casing for AI-sourced fields.
+
+**Evidence verification, not trust.** Every candidate's `quote` is
+independently verified as a real, whitespace-normalized substring of the
+source text actually sent to the model — the model's own reproduction of
+the quote is discarded either way; only the located original-document
+text is ever stored as evidence. An unverifiable quote is
+`NOT_ESTABLISHED`, full stop.
+
+**Quantitative grounding.** A candidate the model tags `basis:
+"EXTRACTED"` for a numeric field additionally requires the claimed number
+to be textually present in the verified quote (digit or common
+word-number) — a model that claims direct extraction of a number its own
+quote doesn't contain is downgraded to `REQUIRES_LAWYER_INTERPRETATION`,
+never `ESTABLISHED`. This is the specific, tested defense against
+"unsupported quantitative invention."
+
+**`basis: "INFERRED"` never reaches `ESTABLISHED`, unconditionally.** If
+the model itself reports a candidate as an interpretation rather than a
+direct statement, that self-report is honored as a hard ceiling — no
+downstream grounding check can promote it back to `ESTABLISHED`.
+
+**Minimizing exposure.** `discover_relevant_sections()` reuses each
+policy engine's own anchor regex (`_ANCHOR_RE`, imported directly, never
+modified) to find candidate windows per clause type before any model call
+— only clause types the document actually appears to address are ever
+sent, and only the discovered window, not the whole document.
+
+**Prompt-injection handling — two independent layers.** (1) Every
+discovered section is checked with the existing
+`prompt_security.looks_like_prompt_injection()` before it is ever placed
+in a prompt; a flagged section's text is withheld entirely (never sent),
+mirroring `evaluator.py`'s own excerpt-redaction discipline. (2) Even if
+a section is not flagged, or a compromised/successfully-injected model
+complies with attacker instructions embedded in the document, the
+evidence-verification and quantitative-grounding gates above still apply
+unconditionally — a boolean/categorical field is exactly as constrained
+as any other AI-sourced field, and nothing reaches `ACTIVE` without a
+human action regardless. See `benchmarks/phase3_ai_extraction_corpus.py`
+for adversarial cases exercising both layers directly (a scripted
+"compromised" client that returns a schema-valid, quote-verified
+malicious candidate — the second layer alone still keeps it out of
+`ESTABLISHED` for boolean/categorical fields via the same self-reported-
+`INFERRED`-never-promoted rule, and layer one keeps it from ever reaching
+the model in the tested injection cases since the source text itself
+trips the detector).
+
+**Schema validation is reused, not reimplemented.** `candidate_schema_for()`
+and `verify_and_classify_candidate()` both call directly into Phase 0.1's
+`playbook_authoring._validate_field()` / `_is_optional()` /
+`_non_none_arm()` / `_BOUNDED_VOCABULARIES` — there is no parallel,
+possibly-more-permissive validator for AI output. An unknown clause type,
+unknown field, wrong type, or invalid categorical value is rejected by
+the exact same code path that rejects a malformed manual-entry form
+submission in Phase 1.
+
+**No lawyer-facing confidence score**, consistent with the rest of this
+project: the model's internal confidence (if a provider even exposes one)
+is never read, stored, or displayed. Only the four categorical statuses
+(`ESTABLISHED` / `NOT_ESTABLISHED` / `CONFLICTING` /
+`REQUIRES_LAWYER_INTERPRETATION`) and provenance (`EXTRACTED` /
+`INFERRED` / `MANUAL`) ever reach the UI.
+
+### Known Limitations (Phase 3)
+
+- **Prompt-level injection resistance is not independently verifiable in
+  this environment** — no live model was tested against the adversarial
+  corpus (no network access in this development environment); what is
+  tested and proven is that the verification pipeline itself blocks a
+  maximally-compromised/hallucinating model's output from ever reaching
+  `ESTABLISHED` for the field types that matter most. Real-provider
+  prompt-injection robustness should be periodically re-verified against
+  a live model as providers change.
+- **Server-level disable switch only** — there is no organization/tenant
+  hierarchy in this codebase to attach an org-level switch to (see
+  `docs/architecture/playbook_authoring_ux_design.md`'s explicit scope
+  note that a real permission/role model is a separate design pass); the
+  implemented switch (`AI_ASSISTED_IMPORT_ENABLED`) is server-wide, which
+  is the correct and complete implementation of "organization/server-
+  level" for a codebase with no organization concept, but should be
+  revisited if a multi-tenant/org model is added later.
+- **LLM raw output is not required or expected to be deterministic** —
+  by design (see the Phase 3 report). What is deterministic and tested is
+  the authoritative boundary: the same verified candidate always produces
+  the same stored `PolicyPositionField` state, and nothing probabilistic
+  ever becomes authoritative without a human confirmation step.

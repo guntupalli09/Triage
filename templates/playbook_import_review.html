@@ -34,7 +34,7 @@
 
     {% if clause.established %}
     <div class="mb-5">
-        <p class="text-xs font-semibold text-green-700 uppercase tracking-wide mb-2">Established from your template</p>
+        <p class="text-xs font-semibold text-green-700 uppercase tracking-wide mb-2">Directly established</p>
         <ul class="space-y-2">
             {% for item in clause.established %}
             <li class="text-sm text-gray-700">
@@ -49,6 +49,24 @@
             </li>
             {% endfor %}
         </ul>
+    </div>
+    {% endif %}
+
+    {% if clause.proposed_interpretation %}
+    <div class="mb-5 p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
+        <p class="text-xs font-semibold text-indigo-700 uppercase tracking-wide mb-2">Proposed interpretation</p>
+        <p class="text-xs text-indigo-600 mb-2">AI interpretation of qualitative or unconfirmed language — requires your confirmation, never treated as established on its own.</p>
+        <ul class="space-y-3">
+            {% for item in clause.proposed_interpretation %}
+            <li class="text-sm text-indigo-900">
+                <span>?</span> <span class="font-medium">{{ item.label }}</span>
+                {% if item.excerpt %}
+                <blockquote class="text-xs text-indigo-700 font-mono bg-white border border-indigo-100 rounded-lg p-2 mt-1">{{ item.excerpt }}</blockquote>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="/playbooks/{{ playbook.id }}/positions/{{ clause.clause_type }}/edit" class="inline-block mt-2 text-sm font-semibold text-indigo-700 hover:underline">View evidence &amp; confirm →</a>
     </div>
     {% endif %}
 
