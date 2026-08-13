@@ -45,6 +45,7 @@ import indemnification_policy_engine
 import insurance_policy_engine
 import ip_ownership_policy_engine
 import liability_policy_engine
+import payment_terms_policy_engine
 import termination_policy_engine
 from models import Playbook, PolicyPosition, PolicyPositionApproval, PolicyPositionField, PolicyRule
 
@@ -65,6 +66,7 @@ _ENGINE_PROTOCOLS: Dict[str, type] = {
     "data_security": data_security_policy_engine.DataSecurityPolicyRuleLike,
     "ip_ownership": ip_ownership_policy_engine.IPPolicyRuleLike,
     "insurance": insurance_policy_engine.InsurancePolicyRuleLike,
+    "payment_terms": payment_terms_policy_engine.PaymentPolicyRuleLike,
 }
 
 CLAUSE_TYPES = tuple(_ENGINE_PROTOCOLS)
@@ -146,6 +148,12 @@ _BOUNDED_VOCABULARIES: Dict[str, Dict[str, tuple]] = {
     },
     "data_security": {
         "require_subprocessor_notice_or_consent": ("not_required", "notice", "consent"),
+    },
+    "payment_terms": {
+        # Not a Protocol-declared enum -- inferred from the four literal
+        # values payment_terms_policy_engine's extraction/evaluate logic
+        # ever compares payment_trigger / required_payment_trigger against.
+        "required_payment_trigger": ("invoice", "receipt", "acceptance", "milestone"),
     },
 }
 
@@ -342,6 +350,11 @@ def build_insurance_policy_rule(position: PolicyPosition) -> SimpleNamespace:
     return _build_policy_rule(position, "insurance")
 
 
+def build_payment_terms_policy_rule(position: PolicyPosition) -> SimpleNamespace:
+    """Matches payment_terms_policy_engine.PaymentPolicyRuleLike."""
+    return _build_policy_rule(position, "payment_terms")
+
+
 BUILDERS = {
     "limitation_of_liability": build_liability_policy_rule,
     "indemnification": build_indemnification_policy_rule,
@@ -352,6 +365,7 @@ BUILDERS = {
     "data_security": build_data_security_policy_rule,
     "ip_ownership": build_ip_ownership_policy_rule,
     "insurance": build_insurance_policy_rule,
+    "payment_terms": build_payment_terms_policy_rule,
 }
 
 
@@ -601,6 +615,7 @@ _ENGINE_FUNCS: Dict[str, Tuple[Any, Any]] = {
     "data_security": (data_security_policy_engine.extract_data_security_facts, data_security_policy_engine.evaluate_data_security_policy),
     "ip_ownership": (ip_ownership_policy_engine.extract_ip_facts, ip_ownership_policy_engine.evaluate_ip_policy),
     "insurance": (insurance_policy_engine.extract_insurance_facts, insurance_policy_engine.evaluate_insurance_policy),
+    "payment_terms": (payment_terms_policy_engine.extract_payment_facts, payment_terms_policy_engine.evaluate_payment_policy),
 }
 
 CLAUSE_TYPE_LABELS: Dict[str, str] = {
@@ -613,6 +628,7 @@ CLAUSE_TYPE_LABELS: Dict[str, str] = {
     "data_security": "Data Protection & Security",
     "ip_ownership": "IP Ownership & Licensing",
     "insurance": "Insurance",
+    "payment_terms": "Payment Terms",
 }
 
 
@@ -1061,9 +1077,19 @@ class CoverageSummary:
 # already rank highly), materially higher-stakes than confidentiality or
 # termination's bounded operational risk, though one step behind
 # ip_ownership's often business-critical (not just financial) exposure.
+#
+# payment_terms was added as adapter #10 and ranked at the top,
+# alongside limitation_of_liability: payment timing, disputed-amount
+# withholding, set-off, and price-increase terms are direct cash-flow
+# and balance-sheet exposure that materializes on essentially every
+# invoice cycle, not just when a claim or incident occurs — the most
+# immediate, recurring financial risk of any clause type modeled so
+# far, ranked ahead of indemnification/data_security/ip_ownership/
+# insurance (whose exposure is contingent on a claim, breach, dispute,
+# or loss event actually happening).
 CLAUSE_TYPE_IMPORTANCE: Tuple[str, ...] = (
-    "limitation_of_liability", "indemnification", "data_security", "ip_ownership", "insurance",
-    "confidentiality", "termination", "assignment", "governing_law",
+    "payment_terms", "limitation_of_liability", "indemnification", "data_security",
+    "ip_ownership", "insurance", "confidentiality", "termination", "assignment", "governing_law",
 )
 
 
@@ -1310,6 +1336,36 @@ def _summarize_insurance(cfg: Dict[str, Any]) -> List[str]:
     ]
 
 
+_PAYMENT_TRIGGER_LABELS = {
+    None: "Not yet decided", "invoice": "Invoice date", "receipt": "Receipt of goods/services",
+    "acceptance": "Acceptance of deliverables", "milestone": "Milestone completion",
+}
+
+
+def _summarize_payment_terms(cfg: Dict[str, Any], field_statuses: Dict[str, str]) -> List[str]:
+    trigger_value = cfg.get("required_payment_trigger")
+    trigger_status = field_statuses.get("required_payment_trigger", "NOT_ESTABLISHED")
+    trigger_label = "Not yet decided" if trigger_status != "ESTABLISHED" else _PAYMENT_TRIGGER_LABELS.get(trigger_value, trigger_value)
+    return [
+        f"Counterparty (not us) must be the payor → {_fmt_bool(cfg.get('require_counterparty_is_payor'), 'Required', 'Not required')}",
+        f"Preferred payment period → {_fmt_days(cfg.get('preferred_net_days'))}",
+        f"Acceptable maximum payment period → {_fmt_days(cfg.get('acceptable_max_net_days'))}",
+        f"Required payment trigger → {trigger_label}",
+        f"Undisputed amounts must remain payable → {_fmt_bool(cfg.get('require_undisputed_amounts_still_payable'), 'Required', 'Not required')}",
+        f"Withholding of disputed amounts → {_fmt_bool(cfg.get('prohibit_disputed_amount_withholding'), 'Prohibited', 'Allowed')}",
+        f"Minimum dispute-notice period → {_fmt_days(cfg.get('minimum_dispute_notice_days'))}",
+        f"Set-off → {_fmt_bool(cfg.get('prohibit_set_off'), 'Prohibited', 'Allowed')}",
+        f"Maximum permitted late-interest rate (annualized) → {cfg.get('maximum_late_interest_rate_percent'):g}%" if cfg.get('maximum_late_interest_rate_percent') is not None else "Maximum permitted late-interest rate (annualized) → Not yet decided",
+        f"Unilateral price increases → {_fmt_bool(cfg.get('prohibit_unilateral_price_increase'), 'Prohibited', 'Allowed')}",
+        f"Maximum permitted price-increase → {cfg.get('maximum_price_increase_percent'):g}%" if cfg.get('maximum_price_increase_percent') is not None else "Maximum permitted price-increase → Not yet decided",
+        f"Minimum price-increase notice → {_fmt_days(cfg.get('minimum_price_increase_notice_days'))}",
+        f"Expense pre-approval required → {_fmt_bool(cfg.get('require_expense_preapproval'), 'Required', 'Not required')}",
+        f"Counterparty (not us) must bear tax responsibility → {_fmt_bool(cfg.get('require_tax_responsibility_counterparty'), 'Required', 'Not required')}",
+        f"Required payment currency → {cfg.get('required_currency') or 'Not yet decided'}",
+        f"Refund entitlement required → {_fmt_bool(cfg.get('require_refund_entitlement'), 'Required', 'Not required')}",
+    ]
+
+
 _SUMMARIZERS = {
     "limitation_of_liability": lambda cfg, statuses: _summarize_liability(cfg),
     "indemnification": lambda cfg, statuses: _summarize_indemnification(cfg),
@@ -1320,6 +1376,7 @@ _SUMMARIZERS = {
     "data_security": lambda cfg, statuses: _summarize_data_security(cfg),
     "ip_ownership": lambda cfg, statuses: _summarize_ip_ownership(cfg),
     "insurance": lambda cfg, statuses: _summarize_insurance(cfg),
+    "payment_terms": lambda cfg, statuses: _summarize_payment_terms(cfg, statuses),
 }
 
 
@@ -1423,6 +1480,24 @@ FIELD_LABELS: Dict[str, Dict[str, str]] = {
         "prohibited_jurisdictions_json": "Never acceptable",
         "required_dispute_resolution": "Dispute resolution requirement",
         "require_jury_trial_waiver": "Require jury trial waiver",
+    },
+    "payment_terms": {
+        "require_counterparty_is_payor": "Counterparty (not us) must be the payor",
+        "preferred_net_days": "Preferred payment period",
+        "acceptable_max_net_days": "Acceptable maximum payment period",
+        "required_payment_trigger": "Required payment trigger",
+        "require_undisputed_amounts_still_payable": "Undisputed amounts must remain payable during a dispute",
+        "prohibit_disputed_amount_withholding": "Never accept withholding of disputed amounts",
+        "minimum_dispute_notice_days": "Minimum dispute-notice period",
+        "prohibit_set_off": "Never accept set-off rights",
+        "maximum_late_interest_rate_percent": "Maximum permitted late-interest rate (annualized)",
+        "prohibit_unilateral_price_increase": "Never accept unilateral price increases",
+        "maximum_price_increase_percent": "Maximum permitted price-increase",
+        "minimum_price_increase_notice_days": "Minimum price-increase notice period",
+        "require_expense_preapproval": "Require expense pre-approval",
+        "require_tax_responsibility_counterparty": "Counterparty (not us) must bear tax responsibility",
+        "required_currency": "Required payment currency",
+        "require_refund_entitlement": "Require a refund entitlement",
     },
     "insurance": {
         "require_cgl": "Commercial General Liability required",

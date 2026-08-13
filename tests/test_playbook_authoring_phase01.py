@@ -244,6 +244,13 @@ class TestActivationRequiredFieldsAreExactlyTheRequireGates:
                 "require_subcontractor_coverage",
                 "require_evidence_before_commencement",
             ],
+            "payment_terms": [
+                "require_counterparty_is_payor",
+                "require_undisputed_amounts_still_payable",
+                "require_expense_preapproval",
+                "require_tax_responsibility_counterparty",
+                "require_refund_entitlement",
+            ],
         }
 
     def test_prohibit_fields_are_never_activation_required(self):

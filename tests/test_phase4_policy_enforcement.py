@@ -139,6 +139,23 @@ _MINIMAL_CONFIG = {
         "require_policy_maintenance_through_term": False, "require_claims_made_tail": False,
         "require_subcontractor_coverage": False, "require_evidence_before_commencement": False,
     },
+    "payment_terms": {
+        "require_counterparty_is_payor": False,
+        "preferred_net_days": None, "acceptable_max_net_days": None,
+        "required_payment_trigger": None,
+        "require_undisputed_amounts_still_payable": False,
+        "prohibit_disputed_amount_withholding": False,
+        "minimum_dispute_notice_days": None,
+        "prohibit_set_off": False,
+        "maximum_late_interest_rate_percent": None,
+        "prohibit_unilateral_price_increase": False,
+        "maximum_price_increase_percent": None,
+        "minimum_price_increase_notice_days": None,
+        "require_expense_preapproval": False,
+        "require_tax_responsibility_counterparty": False,
+        "required_currency": None,
+        "require_refund_entitlement": False,
+    },
 }
 
 

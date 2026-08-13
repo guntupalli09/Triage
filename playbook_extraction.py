@@ -36,6 +36,7 @@ import indemnification_policy_engine as ipe
 import insurance_policy_engine as ine
 import ip_ownership_policy_engine as ipoe
 import liability_policy_engine as lpe
+import payment_terms_policy_engine as pte
 import playbook_authoring as pa
 import termination_policy_engine as tpe
 from models import Playbook, PlaybookSourceDocument, PolicyPosition, PolicyPositionField
@@ -590,6 +591,80 @@ def _propose_insurance_fields(facts: "ine.InsuranceFacts", contract_side: str) -
     return out
 
 
+def _propose_payment_terms_fields(facts: "pte.PaymentFacts", contract_side: str) -> Dict[str, ProposedField]:
+    out: Dict[str, ProposedField] = {name: _not_established("clause not found or dimension not addressed")
+                                      for name in pa.CLAUSE_TYPE_CONFIG_FIELDS["payment_terms"]}
+    if not facts.clause_found:
+        return out
+
+    if facts.payment_direction_conflict:
+        out["require_counterparty_is_payor"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "conflicting or multiple payor/payee statements")
+    else:
+        payor_side, unresolved = pte._resolve_payor_side(facts, contract_side)
+        if payor_side is not None and not unresolved:
+            # Self-evident: the template's own payor/payee statement
+            # plainly establishes what we expect going forward.
+            out["require_counterparty_is_payor"] = _established(payor_side == "counterparty", facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.net_days_conflict:
+        out["acceptable_max_net_days"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "conflicting Net payment periods stated")
+    elif facts.net_days is not None:
+        out["preferred_net_days"] = _established(facts.net_days, facts.raw_excerpt, facts.start_index, facts.end_index)
+        out["acceptable_max_net_days"] = _established(facts.net_days, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.payment_trigger_conflict:
+        out["required_payment_trigger"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "conflicting payment triggers stated")
+    elif facts.payment_trigger is not None:
+        out["required_payment_trigger"] = _established(facts.payment_trigger, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.undisputed_amounts_still_payable is not None:
+        out["require_undisputed_amounts_still_payable"] = _established(facts.undisputed_amounts_still_payable, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.disputed_amounts_withholdable is not None:
+        out["prohibit_disputed_amount_withholding"] = _established(not facts.disputed_amounts_withholdable, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.dispute_notice_conflict:
+        out["minimum_dispute_notice_days"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "conflicting dispute-notice periods stated")
+    elif facts.dispute_notice_days is not None:
+        out["minimum_dispute_notice_days"] = _established(facts.dispute_notice_days, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.setoff_permitted is not None:
+        out["prohibit_set_off"] = _established(not facts.setoff_permitted, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.late_fee_conflict:
+        out["maximum_late_interest_rate_percent"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "conflicting late-payment rates stated")
+    elif facts.late_fee_rate_percent is not None:
+        annualized = pte._annualize_late_fee(facts.late_fee_rate_percent, facts.late_fee_period)
+        out["maximum_late_interest_rate_percent"] = _established(annualized, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.price_increase_unilateral is not None:
+        out["prohibit_unilateral_price_increase"] = _established(not facts.price_increase_unilateral, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.price_increase_percent_conflict:
+        out["maximum_price_increase_percent"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "conflicting price-increase percentages stated")
+    elif facts.price_increase_percent is not None:
+        out["maximum_price_increase_percent"] = _established(facts.price_increase_percent, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.price_increase_notice_days is not None:
+        out["minimum_price_increase_notice_days"] = _established(facts.price_increase_notice_days, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.expense_preapproval_required is not None:
+        out["require_expense_preapproval"] = _established(facts.expense_preapproval_required, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.tax_responsibility_conflict:
+        out["require_tax_responsibility_counterparty"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "conflicting tax-responsibility attributions")
+    else:
+        tax_side, tax_unresolved = pte._resolve_tax_responsibility(facts, contract_side)
+        if tax_side is not None and not tax_unresolved:
+            out["require_tax_responsibility_counterparty"] = _established(tax_side == "counterparty", facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.currency_conflict:
+        out["required_currency"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "conflicting payment currencies stated")
+    elif facts.currency is not None:
+        out["required_currency"] = _established(facts.currency, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.refund_entitlement_present is not None:
+        out["require_refund_entitlement"] = _established(facts.refund_entitlement_present, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    return out
+
+
 _PROPOSAL_FUNCS = {
     "limitation_of_liability": _propose_liability_fields,
     "indemnification": _propose_indemnification_fields,
@@ -600,6 +675,7 @@ _PROPOSAL_FUNCS = {
     "data_security": _propose_data_security_fields,
     "ip_ownership": _propose_ip_ownership_fields,
     "insurance": _propose_insurance_fields,
+    "payment_terms": _propose_payment_terms_fields,
 }
 
 
