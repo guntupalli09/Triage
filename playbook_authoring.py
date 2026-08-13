@@ -42,6 +42,7 @@ import confidentiality_policy_engine
 import data_security_policy_engine
 import governing_law_policy_engine
 import indemnification_policy_engine
+import ip_ownership_policy_engine
 import liability_policy_engine
 import termination_policy_engine
 from models import Playbook, PolicyPosition, PolicyPositionApproval, PolicyPositionField, PolicyRule
@@ -61,6 +62,7 @@ _ENGINE_PROTOCOLS: Dict[str, type] = {
     "assignment": assignment_policy_engine.AssignmentPolicyRuleLike,
     "governing_law": governing_law_policy_engine.GoverningLawPolicyRuleLike,
     "data_security": data_security_policy_engine.DataSecurityPolicyRuleLike,
+    "ip_ownership": ip_ownership_policy_engine.IPPolicyRuleLike,
 }
 
 CLAUSE_TYPES = tuple(_ENGINE_PROTOCOLS)
@@ -328,6 +330,11 @@ def build_data_security_policy_rule(position: PolicyPosition) -> SimpleNamespace
     return _build_policy_rule(position, "data_security")
 
 
+def build_ip_ownership_policy_rule(position: PolicyPosition) -> SimpleNamespace:
+    """Matches ip_ownership_policy_engine.IPPolicyRuleLike."""
+    return _build_policy_rule(position, "ip_ownership")
+
+
 BUILDERS = {
     "limitation_of_liability": build_liability_policy_rule,
     "indemnification": build_indemnification_policy_rule,
@@ -336,6 +343,7 @@ BUILDERS = {
     "assignment": build_assignment_policy_rule,
     "governing_law": build_governing_law_policy_rule,
     "data_security": build_data_security_policy_rule,
+    "ip_ownership": build_ip_ownership_policy_rule,
 }
 
 
@@ -583,6 +591,7 @@ _ENGINE_FUNCS: Dict[str, Tuple[Any, Any]] = {
     "assignment": (assignment_policy_engine.extract_assignment_facts, assignment_policy_engine.evaluate_assignment_policy),
     "governing_law": (governing_law_policy_engine.extract_governing_law_facts, governing_law_policy_engine.evaluate_governing_law_policy),
     "data_security": (data_security_policy_engine.extract_data_security_facts, data_security_policy_engine.evaluate_data_security_policy),
+    "ip_ownership": (ip_ownership_policy_engine.extract_ip_facts, ip_ownership_policy_engine.evaluate_ip_policy),
 }
 
 CLAUSE_TYPE_LABELS: Dict[str, str] = {
@@ -593,6 +602,7 @@ CLAUSE_TYPE_LABELS: Dict[str, str] = {
     "assignment": "Assignment",
     "governing_law": "Governing Law",
     "data_security": "Data Protection & Security",
+    "ip_ownership": "IP Ownership & Licensing",
 }
 
 
@@ -1024,9 +1034,17 @@ class CoverageSummary:
 # breach-notification exposure comparable to indemnification's uncapped-
 # claim risk, and materially higher than confidentiality/termination's
 # bounded operational risk.
+#
+# ip_ownership was added as adapter #8 and ranked directly after
+# data_security: losing ownership of foreground work product/deliverables,
+# or losing the license needed to use a counterparty's background IP
+# embedded in what was delivered, is a direct and often business-critical
+# exposure (loss of the ability to use or resell what was built/paid for)
+# — comparable in stakes to a data-protection gap, and materially higher
+# than confidentiality/termination's bounded operational risk.
 CLAUSE_TYPE_IMPORTANCE: Tuple[str, ...] = (
-    "limitation_of_liability", "indemnification", "data_security", "confidentiality",
-    "termination", "assignment", "governing_law",
+    "limitation_of_liability", "indemnification", "data_security", "ip_ownership",
+    "confidentiality", "termination", "assignment", "governing_law",
 )
 
 
@@ -1215,6 +1233,29 @@ def _summarize_data_security(cfg: Dict[str, Any]) -> List[str]:
     ]
 
 
+def _summarize_ip_ownership(cfg: Dict[str, Any]) -> List[str]:
+    return [
+        f"We retain our background/pre-existing IP → {_fmt_bool(cfg.get('require_we_retain_background_ip'), 'Required', 'Not required')}",
+        f"We own work product/deliverables → {_fmt_bool(cfg.get('require_we_own_work_product'), 'Required', 'Not required')}",
+        f"Joint ownership → {_fmt_bool(cfg.get('prohibit_joint_ownership'), 'Prohibited', 'Allowed')}",
+        f"License to use embedded background IP required → {_fmt_bool(cfg.get('require_license_for_embedded_background_ip'), 'Required', 'Not required')}",
+        f"Exclusive license required → {_fmt_bool(cfg.get('require_license_exclusive'), 'Required', 'Not required')}",
+        f"Royalty-bearing license → {_fmt_bool(cfg.get('prohibit_royalty_bearing_license'), 'Prohibited', 'Allowed')}",
+        f"Perpetual license required → {_fmt_bool(cfg.get('require_perpetual_license'), 'Required', 'Not required')}",
+        f"Revocable license → {_fmt_bool(cfg.get('prohibit_revocable_license'), 'Prohibited', 'Allowed')}",
+        f"Sublicensing required → {_fmt_bool(cfg.get('require_sublicensable'), 'Required', 'Not required')}",
+        f"Transferability required → {_fmt_bool(cfg.get('require_transferable'), 'Required', 'Not required')}",
+        f"Worldwide territory required → {_fmt_bool(cfg.get('require_worldwide_territory'), 'Required', 'Not required')}",
+        f"Purpose-limited (field-of-use) license required → {_fmt_bool(cfg.get('require_purpose_limited_license'), 'Required', 'Not required')}",
+        f"Derivative works → {_fmt_bool(cfg.get('prohibit_derivative_works'), 'Prohibited', 'Allowed')}",
+        f"Feedback must be assigned outright → {_fmt_bool(cfg.get('require_feedback_assigned'), 'Required', 'Not required')}",
+        f"Residual-knowledge rights required → {_fmt_bool(cfg.get('require_residual_knowledge_rights'), 'Required', 'Not required')}",
+        f"Open-source disclosure required → {_fmt_bool(cfg.get('require_open_source_disclosure'), 'Required', 'Not required')}",
+        f"Infringement/third-party IP reference required → {_fmt_bool(cfg.get('require_infringement_remedy_reference'), 'Required', 'Not required')}",
+        f"License must survive termination → {_fmt_bool(cfg.get('require_post_termination_survival'), 'Required', 'Not required')}",
+    ]
+
+
 _SUMMARIZERS = {
     "limitation_of_liability": lambda cfg, statuses: _summarize_liability(cfg),
     "indemnification": lambda cfg, statuses: _summarize_indemnification(cfg),
@@ -1223,6 +1264,7 @@ _SUMMARIZERS = {
     "assignment": lambda cfg, statuses: _summarize_assignment(cfg),
     "governing_law": lambda cfg, statuses: _summarize_governing_law(cfg, statuses),
     "data_security": lambda cfg, statuses: _summarize_data_security(cfg),
+    "ip_ownership": lambda cfg, statuses: _summarize_ip_ownership(cfg),
 }
 
 
@@ -1326,6 +1368,26 @@ FIELD_LABELS: Dict[str, Dict[str, str]] = {
         "prohibited_jurisdictions_json": "Never acceptable",
         "required_dispute_resolution": "Dispute resolution requirement",
         "require_jury_trial_waiver": "Require jury trial waiver",
+    },
+    "ip_ownership": {
+        "require_we_retain_background_ip": "We retain ownership of our background/pre-existing IP",
+        "require_we_own_work_product": "We own work product/deliverables",
+        "prohibit_joint_ownership": "Never accept joint ownership",
+        "require_license_for_embedded_background_ip": "Require a license to use background IP embedded in deliverables",
+        "require_license_exclusive": "Require an exclusive license",
+        "prohibit_royalty_bearing_license": "Never accept a royalty-bearing license (royalty-free required)",
+        "require_perpetual_license": "Require a perpetual license",
+        "prohibit_revocable_license": "Never accept a revocable license (irrevocable required)",
+        "require_sublicensable": "Require sublicensing rights",
+        "require_transferable": "Require transferability",
+        "require_worldwide_territory": "Require a worldwide territory",
+        "require_purpose_limited_license": "Require a purpose-limited (field-of-use restricted) license",
+        "prohibit_derivative_works": "Never accept derivative-works rights",
+        "require_feedback_assigned": "Require feedback to be assigned outright",
+        "require_residual_knowledge_rights": "Require residual-knowledge rights",
+        "require_open_source_disclosure": "Require open-source disclosure/obligations",
+        "require_infringement_remedy_reference": "Require the clause to reference infringement/third-party IP treatment",
+        "require_post_termination_survival": "Require the license to survive termination",
     },
     "data_security": {
         "require_processor_role": "We must be identified as Processor",

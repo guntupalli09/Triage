@@ -113,6 +113,17 @@ _MINIMAL_CONFIG = {
         "require_named_security_certification": False, "require_cooperation_obligation": False,
         "require_confidentiality_of_personal_data": False,
     },
+    "ip_ownership": {
+        "require_we_retain_background_ip": False, "require_we_own_work_product": False,
+        "prohibit_joint_ownership": False, "require_license_for_embedded_background_ip": False,
+        "require_license_exclusive": False, "prohibit_royalty_bearing_license": False,
+        "require_perpetual_license": False, "prohibit_revocable_license": False,
+        "require_sublicensable": False, "require_transferable": False,
+        "require_worldwide_territory": False, "require_purpose_limited_license": False,
+        "prohibit_derivative_works": False, "require_feedback_assigned": False,
+        "require_residual_knowledge_rights": False, "require_open_source_disclosure": False,
+        "require_infringement_remedy_reference": False, "require_post_termination_survival": False,
+    },
 }
 
 

@@ -54,10 +54,11 @@ def playbook(db_session):
 # ---------------------------------------------------------------------------
 
 class TestConfigFieldSchema:
-    def test_all_seven_clause_types_present(self):
+    def test_all_eight_clause_types_present(self):
         assert set(pa.CLAUSE_TYPES) == {
             "limitation_of_liability", "indemnification", "termination",
             "confidentiality", "assignment", "governing_law", "data_security",
+            "ip_ownership",
         }
 
     def test_shared_fields_excluded_from_config_schema(self):

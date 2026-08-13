@@ -209,6 +209,22 @@ class TestActivationRequiredFieldsAreExactlyTheRequireGates:
                 "require_cooperation_obligation",
                 "require_confidentiality_of_personal_data",
             ],
+            "ip_ownership": [
+                "require_we_retain_background_ip",
+                "require_we_own_work_product",
+                "require_license_for_embedded_background_ip",
+                "require_license_exclusive",
+                "require_perpetual_license",
+                "require_sublicensable",
+                "require_transferable",
+                "require_worldwide_territory",
+                "require_purpose_limited_license",
+                "require_feedback_assigned",
+                "require_residual_knowledge_rights",
+                "require_open_source_disclosure",
+                "require_infringement_remedy_reference",
+                "require_post_termination_survival",
+            ],
         }
 
     def test_prohibit_fields_are_never_activation_required(self):

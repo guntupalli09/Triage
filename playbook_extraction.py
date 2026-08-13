@@ -33,6 +33,7 @@ import confidentiality_policy_engine as cpe
 import data_security_policy_engine as dse
 import governing_law_policy_engine as gpe
 import indemnification_policy_engine as ipe
+import ip_ownership_policy_engine as ipoe
 import liability_policy_engine as lpe
 import playbook_authoring as pa
 import termination_policy_engine as tpe
@@ -436,6 +437,100 @@ def _propose_data_security_fields(facts: "dse.DataSecurityFacts", contract_side:
     return out
 
 
+def _propose_ip_ownership_fields(facts: "ipoe.IPFacts", contract_side: str) -> Dict[str, ProposedField]:
+    out: Dict[str, ProposedField] = {name: _not_established("clause not found or dimension not addressed")
+                                      for name in pa.CLAUSE_TYPE_CONFIG_FIELDS["ip_ownership"]}
+    if not facts.clause_found:
+        return out
+
+    if "background_ip" in facts.ownership_conflict_categories:
+        out["require_we_retain_background_ip"] = _conflicting(
+            facts.raw_excerpt, facts.raw_excerpt, "conflicting owner attributions for background IP")
+    else:
+        owner, unresolved = ipoe._resolve_owner(facts, contract_side, "background_ip")
+        if owner is not None and not unresolved:
+            # Self-evident: the template's own ownership statement plainly
+            # establishes what we expect going forward.
+            out["require_we_retain_background_ip"] = _established(owner == "us", facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if "work_product" in facts.ownership_conflict_categories:
+        out["require_we_own_work_product"] = _conflicting(
+            facts.raw_excerpt, facts.raw_excerpt, "conflicting owner attributions for work product")
+    else:
+        owner, unresolved = ipoe._resolve_owner(facts, contract_side, "work_product")
+        if owner is not None and not unresolved:
+            out["require_we_own_work_product"] = _established(owner == "us", facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.joint_ownership_categories:
+        # Self-evident: the template's own structure establishes joint
+        # ownership, so the template plainly does not categorically
+        # prohibit it.
+        out["prohibit_joint_ownership"] = _established(False, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.embedded_background_ip_license_present is not None:
+        out["require_license_for_embedded_background_ip"] = _established(facts.embedded_background_ip_license_present, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.exclusivity_conflict:
+        out["require_license_exclusive"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "different exclusivity stated")
+    elif facts.exclusivity is not None:
+        out["require_license_exclusive"] = _established(facts.exclusivity == "exclusive", facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.royalty_conflict:
+        out["prohibit_royalty_bearing_license"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "different royalty treatment stated")
+    elif facts.royalty is not None:
+        out["prohibit_royalty_bearing_license"] = _established(facts.royalty == "royalty_free", facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.duration_conflict:
+        out["require_perpetual_license"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "different license durations stated")
+    elif facts.duration is not None:
+        out["require_perpetual_license"] = _established(facts.duration == "perpetual", facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.revocability_conflict:
+        out["prohibit_revocable_license"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "different revocability stated")
+    elif facts.revocability is not None:
+        out["prohibit_revocable_license"] = _established(facts.revocability == "irrevocable", facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.sublicensable_conflict:
+        out["require_sublicensable"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "different sublicensing rights stated")
+    elif facts.sublicensable is not None:
+        out["require_sublicensable"] = _established(facts.sublicensable, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.transferable_conflict:
+        out["require_transferable"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "different transferability stated")
+    elif facts.transferable is not None:
+        out["require_transferable"] = _established(facts.transferable, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.territory_conflict:
+        out["require_worldwide_territory"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "different territory stated")
+    elif facts.territory is not None:
+        out["require_worldwide_territory"] = _established(facts.territory == "worldwide", facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.purpose_limited is not None:
+        out["require_purpose_limited_license"] = _established(facts.purpose_limited, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.derivative_conflict:
+        out["prohibit_derivative_works"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "different derivative-works treatment stated")
+    elif facts.derivative_works_permitted is not None:
+        out["prohibit_derivative_works"] = _established(not facts.derivative_works_permitted, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.feedback_treatment is not None:
+        out["require_feedback_assigned"] = _established(facts.feedback_treatment == "assigned", facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.residual_knowledge_rights is not None:
+        out["require_residual_knowledge_rights"] = _established(facts.residual_knowledge_rights, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.open_source_obligations_present is not None:
+        out["require_open_source_disclosure"] = _established(facts.open_source_obligations_present, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.infringement_remedy_referenced is not None:
+        out["require_infringement_remedy_reference"] = _established(facts.infringement_remedy_referenced, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.post_termination_survival is not None:
+        out["require_post_termination_survival"] = _established(facts.post_termination_survival, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    return out
+
+
 _PROPOSAL_FUNCS = {
     "limitation_of_liability": _propose_liability_fields,
     "indemnification": _propose_indemnification_fields,
@@ -444,6 +539,7 @@ _PROPOSAL_FUNCS = {
     "assignment": _propose_assignment_fields,
     "governing_law": _propose_governing_law_fields,
     "data_security": _propose_data_security_fields,
+    "ip_ownership": _propose_ip_ownership_fields,
 }
 
 
