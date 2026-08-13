@@ -42,6 +42,7 @@ import confidentiality_policy_engine
 import data_security_policy_engine
 import governing_law_policy_engine
 import indemnification_policy_engine
+import insurance_policy_engine
 import ip_ownership_policy_engine
 import liability_policy_engine
 import termination_policy_engine
@@ -63,6 +64,7 @@ _ENGINE_PROTOCOLS: Dict[str, type] = {
     "governing_law": governing_law_policy_engine.GoverningLawPolicyRuleLike,
     "data_security": data_security_policy_engine.DataSecurityPolicyRuleLike,
     "ip_ownership": ip_ownership_policy_engine.IPPolicyRuleLike,
+    "insurance": insurance_policy_engine.InsurancePolicyRuleLike,
 }
 
 CLAUSE_TYPES = tuple(_ENGINE_PROTOCOLS)
@@ -335,6 +337,11 @@ def build_ip_ownership_policy_rule(position: PolicyPosition) -> SimpleNamespace:
     return _build_policy_rule(position, "ip_ownership")
 
 
+def build_insurance_policy_rule(position: PolicyPosition) -> SimpleNamespace:
+    """Matches insurance_policy_engine.InsurancePolicyRuleLike."""
+    return _build_policy_rule(position, "insurance")
+
+
 BUILDERS = {
     "limitation_of_liability": build_liability_policy_rule,
     "indemnification": build_indemnification_policy_rule,
@@ -344,6 +351,7 @@ BUILDERS = {
     "governing_law": build_governing_law_policy_rule,
     "data_security": build_data_security_policy_rule,
     "ip_ownership": build_ip_ownership_policy_rule,
+    "insurance": build_insurance_policy_rule,
 }
 
 
@@ -592,6 +600,7 @@ _ENGINE_FUNCS: Dict[str, Tuple[Any, Any]] = {
     "governing_law": (governing_law_policy_engine.extract_governing_law_facts, governing_law_policy_engine.evaluate_governing_law_policy),
     "data_security": (data_security_policy_engine.extract_data_security_facts, data_security_policy_engine.evaluate_data_security_policy),
     "ip_ownership": (ip_ownership_policy_engine.extract_ip_facts, ip_ownership_policy_engine.evaluate_ip_policy),
+    "insurance": (insurance_policy_engine.extract_insurance_facts, insurance_policy_engine.evaluate_insurance_policy),
 }
 
 CLAUSE_TYPE_LABELS: Dict[str, str] = {
@@ -603,6 +612,7 @@ CLAUSE_TYPE_LABELS: Dict[str, str] = {
     "governing_law": "Governing Law",
     "data_security": "Data Protection & Security",
     "ip_ownership": "IP Ownership & Licensing",
+    "insurance": "Insurance",
 }
 
 
@@ -1042,8 +1052,17 @@ class CoverageSummary:
 # exposure (loss of the ability to use or resell what was built/paid for)
 # — comparable in stakes to a data-protection gap, and materially higher
 # than confidentiality/termination's bounded operational risk.
+#
+# insurance was added as adapter #9 and ranked after ip_ownership but
+# still ahead of confidentiality/termination: inadequate or missing
+# insurance coverage is a direct, quantifiable balance-sheet exposure if
+# a claim materializes (the counterparty's insurer — or lack of one —
+# stands behind exactly the same risks liability/indemnification caps
+# already rank highly), materially higher-stakes than confidentiality or
+# termination's bounded operational risk, though one step behind
+# ip_ownership's often business-critical (not just financial) exposure.
 CLAUSE_TYPE_IMPORTANCE: Tuple[str, ...] = (
-    "limitation_of_liability", "indemnification", "data_security", "ip_ownership",
+    "limitation_of_liability", "indemnification", "data_security", "ip_ownership", "insurance",
     "confidentiality", "termination", "assignment", "governing_law",
 )
 
@@ -1256,6 +1275,41 @@ def _summarize_ip_ownership(cfg: Dict[str, Any]) -> List[str]:
     ]
 
 
+def _fmt_dollars(value: Optional[float]) -> str:
+    if value is None:
+        return "Not yet decided"
+    return f"${value:,.0f}"
+
+
+def _summarize_insurance(cfg: Dict[str, Any]) -> List[str]:
+    return [
+        f"Commercial General Liability required → {_fmt_bool(cfg.get('require_cgl'), 'Required', 'Not required')}",
+        f"CGL minimum per-occurrence limit → {_fmt_dollars(cfg.get('cgl_minimum_per_occurrence'))}",
+        f"CGL minimum aggregate limit → {_fmt_dollars(cfg.get('cgl_minimum_aggregate'))}",
+        f"Professional Liability / E&O required → {_fmt_bool(cfg.get('require_professional_liability'), 'Required', 'Not required')}",
+        f"Professional Liability minimum limit → {_fmt_dollars(cfg.get('professional_liability_minimum_limit'))}",
+        f"Cyber Liability required → {_fmt_bool(cfg.get('require_cyber_liability'), 'Required', 'Not required')}",
+        f"Cyber Liability minimum limit → {_fmt_dollars(cfg.get('cyber_liability_minimum_limit'))}",
+        f"Workers' Compensation required → {_fmt_bool(cfg.get('require_workers_comp'), 'Required', 'Not required')}",
+        f"Employer's Liability required → {_fmt_bool(cfg.get('require_employers_liability'), 'Required', 'Not required')}",
+        f"Employer's Liability minimum limit → {_fmt_dollars(cfg.get('employers_liability_minimum_limit'))}",
+        f"Automobile Liability required → {_fmt_bool(cfg.get('require_auto_liability'), 'Required', 'Not required')}",
+        f"Auto Liability minimum limit → {_fmt_dollars(cfg.get('auto_liability_minimum_limit'))}",
+        f"Counterparty (not us) must be the obligated party → {_fmt_bool(cfg.get('require_counterparty_obligated'), 'Required', 'Not required')}",
+        f"Additional insured required → {_fmt_bool(cfg.get('require_additional_insured'), 'Required', 'Not required')}",
+        f"Waiver of subrogation required → {_fmt_bool(cfg.get('require_waiver_of_subrogation'), 'Required', 'Not required')}",
+        f"Primary and non-contributory required → {_fmt_bool(cfg.get('require_primary_non_contributory'), 'Required', 'Not required')}",
+        f"Certificate of insurance required → {_fmt_bool(cfg.get('require_certificate_of_insurance'), 'Required', 'Not required')}",
+        f"Minimum insurer rating required → {_fmt_bool(cfg.get('require_minimum_insurer_rating'), 'Required', 'Not required')}",
+        f"Notice of cancellation required → {_fmt_bool(cfg.get('require_notice_of_cancellation'), 'Required', 'Not required')}",
+        f"Minimum cancellation notice → {_fmt_days(cfg.get('minimum_cancellation_notice_days'))}",
+        f"Coverage must be maintained through the term → {_fmt_bool(cfg.get('require_policy_maintenance_through_term'), 'Required', 'Not required')}",
+        f"Claims-made tail/extended reporting required → {_fmt_bool(cfg.get('require_claims_made_tail'), 'Required', 'Not required')}",
+        f"Subcontractor coverage required → {_fmt_bool(cfg.get('require_subcontractor_coverage'), 'Required', 'Not required')}",
+        f"Evidence of coverage before commencement required → {_fmt_bool(cfg.get('require_evidence_before_commencement'), 'Required', 'Not required')}",
+    ]
+
+
 _SUMMARIZERS = {
     "limitation_of_liability": lambda cfg, statuses: _summarize_liability(cfg),
     "indemnification": lambda cfg, statuses: _summarize_indemnification(cfg),
@@ -1265,6 +1319,7 @@ _SUMMARIZERS = {
     "governing_law": lambda cfg, statuses: _summarize_governing_law(cfg, statuses),
     "data_security": lambda cfg, statuses: _summarize_data_security(cfg),
     "ip_ownership": lambda cfg, statuses: _summarize_ip_ownership(cfg),
+    "insurance": lambda cfg, statuses: _summarize_insurance(cfg),
 }
 
 
@@ -1368,6 +1423,32 @@ FIELD_LABELS: Dict[str, Dict[str, str]] = {
         "prohibited_jurisdictions_json": "Never acceptable",
         "required_dispute_resolution": "Dispute resolution requirement",
         "require_jury_trial_waiver": "Require jury trial waiver",
+    },
+    "insurance": {
+        "require_cgl": "Commercial General Liability required",
+        "cgl_minimum_per_occurrence": "CGL minimum per-occurrence limit",
+        "cgl_minimum_aggregate": "CGL minimum aggregate limit",
+        "require_professional_liability": "Professional Liability / E&O required",
+        "professional_liability_minimum_limit": "Professional Liability minimum limit",
+        "require_cyber_liability": "Cyber Liability required",
+        "cyber_liability_minimum_limit": "Cyber Liability minimum limit",
+        "require_workers_comp": "Workers' Compensation required",
+        "require_employers_liability": "Employer's Liability required",
+        "employers_liability_minimum_limit": "Employer's Liability minimum limit",
+        "require_auto_liability": "Automobile Liability required",
+        "auto_liability_minimum_limit": "Auto Liability minimum limit",
+        "require_counterparty_obligated": "Counterparty (not us) must be the obligated party",
+        "require_additional_insured": "Require additional insured status",
+        "require_waiver_of_subrogation": "Require a waiver of subrogation",
+        "require_primary_non_contributory": "Require primary and non-contributory language",
+        "require_certificate_of_insurance": "Require a certificate of insurance",
+        "require_minimum_insurer_rating": "Require a minimum insurer rating (e.g. A.M. Best)",
+        "require_notice_of_cancellation": "Require advance notice of cancellation",
+        "minimum_cancellation_notice_days": "Minimum cancellation notice period",
+        "require_policy_maintenance_through_term": "Require coverage to be maintained through the term",
+        "require_claims_made_tail": "Require claims-made tail/extended reporting coverage",
+        "require_subcontractor_coverage": "Require subcontractors to carry equivalent insurance",
+        "require_evidence_before_commencement": "Require evidence of coverage before commencement",
     },
     "ip_ownership": {
         "require_we_retain_background_ip": "We retain ownership of our background/pre-existing IP",

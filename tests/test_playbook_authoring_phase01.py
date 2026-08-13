@@ -225,6 +225,25 @@ class TestActivationRequiredFieldsAreExactlyTheRequireGates:
                 "require_infringement_remedy_reference",
                 "require_post_termination_survival",
             ],
+            "insurance": [
+                "require_cgl",
+                "require_professional_liability",
+                "require_cyber_liability",
+                "require_workers_comp",
+                "require_employers_liability",
+                "require_auto_liability",
+                "require_counterparty_obligated",
+                "require_additional_insured",
+                "require_waiver_of_subrogation",
+                "require_primary_non_contributory",
+                "require_certificate_of_insurance",
+                "require_minimum_insurer_rating",
+                "require_notice_of_cancellation",
+                "require_policy_maintenance_through_term",
+                "require_claims_made_tail",
+                "require_subcontractor_coverage",
+                "require_evidence_before_commencement",
+            ],
         }
 
     def test_prohibit_fields_are_never_activation_required(self):

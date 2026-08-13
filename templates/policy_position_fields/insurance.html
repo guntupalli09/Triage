@@ -1,0 +1,82 @@
+{% extends "playbook_position_edit_base.html" %}
+{% from "_playbook_macros.html" import tristate, number_input %}
+
+{% block clause_fields %}
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Commercial General Liability</h3>
+{{ tristate('require_cgl', cfg.get('require_cgl'), field_statuses.get('require_cgl', 'NOT_ESTABLISHED'),
+    field_labels.require_cgl,
+    'If required, a clause that never addresses CGL insurance gets flagged.') }}
+{{ number_input('cgl_minimum_per_occurrence', cfg.get('cgl_minimum_per_occurrence'), field_statuses.get('cgl_minimum_per_occurrence', 'NOT_ESTABLISHED'), field_labels.cgl_minimum_per_occurrence, suffix='$', step='1000') }}
+{{ number_input('cgl_minimum_aggregate', cfg.get('cgl_minimum_aggregate'), field_statuses.get('cgl_minimum_aggregate', 'NOT_ESTABLISHED'), field_labels.cgl_minimum_aggregate, suffix='$', step='1000') }}
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Professional Liability / E&amp;O</h3>
+{{ tristate('require_professional_liability', cfg.get('require_professional_liability'), field_statuses.get('require_professional_liability', 'NOT_ESTABLISHED'),
+    field_labels.require_professional_liability,
+    'If required, a clause that never addresses Professional Liability / Errors & Omissions coverage gets flagged.') }}
+{{ number_input('professional_liability_minimum_limit', cfg.get('professional_liability_minimum_limit'), field_statuses.get('professional_liability_minimum_limit', 'NOT_ESTABLISHED'), field_labels.professional_liability_minimum_limit, suffix='$', step='1000') }}
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Cyber Liability</h3>
+{{ tristate('require_cyber_liability', cfg.get('require_cyber_liability'), field_statuses.get('require_cyber_liability', 'NOT_ESTABLISHED'),
+    field_labels.require_cyber_liability,
+    'If required, a clause that never addresses Cyber Liability coverage gets flagged.') }}
+{{ number_input('cyber_liability_minimum_limit', cfg.get('cyber_liability_minimum_limit'), field_statuses.get('cyber_liability_minimum_limit', 'NOT_ESTABLISHED'), field_labels.cyber_liability_minimum_limit, suffix='$', step='1000') }}
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Workers' Compensation &amp; Employer's Liability</h3>
+{{ tristate('require_workers_comp', cfg.get('require_workers_comp'), field_statuses.get('require_workers_comp', 'NOT_ESTABLISHED'),
+    field_labels.require_workers_comp,
+    'Statutory coverage — presence-only, no dollar limit modeled.') }}
+{{ tristate('require_employers_liability', cfg.get('require_employers_liability'), field_statuses.get('require_employers_liability', 'NOT_ESTABLISHED'),
+    field_labels.require_employers_liability) }}
+{{ number_input('employers_liability_minimum_limit', cfg.get('employers_liability_minimum_limit'), field_statuses.get('employers_liability_minimum_limit', 'NOT_ESTABLISHED'), field_labels.employers_liability_minimum_limit, suffix='$', step='1000') }}
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Automobile Liability</h3>
+{{ tristate('require_auto_liability', cfg.get('require_auto_liability'), field_statuses.get('require_auto_liability', 'NOT_ESTABLISHED'),
+    field_labels.require_auto_liability) }}
+{{ number_input('auto_liability_minimum_limit', cfg.get('auto_liability_minimum_limit'), field_statuses.get('auto_liability_minimum_limit', 'NOT_ESTABLISHED'), field_labels.auto_liability_minimum_limit, suffix='$', step='1000') }}
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Who must carry it</h3>
+{{ tristate('require_counterparty_obligated', cfg.get('require_counterparty_obligated'), field_statuses.get('require_counterparty_obligated', 'NOT_ESTABLISHED'),
+    field_labels.require_counterparty_obligated,
+    'If required, a clause that obligates us (instead of the counterparty), or leaves it unclear who must carry the coverage, gets flagged.') }}
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Coverage conditions</h3>
+{{ tristate('require_additional_insured', cfg.get('require_additional_insured'), field_statuses.get('require_additional_insured', 'NOT_ESTABLISHED'),
+    field_labels.require_additional_insured) }}
+{{ tristate('require_waiver_of_subrogation', cfg.get('require_waiver_of_subrogation'), field_statuses.get('require_waiver_of_subrogation', 'NOT_ESTABLISHED'),
+    field_labels.require_waiver_of_subrogation) }}
+{{ tristate('require_primary_non_contributory', cfg.get('require_primary_non_contributory'), field_statuses.get('require_primary_non_contributory', 'NOT_ESTABLISHED'),
+    field_labels.require_primary_non_contributory) }}
+{{ tristate('require_claims_made_tail', cfg.get('require_claims_made_tail'), field_statuses.get('require_claims_made_tail', 'NOT_ESTABLISHED'),
+    field_labels.require_claims_made_tail,
+    'For claims-made policies (typically Professional Liability / Cyber), an extended reporting period commitment.') }}
+{{ tristate('require_subcontractor_coverage', cfg.get('require_subcontractor_coverage'), field_statuses.get('require_subcontractor_coverage', 'NOT_ESTABLISHED'),
+    field_labels.require_subcontractor_coverage) }}
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Proof &amp; administration</h3>
+{{ tristate('require_certificate_of_insurance', cfg.get('require_certificate_of_insurance'), field_statuses.get('require_certificate_of_insurance', 'NOT_ESTABLISHED'),
+    field_labels.require_certificate_of_insurance) }}
+{{ tristate('require_minimum_insurer_rating', cfg.get('require_minimum_insurer_rating'), field_statuses.get('require_minimum_insurer_rating', 'NOT_ESTABLISHED'),
+    field_labels.require_minimum_insurer_rating,
+    'E.g. A.M. Best A- VII or better.') }}
+{{ tristate('require_notice_of_cancellation', cfg.get('require_notice_of_cancellation'), field_statuses.get('require_notice_of_cancellation', 'NOT_ESTABLISHED'),
+    field_labels.require_notice_of_cancellation) }}
+{{ number_input('minimum_cancellation_notice_days', cfg.get('minimum_cancellation_notice_days'), field_statuses.get('minimum_cancellation_notice_days', 'NOT_ESTABLISHED'), field_labels.minimum_cancellation_notice_days, suffix='days') }}
+{{ tristate('require_policy_maintenance_through_term', cfg.get('require_policy_maintenance_through_term'), field_statuses.get('require_policy_maintenance_through_term', 'NOT_ESTABLISHED'),
+    field_labels.require_policy_maintenance_through_term) }}
+{{ tristate('require_evidence_before_commencement', cfg.get('require_evidence_before_commencement'), field_statuses.get('require_evidence_before_commencement', 'NOT_ESTABLISHED'),
+    field_labels.require_evidence_before_commencement) }}
+</div>
+{% endblock %}

@@ -124,6 +124,21 @@ _MINIMAL_CONFIG = {
         "require_residual_knowledge_rights": False, "require_open_source_disclosure": False,
         "require_infringement_remedy_reference": False, "require_post_termination_survival": False,
     },
+    "insurance": {
+        "require_cgl": False, "cgl_minimum_per_occurrence": None, "cgl_minimum_aggregate": None,
+        "require_professional_liability": False, "professional_liability_minimum_limit": None,
+        "require_cyber_liability": False, "cyber_liability_minimum_limit": None,
+        "require_workers_comp": False,
+        "require_employers_liability": False, "employers_liability_minimum_limit": None,
+        "require_auto_liability": False, "auto_liability_minimum_limit": None,
+        "require_counterparty_obligated": False,
+        "require_additional_insured": False, "require_waiver_of_subrogation": False,
+        "require_primary_non_contributory": False, "require_certificate_of_insurance": False,
+        "require_minimum_insurer_rating": False,
+        "require_notice_of_cancellation": False, "minimum_cancellation_notice_days": None,
+        "require_policy_maintenance_through_term": False, "require_claims_made_tail": False,
+        "require_subcontractor_coverage": False, "require_evidence_before_commencement": False,
+    },
 }
 
 

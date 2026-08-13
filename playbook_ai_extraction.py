@@ -50,6 +50,7 @@ import confidentiality_policy_engine as cpe
 import data_security_policy_engine as dse
 import governing_law_policy_engine as gpe
 import indemnification_policy_engine as ipe
+import insurance_policy_engine as ine
 import ip_ownership_policy_engine as ipoe
 import liability_policy_engine as lpe
 import playbook_authoring as pa
@@ -107,6 +108,7 @@ _ANCHOR_RES: Dict[str, "re.Pattern"] = {
     "governing_law": gpe._ANCHOR_RE,
     "data_security": dse._ANCHOR_RE,
     "ip_ownership": ipoe._ANCHOR_RE,
+    "insurance": ine._ANCHOR_RE,
 }
 
 # How far around a cluster of anchor hits to pull in as context, and how

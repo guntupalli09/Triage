@@ -33,6 +33,7 @@ import confidentiality_policy_engine as cpe
 import data_security_policy_engine as dse
 import governing_law_policy_engine as gpe
 import indemnification_policy_engine as ipe
+import insurance_policy_engine as ine
 import ip_ownership_policy_engine as ipoe
 import liability_policy_engine as lpe
 import playbook_authoring as pa
@@ -531,6 +532,64 @@ def _propose_ip_ownership_fields(facts: "ipoe.IPFacts", contract_side: str) -> D
     return out
 
 
+_INSURANCE_COVERAGE_FIELD_MAP = {
+    "cgl": ("require_cgl", "cgl_minimum_per_occurrence"),
+    "professional_liability": ("require_professional_liability", "professional_liability_minimum_limit"),
+    "cyber_liability": ("require_cyber_liability", "cyber_liability_minimum_limit"),
+    "workers_comp": ("require_workers_comp", None),
+    "employers_liability": ("require_employers_liability", "employers_liability_minimum_limit"),
+    "auto_liability": ("require_auto_liability", "auto_liability_minimum_limit"),
+}
+
+
+def _propose_insurance_fields(facts: "ine.InsuranceFacts", contract_side: str) -> Dict[str, ProposedField]:
+    out: Dict[str, ProposedField] = {name: _not_established("clause not found or dimension not addressed")
+                                      for name in pa.CLAUSE_TYPE_CONFIG_FIELDS["insurance"]}
+    if not facts.clause_found:
+        return out
+
+    for ct, (require_field, limit_field) in _INSURANCE_COVERAGE_FIELD_MAP.items():
+        cov = facts.coverages[ct]
+        if cov.limit_conflict:
+            out[require_field] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, f"conflicting dollar limits stated for {ct}")
+            continue
+        if cov.established:
+            # Self-evident: the template's own coverage list plainly
+            # establishes what we expect going forward.
+            out[require_field] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+            if limit_field and cov.per_occurrence_limit is not None:
+                out[limit_field] = _established(cov.per_occurrence_limit, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.coverages["cgl"].established and not facts.coverages["cgl"].limit_conflict and facts.coverages["cgl"].aggregate_limit is not None:
+        out["cgl_minimum_aggregate"] = _established(facts.coverages["cgl"].aggregate_limit, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.additional_insured_required is not None:
+        out["require_additional_insured"] = _established(facts.additional_insured_required, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.waiver_of_subrogation_required is not None:
+        out["require_waiver_of_subrogation"] = _established(facts.waiver_of_subrogation_required, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.primary_non_contributory is not None:
+        out["require_primary_non_contributory"] = _established(facts.primary_non_contributory, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.certificate_of_insurance_required is not None:
+        out["require_certificate_of_insurance"] = _established(facts.certificate_of_insurance_required, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.insurer_rating_stated is not None:
+        out["require_minimum_insurer_rating"] = _established(facts.insurer_rating_stated, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.notice_of_cancellation_conflict:
+        out["require_notice_of_cancellation"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "different cancellation-notice periods stated")
+    elif facts.notice_of_cancellation_days is not None:
+        out["require_notice_of_cancellation"] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+        out["minimum_cancellation_notice_days"] = _established(facts.notice_of_cancellation_days, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.policy_maintenance_required is not None:
+        out["require_policy_maintenance_through_term"] = _established(facts.policy_maintenance_required, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.claims_made_tail_required is not None:
+        out["require_claims_made_tail"] = _established(facts.claims_made_tail_required, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.subcontractor_coverage_required is not None:
+        out["require_subcontractor_coverage"] = _established(facts.subcontractor_coverage_required, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.evidence_before_commencement is not None:
+        out["require_evidence_before_commencement"] = _established(facts.evidence_before_commencement, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    return out
+
+
 _PROPOSAL_FUNCS = {
     "limitation_of_liability": _propose_liability_fields,
     "indemnification": _propose_indemnification_fields,
@@ -540,6 +599,7 @@ _PROPOSAL_FUNCS = {
     "governing_law": _propose_governing_law_fields,
     "data_security": _propose_data_security_fields,
     "ip_ownership": _propose_ip_ownership_fields,
+    "insurance": _propose_insurance_fields,
 }
 
 
