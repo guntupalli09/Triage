@@ -39,6 +39,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import assignment_policy_engine
 import confidentiality_policy_engine
+import data_security_policy_engine
 import governing_law_policy_engine
 import indemnification_policy_engine
 import liability_policy_engine
@@ -59,6 +60,7 @@ _ENGINE_PROTOCOLS: Dict[str, type] = {
     "confidentiality": confidentiality_policy_engine.ConfidentialityPolicyRuleLike,
     "assignment": assignment_policy_engine.AssignmentPolicyRuleLike,
     "governing_law": governing_law_policy_engine.GoverningLawPolicyRuleLike,
+    "data_security": data_security_policy_engine.DataSecurityPolicyRuleLike,
 }
 
 CLAUSE_TYPES = tuple(_ENGINE_PROTOCOLS)
@@ -137,6 +139,9 @@ _BOUNDED_VOCABULARIES: Dict[str, Dict[str, tuple]] = {
         # literal values governing_law_policy_engine's evaluate function
         # ever compares required_dispute_resolution against.
         "required_dispute_resolution": ("litigation", "arbitration"),
+    },
+    "data_security": {
+        "require_subprocessor_notice_or_consent": ("not_required", "notice", "consent"),
     },
 }
 
@@ -318,6 +323,11 @@ def build_governing_law_policy_rule(position: PolicyPosition) -> SimpleNamespace
     return _build_policy_rule(position, "governing_law")
 
 
+def build_data_security_policy_rule(position: PolicyPosition) -> SimpleNamespace:
+    """Matches data_security_policy_engine.DataSecurityPolicyRuleLike."""
+    return _build_policy_rule(position, "data_security")
+
+
 BUILDERS = {
     "limitation_of_liability": build_liability_policy_rule,
     "indemnification": build_indemnification_policy_rule,
@@ -325,6 +335,7 @@ BUILDERS = {
     "confidentiality": build_confidentiality_policy_rule,
     "assignment": build_assignment_policy_rule,
     "governing_law": build_governing_law_policy_rule,
+    "data_security": build_data_security_policy_rule,
 }
 
 
@@ -571,6 +582,7 @@ _ENGINE_FUNCS: Dict[str, Tuple[Any, Any]] = {
     "confidentiality": (confidentiality_policy_engine.extract_confidentiality_facts, confidentiality_policy_engine.evaluate_confidentiality_policy),
     "assignment": (assignment_policy_engine.extract_assignment_facts, assignment_policy_engine.evaluate_assignment_policy),
     "governing_law": (governing_law_policy_engine.extract_governing_law_facts, governing_law_policy_engine.evaluate_governing_law_policy),
+    "data_security": (data_security_policy_engine.extract_data_security_facts, data_security_policy_engine.evaluate_data_security_policy),
 }
 
 CLAUSE_TYPE_LABELS: Dict[str, str] = {
@@ -580,6 +592,7 @@ CLAUSE_TYPE_LABELS: Dict[str, str] = {
     "confidentiality": "Confidentiality",
     "assignment": "Assignment",
     "governing_law": "Governing Law",
+    "data_security": "Data Protection & Security",
 }
 
 
@@ -1004,8 +1017,15 @@ class CoverageSummary:
 # This exists so "high-impact gaps" is deterministic and explainable, and
 # is expected to be revisited (not silently reordered) once Batch B
 # clause types exist alongside these six.
+#
+# data_security was added as adapter #7 (the first added after the
+# original six) and ranked directly after indemnification: a data-
+# protection failure carries direct, often-unbounded regulatory-fine and
+# breach-notification exposure comparable to indemnification's uncapped-
+# claim risk, and materially higher than confidentiality/termination's
+# bounded operational risk.
 CLAUSE_TYPE_IMPORTANCE: Tuple[str, ...] = (
-    "limitation_of_liability", "indemnification", "confidentiality",
+    "limitation_of_liability", "indemnification", "data_security", "confidentiality",
     "termination", "assignment", "governing_law",
 )
 
@@ -1073,6 +1093,12 @@ def _fmt_years(value: Optional[int]) -> str:
     if value is None:
         return "Not yet decided"
     return "Indefinite/perpetual" if value == 0 else f"{value} year(s)"
+
+
+def _fmt_hours(value: Optional[float]) -> str:
+    if value is None:
+        return "Not yet decided"
+    return f"{value:g} hours"
 
 
 def _summarize_liability(cfg: Dict[str, Any]) -> List[str]:
@@ -1160,6 +1186,35 @@ def _summarize_governing_law(cfg: Dict[str, Any], field_statuses: Dict[str, str]
     ]
 
 
+_SUBPROCESSOR_REQUIREMENT_LABELS = {
+    None: "Not yet decided",
+    "not_required": "No notice or consent required",
+    "notice": "Prior notice required",
+    "consent": "Prior written consent required",
+}
+
+
+def _summarize_data_security(cfg: Dict[str, Any]) -> List[str]:
+    return [
+        f"We must be identified as Processor → {_fmt_bool(cfg.get('require_processor_role'), 'Required', 'Not required')}",
+        f"Unrestricted subprocessors → {_fmt_bool(cfg.get('prohibit_unrestricted_subprocessors'), 'Prohibited', 'Allowed')}",
+        f"Subprocessor engagement → {_SUBPROCESSOR_REQUIREMENT_LABELS.get(cfg.get('require_subprocessor_notice_or_consent'), 'Not yet decided')}",
+        f"Preferred breach notification → {_fmt_hours(cfg.get('preferred_breach_notification_hours'))}",
+        f"Auto-accept up to → {_fmt_hours(cfg.get('acceptable_max_breach_notification_hours'))}",
+        f"Maximum negotiable before escalation → {_fmt_hours(cfg.get('negotiate_max_breach_notification_hours'))}",
+        f"Fixed breach notification period required → {_fmt_bool(cfg.get('require_fixed_breach_notification_period'), 'Required', 'Not required')}",
+        f"International transfer safeguard (SCC/adequacy) required → {_fmt_bool(cfg.get('require_international_transfer_safeguard'), 'Required', 'Not required')}",
+        f"Data residency required → {_fmt_bool(cfg.get('require_data_residency'), 'Required', 'Not required')}",
+        f"Approved residency region(s) → {_fmt_list(cfg.get('required_data_residency_regions_json'), 'Any')}",
+        f"Deletion or return of personal data on termination required → {_fmt_bool(cfg.get('require_deletion_or_return'), 'Required', 'Not required')}",
+        f"Maximum retention → {_fmt_days(cfg.get('max_retention_days'))}",
+        f"Audit rights required → {_fmt_bool(cfg.get('require_audit_rights'), 'Required', 'Not required')}",
+        f"Named security certification required (e.g. ISO 27001, SOC 2) → {_fmt_bool(cfg.get('require_named_security_certification'), 'Required', 'Not required')}",
+        f"Cooperation with data subject/regulatory requests required → {_fmt_bool(cfg.get('require_cooperation_obligation'), 'Required', 'Not required')}",
+        f"Explicit confidentiality of personal data required → {_fmt_bool(cfg.get('require_confidentiality_of_personal_data'), 'Required', 'Not required')}",
+    ]
+
+
 _SUMMARIZERS = {
     "limitation_of_liability": lambda cfg, statuses: _summarize_liability(cfg),
     "indemnification": lambda cfg, statuses: _summarize_indemnification(cfg),
@@ -1167,6 +1222,7 @@ _SUMMARIZERS = {
     "confidentiality": lambda cfg, statuses: _summarize_confidentiality(cfg),
     "assignment": lambda cfg, statuses: _summarize_assignment(cfg),
     "governing_law": lambda cfg, statuses: _summarize_governing_law(cfg, statuses),
+    "data_security": lambda cfg, statuses: _summarize_data_security(cfg),
 }
 
 
@@ -1270,6 +1326,24 @@ FIELD_LABELS: Dict[str, Dict[str, str]] = {
         "prohibited_jurisdictions_json": "Never acceptable",
         "required_dispute_resolution": "Dispute resolution requirement",
         "require_jury_trial_waiver": "Require jury trial waiver",
+    },
+    "data_security": {
+        "require_processor_role": "We must be identified as Processor",
+        "prohibit_unrestricted_subprocessors": "Never accept unrestricted subprocessors",
+        "require_subprocessor_notice_or_consent": "Subprocessor engagement requires",
+        "preferred_breach_notification_hours": "Preferred breach notification window",
+        "acceptable_max_breach_notification_hours": "Auto-accept up to",
+        "negotiate_max_breach_notification_hours": "Maximum negotiable before escalation",
+        "require_fixed_breach_notification_period": "Require a fixed breach notification period",
+        "require_international_transfer_safeguard": "Require an international transfer safeguard (SCC/adequacy)",
+        "require_data_residency": "Require a stated data-residency commitment",
+        "required_data_residency_regions_json": "Approved residency region(s)",
+        "require_deletion_or_return": "Require deletion or return of personal data on termination",
+        "max_retention_days": "Maximum retention period",
+        "require_audit_rights": "Require audit rights",
+        "require_named_security_certification": "Require a named security certification (e.g. ISO 27001, SOC 2)",
+        "require_cooperation_obligation": "Require cooperation with data subject/regulatory requests",
+        "require_confidentiality_of_personal_data": "Require explicit confidentiality of personal data",
     },
 }
 

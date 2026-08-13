@@ -102,6 +102,17 @@ _MINIMAL_CONFIG = {
         "preferred_jurisdictions_json": [], "acceptable_jurisdictions_json": [],
         "prohibited_jurisdictions_json": [], "require_jury_trial_waiver": False,
     },
+    "data_security": {
+        "require_processor_role": False, "prohibit_unrestricted_subprocessors": False,
+        "require_subprocessor_notice_or_consent": "not_required",
+        "preferred_breach_notification_hours": None, "acceptable_max_breach_notification_hours": None,
+        "negotiate_max_breach_notification_hours": None, "require_fixed_breach_notification_period": False,
+        "require_international_transfer_safeguard": False, "require_data_residency": False,
+        "required_data_residency_regions_json": [], "require_deletion_or_return": False,
+        "max_retention_days": None, "require_audit_rights": False,
+        "require_named_security_certification": False, "require_cooperation_obligation": False,
+        "require_confidentiality_of_personal_data": False,
+    },
 }
 
 

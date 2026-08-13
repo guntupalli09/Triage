@@ -47,6 +47,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import assignment_policy_engine as ape
 import confidentiality_policy_engine as cpe
+import data_security_policy_engine as dse
 import governing_law_policy_engine as gpe
 import indemnification_policy_engine as ipe
 import liability_policy_engine as lpe
@@ -103,6 +104,7 @@ _ANCHOR_RES: Dict[str, "re.Pattern"] = {
     "confidentiality": cpe._ANCHOR_RE,
     "assignment": ape._ANCHOR_RE,
     "governing_law": gpe._ANCHOR_RE,
+    "data_security": dse._ANCHOR_RE,
 }
 
 # How far around a cluster of anchor hits to pull in as context, and how

@@ -30,6 +30,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import assignment_policy_engine as ape
 import confidentiality_policy_engine as cpe
+import data_security_policy_engine as dse
 import governing_law_policy_engine as gpe
 import indemnification_policy_engine as ipe
 import liability_policy_engine as lpe
@@ -368,6 +369,73 @@ def _propose_governing_law_fields(facts: "gpe.GoverningLawFacts", contract_side:
     return out
 
 
+_SUBPROCESSOR_TREATMENT_REQUIREMENT = {"notice": "notice", "consent": "consent"}
+
+
+def _propose_data_security_fields(facts: "dse.DataSecurityFacts", contract_side: str) -> Dict[str, ProposedField]:
+    out: Dict[str, ProposedField] = {name: _not_established("clause not found or dimension not addressed")
+                                      for name in pa.CLAUSE_TYPE_CONFIG_FIELDS["data_security"]}
+    if not facts.clause_found:
+        return out
+
+    if facts.role_conflict:
+        out["require_processor_role"] = _conflicting(
+            facts.raw_excerpt, facts.raw_excerpt, "the same named party is attributed both controller and processor")
+    else:
+        our_role, unresolved_directional, _is_joint = dse._resolve_our_role(facts, contract_side)
+        if our_role is not None and not unresolved_directional:
+            # Self-evident: the template's own role statement plainly
+            # establishes what role we expect to occupy going forward.
+            out["require_processor_role"] = _established(our_role == "processor", facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.subprocessor_conflict:
+        out["prohibit_unrestricted_subprocessors"] = _conflicting(
+            facts.raw_excerpt, facts.raw_excerpt, "subprocessor treatment is stated inconsistently")
+    elif facts.subprocessor_treatment is not None:
+        out["prohibit_unrestricted_subprocessors"] = _established(
+            facts.subprocessor_treatment != "unrestricted", facts.raw_excerpt, facts.start_index, facts.end_index)
+        req = _SUBPROCESSOR_TREATMENT_REQUIREMENT.get(facts.subprocessor_treatment)
+        if req:
+            out["require_subprocessor_notice_or_consent"] = _established(req, facts.raw_excerpt, facts.start_index, facts.end_index)
+        elif facts.subprocessor_treatment == "prohibited":
+            out["require_subprocessor_notice_or_consent"] = _established("not_required", facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.breach_notification_conflict:
+        out["preferred_breach_notification_hours"] = _conflicting(
+            facts.raw_excerpt, facts.raw_excerpt, "different breach-notification periods stated")
+    elif facts.breach_notification_hours is not None:
+        out["preferred_breach_notification_hours"] = _established(float(facts.breach_notification_hours), facts.raw_excerpt, facts.start_index, facts.end_index)
+        out["require_fixed_breach_notification_period"] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+    elif facts.breach_without_undue_delay:
+        out["require_fixed_breach_notification_period"] = _established(False, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.transfer_mechanism in ("prohibited", "scc", "adequacy"):
+        out["require_international_transfer_safeguard"] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.data_residency_region:
+        out["require_data_residency"] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+        out["required_data_residency_regions_json"] = _established([facts.data_residency_region], facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.deletion_or_return_required is not None:
+        out["require_deletion_or_return"] = _established(facts.deletion_or_return_required, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.retention_days is not None:
+        out["max_retention_days"] = _established(float(facts.retention_days), facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.audit_rights is not None:
+        out["require_audit_rights"] = _established(facts.audit_rights, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.security_standard == "named_certification":
+        out["require_named_security_certification"] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.cooperation_obligation:
+        out["require_cooperation_obligation"] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.confidentiality_of_personal_data:
+        out["require_confidentiality_of_personal_data"] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    return out
+
+
 _PROPOSAL_FUNCS = {
     "limitation_of_liability": _propose_liability_fields,
     "indemnification": _propose_indemnification_fields,
@@ -375,6 +443,7 @@ _PROPOSAL_FUNCS = {
     "confidentiality": _propose_confidentiality_fields,
     "assignment": _propose_assignment_fields,
     "governing_law": _propose_governing_law_fields,
+    "data_security": _propose_data_security_fields,
 }
 
 

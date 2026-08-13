@@ -1,0 +1,803 @@
+"""
+Data Protection / Security clause adapter, over policy_engine_core.
+Adapter #7 — the first added after the original six (Liability,
+Indemnification, Termination, Confidentiality, Assignment, Governing
+Law). Built by directly mirroring the established adapter shape (see
+assignment_policy_engine.py / confidentiality_policy_engine.py) rather
+than inventing a new one; policy_engine_core.py was not modified — every
+primitive this adapter needs (PolicyDecision, LadderStep/build_ladder,
+classify_by_threshold, escalate_to_for_state, fallback_text_for_state,
+side_for_role, excerpt/section_label_before, requires_review_* helpers)
+already existed and fit without change.
+
+SEMANTIC MODEL: a data-protection/security clause is a CATALOG of
+largely independent commercial dimensions, not one reciprocal promise —
+unlike Confidentiality/Assignment/Termination, a vendor's processor
+obligations toward a customer's personal data are not naturally
+symmetric, so this adapter does NOT reuse the reciprocal-symmetry
+detection machinery those three adapters share (detect_role_attributed_
+asymmetry) — it would have nothing meaningful to compare. Each dimension
+below is extracted independently and, if the fact is genuinely absent
+from the text, is treated as "not addressed" (never guessed) — a
+required policy dimension with no corresponding fact in the contract
+downgrades the decision (the same "silence never satisfies a
+requirement" rule Liability/Indemnification/Assignment already use for
+required exceptions), it never manufactures an obligation the clause
+doesn't state.
+
+Dimensions modeled (see DataSecurityFacts): controller/processor role,
+subprocessor treatment (unrestricted / notice / consent / prohibited),
+breach-notification timing (fixed-hours or "without undue delay"),
+international-transfer safeguard (SCC / adequacy / none stated /
+prohibited), data residency, deletion-or-return vs. retention,
+retention period, audit rights, security-standard specificity (named
+certification vs. vague "industry standard"), cooperation obligations
+(data-subject-request assistance and regulatory cooperation are modeled
+as one combined dimension — see DataSecurityFacts.cooperation_obligation
+docstring for why), and confidentiality-of-personal-data. Liability
+treatment referenced from within this clause (e.g. "breach of this
+Section is excluded from the liability cap") is captured as a plain
+cross-reference note in unresolved_facts/category_treatments when
+present — this adapter never re-evaluates the Limitation of Liability
+clause itself; that stays liability_policy_engine's job exclusively.
+
+classify_by_threshold IS reused for breach-notification hours (a
+three-tier "preferred/acceptable/negotiate maximum hours" band is
+exactly its shape — lower hours are more protective, same "lower is
+better" direction as a liability multiplier) but is NOT forced onto any
+other dimension here: role, subprocessor treatment, transfer mechanism,
+residency, deletion/retention, audit rights, security-standard
+specificity, and cooperation are each categorical/tristate, not
+threshold bands, and are evaluated with adapter-local comparisons
+instead.
+"""
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Protocol, Tuple
+
+from policy_engine_core import (
+    ACCEPT, ACCEPT_WITH_NOTE, NEGOTIATE, MUST_REDLINE, PROHIBITED, ESCALATE,
+    REQUIRES_REVIEW, NOT_APPLICABLE,
+    LadderStep, PolicyDecision,
+    BUY_SIDE_ROLES, SELL_SIDE_ROLES, side_for_role,
+    build_ladder as _core_build_ladder,
+    classify_by_threshold,
+    escalate_to_for_state, fallback_text_for_state,
+    excerpt as _excerpt, section_label_before as _section_label_before,
+    requires_review_explanation, requires_review_required_action,
+)
+
+RULE_ID = "POLICY_DATA_SECURITY"
+
+_PROVISION_WINDOW_CHARS = 2200
+
+_ANCHOR_RE = re.compile(
+    r"data\s+protection|personal\s+data|data\s+privacy|processing\s+of\s+(?:the\s+)?personal\s+data"
+    r"|\bDPA\b|\bGDPR\b|\bCCPA\b|security\s+incident|data\s+security",
+    re.I,
+)
+
+# --- Controller / processor role -------------------------------------------
+_ROLE_STATEMENT_RE = re.compile(
+    r"(?-i:([A-Z][A-Za-z]{2,30}))\s+(?:is|shall\s+be|acts\s+as|will\s+act\s+as|shall\s+act\s+as)\s+(?:a|the)\s+"
+    r"(?:data\s+)?(controller|processor)(?:\s+of\s+(?:the\s+)?personal\s+data)?",
+    re.I,
+)
+_JOINT_CONTROLLER_RE = re.compile(r"joint\s+controllers?", re.I)
+_ROLE_GENERIC_WORDS = {"each", "the", "any", "such", "this", "that", "both", "either", "party", "parties"}
+
+# --- Subprocessors -----------------------------------------------------------
+_SUBPROCESSOR_ANCHOR_RE = re.compile(r"sub-?processors?", re.I)
+_SUBPROCESSOR_PROHIBIT_RE = re.compile(
+    r"shall\s+not\s+(?:engage|use|appoint)\s+(?:any\s+)?sub-?processors?"
+    r"|no\s+sub-?processors?\s+(?:shall|may|will)\s+be\s+(?:engaged|used|appointed)",
+    re.I,
+)
+_SUBPROCESSOR_CONSENT_RE = re.compile(
+    r"(?:prior\s+)?(?:written\s+)?consent\s+of\s+(?:the\s+)?(?:customer|controller|client)\s+"
+    r"(?:is\s+required\s+)?(?:to|before|prior\s+to)\s+engag(?:e|ing)\s+(?:any\s+)?sub-?processors?"
+    r"|shall\s+obtain\s+(?:the\s+)?(?:customer's\s+)?(?:prior\s+)?(?:written\s+)?consent\s+"
+    r"(?:before|prior\s+to)\s+engaging\s+(?:any\s+)?sub-?processors?",
+    re.I,
+)
+_SUBPROCESSOR_NOTICE_RE = re.compile(
+    r"(?:shall|will)\s+(?:provide|give)\s+(?:prior\s+)?(?:written\s+)?notice\s+.{0,60}?sub-?processors?"
+    r"|notify\s+(?:the\s+)?customer\s+.{0,60}?(?:prior\s+to\s+)?(?:engag(?:e|ing)|appointing)\s+(?:any\s+)?sub-?processors?",
+    re.I,
+)
+_SUBPROCESSOR_UNRESTRICTED_RE = re.compile(
+    r"may\s+engage\s+sub-?processors?\s+(?:at\s+its\s+(?:sole\s+)?discretion|without\s+(?:prior\s+)?(?:notice|consent)|freely)",
+    re.I,
+)
+
+# --- Breach / security-incident notification --------------------------------
+_BREACH_ANCHOR_RE = re.compile(r"security\s+incident|personal\s+data\s+breach|data\s+breach", re.I)
+_BREACH_HOURS_RE = re.compile(
+    r"(?:notify|notification|notice)[^.]{0,80}?within\s+(\d{1,3})\s+hours"
+    r"|within\s+(\d{1,3})\s+hours\s+(?:of|after)\s+(?:becoming\s+aware|discovery|discovering|learning)"
+    r"|(?:no\s+(?:later|event\s+later)\s+than|not\s+later\s+than)\s+(\d{1,3})\s+hours\s+(?:after|of|following)"
+    r"\s+(?:becoming\s+aware|discovery|discovering|learning)",
+    re.I,
+)
+_BREACH_UNDUE_DELAY_RE = re.compile(r"without\s+undue\s+delay", re.I)
+
+# --- International transfers -------------------------------------------------
+_TRANSFER_ANCHOR_RE = re.compile(
+    r"international\s+transfer|cross-?border\s+transfer|transfer\s+(?:of\s+)?personal\s+data\s+outside"
+    r"|transfer\s+personal\s+data\s+(?:to\s+a\s+)?(?:third\s+)?countr",
+    re.I,
+)
+_TRANSFER_PROHIBIT_RE = re.compile(r"shall\s+not\s+transfer\s+personal\s+data\s+outside", re.I)
+_TRANSFER_EXCEPTION_RE = re.compile(r"\bexcept\b|\bunless\b|\bprovided\s+that\b", re.I)
+_TRANSFER_SCC_RE = re.compile(r"standard\s+contractual\s+clauses|\bSCCs?\b", re.I)
+_TRANSFER_ADEQUACY_RE = re.compile(r"adequacy\s+decision|adequate\s+level\s+of\s+protection", re.I)
+
+# --- Data residency -----------------------------------------------------------
+_RESIDENCY_RE = re.compile(
+    r"(?:data\s+)?resid(?:ency|e)\s+(?:shall\s+be\s+)?(?:in|within)\s+([A-Z][A-Za-z .]{2,40}?)(?=[.,;]|\s+and\b|\s*$)"
+    r"|(?:stored|maintained|hosted)\s+(?:solely\s+|exclusively\s+)?within\s+([A-Z][A-Za-z .]{2,40}?)(?=[.,;]|\s+and\b|\s*$)",
+    re.I,
+)
+
+# --- Deletion / return / retention -------------------------------------------
+_DELETION_RE = re.compile(
+    r"shall\s+(?:delete|destroy)\s+(?:or\s+return\s+)?(?:all\s+)?(?:the\s+)?personal\s+data"
+    r"|delete\s+or\s+return\s+(?:all\s+)?(?:the\s+)?personal\s+data",
+    re.I,
+)
+_RETENTION_DAYS_RE = re.compile(
+    r"retain\s+(?:the\s+)?personal\s+data\s+for\s+(?:up\s+to\s+)?(\d{1,4})\s+days"
+    r"|retention\s+period\s+of\s+(\d{1,4})\s+days",
+    re.I,
+)
+_RETAIN_INDEFINITE_RE = re.compile(r"retain[^.]{0,40}indefinitely|no\s+obligation\s+to\s+delete", re.I)
+
+# --- Audit rights --------------------------------------------------------------
+_AUDIT_PRESENT_RE = re.compile(
+    r"right\s+to\s+audit|audit\s+rights?|shall\s+permit[^.]{0,50}audit|subject\s+to\s+(?:an\s+)?annual\s+audit"
+    r"|may\s+audit|entitled\s+to\s+audit",
+    re.I,
+)
+_AUDIT_ABSENT_RE = re.compile(
+    r"no\s+audit\s+rights?"
+    r"|shall\s+not\s+(?:have|be\s+entitled\s+to)\s+(?:the\s+right\s+to\s+)?audit",
+    re.I,
+)
+
+# --- Security standard ----------------------------------------------------------
+_SECURITY_ANCHOR_RE = re.compile(
+    r"security\s+measures|technical\s+and\s+organizational\s+measures|\bTOMs?\b|information\s+security"
+    r"|(?:administrative|technical|physical)(?:,?\s*(?:and|,)\s*(?:administrative|technical|physical)){1,2}\s+safeguards"
+    r"|security\s+safeguards|security\s+controls",
+    re.I,
+)
+_SECURITY_CERT_RE = re.compile(
+    r"ISO\s*/?\s*IEC\s*27001|ISO\s*27001|SOC\s*2(?:\s*Type\s*(?:I{1,2}|1|2))?|NIST\s+800-53|NIST\s+Cybersecurity\s+Framework",
+    re.I,
+)
+_SECURITY_VAGUE_RE = re.compile(
+    r"industry[\s-]standard\s+security|commercially\s+reasonable\s+security|reasonable\s+security\s+measures",
+    re.I,
+)
+
+# --- Cooperation (DSR assistance + regulatory cooperation, combined — see
+# DataSecurityFacts.cooperation_obligation) --------------------------------
+_COOPERATION_RE = re.compile(
+    r"(?:shall\s+)?(?:provide\s+)?(?:reasonable\s+)?(?:assistance|cooperat\w*)"
+    r"(?:\s+with\s+\w+)?[^.]{0,60}?"
+    r"(?:data\s+subject\s+requests?|regulatory\s+(?:inquiries|investigations)|(?:a\s+)?supervisory\s+authorit\w*)",
+    re.I,
+)
+
+# --- Confidentiality of personal data -------------------------------------
+_PD_CONFIDENTIALITY_RE = re.compile(
+    r"personal\s+data\s+(?:shall\s+be\s+)?(?:kept\s+|treated\s+as\s+)?confidential|confidentiality\s+of\s+personal\s+data",
+    re.I,
+)
+
+# --- Delegation to an external DPA/Schedule/Exhibit -------------------------
+_DPA_CROSSREF_RE = re.compile(
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+the\s+(?:attached\s+)?(?:Data\s+Processing\s+Agreement|DPA|Schedule|Exhibit|Annex)"
+    r"|subject\s+to\s+the\s+terms\s+of\s+the\s+(?:attached\s+)?(?:DPA|Data\s+Processing\s+Agreement)"
+    r"|governed\s+by\s+(?:the\s+)?(?:attached\s+)?(?:DPA|Data\s+Processing\s+Agreement)",
+    re.I,
+)
+
+# --- Liability cross-reference (informational only — never re-evaluated here) --
+_LIABILITY_CROSSREF_RE = re.compile(
+    r"(?:excluded\s+from|not\s+subject\s+to|outside\s+of)\s+the\s+limitation\s+of\s+liability"
+    r"|liability\s+(?:arising\s+from|for)\s+(?:a\s+)?(?:data\s+)?breach\s+(?:of\s+this\s+Section\s+)?shall\s+not\s+be\s+(?:capped|limited)",
+    re.I,
+)
+
+
+@dataclass
+class DataSecurityFacts:
+    """Every field is independently None ("not addressed anywhere in the
+    text") unless the clause actually establishes it — this dataclass is
+    evidence extraction, not policy completion (same rule Phase 2's
+    deterministic import already enforces at the authoring layer: a
+    template establishing a 2x cap does not establish what's acceptable;
+    a data-protection clause establishing 72-hour breach notice does not
+    establish anything about, say, audit rights)."""
+    clause_found: bool
+    raw_excerpt: str = ""
+    start_index: Optional[int] = None
+    end_index: Optional[int] = None
+    section_label: Optional[str] = None
+
+    # Role attribution: {party_name: {"controller"|"processor", ...}} merged
+    # across every anchored window — raw extraction only, side-agnostic.
+    # our_role is resolved from this (given contract_side) at evaluation
+    # time, since extraction has no policy/contract_side to resolve
+    # against yet. joint_controllers=True means the clause states the
+    # parties are joint controllers (role is inherently shared, not
+    # per-side). role_conflict=True means a SINGLE named party was
+    # attributed two different roles — a genuine ambiguity, never guessed
+    # past regardless of which policy dimensions are configured.
+    role_attributions: Dict[str, set] = field(default_factory=dict)
+    joint_controllers: bool = False
+    role_conflict: bool = False
+
+    # Subprocessors: "unrestricted" | "notice" | "consent" | "prohibited" | None
+    subprocessor_treatment: Optional[str] = None
+    subprocessor_conflict: bool = False
+
+    # Breach notification
+    breach_notification_hours: Optional[int] = None
+    breach_notification_conflict: bool = False
+    breach_without_undue_delay: bool = False
+
+    # International transfers: "scc" | "adequacy" | "prohibited" | "unaddressed_transfer" | None
+    transfer_mechanism: Optional[str] = None
+
+    # Data residency
+    data_residency_region: Optional[str] = None
+
+    # Deletion / retention
+    deletion_or_return_required: Optional[bool] = None
+    retention_days: Optional[int] = None
+    retention_indefinite: bool = False
+
+    # Audit rights: True | False | None (None = not addressed)
+    audit_rights: Optional[bool] = None
+
+    # Security standard: "named_certification" | "vague" | None
+    security_standard: Optional[str] = None
+
+    # Cooperation obligations (data-subject-request assistance + regulatory
+    # cooperation) — modeled as ONE combined dimension rather than two,
+    # because the drafting patterns that establish either one in real DPAs
+    # are near-identical ("shall provide reasonable assistance in connection
+    # with data subject requests and regulatory inquiries") and splitting
+    # them would require guessing which specific sub-obligation a single
+    # sentence covering both was "really" about — not a genuine second
+    # deterministic fact, just relabeling the same evidence twice.
+    cooperation_obligation: Optional[bool] = None
+
+    confidentiality_of_personal_data: Optional[bool] = None
+
+    dpa_cross_reference: bool = False
+    liability_cross_reference: bool = False
+
+
+class DataSecurityPolicyRuleLike(Protocol):
+    contract_side: str
+    escalation_approval_authority: Optional[str]
+    fallback_text: Optional[str]
+
+    require_processor_role: bool
+    prohibit_unrestricted_subprocessors: bool
+    require_subprocessor_notice_or_consent: str  # "not_required" | "notice" | "consent"
+    preferred_breach_notification_hours: Optional[float]
+    acceptable_max_breach_notification_hours: Optional[float]
+    negotiate_max_breach_notification_hours: Optional[float]
+    require_fixed_breach_notification_period: bool
+    require_international_transfer_safeguard: bool
+    require_data_residency: bool
+    required_data_residency_regions_json: Optional[List[str]]
+    require_deletion_or_return: bool
+    max_retention_days: Optional[float]
+    require_audit_rights: bool
+    require_named_security_certification: bool
+    require_cooperation_obligation: bool
+    require_confidentiality_of_personal_data: bool
+
+
+def _role_attributions(window: str) -> Tuple[Dict[str, set], bool]:
+    """Pure extraction, side-agnostic: which named party was attributed
+    which role word(s) in this window, plus whether any single named
+    party was attributed BOTH controller and processor within it (an
+    internal conflict regardless of which side that party is on)."""
+    attributions: Dict[str, set] = {}
+    for m in _ROLE_STATEMENT_RE.finditer(window):
+        role_name, role_word = m.group(1), m.group(2).lower()
+        if role_name.lower() in _ROLE_GENERIC_WORDS:
+            continue
+        attributions.setdefault(role_name, set()).add(role_word)
+    conflict = any(len(roles) > 1 for roles in attributions.values())
+    return attributions, conflict
+
+
+def _classify_subprocessors(window: str) -> Tuple[Optional[str], bool]:
+    if not _SUBPROCESSOR_ANCHOR_RE.search(window):
+        return None, False
+    found = set()
+    if _SUBPROCESSOR_PROHIBIT_RE.search(window):
+        found.add("prohibited")
+    if _SUBPROCESSOR_CONSENT_RE.search(window):
+        found.add("consent")
+    if _SUBPROCESSOR_NOTICE_RE.search(window):
+        found.add("notice")
+    if _SUBPROCESSOR_UNRESTRICTED_RE.search(window):
+        found.add("unrestricted")
+    if len(found) > 1:
+        return None, True
+    if not found:
+        return None, False
+    return next(iter(found)), False
+
+
+def _classify_breach_notification(window: str) -> Tuple[Optional[int], bool, bool]:
+    """Returns (hours, conflict, without_undue_delay)."""
+    if not _BREACH_ANCHOR_RE.search(window):
+        return None, False, False
+    hour_values = set()
+    for m in _BREACH_HOURS_RE.finditer(window):
+        raw = m.group(1) or m.group(2) or m.group(3)
+        if raw:
+            hour_values.add(int(raw))
+    undue_delay = bool(_BREACH_UNDUE_DELAY_RE.search(window))
+    if len(hour_values) > 1:
+        return None, True, undue_delay
+    hours = next(iter(hour_values)) if hour_values else None
+    return hours, False, undue_delay
+
+
+def _classify_transfer(window: str) -> Optional[str]:
+    if not _TRANSFER_ANCHOR_RE.search(window):
+        return None
+    prohibit_match = _TRANSFER_PROHIBIT_RE.search(window)
+    if prohibit_match:
+        # An outright "shall not transfer ... outside X" is only an
+        # absolute prohibition if it is NOT immediately qualified by a
+        # carve-out ("... except pursuant to SCCs"). A qualified
+        # prohibition is really a named-mechanism requirement, not a ban
+        # on international transfer altogether — fall through to look for
+        # the named mechanism instead of overstating this as "prohibited".
+        tail = window[prohibit_match.end():prohibit_match.end() + 150]
+        if not _TRANSFER_EXCEPTION_RE.search(tail):
+            return "prohibited"
+    if _TRANSFER_SCC_RE.search(window):
+        return "scc"
+    if _TRANSFER_ADEQUACY_RE.search(window):
+        return "adequacy"
+    if prohibit_match:
+        # Qualified prohibition with no extractable named mechanism —
+        # still transfer-restrictive, but the specific safeguard is not
+        # deterministically identifiable from this window.
+        return "unaddressed_transfer"
+    return "unaddressed_transfer"
+
+
+def _classify_residency(window: str) -> Optional[str]:
+    m = _RESIDENCY_RE.search(window)
+    if not m:
+        return None
+    region = (m.group(1) or m.group(2) or "").strip()
+    return region or None
+
+
+def _classify_deletion_retention(window: str) -> Tuple[Optional[bool], Optional[int], bool]:
+    deletion = True if _DELETION_RE.search(window) else None
+    indefinite = bool(_RETAIN_INDEFINITE_RE.search(window))
+    days_values = set()
+    for m in _RETENTION_DAYS_RE.finditer(window):
+        raw = m.group(1) or m.group(2)
+        if raw:
+            days_values.add(int(raw))
+    days = next(iter(days_values)) if len(days_values) == 1 else None
+    if indefinite and deletion is None:
+        deletion = False
+    return deletion, days, indefinite
+
+
+def _classify_audit(window: str) -> Optional[bool]:
+    if _AUDIT_ABSENT_RE.search(window):
+        return False
+    if _AUDIT_PRESENT_RE.search(window):
+        return True
+    return None
+
+
+def _classify_security_standard(window: str) -> Optional[str]:
+    if not _SECURITY_ANCHOR_RE.search(window):
+        return None
+    if _SECURITY_CERT_RE.search(window):
+        return "named_certification"
+    if _SECURITY_VAGUE_RE.search(window):
+        return "vague"
+    return None
+
+
+def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
+    """Deterministic, single-provision extraction (data-protection clauses
+    in real SaaS/DPA drafting are typically one consolidated section or
+    exhibit, not scattered independent provisions the way liability caps
+    can be — so unlike Liability's document-wide multi-provision
+    reconciliation, this adapter takes the FIRST anchored window as the
+    controlling provision and reports a conflict, never a silent pick,
+    whenever two DIFFERENT windows in the document disagree on the same
+    dimension)."""
+    anchors = list(_ANCHOR_RE.finditer(text))
+    if not anchors:
+        return None
+
+    # Use every anchored window (deduplicated by proximity) so a genuine
+    # cross-provision conflict (e.g. Section 9 says 72 hours, Section 14
+    # says 24 hours) is detected rather than only ever seeing the first.
+    windows: List[Tuple[int, int, str]] = []
+    seen_starts: List[int] = []
+    for m in anchors:
+        if any(abs(m.start() - s) < 200 for s in seen_starts):
+            continue
+        start = m.start()
+        end = min(len(text), start + _PROVISION_WINDOW_CHARS)
+        windows.append((start, end, text[start:end]))
+        seen_starts.append(start)
+
+    if not windows:
+        return None
+
+    first_start, first_end, _ = windows[0]
+    facts = DataSecurityFacts(
+        clause_found=True,
+        raw_excerpt=_excerpt(text, first_start, min(first_end, first_start + 300)),
+        start_index=first_start, end_index=first_end,
+        section_label=_section_label_before(text, first_start),
+    )
+
+    role_results, subprocessor_results, breach_results, transfer_results = [], [], [], []
+    residency_results, security_results = [], []
+
+    for _, _, window in windows:
+        if _JOINT_CONTROLLER_RE.search(window):
+            facts.joint_controllers = True
+        attributions, role_conflict = _role_attributions(window)
+        if role_conflict:
+            facts.role_conflict = True
+        for name, roles in attributions.items():
+            existing = facts.role_attributions.setdefault(name, set())
+            existing |= roles
+            if len(existing) > 1:
+                facts.role_conflict = True
+        subp, subp_conflict = _classify_subprocessors(window)
+        if subp is not None:
+            subprocessor_results.append(subp)
+        if subp_conflict:
+            facts.subprocessor_conflict = True
+        hours, hr_conflict, undue = _classify_breach_notification(window)
+        if hours is not None:
+            breach_results.append(hours)
+        if hr_conflict:
+            facts.breach_notification_conflict = True
+        if undue:
+            facts.breach_without_undue_delay = True
+        transfer = _classify_transfer(window)
+        if transfer:
+            transfer_results.append(transfer)
+        residency = _classify_residency(window)
+        if residency:
+            residency_results.append(residency)
+        deletion, days, indefinite = _classify_deletion_retention(window)
+        if deletion is not None:
+            facts.deletion_or_return_required = (facts.deletion_or_return_required or False) or deletion
+        if days is not None:
+            facts.retention_days = days
+        if indefinite:
+            facts.retention_indefinite = True
+        audit = _classify_audit(window)
+        if audit is not None:
+            facts.audit_rights = audit if facts.audit_rights is None else (facts.audit_rights or audit)
+        sec = _classify_security_standard(window)
+        if sec:
+            security_results.append(sec)
+        if _COOPERATION_RE.search(window):
+            facts.cooperation_obligation = True
+        if _PD_CONFIDENTIALITY_RE.search(window):
+            facts.confidentiality_of_personal_data = True
+        if _DPA_CROSSREF_RE.search(window):
+            facts.dpa_cross_reference = True
+        if _LIABILITY_CROSSREF_RE.search(window):
+            facts.liability_cross_reference = True
+
+    # Cross-window conflict detection: two windows disagreeing on the same
+    # categorical dimension is exactly as much a conflict as two clauses
+    # disagreeing within one window.
+    if len(set(subprocessor_results)) > 1:
+        facts.subprocessor_conflict = True
+    elif subprocessor_results:
+        facts.subprocessor_treatment = subprocessor_results[0]
+
+    if len(set(breach_results)) > 1:
+        facts.breach_notification_conflict = True
+    elif breach_results:
+        facts.breach_notification_hours = breach_results[0]
+
+    if transfer_results:
+        # "prohibited" is the most protective/restrictive finding and wins
+        # over an unaddressed/weaker classification from another window
+        # discussing the same transfer topic differently; two genuinely
+        # different affirmative mechanisms (scc vs adequacy) in different
+        # windows is reported as-is (not a conflict — both can be true).
+        facts.transfer_mechanism = "prohibited" if "prohibited" in transfer_results else transfer_results[0]
+
+    if residency_results:
+        facts.data_residency_region = residency_results[0]
+
+    if security_results:
+        facts.security_standard = "named_certification" if "named_certification" in security_results else security_results[0]
+
+    return facts
+
+
+def _resolve_our_role(facts: DataSecurityFacts, contract_side: str) -> Tuple[Optional[str], bool, bool]:
+    """Resolves our_role from the side-agnostic role_attributions gathered
+    at extraction time, given the policy's configured contract_side.
+    Returns (our_role, unresolved_directional, is_joint). Never guesses:
+    a directional role statement under a "mutual" playbook configuration,
+    or a named party that can't be mapped to buy_side/sell_side, both
+    come back unresolved rather than picking one."""
+    if facts.joint_controllers and not facts.role_attributions:
+        return "joint", False, True
+    if not facts.role_attributions:
+        return None, False, False
+    if contract_side == "mutual":
+        return None, True, False
+
+    # Data-protection drafting overwhelmingly uses "Processor"/"Controller"
+    # themselves as the defined-term subject ("Processor shall act as a
+    # data processor ..."), the same way the rest of this codebase already
+    # treats "Vendor"/"Customer" as fixed conventional sell_side/buy_side
+    # role-words (see BUY_SIDE_ROLES/SELL_SIDE_ROLES in policy_engine_core).
+    # By the same near-universal commercial-services convention, "Processor"
+    # is the service-provider (sell_side) and "Controller" is the customer
+    # (buy_side) — kept local to this adapter since it is DP-specific, not
+    # a clause-agnostic addition to the shared role vocabulary.
+    _LOCAL_ROLE_SIDE = {"processor": "sell_side", "controller": "buy_side"}
+
+    our_roles: set = set()
+    for name, roles in facts.role_attributions.items():
+        mapped_side = side_for_role(name) or _LOCAL_ROLE_SIDE.get(name.strip().lower())
+        if mapped_side == contract_side:
+            our_roles |= roles
+    if len(our_roles) == 1:
+        return next(iter(our_roles)), False, False
+    if len(our_roles) > 1:
+        return None, True, False
+    # No named party mapped to our configured side at all.
+    return None, True, False
+
+
+def _build_ladder(policy: DataSecurityPolicyRuleLike, state: str) -> List[LadderStep]:
+    step_specs = [
+        ("IDEAL", "Preferred data-protection terms met in full"),
+        ("ACCEPTABLE", "Auto-accept within acceptable data-protection terms"),
+        ("FALLBACK", "Negotiate data-protection terms within fallback range"),
+        ("ESCALATE", f"Beyond negotiable range — route to {policy.escalation_approval_authority or 'Legal Director'}"),
+        ("WALK-AWAY", "Prohibited data-protection terms"),
+    ]
+    return _core_build_ladder(state, step_specs)
+
+
+_WORST_ORDER = {ACCEPT: 0, ACCEPT_WITH_NOTE: 1, NEGOTIATE: 2, MUST_REDLINE: 3, ESCALATE: 4, PROHIBITED: 5}
+
+
+def _worse(a: str, b: str) -> str:
+    return a if _WORST_ORDER.get(a, 0) >= _WORST_ORDER.get(b, 0) else b
+
+
+def evaluate_data_security_policy(
+    facts: Optional[DataSecurityFacts],
+    policy: DataSecurityPolicyRuleLike,
+    source: Optional[str] = None,
+) -> PolicyDecision:
+    common = dict(
+        rule_id=RULE_ID, clause_type="data_security", source=source,
+        summary_label="Data protection treatment",
+        our_position_label="Our data-protection obligations",
+        counterparty_position_label="Counterparty's data-protection commitments",
+    )
+
+    if facts is None or not facts.clause_found:
+        return PolicyDecision(
+            **common, state=NOT_APPLICABLE,
+            contract_language="", extracted_summary="No data protection / security clause found",
+            policy_limit_summary="N/A",
+            required_action="None — this contract does not address data protection or security",
+            explanation="No data protection or security clause was found in this contract, so the policy has nothing to evaluate against.",
+            negotiation_ladder=_build_ladder(policy, NOT_APPLICABLE), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None,
+        )
+
+    our_role, role_unresolved_directional, _is_joint = _resolve_our_role(facts, policy.contract_side)
+
+    unresolved: List[str] = []
+    if facts.role_conflict:
+        unresolved.append("controller/processor role is stated inconsistently (conflicting role attributions)")
+    elif policy.require_processor_role and role_unresolved_directional:
+        unresolved.append("the clause states controller/processor roles by named party, but they could not be "
+                           "confidently mapped to our configured contract side, or this playbook is configured "
+                           "for a mutual position — cannot determine our role")
+    if facts.subprocessor_conflict:
+        unresolved.append("subprocessor treatment is stated inconsistently across the document")
+    if facts.breach_notification_conflict:
+        unresolved.append("breach/security-incident notification timing is stated inconsistently across the document")
+
+    # Material obligation delegated to an unresolved external DPA/Schedule
+    # AND essentially nothing else in this document independently
+    # establishes the substantive terms — the spec explicitly requires
+    # abstaining here rather than treating the cross-reference as either
+    # satisfying or failing the policy.
+    established_dimension_count = sum(1 for v in (
+        facts.subprocessor_treatment, facts.breach_notification_hours,
+        (facts.transfer_mechanism if facts.transfer_mechanism != "unaddressed_transfer" else None),
+        facts.data_residency_region, facts.deletion_or_return_required, facts.audit_rights,
+        facts.security_standard, facts.cooperation_obligation, facts.confidentiality_of_personal_data,
+    ) if v is not None) + (1 if facts.breach_without_undue_delay else 0)
+    if facts.dpa_cross_reference and established_dimension_count == 0:
+        unresolved.append("material data-protection obligations are delegated to a referenced DPA/Schedule/Exhibit not included in this text")
+
+    if unresolved:
+        explanation = requires_review_explanation("data protection / security clause", facts.raw_excerpt, unresolved)
+        return PolicyDecision(
+            **common, state=REQUIRES_REVIEW,
+            contract_language=facts.raw_excerpt, extracted_summary="Could not be reliably established",
+            policy_limit_summary="N/A", required_action=requires_review_required_action(unresolved),
+            explanation=explanation, negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW),
+            category_treatments=[], unresolved_facts=unresolved,
+            start_index=facts.start_index, end_index=facts.end_index,
+            controlling_provision={"label": f"Section {facts.section_label} — Data Protection" if facts.section_label else "Data Protection", "excerpt": facts.raw_excerpt, "start_index": facts.start_index, "end_index": facts.end_index},
+        )
+
+    notes: List[str] = []
+    worst = ACCEPT
+    category_treatments: List[Dict[str, Any]] = []
+
+    def _note(msg: str, state: str) -> None:
+        nonlocal worst
+        notes.append(msg)
+        worst = _worse(worst, state)
+
+    # --- Role -----------------------------------------------------------
+    if policy.require_processor_role:
+        if our_role is None and facts.role_conflict:
+            pass  # already handled above via unresolved
+        elif our_role is None:
+            _note("policy requires us to be identified as Processor, but no role statement was found in the clause", NEGOTIATE)
+        elif our_role != "processor":
+            _note(f"policy requires us to be identified as Processor, but the clause states our role as {our_role}", MUST_REDLINE)
+
+    # --- Subprocessors ----------------------------------------------------
+    if facts.subprocessor_treatment == "unrestricted" and policy.prohibit_unrestricted_subprocessors:
+        _note("subprocessors may be engaged without notice or consent, prohibited by policy", MUST_REDLINE)
+    required_sp = policy.require_subprocessor_notice_or_consent
+    if required_sp and required_sp != "not_required":
+        rank = {"notice": 1, "consent": 2}
+        found_rank = rank.get(facts.subprocessor_treatment or "", 0)
+        if facts.subprocessor_treatment == "prohibited":
+            pass  # stricter than any requirement — satisfies policy
+        elif found_rank < rank.get(required_sp, 0):
+            _note(f"policy requires subprocessor {required_sp}, but the clause provides for "
+                  f"{facts.subprocessor_treatment or 'no stated subprocessor safeguard'}", NEGOTIATE)
+    category_treatments.append({"category": "subprocessors", "treatment": facts.subprocessor_treatment or "not_addressed", "cap_summary": None, "raw_excerpt": "", "established": facts.subprocessor_treatment is not None})
+
+    # --- Breach notification ----------------------------------------------
+    if facts.breach_notification_hours is not None:
+        state = classify_by_threshold(
+            float(facts.breach_notification_hours),
+            policy.preferred_breach_notification_hours,
+            policy.acceptable_max_breach_notification_hours,
+            policy.negotiate_max_breach_notification_hours,
+        )
+        if state != ACCEPT:
+            _note(f"breach notification is {facts.breach_notification_hours} hours, exceeding policy's preferred threshold", state)
+    elif facts.breach_without_undue_delay:
+        if policy.require_fixed_breach_notification_period:
+            _note("breach notification is stated only as \"without undue delay\" with no fixed maximum, but policy requires a fixed period", NEGOTIATE)
+    elif policy.preferred_breach_notification_hours is not None or policy.require_fixed_breach_notification_period:
+        _note("no breach/security-incident notification timing is stated in the clause, but policy requires one", NEGOTIATE)
+    category_treatments.append({"category": "breach_notification", "treatment": (f"{facts.breach_notification_hours}h" if facts.breach_notification_hours is not None else ("without_undue_delay" if facts.breach_without_undue_delay else "not_addressed")), "cap_summary": None, "raw_excerpt": "", "established": facts.breach_notification_hours is not None or facts.breach_without_undue_delay})
+
+    # --- International transfer -------------------------------------------
+    if policy.require_international_transfer_safeguard:
+        if facts.transfer_mechanism == "prohibited":
+            pass  # no transfer at all trivially satisfies "safeguard required"
+        elif facts.transfer_mechanism in ("scc", "adequacy"):
+            pass
+        elif facts.transfer_mechanism == "unaddressed_transfer":
+            _note("international transfers are contemplated but no SCC/adequacy safeguard is stated, required by policy", MUST_REDLINE)
+        # transfer_mechanism is None (topic never addressed at all) — silence
+        # is not itself evidence transfers occur; not held against the clause.
+
+    # --- Data residency -----------------------------------------------------
+    if policy.require_data_residency:
+        allowed = set(r.lower() for r in (policy.required_data_residency_regions_json or []))
+        if facts.data_residency_region is None:
+            _note("policy requires a stated data-residency commitment, but none was found in the clause", NEGOTIATE)
+        elif allowed and facts.data_residency_region.lower() not in allowed:
+            _note(f"clause commits to data residency in {facts.data_residency_region}, not within policy's approved region(s)", NEGOTIATE)
+
+    # --- Deletion / return / retention ---------------------------------------
+    if policy.require_deletion_or_return:
+        if facts.deletion_or_return_required is False or (facts.retention_indefinite and facts.deletion_or_return_required is not True):
+            _note("clause allows indefinite retention with no deletion/return commitment, required by policy", MUST_REDLINE)
+        elif facts.deletion_or_return_required is None:
+            _note("policy requires deletion or return of personal data on termination, but no such commitment was found", NEGOTIATE)
+    if policy.max_retention_days is not None and facts.retention_days is not None:
+        if facts.retention_days > policy.max_retention_days:
+            _note(f"clause permits retention of {facts.retention_days} days, exceeding policy's maximum of {int(policy.max_retention_days)} days", NEGOTIATE)
+
+    # --- Audit rights -----------------------------------------------------
+    if policy.require_audit_rights:
+        if facts.audit_rights is False:
+            _note("audit rights are expressly excluded, required by policy", MUST_REDLINE)
+        elif facts.audit_rights is None:
+            _note("policy requires audit rights, but none are stated in the clause", NEGOTIATE)
+
+    # --- Security standard --------------------------------------------------
+    if policy.require_named_security_certification:
+        if facts.security_standard == "vague":
+            _note("security commitment is stated only as vague \"industry standard\"/\"commercially reasonable\" language, but policy requires a named certification (e.g. ISO 27001, SOC 2)", NEGOTIATE)
+        elif facts.security_standard is None:
+            _note("policy requires a named security certification, but no security-standard commitment was found", NEGOTIATE)
+    category_treatments.append({"category": "security_standard", "treatment": facts.security_standard or "not_addressed", "cap_summary": None, "raw_excerpt": "", "established": facts.security_standard is not None})
+
+    # --- Cooperation --------------------------------------------------------
+    if policy.require_cooperation_obligation and not facts.cooperation_obligation:
+        _note("policy requires cooperation with data-subject requests and regulatory inquiries, but no such commitment was found", NEGOTIATE)
+
+    # --- Confidentiality of personal data ------------------------------------
+    if policy.require_confidentiality_of_personal_data and not facts.confidentiality_of_personal_data:
+        _note("policy requires an explicit confidentiality commitment for personal data, but none was found", NEGOTIATE)
+
+    extracted_summary_parts = []
+    if our_role:
+        extracted_summary_parts.append(f"Role: {our_role}")
+    if facts.subprocessor_treatment:
+        extracted_summary_parts.append(f"Subprocessors: {facts.subprocessor_treatment}")
+    if facts.breach_notification_hours is not None:
+        extracted_summary_parts.append(f"Breach notice: {facts.breach_notification_hours}h")
+    elif facts.breach_without_undue_delay:
+        extracted_summary_parts.append("Breach notice: without undue delay")
+    extracted_summary = "; ".join(extracted_summary_parts) or "Data protection clause found; limited structured detail extractable"
+
+    if worst == ACCEPT and not notes:
+        required_action = "None — data protection terms meet policy"
+        explanation = f"Contract language: \"{facts.raw_excerpt}\". No policy gaps found. Result: {ACCEPT}."
+    else:
+        if worst in (ESCALATE, PROHIBITED):
+            required_action = f"Escalate to {policy.escalation_approval_authority or 'Legal Director'} — " + "; ".join(notes)
+        elif worst == MUST_REDLINE:
+            required_action = "Replace clause — apply the approved fallback data-protection language: " + "; ".join(notes)
+        else:
+            required_action = "Negotiate — " + "; ".join(notes)
+        explanation = f"Contract language: \"{facts.raw_excerpt}\". {'; '.join(notes)}. Result: {worst}."
+
+    if facts.liability_cross_reference:
+        category_treatments.append({"category": "liability_cross_reference", "treatment": "referenced", "cap_summary": None, "raw_excerpt": "", "established": True})
+
+    return PolicyDecision(
+        **common, state=worst,
+        contract_language=facts.raw_excerpt, extracted_summary=extracted_summary,
+        policy_limit_summary=(f"Preferred breach notice ≤{int(policy.preferred_breach_notification_hours)}h" if policy.preferred_breach_notification_hours else "See configured policy"),
+        required_action=required_action, explanation=explanation,
+        negotiation_ladder=_build_ladder(policy, worst),
+        category_treatments=category_treatments, unresolved_facts=[],
+        start_index=facts.start_index, end_index=facts.end_index,
+        escalate_to=escalate_to_for_state(worst, policy.escalation_approval_authority),
+        fallback_text=fallback_text_for_state(worst, policy.fallback_text, (NEGOTIATE, MUST_REDLINE, PROHIBITED)),
+        controlling_provision={"label": f"Section {facts.section_label} — Data Protection" if facts.section_label else "Data Protection", "excerpt": facts.raw_excerpt, "start_index": facts.start_index, "end_index": facts.end_index},
+    )

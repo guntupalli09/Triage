@@ -198,6 +198,17 @@ class TestActivationRequiredFieldsAreExactlyTheRequireGates:
             "confidentiality": ["require_mutual_confidentiality"],
             "assignment": ["require_consent_for_counterparty_assignment"],
             "governing_law": ["require_jury_trial_waiver"],
+            "data_security": [
+                "require_processor_role",
+                "require_fixed_breach_notification_period",
+                "require_international_transfer_safeguard",
+                "require_data_residency",
+                "require_deletion_or_return",
+                "require_audit_rights",
+                "require_named_security_certification",
+                "require_cooperation_obligation",
+                "require_confidentiality_of_personal_data",
+            ],
         }
 
     def test_prohibit_fields_are_never_activation_required(self):
