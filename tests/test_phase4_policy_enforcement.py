@@ -156,6 +156,20 @@ _MINIMAL_CONFIG = {
         "required_currency": None,
         "require_refund_entitlement": False,
     },
+    "warranties": {
+        "required_warranty_categories_json": [], "prohibited_warranty_categories_json": [],
+        "require_mutual_warranties": False,
+        "minimum_warranty_duration_days": None,
+        "prohibit_as_is_disclaimer": False,
+        "prohibit_exclusive_remedy": False,
+        "required_remedy_type": None,
+        "require_non_infringement_warranty": False,
+        "require_compliance_with_law_warranty": False,
+        "require_professional_standard": False,
+        "require_malware_free_warranty": False,
+        "require_title_warranty": False,
+        "require_warranty_survival": False,
+    },
 }
 
 

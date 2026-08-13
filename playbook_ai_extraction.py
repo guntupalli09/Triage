@@ -58,6 +58,7 @@ import playbook_authoring as pa
 import playbook_extraction as pex
 import prompt_security
 import termination_policy_engine as tpe
+import warranties_policy_engine as we
 from models import Playbook, PlaybookSourceDocument, PolicyPosition
 
 logger = logging.getLogger(__name__)
@@ -111,6 +112,7 @@ _ANCHOR_RES: Dict[str, "re.Pattern"] = {
     "ip_ownership": ipoe._ANCHOR_RE,
     "insurance": ine._ANCHOR_RE,
     "payment_terms": pte._ANCHOR_RE,
+    "warranties": we._ANCHOR_RE,
 }
 
 # How far around a cluster of anchor hits to pull in as context, and how

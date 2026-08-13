@@ -42,16 +42,26 @@ RULE_ID = "POLICY_GOVERNING_LAW"
 
 _ANCHOR_RE = re.compile(r"govern(?:ed|ing)\s+by|governing\s+law", re.I)
 
+# No blanket re.I over the captured jurisdiction/venue name: [A-Z] must
+# stay case-SENSITIVE, or Python's re.IGNORECASE would let a lowercase
+# word be captured too, silently defeating the "must look like a
+# capitalized proper-noun jurisdiction name" heuristic this pattern
+# relies on -- the same re.I-over-[A-Z] hazard already fixed in
+# liability_policy_engine.py's _ROLE_POSITION_RE, indemnification's
+# _OBLIGATION_RE, and every other adapter's party-name capture. This
+# file's capture group had never received the (?-i:...) reset, so
+# "governed by the laws of the state of new york" (all lowercase)
+# previously captured "new york" as a confidently-extracted jurisdiction.
 _JURISDICTION_RE = re.compile(
     r"governed\s+by(?:,?\s+and\s+construed\s+in\s+accordance\s+with,)?\s+the\s+laws?\s+of\s+"
-    r"(?:the\s+State\s+of\s+|the\s+Commonwealth\s+of\s+)?([A-Z][A-Za-z\s]{2,30}?)(?:,|\.|;|\s+without)",
+    r"(?:the\s+State\s+of\s+|the\s+Commonwealth\s+of\s+)?(?-i:([A-Z][A-Za-z\s]{2,30}?))(?:,|\.|;|\s+without)",
     re.I,
 )
 _VENUE_RE = re.compile(
     r"(?:(?:exclusive\s+)?venue\s+(?:shall\s+be\s+|for\s+any\s+(?:dispute|action|proceeding)\s+shall\s+be\s+)?(?:in\s+)?"
     r"|(?:the\s+parties\s+)?(?:submit|consent)\s+to\s+the\s+(?:exclusive\s+)?jurisdiction\s+of\s+)"
     r"(?:the\s+)?(?:state\s+and\s+federal\s+)?courts?\s+(?:located\s+)?in\s+"
-    r"([A-Z][A-Za-z\s]{2,30}?)(?:,|\.|;)",
+    r"(?-i:([A-Z][A-Za-z\s]{2,30}?))(?:,|\.|;)",
     re.I,
 )
 _ARBITRATION_RE = re.compile(r"binding\s+arbitration|shall\s+be\s+(?:resolved|settled)\s+by\s+arbitration", re.I)

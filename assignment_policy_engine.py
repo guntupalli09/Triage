@@ -251,11 +251,26 @@ def _resolve_restrictions_for_side(
             )
         return None, None, reasons
 
+    def _consent_key(r: AssignmentRestriction):
+        return (r.consent_standard, frozenset(t for t, present in r.exceptions_present.items() if present))
+
     for r in named:
         if r.restricted_side == contract_side:
-            our_restriction = r
+            if our_restriction is not None and _consent_key(our_restriction) != _consent_key(r):
+                reasons.append(
+                    "multiple assignment restrictions found on our side, with different consent "
+                    "standards or exceptions — cannot determine which governs"
+                )
+            elif our_restriction is None:
+                our_restriction = r
         elif r.restricted_side is not None and r.restricted_side != contract_side:
-            their_restriction = r
+            if their_restriction is not None and _consent_key(their_restriction) != _consent_key(r):
+                reasons.append(
+                    "multiple assignment restrictions found on the counterparty's side, with "
+                    "different consent standards or exceptions — cannot determine which governs"
+                )
+            elif their_restriction is None:
+                their_restriction = r
         else:
             reasons.append(
                 f"an assignment restriction on \"{r.restricted_role}\" could not be mapped to our "

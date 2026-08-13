@@ -39,6 +39,7 @@ import liability_policy_engine as lpe
 import payment_terms_policy_engine as pte
 import playbook_authoring as pa
 import termination_policy_engine as tpe
+import warranties_policy_engine as we
 from models import Playbook, PlaybookSourceDocument, PolicyPosition, PolicyPositionField
 
 # Bumped whenever a proposal function's logic changes in a way that could
@@ -665,6 +666,68 @@ def _propose_payment_terms_fields(facts: "pte.PaymentFacts", contract_side: str)
     return out
 
 
+def _propose_warranties_fields(facts: "we.WarrantiesFacts", contract_side: str) -> Dict[str, ProposedField]:
+    out: Dict[str, ProposedField] = {name: _not_established("clause not found or dimension not addressed")
+                                      for name in pa.CLAUSE_TYPE_CONFIG_FIELDS["warranties"]}
+    if not facts.clause_found:
+        return out
+
+    if facts.mutual_opener_present and facts.mutual_asymmetry_reasons:
+        for name in out:
+            if out[name].status == "NOT_ESTABLISHED":
+                out[name].reason = "; ".join(facts.mutual_asymmetry_reasons)
+
+    if facts.mutual_opener_present and not facts.mutual_asymmetry_reasons:
+        out["require_mutual_warranties"] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    # Reused verbatim from warranties_policy_engine -- the same
+    # already-tested per-category side resolution evaluate_warranties_policy()
+    # itself uses, so Phase 2's read can never silently disagree with what
+    # the engine would resolve at review time.
+    their_categories = []
+    for cat_name in we.WARRANTY_CATEGORIES:
+        cat = facts.categories[cat_name]
+        if cat.conflict or not cat.established:
+            continue
+        side, unresolved = we._resolve_warranting_side(cat, contract_side)
+        if unresolved:
+            continue
+        if side == "mutual" or (side is not None and side != contract_side):
+            their_categories.append(cat_name)
+    if their_categories:
+        out["required_warranty_categories_json"] = _established(their_categories, facts.raw_excerpt, facts.start_index, facts.end_index)
+        if "non_infringement" in their_categories:
+            out["require_non_infringement_warranty"] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+        if "compliance_with_law" in their_categories:
+            out["require_compliance_with_law_warranty"] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+        if "professional_workmanlike" in their_categories:
+            out["require_professional_standard"] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+        if "malware_free" in their_categories:
+            out["require_malware_free_warranty"] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+        if "title" in their_categories:
+            out["require_title_warranty"] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.duration_conflict:
+        out["minimum_warranty_duration_days"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "conflicting or ambiguous warranty duration statements")
+    elif facts.duration_days is not None:
+        out["minimum_warranty_duration_days"] = _established(facts.duration_days, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.as_is_disclaimer_present is not None:
+        out["prohibit_as_is_disclaimer"] = _established(False, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.exclusive_remedy_present is not None:
+        out["prohibit_exclusive_remedy"] = _established(False, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.repair_replace_reperform_present:
+        out["required_remedy_type"] = _established("repair_replace_reperform", facts.raw_excerpt, facts.start_index, facts.end_index)
+    elif facts.refund_credit_remedy_present:
+        out["required_remedy_type"] = _established("refund_credit", facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.warranty_survival_present is not None:
+        out["require_warranty_survival"] = _established(facts.warranty_survival_present, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    return out
+
+
 _PROPOSAL_FUNCS = {
     "limitation_of_liability": _propose_liability_fields,
     "indemnification": _propose_indemnification_fields,
@@ -676,6 +739,7 @@ _PROPOSAL_FUNCS = {
     "ip_ownership": _propose_ip_ownership_fields,
     "insurance": _propose_insurance_fields,
     "payment_terms": _propose_payment_terms_fields,
+    "warranties": _propose_warranties_fields,
 }
 
 

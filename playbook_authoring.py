@@ -47,6 +47,7 @@ import ip_ownership_policy_engine
 import liability_policy_engine
 import payment_terms_policy_engine
 import termination_policy_engine
+import warranties_policy_engine
 from models import Playbook, PolicyPosition, PolicyPositionApproval, PolicyPositionField, PolicyRule
 
 # Fields every engine's *PolicyRuleLike Protocol has in common — real
@@ -67,6 +68,7 @@ _ENGINE_PROTOCOLS: Dict[str, type] = {
     "ip_ownership": ip_ownership_policy_engine.IPPolicyRuleLike,
     "insurance": insurance_policy_engine.InsurancePolicyRuleLike,
     "payment_terms": payment_terms_policy_engine.PaymentPolicyRuleLike,
+    "warranties": warranties_policy_engine.WarrantiesPolicyRuleLike,
 }
 
 CLAUSE_TYPES = tuple(_ENGINE_PROTOCOLS)
@@ -154,6 +156,14 @@ _BOUNDED_VOCABULARIES: Dict[str, Dict[str, tuple]] = {
         # values payment_terms_policy_engine's extraction/evaluate logic
         # ever compares payment_trigger / required_payment_trigger against.
         "required_payment_trigger": ("invoice", "receipt", "acceptance", "milestone"),
+    },
+    "warranties": {
+        "required_warranty_categories_json": tuple(warranties_policy_engine.WARRANTY_CATEGORIES),
+        "prohibited_warranty_categories_json": tuple(warranties_policy_engine.WARRANTY_CATEGORIES),
+        # Not a Protocol-declared enum -- inferred from the two literal
+        # values warranties_policy_engine's evaluate logic ever compares
+        # required_remedy_type against.
+        "required_remedy_type": ("repair_replace_reperform", "refund_credit"),
     },
 }
 
@@ -355,6 +365,11 @@ def build_payment_terms_policy_rule(position: PolicyPosition) -> SimpleNamespace
     return _build_policy_rule(position, "payment_terms")
 
 
+def build_warranties_policy_rule(position: PolicyPosition) -> SimpleNamespace:
+    """Matches warranties_policy_engine.WarrantiesPolicyRuleLike."""
+    return _build_policy_rule(position, "warranties")
+
+
 BUILDERS = {
     "limitation_of_liability": build_liability_policy_rule,
     "indemnification": build_indemnification_policy_rule,
@@ -366,6 +381,7 @@ BUILDERS = {
     "ip_ownership": build_ip_ownership_policy_rule,
     "insurance": build_insurance_policy_rule,
     "payment_terms": build_payment_terms_policy_rule,
+    "warranties": build_warranties_policy_rule,
 }
 
 
@@ -616,6 +632,7 @@ _ENGINE_FUNCS: Dict[str, Tuple[Any, Any]] = {
     "ip_ownership": (ip_ownership_policy_engine.extract_ip_facts, ip_ownership_policy_engine.evaluate_ip_policy),
     "insurance": (insurance_policy_engine.extract_insurance_facts, insurance_policy_engine.evaluate_insurance_policy),
     "payment_terms": (payment_terms_policy_engine.extract_payment_facts, payment_terms_policy_engine.evaluate_payment_policy),
+    "warranties": (warranties_policy_engine.extract_warranties_facts, warranties_policy_engine.evaluate_warranties_policy),
 }
 
 CLAUSE_TYPE_LABELS: Dict[str, str] = {
@@ -629,6 +646,7 @@ CLAUSE_TYPE_LABELS: Dict[str, str] = {
     "ip_ownership": "IP Ownership & Licensing",
     "insurance": "Insurance",
     "payment_terms": "Payment Terms",
+    "warranties": "Warranties",
 }
 
 
@@ -1087,9 +1105,22 @@ class CoverageSummary:
 # far, ranked ahead of indemnification/data_security/ip_ownership/
 # insurance (whose exposure is contingent on a claim, breach, dispute,
 # or loss event actually happening).
+#
+# warranties was added as adapter #11 (the first added after the
+# ten-adapter scalability review) and ranked after insurance but ahead
+# of confidentiality/termination: a warranty gap (missing non-
+# infringement, compliance-with-law, or malware-free warranties; an
+# unrestricted "AS IS" disclaimer; an unfavorable exclusive-remedy
+# limitation) is a direct, concrete product-quality/compliance/IP
+# exposure comparable in kind to insurance's balance-sheet risk — but
+# typically bounded by the remedy language itself (repair/replace/
+# reperform, refund/credit) once a breach occurs, unlike liability/
+# indemnification/data_security/ip_ownership's open-ended exposure, and
+# not itself a recurring cash-flow risk the way payment_terms is.
 CLAUSE_TYPE_IMPORTANCE: Tuple[str, ...] = (
     "payment_terms", "limitation_of_liability", "indemnification", "data_security",
-    "ip_ownership", "insurance", "confidentiality", "termination", "assignment", "governing_law",
+    "ip_ownership", "insurance", "warranties", "confidentiality", "termination", "assignment",
+    "governing_law",
 )
 
 
@@ -1341,6 +1372,11 @@ _PAYMENT_TRIGGER_LABELS = {
     "acceptance": "Acceptance of deliverables", "milestone": "Milestone completion",
 }
 
+_WARRANTY_REMEDY_LABELS = {
+    None: "Not yet decided", "repair_replace_reperform": "Repair, replace, or reperform",
+    "refund_credit": "Refund or credit",
+}
+
 
 def _summarize_payment_terms(cfg: Dict[str, Any], field_statuses: Dict[str, str]) -> List[str]:
     trigger_value = cfg.get("required_payment_trigger")
@@ -1366,6 +1402,27 @@ def _summarize_payment_terms(cfg: Dict[str, Any], field_statuses: Dict[str, str]
     ]
 
 
+def _summarize_warranties(cfg: Dict[str, Any], field_statuses: Dict[str, str]) -> List[str]:
+    remedy_value = cfg.get("required_remedy_type")
+    remedy_status = field_statuses.get("required_remedy_type", "NOT_ESTABLISHED")
+    remedy_label = "Not yet decided" if remedy_status != "ESTABLISHED" else _WARRANTY_REMEDY_LABELS.get(remedy_value, remedy_value)
+    return [
+        f"Required warranty categories (from counterparty) → {_fmt_list(cfg.get('required_warranty_categories_json'))}",
+        f"Prohibited warranty categories (we must never give) → {_fmt_list(cfg.get('prohibited_warranty_categories_json'))}",
+        f"Mutual warranties required → {_fmt_bool(cfg.get('require_mutual_warranties'), 'Required', 'Not required')}",
+        f"Minimum warranty duration → {_fmt_days(cfg.get('minimum_warranty_duration_days'))}",
+        f"\"AS IS\" disclaimer → {_fmt_bool(cfg.get('prohibit_as_is_disclaimer'), 'Prohibited', 'Allowed')}",
+        f"Exclusive remedy language → {_fmt_bool(cfg.get('prohibit_exclusive_remedy'), 'Prohibited', 'Allowed')}",
+        f"Required remedy type → {remedy_label}",
+        f"Non-infringement warranty required → {_fmt_bool(cfg.get('require_non_infringement_warranty'), 'Required', 'Not required')}",
+        f"Compliance-with-law warranty required → {_fmt_bool(cfg.get('require_compliance_with_law_warranty'), 'Required', 'Not required')}",
+        f"Professional/workmanlike standard required → {_fmt_bool(cfg.get('require_professional_standard'), 'Required', 'Not required')}",
+        f"Malware/malicious-code-free warranty required → {_fmt_bool(cfg.get('require_malware_free_warranty'), 'Required', 'Not required')}",
+        f"Title warranty required → {_fmt_bool(cfg.get('require_title_warranty'), 'Required', 'Not required')}",
+        f"Warranty survival required → {_fmt_bool(cfg.get('require_warranty_survival'), 'Required', 'Not required')}",
+    ]
+
+
 _SUMMARIZERS = {
     "limitation_of_liability": lambda cfg, statuses: _summarize_liability(cfg),
     "indemnification": lambda cfg, statuses: _summarize_indemnification(cfg),
@@ -1377,6 +1434,7 @@ _SUMMARIZERS = {
     "ip_ownership": lambda cfg, statuses: _summarize_ip_ownership(cfg),
     "insurance": lambda cfg, statuses: _summarize_insurance(cfg),
     "payment_terms": lambda cfg, statuses: _summarize_payment_terms(cfg, statuses),
+    "warranties": lambda cfg, statuses: _summarize_warranties(cfg, statuses),
 }
 
 
@@ -1498,6 +1556,21 @@ FIELD_LABELS: Dict[str, Dict[str, str]] = {
         "require_tax_responsibility_counterparty": "Counterparty (not us) must bear tax responsibility",
         "required_currency": "Required payment currency",
         "require_refund_entitlement": "Require a refund entitlement",
+    },
+    "warranties": {
+        "required_warranty_categories_json": "Required warranty categories (from counterparty)",
+        "prohibited_warranty_categories_json": "Prohibited warranty categories (we must never give)",
+        "require_mutual_warranties": "Require mutual warranties",
+        "minimum_warranty_duration_days": "Minimum warranty duration",
+        "prohibit_as_is_disclaimer": "Never accept an \"AS IS\" disclaimer",
+        "prohibit_exclusive_remedy": "Never accept exclusive-remedy language",
+        "required_remedy_type": "Required remedy type",
+        "require_non_infringement_warranty": "Require a non-infringement warranty",
+        "require_compliance_with_law_warranty": "Require a compliance-with-law warranty",
+        "require_professional_standard": "Require a professional/workmanlike standard warranty",
+        "require_malware_free_warranty": "Require a malware/malicious-code-free warranty",
+        "require_title_warranty": "Require a title warranty",
+        "require_warranty_survival": "Require the warranty to survive termination",
     },
     "insurance": {
         "require_cgl": "Commercial General Liability required",

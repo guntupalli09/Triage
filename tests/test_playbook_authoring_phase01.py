@@ -251,6 +251,15 @@ class TestActivationRequiredFieldsAreExactlyTheRequireGates:
                 "require_tax_responsibility_counterparty",
                 "require_refund_entitlement",
             ],
+            "warranties": [
+                "require_mutual_warranties",
+                "require_non_infringement_warranty",
+                "require_compliance_with_law_warranty",
+                "require_professional_standard",
+                "require_malware_free_warranty",
+                "require_title_warranty",
+                "require_warranty_survival",
+            ],
         }
 
     def test_prohibit_fields_are_never_activation_required(self):

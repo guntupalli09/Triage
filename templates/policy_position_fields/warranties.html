@@ -1,0 +1,65 @@
+{% extends "playbook_position_edit_base.html" %}
+{% from "_playbook_macros.html" import tristate, number_input, checklist %}
+
+{% block clause_fields %}
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Warranty categories</h3>
+{{ checklist('required_warranty_categories_json', cfg.get('required_warranty_categories_json'), vocab.required_warranty_categories_json,
+    field_labels.required_warranty_categories_json,
+    'Categories the counterparty must warrant to us.') }}
+{{ checklist('prohibited_warranty_categories_json', cfg.get('prohibited_warranty_categories_json'), vocab.prohibited_warranty_categories_json,
+    field_labels.prohibited_warranty_categories_json,
+    'Categories we must never be the one warranting.') }}
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Mutuality &amp; duration</h3>
+{{ tristate('require_mutual_warranties', cfg.get('require_mutual_warranties'), field_statuses.get('require_mutual_warranties', 'NOT_ESTABLISHED'),
+    field_labels.require_mutual_warranties,
+    'If required, a clause with only unilateral warranties, or an asymmetric mutual opener, gets flagged.') }}
+{{ number_input('minimum_warranty_duration_days', cfg.get('minimum_warranty_duration_days'), field_statuses.get('minimum_warranty_duration_days', 'NOT_ESTABLISHED'), field_labels.minimum_warranty_duration_days, suffix='days') }}
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Disclaimer &amp; remedy</h3>
+{{ tristate('prohibit_as_is_disclaimer', cfg.get('prohibit_as_is_disclaimer'), field_statuses.get('prohibit_as_is_disclaimer', 'NOT_ESTABLISHED'),
+    field_labels.prohibit_as_is_disclaimer) }}
+{{ tristate('prohibit_exclusive_remedy', cfg.get('prohibit_exclusive_remedy'), field_statuses.get('prohibit_exclusive_remedy', 'NOT_ESTABLISHED'),
+    field_labels.prohibit_exclusive_remedy) }}
+
+<div class="mb-4">
+    <p class="text-sm font-semibold text-[#0F172A] mb-1">{{ field_labels.required_remedy_type }}</p>
+    <div class="flex flex-col gap-1.5">
+        <label class="flex items-center gap-1.5 text-sm text-gray-500 cursor-pointer">
+            <input type="radio" name="required_remedy_type" value=""
+                {% if field_statuses.get('required_remedy_type', 'NOT_ESTABLISHED') != 'ESTABLISHED' %}checked{% endif %} class="border-gray-300">
+            Not decided yet
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="required_remedy_type" value="repair_replace_reperform"
+                {% if field_statuses.get('required_remedy_type') == 'ESTABLISHED' and cfg.get('required_remedy_type') == 'repair_replace_reperform' %}checked{% endif %} class="border-gray-300">
+            Repair, replace, or reperform
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="required_remedy_type" value="refund_credit"
+                {% if field_statuses.get('required_remedy_type') == 'ESTABLISHED' and cfg.get('required_remedy_type') == 'refund_credit' %}checked{% endif %} class="border-gray-300">
+            Refund or credit
+        </label>
+    </div>
+</div>
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Specific warranties</h3>
+{{ tristate('require_non_infringement_warranty', cfg.get('require_non_infringement_warranty'), field_statuses.get('require_non_infringement_warranty', 'NOT_ESTABLISHED'),
+    field_labels.require_non_infringement_warranty) }}
+{{ tristate('require_compliance_with_law_warranty', cfg.get('require_compliance_with_law_warranty'), field_statuses.get('require_compliance_with_law_warranty', 'NOT_ESTABLISHED'),
+    field_labels.require_compliance_with_law_warranty) }}
+{{ tristate('require_professional_standard', cfg.get('require_professional_standard'), field_statuses.get('require_professional_standard', 'NOT_ESTABLISHED'),
+    field_labels.require_professional_standard) }}
+{{ tristate('require_malware_free_warranty', cfg.get('require_malware_free_warranty'), field_statuses.get('require_malware_free_warranty', 'NOT_ESTABLISHED'),
+    field_labels.require_malware_free_warranty) }}
+{{ tristate('require_title_warranty', cfg.get('require_title_warranty'), field_statuses.get('require_title_warranty', 'NOT_ESTABLISHED'),
+    field_labels.require_title_warranty) }}
+{{ tristate('require_warranty_survival', cfg.get('require_warranty_survival'), field_statuses.get('require_warranty_survival', 'NOT_ESTABLISHED'),
+    field_labels.require_warranty_survival) }}
+</div>
+{% endblock %}

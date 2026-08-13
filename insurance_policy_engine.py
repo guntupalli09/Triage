@@ -236,16 +236,27 @@ def _attribute_obligated_party(cov: CoverageRequirement, name: str) -> None:
         cov.obligated_party_conflict = True
 
 
+_SENTENCE_END_RE = re.compile(r"(?<!\d)\.(?!\d)|;")
+
+
 def _local_window(text: str, start: int, other_anchor_positions: List[int], max_radius: int = 400) -> str:
     """Scopes a coverage-type mention to just its own sub-item, so a
     document listing several coverage types with different limits in one
     clause never bleeds one coverage type's dollar figures into
-    another's."""
+    another's.
+
+    Sentence boundary is a period NOT immediately between two digits (so
+    a decimal dollar figure like "$2.5 million" is never mistaken for a
+    sentence end and used to prematurely truncate the window before the
+    "million" multiplier or a later aggregate/per-occurrence qualifier is
+    reached) or a semicolon — same fix already proven in
+    payment_terms_policy_engine._local_window, reused verbatim here after
+    the naive text.find(".") version was found to truncate exactly this
+    way."""
     end = min(len(text), start + max_radius)
-    for stop_char in (".", ";"):
-        idx = text.find(stop_char, start, end)
-        if idx != -1:
-            end = min(end, idx + 1)
+    m = _SENTENCE_END_RE.search(text, start, end)
+    if m:
+        end = min(end, m.end())
     for pos in other_anchor_positions:
         if pos > start:
             end = min(end, pos)

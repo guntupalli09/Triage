@@ -183,7 +183,7 @@ class TestWorkbenchAndCoverage:
         pb_id = _create_playbook(client, token)
         _drive_to_active(client, token, pb_id, "limitation_of_liability")
         r = client.get(f"/playbooks/{pb_id}/workbench")
-        assert "10.0%" in r.text  # 1 of 10 clause types active
+        assert "9.1%" in r.text  # 1 of 11 clause types active
 
 
 # ---------------------------------------------------------------------------
