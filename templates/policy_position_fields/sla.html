@@ -1,0 +1,84 @@
+{% extends "playbook_position_edit_base.html" %}
+{% from "_playbook_macros.html" import tristate, number_input, checklist %}
+
+{% block clause_fields %}
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Availability</h3>
+{{ tristate('require_uptime_commitment', cfg.get('require_uptime_commitment'), field_statuses.get('require_uptime_commitment', 'NOT_ESTABLISHED'),
+    field_labels.require_uptime_commitment,
+    'If required, a clause that never states an uptime/availability commitment gets flagged.') }}
+{{ number_input('preferred_uptime_percent', cfg.get('preferred_uptime_percent'), field_statuses.get('preferred_uptime_percent', 'NOT_ESTABLISHED'), field_labels.preferred_uptime_percent, suffix='%', step='0.01') }}
+{{ number_input('minimum_acceptable_uptime_percent', cfg.get('minimum_acceptable_uptime_percent'), field_statuses.get('minimum_acceptable_uptime_percent', 'NOT_ESTABLISHED'), field_labels.minimum_acceptable_uptime_percent, suffix='%', step='0.01') }}
+{{ checklist('permitted_maintenance_exclusions_json', cfg.get('permitted_maintenance_exclusions_json'), vocab.permitted_maintenance_exclusions_json,
+    field_labels.permitted_maintenance_exclusions_json,
+    'Exclusions the contract is allowed to carve out of the availability commitment. An exclusion not on this list gets flagged.') }}
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Severity-tiered response &amp; restoration</h3>
+{{ tristate('require_severity_tiers', cfg.get('require_severity_tiers'), field_statuses.get('require_severity_tiers', 'NOT_ESTABLISHED'),
+    field_labels.require_severity_tiers,
+    'If required, a clause with no severity-tiered response/restoration table gets flagged. Ceilings below are never converted between calendar and business hours — set the basis to match how the contract is expected to state each tier, or leave both blank if not yet decided.') }}
+
+{% for n in [1, 2, 3, 4] %}
+<div class="mb-4 pl-3 border-l-2 border-gray-100">
+    <p class="text-xs font-semibold text-gray-500 mb-2">P{{ n }}</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+            {{ number_input('p' ~ n ~ '_max_response_hours', cfg.get('p' ~ n ~ '_max_response_hours'), field_statuses.get('p' ~ n ~ '_max_response_hours', 'NOT_ESTABLISHED'), field_labels['p' ~ n ~ '_max_response_hours'], suffix='hours', step='0.1') }}
+            <label class="block text-xs text-gray-500 mb-1 -mt-3">{{ field_labels['p' ~ n ~ '_response_basis'] }}</label>
+            <select name="p{{ n }}_response_basis" class="w-full sm:w-48 px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                <option value="" {% if field_statuses.get('p' ~ n ~ '_response_basis', 'NOT_ESTABLISHED') != 'ESTABLISHED' %}selected{% endif %}>Not yet decided</option>
+                <option value="calendar" {% if field_statuses.get('p' ~ n ~ '_response_basis') == 'ESTABLISHED' and cfg.get('p' ~ n ~ '_response_basis') == 'calendar' %}selected{% endif %}>Calendar</option>
+                <option value="business" {% if field_statuses.get('p' ~ n ~ '_response_basis') == 'ESTABLISHED' and cfg.get('p' ~ n ~ '_response_basis') == 'business' %}selected{% endif %}>Business</option>
+            </select>
+        </div>
+        <div>
+            {{ number_input('p' ~ n ~ '_max_restoration_hours', cfg.get('p' ~ n ~ '_max_restoration_hours'), field_statuses.get('p' ~ n ~ '_max_restoration_hours', 'NOT_ESTABLISHED'), field_labels['p' ~ n ~ '_max_restoration_hours'], suffix='hours', step='0.1') }}
+            <label class="block text-xs text-gray-500 mb-1 -mt-3">{{ field_labels['p' ~ n ~ '_restoration_basis'] }}</label>
+            <select name="p{{ n }}_restoration_basis" class="w-full sm:w-48 px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                <option value="" {% if field_statuses.get('p' ~ n ~ '_restoration_basis', 'NOT_ESTABLISHED') != 'ESTABLISHED' %}selected{% endif %}>Not yet decided</option>
+                <option value="calendar" {% if field_statuses.get('p' ~ n ~ '_restoration_basis') == 'ESTABLISHED' and cfg.get('p' ~ n ~ '_restoration_basis') == 'calendar' %}selected{% endif %}>Calendar</option>
+                <option value="business" {% if field_statuses.get('p' ~ n ~ '_restoration_basis') == 'ESTABLISHED' and cfg.get('p' ~ n ~ '_restoration_basis') == 'business' %}selected{% endif %}>Business</option>
+            </select>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<div class="mb-4">
+    <p class="text-sm font-semibold text-[#0F172A] mb-1">{{ field_labels.required_support_hours }}</p>
+    <div class="flex flex-col gap-1.5">
+        <label class="flex items-center gap-1.5 text-sm text-gray-500 cursor-pointer">
+            <input type="radio" name="required_support_hours" value=""
+                {% if field_statuses.get('required_support_hours', 'NOT_ESTABLISHED') != 'ESTABLISHED' %}checked{% endif %} class="border-gray-300">
+            Not decided yet
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="required_support_hours" value="24x7"
+                {% if field_statuses.get('required_support_hours') == 'ESTABLISHED' and cfg.get('required_support_hours') == '24x7' %}checked{% endif %} class="border-gray-300">
+            24x7
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="required_support_hours" value="business_hours"
+                {% if field_statuses.get('required_support_hours') == 'ESTABLISHED' and cfg.get('required_support_hours') == 'business_hours' %}checked{% endif %} class="border-gray-300">
+            Business hours only
+        </label>
+    </div>
+</div>
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Service credits &amp; remedy</h3>
+{{ tristate('require_service_credits', cfg.get('require_service_credits'), field_statuses.get('require_service_credits', 'NOT_ESTABLISHED'),
+    field_labels.require_service_credits) }}
+{{ number_input('minimum_credit_percent_of_fees', cfg.get('minimum_credit_percent_of_fees'), field_statuses.get('minimum_credit_percent_of_fees', 'NOT_ESTABLISHED'), field_labels.minimum_credit_percent_of_fees, suffix='% of fees', step='0.1') }}
+{{ number_input('minimum_credit_cap_percent_of_fees', cfg.get('minimum_credit_cap_percent_of_fees'), field_statuses.get('minimum_credit_cap_percent_of_fees', 'NOT_ESTABLISHED'), field_labels.minimum_credit_cap_percent_of_fees, suffix='% of fees', step='0.1',
+    help='A higher cap is more protective — this is a minimum acceptable cap, not a maximum.') }}
+{{ tristate('require_chronic_failure_remedy', cfg.get('require_chronic_failure_remedy'), field_statuses.get('require_chronic_failure_remedy', 'NOT_ESTABLISHED'),
+    field_labels.require_chronic_failure_remedy) }}
+{{ tristate('require_termination_right_for_chronic_failure', cfg.get('require_termination_right_for_chronic_failure'), field_statuses.get('require_termination_right_for_chronic_failure', 'NOT_ESTABLISHED'),
+    field_labels.require_termination_right_for_chronic_failure) }}
+{{ tristate('prohibit_service_credits_as_exclusive_remedy', cfg.get('prohibit_service_credits_as_exclusive_remedy'), field_statuses.get('prohibit_service_credits_as_exclusive_remedy', 'NOT_ESTABLISHED'),
+    field_labels.prohibit_service_credits_as_exclusive_remedy) }}
+{{ number_input('minimum_claim_submission_days', cfg.get('minimum_claim_submission_days'), field_statuses.get('minimum_claim_submission_days', 'NOT_ESTABLISHED'), field_labels.minimum_claim_submission_days, suffix='days') }}
+</div>
+{% endblock %}

@@ -57,6 +57,7 @@ import payment_terms_policy_engine as pte
 import playbook_authoring as pa
 import playbook_extraction as pex
 import prompt_security
+import sla_policy_engine as sle
 import termination_policy_engine as tpe
 import warranties_policy_engine as we
 from models import Playbook, PlaybookSourceDocument, PolicyPosition
@@ -113,6 +114,7 @@ _ANCHOR_RES: Dict[str, "re.Pattern"] = {
     "insurance": ine._ANCHOR_RE,
     "payment_terms": pte._ANCHOR_RE,
     "warranties": we._ANCHOR_RE,
+    "sla": sle._ANCHOR_RE,
 }
 
 # How far around a cluster of anchor hits to pull in as context, and how

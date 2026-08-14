@@ -260,6 +260,13 @@ class TestActivationRequiredFieldsAreExactlyTheRequireGates:
                 "require_title_warranty",
                 "require_warranty_survival",
             ],
+            "sla": [
+                "require_uptime_commitment",
+                "require_severity_tiers",
+                "require_service_credits",
+                "require_chronic_failure_remedy",
+                "require_termination_right_for_chronic_failure",
+            ],
         }
 
     def test_prohibit_fields_are_never_activation_required(self):

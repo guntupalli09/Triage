@@ -38,6 +38,7 @@ import ip_ownership_policy_engine as ipoe
 import liability_policy_engine as lpe
 import payment_terms_policy_engine as pte
 import playbook_authoring as pa
+import sla_policy_engine as sle
 import termination_policy_engine as tpe
 import warranties_policy_engine as we
 from models import Playbook, PlaybookSourceDocument, PolicyPosition, PolicyPositionField
@@ -666,6 +667,87 @@ def _propose_payment_terms_fields(facts: "pte.PaymentFacts", contract_side: str)
     return out
 
 
+def _propose_sla_fields(facts: "sle.SLAFacts", contract_side: str) -> Dict[str, ProposedField]:
+    out: Dict[str, ProposedField] = {name: _not_established("clause not found or dimension not addressed")
+                                      for name in pa.CLAUSE_TYPE_CONFIG_FIELDS["sla"]}
+    if not facts.clause_found:
+        return out
+
+    if facts.uptime_conflict:
+        out["minimum_acceptable_uptime_percent"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "conflicting uptime/availability percentages stated")
+    elif facts.uptime_percent is not None:
+        out["require_uptime_commitment"] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+        out["preferred_uptime_percent"] = _established(facts.uptime_percent, facts.raw_excerpt, facts.start_index, facts.end_index)
+        out["minimum_acceptable_uptime_percent"] = _established(facts.uptime_percent, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    exclusions_present = [
+        token for token, present in (
+            ("scheduled_maintenance", facts.scheduled_maintenance_excluded),
+            ("emergency_maintenance", facts.emergency_maintenance_excluded),
+            ("customer_caused", facts.customer_caused_excluded),
+            ("force_majeure", facts.force_majeure_excluded),
+        ) if present
+    ]
+    if exclusions_present:
+        out["permitted_maintenance_exclusions_json"] = _established(exclusions_present, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.severity_ambiguous_labels:
+        out["require_severity_tiers"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "one or more severity labels could not be safely normalized")
+    elif facts.severity_targets:
+        out["require_severity_tiers"] = _established(True, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    for level, target in facts.severity_targets.items():
+        n = {"P1_CRITICAL": 1, "P2_HIGH": 2, "P3_MEDIUM": 3, "P4_LOW": 4}[level]
+        if level in facts.severity_response_conflict_levels:
+            out[f"p{n}_max_response_hours"] = _conflicting(target.raw_excerpt, target.raw_excerpt, f"conflicting {level} response-time values stated")
+        elif target.response_hours is not None:
+            out[f"p{n}_max_response_hours"] = _established(target.response_hours, target.raw_excerpt, target.start_index, target.end_index)
+            out[f"p{n}_response_basis"] = _established(target.response_basis, target.raw_excerpt, target.start_index, target.end_index)
+        if level in facts.severity_restoration_conflict_levels:
+            out[f"p{n}_max_restoration_hours"] = _conflicting(target.raw_excerpt, target.raw_excerpt, f"conflicting {level} restoration-time values stated")
+        elif target.restoration_hours is not None:
+            out[f"p{n}_max_restoration_hours"] = _established(target.restoration_hours, target.raw_excerpt, target.start_index, target.end_index)
+            out[f"p{n}_restoration_basis"] = _established(target.restoration_basis, target.raw_excerpt, target.start_index, target.end_index)
+
+    if facts.required_support_hours_conflict:
+        out["required_support_hours"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "conflicting support-hours commitments stated")
+    elif facts.required_support_hours is not None:
+        out["required_support_hours"] = _established(facts.required_support_hours, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.service_credit_present is not None:
+        out["require_service_credits"] = _established(facts.service_credit_present, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.credit_percent_conflict:
+        out["minimum_credit_percent_of_fees"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "conflicting service-credit percentages stated")
+    elif facts.credit_percent is not None:
+        out["minimum_credit_percent_of_fees"] = _established(facts.credit_percent, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.credit_cap_conflict:
+        out["minimum_credit_cap_percent_of_fees"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "conflicting service-credit caps stated")
+    elif facts.credit_cap_percent is not None:
+        out["minimum_credit_cap_percent_of_fees"] = _established(facts.credit_cap_percent, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.chronic_failure_present is not None:
+        out["require_chronic_failure_remedy"] = _established(facts.chronic_failure_present, facts.raw_excerpt, facts.start_index, facts.end_index)
+    if facts.termination_right_present is not None:
+        out["require_termination_right_for_chronic_failure"] = _established(facts.termination_right_present, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    # Presence of exclusive-remedy language establishes the field as
+    # False (the template as currently drafted does NOT prohibit it,
+    # since it's there) -- the self-evident current state, never a guess
+    # at the lawyer's actual policy preference. Mirrors warranties'
+    # identical treatment of prohibit_as_is_disclaimer/prohibit_exclusive_remedy.
+    if facts.exclusive_remedy_present is not None:
+        out["prohibit_service_credits_as_exclusive_remedy"] = _established(False, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    if facts.claim_deadline_conflict:
+        out["minimum_claim_submission_days"] = _conflicting(facts.raw_excerpt, facts.raw_excerpt, "conflicting claim-submission deadlines stated")
+    elif facts.claim_deadline_days is not None:
+        out["minimum_claim_submission_days"] = _established(facts.claim_deadline_days, facts.raw_excerpt, facts.start_index, facts.end_index)
+
+    return out
+
+
 def _propose_warranties_fields(facts: "we.WarrantiesFacts", contract_side: str) -> Dict[str, ProposedField]:
     out: Dict[str, ProposedField] = {name: _not_established("clause not found or dimension not addressed")
                                       for name in pa.CLAUSE_TYPE_CONFIG_FIELDS["warranties"]}
@@ -740,6 +822,7 @@ _PROPOSAL_FUNCS = {
     "insurance": _propose_insurance_fields,
     "payment_terms": _propose_payment_terms_fields,
     "warranties": _propose_warranties_fields,
+    "sla": _propose_sla_fields,
 }
 
 
