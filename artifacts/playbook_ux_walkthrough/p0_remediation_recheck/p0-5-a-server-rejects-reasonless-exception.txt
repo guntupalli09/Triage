@@ -1,0 +1,5 @@
+Direct POSTs to /contract/1/review/decision, bypassing the UI entirely
+(this is the bypass path the old HTML-only check could not stop):
+
+  reason='' -> HTTP 400 : This decision departs from an approved policy position, so it requires a written reason for the audit record. Enter why this exception is being granted.
+  reason='   ' -> HTTP 400 : This decision departs from an approved policy position, so it requires a written reason for the audit record. Enter why this exception is being granted.

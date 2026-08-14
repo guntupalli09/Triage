@@ -148,6 +148,47 @@ def compute_shadow_stats(db: DBSession) -> ShadowStats:
 
 
 # ---------------------------------------------------------------------------
+# Current enforcement mode and its age (UX walkthrough P0-2)
+#
+# A deployment can sit in shadow mode indefinitely — with every Playbook
+# showing a green "Active" badge and 100% coverage — and nothing anywhere
+# tells an operator that policy enforcement has never actually been turned
+# on. This surfaces the mode and how long it has been in effect on the
+# operator report that already exists. It never changes the mode: Phase
+# 4.1 deliberately requires production shadow evidence plus an explicit
+# human cutover action.
+# ---------------------------------------------------------------------------
+
+@dataclass
+class EnforcementModeStatus:
+    mode: str
+    authoritative: bool
+    since: Optional[datetime]
+    days_in_mode: Optional[float]
+    observed: bool  # False when no mode observation has ever been recorded
+
+
+def compute_enforcement_mode_status(db: DBSession) -> EnforcementModeStatus:
+    mode = pe.get_enforcement_mode()
+    last = pe.last_recorded_mode(db)
+    recorded_mode = (last.metadata_json or {}).get("mode") if last is not None else None
+    if last is None or recorded_mode != mode:
+        # The env var was changed since the last recorded observation (or
+        # nothing has been recorded yet) — report the truth rather than
+        # inventing a start time.
+        return EnforcementModeStatus(
+            mode=mode, authoritative=pe.is_policy_authoritative(),
+            since=None, days_in_mode=None, observed=False,
+        )
+    since = last.created_at
+    days = (datetime.utcnow() - since).total_seconds() / 86400.0 if since else None
+    return EnforcementModeStatus(
+        mode=mode, authoritative=pe.is_policy_authoritative(),
+        since=since, days_in_mode=round(days, 2) if days is not None else None, observed=True,
+    )
+
+
+# ---------------------------------------------------------------------------
 # Release-gate re-verification — re-runs the EXISTING, unmodified benchmark
 # scripts/test suite as subprocesses (isolated in-memory DBs, no shared
 # state with the readiness check's own db session) and reports their
@@ -206,6 +247,7 @@ def run_full_test_suite(*, timeout: int = 900) -> TestSuiteResult:
 class ReadinessReport:
     generated_at: datetime
     current_mode: str
+    enforcement_mode: EnforcementModeStatus
     migration: MigrationCoverage
     shadow: ShadowStats
     six_adapter_gates: List[BenchmarkGateResult]
@@ -213,6 +255,8 @@ class ReadinessReport:
     test_suite: TestSuiteResult
     verdict: str  # "READY_FOR_CUTOVER" | "NOT_READY_FOR_CUTOVER"
     blocking_reasons: List[str]
+    # Operational visibility that does not gate cutover — see assess_readiness.
+    operational_notices: List[str] = field(default_factory=list)
 
 
 def assess_readiness(db: DBSession, *, run_benchmarks: bool = True, run_tests: bool = True) -> ReadinessReport:
@@ -224,6 +268,7 @@ def assess_readiness(db: DBSession, *, run_benchmarks: bool = True, run_tests: b
     migration = compute_migration_coverage(db)
     shadow = compute_shadow_stats(db)
     current_mode = pe.get_enforcement_mode()
+    enforcement_mode = compute_enforcement_mode_status(db)
 
     six_adapter_gates = run_six_adapter_benchmark_gates() if run_benchmarks else []
     phase4_gate = run_phase4_equivalence_gate() if run_benchmarks else BenchmarkGateResult(
@@ -232,6 +277,30 @@ def assess_readiness(db: DBSession, *, run_benchmarks: bool = True, run_tests: b
     test_suite = run_full_test_suite() if run_tests else TestSuiteResult(passed=False, returncode=-1, summary_line="(skipped)")
 
     blocking: List[str] = []
+    # Operational notices are deliberately NOT cutover blockers: a readiness
+    # report is normally generated *while in shadow*, so "we're in shadow"
+    # can't block the verdict without making READY_FOR_CUTOVER unreachable.
+    # They exist so a deployment cannot sit in a non-enforcing mode
+    # indefinitely with nobody noticing (P0-2).
+    notices: List[str] = []
+
+    if not enforcement_mode.authoritative:
+        age = (
+            f"{enforcement_mode.days_in_mode:.1f} day(s)"
+            if enforcement_mode.days_in_mode is not None else "an unrecorded length of time"
+        )
+        notices.append(
+            f"Policy enforcement is NOT authoritative in production: mode is "
+            f"'{enforcement_mode.mode}' and has been for {age}. ACTIVE Playbook positions are "
+            f"being checked, not enforced — no contract review outcome depends on them yet, "
+            f"however green the Workbench looks."
+        )
+    if not enforcement_mode.observed:
+        notices.append(
+            "No enforcement-mode observation has been recorded for the current mode yet, so how "
+            "long this deployment has been in it is unknown. One is recorded automatically the "
+            "next time a contract review runs."
+        )
 
     if migration.unmigrated_count > 0:
         blocking.append(
@@ -275,9 +344,10 @@ def assess_readiness(db: DBSession, *, run_benchmarks: bool = True, run_tests: b
     verdict = "READY_FOR_CUTOVER" if not blocking else "NOT_READY_FOR_CUTOVER"
 
     return ReadinessReport(
-        generated_at=datetime.utcnow(), current_mode=current_mode, migration=migration, shadow=shadow,
+        generated_at=datetime.utcnow(), current_mode=current_mode, enforcement_mode=enforcement_mode,
+        migration=migration, shadow=shadow,
         six_adapter_gates=six_adapter_gates, phase4_equivalence_gate=phase4_gate, test_suite=test_suite,
-        verdict=verdict, blocking_reasons=blocking,
+        verdict=verdict, blocking_reasons=blocking, operational_notices=notices,
     )
 
 
@@ -289,8 +359,16 @@ def report_to_safe_dict(report: ReadinessReport) -> Dict[str, Any]:
     return {
         "generated_at": report.generated_at.isoformat(),
         "current_mode": report.current_mode,
+        "enforcement_mode": {
+            "mode": report.enforcement_mode.mode,
+            "authoritative_in_production": report.enforcement_mode.authoritative,
+            "since": report.enforcement_mode.since.isoformat() if report.enforcement_mode.since else None,
+            "days_in_mode": report.enforcement_mode.days_in_mode,
+            "start_time_recorded": report.enforcement_mode.observed,
+        },
         "verdict": report.verdict,
         "blocking_reasons": report.blocking_reasons,
+        "operational_notices": report.operational_notices,
         "migration_coverage": {
             "total_legacy_liability_policies": report.migration.total_legacy_liability_policies,
             "migrated_active_equivalents": report.migration.migrated_active_equivalents,

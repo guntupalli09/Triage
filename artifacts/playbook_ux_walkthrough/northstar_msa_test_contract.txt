@@ -1,0 +1,79 @@
+NORTHSTAR ENTERPRISE MASTER SERVICES AGREEMENT
+
+This Master Services Agreement ("Agreement") is entered into by and between Northstar
+Technologies, Inc. ("Provider") and Acme Software, Inc. ("Customer"), collectively the
+"Parties," effective as of the date of last signature below.
+
+1. SERVICES. Provider shall provide the services described in one or more order forms
+executed by the Parties from time to time (each, an "Order Form"), which are incorporated
+herein by reference.
+
+2. FEES AND PAYMENT. Customer shall pay all fees set forth in each Order Form within
+thirty (30) days of the invoice date. Late payments accrue interest at 1.5% per month.
+
+3. LIMITATION OF LIABILITY. Except for Customer's payment obligations, Provider's
+liability shall be unlimited for breaches of confidentiality, data security obligations,
+intellectual property infringement, and indemnification obligations. For all other claims,
+Provider's aggregate liability shall not exceed five times the fees paid under this
+Agreement. Neither limitation shall apply to Provider's gross negligence, willful
+misconduct, or fraud.
+
+4. TERM AND TERMINATION. This Agreement commences on the Effective Date and continues
+for an initial term of three (3) years, renewing automatically for successive one-year
+terms unless either party gives notice of non-renewal at least sixty (60) days before
+the end of the then-current term. Either party may terminate this Agreement for
+convenience upon ninety (90) days' prior written notice to the other party. Either party
+may terminate this Agreement immediately upon written notice if the other party commits
+a material breach of this Agreement, without any obligation to provide an opportunity
+to cure. Upon termination, Customer shall pay all fees accrued through the termination
+date.
+
+5. CONFIDENTIALITY. "Confidential Information" means all non-public information
+disclosed by either party to the other in connection with this Agreement. The receiving
+party shall use the same degree of care to protect the disclosing party's Confidential
+Information as it uses for its own information of a similar nature, and shall not use
+such information except to perform its obligations under this Agreement. Confidential
+Information does not include information that (a) is or becomes publicly available
+through no fault of the receiving party, (b) was rightfully known to the receiving party
+prior to disclosure, or (c) is independently developed by the receiving party without
+reference to the disclosing party's Confidential Information. These confidentiality
+obligations shall survive termination of this Agreement for a period of two (2) years,
+except with respect to trade secrets, which shall be protected for as long as they
+remain trade secrets under applicable law.
+
+6. ASSIGNMENT. Customer may not assign, delegate, or otherwise transfer this Agreement
+or any of its rights or obligations under this Agreement, in whole or in part, without
+Provider's prior written consent, which Provider may withhold in its sole and absolute
+discretion. Provider may assign this Agreement without Customer's consent, including
+in connection with a merger, acquisition, corporate reorganization, or sale of all or
+substantially all of its assets. Any attempted assignment in violation of this Section
+is void.
+
+7. GOVERNING LAW. This Agreement shall be governed by, and construed in accordance with,
+the laws of the State of Delaware, without regard to its conflict of laws principles.
+The Parties consent to the exclusive jurisdiction and venue of the state and federal
+courts located in Wilmington, Delaware. EACH PARTY WAIVES ITS RIGHT TO A JURY TRIAL IN
+ANY ACTION ARISING OUT OF OR RELATING TO THIS AGREEMENT.
+
+8. INDEMNIFICATION. Customer shall indemnify, defend, and hold harmless Provider from
+and against any and all third-party claims, damages, liabilities, costs, and expenses
+(including reasonable attorneys' fees) arising out of or relating to Customer's misuse
+of the services, violation of applicable law, or breach of this Agreement. Provider
+shall indemnify Customer against third-party claims that the services, as delivered by
+Provider and used in accordance with this Agreement, infringe a valid U.S. patent,
+copyright, or trademark of a third party, provided that Customer promptly notifies
+Provider in writing of the claim and gives Provider information and assistance,
+at Provider's expense, to defend or settle the claim.
+
+9. MISCELLANEOUS. This Agreement, together with all Order Forms, constitutes the
+entire agreement between the Parties and supersedes all prior agreements and
+understandings, whether written or oral, relating to its subject matter. This Agreement
+may only be amended by a written instrument signed by both Parties.
+
+IN WITNESS WHEREOF, the Parties have executed this Agreement as of the Effective Date.
+
+NORTHSTAR TECHNOLOGIES, INC.                    ACME SOFTWARE, INC.
+
+By: _______________________                     By: _______________________
+Name:                                            Name: Sarah Chen
+Title:                                           Title: Commercial Counsel

@@ -53,6 +53,7 @@ from sqlalchemy.orm import Session as DBSession
 from rules_engine import RuleEngine, FINDING_TYPE_LABELS
 from confidence_index import build_confidence_breakdown
 from redline_templates import render_redline
+import review_workflow
 from review_workflow import (
     DecisionValidationError,
     build_audit_trail_text,
@@ -2256,6 +2257,8 @@ async def review_contract(request: Request, contract_id: int, db: DBSession = De
         "policy_decisions": contract.policy_decisions_json,
         "queue": queue.as_dict(),
         "clause_labels": pa.CLAUSE_TYPE_LABELS,
+        # Lifecycle "Active" != production authority — P0-2.
+        "enforcement": policy_enforcement.enforcement_disclosure(),
         "is_finalized": contract.review_finalized_at is not None,
         "current_year": datetime.now().year,
     })
@@ -2284,7 +2287,13 @@ async def submit_review_decision(
     key = finding_key(finding_index, finding["rule_id"])
 
     try:
-        validate_decision(key, action, bool(finding.get("redline")), reason, edited_text)
+        # policy_state/finding_type are read from the STORED finding, never
+        # from the request body — a client cannot downgrade a governance
+        # finding to skip the reason requirement (P0-5).
+        validate_decision(
+            key, action, bool(finding.get("redline")), reason, edited_text,
+            policy_state=finding.get("policy_state"), finding_type=finding.get("finding_type"),
+        )
     except DecisionValidationError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -2299,6 +2308,18 @@ async def submit_review_decision(
         # findings_json, permanently, regardless of what's decided here —
         # this just records which decision it was overridden with and why.
         entry["policy_original_recommendation"] = finding.get("policy_state")
+        # Pin the policy revision this decision was taken against, reusing
+        # the revision metadata Phase 4 already records on the contract —
+        # not a second, parallel revision store (P0-5).
+        revision_meta = (contract.policy_revision_metadata_json or {}).get(finding.get("clause_type")) or {}
+        if revision_meta.get("policy_position_id") is not None:
+            entry["policy_position_id"] = revision_meta["policy_position_id"]
+        if revision_meta.get("config_hash"):
+            entry["policy_config_hash"] = revision_meta["config_hash"]
+        if review_workflow.requires_policy_exception_reason(
+            action, finding.get("policy_state"), finding.get("finding_type")
+        ):
+            entry["policy_exception"] = True
     if reason.strip():
         entry["reason"] = reason.strip()
     if action == "edited":

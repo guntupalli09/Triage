@@ -303,6 +303,17 @@
         </div>
     </div>
 
+    {# Policy status (lifecycle) vs. enforcement authority (production) are
+       two different facts. Saying "Active" here without qualifying whether
+       the Playbook actually decided anything in THIS review is UX
+       walkthrough P0-2. Plain English only — the technical mode name lives
+       on the operator readiness surface, not in a lawyer's review. #}
+    <div class="policy-banner {% if enforcement.authoritative %}state-accept{% else %}state-requires-review{% endif %}">
+        <span class="policy-banner-state">Playbook</span>
+        <span class="policy-banner-label">Policy enforcement: {{ enforcement.label }}</span>
+        <span class="policy-banner-detail">{{ enforcement.detail }}</span>
+    </div>
+
     {% if policy_decisions %}
     {% for clause_type, pd in policy_decisions.items() if pd and pd.state != 'NOT_APPLICABLE' %}
     <div class="policy-banner state-{{ pd.state|lower|replace('_', '-') }}">
@@ -710,7 +721,20 @@ function closePopover() {
 // one of these states represents a considered legal exception, not a
 // tooling false-positive, and gets distinct action copy + a visible
 // escalation/override record instead of the generic rule-engine wording.
+// Mirrors review_workflow.GOVERNANCE_POLICY_STATES. Used for LABELLING and
+// for routing the UI through the reason step — the server re-checks the
+// same rule in validate_decision, so a client that skips this gets a 400.
 const POLICY_GOVERNANCE_STATES = new Set(["PROHIBITED", "MUST_REDLINE", "ESCALATE"]);
+// Actions that follow the recommendation as-authored; everything else on a
+// governance finding is an exception and needs a reason.
+const POLICY_CONFORMING_ACTIONS = new Set(["accepted"]);
+let pendingReasonAction = null;
+
+function needsReason(f, action) {
+    return f.finding_type === "policy_decision"
+        && POLICY_GOVERNANCE_STATES.has(f.policy_state)
+        && !POLICY_CONFORMING_ACTIONS.has(action);
+}
 
 function popoverHTML(f, i) {
     const rl = f.redline;
@@ -840,6 +864,7 @@ function popoverHTML(f, i) {
         <div class="pop-error" id="pop-error"></div>
         <div class="pop-inline-input" id="edit-input">
             <textarea id="edit-textarea">${rl ? esc(rl.suggested_redline) : ''}</textarea>
+            ${isGovernance ? `<textarea id="edit-reason" placeholder="Why are you departing from the approved policy language? (required — goes in the audit record)"></textarea>` : ""}
             <div class="save-row"><button class="pop-btn primary" id="edit-save">Save edit</button><button class="pop-btn" id="edit-cancel">Cancel</button></div>
         </div>
         <div class="pop-inline-input" id="reject-input">
@@ -925,25 +950,55 @@ function wirePopover(f, i, pop) {
         }
     });
 
+    // One coherent exception flow: ANY action that departs from a
+    // governance-grade policy recommendation routes through the same
+    // reason textarea, regardless of whether the position happens to carry
+    // fallback text. Previously "Request exception" mapped to two
+    // different code paths (rejected -> reason textarea; flagged ->
+    // immediate submit with no reason at all), which is how an audit-
+    // critical exception could be granted with zero justification
+    // (P0-5). The server enforces the same rule independently in
+    // review_workflow.validate_decision — this is convenience, not
+    // enforcement.
     pop.querySelectorAll("[data-act]").forEach(btn => {
         btn.addEventListener("click", () => {
             const act = btn.dataset.act;
             if (act === "edit") return toggle(pop, "edit-input");
-            if (act === "rejected") return toggle(pop, "reject-input");
             if (act === "comment") return toggle(pop, "comment-input");
+            if (act === "rejected" || needsReason(f, act)) {
+                pendingReasonAction = act;
+                return toggle(pop, "reject-input");
+            }
             submitDecision(f, i, act, {});
         });
     });
 
     pop.querySelector("#edit-save")?.addEventListener("click", () => {
         const text = pop.querySelector("#edit-textarea").value.trim();
-        submitDecision(f, i, "edited", { edited_text: text });
+        const extra = { edited_text: text };
+        if (needsReason(f, "edited")) {
+            const reason = (pop.querySelector("#edit-reason")?.value || "").trim();
+            if (!reason) {
+                pop.querySelector("#pop-error").textContent =
+                    "A written reason is required before departing from the approved policy language.";
+                return;
+            }
+            extra.reason = reason;
+        }
+        submitDecision(f, i, "edited", extra);
     });
     pop.querySelector("#edit-cancel")?.addEventListener("click", () => toggle(pop, "edit-input", true));
 
     pop.querySelector("#reject-save")?.addEventListener("click", () => {
         const reason = pop.querySelector("#reject-textarea").value.trim();
-        submitDecision(f, i, "rejected", { reason });
+        const action = pendingReasonAction || "rejected";
+        if (!reason) {
+            pop.querySelector("#pop-error").textContent =
+                "A written reason is required before this exception can be recorded.";
+            return;
+        }
+        pendingReasonAction = null;
+        submitDecision(f, i, action, { reason });
     });
     pop.querySelector("#reject-cancel")?.addEventListener("click", () => toggle(pop, "reject-input", true));
 

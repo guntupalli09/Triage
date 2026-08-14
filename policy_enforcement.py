@@ -141,11 +141,110 @@ def get_enforcement_mode() -> str:
     """Read fresh from the environment on every call — deliberately not
     cached at import time or in a settings singleton, so an operator
     flipping POLICY_ENFORCEMENT_MODE (the rollback switch) takes effect
-    immediately without a redeploy."""
+    immediately without a redeploy.
+
+    This is the ONE authoritative reader of POLICY_ENFORCEMENT_MODE in the
+    codebase. Nothing else may call os.getenv on it — every UI surface,
+    readiness report and test goes through this function or
+    is_policy_authoritative() below."""
     mode = os.getenv("POLICY_ENFORCEMENT_MODE", DEFAULT_MODE).strip().lower()
     if mode not in ("legacy", "shadow", "cutover"):
         return DEFAULT_MODE
     return mode
+
+
+def is_policy_authoritative() -> bool:
+    """Whether an ACTIVE PolicyPosition actually governs the user-visible
+    result of a production contract review right now.
+
+    "Policy lifecycle = ACTIVE" and "policy is authoritative in production"
+    are two different facts, and conflating them is UX walkthrough P0-2: in
+    shadow (the shipped default) and legacy modes an ACTIVE, 100%-coverage
+    Playbook has NO effect on the user-visible review — it is evaluated for
+    comparison only. Any UI that implies "this Playbook is governing this
+    review" must gate on this function, never on position.status."""
+    return get_enforcement_mode() == "cutover"
+
+
+# Plain-English, lawyer-facing wording for each mode. Raw env-var
+# terminology ("shadow", "cutover", "POLICY_ENFORCEMENT_MODE") is
+# deliberately absent — it is meaningless to the person reading a review
+# and belongs only on operator surfaces (policy_readiness / the Phase 4.1
+# readiness CLI), which report the technical mode string directly.
+ENFORCEMENT_DISCLOSURE = {
+    "cutover": {
+        "label": "Governing contract reviews",
+        "detail": "Your approved policy positions decide the outcome of contract reviews.",
+        "authoritative": True,
+    },
+    "shadow": {
+        "label": "Checking only — not yet deciding reviews",
+        "detail": (
+            "Your approved positions are being checked against every review for accuracy, but "
+            "they are not deciding outcomes yet. Ask your administrator to turn on policy "
+            "enforcement once you're satisfied with the results."
+        ),
+        "authoritative": False,
+    },
+    "legacy": {
+        "label": "Checking only — not yet deciding reviews",
+        "detail": (
+            "Policy enforcement from this Workbench is turned off for this deployment, so these "
+            "positions are not deciding contract review outcomes. Ask your administrator to turn "
+            "it on."
+        ),
+        "authoritative": False,
+    },
+}
+
+
+def enforcement_disclosure() -> Dict[str, Any]:
+    """The lawyer-facing description of the current enforcement state, for
+    templates. Keyed off the single canonical mode reader."""
+    return dict(ENFORCEMENT_DISCLOSURE[get_enforcement_mode()])
+
+
+# ---------------------------------------------------------------------------
+# Operator visibility: how long has this deployment been in its current mode?
+#
+# A production deployment sitting in shadow indefinitely with nobody
+# noticing is exactly the failure P0-2 describes. Nothing here flips the
+# mode — Phase 4.1 requires human-authorized cutover backed by production
+# shadow evidence — it only makes the current state, and its age, visible
+# on the operator surface that already exists (policy_readiness /
+# scripts/phase4_readiness_check.py).
+# ---------------------------------------------------------------------------
+
+ENFORCEMENT_MODE_EVENT_TYPE = "policy_enforcement_mode_observed"
+
+
+def last_recorded_mode(db: DBSession) -> Optional[AuditLog]:
+    return (
+        db.query(AuditLog)
+        .filter(AuditLog.event_type == ENFORCEMENT_MODE_EVENT_TYPE)
+        .order_by(AuditLog.created_at.desc(), AuditLog.id.desc())
+        .first()
+    )
+
+
+def record_enforcement_mode_observation(db: DBSession) -> Optional[AuditLog]:
+    """Records the current enforcement mode to AuditLog, but ONLY when it
+    differs from the last recorded one — so the log holds one row per mode
+    change, and its timestamp answers "how long have we been in this mode".
+    Idempotent by construction: calling it on every review costs one
+    indexed read and no write in the steady state. Adds to the session;
+    the caller commits."""
+    mode = get_enforcement_mode()
+    last = last_recorded_mode(db)
+    if last is not None and (last.metadata_json or {}).get("mode") == mode:
+        return None
+    row = AuditLog(
+        event_type=ENFORCEMENT_MODE_EVENT_TYPE, actor_user_id=None,
+        target_type="deployment", target_id=None, success=True, detail=mode,
+        metadata_json={"mode": mode, "authoritative": is_policy_authoritative()},
+    )
+    db.add(row)
+    return row
 
 
 # ---------------------------------------------------------------------------
@@ -564,6 +663,12 @@ def apply_policies_for_review(
     (empty/absent in legacy and shadow modes, since the legacy path has no
     PolicyPosition revision to pin)."""
     mode = get_enforcement_mode()
+    # One row per mode change (no-op in the steady state) so an operator can
+    # see how long this deployment has been in its current mode — P0-2.
+    try:
+        record_enforcement_mode_observation(db)
+    except Exception:  # noqa: BLE001 — observability must never break a review
+        pass
 
     if mode == "cutover":
         if not playbook:
