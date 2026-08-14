@@ -388,6 +388,20 @@ class PolicyDecision:
     summary_label: str = "General cap"
     our_position_label: str = "Our liability"
     counterparty_position_label: str = "Counterparty cap"
+    # A small, explicitly-registered set of already-computed *Facts values
+    # that have no natural home in category_treatments/controlling_provision/
+    # our_position/counterparty_position but a downstream consumer (the
+    # Interaction Engine — see interaction_engine_core.py) needs at the
+    # decision level, without re-deriving anything from raw text. This is
+    # NOT a general-purpose dumping ground: only the keys listed in
+    # INTERACTION_FACT_REGISTRY below may appear here, only for the clause
+    # types that register them, and only adapters explicitly documented as
+    # populating it do so — every other adapter leaves this at its default
+    # {} and is unaffected. Every value is either an already-computed
+    # *Facts attribute passed through unchanged, or None — never inferred,
+    # never re-parsed, never computed from anything the adapter's own
+    # extract_*_facts function didn't already establish.
+    interaction_facts: Dict[str, Any] = field(default_factory=dict)
 
     def as_dict(self) -> dict:
         return {
@@ -414,6 +428,7 @@ class PolicyDecision:
             "our_position": self.our_position,
             "counterparty_position": self.counterparty_position,
             "reconciliation": self.reconciliation,
+            "interaction_facts": self.interaction_facts,
         }
 
     def render_evidence_report(self) -> str:
@@ -445,6 +460,61 @@ class PolicyDecision:
         lines.append(f"Result: {self.state}")
         lines.append(f'Evidence: "{self.contract_language}"')
         return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# interaction_facts registry — the exhaustive, reviewed list of every key
+# any adapter is permitted to populate on PolicyDecision.interaction_facts,
+# added for the Interaction Engine (see docs/architecture/
+# interaction_engine_v1_design.md and interaction_engine_core.py). A key
+# not listed here is a bug, not a convenience — this module never grows an
+# open-ended fact bag; every entry was added because a specific, approved
+# interaction rule needs a specific, already-computed *Facts value that has
+# no natural home in category_treatments/controlling_provision/our_position/
+# counterparty_position. Each entry documents its exact type and semantics,
+# in particular that None is a distinct, meaningful value ("the contract
+# never addressed this") and must never be conflated with False.
+INTERACTION_FACT_REGISTRY: Dict[str, Dict[str, str]] = {
+    "payment_terms": {
+        "disputed_amounts_withholdable": (
+            "Optional[bool] — mirrors PaymentFacts.disputed_amounts_withholdable "
+            "unchanged: True if the clause affirmatively establishes a right to "
+            "withhold disputed amounts, False if it affirmatively denies one, "
+            "None if the clause never addresses it."
+        ),
+        "service_credit_present": (
+            "Optional[bool] — mirrors PaymentFacts.service_credit_present "
+            "unchanged: presence-only signal that payment terms reference a "
+            "service credit mechanism; carries no percentage/basis/cap detail "
+            "by design (see sla_policy_engine.py's module docstring — SLA owns "
+            "the service-credit mechanism, payment_terms only notices it)."
+        ),
+    },
+    "sla": {
+        "service_credit_present": (
+            "Optional[bool] — mirrors SLAFacts.service_credit_present "
+            "unchanged: presence-only signal that the SLA clause references a "
+            "service credit remedy."
+        ),
+    },
+}
+
+
+def validate_interaction_facts(clause_type: str, interaction_facts: Dict[str, Any]) -> None:
+    """Fails loudly (AssertionError) if an adapter populates a key not in
+    INTERACTION_FACT_REGISTRY for its own clause type — the enforcement
+    half of the registry-is-exhaustive contract described above. Adapter
+    benchmark/unit test suites call this on every decision they produce;
+    it is deliberately not called inside PolicyDecision itself (evaluate_*_
+    policy stays a pure function with no import-time dependency surprises)."""
+    allowed = set(INTERACTION_FACT_REGISTRY.get(clause_type, {}))
+    unexpected = set(interaction_facts) - allowed
+    if unexpected:
+        raise AssertionError(
+            f"{clause_type!r} PolicyDecision.interaction_facts contains unregistered "
+            f"key(s) {sorted(unexpected)} — add them to INTERACTION_FACT_REGISTRY "
+            f"in policy_engine_core.py first, with documented type/semantics."
+        )
 
 
 # ---------------------------------------------------------------------------

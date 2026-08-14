@@ -596,6 +596,7 @@ def evaluate_payment_policy(
             explanation="No payment terms clause was found in this contract, so the policy has nothing to evaluate against.",
             negotiation_ladder=_build_ladder(policy, NOT_APPLICABLE), category_treatments=[], unresolved_facts=[],
             start_index=None, end_index=None,
+            interaction_facts={"disputed_amounts_withholdable": None, "service_credit_present": None},
         )
 
     payor_side, payor_unresolved = _resolve_payor_side(facts, policy.contract_side)
@@ -647,6 +648,10 @@ def evaluate_payment_policy(
             category_treatments=[], unresolved_facts=unresolved,
             start_index=facts.start_index, end_index=facts.end_index,
             controlling_provision={"label": f"Section {facts.section_label} — Payment Terms" if facts.section_label else "Payment Terms", "excerpt": facts.raw_excerpt, "start_index": facts.start_index, "end_index": facts.end_index},
+            interaction_facts={
+                "disputed_amounts_withholdable": facts.disputed_amounts_withholdable,
+                "service_credit_present": facts.service_credit_present,
+            },
         )
 
     notes: List[str] = []
@@ -773,4 +778,8 @@ def evaluate_payment_policy(
         escalate_to=escalate_to_for_state(worst, policy.escalation_approval_authority),
         fallback_text=fallback_text_for_state(worst, policy.fallback_text, (NEGOTIATE, MUST_REDLINE, PROHIBITED)),
         controlling_provision={"label": f"Section {facts.section_label} — Payment Terms" if facts.section_label else "Payment Terms", "excerpt": facts.raw_excerpt, "start_index": facts.start_index, "end_index": facts.end_index},
+        interaction_facts={
+            "disputed_amounts_withholdable": facts.disputed_amounts_withholdable,
+            "service_credit_present": facts.service_credit_present,
+        },
     )

@@ -183,6 +183,7 @@ class TestSummaryCounts:
         assert queue.summary.as_dict() == {
             "needs_attention": 0, "top_tier": 0, "negotiate": 0, "requires_review": 0,
             "evaluation_error": 0, "passed": 0, "not_applicable": 0,
+            "interactions_needing_attention": 0,
         }
 
     def test_none_policy_decisions_handled_like_empty_dict(self):
@@ -201,3 +202,60 @@ class TestClauseLabel:
 
     def test_unknown_clause_type_falls_back_to_title_case(self):
         assert rq._clause_label("some_future_clause") == "Some Future Clause"
+
+
+# ---------------------------------------------------------------------------
+# Interaction Engine V1 — interaction_decision findings must be bucketed
+# distinctly from policy_decision exceptions, never merged.
+# ---------------------------------------------------------------------------
+
+def _interaction_finding(interaction_id, state, escalate_to=None):
+    return {
+        "finding_type": "interaction_decision", "interaction_id": interaction_id, "policy_state": state,
+        "title": f"{interaction_id} — {state}", "rule_id": interaction_id,
+        "escalate_to": escalate_to, "redline": None, "rationale": "because it interacts",
+        "clause_type": None, "participating_clause_types": ["limitation_of_liability", "indemnification"],
+    }
+
+
+class TestInteractionBucketing:
+    def test_interaction_finding_never_lands_in_policy_or_other_bucket(self):
+        findings = [_interaction_finding("IX_TEST", "ESCALATE")]
+        queue = rq.build_review_queue(findings, {})
+        assert queue.policy_exception_indices == []
+        assert queue.other_finding_indices == []
+        assert queue.interaction_exception_indices == [0]
+
+    def test_interaction_count_feeds_summary(self):
+        findings = [
+            _interaction_finding("IX_A", "ESCALATE"),
+            _interaction_finding("IX_B", "REQUIRES_REVIEW"),
+            _policy_finding("limitation_of_liability", "NEGOTIATE"),
+        ]
+        queue = rq.build_review_queue(findings, {})
+        assert queue.summary.interactions_needing_attention == 2
+        assert len(queue.policy_exception_indices) == 1
+        assert len(queue.interaction_exception_indices) == 2
+        # interaction count must never bleed into the clause-exception headline.
+        assert queue.summary.needs_attention == 1
+
+    def test_interaction_bucket_sorted_by_tier_same_as_policy(self):
+        findings = [
+            _interaction_finding("IX_LOW", "NEGOTIATE"),
+            _interaction_finding("IX_HIGH", "ESCALATE"),
+            _interaction_finding("IX_MID", "REQUIRES_REVIEW"),
+        ]
+        queue = rq.build_review_queue(findings, {})
+        ordered_ids = [findings[i]["interaction_id"] for i in queue.interaction_exception_indices]
+        assert ordered_ids == ["IX_HIGH", "IX_LOW", "IX_MID"]
+
+    def test_mixed_findings_all_three_buckets_are_disjoint(self):
+        findings = [
+            _rule_finding("R1"),
+            _policy_finding("termination", "ESCALATE"),
+            _interaction_finding("IX_A", "ESCALATE"),
+        ]
+        queue = rq.build_review_queue(findings, {})
+        assert queue.other_finding_indices == [0]
+        assert queue.policy_exception_indices == [1]
+        assert queue.interaction_exception_indices == [2]

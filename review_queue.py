@@ -31,7 +31,7 @@ persistence, no new policy-engine call):
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
 import playbook_authoring as pa
@@ -56,6 +56,16 @@ TOP_TIER_STATES = ("PROHIBITED", "MUST_REDLINE", "ESCALATE")
 # The only two PolicyDecision states that mean "evaluated and acceptable"
 # — the sole source of truth for what "passed" means in this module.
 PASSED_STATES = ("ACCEPT", "ACCEPT_WITH_NOTE")
+
+# Interaction Engine V1 (see docs/architecture/interaction_engine_v1_design.md
+# S9, interaction_engine_core.py). finding_type == "interaction_decision"
+# findings reuse the exact same TIER_RANK table above (ESCALATE/NEGOTIATE/
+# REQUIRES_REVIEW/EVALUATION_ERROR are the same strings at both layers by
+# design — see interaction_engine_core.py's state-vocabulary docstring) but
+# are bucketed into their own list, never merged into policy_exception_
+# indices, so a lawyer scanning the queue can never mistake a cross-policy
+# interaction for an ordinary single-clause exception.
+INTERACTION_ACTIONABLE_STATES = ("ESCALATE", "NEGOTIATE", "REQUIRES_REVIEW", "EVALUATION_ERROR")
 
 
 def tier_rank(policy_state: Optional[str]) -> int:
@@ -89,6 +99,7 @@ class ReviewQueueSummary:
     evaluation_error: int
     passed: int
     not_applicable: int
+    interactions_needing_attention: int = 0
 
     def as_dict(self) -> Dict[str, int]:
         return {
@@ -96,6 +107,7 @@ class ReviewQueueSummary:
             "negotiate": self.negotiate, "requires_review": self.requires_review,
             "evaluation_error": self.evaluation_error, "passed": self.passed,
             "not_applicable": self.not_applicable,
+            "interactions_needing_attention": self.interactions_needing_attention,
         }
 
 
@@ -106,11 +118,13 @@ class ReviewQueue:
     summary: ReviewQueueSummary
     passed_checks: List[PassedCheck]
     not_applicable_checks: List[NotApplicableCheck]
+    interaction_exception_indices: List[int] = field(default_factory=list)
 
     def as_dict(self) -> Dict[str, Any]:
         return {
             "policy_exception_indices": self.policy_exception_indices,
             "other_finding_indices": self.other_finding_indices,
+            "interaction_exception_indices": self.interaction_exception_indices,
             "summary": self.summary.as_dict(),
             "passed_checks": [
                 {"clause_type": c.clause_type, "label": c.label,
@@ -145,14 +159,22 @@ def build_review_queue(findings: List[Dict[str, Any]], policy_decisions: Optiona
     policy_decisions = policy_decisions or {}
 
     policy_idxs: List[int] = []
+    interaction_idxs: List[int] = []
     other_idxs: List[int] = []
     for i, f in enumerate(findings):
-        if f.get("finding_type") == "policy_decision":
+        finding_type = f.get("finding_type")
+        if finding_type == "policy_decision":
             policy_idxs.append(i)
+        elif finding_type == "interaction_decision":
+            interaction_idxs.append(i)
         else:
             other_idxs.append(i)
 
     policy_idxs.sort(key=lambda i: (tier_rank(findings[i].get("policy_state")), i))
+    interaction_idxs.sort(key=lambda i: (tier_rank(findings[i].get("policy_state")), i))
+    interactions_needing_attention = sum(
+        1 for i in interaction_idxs if findings[i].get("policy_state") in INTERACTION_ACTIONABLE_STATES
+    )
 
     top_tier = sum(1 for i in policy_idxs if findings[i].get("policy_state") in TOP_TIER_STATES)
     negotiate = sum(1 for i in policy_idxs if findings[i].get("policy_state") == "NEGOTIATE")
@@ -197,9 +219,11 @@ def build_review_queue(findings: List[Dict[str, Any]], policy_decisions: Optiona
         top_tier=top_tier, negotiate=negotiate, requires_review=requires_review,
         evaluation_error=evaluation_error, passed=len(passed_checks),
         not_applicable=len(not_applicable_checks),
+        interactions_needing_attention=interactions_needing_attention,
     )
 
     return ReviewQueue(
         policy_exception_indices=policy_idxs, other_finding_indices=other_idxs,
         summary=summary, passed_checks=passed_checks, not_applicable_checks=not_applicable_checks,
+        interaction_exception_indices=interaction_idxs,
     )

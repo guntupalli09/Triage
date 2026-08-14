@@ -162,6 +162,39 @@ class Contract(Base):
     # policy_enforcement.apply_policies_for_review.
     policy_revision_metadata_json = Column(JSON, nullable=True)
 
+    # Interaction Engine V1 (see docs/architecture/interaction_engine_v1_design.md
+    # and interaction_engine_core.py). One entry per registered interaction
+    # rule actually evaluated this review (interaction_rules.LAUNCH_CATALOG_IDS),
+    # including NOT_TRIGGERED/INSUFFICIENT_FACTS outcomes — never only the
+    # rules that fired, for the same completeness reason policy_decisions_json
+    # records every evaluated clause type, not only actionable ones. Keyed by
+    # interaction_id, value is InteractionDecision.as_dict(). Independent of
+    # and never nested inside policy_decisions_json — an InteractionDecision
+    # references participating PolicyDecisions, it never mutates or replaces
+    # them. Encrypted — participating_provisions embeds verbatim contract
+    # excerpts (each participant's controlling_provision, reused as-is).
+    interaction_decisions_json = Column(EncryptedJSON, nullable=True)
+
+    # Interaction Engine V1 — redline invalidation (design doc S5.2). A
+    # lawyer editing/rejecting a policy_decision finding within THIS
+    # review must never silently trigger a re-extraction of the edited
+    # clause (edited_text is free-form lawyer prose, not something this
+    # codebase re-parses deterministically anywhere) and must never
+    # silently leave a dependent interaction's evidence looking current
+    # when it may no longer be. Instead: {interaction_id: {"stale": True,
+    # "stale_reason": "..."}} for every interaction whose participating_
+    # clause_types included the edited/rejected finding's clause_type.
+    # Deliberately its OWN column, separate from review_decisions_json
+    # (which records lawyer-authored decisions with a fixed action
+    # vocabulary) — this is a system-computed flag, not a decision, and
+    # mixing the two would overload what "an entry in review_decisions_
+    # json" means. Merged into the in-memory findings list at render time
+    # (main.py's review_contract route) — findings_json itself is never
+    # mutated after Contract creation, same convention review_decisions_
+    # json already follows. Plain JSON, not encrypted — carries only
+    # interaction_ids and short static reason strings, never contract text.
+    interaction_staleness_json = Column(JSON, nullable=True)
+
     # Review workflow — one decision per finding (rule_id -> {action, reason,
     # edited_text, decided_at}), recorded as the attorney works through the
     # merged findings+redlines review pass. See review_workflow.py. action is

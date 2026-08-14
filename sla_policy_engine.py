@@ -687,6 +687,7 @@ def evaluate_sla_policy(
             negotiation_ladder=_build_ladder(policy, NOT_APPLICABLE), category_treatments=[], unresolved_facts=[],
             start_index=None, end_index=None, source=source, summary_label="SLA treatment",
             our_position_label="Our SLA commitments", counterparty_position_label="Counterparty's SLA commitments",
+            interaction_facts={"service_credit_present": None},
         )
 
     unresolved_facts: List[str] = []
@@ -751,6 +752,7 @@ def evaluate_sla_policy(
                                     "excerpt": facts.raw_excerpt, "start_index": facts.start_index, "end_index": facts.end_index},
             summary_label="SLA treatment", our_position_label="Our SLA commitments",
             counterparty_position_label="Counterparty's SLA commitments",
+            interaction_facts={"service_credit_present": facts.service_credit_present},
         )
 
     notes: List[str] = []
@@ -884,4 +886,5 @@ def evaluate_sla_policy(
                                 "excerpt": facts.raw_excerpt, "start_index": facts.start_index, "end_index": facts.end_index},
         summary_label="SLA treatment", our_position_label="Our SLA commitments",
         counterparty_position_label="Counterparty's SLA commitments",
+        interaction_facts={"service_credit_present": facts.service_credit_present},
     )

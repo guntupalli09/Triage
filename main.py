@@ -1393,6 +1393,7 @@ async def upload_contract(
         deviations_json=deviations,
         policy_decisions_json=policy_result["policy_decisions"],
         policy_revision_metadata_json=policy_result["policy_revision_metadata"],
+        interaction_decisions_json=policy_result.get("interaction_decisions"),
         signature_readiness=analysis.get("signature_readiness"),
         payment_terms_json=analysis.get("payment_terms"),
         blocking_findings_json=analysis.get("blocking_findings"),
@@ -1526,6 +1527,7 @@ async def batch_upload_submit(
             playbook_id=playbook_id, deviations_json=deviations,
             policy_decisions_json=policy_result["policy_decisions"],
             policy_revision_metadata_json=policy_result["policy_revision_metadata"],
+            interaction_decisions_json=policy_result.get("interaction_decisions"),
             batch_id=batch_id,
             signature_readiness=analysis.get("signature_readiness"),
             payment_terms_json=analysis.get("payment_terms"),
@@ -2225,7 +2227,10 @@ async def review_contract(request: Request, contract_id: int, db: DBSession = De
     user = require_user(request, db)
     contract = _get_owned_contract(db, user, contract_id)
 
-    findings = contract.findings_json or []
+    import interaction_enforcement
+    findings = interaction_enforcement.merge_interaction_staleness(
+        contract.findings_json or [], contract.interaction_staleness_json,
+    )
     decisions = contract.review_decisions_json or {}
     progress = compute_progress(findings, decisions)
     # Exception-queue view-model (P0 remediation of
@@ -2305,6 +2310,21 @@ async def submit_review_decision(
         entry["comment"] = prior_comment
     decisions[key] = entry
     contract.review_decisions_json = decisions
+
+    # Interaction Engine V1 — redline invalidation (design doc S5.2). An
+    # edit or rejection of a policy_decision finding means the clause's
+    # effective treatment may no longer match what any interaction
+    # involving it was evaluated against; never silently recompute (the
+    # edited text is free-form lawyer prose, not re-extracted anywhere)
+    # — only flag every dependent interaction for reconfirmation. Every
+    # OTHER interaction is untouched by construction (participating_
+    # clause_types is the sole filter).
+    if finding.get("finding_type") == "policy_decision" and action in ("edited", "rejected") and finding.get("clause_type"):
+        import interaction_enforcement
+        interaction_enforcement.mark_dependent_interactions_stale(
+            contract, finding["clause_type"], pa.CLAUSE_TYPE_LABELS.get(finding["clause_type"], finding["clause_type"]),
+        )
+
     db.commit()
 
     progress = compute_progress(findings, decisions)
@@ -2316,6 +2336,26 @@ async def submit_review_decision(
     # (Phase 4.1 UX remediation: override history must be visible right
     # away, not just after a refresh).
     return {"progress": progress.as_dict(), "entry": entry}
+
+
+@app.post("/contract/{contract_id}/review/interaction/dismiss-stale")
+async def dismiss_interaction_staleness(
+    request: Request, contract_id: int, interaction_id: str = Form(...),
+    db: DBSession = Depends(get_db), _csrf: None = Depends(csrf_protect),
+):
+    """The 'Dismiss' half of redline invalidation (design doc S5.2/S9.5):
+    a lawyer has looked at a flagged interaction again and confirms its
+    original evidence is still acceptable. Never recomputes the
+    interaction — see interaction_enforcement.clear_interaction_staleness's
+    docstring for why that would be dishonest given edited_text is never
+    re-extracted."""
+    user = require_user(request, db)
+    contract = _get_owned_contract(db, user, contract_id)
+    import interaction_enforcement
+    cleared = interaction_enforcement.clear_interaction_staleness(contract, interaction_id)
+    if cleared:
+        db.commit()
+    return {"cleared": cleared}
 
 
 @app.post("/contract/{contract_id}/review/comment")
@@ -2369,6 +2409,10 @@ async def verify_review_finding(
 
     if original.get("finding_type") == "policy_decision":
         return policy_enforcement.verify_policy_finding(db, contract, original)
+
+    if original.get("finding_type") == "interaction_decision":
+        import interaction_enforcement
+        return interaction_enforcement.verify_interaction_finding(db, contract, original)
 
     replay = rule_engine.analyze(contract.contract_text)
     match = next(
