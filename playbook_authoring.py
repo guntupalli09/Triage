@@ -35,14 +35,20 @@ import typing
 from dataclasses import dataclass, field as dataclass_field
 from datetime import datetime
 from types import SimpleNamespace
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 import assignment_policy_engine
 import confidentiality_policy_engine
+import data_security_policy_engine
 import governing_law_policy_engine
 import indemnification_policy_engine
+import insurance_policy_engine
+import ip_ownership_policy_engine
 import liability_policy_engine
+import payment_terms_policy_engine
+import sla_policy_engine
 import termination_policy_engine
+import warranties_policy_engine
 from models import Playbook, PolicyPosition, PolicyPositionApproval, PolicyPositionField, PolicyRule
 
 # Fields every engine's *PolicyRuleLike Protocol has in common — real
@@ -59,6 +65,12 @@ _ENGINE_PROTOCOLS: Dict[str, type] = {
     "confidentiality": confidentiality_policy_engine.ConfidentialityPolicyRuleLike,
     "assignment": assignment_policy_engine.AssignmentPolicyRuleLike,
     "governing_law": governing_law_policy_engine.GoverningLawPolicyRuleLike,
+    "data_security": data_security_policy_engine.DataSecurityPolicyRuleLike,
+    "ip_ownership": ip_ownership_policy_engine.IPPolicyRuleLike,
+    "insurance": insurance_policy_engine.InsurancePolicyRuleLike,
+    "payment_terms": payment_terms_policy_engine.PaymentPolicyRuleLike,
+    "warranties": warranties_policy_engine.WarrantiesPolicyRuleLike,
+    "sla": sla_policy_engine.SLAPolicyRuleLike,
 }
 
 CLAUSE_TYPES = tuple(_ENGINE_PROTOCOLS)
@@ -137,6 +149,37 @@ _BOUNDED_VOCABULARIES: Dict[str, Dict[str, tuple]] = {
         # literal values governing_law_policy_engine's evaluate function
         # ever compares required_dispute_resolution against.
         "required_dispute_resolution": ("litigation", "arbitration"),
+    },
+    "data_security": {
+        "require_subprocessor_notice_or_consent": ("not_required", "notice", "consent"),
+    },
+    "payment_terms": {
+        # Not a Protocol-declared enum -- inferred from the four literal
+        # values payment_terms_policy_engine's extraction/evaluate logic
+        # ever compares payment_trigger / required_payment_trigger against.
+        "required_payment_trigger": ("invoice", "receipt", "acceptance", "milestone"),
+    },
+    "warranties": {
+        "required_warranty_categories_json": tuple(warranties_policy_engine.WARRANTY_CATEGORIES),
+        "prohibited_warranty_categories_json": tuple(warranties_policy_engine.WARRANTY_CATEGORIES),
+        # Not a Protocol-declared enum -- inferred from the two literal
+        # values warranties_policy_engine's evaluate logic ever compares
+        # required_remedy_type against.
+        "required_remedy_type": ("repair_replace_reperform", "refund_credit"),
+    },
+    "sla": {
+        "permitted_maintenance_exclusions_json": tuple(sla_policy_engine.MAINTENANCE_EXCLUSION_TYPES),
+        # Not a Protocol-declared enum -- inferred from the two literal
+        # values sla_policy_engine's evaluate logic ever compares
+        # required_support_hours against.
+        "required_support_hours": ("24x7", "business_hours"),
+        # Not a Protocol-declared enum -- inferred from the two literal
+        # basis values sla_policy_engine's _to_hours/evaluate logic ever
+        # compares p{n}_response_basis/p{n}_restoration_basis against.
+        "p1_response_basis": ("calendar", "business"), "p1_restoration_basis": ("calendar", "business"),
+        "p2_response_basis": ("calendar", "business"), "p2_restoration_basis": ("calendar", "business"),
+        "p3_response_basis": ("calendar", "business"), "p3_restoration_basis": ("calendar", "business"),
+        "p4_response_basis": ("calendar", "business"), "p4_restoration_basis": ("calendar", "business"),
     },
 }
 
@@ -318,6 +361,36 @@ def build_governing_law_policy_rule(position: PolicyPosition) -> SimpleNamespace
     return _build_policy_rule(position, "governing_law")
 
 
+def build_data_security_policy_rule(position: PolicyPosition) -> SimpleNamespace:
+    """Matches data_security_policy_engine.DataSecurityPolicyRuleLike."""
+    return _build_policy_rule(position, "data_security")
+
+
+def build_ip_ownership_policy_rule(position: PolicyPosition) -> SimpleNamespace:
+    """Matches ip_ownership_policy_engine.IPPolicyRuleLike."""
+    return _build_policy_rule(position, "ip_ownership")
+
+
+def build_insurance_policy_rule(position: PolicyPosition) -> SimpleNamespace:
+    """Matches insurance_policy_engine.InsurancePolicyRuleLike."""
+    return _build_policy_rule(position, "insurance")
+
+
+def build_payment_terms_policy_rule(position: PolicyPosition) -> SimpleNamespace:
+    """Matches payment_terms_policy_engine.PaymentPolicyRuleLike."""
+    return _build_policy_rule(position, "payment_terms")
+
+
+def build_warranties_policy_rule(position: PolicyPosition) -> SimpleNamespace:
+    """Matches warranties_policy_engine.WarrantiesPolicyRuleLike."""
+    return _build_policy_rule(position, "warranties")
+
+
+def build_sla_policy_rule(position: PolicyPosition) -> SimpleNamespace:
+    """Matches sla_policy_engine.SLAPolicyRuleLike."""
+    return _build_policy_rule(position, "sla")
+
+
 BUILDERS = {
     "limitation_of_liability": build_liability_policy_rule,
     "indemnification": build_indemnification_policy_rule,
@@ -325,6 +398,12 @@ BUILDERS = {
     "confidentiality": build_confidentiality_policy_rule,
     "assignment": build_assignment_policy_rule,
     "governing_law": build_governing_law_policy_rule,
+    "data_security": build_data_security_policy_rule,
+    "ip_ownership": build_ip_ownership_policy_rule,
+    "insurance": build_insurance_policy_rule,
+    "payment_terms": build_payment_terms_policy_rule,
+    "warranties": build_warranties_policy_rule,
+    "sla": build_sla_policy_rule,
 }
 
 
@@ -416,6 +495,24 @@ def current_field_statuses(position: PolicyPosition) -> Dict[str, str]:
     return _current_field_statuses(position)
 
 
+# Adapter-owned activation-validator hook (design doc: docs/architecture/
+# sla_adapter_design.md S3.3). ACTIVATION_REQUIRED_FIELDS's mechanical
+# rule (bool type hint + require_ name prefix) inspects exactly one
+# field's type and name — it cannot express a relationship BETWEEN
+# fields. SLA is the first adapter where a require_* boolean's entire
+# enforcement value depends on a companion set of other fields also being
+# configured (e.g. require_severity_tiers=True with every pN_max_*_hours
+# field left unconfigured is a vacuously "enforceable" position that
+# never actually checks anything). Rather than expand the generic
+# mechanical rule to handle this one adapter's shape, this dict is a
+# purely additive extension point: it defaults to empty, so the other
+# eleven adapters' activation behavior is provably unchanged (see
+# tests/test_sla_activation_hook_no_effect_on_existing_adapters.py),
+# and only clause types that register a validator here get any
+# additional check at all.
+_ADAPTER_ACTIVATION_VALIDATORS: Dict[str, Callable[["PolicyPosition", Dict[str, str]], List[str]]] = {}
+
+
 def validate_position_for_activation(position: PolicyPosition) -> None:
     """The enforcement-readiness gate. A position may sit in DRAFT or
     NEEDS_REVIEW indefinitely with gaps — that's expected, that's what
@@ -427,12 +524,68 @@ def validate_position_for_activation(position: PolicyPosition) -> None:
     call site) should surface position.clause_type +
     error.missing_fields directly rather than a generic failure."""
     required = ACTIVATION_REQUIRED_FIELDS.get(position.clause_type, [])
-    if not required:
-        return
     statuses = _current_field_statuses(position)
-    missing = [name for name in required if statuses.get(name) != "ESTABLISHED"]
+    missing = [name for name in required if statuses.get(name) != "ESTABLISHED"] if required else []
+
+    extra_validator = _ADAPTER_ACTIVATION_VALIDATORS.get(position.clause_type)
+    if extra_validator:
+        missing = list(missing) + list(extra_validator(position, statuses))
+
     if missing:
         raise PolicyActivationError(position.clause_type, missing)
+
+
+def _sla_activation_validator(position: PolicyPosition, statuses: Dict[str, str]) -> List[str]:
+    """SLA-specific consistency checks the mechanical ACTIVATION_REQUIRED_
+    FIELDS rule cannot express (design doc S3.2/S3.3): a require_*
+    boolean whose enforcement value depends on a companion set of numeric/
+    basis fields also being configured. Returns extra "missing" entries
+    (human-readable, not necessarily bare field names — PolicyActivationError
+    just joins and displays them) on top of whatever the mechanical rule
+    already found; returns [] when nothing extra is wrong."""
+    cfg = position.config_json or {}
+    extra: List[str] = []
+
+    def _is_true(field_name: str) -> bool:
+        return statuses.get(field_name) == "ESTABLISHED" and cfg.get(field_name) is True
+
+    if _is_true("require_severity_tiers"):
+        severity_fields = [
+            "p1_max_response_hours", "p1_max_restoration_hours",
+            "p2_max_response_hours", "p2_max_restoration_hours",
+            "p3_max_response_hours", "p3_max_restoration_hours",
+            "p4_max_response_hours", "p4_max_restoration_hours",
+        ]
+        if not any(statuses.get(f) == "ESTABLISHED" for f in severity_fields):
+            extra.append(
+                "require_severity_tiers is enabled, but no P1-P4 response/restoration ceiling "
+                "is configured — this would activate a requirement that never actually checks anything"
+            )
+
+    for level_prefix in ("p1", "p2", "p3", "p4"):
+        for dimension in ("response", "restoration"):
+            hours_field = f"{level_prefix}_max_{dimension}_hours"
+            basis_field = f"{level_prefix}_{dimension}_basis"
+            if statuses.get(hours_field) == "ESTABLISHED" and statuses.get(basis_field) != "ESTABLISHED":
+                extra.append(
+                    f"{hours_field} is configured, but {basis_field} is not — a response/"
+                    f"restoration ceiling without a stated basis can never be safely compared "
+                    f"against contract text (this adapter never assumes a basis)"
+                )
+
+    if _is_true("require_service_credits"):
+        credit_params = ["minimum_credit_percent_of_fees", "minimum_credit_cap_percent_of_fees"]
+        if not any(statuses.get(f) == "ESTABLISHED" for f in credit_params):
+            extra.append(
+                "require_service_credits is enabled, but neither minimum_credit_percent_of_fees "
+                "nor minimum_credit_cap_percent_of_fees is configured — this would activate a "
+                "requirement with no way to evaluate whether a stated credit is adequate"
+            )
+
+    return extra
+
+
+_ADAPTER_ACTIVATION_VALIDATORS["sla"] = _sla_activation_validator
 
 
 class PolicyEnforcementGuardError(ValueError):
@@ -571,6 +724,12 @@ _ENGINE_FUNCS: Dict[str, Tuple[Any, Any]] = {
     "confidentiality": (confidentiality_policy_engine.extract_confidentiality_facts, confidentiality_policy_engine.evaluate_confidentiality_policy),
     "assignment": (assignment_policy_engine.extract_assignment_facts, assignment_policy_engine.evaluate_assignment_policy),
     "governing_law": (governing_law_policy_engine.extract_governing_law_facts, governing_law_policy_engine.evaluate_governing_law_policy),
+    "data_security": (data_security_policy_engine.extract_data_security_facts, data_security_policy_engine.evaluate_data_security_policy),
+    "ip_ownership": (ip_ownership_policy_engine.extract_ip_facts, ip_ownership_policy_engine.evaluate_ip_policy),
+    "insurance": (insurance_policy_engine.extract_insurance_facts, insurance_policy_engine.evaluate_insurance_policy),
+    "payment_terms": (payment_terms_policy_engine.extract_payment_facts, payment_terms_policy_engine.evaluate_payment_policy),
+    "warranties": (warranties_policy_engine.extract_warranties_facts, warranties_policy_engine.evaluate_warranties_policy),
+    "sla": (sla_policy_engine.extract_sla_facts, sla_policy_engine.evaluate_sla_policy),
 }
 
 CLAUSE_TYPE_LABELS: Dict[str, str] = {
@@ -580,6 +739,12 @@ CLAUSE_TYPE_LABELS: Dict[str, str] = {
     "confidentiality": "Confidentiality",
     "assignment": "Assignment",
     "governing_law": "Governing Law",
+    "data_security": "Data Protection & Security",
+    "ip_ownership": "IP Ownership & Licensing",
+    "insurance": "Insurance",
+    "payment_terms": "Payment Terms",
+    "warranties": "Warranties",
+    "sla": "SLA / Service Levels",
 }
 
 
@@ -1025,9 +1190,72 @@ class CoverageSummary:
 # This exists so "high-impact gaps" is deterministic and explainable, and
 # is expected to be revisited (not silently reordered) once Batch B
 # clause types exist alongside these six.
+#
+# data_security was added as adapter #7 (the first added after the
+# original six) and ranked directly after indemnification: a data-
+# protection failure carries direct, often-unbounded regulatory-fine and
+# breach-notification exposure comparable to indemnification's uncapped-
+# claim risk, and materially higher than confidentiality/termination's
+# bounded operational risk.
+#
+# ip_ownership was added as adapter #8 and ranked directly after
+# data_security: losing ownership of foreground work product/deliverables,
+# or losing the license needed to use a counterparty's background IP
+# embedded in what was delivered, is a direct and often business-critical
+# exposure (loss of the ability to use or resell what was built/paid for)
+# — comparable in stakes to a data-protection gap, and materially higher
+# than confidentiality/termination's bounded operational risk.
+#
+# insurance was added as adapter #9 and ranked after ip_ownership but
+# still ahead of confidentiality/termination: inadequate or missing
+# insurance coverage is a direct, quantifiable balance-sheet exposure if
+# a claim materializes (the counterparty's insurer — or lack of one —
+# stands behind exactly the same risks liability/indemnification caps
+# already rank highly), materially higher-stakes than confidentiality or
+# termination's bounded operational risk, though one step behind
+# ip_ownership's often business-critical (not just financial) exposure.
+#
+# payment_terms was added as adapter #10 and ranked at the top,
+# alongside limitation_of_liability: payment timing, disputed-amount
+# withholding, set-off, and price-increase terms are direct cash-flow
+# and balance-sheet exposure that materializes on essentially every
+# invoice cycle, not just when a claim or incident occurs — the most
+# immediate, recurring financial risk of any clause type modeled so
+# far, ranked ahead of indemnification/data_security/ip_ownership/
+# insurance (whose exposure is contingent on a claim, breach, dispute,
+# or loss event actually happening).
+#
+# warranties was added as adapter #11 (the first added after the
+# ten-adapter scalability review) and ranked after insurance but ahead
+# of confidentiality/termination: a warranty gap (missing non-
+# infringement, compliance-with-law, or malware-free warranties; an
+# unrestricted "AS IS" disclaimer; an unfavorable exclusive-remedy
+# limitation) is a direct, concrete product-quality/compliance/IP
+# exposure comparable in kind to insurance's balance-sheet risk — but
+# typically bounded by the remedy language itself (repair/replace/
+# reperform, refund/credit) once a breach occurs, unlike liability/
+# indemnification/data_security/ip_ownership's open-ended exposure, and
+# not itself a recurring cash-flow risk the way payment_terms is.
+#
+# sla was added as adapter #12 (built per the resolved design in
+# docs/architecture/sla_adapter_design.md) and ranked directly after
+# warranties: an SLA gap (missing availability floor, missing/weak
+# severity-tier response and restoration commitments, no service-credit
+# remedy, or credits stated as the exclusive remedy) is, like warranties,
+# a concrete, recurring operational exposure bounded by the contract's
+# own credit-cap/remedy language once a breach occurs -- but SLA failure
+# recurs on essentially every measurement period (monthly/quarterly)
+# rather than only when a discrete defect or claim arises, putting it
+# closer to payment_terms' recurring-cash-flow character than to
+# warranties' one-time-breach character, while still being bounded
+# (unlike liability/indemnification/data_security/ip_ownership's
+# open-ended exposure) -- ranked just below warranties and above
+# confidentiality/termination for that combination of recurrence and
+# boundedness.
 CLAUSE_TYPE_IMPORTANCE: Tuple[str, ...] = (
-    "limitation_of_liability", "indemnification", "confidentiality",
-    "termination", "assignment", "governing_law",
+    "payment_terms", "limitation_of_liability", "indemnification", "data_security",
+    "ip_ownership", "insurance", "warranties", "sla", "confidentiality", "termination",
+    "assignment", "governing_law",
 )
 
 
@@ -1094,6 +1322,12 @@ def _fmt_years(value: Optional[int]) -> str:
     if value is None:
         return "Not yet decided"
     return "Indefinite/perpetual" if value == 0 else f"{value} year(s)"
+
+
+def _fmt_hours(value: Optional[float]) -> str:
+    if value is None:
+        return "Not yet decided"
+    return f"{value:g} hours"
 
 
 def _summarize_liability(cfg: Dict[str, Any]) -> List[str]:
@@ -1181,6 +1415,191 @@ def _summarize_governing_law(cfg: Dict[str, Any], field_statuses: Dict[str, str]
     ]
 
 
+_SUBPROCESSOR_REQUIREMENT_LABELS = {
+    None: "Not yet decided",
+    "not_required": "No notice or consent required",
+    "notice": "Prior notice required",
+    "consent": "Prior written consent required",
+}
+
+
+def _summarize_data_security(cfg: Dict[str, Any]) -> List[str]:
+    return [
+        f"We must be identified as Processor → {_fmt_bool(cfg.get('require_processor_role'), 'Required', 'Not required')}",
+        f"Unrestricted subprocessors → {_fmt_bool(cfg.get('prohibit_unrestricted_subprocessors'), 'Prohibited', 'Allowed')}",
+        f"Subprocessor engagement → {_SUBPROCESSOR_REQUIREMENT_LABELS.get(cfg.get('require_subprocessor_notice_or_consent'), 'Not yet decided')}",
+        f"Preferred breach notification → {_fmt_hours(cfg.get('preferred_breach_notification_hours'))}",
+        f"Auto-accept up to → {_fmt_hours(cfg.get('acceptable_max_breach_notification_hours'))}",
+        f"Maximum negotiable before escalation → {_fmt_hours(cfg.get('negotiate_max_breach_notification_hours'))}",
+        f"Fixed breach notification period required → {_fmt_bool(cfg.get('require_fixed_breach_notification_period'), 'Required', 'Not required')}",
+        f"International transfer safeguard (SCC/adequacy) required → {_fmt_bool(cfg.get('require_international_transfer_safeguard'), 'Required', 'Not required')}",
+        f"Data residency required → {_fmt_bool(cfg.get('require_data_residency'), 'Required', 'Not required')}",
+        f"Approved residency region(s) → {_fmt_list(cfg.get('required_data_residency_regions_json'), 'Any')}",
+        f"Deletion or return of personal data on termination required → {_fmt_bool(cfg.get('require_deletion_or_return'), 'Required', 'Not required')}",
+        f"Maximum retention → {_fmt_days(cfg.get('max_retention_days'))}",
+        f"Audit rights required → {_fmt_bool(cfg.get('require_audit_rights'), 'Required', 'Not required')}",
+        f"Named security certification required (e.g. ISO 27001, SOC 2) → {_fmt_bool(cfg.get('require_named_security_certification'), 'Required', 'Not required')}",
+        f"Cooperation with data subject/regulatory requests required → {_fmt_bool(cfg.get('require_cooperation_obligation'), 'Required', 'Not required')}",
+        f"Explicit confidentiality of personal data required → {_fmt_bool(cfg.get('require_confidentiality_of_personal_data'), 'Required', 'Not required')}",
+    ]
+
+
+def _summarize_ip_ownership(cfg: Dict[str, Any]) -> List[str]:
+    return [
+        f"We retain our background/pre-existing IP → {_fmt_bool(cfg.get('require_we_retain_background_ip'), 'Required', 'Not required')}",
+        f"We own work product/deliverables → {_fmt_bool(cfg.get('require_we_own_work_product'), 'Required', 'Not required')}",
+        f"Joint ownership → {_fmt_bool(cfg.get('prohibit_joint_ownership'), 'Prohibited', 'Allowed')}",
+        f"License to use embedded background IP required → {_fmt_bool(cfg.get('require_license_for_embedded_background_ip'), 'Required', 'Not required')}",
+        f"Exclusive license required → {_fmt_bool(cfg.get('require_license_exclusive'), 'Required', 'Not required')}",
+        f"Royalty-bearing license → {_fmt_bool(cfg.get('prohibit_royalty_bearing_license'), 'Prohibited', 'Allowed')}",
+        f"Perpetual license required → {_fmt_bool(cfg.get('require_perpetual_license'), 'Required', 'Not required')}",
+        f"Revocable license → {_fmt_bool(cfg.get('prohibit_revocable_license'), 'Prohibited', 'Allowed')}",
+        f"Sublicensing required → {_fmt_bool(cfg.get('require_sublicensable'), 'Required', 'Not required')}",
+        f"Transferability required → {_fmt_bool(cfg.get('require_transferable'), 'Required', 'Not required')}",
+        f"Worldwide territory required → {_fmt_bool(cfg.get('require_worldwide_territory'), 'Required', 'Not required')}",
+        f"Purpose-limited (field-of-use) license required → {_fmt_bool(cfg.get('require_purpose_limited_license'), 'Required', 'Not required')}",
+        f"Derivative works → {_fmt_bool(cfg.get('prohibit_derivative_works'), 'Prohibited', 'Allowed')}",
+        f"Feedback must be assigned outright → {_fmt_bool(cfg.get('require_feedback_assigned'), 'Required', 'Not required')}",
+        f"Residual-knowledge rights required → {_fmt_bool(cfg.get('require_residual_knowledge_rights'), 'Required', 'Not required')}",
+        f"Open-source disclosure required → {_fmt_bool(cfg.get('require_open_source_disclosure'), 'Required', 'Not required')}",
+        f"Infringement/third-party IP reference required → {_fmt_bool(cfg.get('require_infringement_remedy_reference'), 'Required', 'Not required')}",
+        f"License must survive termination → {_fmt_bool(cfg.get('require_post_termination_survival'), 'Required', 'Not required')}",
+    ]
+
+
+def _fmt_dollars(value: Optional[float]) -> str:
+    if value is None:
+        return "Not yet decided"
+    return f"${value:,.0f}"
+
+
+def _summarize_insurance(cfg: Dict[str, Any]) -> List[str]:
+    return [
+        f"Commercial General Liability required → {_fmt_bool(cfg.get('require_cgl'), 'Required', 'Not required')}",
+        f"CGL minimum per-occurrence limit → {_fmt_dollars(cfg.get('cgl_minimum_per_occurrence'))}",
+        f"CGL minimum aggregate limit → {_fmt_dollars(cfg.get('cgl_minimum_aggregate'))}",
+        f"Professional Liability / E&O required → {_fmt_bool(cfg.get('require_professional_liability'), 'Required', 'Not required')}",
+        f"Professional Liability minimum limit → {_fmt_dollars(cfg.get('professional_liability_minimum_limit'))}",
+        f"Cyber Liability required → {_fmt_bool(cfg.get('require_cyber_liability'), 'Required', 'Not required')}",
+        f"Cyber Liability minimum limit → {_fmt_dollars(cfg.get('cyber_liability_minimum_limit'))}",
+        f"Workers' Compensation required → {_fmt_bool(cfg.get('require_workers_comp'), 'Required', 'Not required')}",
+        f"Employer's Liability required → {_fmt_bool(cfg.get('require_employers_liability'), 'Required', 'Not required')}",
+        f"Employer's Liability minimum limit → {_fmt_dollars(cfg.get('employers_liability_minimum_limit'))}",
+        f"Automobile Liability required → {_fmt_bool(cfg.get('require_auto_liability'), 'Required', 'Not required')}",
+        f"Auto Liability minimum limit → {_fmt_dollars(cfg.get('auto_liability_minimum_limit'))}",
+        f"Counterparty (not us) must be the obligated party → {_fmt_bool(cfg.get('require_counterparty_obligated'), 'Required', 'Not required')}",
+        f"Additional insured required → {_fmt_bool(cfg.get('require_additional_insured'), 'Required', 'Not required')}",
+        f"Waiver of subrogation required → {_fmt_bool(cfg.get('require_waiver_of_subrogation'), 'Required', 'Not required')}",
+        f"Primary and non-contributory required → {_fmt_bool(cfg.get('require_primary_non_contributory'), 'Required', 'Not required')}",
+        f"Certificate of insurance required → {_fmt_bool(cfg.get('require_certificate_of_insurance'), 'Required', 'Not required')}",
+        f"Minimum insurer rating required → {_fmt_bool(cfg.get('require_minimum_insurer_rating'), 'Required', 'Not required')}",
+        f"Notice of cancellation required → {_fmt_bool(cfg.get('require_notice_of_cancellation'), 'Required', 'Not required')}",
+        f"Minimum cancellation notice → {_fmt_days(cfg.get('minimum_cancellation_notice_days'))}",
+        f"Coverage must be maintained through the term → {_fmt_bool(cfg.get('require_policy_maintenance_through_term'), 'Required', 'Not required')}",
+        f"Claims-made tail/extended reporting required → {_fmt_bool(cfg.get('require_claims_made_tail'), 'Required', 'Not required')}",
+        f"Subcontractor coverage required → {_fmt_bool(cfg.get('require_subcontractor_coverage'), 'Required', 'Not required')}",
+        f"Evidence of coverage before commencement required → {_fmt_bool(cfg.get('require_evidence_before_commencement'), 'Required', 'Not required')}",
+    ]
+
+
+_PAYMENT_TRIGGER_LABELS = {
+    None: "Not yet decided", "invoice": "Invoice date", "receipt": "Receipt of goods/services",
+    "acceptance": "Acceptance of deliverables", "milestone": "Milestone completion",
+}
+
+_WARRANTY_REMEDY_LABELS = {
+    None: "Not yet decided", "repair_replace_reperform": "Repair, replace, or reperform",
+    "refund_credit": "Refund or credit",
+}
+
+
+def _summarize_payment_terms(cfg: Dict[str, Any], field_statuses: Dict[str, str]) -> List[str]:
+    trigger_value = cfg.get("required_payment_trigger")
+    trigger_status = field_statuses.get("required_payment_trigger", "NOT_ESTABLISHED")
+    trigger_label = "Not yet decided" if trigger_status != "ESTABLISHED" else _PAYMENT_TRIGGER_LABELS.get(trigger_value, trigger_value)
+    return [
+        f"Counterparty (not us) must be the payor → {_fmt_bool(cfg.get('require_counterparty_is_payor'), 'Required', 'Not required')}",
+        f"Preferred payment period → {_fmt_days(cfg.get('preferred_net_days'))}",
+        f"Acceptable maximum payment period → {_fmt_days(cfg.get('acceptable_max_net_days'))}",
+        f"Required payment trigger → {trigger_label}",
+        f"Undisputed amounts must remain payable → {_fmt_bool(cfg.get('require_undisputed_amounts_still_payable'), 'Required', 'Not required')}",
+        f"Withholding of disputed amounts → {_fmt_bool(cfg.get('prohibit_disputed_amount_withholding'), 'Prohibited', 'Allowed')}",
+        f"Minimum dispute-notice period → {_fmt_days(cfg.get('minimum_dispute_notice_days'))}",
+        f"Set-off → {_fmt_bool(cfg.get('prohibit_set_off'), 'Prohibited', 'Allowed')}",
+        f"Maximum permitted late-interest rate (annualized) → {cfg.get('maximum_late_interest_rate_percent'):g}%" if cfg.get('maximum_late_interest_rate_percent') is not None else "Maximum permitted late-interest rate (annualized) → Not yet decided",
+        f"Unilateral price increases → {_fmt_bool(cfg.get('prohibit_unilateral_price_increase'), 'Prohibited', 'Allowed')}",
+        f"Maximum permitted price-increase → {cfg.get('maximum_price_increase_percent'):g}%" if cfg.get('maximum_price_increase_percent') is not None else "Maximum permitted price-increase → Not yet decided",
+        f"Minimum price-increase notice → {_fmt_days(cfg.get('minimum_price_increase_notice_days'))}",
+        f"Expense pre-approval required → {_fmt_bool(cfg.get('require_expense_preapproval'), 'Required', 'Not required')}",
+        f"Counterparty (not us) must bear tax responsibility → {_fmt_bool(cfg.get('require_tax_responsibility_counterparty'), 'Required', 'Not required')}",
+        f"Required payment currency → {cfg.get('required_currency') or 'Not yet decided'}",
+        f"Refund entitlement required → {_fmt_bool(cfg.get('require_refund_entitlement'), 'Required', 'Not required')}",
+    ]
+
+
+def _summarize_warranties(cfg: Dict[str, Any], field_statuses: Dict[str, str]) -> List[str]:
+    remedy_value = cfg.get("required_remedy_type")
+    remedy_status = field_statuses.get("required_remedy_type", "NOT_ESTABLISHED")
+    remedy_label = "Not yet decided" if remedy_status != "ESTABLISHED" else _WARRANTY_REMEDY_LABELS.get(remedy_value, remedy_value)
+    return [
+        f"Required warranty categories (from counterparty) → {_fmt_list(cfg.get('required_warranty_categories_json'))}",
+        f"Prohibited warranty categories (we must never give) → {_fmt_list(cfg.get('prohibited_warranty_categories_json'))}",
+        f"Mutual warranties required → {_fmt_bool(cfg.get('require_mutual_warranties'), 'Required', 'Not required')}",
+        f"Minimum warranty duration → {_fmt_days(cfg.get('minimum_warranty_duration_days'))}",
+        f"\"AS IS\" disclaimer → {_fmt_bool(cfg.get('prohibit_as_is_disclaimer'), 'Prohibited', 'Allowed')}",
+        f"Exclusive remedy language → {_fmt_bool(cfg.get('prohibit_exclusive_remedy'), 'Prohibited', 'Allowed')}",
+        f"Required remedy type → {remedy_label}",
+        f"Non-infringement warranty required → {_fmt_bool(cfg.get('require_non_infringement_warranty'), 'Required', 'Not required')}",
+        f"Compliance-with-law warranty required → {_fmt_bool(cfg.get('require_compliance_with_law_warranty'), 'Required', 'Not required')}",
+        f"Professional/workmanlike standard required → {_fmt_bool(cfg.get('require_professional_standard'), 'Required', 'Not required')}",
+        f"Malware/malicious-code-free warranty required → {_fmt_bool(cfg.get('require_malware_free_warranty'), 'Required', 'Not required')}",
+        f"Title warranty required → {_fmt_bool(cfg.get('require_title_warranty'), 'Required', 'Not required')}",
+        f"Warranty survival required → {_fmt_bool(cfg.get('require_warranty_survival'), 'Required', 'Not required')}",
+    ]
+
+
+_SLA_SUPPORT_HOURS_LABELS = {
+    None: "Not yet decided", "24x7": "24x7", "business_hours": "Business hours only",
+}
+_SLA_BASIS_LABELS = {None: "Not yet decided", "calendar": "Calendar", "business": "Business"}
+
+
+def _summarize_sla(cfg: Dict[str, Any], field_statuses: Dict[str, str]) -> List[str]:
+    support_value = cfg.get("required_support_hours")
+    support_status = field_statuses.get("required_support_hours", "NOT_ESTABLISHED")
+    support_label = "Not yet decided" if support_status != "ESTABLISHED" else _SLA_SUPPORT_HOURS_LABELS.get(support_value, support_value)
+
+    lines = [
+        f"Uptime commitment required → {_fmt_bool(cfg.get('require_uptime_commitment'), 'Required', 'Not required')}",
+        f"Preferred uptime → {cfg.get('preferred_uptime_percent'):g}%" if cfg.get('preferred_uptime_percent') is not None else "Preferred uptime → Not yet decided",
+        f"Minimum acceptable uptime → {cfg.get('minimum_acceptable_uptime_percent'):g}%" if cfg.get('minimum_acceptable_uptime_percent') is not None else "Minimum acceptable uptime → Not yet decided",
+        f"Permitted maintenance exclusions → {_fmt_list(cfg.get('permitted_maintenance_exclusions_json'))}",
+        f"Severity-tiered commitments required → {_fmt_bool(cfg.get('require_severity_tiers'), 'Required', 'Not required')}",
+    ]
+    for n in (1, 2, 3, 4):
+        rh = cfg.get(f"p{n}_max_response_hours")
+        rb = cfg.get(f"p{n}_response_basis")
+        sh = cfg.get(f"p{n}_max_restoration_hours")
+        sb = cfg.get(f"p{n}_restoration_basis")
+        lines.append(
+            f"P{n} max response → " + (f"{rh:g} hours ({_SLA_BASIS_LABELS.get(rb, rb)})" if rh is not None else "Not yet decided")
+        )
+        lines.append(
+            f"P{n} max restoration → " + (f"{sh:g} hours ({_SLA_BASIS_LABELS.get(sb, sb)})" if sh is not None else "Not yet decided")
+        )
+    lines += [
+        f"Required support hours → {support_label}",
+        f"Service credits required → {_fmt_bool(cfg.get('require_service_credits'), 'Required', 'Not required')}",
+        f"Minimum credit percentage of fees → {cfg.get('minimum_credit_percent_of_fees'):g}%" if cfg.get('minimum_credit_percent_of_fees') is not None else "Minimum credit percentage of fees → Not yet decided",
+        f"Minimum credit cap → {cfg.get('minimum_credit_cap_percent_of_fees'):g}%" if cfg.get('minimum_credit_cap_percent_of_fees') is not None else "Minimum credit cap → Not yet decided",
+        f"Chronic-failure remedy required → {_fmt_bool(cfg.get('require_chronic_failure_remedy'), 'Required', 'Not required')}",
+        f"Termination right for chronic failure required → {_fmt_bool(cfg.get('require_termination_right_for_chronic_failure'), 'Required', 'Not required')}",
+        f"Service credits as exclusive remedy → {_fmt_bool(cfg.get('prohibit_service_credits_as_exclusive_remedy'), 'Prohibited', 'Allowed')}",
+        f"Minimum claim-submission window → {_fmt_days(cfg.get('minimum_claim_submission_days'))}",
+    ]
+    return lines
+
+
 _SUMMARIZERS = {
     "limitation_of_liability": lambda cfg, statuses: _summarize_liability(cfg),
     "indemnification": lambda cfg, statuses: _summarize_indemnification(cfg),
@@ -1188,6 +1607,12 @@ _SUMMARIZERS = {
     "confidentiality": lambda cfg, statuses: _summarize_confidentiality(cfg),
     "assignment": lambda cfg, statuses: _summarize_assignment(cfg),
     "governing_law": lambda cfg, statuses: _summarize_governing_law(cfg, statuses),
+    "data_security": lambda cfg, statuses: _summarize_data_security(cfg),
+    "ip_ownership": lambda cfg, statuses: _summarize_ip_ownership(cfg),
+    "insurance": lambda cfg, statuses: _summarize_insurance(cfg),
+    "payment_terms": lambda cfg, statuses: _summarize_payment_terms(cfg, statuses),
+    "warranties": lambda cfg, statuses: _summarize_warranties(cfg, statuses),
+    "sla": lambda cfg, statuses: _summarize_sla(cfg, statuses),
 }
 
 
@@ -1291,6 +1716,134 @@ FIELD_LABELS: Dict[str, Dict[str, str]] = {
         "prohibited_jurisdictions_json": "Never acceptable",
         "required_dispute_resolution": "Dispute resolution requirement",
         "require_jury_trial_waiver": "Require jury trial waiver",
+    },
+    "payment_terms": {
+        "require_counterparty_is_payor": "Counterparty (not us) must be the payor",
+        "preferred_net_days": "Preferred payment period",
+        "acceptable_max_net_days": "Acceptable maximum payment period",
+        "required_payment_trigger": "Required payment trigger",
+        "require_undisputed_amounts_still_payable": "Undisputed amounts must remain payable during a dispute",
+        "prohibit_disputed_amount_withholding": "Never accept withholding of disputed amounts",
+        "minimum_dispute_notice_days": "Minimum dispute-notice period",
+        "prohibit_set_off": "Never accept set-off rights",
+        "maximum_late_interest_rate_percent": "Maximum permitted late-interest rate (annualized)",
+        "prohibit_unilateral_price_increase": "Never accept unilateral price increases",
+        "maximum_price_increase_percent": "Maximum permitted price-increase",
+        "minimum_price_increase_notice_days": "Minimum price-increase notice period",
+        "require_expense_preapproval": "Require expense pre-approval",
+        "require_tax_responsibility_counterparty": "Counterparty (not us) must bear tax responsibility",
+        "required_currency": "Required payment currency",
+        "require_refund_entitlement": "Require a refund entitlement",
+    },
+    "warranties": {
+        "required_warranty_categories_json": "Required warranty categories (from counterparty)",
+        "prohibited_warranty_categories_json": "Prohibited warranty categories (we must never give)",
+        "require_mutual_warranties": "Require mutual warranties",
+        "minimum_warranty_duration_days": "Minimum warranty duration",
+        "prohibit_as_is_disclaimer": "Never accept an \"AS IS\" disclaimer",
+        "prohibit_exclusive_remedy": "Never accept exclusive-remedy language",
+        "required_remedy_type": "Required remedy type",
+        "require_non_infringement_warranty": "Require a non-infringement warranty",
+        "require_compliance_with_law_warranty": "Require a compliance-with-law warranty",
+        "require_professional_standard": "Require a professional/workmanlike standard warranty",
+        "require_malware_free_warranty": "Require a malware/malicious-code-free warranty",
+        "require_title_warranty": "Require a title warranty",
+        "require_warranty_survival": "Require the warranty to survive termination",
+    },
+    "sla": {
+        "require_uptime_commitment": "Require an uptime/availability commitment",
+        "preferred_uptime_percent": "Preferred uptime",
+        "minimum_acceptable_uptime_percent": "Minimum acceptable uptime",
+        "permitted_maintenance_exclusions_json": "Permitted maintenance exclusions",
+        "require_severity_tiers": "Require severity-tiered response/restoration commitments",
+        "p1_max_response_hours": "P1 maximum response time",
+        "p1_response_basis": "P1 response time basis",
+        "p1_max_restoration_hours": "P1 maximum restoration time",
+        "p1_restoration_basis": "P1 restoration time basis",
+        "p2_max_response_hours": "P2 maximum response time",
+        "p2_response_basis": "P2 response time basis",
+        "p2_max_restoration_hours": "P2 maximum restoration time",
+        "p2_restoration_basis": "P2 restoration time basis",
+        "p3_max_response_hours": "P3 maximum response time",
+        "p3_response_basis": "P3 response time basis",
+        "p3_max_restoration_hours": "P3 maximum restoration time",
+        "p3_restoration_basis": "P3 restoration time basis",
+        "p4_max_response_hours": "P4 maximum response time",
+        "p4_response_basis": "P4 response time basis",
+        "p4_max_restoration_hours": "P4 maximum restoration time",
+        "p4_restoration_basis": "P4 restoration time basis",
+        "required_support_hours": "Required support hours",
+        "require_service_credits": "Require a service-credit remedy",
+        "minimum_credit_percent_of_fees": "Minimum service-credit percentage of fees",
+        "minimum_credit_cap_percent_of_fees": "Minimum service-credit cap",
+        "require_chronic_failure_remedy": "Require a chronic/repeated-failure remedy",
+        "require_termination_right_for_chronic_failure": "Require a termination right for chronic failure",
+        "prohibit_service_credits_as_exclusive_remedy": "Never accept service credits as the exclusive remedy",
+        "minimum_claim_submission_days": "Minimum claim-submission window",
+    },
+    "insurance": {
+        "require_cgl": "Commercial General Liability required",
+        "cgl_minimum_per_occurrence": "CGL minimum per-occurrence limit",
+        "cgl_minimum_aggregate": "CGL minimum aggregate limit",
+        "require_professional_liability": "Professional Liability / E&O required",
+        "professional_liability_minimum_limit": "Professional Liability minimum limit",
+        "require_cyber_liability": "Cyber Liability required",
+        "cyber_liability_minimum_limit": "Cyber Liability minimum limit",
+        "require_workers_comp": "Workers' Compensation required",
+        "require_employers_liability": "Employer's Liability required",
+        "employers_liability_minimum_limit": "Employer's Liability minimum limit",
+        "require_auto_liability": "Automobile Liability required",
+        "auto_liability_minimum_limit": "Auto Liability minimum limit",
+        "require_counterparty_obligated": "Counterparty (not us) must be the obligated party",
+        "require_additional_insured": "Require additional insured status",
+        "require_waiver_of_subrogation": "Require a waiver of subrogation",
+        "require_primary_non_contributory": "Require primary and non-contributory language",
+        "require_certificate_of_insurance": "Require a certificate of insurance",
+        "require_minimum_insurer_rating": "Require a minimum insurer rating (e.g. A.M. Best)",
+        "require_notice_of_cancellation": "Require advance notice of cancellation",
+        "minimum_cancellation_notice_days": "Minimum cancellation notice period",
+        "require_policy_maintenance_through_term": "Require coverage to be maintained through the term",
+        "require_claims_made_tail": "Require claims-made tail/extended reporting coverage",
+        "require_subcontractor_coverage": "Require subcontractors to carry equivalent insurance",
+        "require_evidence_before_commencement": "Require evidence of coverage before commencement",
+    },
+    "ip_ownership": {
+        "require_we_retain_background_ip": "We retain ownership of our background/pre-existing IP",
+        "require_we_own_work_product": "We own work product/deliverables",
+        "prohibit_joint_ownership": "Never accept joint ownership",
+        "require_license_for_embedded_background_ip": "Require a license to use background IP embedded in deliverables",
+        "require_license_exclusive": "Require an exclusive license",
+        "prohibit_royalty_bearing_license": "Never accept a royalty-bearing license (royalty-free required)",
+        "require_perpetual_license": "Require a perpetual license",
+        "prohibit_revocable_license": "Never accept a revocable license (irrevocable required)",
+        "require_sublicensable": "Require sublicensing rights",
+        "require_transferable": "Require transferability",
+        "require_worldwide_territory": "Require a worldwide territory",
+        "require_purpose_limited_license": "Require a purpose-limited (field-of-use restricted) license",
+        "prohibit_derivative_works": "Never accept derivative-works rights",
+        "require_feedback_assigned": "Require feedback to be assigned outright",
+        "require_residual_knowledge_rights": "Require residual-knowledge rights",
+        "require_open_source_disclosure": "Require open-source disclosure/obligations",
+        "require_infringement_remedy_reference": "Require the clause to reference infringement/third-party IP treatment",
+        "require_post_termination_survival": "Require the license to survive termination",
+    },
+    "data_security": {
+        "require_processor_role": "We must be identified as Processor",
+        "prohibit_unrestricted_subprocessors": "Never accept unrestricted subprocessors",
+        "require_subprocessor_notice_or_consent": "Subprocessor engagement requires",
+        "preferred_breach_notification_hours": "Preferred breach notification window",
+        "acceptable_max_breach_notification_hours": "Auto-accept up to",
+        "negotiate_max_breach_notification_hours": "Maximum negotiable before escalation",
+        "require_fixed_breach_notification_period": "Require a fixed breach notification period",
+        "require_international_transfer_safeguard": "Require an international transfer safeguard (SCC/adequacy)",
+        "require_data_residency": "Require a stated data-residency commitment",
+        "required_data_residency_regions_json": "Approved residency region(s)",
+        "require_deletion_or_return": "Require deletion or return of personal data on termination",
+        "max_retention_days": "Maximum retention period",
+        "require_audit_rights": "Require audit rights",
+        "require_named_security_certification": "Require a named security certification (e.g. ISO 27001, SOC 2)",
+        "require_cooperation_obligation": "Require cooperation with data subject/regulatory requests",
+        "require_confidentiality_of_personal_data": "Require explicit confidentiality of personal data",
     },
 }
 

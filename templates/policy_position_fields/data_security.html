@@ -1,0 +1,116 @@
+{% extends "playbook_position_edit_base.html" %}
+{% from "_playbook_macros.html" import tristate, number_input %}
+
+{% block clause_fields %}
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Role &amp; subprocessors</h3>
+{{ tristate('require_processor_role', cfg.get('require_processor_role'), field_statuses.get('require_processor_role', 'NOT_ESTABLISHED'),
+    field_labels.require_processor_role,
+    'If required, a clause that identifies us as Controller (or leaves our role unstated/ambiguous) gets flagged.') }}
+
+{{ tristate('prohibit_unrestricted_subprocessors', cfg.get('prohibit_unrestricted_subprocessors'), field_statuses.get('prohibit_unrestricted_subprocessors', 'NOT_ESTABLISHED'),
+    field_labels.prohibit_unrestricted_subprocessors,
+    'If "No," subprocessors engaged without notice or consent still get flagged for escalation instead of being auto-blocked.') }}
+
+<div class="mb-4">
+    <p class="text-sm font-semibold text-[#0F172A] mb-1">{{ field_labels.require_subprocessor_notice_or_consent }}</p>
+    <div class="flex flex-col gap-1.5">
+        <label class="flex items-center gap-1.5 text-sm text-gray-500 cursor-pointer">
+            <input type="radio" name="require_subprocessor_notice_or_consent" value=""
+                {% if field_statuses.get('require_subprocessor_notice_or_consent', 'NOT_ESTABLISHED') != 'ESTABLISHED' %}checked{% endif %} class="border-gray-300">
+            Not decided yet
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="require_subprocessor_notice_or_consent" value="not_required"
+                {% if field_statuses.get('require_subprocessor_notice_or_consent') == 'ESTABLISHED' and cfg.get('require_subprocessor_notice_or_consent') == 'not_required' %}checked{% endif %} class="border-gray-300">
+            No notice or consent required
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="require_subprocessor_notice_or_consent" value="notice"
+                {% if field_statuses.get('require_subprocessor_notice_or_consent') == 'ESTABLISHED' and cfg.get('require_subprocessor_notice_or_consent') == 'notice' %}checked{% endif %} class="border-gray-300">
+            Prior notice required
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="require_subprocessor_notice_or_consent" value="consent"
+                {% if field_statuses.get('require_subprocessor_notice_or_consent') == 'ESTABLISHED' and cfg.get('require_subprocessor_notice_or_consent') == 'consent' %}checked{% endif %} class="border-gray-300">
+            Prior written consent required
+        </label>
+    </div>
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Breach / security-incident notification</h3>
+<div class="mb-5">
+    <p class="text-sm font-semibold text-[#0F172A] mb-1">Notification window</p>
+    <p class="text-xs text-gray-500 mb-2">Maximum hours after becoming aware of a security incident before the counterparty must notify us. Anything above "negotiate up to" is routed to escalation.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div>
+            <label class="block text-xs font-semibold text-gray-500 mb-1">Preferred</label>
+            <input type="number" step="1" min="0" name="preferred_breach_notification_hours"
+                value="{{ cfg.get('preferred_breach_notification_hours') if cfg.get('preferred_breach_notification_hours') is not none else '' }}"
+                placeholder="e.g. 24" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+        </div>
+        <div>
+            <label class="block text-xs font-semibold text-gray-500 mb-1">Auto-accept up to</label>
+            <input type="number" step="1" min="0" name="acceptable_max_breach_notification_hours"
+                value="{{ cfg.get('acceptable_max_breach_notification_hours') if cfg.get('acceptable_max_breach_notification_hours') is not none else '' }}"
+                placeholder="e.g. 48" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+        </div>
+        <div>
+            <label class="block text-xs font-semibold text-gray-500 mb-1">Negotiate up to</label>
+            <input type="number" step="1" min="0" name="negotiate_max_breach_notification_hours"
+                value="{{ cfg.get('negotiate_max_breach_notification_hours') if cfg.get('negotiate_max_breach_notification_hours') is not none else '' }}"
+                placeholder="e.g. 72" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+        </div>
+    </div>
+</div>
+
+{{ tristate('require_fixed_breach_notification_period', cfg.get('require_fixed_breach_notification_period'), field_statuses.get('require_fixed_breach_notification_period', 'NOT_ESTABLISHED'),
+    field_labels.require_fixed_breach_notification_period,
+    'If required, a clause that only promises notice "without undue delay" (with no fixed maximum) still gets flagged.') }}
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">International transfer &amp; residency</h3>
+{{ tristate('require_international_transfer_safeguard', cfg.get('require_international_transfer_safeguard'), field_statuses.get('require_international_transfer_safeguard', 'NOT_ESTABLISHED'),
+    field_labels.require_international_transfer_safeguard,
+    'If required, a clause that contemplates international transfers with no named safeguard (e.g. Standard Contractual Clauses, an adequacy decision) gets flagged.') }}
+
+{{ tristate('require_data_residency', cfg.get('require_data_residency'), field_statuses.get('require_data_residency', 'NOT_ESTABLISHED'),
+    field_labels.require_data_residency,
+    'If required, a clause with no stated data-residency commitment gets flagged.') }}
+
+<div class="mb-4">
+    <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">{{ field_labels.required_data_residency_regions_json }}</label>
+    <input type="text" name="required_data_residency_regions_json" value="{{ (cfg.get('required_data_residency_regions_json') or [])|join(', ') }}" placeholder="e.g. European Union, United Kingdom" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+    <p class="text-xs text-gray-400 mt-1.5">Separate regions with commas. Leave blank to accept any stated region once residency is required above.</p>
+</div>
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Deletion, retention &amp; audit</h3>
+{{ tristate('require_deletion_or_return', cfg.get('require_deletion_or_return'), field_statuses.get('require_deletion_or_return', 'NOT_ESTABLISHED'),
+    field_labels.require_deletion_or_return,
+    'If required, indefinite retention with no deletion/return commitment gets flagged.') }}
+
+{{ number_input('max_retention_days', cfg.get('max_retention_days'), field_statuses.get('max_retention_days', 'NOT_ESTABLISHED'), field_labels.max_retention_days, suffix='days') }}
+
+{{ tristate('require_audit_rights', cfg.get('require_audit_rights'), field_statuses.get('require_audit_rights', 'NOT_ESTABLISHED'),
+    field_labels.require_audit_rights,
+    'If required, a clause with no audit rights (or that expressly excludes them) gets flagged.') }}
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Security standard &amp; cooperation</h3>
+{{ tristate('require_named_security_certification', cfg.get('require_named_security_certification'), field_statuses.get('require_named_security_certification', 'NOT_ESTABLISHED'),
+    field_labels.require_named_security_certification,
+    'If required, vague language ("industry-standard," "commercially reasonable" security) is not enough — a named certification (e.g. ISO 27001, SOC 2) is required.') }}
+
+{{ tristate('require_cooperation_obligation', cfg.get('require_cooperation_obligation'), field_statuses.get('require_cooperation_obligation', 'NOT_ESTABLISHED'),
+    field_labels.require_cooperation_obligation,
+    'Covers both data subject request assistance and regulatory cooperation together.') }}
+
+{{ tristate('require_confidentiality_of_personal_data', cfg.get('require_confidentiality_of_personal_data'), field_statuses.get('require_confidentiality_of_personal_data', 'NOT_ESTABLISHED'),
+    field_labels.require_confidentiality_of_personal_data,
+    'If required, a clause with no explicit confidentiality commitment for personal data specifically gets flagged.') }}
+</div>
+{% endblock %}

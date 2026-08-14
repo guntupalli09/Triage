@@ -1,0 +1,95 @@
+{% extends "playbook_position_edit_base.html" %}
+{% from "_playbook_macros.html" import tristate, number_input %}
+
+{% block clause_fields %}
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Directionality</h3>
+{{ tristate('require_counterparty_is_payor', cfg.get('require_counterparty_is_payor'), field_statuses.get('require_counterparty_is_payor', 'NOT_ESTABLISHED'),
+    field_labels.require_counterparty_is_payor,
+    'If required, a clause where we are the payor, or where the payor/payee cannot be attributed, gets flagged.') }}
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Payment timing</h3>
+{{ number_input('preferred_net_days', cfg.get('preferred_net_days'), field_statuses.get('preferred_net_days', 'NOT_ESTABLISHED'), field_labels.preferred_net_days, suffix='days') }}
+{{ number_input('acceptable_max_net_days', cfg.get('acceptable_max_net_days'), field_statuses.get('acceptable_max_net_days', 'NOT_ESTABLISHED'), field_labels.acceptable_max_net_days, suffix='days') }}
+
+<div class="mb-4">
+    <p class="text-sm font-semibold text-[#0F172A] mb-1">{{ field_labels.required_payment_trigger }}</p>
+    <div class="flex flex-col gap-1.5">
+        <label class="flex items-center gap-1.5 text-sm text-gray-500 cursor-pointer">
+            <input type="radio" name="required_payment_trigger" value=""
+                {% if field_statuses.get('required_payment_trigger', 'NOT_ESTABLISHED') != 'ESTABLISHED' %}checked{% endif %} class="border-gray-300">
+            Not decided yet
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="required_payment_trigger" value="invoice"
+                {% if field_statuses.get('required_payment_trigger') == 'ESTABLISHED' and cfg.get('required_payment_trigger') == 'invoice' %}checked{% endif %} class="border-gray-300">
+            Invoice date
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="required_payment_trigger" value="receipt"
+                {% if field_statuses.get('required_payment_trigger') == 'ESTABLISHED' and cfg.get('required_payment_trigger') == 'receipt' %}checked{% endif %} class="border-gray-300">
+            Receipt of goods/services
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="required_payment_trigger" value="acceptance"
+                {% if field_statuses.get('required_payment_trigger') == 'ESTABLISHED' and cfg.get('required_payment_trigger') == 'acceptance' %}checked{% endif %} class="border-gray-300">
+            Written acceptance
+        </label>
+        <label class="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+            <input type="radio" name="required_payment_trigger" value="milestone"
+                {% if field_statuses.get('required_payment_trigger') == 'ESTABLISHED' and cfg.get('required_payment_trigger') == 'milestone' %}checked{% endif %} class="border-gray-300">
+            Milestone completion
+        </label>
+    </div>
+</div>
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Disputed amounts</h3>
+{{ tristate('require_undisputed_amounts_still_payable', cfg.get('require_undisputed_amounts_still_payable'), field_statuses.get('require_undisputed_amounts_still_payable', 'NOT_ESTABLISHED'),
+    field_labels.require_undisputed_amounts_still_payable) }}
+{{ tristate('prohibit_disputed_amount_withholding', cfg.get('prohibit_disputed_amount_withholding'), field_statuses.get('prohibit_disputed_amount_withholding', 'NOT_ESTABLISHED'),
+    field_labels.prohibit_disputed_amount_withholding,
+    'If set, a clause that lets the counterparty withhold disputed amounts gets flagged.') }}
+{{ number_input('minimum_dispute_notice_days', cfg.get('minimum_dispute_notice_days'), field_statuses.get('minimum_dispute_notice_days', 'NOT_ESTABLISHED'), field_labels.minimum_dispute_notice_days, suffix='days') }}
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Late payment &amp; set-off</h3>
+{{ number_input('maximum_late_interest_rate_percent', cfg.get('maximum_late_interest_rate_percent'), field_statuses.get('maximum_late_interest_rate_percent', 'NOT_ESTABLISHED'), field_labels.maximum_late_interest_rate_percent, suffix='% annualized', step='0.1') }}
+{{ tristate('prohibit_set_off', cfg.get('prohibit_set_off'), field_statuses.get('prohibit_set_off', 'NOT_ESTABLISHED'),
+    field_labels.prohibit_set_off) }}
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Pricing</h3>
+{{ tristate('prohibit_unilateral_price_increase', cfg.get('prohibit_unilateral_price_increase'), field_statuses.get('prohibit_unilateral_price_increase', 'NOT_ESTABLISHED'),
+    field_labels.prohibit_unilateral_price_increase) }}
+{{ number_input('maximum_price_increase_percent', cfg.get('maximum_price_increase_percent'), field_statuses.get('maximum_price_increase_percent', 'NOT_ESTABLISHED'), field_labels.maximum_price_increase_percent, suffix='%', step='0.1') }}
+{{ number_input('minimum_price_increase_notice_days', cfg.get('minimum_price_increase_notice_days'), field_statuses.get('minimum_price_increase_notice_days', 'NOT_ESTABLISHED'), field_labels.minimum_price_increase_notice_days, suffix='days') }}
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Expenses</h3>
+{{ tristate('require_expense_preapproval', cfg.get('require_expense_preapproval'), field_statuses.get('require_expense_preapproval', 'NOT_ESTABLISHED'),
+    field_labels.require_expense_preapproval) }}
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Taxes &amp; currency</h3>
+{{ tristate('require_tax_responsibility_counterparty', cfg.get('require_tax_responsibility_counterparty'), field_statuses.get('require_tax_responsibility_counterparty', 'NOT_ESTABLISHED'),
+    field_labels.require_tax_responsibility_counterparty) }}
+<div class="mb-4">
+    <label class="block text-sm font-semibold text-[#0F172A] mb-1.5">{{ field_labels.required_currency }}</label>
+    <input type="text" name="required_currency"
+        value="{{ cfg.get('required_currency') if (field_statuses.get('required_currency') == 'ESTABLISHED' and cfg.get('required_currency') is not none) else '' }}"
+        placeholder="e.g. USD" class="w-full sm:w-64 px-3 py-2 border border-gray-200 rounded-lg text-sm">
+</div>
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Refunds &amp; credits</h3>
+{{ tristate('require_refund_entitlement', cfg.get('require_refund_entitlement'), field_statuses.get('require_refund_entitlement', 'NOT_ESTABLISHED'),
+    field_labels.require_refund_entitlement) }}
+</div>
+{% endblock %}

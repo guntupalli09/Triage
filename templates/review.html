@@ -129,6 +129,7 @@
     .queue-summary-count.tier-top b { color: #B91C1C; }
     .queue-summary-count.tier-negotiate b { color: #92400E; }
     .queue-summary-count.tier-review b { color: #3730A3; }
+    .queue-summary-count.tier-interaction b { color: #6D28D9; }
     .queue-summary-note { font-size: 12px; color: #94A3B8; padding: 10px 16px; }
 
     .queue-section-head { font-size: 11px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: #64748B; padding: 10px 16px 4px; }
@@ -149,6 +150,14 @@
     .qrd-label { font-weight: 600; color: #475569; }
     .queue-row-action { font-size: 12px; color: #334155; margin-top: 2px; }
     .queue-row.is-resolved .queue-row-detail, .queue-row.is-resolved .queue-row-action { color: #94A3B8; }
+
+    /* Cross-Policy Interactions (Interaction Engine V1, design doc S9) —
+       a distinct left border + tint and a chain-link kind label keep an
+       interaction row visually unmistakable from an ordinary clause
+       exception row, even before the state badge is read. */
+    .queue-row.is-interaction { border-left: 3px solid #A78BFA; background: #FAF5FF; }
+    .queue-row.is-interaction:hover { background: #F3E8FF; }
+    .queue-interaction-kind { font-size: 10.5px; font-weight: 700; color: #6D28D9; text-transform: uppercase; letter-spacing: 0.02em; }
 
     .other-finding-row { display: flex; align-items: flex-start; gap: 9px; padding: 9px 16px; cursor: pointer; border-bottom: 1px solid #F8FAFC; }
     .other-finding-row:hover { background: #F8FAFC; }
@@ -205,6 +214,8 @@
     .ladder-arrow { color: #CBD5E1; }
     .pop-source { font-size: 11px; color: #94A3B8; margin-bottom: 10px; }
     .pop-escalate { font-size: 12px; color: #9A3412; background: #FFEDD5; border: 1px solid #FED7AA; border-radius: 7px; padding: 6px 10px; margin-bottom: 10px; }
+    .pop-escalate.stale-notice { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: #6D28D9; background: #F3E8FF; border-color: #DDD6FE; }
+    .pop-escalate.stale-notice .pop-btn { flex-shrink: 0; }
     .policy-decision-record { font-size: 12px; color: #475569; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 10px 12px; margin-top: 10px; line-height: 1.6; }
     .policy-decision-record .pdr-label { font-weight: 600; color: #334155; }
     .pop-positions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
@@ -371,6 +382,12 @@ const CLAUSE_LABELS = {{ clause_labels | tojson }};
 const CLAUSE_MODULE_HEADING_HINTS = {
     liability: /liab/i, confidentiality: /confidential/i, indemnification: /indemn/i,
     ip: /intellectual property/i, arbitration: /arbitrat/i, termination: /terminat/i,
+    data_security: /data\s*(protection|security|privacy)|information\s*security/i,
+    ip_ownership: /intellectual\s*property|proprietary\s*rights|work\s*product|license\s*grant/i,
+    insurance: /insurance|general\s*liability|certificate\s*of\s*insurance/i,
+    payment_terms: /payment\s*terms|fees?\s*and\s*payment|invoic(e|ing)/i,
+    warranties: /warrant(y|ies)|representations?\s*and\s*warrant/i,
+    sla: /service\s*level|\bSLA\b|uptime|availability\s*commitment/i,
 };
 const SEV_LABEL = { critical: "Critical", high: "High", medium: "Medium", low: "Low" };
 
@@ -560,6 +577,33 @@ function policyQueueRowHTML(i) {
     </div>`;
 }
 
+// Interaction Engine V1 rows (design doc S9): visually distinct from
+// ordinary policy exception rows (own CSS class + a chain-link glyph
+// instead of a state dot) so a lawyer scanning the queue never mistakes a
+// cross-policy interaction for a single-clause exception. Shows,
+// before-click: participating clauses, interaction kind, a concise
+// reason, and state -- exactly the four fields the task asked for.
+function interactionQueueRowHTML(i) {
+    const f = FINDINGS[i];
+    const resolved = !!DECISIONS[fkey(i)];
+    const clauseLabels = (f.participating_clause_types || []).map(ct => CLAUSE_LABELS[ct] || ct.replace(/_/g, " "));
+    const escalateBadge = f.escalate_to ? `<span class="row-escalate-badge">&#9873; ${esc(f.escalate_to)}</span>` : "";
+    const staleBadge = f.stale ? `<span class="row-escalate-badge">&#8635; Needs reconfirmation</span>` : "";
+    return `<div class="queue-row is-interaction ${resolved ? 'is-resolved' : ''}" data-idx="${i}">
+        <div class="queue-row-top">
+            <span class="queue-state-badge ${policyStateClass(f.policy_state)}">${esc(policyStateLabel(f.policy_state))}</span>
+            <span class="queue-interaction-kind">&#128279; ${esc(f.interaction_kind || "")}</span>
+            ${escalateBadge}${staleBadge}
+            ${resolved ? rowStatusBadgeHTML(i) : ""}
+        </div>
+        <div class="queue-row-detail">
+            <div><span class="qrd-label">Clauses:</span> ${esc(clauseLabels.join(" + "))}</div>
+        </div>
+        ${f.rationale ? `<div class="queue-row-action">${esc(f.rationale)}</div>` : ""}
+        ${f.stale && f.stale_reason ? `<div class="queue-row-action">${esc(f.stale_reason)}</div>` : ""}
+    </div>`;
+}
+
 function otherFindingRowHTML(i) {
     const f = FINDINGS[i];
     const resolved = !!DECISIONS[fkey(i)];
@@ -602,12 +646,14 @@ function renderPanelList() {
                 ${s.requires_review ? `<span class="queue-summary-count tier-review"><b>${s.requires_review}</b> Needs Review</span>` : ""}
                 ${s.evaluation_error ? `<span class="queue-summary-count tier-top"><b>${s.evaluation_error}</b> Evaluation Failed</span>` : ""}
                 ${s.passed ? `<span class="queue-summary-count"><b>${s.passed}</b> Passed</span>` : ""}
+                ${s.interactions_needing_attention ? `<span class="queue-summary-count tier-interaction"><b>${s.interactions_needing_attention}</b> Cross-Policy Interaction${s.interactions_needing_attention === 1 ? '' : 's'}</span>` : ""}
             </div>
         </div>
     `;
 
     const policyIdxs = QUEUE.policy_exception_indices || [];
     const otherIdxs = QUEUE.other_finding_indices || [];
+    const interactionIdxs = QUEUE.interaction_exception_indices || [];
 
     let noPolicyNote = "";
     if (!policyIdxs.length && !s.passed && !s.not_applicable) {
@@ -621,12 +667,22 @@ function renderPanelList() {
         ${policyIdxs.map(policyQueueRowHTML).join("")}
     ` : "";
 
+    // Cross-Policy Interactions sits between clause exceptions and
+    // ordinary rule-engine findings (design doc S9) -- its own section
+    // head and row shape (interactionQueueRowHTML), never merged into
+    // "Playbook Exceptions" so a lawyer never mistakes a relationship
+    // between two provisions for a single-clause exception.
+    const interactionsHTML = interactionIdxs.length ? `
+        <div class="queue-section-head">Cross-Policy Interactions</div>
+        ${interactionIdxs.map(interactionQueueRowHTML).join("")}
+    ` : "";
+
     const othersHTML = otherIdxs.length ? `
-        ${policyIdxs.length ? '<div class="queue-section-head">Other Contract Findings</div>' : ''}
+        ${(policyIdxs.length || interactionIdxs.length) ? '<div class="queue-section-head">Other Contract Findings</div>' : ''}
         ${otherIdxs.map(otherFindingRowHTML).join("")}
     ` : "";
 
-    const emptyHTML = (!policyIdxs.length && !otherIdxs.length)
+    const emptyHTML = (!policyIdxs.length && !otherIdxs.length && !interactionIdxs.length)
         ? '<div class="panel-empty-note">No findings in this document.</div>' : "";
 
     panel.innerHTML = `
@@ -636,6 +692,7 @@ function renderPanelList() {
             ${noPolicyNote}
             <div class="panel-list-body">
                 ${exceptionsHTML}
+                ${interactionsHTML}
                 ${othersHTML}
                 ${emptyHTML}
             </div>
@@ -685,8 +742,27 @@ function popoverHTML(f, i) {
     const decision = DECISIONS[fkey(i)];
     const original = f.exact_snippet || f.matched_excerpt || "";
     const isPolicyDecision = f.finding_type === "policy_decision";
+    const isInteractionDecision = f.finding_type === "interaction_decision";
     const isGovernance = isPolicyDecision && POLICY_GOVERNANCE_STATES.has(f.policy_state);
     const policyDecisionRow = isPolicyDecision && POLICY_DECISIONS ? POLICY_DECISIONS[f.clause_type] : null;
+    // Interaction findings have no clause-specific redline of their own
+    // (an interaction points at two already-established provisions, it
+    // never proposes new contract language) -- "Acknowledge" replaces the
+    // rule-engine's "Flag for Manual Drafting" wording, which does not fit.
+    const participatingClausesHTML = isInteractionDecision && f.participating_clause_types ? `<div class="pop-queue-context">
+        <div><span class="pqc-label">Participating clauses:</span> ${f.participating_clause_types.map(ct => esc(CLAUSE_LABELS[ct] || ct.replace(/_/g, " "))).join(", ")}</div>
+    </div>` : "";
+    // Redline invalidation (design doc S5.2/S9.5): a stale interaction
+    // never silently recomputes -- the only actions are look-at-it-again
+    // (this note + evidence, unchanged) and Dismiss (clears the flag,
+    // recording that a lawyer re-confirmed the original evidence still
+    // holds). No "Recompute" action exists because there is nothing new
+    // to recompute against (the edited clause's free text is never
+    // re-extracted) -- see interaction_enforcement.py.
+    const staleNoticeHTML = (isInteractionDecision && f.stale) ? `<div class="pop-escalate stale-notice">
+        <span>&#8635; ${esc(f.stale_reason || "This interaction depends on a clause that has changed since it was evaluated.")}</span>
+        <button class="pop-btn" id="dismiss-stale-btn" type="button">Dismiss</button>
+    </div>` : "";
 
     const diffHTML = rl ? `<div class="diff-box"><span class="del">${esc(original.slice(0, 90))}${original.length > 90 ? "…" : ""}</span> &rarr;<br><span class="ins">${esc(rl.suggested_redline)}</span></div>` : "";
     const ladderHTML = f.negotiation_ladder && f.negotiation_ladder.length ? `<div class="pop-ladder">${f.negotiation_ladder.map(s => `<span class="ladder-step ${s.status}" title="${esc(s.description)}">${esc(s.label)}</span>`).join('<span class="ladder-arrow">&rarr;</span>')}</div>` : "";
@@ -745,7 +821,7 @@ function popoverHTML(f, i) {
     // framing could never reach an ESCALATE finding at all. flaggedLabel
     // still maps to action="flagged" — existing review-decision
     // validation/semantics are unchanged, only the button's wording is.
-    const flaggedLabel = isGovernance ? "&#128204; Request exception" : "&#128204; Flag for Manual Drafting";
+    const flaggedLabel = isGovernance ? "&#128204; Request exception" : (isInteractionDecision ? "&#128204; Acknowledge" : "&#128204; Flag for Manual Drafting");
     // REQUIRES_REVIEW means the engine reached no conclusion at all — its
     // primary action must not be styled as if accepting a recommendation
     // (there isn't one to accept), so it does not get the "primary" class
@@ -774,10 +850,13 @@ function popoverHTML(f, i) {
     return `
         <div class="pop-top">
             <span class="text-[10.5px] font-bold uppercase tracking-wide px-2 py-0.5 rounded ${f.severity === 'high' || f.severity === 'critical' ? 'bg-red-50 text-red-700' : f.severity === 'medium' ? 'bg-amber-50 text-amber-700' : 'bg-blue-50 text-blue-700'}">${f.policy_state ? esc(policyStateLabel(f.policy_state)) : (SEV_LABEL[f.severity] || f.severity)}</span>
+            ${isInteractionDecision ? `<span class="text-[10.5px] font-bold uppercase tracking-wide px-2 py-0.5 rounded bg-purple-50 text-purple-700">${esc((f.interaction_kind || "").toUpperCase())}</span>` : ""}
             <span class="pop-title">${esc(f.title)} <span class="mono text-[10.5px] text-gray-400 font-normal">${esc(f.rule_id)}</span></span>
             <button class="verify-btn" id="verify-btn">&#8635; Verify</button>
         </div>
         ${queueContextHTML}
+        ${participatingClausesHTML}
+        ${staleNoticeHTML}
         ${escalateHTML}
         <div class="pop-actions">${actions}</div>
         ${missingFallbackNote}
@@ -854,6 +933,20 @@ function wirePopover(f, i, pop) {
             stamp.textContent = "Verify failed: " + err.message;
         } finally {
             btn.classList.remove("loading");
+        }
+    });
+
+    pop.querySelector("#dismiss-stale-btn")?.addEventListener("click", async (e) => {
+        const btn = e.currentTarget;
+        btn.disabled = true;
+        try {
+            await postForm(`/contract/${CONTRACT_ID}/review/interaction/dismiss-stale`, { interaction_id: f.interaction_id });
+            f.stale = false;
+            f.stale_reason = null;
+            openFinding(i);
+            renderPanelList();
+        } catch (err) {
+            btn.disabled = false;
         }
     });
 

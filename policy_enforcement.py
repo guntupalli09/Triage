@@ -460,6 +460,7 @@ def apply_active_policies(
     findings_dict: List[Dict],
     *,
     active_positions: Optional[Dict[str, PolicyPosition]] = None,
+    outcomes_out: Optional[List["ClauseEvaluationOutcome"]] = None,
 ) -> Optional[Dict[str, Any]]:
     """Cutover-mode equivalent of apply_liability_policy, generalized to
     all six clause types. Appends a synthetic finding per clause type that
@@ -469,10 +470,21 @@ def apply_active_policies(
     columns. Iterates pa.CLAUSE_TYPES in its fixed order so
     policy_decisions_json's key order — and therefore its serialization —
     is deterministic for the same playbook + same ACTIVE set (requirement
-    10)."""
+    10).
+
+    `outcomes_out`, if given, is appended to (never replaced) with the same
+    List[ClauseEvaluationOutcome] this function already computed — the one
+    sanctioned way for interaction_enforcement.apply_interaction_rules to
+    see this review's per-clause decisions without a second call into
+    evaluate_active_policies (which would re-run every extract_fn/
+    evaluate_fn pair a second time for no reason, since nothing here is
+    non-deterministic). Optional and additive: every existing caller that
+    omits it sees no change in behavior."""
     if not playbook:
         return None
     outcomes = evaluate_active_policies(db, playbook, contract_text, active_positions=active_positions)
+    if outcomes_out is not None:
+        outcomes_out.extend(outcomes)
     if not outcomes:
         return None
 
@@ -660,11 +672,22 @@ def apply_policies_for_review(
 
     if mode == "cutover":
         if not playbook:
-            return {"policy_decisions": None, "policy_revision_metadata": None}
+            return {"policy_decisions": None, "policy_revision_metadata": None, "interaction_decisions": None}
         snapshot = snapshot_active_positions(db, playbook.id)
-        result = apply_active_policies(db, playbook, contract_text, findings_dict, active_positions=snapshot)
+        outcomes: List["ClauseEvaluationOutcome"] = []
+        result = apply_active_policies(
+            db, playbook, contract_text, findings_dict, active_positions=snapshot, outcomes_out=outcomes,
+        )
         if result is None:
-            return {"policy_decisions": None, "policy_revision_metadata": None}
+            return {"policy_decisions": None, "policy_revision_metadata": None, "interaction_decisions": None}
+        # Interaction Engine V1 (docs/architecture/interaction_engine_v1_design.md
+        # S11) — the single integration point. Local import to avoid a
+        # module-load-time circular import (interaction_enforcement.py
+        # imports ClauseEvaluationOutcome from this module); consumes only
+        # the outcomes this same apply_active_policies() call already
+        # computed — no second evaluation pass, no raw-text access.
+        import interaction_enforcement
+        result["interaction_decisions"] = interaction_enforcement.apply_interaction_rules(outcomes, findings_dict)
         return result
 
     # legacy and shadow both use the legacy path for the user-visible result.
@@ -680,7 +703,7 @@ def apply_policies_for_review(
             # come from the legacy path during shadow mode").
             pass
 
-    return {"policy_decisions": legacy_decisions, "policy_revision_metadata": None}
+    return {"policy_decisions": legacy_decisions, "policy_revision_metadata": None, "interaction_decisions": None}
 
 
 # ---------------------------------------------------------------------------

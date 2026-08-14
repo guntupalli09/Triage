@@ -1,0 +1,86 @@
+{% extends "playbook_position_edit_base.html" %}
+{% from "_playbook_macros.html" import tristate %}
+
+{% block clause_fields %}
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Ownership</h3>
+{{ tristate('require_we_retain_background_ip', cfg.get('require_we_retain_background_ip'), field_statuses.get('require_we_retain_background_ip', 'NOT_ESTABLISHED'),
+    field_labels.require_we_retain_background_ip,
+    'If required, a clause that attributes our pre-existing/background IP to the counterparty (or leaves it unstated/ambiguous) gets flagged.') }}
+
+{{ tristate('require_we_own_work_product', cfg.get('require_we_own_work_product'), field_statuses.get('require_we_own_work_product', 'NOT_ESTABLISHED'),
+    field_labels.require_we_own_work_product,
+    'If required, a clause that attributes work product/deliverables to the counterparty (or leaves it unstated/ambiguous) gets flagged.') }}
+
+{{ tristate('prohibit_joint_ownership', cfg.get('prohibit_joint_ownership'), field_statuses.get('prohibit_joint_ownership', 'NOT_ESTABLISHED'),
+    field_labels.prohibit_joint_ownership,
+    'If "No," joint ownership still gets flagged for escalation instead of being auto-blocked.') }}
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">License grant</h3>
+{{ tristate('require_license_for_embedded_background_ip', cfg.get('require_license_for_embedded_background_ip'), field_statuses.get('require_license_for_embedded_background_ip', 'NOT_ESTABLISHED'),
+    field_labels.require_license_for_embedded_background_ip,
+    'If required, a clause that gives no license to use background IP embodied in the deliverables gets flagged.') }}
+
+{{ tristate('require_license_exclusive', cfg.get('require_license_exclusive'), field_statuses.get('require_license_exclusive', 'NOT_ESTABLISHED'),
+    field_labels.require_license_exclusive,
+    'If required, a non-exclusive (or unstated) license gets flagged.') }}
+
+{{ tristate('prohibit_royalty_bearing_license', cfg.get('prohibit_royalty_bearing_license'), field_statuses.get('prohibit_royalty_bearing_license', 'NOT_ESTABLISHED'),
+    field_labels.prohibit_royalty_bearing_license,
+    'If "No," a royalty-bearing license still gets flagged for escalation instead of being auto-blocked.') }}
+
+{{ tristate('require_perpetual_license', cfg.get('require_perpetual_license'), field_statuses.get('require_perpetual_license', 'NOT_ESTABLISHED'),
+    field_labels.require_perpetual_license,
+    'If required, a term-limited (or unstated) license duration gets flagged.') }}
+
+{{ tristate('prohibit_revocable_license', cfg.get('prohibit_revocable_license'), field_statuses.get('prohibit_revocable_license', 'NOT_ESTABLISHED'),
+    field_labels.prohibit_revocable_license,
+    'If "No," an expressly revocable (or unstated) license still gets flagged for escalation instead of being auto-blocked.') }}
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Sublicensing, transfer &amp; territory</h3>
+{{ tristate('require_sublicensable', cfg.get('require_sublicensable'), field_statuses.get('require_sublicensable', 'NOT_ESTABLISHED'),
+    field_labels.require_sublicensable,
+    'If required, a license with no stated sublicensing rights (or expressly non-sublicensable) gets flagged.') }}
+
+{{ tristate('require_transferable', cfg.get('require_transferable'), field_statuses.get('require_transferable', 'NOT_ESTABLISHED'),
+    field_labels.require_transferable,
+    'If required, a license with no stated transferability (or expressly non-transferable) gets flagged.') }}
+
+{{ tristate('require_worldwide_territory', cfg.get('require_worldwide_territory'), field_statuses.get('require_worldwide_territory', 'NOT_ESTABLISHED'),
+    field_labels.require_worldwide_territory,
+    'If required, a restricted (or unstated) territory gets flagged.') }}
+
+{{ tristate('require_purpose_limited_license', cfg.get('require_purpose_limited_license'), field_statuses.get('require_purpose_limited_license', 'NOT_ESTABLISHED'),
+    field_labels.require_purpose_limited_license,
+    'If required, a license with no field-of-use restriction gets flagged.') }}
+
+{{ tristate('prohibit_derivative_works', cfg.get('prohibit_derivative_works'), field_statuses.get('prohibit_derivative_works', 'NOT_ESTABLISHED'),
+    field_labels.prohibit_derivative_works,
+    'If "No," a license permitting derivative works still gets flagged for escalation instead of being auto-blocked.') }}
+</div>
+
+<div class="pt-4 mt-2 border-t border-gray-100">
+<h3 class="text-sm font-semibold text-[#0F172A] mb-3">Feedback, residuals &amp; other commitments</h3>
+{{ tristate('require_feedback_assigned', cfg.get('require_feedback_assigned'), field_statuses.get('require_feedback_assigned', 'NOT_ESTABLISHED'),
+    field_labels.require_feedback_assigned,
+    'If required, feedback that is only licensed (not assigned outright) gets flagged.') }}
+
+{{ tristate('require_residual_knowledge_rights', cfg.get('require_residual_knowledge_rights'), field_statuses.get('require_residual_knowledge_rights', 'NOT_ESTABLISHED'),
+    field_labels.require_residual_knowledge_rights,
+    'If required, a clause with no residual-knowledge language gets flagged.') }}
+
+{{ tristate('require_open_source_disclosure', cfg.get('require_open_source_disclosure'), field_statuses.get('require_open_source_disclosure', 'NOT_ESTABLISHED'),
+    field_labels.require_open_source_disclosure,
+    'If required, a clause with no open-source disclosure/obligations gets flagged.') }}
+
+{{ tristate('require_infringement_remedy_reference', cfg.get('require_infringement_remedy_reference'), field_statuses.get('require_infringement_remedy_reference', 'NOT_ESTABLISHED'),
+    field_labels.require_infringement_remedy_reference,
+    'If required, a clause that never references infringement/third-party IP treatment gets flagged.') }}
+
+{{ tristate('require_post_termination_survival', cfg.get('require_post_termination_survival'), field_statuses.get('require_post_termination_survival', 'NOT_ESTABLISHED'),
+    field_labels.require_post_termination_survival,
+    'If required, a license with no stated post-termination survival commitment gets flagged.') }}
+</div>
+{% endblock %}

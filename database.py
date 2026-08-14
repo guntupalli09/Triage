@@ -314,6 +314,12 @@ def _run_migrations():
             if "policy_revision_metadata_json" not in contract_cols_now:
                 conn.execute(text("ALTER TABLE contracts ADD COLUMN policy_revision_metadata_json JSON"))
                 logger.info("Migration applied: contracts.policy_revision_metadata_json column")
+            if "interaction_decisions_json" not in contract_cols_now:
+                conn.execute(text(f"ALTER TABLE contracts ADD COLUMN interaction_decisions_json {encrypted_json_col_type}"))
+                logger.info("Migration applied: contracts.interaction_decisions_json column")
+            if "interaction_staleness_json" not in contract_cols_now:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN interaction_staleness_json JSON"))
+                logger.info("Migration applied: contracts.interaction_staleness_json column")
 
 
 def init_db():
