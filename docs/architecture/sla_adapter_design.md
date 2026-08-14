@@ -170,6 +170,22 @@ all return `unresolved` instead of guessing). This is a real, named
 limitation of the recommended design, not something to discover in
 production.
 
+**DECIDED**: confirmed as the design. Four canonical internal severity
+levels — `P1_CRITICAL`, `P2_HIGH`, `P3_MEDIUM`, `P4_LOW` — with the
+source contract's original label preserved as evidence on the extracted
+row (e.g. `SeverityTarget.raw_label = "Sev 1"`, `canonical_level =
+"P1_CRITICAL"`) rather than discarded once normalized. Deterministic
+synonym mappings ("Sev 1," "Severity 1," "Critical," "Priority 1" →
+`P1_CRITICAL`, and the equivalent three-way mappings for P2-P4) are
+applied via the `_SEVERITY_LABEL_NORMALIZE` dict described above.
+Genuinely ambiguous mappings — a label with no confident match to any of
+the four canonical levels, or a fifth distinct tier the contract itself
+does not equate to one of the four — route to `REQUIRES_REVIEW`, never a
+best-guess assignment. The module docstring should state this
+explicitly: the four-level catalog is a deliberate, documented
+simplification of real-world severity taxonomies, not a claim that every
+company's taxonomy is actually four-tiered.
+
 ---
 
 ## 3. Activation readiness
@@ -285,27 +301,40 @@ eleven existing adapters exactly (a `require_*` boolean gates whether a
 whole dimension is checked at all; a `prohibit_*` boolean chooses severity
 between two already-non-accepting states; numeric fields are bare
 `Optional[float]` ceilings/floors; bounded-string fields go through
-`_BOUNDED_VOCABULARIES`):
+`_BOUNDED_VOCABULARIES`).
 
-| Field | Type | Purpose |
-|---|---|---|
-| `require_uptime_commitment` | `bool` | Gates whether an uptime/availability commitment must be established at all |
-| `preferred_uptime_percent` | `Optional[float]` | Not itself activation-gating (mirrors `payment_terms.preferred_net_days`) |
-| `minimum_acceptable_uptime_percent` | `Optional[float]` | Floor; below this is a violation |
-| `p1_max_response_hours` … `p4_max_response_hours` | `Optional[float]` × 4 | Per-severity response ceiling (§2.2) |
-| `p1_max_restoration_hours` … `p4_max_restoration_hours` | `Optional[float]` × 4 | Per-severity restoration/resolution ceiling |
-| `require_severity_tiers` | `bool` | Gates whether *some* per-severity commitment must exist (paired with the §3.3 hook) |
-| `required_support_hours` | `Optional[str]` | Bounded vocab: `"24x7"` / `"business_hours"` / `"not_stated"` — mirrors `governing_law.required_dispute_resolution`'s bounded-string pattern exactly |
-| `permitted_maintenance_exclusions_json` | `Optional[List[str]]` | Bounded vocab over `("scheduled_maintenance", "emergency_maintenance", "customer_caused", "force_majeure")` — mirrors `assignment.required_exceptions_json`'s list-of-bounded-tokens pattern |
-| `require_service_credits` | `bool` | Gates whether a service-credit remedy must exist at all |
-| `minimum_credit_percent_of_fees` | `Optional[float]` | Floor on the credit amount for a qualifying breach |
-| `maximum_credit_cap_percent_of_fees` | `Optional[float]` | Ceiling on cumulative credits (a *cap being too low* is the violation direction — mirrors how Payment Terms treats `maximum_late_interest_rate_percent` as a ceiling the contract must not exceed, but here the policy concern is usually the opposite direction: the contract's cap must not be *too restrictive*, so the evaluator's comparison direction needs explicit design attention distinct from a simple "contract value must not exceed policy value" ceiling check) |
-| `require_chronic_failure_remedy` | `bool` | Gates whether a chronic/repeated-breach provision must exist |
-| `require_termination_right_for_chronic_failure` | `bool` | Gates whether chronic failure must carry a termination right, not just credits |
-| `prohibit_service_credits_as_exclusive_remedy` | `bool` | Mirrors `warranties.prohibit_exclusive_remedy` exactly — same fact, same adapter-local naming convention, applied to SLA's remedy instead of Warranties' |
-| `minimum_claim_submission_days` | `Optional[float]` | Floor on how long the customer has to submit a credit claim (a *short* deadline is the violation direction, unlike most "minimum" fields in this codebase which flag values *below* the floor — again needs explicit evaluator-direction documentation) |
-| `escalation_approval_authority` | shared | Standard |
-| `fallback_text` | shared | Standard |
+**DECIDED (comparison direction)**: per the explicit instruction not to
+infer comparison semantics from field names, every numeric field's
+direction is stated in prose here and must be implemented as a literal,
+named comparison in the evaluator (`actual < policy_value` or
+`actual > policy_value`), never inferred from whether the field is
+spelled `minimum_*`/`maximum_*`. Response/restoration targets are
+maximums a contract must not exceed (smaller stated value is a stronger
+commitment). Availability/uptime and credit-cap generosity are minimums
+a contract must meet or exceed (larger stated value is stronger). Two
+fields below were renamed from the original draft specifically because
+their original names implied the wrong direction by convention alone —
+exactly the failure mode decision #3 warns against.
+
+| Field | Type | Direction | Purpose |
+|---|---|---|---|
+| `require_uptime_commitment` | `bool` | — | Gates whether an uptime/availability commitment must be established at all |
+| `preferred_uptime_percent` | `Optional[float]` | — | Not itself activation-gating (mirrors `payment_terms.preferred_net_days`) |
+| `minimum_acceptable_uptime_percent` | `Optional[float]` | Floor — violation if `actual < policy_value` | Larger stated uptime is stronger |
+| `p1_max_response_hours` … `p4_max_response_hours` | `Optional[float]` × 4 | Ceiling — violation if `actual > policy_value` | Per-severity response ceiling (§2.2); smaller stated hours is stronger |
+| `p1_max_restoration_hours` … `p4_max_restoration_hours` | `Optional[float]` × 4 | Ceiling — violation if `actual > policy_value` | Per-severity restoration/resolution ceiling; smaller stated hours is stronger |
+| `require_severity_tiers` | `bool` | — | Gates whether *some* per-severity commitment must exist (paired with the §3.3 hook) |
+| `required_support_hours` | `Optional[str]` | — | Bounded vocab: `"24x7"` / `"business_hours"` / `"not_stated"` — mirrors `governing_law.required_dispute_resolution`'s bounded-string pattern exactly |
+| `permitted_maintenance_exclusions_json` | `Optional[List[str]]` | — | Bounded vocab over `("scheduled_maintenance", "emergency_maintenance", "customer_caused", "force_majeure")` — mirrors `assignment.required_exceptions_json`'s list-of-bounded-tokens pattern |
+| `require_service_credits` | `bool` | — | Gates whether a service-credit remedy must exist at all (this adapter's own remedy fact — see §7 on why this is deliberately not merged with `payment_terms.service_credit_present`) |
+| `minimum_credit_percent_of_fees` | `Optional[float]` | Floor — violation if `actual < policy_value` | Larger stated credit percentage per qualifying breach is stronger |
+| `minimum_credit_cap_percent_of_fees` | `Optional[float]` | Floor — violation if `actual < policy_value` | Renamed from `maximum_credit_cap_...` in the original draft: a credit *cap* is a ceiling on the vendor's exposure, so a **higher** cap is more favorable to the party receiving credits — the policy field is therefore a floor (minimum acceptable cap), the opposite direction a "maximum"-style ceiling field would suggest by name alone |
+| `require_chronic_failure_remedy` | `bool` | — | Gates whether a chronic/repeated-breach provision must exist |
+| `require_termination_right_for_chronic_failure` | `bool` | — | Gates whether chronic failure must carry a termination right, not just credits |
+| `prohibit_service_credits_as_exclusive_remedy` | `bool` | — | Mirrors `warranties.prohibit_exclusive_remedy` exactly — same fact, same adapter-local naming convention, applied to SLA's remedy instead of Warranties' |
+| `minimum_claim_submission_days` | `Optional[float]` | Floor — violation if `actual < policy_value` | Not renamed — on review this field was already directionally correct in the original draft (a *shorter* contract-stated deadline than the policy's minimum is the violation, the same `actual < floor` direction as every other minimum-style field in this codebase); flagged here explicitly only so the comparison direction is stated, not inferred, per decision #3 |
+| `escalation_approval_authority` | shared | — | Standard |
+| `fallback_text` | shared | — | Standard |
 
 Every field defaults to `NOT_ESTABLISHED`/`None` per the standard
 convention; nothing here infers a negotiation tier the lawyer hasn't
@@ -354,18 +383,29 @@ any prior adapter:
   silently mismatch which number means which.
 - **Hours vs. business hours vs. business days.** "4 hours" vs. "4
   business hours" vs. "1 business day" are three different actual
-  durations requiring three different unit-conversion paths (calendar
-  hours; business hours, which needs a business-day-length assumption to
-  even normalize; business days, ditto) — this is a strictly harder
-  version of the minutes/hours/days conversion problem Warranties already
-  solved for duration (`_DURATION_MONTHS_RE`/`_DURATION_YEARS_RE`
-  normalizing to days via a documented, simple multiplier assumption),
-  because "business hours" and "business days" cannot be normalized to a
-  calendar-time value without an assumption the adapter must document
-  explicitly (e.g. "1 business day = 8 business hours," stated in the
-  module docstring exactly the way Payment Terms documents its
-  monthly-rate-times-12 annualization assumption) rather than silently
-  guessed.
+  durations. **DECIDED**: unlike Warranties' month/year-to-days
+  normalization (a safe conversion because a month and a year are
+  calendar-time units with no external dependency), calendar hours and
+  business hours are **never** converted into one another. A business
+  calendar depends on facts not present in the contract text (holiday
+  schedules, support-window start/end times, which days count as
+  business days for this specific counterparty) — computing "4 business
+  hours = X calendar hours" would be fabricated precision, the same
+  category of risk the §1 "effective uptime percentage" discussion
+  already rejects for the same reason. `SeverityTarget` therefore carries
+  a `basis: "calendar" | "business" | "not_stated"` field alongside its
+  numeric value, and the evaluator compares a contract's stated target
+  against a policy ceiling **only when both share the same basis**; a
+  policy ceiling stated in calendar hours compared against a contract
+  commitment stated in business hours (or vice versa) routes to
+  `REQUIRES_REVIEW` rather than silently mixing units — unless the
+  contract itself explicitly defines the conversion (e.g. "business
+  hours are 9am-6pm Monday-Friday, excluding federal holidays," which
+  some SLAs do state), in which case that contract-stated conversion,
+  and only that one, may be applied. This is a stricter rule than any
+  existing adapter's numeric-normalization pattern and should be called
+  out as such in the module docstring, not silently modeled as "just
+  another unit conversion."
 - **Minutes/hours/days conversions generally.** Some SLAs state response
   times in minutes ("15-minute response for P1"). A single canonical
   unit (hours, as a float) with a documented minutes→hours conversion is
@@ -486,19 +526,23 @@ not against a hypothetical:
   right_for_chronic_failure` fact plus Termination's independently-
   extracted trigger give an interaction layer both sides without
   re-parsing.
-- **SLA ↔ Payment Terms.** **NEEDS SMALL OUTPUT EXTENSION.** Payment
-  Terms already has `service_credit_present: Optional[bool]`, explicitly
-  documented in its own module docstring as presence-only precisely
-  *because* "SLA gets its own adapter later." Once SLA exists, the two
-  adapters' service-credit facts need a shared identifier (most cheaply,
-  overlapping `start_index`/`end_index` spans, the same low-cost
-  primitive the ten-adapter review recommended for its four "needs
-  extension" relationships) so an interaction layer — or even a human
-  reviewer — can tell whether Payment Terms' presence flag and SLA's
-  detailed credit-schedule facts are describing the *same* contractual
-  mechanism or two different ones. This is the one relationship in this
-  document that references a design decision already flagged as pending
-  in the prior review, not a new finding.
+- **SLA ↔ Payment Terms.** **NEEDS SMALL OUTPUT EXTENSION — DECIDED, no
+  merge.** Resolved explicitly: SLA owns the full service-level remedy
+  (trigger, percentage, calculation basis, cap, exclusivity, claim
+  deadline) as its own facts; Payment Terms keeps its existing
+  `service_credit_present: Optional[bool]` exactly as-is, continuing to
+  recognize only that a service credit exists in the commercial/payment
+  context, with no new dependency on `sla_policy_engine.py` and no shared
+  resolver function between the two modules. The two adapters' facts stay
+  genuinely independent today, each extracted by its own module with no
+  cross-import. The only forward-looking hook is the same low-cost
+  primitive already used elsewhere in this codebase for cross-adapter
+  correlation without coupling: both facts already carry (or will carry)
+  `start_index`/`end_index` spans, which a **future** Interaction Engine
+  — not either extractor — can use to notice "these two facts describe
+  the same contract sentence" without either adapter importing or
+  knowing about the other. This is a deliberate rejection of cross-adapter
+  coupling inside either extractor, not a deferred merge.
 - **SLA ↔ Warranties.** **READY FROM STRUCTURED FACTS**, structurally,
   once built — both adapters already carry an `exclusive_remedy_present`/
   `prohibit_exclusive_remedy`-shaped fact (Warranties has it today; SLA's
@@ -566,45 +610,51 @@ minimal, purely additive optional-hook extension point on
 `validate_position_for_activation`, registered per-clause-type, that
 changes nothing about the mechanical path the other eleven adapters use.
 
-**What must be decided before implementation?**
-1. The exact severity-catalog size and canonical labels (`p1`-`p4` is
-   recommended in §2.2 as matching overwhelming real-world convention,
-   but this is a product/legal judgment call, not a technical one, and
-   should be confirmed before the Protocol is written, since changing it
-   later means a schema migration).
-2. The business-hours/business-day-to-calendar-hours conversion
-   assumption from §5 (e.g. "1 business day = 8 hours") must be chosen
-   and documented in the module docstring *before* writing the
-   normalization code, the same way Payment Terms' annualization
-   assumption was decided once and documented rather than guessed
-   per-case.
-3. The comparison *direction* for `maximum_credit_cap_percent_of_fees`
-   and `minimum_claim_submission_days` (§4) — both are ceiling/floor
-   fields whose "violation direction" is the *opposite* of most ceiling/
-   floor fields elsewhere in this codebase (a cap that is too *low*, or a
-   deadline that is too *short*, is the problem, not too high/long) —
-   should be nailed down in the design before the evaluator is written,
-   since getting this backwards would be a false-safe bug class of
-   exactly the kind this codebase's release gates are built to catch,
-   better caught by explicit design than by benchmark.
-4. Whether Payment Terms' `service_credit_present` field should be
-   deprecated/repurposed once SLA ships, or left as-is with the
-   overlapping-span convention from §7 — an explicit decision, not a
-   default, since Payment Terms' own docstring already anticipated this
-   moment ("SLA gets its own adapter later") without specifying how the
-   handoff should work.
+**What must be decided before implementation? — RESOLVED.**
+All four decisions originally raised here have been made explicitly and
+are recorded in the sections they affect:
 
-None of these four is an architecture blocker — each is a scoped,
-answerable design decision that should be made deliberately at the start
-of implementation rather than discovered mid-build.
+1. **Severity catalog (§2.3)**: four canonical levels, `P1_CRITICAL`
+   through `P4_LOW`, with the source contract's original label preserved
+   as evidence on every extracted row. Deterministic synonyms ("Sev 1,"
+   "Critical," "Priority 1") normalize to the canonical set; genuinely
+   ambiguous mappings, or a taxonomy that doesn't reduce to four tiers,
+   route to `REQUIRES_REVIEW` rather than being force-mapped.
+2. **Business-hours conversion (§5)**: never converted to calendar hours.
+   `SeverityTarget` carries an explicit `basis: "calendar" | "business" |
+   "not_stated"` field; the evaluator compares a contract value against a
+   policy ceiling only when both share the same basis, routing to
+   `REQUIRES_REVIEW` on a basis mismatch unless the contract itself
+   states the conversion.
+3. **Ceiling/floor direction (§4)**: encoded explicitly per field, never
+   inferred from a field's name. Response/restoration targets are
+   maximums (smaller is stronger); availability and credit-cap
+   generosity are minimums (larger is stronger). Two fields from the
+   original draft were renamed during this resolution specifically
+   because their names implied the wrong direction by convention alone
+   (`maximum_credit_cap_percent_of_fees` → `minimum_credit_cap_percent_
+   of_fees`) — direct confirmation that "don't build clever inference
+   from field names" is the right rule, since the inference actually
+   produced a wrong field name on the first pass.
+4. **SLA vs. Payment Terms credits (§7)**: not merged. SLA owns the full
+   service-level remedy as its own facts; Payment Terms keeps
+   `service_credit_present` unchanged, with no cross-import between the
+   two extractor modules. Reconciliation, if ever needed, is a future
+   Interaction Engine concern operating on both adapters' independently-
+   extracted `start_index`/`end_index` spans, not a coupling built into
+   either adapter now.
+
+None of these four was an architecture blocker, and none required a
+schema or generic-layer change to resolve — each was a scoped, adapter-
+local design decision, now closed.
 
 ---
 
 ## Recommendation
 
-**PROCEED TO IMPLEMENTATION**, conditioned on resolving the four
-decisions in §8 explicitly at the start of the build (not during it), and
-building the adapter with:
+**PROCEED TO IMPLEMENTATION.** The four decisions §8 originally flagged
+as prerequisites are now resolved and recorded in §2.3/§4/§5/§7. Build the
+adapter with:
 - the flattened keyed-severity-catalog policy schema from §2.2 (not a
   nested-object config field),
 - the adapter-owned activation-validator hook from §3.3,
