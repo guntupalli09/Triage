@@ -18,15 +18,17 @@ Scores are out of 10 on: immediate clarity, screenshot readability, commercial-l
 
 ## Page 2 — What TriageCounsel does
 
+**Revision note:** the original version of this page showed the upload page and review queue, but never showed the Playbook itself being authored — a real gap, since "playbook" is one of the product's central claims. Added a third, full-width screenshot below the three points: a real, freshly-captured screenshot of the Playbook Workbench (`screenshots/06_playbook_workbench.png`, cropped to `pdf_source/assets/s6_cropped.png`) showing the Commercial Services Playbook with "12 Active / 0 Needs review / 0 Not configured / 100.0% coverage" and the first three structured policy-position cards (Limitation of Liability, Indemnification, Termination) with their real configured summaries. This is genuine, unaltered application state — same demo user, same playbook (`playbook_id=1`) used throughout the rest of the deck.
+
 | Criterion | Score | Note |
 |---|---|---|
 | Immediate clarity | 9 | Eyebrow + headline + one-sentence lede state the point before any screenshot. |
-| Screenshot readability | 7 | The two side-by-side screenshots are legible at the state-badge/heading level (NEGOTIATE / ACCEPT / REQUIRES REVIEW visible, filename visible), but body text inside the right-hand review-queue screenshot is small at print resolution. Acceptable because this page's job is "orient," not "prove" — the detailed proof screenshots (3, 4, 5) get full width later. |
-| Commercial-lawyer relevance | 9 | "Clear the repeatable / surface the exceptions / show the evidence" maps directly onto how a lawyer already triages a stack of contracts. |
-| Credibility | 8 | No overreach in copy; explicitly frames the system as clearing repeatable work, not replacing judgment. |
-| Visual polish | 8 | Balanced two-up layout, consistent caption style under each screenshot. |
-| Unnecessary complexity | 9 | Three short points, no icons-for-icons'-sake, no extra visual noise. |
-| **Average** | **8.3/10** | |
+| Screenshot readability | 8 | The two upper screenshots are legible at the state-badge/heading level; the new Workbench screenshot is large enough to read "12 Active," "100.0% coverage," and each card's configured summary line. |
+| Commercial-lawyer relevance | 10 | Now shows the actual mechanism the page's headline describes — a governed playbook with an approval lifecycle — rather than only its downstream effects. Directly answers "where do I see the playbook itself." |
+| Credibility | 9 | The Workbench screenshot proves the playbook is structured, versioned data (Draft/Active states, "0 Needs review") rather than a prompt or a marketing claim. |
+| Visual polish | 8 | Three-shot layout (two-up + one full-width) fits cleanly with no overflow; caption states the claim precisely ("structured, governed positions... not a prompt"). |
+| Unnecessary complexity | 8 | Still restrained — one added screenshot with one caption, no extra copy or icons. |
+| **Average** | **8.7/10** | |
 
 ## Page 3 — The difference (cross-policy interaction)
 
