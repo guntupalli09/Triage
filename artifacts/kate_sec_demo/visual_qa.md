@@ -30,17 +30,21 @@ Scores are out of 10 on: immediate clarity, screenshot readability, commercial-l
 | Unnecessary complexity | 8 | Still restrained — one added screenshot with one caption, no extra copy or icons. |
 | **Average** | **8.7/10** | |
 
+**Second revision note:** appended a clause to the "Surface the exceptions" point — "and anything the playbook has no position on is flagged for review, never silently approved" — to close a real gap: a skeptical reader's likely first objection ("what happens when my playbook doesn't cover this deal's term?") previously had no answer anywhere in the deck, even though the underlying behavior (REQUIRES_REVIEW / escalation for unconfigured positions) is real. This states it in one clause rather than requiring it to be said out loud in the room.
+
 ## Page 3 — The difference (cross-policy interaction)
+
+**Revision note:** added one small, muted-text line below the callout stating the real, verified rule count: "Seven cross-policy interaction rules ship today. On this contract, six evaluated cleanly against the facts and found no issue; this is the one that required attention." Verified directly against `Contract.interaction_decisions_json` for contract_id=2 via the ORM (not assumed from the earlier dry run) before adding: `IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY`, `IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH`, `IX_INDEMNITY_WITHIN_GENERAL_CAP`, `IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE`, `IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING` = NOT_TRIGGERED (5); `IX_SLA_PAYMENT_CREDIT_DEPENDENCY` = INSUFFICIENT_FACTS (1); `IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY` = REQUIRES_REVIEW (1, the one shown). This closes a real gap: without it, a technical reader could reasonably ask whether the shown interaction is the only one the product can detect, rather than the one this contract happened to trigger.
 
 | Criterion | Score | Note |
 |---|---|---|
 | Immediate clarity | 9 | Tag line names the exact interaction (Limitation of Liability × Indemnification) before the screenshot, so the reader knows what they're about to look at. |
 | Screenshot readability | 9 | Full-width screenshot at large size; the open interaction popover (NEEDS REVIEW / DEPENDENCY, participating clauses, stale-dependency note) is clearly legible. |
 | Commercial-lawyer relevance | 10 | This is the core differentiated claim, illustrated with the real, named interaction from the real contract, not a hypothetical. |
-| Credibility | 9 | Callout text stays precisely inside what the screenshot proves — it names the actual ambiguity (gross-negligence carve-out treatment) rather than a generic claim. |
-| Visual polish | 9 | Interaction tag pill draws the eye to the right section of the screenshot; callout box uses the same accent color as the tag for visual continuity. |
-| Unnecessary complexity | 9 | One screenshot, one callout, nothing extraneous. |
-| **Average** | **9.2/10** | |
+| Credibility | 10 | Callout text stays precisely inside what the screenshot proves; the added rule-count line preempts "is this the only interaction you catch" with a verified, honest number rather than leaving it to be asked and answered live. |
+| Visual polish | 9 | Interaction tag pill draws the eye to the right section of the screenshot; callout box uses the same accent color as the tag for visual continuity; the added stat line is small enough not to compete with the callout. |
+| Unnecessary complexity | 9 | One screenshot, one callout, one small stat line — still restrained. |
+| **Average** | **9.3/10** | |
 
 ## Page 4 — Why should I trust it?
 
