@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 2560px; height: 1440px;
+    background: #FAF9F5;
+    font-family: 'Liberation Sans', Arial, sans-serif;
+    overflow: hidden;
+  }
+  .canvas { position: relative; width: 2560px; height: 1440px; }
+
+  /* faint texture: extremely subtle grid, editorial not technical */
+  .bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(18,23,42,0.028) 1px, transparent 1px);
+    background-size: 100% 96px;
+    background-position: 0 40px;
+  }
+
+  .header {
+    position: absolute; top: 132px; left: 150px; right: 150px;
+  }
+  .eyebrow {
+    font-size: 22px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+    color: #4338CA; margin-bottom: 26px;
+  }
+  h1 {
+    font-family: 'Liberation Serif', Georgia, serif;
+    font-weight: 700;
+    font-size: 96px;
+    line-height: 1.1;
+    color: #12172A;
+    letter-spacing: -0.01em;
+    max-width: 1700px;
+  }
+  .subtitle {
+    margin-top: 30px;
+    font-size: 36px;
+    color: #4B5265;
+    font-weight: 400;
+    max-width: 1350px;
+  }
+
+  /* ---- diagram ---- */
+  .diagram { position: absolute; top: 560px; left: 0; width: 2560px; height: 760px; }
+
+  .card {
+    position: absolute;
+    background: #FFFFFF;
+    border: 2px solid #D8D9E3;
+    border-radius: 14px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(18,23,42,0.03), 0 10px 26px rgba(18,23,42,0.05);
+  }
+  .card .label {
+    font-size: 26px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    color: #12172A;
+  }
+  .card .sub {
+    margin-top: 10px;
+    font-size: 20px; font-weight: 400; color: #6B7280;
+  }
+
+  .provision-card {
+    width: 560px; height: 128px;
+  }
+  .decision-card {
+    width: 480px; height: 108px;
+  }
+  .decision-card .label {
+    font-size: 22px; font-weight: 700; color: #353B4D; text-transform: none; letter-spacing: 0;
+  }
+  .decision-card .tag {
+    margin-top: 8px; font-size: 15px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    color: #4338CA; background: #EEF0FC; padding: 4px 12px; border-radius: 20px;
+  }
+
+  .left-provision  { left: 200px;  top: 30px; }
+  .right-provision { right: 200px; top: 30px; }
+  .left-decision   { left: 240px;  top: 250px; }
+  .right-decision  { right: 240px; top: 250px; }
+
+  .center-card {
+    width: 620px; height: 190px;
+    left: 50%; top: 486px; transform: translateX(-50%);
+    background: #F4F4FC;
+    border: 3px solid #4338CA;
+    box-shadow: 0 4px 10px rgba(67,56,202,0.08), 0 18px 40px rgba(67,56,202,0.12);
+  }
+  .center-card .eyebrow2 {
+    font-size: 17px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #4338CA; margin-bottom: 10px;
+  }
+  .center-card .label {
+    font-family: 'Liberation Serif', Georgia, serif;
+    font-size: 40px; font-weight: 700; color: #12172A; text-transform: none; letter-spacing: 0;
+    line-height: 1.2;
+  }
+
+  svg.connectors { position: absolute; top: 0; left: 0; width: 2560px; height: 760px; }
+
+  .caption-row {
+    position: absolute; top: 706px; left: 0; width: 2560px;
+    display: flex; justify-content: space-between;
+    font-size: 19px; color: #8A8F9E; font-weight: 400;
+  }
+  .caption-item { text-align: center; width: 620px; line-height: 1.5; }
+  .caption-left  { position: absolute; left: 130px; }
+  .caption-right { position: absolute; right: 130px; }
+
+  .footer-brand {
+    position: absolute; bottom: 44px; right: 150px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .footer-brand .mark {
+    width: 34px; height: 34px; border-radius: 8px;
+    background: #12172A;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .footer-brand .mark svg { width: 20px; height: 20px; }
+  .footer-brand .word {
+    font-family: 'Liberation Serif', Georgia, serif;
+    font-size: 26px; font-weight: 700; color: #4B5265; letter-spacing: 0.01em;
+  }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="bg-grid"></div>
+
+  <div class="header">
+    <div class="eyebrow">Legal Tech &middot; Contract Intelligence</div>
+    <h1>Contracts Aren&rsquo;t Collections<br>of Independent Clauses</h1>
+    <div class="subtitle">What clause-by-clause AI contract review can miss</div>
+  </div>
+
+  <div class="diagram">
+    <svg class="connectors" viewBox="0 0 2560 760">
+      <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L7,3 L0,6 Z" fill="#9599AD"/>
+        </marker>
+        <marker id="arrowAccent" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L7,3 L0,6 Z" fill="#4338CA"/>
+        </marker>
+      </defs>
+
+      <!-- left: provision -> decision -->
+      <line x1="480" y1="158" x2="480" y2="248" stroke="#9599AD" stroke-width="2.5" marker-end="url(#arrow)"/>
+      <!-- right: provision -> decision -->
+      <line x1="2080" y1="158" x2="2080" y2="248" stroke="#9599AD" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+      <!-- left decision -> center (diagonal convergence) -->
+      <line x1="720" y1="358" x2="1080" y2="486" stroke="#4338CA" stroke-width="2.5" marker-end="url(#arrowAccent)"/>
+      <!-- right decision -> center (diagonal convergence) -->
+      <line x1="1840" y1="358" x2="1480" y2="486" stroke="#4338CA" stroke-width="2.5" marker-end="url(#arrowAccent)"/>
+    </svg>
+
+    <div class="card provision-card left-provision">
+      <div class="label">Limitation of Liability</div>
+      <div class="sub">Contract provision</div>
+    </div>
+    <div class="card provision-card right-provision">
+      <div class="label">Indemnification</div>
+      <div class="sub">Contract provision</div>
+    </div>
+
+    <div class="card decision-card left-decision">
+      <div class="label">Policy Decision</div>
+      <div class="tag">Evaluated independently</div>
+    </div>
+    <div class="card decision-card right-decision">
+      <div class="label">Policy Decision</div>
+      <div class="tag">Evaluated independently</div>
+    </div>
+
+    <div class="card center-card">
+      <div class="eyebrow2">The relationship to evaluate</div>
+      <div class="label">Cross-Policy<br>Interaction</div>
+    </div>
+  </div>
+
+  <div class="footer-brand">
+    <div class="mark">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="3" width="18" height="18" rx="4" stroke="white" stroke-width="1.6"/>
+        <path d="M12 7v10M8 9v6M16 9v6" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="word">TriageCounsel</div>
+  </div>
+</div>
+</body>
+</html>
