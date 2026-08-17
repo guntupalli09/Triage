@@ -251,7 +251,71 @@ def record_enforcement_mode_observation(db: DBSession) -> Optional[AuditLog]:
 # Snapshot — concurrency/race safety (requirement 6)
 # ---------------------------------------------------------------------------
 
-def snapshot_active_positions(db: DBSession, playbook_id: int) -> Dict[str, PolicyPosition]:
+# ---------------------------------------------------------------------------
+# Segment conditionality — deal size / business unit / customer type
+# (see models.PolicyPosition's segment_* columns and playbook_authoring.
+# create_segment_position). A playbook may now have more than one ACTIVE
+# PolicyPosition per clause_type, distinguished by segment; resolving
+# which one governs a given contract review is entirely local to
+# snapshot_active_positions below — every downstream consumer
+# (evaluate_active_policies, apply_active_policies, interaction rules)
+# still sees a plain {clause_type: PolicyPosition} dict, exactly one
+# entry per clause type, unchanged from before this feature existed.
+# ---------------------------------------------------------------------------
+
+def _segment_matches_context(position: PolicyPosition, context: Optional[Dict[str, Any]]) -> bool:
+    """A position's segment constraint matches when every non-None segment
+    field it sets is satisfied by `context`. A position with all four
+    segment fields None (GLOBAL) always matches — it is the fallback used
+    when no more specific segment applies, and the only kind of position
+    that existed before this feature, so omitting `context` entirely
+    reproduces prior behavior exactly (only GLOBAL positions ever match)."""
+    ctx = context or {}
+    if position.segment_business_unit is not None and position.segment_business_unit != ctx.get("business_unit"):
+        return False
+    if position.segment_customer_type is not None and position.segment_customer_type != ctx.get("customer_type"):
+        return False
+    deal_value = ctx.get("deal_value")
+    if position.segment_deal_value_min is not None and (deal_value is None or deal_value < position.segment_deal_value_min):
+        return False
+    if position.segment_deal_value_max is not None and (deal_value is None or deal_value > position.segment_deal_value_max):
+        return False
+    return True
+
+
+def _segment_specificity(position: PolicyPosition) -> int:
+    """Count of segment fields this position constrains — used to prefer
+    the most specific matching segment over GLOBAL when both match."""
+    return sum(
+        1 for name in (
+            "segment_business_unit", "segment_customer_type",
+            "segment_deal_value_min", "segment_deal_value_max",
+        )
+        if getattr(position, name) is not None
+    )
+
+
+def resolve_segment_position(
+    candidates: List[PolicyPosition], context: Optional[Dict[str, Any]],
+) -> Optional[PolicyPosition]:
+    """Given every ACTIVE PolicyPosition sharing one clause_type, picks the
+    single most-specific one whose segment matches `context` (ties broken
+    by lowest id, for determinism). Returns None only if every candidate
+    sets a segment constraint context doesn't satisfy — no permissive
+    fallback is substituted; that clause_type is simply not evaluated for
+    this review (same "absence means skipped" contract
+    evaluate_active_policies already documents for a clause_type with no
+    ACTIVE position at all)."""
+    matches = [p for p in candidates if _segment_matches_context(p, context)]
+    if not matches:
+        return None
+    matches.sort(key=lambda p: (-_segment_specificity(p), p.id))
+    return matches[0]
+
+
+def snapshot_active_positions(
+    db: DBSession, playbook_id: int, *, context: Optional[Dict[str, Any]] = None,
+) -> Dict[str, PolicyPosition]:
     """Queries the ACTIVE PolicyPosition set for a playbook exactly ONCE.
     Callers must take this snapshot at the START of a contract review and
     reuse the same dict for every clause type evaluated during that
@@ -264,13 +328,29 @@ def snapshot_active_positions(db: DBSession, playbook_id: int) -> Dict[str, Poli
     is a new row, per PolicyPosition's revision-not-mutation model — see
     models.py). DRAFT/NEEDS_REVIEW/APPROVED/ARCHIVED rows are excluded by
     the status filter itself; they can never leak into production output
-    by construction, not by convention."""
+    by construction, not by convention.
+
+    `context` (optional) is the reviewed contract's segment context —
+    {"business_unit": ..., "customer_type": ..., "deal_value": ...} — used
+    by resolve_segment_position when a clause_type has more than one
+    ACTIVE row (segmented). Omitting it (the default) matches only GLOBAL
+    positions, identical to every call site written before segment
+    conditionality existed."""
     rows = (
         db.query(PolicyPosition)
         .filter(PolicyPosition.playbook_id == playbook_id, PolicyPosition.status == "ACTIVE")
         .all()
     )
-    return {row.clause_type: row for row in rows}
+    by_clause_type: Dict[str, List[PolicyPosition]] = {}
+    for row in rows:
+        by_clause_type.setdefault(row.clause_type, []).append(row)
+
+    result: Dict[str, PolicyPosition] = {}
+    for clause_type, candidates in by_clause_type.items():
+        chosen = resolve_segment_position(candidates, context)
+        if chosen is not None:
+            result[clause_type] = chosen
+    return result
 
 
 def config_hash_for_position(position: PolicyPosition) -> str:
@@ -653,7 +733,7 @@ def verify_migration_coverage_or_fail_closed(db: DBSession) -> None:
 
 def apply_policies_for_review(
     db: DBSession, playbook: Optional[Playbook], contract_text: str, findings_dict: List[Dict],
-    *, contract_id: Optional[int] = None,
+    *, contract_id: Optional[int] = None, context: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     """The one function main.py calls for policy enforcement, regardless
     of mode. Returns {"policy_decisions": ..., "policy_revision_metadata":
@@ -661,7 +741,13 @@ def apply_policies_for_review(
     before (backward-compatible shape: {clause_type: decision_dict}), the
     latter to the new Contract.policy_revision_metadata_json column
     (empty/absent in legacy and shadow modes, since the legacy path has no
-    PolicyPosition revision to pin)."""
+    PolicyPosition revision to pin).
+
+    `context` (optional) — {"business_unit", "customer_type", "deal_value"}
+    supplied by the reviewer for this contract — is only consulted in
+    cutover mode, where it selects among segmented ACTIVE PolicyPositions
+    (see snapshot_active_positions/resolve_segment_position). Omitted or
+    None reproduces pre-segmentation behavior exactly."""
     mode = get_enforcement_mode()
     # One row per mode change (no-op in the steady state) so an operator can
     # see how long this deployment has been in its current mode — P0-2.
@@ -673,7 +759,7 @@ def apply_policies_for_review(
     if mode == "cutover":
         if not playbook:
             return {"policy_decisions": None, "policy_revision_metadata": None, "interaction_decisions": None}
-        snapshot = snapshot_active_positions(db, playbook.id)
+        snapshot = snapshot_active_positions(db, playbook.id, context=context)
         outcomes: List["ClauseEvaluationOutcome"] = []
         result = apply_active_policies(
             db, playbook, contract_text, findings_dict, active_positions=snapshot, outcomes_out=outcomes,

@@ -320,6 +320,30 @@ def _run_migrations():
             if "interaction_staleness_json" not in contract_cols_now:
                 conn.execute(text("ALTER TABLE contracts ADD COLUMN interaction_staleness_json JSON"))
                 logger.info("Migration applied: contracts.interaction_staleness_json column")
+            if "review_business_unit" not in contract_cols_now:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN review_business_unit VARCHAR(100)"))
+                logger.info("Migration applied: contracts.review_business_unit column")
+            if "review_customer_type" not in contract_cols_now:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN review_customer_type VARCHAR(100)"))
+                logger.info("Migration applied: contracts.review_customer_type column")
+            if "review_deal_value" not in contract_cols_now:
+                conn.execute(text("ALTER TABLE contracts ADD COLUMN review_deal_value FLOAT"))
+                logger.info("Migration applied: contracts.review_deal_value column")
+
+        if "policy_positions" in insp.get_table_names():
+            policy_position_cols = {c["name"] for c in insp.get_columns("policy_positions")}
+            if "segment_business_unit" not in policy_position_cols:
+                conn.execute(text("ALTER TABLE policy_positions ADD COLUMN segment_business_unit VARCHAR(100)"))
+                logger.info("Migration applied: policy_positions.segment_business_unit column")
+            if "segment_customer_type" not in policy_position_cols:
+                conn.execute(text("ALTER TABLE policy_positions ADD COLUMN segment_customer_type VARCHAR(100)"))
+                logger.info("Migration applied: policy_positions.segment_customer_type column")
+            if "segment_deal_value_min" not in policy_position_cols:
+                conn.execute(text("ALTER TABLE policy_positions ADD COLUMN segment_deal_value_min FLOAT"))
+                logger.info("Migration applied: policy_positions.segment_deal_value_min column")
+            if "segment_deal_value_max" not in policy_position_cols:
+                conn.execute(text("ALTER TABLE policy_positions ADD COLUMN segment_deal_value_max FLOAT"))
+                logger.info("Migration applied: policy_positions.segment_deal_value_max column")
 
 
 def init_db():

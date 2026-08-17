@@ -221,6 +221,22 @@ class Contract(Base):
     # Batch tracking
     batch_id = Column(String(64), nullable=True, index=True)
 
+    # Segment context supplied at review time (deal size / business unit /
+    # customer type) — used to select which segmented PolicyPosition
+    # applies when a playbook has more than one for a clause type (see
+    # policy_enforcement.resolve_segment_position). Persisted on the
+    # Contract itself, not re-derived later, for the same reason
+    # policy_revision_metadata_json is: a historical review must stay
+    # explainable by exactly the context that was in effect at the time,
+    # even if the playbook's segments are edited afterward. Plain (not
+    # encrypted) columns — a business-unit/customer-type label and a
+    # numeric deal value are not contract text. All nullable/optional; a
+    # review with none of these set only ever matches GLOBAL positions,
+    # identical to pre-segmentation behavior.
+    review_business_unit = Column(String(100), nullable=True)
+    review_customer_type = Column(String(100), nullable=True)
+    review_deal_value = Column(Float, nullable=True)
+
     user = relationship("User", back_populates="contracts")
     playbook = relationship("Playbook")
     events = relationship("ContractEvent", back_populates="contract", cascade="all, delete-orphan")
@@ -351,6 +367,16 @@ POLICY_POSITION_FIELD_STATUSES = ("ESTABLISHED", "NOT_ESTABLISHED", "CONFLICTING
 POLICY_POSITION_APPROVAL_ACTIONS = ("MARKED_REVIEWED", "APPROVED", "ACTIVATED", "REVERTED", "ARCHIVED")
 PLAYBOOK_SOURCE_DOCUMENT_TYPES = ("LEGAL_PLAYBOOK", "TEMPLATE_CONTRACT")
 
+# The four columns that together identify a PolicyPosition's segment — see
+# PolicyPosition's docstring/comment above. Order matters: it is the order
+# a (business_unit, customer_type, deal_value_min, deal_value_max) segment
+# tuple is expected in everywhere one is passed (playbook_authoring.py,
+# policy_enforcement.py). All-None is the GLOBAL segment.
+POLICY_POSITION_SEGMENT_FIELDS = (
+    "segment_business_unit", "segment_customer_type",
+    "segment_deal_value_min", "segment_deal_value_max",
+)
+
 
 class PolicyPosition(Base):
     """One clause-type position within a playbook's authoring layer — the
@@ -390,6 +416,28 @@ class PolicyPosition(Base):
     escalation_approval_authority = Column(String(255), nullable=True)
     fallback_text = Column(EncryptedText, nullable=True)
     config_json = Column(EncryptedJSON, nullable=True)
+
+    # Segment conditionality (deal size / business unit / customer type) —
+    # additive to the base clause_type family, never a replacement. A
+    # position where all four fields are None is the GLOBAL position for
+    # its clause_type: it matches any contract context and is what every
+    # pre-existing playbook already has (the only segment that has ever
+    # existed until this feature, so nothing already active changes
+    # behavior). A position with one or more fields set only applies when
+    # a reviewed contract's context satisfies every field it sets — see
+    # policy_enforcement.resolve_segment_position for the most-specific-
+    # match selection this enables. Segment fields participate in the
+    # "one ACTIVE row" invariant as part of a row's identity: activate_
+    # position only archives a sibling with the SAME segment tuple, so an
+    # Enterprise-segment position and the global position for the same
+    # clause_type can both be ACTIVE at once. deal_value bounds are
+    # inclusive and expressed in the same units as whatever a reviewer
+    # supplies as Contract.review_deal_value (annual contract value);
+    # either bound may be set alone (open-ended above/below).
+    segment_business_unit = Column(String(100), nullable=True)
+    segment_customer_type = Column(String(100), nullable=True)
+    segment_deal_value_min = Column(Float, nullable=True)
+    segment_deal_value_max = Column(Float, nullable=True)
 
     source_type = Column(String(20), nullable=False, default="NONE")
 
