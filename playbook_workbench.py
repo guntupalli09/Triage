@@ -32,6 +32,7 @@ from sqlalchemy.orm import Session as DBSession
 
 import audit_log
 import google_oauth
+import override_learning
 import playbook_ai_extraction as pai
 import playbook_authoring as pa
 import playbook_extraction as pex
@@ -190,13 +191,35 @@ async def playbook_workbench(request: Request, playbook_id: int, db: DBSession =
             "position": c.position, "headline": pa.card_headline(c.position),
             "missing_required": missing,
         })
+    # Override-pattern suggestions (see override_learning.py) — recurring
+    # departures from a governance recommendation across this playbook's
+    # reviewed contracts, surfaced so a lawyer can decide whether to
+    # update the playbook instead of the same override recurring
+    # silently. Detection-only: nothing here writes to a PolicyPosition.
+    try:
+        override_patterns = override_learning.patterns_for_playbook(db, playbook.id)
+    except Exception:  # noqa: BLE001 — this is an advisory surface, never
+        # allowed to break the Workbench itself if it fails.
+        override_patterns = []
     return templates.TemplateResponse("playbook_workbench.html", {
         "request": request, "user": user, "playbook": playbook,
         "coverage": coverage, "cards": cards, "current_year": datetime.now().year,
         # Lifecycle status ("Active") is not production authority — see
         # policy_enforcement.is_policy_authoritative (P0-2).
         "enforcement": policy_enforcement.enforcement_disclosure(),
+        "override_patterns": [p.as_dict() for p in override_patterns],
     })
+
+
+@router.get("/playbooks/{playbook_id}/override-suggestions")
+async def playbook_override_suggestions(request: Request, playbook_id: int, db: DBSession = Depends(get_db)):
+    """JSON view of override_learning.patterns_for_playbook — same data
+    the Workbench page's override_patterns context carries, exposed
+    separately for polling/tooling without re-rendering the whole page."""
+    user = _require_user(request, db)
+    playbook = _get_owned_playbook(db, user, playbook_id)
+    patterns = override_learning.patterns_for_playbook(db, playbook.id)
+    return {"playbook_id": playbook.id, "patterns": [p.as_dict() for p in patterns]}
 
 
 # ---------------------------------------------------------------------------

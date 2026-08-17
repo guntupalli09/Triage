@@ -49,7 +49,18 @@ import payment_terms_policy_engine
 import sla_policy_engine
 import termination_policy_engine
 import warranties_policy_engine
-from models import Playbook, PolicyPosition, PolicyPositionApproval, PolicyPositionField, PolicyRule
+from models import (
+    POLICY_POSITION_SEGMENT_FIELDS, Playbook, PolicyPosition, PolicyPositionApproval,
+    PolicyPositionField, PolicyRule,
+)
+
+# A segment is (business_unit, customer_type, deal_value_min, deal_value_max)
+# — see models.POLICY_POSITION_SEGMENT_FIELDS. None (the default everywhere
+# below) means the GLOBAL segment, i.e. all four fields None — every family
+# function below is 100% behavior-preserving for existing (pre-segmentation)
+# playbooks, which have only ever had GLOBAL positions.
+Segment = Tuple[Optional[str], Optional[str], Optional[float], Optional[float]]
+GLOBAL_SEGMENT: Segment = (None, None, None, None)
 
 # Fields every engine's *PolicyRuleLike Protocol has in common — real
 # columns on PolicyPosition, never part of config_json (design doc §4.1).
@@ -949,7 +960,41 @@ def parse_contract_side(raw: Optional[str]) -> str:
 # show" — the pending row if one exists, else the ACTIVE row, else None.
 # ---------------------------------------------------------------------------
 
-def _current_position(db, playbook_id: int, clause_type: str) -> Optional[PolicyPosition]:
+def _segment_filter(query, segment: Optional[Segment]):
+    business_unit, customer_type, deal_min, deal_max = segment or GLOBAL_SEGMENT
+    return query.filter(
+        PolicyPosition.segment_business_unit == business_unit,
+        PolicyPosition.segment_customer_type == customer_type,
+        PolicyPosition.segment_deal_value_min == deal_min,
+        PolicyPosition.segment_deal_value_max == deal_max,
+    )
+
+
+def _current_position(db, playbook_id: int, clause_type: str, segment: Optional[Segment] = None) -> Optional[PolicyPosition]:
+    query = db.query(PolicyPosition).filter(
+        PolicyPosition.playbook_id == playbook_id,
+        PolicyPosition.clause_type == clause_type,
+        PolicyPosition.status != "ARCHIVED",
+    )
+    return (
+        _segment_filter(query, segment)
+        .order_by(PolicyPosition.created_at.desc(), PolicyPosition.id.desc())
+        .first()
+    )
+
+
+def get_position_for_display(db, playbook_id: int, clause_type: str, segment: Optional[Segment] = None) -> Optional[PolicyPosition]:
+    """Read-only lookup for the Workbench card / review pages — never
+    creates a row. Public alias of _current_position for callers outside
+    this module. `segment` defaults to GLOBAL, matching every call site
+    that predates segment conditionality."""
+    return _current_position(db, playbook_id, clause_type, segment)
+
+
+def list_positions_for_clause_type(db, playbook_id: int, clause_type: str) -> List[PolicyPosition]:
+    """Every non-archived position (any segment) for one clause_type —
+    the Workbench's segment-management view iterates this to show the
+    GLOBAL position alongside whatever segment variants exist."""
     return (
         db.query(PolicyPosition)
         .filter(
@@ -958,18 +1003,13 @@ def _current_position(db, playbook_id: int, clause_type: str) -> Optional[Policy
             PolicyPosition.status != "ARCHIVED",
         )
         .order_by(PolicyPosition.created_at.desc(), PolicyPosition.id.desc())
-        .first()
+        .all()
     )
 
 
-def get_position_for_display(db, playbook_id: int, clause_type: str) -> Optional[PolicyPosition]:
-    """Read-only lookup for the Workbench card / review pages — never
-    creates a row. Public alias of _current_position for callers outside
-    this module."""
-    return _current_position(db, playbook_id, clause_type)
-
-
-def get_or_build_editable_position(db, playbook: Playbook, clause_type: str) -> Tuple[PolicyPosition, bool]:
+def get_or_build_editable_position(
+    db, playbook: Playbook, clause_type: str, segment: Optional[Segment] = None,
+) -> Tuple[PolicyPosition, bool]:
     """Returns (position, is_new_revision) for the authoring form.
 
     If the current position is already editable (DRAFT/NEEDS_REVIEW/
@@ -980,11 +1020,18 @@ def get_or_build_editable_position(db, playbook: Playbook, clause_type: str) -> 
     the Phase 1 release-gate requirement that editing an ACTIVE policy
     must not silently change the currently approved legal position: there
     is no code path in this module that writes to a PolicyPosition whose
-    status is ACTIVE (apply_position_update asserts this defensively)."""
-    current = _current_position(db, playbook.id, clause_type)
+    status is ACTIVE (apply_position_update asserts this defensively).
+
+    `segment` (default GLOBAL) scopes the family this operates on — a
+    segment with nothing configured yet starts empty (contract_side=
+    "mutual", no config), it does NOT clone the GLOBAL position's config;
+    use create_segment_position to start a new segment from an existing
+    position's content instead."""
+    current = _current_position(db, playbook.id, clause_type, segment)
     if current is not None and current.status != "ACTIVE":
         return current, False
 
+    business_unit, customer_type, deal_min, deal_max = segment or GLOBAL_SEGMENT
     new_position = PolicyPosition(
         playbook_id=playbook.id, clause_type=clause_type, status="DRAFT",
         contract_side=current.contract_side if current else "mutual",
@@ -992,6 +1039,8 @@ def get_or_build_editable_position(db, playbook: Playbook, clause_type: str) -> 
         fallback_text=current.fallback_text if current else None,
         config_json=dict(current.config_json or {}) if current else {},
         source_type="MANUAL",
+        segment_business_unit=business_unit, segment_customer_type=customer_type,
+        segment_deal_value_min=deal_min, segment_deal_value_max=deal_max,
     )
     db.add(new_position)
     db.flush()
@@ -1010,6 +1059,65 @@ def get_or_build_editable_position(db, playbook: Playbook, clause_type: str) -> 
         db.flush()
 
     return new_position, True
+
+
+class DuplicateSegmentError(ValueError):
+    """Raised by create_segment_position when the target segment already
+    has a non-archived row — callers should route the lawyer to
+    get_or_build_editable_position for that existing family instead of
+    silently creating a second, competing one."""
+
+
+def create_segment_position(
+    db, playbook: Playbook, clause_type: str, segment: Segment, *, clone_from: Optional[Segment] = GLOBAL_SEGMENT,
+) -> PolicyPosition:
+    """Starts a new segment variant for a clause_type — e.g. "Enterprise
+    customers get a 3x liability cap instead of the 1x GLOBAL default."
+    segment must not be GLOBAL_SEGMENT (use get_or_build_editable_position
+    for that family) and must not already have a non-archived row.
+
+    Unlike get_or_build_editable_position building a brand-new segment
+    from scratch, this clones config/fallback/escalation from
+    `clone_from`'s current position (GLOBAL by default) as the starting
+    draft — the common case is "same position as our default, except for
+    this one field," not starting from nothing. Pass clone_from=None to
+    start empty instead."""
+    if segment == GLOBAL_SEGMENT:
+        raise ValueError("create_segment_position is for non-GLOBAL segments; use get_or_build_editable_position for GLOBAL")
+    if _current_position(db, playbook.id, clause_type, segment) is not None:
+        raise DuplicateSegmentError(
+            f"A position already exists for playbook_id={playbook.id} clause_type={clause_type!r} segment={segment!r}"
+        )
+
+    base = _current_position(db, playbook.id, clause_type, clone_from) if clone_from is not None else None
+    business_unit, customer_type, deal_min, deal_max = segment
+    new_position = PolicyPosition(
+        playbook_id=playbook.id, clause_type=clause_type, status="DRAFT",
+        contract_side=base.contract_side if base else "mutual",
+        escalation_approval_authority=base.escalation_approval_authority if base else None,
+        fallback_text=base.fallback_text if base else None,
+        config_json=dict(base.config_json or {}) if base else {},
+        source_type="MANUAL",
+        segment_business_unit=business_unit, segment_customer_type=customer_type,
+        segment_deal_value_min=deal_min, segment_deal_value_max=deal_max,
+    )
+    db.add(new_position)
+    db.flush()
+
+    if base is not None:
+        for old_field in base.fields:
+            if old_field.superseded_by_field_id is not None:
+                continue
+            db.add(PolicyPositionField(
+                policy_position_id=new_position.id, field_name=old_field.field_name,
+                value_json=old_field.value_json, source=old_field.source, status=old_field.status,
+                confirmed_by_user_id=old_field.confirmed_by_user_id, confirmed_at=old_field.confirmed_at,
+                evidence_document_id=old_field.evidence_document_id, evidence_excerpt=old_field.evidence_excerpt,
+                evidence_start_index=old_field.evidence_start_index, evidence_end_index=old_field.evidence_end_index,
+            ))
+        db.flush()
+
+    return new_position
 
 
 def apply_position_update(
@@ -1128,21 +1236,34 @@ def approve_position(db, position: PolicyPosition, user, reason: Optional[str] =
 
 
 def activate_position(db, position: PolicyPosition, user, reason: Optional[str] = None) -> None:
-    """APPROVED -> ACTIVE. Archives any existing ACTIVE sibling for the
-    same playbook_id/clause_type first (in the same transaction) — this
-    is the enforcement of "at most one ACTIVE row per clause type" that
-    the model's docstring describes; there is no DB constraint doing it."""
+    """APPROVED -> ACTIVE. Archives any existing ACTIVE sibling in the SAME
+    segment for this playbook_id/clause_type first (in the same
+    transaction) — this is the enforcement of "at most one ACTIVE row per
+    clause type per segment" that the model's docstring describes; there
+    is no DB constraint doing it. Scoping the sibling lookup by segment
+    (not just clause_type) is what lets a segment-specific position (e.g.
+    Enterprise-customer liability) and the GLOBAL position for the same
+    clause_type both be ACTIVE at once — activating one never archives
+    the other. For a GLOBAL position (the only kind that existed before
+    segment conditionality), this reproduces the original one-row-per-
+    clause_type behavior exactly, since every pre-existing row's segment
+    is GLOBAL."""
     if position.status != "APPROVED":
         raise PositionLifecycleError(f"Cannot activate from status={position.status!r}; must be APPROVED")
     validate_position_for_activation(position)
 
     sibling_active = (
-        db.query(PolicyPosition)
-        .filter(
-            PolicyPosition.playbook_id == position.playbook_id,
-            PolicyPosition.clause_type == position.clause_type,
-            PolicyPosition.status == "ACTIVE",
-            PolicyPosition.id != position.id,
+        _segment_filter(
+            db.query(PolicyPosition).filter(
+                PolicyPosition.playbook_id == position.playbook_id,
+                PolicyPosition.clause_type == position.clause_type,
+                PolicyPosition.status == "ACTIVE",
+                PolicyPosition.id != position.id,
+            ),
+            (
+                position.segment_business_unit, position.segment_customer_type,
+                position.segment_deal_value_min, position.segment_deal_value_max,
+            ),
         )
         .first()
     )

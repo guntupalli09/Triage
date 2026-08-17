@@ -58,6 +58,27 @@
     {% endif %}
 </div>
 
+{% if override_patterns %}
+<div class="premium-card p-6 mb-8 fade-in border-indigo-200 bg-indigo-50" style="transform:none;">
+    <h2 class="text-sm font-semibold text-[#0F172A] mb-1">Recurring overrides — playbook update suggestions</h2>
+    <p class="text-xs text-gray-600 mb-4">Reviewers have repeatedly overridden the same policy recommendation across multiple contracts. This may mean the playbook position no longer matches what the firm actually does.</p>
+    <div class="space-y-3">
+        {% for p in override_patterns %}
+        <div class="bg-white rounded-lg border border-indigo-100 p-4">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+                <span class="text-sm font-semibold text-[#0F172A]">{{ p.rule_id }} — {{ p.original_recommendation }} → {{ p.overriding_action }}</span>
+                <span class="text-xs font-bold text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded-full">{{ p.count }} contracts</span>
+            </div>
+            <p class="text-xs text-gray-600 mt-2">{{ p.suggestion }}</p>
+            {% if p.clause_type %}
+            <a href="/playbooks/{{ playbook.id }}/positions/{{ p.clause_type }}/edit" class="inline-block mt-2 text-xs font-medium text-indigo-700 hover:underline">Review this playbook position →</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 fade-in">
     {% for card in cards %}
     <div class="premium-card p-5 flex flex-col">

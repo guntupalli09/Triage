@@ -1284,6 +1284,9 @@ async def upload_contract(
     request: Request,
     file: UploadFile = File(...),
     playbook_id: Optional[int] = Form(None),
+    business_unit: Optional[str] = Form(None),
+    customer_type: Optional[str] = Form(None),
+    deal_value: Optional[float] = Form(None),
     db: DBSession = Depends(get_db),
     _rl: None = Depends(rate_limit("upload", limit=30, window_seconds=3600)),
     _csrf: None = Depends(csrf_protect),
@@ -1376,8 +1379,18 @@ async def upload_contract(
     # shadow-mode AuditLog entries from this call carry target_id=None,
     # which is fine since target_type="contract" combined with playbook_id
     # in the log payload is enough to trace it.
+    # Segment context (deal size / business unit / customer type) — optional
+    # reviewer input used only to select among segmented ACTIVE
+    # PolicyPositions when the playbook has more than one for a clause
+    # type (see policy_enforcement.resolve_segment_position). None of
+    # these being set (the common case today) reproduces pre-segmentation
+    # behavior exactly.
+    business_unit = (business_unit or "").strip() or None
+    customer_type = (customer_type or "").strip() or None
+    review_context = {"business_unit": business_unit, "customer_type": customer_type, "deal_value": deal_value}
+
     policy_result = policy_enforcement.apply_policies_for_review(
-        db, playbook, contract_text, analysis["findings_dict"],
+        db, playbook, contract_text, analysis["findings_dict"], context=review_context,
     )
 
     contract = Contract(
@@ -1392,6 +1405,9 @@ async def upload_contract(
         analysis_completed=True,
         playbook_id=playbook_id,
         deviations_json=deviations,
+        review_business_unit=business_unit,
+        review_customer_type=customer_type,
+        review_deal_value=deal_value,
         policy_decisions_json=policy_result["policy_decisions"],
         policy_revision_metadata_json=policy_result["policy_revision_metadata"],
         interaction_decisions_json=policy_result.get("interaction_decisions"),
