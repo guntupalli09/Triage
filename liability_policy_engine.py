@@ -452,8 +452,10 @@ _GENERIC_ROLE_STOPWORDS = {"each", "the", "any", "such", "this", "that", "both",
 # shape: a defined/referenced basis term whose OWN source section is
 # stated to point to a further external document not present.
 _CHAINED_BASIS_DELEGATION_RE = re.compile(
-    r"which\s+Section\s+\d+(?:\.\d+)?\s+itself\s+cross-references\s+"
-    r"(?:Schedule|Exhibit|Appendix)\s+[A-Z0-9]+\s*\([^)]*not\s+included\b",
+    r"which\s+[A-Z][\w .]{0,40}?\s+(?:itself|in\s+turn)\s+"
+    r"(?:cross-references|references|incorporates(?:\s+by\s+reference)?)\s+"
+    r"[^.]{0,120}?"
+    r"(?:not\s+included\b|external,?\s+not\s+part\s+of\s+this\s+Agreement|not\s+part\s+of\s+this\s+Agreement)",
     re.I,
 )
 
