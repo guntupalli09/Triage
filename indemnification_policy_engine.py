@@ -205,6 +205,10 @@ _DEFENSE_INDEMNIFIED_RE = re.compile(
     re.I,
 )
 _DEFENSE_SHARED_RE = re.compile(r"jointly\s+control|participate\s+in\s+(?:the\s+)?defense\s+with", re.I)
+_NAMED_DEFENSE_CONTROL_RE = re.compile(
+    r"(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))\s+(?i:shall\s+(?:have\s+the\s+right\s+to\s+)?control(?:ling)?|controlling|shall\s+assume\s+and\s+control)\s+(?:the\s+)?defense",
+    re.I,
+)
 
 _NOTICE_RE = re.compile(r"prompt(?:ly)?\s+(?:written\s+)?notice|notify\s+.{0,20}\s+in\s+writing|written\s+notice\s+of\s+(?:any\s+)?claim", re.I)
 _COOPERATION_RE = re.compile(r"reasonable\s+cooperation|shall\s+cooperate|cooperate\s+(?:fully\s+)?with", re.I)
@@ -289,7 +293,14 @@ _GENERIC_ROLE_WORDS = {
 # rather than a second named party, so it needs its own narrow detector.
 _PARTY_SPECIFIC_EXCEPTION_RE = re.compile(
     r"(?:except|provided)\s+that\s+(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))(?:'s)?\s+"
-    r"(?i:cap|liability|indemnification|obligations?|responsibility)\b",
+    r"(?i:cap|liability|indemnification|obligations?|responsibility)\b"
+    # Step 4A.5 Priority 4 (anti-false-safe): the same one-named-party
+    # exception shape, but naming the party as the OBJECT of "claims
+    # against ROLE" rather than as the possessive SUBJECT of "ROLE's
+    # cap/obligations/..." — "except that claims against Underwriting
+    # Agent arising from regulatory fines shall not be subject to this
+    # cap".
+    r"|(?:except|provided)\s+that\s+claims?\s+against\s+(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))\b",
     re.I,
 )
 _BROAD_BENEFICIARY_RE = re.compile(r"affiliates|officers|directors|employees|agents", re.I)
@@ -549,10 +560,27 @@ def _classify_scope(window: str) -> str:
     return "not_addressed"
 
 
-def _classify_defense_control(window: str) -> str:
+def _classify_defense_control(
+    window: str, indemnifying_role: Optional[str] = None, indemnified_role: Optional[str] = None,
+) -> str:
     has_indemnifying = bool(_DEFENSE_INDEMNIFYING_RE.search(window))
     has_indemnified = bool(_DEFENSE_INDEMNIFIED_RE.search(window))
     has_shared = bool(_DEFENSE_SHARED_RE.search(window))
+    # Step 4A.5 Priority 4 (anti-false-safe): the same defense-control
+    # concept stated using the ACTUAL NAMED party ("with Ceding Reinsurer
+    # controlling the defense of any such claim") rather than the generic
+    # "the indemnifying party"/"the indemnified party" shorthand the
+    # patterns above require. Only checked when the caller supplies the
+    # obligation's own role names, and only credited to whichever named
+    # role the match is FOR — never guessed when the role names aren't
+    # known at this call site.
+    named_defense = _NAMED_DEFENSE_CONTROL_RE.search(window)
+    if named_defense:
+        named_role = trim_role_name(named_defense.group(1)).lower()
+        if indemnifying_role is not None and named_role == indemnifying_role.lower():
+            has_indemnifying = True
+        elif indemnified_role is not None and named_role == indemnified_role.lower():
+            has_indemnified = True
     signals = sum([has_indemnifying, has_indemnified, has_shared])
     if signals > 1:
         return "shared"
@@ -683,8 +711,9 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
 
     # One-named-party-vs-general-terms check (see _PARTY_SPECIFIC_EXCEPTION_RE).
     em = _PARTY_SPECIFIC_EXCEPTION_RE.search(window)
-    if em and trim_role_name(em.group(1)).lower() not in _GENERIC_ROLE_WORDS:
-        role = trim_role_name(em.group(1))
+    em_role = em.group(1) or em.group(2) if em else None
+    if em and trim_role_name(em_role).lower() not in _GENERIC_ROLE_WORDS:
+        role = trim_role_name(em_role)
         general_snapshot = _snapshot_indemnity_attribution(window[:em.start()])
         hi = min(len(window), em.end() + _ROLE_ATTRIBUTION_LOCAL_CHARS)
         boundary = re.search(r"\.\s|\.$", window[em.end():hi])
@@ -772,7 +801,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             indemnified_role=indemnified_role, indemnified_side=indemnified_side,
             trigger_treatments=_classify_triggers(window),
             scope=_classify_scope(window),
-            defense_control=_classify_defense_control(window),
+            defense_control=_classify_defense_control(window, indemnifying_role, indemnified_role),
             notice_required=True if _NOTICE_RE.search(window) else None,
             cooperation_required=True if _COOPERATION_RE.search(window) else None,
             monetary=_classify_monetary(window, m.start()),
@@ -808,7 +837,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
                 indemnified_role=indemnified_role, indemnified_side=indemnified_side,
                 trigger_treatments=_classify_triggers(window),
                 scope=_classify_scope(window),
-                defense_control=_classify_defense_control(window),
+                defense_control=_classify_defense_control(window, indemnifying_role, indemnified_role),
                 notice_required=True if _NOTICE_RE.search(window) else None,
                 cooperation_required=True if _COOPERATION_RE.search(window) else None,
                 monetary=_classify_monetary(window, m.start()),
@@ -866,7 +895,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             indemnified_role="the Other Party", indemnified_side=None,
             trigger_treatments=_classify_triggers(window),
             scope=_classify_scope(window),
-            defense_control=_classify_defense_control(window),
+            defense_control=_classify_defense_control(window, "Each Party", "the Other Party"),
             notice_required=True if _NOTICE_RE.search(window) else None,
             cooperation_required=True if _COOPERATION_RE.search(window) else None,
             monetary=_classify_monetary(window, m.start()),
