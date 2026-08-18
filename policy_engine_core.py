@@ -73,91 +73,168 @@ def side_for_role(role: str) -> Optional[str]:
 
 
 # ---------------------------------------------------------------------------
-# Document-specific role-side verification (Step 4A) — TriageCounsel
-# counsel-audit Steps 2/2B demonstrated that side_for_role()'s generic
-# vocabulary can be silently wrong: a contract is free to define "Vendor"
-# as the purchaser, or "Licensee" as the party that grants the license,
-# and side_for_role() has no way to know that. This does NOT replace
-# side_for_role() — the generic mapping remains the baseline for the
-# (overwhelming) majority of contracts that use role words conventionally.
-# It adds one narrow check: does the DOCUMENT'S OWN definition of this
-# specific role word use verbs that describe the opposite transactional
-# side from the generic mapping? If so, the generic mapping cannot be
-# trusted for THIS document, and the caller must not silently pick either
-# reading — see resolve_role_side's docstring for the exact contract.
+# Document-specific role-side verification (Step 4A, hardened in 4A.1) —
+# TriageCounsel counsel-audit Steps 2/2B demonstrated that side_for_role()'s
+# generic vocabulary can be silently wrong: a contract is free to define
+# "Vendor" as the purchaser, or "Licensee" as the party that grants the
+# license, and side_for_role() has no way to know that. This does NOT
+# replace side_for_role() — the generic mapping remains the baseline for
+# the (overwhelming) majority of contracts that use role words
+# conventionally. It adds one narrow check: does the DOCUMENT'S OWN
+# definition of this specific role word use language that describes the
+# opposite transactional side from the generic mapping? If so, the
+# generic mapping cannot be trusted for THIS document — see
+# resolve_role_side's docstring for the exact contract.
 #
-# Deliberately NOT a general definition-understanding engine: it only
-# recognizes a small, fixed family of explicit definitional sentences
-# ("'Role' means/refers to/shall mean ...") and a small, fixed vocabulary
-# of buy-side vs. sell-side verbs within them. A definition using neither
-# vocabulary (e.g. "'Vendor' means Acme Corp, a Delaware corporation")
-# carries no signal and is silently ignored — ordinary contracts, which
-# almost never state a role's transactional function in their defined-
-# terms section at all, are completely unaffected by this check.
+# Two deliberately SEPARATE questions, kept as separate regex passes
+# rather than one combined pattern (4A.1 — Step 4A's PA-2 adversarial
+# finding showed a narrow definitional-predicate list could silently miss
+# a real definition, which is a DISCOVERY failure, not an interpretation
+# failure, and conflating the two makes both harder to reason about and
+# to test independently):
+#
+#   A. DISCOVERY — did the document define this role at all, and what is
+#      the definition's body text? (_find_role_definition_body)
+#   B. INTERPRETATION — does that body text contain deterministic
+#      evidence of a transactional side, and does it agree or conflict
+#      with the generic mapping? (_classify_directional_evidence)
+#
+# Still deliberately NOT a general definition-understanding engine: (A)
+# recognizes a fixed, small family of explicit definitional predicates,
+# and (B) a fixed, small vocabulary of buy-side vs. sell-side verbs
+# within a discovered body. A definition using neither vocabulary (e.g.
+# "'Vendor' means Acme Corp, a Delaware corporation") is discovered but
+# carries no directional signal and is silently ignored — ordinary
+# contracts, which almost never state a role's transactional function in
+# their defined-terms section at all, are unaffected by this check.
 # ---------------------------------------------------------------------------
 
-# Sentence-defining language: "'Role' means ...", "'Role' refers to ...",
-# "'Role' shall mean/refer to ...". Quote characters (straight or curly)
-# around the role are optional so both "'Vendor' means" and "Vendor means"
-# are recognized; role is matched literally (case-sensitive), the same
-# capitalized word an adapter already extracted as a party role.
+# Quote characters (straight or curly) around a role/defined-term are
+# optional so both "'Vendor' means" and "Vendor means" are recognized.
 _ROLE_DEFINITION_QUOTE = r"[‘’'\"]?"
 
+# A. DISCOVERY — definitional predicates. Each is a deterministic,
+# grammatically explicit "this word IS a definition" signal — not an
+# attempt to recognize every way a lawyer might introduce a defined term.
+# Deliberately EXCLUDED: free-form patterns like "for purposes of this
+# Agreement, X is ..." — "is" alone is not a reliable definitional
+# predicate (most sentences using "is" are not definitions at all,
+# e.g. "for purposes of this Agreement, notice is deemed given when..."),
+# and admitting it would trade a discovery miss for a discovery false-
+# positive flood, which is the opposite of what 4A.1 is hardening
+# against. Ordered longer/more-specific alternatives first purely so the
+# match consumes the most descriptive predicate available when several
+# would technically fit at the same position (does not change whether a
+# definition is found, only how much of it renders in error messages).
+_DEFINITION_PREDICATE_FRAGMENT = (
+    r"(?:means\s+and\s+includes|shall\s+be\s+construed\s+to\s+mean|shall\s+have\s+the\s+meaning"
+    r"|has\s+the\s+meaning|is\s+defined\s+as|shall\s+refer\s+to|shall\s+mean|refers\s+to|means)\b"
+)
+_DEFINITION_PREDICATE_RE = re.compile(_DEFINITION_PREDICATE_FRAGMENT, re.I)
 
-def _find_role_definition_text(role: str, document_text: str) -> Optional[str]:
-    """Returns the defining clause's text (up to ~300 chars or the next
-    sentence boundary) for the first explicit 'Role means/refers to ...'
+
+def _find_role_definition_body(role: str, document_text: str) -> Optional[str]:
+    """Returns the defining sentence's body text (up to ~300 chars, or a
+    structural boundary if found sooner) for the first explicit
     definition of `role` found anywhere in the document, or None if no
     such definitional sentence exists. Searches the WHOLE document, not a
     local window — a defined-terms section is routinely far from the
-    operative clause that uses the term."""
-    # The verb phrase ("means"/"refers to"/...) is checked case-insensitively
-    # via an explicit lower/upper alternation, without loosening the role
-    # name itself (which must match the extractor's own capitalized role
-    # exactly — matching "vendor" when the extractor found "Vendor" would
-    # silently pick up unrelated prose).
-    pattern_ci_verb = re.compile(
+    operative clause that uses the term.
+
+    This function answers ONLY "was a definition found, and what is its
+    body" — it makes no judgment about transactional direction. See
+    _classify_directional_evidence for that separate question."""
+    anchor_re = re.compile(
         _ROLE_DEFINITION_QUOTE + re.escape(role) + _ROLE_DEFINITION_QUOTE
-        + r"\s+(?:[Mm]eans|[Rr]efers\s+to|[Ss]hall\s+mean|[Ss]hall\s+refer\s+to)\b",
+        + r"\s+" + _DEFINITION_PREDICATE_FRAGMENT,
+        re.I,
     )
-    m = pattern_ci_verb.search(document_text)
+    m = anchor_re.search(document_text)
     if not m:
         return None
     forward = document_text[m.end():min(len(document_text), m.end() + 300)]
-    # Stop at a sentence/clause boundary OR at the start of the NEXT
-    # role's own "'X' means/refers to..." definition — several definitions
-    # are routinely joined by "and" into one run-on sentence ("'Licensor'
-    # refers to ..., and 'Licensee' refers to ...") with no period between
-    # them, and without this second boundary this role's captured
-    # definition text would bleed into the next role's definition,
-    # corrupting the verb-signal classification with language that
-    # describes a different party entirely.
+    # Prefer a structural boundary over the fixed 300-char cap: a
+    # sentence/clause boundary, or the start of the NEXT role's own
+    # definition. Several definitions are routinely joined by "and" into
+    # one run-on sentence ("'Licensor' refers to ..., and 'Licensee'
+    # refers to ...") with no period between them — without the second
+    # boundary this role's captured body would bleed into the next
+    # role's definition, corrupting the directional classification with
+    # language that describes a different party entirely.
     next_definition = re.search(
-        _ROLE_DEFINITION_QUOTE + r"[A-Z]\w*" + _ROLE_DEFINITION_QUOTE
-        + r"\s+(?:[Mm]eans|[Rr]efers\s+to|[Ss]hall\s+mean|[Ss]hall\s+refer\s+to)\b",
-        forward,
+        _ROLE_DEFINITION_QUOTE + r"[A-Z]\w*" + _ROLE_DEFINITION_QUOTE + r"\s+" + _DEFINITION_PREDICATE_FRAGMENT,
+        forward, re.I,
     )
     sentence_boundary = re.search(r"\.\s|\.$|;", forward)
     cutoffs = [b.start() for b in (next_definition, sentence_boundary) if b is not None]
     return forward[:min(cutoffs)] if cutoffs else forward
 
 
-_ROLE_DEFINITION_BUY_VERBS_RE = re.compile(
-    r"\bpurchas\w*\b|\bbuy\w*\b|\bpay\w*\s+for\b|\bprocur\w*\b|\bacquir\w*\b"
-    r"|\breceiv\w*\s+(?:a|the)\s+license\b|\bsubscrib\w*\b|\border\w*\s+(?:the\s+)?(?:goods|services)\b",
+# B. INTERPRETATION — directional evidence vocabulary. Deliberately a
+# SMALL, drafting-pattern-justified list (see benchmarks/liability_corpus.py,
+# indemnification_corpus.py, payment_terms_corpus.py and the adversarial
+# suites in tests/ for the actual buy/sell verb patterns real contracts in
+# this corpus use), not an exhaustive synonym dictionary — an unmatched
+# definition body is a legitimate, common, UNKNOWN outcome (see
+# resolve_role_side), not a gap to keep patching.
+#
+# Every stem below is restricted to explicit VERB-INFLECTION suffixes
+# (-s/-es/-ing/-ed, or an irregular past tense) rather than a bare `\w*`
+# wildcard. This is a structural fix, not example-tuning (found via the
+# role-resolution verifier benchmark, not by patching a single failing
+# sentence): `\w*` after a verb stem also matches that stem's AGENT NOUN
+# — "buy\w*" matches "Buyer", "provid\w*" matches "Provider",
+# "purchas\w*" matches "Purchaser", "sell\w*" matches "Seller",
+# "suppl\w*" matches "Supplier" — i.e. it matches the ROLE NAME itself
+# whenever the defined term or another party in the same sentence happens
+# to share a stem with the verb vocabulary, which is common (a sentence
+# defining "Reseller" that also mentions "Provider" would otherwise
+# register sell-side evidence purely because the word "Provider" appeared
+# as someone else's name, not because any verb was used). Restricting to
+# verb-inflection suffixes closes this whole class of false positive at
+# once, rather than special-casing each specific agent noun.
+_DIRECTIONAL_BUY_EVIDENCE_RE = re.compile(
+    r"\bpurchas(?:e|es|ing|ed)\b|\bbuy(?:s|ing)?\b|\bbought\b|\bpay(?:s|ing)?\s+for\b"
+    r"|\bprocur(?:e|es|ing|ed)\b|\bacquir(?:e|es|ing|ed)\b"
+    r"|\breceiv(?:e|es|ing|ed)\s+(?:a|the)\s+license\b"
+    r"|\breceiv(?:e|es|ing|ed)\s+(?:the\s+)?services?\s+from\b"
+    r"|\bsubscrib(?:e|es|ing|ed)\b|\border(?:s|ing|ed)?\s+(?:the\s+)?(?:goods|services)\b"
+    r"|\bobtain(?:s|ing|ed)?\s+(?:the\s+)?services?\s+from\b|\bcustomer\s+of\b",
     re.I,
 )
-_ROLE_DEFINITION_SELL_VERBS_RE = re.compile(
-    # "licens\w*\s+to" is deliberately excluded: "a license to use the
-    # Platform" (an infinitive following the noun "license") is the
-    # BUYER's side of a license grant, not the grantor's — only "licenses
-    # the ..." / "licenses out ..." (the licensor actively licensing
-    # something) counts as sell-side signal here; a licensor granting TO
-    # someone is separately covered by "grant... license" below.
-    r"\bprovid\w*\b|\bdevelop\w*\b|\bsell\w*\b|\blicens\w*\s+(?:the|out)\b"
-    r"|\bgrant\w*\s+(?:a\s+|the\s+)?license\b|\bsuppl\w*\b|\bdeliver\w*\b|\bcreat\w*\b|\bmanufactur\w*\b",
+_DIRECTIONAL_SELL_EVIDENCE_RE = re.compile(
+    # "licens(e|es|ing|ed) to" is deliberately excluded: "a license to
+    # use the Platform" (an infinitive following the noun "license") is
+    # the BUYER's side of a license grant, not the grantor's — only
+    # "licenses the ..." / "licenses out ..." (the licensor actively
+    # licensing something) counts as sell-side signal here; a licensor
+    # granting TO someone is separately covered by "grant... license"
+    # below.
+    r"\bprovid(?:e|es|ing|ed)\b|\bdevelop(?:s|ing|ed)?\b|\bsell(?:s|ing)?\b|\bsold\b"
+    r"|\blicens(?:e|es|ing|ed)\s+(?:the|out)\b"
+    r"|\bgrant(?:s|ing|ed)?\s+(?:a\s+|the\s+)?license\b|\bsuppl(?:y|ies|ying|ied)\b"
+    r"|\bdeliver(?:s|ing|ed)?\b|\bfurnish(?:es|ing|ed)?\b"
+    r"|\bdeliver(?:s|ing|ed)?\s+services?\s+to\b|\bcreat(?:e|es|ing|ed)\b|\bmanufactur(?:e|es|ing|ed)\b",
     re.I,
 )
+
+
+def _classify_directional_evidence(definition_body: str) -> Optional[str]:
+    """Returns "buy_side", "sell_side", "mixed", or None (no directional
+    evidence at all) from a discovered definition body — pure
+    interpretation, no discovery logic. "mixed" is returned, not
+    resolved, when both vocabularies match: a definition using both
+    purchasing and providing/selling language about the SAME role does
+    not cleanly settle the question either way (see resolve_role_side)."""
+    has_buy = bool(_DIRECTIONAL_BUY_EVIDENCE_RE.search(definition_body))
+    has_sell = bool(_DIRECTIONAL_SELL_EVIDENCE_RE.search(definition_body))
+    if has_buy and has_sell:
+        return "mixed"
+    if has_buy:
+        return "buy_side"
+    if has_sell:
+        return "sell_side"
+    return None
 
 
 def resolve_role_side(role: str, document_text: str) -> Tuple[Optional[str], Optional[str]]:
@@ -165,39 +242,42 @@ def resolve_role_side(role: str, document_text: str) -> Tuple[Optional[str], Opt
     `conflict_reason` is not None — a caller must never use a non-None
     side alongside a non-None reason.
 
-    Three outcomes:
-      - No definition found, OR a definition found with no buy/sell verb
-        signal at all, OR a definition whose verb signal AGREES with the
-        generic side_for_role() mapping: returns (generic_side, None) —
-        the ordinary, unaffected path for the overwhelming majority of
-        contracts.
-      - A definition found whose verb signal points EXCLUSIVELY to the
-        side OPPOSITE the generic mapping (a genuine reversal, e.g. "'
-        Vendor' means ... the entity purchasing ..."), or whose verb
-        signal matches BOTH buy-side and sell-side vocabulary (a
-        genuinely mixed/ambiguous definition that does not cleanly
-        settle the question either way): returns (None, reason) — the
-        caller must not guess between the generic mapping and the
-        document's own language; it must route to unresolved/
-        REQUIRES_REVIEW instead.
+    Composes discovery (_find_role_definition_body) and interpretation
+    (_classify_directional_evidence) into four conceptual outcomes:
+
+      - NO_DEFINITION (no definitional sentence found for this role
+        anywhere in the document): returns (generic_side, None).
+      - CONSISTENT (a definition was found and its directional evidence
+        agrees with the generic mapping): returns (generic_side, None).
+      - UNKNOWN (a definition was found but carries no directional
+        evidence at all — e.g. "'Vendor' means Acme Corp, a Delaware
+        corporation"): returns (generic_side, None). A definition merely
+        existing is not itself suspicious; the overwhelming majority of
+        defined-terms sections define a role's legal NAME, not its
+        transactional function, and must not become a source of
+        unnecessary escalation.
+      - CONFLICT (a definition was found whose directional evidence
+        points EXCLUSIVELY to the side OPPOSITE the generic mapping, or
+        whose evidence is "mixed" — matches both vocabularies and so
+        does not cleanly settle the question either way): returns
+        (None, reason) — the caller must not guess between the generic
+        mapping and the document's own language; it must route to
+        unresolved/REQUIRES_REVIEW instead.
     """
     generic_side = side_for_role(role)
-    definition_text = _find_role_definition_text(role, document_text)
-    if not definition_text:
-        return generic_side, None
+    definition_body = _find_role_definition_body(role, document_text)
+    if not definition_body:
+        return generic_side, None  # NO_DEFINITION
 
-    has_buy = bool(_ROLE_DEFINITION_BUY_VERBS_RE.search(definition_text))
-    has_sell = bool(_ROLE_DEFINITION_SELL_VERBS_RE.search(definition_text))
-
-    if has_buy and has_sell:
+    definition_side = _classify_directional_evidence(definition_body)
+    if definition_side is None:
+        return generic_side, None  # UNKNOWN — definition found, no directional evidence
+    if definition_side == "mixed":
         return None, (
             f"the document's own definition of '{role}' uses both purchasing/receiving language "
             f"and providing/selling language — cannot determine which transactional side '{role}' "
             f"actually occupies"
         )
-    definition_side = "buy_side" if has_buy else ("sell_side" if has_sell else None)
-    if definition_side is None:
-        return generic_side, None  # definition exists but carries no buy/sell signal — inconclusive, not a conflict
     if generic_side is not None and definition_side != generic_side:
         return None, (
             f"the document's own definition of '{role}' uses "
@@ -205,7 +285,7 @@ def resolve_role_side(role: str, document_text: str) -> Tuple[Optional[str], Opt
             f"which conflicts with '{role}''s conventional "
             f"{'buy-side' if generic_side == 'buy_side' else 'sell-side'} classification"
         )
-    return definition_side, None
+    return definition_side, None  # CONSISTENT
 
 
 # ---------------------------------------------------------------------------

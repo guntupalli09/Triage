@@ -14,6 +14,7 @@ from dataclasses import dataclass
 from typing import List, Optional
 
 import liability_policy_engine as lpe
+import policy_engine_core as core
 
 
 @dataclass
@@ -813,3 +814,107 @@ class TestStep4ACandidateOwnership:
             f"a span claimed by multiple categories must not silently vanish from the "
             f"general-cap pool — got state={d.state} unresolved_facts={d.unresolved_facts}"
         )
+
+
+class TestStep4A1RoleDefinitionDiscovery:
+    """PA-2, made consequential (Step 4A.1). Step 4A's resolve_role_side
+    only recognized 'means'/'shall mean'/'refers to'/'shall refer to' as
+    definitional predicates. A definition using 'shall be construed to
+    mean' was silently invisible to it — in Step 4A's own adversarial
+    case this didn't change the final decision because the clause was
+    non-directional (a single named role, no asymmetric comparison). This
+    test constructs a DIRECTIONAL clause (two named roles being compared)
+    so the same discovery gap, if it still existed, would produce a wrong
+    clean policy state rather than merely an untested code path."""
+
+    def test_shall_be_construed_to_mean_reversal_is_directionally_consequential(self):
+        text = (
+            "1. Definitions. 'Vendor' shall be construed to mean Gamma LLC, the party "
+            "purchasing and receiving the Services from Customer, and 'Customer' shall be "
+            "construed to mean Delta Inc., the party that develops and provides the "
+            "Services.\n\n"
+            "9. Limitation of Liability. Vendor's aggregate liability under this Agreement "
+            "shall not exceed 1 times the annual fees paid in the preceding twelve (12) "
+            "months. Customer's aggregate liability under this Agreement shall not exceed "
+            "5 times the annual fees paid in the preceding twelve (12) months."
+        )
+        d = evaluate(text, contract_side="buy_side")
+        # PREVIOUS WRONG BEHAVIOR (if the discovery gap still existed):
+        # 'shall be construed to mean' invisible to resolve_role_side ->
+        # generic side_for_role("Vendor")=sell_side, side_for_role("Customer")
+        # =buy_side trusted -> "our" cap (buy_side) wrongly read as
+        # Customer's 5x, when the document's own definition makes Vendor
+        # (1x) the actual purchaser/buy-side party.
+        assert not (d.state == lpe.ESCALATE and d.unresolved_facts == []), (
+            "an unrecognized definitional predicate must not let a document-contradicted "
+            f"generic role mapping reach a clean decision — got state={d.state} "
+            f"unresolved_facts={d.unresolved_facts}"
+        )
+        if d.state == lpe.REQUIRES_REVIEW:
+            assert d.unresolved_facts
+        else:
+            assert d.our_position is not None and d.our_position["role"] == "Vendor", (
+                f"if resolved automatically, the document-correct reading (Vendor = the "
+                f"actual purchaser) must be used, got our_position={d.our_position}"
+            )
+
+    def test_is_defined_as_predicate_is_discovered(self):
+        text = "'Licensee' is defined as Acme Corp, a Delaware corporation providing hosting services."
+        side, reason = core.resolve_role_side("Licensee", text)
+        assert reason is not None, "an 'is defined as' definition with sell-side language must conflict with Licensee's generic buy-side classification"
+
+    def test_has_the_meaning_predicate_is_discovered(self):
+        text = "'Customer' has the meaning set forth herein, being the entity that provides raw materials to Vendor."
+        side, reason = core.resolve_role_side("Customer", text)
+        assert reason is not None, "a 'has the meaning' definition with sell-side language must conflict with Customer's generic buy-side classification"
+
+    def test_ordinary_definition_with_unrecognized_predicate_syntax_does_not_false_conflict(self):
+        # A definition using a recognized predicate but carrying NO
+        # directional evidence at all must not manufacture a conflict —
+        # UNKNOWN falls back to the generic mapping, per design.
+        text = "'Vendor' shall be construed to mean Acme Corp, a Delaware corporation."
+        side, reason = core.resolve_role_side("Vendor", text)
+        assert reason is None
+        assert side == "sell_side"
+
+
+class TestStep4A1LiabilityConceptOwnership:
+    """XR-4 (Step 4A.1). A genuine liability cap phrased with an
+    intervening relative clause ('liability arising under this
+    Agreement ... exceed ...') was previously rejected by Step 4A's
+    narrow _ANCHOR_RE/_SECONDARY_ANCHOR_RE-based concept check, causing
+    an unnecessary escalation on language that plainly states a cap."""
+
+    def test_liability_arising_under_this_agreement_resolves_automatically(self):
+        text = (
+            "9. Limitation of Liability. Provider's aggregate liability arising under this "
+            "Agreement shall be as set forth in Exhibit A.\n\n"
+            + ("Filler text between sections. " * 25) +
+            "\n\nExhibit A: Risk Allocation. Notwithstanding anything to the contrary, in no "
+            "event shall either party's liability arising under this Agreement exceed 2 "
+            "times the total annual fees paid in the preceding twelve (12) months."
+        )
+        d = evaluate(text)
+        assert d.state != lpe.REQUIRES_REVIEW, (
+            f"a genuine liability cap phrased with an intervening relative clause must "
+            f"resolve automatically, got state={d.state} unresolved_facts={d.unresolved_facts}"
+        )
+        assert "2x" in d.extracted_summary or "2 " in d.extracted_summary
+
+    def test_service_credit_near_liability_word_is_still_rejected(self):
+        # Regression guard on the disqualifying-concept check: a sentence
+        # that happens to mention "liability" but is actually about
+        # service credits must still be rejected — restructuring the
+        # concept check must not have widened it into a permissive
+        # matcher that accepts anything containing the word "liability".
+        text = (
+            "9. Limitation of Liability. Provider's aggregate liability shall be as set "
+            "forth in Schedule C.\n\n"
+            + ("Filler text between sections. " * 25) +
+            "\n\nSchedule C: Support Service Levels. Without limiting Provider's liability "
+            "generally, Provider's service credit obligation for missed response times "
+            "shall not exceed $10,000 per incident."
+        )
+        d = evaluate(text)
+        assert "10,000" not in d.extracted_summary
+        assert d.state == lpe.REQUIRES_REVIEW

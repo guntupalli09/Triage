@@ -734,6 +734,45 @@ def _classify_general_cap_expression(
     if not unclaimed:
         return _simple(None)
 
+    # Step 4A / 4A.1: when the clause's OWN operative language delegates
+    # to a cross-referenced provision ("...liability shall be as set
+    # forth in Schedule C...") rather than stating a cap directly, the
+    # document-wide provision window (_PROVISION_WINDOW_CHARS) can still
+    # reach far enough to pick up unrelated cap-shaped numbers from that
+    # referenced material (Step 2B's LOL-B-01: an SLA service-credit cap
+    # inside "Schedule C" was adopted as the liability cap purely because
+    # it was the only cap-shaped match in the window). Filter to
+    # concept-verified candidates BEFORE the has_unlimited/distinct-value
+    # conflict logic below — 4A.1 fix: filtering AFTER that logic (as
+    # Step 4A originally did, checking only the sole survivor when
+    # exactly one candidate remained) meant a genuine liability cap
+    # sitting alongside an unrelated disqualified number (e.g. an SLA
+    # service-credit figure in the same referenced schedule) was wrongly
+    # treated as "multiple distinct cap values, cannot determine which
+    # governs" instead of correctly recognizing that only one candidate
+    # was ever a real liability-concept candidate to begin with. Mirrors
+    # the same concept-anchor requirement _resolve_cross_reference already
+    # enforces for its own candidates — reused here, not reinvented,
+    # because this is the SAME failure mode reached via a different code
+    # path. Ordinary clauses that state their cap directly (the
+    # overwhelming majority) never contain cross-reference delegation
+    # language at all, so this filter is a no-op for them — it only
+    # engages when the clause itself points elsewhere.
+    has_delegation = _detect_cross_reference(window) is not None
+    if has_delegation:
+        concept_verified = [c for c in unclaimed if c.kind == "unlimited" or _has_liability_concept_nearby(window, c)]
+        if not concept_verified:
+            cap = unclaimed[0]
+            return _unresolved(
+                "this clause delegates to a cross-referenced provision, and no cap-shaped "
+                "value found in the document has any limitation-of-liability language near "
+                "it — cannot establish that any of them is actually the liability cap "
+                "without attorney review",
+                raw_excerpt=_excerpt(window, cap.start_index, cap.end_index),
+                start_index=cap.start_index, end_index=cap.end_index,
+            )
+        unclaimed = concept_verified
+
     has_unlimited = any(c.kind == "unlimited" for c in unclaimed)
     numeric = [c for c in unclaimed if c.kind != "unlimited"]
     distinct_numeric_values = {(c.kind, c.basis, c.multiplier, c.fixed_amount) for c in numeric}
@@ -752,37 +791,6 @@ def _classify_general_cap_expression(
             raw_excerpt=_excerpt(window, numeric[0].start_index, numeric[0].end_index),
             start_index=numeric[0].start_index, end_index=numeric[0].end_index,
         )
-    # Step 4A: a single surviving candidate is not automatically trusted
-    # when the clause's OWN operative language delegates to a
-    # cross-referenced provision ("...liability shall be as set forth in
-    # Schedule C...") rather than stating a cap directly — the document-
-    # wide provision window (_PROVISION_WINDOW_CHARS) can still reach far
-    # enough to pick up an unrelated cap-shaped number from that
-    # referenced material (Step 2B's LOL-B-01: an SLA service-credit cap
-    # inside "Schedule C" was adopted as the liability cap purely because
-    # it was the only cap-shaped match in the window). Mirrors the same
-    # concept-anchor requirement _resolve_cross_reference already
-    # enforces for its own candidates — reused here, not reinvented,
-    # because this is the SAME failure mode reached via a different code
-    # path (the wide window finding the value before cross-reference
-    # resolution is ever attempted). Ordinary clauses that state their
-    # cap directly (the overwhelming majority) never contain cross-
-    # reference delegation language at all, so this check is a no-op for
-    # them — it only engages when the clause itself points elsewhere.
-    if _detect_cross_reference(window) is not None:
-        cap = numeric[0]
-        local_lo = max(0, cap.start_index - _CROSS_REF_CONCEPT_WINDOW)
-        local_hi = min(len(window), cap.end_index + _CROSS_REF_CONCEPT_WINDOW)
-        local = window[local_lo:local_hi]
-        if not (_ANCHOR_RE.search(local) or _SECONDARY_ANCHOR_RE.search(local)):
-            return _unresolved(
-                "this clause delegates to a cross-referenced provision, and the only cap-shaped "
-                "value found in the document does not have any limitation-of-liability language "
-                "near it — cannot establish that it is actually the liability cap without "
-                "attorney review",
-                raw_excerpt=_excerpt(window, cap.start_index, cap.end_index),
-                start_index=cap.start_index, end_index=cap.end_index,
-            )
     return _simple(numeric[0])
 
 
@@ -855,22 +863,86 @@ def _detect_cross_reference(window: str) -> Optional[Tuple[str, int, int]]:
     return None
 
 
-# Step 4A: how far around a cross-reference candidate value to look for a
-# liability-concept anchor. A candidate value existing near the referenced
-# label is NOT sufficient by itself (Step 2B's LOL-B-01: an SLA service-
-# credit cap sitting inside a schedule with no liability language at all
-# was previously adopted as the liability cap) — the candidate's own
-# local text must independently look like a liability provision, using
-# the SAME anchor vocabulary already used for primary clause recognition
-# (_ANCHOR_RE / _SECONDARY_ANCHOR_RE), not a new pattern language.
-_CROSS_REF_CONCEPT_WINDOW = 250
+# Step 4A.1 — liability-concept ownership, restructured. Step 4A's
+# _has_liability_concept_nearby (a fixed 250-char window checked against
+# _ANCHOR_RE/_SECONDARY_ANCHOR_RE, the SAME narrow patterns used for
+# primary clause recognition) rejected a genuine cap phrased "liability
+# arising under this Agreement ... exceed ..." because
+# _SECONDARY_ANCHOR_RE's "in no event shall ... liability exceed" pattern
+# requires those two words adjacent, with no intervening relative clause
+# (XR-4). Root cause: one regex was being asked to prove three different
+# things at once (this is about liability AND this imposes a limit AND
+# this specific number is the value) — any single narrow pattern that
+# happens to satisfy all three simultaneously is inherently brittle to
+# ordinary drafting variation. 4A.1 splits this into three independently
+# testable questions, each answered over the SENTENCE containing the
+# candidate (a structural boundary — not a fixed character window):
+#
+#   1. CONCEPT — does the sentence concern liability at all?
+#   2. LIMIT   — does the sentence impose a maximum/limitation?
+#   3. VALUE   — the numeric candidate itself (already established by
+#      the caller via _find_cap_values before this function runs).
+#
+# All three together (not one giant regex) are required before a
+# candidate is treated as an established liability cap. A DISQUALIFYING
+# check additionally rejects a sentence whose dominant subject is a
+# different, commonly-confused concept (service credits, insurance,
+# deductibles, purchase price, etc.) even if the word "liability" or a
+# limit predicate happens to also appear in it — see Step 4A.1's negative
+# cross-reference test suite for the concrete confusions this guards.
+_LIABILITY_CONCEPT_RE = re.compile(r"\bliabilit(?:y|ies)\b|\bliable\b", re.I)
+_LIABILITY_LIMIT_PREDICATE_RE = re.compile(
+    r"shall\s+not\s+exceed|is\s+capped\s+at|shall\s+be\s+capped|\blimited\s+to\b"
+    r"|shall\s+not\s+be\s+liable\s+for|\bmaximum\b|in\s+no\s+event.{0,120}?exceed"
+    r"|\baggregate\b|\bcumulative\b|\bceiling\b|\buncapped\b|\bunlimited\b",
+    re.I,
+)
+# Concepts that commonly co-occur with cap-shaped numbers but are NOT
+# limitation-of-liability — each one is a real drafting pattern that
+# produced a wrong candidate somewhere in Step 2B/4A/4A.1 testing or is a
+# realistic analog of one (SLA service credits; insurance policy limits;
+# a deal's purchase price; late/termination fees; security deposits;
+# indemnification baskets/deductibles).
+_LIABILITY_DISQUALIFYING_CONCEPT_RE = re.compile(
+    r"service\s+credit|\bSLA\b|service\s+level|\binsurance\b|\bdeductible\b|\bpurchase\s+price\b"
+    r"|indemnification\s+basket|\bbasket\b|\btermination\s+fee\b|\bsecurity\s+deposit\b"
+    r"|\blate\s+fee\b|\bpenalty\b",
+    re.I,
+)
+# How far to search, in EITHER direction, for the sentence boundary
+# around a candidate — a bounded fallback only, structural boundaries
+# (period+space, period+end-of-text) are always preferred when found
+# within this range. Generous enough for realistic multi-clause
+# sentences without scanning unboundedly.
+_LIABILITY_SENTENCE_SEARCH_CHARS = 500
+
+
+def _sentence_containing(text: str, start: int, end: int) -> str:
+    """Returns the sentence containing text[start:end], found via
+    structural boundaries (". ", or start/end of text) rather than a
+    fixed character window — falls back to a bounded window only when no
+    boundary exists within _LIABILITY_SENTENCE_SEARCH_CHARS."""
+    back_lo = max(0, start - _LIABILITY_SENTENCE_SEARCH_CHARS)
+    back_text = text[back_lo:start]
+    back_boundary = back_text.rfind(". ")
+    sentence_start = back_lo + back_boundary + 2 if back_boundary != -1 else back_lo
+
+    fwd_hi = min(len(text), end + _LIABILITY_SENTENCE_SEARCH_CHARS)
+    fwd_text = text[end:fwd_hi]
+    fwd_m = re.search(r"\.\s|\.$", fwd_text)
+    sentence_end = end + fwd_m.end() if fwd_m else fwd_hi
+
+    return text[sentence_start:sentence_end]
 
 
 def _has_liability_concept_nearby(text: str, cap: CapValue) -> bool:
-    lo = max(0, cap.start_index - _CROSS_REF_CONCEPT_WINDOW)
-    hi = min(len(text), cap.end_index + _CROSS_REF_CONCEPT_WINDOW)
-    local = text[lo:hi]
-    return bool(_ANCHOR_RE.search(local) or _SECONDARY_ANCHOR_RE.search(local))
+    """CONCEPT + LIMIT (+ disqualifier) verification for one candidate
+    value, scoped to its containing sentence. Does NOT re-verify VALUE —
+    the caller already established the candidate via _find_cap_values."""
+    sentence = _sentence_containing(text, cap.start_index, cap.end_index)
+    if _LIABILITY_DISQUALIFYING_CONCEPT_RE.search(sentence):
+        return False
+    return bool(_LIABILITY_CONCEPT_RE.search(sentence) and _LIABILITY_LIMIT_PREDICATE_RE.search(sentence))
 
 
 def _resolve_cross_reference(
