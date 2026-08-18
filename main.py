@@ -2952,24 +2952,24 @@ async def early_access_submit(
     _csrf: None = Depends(csrf_protect),
     name: str = Form(...),
     email: str = Form(...),
+    company: str = Form(...),
     team_type: str = Form(...),
     team_size: str = Form(...),
     monthly_volume: str = Form(...),
     current_solution: str = Form(...),
-    current_spend: str = Form(""),
-    easy_yes_price: str = Form(""),
+    current_tooling: str = Form(...),
     message: str = Form(""),
 ):
     user = get_current_user(request, db)
     lead = {
         "name": name.strip()[:200],
         "email": email.strip()[:200],
+        "company": company.strip()[:200],
         "team_type": team_type.strip()[:50],
         "team_size": team_size.strip()[:20],
         "monthly_volume": monthly_volume.strip()[:20],
         "current_solution": current_solution.strip()[:50],
-        "current_spend": current_spend.strip()[:50],
-        "easy_yes_price": easy_yes_price.strip()[:50],
+        "current_tooling": current_tooling.strip()[:50],
         "message": message.strip()[:2000],
     }
     # Persist first — a notification-email failure must never lose the lead.
