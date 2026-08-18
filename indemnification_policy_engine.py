@@ -47,7 +47,7 @@ from policy_engine_core import (
     ACCEPT, ACCEPT_WITH_NOTE, NEGOTIATE, MUST_REDLINE, PROHIBITED, ESCALATE,
     REQUIRES_REVIEW, NOT_APPLICABLE,
     LadderStep, PolicyDecision,
-    BUY_SIDE_ROLES, SELL_SIDE_ROLES, side_for_role,
+    resolve_role_side,
     build_ladder as _core_build_ladder,
     classify_by_threshold, escalate_to_for_state, fallback_text_for_state,
     excerpt as _excerpt, section_label_before as _section_label_before,
@@ -238,6 +238,14 @@ class IndemnityObligation:
     start_index: int
     end_index: int
     section_label: Optional[str]
+    # Step 4A: set whenever resolve_role_side() found the document's own
+    # definition of indemnifying_role/indemnified_role conflicts with the
+    # generic buy/sell vocabulary — the corresponding *_side is None
+    # whenever its reason is present here. Kept separate from an
+    # unrecognized-role-name None so _resolve_obligations_for_side can
+    # surface a specific, useful reason rather than generic "unrecognized
+    # party name(s)" text.
+    role_side_conflict_reasons: List[str] = field(default_factory=list)
     is_mutual_reciprocal: bool = False
     # Only ever populated for is_mutual_reciprocal=True obligations — see
     # _detect_reciprocal_asymmetry. A non-empty list means the clause opens
@@ -476,9 +484,12 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
         if indemnifying_role.lower() == indemnified_role.lower():
             continue  # regex false-positive guard, e.g. matched the same word twice
         window = _extract_obligation_window(text, m.start(), min(len(text), m.start() + _PROVISION_WINDOW_CHARS))
+        indemnifying_side, indemnifying_conflict = resolve_role_side(indemnifying_role, text)
+        indemnified_side, indemnified_conflict = resolve_role_side(indemnified_role, text)
+        conflict_reasons = [r for r in (indemnifying_conflict, indemnified_conflict) if r]
         obligations.append(IndemnityObligation(
-            indemnifying_role=indemnifying_role, indemnifying_side=side_for_role(indemnifying_role),
-            indemnified_role=indemnified_role, indemnified_side=side_for_role(indemnified_role),
+            indemnifying_role=indemnifying_role, indemnifying_side=indemnifying_side,
+            indemnified_role=indemnified_role, indemnified_side=indemnified_side,
             trigger_treatments=_classify_triggers(window),
             scope=_classify_scope(window),
             defense_control=_classify_defense_control(window),
@@ -488,6 +499,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             raw_excerpt=_excerpt(text, m.start(), m.end()),
             start_index=m.start(), end_index=m.end(),
             section_label=_section_label_before(text, m.start()),
+            role_side_conflict_reasons=conflict_reasons,
         ))
         seen_spans.append((m.start(), m.end()))
 
@@ -614,10 +626,18 @@ def _resolve_obligations_for_side(
             elif protection is None:
                 protection = o
         elif o.indemnifying_side is None or o.indemnified_side is None:
-            reasons.append(
-                f"obligation \"{o.indemnifying_role} indemnifies {o.indemnified_role}\" could not be mapped "
-                f"to our configured contract side ({contract_side}) — unrecognized party name(s)"
-            )
+            if o.role_side_conflict_reasons:
+                # Step 4A: a specific, useful reason — the role WAS
+                # recognized, but the document's own definition conflicts
+                # with the generic vocabulary — rather than the generic
+                # "unrecognized party name(s)" text below, which would be
+                # misleading here.
+                reasons.extend(o.role_side_conflict_reasons)
+            else:
+                reasons.append(
+                    f"obligation \"{o.indemnifying_role} indemnifies {o.indemnified_role}\" could not be mapped "
+                    f"to our configured contract side ({contract_side}) — unrecognized party name(s)"
+                )
 
     return exposure, protection, reasons
 

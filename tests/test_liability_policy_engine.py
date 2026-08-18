@@ -611,3 +611,205 @@ class TestRolePositionRegexCaseSensitivity:
         )
         d = evaluate(text)
         assert not any("asymmetric liability positions" in f for f in d.unresolved_facts)
+
+
+# ---------------------------------------------------------------------------
+# Step 4A permanent regressions — TriageCounsel counsel-audit Steps 2/2B
+# demonstrated three mechanically distinct ways a confidently-wrong
+# structured fact could reach a clean deterministic decision with zero
+# unresolved_facts. Each test below preserves the EXACT adversarial text
+# that reproduced the failure and asserts the specific wrong behavior that
+# must never come back, not just "the test passes."
+# ---------------------------------------------------------------------------
+
+class TestStep4ARoleReversal:
+    """LOL-C-01 (Step 2). Document redefines 'Licensor'/'Licensee' opposite
+    to their conventional buy/sell mapping. Before Step 4A: side_for_role()
+    used only the literal word, silently picked 'Licensee' (5x) as our
+    cap under contract_side=buy_side, and returned a clean ESCALATE with
+    unresolved_facts == [] — even though the document's own definitions
+    make Licensor (1x) the actual buy-side party."""
+
+    def test_defined_term_reversal_no_longer_silently_escalates(self):
+        text = (
+            "1. Definitions. In this Agreement, 'Licensor' refers to Gamma LLC, the party "
+            "purchasing and receiving a license to use the Platform, and 'Licensee' refers to "
+            "Delta Inc., the party that develops and operates the Platform and grants the "
+            "license.\n\n"
+            "11. Limitation of Liability. Licensor's aggregate liability under this Agreement "
+            "shall not exceed 1 times the annual fees paid in the preceding twelve (12) months. "
+            "Licensee's aggregate liability under this Agreement shall not exceed 5 times the "
+            "annual fees paid in the preceding twelve (12) months."
+        )
+        d = evaluate(text, contract_side="buy_side")
+        # PREVIOUS WRONG BEHAVIOR being prevented: state == ESCALATE with
+        # unresolved_facts == [] and our_position == {"role": "Licensee", ...}
+        # (i.e. confidently treating the document-contradicted literal
+        # mapping as authoritative). That combination must never recur.
+        assert not (d.state == lpe.ESCALATE and d.unresolved_facts == []), (
+            "role-reversal must not silently reach a clean ESCALATE — "
+            f"got state={d.state} unresolved_facts={d.unresolved_facts}"
+        )
+        # Acceptable outcomes per Step 4A #6: either genuinely resolve the
+        # side correctly (our cap becomes 1x, from Licensor) OR escalate.
+        if d.state == lpe.REQUIRES_REVIEW:
+            assert d.unresolved_facts, "REQUIRES_REVIEW must carry a reason"
+        else:
+            assert d.our_position is not None
+            assert d.our_position["role"] == "Licensor", (
+                "if resolved automatically, the CORRECT party-side reading (Licensor = "
+                "the actual purchaser per the document's own definition) must be used, "
+                f"got our_position={d.our_position}"
+            )
+
+
+class TestStep4ACrossReferenceConceptVerification:
+    """LOL-B-01 (Step 2B). Liability clause delegates to 'Schedule C', which
+    contains only an SLA service-credit cap ($10,000), not a liability
+    concept. Before Step 4A: _resolve_cross_reference adopted the $10,000
+    service-credit figure as the authoritative liability cap with a clean
+    ESCALATE and unresolved_facts == []."""
+
+    def test_unrelated_schedule_content_is_not_established_as_liability_cap(self):
+        text = (
+            "9. Limitation of Liability. Except as expressly provided herein, Provider's "
+            "aggregate liability arising under this Agreement shall be as set forth in "
+            "Schedule C.\n\n"
+            + ("Lorem ipsum filler text separating sections. " * 20) +
+            "\n\nSchedule C: Support Service Levels. Provider shall use commercially "
+            "reasonable efforts to respond to Severity 1 support tickets within two (2) "
+            "hours. If Provider fails to meet this response time in a given month, Provider "
+            "shall issue Customer a service credit, and Provider's obligation to issue "
+            "service credits under this Schedule C shall not exceed $10,000 per incident."
+        )
+        d = evaluate(text)
+        # PREVIOUS WRONG BEHAVIOR being prevented: extracted_summary/general
+        # cap silently becoming "$10,000.00 fixed" with a clean ESCALATE.
+        assert "10,000" not in d.extracted_summary, (
+            "an unrelated SLA service-credit figure must never be adopted as the "
+            f"liability cap — extracted_summary={d.extracted_summary!r}"
+        )
+        assert d.state == lpe.REQUIRES_REVIEW, (
+            f"a cross-reference with no liability concept nearby must escalate, got {d.state}"
+        )
+        assert d.unresolved_facts
+
+    def test_genuine_liability_cross_reference_still_resolves_automatically(self):
+        # Positive control: Schedule C DOES state a liability concept, so
+        # this must continue to resolve automatically (not become an
+        # escalation machine that punishes every cross-reference).
+        text = (
+            "9. Limitation of Liability. Except as expressly provided herein, Provider's "
+            "aggregate liability arising under this Agreement shall be as set forth in "
+            "Schedule C.\n\n"
+            + ("Lorem ipsum filler text separating sections. " * 10) +
+            "\n\nSchedule C: Liability. Provider's maximum aggregate liability to Customer "
+            "arising under this Agreement shall not exceed $2,000,000."
+        )
+        d = evaluate(text)
+        assert d.state != lpe.REQUIRES_REVIEW, (
+            f"a genuine, concept-anchored cross-reference must not be sent to review, got "
+            f"state={d.state} unresolved_facts={d.unresolved_facts}"
+        )
+        assert "2,000,000" in d.extracted_summary
+
+
+class TestStep4ACarveOutBoundary:
+    """LOL-D-01 (Step 2B). A realistic exception list naming five carve-out
+    categories in one run-on sentence before the general cap. Before Step
+    4A: the fixed 100-char exclusion-coverage window only covered the
+    first category or two; later categories in the SAME sentence then
+    misclassified the general '1x fees' cap as their own category-specific
+    super_cap, which removed it from the general-cap pool entirely,
+    producing a clean MUST_REDLINE ("no enforceable numeric general cap")
+    with unresolved_facts == [] even though the cap plainly is stated."""
+
+    def test_long_exception_list_does_not_swallow_the_general_cap(self):
+        text = (
+            "10. Limitation of Liability. Except for claims arising from a party's fraud, "
+            "willful misconduct, breach of its confidentiality obligations under Section 7, "
+            "gross negligence in the performance of its duties hereunder, or infringement of "
+            "the other party's intellectual property rights, in no event shall either party's "
+            "aggregate liability under this Agreement exceed 1 times the total annual fees "
+            "paid in the twelve (12) months preceding the claim."
+        )
+        d = evaluate(text, required_exceptions_json=["confidentiality"])
+        # PREVIOUS WRONG BEHAVIOR being prevented: MUST_REDLINE with
+        # unresolved_facts == [] and an empty/missing general cap despite
+        # a plainly-stated "1 times ... fees" cap in the source text.
+        assert not (d.state == lpe.MUST_REDLINE and d.unresolved_facts == []), (
+            "a long same-sentence exception list must not silently delete the general "
+            f"cap — got state={d.state} unresolved_facts={d.unresolved_facts} "
+            f"extracted_summary={d.extracted_summary!r}"
+        )
+        # Acceptable outcomes: correctly resolve to 1x fees (ACCEPT under
+        # the default 1.0/2.0/3.0 policy), or escalate with a reason.
+        if d.state == lpe.REQUIRES_REVIEW:
+            assert d.unresolved_facts
+        else:
+            assert d.state == lpe.ACCEPT
+            assert "1x" in d.extracted_summary or "1 " in d.extracted_summary
+
+    def test_carve_out_boundary_scales_with_two_categories(self):
+        text = (
+            "10. Limitation of Liability. Except for claims arising from a party's fraud or "
+            "gross negligence, in no event shall either party's aggregate liability under "
+            "this Agreement exceed 1 times the total annual fees paid in the twelve (12) "
+            "months preceding the claim."
+        )
+        d = evaluate(text)
+        assert d.state == lpe.ACCEPT
+        assert d.unresolved_facts == []
+
+    def test_carve_out_boundary_scales_with_six_categories(self):
+        text = (
+            "10. Limitation of Liability. Except for claims arising from a party's fraud, "
+            "willful misconduct, breach of its confidentiality obligations under Section 7, "
+            "gross negligence in the performance of its duties hereunder, infringement of "
+            "the other party's intellectual property rights, or indemnification obligations "
+            "under Section 15, in no event shall either party's aggregate liability under "
+            "this Agreement exceed 1 times the total annual fees paid in the twelve (12) "
+            "months preceding the claim."
+        )
+        d = evaluate(text, required_exceptions_json=["confidentiality", "fraud"])
+        assert not (d.state == lpe.MUST_REDLINE and d.unresolved_facts == [])
+
+    def test_carve_out_boundary_with_semicolon_separated_list(self):
+        text = (
+            "10. Limitation of Liability. Except for claims arising from fraud; willful "
+            "misconduct; breach of confidentiality obligations; gross negligence; or "
+            "infringement of intellectual property rights, in no event shall either party's "
+            "aggregate liability under this Agreement exceed 1 times the total annual fees "
+            "paid in the twelve (12) months preceding the claim."
+        )
+        d = evaluate(text)
+        assert not (d.state == lpe.MUST_REDLINE and d.unresolved_facts == [])
+
+
+class TestStep4ACandidateOwnership:
+    """Defense-in-depth: candidate-ownership verification must catch a
+    span claimed by multiple incompatible categories INDEPENDENTLY of the
+    boundary fix — i.e. this test must not merely re-exercise the same
+    fix as TestStep4ACarveOutBoundary. Constructed so the exclusion
+    signal's coverage boundary correctly credits every category as
+    excluded (short list, well within any reasonable window), while a
+    SEPARATE, later same-sentence super-cap phrase forces two categories
+    to both independently claim the same numeric span as their own
+    category-specific cap."""
+
+    def test_span_claimed_by_multiple_categories_is_flagged_not_silently_dropped(self):
+        text = (
+            "10. Limitation of Liability. Liability for claims of fraud and liability for "
+            "claims of gross negligence shall each not exceed 1 times the total annual fees "
+            "paid in the twelve (12) months preceding the claim."
+        )
+        d = evaluate(text)
+        # Both "fraud" and "gross_negligence" keywords each have the SAME
+        # "1 times ... fees" cap forward of them in the same sentence, so
+        # both categories claim the identical span as their own super_cap.
+        # Previously: the general-cap pool silently lost that span with no
+        # ownership check, producing MUST_REDLINE / unresolved_facts == [].
+        assert not (d.state == lpe.MUST_REDLINE and d.unresolved_facts == []), (
+            f"a span claimed by multiple categories must not silently vanish from the "
+            f"general-cap pool — got state={d.state} unresolved_facts={d.unresolved_facts}"
+        )

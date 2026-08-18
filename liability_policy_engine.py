@@ -59,10 +59,10 @@ from policy_engine_core import (
     ACCEPT, ACCEPT_WITH_NOTE, NEGOTIATE, MUST_REDLINE, PROHIBITED, ESCALATE,
     REQUIRES_REVIEW, NOT_APPLICABLE, LADDER_ORDER,
     LadderStep, PolicyDecision, PositionCandidate,
-    BUY_SIDE_ROLES, SELL_SIDE_ROLES, side_for_role,
     build_ladder as _core_build_ladder,
     classify_by_threshold, escalate_to_for_state, fallback_text_for_state,
     resolve_directional_position as _core_resolve_directional_position,
+    resolve_role_side as _core_resolve_role_side,
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
 )
@@ -267,6 +267,13 @@ _CROSS_REF_RESOLUTION_WINDOW = 2000
 
 _PROVISION_WINDOW_CHARS = 3000
 _LOCAL_WINDOW_CHARS = 180
+# Step 4A: exclusion-coverage boundary search range and its bounded
+# fallback — see _compute_exclusion_coverage. _EXCLUSION_COVERAGE_SEARCH_CHARS
+# is how far to look for an actual sentence/clause boundary before giving
+# up; _EXCLUSION_COVERAGE_FALLBACK_CHARS is the old fixed-width behavior,
+# used only when no boundary exists at all within the search range.
+_EXCLUSION_COVERAGE_SEARCH_CHARS = 600
+_EXCLUSION_COVERAGE_FALLBACK_CHARS = 100
 _ANCHOR_DEDUP_GAP = 300  # a second anchor this close to a prior one is the same clause, not a new provision
 _GREATER_LESSER_RE = re.compile(
     r"(?P<greater>greater of|whichever is (?:the )?(?:greater|higher))"
@@ -414,8 +421,15 @@ class CategoryTreatment:
 @dataclass
 class PartyPosition:
     role: str  # raw role word as it appears in the text, e.g. "Customer"
-    side: Optional[str]  # "buy_side" | "sell_side" | None if unrecognized
+    side: Optional[str]  # "buy_side" | "sell_side" | None if unrecognized OR in conflict
     cap_expression: CapExpression
+    # Set (Step 4A) when resolve_role_side() found the document's own
+    # definition of `role` conflicts with the generic buy/sell vocabulary
+    # — side is None whenever this is not None. Distinct from an
+    # unrecognized role name (side is also None there, but this stays
+    # None too) so evaluate_liability_policy can surface a specific,
+    # useful reason instead of the generic "could not be mapped" text.
+    side_conflict_reason: Optional[str] = None
 
 
 @dataclass
@@ -536,18 +550,54 @@ def _compute_exclusion_coverage(window: str, all_category_positions: List[Tuple[
     backward attribution previously mis-credited the wrong category)."""
     covered: Dict[str, str] = {}
     for sig in _EXCLUSION_SIGNAL_RE.finditer(window):
-        span_end = min(len(window), sig.end() + 100)
+        # Step 4A: find the actual sentence/clause boundary FIRST, over a
+        # generously bounded search range, rather than truncating to a
+        # fixed 100 chars before ever looking for one. A short, fixed cap
+        # here (searched-then-truncated, as before) meant an exception
+        # list naming several categories in one run-on sentence ("fraud,
+        # willful misconduct, ..., or infringement of IP rights, in no
+        # event shall liability exceed 1x fees") had its real boundary —
+        # the period after the general cap — invisible past 100 chars, so
+        # only the first category or two ever got credited as excluded;
+        # the rest fell through to the same-sentence super-cap check and
+        # wrongly claimed the general cap as their own. Only fall back to
+        # the original fixed-width cutoff when no boundary exists at all
+        # within the larger search range (an exception list that runs on
+        # even longer than this should still get SOME bounded coverage,
+        # not scan indefinitely).
+        search_end = min(len(window), sig.end() + _EXCLUSION_COVERAGE_SEARCH_CHARS)
+        search_text = window[sig.end():search_end]
+        # `\.$` (end of string/window, no trailing character after the
+        # final period) matters here specifically: a clause's final
+        # sentence routinely has nothing after its closing period, so a
+        # boundary regex that only recognizes "period + whitespace" would
+        # never find it and would silently fall back to the fixed-width
+        # cutoff on exactly the cases this fix targets.
+        # A bare semicolon is deliberately NOT treated as a hard boundary
+        # here — semicolon-separated drafting of an exception list itself
+        # ("fraud; willful misconduct; ... ; or infringement...") is
+        # common and must not truncate coverage after the first item. A
+        # semicolon that genuinely introduces a new independent clause
+        # (with its own cap language) is instead caught by the same
+        # cap-trigger-gated scan used for "and" below.
+        boundary = re.search(r"\.\s|\.$", search_text)
+        span_end = min(len(window), sig.end() + (boundary.start() if boundary else _EXCLUSION_COVERAGE_FALLBACK_CHARS))
         coverage_text = window[sig.end():span_end]
-        boundary = re.search(r"\.\s|;", coverage_text)
+        boundary = re.search(r"\.\s|\.$", coverage_text)
         boundary_pos = boundary.start() if boundary else None
-        # "...X, AND liability for Y shall not exceed..." introduces a new
+        # "...X, AND liability for Y shall not exceed..." (or "...X;
+        # liability for Y shall not exceed...") introduces a new
         # independent clause with its own cap, not a continuation of the
-        # excluded-category list — truncate coverage at the "and" so Y's
-        # keyword (here in the new clause's subject) isn't swept in too.
-        for and_m in re.finditer(r"\band\b", coverage_text, re.I):
-            if _CAP_TRIGGER_RE.search(coverage_text[and_m.end():and_m.end() + 60]):
-                if boundary_pos is None or and_m.start() < boundary_pos:
-                    boundary_pos = and_m.start()
+        # excluded-category list — truncate coverage at that connector so
+        # Y's keyword (here in the new clause's subject) isn't swept in
+        # too. Semicolons are included here (not as an unconditional
+        # boundary above) precisely so a semicolon that DOES introduce a
+        # new cap-bearing clause is still caught, while one that's just a
+        # list-item separator within the exception enumeration is not.
+        for conn_m in re.finditer(r"\band\b|;", coverage_text, re.I):
+            if _CAP_TRIGGER_RE.search(coverage_text[conn_m.end():conn_m.end() + 60]):
+                if boundary_pos is None or conn_m.start() < boundary_pos:
+                    boundary_pos = conn_m.start()
                 break
         if boundary_pos is not None:
             coverage_text = coverage_text[:boundary_pos]
@@ -602,13 +652,38 @@ def _classify_category(
 def _classify_general_cap_expression(
     window: str, category_treatments: Dict[str, CategoryTreatment],
 ) -> CapExpression:
-    claimed_spans = [
-        (t.cap.start_index, t.cap.end_index) for t in category_treatments.values()
+    claims = [
+        (cat, t.cap.start_index, t.cap.end_index) for cat, t in category_treatments.items()
         if t.treatment == "super_cap" and t.cap is not None
     ]
+    claimed_spans = [(lo, hi) for _, lo, hi in claims]
 
     def _is_claimed(cap: CapValue) -> bool:
         return any(cap.start_index >= lo - 5 and cap.end_index <= hi + 5 for lo, hi in claimed_spans)
+
+    # Step 4A candidate-ownership check: the SAME exact span cannot
+    # legitimately be a category-specific super_cap for more than one
+    # category at once — a span can be a general aggregate cap OR belong
+    # to one carve-out's own specific treatment, never both/several
+    # simultaneously. When the same-sentence forward-scan in
+    # _classify_category independently credits 2+ categories with the
+    # identical cap span (Step 2B's LOL-D-01: five carve-outs in one
+    # run-on sentence all reaching the same trailing "1x fees" cap),
+    # that is itself a signal something is wrong with how the categories
+    # were attributed — not a license to silently drop the span from the
+    # general-cap pool and proceed as if no cap were stated at all.
+    span_claimants: Dict[Tuple[int, int], List[str]] = {}
+    for cat, lo, hi in claims:
+        span_claimants.setdefault((lo, hi), []).append(cat)
+    multiply_claimed = [(span, cats) for span, cats in span_claimants.items() if len(cats) > 1]
+    if multiply_claimed:
+        (lo, hi), cats = multiply_claimed[0]
+        return _unresolved(
+            f"the same cap language was attributed to multiple carve-out categories "
+            f"({', '.join(sorted(cats))}) — cannot determine whether this is the general "
+            f"aggregate cap or a category-specific cap without attorney review",
+            raw_excerpt=_excerpt(window, lo, hi), start_index=lo, end_index=hi,
+        )
 
     # Greater-of / lesser-of: look for the signal, then extract the
     # component values from a window immediately around it.
@@ -677,6 +752,37 @@ def _classify_general_cap_expression(
             raw_excerpt=_excerpt(window, numeric[0].start_index, numeric[0].end_index),
             start_index=numeric[0].start_index, end_index=numeric[0].end_index,
         )
+    # Step 4A: a single surviving candidate is not automatically trusted
+    # when the clause's OWN operative language delegates to a
+    # cross-referenced provision ("...liability shall be as set forth in
+    # Schedule C...") rather than stating a cap directly — the document-
+    # wide provision window (_PROVISION_WINDOW_CHARS) can still reach far
+    # enough to pick up an unrelated cap-shaped number from that
+    # referenced material (Step 2B's LOL-B-01: an SLA service-credit cap
+    # inside "Schedule C" was adopted as the liability cap purely because
+    # it was the only cap-shaped match in the window). Mirrors the same
+    # concept-anchor requirement _resolve_cross_reference already
+    # enforces for its own candidates — reused here, not reinvented,
+    # because this is the SAME failure mode reached via a different code
+    # path (the wide window finding the value before cross-reference
+    # resolution is ever attempted). Ordinary clauses that state their
+    # cap directly (the overwhelming majority) never contain cross-
+    # reference delegation language at all, so this check is a no-op for
+    # them — it only engages when the clause itself points elsewhere.
+    if _detect_cross_reference(window) is not None:
+        cap = numeric[0]
+        local_lo = max(0, cap.start_index - _CROSS_REF_CONCEPT_WINDOW)
+        local_hi = min(len(window), cap.end_index + _CROSS_REF_CONCEPT_WINDOW)
+        local = window[local_lo:local_hi]
+        if not (_ANCHOR_RE.search(local) or _SECONDARY_ANCHOR_RE.search(local)):
+            return _unresolved(
+                "this clause delegates to a cross-referenced provision, and the only cap-shaped "
+                "value found in the document does not have any limitation-of-liability language "
+                "near it — cannot establish that it is actually the liability cap without "
+                "attorney review",
+                raw_excerpt=_excerpt(window, cap.start_index, cap.end_index),
+                start_index=cap.start_index, end_index=cap.end_index,
+            )
     return _simple(numeric[0])
 
 
@@ -698,14 +804,20 @@ def _classify_consequential_damages(window: str) -> Tuple[Optional[bool], bool, 
     return None, False, carveouts
 
 
-def _find_party_positions(window: str) -> Dict[str, PartyPosition]:
+def _find_party_positions(window: str, document_text: Optional[str] = None) -> Dict[str, PartyPosition]:
     """Detects distinct named-role liability statements ('Customer's
     liability shall not exceed...', 'Vendor's liability is not subject
     to...') and their cap values. Two or more distinct roles with distinct
     cap expressions is the signal for a directional/asymmetric structure —
     see evaluate_liability_policy for how "ours" vs. "counterparty" is
-    resolved from this."""
+    resolved from this.
+
+    `document_text` (Step 4A) is the FULL document, not just `window` — a
+    role's own defined-terms sentence is routinely far from the operative
+    liability clause. When not given (e.g. legacy/test callers), falls
+    back to `window` alone, so this stays backward compatible."""
     positions: Dict[str, PartyPosition] = {}
+    scan_text = document_text if document_text is not None else window
     for m in _ROLE_POSITION_RE.finditer(window):
         role = m.group(1)
         role_key = role.lower()
@@ -724,8 +836,10 @@ def _find_party_positions(window: str) -> Dict[str, PartyPosition]:
         cap = caps[0]
         cap.start_index += m.end() - len(padding)
         cap.end_index += m.end() - len(padding)
-        side = "buy_side" if role_key in BUY_SIDE_ROLES else ("sell_side" if role_key in SELL_SIDE_ROLES else None)
-        positions[role_key] = PartyPosition(role=role, side=side, cap_expression=_simple(cap))
+        side, conflict_reason = _core_resolve_role_side(role, scan_text)
+        positions[role_key] = PartyPosition(
+            role=role, side=side, cap_expression=_simple(cap), side_conflict_reason=conflict_reason,
+        )
     return positions
 
 
@@ -741,15 +855,35 @@ def _detect_cross_reference(window: str) -> Optional[Tuple[str, int, int]]:
     return None
 
 
+# Step 4A: how far around a cross-reference candidate value to look for a
+# liability-concept anchor. A candidate value existing near the referenced
+# label is NOT sufficient by itself (Step 2B's LOL-B-01: an SLA service-
+# credit cap sitting inside a schedule with no liability language at all
+# was previously adopted as the liability cap) — the candidate's own
+# local text must independently look like a liability provision, using
+# the SAME anchor vocabulary already used for primary clause recognition
+# (_ANCHOR_RE / _SECONDARY_ANCHOR_RE), not a new pattern language.
+_CROSS_REF_CONCEPT_WINDOW = 250
+
+
+def _has_liability_concept_nearby(text: str, cap: CapValue) -> bool:
+    lo = max(0, cap.start_index - _CROSS_REF_CONCEPT_WINDOW)
+    hi = min(len(text), cap.end_index + _CROSS_REF_CONCEPT_WINDOW)
+    local = text[lo:hi]
+    return bool(_ANCHOR_RE.search(local) or _SECONDARY_ANCHOR_RE.search(local))
+
+
 def _resolve_cross_reference(
     text: str, provision_start: int, provision_end: int, label: str,
 ) -> Tuple[Optional[CapValue], str]:
     """Searches the full document for the named reference target (e.g.
     "Schedule C") outside the current provision and attempts to locate a
     cap value stated near it. Resolves deterministically only when exactly
-    one candidate location yields a value (or every candidate agrees) —
+    one candidate location yields a value THAT IS ALSO INDEPENDENTLY
+    ANCHORED to the liability concept (or every such candidate agrees) —
     otherwise returns (None, reason) naming why it couldn't, never a guess
-    among multiple candidates."""
+    among multiple candidates, and never a numeric value whose surrounding
+    text gives no indication it is even about liability."""
     occurrences = [
         m for m in re.finditer(re.escape(label), text, re.I)
         if not (provision_start <= m.start() <= provision_end)
@@ -757,7 +891,7 @@ def _resolve_cross_reference(
     if not occurrences:
         return None, f"referenced provision \"{label}\" was not found elsewhere in the extracted document text"
 
-    resolved: List[Tuple[re.Match, CapValue]] = []
+    all_candidates: List[Tuple[re.Match, CapValue]] = []
     for m in occurrences:
         forward = text[m.end():min(len(text), m.end() + _CROSS_REF_RESOLUTION_WINDOW)]
         caps = _find_cap_values(forward)
@@ -765,18 +899,26 @@ def _resolve_cross_reference(
             cap = caps[0]
             cap.start_index += m.end()
             cap.end_index += m.end()
-            resolved.append((m, cap))
+            all_candidates.append((m, cap))
 
-    if not resolved:
+    if not all_candidates:
         return None, (
             f"referenced provision \"{label}\" was found but no cap value could be located near it"
+        )
+
+    resolved = [(m, cap) for m, cap in all_candidates if _has_liability_concept_nearby(text, cap)]
+    if not resolved:
+        return None, (
+            f"referenced provision \"{label}\" was found and states a numeric value, but the "
+            f"surrounding text does not state a limitation-of-liability concept — cannot establish "
+            f"that this value is actually the liability cap without attorney review"
         )
 
     distinct_values = {(c.kind, c.basis, c.multiplier, c.fixed_amount) for _, c in resolved}
     if len(distinct_values) > 1:
         return None, (
-            f"multiple mentions of \"{label}\" were found with different cap values; "
-            f"cannot determine which governs without attorney review"
+            f"multiple mentions of \"{label}\" were found with different, liability-concept-anchored "
+            f"cap values; cannot determine which governs without attorney review"
         )
     return resolved[0][1], ""
 
@@ -793,7 +935,7 @@ def _extract_provision(text: str, anchor_start: int, index: int) -> Provision:
     }
     general_cap_expr = _classify_general_cap_expression(window, category_treatments)
     consequential_excluded, consequential_established, carveouts = _classify_consequential_damages(window)
-    party_positions = _find_party_positions(window)
+    party_positions = _find_party_positions(window, document_text=text)
 
     lookback_start = max(0, window_start - 300)
     is_amendment = bool(_AMENDMENT_SIGNAL_RE.search(text[lookback_start:window_end]))
@@ -1038,6 +1180,15 @@ def _resolve_directional_position(
         position_label="asymmetric liability positions", value_label="cap",
     )
     if chosen is None:
+        # Step 4A: if any position's side is unresolved specifically
+        # because the document's own definition of that role conflicts
+        # with the generic vocabulary (not merely because the role name
+        # was unrecognized), surface that specific reason instead of the
+        # generic "could not be confidently mapped" text — a lawyer
+        # reading unresolved_facts should see WHY, not just THAT.
+        conflict_reasons = [pp.side_conflict_reason for pp in positions if pp.side_conflict_reason]
+        if conflict_reasons:
+            reason = "; ".join(conflict_reasons) + (f" ({reason})" if reason else "")
         return None, our_dict, their_dict, reason
     matching_pp = next(pp for pp in positions if pp.role == chosen.role)
     return matching_pp.cap_expression, our_dict, their_dict, reason

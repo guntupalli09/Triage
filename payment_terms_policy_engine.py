@@ -51,7 +51,7 @@ from policy_engine_core import (
     ACCEPT, ACCEPT_WITH_NOTE, NEGOTIATE, MUST_REDLINE, PROHIBITED, ESCALATE,
     REQUIRES_REVIEW, NOT_APPLICABLE,
     LadderStep, build_ladder as _core_build_ladder,
-    escalate_to_for_state, fallback_text_for_state, side_for_role,
+    escalate_to_for_state, fallback_text_for_state, side_for_role, resolve_role_side,
     excerpt, section_label_before,
     requires_review_explanation, requires_review_required_action,
     PolicyDecision,
@@ -272,6 +272,14 @@ class PaymentFacts:
     tax_responsibility_attributions: Dict[str, bool] = field(default_factory=dict)
     tax_responsibility_conflict: bool = False
     withholding_tax_addressed: Optional[bool] = None
+
+    # Step 4A: {role_name: reason} for every role named in
+    # payment_direction_attributions/tax_responsibility_attributions whose
+    # generic side_for_role() mapping conflicts with the document's own
+    # definition of that role (see policy_engine_core.resolve_role_side).
+    # A name present here must never be treated as confidently mapped to
+    # either side, regardless of what the generic vocabulary alone says.
+    role_side_conflicts: Dict[str, str] = field(default_factory=dict)
 
     # Currency
     currency: Optional[str] = None
@@ -516,6 +524,17 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
     if any(len(payees) > 1 for payees in facts.payment_direction_attributions.values()) or len(facts.payment_direction_attributions) > 1:
         facts.payment_direction_conflict = True
 
+    # Step 4A: verify every role name this extraction attributed
+    # responsibility to (payor or tax) against the document's own
+    # definition of that role, not just the generic buy/sell vocabulary.
+    role_names = set(facts.tax_responsibility_attributions) | set(facts.payment_direction_attributions) | {
+        payee for payees in facts.payment_direction_attributions.values() for payee in payees
+    }
+    for name in role_names:
+        _, conflict_reason = resolve_role_side(name, text)
+        if conflict_reason:
+            facts.role_side_conflicts[name] = conflict_reason
+
     return facts
 
 
@@ -530,7 +549,11 @@ def _resolve_payor_side(facts: PaymentFacts, contract_side: str) -> Tuple[Option
         return None, True
     sides: set = set()
     for payor_name in facts.payment_direction_attributions:
-        mapped = side_for_role(payor_name)
+        # Step 4A: a role whose document-specific definition conflicts
+        # with the generic vocabulary (facts.role_side_conflicts) must
+        # never be trusted as mapped to either side, even though
+        # side_for_role() alone would happily return one.
+        mapped = None if payor_name in facts.role_side_conflicts else side_for_role(payor_name)
         if mapped == contract_side:
             sides.add("us")
         elif mapped is not None:
@@ -547,7 +570,7 @@ def _resolve_tax_responsibility(facts: PaymentFacts, contract_side: str) -> Tupl
         return None, True
     sides: set = set()
     for name in facts.tax_responsibility_attributions:
-        mapped = side_for_role(name)
+        mapped = None if name in facts.role_side_conflicts else side_for_role(name)
         if mapped == contract_side:
             sides.add("us")
         elif mapped is not None:
@@ -610,8 +633,13 @@ def evaluate_payment_policy(
     if facts.payment_direction_conflict:
         unresolved.append("the payor/payee relationship is stated inconsistently — cannot safely attribute who pays whom")
     elif policy.require_counterparty_is_payor and facts.payment_direction_attributions and payor_unresolved:
-        unresolved.append("the party obligated to pay could not be confidently mapped to our configured contract side, "
-                           "or this playbook is configured for a mutual position — cannot determine who pays whom")
+        payor_conflicts = [r for n, r in facts.role_side_conflicts.items() if n in facts.payment_direction_attributions
+                           or any(n in payees for payees in facts.payment_direction_attributions.values())]
+        if payor_conflicts:
+            unresolved.extend(payor_conflicts)
+        else:
+            unresolved.append("the party obligated to pay could not be confidently mapped to our configured contract side, "
+                               "or this playbook is configured for a mutual position — cannot determine who pays whom")
     if facts.dispute_notice_conflict:
         unresolved.append("the dispute-notice period is stated inconsistently across the document")
     if facts.late_fee_conflict:
@@ -623,8 +651,12 @@ def evaluate_payment_policy(
     if facts.tax_responsibility_conflict:
         unresolved.append("tax responsibility is stated inconsistently — attributed to different parties in different places")
     elif policy.require_tax_responsibility_counterparty and facts.tax_responsibility_attributions and tax_unresolved:
-        unresolved.append("tax responsibility is stated by named party but could not be confidently mapped to our "
-                           "configured contract side, or this playbook is configured for a mutual position")
+        tax_conflicts = [r for n, r in facts.role_side_conflicts.items() if n in facts.tax_responsibility_attributions]
+        if tax_conflicts:
+            unresolved.extend(tax_conflicts)
+        else:
+            unresolved.append("tax responsibility is stated by named party but could not be confidently mapped to our "
+                               "configured contract side, or this playbook is configured for a mutual position")
 
     established_dimension_count = sum(1 for v in (
         facts.net_days, facts.payment_trigger, facts.prepayment_required, facts.milestone_payment_present,
