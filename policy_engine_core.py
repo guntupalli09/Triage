@@ -270,6 +270,20 @@ def _extract_definition_body_at(role: str, document_text: str, m: "re.Match[str]
         tail_start = m.end() + len(body)
         tail = document_text[tail_start:min(len(document_text), tail_start + _CROSS_SENTENCE_EXTENSION_CHARS)]
         role_mention = re.search(_ROLE_DEFINITION_QUOTE + re.escape(role) + _ROLE_DEFINITION_QUOTE, tail, re.I)
+        # Step 4A.5 Priority 4 (anti-false-safe correction): a NEW numbered
+        # section heading ("9. Limitation of Liability.") between the
+        # definitional sentence and the role re-mention means that
+        # re-mention is the OPERATIVE clause using the role, not a
+        # continuation of its definition — folding it in pulled in the
+        # heading text itself as spurious "relational content" and
+        # produced unnecessary review on ordinary corporate-identity
+        # definitions ("'Vendor' means Acme Corporation, a Delaware
+        # corporation.") that have no directional content to find at all.
+        # Only extend within the SAME section.
+        if role_mention:
+            section_heading = re.search(r"\n\s*\n\s*\d+[.)]\s+[A-Z]", tail[:role_mention.start()])
+            if section_heading:
+                role_mention = None
         if role_mention:
             sentence_end = re.search(r"\.\s|\.$|;", tail[role_mention.end():])
             extra_end = role_mention.end() + (sentence_end.start() if sentence_end else len(tail) - role_mention.end())
@@ -418,6 +432,18 @@ _RELATIONAL_VERB_STOPWORDS = frozenset({
 })
 _RELATIONAL_VERB_TOKEN_RE = re.compile(r"\b([a-z]+(?:s|es|ed|ing))\b", re.I)
 _SECOND_ROLE_TOKEN_RE = re.compile(r"\b[A-Z][a-z]{2,25}\b")
+_BYSTANDER_BOILERPLATE_RE = re.compile(
+    r"together\s+with\s+its\s+successors\s+and\s+(?:permitted\s+)?assigns"
+    r"|its\s+successors\s+and\s+(?:permitted\s+)?assigns"
+    r"|together\s+with\s+its\s+wholly[\s-]owned\s+subsidiaries(?:\s+and\s+any\s+Affiliate[s]?(?:\s+performing\s+services\s+hereunder)?)?"
+    r"|the\s+party\s+identified\s+as\s+[‘’'\"]?[A-Z][A-Za-z]{2,25}[‘’'\"]?\s+on\s+the\s+signature\s+page\s+hereto"
+    # Jurisdiction-of-formation/incorporation boilerplate: "a Delaware
+    # corporation", "formed under the laws of the State of Colorado" —
+    # states WHERE the entity was formed, not its transactional role.
+    r"|formed\s+under\s+the\s+laws\s+of\s+the\s+State\s+of\s+[A-Z][a-z]+"
+    r"|a\s+[A-Z][a-z]+\s+(?:corporation|partnership|limited\s+liability\s+company|limited\s+partnership)\b",
+    re.I,
+)
 
 
 def _has_unrecognized_relational_content(definition_body: str, role: str) -> bool:
@@ -426,6 +452,19 @@ def _has_unrecognized_relational_content(definition_body: str, role: str) -> boo
     `role` — i.e. the body plausibly relates this role to another named
     party through some action, even though _classify_directional_evidence
     found no recognized buy/sell vocabulary in it."""
+    # Step 4A.5 Priority 4 (FE Family 2 — bystander corporate boilerplate):
+    # entity-identity boilerplate ("together with its successors and
+    # permitted assigns", "wholly owned subsidiaries and any Affiliate
+    # performing services hereunder", "identified as 'X' on the signature
+    # page hereto") states corporate FORM/GROUP facts, not the role's own
+    # transactional direction — it is never itself evidence the role's
+    # generic classification might be wrong. Stripped before the
+    # relational-content scan so it can't supply the "second capitalized
+    # term" or "verb" that would otherwise trigger unnecessary review;
+    # any OTHER relational language in the same body (a genuine buy/sell
+    # verb, an unrecognized-but-real relation to another named party) is
+    # untouched and still detected normally.
+    definition_body = _BYSTANDER_BOILERPLATE_RE.sub(" ", definition_body)
     has_verb = False
     for m in _RELATIONAL_VERB_TOKEN_RE.finditer(definition_body):
         if m.group(1).lower() not in _RELATIONAL_VERB_STOPWORDS:
@@ -434,8 +473,26 @@ def _has_unrecognized_relational_content(definition_body: str, role: str) -> boo
     if not has_verb:
         return False
     role_key = role.lower()
+    # Step 4A.5 Priority 4: a definition's own leading entity name
+    # ("Ridgeline Materials Group, a general partnership...") is commonly
+    # a multi-word legal name containing ordinary capitalized common
+    # nouns ("Materials", "Group", "Holdings", "Partners") — these are
+    # part of the SAME role's own identity, not a second, different
+    # party, and must not by themselves count as relating the role to
+    # someone else. Only the leading capitalized run up to the first
+    # comma is treated this way (the entity's own stated name); a
+    # capitalized term appearing LATER in the body, after a comma, is
+    # still eligible to be a genuine second party.
+    own_name_run = re.match(
+        r"\s*(?:[A-Z][A-Za-z.&]*\s*)+(?:,\s*(?:Inc|LLC|L\.L\.C|Corp|Ltd|L\.P|LLP)\.?\s*)?",
+        definition_body,
+    )
+    own_name_tokens = (
+        {t.strip(".,").lower() for t in own_name_run.group(0).split()} if own_name_run else set()
+    )
     for m in _SECOND_ROLE_TOKEN_RE.finditer(definition_body):
-        if m.group(0).lower() != role_key and m.group(0).lower() not in {"the", "and", "this", "that", "which", "who"}:
+        token = m.group(0).lower()
+        if token != role_key and token not in own_name_tokens and token not in {"the", "and", "this", "that", "which", "who"}:
             return True
     return False
 
@@ -460,6 +517,23 @@ _PASSIVE_AGENT_GUARD_RE = re.compile(r"^\s*by\b", re.I)
 _PASSIVE_AGENT_LOOKAHEAD_CHARS = 6
 
 
+_ADMINISTRATIVE_OBJECT_RE = re.compile(
+    r"^\s*(?:the\s+)?(?:data|information|documentation|records?)\b", re.I,
+)
+
+# Case-SENSITIVE on purpose: "to end-user subscribers"/"to customers" (a
+# lowercase, generic, unnamed class of downstream third parties) is a
+# bystander recipient, but "to Client"/"to Customer" (capitalized) is
+# almost always THIS document's own defined role name for the actual
+# counterparty — filtering that too would silently discard genuine
+# sell-side evidence about the real contractual relationship, an
+# opposite-direction false-safe this must not create.
+_DOWNSTREAM_GENERIC_RECIPIENT_RE = re.compile(
+    r"\bto\s+(?:end[\s-]user\s+)?(?:subscribers?|customers?|clients?|consumers?|shippers?|users?)\b",
+)
+_LOOKAHEAD_OBJECT_CHARS = 30
+
+
 def _is_bystander_verb_match(definition_body: str, match: "re.Match[str]") -> bool:
     word = match.group(0)
     if re.search(r"ing\b", word, re.I):
@@ -467,7 +541,27 @@ def _is_bystander_verb_match(definition_body: str, match: "re.Match[str]") -> bo
         if _POSSESSIVE_GERUND_GUARD_RE.search(lookbehind):
             return True
     lookahead = definition_body[match.end():match.end() + _PASSIVE_AGENT_LOOKAHEAD_CHARS]
-    return bool(_PASSIVE_AGENT_GUARD_RE.search(lookahead))
+    if _PASSIVE_AGENT_GUARD_RE.search(lookahead):
+        return True
+    # Step 4A.5 Priority 4 (FE Family 2 — bystander corporate/administrative
+    # content): "provided the data ... for account-verification purposes"
+    # describes an administrative disclosure, not a commercial buy/sell
+    # transaction, even though "provide(d)" matches the sell-side verb
+    # vocabulary on its face — the OBJECT being provided is data/
+    # information/documentation/records, not a service or goods.
+    object_lookahead = definition_body[match.end():match.end() + _LOOKAHEAD_OBJECT_CHARS]
+    if _ADMINISTRATIVE_OBJECT_RE.search(object_lookahead):
+        return True
+    # A sell-side verb whose recipient ("to end-user subscribers"/"to
+    # customers") is a generic, lowercase, unnamed downstream class of
+    # third parties describes the role's own separate business model with
+    # OTHER people, not its relationship to the document's actual named
+    # counterparty — a reseller's downstream resale to its own customers
+    # is a bystander fact here, distinct from "resells...to Acme Corp"
+    # (a specific named party, which is NOT filtered by this check).
+    if _DOWNSTREAM_GENERIC_RECIPIENT_RE.search(definition_body[match.end():match.end() + _LOOKAHEAD_OBJECT_CHARS + 20]):
+        return True
+    return False
 
 
 def _classify_directional_evidence(definition_body: str) -> Optional[str]:

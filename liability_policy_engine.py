@@ -79,6 +79,20 @@ BASIS_CONTRACT_VALUE = "CONTRACT_VALUE"
 BASIS_FIXED_AMOUNT = "FIXED_AMOUNT"
 BASIS_OTHER = "OTHER"
 BASIS_UNRESOLVED = "UNRESOLVED"
+# Step 4A.5 Priority 4 — a recurring PERIODIC payment stream under the
+# agreement (royalties, premium, rent, service charges) plays the exact
+# same structural role as "fees" wherever it is the contract's own sole
+# periodic payment basis: "2x annual royalties" in a franchise agreement
+# and "2x annual fees" in a services agreement are the same policy
+# concept expressed with the domain's own vocabulary for that payment.
+# This is NOT the same as BASIS_PURCHASE_PRICE/BASIS_CONTRACT_VALUE,
+# which are one-time/aggregate transaction values, not a recurring
+# per-period payment — those remain genuinely non-comparable. See
+# evaluate_liability_policy's basis gate for the negative control this
+# is gated on (a document that ALSO separately states a distinct "fees"
+# quantity stays non-comparable — two different payment streams cannot
+# be silently treated as the same one).
+BASIS_RECURRING_PAYMENT = "RECURRING_PAYMENT"
 
 CATEGORIES = [
     "data_breach", "ip_infringement", "confidentiality",
@@ -194,6 +208,9 @@ _MULTIPLIER_WORD_RE = re.compile(
 )
 
 
+_RECURRING_PAYMENT_BASIS_WORDS_RE = re.compile(r"royalt|premium|\brent\b|charges?", re.I)
+
+
 def _classify_basis(basis_word: str) -> str:
     w = basis_word.lower()
     if "fee" in w:
@@ -202,6 +219,8 @@ def _classify_basis(basis_word: str) -> str:
         return BASIS_PURCHASE_PRICE
     if "contract value" in w:
         return BASIS_CONTRACT_VALUE
+    if _RECURRING_PAYMENT_BASIS_WORDS_RE.search(w):
+        return BASIS_RECURRING_PAYMENT
     return BASIS_OTHER
 _FIXED_AMOUNT_RE = re.compile(
     r"(?:maximum(?:\s+aggregate)?\s+liability(?:\s+of\s+(?:either\s+party)?)?\s*(?:shall\s+not\s+exceed|shall\s+exceed|exceed|of|:)?"
@@ -324,6 +343,23 @@ _BASIS_VALUE_AMBIGUITY_RE = re.compile(
 # one thing or another is about as safe and general a review-trigger as
 # exists — no interpretation is required, the text says so itself.
 _SELF_FLAGGED_AMBIGUITY_RE = re.compile(r"\b(?:it\s+being\s+)?unclear\s+whether\b", re.I)
+
+# Step 4A.5 Priority 4 (anti-false-safe): a self-defined cap TERM ("the
+# Royalty Cap Amount") given two DIFFERENT values in two different
+# sections of the same document is a genuine conflict discovered by
+# Step 4A.5's earlier BASIS_RECURRING_PAYMENT fix having removed the
+# (accidental, unrelated) basis-mismatch escalation that had been masking
+# this real gap. General, deterministic construction: "'X' is defined in
+# Section N ... as VALUE, and separately in Section M ... as VALUE2" —
+# regardless of which specific values are involved, stating a term is
+# defined twice with an explicit "and separately ... as" contrast is
+# itself sufficient evidence of conflict, never resolved by picking
+# either value.
+_CONFLICTING_DEFINED_TERM_RE = re.compile(
+    r"is\s+defined\s+in\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+as\s+[^,]+,?\s+and\s+separately"
+    r"\s+in\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+as\b",
+    re.I,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -730,6 +766,15 @@ def _classify_general_cap_expression(
             f"({', '.join(sorted(cats))}) — cannot determine whether this is the general "
             f"aggregate cap or a category-specific cap without attorney review",
             raw_excerpt=_excerpt(window, lo, hi), start_index=lo, end_index=hi,
+        )
+
+    conflicting_term = _CONFLICTING_DEFINED_TERM_RE.search(window)
+    if conflicting_term:
+        lo = max(0, conflicting_term.start() - 60)
+        hi = min(len(window), conflicting_term.end() + 60)
+        return _unresolved(
+            "a self-defined cap term is given two different values in two different sections of this document",
+            raw_excerpt=window[lo:hi].strip(), start_index=lo, end_index=hi,
         )
 
     self_flagged = _SELF_FLAGGED_AMBIGUITY_RE.search(window)
@@ -1460,7 +1505,24 @@ def evaluate_liability_policy(
     general_cap, general_cap_reason = general_cap_expr.effective_cap()
     if general_cap_reason:
         unresolved_facts.append(f"general liability cap ({general_cap_reason})")
-    elif general_cap is not None and general_cap.kind == "fee_multiplier" and general_cap.basis != BASIS_FEES:
+    elif (
+        general_cap is not None and general_cap.kind == "fee_multiplier"
+        and general_cap.basis == BASIS_RECURRING_PAYMENT
+        and "fee" in provision.raw_excerpt.lower()
+    ):
+        # Step 4A.5 Priority 4 negative control: this clause ALSO
+        # separately mentions "fee(s)" as a distinct quantity alongside
+        # its own royalties/premium/rent/charges basis — two different
+        # payment streams may exist, so this basis must not be silently
+        # treated as interchangeable with the policy's fees-defined
+        # threshold.
+        general_cap_reason = (
+            "cap is expressed as a multiplier of a recurring payment basis that is not 'fees', and this "
+            "document separately mentions fees as well — cannot confirm they are the same quantity"
+        )
+        unresolved_facts.append(f"general liability cap ({general_cap_reason})")
+        general_cap = None
+    elif general_cap is not None and general_cap.kind == "fee_multiplier" and general_cap.basis not in (BASIS_FEES, BASIS_RECURRING_PAYMENT):
         # A multiplier of purchase price / contract value / some other
         # basis is not comparable to a policy threshold defined as "Nx
         # annual fees" — preserve the exact source language, don't force
@@ -1472,6 +1534,12 @@ def evaluate_liability_policy(
         )
         unresolved_facts.append(f"general liability cap ({general_cap_reason})")
         general_cap = None
+    # Step 4A.5 Priority 4: BASIS_RECURRING_PAYMENT with no competing "fee"
+    # mention falls through here with general_cap intact — a recurring
+    # per-period payment stream (royalties/premium/rent/charges) that is
+    # the clause's own sole payment basis is functionally the same policy
+    # concept as "fees" and is compared against the threshold exactly like
+    # a BASIS_FEES multiplier below.
 
     for cat in required_exceptions:
         treatment = provision.category_treatments.get(cat)
