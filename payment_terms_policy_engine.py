@@ -84,6 +84,24 @@ _WITHIN_DAYS_PAYMENT_RE = re.compile(
     r"|shall\s+pay[^.]{0,60}?within\s+(\d{1,3})\s+days"
     r"|payment\s+(?:shall\s+be\s+)?due\s+within\s+(\d{1,3})\s+days", re.I,
 )
+# Step 4A.5 Priority 3 — the same "payment due N days after a trigger
+# event" concept stated as "no later than the Nth (calendar) day
+# following <event>" — an ordinal-day construction rather than "within N
+# days", including the ordinal spelled out as a word ("the tenth day").
+# Scoped to the same trigger-event vocabulary (invoice/acceptance/
+# delivery/receipt) as _WITHIN_DAYS_PAYMENT_RE, not a bare "Nth day"
+# anywhere, so this does not engage on unrelated ordinal-day mentions.
+_ORDINAL_WORDS = {
+    "first": 1, "second": 2, "third": 3, "fourth": 4, "fifth": 5,
+    "sixth": 6, "seventh": 7, "eighth": 8, "ninth": 9, "tenth": 10,
+    "eleventh": 11, "twelfth": 12, "thirteenth": 13, "fourteenth": 14,
+    "fifteenth": 15, "twentieth": 20, "thirtieth": 30,
+}
+_ORDINAL_DAY_FOLLOWING_RE = re.compile(
+    r"no\s+later\s+than\s+the\s+(\w+)\s+calendar\s+day\s+following\s+(?:the\s+date\s+of\s+)?"
+    r"(?:acceptance|delivery|invoice|receipt)",
+    re.I,
+)
 
 # --- Payment trigger ------------------------------------------------------------
 _TRIGGER_INVOICE_RE = re.compile(r"(?:from|after|of)\s+(?:the\s+date\s+of\s+)?(?:receipt\s+of\s+)?(?:the\s+|an?\s+)?invoice\b|invoice\s+date", re.I)
@@ -183,14 +201,19 @@ _UNILATERAL_DEDUCTION_RE = re.compile(
 # not netting against a debt owed BY the other party).
 _DEBT_SATISFACTION_VERB_RE = re.compile(
     r"\b(?:withhold\w*|deduct\w*|reduc\w*|net(?:s|ted|ting)?|retain\w*|recoup\w*|debit\w*"
-    r"|apply|applying|applied|credit(?:ing|ed)?)\b",
+    r"|apply|applying|applied|credit(?:ing|ed)?|set(?:s|ting)?\s+off)\b",
     re.I,
 )
 _PAYMENT_OBJECT_FRAGMENT = (
     r"(?:amounts?|sums?|payments?|invoices?|royalt(?:y|ies)|commissions?|fees?|rent|freight|hire|charges?)"
 )
 _DEBT_SATISFACTION_ACTION_RE = re.compile(
-    _DEBT_SATISFACTION_VERB_RE.pattern + r"[^.;]{0,80}?" + _PAYMENT_OBJECT_FRAGMENT,
+    _DEBT_SATISFACTION_VERB_RE.pattern + r"[^.;]{0,80}?" + _PAYMENT_OBJECT_FRAGMENT +
+    # Step 4A.5 Priority 3: the same concept in PASSIVE voice, where the
+    # payment object precedes the verb ("all amounts owed by either party
+    # ... may be netted") rather than following it — the active-voice
+    # ordering above only reads left-to-right.
+    r"|" + _PAYMENT_OBJECT_FRAGMENT + r"[^.;]{0,150}?may\s+be\s+" + _DEBT_SATISFACTION_VERB_RE.pattern,
     re.I,
 )
 _COUNTERPARTY_OWES_RE = re.compile(r"\bowe[sd]?\b|\bowing\b", re.I)
@@ -249,7 +272,9 @@ _EXPENSE_DOCS_RE = re.compile(r"(?:receipts?|documentation)[^.]{0,30}?expenses|e
 
 # --- Taxes -------------------------------------------------------------------------------
 _TAX_RESPONSIBILITY_RE = re.compile(
-    r"(?-i:([A-Z][A-Za-z]{2,30}))\s+(?:shall\s+be\s+)?responsible\s+for\s+(?:all\s+)?(?:applicable\s+)?[^.]{0,40}?taxes", re.I,
+    r"(?-i:([A-Z][A-Za-z]{2,30}))\s+"
+    r"(?:(?:shall\s+be\s+)?responsible\s+for|shall\s+bear\s+the\s+cost\s+of)\s+"
+    r"(?:all\s+)?(?:applicable\s+|any\s+)?[^.]{0,100}?taxes", re.I,
 )
 _WITHHOLDING_TAX_RE = re.compile(r"withholding\s+tax", re.I)
 # Engagement-only (Step 4A.3): _TAX_RESPONSIBILITY_RE requires a
@@ -261,7 +286,8 @@ _WITHHOLDING_TAX_RE = re.compile(r"withholding\s+tax", re.I)
 # must engage the adapter, even though it correctly yields no
 # attribution.
 _TAX_RESPONSIBILITY_TOPIC_RE = re.compile(
-    r"responsible\s+for\s+(?:all\s+)?(?:applicable\s+)?[^.]{0,40}?taxes", re.I,
+    r"responsible\s+for\s+(?:all\s+)?(?:applicable\s+)?[^.]{0,100}?taxes"
+    r"|shall\s+bear\s+the\s+cost\s+of\s+(?:all\s+)?(?:applicable\s+|any\s+)?[^.]{0,100}?taxes", re.I,
 )
 
 # --- Currency -----------------------------------------------------------------------------
@@ -461,6 +487,7 @@ _CONCEPT_ENGAGEMENT_RES = [
     _LATE_FEE_MONTHLY_RE, _LATE_FEE_ANNUAL_RE, _STATUTORY_MAX_RE,
     _PRICE_INCREASE_RIGHT_RE, _PRICE_INCREASE_UNILATERAL_RE, _FIXED_PRICE_RE,
     _EXPENSES_RE, _EXPENSE_PREAPPROVAL_RE, _CURRENCY_CONTEXT_RE,
+    _WITHIN_DAYS_PAYMENT_RE, _ORDINAL_DAY_FOLLOWING_RE,
 ]
 
 
@@ -530,6 +557,11 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
             raw = next((g for g in m.groups() if g), None)
             if raw:
                 net_days_values.add(int(raw))
+        for m in _ORDINAL_DAY_FOLLOWING_RE.finditer(window):
+            word = m.group(1).lower()
+            n = _ORDINAL_WORDS.get(word) or (int(word) if word.isdigit() else None)
+            if n is not None:
+                net_days_values.add(n)
 
         trigger_tokens |= _classify_trigger(window)
 

@@ -111,7 +111,7 @@ _WORD_NUMBERS = {
 #
 # Layer 1 — the labelled anchor: a heading or self-reference that names the
 # provision outright.
-_ANCHOR_RE = re.compile(r"limitation\s+of\s+liability|liability\s+cap", re.I)
+_ANCHOR_RE = re.compile(r"limitation\s+of\s+liability|liability\s+cap|^liability\s+terms\s*$", re.I | re.M)
 
 # Layer 2 — drafting anchors: the operative sentence patterns commercial
 # liability caps are actually written in, for the (very common) case where
@@ -140,7 +140,20 @@ _SECONDARY_ANCHOR_RE = re.compile(
     r"|\bunlimited\s+liability\b|\bliability\s+shall\s+be\s+unlimited\b"
     r"|\buncapped\s+liability\b|\bliability\s+(?:shall\s+be|is|remains?)\s+uncapped\b"
     # "no cap/limit on liability"
-    r"|\bno\s+(?:cap|limit(?:ation)?)\s+(?:on|of)\s+liability\b",
+    r"|\bno\s+(?:cap|limit(?:ation)?)\s+(?:on|of)\s+liability\b"
+    # Step 4A.5 Priority 3 — the same concept (a financial responsibility
+    # ceiling for claims) stated using "exposure" or "recovery against" in
+    # place of "liability": "<Party>'s (maximum/aggregate) exposure ...
+    # shall be restricted to/is fixed at ...", "any recovery against
+    # <Party> ... is limited to a sum not to exceed ...". Each alternative
+    # still requires the SAME cap-verb-phrase structure as the
+    # liability-worded alternatives above (never a bare "exposure" or
+    # "recovery" alone), so this does not make the anchor fire on
+    # unrelated uses of those common words (e.g. "market exposure",
+    # "recovery of costs").
+    r"|\b(?:aggregate|total|maximum|cumulative|overall|entire)?\s*exposure\b.{0,150}?"
+    r"(?:shall\s+be\s+restricted\s+to|is\s+restricted\s+to|shall\s+not\s+exceed|is\s+fixed\s+at)"
+    r"|\bany\s+recovery\s+against\b.{0,200}?\bis\s+limited\s+to\s+a\s+sum\s+not\s+to\s+exceed\b",
     re.I,
 )
 
@@ -195,6 +208,7 @@ _FIXED_AMOUNT_RE = re.compile(
     r"|liable\s+for\s+(?:an\s+amount\s+)?(?:in\s+excess\s+of|more\s+than)"
     r"|limited\s+to"
     r"|(?:is\s+)?capped\s+at"
+    r"|is\s+fixed\s+at"
     r"|(?:a\s+)?cap(?:\s+\w+){0,4}\s+of"
     r"|in\s+no\s+event\s+shall(?:\s+[\w']+){0,8}\s+exceed"
     r"|shall(?:\s+in\s+the\s+aggregate)?\s+not\s+exceed"

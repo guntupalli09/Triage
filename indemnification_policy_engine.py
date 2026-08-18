@@ -90,6 +90,43 @@ _TRIGGER_KEYWORD_RE = {
 _MULTIWORD_ROLE_NAME_FRAGMENT = r"[A-Z][A-Za-z]{1,25}(?:\s+[A-Z][A-Za-z]{1,25}){0,2}"
 
 _ANCHOR_RE = re.compile(r"indemnif\w*", re.I)
+
+# Step 4A.5 Priority 3 — Recognition-miss family: the SAME legal concept
+# (one party makes another financially whole against third-party claims,
+# and takes on defense of them) stated WITHOUT the word "indemnif*" at
+# all, using a small closed family of known compound synonym idioms
+# ("hold X harmless from and defend X against", "protect, defend, and
+# reimburse", "undertakes to make X whole for, and to assume the defense
+# of", "shall bear full responsibility for defending and satisfying such
+# claim on X's behalf"). Each alternative is a full, specific multi-word
+# phrase — never a single generic verb like "protect" or "defend" alone —
+# precisely so this does not make the adapter engage on unrelated clauses
+# that merely mention protection/defense in some other sense (e.g. IP
+# "defend," data "protection"). A document containing NONE of these and
+# no "indemnif*" anchor is correctly left as NOT_APPLICABLE — this closes
+# a documented vocabulary gap, it does not open a generic-word net.
+_SYNONYM_OBLIGATION_HOLD_HARMLESS_RE = re.compile(
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:agrees\s+to\s+|shall\s+)?"
+    r"(?i:hold)\s+(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:harmless\s+from\s+and\s+defend)\s+\2\s+(?i:against)"
+)
+_SYNONYM_OBLIGATION_PROTECT_REIMBURSE_RE = re.compile(
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+)?"
+    r"(?i:protect,?\s*defend,?\s*(?:and\s+)?reimburse)\s+(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\b"
+)
+_SYNONYM_OBLIGATION_MAKE_WHOLE_RE = re.compile(
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:undertakes\s+to\s+make|shall\s+make)\s+"
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:whole\s+for,?\s+and\s+to\s+assume\s+the\s+defense\s+of)\b"
+)
+_SYNONYM_OBLIGATION_BEAR_RESPONSIBILITY_RE = re.compile(
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+bear\s+(?:full\s+)?responsibility\s+for\s+defending\s+and\s+satisfying\s+(?:such|any)\s+claims?\s+on)\s+"
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")(?:'s)?\s+(?i:behalf)\b"
+)
+_SYNONYM_OBLIGATION_RES = (
+    _SYNONYM_OBLIGATION_HOLD_HARMLESS_RE,
+    _SYNONYM_OBLIGATION_PROTECT_REIMBURSE_RE,
+    _SYNONYM_OBLIGATION_MAKE_WHOLE_RE,
+    _SYNONYM_OBLIGATION_BEAR_RESPONSIBILITY_RE,
+)
 # An explicit, document-wide statement that no indemnification obligation
 # exists at all. Distinct from the anchor-negation guard below (which only
 # filters an anchor match immediately preceded by "no " — i.e. the SAME
@@ -684,7 +721,10 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
     # sentence as evidence a clause exists. Require at least one anchor
     # occurrence NOT immediately preceded by a negation cue.
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
-    if not anchors:
+    # Step 4A.5 Priority 3: a document that never uses "indemnif*" at all
+    # can still state the same concept using one of the closed synonym
+    # idioms above — check those before giving up on document engagement.
+    if not anchors and not any(r.search(text) for r in _SYNONYM_OBLIGATION_RES):
         return None
 
     obligations: List[IndemnityObligation] = []
@@ -730,6 +770,42 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
         ))
         seen_spans.append((m.start(), m.end()))
         seen_role_pairs.append((m.start(), pair))
+
+    # Step 4A.5 Priority 3: same extraction shape as the main loop above,
+    # driven by the closed synonym-idiom patterns instead of _OBLIGATION_RE.
+    # A synonym match at a span already covered by a canonical
+    # _OBLIGATION_RE match is skipped as the same obligation restated, not
+    # a second one.
+    for synonym_re in _SYNONYM_OBLIGATION_RES:
+        for m in synonym_re.finditer(text):
+            if any(lo - 30 <= m.start() <= hi + 30 for lo, hi in seen_spans):
+                continue
+            indemnifying_role, indemnified_role = trim_role_name(m.group(1)), trim_role_name(m.group(2))
+            if indemnifying_role.lower() == indemnified_role.lower():
+                continue
+            pair = (indemnifying_role.lower(), indemnified_role.lower())
+            if any(abs(m.start() - s) < 50 and p == pair for s, p in seen_role_pairs):
+                continue
+            window = _extract_obligation_window(text, m.start(), min(len(text), m.start() + _PROVISION_WINDOW_CHARS))
+            indemnifying_side, indemnifying_conflict = resolve_role_side(indemnifying_role, text)
+            indemnified_side, indemnified_conflict = resolve_role_side(indemnified_role, text)
+            conflict_reasons = [r for r in (indemnifying_conflict, indemnified_conflict) if r]
+            obligations.append(IndemnityObligation(
+                indemnifying_role=indemnifying_role, indemnifying_side=indemnifying_side,
+                indemnified_role=indemnified_role, indemnified_side=indemnified_side,
+                trigger_treatments=_classify_triggers(window),
+                scope=_classify_scope(window),
+                defense_control=_classify_defense_control(window),
+                notice_required=True if _NOTICE_RE.search(window) else None,
+                cooperation_required=True if _COOPERATION_RE.search(window) else None,
+                monetary=_classify_monetary(window, m.start()),
+                raw_excerpt=_excerpt(text, m.start(), m.end()),
+                start_index=m.start(), end_index=m.end(),
+                section_label=_section_label_before(text, m.start()),
+                role_side_conflict_reasons=conflict_reasons,
+            ))
+            seen_spans.append((m.start(), m.end()))
+            seen_role_pairs.append((m.start(), pair))
 
     # See _RESTATEMENT_MONETARY_RE: a same-role restatement using
     # different phrasing than _OBLIGATION_RE requires. Only fires when it
