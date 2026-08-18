@@ -36,7 +36,8 @@
     "outcome": "MANUAL",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "NEGOTIATE or ACCEPT depending on policy threshold (default policy: 2x within acceptable range)",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-04",
@@ -49,7 +50,8 @@
     "outcome": "MANUAL",
     "root_cause": null,
     "expected_result": "ESCALATE (fixed-dollar, compare manually per existing architecture) or ACCEPT depending on config",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-05",
@@ -62,7 +64,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-06",
@@ -101,7 +104,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "NEGOTIATE (3x exceeds acceptable_max but within negotiate_max under default policy)",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-09",
@@ -114,7 +118,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ESCALATE (exceeds negotiate_max under default policy)",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-10",
@@ -140,7 +145,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "ACCEPT",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-12",
@@ -179,7 +185,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT for general cap value; willful_misconduct tracked as uncapped carve-out per existing carve-out architecture",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-15",
@@ -218,7 +225,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-18",
@@ -244,7 +252,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT for the general cap (1x fees); the food-safety carve-out is a distinct, correctly-scoped super-cap for that specific category, not a competing definition of the SAME quantity",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-20",
@@ -257,7 +266,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT for the multiplier value itself",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-21",
@@ -283,7 +293,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "REQUIRES_REVIEW",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-23",
@@ -296,7 +307,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "REQUIRES_REVIEW",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-24",
@@ -335,7 +347,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT (1x fees)",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-27",
@@ -348,7 +361,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S1"
   },
   {
     "id": "A6-L-28",
@@ -361,7 +375,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-29",
@@ -374,7 +389,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "NEGOTIATE (3x)",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-30",
@@ -400,7 +416,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-32",
@@ -413,7 +430,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT (1x fees) on the liability adapter",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-33",
@@ -426,7 +444,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT (2x fees)",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-34",
@@ -452,7 +471,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT (1x fees)",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S1"
   },
   {
     "id": "A6-L-36",
@@ -543,7 +563,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ESCALATE (3x exceeds acceptable range) \u2014 the correct amended value must be used, not the superseded 1x",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-43",
@@ -556,7 +577,8 @@
     "outcome": "MANUAL",
     "root_cause": null,
     "expected_result": "ESCALATE (fixed dollar, per existing architecture) or ACCEPT depending on config",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-44",
@@ -582,7 +604,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-46",
@@ -634,7 +657,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-50",
@@ -673,7 +697,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "REQUIRES_REVIEW (generic mapping for 'Grantee'/'Grantor' may not exist, and no directional verb is recognized)",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S3"
   },
   {
     "id": "A6-L-53",
@@ -699,7 +724,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-55",
@@ -712,7 +738,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-56",
@@ -751,7 +778,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-59",
@@ -764,7 +792,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-L-60",
@@ -829,7 +858,8 @@
     "outcome": "FE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-I-05",
@@ -894,7 +924,8 @@
     "outcome": "FE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT",
-    "outcome_final": "SM"
+    "outcome_final": "SM",
+    "sm_critical": true
   },
   {
     "id": "A6-I-10",
@@ -907,7 +938,8 @@
     "outcome": "FE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT",
-    "outcome_final": "SM"
+    "outcome_final": "SM",
+    "sm_critical": true
   },
   {
     "id": "A6-I-11",
@@ -933,7 +965,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "REQUIRES_REVIEW",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S4"
   },
   {
     "id": "A6-I-13",
@@ -1011,7 +1044,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "REQUIRES_REVIEW",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S4"
   },
   {
     "id": "A6-I-19",
@@ -1076,7 +1110,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "REQUIRES_REVIEW",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S4"
   },
   {
     "id": "A6-I-24",
@@ -1232,7 +1267,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "REQUIRES_REVIEW",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S4"
   },
   {
     "id": "A6-I-36",
@@ -1336,7 +1372,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "REQUIRES_REVIEW",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-I-44",
@@ -1648,7 +1685,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "MUST_REDLINE (prohibited set-off, policy violated) \u2014 must NOT be silently missed",
-    "outcome_final": "SM"
+    "outcome_final": "SM",
+    "sm_critical": true
   },
   {
     "id": "A6-P-13",
@@ -1674,7 +1712,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "MUST_REDLINE if recognized; a MISS here would be a genuine SM demonstrating the vocabulary boundary is real",
-    "outcome_final": "SM"
+    "outcome_final": "SM",
+    "sm_critical": true
   },
   {
     "id": "A6-P-15",
@@ -1804,7 +1843,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "MUST_REDLINE if recognized",
-    "outcome_final": "SM"
+    "outcome_final": "SM",
+    "sm_critical": true
   },
   {
     "id": "A6-P-25",
@@ -1921,7 +1961,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "REQUIRES_REVIEW",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S3"
   },
   {
     "id": "A6-P-34",
@@ -2116,7 +2157,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "REQUIRES_REVIEW",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S3"
   },
   {
     "id": "A6-P-49",
@@ -2259,7 +2301,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "NEGOTIATE (2x) on liability adapter",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-C-05",
@@ -2298,7 +2341,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "ACCEPT",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-C-08",
@@ -2402,7 +2446,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "REQUIRES_REVIEW",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S3"
   },
   {
     "id": "A6-C-16",
@@ -2415,7 +2460,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT (1x fees)",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-C-17",
@@ -2454,7 +2500,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT (1x)",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-C-20",
@@ -2519,7 +2566,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "NEGOTIATE (2x) on liability adapter",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-C-25",
@@ -2558,7 +2606,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "NEGOTIATE (2x)",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S1"
   },
   {
     "id": "A6-C-28",
@@ -2597,7 +2646,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-RB-01",
@@ -2610,7 +2660,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "REQUIRES_REVIEW",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S3"
   },
   {
     "id": "A6-RB-02",
@@ -2623,7 +2674,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "REQUIRES_REVIEW",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-RB-03",
@@ -2675,7 +2727,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "REQUIRES_REVIEW",
-    "outcome_final": "WC"
+    "outcome_final": "SM",
+    "sm_note": "actual=NOT_APPLICABLE on a SHOULD_REVIEW case; per taxonomy NOT_APPLICABLE-incorrectly is an SM example, not WC"
   },
   {
     "id": "A6-RB-07",
@@ -2714,7 +2767,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "REQUIRES_REVIEW",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   },
   {
     "id": "A6-RB-10",
@@ -2727,7 +2781,8 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": null,
     "expected_result": "REQUIRES_REVIEW",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S3"
   },
   {
     "id": "A6-RB-11",
@@ -2753,6 +2808,7 @@
     "outcome": "WC_CANDIDATE",
     "root_cause": "basis_word_modifier_regex_miss",
     "expected_result": "ACCEPT (2x, since the trigger explicitly preserves the current figure until renegotiation, and no renegotiation is stated to have occurred)",
-    "outcome_final": "WC"
+    "outcome_final": "WC",
+    "severity": "S2"
   }
 ]
