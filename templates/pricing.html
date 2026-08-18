@@ -132,8 +132,29 @@
                 </div>
 
                 <div class="ea-field">
-                    <label for="budget_range">If a tool genuinely handled this well, what would you expect to pay? <span class="text-gray-400 font-normal">(optional — helps us price this fairly)</span></label>
-                    <input type="text" id="budget_range" name="budget_range" placeholder="e.g. per seat, per month, or a range">
+                    <label for="current_spend">What do you currently spend on this today — a playbook tool, outside counsel for first-pass review, or the associate/attorney hours it costs? <span class="text-gray-400 font-normal">(optional)</span></label>
+                    <select id="current_spend" name="current_spend">
+                        <option value="">Select one</option>
+                        <option value="none">Nothing — handled internally, unpriced</option>
+                        <option value="under_100_mo">Under $100/month equivalent</option>
+                        <option value="100_500_mo">$100–500/month equivalent</option>
+                        <option value="500_2000_mo">$500–2,000/month equivalent</option>
+                        <option value="2000plus_mo">$2,000+/month equivalent</option>
+                        <option value="not_sure">Not sure how to estimate it</option>
+                    </select>
+                </div>
+
+                <div class="ea-field">
+                    <label for="easy_yes_price">If this reliably handled your recurring reviews, at what monthly price would saying yes be an easy call — not a budget fight? <span class="text-gray-400 font-normal">(optional)</span></label>
+                    <select id="easy_yes_price" name="easy_yes_price">
+                        <option value="">Select one</option>
+                        <option value="under_50">Under $50/month</option>
+                        <option value="50_150">$50–150/month</option>
+                        <option value="150_400">$150–400/month</option>
+                        <option value="400_1000">$400–1,000/month</option>
+                        <option value="1000plus">$1,000+/month</option>
+                        <option value="depends_on_seats">Depends on seats/volume — ask me</option>
+                    </select>
                 </div>
 
                 <div class="ea-field">
