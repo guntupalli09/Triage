@@ -229,6 +229,7 @@ _FIXED_AMOUNT_RE = re.compile(
     r"|(?:is\s+)?capped\s+at"
     r"|is\s+fixed\s+at"
     r"|(?:a\s+)?cap(?:\s+\w+){0,4}\s+of"
+    r"|(?:greater|lesser)\s+of"
     r"|in\s+no\s+event\s+shall(?:\s+[\w']+){0,8}\s+exceed"
     r"|shall(?:\s+in\s+the\s+aggregate)?\s+not\s+exceed"
     # A self-defined term ("the Liability Cap Amount") whose value is
@@ -238,6 +239,8 @@ _FIXED_AMOUNT_RE = re.compile(
     r"|(?:cap|amount|limit)\b[^.$]{0,40}?,\s*which(?:\s+the\s+parties)?(?:\s+agree)?\s+is)"
     r"\s*\$\s*([\d,]+(?:\.\d{2})?)",
     re.I,
+)
+_BARE_OR_FIXED_AMOUNT_RE = re.compile(r"\bor\s*\$\s*([\d,]+(?:\.\d{2})?)", re.I,
 )
 _EXCLUSION_SIGNAL_RE = re.compile(
     r"shall not apply to|does not apply to"
@@ -807,6 +810,25 @@ def _classify_general_cap_expression(
         for c in components:
             c.start_index += local_start
             c.end_index += local_start
+        # Step 4A.5 Priority 4: within a "greater of A or B"/"lesser of A
+        # or B" structure, the SECOND operand often carries no lead-in
+        # verb of its own ("...the greater of 2 times the annual fees
+        # paid or $1,000,000") — the governing verb applies to the whole
+        # compound expression, not to each operand individually. Scoped
+        # strictly to this local greater/lesser-of window (never applied
+        # to a bare dollar figure elsewhere in the document), a bare
+        # "or $N" is safe to treat as the second operand only when
+        # exactly one component was already found by the general path.
+        if len(components) == 1:
+            local_text = window[local_start:local_end]
+            bare_or_m = _BARE_OR_FIXED_AMOUNT_RE.search(local_text)
+            if bare_or_m and not any(abs(bare_or_m.start(1) - (c.start_index - local_start)) < 3 for c in components):
+                components.append(CapValue(
+                    kind="fixed_amount", basis=BASIS_FIXED_AMOUNT,
+                    fixed_amount=float(bare_or_m.group(1).replace(",", "")),
+                    raw_excerpt=bare_or_m.group(0),
+                    start_index=local_start + bare_or_m.start(), end_index=local_start + bare_or_m.end(),
+                ))
         if len(components) >= 2:
             return CapExpression(
                 structure=structure, components=components[:2],
@@ -902,6 +924,20 @@ def _classify_general_cap_expression(
             )
         unclaimed = concept_verified
 
+    # Step 4A.5 Priority 4: investigated a fix here (excluding "unlimited"
+    # matches scoped to a named carve-out exception from the general-cap
+    # conflict check) to resolve A4-D-07/A4-D-08 automatically. Reverted
+    # after it regressed two pre-existing, more heavily-vetted benchmark
+    # cases (asym-05: an "uncapped" carve-out on a DIFFERENT scope
+    # ("payment obligations", not liability) that is a genuine conflict;
+    # unheaded-10: a compound general-cap-plus-many-category-carve-out
+    # statement the existing suite deliberately treats as ambiguous
+    # enough to escalate) — the boundary between "safely automatable
+    # single/dual-category carve-out" and "genuinely ambiguous compound
+    # statement" could not be drawn narrowly enough to fix one without
+    # breaking the other in the time available. A4-D-07/A4-D-08 remain
+    # correctly-safe REQUIRES_REVIEW outcomes (documented FE limitation)
+    # rather than risk a false-safe on the existing corpus.
     has_unlimited = any(c.kind == "unlimited" for c in unclaimed)
     numeric = [c for c in unclaimed if c.kind != "unlimited"]
     distinct_numeric_values = {(c.kind, c.basis, c.multiplier, c.fixed_amount) for c in numeric}
