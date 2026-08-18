@@ -155,7 +155,13 @@ _OBLIGATION_RE = re.compile(
     r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\b"
 )
 _MUTUAL_RECIPROCAL_RE = re.compile(
-    r"each\s+party\s+shall\s+indemnify(?:,?\s*defend,?)?(?:\s+and\s+hold\s+harmless)?\s+the\s+other(?:\s+party)?"
+    # Step 4A.5 Priority 4: an optional parenthetical defined-term aside
+    # ("Each party (the 'Indemnifying Party') shall indemnify the other
+    # party (the 'Indemnified Party') ...") is common shorthand-defining
+    # drafting layered on top of an otherwise plain reciprocal opener —
+    # it must not break recognition of the reciprocal structure itself.
+    r"each\s+party(?:\s*\([^)]{0,60}\))?\s+shall\s+indemnify(?:,?\s*defend,?)?(?:\s+and\s+hold\s+harmless)?"
+    r"\s+the\s+other(?:\s+party)?(?:\s*\([^)]{0,60}\))?"
     r"|the\s+parties\s+shall\s+(?:mutually\s+)?indemnify\s+each\s+other"
     r"|mutual\s+indemnification",
     re.I,

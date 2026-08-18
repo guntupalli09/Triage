@@ -343,7 +343,7 @@ _DIRECTIONAL_SELL_EVIDENCE_RE = re.compile(
     r"|\bgrant(?:s|ing|ed)?\s+(?:a\s+|the\s+)?license\b|\bsuppl(?:y|ies|ying|ied)\b"
     r"|\bdeliver(?:s|ing|ed)?\b|\bfurnish(?:es|ing|ed)?\b"
     r"|\bdeliver(?:s|ing|ed)?\s+services?\s+to\b|\bcreat(?:e|es|ing|ed)\b|\bmanufactur(?:e|es|ing|ed)\b"
-    r"|\brender(?:s|ing|ed)?\b.{0,35}?\bto\b|\bperform(?:s|ing|ed)?\b.{0,35}?\bfor\b"
+    r"|\brender(?:s|ing|ed)?\b.{0,50}?\bto\b|\bperform(?:s|ing|ed)?\b.{0,35}?\bfor\b"
     r"|\bmak(?:e|es|ing)\b.{0,20}?\bavailable\s+to\b|\bleas(?:e|es|ing|ed)\b.{0,30}?\bto\b",
     re.I,
 )
@@ -440,8 +440,10 @@ _BYSTANDER_BOILERPLATE_RE = re.compile(
     # Jurisdiction-of-formation/incorporation boilerplate: "a Delaware
     # corporation", "formed under the laws of the State of Colorado" —
     # states WHERE the entity was formed, not its transactional role.
-    r"|formed\s+under\s+the\s+laws\s+of\s+the\s+State\s+of\s+[A-Z][a-z]+"
-    r"|a\s+[A-Z][a-z]+\s+(?:corporation|partnership|limited\s+liability\s+company|limited\s+partnership)\b",
+    r"|(?:formed|organized|incorporated)\s+(?:under\s+the\s+laws\s+of\s+|in\s+)(?:the\s+State\s+of\s+)?[A-Z][a-z]+"
+    r"|qualified\s+to\s+do\s+business\s+in\s+[A-Z][a-z]+"
+    r"|and\s+includes\s+its\s+[a-z-]+(?:\s+and\s+[a-z-]+)?\s+acting\s+in\s+their\s+capacity\s+as\s+such"
+    r"|a\s+[A-Z][a-z]+\s+(?:corporation|partnership|limited\s+liability\s+company|limited\s+partnership|agricultural\s+cooperative)\b",
     re.I,
 )
 
