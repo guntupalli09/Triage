@@ -158,7 +158,9 @@ _SCOPED_QUALIFIER_FRAGMENT = r"(?:,?\s*(?:solely\s+)?for\s+purposes\s+of\s+[^,]{
 # role's own definition means the role's identity is not fixed by the
 # text at all, regardless of what directional vocabulary happens to
 # appear nearby, and must never be resolved by picking one interpretation.
-_PARTY_OTHER_THAN_RE = re.compile(r"the\s+party\s+other\s+than\b", re.I)
+_PARTY_OTHER_THAN_RE = re.compile(
+    r"the\s+party\s+other\s+than\b|whichever\s+party\s+is\s+not\b", re.I,
+)
 
 
 def _role_definition_anchor_re(role: str) -> "re.Pattern[str]":
