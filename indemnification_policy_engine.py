@@ -87,7 +87,14 @@ _TRIGGER_KEYWORD_RE = {
 # ("Shall", "The", "This"...) beginning the NEXT clause is lowercase in
 # real drafting text and won't extend the match; this is not tied to any
 # specific role name.
-_MULTIWORD_ROLE_NAME_FRAGMENT = r"[A-Z][A-Za-z]{1,25}(?:\s+[A-Z][A-Za-z]{1,25}){0,2}"
+_MULTIWORD_ROLE_NAME_FRAGMENT = (
+    r"[A-Z][A-Za-z]{1,25}(?:\s+[A-Z][A-Za-z]{1,25}){0,2}"
+    # Step 4A.5 Priority 4: a role name occasionally has one lowercase
+    # connector word inside it ("Importer of Record") — a small, closed
+    # set of common connectors (of/the/for), never an arbitrary word,
+    # optionally followed by one more capitalized word.
+    r"(?:\s+(?:of|the|for)\s+[A-Z][A-Za-z]{1,25})?"
+)
 
 _ANCHOR_RE = re.compile(r"indemnif\w*", re.I)
 
@@ -149,7 +156,7 @@ _OBLIGATION_RE = re.compile(
     # "party"/"the" out of "Each party shall indemnify ... the other
     # party." The verb phrase alone is wrapped in a scoped (?i:...) so
     # "Shall"/"SHALL"/"shall" all still match.
-    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")(?:\s*\([^)]{0,40}\))?\s+(?i:shall|will|agrees to)\s+"
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")(?:\s*\([^)]{0,65}\))?\s+(?i:shall|will|agrees to)\s+"
     r"(?i:defend,?\s*(?:and\s+)?indemnify|indemnify,?\s*(?:and\s+)?defend|indemnify)"
     r"(?i:,?\s*(?:and\s+)?(?:defend\s+and\s+)?hold\s+harmless)?\s+"
     r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\b"
