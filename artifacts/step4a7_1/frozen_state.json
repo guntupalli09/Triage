@@ -1,0 +1,19 @@
+{
+  "step": "4A.7.1",
+  "pre_commit": "5ae7451f6cba160679807b16105d987f53ccd44e",
+  "pre_branch": "claude/triage-counsel-audit-44xogk",
+  "production_file_sha256_pre": {
+    "policy_engine_core.py": "3cd5bd025f9daa3b158910b00560bef30822ea9f29adfd986e36d7049f8be179",
+    "liability_policy_engine.py": "e05246a090769b39b8151e0d068ed615ea5aaf92107257cb5146e5947de65c7e",
+    "indemnification_policy_engine.py": "33284da0f8f9a7bb6283332b7f0c981078ef5083d8af6edf5fed11ee4ec25de9",
+    "payment_terms_policy_engine.py": "098afca4488cd84acac5fdd9bbf14b3543660c2187a5bb6d2843c3c6d11a13bf"
+  },
+  "production_file_sha256_post": {
+    "policy_engine_core.py": "3cd5bd025f9daa3b158910b00560bef30822ea9f29adfd986e36d7049f8be179",
+    "liability_policy_engine.py": "e1ff377c99cfedc000b6884b720a66be06062d8f0b44903f0fb40071e403f051",
+    "indemnification_policy_engine.py": "4c0d50f28122e9183ee8db739b8faa835bd6369d18e529b9685aaa95b365a8bd",
+    "payment_terms_policy_engine.py": "477f9919a7891a4c0ab6f83e2f8e81b3706d967bdbaa6626b929a7fda2d05ed6"
+  },
+  "policy_engine_core_unchanged": true,
+  "note_on_4a4_control_baseline": "A pre-existing measurement inconsistency was discovered during this step: the Step 4A.7 report claimed exact reproduction of the Step 4A.4 corpus at CA=113/FE=19/CR=38/WC=2, but a careful, cache-cleared re-verification against the TRUE unmodified commit 5ae7451 (via git stash, hash-confirmed) instead gives CA=112/FE=20/CR=38/WC=2, consistently across repeated runs. This discrepancy predates this session's edits (confirmed by testing the stashed, byte-identical-to-5ae7451 code) and was not introduced or further changed by any Step 4A.7.1 fix (the same 112/20/38/2 figure reproduces both before and after this session's changes). This is disclosed as an unresolved inconsistency in the historical record, not silently corrected or hidden."
+}

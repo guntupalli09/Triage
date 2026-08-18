@@ -72,6 +72,10 @@ _TRIGGER_KEYWORD_RE = {
     "confidentiality": re.compile(r"\bconfidentiality\b|\bconfidential information\b", re.I),
     "gross_negligence": re.compile(r"\bgross negligence\b", re.I),
     "willful_misconduct": re.compile(r"\bwil[l]?ful misconduct\b", re.I),
+    # Step 4A.7.1 (A6-C-15): "fraud" was a missing trigger category —
+    # a standard indemnification carve-out/exclusion category alongside
+    # the six already tracked, not an open-ended addition.
+    "fraud": re.compile(r"\bfraud(?:ulent)?\b", re.I),
     # Checked after gross_negligence so "gross negligence" doesn't also
     # register as a bare "negligence" match at a different span.
     "negligence": re.compile(r"\bnegligence\b(?!\s*(?:,|and|or)?\s*gross)", re.I),
@@ -453,7 +457,7 @@ _EXCEPTION_CLAUSE_SELF_NEGATION_RE = re.compile(
 )
 
 
-def _find_exception_clause_named_roles(window: str) -> List[str]:
+def _find_exception_clause_named_roles(window: str, allow_multi_role_clauses: bool = False) -> List[str]:
     """Only ever returns roles from a clause naming EXACTLY ONE distinct
     party (the A6-I-12/18/35/I-16 shape: one named party singled out
     against an implicit "both/everyone else" baseline). A clause naming
@@ -465,7 +469,15 @@ def _find_exception_clause_named_roles(window: str) -> List[str]:
     value comparison, would produce a false positive whenever two named
     roles happen to state the same terms in the same proviso. See
     benchmarks/indemnification_asymmetry_benchmark.py asym-19 (a
-    permanent regression case for exactly this)."""
+    permanent regression case for exactly this).
+
+    allow_multi_role_clauses=True (Step 4A.7.1) relaxes that restriction
+    for the ONE caller (the compound cross-mechanism check) that already
+    independently confirmed there is only a single _ROLE_ATTRIBUTION_RE
+    attribution in the whole window — in that specific context a 2-role
+    exception clause can't be the asym-19 shape (which requires 2
+    attribution matches to even reach the comparison), so returning both
+    roles found is safe there without reintroducing that false positive."""
     roles: List[str] = []
     seen_lower = set()
     for marker in _EXCEPTION_PROVISO_MARKER_RE.finditer(window):
@@ -476,11 +488,11 @@ def _find_exception_clause_named_roles(window: str) -> List[str]:
         clause = window[marker.end():hi]
         if _EXCEPTION_CLAUSE_SELF_NEGATION_RE.search(clause):
             continue
-        _scan_exception_sub_clause(clause, roles, seen_lower)
+        _scan_exception_sub_clause(clause, roles, seen_lower, allow_multi_role_clauses)
     return roles
 
 
-def _scan_exception_sub_clause(clause: str, roles: List[str], seen_lower: set) -> None:
+def _scan_exception_sub_clause(clause: str, roles: List[str], seen_lower: set, allow_multi_role_clauses: bool = False) -> None:
         clause_roles: List[str] = []
         clause_seen_lower = set()
         last_end = None
@@ -515,7 +527,7 @@ def _scan_exception_sub_clause(clause: str, roles: List[str], seen_lower: set) -
                 continue
             clause_seen_lower.add(role.lower())
             clause_roles.append(role)
-        if len(clause_roles) != 1:
+        if len(clause_roles) != 1 and not allow_multi_role_clauses:
             return
         for role in clause_roles:
             if role.lower() in seen_lower:
@@ -921,6 +933,19 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
     snapshots disagree stay adapter-owned, via
     _snapshot_indemnity_attribution / _compare_indemnity_attribution.
     """
+    # Step 4A.7.1 (Step 4A.6 A6-I-43): "the parties acknowledge ongoing
+    # discussions regarding a mutual indemnification framework but have
+    # not yet reached agreement on its terms" mentions "mutual
+    # indemnification" descriptively — discussing whether to have one —
+    # which incorrectly satisfies _MUTUAL_RECIPROCAL_RE's match and
+    # creates a phantom "Each Party indemnifies the Other Party"
+    # obligation with no actual terms. This self-flagged-not-yet-agreed
+    # signal must block that obligation from being trusted as
+    # established, exactly like the liability/payment-terms counterparts
+    # of the same phrase family.
+    if re.search(r"have\s+not\s+yet\s+reached\s+agreement\b|not\s+yet\s+reached\s+agreement\b", window, re.I):
+        return ["the document explicitly states the parties have not yet reached agreement on this clause's terms"]
+
     reasons = detect_role_attributed_asymmetry(
         window, _ROLE_ATTRIBUTION_RE, _GENERIC_ROLE_WORDS,
         _snapshot_indemnity_attribution, _compare_indemnity_attribution,
@@ -978,6 +1003,38 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
             " specifically, rather than stating the condition for both parties uniformly — "
             "the reciprocal opener's symmetry claim cannot be verified from this proviso"
         )
+        return reasons
+
+    # Step 4A.7.1 — compound differentiation (Step 4A.7's own stress
+    # benchmark S4B-COMP-05/07): a single sentence can differentiate TWO
+    # DIFFERENT named parties through TWO DIFFERENT mechanisms at once —
+    # one via an except/provided-that proviso, the other via a "[Role]'s
+    # ... obligation is subject to a '...' standard" attribution. Neither
+    # mechanism alone has enough signal (the exception-clause scan defers
+    # when it sees 2 roles in one clause, per asym-19's fix; the
+    # attribution comparator needs 2 comparable attributions, and only
+    # gets 1). If _ROLE_ATTRIBUTION_RE finds exactly ONE attribution and
+    # a DIFFERENT role is independently named in an exception clause
+    # (checked without the single-role restriction here, since the
+    # cross-mechanism combination itself is the signal), that is still
+    # evidence two parties are each carrying their own, independently
+    # stated differentiation — even though neither one alone could be
+    # compared against a matching attribution for the other.
+    attribution_matches = [
+        m for m in _ROLE_ATTRIBUTION_RE.finditer(window)
+        if trim_role_name(m.group(1)).lower() not in _GENERIC_ROLE_WORDS
+    ]
+    if len(attribution_matches) == 1:
+        attributed_role = trim_role_name(attribution_matches[0].group(1)).lower()
+        other_named_roles = _find_exception_clause_named_roles(window, allow_multi_role_clauses=True)
+        distinct_other = [r for r in other_named_roles if r.lower() != attributed_role]
+        if distinct_other:
+            reasons.append(
+                f"the clause states a '{attribution_matches[0].group(1)}'s...obligation is subject to a "
+                f"named standard' differentiation for one party, AND a separate except/provided-that "
+                f"proviso naming {distinct_other[0]} — two independently differentiated parties in one "
+                f"sentence, neither comparable to a matching statement for the other"
+            )
     return reasons
 
 

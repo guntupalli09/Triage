@@ -221,7 +221,10 @@ _BASIS_WORD_FRAGMENT = r"(fees?|purchase price|contract value|order form value|r
 # this change and re-run clean in Step 4A.7 Phase 7). See
 # benchmarks/step4a7_liability_basis_benchmark.py (60+ cases: ordinary
 # qualified bases, negative controls, false-association checks).
-_BASIS_MODIFIER_FRAGMENT = r"(?:\w+\s+){0,2}"
+# Step 4A.7.1: hyphenated modifiers ("crop-purchase price") tolerated —
+# [\w-]+ instead of \w+ — same bounded capacity increase, not a new
+# vocabulary entry.
+_BASIS_MODIFIER_FRAGMENT = r"(?:[\w-]+\s+){0,2}"
 _MULTIPLIER_NUM_RE = re.compile(
     r"(\d+(?:\.\d+)?)\s*(?:x|times)\s*(?:the\s+)?(?:total\s+|aggregate\s+)?(?:annual\s+)?"
     + _BASIS_MODIFIER_FRAGMENT + _BASIS_WORD_FRAGMENT
@@ -252,6 +255,14 @@ def _classify_basis(basis_word: str) -> str:
 _FIXED_AMOUNT_RE = re.compile(
     r"(?:maximum(?:\s+aggregate)?\s+liability(?:\s+of\s+(?:either\s+party)?)?\s*(?:shall\s+not\s+exceed|shall\s+exceed|exceed|of|:)?"
     r"|liable\s+for\s+(?:an\s+amount\s+)?(?:in\s+excess\s+of|more\s+than)"
+    # Step 4A.7.1 (Step 4A.6/4A.7 A6-L-04): "shall not be liable TO
+    # [Party] FOR [damages-noun] EXCEEDING $X" — the object-phrasing
+    # variant of the same fixed-cap concept, distinguished from the
+    # existing "liable for...in excess of/more than $X" alternative only
+    # by which preposition/participle introduces the amount ("exceeding"
+    # vs. "in excess of"/"more than") and by an optional intervening
+    # "to [Party]" clause. Same bounded concept, not a new trigger family.
+    r"|liable\s+(?:to\s+(?:\w+\s+){1,4})?for\s+(?:\w+\s+){0,3}exceeding"
     r"|limited\s+to"
     r"|(?:is\s+)?capped\s+at"
     r"|is\s+fixed\s+at"
@@ -262,8 +273,13 @@ _FIXED_AMOUNT_RE = re.compile(
     # A self-defined term ("the Liability Cap Amount") whose value is
     # stated in a trailing clause rather than inline at the cap sentence
     # itself: "...limited to the Liability Cap Amount, which the parties
-    # agree is $1,500,000."
-    r"|(?:cap|amount|limit)\b[^.$]{0,40}?,\s*which(?:\s+the\s+parties)?(?:\s+agree)?\s+is)"
+    # agree is $1,500,000." Step 4A.7.1 (A6-L-43): tolerate a short
+    # interposed clause ("...which the parties agree, for purposes of
+    # this Agreement, is $X") between "agree" and "is" — the same
+    # bounded defined-term-delegation shape, just with an ordinary
+    # parenthetical aside inserted, a general grammatical relaxation
+    # (any short interposed clause) not a specific-phrase patch.
+    r"|(?:cap|amount|limit)\b[^.$]{0,40}?,\s*which(?:\s+the\s+parties)?(?:\s+agree)?(?:,\s*[^,.$]{0,50},)?\s+is)"
     r"\s*\$\s*([\d,]+(?:\.\d{2})?)",
     re.I,
 )
@@ -367,12 +383,48 @@ _BASIS_VALUE_AMBIGUITY_RE = re.compile(
     re.I,
 )
 
+# Step 4A.7.1 (A6-RB-07) — a multiplier can be cleanly extracted while
+# its BASIS (what the multiplier applies to) is itself delegated through
+# a chain of cross-references ending in a document not included in this
+# excerpt ("...set forth in Section 4, which Section 4 itself cross-
+# references Schedule B...not included in this excerpt"). This is a
+# TWO-level delegation, harder than the single-level "see Schedule B"
+# cross-reference the existing _CROSS_REFERENCE_RES family already
+# handles safely — the cap SENTENCE looks self-contained (it states a
+# clean "1 times the fees" multiplier), which is exactly why it's
+# dangerous: nothing else flags the basis itself as unresolved. General
+# shape: a defined/referenced basis term whose OWN source section is
+# stated to point to a further external document not present.
+_CHAINED_BASIS_DELEGATION_RE = re.compile(
+    r"which\s+Section\s+\d+(?:\.\d+)?\s+itself\s+cross-references\s+"
+    r"(?:Schedule|Exhibit|Appendix)\s+[A-Z0-9]+\s*\([^)]*not\s+included\b",
+    re.I,
+)
+
 # Step 4A.5 — some drafting explicitly flags its own ambiguity ("it being
 # unclear whether these are the same cap stated twice or two independent
 # caps that would stack"). A document's own hedge about whether it means
 # one thing or another is about as safe and general a review-trigger as
 # exists — no interpretation is required, the text says so itself.
-_SELF_FLAGGED_AMBIGUITY_RE = re.compile(r"\b(?:it\s+being\s+)?unclear\s+whether\b", re.I)
+# Step 4A.7.1 — widened from "unclear whether" alone to the general
+# closed family of phrases a drafter uses to explicitly flag that a
+# value/scope is not yet finally settled (Step 4A.6 A6-L-23, A6-RB-01,
+# A6-RB-09: "remains a matter...not yet finally resolved", "no such
+# written agreement currently exists", "a determination not yet made").
+# Each alternative is a specific, closed phrase describing the drafter's
+# OWN acknowledgment of unresolved status — not a generic uncertainty
+# word — so this does not open a vague-language net that would escalate
+# ordinary hedged-but-resolved drafting.
+_SELF_FLAGGED_AMBIGUITY_RE = re.compile(
+    r"\b(?:it\s+being\s+)?unclear\s+whether\b"
+    r"|not\s+yet\s+(?:finally\s+)?resolved\b"
+    r"|not\s+yet\s+(?:been\s+)?determined\b"
+    r"|no\s+such\s+[\w\s]{0,30}\s+currently\s+exists\b"
+    r"|determination\s+not\s+yet\s+made\b"
+    r"|not\s+yet\s+reached\s+agreement\b"
+    r"|have\s+not\s+yet\s+reached\s+agreement\b",
+    re.I,
+)
 
 # Step 4A.5 Priority 4 (anti-false-safe): a self-defined cap TERM ("the
 # Royalty Cap Amount") given two DIFFERENT values in two different
@@ -387,7 +439,20 @@ _SELF_FLAGGED_AMBIGUITY_RE = re.compile(r"\b(?:it\s+being\s+)?unclear\s+whether\
 # either value.
 _CONFLICTING_DEFINED_TERM_RE = re.compile(
     r"is\s+defined\s+in\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+as\s+[^,]+,?\s+and\s+separately"
-    r"\s+in\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+as\b",
+    r"\s+in\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+as\b"
+    # Step 4A.7.1 (A6-L-22): the SAME defined-term-conflict concept, a
+    # different surface construction — "'[Term]' means, for purposes of
+    # Section X, ..., and means, for purposes of Section Y, ..." — the
+    # general shape is a defined term whose OWN definition is repeated,
+    # each repetition scoped to a different named section, rather than
+    # the specific "is defined...as...and separately...as" wording. Not
+    # widened to catch every possible defined-term restatement — still
+    # requires the explicit per-section scoping ("for purposes of Section
+    # N") that signals the drafter intends genuinely different meanings
+    # in different places, as opposed to one definition simply being
+    # restated for readability.
+    r"|means,?\s+for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,\s+[^,]+,?\s+and\s+means,?"
+    r"\s+for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,",
     re.I,
 )
 
@@ -813,6 +878,16 @@ def _classify_general_cap_expression(
         hi = min(len(window), self_flagged.end() + 150)
         return _unresolved(
             "the document explicitly flags its own ambiguity about how this cap should be interpreted",
+            raw_excerpt=window[lo:hi].strip(), start_index=lo, end_index=hi,
+        )
+
+    chained_delegation = _CHAINED_BASIS_DELEGATION_RE.search(window)
+    if chained_delegation:
+        lo = max(0, chained_delegation.start() - 60)
+        hi = min(len(window), chained_delegation.end() + 40)
+        return _unresolved(
+            "the cap's basis is delegated through a chain of cross-references ending in a document not "
+            "included — the multiplier itself is clean but what it applies to cannot be verified",
             raw_excerpt=window[lo:hi].strip(), start_index=lo, end_index=hi,
         )
 

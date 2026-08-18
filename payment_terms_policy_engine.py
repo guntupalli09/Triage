@@ -227,6 +227,36 @@ _DEBT_SATISFACTION_ACTION_RE = re.compile(
 # tests establishing the boundary (e.g. "is entitled to a refund" or "is
 # eligible for a rebate" do NOT match — those aren't a debt owed TO the
 # other party).
+# Step 4A.7.1 (Step 4A.6 A6-P-33, A6-RB-10) — same closed self-flagged-
+# unresolved phrase family as liability_policy_engine.py's
+# _SELF_FLAGGED_AMBIGUITY_RE, independently defined here since the two
+# adapters do not share extraction code. "No payment obligation arises
+# until [future event]", "does not indicate which is the most recent" —
+# a document explicitly deferring or leaving ambiguous which of several
+# instruments controls a material payment term must not resolve cleanly.
+# Step 4A.7.1 (A6-P-48) — the same defined-term-with-a-quoted-name is
+# given two different meanings, each explicitly scoped "for purposes of
+# Section N" — the payment-terms-side counterpart of liability's
+# _CONFLICTING_DEFINED_TERM_RE. A per-section day-count/day-type
+# redefinition ("'Net 30' ... means thirty days ... and 'Net 30' ...
+# shall instead mean thirty BUSINESS days") is not caught by
+# _NET_DAYS_RE's plain digit extraction (both read "30"), so this is a
+# separate, general shape check: a quoted term redefined a second time,
+# introduced by "shall instead mean" and scoped to a different Section.
+_CONFLICTING_PAYMENT_TERM_RE = re.compile(
+    r"for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+shall\s+mean\s+[^,]+,?\s+and\s+['‘][^'’]+['’]\s+for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+shall\s+instead\s+mean\b",
+    re.I,
+)
+_SELF_FLAGGED_PAYMENT_UNRESOLVED_RE = re.compile(
+    r"no\s+payment\s+obligation\s+arises\s+until\b"
+    r"|does\s+not\s+indicate\s+which\s+is\s+the\s+most\s+recent\b"
+    r"|remain(?:s)?\s+under\s+negotiation\b"
+    r"|not\s+yet\s+(?:finally\s+)?resolved\b"
+    r"|not\s+yet\s+(?:been\s+)?determined\b",
+    re.I,
+)
+
+
 _COUNTERPARTY_OWES_RE = re.compile(
     r"\bowe[sd]?\b|\bowing\b"
     r"|(?:is|are)\s+(?:independently\s+)?(?:obligated|required)\s+to\s+(?:remit|pay)\b",
@@ -422,6 +452,12 @@ class PaymentFacts:
     grace_period_days: Optional[float] = None
     statutory_max_reference: Optional[bool] = None
 
+    # Step 4A.7.1 — the document itself explicitly flags a material
+    # payment term as not yet finally settled (deferred to a future Order
+    # Form, an unexecuted amendment, an ambiguous "most recently executed"
+    # reference among several). See _SELF_FLAGGED_ambiguity family below.
+    self_flagged_unresolved: bool = False
+
     # Set-off
     setoff_permitted: Optional[bool] = None
     unilateral_deduction_permitted: Optional[bool] = None
@@ -579,6 +615,10 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
 
     facts = PaymentFacts(clause_found=True, raw_excerpt=raw_excerpt, start_index=start_index,
                           end_index=end_index, section_label=section_label)
+    facts.self_flagged_unresolved = bool(
+        _SELF_FLAGGED_PAYMENT_UNRESOLVED_RE.search(raw_excerpt)
+        or _CONFLICTING_PAYMENT_TERM_RE.search(raw_excerpt)
+    )
 
     net_days_values: set = set()
     trigger_tokens: set = set()
@@ -861,6 +901,8 @@ def evaluate_payment_policy(
     tax_side, tax_unresolved = _resolve_tax_responsibility(facts, policy.contract_side)
 
     unresolved: List[str] = []
+    if facts.self_flagged_unresolved:
+        unresolved.append("the document itself explicitly flags a material payment term as not yet finally settled")
     if facts.net_days_conflict:
         unresolved.append("multiple conflicting Net payment periods are stated")
     if facts.payment_trigger_conflict:
