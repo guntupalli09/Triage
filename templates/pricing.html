@@ -1,13 +1,13 @@
 {% extends "base_marketing.html" %}
 
-{% block title %}Pricing — Triage Counsel{% endblock %}
+{% block title %}Early Access — Triage Counsel{% endblock %}
 
-{% block meta_description %}Deterministic contract analysis built for small and mid-sized law firms. Plans for solo practitioners, growing firms, and firms operating at scale.{% endblock %}
+{% block meta_description %}Deterministic contract policy enforcement for legal teams — apply for early access.{% endblock %}
 {% block canonical_url %}https://triagecounsel.com/pricing{% endblock %}
-{% block og_title %}Pricing — Triage Counsel{% endblock %}
-{% block og_description %}Deterministic contract analysis built for small and mid-sized law firms. Plans for solo practitioners, growing firms, and firms operating at scale.{% endblock %}
-{% block twitter_title %}Pricing — Triage Counsel{% endblock %}
-{% block twitter_description %}Deterministic contract analysis built for small and mid-sized law firms. Plans for solo practitioners, growing firms, and firms operating at scale.{% endblock %}
+{% block og_title %}Early Access — Triage Counsel{% endblock %}
+{% block og_description %}Deterministic contract policy enforcement for legal teams — apply for early access.{% endblock %}
+{% block twitter_title %}Early Access — Triage Counsel{% endblock %}
+{% block twitter_description %}Deterministic contract policy enforcement for legal teams — apply for early access.{% endblock %}
 
 {% block extra_head %}
 <style>
@@ -16,44 +16,25 @@
         border: 1px solid rgba(229, 231, 235, 0.5);
         border-radius: 12px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-        transition: all 0.2s ease;
     }
-    .premium-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-    .billing-toggle {
-        display: inline-flex;
-        background: #F1F5F9;
-        border-radius: 8px;
-        padding: 3px;
-    }
-    .billing-toggle button {
-        padding: 6px 20px;
-        border-radius: 6px;
+    .ea-field label {
+        display: block;
         font-size: 0.875rem;
         font-weight: 500;
-        color: #64748B;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        transition: all 0.15s ease;
+        color: #374151;
+        margin-bottom: 0.25rem;
     }
-    .billing-toggle button.active {
-        background: #FFFFFF;
-        color: #0F172A;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    .ea-field input, .ea-field select, .ea-field textarea {
+        width: 100%;
+        padding: 0.625rem 1rem;
+        border: 1px solid #E5E7EB;
+        border-radius: 8px;
+        font-size: 0.875rem;
     }
-    .price-monthly, .price-yearly { display: none; }
-    .price-monthly.visible, .price-yearly.visible { display: block; }
-    .recommended-label {
-        font-size: 0.75rem;
-        font-weight: 500;
-        letter-spacing: 0.025em;
-        color: #0F172A;
-        background: #F1F5F9;
-        padding: 2px 10px;
-        border-radius: 9999px;
+    .ea-field input:focus, .ea-field select:focus, .ea-field textarea:focus {
+        outline: none;
+        border-color: #0F172A;
+        box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.1);
     }
     .trust-item {
         display: flex;
@@ -72,233 +53,122 @@
 {% endblock %}
 
 {% block content %}
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="text-center mb-4 fade-in">
-            <h1 class="text-4xl font-extrabold text-[#0F172A] mb-3">Pricing</h1>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Deterministic contract analysis built for small and mid-sized law firms — plans for solo practitioners, growing firms, and firms operating at scale.</p>
+            <p class="section-label mb-3">Early Access</p>
+            <h1 class="text-4xl font-extrabold text-[#0F172A] mb-3">Turn your playbook into policy</h1>
+            <p class="text-lg text-gray-600 max-w-xl mx-auto">Triage Counsel is opening early access to legal teams who review the same types of contracts often enough that consistency, not just speed, is the problem.</p>
         </div>
 
-        <div class="text-center mb-4 fade-in">
+        <div class="text-center mb-12 fade-in">
             <a href="/demo" class="text-[#0F172A] font-semibold hover:underline text-sm">Try a free demo with a sample contract &rarr;</a>
-            <p class="text-sm text-gray-500 mt-2">Every account starts on the Free plan — 3 reviews per month, no credit card required.</p>
         </div>
 
-        <!-- Billing toggle -->
-        <div class="text-center mb-10 fade-in">
-            <div class="billing-toggle" role="radiogroup" aria-label="Billing period">
-                <button type="button" role="radio" aria-checked="true" class="active" data-period="monthly" onclick="setBilling('monthly')">Monthly</button>
-                <button type="button" role="radio" aria-checked="false" data-period="yearly" onclick="setBilling('yearly')">Yearly <span class="text-xs font-semibold text-green-600 ml-1">Save up to 20%</span></button>
-            </div>
+        {% if success %}
+        <div class="premium-card p-10 text-center fade-in">
+            <svg class="w-12 h-12 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <h2 class="text-lg font-bold text-[#0F172A] mb-2">Request received</h2>
+            <p class="text-sm text-gray-500">Thanks — we'll follow up directly to talk through your team's workflow and figure out pricing that actually makes sense for you.</p>
         </div>
+        {% else %}
+        <div class="premium-card p-8 sm:p-10 fade-in">
+            <form action="/early-access" method="post" class="space-y-5">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
 
-        <!-- Pricing cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in">
-            <!-- Starter -->
-            <div class="premium-card p-8 flex flex-col"
-                 data-plan="starter"
-                 data-monthly-price="900"
-                 data-yearly-price="8900"
-                 data-stripe-monthly-price-id=""
-                 data-stripe-yearly-price-id="">
-                <h3 class="text-xl font-bold text-[#0F172A] mb-1">Starter</h3>
-                <p class="text-gray-500 text-sm mb-6">For solo practitioners and small firms</p>
-                <div class="mb-6">
-                    <div class="price-monthly visible">
-                        <span class="text-4xl font-extrabold text-[#0F172A]">$9</span>
-                        <span class="text-gray-500">/month</span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="ea-field">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
                     </div>
-                    <div class="price-yearly">
-                        <span class="text-4xl font-extrabold text-[#0F172A]">$89</span>
-                        <span class="text-gray-500">/year</span>
-                        <div class="text-sm text-gray-500 mt-1">$7.42/month &middot; Save $19 annually</div>
+                    <div class="ea-field">
+                        <label for="email">Work email</label>
+                        <input type="email" id="email" name="email" required>
                     </div>
                 </div>
-                <ul class="space-y-3 mb-8 flex-1">
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Analyze up to 10 contracts per month
-                    </li>
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Identify high-risk clauses in under two minutes
-                    </li>
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Standardize review with one playbook template
-                    </li>
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Generate professional reports ready to share with clients
-                    </li>
-                </ul>
-                {% if user and user.plan == 'starter' %}
-                <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
-                {% else %}
-                <form action="/subscribe/starter" method="post">
-                    <input type="hidden" name="billing_period" value="monthly" class="billing-period-input">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
-                    <button type="submit" class="w-full py-3 px-6 rounded-lg border border-gray-200 text-gray-700 font-semibold hover:border-[#0F172A] hover:text-[#0F172A] transition-all">Start Reviewing Contracts</button>
-                </form>
-                {% endif %}
-            </div>
 
-            <!-- Professional -->
-            <div class="premium-card p-8 flex flex-col relative border-2 border-[#0F172A]"
-                 data-plan="professional"
-                 data-monthly-price="4900"
-                 data-yearly-price="47000"
-                 data-stripe-monthly-price-id=""
-                 data-stripe-yearly-price-id="">
-                <div class="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span class="recommended-label">Recommended</span>
+                <div class="ea-field">
+                    <label for="team_type">Which best describes your team?</label>
+                    <select id="team_type" name="team_type" required>
+                        <option value="">Select one</option>
+                        <option value="law_firm">Law firm (solo / small / mid-sized)</option>
+                        <option value="in_house">In-house legal / legal ops</option>
+                        <option value="fractional_gc">Fractional GC / outside counsel</option>
+                        <option value="other">Other</option>
+                    </select>
                 </div>
-                <h3 class="text-xl font-bold text-[#0F172A] mb-1">Professional</h3>
-                <p class="text-gray-500 text-sm mb-6">For growing mid-sized firms</p>
-                <div class="mb-6">
-                    <div class="price-monthly visible">
-                        <span class="text-4xl font-extrabold text-[#0F172A]">$49</span>
-                        <span class="text-gray-500">/month</span>
-                    </div>
-                    <div class="price-yearly">
-                        <span class="text-4xl font-extrabold text-[#0F172A]">$470</span>
-                        <span class="text-gray-500">/year</span>
-                        <div class="text-sm text-gray-500 mt-1">$39.17/month &middot; Save $118 annually</div>
-                    </div>
-                </div>
-                <ul class="space-y-3 mb-8 flex-1">
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Analyze up to 150 contracts per month to cover your full pipeline
-                    </li>
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Review multiple contracts simultaneously to eliminate review backlogs
-                    </li>
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Standardize review across employment, NDA, procurement, vendor, and licensing agreements
-                    </li>
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Generate professional reports ready to share with clients and stakeholders
-                    </li>
-                </ul>
-                {% if user and user.plan == 'professional' %}
-                <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
-                {% else %}
-                <form action="/subscribe/professional" method="post">
-                    <input type="hidden" name="billing_period" value="monthly" class="billing-period-input">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
-                    <button type="submit" class="btn-primary w-full py-3 px-6 rounded-lg">Upgrade to Professional</button>
-                </form>
-                {% endif %}
-            </div>
 
-            <!-- Team -->
-            <div class="premium-card p-8 flex flex-col"
-                 data-plan="team"
-                 data-monthly-price="19900"
-                 data-yearly-price="189900"
-                 data-stripe-monthly-price-id=""
-                 data-stripe-yearly-price-id="">
-                <h3 class="text-xl font-bold text-[#0F172A] mb-1">Team</h3>
-                <p class="text-gray-500 text-sm mb-6">For firms operating at scale</p>
-                <div class="mb-6">
-                    <div class="price-monthly visible">
-                        <span class="text-4xl font-extrabold text-[#0F172A]">$199</span>
-                        <span class="text-gray-500">/month</span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="ea-field">
+                        <label for="team_size">Legal team size</label>
+                        <select id="team_size" name="team_size" required>
+                            <option value="">Select one</option>
+                            <option value="1">Just me</option>
+                            <option value="2-5">2–5</option>
+                            <option value="6-20">6–20</option>
+                            <option value="20+">20+</option>
+                        </select>
                     </div>
-                    <div class="price-yearly">
-                        <span class="text-4xl font-extrabold text-[#0F172A]">$1,899</span>
-                        <span class="text-gray-500">/year</span>
-                        <div class="text-sm text-gray-500 mt-1">$158.25/month &middot; Save $489 annually</div>
+                    <div class="ea-field">
+                        <label for="monthly_volume">Contracts reviewed / month</label>
+                        <select id="monthly_volume" name="monthly_volume" required>
+                            <option value="">Select one</option>
+                            <option value="<10">Fewer than 10</option>
+                            <option value="10-50">10–50</option>
+                            <option value="50-150">50–150</option>
+                            <option value="150+">150+</option>
+                        </select>
                     </div>
                 </div>
-                <ul class="space-y-3 mb-8 flex-1">
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Unlimited contract reviews across your entire firm
-                    </li>
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Turn TriageCounsel into an entire deal room with batch uploads of up to 50 files
-                    </li>
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Create a dedicated playbook for every contract type your firm handles
-                    </li>
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Reduce turnaround time from minutes to seconds with priority processing
-                    </li>
-                    <li class="flex items-start text-sm text-gray-700">
-                        <svg class="h-5 w-5 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Everything in Professional, plus expanded capacity
-                    </li>
-                </ul>
-                {% if user and user.plan == 'team' %}
-                <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
-                {% elif user and user.plan == 'unlimited' %}
-                <div class="text-center text-sm text-gray-500 font-medium py-3">Current plan</div>
-                {% else %}
-                <form action="/subscribe/team" method="post">
-                    <input type="hidden" name="billing_period" value="monthly" class="billing-period-input">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
-                    <button type="submit" class="w-full py-3 px-6 rounded-lg border border-gray-200 text-gray-700 font-semibold hover:border-[#0F172A] hover:text-[#0F172A] transition-all">Choose Team</button>
-                </form>
-                {% endif %}
-            </div>
+
+                <div class="ea-field">
+                    <label for="current_solution">How do you keep review consistent today?</label>
+                    <select id="current_solution" name="current_solution" required>
+                        <option value="">Select one</option>
+                        <option value="memory">Mostly memory / whoever's reviewing</option>
+                        <option value="playbook_doc">A written playbook, applied manually</option>
+                        <option value="ai_tool">An AI redlining/playbook tool already</option>
+                        <option value="other">Something else</option>
+                    </select>
+                </div>
+
+                <div class="ea-field">
+                    <label for="budget_range">If a tool genuinely handled this well, what would you expect to pay? <span class="text-gray-400 font-normal">(optional — helps us price this fairly)</span></label>
+                    <input type="text" id="budget_range" name="budget_range" placeholder="e.g. per seat, per month, or a range">
+                </div>
+
+                <div class="ea-field">
+                    <label for="message">Anything else about your team's review process? <span class="text-gray-400 font-normal">(optional)</span></label>
+                    <textarea id="message" name="message" rows="4"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary w-full py-3 px-6 rounded-lg font-semibold">Request Early Access</button>
+                <p class="text-xs text-gray-400 text-center">No credit card, no commitment — this starts a conversation, not a checkout.</p>
+            </form>
         </div>
+        {% endif %}
 
         <!-- Trust section -->
         <div class="mt-16 fade-in">
-            <div class="max-w-3xl mx-auto">
+            <div class="max-w-lg mx-auto">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-5">
                     <div class="trust-item">
                         <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
-                        <span class="text-sm text-gray-600">Deterministic contract analysis backed by published research</span>
+                        <span class="text-sm text-gray-600">Deterministic policy engine, not a redline generator</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+                        <span class="text-sm text-gray-600">Ambiguous cases route to your lawyers, never guessed</span>
                     </div>
                     <div class="trust-item">
                         <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
                         <span class="text-sm text-gray-600">Research foundation published at ICCS 2026</span>
                     </div>
                     <div class="trust-item">
-                        <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
-                        <span class="text-sm text-gray-600">Auditable clause-level reasoning for every finding</span>
-                    </div>
-                    <div class="trust-item">
-                        <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
-                        <span class="text-sm text-gray-600">Professional PDF reports ready for client delivery</span>
-                    </div>
-                    <div class="trust-item">
                         <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
                         <span class="text-sm text-gray-600">Privacy-first document handling</span>
-                    </div>
-                    <div class="trust-item">
-                        <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21"/></svg>
-                        <span class="text-sm text-gray-600">Purpose-built for legal professionals</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-    function setBilling(period) {
-        document.querySelectorAll('.billing-toggle button').forEach(function(btn) {
-            var isActive = btn.dataset.period === period;
-            btn.classList.toggle('active', isActive);
-            btn.setAttribute('aria-checked', isActive);
-        });
-        document.querySelectorAll('.price-monthly').forEach(function(el) {
-            el.classList.toggle('visible', period === 'monthly');
-        });
-        document.querySelectorAll('.price-yearly').forEach(function(el) {
-            el.classList.toggle('visible', period === 'yearly');
-        });
-        document.querySelectorAll('.billing-period-input').forEach(function(input) {
-            input.value = period;
-        });
-    }
-    </script>
 {% endblock %}
