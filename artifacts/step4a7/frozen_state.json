@@ -1,0 +1,22 @@
+{
+  "step": "4A.7",
+  "note": "4A.7 is a remediation step — production code changes are EXPECTED and permitted. This file records the PRE state (start of 4A.7, = the frozen Step 4A.6 state) and the POST state (end of 4A.7, after all remediation) so the diff is auditable.",
+  "pre_commit": "914a3d143acb07ad16856ca1e396bb1c317022fe",
+  "pre_branch": "claude/triage-counsel-audit-44xogk",
+  "pre_git_status": "clean",
+  "production_file_sha256_pre": {
+    "policy_engine_core.py": "3cd5bd025f9daa3b158910b00560bef30822ea9f29adfd986e36d7049f8be179",
+    "liability_policy_engine.py": "461239d32ba831214d76cc5ea0d2ca34d1b5d4029372821db28452173afad5e3",
+    "indemnification_policy_engine.py": "26fa1fc5bd1af4ef0d7a7026214c6bb04b0bbe6c0bfa80c5aa20cc9b62da9c5a",
+    "payment_terms_policy_engine.py": "1ce3b921d4455861bbcf4bacf61c9f564ea99e02e1063bef3c318952b2801af9"
+  },
+  "production_file_sha256_post": {
+    "policy_engine_core.py": "3cd5bd025f9daa3b158910b00560bef30822ea9f29adfd986e36d7049f8be179",
+    "liability_policy_engine.py": "e05246a090769b39b8151e0d068ed615ea5aaf92107257cb5146e5947de65c7e",
+    "indemnification_policy_engine.py": "33284da0f8f9a7bb6283332b7f0c981078ef5083d8af6edf5fed11ee4ec25de9",
+    "payment_terms_policy_engine.py": "098afca4488cd84acac5fdd9bbf14b3543660c2187a5bb6d2843c3c6d11a13bf"
+  },
+  "policy_engine_core_unchanged": true,
+  "files_modified": ["liability_policy_engine.py", "indemnification_policy_engine.py", "payment_terms_policy_engine.py"],
+  "modification_scope": "Only the mechanisms root-caused in Phases 3/4/6/7 (reciprocal-pair semantic comparison, indemnification exception-clause detection, payment set-off/netting discovery, liability+indemnification multiplier-basis extraction). No regex/threshold/policy-logic changes outside these root-caused mechanisms."
+}

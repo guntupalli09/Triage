@@ -216,8 +216,42 @@ _DEBT_SATISFACTION_ACTION_RE = re.compile(
     r"|" + _PAYMENT_OBJECT_FRAGMENT + r"[^.;]{0,150}?may\s+be\s+" + _DEBT_SATISFACTION_VERB_RE.pattern,
     re.I,
 )
-_COUNTERPARTY_OWES_RE = re.compile(r"\bowe[sd]?\b|\bowing\b", re.I)
+# Step 4A.7 — S4B/SM-CRITICAL remediation (Step 4A.6 A6-P-12): "owe(s)/
+# owed/owing" alone is a narrow vocabulary net for the underlying concept
+# — a party being under an existing obligation to pay/remit the other.
+# "is independently obligated to remit" / "is required to pay" express the
+# identical debt relationship without the word "owe" at all. This is a
+# bounded extension of the SAME concept family (a finite, closed set of
+# obligated-to-pay phrasings), not an open-ended vocabulary net — see
+# benchmarks/step4a7_setoff_netting_benchmark.py for the positive/negative
+# tests establishing the boundary (e.g. "is entitled to a refund" or "is
+# eligible for a rebate" do NOT match — those aren't a debt owed TO the
+# other party).
+_COUNTERPARTY_OWES_RE = re.compile(
+    r"\bowe[sd]?\b|\bowing\b"
+    r"|(?:is|are)\s+(?:independently\s+)?(?:obligated|required)\s+to\s+(?:remit|pay)\b",
+    re.I,
+)
 _DEBT_SATISFACTION_LOCAL_CHARS = 150
+
+# Step 4A.7 — S4B/SM-CRITICAL remediation (Step 4A.6 A6-P-14, A6-P-24): the
+# verb-then-payment-object pattern above requires an explicit deduction
+# VERB (withhold/deduct/net/recoup/...) governing a payment noun. Genuine
+# netting/set-off is sometimes drafted as a pure STRUCTURAL statement with
+# no such verb at all — "only the net difference...shall actually change
+# hands", "only the resulting balance...being transferred" — the defining
+# shape is "only the [net/balance/difference amount] ... changes hands /
+# is transferred/paid/due", regardless of which verb (if any) introduces
+# it. This is a second, independent discovery path for the SAME underlying
+# concept (mutual debt netting), not a widening of the first path's verb
+# list — see benchmarks/step4a7_setoff_netting_benchmark.py for the hard
+# negatives this must NOT fire on.
+_NET_SETTLEMENT_STRUCTURAL_RE = re.compile(
+    r"only\s+the\s+(?:net\s+(?:difference|amount)|resulting\s+balance|difference)\b"
+    r"[^.;]{0,260}?\b(?:chang(?:e|es|ing)\s+hands|(?:be|being|is|are)\s+(?:paid|transferred|due|remitted)"
+    r"|transferred|remitted)\b",
+    re.I,
+)
 
 
 _MUTUAL_DEBT_NEGATION_RE = re.compile(
@@ -235,12 +269,17 @@ def _find_mutual_debt_netting_span(text: str) -> Optional[Tuple[int, int]]:
     scoped locally (not whole-window) so an unrelated "owe" elsewhere in
     a large provision window can't combine with an unrelated deduction
     verb elsewhere in the same window to produce a false match. None if
-    no such pairing exists."""
+    no such pairing exists. Falls back to the verb-independent structural
+    "only the net/balance/difference ... changes hands" shape (Step 4A.7)
+    when no verb-governed match is found."""
     for m in _DEBT_SATISFACTION_ACTION_RE.finditer(text):
         lo = max(0, m.start() - _DEBT_SATISFACTION_LOCAL_CHARS)
         hi = min(len(text), m.end() + _DEBT_SATISFACTION_LOCAL_CHARS)
         if _COUNTERPARTY_OWES_RE.search(text[lo:hi]):
             return m.start(), m.end()
+    m = _NET_SETTLEMENT_STRUCTURAL_RE.search(text)
+    if m:
+        return m.start(), m.end()
     return None
 
 

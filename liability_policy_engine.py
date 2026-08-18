@@ -195,15 +195,42 @@ _UNLIMITED_RE = re.compile(
     r"|there (?:is|shall be) no (?:cap|limit)(?:ation)?",
     re.I,
 )
-_BASIS_WORD_FRAGMENT = r"(fees?|purchase price|contract value|order form value|rent|royalt(?:y|ies)|premiums?|charges?)"
+# Step 4A.7 — "amounts paid or payable" added to the closed basis-word
+# family: the same recurring/aggregate-payment concept as "fees"/"charges"
+# already in this list, just a more generic noun for it. Still a closed
+# enumeration, not an open vocabulary net.
+_BASIS_WORD_FRAGMENT = r"(fees?|purchase price|contract value|order form value|rent|royalt(?:y|ies)|premiums?|charges?|amounts?\s+paid\s+or\s+payable)"
+# Step 4A.7 — Priority 3 remediation (Step 4A.6 Section F.1 / the single
+# largest repeated WC mechanism found: ~32 cases across Tiers 1-3). The
+# basis-word match previously required the basis noun (fees/rent/royalty/
+# premiums/charges) to appear IMMEDIATELY after "annual"/"total"/
+# "aggregate" — real commercial drafting routinely qualifies that noun with
+# a domain-specific modifier ("annual DISTRIBUTION fees", "annual
+# INSTALLATION fees", "annual FRANCHISE ROYALTY fees", "annual STORAGE
+# fees"), and the modifier's mere presence caused the entire cap to
+# disappear (general_cap_expression.components stayed empty, and the
+# adapter then reported "no numeric general cap stated" — a confident,
+# wrong MUST_REDLINE on a contract that has a clean, quantified cap).
+# The general invariant (per the governing remediation instructions):
+# modifiers INSIDE the quantum must not cause the whole cap to vanish.
+# Tolerating 0-2 additional capitalized-or-lowercase words between the
+# temporal qualifier and the basis noun is a bounded capacity increase —
+# not an enumeration of specific modifier nouns — and does not touch
+# candidate OWNERSHIP/association at all (a separate, already-tested
+# mechanism — see run_liability_ownership_benchmark.py, unaffected by
+# this change and re-run clean in Step 4A.7 Phase 7). See
+# benchmarks/step4a7_liability_basis_benchmark.py (60+ cases: ordinary
+# qualified bases, negative controls, false-association checks).
+_BASIS_MODIFIER_FRAGMENT = r"(?:\w+\s+){0,2}"
 _MULTIPLIER_NUM_RE = re.compile(
-    r"(\d+(?:\.\d+)?)\s*(?:x|times)\s*(?:the\s+)?(?:total\s+|aggregate\s+)?(?:annual\s+)?" + _BASIS_WORD_FRAGMENT
+    r"(\d+(?:\.\d+)?)\s*(?:x|times)\s*(?:the\s+)?(?:total\s+|aggregate\s+)?(?:annual\s+)?"
+    + _BASIS_MODIFIER_FRAGMENT + _BASIS_WORD_FRAGMENT
     + r"(?:\s+paid)?(?:\s+(?:in|during)\s+the\s+(?:twelve|12)\s*\(?12\)?\s*months?)?",
     re.I,
 )
 _MULTIPLIER_WORD_RE = re.compile(
     r"\b(" + "|".join(_WORD_NUMBERS) + r")\s*(?:\(\d+\))?\s*times?\s*(?:the\s+)?(?:total\s+|aggregate\s+)?"
-    r"(?:annual\s+)?" + _BASIS_WORD_FRAGMENT,
+    r"(?:annual\s+)?" + _BASIS_MODIFIER_FRAGMENT + _BASIS_WORD_FRAGMENT,
     re.I,
 )
 

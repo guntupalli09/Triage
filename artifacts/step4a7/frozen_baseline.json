@@ -1,0 +1,12 @@
+{
+  "phase": "PHASE 0 baseline",
+  "commit": "914a3d143acb07ad16856ca1e396bb1c317022fe",
+  "branch": "claude/triage-counsel-audit-44xogk",
+  "git_status": "clean",
+  "production_file_sha256_pre": {
+    "policy_engine_core.py": "3cd5bd025f9daa3b158910b00560bef30822ea9f29adfd986e36d7049f8be179",
+    "liability_policy_engine.py": "461239d32ba831214d76cc5ea0d2ca34d1b5d4029372821db28452173afad5e3",
+    "indemnification_policy_engine.py": "26fa1fc5bd1af4ef0d7a7026214c6bb04b0bbe6c0bfa80c5aa20cc9b62da9c5a",
+    "payment_terms_policy_engine.py": "1ce3b921d4455861bbcf4bacf61c9f564ea99e02e1063bef3c318952b2801af9"
+  }
+}

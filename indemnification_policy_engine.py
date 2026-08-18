@@ -41,7 +41,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Protocol, Tuple
+from typing import Any, Dict, FrozenSet, List, Optional, Protocol, Tuple
 
 from policy_engine_core import (
     ACCEPT, ACCEPT_WITH_NOTE, NEGOTIATE, MUST_REDLINE, PROHIBITED, ESCALATE,
@@ -87,8 +87,22 @@ _TRIGGER_KEYWORD_RE = {
 # ("Shall", "The", "This"...) beginning the NEXT clause is lowercase in
 # real drafting text and won't extend the match; this is not tied to any
 # specific role name.
+#
+# Step 4A.7 — the 1-3 word cap above was itself too narrow: ordinary
+# commercial entity names routinely run 4-5 words ("Pacific Rim Freight
+# Brokers", "Continental Data Center Colocation Services"), and capping at
+# 3 caused the SAME entity to be captured as two DIFFERENT truncated
+# substrings depending on where each obligation match anchored (e.g.
+# "Rim Freight Brokers" in one obligation, "Pacific Rim Freight" in the
+# other), which then fails role-name equality checks that assume both
+# mentions of one real party produce the identical string. Widening to
+# 1-5 words is the same bounded-run rationale as the original fix, just
+# recalibrated to the length of names actually seen; it is a capacity
+# increase, not a new vocabulary entry, and remains far short of
+# "arbitrary run of capitalized words" (still stops at the first
+# lowercase word).
 _MULTIWORD_ROLE_NAME_FRAGMENT = (
-    r"[A-Z][A-Za-z]{1,25}(?:\s+[A-Z][A-Za-z]{1,25}){0,2}"
+    r"[A-Z][A-Za-z]{1,25}(?:\s+[A-Z][A-Za-z]{1,25}){0,4}"
     # Step 4A.5 Priority 4: a role name occasionally has one lowercase
     # connector word inside it ("Importer of Record") — a small, closed
     # set of common connectors (of/the/for), never an arbitrary word,
@@ -219,8 +233,17 @@ _MONETARY_UNLIMITED_RE = re.compile(
     r"|no\s+(?:cap|limit)(?:ation)?\s+shall\s+apply",
     re.I,
 )
+# Step 4A.7 — same fix, same rationale, as liability_policy_engine.py's
+# _BASIS_MODIFIER_FRAGMENT (Step 4A.6 A6-I-04, A6-I-25, A6-I-39, A6-I-40:
+# "annual distribution fees"/"annual storage fees"/"annual management
+# fees"/"annual referral fees" all previously vanished the same way here).
+# This is a separate, independent regex from liability's — not shared code
+# — so it needed the identical, bounded modifier-tolerance fix applied a
+# second time, not a shared-constant refactor (the two adapters' monetary
+# grammars are similar but not identical, e.g. indemnification has no
+# purchase-price/contract-value/order-form-value basis words).
 _MONETARY_MULTIPLIER_RE = re.compile(
-    r"(\d+(?:\.\d+)?)\s*(?:x|times)\s*(?:the\s+)?(?:total\s+|aggregate\s+)?(?:annual\s+)?"
+    r"(\d+(?:\.\d+)?)\s*(?:x|times)\s*(?:the\s+)?(?:total\s+|aggregate\s+)?(?:annual\s+)?(?:\w+\s+){0,2}"
     r"(?:fees?|rent|royalt(?:y|ies)|premiums?|charges?)",
     re.I,
 )
@@ -305,6 +328,38 @@ _PARTY_SPECIFIC_EXCEPTION_RE = re.compile(
 )
 _BROAD_BENEFICIARY_RE = re.compile(r"affiliates|officers|directors|employees|agents", re.I)
 
+# Step 4A.7 — S4 remediation (Step 4A.6 A6-I-23): a reciprocal opener can
+# state an EXPLICITLY named/quoted causation standard separately for two
+# named parties ("...is subject to a causation standard of 'sole and
+# proximate cause,' whereas [Other Party]'s...is subject to a broader
+# 'contributing cause' standard"). This is deliberately narrow — it only
+# recognizes a causation standard the drafter has explicitly singled out
+# by name/quotation, not the ordinary causation-LINK phrase ("caused by",
+# "arising from", "arising out of", "resulting from") that appears in
+# nearly every indemnification sentence as connective tissue rather than
+# as a distinguishing legal standard. Treating every such connective
+# phrase as a comparable "standard" would risk manufacturing false
+# escalations out of pure stylistic variation between two mentions of the
+# SAME shared clause; requiring an explicit "causation standard of"/
+# "subject to a ... standard" cue bounds the concept to drafting that is
+# itself asserting a standard is being fixed, which is the only shape
+# this fix is meant to catch. See
+# benchmarks/step4a7_reciprocal_semantic_benchmark.py for the positive/
+# negative boundary tests establishing this scope.
+_CAUSATION_STANDARD_RE = re.compile(
+    r"causation\s+standard\s+of\s+['‘]([^'’]{3,60})['’]"
+    r"|subject\s+to\s+a\s+(?:broader\s+|narrower\s+|different\s+)?['‘]([^'’]{3,60})['’]\s+standard",
+    re.I,
+)
+
+
+def _classify_causation_standard(local: str) -> Optional[str]:
+    m = _CAUSATION_STANDARD_RE.search(local)
+    if not m:
+        return None
+    phrase = (m.group(1) or m.group(2) or "").strip().lower()
+    return phrase or None
+
 # Step 4A.5 — Failure Family: a reciprocal opener can be qualified by
 # PROCEDURAL (not monetary/trigger/scope) terms stated separately for two
 # different named parties — a survival period, a notice precondition, a
@@ -330,10 +385,145 @@ _PROCEDURAL_ROLE_CUE_RE = re.compile(
     re.I,
 )
 _PROCEDURAL_EXCLUDED_ROLE_RE = re.compile(
-    r"\(\s*but\s+not\s+(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))\s*\)"
+    # Step 4A.7 — S4 remediation (Step 4A.6 A6-I-12): "(but not any
+    # individual Franchisee)" was previously missed because the role name
+    # is not the word immediately after "not" — an ordinary English
+    # qualifier ("any", "any individual", "each particular", ...)
+    # intervenes. Tolerating a small, unenumerated run of lowercase filler
+    # words before the capitalized role name is a general grammatical
+    # relaxation (any lowercase qualifier), not a specific-phrase patch.
+    r"\(\s*but\s+not\s+(?:[a-z]+\s+){0,2}(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))\s*\)"
     r"|does\s+not\s+apply\s+to\s+claims?\s+(?:asserted\s+against|against)\s+(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))",
     re.I,
 )
+# Step 4A.7 — S4 remediation (Step 4A.6 A6-I-35 and, defense-in-depth,
+# A6-I-18): a reciprocal ("each party"/mutual) opener can be qualified by
+# an "except that"/"provided that" proviso that names ONE specific party
+# in a shape none of the above cue regexes anticipate (e.g. "PROVIDED
+# THAT if the claim arises from a defect in Products manufactured by
+# [Party] specifically... the cap ... shall instead be..."). Rather than
+# add a fifth dedicated cue pattern for this construction (and a sixth,
+# seventh, ... for the next one), this generalizes: ANY named role
+# (multi-word — see the >=2-word requirement below, which is what keeps
+# this from matching ordinary capitalized document nouns like "Section"
+# or "Products") appearing anywhere inside an except/provided-that clause
+# is itself sufficient signal that the reciprocal opener's symmetry claim
+# needs verification, regardless of which specific verb or condition
+# follows the name. A genuinely symmetric proviso has no reason to name
+# one specific party rather than restating "each party"/"either party" —
+# see benchmarks/step4a7_reciprocal_semantic_benchmark.py for the
+# positive (must NOT fire) controls that establish this boundary.
+_EXCEPTION_PROVISO_MARKER_RE = re.compile(r"(?:except|provided)[\s,]+(?:however[\s,]+)?that\b", re.I)
+# Step 4A.7 — widened during post-fix verification (Step 4A.6 A6-I-16:
+# "except that Sublicensee's obligation does not extend to claims arising
+# from patent infringement") to also match a SINGLE capitalized word, not
+# just 2+-word names — single-word role names ("Sublicensee", "Vendor",
+# "Landlord") are common and this exact reciprocal-scope-exclusion shape
+# is one of the two Step 4A.5-disclosed residual weaknesses this step is
+# specifically meant to close. The false-positive risk a 2+-word minimum
+# was originally guarding against (matching "Section"/"Products"/
+# "Agreement" as if they were role names) is instead handled by the
+# explicit stopword list below, extended to cover the common single-word
+# capitalized nouns that appear in this drafting style outside of role
+# names — see benchmarks/step4a7_reciprocal_semantic_benchmark.py for the
+# negative controls this must continue to pass.
+_EXCEPTION_CLAUSE_ROLE_RE = re.compile(
+    r"(?-i:[A-Z][A-Za-z]{1,25}(?:\s+[A-Z][A-Za-z]{1,25}){0,3})", re.I,
+)
+_EXCEPTION_CLAUSE_ROLE_STOPWORDS = {
+    "products", "product", "provided", "except", "section", "agreement",
+    "exhibit", "schedule", "article", "party", "parties",
+    "notwithstanding", "this", "that", "such", "any", "all", "each",
+    "either", "neither", "both", "the", "claims", "claim", "if", "unless",
+}
+# A proviso can use the exact "except that"/"provided that" trigger phrase
+# while explicitly disclaiming that it changes anything substantive (a
+# bystander factual aside, not a genuine differentiation) — e.g. "...a fact
+# that does not affect either party's indemnification obligations under
+# this Section." Skipping a clause that self-negates this way is a general
+# linguistic check (any self-disclaiming phrase of this shape), not a
+# one-off exclusion for a single known adversarial case; see A6-I-37 in
+# benchmarks/step4a6_corpus_indemnification_direction.py, preserved as a
+# permanent regression case in
+# benchmarks/step4a7_reciprocal_semantic_benchmark.py.
+_EXCEPTION_CLAUSE_SELF_NEGATION_RE = re.compile(
+    r"does\s+not\s+affect|shall\s+not\s+affect|does\s+not\s+(?:modify|change|impact)"
+    r"|shall\s+not\s+(?:modify|change|impact)|no\s+effect\s+on",
+    re.I,
+)
+
+
+def _find_exception_clause_named_roles(window: str) -> List[str]:
+    """Only ever returns roles from a clause naming EXACTLY ONE distinct
+    party (the A6-I-12/18/35/I-16 shape: one named party singled out
+    against an implicit "both/everyone else" baseline). A clause naming
+    TWO OR MORE distinct parties (e.g. "provided that Licensor's
+    obligations...2x...and Licensee's obligations...2x...") is a
+    comparison _ROLE_ATTRIBUTION_RE/detect_role_attributed_asymmetry
+    already performs correctly (including confirming IDENTICAL stated
+    terms are not a differentiation) — flagging it here too, without that
+    value comparison, would produce a false positive whenever two named
+    roles happen to state the same terms in the same proviso. See
+    benchmarks/indemnification_asymmetry_benchmark.py asym-19 (a
+    permanent regression case for exactly this)."""
+    roles: List[str] = []
+    seen_lower = set()
+    for marker in _EXCEPTION_PROVISO_MARKER_RE.finditer(window):
+        hi = min(len(window), marker.end() + 300)
+        boundary = re.search(r"\.\s|\.$", window[marker.end():hi])
+        if boundary:
+            hi = marker.end() + boundary.end()
+        clause = window[marker.end():hi]
+        if _EXCEPTION_CLAUSE_SELF_NEGATION_RE.search(clause):
+            continue
+        _scan_exception_sub_clause(clause, roles, seen_lower)
+    return roles
+
+
+def _scan_exception_sub_clause(clause: str, roles: List[str], seen_lower: set) -> None:
+        clause_roles: List[str] = []
+        clause_seen_lower = set()
+        last_end = None
+        for m in _EXCEPTION_CLAUSE_ROLE_RE.finditer(clause):
+            # A hyphenated/digit-led connector word inside an entity name
+            # ("Zenith 3D-Printing Manufacturing Corp") breaks this regex
+            # into two adjacent matches ("Zenith", "Printing Manufacturing
+            # Corp") rather than one — treat two matches separated by only
+            # a short gap as fragments of the SAME name, not two distinct
+            # parties, so this doesn't get misread as a Licensor/Licensee-
+            # style two-party clause. See benchmarks/
+            # step4a7_reciprocal_semantic_benchmark.py S4B-EXC-* cases.
+            if last_end is not None and m.start() - last_end <= 15:
+                last_end = m.end()
+                continue
+            last_end = m.end()
+            role = trim_role_name(m.group(0))
+            first_word = role.split()[0].lower() if role else ""
+            # A short (<=3-char) standalone ALL-CAPS token ("IP", "SLA",
+            # "API") is a legal/technical abbreviation, not a role name —
+            # role names in this drafting style are always longer,
+            # title-cased words. General shape check, not an enumerated
+            # abbreviation list.
+            is_short_abbreviation = len(role) <= 3 and role.isupper()
+            if (
+                not role
+                or role.lower() in _GENERIC_ROLE_WORDS
+                or first_word in _EXCEPTION_CLAUSE_ROLE_STOPWORDS
+                or role.lower() in clause_seen_lower
+                or is_short_abbreviation
+            ):
+                continue
+            clause_seen_lower.add(role.lower())
+            clause_roles.append(role)
+        if len(clause_roles) != 1:
+            return
+        for role in clause_roles:
+            if role.lower() in seen_lower:
+                continue
+            seen_lower.add(role.lower())
+            roles.append(role)
+
+
 _SURVIVAL_PERIOD_RE = re.compile(r"(?:for\s+)?(\w+)\s*\(?\d*\)?\s+(years?|months?)\b", re.I)
 _SURVIVAL_WORD_NUMBERS = {
     "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
@@ -458,11 +648,14 @@ class IndemnityObligation:
     # party name(s)" text.
     role_side_conflict_reasons: List[str] = field(default_factory=list)
     is_mutual_reciprocal: bool = False
-    # Only ever populated for is_mutual_reciprocal=True obligations — see
-    # _detect_reciprocal_asymmetry. A non-empty list means the clause opens
-    # with symmetric ("each party"/"mutual") language but states materially
-    # different terms per named party somewhere in the same window, so the
-    # opener's symmetry claim could not be verified.
+    # Step 4A.7: populated for EVERY obligation (reciprocal or named) — see
+    # _detect_reciprocal_asymmetry. A non-empty list means the shared
+    # window this obligation was extracted from contains a signal that a
+    # claimed or apparent symmetry between two directions (an "each
+    # party"/"mutual" opener, or two strictly-named obligations pointing
+    # at each other) cannot be trusted: materially different terms stated
+    # per named party, a named causation standard that differs by party,
+    # or an except/provided-that proviso singling out one named party.
     asymmetry_reasons: List[str] = field(default_factory=list)
 
     def label(self) -> str:
@@ -642,6 +835,15 @@ def _monetary_key(m: MonetaryTreatment) -> Tuple[str, Optional[float], Optional[
     return (m.kind, m.multiplier, m.fixed_amount)
 
 
+def _trigger_treatment_key(trigger_treatments: Dict[str, TriggerTreatment]) -> FrozenSet[Tuple[str, str]]:
+    """Comparable summary of which trigger categories are covered/excluded
+    — ignores raw_excerpt/established (provenance, not substance) so two
+    directions stating the SAME coverage in different words still compare
+    equal, while two directions covering DIFFERENT categories (or
+    differing on covered vs. excluded for the same category) do not."""
+    return frozenset((trig, tt.treatment) for trig, tt in trigger_treatments.items())
+
+
 def _snapshot_indemnity_attribution(local: str) -> Dict[str, Any]:
     return {
         "monetary": _classify_monetary(local, 0),
@@ -651,6 +853,7 @@ def _snapshot_indemnity_attribution(local: str) -> Dict[str, Any]:
             trig for trig, kw_re in _TRIGGER_KEYWORD_RE.items() if kw_re.search(local)
         ),
         "broad_beneficiary": bool(_BROAD_BENEFICIARY_RE.search(local)),
+        "causation_standard": _classify_causation_standard(local),
     }
 
 
@@ -680,6 +883,23 @@ def _compare_indemnity_attribution(base_role: str, base: Dict[str, Any], role: s
         reasons.append(f"{base_role} and {role} state different defense-control terms")
     if base["broad_beneficiary"] != snap["broad_beneficiary"]:
         reasons.append(f"{base_role} and {role} name different indemnified-party groups")
+    # Step 4A.7 — S4 remediation (causation-standard differentiation, e.g.
+    # "sole and proximate cause" vs. "contributing cause" stated separately
+    # per named role). Deliberately narrow: only fires when BOTH roles
+    # state an EXPLICITLY named/quoted causation standard (see
+    # _CAUSATION_STANDARD_RE) that differs — ordinary stylistic causation-
+    # link variation ("caused by" vs. "arising from") used in a single
+    # shared reciprocal clause never reaches this comparison at all (there
+    # is only one snapshot, not two, in that case) and is not itself
+    # treated as a differentiation signal, to avoid manufacturing false
+    # escalations out of ordinary drafting synonymy. See
+    # benchmarks/step4a7_reciprocal_semantic_benchmark.py for the positive/
+    # negative boundary tests.
+    if base["causation_standard"] and snap["causation_standard"] and base["causation_standard"] != snap["causation_standard"]:
+        reasons.append(
+            f"{base_role} and {role} are subject to different named causation standards "
+            f"({base['causation_standard']!r} vs {snap['causation_standard']!r})"
+        )
     return reasons
 
 
@@ -745,6 +965,19 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
             f"the clause attaches a party-specific procedural grant or carve-out to {procedural_roles[0]} "
             f"alone, rather than applying it to both parties symmetrically"
         )
+    if reasons:
+        return reasons
+
+    # Step 4A.7 — general except/provided-that named-role check (see
+    # _find_exception_clause_named_roles above for the rationale).
+    exception_roles = _find_exception_clause_named_roles(window)
+    if exception_roles:
+        reasons.append(
+            "the clause contains an 'except that'/'provided that' proviso naming "
+            + " and ".join(exception_roles) +
+            " specifically, rather than stating the condition for both parties uniformly — "
+            "the reciprocal opener's symmetry claim cannot be verified from this proviso"
+        )
     return reasons
 
 
@@ -809,6 +1042,18 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             start_index=m.start(), end_index=m.end(),
             section_label=_section_label_before(text, m.start()),
             role_side_conflict_reasons=conflict_reasons,
+            # Step 4A.7 — S4 remediation: previously only populated for
+            # is_mutual_reciprocal=True obligations. A strictly-named
+            # two-party pair ("Timberline shall indemnify Member, and
+            # Member shall indemnify Timberline...") can be qualified by
+            # the exact same kind of per-party differentiation (a named
+            # causation standard, an except/provided-that proviso naming
+            # one party) that a reciprocal "each party" opener can — the
+            # window-scanning checks in _detect_reciprocal_asymmetry don't
+            # actually depend on "each party" phrasing, so reusing them
+            # here (rather than duplicating the logic) closes that gap.
+            # See _resolve_obligations_for_side's same_pair check.
+            asymmetry_reasons=_detect_reciprocal_asymmetry(window),
         ))
         seen_spans.append((m.start(), m.end()))
         seen_role_pairs.append((m.start(), pair))
@@ -845,6 +1090,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
                 start_index=m.start(), end_index=m.end(),
                 section_label=_section_label_before(text, m.start()),
                 role_side_conflict_reasons=conflict_reasons,
+                asymmetry_reasons=_detect_reciprocal_asymmetry(window),  # Step 4A.7 — see main loop above
             ))
             seen_spans.append((m.start(), m.end()))
             seen_role_pairs.append((m.start(), pair))
@@ -1005,9 +1251,64 @@ def _resolve_obligations_for_side(
             o1.indemnifying_role.lower() == o2.indemnified_role.lower()
             and o1.indemnified_role.lower() == o2.indemnifying_role.lower()
         )
-        if same_pair and _monetary_key(o1.monetary) == _monetary_key(o2.monetary) \
-                and o1.scope == o2.scope and o1.defense_control == o2.defense_control:
+        # Step 4A.7 — S4 remediation (Step 4A.6 A6-I-18, A6-I-23): this
+        # equality check previously compared only monetary/scope/
+        # defense_control, so a genuine per-direction difference in WHICH
+        # claims are covered (trigger_treatments — e.g. a data-breach
+        # carve-out with a longer survival period stated for only one
+        # named party) or in procedural preconditions (notice/cooperation)
+        # could pass as "the same pair, safe to treat as symmetric" even
+        # though the two directions are not actually equivalent. The
+        # required invariant is that ALL policy-relevant attributes must
+        # match after direction normalization, not just the three that
+        # happened to be checked already.
+        # Step 4A.7 — S4 remediation (Step 4A.6 A6-I-18, A6-I-23): the
+        # per-obligation fields above only capture what's true of the
+        # SHARED window both obligations were extracted from (which is why
+        # trigger_treatments alone doesn't distinguish them — a later
+        # differentiating sentence naming just one party is visible to
+        # both obligations' window equally). asymmetry_reasons is where
+        # that window-level "does an except/provided-that clause, or a
+        # named causation standard, single out one specific party" signal
+        # now lives (see the two obligation-creation sites above) — if
+        # EITHER obligation's window carries such a signal, the pair must
+        # not be trusted as symmetric even though their own individual
+        # fields happen to match.
+        # Step 4A.7 — bugfix during Phase 7 verification: the fields
+        # compared below (monetary/scope/defense_control/triggers/notice/
+        # cooperation) can ALREADY, correctly, differ between two named
+        # directions — e.g. benchmarks/indemnification_corpus.py's
+        # split-reciprocal-02, where Vendor's exposure is explicitly
+        # capped at 1x and Customer's protection to us is explicitly
+        # uncapped. That is a real, intended, already-safely-handled
+        # asymmetry (each direction resolves independently below via its
+        # own clear role/monetary terms) — NOT the "opener claims
+        # symmetry but a proviso quietly differentiates it" situation
+        # asymmetry_reasons exists to catch. So asymmetry_reasons must
+        # only ever BLOCK the fast invariance path (the case where every
+        # other field already matched and the ONLY reason to distrust
+        # treating the two as equivalent is a signal the other fields
+        # don't capture — e.g. A6-I-18/A6-I-23) — it must never, by
+        # itself, override an already-differentiated pair that the
+        # ordinary per-obligation loop below is fully equipped to
+        # resolve correctly.
+        fields_match = (
+            same_pair and _monetary_key(o1.monetary) == _monetary_key(o2.monetary)
+            and o1.scope == o2.scope and o1.defense_control == o2.defense_control
+            and _trigger_treatment_key(o1.trigger_treatments) == _trigger_treatment_key(o2.trigger_treatments)
+            and o1.notice_required == o2.notice_required
+            and o1.cooperation_required == o2.cooperation_required
+        )
+        if fields_match and not o1.asymmetry_reasons and not o2.asymmetry_reasons:
             return o1, o1, reasons
+        if fields_match and (o1.asymmetry_reasons or o2.asymmetry_reasons):
+            combined = list(dict.fromkeys(o1.asymmetry_reasons + o2.asymmetry_reasons))
+            reasons.append(
+                "the document states this obligation in both directions by name, but a per-party "
+                "differentiation was found (" + "; ".join(combined) + ") — cannot confirm the two "
+                "directions are actually equivalent"
+            )
+            return None, None, reasons
 
     if contract_side == "mutual":
         if named:
