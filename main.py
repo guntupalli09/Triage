@@ -2946,6 +2946,57 @@ async def pricing_page(request: Request, db: DBSession = Depends(get_db)):
     })
 
 
+@app.post("/early-access", response_class=HTMLResponse)
+async def early_access_submit(
+    request: Request, db: DBSession = Depends(get_db),
+    _csrf: None = Depends(csrf_protect),
+    name: str = Form(...),
+    email: str = Form(...),
+    team_type: str = Form(...),
+    team_size: str = Form(...),
+    monthly_volume: str = Form(...),
+    current_solution: str = Form(...),
+    current_spend: str = Form(""),
+    easy_yes_price: str = Form(""),
+    message: str = Form(""),
+):
+    user = get_current_user(request, db)
+    lead = {
+        "name": name.strip()[:200],
+        "email": email.strip()[:200],
+        "team_type": team_type.strip()[:50],
+        "team_size": team_size.strip()[:20],
+        "monthly_volume": monthly_volume.strip()[:20],
+        "current_solution": current_solution.strip()[:50],
+        "current_spend": current_spend.strip()[:50],
+        "easy_yes_price": easy_yes_price.strip()[:50],
+        "message": message.strip()[:2000],
+    }
+    # Persist first — a notification-email failure must never lose the lead.
+    audit_log.record_event(
+        db, "early_access_request", request=request,
+        actor_user_id=user.id if user else None,
+        detail=f"{lead['name']} <{lead['email']}> ({lead['team_type']})",
+        metadata=lead,
+    )
+    notify_to = os.getenv("EARLY_ACCESS_NOTIFY_EMAIL", "").strip()
+    if notify_to and emailer.is_configured():
+        try:
+            body_lines = "\n".join(f"{k}: {v}" for k, v in lead.items())
+            emailer.send_email(
+                to=notify_to,
+                subject=f"Early access request: {lead['name']} ({lead['team_type']})",
+                html=f"<pre>{html.escape(body_lines)}</pre>",
+                text=body_lines,
+            )
+        except Exception:
+            logging.getLogger(__name__).exception("Failed to send early-access notification email")
+    return templates.TemplateResponse("pricing.html", {
+        "request": request, "user": user, "plans": PLAN_LIMITS,
+        "current_year": datetime.now().year, "success": True,
+    })
+
+
 # ============================================================
 # RESEARCH PAGE
 # ============================================================
