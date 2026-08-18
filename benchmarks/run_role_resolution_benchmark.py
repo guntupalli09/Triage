@@ -52,6 +52,54 @@ CASES = [
     ("obtains-services-01", "Client", "'Client' means the entity that obtains the Services from Provider.", "consistent"),
     ("furnish-01", "Supplier", "'Supplier' means the entity that furnishes the goods to Buyer under this Agreement.", "consistent"),
     ("far-definition-01", "Reseller", "'Reseller' means Beta Inc., the entity purchasing Software from Provider for resale.", "unknown_generic"),
+
+    # --- Step 4A.3 additions: independently derived from the four failure
+    # families, targeting the NEW mechanisms added in this hardening pass
+    # (not paraphrases of the Step 4A.2 held-out corpus text). ---
+
+    # Family 1a: broad-definition-signal detector (quote-tolerant "X is
+    # understood to mean" / "for purposes hereof, X is" / "references to
+    # X are references to" preambles) must escalate when discovery's
+    # narrow predicate list can't find a body at all.
+    ("broad-01-understood-to-mean", "Vendor", "'Vendor' is understood to mean the entity that purchases the Services from Customer.", "conflict"),
+    ("broad-02-for-purposes-hereof", "Licensee", "For purposes hereof, Licensee is the party granting a license to the Platform.", "conflict"),
+    ("broad-03-references-to-quoted", "Supplier", "References to 'Supplier' are references to the entity that resells finished goods to Buyer.", "conflict"),
+    ("broad-04-references-to-unquoted", "Distributor", "References to Distributor are references to the entity that purchases inventory from Manufacturer.", "conflict"),
+
+    # Family 1b: possessive-gerund bystander exclusion — a -ing verb
+    # immediately preceded by a possessive marker heads a noun phrase
+    # ("Customer's manufacturing capacity"), not a verb describing the
+    # role's own conduct, and must not count as directional evidence.
+    ("gerund-01-possessive-noun-phrase", "Vendor", "'Vendor' means the entity that retains Customer's manufacturing capacity to produce goods on Vendor's behalf.", "conflict"),
+    ("gerund-02-own-conduct-is-real-reversal", "Vendor", "'Vendor' means the entity purchasing the Services from Customer.", "conflict"),
+    ("gerund-03-pronoun-possessive", "Reseller", "'Reseller' means the entity that relies on its purchasing power to negotiate discounts from Manufacturer.", "conflict"),
+
+    # Family 1c: passive-voice agent-phrase exclusion — a verb match
+    # immediately followed by "by X" attributes the action to X, not to
+    # the role whose body is being scanned.
+    ("passive-01-manufactured-by", "Buyer", "'Buyer' means the entity that acquires goods manufactured by Seller under this Agreement.", "consistent"),
+    ("passive-02-delivered-by", "Recipient", "'Recipient' means the entity to which goods are delivered by Shipper under this Agreement.", "conflict"),
+
+    # Family 1d: one-hop indirect-definition resolution — a bare
+    # cross-reference to another quoted defined term ("given to 'X'") is
+    # followed through ONE hop when X is itself defined with real
+    # directional evidence elsewhere in the document.
+    ("indirect-01-resolvable-agrees", "Customer", "'Customer' has the meaning given to 'Subscriber' in Schedule A. 'Subscriber' means the party receiving the Services from Provider.", "consistent"),
+    ("indirect-02-resolvable-conflicts", "Vendor", "'Vendor' has the meaning given to 'Purchaser' in Schedule A. 'Purchaser' means the entity that purchases the Software from Provider for internal use.", "conflict"),
+    ("indirect-03-unresolvable-target-missing", "Customer", "'Customer' has the meaning given to 'Subscriber' in Schedule A.", "non_directional"),
+
+    # Family 1: expanded verb vocabulary (engage/commission/source/obtain
+    # the benefit of/compensate for buy-side; render.../perform...for/
+    # make...available to for sell-side) plus the "licenses...FROM"
+    # direction-flip fix.
+    ("verb-01-engages-services-of", "Client", "'Client' means the entity that engages the services of Consultant for the Engagement.", "consistent"),
+    ("verb-02-commissions", "Client", "'Client' means the entity that commissions the Engagement from Consultant.", "consistent"),
+    ("verb-03-sources-from", "Customer", "'Customer' means the entity that sources the Software from Vendor.", "consistent"),
+    ("verb-04-renders-to", "Provider", "'Provider' means the entity that renders consulting services to Recipient.", "consistent"),
+    ("verb-05-performs-for", "Provider", "'Provider' means the entity that performs the Services for Recipient.", "consistent"),
+    ("verb-06-makes-available-to", "Provider", "'Provider' means the entity that makes the deliverables available to Recipient.", "consistent"),
+    ("verb-07-licenses-from-relates-to-named-party", "Licensee", "'Licensee' means the entity that licenses the Platform from Licensor.", "conflict"),
+    ("verb-08-licenses-the-is-sellside", "Licensor", "'Licensor' means the entity that licenses the Platform to Licensee.", "consistent"),
 ]
 
 

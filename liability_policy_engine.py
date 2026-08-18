@@ -168,7 +168,7 @@ _UNLIMITED_RE = re.compile(
     r"|there (?:is|shall be) no (?:cap|limit)(?:ation)?",
     re.I,
 )
-_BASIS_WORD_FRAGMENT = r"(fees?|purchase price|contract value|order form value)"
+_BASIS_WORD_FRAGMENT = r"(fees?|purchase price|contract value|order form value|rent|royalt(?:y|ies)|premiums?|charges?)"
 _MULTIPLIER_NUM_RE = re.compile(
     r"(\d+(?:\.\d+)?)\s*(?:x|times)\s*(?:the\s+)?(?:total\s+|aggregate\s+)?(?:annual\s+)?" + _BASIS_WORD_FRAGMENT
     + r"(?:\s+paid)?(?:\s+(?:in|during)\s+the\s+(?:twelve|12)\s*\(?12\)?\s*months?)?",
@@ -196,8 +196,14 @@ _FIXED_AMOUNT_RE = re.compile(
     r"|limited\s+to"
     r"|(?:is\s+)?capped\s+at"
     r"|(?:a\s+)?cap(?:\s+\w+){0,4}\s+of"
-    r"|in\s+no\s+event\s+shall(?:\s+\w+){0,8}\s+exceed"
-    r"|shall(?:\s+in\s+the\s+aggregate)?\s+not\s+exceed)\s*\$\s*([\d,]+(?:\.\d{2})?)",
+    r"|in\s+no\s+event\s+shall(?:\s+[\w']+){0,8}\s+exceed"
+    r"|shall(?:\s+in\s+the\s+aggregate)?\s+not\s+exceed"
+    # A self-defined term ("the Liability Cap Amount") whose value is
+    # stated in a trailing clause rather than inline at the cap sentence
+    # itself: "...limited to the Liability Cap Amount, which the parties
+    # agree is $1,500,000."
+    r"|(?:cap|amount|limit)\b[^.$]{0,40}?,\s*which(?:\s+the\s+parties)?(?:\s+agree)?\s+is)"
+    r"\s*\$\s*([\d,]+(?:\.\d{2})?)",
     re.I,
 )
 _EXCLUSION_SIGNAL_RE = re.compile(
@@ -635,7 +641,12 @@ def _classify_category(
     # would credit the *next* sentence's unrelated general cap the same way.
     forward_end = min(len(window), m.end() + _LOCAL_WINDOW_CHARS)
     forward_text = window[m.end():forward_end]
-    boundary = re.search(r"\.\s", forward_text)
+    # A semicolon joins independent clauses just as a period joins
+    # sentences ("...basket shall be $25,000; separately, aggregate
+    # liability shall not exceed 2x...") — without this, a category
+    # keyword on one side of a semicolon can reach across it and claim an
+    # unrelated cap value stated in the other, independent clause.
+    boundary = re.search(r"\.\s|;\s", forward_text)
     same_sentence_text = forward_text[:boundary.start()] if boundary else forward_text
     forward_caps = _find_cap_values(same_sentence_text)
     if forward_caps:

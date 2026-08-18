@@ -153,7 +153,8 @@ _MONETARY_UNLIMITED_RE = re.compile(
     re.I,
 )
 _MONETARY_MULTIPLIER_RE = re.compile(
-    r"(\d+(?:\.\d+)?)\s*(?:x|times)\s*(?:the\s+)?(?:total\s+|aggregate\s+)?(?:annual\s+)?fees?",
+    r"(\d+(?:\.\d+)?)\s*(?:x|times)\s*(?:the\s+)?(?:total\s+|aggregate\s+)?(?:annual\s+)?"
+    r"(?:fees?|rent|royalt(?:y|ies)|premiums?|charges?)",
     re.I,
 )
 _MONETARY_FIXED_RE = re.compile(
@@ -162,6 +163,37 @@ _MONETARY_FIXED_RE = re.compile(
 )
 _MONETARY_CROSS_REF_RE = re.compile(
     r"subject\s+to\s+the\s+(?:limitation\s+of\s+liability|liability\s+cap)\s+(?:set\s+forth\s+)?in\s+(Section\s+\d+(?:\.\d+)?)",
+    re.I,
+)
+# Step 4A.3 — Failure Family 3-analogue for indemnification: a multiplier/
+# fixed-amount figure that is explicitly attributed to the SEPARATE
+# limitation-of-liability clause ("the general liability cap of 2 times
+# the fees paid described in Section 9") must not be silently adopted as
+# THIS obligation's own indemnification monetary term just because a
+# number-shaped pattern happens to appear nearby — that number belongs to
+# a different clause type entirely, even when _MONETARY_CROSS_REF_RE's
+# narrower phrasing doesn't happen to match it.
+_MONETARY_OTHER_CLAUSE_DISQUALIFIER_RE = re.compile(
+    r"(?:general\s+)?liability\s+cap|limitation\s+of\s+liability",
+    re.I,
+)
+_MONETARY_DISQUALIFIER_PROXIMITY = 40
+
+# A restatement elsewhere in the document ("Vendor's indemnification
+# obligations shall not exceed 2 times the fees paid") that doesn't use
+# the "shall indemnify, defend, and hold harmless" phrasing _OBLIGATION_RE
+# requires is invisible to the main obligation scan entirely — a second,
+# conflicting monetary term for the SAME named role would silently never
+# challenge the first-found value. This mirrors _PARTY_SPECIFIC_EXCEPTION_RE
+# structurally but targets a monetary-only restatement rather than a
+# proviso, and is fed into the SAME existing "different monetary terms"
+# conflict check named obligations already go through — no new decision
+# state, no new mechanism, just visibility for an obligation that was
+# already there in the text.
+_RESTATEMENT_MONETARY_RE = re.compile(
+    r"(?-i:([A-Z][A-Za-z]{2,25}))(?:'s)?\s+indemnification\s+obligations?\s+shall\s+not\s+exceed\s*"
+    r"(?:(\d+(?:\.\d+)?)\s*(?:x|times)\s*(?:the\s+)?(?:total\s+|aggregate\s+)?(?:annual\s+)?fees?"
+    r"|\$\s*([\d,]+(?:\.\d{2})?))",
     re.I,
 )
 
@@ -385,6 +417,15 @@ def _classify_monetary(window: str, obligation_start: int) -> MonetaryTreatment:
     mult = _MONETARY_MULTIPLIER_RE.search(window)
     fixed = _MONETARY_FIXED_RE.search(window)
 
+    def _belongs_to_other_clause(m: "re.Match[str]") -> bool:
+        lo = max(0, m.start() - _MONETARY_DISQUALIFIER_PROXIMITY)
+        return bool(_MONETARY_OTHER_CLAUSE_DISQUALIFIER_RE.search(window[lo:m.start()]))
+
+    if mult is not None and _belongs_to_other_clause(mult):
+        mult = None
+    if fixed is not None and _belongs_to_other_clause(fixed):
+        fixed = None
+
     candidates = [c for c in (xref, unlimited, mult, fixed) if c is not None]
     if not candidates:
         return MonetaryTreatment(kind="not_stated")
@@ -531,6 +572,40 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             role_side_conflict_reasons=conflict_reasons,
         ))
         seen_spans.append((m.start(), m.end()))
+
+    # See _RESTATEMENT_MONETARY_RE: a same-role restatement using
+    # different phrasing than _OBLIGATION_RE requires. Only fires when it
+    # names a role already seen as a named obligation's indemnifying_role
+    # (never fabricates a new obligation direction from nothing) and
+    # states a genuinely different value — feeds into the existing
+    # multi-obligation conflict check via a synthetic same-direction
+    # obligation clone.
+    base_by_role = {o.indemnifying_role.lower(): o for o in obligations}
+    for rm in _RESTATEMENT_MONETARY_RE.finditer(text):
+        if any(abs(rm.start() - s) < 50 for s, _ in seen_spans):
+            continue
+        role = rm.group(1)
+        base = base_by_role.get(role.lower())
+        if base is None:
+            continue
+        if rm.group(2):
+            restated = MonetaryTreatment(kind="multiplier", multiplier=float(rm.group(2)), raw_excerpt=_excerpt(text, rm.start(), rm.end()))
+        else:
+            restated = MonetaryTreatment(kind="fixed", fixed_amount=float(rm.group(3).replace(",", "")), raw_excerpt=_excerpt(text, rm.start(), rm.end()))
+        if _monetary_key(restated) == _monetary_key(base.monetary):
+            continue  # same value restated — not a conflict, nothing to surface
+        obligations.append(IndemnityObligation(
+            indemnifying_role=base.indemnifying_role, indemnifying_side=base.indemnifying_side,
+            indemnified_role=base.indemnified_role, indemnified_side=base.indemnified_side,
+            trigger_treatments=base.trigger_treatments, scope=base.scope,
+            defense_control=base.defense_control, notice_required=base.notice_required,
+            cooperation_required=base.cooperation_required, monetary=restated,
+            raw_excerpt=_excerpt(text, rm.start(), rm.end()),
+            start_index=rm.start(), end_index=rm.end(),
+            section_label=_section_label_before(text, rm.start()),
+            role_side_conflict_reasons=base.role_side_conflict_reasons,
+        ))
+        seen_spans.append((rm.start(), rm.end()))
 
     for m in _MUTUAL_RECIPROCAL_RE.finditer(text):
         if any(abs(m.start() - s) < 50 for s, _ in seen_spans):

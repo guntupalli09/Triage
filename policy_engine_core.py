@@ -231,7 +231,11 @@ _DIRECTIONAL_BUY_EVIDENCE_RE = re.compile(
     r"|\breceiv(?:e|es|ing|ed)\s+(?:a|the)\s+license\b"
     r"|\breceiv(?:e|es|ing|ed)\s+(?:the\s+)?services?\s+from\b"
     r"|\bsubscrib(?:e|es|ing|ed)\b|\border(?:s|ing|ed)?\s+(?:the\s+)?(?:goods|services)\b"
-    r"|\bobtain(?:s|ing|ed)?\s+(?:the\s+)?services?\s+from\b|\bcustomer\s+of\b",
+    r"|\bobtain(?:s|ing|ed)?\s+(?:the\s+)?services?\s+from\b|\bcustomer\s+of\b"
+    r"|\bengag(?:e|es|ing|ed)\b.{0,25}?\bservices?\b"
+    r"|\bcommission(?:s|ing|ed)?\b|\bsourc(?:e|es|ing|ed)\s+(?:the\s+)?\w+\s+from\b"
+    r"|\bobtain(?:s|ing|ed)?\s+the\s+benefit\s+of\b|\bcompensat(?:e|es|ing|ed)\b"
+    r"|\bleas(?:e|es|ing|ed)\b.{0,30}?\bfrom\b",
     re.I,
 )
 _DIRECTIONAL_SELL_EVIDENCE_RE = re.compile(
@@ -241,12 +245,17 @@ _DIRECTIONAL_SELL_EVIDENCE_RE = re.compile(
     # "licenses the ..." / "licenses out ..." (the licensor actively
     # licensing something) counts as sell-side signal here; a licensor
     # granting TO someone is separately covered by "grant... license"
-    # below.
+    # below. "licenses the X FROM Y" is excluded via a negative lookahead
+    # below it — that phrasing is the BUYER receiving a license from a
+    # grantor, not the licensor's own conduct, even though it matches
+    # "licenses the" on its face.
     r"\bprovid(?:e|es|ing|ed)\b|\bdevelop(?:s|ing|ed)?\b|\bsell(?:s|ing)?\b|\bsold\b"
-    r"|\blicens(?:e|es|ing|ed)\s+(?:the|out)\b"
+    r"|\blicens(?:e|es|ing|ed)\s+(?:the|out)\b(?!.{0,30}?\bfrom\b)"
     r"|\bgrant(?:s|ing|ed)?\s+(?:a\s+|the\s+)?license\b|\bsuppl(?:y|ies|ying|ied)\b"
     r"|\bdeliver(?:s|ing|ed)?\b|\bfurnish(?:es|ing|ed)?\b"
-    r"|\bdeliver(?:s|ing|ed)?\s+services?\s+to\b|\bcreat(?:e|es|ing|ed)\b|\bmanufactur(?:e|es|ing|ed)\b",
+    r"|\bdeliver(?:s|ing|ed)?\s+services?\s+to\b|\bcreat(?:e|es|ing|ed)\b|\bmanufactur(?:e|es|ing|ed)\b"
+    r"|\brender(?:s|ing|ed)?\b.{0,35}?\bto\b|\bperform(?:s|ing|ed)?\b.{0,35}?\bfor\b"
+    r"|\bmak(?:e|es|ing)\b.{0,20}?\bavailable\s+to\b|\bleas(?:e|es|ing|ed)\b.{0,30}?\bto\b",
     re.I,
 )
 
@@ -288,10 +297,16 @@ _BROAD_DEFINITION_VERB_FRAGMENT = (
     r"|has\s+the\s+meaning\b)"
 )
 _BROAD_DEFINITION_QUOTED_RE_TEMPLATE = _ROLE_DEFINITION_QUOTE + "{role}" + _ROLE_DEFINITION_QUOTE + r"\s+" + _BROAD_DEFINITION_VERB_FRAGMENT
-_BROAD_DEFINITION_PREAMBLE_RE_TEMPLATE = _DEFINITIONAL_PREAMBLE_FRAGMENT + r"{role}\s+(?:is|are|shall\s+be)\b"
+_BROAD_DEFINITION_PREAMBLE_RE_TEMPLATE = (
+    _DEFINITIONAL_PREAMBLE_FRAGMENT + _ROLE_DEFINITION_QUOTE + "{role}" + _ROLE_DEFINITION_QUOTE
+    + r"\s+(?:is|are|shall\s+be)\b"
+)
 
 
-_REFERENCES_TO_RE_TEMPLATE = r"references?\s+to\s+{role}\s+(?:are|is|shall\s+be)\s+references?\s+to\b"
+_REFERENCES_TO_RE_TEMPLATE = (
+    r"references?\s+to\s+" + _ROLE_DEFINITION_QUOTE + "{role}" + _ROLE_DEFINITION_QUOTE
+    + r"\s+(?:are|is|shall\s+be)\s+references?\s+to\b"
+)
 
 
 def _has_broad_definition_signal(role: str, document_text: str) -> bool:
@@ -350,6 +365,36 @@ def _has_unrecognized_relational_content(definition_body: str, role: str) -> boo
     return False
 
 
+# A -ing verb form immediately preceded by a possessive ("Customer's
+# manufacturing capacity", "its purchasing power") is a nominalized/
+# adjectival gerund heading a noun phrase, not a verb describing the
+# discovered role's own conduct — the possessive's OWNER is the one
+# "doing" it grammatically, and here the owner is a bystander (a
+# different party's capacity/power/etc.), not the role being classified.
+# A plain "-ing" gerund with a direct object and no preceding possessive
+# ("the entity purchasing the Deliverables") is unaffected and still
+# counts, since that IS the role's own conduct.
+_POSSESSIVE_GERUND_GUARD_RE = re.compile(r"(?:'s|s')\s*$|\b(?:its|their|his|her|our|your)\s*$", re.I)
+_GERUND_MATCH_CHARS = 25
+# A verb match immediately followed by a passive-voice agent phrase
+# ("goods manufactured BY Seller") attributes the action to whatever
+# follows "by", not to the role whose definition body is being scanned —
+# same bystander principle as the possessive-gerund guard above, just for
+# passive voice instead of a nominalized gerund.
+_PASSIVE_AGENT_GUARD_RE = re.compile(r"^\s*by\b", re.I)
+_PASSIVE_AGENT_LOOKAHEAD_CHARS = 6
+
+
+def _is_bystander_verb_match(definition_body: str, match: "re.Match[str]") -> bool:
+    word = match.group(0)
+    if re.search(r"ing\b", word, re.I):
+        lookbehind = definition_body[max(0, match.start() - _GERUND_MATCH_CHARS):match.start()]
+        if _POSSESSIVE_GERUND_GUARD_RE.search(lookbehind):
+            return True
+    lookahead = definition_body[match.end():match.end() + _PASSIVE_AGENT_LOOKAHEAD_CHARS]
+    return bool(_PASSIVE_AGENT_GUARD_RE.search(lookahead))
+
+
 def _classify_directional_evidence(definition_body: str) -> Optional[str]:
     """Returns "buy_side", "sell_side", "mixed", or None (no directional
     evidence at all) from a discovered definition body — pure
@@ -357,8 +402,14 @@ def _classify_directional_evidence(definition_body: str) -> Optional[str]:
     resolved, when both vocabularies match: a definition using both
     purchasing and providing/selling language about the SAME role does
     not cleanly settle the question either way (see resolve_role_side)."""
-    has_buy = bool(_DIRECTIONAL_BUY_EVIDENCE_RE.search(definition_body))
-    has_sell = bool(_DIRECTIONAL_SELL_EVIDENCE_RE.search(definition_body))
+    has_buy = any(
+        not _is_bystander_verb_match(definition_body, m)
+        for m in _DIRECTIONAL_BUY_EVIDENCE_RE.finditer(definition_body)
+    )
+    has_sell = any(
+        not _is_bystander_verb_match(definition_body, m)
+        for m in _DIRECTIONAL_SELL_EVIDENCE_RE.finditer(definition_body)
+    )
     if has_buy and has_sell:
         return "mixed"
     if has_buy:
@@ -366,6 +417,38 @@ def _classify_directional_evidence(definition_body: str) -> Optional[str]:
     if has_sell:
         return "sell_side"
     return None
+
+
+# A definition body that is a BARE cross-reference to another quoted
+# defined term ("given to 'Purchaser' in Schedule A", "the meaning of
+# 'Buyer'") carries no directional verb of its own — _classify_directional_
+# evidence correctly returns None for it. Rather than treat that as
+# non-directional ("means Acme Corp, a Delaware corporation" — UNKNOWN,
+# safe to fall back), follow the ONE hop to the referenced term: if THAT
+# term is itself defined elsewhere in the document with real directional
+# evidence, that evidence genuinely describes the original role (they are
+# the same entity by definition) and is safe to use. If the referenced
+# term isn't found or is itself non-directional, this returns None and the
+# caller falls through to its existing UNKNOWN/escalation handling — no
+# multi-hop chasing beyond one level.
+_INDIRECT_DEFINITION_REF_RE = re.compile(
+    r"(?:given\s+to|meaning\s+of|same\s+meaning\s+as)\s+"
+    + _ROLE_DEFINITION_QUOTE + r"([A-Z][A-Za-z]{2,25})" + _ROLE_DEFINITION_QUOTE,
+    re.I,
+)
+
+
+def _resolve_indirect_definition_side(definition_body: str, role: str, document_text: str) -> Optional[str]:
+    im = _INDIRECT_DEFINITION_REF_RE.search(definition_body)
+    if not im:
+        return None
+    ref_role = im.group(1)
+    if ref_role.lower() == role.lower():
+        return None
+    ref_body = _find_role_definition_body(ref_role, document_text)
+    if not ref_body:
+        return None
+    return _classify_directional_evidence(ref_body)
 
 
 def resolve_role_side(role: str, document_text: str) -> Tuple[Optional[str], Optional[str]]:
@@ -411,6 +494,10 @@ def resolve_role_side(role: str, document_text: str) -> Tuple[Optional[str], Opt
         return generic_side, None  # NO_DOCUMENT_OVERRIDE
 
     definition_side = _classify_directional_evidence(definition_body)
+    if definition_side is None:
+        indirect_side = _resolve_indirect_definition_side(definition_body, role, document_text)
+        if indirect_side is not None:
+            definition_side = indirect_side
     if definition_side is None:
         if _has_unrecognized_relational_content(definition_body, role):
             # DOCUMENT_DEFINITION_UNRESOLVED: a definition was found and IS
