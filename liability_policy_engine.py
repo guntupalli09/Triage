@@ -63,8 +63,10 @@ from policy_engine_core import (
     classify_by_threshold, escalate_to_for_state, fallback_text_for_state,
     resolve_directional_position as _core_resolve_directional_position,
     resolve_role_side as _core_resolve_role_side,
+    side_for_role as _core_side_for_role,
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
+    trim_role_name,
 )
 
 RULE_ID = "POLICY_LOL_CAP"
@@ -383,6 +385,60 @@ _BASIS_VALUE_AMBIGUITY_RE = re.compile(
     re.I,
 )
 
+# Step 4A.7.1 remediation (A6-L-52) — a single-provision cap sentence can
+# name BOTH the obligor and the beneficiary directly ("Grantee's aggregate
+# liability to Grantor shall not exceed..."). Unlike indemnification, this
+# adapter's cap-resolution path has no role-attribution awareness at all
+# for a bare single-cap sentence — the cap VALUE is trusted regardless of
+# whether either named role can actually be identified. When NEITHER role
+# resolves to a side via the generic vocabulary NOR via a document-specific
+# definition (resolve_role_side returns (None, None) for both — genuinely
+# unmapped, not merely a detected conflict, which is a separate, already-
+# escalated case), role identity cannot be confirmed, and if it could
+# matter for interpreting the clause, the cap must not resolve silently.
+# See benchmarks/step4a7_2_role_attribution_benchmark.py for the positive
+# controls (ordinary Buyer/Seller/Vendor/Client/Licensor/Licensee names,
+# and names with a document-specific but resolvable definition) this must
+# NOT fire on.
+_CAP_SENTENCE_ROLE_PAIR_RE = re.compile(
+    r"(?-i:([A-Z][A-Za-z]{2,25}))(?:'s)?\s+(?i:aggregate\s+|maximum\s+)?liability\s+to\s+"
+    r"(?-i:([A-Z][A-Za-z]{2,25}))\s+"
+    r"(?i:shall\s+not\s+exceed|is\s+(?:capped|limited)\s+(?:at|to)|shall\s+be\s+(?:capped|limited)\s+(?:at|to))",
+)
+
+
+def _unmapped_cap_role_pair_reason(window: str, document_text: str) -> Optional[str]:
+    m = _CAP_SENTENCE_ROLE_PAIR_RE.search(window)
+    if not m:
+        return None
+    role1, role2 = trim_role_name(m.group(1)), trim_role_name(m.group(2))
+    if role1.lower() in _GENERIC_ROLE_STOPWORDS or role2.lower() in _GENERIC_ROLE_STOPWORDS:
+        return None
+    # Deliberately checks ONLY the bare generic-vocabulary mapping
+    # (side_for_role), not the fuller resolve_role_side (which also
+    # inspects the document's own definition text for directional
+    # evidence). Validation found that document-definition-based conflict
+    # detection, while correct for indemnification's bidirectional
+    # architecture, produces false positives here on elaborate-but-
+    # harmless entity descriptions (cooperative/d/b/a boilerplate,
+    # successor-entity language) that were never meant to carry
+    # directional evidence in the first place — see A6-L-59 in
+    # benchmarks/step4a7_2_role_attribution_benchmark.py, a permanent
+    # regression case for exactly this. The narrower, bare-vocabulary
+    # check still catches A6-L-52 (neither "Grantee" nor "Grantor" has
+    # ANY generic mapping at all) without that false-positive path.
+    side1 = _core_side_for_role(role1)
+    side2 = _core_side_for_role(role2)
+    if side1 is None and side2 is None:
+        return (
+            f"neither '{role1}' nor '{role2}' maps to recognized buy-side/sell-side vocabulary — "
+            f"cannot confirm whose liability this cap actually governs"
+        )
+    return None
+
+
+_GENERIC_ROLE_STOPWORDS = {"each", "the", "any", "such", "this", "that", "both", "either", "all", "party", "parties"}
+
 # Step 4A.7.1 (A6-RB-07) — a multiplier can be cleanly extracted while
 # its BASIS (what the multiplier applies to) is itself delegated through
 # a chain of cross-references ending in a document not included in this
@@ -514,6 +570,22 @@ class CapExpression:
     raw_excerpt: str = ""
     start_index: int = 0
     end_index: int = 0
+    # Step 4A.7.1 remediation (A6-L-52) — populated at EXTRACTION time
+    # (policy-independent, since extraction must not depend on policy
+    # config) whenever the cap sentence names both an obligor and a
+    # beneficiary role ("[Role1]'s liability to [Role2] shall not
+    # exceed...") and at least one of them cannot be confirmed to either
+    # side. Only CONSUMED at policy-evaluation time, and only when
+    # policy.contract_side != "mutual" — a single-provision cap whose
+    # value doesn't depend on which named party is "us" (contract_side
+    # mutual) has no reason to escalate over an unresolved role pair, and
+    # doing so anyway was found, during validation, to introduce new
+    # false escalations on ordinary role-definition drafting (elaborate
+    # but harmless corporate-family/successor definitions using role
+    # nouns like "Processor"/"Merchant"/"Operator"/"Tenant" that are
+    # legitimate business terms simply absent from the generic buy/sell
+    # vocabulary, not evidence of anything unresolved).
+    unmapped_role_pair_reason: Optional[str] = None
 
     def effective_cap(self) -> Tuple[Optional[CapValue], Optional[str]]:
         """Returns (CapValue to compare against a policy threshold, reason)
@@ -1328,6 +1400,8 @@ def _extract_provision(text: str, anchor_start: int, index: int) -> Provision:
         cat: _classify_category(window, cat, all_cat_positions, exclusion_coverage) for cat in CATEGORIES
     }
     general_cap_expr = _classify_general_cap_expression(window, category_treatments)
+    if general_cap_expr.structure != "unresolved" and general_cap_expr.components:
+        general_cap_expr.unmapped_role_pair_reason = _unmapped_cap_role_pair_reason(window, text)
     consequential_excluded, consequential_established, carveouts = _classify_consequential_damages(window)
     party_positions = _find_party_positions(window, document_text=text)
 
@@ -1631,6 +1705,15 @@ def evaluate_liability_policy(
     }
     required_exceptions = list(policy.required_exceptions_json or [])
     unresolved_facts: List[str] = []
+
+    # Step 4A.7.1 remediation (A6-L-52) — only relevant when the policy
+    # actually needs to know which named party is "us" (see the
+    # CapExpression.unmapped_role_pair_reason docstring for why this is
+    # gated on contract_side rather than firing unconditionally).
+    if policy.contract_side != "mutual" and provision.general_cap_expression.unmapped_role_pair_reason:
+        unresolved_facts.append(
+            f"role attribution ({provision.general_cap_expression.unmapped_role_pair_reason})"
+        )
 
     # Directional resolution — only engages when 2+ distinct role positions exist.
     directional_cap_expr, our_position, counterparty_position, directional_reason = _resolve_directional_position(

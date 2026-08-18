@@ -515,8 +515,8 @@
     "tier": 3,
     "family": "grammatical_subject",
     "label": "SHOULD_REVIEW",
-    "actual": "ACCEPT",
-    "outcome": "WC",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
     "expected": "REQUIRES_REVIEW (generic mapping for 'Grantee'/'Grantor' may not exist, and no directional verb is recognized)"
   },
   {

@@ -459,9 +459,9 @@ EXPECTED_RESULT: ACCEPT
 REASON: A deliberate CONTROL case within the grammatical-subject family: no ambiguity exists at all, testing that the system does not over-apply subject-tracking caution to genuinely simple sentences.
 
 === A6-L-52 [liability/tier3/grammatical_subject] label=SHOULD_REVIEW ===
-STATE: ACCEPT
-extracted_summary: '1x Recurring Payment'
-unresolved_facts: []
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["role attribution (neither 'Grantee' nor 'Grantor' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs)"]
 our_position: None
 CONCEPT: a single passive-voice sentence defines BOTH roles simultaneously via 'to whom'/'by whom' relative pronouns with no independent recognized buy/sell verb at all
 EXPECTED_RESULT: REQUIRES_REVIEW (generic mapping for 'Grantee'/'Grantor' may not exist, and no directional verb is recognized)
