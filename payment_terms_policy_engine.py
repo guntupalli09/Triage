@@ -133,16 +133,96 @@ _STATUTORY_MAX_RE = re.compile(r"maximum\s+rate\s+permitted\s+by\s+(?:applicable
 # vs. American/colloquial "offset"), not a case-specific addition. Every
 # set-off pattern below recognizes both spellings.
 _SETOFF_TERM_FRAGMENT = r"(?:set[\s-]?off|offset)"
-_SETOFF_PERMIT_RE = re.compile(r"(?:may|right\s+to|entitled\s+to)\s+" + _SETOFF_TERM_FRAGMENT, re.I)
+_SETOFF_PERMIT_RE = re.compile(
+    r"(?:(?<!not\s)(?<!not\shave\s)(?<!not\shave\sany\s)right\s+(?:to|of)|may|entitled\s+to)\s+" + _SETOFF_TERM_FRAGMENT,
+    re.I,
+)
 _SETOFF_PROHIBIT_RE = re.compile(
     r"shall\s+not\s+" + _SETOFF_TERM_FRAGMENT
-    + r"|no\s+right\s+(?:of|to)\s+" + _SETOFF_TERM_FRAGMENT
-    + r"|without\s+(?:any\s+)?(?:right\s+of\s+)?" + _SETOFF_TERM_FRAGMENT,
+    # "right of deduction, counterclaim, or set-off" — an enumerated list
+    # between "right of" and the set-off term must not break the match;
+    # up to 3 intervening list items (", word"), each optionally preceded
+    # by "or", is tolerated. Covers both "no right of X" and "shall not
+    # have any right of X" framings.
+    + r"|(?:no|shall\s+not\s+have\s+(?:any\s+)?)\s*right\s+(?:of|to)\s+(?:[\w-]+,\s*){0,3}(?:or\s+)?" + _SETOFF_TERM_FRAGMENT
+    + r"|without\s+(?:any\s+)?(?:right\s+of\s+)?(?:[\w-]+,\s*){0,3}(?:or\s+)?" + _SETOFF_TERM_FRAGMENT,
     re.I,
 )
 _UNILATERAL_DEDUCTION_RE = re.compile(
     r"unilaterally\s+deduct|deduct[^.]{0,30}?without\s+(?:prior\s+)?(?:written\s+)?(?:consent|approval)", re.I,
 )
+
+# Step 4A.5 — Priority 1 (SM-CRITICAL fix). The legal concept behind
+# "set-off"/"offset" is mutual-debt netting: one party satisfies (or is
+# barred from satisfying) an amount it owes by reference to an amount the
+# OTHER party owes it — however that's phrased ("withhold", "deduct",
+# "reduce", "net", "retain", "recoup", "debit", "apply as a credit", ...).
+# The Step 4A.4 held-out corpus (A4-K-07) demonstrated this concept
+# silently disappearing — NOT_APPLICABLE — when drafted without the
+# literal words "set-off"/"offset". Recognizing the WORD is not the same
+# as recognizing the CONCEPT.
+#
+# The two-part test below requires BOTH:
+#   (1) a satisfaction/reduction verb governing a payment-shaped object
+#       ("amount", "sum", "payment", "invoice", "royalt(y/ies)",
+#       "commission", "fee(s)", "rent", "freight", "hire", "charge(s)"),
+#   (2) an explicit "owe(s)/owed/owing" reference elsewhere in the same
+#       sentence — the deterministic signal that a SECOND, counterparty-
+#       held debt is what justifies the reduction.
+# "Due"/"payable" alone (part 1's own object) is NOT itself sufficient for
+# part 2 — every ordinary invoice is "due" or "payable"; only "owe(s)/
+# owed/owing" reliably signals a debt attributed to a specific party
+# rather than an ordinary payment obligation. This is why plain tax
+# withholding ("shall be responsible for... withholding taxes"), service
+# credits, refunds, rebates, billing corrections, and accounting net
+# presentation do not match: none of them describe an amount the RECIPIENT
+# of a payment owes the payor — see benchmarks/setoff_concept_benchmark.py
+# for the 30 negative controls this was validated against, including
+# "withhold DELIVERY pending payment" (a performance-leverage right, not a
+# payment-netting right) and "retain its OWN commission" (compensation,
+# not netting against a debt owed BY the other party).
+_DEBT_SATISFACTION_VERB_RE = re.compile(
+    r"\b(?:withhold\w*|deduct\w*|reduc\w*|net(?:s|ted|ting)?|retain\w*|recoup\w*|debit\w*"
+    r"|apply|applying|applied|credit(?:ing|ed)?)\b",
+    re.I,
+)
+_PAYMENT_OBJECT_FRAGMENT = (
+    r"(?:amounts?|sums?|payments?|invoices?|royalt(?:y|ies)|commissions?|fees?|rent|freight|hire|charges?)"
+)
+_DEBT_SATISFACTION_ACTION_RE = re.compile(
+    _DEBT_SATISFACTION_VERB_RE.pattern + r"[^.;]{0,80}?" + _PAYMENT_OBJECT_FRAGMENT,
+    re.I,
+)
+_COUNTERPARTY_OWES_RE = re.compile(r"\bowe[sd]?\b|\bowing\b", re.I)
+_DEBT_SATISFACTION_LOCAL_CHARS = 150
+
+
+_MUTUAL_DEBT_NEGATION_RE = re.compile(
+    r"shall\s+not\s+(?:have\s+(?:any\s+)?right|be\s+entitled)|no\s+right|without\s+(?:any\s+)?right"
+    r"|shall\s+not\s+" + _DEBT_SATISFACTION_VERB_RE.pattern,
+    re.I,
+)
+
+
+def _find_mutual_debt_netting_span(text: str) -> Optional[Tuple[int, int]]:
+    """Returns the (start, end) span of the first payment-reduction
+    action (withhold/deduct/reduce/net/retain/recoup/debit/apply-as-
+    credit, governing a payment-shaped object) that has an explicit
+    "owe(s)/owed/owing" reference within a bounded local window of it —
+    scoped locally (not whole-window) so an unrelated "owe" elsewhere in
+    a large provision window can't combine with an unrelated deduction
+    verb elsewhere in the same window to produce a false match. None if
+    no such pairing exists."""
+    for m in _DEBT_SATISFACTION_ACTION_RE.finditer(text):
+        lo = max(0, m.start() - _DEBT_SATISFACTION_LOCAL_CHARS)
+        hi = min(len(text), m.end() + _DEBT_SATISFACTION_LOCAL_CHARS)
+        if _COUNTERPARTY_OWES_RE.search(text[lo:hi]):
+            return m.start(), m.end()
+    return None
+
+
+def _has_mutual_debt_netting(text: str) -> bool:
+    return _find_mutual_debt_netting_span(text) is not None
 
 # --- Pricing --------------------------------------------------------------------------
 _FIXED_PRICE_RE = re.compile(r"(?:prices?|fees?)\s+(?:shall\s+be\s+|are\s+)?fixed|fixed[\s-](?:price|fee)", re.I)
@@ -376,7 +456,7 @@ def _annualize_late_fee(rate: float, period: Optional[str]) -> float:
 # concept-specific surrounding language are used as engagement signals.
 _CONCEPT_ENGAGEMENT_RES = [
     _TAX_RESPONSIBILITY_RE, _TAX_RESPONSIBILITY_TOPIC_RE, _WITHHOLDING_TAX_RE,
-    _SETOFF_PERMIT_RE, _SETOFF_PROHIBIT_RE, _UNILATERAL_DEDUCTION_RE,
+    _SETOFF_PERMIT_RE, _SETOFF_PROHIBIT_RE, _UNILATERAL_DEDUCTION_RE, _DEBT_SATISFACTION_ACTION_RE,
     _DISPUTE_RIGHT_RE, _UNDISPUTED_PAYABLE_RE, _DISPUTED_WITHHOLD_RE, _DISPUTED_NO_WITHHOLD_RE,
     _LATE_FEE_MONTHLY_RE, _LATE_FEE_ANNUAL_RE, _STATUTORY_MAX_RE,
     _PRICE_INCREASE_RIGHT_RE, _PRICE_INCREASE_UNILATERAL_RE, _FIXED_PRICE_RE,
@@ -495,6 +575,18 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
             facts.setoff_permitted = True
         elif _SETOFF_PROHIBIT_RE.search(window):
             facts.setoff_permitted = False
+        else:
+            netting_span = _find_mutual_debt_netting_span(window)
+            if netting_span is not None:
+                # Step 4A.5: the mutual-debt-netting concept is present
+                # but phrased without "set-off"/"offset" — a negation cue
+                # ("shall not", "no right", "without any right") found
+                # near the SAME match (not merely anywhere in a large
+                # provision window) still controls; otherwise this is a
+                # permitted mutual-debt-netting right.
+                lo = max(0, netting_span[0] - _DEBT_SATISFACTION_LOCAL_CHARS)
+                hi = min(len(window), netting_span[1] + _DEBT_SATISFACTION_LOCAL_CHARS)
+                facts.setoff_permitted = not bool(_MUTUAL_DEBT_NEGATION_RE.search(window[lo:hi]))
         if _UNILATERAL_DEDUCTION_RE.search(window):
             facts.unilateral_deduction_permitted = True
 

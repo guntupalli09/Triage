@@ -112,6 +112,7 @@ def side_for_role(role: str) -> Optional[str]:
 # Quote characters (straight or curly) around a role/defined-term are
 # optional so both "'Vendor' means" and "Vendor means" are recognized.
 _ROLE_DEFINITION_QUOTE = r"[‘’'\"]?"
+_CROSS_SENTENCE_EXTENSION_CHARS = 400
 
 # A. DISCOVERY — definitional predicates. Each is a deterministic,
 # grammatically explicit "this word IS a definition" signal — not an
@@ -136,6 +137,37 @@ _DEFINITION_PREDICATE_FRAGMENT = (
 )
 _DEFINITION_PREDICATE_RE = re.compile(_DEFINITION_PREDICATE_FRAGMENT, re.I)
 
+# Step 4A.5 — a second (or later) definition of the same role is sometimes
+# scoped to a particular section rather than stated plainly ("'Grower,'
+# solely for purposes of Section 14 (Equipment Financing), means..."),
+# putting a qualifier clause between the role name and its predicate that
+# the plain anchor (role immediately followed by predicate) does not
+# match. This is deliberately bounded to an explicit "for purposes of ..."
+# scoping phrase — the same family already recognized as a definitional
+# preamble elsewhere — not a generic "any words in between" allowance.
+_SCOPED_QUALIFIER_FRAGMENT = r"(?:,?\s*(?:solely\s+)?for\s+purposes\s+of\s+[^,]{0,60},?\s*)?"
+
+# Step 4A.5 — self-referential, externally-conditioned identity: a
+# definition can make the role's actual identity depend on an external
+# document not present in the text ("means the party identified as such
+# in the Order Form"), with a fallback that could resolve to EITHER named
+# party ("if the Order Form is silent, means Tenant Operator; if the
+# Order Form so specifies, means the party OTHER THAN Tenant Operator").
+# "the party other than <name>" is a generic, deterministic drafting
+# construction for "whichever party that isn't" — its mere presence in a
+# role's own definition means the role's identity is not fixed by the
+# text at all, regardless of what directional vocabulary happens to
+# appear nearby, and must never be resolved by picking one interpretation.
+_PARTY_OTHER_THAN_RE = re.compile(r"the\s+party\s+other\s+than\b", re.I)
+
+
+def _role_definition_anchor_re(role: str) -> "re.Pattern[str]":
+    return re.compile(
+        _ROLE_DEFINITION_QUOTE + re.escape(role) + r",?" + _ROLE_DEFINITION_QUOTE + r",?"
+        + r"\s*" + _SCOPED_QUALIFIER_FRAGMENT + r"\s*" + _DEFINITION_PREDICATE_FRAGMENT,
+        re.I,
+    )
+
 
 def _find_role_definition_body(role: str, document_text: str) -> Optional[str]:
     """Returns the defining sentence's body text (up to ~300 chars, or a
@@ -148,14 +180,33 @@ def _find_role_definition_body(role: str, document_text: str) -> Optional[str]:
     This function answers ONLY "was a definition found, and what is its
     body" — it makes no judgment about transactional direction. See
     _classify_directional_evidence for that separate question."""
-    anchor_re = re.compile(
-        _ROLE_DEFINITION_QUOTE + re.escape(role) + _ROLE_DEFINITION_QUOTE
-        + r"\s+" + _DEFINITION_PREDICATE_FRAGMENT,
-        re.I,
-    )
+    anchor_re = _role_definition_anchor_re(role)
     m = anchor_re.search(document_text)
     if not m:
         return None
+    return _extract_definition_body_at(role, document_text, m)
+
+
+def _find_all_role_definition_bodies(role: str, document_text: str) -> List[str]:
+    """Like _find_role_definition_body, but returns the body of EVERY
+    definitional anchor for `role` found in the document, not just the
+    first. Real drafting sometimes defines the same role twice with
+    different scope ("'Grower' means X. 'Grower,' solely for purposes of
+    Section 14, means Y.") — a caller that only ever looks at the first
+    definition would silently miss that the second, differently-scoped
+    definition points the opposite transactional direction. Used by
+    resolve_role_side to detect that specific conflict; single-body
+    callers are unaffected."""
+    anchor_re = _role_definition_anchor_re(role)
+    bodies = []
+    for m in anchor_re.finditer(document_text):
+        body = _extract_definition_body_at(role, document_text, m)
+        if body:
+            bodies.append(body)
+    return bodies
+
+
+def _extract_definition_body_at(role: str, document_text: str, m: "re.Match[str]") -> Optional[str]:
     forward = document_text[m.end():min(len(document_text), m.end() + 300)]
     # Prefer a structural boundary over the fixed 300-char cap: a
     # sentence/clause boundary, or the start of the NEXT role's own
@@ -199,6 +250,30 @@ def _find_role_definition_body(role: str, document_text: str) -> Optional[str]:
                 next_boundary = re.search(r"\.\s|\.$|;", remainder[am.end():])
                 extra_end = am.end() + (next_boundary.start() if next_boundary else len(remainder) - am.end())
                 body = body + ". " + remainder[:extra_end]
+
+    # Step 4A.5 — broader cross-sentence extension: a definitional
+    # sentence can be purely descriptive ("means the party responsible
+    # for performing the work described in Exhibit B") or a bare alias
+    # repeated as the next sentence's own subject ("'Staffing Agency'
+    # refers to Beta LLC. Staffing Agency is in the business of
+    # supplying..."), with the actual directional evidence appearing in
+    # a LATER sentence that mentions the role's own name again (as
+    # subject or object). The alias-specific extension above only covers
+    # a short 1-4-word alias body with no verb at all; this covers the
+    # general case: whenever the body found so far carries no recognized
+    # buy/sell evidence, extend forward (bounded) to the next sentence
+    # that mentions the role's OWN name again and fold it in. Anchoring
+    # to a literal re-mention of the role (not just "the next sentence")
+    # is what makes this safe — an unrelated following sentence that
+    # never names the role again is left alone.
+    if body and _classify_directional_evidence(body) is None:
+        tail_start = m.end() + len(body)
+        tail = document_text[tail_start:min(len(document_text), tail_start + _CROSS_SENTENCE_EXTENSION_CHARS)]
+        role_mention = re.search(_ROLE_DEFINITION_QUOTE + re.escape(role) + _ROLE_DEFINITION_QUOTE, tail, re.I)
+        if role_mention:
+            sentence_end = re.search(r"\.\s|\.$|;", tail[role_mention.end():])
+            extra_end = role_mention.end() + (sentence_end.start() if sentence_end else len(tail) - role_mention.end())
+            body = body + ". " + tail[:extra_end]
     return body
 
 
@@ -249,7 +324,7 @@ _DIRECTIONAL_SELL_EVIDENCE_RE = re.compile(
     # below it — that phrasing is the BUYER receiving a license from a
     # grantor, not the licensor's own conduct, even though it matches
     # "licenses the" on its face.
-    r"\bprovid(?:e|es|ing|ed)\b|\bdevelop(?:s|ing|ed)?\b|\bsell(?:s|ing)?\b|\bsold\b"
+    r"\bprovid(?:e|es|ing|ed)\b|\bdevelop(?:s|ing|ed)?\b|\b(?:re)?sell(?:s|ing)?\b|\b(?:re)?sold\b"
     r"|\blicens(?:e|es|ing|ed)\s+(?:the|out)\b(?!.{0,30}?\bfrom\b)"
     r"|\bgrant(?:s|ing|ed)?\s+(?:a\s+|the\s+)?license\b|\bsuppl(?:y|ies|ying|ied)\b"
     r"|\bdeliver(?:s|ing|ed)?\b|\bfurnish(?:es|ing|ed)?\b"
@@ -479,6 +554,34 @@ def resolve_role_side(role: str, document_text: str) -> Tuple[Optional[str], Opt
         unresolved/REQUIRES_REVIEW instead.
     """
     generic_side = side_for_role(role)
+
+    # Step 4A.5 — multiple, differently-scoped definitions: some drafting
+    # defines the same role twice, once generally and once with a scope
+    # qualifier ("'Grower' means X. 'Grower,' solely for purposes of
+    # Section 14, means Y."). Looking at only the first definition would
+    # silently miss that a later, differently-scoped definition points
+    # the opposite transactional direction. If two or more definitions
+    # exist with directional evidence and they disagree, this is a
+    # genuine, deterministically-detectable conflict — never guess which
+    # scope governs the clause being evaluated.
+    all_bodies = _find_all_role_definition_bodies(role, document_text)
+    if any(_PARTY_OTHER_THAN_RE.search(b) for b in all_bodies):
+        return None, (
+            f"the document's own definition of '{role}' makes its identity depend on which party is "
+            f"NOT some other named party (\"the party other than ...\") — '{role}''s actual identity "
+            f"cannot be determined from the text alone"
+        )
+    distinct_sides = {
+        s for s in (_classify_directional_evidence(b) for b in all_bodies)
+        if s is not None
+    }
+    if len(distinct_sides) > 1:
+        return None, (
+            f"the document contains multiple definitions of '{role}' with conflicting directional "
+            f"evidence (one or more scoped to a specific section) — cannot determine which definition "
+            f"governs the clause being evaluated"
+        )
+
     definition_body = _find_role_definition_body(role, document_text)
     if not definition_body:
         if _has_broad_definition_signal(role, document_text):
@@ -617,6 +720,34 @@ def requires_review_required_action(unresolved_facts: List[str]) -> str:
 # Termination's pre-promotion implementations.
 # ---------------------------------------------------------------------------
 
+# Step 4A.5 — a multi-word role-name capture ("[A-Z]\w+(?:\s+[A-Z]\w+){0,2}")
+# is necessary to stop truncating real multi-word entity/role names ("Host
+# Facility", "Home Health Agency"), but in ALL-CAPS text (a formatting
+# mutation both frozen corpora exercise) every word is capitalized, so the
+# same fragment can over-capture trailing connector words ("CUSTOMER FROM
+# AND"). This trims common non-role connector words a capitalized role
+# name would never legitimately end with, from the right end only —
+# it does not change what counts as a valid role name, only strips
+# grammatical filler a greedy multi-word match pulled in by accident.
+_ROLE_NAME_TRAILING_STOPWORDS = frozenset({
+    "from", "and", "or", "the", "this", "that", "which", "who", "shall",
+    "will", "to", "of", "for", "under", "against", "in", "on", "at", "by",
+    "with", "its", "their",
+})
+
+
+def trim_role_name(raw: str) -> str:
+    """Strips trailing connector words a greedy multi-word role-name
+    capture pulled in (see _ROLE_NAME_TRAILING_STOPWORDS) — used
+    wherever a role/entity name is captured via a multi-word capitalized
+    fragment, so ordinary text following the real name (especially in
+    ALL-CAPS formatting mutations) doesn't get treated as part of it."""
+    words = raw.split()
+    while len(words) > 1 and words[-1].lower() in _ROLE_NAME_TRAILING_STOPWORDS:
+        words.pop()
+    return " ".join(words)
+
+
 def detect_role_attributed_asymmetry(
     window: str,
     attribution_re: Pattern[str],
@@ -638,13 +769,13 @@ def detect_role_attributed_asymmetry(
     role's snapshot against every other role's snapshot pairwise and
     returns zero or more reason strings for that pair.
     """
-    matches = [m for m in attribution_re.finditer(window) if m.group(1).lower() not in generic_role_words]
+    matches = [m for m in attribution_re.finditer(window) if trim_role_name(m.group(1)).lower() not in generic_role_words]
     if len(matches) < 2:
         return []
 
     snapshots: Dict[str, Dict[str, Any]] = {}
     for i, m in enumerate(matches):
-        role = m.group(1)
+        role = trim_role_name(m.group(1))
         if role in snapshots:
             continue  # first mention of a role governs
         next_start = matches[i + 1].start() if i + 1 < len(matches) else len(window)

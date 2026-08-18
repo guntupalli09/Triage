@@ -53,6 +53,7 @@ from policy_engine_core import (
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
     detect_role_attributed_asymmetry,
+    trim_role_name,
 )
 
 RULE_ID = "POLICY_INDEMNIFICATION"
@@ -75,6 +76,18 @@ _TRIGGER_KEYWORD_RE = {
     # register as a bare "negligence" match at a different span.
     "negligence": re.compile(r"\bnegligence\b(?!\s*(?:,|and|or)?\s*gross)", re.I),
 }
+
+# Step 4A.5 — multi-word role/entity names ("Host Facility", "Home Health
+# Agency", "Underwriting Agent", "Import Broker") were being truncated to
+# their LAST word by every role-name capturing group in this file, which
+# only ever captured a single capitalized token. This shared fragment
+# captures 1-3 consecutive capitalized words (bounded to avoid swallowing
+# an entire capitalized sentence-opening run) — the same structural
+# pattern already used for single-word roles, generalized. A generic verb
+# ("Shall", "The", "This"...) beginning the NEXT clause is lowercase in
+# real drafting text and won't extend the match; this is not tied to any
+# specific role name.
+_MULTIWORD_ROLE_NAME_FRAGMENT = r"[A-Z][A-Za-z]{1,25}(?:\s+[A-Z][A-Za-z]{1,25}){0,2}"
 
 _ANCHOR_RE = re.compile(r"indemnif\w*", re.I)
 # An explicit, document-wide statement that no indemnification obligation
@@ -99,10 +112,10 @@ _OBLIGATION_RE = re.compile(
     # "party"/"the" out of "Each party shall indemnify ... the other
     # party." The verb phrase alone is wrapped in a scoped (?i:...) so
     # "Shall"/"SHALL"/"shall" all still match.
-    r"([A-Z][A-Za-z]{2,25})(?:\s*\([^)]{0,40}\))?\s+(?i:shall|will|agrees to)\s+"
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")(?:\s*\([^)]{0,40}\))?\s+(?i:shall|will|agrees to)\s+"
     r"(?i:defend,?\s*(?:and\s+)?indemnify|indemnify,?\s*(?:and\s+)?defend|indemnify)"
     r"(?i:,?\s*(?:and\s+)?(?:defend\s+and\s+)?hold\s+harmless)?\s+"
-    r"([A-Z][A-Za-z]{2,25})\b"
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\b"
 )
 _MUTUAL_RECIPROCAL_RE = re.compile(
     r"each\s+party\s+shall\s+indemnify(?:,?\s*defend,?)?(?:\s+and\s+hold\s+harmless)?\s+the\s+other(?:\s+party)?"
@@ -178,6 +191,7 @@ _MONETARY_OTHER_CLAUSE_DISQUALIFIER_RE = re.compile(
     re.I,
 )
 _MONETARY_DISQUALIFIER_PROXIMITY = 40
+_SECTION_REF_NEAR_RE = re.compile(r"Section\s+\d+(?:\.\d+)?", re.I)
 
 # A restatement elsewhere in the document ("Vendor's indemnification
 # obligations shall not exceed 2 times the fees paid") that doesn't use
@@ -191,7 +205,7 @@ _MONETARY_DISQUALIFIER_PROXIMITY = 40
 # state, no new mechanism, just visibility for an obligation that was
 # already there in the text.
 _RESTATEMENT_MONETARY_RE = re.compile(
-    r"(?-i:([A-Z][A-Za-z]{2,25}))(?:'s)?\s+indemnification\s+obligations?\s+shall\s+not\s+exceed\s*"
+    r"(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))(?:'s)?\s+indemnification\s+obligations?\s+shall\s+not\s+exceed\s*"
     r"(?:(\d+(?:\.\d+)?)\s*(?:x|times)\s*(?:the\s+)?(?:total\s+|aggregate\s+)?(?:annual\s+)?fees?"
     r"|\$\s*([\d,]+(?:\.\d{2})?))",
     re.I,
@@ -206,7 +220,7 @@ _RESTATEMENT_MONETARY_RE = re.compile(
 # sensitive within the overall re.I compile via (?-i:...), the same
 # re.I-over-[A-Z] hazard already fixed elsewhere in this file.
 _ROLE_ATTRIBUTION_RE = re.compile(
-    r"(?-i:([A-Z][A-Za-z]{2,25}))(?:'s)?\s+(?i:indemnification\s+)?(?i:obligations?)\s+"
+    r"(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))(?:'s)?\s+(?i:indemnification\s+)?(?i:obligations?)\s+"
     r"(?i:under\s+this\s+(?:Section|Agreement)\s+)?",
     re.I,
 )
@@ -224,11 +238,101 @@ _GENERIC_ROLE_WORDS = {
 # ONE role, comparing against the window's own general (reciprocal) terms
 # rather than a second named party, so it needs its own narrow detector.
 _PARTY_SPECIFIC_EXCEPTION_RE = re.compile(
-    r"(?:except|provided)\s+that\s+(?-i:([A-Z][A-Za-z]{2,25}))(?:'s)?\s+"
+    r"(?:except|provided)\s+that\s+(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))(?:'s)?\s+"
     r"(?i:cap|liability|indemnification|obligations?|responsibility)\b",
     re.I,
 )
 _BROAD_BENEFICIARY_RE = re.compile(r"affiliates|officers|directors|employees|agents", re.I)
+
+# Step 4A.5 — Failure Family: a reciprocal opener can be qualified by
+# PROCEDURAL (not monetary/trigger/scope) terms stated separately for two
+# different named parties — a survival period, a notice precondition, a
+# defense-control grant, or a temporal carve-out — none of which
+# _snapshot_indemnity_attribution's monetary/trigger/scope/defense-control/
+# beneficiary comparison tracks, and none of which _PARTY_SPECIFIC_
+# EXCEPTION_RE's single-named-party-vs-general-terms shape catches when
+# BOTH sides are named individually rather than one side being compared to
+# an unnamed "general" baseline. The general invariant: when a clause
+# names two or more DISTINCT parties (not the "each party"/"the other
+# party" reciprocal placeholders) each attached to their OWN procedural
+# grant/exclusion, the opener's claim of symmetry cannot be verified —
+# regardless of which specific procedural concept (survival, notice,
+# defense control, temporal scope) is used, since new procedural concepts
+# will keep appearing and must not each need their own dedicated pattern.
+_PROCEDURAL_ROLE_CUE_RE = re.compile(
+    r"(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))(?:'s)?\s+(?:indemnification\s+)?obligations?\s+"
+    r"(?:under\s+this\s+(?:Section|Agreement)\s+)?shall\s+"
+    r"(?i:not\s+apply|survive|additionally\s+require)"
+    r"|(?i:the\s+)?(?i:indemnification\s+)?obligations?\s+of\s+(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))\s+"
+    r"(?:under\s+this\s+(?:Section|Agreement)\s+)?shall\s+(?i:not\s+apply|survive|additionally\s+require)"
+    r"|(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))\s+shall\s+(?i:control\s+the\s+defense)",
+    re.I,
+)
+_PROCEDURAL_EXCLUDED_ROLE_RE = re.compile(
+    r"\(\s*but\s+not\s+(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))\s*\)"
+    r"|does\s+not\s+apply\s+to\s+claims?\s+(?:asserted\s+against|against)\s+(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))",
+    re.I,
+)
+_SURVIVAL_PERIOD_RE = re.compile(r"(?:for\s+)?(\w+)\s*\(?\d*\)?\s+(years?|months?)\b", re.I)
+_SURVIVAL_WORD_NUMBERS = {
+    "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
+    "seven": 7, "eight": 8, "nine": 9, "ten": 10,
+}
+
+
+def _survival_period_value(local: str) -> Optional[Tuple[float, str]]:
+    m = _SURVIVAL_PERIOD_RE.search(local)
+    if not m:
+        return None
+    word = m.group(1).lower()
+    n = _SURVIVAL_WORD_NUMBERS.get(word)
+    if n is None and word.isdigit():
+        n = float(word)
+    if n is None:
+        return None
+    return (float(n), m.group(2).lower().rstrip("s"))
+
+
+def _find_procedural_differentiation_roles(window: str) -> List[str]:
+    roles: List[str] = []
+    seen_lower = set()
+
+    def _add(role: Optional[str]) -> None:
+        if not role:
+            return
+        role = trim_role_name(role)
+        if role.lower() in _GENERIC_ROLE_WORDS or role.lower() in seen_lower:
+            return
+        seen_lower.add(role.lower())
+        roles.append(role)
+
+    survival_matches: List[Tuple[str, str]] = []  # (role, local text after match)
+    for m in _PROCEDURAL_ROLE_CUE_RE.finditer(window):
+        role = m.group(1) or m.group(2) or m.group(3)
+        if role is None:
+            continue
+        if "survive" in m.group(0).lower():
+            local = window[m.end():min(len(window), m.end() + 40)]
+            survival_matches.append((trim_role_name(role), local))
+        else:
+            _add(role)
+    for m in _PROCEDURAL_EXCLUDED_ROLE_RE.finditer(window):
+        _add(m.group(1) or m.group(2))
+
+    # Survival-period matches only count as differentiation if two
+    # DIFFERENT roles are named AND their extracted period values
+    # actually differ — two named parties both getting the identical
+    # period restated per-role is not asymmetry, and must not become one
+    # (avoids a new source of false escalation from purely stylistic
+    # per-party restatement of the same term).
+    if len(survival_matches) >= 2:
+        values = [(_survival_period_value(local), role) for role, local in survival_matches]
+        distinct_values = {v for v, _ in values if v is not None}
+        if len(distinct_values) > 1:
+            for role, _ in survival_matches:
+                _add(role)
+
+    return roles
 
 _PROVISION_WINDOW_CHARS = 2000
 _LOCAL_WINDOW_CHARS = 160
@@ -417,17 +521,32 @@ def _classify_monetary(window: str, obligation_start: int) -> MonetaryTreatment:
     mult = _MONETARY_MULTIPLIER_RE.search(window)
     fixed = _MONETARY_FIXED_RE.search(window)
 
-    def _belongs_to_other_clause(m: "re.Match[str]") -> bool:
+    def _other_clause_label(m: "re.Match[str]") -> Optional[str]:
         lo = max(0, m.start() - _MONETARY_DISQUALIFIER_PROXIMITY)
-        return bool(_MONETARY_OTHER_CLAUSE_DISQUALIFIER_RE.search(window[lo:m.start()]))
+        if not _MONETARY_OTHER_CLAUSE_DISQUALIFIER_RE.search(window[lo:m.start()]):
+            return None
+        sec = _SECTION_REF_NEAR_RE.search(window[m.start():m.end() + 60])
+        return sec.group(0) if sec else "a different clause elsewhere in the document"
 
-    if mult is not None and _belongs_to_other_clause(mult):
+    mult_disq_label = _other_clause_label(mult) if mult is not None else None
+    fixed_disq_label = _other_clause_label(fixed) if fixed is not None else None
+    if mult_disq_label is not None:
         mult = None
-    if fixed is not None and _belongs_to_other_clause(fixed):
+    if fixed_disq_label is not None:
         fixed = None
 
     candidates = [c for c in (xref, unlimited, mult, fixed) if c is not None]
     if not candidates:
+        # A figure that looked like this obligation's own monetary term but
+        # was disqualified as belonging to a different clause (e.g. "subject
+        # to the aggregate liability cap of 2x... set forth in Section 9")
+        # is not the same fact as no monetary term being stated at all —
+        # it's a delegation to another clause, same as an explicit
+        # cross-reference, and must not be silently treated as "not
+        # addressed" (which downstream checks do not escalate on).
+        disq_label = mult_disq_label or fixed_disq_label
+        if disq_label is not None:
+            return MonetaryTreatment(kind="cross_reference", cross_reference_label=disq_label, raw_excerpt="")
         return MonetaryTreatment(kind="not_stated")
     # Earliest mention in the obligation's own window governs — consistent
     # with "closest stated position wins" used throughout the LoL adapter.
@@ -514,8 +633,8 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
 
     # One-named-party-vs-general-terms check (see _PARTY_SPECIFIC_EXCEPTION_RE).
     em = _PARTY_SPECIFIC_EXCEPTION_RE.search(window)
-    if em and em.group(1).lower() not in _GENERIC_ROLE_WORDS:
-        role = em.group(1)
+    if em and trim_role_name(em.group(1)).lower() not in _GENERIC_ROLE_WORDS:
+        role = trim_role_name(em.group(1))
         general_snapshot = _snapshot_indemnity_attribution(window[:em.start()])
         hi = min(len(window), em.end() + _ROLE_ATTRIBUTION_LOCAL_CHARS)
         boundary = re.search(r"\.\s|\.$", window[em.end():hi])
@@ -523,6 +642,30 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
             hi = em.end() + boundary.end()
         exception_snapshot = _snapshot_indemnity_attribution(window[em.end():hi])
         reasons = _compare_indemnity_attribution("the general terms", general_snapshot, role, exception_snapshot)
+    if reasons:
+        return reasons
+
+    # Step 4A.5 — differentiated PROCEDURAL terms (survival period, notice
+    # precondition, defense control, temporal carve-out) named separately
+    # for two or more distinct parties; see _find_procedural_differentiation_roles.
+    procedural_roles = _find_procedural_differentiation_roles(window)
+    if len(procedural_roles) >= 2:
+        reasons.append(
+            f"the clause states differentiated procedural terms (survival period, notice precondition, "
+            f"defense control, or a temporal carve-out) separately for {' and '.join(procedural_roles)} "
+            f"rather than one shared symmetric term"
+        )
+    elif len(procedural_roles) == 1:
+        # A single named party with a "(but not X)"-style exclusive grant,
+        # or a "shall not apply"/"shall additionally require" clause that
+        # names only itself with no counterpart named — still asymmetric:
+        # a grant or carve-out attached to exactly one named party (not
+        # "each party") is inherently not the reciprocal opener's claimed
+        # symmetric treatment.
+        reasons.append(
+            f"the clause attaches a party-specific procedural grant or carve-out to {procedural_roles[0]} "
+            f"alone, rather than applying it to both parties symmetrically"
+        )
     return reasons
 
 
@@ -546,13 +689,27 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
 
     obligations: List[IndemnityObligation] = []
     seen_spans: List[Tuple[int, int]] = []
+    # Step 4A.5: a genuinely reciprocal-but-NAMED pattern ("Landlord
+    # shall indemnify Tenant, and Tenant shall indemnify Landlord...")
+    # states two DIFFERENT obligations only ~30 chars apart — close
+    # enough that the proximity-only dedup below would wrongly discard
+    # the second one as a duplicate match of the first. Only treat a
+    # close match as a duplicate when it names the SAME role pair (in
+    # either direction) as an already-seen obligation; a different pair
+    # that close together is a real second obligation, not a re-match.
+    seen_role_pairs: List[Tuple[int, Tuple[str, str]]] = []
 
     for m in _OBLIGATION_RE.finditer(text):
-        if any(abs(m.start() - s) < 50 for s, _ in seen_spans):
-            continue
-        indemnifying_role, indemnified_role = m.group(1), m.group(2)
+        indemnifying_role, indemnified_role = trim_role_name(m.group(1)), trim_role_name(m.group(2))
         if indemnifying_role.lower() == indemnified_role.lower():
             continue  # regex false-positive guard, e.g. matched the same word twice
+        # Ordered (not unordered) pair: "Landlord indemnifies Tenant" and
+        # "Tenant indemnifies Landlord" are different obligations despite
+        # sharing the same two parties — only an EXACT repeat of the same
+        # direction is a duplicate match.
+        pair = (indemnifying_role.lower(), indemnified_role.lower())
+        if any(abs(m.start() - s) < 50 and p == pair for s, p in seen_role_pairs):
+            continue
         window = _extract_obligation_window(text, m.start(), min(len(text), m.start() + _PROVISION_WINDOW_CHARS))
         indemnifying_side, indemnifying_conflict = resolve_role_side(indemnifying_role, text)
         indemnified_side, indemnified_conflict = resolve_role_side(indemnified_role, text)
@@ -572,6 +729,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             role_side_conflict_reasons=conflict_reasons,
         ))
         seen_spans.append((m.start(), m.end()))
+        seen_role_pairs.append((m.start(), pair))
 
     # See _RESTATEMENT_MONETARY_RE: a same-role restatement using
     # different phrasing than _OBLIGATION_RE requires. Only fires when it
@@ -584,7 +742,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
     for rm in _RESTATEMENT_MONETARY_RE.finditer(text):
         if any(abs(rm.start() - s) < 50 for s, _ in seen_spans):
             continue
-        role = rm.group(1)
+        role = trim_role_name(rm.group(1))
         base = base_by_role.get(role.lower())
         if base is None:
             continue
@@ -710,6 +868,29 @@ def _resolve_obligations_for_side(
         # of contract_side, since the terms don't differ by party.
         return obligation, obligation, reasons
 
+    # Step 4A.5 — direction invariance for a NAMED (not "each party") pair:
+    # some drafting states two directional obligations explicitly by name
+    # ("Landlord shall indemnify Tenant, and Tenant shall indemnify
+    # Landlord...") instead of using reciprocal language, with IDENTICAL
+    # terms in both directions. If the two roles are each other's
+    # counterparty in exactly two obligations, and the monetary/scope/
+    # defense_control terms match, the policy RESULT is invariant to
+    # which one is "us" — so, exactly like the reciprocal-opener case
+    # above, this can be used as both exposure and protection without
+    # ever having to decide which named role we are. This does NOT
+    # assign an unknown role a side, and does NOT apply when the two
+    # directions differ in ANY tracked term (that is a genuine asymmetry,
+    # left to escalate below as usual).
+    if len(named) == 2:
+        o1, o2 = named
+        same_pair = (
+            o1.indemnifying_role.lower() == o2.indemnified_role.lower()
+            and o1.indemnified_role.lower() == o2.indemnifying_role.lower()
+        )
+        if same_pair and _monetary_key(o1.monetary) == _monetary_key(o2.monetary) \
+                and o1.scope == o2.scope and o1.defense_control == o2.defense_control:
+            return o1, o1, reasons
+
     if contract_side == "mutual":
         if named:
             reasons.append(
@@ -719,12 +900,41 @@ def _resolve_obligations_for_side(
         return None, None, reasons
 
     for o in named:
-        if o.indemnifying_side == contract_side and o.indemnified_side is not None and o.indemnified_side != contract_side:
+        # Step 4A.5 — direction invariance: a strictly two-named-party,
+        # non-reciprocal obligation has exactly one indemnifying role and
+        # one indemnified role. If EITHER role's side is confidently
+        # resolved (no role_side_conflict_reasons) and matches or
+        # contradicts contract_side, the OTHER role's identity (us vs.
+        # counterparty) follows by elimination — it does not need its
+        # OWN generic-vocabulary classification, only its OWN definition
+        # not to conflict. This is deliberately narrow: it does NOT
+        # guess a side for an unmapped role in isolation, and it never
+        # overrides a role that has its own conflict reason (a genuine
+        # reversal/ambiguity always still blocks resolution).
+        indemnifying_unmapped_clean = o.indemnifying_side is None and not any(
+            r for r in o.role_side_conflict_reasons if o.indemnifying_role.lower() in r.lower()
+        )
+        indemnified_unmapped_clean = o.indemnified_side is None and not any(
+            r for r in o.role_side_conflict_reasons if o.indemnified_role.lower() in r.lower()
+        )
+        effective_indemnifying_is_us = o.indemnifying_side == contract_side
+        effective_indemnified_is_us = o.indemnified_side == contract_side
+        if not effective_indemnifying_is_us and not effective_indemnified_is_us:
+            # Neither side is confidently known to be us directly — check
+            # whether the OTHER side is confidently known to be NOT us,
+            # which (in a strictly two-party obligation) still identifies
+            # this role as us by elimination.
+            if o.indemnified_side is not None and o.indemnified_side != contract_side and indemnifying_unmapped_clean:
+                effective_indemnifying_is_us = True
+            elif o.indemnifying_side is not None and o.indemnifying_side != contract_side and indemnified_unmapped_clean:
+                effective_indemnified_is_us = True
+
+        if effective_indemnifying_is_us and (o.indemnified_side is not None and o.indemnified_side != contract_side or indemnified_unmapped_clean):
             if exposure is not None and _monetary_key(exposure.monetary) != _monetary_key(o.monetary):
                 reasons.append("multiple obligations found where we are the indemnifying party, with different monetary terms — cannot determine which governs")
             elif exposure is None:
                 exposure = o
-        elif o.indemnified_side == contract_side and o.indemnifying_side is not None and o.indemnifying_side != contract_side:
+        elif effective_indemnified_is_us and (o.indemnifying_side is not None and o.indemnifying_side != contract_side or indemnifying_unmapped_clean):
             if protection is not None and _monetary_key(protection.monetary) != _monetary_key(o.monetary):
                 reasons.append("multiple obligations found where we are the indemnified party, with different monetary terms — cannot determine which governs")
             elif protection is None:
@@ -800,6 +1010,10 @@ def evaluate_indemnification_policy(
             t = protection.trigger_treatments.get(trig)
             if t is not None and t.treatment == "unresolved":
                 unresolved_facts.append(f"protection coverage for {trig} (ambiguous carve-out language)")
+        if protection.monetary.kind == "cross_reference":
+            unresolved_facts.append(
+                f"protection monetary treatment (delegates to {protection.monetary.cross_reference_label}, not resolved by this evaluation)"
+            )
 
     # --- Exposure-side unresolved facts ---
     exposure_monetary_value = None

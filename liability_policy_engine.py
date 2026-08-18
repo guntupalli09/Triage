@@ -290,6 +290,27 @@ _GREATER_LESSER_RE = re.compile(
 _PER_CLAIM_RE = re.compile(r"per[\s-]claim|per[\s-]occurrence|(?:individual|single|each) claim", re.I)
 _AGGREGATE_SCOPE_RE = re.compile(r"\baggregate\b|in the aggregate|across all claims|total liability", re.I)
 
+# Step 4A.5 — the multiplier itself can be unambiguous (e.g. "1 times the
+# annual fees paid") while the VALUE it multiplies is stated ambiguously
+# elsewhere in the same provision ("...'the annual fees paid' may refer to
+# fees paid under the current Order Form or, if greater, the cumulative
+# fees paid across all Order Forms..."). This is a different structure
+# than _GREATER_LESSER_RE's "greater of $X or $Y" (which compares two
+# already-computed cap VALUES) — here the ambiguity is in what the BASIS
+# quantity even is, so the multiplier cannot be applied to a single known
+# number at all.
+_BASIS_VALUE_AMBIGUITY_RE = re.compile(
+    r"may\s+(?:refer\s+to|mean)\s+.{0,100}?\bor,?\s+if\s+(?:greater|lesser|higher|lower),?\s+",
+    re.I,
+)
+
+# Step 4A.5 — some drafting explicitly flags its own ambiguity ("it being
+# unclear whether these are the same cap stated twice or two independent
+# caps that would stack"). A document's own hedge about whether it means
+# one thing or another is about as safe and general a review-trigger as
+# exists — no interpretation is required, the text says so itself.
+_SELF_FLAGGED_AMBIGUITY_RE = re.compile(r"\b(?:it\s+being\s+)?unclear\s+whether\b", re.I)
+
 
 # ---------------------------------------------------------------------------
 # Typed cap representation (Priority 2)
@@ -695,6 +716,25 @@ def _classify_general_cap_expression(
             f"({', '.join(sorted(cats))}) — cannot determine whether this is the general "
             f"aggregate cap or a category-specific cap without attorney review",
             raw_excerpt=_excerpt(window, lo, hi), start_index=lo, end_index=hi,
+        )
+
+    self_flagged = _SELF_FLAGGED_AMBIGUITY_RE.search(window)
+    if self_flagged:
+        lo = max(0, self_flagged.start() - 40)
+        hi = min(len(window), self_flagged.end() + 150)
+        return _unresolved(
+            "the document explicitly flags its own ambiguity about how this cap should be interpreted",
+            raw_excerpt=window[lo:hi].strip(), start_index=lo, end_index=hi,
+        )
+
+    basis_ambiguity = _BASIS_VALUE_AMBIGUITY_RE.search(window)
+    if basis_ambiguity:
+        lo = max(0, basis_ambiguity.start() - 60)
+        hi = min(len(window), basis_ambiguity.end() + 100)
+        return _unresolved(
+            "the multiplier's basis value itself is stated ambiguously (may refer to more than one "
+            "figure) — cannot determine which figure the multiplier applies to without additional information",
+            raw_excerpt=window[lo:hi].strip(), start_index=lo, end_index=hi,
         )
 
     # Greater-of / lesser-of: look for the signal, then extract the
