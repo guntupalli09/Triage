@@ -443,7 +443,28 @@ _BYSTANDER_BOILERPLATE_RE = re.compile(
     r"|(?:formed|organized|incorporated)\s+(?:under\s+the\s+laws\s+of\s+|in\s+)(?:the\s+State\s+of\s+)?[A-Z][a-z]+"
     r"|qualified\s+to\s+do\s+business\s+in\s+[A-Z][a-z]+"
     r"|and\s+includes\s+its\s+[a-z-]+(?:\s+and\s+[a-z-]+)?\s+acting\s+in\s+their\s+capacity\s+as\s+such"
-    r"|a\s+[A-Z][a-z]+\s+(?:corporation|partnership|limited\s+liability\s+company|limited\s+partnership|agricultural\s+cooperative)\b",
+    r"|a\s+[A-Z][a-z]+\s+(?:corporation|partnership|limited\s+liability\s+company|limited\s+partnership|agricultural\s+cooperative)\b"
+    # Step 4A.5 Priority 4: a passive-voice clause ("which was acquired
+    # last year by Meridian Financial Holdings", "licensed by the State
+    # Insurance Commissioner") attributes the action to whatever follows
+    # "by", not to the role whose definition is being scanned — the same
+    # bystander principle _is_bystander_verb_match already applies to the
+    # buy/sell-vocabulary check, generalized here for the broader
+    # unrecognized-relational-content scan too.
+    r"|\b[a-z]+(?:ed|en)\s+(?:[a-z]+\s+){0,3}by\s+(?:the\s+)?[A-Z][A-Za-z]{2,25}(?:\s+[A-Z][A-Za-z]{2,25}){0,3}"
+    # Regulatory-oversight boilerplate ("subject to solvency regulation
+    # by the Commissioner") — a THIRD PARTY (regulator) regulating the
+    # role, not the role's own transactional conduct.
+    r"|subject\s+to\s+[a-z]+\s+regulation\s+by\s+(?:that\s+|the\s+)?[A-Z][A-Za-z]{2,25}(?:\s+[A-Z][A-Za-z]{2,25}){0,2}"
+    # Notice-address boilerplate ("notices to which shall be sent to
+    # Vendor's Legal Department at the address in Exhibit B") — states
+    # WHERE to send administrative notices, not the role's transactional
+    # direction.
+    r"|notices?\s+to\s+which\s+shall\s+be\s+sent\s+to\s+[^.]{0,60}"
+    # Cross-reference to an external ORDERING/execution document ("the
+    # entity identified in the Order Form", "the party described in the
+    # Slip") — the document name is not a second party.
+    r"|(?:identified|described)\s+in\s+the\s+[A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)?",
     re.I,
 )
 
@@ -515,8 +536,8 @@ _GERUND_MATCH_CHARS = 25
 # follows "by", not to the role whose definition body is being scanned —
 # same bystander principle as the possessive-gerund guard above, just for
 # passive voice instead of a nominalized gerund.
-_PASSIVE_AGENT_GUARD_RE = re.compile(r"^\s*by\b", re.I)
-_PASSIVE_AGENT_LOOKAHEAD_CHARS = 6
+_PASSIVE_AGENT_GUARD_RE = re.compile(r"^\s*(?:[a-z]+\s+){0,3}by\b", re.I)
+_PASSIVE_AGENT_LOOKAHEAD_CHARS = 25
 
 
 _ADMINISTRATIVE_OBJECT_RE = re.compile(
