@@ -196,7 +196,8 @@ _FIXED_AMOUNT_RE = re.compile(
     r"|limited\s+to"
     r"|(?:is\s+)?capped\s+at"
     r"|(?:a\s+)?cap(?:\s+\w+){0,4}\s+of"
-    r"|shall\s+not\s+exceed)\s*\$\s*([\d,]+(?:\.\d{2})?)",
+    r"|in\s+no\s+event\s+shall(?:\s+\w+){0,8}\s+exceed"
+    r"|shall(?:\s+in\s+the\s+aggregate)?\s+not\s+exceed)\s*\$\s*([\d,]+(?:\.\d{2})?)",
     re.I,
 )
 _EXCLUSION_SIGNAL_RE = re.compile(
@@ -759,7 +760,25 @@ def _classify_general_cap_expression(
     # language at all, so this filter is a no-op for them — it only
     # engages when the clause itself points elsewhere.
     has_delegation = _detect_cross_reference(window) is not None
-    if has_delegation:
+    # Step 4A.3 — Failure Family 3 hardening: concept+limit verification
+    # is no longer conditional on cross-reference delegation. Step 4A.2's
+    # LOL-H2-04 demonstrated the gap directly — a service-credit figure
+    # sitting in the SAME sentence as a genuine liability cap, with NO
+    # cross-reference involved at all, was adopted as the cap purely
+    # because it was structurally reachable, since this "plain" path
+    # (no delegation, no category claim) applied no verification
+    # whatsoever. The invariant is now: whenever there is more than one
+    # surviving candidate, EVERY candidate must independently pass
+    # concept+limit(+disqualifier) verification before being admitted to
+    # the distinct-value comparison — a candidate that isn't concept-
+    # verified is simply not a competing candidate, not "the only
+    # option so it must be right." The single-candidate, no-delegation
+    # case (the overwhelming majority of ordinary contracts, where one
+    # cap-shaped value is stated directly and unambiguously) is left
+    # unconditionally trusted, exactly as before — this only engages
+    # when there is genuine multiplicity to adjudicate, so ordinary
+    # drafting is unaffected.
+    if has_delegation or len(unclaimed) > 1:
         concept_verified = [c for c in unclaimed if c.kind == "unlimited" or _has_liability_concept_nearby(window, c)]
         if not concept_verified:
             cap = unclaimed[0]
@@ -894,7 +913,8 @@ _LIABILITY_CONCEPT_RE = re.compile(r"\bliabilit(?:y|ies)\b|\bliable\b", re.I)
 _LIABILITY_LIMIT_PREDICATE_RE = re.compile(
     r"shall\s+not\s+exceed|is\s+capped\s+at|shall\s+be\s+capped|\blimited\s+to\b"
     r"|shall\s+not\s+be\s+liable\s+for|\bmaximum\b|in\s+no\s+event.{0,120}?exceed"
-    r"|\baggregate\b|\bcumulative\b|\bceiling\b|\buncapped\b|\bunlimited\b",
+    r"|\baggregate\b|\bcumulative\b|\bceiling\b|\buncapped\b|\bunlimited\b"
+    r"|\bcap(?:s|ped)?\b",
     re.I,
 )
 # Concepts that commonly co-occur with cap-shaped numbers but are NOT
@@ -917,11 +937,12 @@ _LIABILITY_DISQUALIFYING_CONCEPT_RE = re.compile(
 _LIABILITY_SENTENCE_SEARCH_CHARS = 500
 
 
-def _sentence_containing(text: str, start: int, end: int) -> str:
-    """Returns the sentence containing text[start:end], found via
-    structural boundaries (". ", or start/end of text) rather than a
-    fixed character window — falls back to a bounded window only when no
-    boundary exists within _LIABILITY_SENTENCE_SEARCH_CHARS."""
+def _sentence_containing_with_offset(text: str, start: int, end: int) -> Tuple[str, int]:
+    """Returns (sentence, sentence_start_offset_in_text) for the sentence
+    containing text[start:end], found via structural boundaries (". ", or
+    start/end of text) rather than a fixed character window — falls back
+    to a bounded window only when no boundary exists within
+    _LIABILITY_SENTENCE_SEARCH_CHARS."""
     back_lo = max(0, start - _LIABILITY_SENTENCE_SEARCH_CHARS)
     back_text = text[back_lo:start]
     back_boundary = back_text.rfind(". ")
@@ -932,16 +953,69 @@ def _sentence_containing(text: str, start: int, end: int) -> str:
     fwd_m = re.search(r"\.\s|\.$", fwd_text)
     sentence_end = end + fwd_m.end() if fwd_m else fwd_hi
 
-    return text[sentence_start:sentence_end]
+    return text[sentence_start:sentence_end], sentence_start
+
+
+def _sentence_containing(text: str, start: int, end: int) -> str:
+    """Returns the sentence containing text[start:end] — see
+    _sentence_containing_with_offset for the offset-returning variant used
+    when a caller needs to map indices back into sentence-relative
+    coordinates."""
+    sentence, _ = _sentence_containing_with_offset(text, start, end)
+    return sentence
+
+
+# Step 4A.3: a disqualifying-concept mention that is itself being
+# EXCLUDED/DISCLAIMED ("separate from any insurance requirement",
+# "independent of insurance proceeds", "insurance proceeds do not limit
+# Provider's contractual liability") must not disqualify the candidate —
+# the sentence is explicitly saying the disqualifying concept does NOT
+# govern here. Scoped narrowly around the disqualifier match itself
+# (not the whole sentence) so this doesn't accidentally neutralize a
+# genuine disqualifier elsewhere in a longer sentence.
+_DISQUALIFIER_NEGATION_RE = re.compile(
+    r"separate\s+from|independent\s+of|exclusive\s+of|regardless\s+of|notwithstanding"
+    r"|in\s+addition\s+to|(?:shall\s+not|does\s+not|do\s+not)\s+limit|not\s+a\s+limitation\s+on",
+    re.I,
+)
+_DISQUALIFIER_NEGATION_WINDOW = 60
+
+
+def _comma_delimited_span(sentence: str, start: int, end: int) -> Tuple[int, int]:
+    """The comma-to-comma (or sentence-boundary) sub-clause containing
+    sentence[start:end] — the structural unit a parenthetical/appositive
+    disqualifier concept ("including without limitation any service
+    credits...") actually applies to, as opposed to the whole sentence."""
+    seg_start = sentence.rfind(",", 0, start)
+    seg_start = seg_start + 1 if seg_start != -1 else 0
+    seg_end = sentence.find(",", end)
+    seg_end = seg_end if seg_end != -1 else len(sentence)
+    return seg_start, seg_end
 
 
 def _has_liability_concept_nearby(text: str, cap: CapValue) -> bool:
     """CONCEPT + LIMIT (+ disqualifier) verification for one candidate
     value, scoped to its containing sentence. Does NOT re-verify VALUE —
-    the caller already established the candidate via _find_cap_values."""
-    sentence = _sentence_containing(text, cap.start_index, cap.end_index)
-    if _LIABILITY_DISQUALIFYING_CONCEPT_RE.search(sentence):
-        return False
+    the caller already established the candidate via _find_cap_values.
+
+    A disqualifying concept (e.g. "service credit", "insurance") only
+    disqualifies THIS candidate when it appears in the SAME comma-
+    delimited sub-clause as the candidate — a sentence can legitimately
+    contain an unrelated disqualifying sub-clause (an SLA service-credit
+    parenthetical, an insurance carve-out) alongside a genuine liability
+    cap elsewhere in the same sentence, and that sub-clause must not
+    poison the whole sentence for every candidate in it."""
+    sentence, sentence_offset = _sentence_containing_with_offset(text, cap.start_index, cap.end_index)
+    cap_lo = cap.start_index - sentence_offset
+    cap_hi = cap.end_index - sentence_offset
+    cap_seg_start, cap_seg_end = _comma_delimited_span(sentence, cap_lo, cap_hi)
+    for dm in _LIABILITY_DISQUALIFYING_CONCEPT_RE.finditer(sentence):
+        if dm.start() >= cap_seg_end or dm.end() <= cap_seg_start:
+            continue  # disqualifying concept sits in a different sub-clause — not about THIS candidate
+        lo = max(0, dm.start() - _DISQUALIFIER_NEGATION_WINDOW)
+        hi = min(len(sentence), dm.end() + _DISQUALIFIER_NEGATION_WINDOW)
+        if not _DISQUALIFIER_NEGATION_RE.search(sentence[lo:hi]):
+            return False
     return bool(_LIABILITY_CONCEPT_RE.search(sentence) and _LIABILITY_LIMIT_PREDICATE_RE.search(sentence))
 
 

@@ -65,7 +65,7 @@ _GENERIC_WORDS = {"each", "the", "any", "such", "this", "that", "both", "either"
 # --- Anchor -----------------------------------------------------------------
 _ANCHOR_RE = re.compile(
     r"payment\s+terms|invoices?|shall\s+pay|payable|remit(?:tance)?"
-    r"|late\s+(?:fee|payment|charge)|set-?off|price\s+increase|reimburs\w*|withholding\s+tax"
+    r"|late\s+(?:fee|payment|charge)|set-?off|offset|price\s+increase|reimburs\w*|withholding\s+tax"
     r"|sales\s+tax|value[\s-]added\s+tax|\bVAT\b|\bGST\b|service\s+credit|net\s+\d{1,3}\s+days",
     re.I,
 )
@@ -128,14 +128,24 @@ _GRACE_PERIOD_RE = re.compile(
 _STATUTORY_MAX_RE = re.compile(r"maximum\s+rate\s+permitted\s+by\s+(?:applicable\s+)?law|lesser\s+of[^.]{0,60}?(?:permitted\s+by\s+)?law", re.I)
 
 # --- Set-off ------------------------------------------------------------------------
-_SETOFF_PERMIT_RE = re.compile(r"(?:may|right\s+to|entitled\s+to)\s+set-?off", re.I)
-_SETOFF_PROHIBIT_RE = re.compile(r"shall\s+not\s+set-?off|no\s+right\s+(?:of|to)\s+set-?off|without\s+(?:any\s+)?(?:right\s+of\s+)?set-?off", re.I)
+# Step 4A.3: "offset" is a synonym family for "set-off"/"setoff" — the
+# identical legal right in commercial contracts (British/formal "set-off"
+# vs. American/colloquial "offset"), not a case-specific addition. Every
+# set-off pattern below recognizes both spellings.
+_SETOFF_TERM_FRAGMENT = r"(?:set[\s-]?off|offset)"
+_SETOFF_PERMIT_RE = re.compile(r"(?:may|right\s+to|entitled\s+to)\s+" + _SETOFF_TERM_FRAGMENT, re.I)
+_SETOFF_PROHIBIT_RE = re.compile(
+    r"shall\s+not\s+" + _SETOFF_TERM_FRAGMENT
+    + r"|no\s+right\s+(?:of|to)\s+" + _SETOFF_TERM_FRAGMENT
+    + r"|without\s+(?:any\s+)?(?:right\s+of\s+)?" + _SETOFF_TERM_FRAGMENT,
+    re.I,
+)
 _UNILATERAL_DEDUCTION_RE = re.compile(
     r"unilaterally\s+deduct|deduct[^.]{0,30}?without\s+(?:prior\s+)?(?:written\s+)?(?:consent|approval)", re.I,
 )
 
 # --- Pricing --------------------------------------------------------------------------
-_FIXED_PRICE_RE = re.compile(r"prices?\s+(?:shall\s+be\s+)?fixed|fixed[\s-]price", re.I)
+_FIXED_PRICE_RE = re.compile(r"(?:prices?|fees?)\s+(?:shall\s+be\s+|are\s+)?fixed|fixed[\s-](?:price|fee)", re.I)
 _PRICE_INCREASE_RIGHT_RE = re.compile(r"(?:may|right\s+to)\s+increase\s+(?:the\s+)?(?:prices?|fees?)", re.I)
 _PRICE_INCREASE_UNILATERAL_RE = re.compile(r"unilaterally\s+increase[^.]{0,20}?(?:prices?|fees?)|sole\s+discretion[^.]{0,40}?increase[^.]{0,20}?(?:prices?|fees?)", re.I)
 _PRICE_INCREASE_NOTICE_RE = re.compile(
@@ -162,6 +172,17 @@ _TAX_RESPONSIBILITY_RE = re.compile(
     r"(?-i:([A-Z][A-Za-z]{2,30}))\s+(?:shall\s+be\s+)?responsible\s+for\s+(?:all\s+)?(?:applicable\s+)?[^.]{0,40}?taxes", re.I,
 )
 _WITHHOLDING_TAX_RE = re.compile(r"withholding\s+tax", re.I)
+# Engagement-only (Step 4A.3): _TAX_RESPONSIBILITY_RE requires a
+# CAPITALIZED role word immediately before "responsible for...taxes" so
+# it can ATTRIBUTE the obligation to a specific party — "Each party
+# shall be responsible for taxes..." has no attributable single party
+# (an extra common noun sits between the determiner and the verb) but
+# is still unambiguously a supported tax-responsibility clause that
+# must engage the adapter, even though it correctly yields no
+# attribution.
+_TAX_RESPONSIBILITY_TOPIC_RE = re.compile(
+    r"responsible\s+for\s+(?:all\s+)?(?:applicable\s+)?[^.]{0,40}?taxes", re.I,
+)
 
 # --- Currency -----------------------------------------------------------------------------
 # Scoped to a local sentence anchored on an actual payment-currency
@@ -170,7 +191,13 @@ _WITHHOLDING_TAX_RE = re.compile(r"withholding\s+tax", re.I)
 # (e.g. a liability cap expressed cross-referencing a different
 # currency in an unrelated clause) is misread as establishing a second,
 # conflicting payment currency.
-_CURRENCY_CONTEXT_RE = re.compile(r"(?:paid|payable|made|denominated|invoiced)\s+in\b", re.I)
+_CURRENCY_CONTEXT_RE = re.compile(
+    # Allow a short object between the payment verb and "in" ("shall pay
+    # Vendor in United States Dollars") — active-voice phrasing routinely
+    # places the payee between the verb and the currency, not just the
+    # passive "amounts payable in X" form already covered.
+    r"(?:pay|paid|payable|made|denominated|invoiced)(?:\s+\w+){0,3}?\s+in\b", re.I,
+)
 _CURRENCY_RE = re.compile(
     r"\b(USD|EUR|GBP|CAD|AUD|JPY|CHF)\b|United\s+States\s+Dollars|US\s+Dollars|Euros?\b|British\s+Pounds?|Pounds\s+Sterling",
     re.I,
@@ -339,8 +366,53 @@ def _annualize_late_fee(rate: float, period: Optional[str]) -> float:
     return rate
 
 
+# Step 4A.3 — the decomposed set of concept-specific recognizers that can
+# independently engage the adapter, each already used elsewhere in this
+# module for its own field-level extraction (never a new pattern
+# invented solely to widen the gate). Deliberately excludes
+# _CURRENCY_RE/_PRICE_INCREASE_PERCENT_RE-style bare-value regexes,
+# which match on numbers/short tokens alone and would engage on
+# unrelated numeric mentions — only regexes that already require
+# concept-specific surrounding language are used as engagement signals.
+_CONCEPT_ENGAGEMENT_RES = [
+    _TAX_RESPONSIBILITY_RE, _TAX_RESPONSIBILITY_TOPIC_RE, _WITHHOLDING_TAX_RE,
+    _SETOFF_PERMIT_RE, _SETOFF_PROHIBIT_RE, _UNILATERAL_DEDUCTION_RE,
+    _DISPUTE_RIGHT_RE, _UNDISPUTED_PAYABLE_RE, _DISPUTED_WITHHOLD_RE, _DISPUTED_NO_WITHHOLD_RE,
+    _LATE_FEE_MONTHLY_RE, _LATE_FEE_ANNUAL_RE, _STATUTORY_MAX_RE,
+    _PRICE_INCREASE_RIGHT_RE, _PRICE_INCREASE_UNILATERAL_RE, _FIXED_PRICE_RE,
+    _EXPENSES_RE, _EXPENSE_PREAPPROVAL_RE, _CURRENCY_CONTEXT_RE,
+]
+
+
 def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
-    matches = list(_ANCHOR_RE.finditer(text))
+    # Step 4A.3 — Failure Family 2 hardening. Step 4A.2's held-out corpus
+    # found that engagement for the ENTIRE adapter depended on one
+    # monolithic _ANCHOR_RE — a genuine tax-responsibility, set-off, or
+    # dispute-payment clause using ordinary phrasing outside that single
+    # regex's vocabulary produced NOT_APPLICABLE ("no payment terms
+    # clause found"), silently hiding the clause from policy evaluation
+    # entirely (18 of Step 4A.2's 29 wrong-clean decisions traced here,
+    # including a role-reversal case that would have been a genuine
+    # false-safe had recognition engaged at all).
+    #
+    # Recognition is decomposed by supported policy concept: engagement
+    # now fires on _ANCHOR_RE OR any of the field-specific extraction
+    # regexes this module ALREADY ships (tax responsibility, withholding,
+    # set-off/offset, dispute-payment, late-fee/interest, price-increase,
+    # expense reimbursement) — each of those is already more precise than
+    # a generic keyword (e.g. _TAX_RESPONSIBILITY_RE requires a named
+    # party + "responsible for...taxes", not just the word "tax"
+    # anywhere), so reusing them as engagement signals doesn't trade
+    # recall for false engagement on unrelated clauses (see
+    # benchmarks/payment_recognition_benchmark.py's 20 negative controls,
+    # none of which mention taxes/set-off/disputes in a supported-concept
+    # way). This directly answers "why does one narrow anchor gate the
+    # whole adapter" — it no longer does; any independently-recognized
+    # concept is sufficient to engage.
+    concept_matches: List[re.Match] = []
+    for concept_re in _CONCEPT_ENGAGEMENT_RES:
+        concept_matches.extend(concept_re.finditer(text))
+    matches = sorted(list(_ANCHOR_RE.finditer(text)) + concept_matches, key=lambda m: m.start())
     if not matches:
         return None
 

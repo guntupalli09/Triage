@@ -128,7 +128,11 @@ _ROLE_DEFINITION_QUOTE = r"[‘’'\"]?"
 # definition is found, only how much of it renders in error messages).
 _DEFINITION_PREDICATE_FRAGMENT = (
     r"(?:means\s+and\s+includes|shall\s+be\s+construed\s+to\s+mean|shall\s+have\s+the\s+meaning"
-    r"|has\s+the\s+meaning|is\s+defined\s+as|shall\s+refer\s+to|shall\s+mean|refers\s+to|means)\b"
+    r"|has\s+the\s+meaning|is\s+defined\s+as|shall\s+refer\s+to|shall\s+mean|refers\s+to|means"
+    # "will" is the same predicate family as "shall" (both are simply the
+    # future/obligatory auxiliary a drafter chose) — not held-out-corpus
+    # memorization, the same generalization already applied to "shall".
+    r"|will\s+mean|will\s+refer\s+to|will\s+denote|will\s+designate)\b"
 )
 _DEFINITION_PREDICATE_RE = re.compile(_DEFINITION_PREDICATE_FRAGMENT, re.I)
 
@@ -167,7 +171,35 @@ def _find_role_definition_body(role: str, document_text: str) -> Optional[str]:
     )
     sentence_boundary = re.search(r"\.\s|\.$|;", forward)
     cutoffs = [b.start() for b in (next_definition, sentence_boundary) if b is not None]
-    return forward[:min(cutoffs)] if cutoffs else forward
+    body = forward[:min(cutoffs)] if cutoffs else forward
+
+    # Step 4A.3 — Family E hardening: a definition body that is a BARE
+    # ALIAS (just a name, no verb at all — e.g. "'Vendor' means Beta
+    # Inc.") carries no content to interpret on its own, but real
+    # drafting routinely states the alias in one sentence and the actual
+    # directional content in the NEXT one ("'Vendor' means Beta Inc.
+    # Beta Inc. is the party that purchases..."). When the captured body
+    # has no verb-shaped word at all, extend the search one sentence
+    # further and, if that next sentence's subject is the SAME alias
+    # just established, fold it in — otherwise leave the body as-is
+    # (a short alias with an unrelated following sentence is not this
+    # pattern, and must not pull in unrelated text).
+    if body and cutoffs and not _RELATIONAL_VERB_TOKEN_RE.search(body):
+        alias = body.strip().rstrip(".;").strip()
+        alias_words = alias.split()
+        # Only treat this as a bare-alias name if it looks like a short
+        # proper-noun phrase (1-4 capitalized-ish tokens), not an
+        # arbitrary truncated clause.
+        if 1 <= len(alias_words) <= 4 and re.match(r"^[A-Z]", alias):
+            next_start = min(cutoffs) + (2 if forward[min(cutoffs):min(cutoffs) + 1] == "." else 1)
+            remainder = forward[next_start:]
+            alias_subject_re = re.compile(r"^\s*" + re.escape(alias) + r"\.?\s+(?:is|are|shall\s+be)\b", re.I)
+            am = alias_subject_re.match(remainder)
+            if am:
+                next_boundary = re.search(r"\.\s|\.$|;", remainder[am.end():])
+                extra_end = am.end() + (next_boundary.start() if next_boundary else len(remainder) - am.end())
+                body = body + ". " + remainder[:extra_end]
+    return body
 
 
 # B. INTERPRETATION — directional evidence vocabulary. Deliberately a
@@ -219,6 +251,105 @@ _DIRECTIONAL_SELL_EVIDENCE_RE = re.compile(
 )
 
 
+# Step 4A.3 — Failure Family 1 hardening. Step 4A.2's held-out corpus
+# demonstrated that when a document redefines a role using a predicate
+# OUTSIDE _DEFINITION_PREDICATE_FRAGMENT ("is understood to mean", "for
+# purposes hereof, X is...", "will denote", "shall carry the meaning of",
+# etc.), _find_role_definition_body finds nothing, and resolve_role_side
+# silently falls back to the generic mapping — producing a genuine S4
+# false-safe (PAY-A2-02) and several liability/indemnification WCs.
+#
+# The fix is NOT to add those specific phrases to the interpretable
+# predicate list (that only memorizes the held-out corpus and leaves the
+# same gap for the next unrecognized phrase). Instead: a SEPARATE,
+# broader, purely-detection-only signal answers a narrower question than
+# "what does this definition mean" — it answers "does document-specific
+# semantic content about this role appear to exist at all". When that
+# broader signal fires but the narrow, interpretable pipeline found
+# nothing, the caller must not use the generic mapping — it must return
+# UNRESOLVED (side=None, reason=...), the same shape as a detected
+# CONFLICT, so callers need no new branch.
+#
+# The broader signal is still bounded and justified, not a general
+# language model of "sounds like a definition": it fires only when a
+# (possibly quoted) role term is closely followed by one of a wider
+# family of copular/definitional verbs, OR when an explicit "for
+# purposes hereof / of this Agreement / as used herein" preamble
+# precedes a bare copula ("is"/"are"/"shall be") — the preamble is what
+# makes a bare copula safe to treat as definitional; a bare "is"
+# anywhere in a contract is NOT itself a signal (that would explode into
+# matching ordinary sentences having nothing to do with role definition).
+_DEFINITIONAL_PREAMBLE_FRAGMENT = r"(?:for\s+purposes\s+(?:hereof|of\s+this\s+agreement)|as\s+used\s+(?:herein|in\s+this\s+agreement))\s*,?\s*"
+_BROAD_DEFINITION_VERB_FRAGMENT = (
+    r"(?:means?\b|denotes?\b|designates?\b|constitutes?\b"
+    r"|will\s+(?:mean|refer\s+to|denote|designate|constitute)\b"
+    r"|shall\s+(?:mean|refer\s+to|denote|designate|constitute|be\s+construed|be\s+treated|carry\s+the\s+meaning|have\s+the\s+meaning)\b"
+    r"|refers?\s+to\b|is\s+(?:understood|construed|deemed|defined)\b|are\s+(?:understood|construed|deemed|defined)\b"
+    r"|has\s+the\s+meaning\b)"
+)
+_BROAD_DEFINITION_QUOTED_RE_TEMPLATE = _ROLE_DEFINITION_QUOTE + "{role}" + _ROLE_DEFINITION_QUOTE + r"\s+" + _BROAD_DEFINITION_VERB_FRAGMENT
+_BROAD_DEFINITION_PREAMBLE_RE_TEMPLATE = _DEFINITIONAL_PREAMBLE_FRAGMENT + r"{role}\s+(?:is|are|shall\s+be)\b"
+
+
+_REFERENCES_TO_RE_TEMPLATE = r"references?\s+to\s+{role}\s+(?:are|is|shall\s+be)\s+references?\s+to\b"
+
+
+def _has_broad_definition_signal(role: str, document_text: str) -> bool:
+    """Detection-only (never interpretation): does document-specific
+    language ABOUT this specific role's meaning appear to exist,
+    independent of whether it uses one of the narrow, confidently-
+    interpretable predicates? True does not mean the definition was
+    understood — it means generic vocabulary must not be trusted
+    silently."""
+    escaped = re.escape(role)
+    if re.search(_BROAD_DEFINITION_QUOTED_RE_TEMPLATE.format(role=escaped), document_text, re.I):
+        return True
+    if re.search(_BROAD_DEFINITION_PREAMBLE_RE_TEMPLATE.format(role=escaped), document_text, re.I):
+        return True
+    if re.search(_REFERENCES_TO_RE_TEMPLATE.format(role=escaped), document_text, re.I):
+        return True
+    return False
+
+
+# Failure Family 1, second gap: even when the narrow predicate IS found
+# (discovery succeeds), the body can contain a genuine relational verb
+# about another party that simply isn't in _DIRECTIONAL_*_EVIDENCE_RE's
+# small vocabulary (Step 4A.2's LOL-B2-02: "'Vendor' means Acme Corp,
+# the entity that RETAINS Customer's manufacturing capacity..." — "means"
+# is recognized, but "retains" is not, and the body plainly relates
+# Vendor to a second named party). Rather than expanding the verb
+# vocabulary indefinitely (which only ever covers today's known
+# examples), detect the STRUCTURAL shape of "this body relates the role
+# to another capitalized party via some verb" and treat an unrecognized
+# instance of that shape as unresolved rather than silently signal-free.
+_RELATIONAL_VERB_STOPWORDS = frozenset({
+    "is", "are", "was", "were", "means", "mean", "meaning", "refers", "referring",
+    "has", "have", "having", "had", "being", "shall", "will", "hereby",
+})
+_RELATIONAL_VERB_TOKEN_RE = re.compile(r"\b([a-z]+(?:s|es|ed|ing))\b", re.I)
+_SECOND_ROLE_TOKEN_RE = re.compile(r"\b[A-Z][a-z]{2,25}\b")
+
+
+def _has_unrecognized_relational_content(definition_body: str, role: str) -> bool:
+    """True when the body contains BOTH a verb-shaped word outside the
+    small stopword list AND a second capitalized term distinct from
+    `role` — i.e. the body plausibly relates this role to another named
+    party through some action, even though _classify_directional_evidence
+    found no recognized buy/sell vocabulary in it."""
+    has_verb = False
+    for m in _RELATIONAL_VERB_TOKEN_RE.finditer(definition_body):
+        if m.group(1).lower() not in _RELATIONAL_VERB_STOPWORDS:
+            has_verb = True
+            break
+    if not has_verb:
+        return False
+    role_key = role.lower()
+    for m in _SECOND_ROLE_TOKEN_RE.finditer(definition_body):
+        if m.group(0).lower() != role_key and m.group(0).lower() not in {"the", "and", "this", "that", "which", "who"}:
+            return True
+    return False
+
+
 def _classify_directional_evidence(definition_body: str) -> Optional[str]:
     """Returns "buy_side", "sell_side", "mixed", or None (no directional
     evidence at all) from a discovered definition body — pure
@@ -267,11 +398,33 @@ def resolve_role_side(role: str, document_text: str) -> Tuple[Optional[str], Opt
     generic_side = side_for_role(role)
     definition_body = _find_role_definition_body(role, document_text)
     if not definition_body:
-        return generic_side, None  # NO_DEFINITION
+        if _has_broad_definition_signal(role, document_text):
+            # DOCUMENT_DEFINITION_UNRESOLVED (Step 4A.3): document-specific
+            # language about this role appears to exist, but not through a
+            # predicate our interpretable pipeline recognizes — the generic
+            # mapping must not be trusted silently.
+            return None, (
+                f"the document appears to define or recharacterize the role of '{role}' using "
+                f"language this system does not confidently recognize — cannot safely confirm "
+                f"whether '{role}''s conventional classification still applies"
+            )
+        return generic_side, None  # NO_DOCUMENT_OVERRIDE
 
     definition_side = _classify_directional_evidence(definition_body)
     if definition_side is None:
-        return generic_side, None  # UNKNOWN — definition found, no directional evidence
+        if _has_unrecognized_relational_content(definition_body, role):
+            # DOCUMENT_DEFINITION_UNRESOLVED: a definition was found and IS
+            # interpretable-in-principle, but its body relates '{role}' to
+            # another named party through a verb outside the recognized
+            # buy/sell vocabulary — do not assume this is safely
+            # non-directional the way "means Acme Corp, a Delaware
+            # corporation" is.
+            return None, (
+                f"the document's own definition of '{role}' relates it to another party through "
+                f"language this system does not confidently classify as buy-side or sell-side — "
+                f"cannot safely confirm whether '{role}''s conventional classification still applies"
+            )
+        return generic_side, None  # UNKNOWN — definition found, no directional evidence at all
     if definition_side == "mixed":
         return None, (
             f"the document's own definition of '{role}' uses both purchasing/receiving language "

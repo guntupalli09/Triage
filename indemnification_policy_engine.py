@@ -182,6 +182,20 @@ _GENERIC_ROLE_WORDS = {
     "each", "the", "any", "such", "this", "that", "both", "either", "all",
     "party", "parties", "indemnifying", "indemnified", "other",
 }
+# Step 4A.3 — Failure Family 4: a reciprocal opener ("each party shall
+# indemnify... up to a cap of 2x fees") can be immediately qualified by an
+# "except that/provided that" proviso naming ONE specific party and giving
+# it different terms ("except that Vendor's cap for IP infringement claims
+# shall be 4x fees"). _ROLE_ATTRIBUTION_RE / detect_role_attributed_asymmetry
+# only fires when TWO distinct named-role attributions appear in the same
+# window to compare against each other — this proviso pattern names only
+# ONE role, comparing against the window's own general (reciprocal) terms
+# rather than a second named party, so it needs its own narrow detector.
+_PARTY_SPECIFIC_EXCEPTION_RE = re.compile(
+    r"(?:except|provided)\s+that\s+(?-i:([A-Z][A-Za-z]{2,25}))(?:'s)?\s+"
+    r"(?i:cap|liability|indemnification|obligations?|responsibility)\b",
+    re.I,
+)
 _BROAD_BENEFICIARY_RE = re.compile(r"affiliates|officers|directors|employees|agents", re.I)
 
 _PROVISION_WINDOW_CHARS = 2000
@@ -449,11 +463,26 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
     snapshots disagree stay adapter-owned, via
     _snapshot_indemnity_attribution / _compare_indemnity_attribution.
     """
-    return detect_role_attributed_asymmetry(
+    reasons = detect_role_attributed_asymmetry(
         window, _ROLE_ATTRIBUTION_RE, _GENERIC_ROLE_WORDS,
         _snapshot_indemnity_attribution, _compare_indemnity_attribution,
         max_chars=_ROLE_ATTRIBUTION_LOCAL_CHARS,
     )
+    if reasons:
+        return reasons
+
+    # One-named-party-vs-general-terms check (see _PARTY_SPECIFIC_EXCEPTION_RE).
+    em = _PARTY_SPECIFIC_EXCEPTION_RE.search(window)
+    if em and em.group(1).lower() not in _GENERIC_ROLE_WORDS:
+        role = em.group(1)
+        general_snapshot = _snapshot_indemnity_attribution(window[:em.start()])
+        hi = min(len(window), em.end() + _ROLE_ATTRIBUTION_LOCAL_CHARS)
+        boundary = re.search(r"\.\s|\.$", window[em.end():hi])
+        if boundary:
+            hi = em.end() + boundary.end()
+        exception_snapshot = _snapshot_indemnity_attribution(window[em.end():hi])
+        reasons = _compare_indemnity_attribution("the general terms", general_snapshot, role, exception_snapshot)
+    return reasons
 
 
 def _extract_obligation_window(text: str, start: int, end: int) -> str:
