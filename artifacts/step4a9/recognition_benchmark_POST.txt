@@ -1,0 +1,42 @@
+Total: 180 (100 positive, 80 negative)
+Discovery recall (TP/positives): 68/100 = 68.0%
+Discovery precision (TP/(TP+FP)): 68/68 = 100.0%
+False absence (FN/positives): 32/100 = 32.0%
+False positive (FP/negatives): 0/80 = 0.0%
+Actor accuracy (of discovered positives): 68/68 = 100.0%
+Beneficiary accuracy (of discovered positives): 68/68 = 100.0%
+
+=== FALSE NEGATIVES (missed positives) ===
+  S49-REC-POS-002
+  S49-REC-POS-003
+  S49-REC-POS-007
+  S49-REC-POS-008
+  S49-REC-POS-012
+  S49-REC-POS-013
+  S49-REC-POS-017
+  S49-REC-POS-018
+  S49-REC-POS-022
+  S49-REC-POS-023
+  S49-REC-POS-027
+  S49-REC-POS-028
+  S49-REC-POS-PASS-01
+  S49-REC-POS-PASS-02
+  S49-REC-POS-PASS-03
+  S49-REC-POS-PASS-04
+  S49-REC-POS-PASS-05
+  S49-REC-POS-PASS-06
+  S49-REC-POS-RECIP-01
+  S49-REC-POS-RECIP-02
+  S49-REC-POS-RECIP-03
+  S49-REC-POS-RECIP-04
+  S49-REC-POS-RECIP-05
+  S49-REC-POS-LONG-01
+  S49-REC-POS-MORE-09
+  S49-REC-POS-MORE-19
+  S49-REC-POS-UNI-01
+  S49-REC-POS-UNI-02
+  S49-REC-POS-MULTI-01
+  S49-REC-POS-FINAL-05
+  S49-REC-POS-FINAL-15
+  S49-REC-POS-FINAL-25
+=== FALSE POSITIVES (wrongly discovered negatives) ===

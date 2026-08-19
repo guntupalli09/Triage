@@ -69,6 +69,8 @@ from policy_engine_core import (
     trim_role_name,
     CHAINED_DELEGATION_RE as _core_chained_delegation_re,
     CONDITIONAL_UNVERIFIED_PRECONDITION_RE as _core_conditional_unverified_precondition_re,
+    WORD_NUMBERS as _core_word_numbers,
+    SELF_FLAGGED_UNRESOLVED_RE as _core_self_flagged_unresolved_re,
 )
 
 RULE_ID = "POLICY_LOL_CAP"
@@ -117,10 +119,12 @@ _CATEGORY_KEYWORD_RE = {
     "willful_misconduct": re.compile(r"\bwil[l]?ful misconduct\b", re.I),
 }
 
-_WORD_NUMBERS = {
-    "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
-    "seven": 7, "eight": 8, "nine": 9, "ten": 10,
-}
+# Step 4A.9 — moved to policy_engine_core.py as the shared, adapter-
+# agnostic number-parsing primitive (WORD_NUMBERS); aliased here so every
+# existing call site in this file is unchanged. See that module's comment
+# for why number parsing is shared while basis-noun vocabulary stays
+# adapter-local.
+_WORD_NUMBERS = _core_word_numbers
 
 # Provision discovery, in the same two-layer style the other five engines
 # use (a broad anchor pattern + local disqualifiers — cf.
@@ -366,8 +370,11 @@ _EXCLUSION_COVERAGE_SEARCH_CHARS = 600
 _EXCLUSION_COVERAGE_FALLBACK_CHARS = 100
 _ANCHOR_DEDUP_GAP = 300  # a second anchor this close to a prior one is the same clause, not a new provision
 _GREATER_LESSER_RE = re.compile(
-    r"(?P<greater>greater of|whichever is (?:the )?(?:greater|higher))"
-    r"|(?P<lesser>lesser of|whichever is (?:the )?(?:lesser|lower))",
+    # Step 4A.9 (S48-L-T2-07) — "whichever AMOUNT/FIGURE/VALUE is greater"
+    # tolerates a single interposed noun between "whichever" and "is",
+    # which the original "whichever is (the) greater" phrasing didn't.
+    r"(?P<greater>greater of|whichever\s+(?:\w+\s+)?is\s+(?:the\s+)?(?:greater|higher))"
+    r"|(?P<lesser>lesser of|whichever\s+(?:\w+\s+)?is\s+(?:the\s+)?(?:lesser|lower))",
     re.I,
 )
 _PER_CLAIM_RE = re.compile(r"per[\s-]claim|per[\s-]occurrence|(?:individual|single|each) claim", re.I)
@@ -470,17 +477,8 @@ _CHAINED_BASIS_DELEGATION_RE = _core_chained_delegation_re
 # word — so this does not open a vague-language net that would escalate
 # ordinary hedged-but-resolved drafting.
 _SELF_FLAGGED_AMBIGUITY_RE = re.compile(
-    r"\b(?:it\s+being\s+)?unclear\s+whether\b"
-    r"|not\s+yet\s+(?:finally\s+)?resolved\b"
-    r"|not\s+yet\s+(?:been\s+)?determined\b"
-    r"|no\s+such\s+[\w\s]{0,30}\s+currently\s+exists\b"
-    r"|determination\s+not\s+yet\s+made\b"
-    # Step 4A.7.4 (F3-D-11) — same "the choice between two stated options
-    # hasn't been made yet" concept, reordered ("no such determination
-    # HAVING YET BEEN made" rather than "determination NOT YET made").
-    r"|(?:no\s+such\s+)?determination\s+having\s+(?:yet\s+)?been\s+made\b"
-    r"|not\s+yet\s+reached\s+agreement\b"
-    r"|have\s+not\s+yet\s+reached\s+agreement\b",
+    _core_self_flagged_unresolved_re.pattern
+    + r"|no\s+such\s+[\w\s]{0,30}\s+currently\s+exists\b",
     re.I,
 )
 
@@ -496,7 +494,10 @@ _SELF_FLAGGED_AMBIGUITY_RE = re.compile(
 # itself sufficient evidence of conflict, never resolved by picking
 # either value.
 _CONFLICTING_DEFINED_TERM_RE = re.compile(
-    r"is\s+defined\s+in\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+as\s+[^,]+,?\s+and\s+separately"
+    # Step 4A.9 (S48-L-T3-H-01) — "and IS SEPARATELY DEFINED in Section" is
+    # the same restatement as "and separately in Section", with "is...
+    # defined" spelled out instead of elided.
+    r"is\s+defined\s+in\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+as\s+[^,]+,?\s+and\s+(?:is\s+)?separately(?:\s+defined)?"
     r"\s+in\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+as\b"
     # Step 4A.7.1 (A6-L-22): the SAME defined-term-conflict concept, a
     # different surface construction — "'[Term]' means, for purposes of

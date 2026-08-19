@@ -55,7 +55,12 @@ from policy_engine_core import (
     detect_role_attributed_asymmetry,
     trim_role_name,
     CHAINED_DELEGATION_RE as _core_chained_delegation_re,
+    word_number_alternation as _core_word_number_alternation_fn,
+    parse_multiplier_token as _core_parse_multiplier_token,
+    SELF_FLAGGED_UNRESOLVED_RE as _core_self_flagged_unresolved_re,
 )
+
+_core_word_number_alternation = _core_word_number_alternation_fn()
 
 RULE_ID = "POLICY_INDEMNIFICATION"
 
@@ -147,12 +152,114 @@ _SYNONYM_OBLIGATION_BEAR_RESPONSIBILITY_RE = re.compile(
     r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+bear\s+(?:full\s+)?responsibility\s+for\s+defending\s+and\s+satisfying\s+(?:such|any)\s+claims?\s+on)\s+"
     r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")(?:'s)?\s+(?i:behalf)\b"
 )
+# Step 4A.9 — Step 4A.8 found 15/15 fresh risk-transfer phrasings (plus a
+# 16th where an ALREADY-supported idiom broke on simple word reordering)
+# went completely unrecognized, because the four patterns above are each a
+# single, rigidly-ordered full-phrase template. Rather than one more entry
+# in that same closed list, obligation STRUCTURING is widened here with a
+# handful of additional structured patterns covering verb families Step
+# 4A.8 exercised (reimbursement, loss-bearing, duty-to-defend, protection,
+# answer-for), each still requiring the same evidence shape the original
+# four already require (named actor, named beneficiary, a claim/loss
+# reference) — no bare single-verb match is ever sufficient by itself. The
+# BEAR_RESPONSIBILITY idiom is additionally widened to tolerate the
+# trailing "on X's behalf" qualifier appearing either before OR after the
+# claim reference (this specifically fixes the S48-I-N-03 word-reordering
+# failure). This widened list is still finite and still lexical — it is
+# NOT the architectural fix. The architectural fix is
+# _RISK_TRANSFER_SIGNAL_RE below: when discovery detects plausible risk-
+# transfer language that NONE of these structured patterns can parse, the
+# document is never reported absent (see the "if not obligations" fallback
+# in extract_indemnification_facts, which already safely routes to
+# REQUIRES_REVIEW — this signal's only job is to make sure that fallback
+# is REACHED instead of an early return None short-circuiting past it).
+# Two full alternative orderings, each its own regex with group(1)=actor,
+# group(2)=beneficiary in the same position — the shared extraction loop
+# below always reads m.group(1)/m.group(2), so a single regex with
+# per-branch alternated capture groups (which would put the beneficiary in
+# group(2) on one branch and group(3) on the other) is not usable there.
+_SYNONYM_OBLIGATION_BEAR_RESPONSIBILITY_RE = re.compile(
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+bear\s+(?:full\s+)?responsibility\s+for\s+defending\s+and\s+satisfying\s+(?:such|any)\s+claims?\s+on)\s+"
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")(?:'s)?\s+(?i:behalf)\b"
+)
+_SYNONYM_OBLIGATION_BEAR_RESPONSIBILITY_REORDERED_RE = re.compile(
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+bear\s+(?:full\s+)?responsibility\s+for\s+defending\s+and\s+satisfying,?\s+on)\s+"
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")(?:'s)?\s+(?i:behalf,?\s+(?:any|such)\s+claims?)\b"
+)
+_SYNONYM_OBLIGATION_REIMBURSE_FULL_RE = re.compile(
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+be\s+responsible\s+for,?\s+and\s+shall\s+reimburse)\s+"
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:in\s+full\s+for\s+any)\s+(?i:losses?|claims?|damages?)"
+)
+_SYNONYM_OBLIGATION_ASSUME_LIABILITY_RE = re.compile(
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+assume\s+all\s+liability\s+for,?\s+and\s+(?:undertakes\s+to\s+make|shall\s+make))\s+"
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:whole\s+in\s+respect\s+of)"
+)
+_SYNONYM_OBLIGATION_STAND_IN_PLACE_RE = re.compile(
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+stand\s+in)\s+"
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")(?:'s)?\s+(?i:place\s+in\s+defending\s+against,?\s+and\s+shall\s+bear\s+the\s+cost\s+of\s+resolving)"
+)
+_SYNONYM_OBLIGATION_PROTECT_FROM_SATISFY_RE = re.compile(
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+protect)\s+"
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:from,?\s+and\s+satisfy(?:\s+on\s+\2's\s+behalf)?,?)\s+(?i:any|such)\s+claims?"
+)
+_SYNONYM_OBLIGATION_ANSWER_FOR_RE = re.compile(
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:agrees\s+to\s+answer\s+for,?\s+and\s+to\s+save)\s+"
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:harmless\s+from)\s+(?i:any|such)\s+claims?"
+)
 _SYNONYM_OBLIGATION_RES = (
     _SYNONYM_OBLIGATION_HOLD_HARMLESS_RE,
     _SYNONYM_OBLIGATION_PROTECT_REIMBURSE_RE,
     _SYNONYM_OBLIGATION_MAKE_WHOLE_RE,
     _SYNONYM_OBLIGATION_BEAR_RESPONSIBILITY_RE,
+    _SYNONYM_OBLIGATION_BEAR_RESPONSIBILITY_REORDERED_RE,
+    _SYNONYM_OBLIGATION_REIMBURSE_FULL_RE,
+    _SYNONYM_OBLIGATION_ASSUME_LIABILITY_RE,
+    _SYNONYM_OBLIGATION_STAND_IN_PLACE_RE,
+    _SYNONYM_OBLIGATION_PROTECT_FROM_SATISFY_RE,
+    _SYNONYM_OBLIGATION_ANSWER_FOR_RE,
 )
+# Broad, recall-favoring DISCOVERY signal — deliberately NOT authoritative
+# (see recognition_design.md, Sections A/C/D). Fires on a wider verb set
+# than obligation STRUCTURING above, but still requires a nearby claim/loss
+# noun so it doesn't engage on "responsible for supplying materials" or
+# "reimburse Client for prepaid amounts" (ordinary performance/refund
+# language, not risk transfer). When this signal fires but no obligation
+# above can be structured, the document is NOT reported absent — see the
+# "if not obligations" fallback in extract_indemnification_facts, which
+# already safely produces REQUIRES_REVIEW ("indemnification referenced but
+# no directional obligation could be parsed") for exactly this situation;
+# this signal's only job is to make sure that fallback is REACHED instead
+# of an early return None.
+_RISK_TRANSFER_SIGNAL_RE = re.compile(
+    r"hold\s+\w+(?:\s+\w+){0,3}\s+harmless"
+    r"|reimburse\w*"
+    r"|make\s+\w+(?:\s+\w+){0,3}\s+whole"
+    r"|bear\s+(?:the\s+cost\s+of\s+|full\s+)?responsibility"
+    r"|assume\s+(?:all\s+)?liability"
+    r"|(?:shall|will)\s+be\s+responsible\s+for"
+    r"|protect\s+\w+(?:\s+\w+){0,3}\s+from"
+    r"|satisfy\s+(?:such\s+|any\s+)?claims?"
+    r"|stand\s+in\s+\w+(?:\s+\w+){0,3}'s?\s+place"
+    r"|answer\s+for"
+    r"|save\s+\w+(?:\s+\w+){0,3}\s+harmless"
+    r"|assume\s+the\s+defense\s+of",
+    re.I,
+)
+_CLAIM_LOSS_NOUN_RE = re.compile(
+    r"claims?|losses?|damages?|liabilit(?:y|ies)|expenses?|judgments?|third[\s-]part(?:y|ies)",
+    re.I,
+)
+
+
+def _risk_transfer_signal_present(text: str) -> bool:
+    """Broad discovery only — a verb-cluster hit AND a claim/loss noun
+    within a bounded window of it. Never itself authorizes a policy
+    decision; see _RISK_TRANSFER_SIGNAL_RE's docstring above."""
+    for m in _RISK_TRANSFER_SIGNAL_RE.finditer(text):
+        window = text[max(0, m.start() - 60):min(len(text), m.end() + 120)]
+        if _CLAIM_LOSS_NOUN_RE.search(window):
+            return True
+    return False
 # An explicit, document-wide statement that no indemnification obligation
 # exists at all. Distinct from the anchor-negation guard below (which only
 # filters an anchor match immediately preceded by "no " — i.e. the SAME
@@ -252,6 +359,21 @@ _MONETARY_MULTIPLIER_RE = re.compile(
     r"(?:fees?|rent|royalt(?:y|ies)|premiums?|charges?)",
     re.I,
 )
+# Step 4A.9 — capability-parity fix (Step 4A.8 Finding #2): this adapter's
+# multiplier regex only ever matched bare digits, so the "one (1) times the
+# fees paid" spelled-out-number drafting convention liability already
+# supports (via _MULTIPLIER_WORD_RE there) produced zero verified
+# multipliers across the entire Step 4A.8 indemnification corpus. Built on
+# the SAME shared number-parsing primitive (policy_engine_core.WORD_NUMBERS
+# / word_number_alternation) liability now also imports from — the basis-
+# noun list stays adapter-local (indemnification has no purchase-price/
+# contract-value/order-form-value basis words, matching the comment above),
+# only the number-parsing portion is shared.
+_MONETARY_MULTIPLIER_WORD_RE = re.compile(
+    r"\b(" + _core_word_number_alternation + r")\s*(?:\(\d+\))?\s*times?\s*(?:the\s+)?(?:total\s+|aggregate\s+)?"
+    r"(?:annual\s+)?(?:\w+\s+){0,2}(?:fees?|rent|royalt(?:y|ies)|premiums?|charges?)",
+    re.I,
+)
 _MONETARY_FIXED_RE = re.compile(
     r"(?:shall\s+not\s+exceed|(?:is\s+)?capped\s+at|limited\s+to)\s*\$\s*([\d,]+(?:\.\d{2})?)",
     re.I,
@@ -286,8 +408,7 @@ _SECTION_REF_NEAR_RE = re.compile(r"Section\s+\d+(?:\.\d+)?", re.I)
 # phrase between "for purposes of" and the section number ("for purposes of
 # the data-breach-specific indemnity in Section 8.4") — see F3-D-18.
 _SELF_FLAGGED_INDEMNIFICATION_UNRESOLVED_RE = re.compile(
-    r"not\s+yet\s+(?:finally\s+)?resolved\b"
-    r"|not\s+yet\s+(?:been\s+)?determined\b",
+    _core_self_flagged_unresolved_re.pattern,
     re.I,
 )
 _CONDITIONAL_CAP_ESCALATION_RE = re.compile(
@@ -885,7 +1006,15 @@ def _classify_monetary(window: str, obligation_start: int) -> MonetaryTreatment:
     xref = _MONETARY_CROSS_REF_RE.search(window)
     unlimited = _MONETARY_UNLIMITED_RE.search(window)
     mult = _MONETARY_MULTIPLIER_RE.search(window)
+    mult_word = _MONETARY_MULTIPLIER_WORD_RE.search(window)
     fixed = _MONETARY_FIXED_RE.search(window)
+    # Bare-digit and spelled-out-number multiplier matches never overlap in
+    # practice (a number is spelled out in words XOR written as a digit at
+    # any one position); when a window somehow contains both (e.g. two
+    # separate multiplier mentions in different sentences), the earlier one
+    # governs, same as every other candidate here.
+    if mult_word is not None and (mult is None or mult_word.start() < mult.start()):
+        mult = mult_word
 
     def _other_clause_label(m: "re.Match[str]") -> Optional[str]:
         lo = max(0, m.start() - _MONETARY_DISQUALIFIER_PROXIMITY)
@@ -922,7 +1051,10 @@ def _classify_monetary(window: str, obligation_start: int) -> MonetaryTreatment:
     if first is unlimited:
         return MonetaryTreatment(kind="unlimited", raw_excerpt=_excerpt(window, unlimited.start(), unlimited.end()))
     if first is mult:
-        return MonetaryTreatment(kind="multiplier", multiplier=float(mult.group(1)), raw_excerpt=_excerpt(window, mult.start(), mult.end()))
+        return MonetaryTreatment(
+            kind="multiplier", multiplier=_core_parse_multiplier_token(mult.group(1)),
+            raw_excerpt=_excerpt(window, mult.start(), mult.end()),
+        )
     return MonetaryTreatment(kind="fixed", fixed_amount=float(fixed.group(1).replace(",", "")), raw_excerpt=_excerpt(window, fixed.start(), fixed.end()))
 
 
@@ -1137,9 +1269,20 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
     # occurrence NOT immediately preceded by a negation cue.
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
     # Step 4A.5 Priority 3: a document that never uses "indemnif*" at all
-    # can still state the same concept using one of the closed synonym
-    # idioms above — check those before giving up on document engagement.
-    if not anchors and not any(r.search(text) for r in _SYNONYM_OBLIGATION_RES):
+    # can still state the same concept using one of the structured synonym
+    # patterns above — check those before giving up on document engagement.
+    # Step 4A.9 — and even if NONE of those structured patterns match
+    # either, a broad risk-transfer SIGNAL (verb cluster + nearby claim/
+    # loss noun, not itself authoritative — see _RISK_TRANSFER_SIGNAL_RE)
+    # must still prevent this early return: Step 4A.8 found 16 SM-CRITICAL
+    # cases where genuine risk-transfer language, phrased outside every
+    # structured pattern this module knows, was silently reported as no
+    # clause at all. Falling through here (instead of returning None) does
+    # NOT itself create policy authority — it only reaches the existing "if
+    # not obligations" fallback below, which already safely produces
+    # REQUIRES_REVIEW when no directional obligation can be structured.
+    if not anchors and not any(r.search(text) for r in _SYNONYM_OBLIGATION_RES) \
+            and not _risk_transfer_signal_present(text):
         return None
 
     obligations: List[IndemnityObligation] = []

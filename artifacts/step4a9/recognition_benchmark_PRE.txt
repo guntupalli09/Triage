@@ -1,13 +1,12 @@
 Total: 180 (100 positive, 80 negative)
-Discovery recall (TP/positives): 17/100 = 17.0%
-Discovery precision (TP/(TP+FP)): 17/17 = 100.0%
-False absence (FN/positives): 83/100 = 83.0%
+Discovery recall (TP/positives): 25/100 = 25.0%
+Discovery precision (TP/(TP+FP)): 25/25 = 100.0%
+False absence (FN/positives): 75/100 = 75.0%
 False positive (FP/negatives): 0/80 = 0.0%
-Actor accuracy (of discovered positives): 17/17 = 100.0%
-Beneficiary accuracy (of discovered positives): 17/17 = 100.0%
+Actor accuracy (of discovered positives): 25/25 = 100.0%
+Beneficiary accuracy (of discovered positives): 25/25 = 100.0%
 
 === FALSE NEGATIVES (missed positives) ===
-  S49-REC-POS-001
   S49-REC-POS-002
   S49-REC-POS-003
   S49-REC-POS-004
@@ -15,7 +14,6 @@ Beneficiary accuracy (of discovered positives): 17/17 = 100.0%
   S49-REC-POS-006
   S49-REC-POS-007
   S49-REC-POS-008
-  S49-REC-POS-011
   S49-REC-POS-012
   S49-REC-POS-013
   S49-REC-POS-014
@@ -23,7 +21,6 @@ Beneficiary accuracy (of discovered positives): 17/17 = 100.0%
   S49-REC-POS-016
   S49-REC-POS-017
   S49-REC-POS-018
-  S49-REC-POS-021
   S49-REC-POS-022
   S49-REC-POS-023
   S49-REC-POS-024
@@ -56,7 +53,6 @@ Beneficiary accuracy (of discovered positives): 17/17 = 100.0%
   S49-REC-POS-MORE-03
   S49-REC-POS-MORE-04
   S49-REC-POS-MORE-05
-  S49-REC-POS-MORE-08
   S49-REC-POS-MORE-09
   S49-REC-POS-MORE-10
   S49-REC-POS-MORE-11
@@ -64,14 +60,12 @@ Beneficiary accuracy (of discovered positives): 17/17 = 100.0%
   S49-REC-POS-MORE-13
   S49-REC-POS-MORE-14
   S49-REC-POS-MORE-15
-  S49-REC-POS-MORE-18
   S49-REC-POS-MORE-19
   S49-REC-POS-MORE-20
   S49-REC-POS-UNI-01
   S49-REC-POS-UNI-02
   S49-REC-POS-MULTI-01
   S49-REC-POS-FINAL-01
-  S49-REC-POS-FINAL-04
   S49-REC-POS-FINAL-05
   S49-REC-POS-FINAL-06
   S49-REC-POS-FINAL-07
@@ -79,7 +73,6 @@ Beneficiary accuracy (of discovered positives): 17/17 = 100.0%
   S49-REC-POS-FINAL-09
   S49-REC-POS-FINAL-10
   S49-REC-POS-FINAL-11
-  S49-REC-POS-FINAL-14
   S49-REC-POS-FINAL-15
   S49-REC-POS-FINAL-16
   S49-REC-POS-FINAL-17
@@ -87,7 +80,6 @@ Beneficiary accuracy (of discovered positives): 17/17 = 100.0%
   S49-REC-POS-FINAL-19
   S49-REC-POS-FINAL-20
   S49-REC-POS-FINAL-21
-  S49-REC-POS-FINAL-24
   S49-REC-POS-FINAL-25
   S49-REC-POS-FINAL-26
 === FALSE POSITIVES (wrongly discovered negatives) ===

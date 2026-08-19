@@ -62,6 +62,49 @@ LADDER_ORDER = [ACCEPT, ACCEPT_WITH_NOTE, NEGOTIATE, ESCALATE, PROHIBITED]
 BUY_SIDE_ROLES = {"customer", "client", "licensee", "buyer", "purchaser", "recipient"}
 SELL_SIDE_ROLES = {"supplier", "vendor", "contractor", "licensor", "provider", "seller", "company"}
 
+# Step 4A.9 — Step 4A.8 found indemnification's monetary-multiplier
+# extraction never received this capability at all: liability supports a
+# spelled-out-number-with-optional-parenthetical-numeral drafting
+# convention ("one (1) times the fees paid"), which is at least as common
+# in real legal drafting as bare digits, but indemnification's own
+# multiplier regex only ever matched bare digits — across all 97
+# indemnification cases in that corpus, zero produced a verified
+# multiplier. Number parsing itself has no adapter-specific semantics (a
+# spelled-out "two" means 2 whether the surrounding clause is a liability
+# cap or an indemnification cap) — unlike the BASIS noun vocabulary
+# (liability has purchase-price/contract-value/order-form-value basis
+# words indemnification doesn't), which genuinely does differ per adapter
+# and is deliberately kept adapter-local. This dict and the two helpers
+# below are the shared, adapter-agnostic number-parsing primitive; each
+# adapter still builds its own basis-word regex around it.
+WORD_NUMBERS = {
+    "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
+    "seven": 7, "eight": 8, "nine": 9, "ten": 10,
+}
+
+
+def word_number_alternation() -> str:
+    """The regex alternation fragment ('one|two|three|...') for matching a
+    spelled-out multiplier number, e.g. inside
+    r"\\b(" + word_number_alternation() + r")\\s*(?:\\(\\d+\\))?\\s*times?..."."""
+    return "|".join(WORD_NUMBERS)
+
+
+def parse_multiplier_token(token: str) -> Optional[float]:
+    """Converts a matched multiplier token — either a bare digit string
+    ("2", "1.5") or a spelled-out word number ("two") — to a float. Returns
+    None if the token is neither (should not happen for a token captured by
+    a group built from word_number_alternation() or a \\d+(?:\\.\\d+)?
+    group, but kept total rather than raising for callers passing arbitrary
+    text)."""
+    token = token.strip().lower()
+    if token in WORD_NUMBERS:
+        return float(WORD_NUMBERS[token])
+    try:
+        return float(token)
+    except ValueError:
+        return None
+
 
 def side_for_role(role: str) -> Optional[str]:
     role_key = role.lower()
@@ -881,8 +924,11 @@ def trim_role_name(raw: str) -> str:
 # relative "which X itself/in turn <delegates>" clause resolving to an
 # excluded/external document), not one adapter's own vocabulary.
 CHAINED_DELEGATION_RE = re.compile(
+    # Step 4A.9 (S48-L-T3-I-01) — "in turn DEFERS TO" is the same
+    # second-hop delegation as "in turn cross-references/references", one
+    # more ordinary verb for the same concept.
     r"which\s+[A-Z][\w .]{0,40}?\s+(?:itself|in\s+turn)\s+"
-    r"(?:cross-references|references|incorporates(?:\s+by\s+reference)?)\s+"
+    r"(?:cross-references|references|incorporates(?:\s+by\s+reference)?|defers\s+to)\s+"
     r"[^.]{0,120}?"
     r"(?:not\s+included\b|external,?\s+not\s+part\s+of\s+this\s+Agreement|not\s+part\s+of\s+this\s+Agreement)",
     re.I,
@@ -900,9 +946,57 @@ CHAINED_DELEGATION_RE = re.compile(
 # read literally. Shared because the shape isn't specific to what kind of
 # value the proviso conditions (liability cap multiplier, payment period,
 # ...) — see fresh-battery F3-L-09 and F3-P-09.
+# Step 4A.9 — Step 4A.8 found this only tolerated two closing verbs
+# ("verified"/"determined") in two tenses. The underlying concept — a
+# PROVIDED THAT proviso whose own triggering condition the document admits
+# isn't settled yet — is expressed with plenty of other, equally ordinary
+# closing verbs ("confirmed", "made" an election, "elected", "fixed" a
+# date) and tenses ("not yet HAVING BEEN determined", not just "not yet
+# been"/"not yet being"), and can carry an adverb before the verb ("not yet
+# been INDEPENDENTLY confirmed").
 CONDITIONAL_UNVERIFIED_PRECONDITION_RE = re.compile(
-    r"provided\s+that\b[^.]{0,200}?"
-    r"(?:not\s+yet\s+(?:been\s+)?verified|not\s+yet\s+(?:been\s+)?determined|not\s+yet\s+being\s+determined)",
+    # Step 4A.9 (S48-P-F-02) — the same conditional-value-depends-on-an-
+    # unresolved-precondition shape is also drafted as "unless X ... in
+    # which case Y" rather than only "PROVIDED THAT" — the anchor is
+    # widened to either.
+    # Non-period-or-decimal-point-in-a-section-number ((?:[^.]|\.\d)): a
+    # bare [^.] stops the lookahead dead at "Section 6.7"'s own decimal
+    # point, well short of the actual unresolved-precondition phrase later
+    # in the same sentence (S48-P-F-02).
+    r"(?:provided\s+that|unless\b)(?:[^.]|\.\d){0,200}?"
+    r"(?:has\s+|have\s+)?not\s+yet\s+(?:been\s+|being\s+|having\s+been\s+)?(?:[a-z]+ly\s+)?"
+    r"(?:verified|determined|confirmed|made|elected|established|resolved|fixed|settled)\b",
+    re.I,
+)
+
+
+# Step 4A.9 — Step 4A.8 found the self-flagged-unresolved family
+# independently maintained per adapter (liability's _SELF_FLAGGED_
+# AMBIGUITY_RE, payment_terms' _SELF_FLAGGED_PAYMENT_UNRESOLVED_RE,
+# indemnification's _SELF_FLAGGED_INDEMNIFICATION_UNRESOLVED_RE) had drifted
+# apart: a phrase added to liability in Step 4A.7.4
+# ("determination having yet been made") was never propagated to
+# payment_terms despite the identical concept applying there too
+# (S48-P-N-03), and fresh Step 4A.8 paraphrases of the SAME underlying
+# concept ("have not yet agreed whether", "remains unresolved" without
+# "under negotiation", "determination has yet been reached") were missing
+# from every adapter's copy. This is the shared, adapter-agnostic core of
+# that family — "the document itself states a material fact is not yet
+# settled" has no adapter-specific semantics — kept separate from each
+# adapter's own genuinely adapter-specific extras (payment's "no invoice
+# shall issue until", liability's "no such [X] currently exists").
+SELF_FLAGGED_UNRESOLVED_RE = re.compile(
+    r"\b(?:it\s+being\s+)?unclear\s+whether\b"
+    r"|not\s+yet\s+(?:finally\s+)?resolved\b"
+    r"|remains?\s+unresolved\b"
+    r"|not\s+yet\s+(?:been\s+)?determined\b"
+    r"|determination\s+not\s+yet\s+made\b"
+    r"|(?:no\s+such\s+)?determination\s+having\s+(?:yet\s+)?been\s+made\b"
+    r"|determination\s+has\s+yet\s+been\s+reached\b"
+    r"|not\s+yet\s+reached\s+agreement\b"
+    r"|have\s+not\s+yet\s+reached\s+agreement\b"
+    r"|(?:have|has)\s+not\s+yet\s+agreed\s+whether\b"
+    r"|remain(?:s|ing)?\s+under\s+negotiation\b",
     re.I,
 )
 

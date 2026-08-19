@@ -57,6 +57,7 @@ from policy_engine_core import (
     PolicyDecision,
     CHAINED_DELEGATION_RE as _core_chained_delegation_re,
     CONDITIONAL_UNVERIFIED_PRECONDITION_RE as _core_conditional_unverified_precondition_re,
+    SELF_FLAGGED_UNRESOLVED_RE as _core_self_flagged_unresolved_re,
 )
 
 RULE_ID = "POLICY_PAYMENT_TERMS"
@@ -290,7 +291,8 @@ _CONFLICTING_PAYMENT_TERM_RE = re.compile(
     re.I,
 )
 _SELF_FLAGGED_PAYMENT_UNRESOLVED_RE = re.compile(
-    r"no\s+payment\s+obligation\s+arises\s+until\b"
+    _core_self_flagged_unresolved_re.pattern
+    + r"|no\s+payment\s+obligation\s+arises\s+until\b"
     # Step 4A.7.4 (F3-P-05) — same "nothing is owed until a future
     # instrument is executed" concept, a fresh verb ("no invoice SHALL
     # ISSUE until..." rather than "no payment obligation ARISES until...").
@@ -298,10 +300,7 @@ _SELF_FLAGGED_PAYMENT_UNRESOLVED_RE = re.compile(
     r"|does\s+not\s+indicate\s+which\s+is\s+the\s+most\s+recent\b"
     # Step 4A.7.4 (F3-D-09) — same "ambiguous which instrument governs"
     # concept, generalized beyond the "most recent" phrasing specifically.
-    r"|does\s+not\s+(?:specify|indicate)\s+which\b"
-    r"|remain(?:s|ing)?\s+under\s+negotiation\b"
-    r"|not\s+yet\s+(?:finally\s+)?resolved\b"
-    r"|not\s+yet\s+(?:been\s+)?determined\b",
+    r"|does\s+not\s+(?:specify|indicate)\s+which\b",
     re.I,
 )
 

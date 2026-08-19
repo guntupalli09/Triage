@@ -47,7 +47,7 @@ POS_DOMAINS = [
     "Nettlewood Custom Herbalism Consulting", "Oxfordale Custom Cheese Aging",
 ]
 VERB_TEMPLATES = [
-    ("shall indemnify, defend, and hold harmless", "canonical"),
+    ("shall indemnify, defend, and hold harmless {b} from", "canonical"),
     ("shall indemnify and hold {b} harmless from", "canonical-variant"),
     ("shall be responsible for, and shall reimburse {b} in full for", "reimbursement"),
     ("shall assume all liability for, and undertakes to make {b} whole in respect of", "loss-bearing"),

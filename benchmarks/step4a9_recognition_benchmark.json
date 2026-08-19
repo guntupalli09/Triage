@@ -2,7 +2,7 @@
   {
     "id": "S49-REC-POS-001",
     "label": "positive",
-    "text": "8. Risk Allocation. Ferrowatch Industrial Boiler Inspection shall indemnify, defend, and hold harmless any third-party claim arising from Ferrowatch Industrial Boiler Inspection's negligence in performing services under this Agreement.",
+    "text": "8. Risk Allocation. Ferrowatch Industrial Boiler Inspection shall indemnify, defend, and hold harmless Client from any third-party claim arising from Ferrowatch Industrial Boiler Inspection's negligence in performing services under this Agreement.",
     "kwargs": {
       "contract_side": "sell_side"
     },
@@ -142,7 +142,7 @@
   {
     "id": "S49-REC-POS-011",
     "label": "positive",
-    "text": "8. Risk Allocation. Vesperwood Custom Organ Building shall indemnify, defend, and hold harmless any third-party claim arising from Vesperwood Custom Organ Building's negligence in performing services under this Agreement.",
+    "text": "8. Risk Allocation. Vesperwood Custom Organ Building shall indemnify, defend, and hold harmless Client from any third-party claim arising from Vesperwood Custom Organ Building's negligence in performing services under this Agreement.",
     "kwargs": {
       "contract_side": "sell_side"
     },
@@ -282,7 +282,7 @@
   {
     "id": "S49-REC-POS-021",
     "label": "positive",
-    "text": "8. Risk Allocation. Frostgate Custom Ice Carving shall indemnify, defend, and hold harmless any third-party claim arising from Frostgate Custom Ice Carving's negligence in performing services under this Agreement.",
+    "text": "8. Risk Allocation. Frostgate Custom Ice Carving shall indemnify, defend, and hold harmless Client from any third-party claim arising from Frostgate Custom Ice Carving's negligence in performing services under this Agreement.",
     "kwargs": {
       "contract_side": "sell_side"
     },
@@ -800,7 +800,7 @@
   {
     "id": "S49-REC-POS-MORE-08",
     "label": "positive",
-    "text": "8. Risk Allocation. Nettlefen Custom Reed Basket Weaving shall indemnify, defend, and hold harmless any claim arising from Nettlefen Custom Reed Basket Weaving's negligence.",
+    "text": "8. Risk Allocation. Nettlefen Custom Reed Basket Weaving shall indemnify, defend, and hold harmless Owner from any claim arising from Nettlefen Custom Reed Basket Weaving's negligence.",
     "kwargs": {
       "contract_side": "sell_side"
     },
@@ -940,7 +940,7 @@
   {
     "id": "S49-REC-POS-MORE-18",
     "label": "positive",
-    "text": "8. Risk Allocation. Xylophage Custom Termite Treatment shall indemnify, defend, and hold harmless any claim arising from Xylophage Custom Termite Treatment's negligence.",
+    "text": "8. Risk Allocation. Xylophage Custom Termite Treatment shall indemnify, defend, and hold harmless Owner from any claim arising from Xylophage Custom Termite Treatment's negligence.",
     "kwargs": {
       "contract_side": "sell_side"
     },
@@ -1080,7 +1080,7 @@
   {
     "id": "S49-REC-POS-FINAL-04",
     "label": "positive",
-    "text": "8. Risk Allocation. Duskholt Custom Watchtower Restoration shall indemnify, defend, and hold harmless any claim arising from Duskholt Custom Watchtower Restoration's negligence in connection with the work described in Exhibit A.",
+    "text": "8. Risk Allocation. Duskholt Custom Watchtower Restoration shall indemnify, defend, and hold harmless Landowner from any claim arising from Duskholt Custom Watchtower Restoration's negligence in connection with the work described in Exhibit A.",
     "kwargs": {
       "contract_side": "sell_side"
     },
@@ -1220,7 +1220,7 @@
   {
     "id": "S49-REC-POS-FINAL-14",
     "label": "positive",
-    "text": "8. Risk Allocation. Nightshade Custom Herb Garden Design shall indemnify, defend, and hold harmless any claim arising from Nightshade Custom Herb Garden Design's negligence in connection with the work described in Exhibit A.",
+    "text": "8. Risk Allocation. Nightshade Custom Herb Garden Design shall indemnify, defend, and hold harmless Landowner from any claim arising from Nightshade Custom Herb Garden Design's negligence in connection with the work described in Exhibit A.",
     "kwargs": {
       "contract_side": "sell_side"
     },
@@ -1360,7 +1360,7 @@
   {
     "id": "S49-REC-POS-FINAL-24",
     "label": "positive",
-    "text": "8. Risk Allocation. Yewbridge Custom Footbridge Repair shall indemnify, defend, and hold harmless any claim arising from Yewbridge Custom Footbridge Repair's negligence in connection with the work described in Exhibit A.",
+    "text": "8. Risk Allocation. Yewbridge Custom Footbridge Repair shall indemnify, defend, and hold harmless Landowner from any claim arising from Yewbridge Custom Footbridge Repair's negligence in connection with the work described in Exhibit A.",
     "kwargs": {
       "contract_side": "sell_side"
     },
