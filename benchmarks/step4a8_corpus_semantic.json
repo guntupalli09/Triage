@@ -1393,9 +1393,7 @@
     "families": [
       "I"
     ],
-    "text": [
-      "9. Limitation of Liability. Aggregate liability shall not exceed one (1) times the annual fees paid, as calculated under Exhibit F."
-    ],
+    "text": "9. Limitation of Liability. Aggregate liability shall not exceed one (1) times the annual fees paid, as calculated under Exhibit F.",
     "kwargs": {
       "contract_side": "sell_side"
     },
