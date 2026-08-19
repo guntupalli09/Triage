@@ -68,6 +68,7 @@ from policy_engine_core import (
     requires_review_explanation, requires_review_required_action,
     trim_role_name,
     CHAINED_DELEGATION_RE as _core_chained_delegation_re,
+    CONDITIONAL_UNVERIFIED_PRECONDITION_RE as _core_conditional_unverified_precondition_re,
 )
 
 RULE_ID = "POLICY_LOL_CAP"
@@ -474,6 +475,10 @@ _SELF_FLAGGED_AMBIGUITY_RE = re.compile(
     r"|not\s+yet\s+(?:been\s+)?determined\b"
     r"|no\s+such\s+[\w\s]{0,30}\s+currently\s+exists\b"
     r"|determination\s+not\s+yet\s+made\b"
+    # Step 4A.7.4 (F3-D-11) — same "the choice between two stated options
+    # hasn't been made yet" concept, reordered ("no such determination
+    # HAVING YET BEEN made" rather than "determination NOT YET made").
+    r"|(?:no\s+such\s+)?determination\s+having\s+(?:yet\s+)?been\s+made\b"
     r"|not\s+yet\s+reached\s+agreement\b"
     r"|have\s+not\s+yet\s+reached\s+agreement\b",
     re.I,
@@ -957,6 +962,16 @@ def _classify_general_cap_expression(
         return _unresolved(
             "the cap's basis is delegated through a chain of cross-references ending in a document not "
             "included — the multiplier itself is clean but what it applies to cannot be verified",
+            raw_excerpt=window[lo:hi].strip(), start_index=lo, end_index=hi,
+        )
+
+    conditional_unverified = _core_conditional_unverified_precondition_re.search(window)
+    if conditional_unverified:
+        lo = max(0, conditional_unverified.start() - 20)
+        hi = min(len(window), conditional_unverified.end() + 20)
+        return _unresolved(
+            "the stated multiplier's applicability is conditioned on a precondition the document itself "
+            "marks as not yet verified — cannot confirm this cap actually governs",
             raw_excerpt=window[lo:hi].strip(), start_index=lo, end_index=hi,
         )
 

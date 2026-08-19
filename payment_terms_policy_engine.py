@@ -56,6 +56,7 @@ from policy_engine_core import (
     requires_review_explanation, requires_review_required_action,
     PolicyDecision,
     CHAINED_DELEGATION_RE as _core_chained_delegation_re,
+    CONDITIONAL_UNVERIFIED_PRECONDITION_RE as _core_conditional_unverified_precondition_re,
 )
 
 RULE_ID = "POLICY_PAYMENT_TERMS"
@@ -271,13 +272,34 @@ _DEBT_SATISFACTION_ACTION_RE = re.compile(
 # separate, general shape check: a quoted term redefined a second time,
 # introduced by "shall instead mean" and scoped to a different Section.
 _CONFLICTING_PAYMENT_TERM_RE = re.compile(
-    r"for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+shall\s+mean\s+[^,]+,?\s+and\s+['‘][^'’]+['’]\s+for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+shall\s+instead\s+mean\b",
+    r"for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+shall\s+mean\s+[^,]+,?\s+and\s+['‘][^'’]+['’]\s+for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+shall\s+instead\s+mean\b"
+    # Step 4A.7.4 (F3-P-06) — same conflicting-term concept, clause order
+    # reversed: "for purposes of Section N, 'TERM' shall mean X, and for
+    # purposes of Section M, 'TERM' shall instead mean Y" (the "for
+    # purposes of" phrase precedes the quoted term both times, rather than
+    # only the second time).
+    r"|for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,?\s+['‘][^'’]+['’]\s+shall\s+mean\s+[^,]+,?"
+    r"\s+and\s+for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,?\s+['‘][^'’]+['’]\s+shall\s+instead\s+mean\b"
+    # Step 4A.7.4 (F3-D-15) — the SAME "'TERM' means, for purposes of
+    # Section N, VALUE, and means, for purposes of Section M, VALUE2" shape
+    # liability/indemnification's own conflicting-defined-term detectors
+    # use, applied here to a rate rather than a monetary cap or net-days
+    # value — payment_terms never had this second phrasing at all.
+    r"|means,?\s+for\s+purposes\s+of\s+[^,]{0,60}?Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,\s+[^,]+,?\s+and\s+means,?"
+    r"\s+for\s+purposes\s+of\s+[^,]{0,60}?Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,",
     re.I,
 )
 _SELF_FLAGGED_PAYMENT_UNRESOLVED_RE = re.compile(
     r"no\s+payment\s+obligation\s+arises\s+until\b"
+    # Step 4A.7.4 (F3-P-05) — same "nothing is owed until a future
+    # instrument is executed" concept, a fresh verb ("no invoice SHALL
+    # ISSUE until..." rather than "no payment obligation ARISES until...").
+    r"|no\s+invoice\s+shall\s+issue\s+until\b"
     r"|does\s+not\s+indicate\s+which\s+is\s+the\s+most\s+recent\b"
-    r"|remain(?:s)?\s+under\s+negotiation\b"
+    # Step 4A.7.4 (F3-D-09) — same "ambiguous which instrument governs"
+    # concept, generalized beyond the "most recent" phrasing specifically.
+    r"|does\s+not\s+(?:specify|indicate)\s+which\b"
+    r"|remain(?:s|ing)?\s+under\s+negotiation\b"
     r"|not\s+yet\s+(?:finally\s+)?resolved\b"
     r"|not\s+yet\s+(?:been\s+)?determined\b",
     re.I,
@@ -537,6 +559,7 @@ class PaymentFacts:
 
     schedule_cross_reference: bool = False
     chained_delegation: bool = False
+    conditional_unverified_precondition: bool = False
 
 
 class PaymentPolicyRuleLike(Protocol):
@@ -658,6 +681,9 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
     facts.self_flagged_unresolved = bool(
         _SELF_FLAGGED_PAYMENT_UNRESOLVED_RE.search(raw_excerpt)
         or _CONFLICTING_PAYMENT_TERM_RE.search(raw_excerpt)
+    )
+    facts.conditional_unverified_precondition = bool(
+        _core_conditional_unverified_precondition_re.search(raw_excerpt)
     )
 
     net_days_values: set = set()
@@ -945,6 +971,11 @@ def evaluate_payment_policy(
     unresolved: List[str] = []
     if facts.self_flagged_unresolved:
         unresolved.append("the document itself explicitly flags a material payment term as not yet finally settled")
+    if facts.conditional_unverified_precondition:
+        unresolved.append(
+            "a stated payment term's applicability is conditioned on a precondition the document itself "
+            "marks as not yet determined/verified — cannot confirm which term actually governs"
+        )
     if facts.net_days_conflict:
         unresolved.append("multiple conflicting Net payment periods are stated")
     if facts.payment_trigger_conflict:

@@ -285,6 +285,15 @@ _SECTION_REF_NEAR_RE = re.compile(r"Section\s+\d+(?:\.\d+)?", re.I)
 # liability's original fix used) to also tolerate a category-descriptive
 # phrase between "for purposes of" and the section number ("for purposes of
 # the data-breach-specific indemnity in Section 8.4") — see F3-D-18.
+_SELF_FLAGGED_INDEMNIFICATION_UNRESOLVED_RE = re.compile(
+    r"not\s+yet\s+(?:finally\s+)?resolved\b"
+    r"|not\s+yet\s+(?:been\s+)?determined\b",
+    re.I,
+)
+_CONDITIONAL_CAP_ESCALATION_RE = re.compile(
+    r"provided\s+that\b[^.]{0,200}?the\s+cap\s+for\s+that\s+specific\s+claim\s+shall\s+instead\s+be\b",
+    re.I,
+)
 _CONFLICTING_DEFINED_TERM_RE = re.compile(
     r"means,?\s+for\s+purposes\s+of\s+[^,]{0,60}?Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,\s+[^,]+,?\s+and\s+means,?"
     r"\s+for\s+purposes\s+of\s+[^,]{0,60}?Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,",
@@ -369,7 +378,11 @@ _BROAD_BENEFICIARY_RE = re.compile(r"affiliates|officers|directors|employees|age
 # negative boundary tests establishing this scope.
 _CAUSATION_STANDARD_RE = re.compile(
     r"causation\s+standard\s+of\s+['‘]([^'’]{3,60})['’]"
-    r"|subject\s+to\s+a\s+(?:broader\s+|narrower\s+|different\s+)?['‘]([^'’]{3,60})['’]\s+standard",
+    # Step 4A.7.4 (F3-R-11) — tolerates an adverb modifying broader/
+    # narrower/different ("a MATERIALLY different '...' standard"), which
+    # the original fixed three-word alternation didn't — the modifier
+    # doesn't change that a named standard is still being stated.
+    r"|subject\s+to\s+a\s+(?:[a-z]+ly\s+)?(?:broader\s+|narrower\s+|different\s+)?['‘]([^'’]{3,60})['’]\s+standard",
     re.I,
 )
 
@@ -472,6 +485,20 @@ _EXCEPTION_CLAUSE_SELF_NEGATION_RE = re.compile(
     r"|shall\s+not\s+(?:modify|change|impact)|no\s+effect\s+on",
     re.I,
 )
+# Step 4A.7.4 (F3-CM-18) — the self-negation phrase above can itself be
+# SCOPED rather than blanket: "...does not affect either party's
+# obligations under this Section FOR ANY OTHER CLAIM CATEGORY" or "...
+# BEYOND THE STATED EXCLUSION" disclaims applicability to OTHER/unstated
+# categories specifically — the just-stated exception still applies, and
+# treating this the same as an unqualified "does not affect...obligations."
+# (a genuine bystander aside, A6-I-37's shape) silently discards a real,
+# named asymmetric carve-out. Checked immediately after a self-negation
+# match; if a scoping qualifier follows within the same clause, the
+# negation is NOT treated as blanket and the exception is kept.
+_SELF_NEGATION_SCOPE_QUALIFIER_RE = re.compile(
+    r"for\s+any\s+other\b|beyond\s+the\s+stated\b|outside\s+(?:of\s+)?(?:the\s+)?(?:stated\s+)?exclusion\b",
+    re.I,
+)
 
 
 def _find_exception_clause_named_roles(window: str, allow_multi_role_clauses: bool = False) -> List[str]:
@@ -503,7 +530,8 @@ def _find_exception_clause_named_roles(window: str, allow_multi_role_clauses: bo
         if boundary:
             hi = marker.end() + boundary.end()
         clause = window[marker.end():hi]
-        if _EXCEPTION_CLAUSE_SELF_NEGATION_RE.search(clause):
+        negation = _EXCEPTION_CLAUSE_SELF_NEGATION_RE.search(clause)
+        if negation and not _SELF_NEGATION_SCOPE_QUALIFIER_RE.search(clause[negation.end():negation.end() + 120]):
             continue
         _scan_exception_sub_clause(clause, roles, seen_lower, allow_multi_role_clauses)
     return roles
@@ -644,6 +672,8 @@ class MonetaryTreatment:
             return "conflicting (two different values stated for the same defined term)"
         if self.kind == "chained_delegation_unresolved":
             return "delegated to a document not included"
+        if self.kind == "conditional_cap_escalation":
+            return "conditionally escalates for a specific claim scenario"
         return "unspecified"
 
 
@@ -690,6 +720,14 @@ class IndemnityObligation:
     # per named party, a named causation standard that differs by party,
     # or an except/provided-that proviso singling out one named party.
     asymmetry_reasons: List[str] = field(default_factory=list)
+    # Step 4A.7.4 (F3-D-12) — indemnification had no self-flagged-unresolved
+    # detector at all (liability and payment_terms each have one). Unlike
+    # asymmetry_reasons (only consumed when comparing two obligations),
+    # this is checked directly on a single obligation — "the parties
+    # acknowledging that the precise scope of covered claims remains a
+    # matter not yet finally resolved" doesn't need a second obligation to
+    # compare against; the obligation itself is self-evidently incomplete.
+    self_flagged_unresolved: bool = False
 
     def label(self) -> str:
         prefix = f"Section {self.section_label} — " if self.section_label else ""
@@ -824,6 +862,19 @@ def _classify_monetary(window: str, obligation_start: int) -> MonetaryTreatment:
     if conflicting:
         return MonetaryTreatment(
             kind="conflicting_defined_term", raw_excerpt=_excerpt(window, conflicting.start(), conflicting.end()),
+        )
+    conditional_escalation = _CONDITIONAL_CAP_ESCALATION_RE.search(window)
+    if conditional_escalation:
+        # Step 4A.7.4 (F3-I-06) — a bifurcated cap: the base value (e.g. 1x)
+        # is real and stated, but a PROVIDED THAT proviso raises it (e.g. to
+        # 3x) for a specific claim scenario. Silently adopting the base
+        # value understates the true worst-case exposure this clause
+        # actually permits — the base value is "preferred," but the clause
+        # also permits the higher, merely "negotiable" value under stated
+        # conditions, and a reviewer needs to see both.
+        return MonetaryTreatment(
+            kind="conditional_cap_escalation",
+            raw_excerpt=_excerpt(window, conditional_escalation.start(), conditional_escalation.end()),
         )
     chained = _core_chained_delegation_re.search(window)
     if chained:
@@ -1143,6 +1194,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             # here (rather than duplicating the logic) closes that gap.
             # See _resolve_obligations_for_side's same_pair check.
             asymmetry_reasons=_detect_reciprocal_asymmetry(window),
+            self_flagged_unresolved=bool(_SELF_FLAGGED_INDEMNIFICATION_UNRESOLVED_RE.search(window)),
         ))
         seen_spans.append((m.start(), m.end()))
         seen_role_pairs.append((m.start(), pair))
@@ -1180,6 +1232,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
                 section_label=_section_label_before(text, m.start()),
                 role_side_conflict_reasons=conflict_reasons,
                 asymmetry_reasons=_detect_reciprocal_asymmetry(window),  # Step 4A.7 — see main loop above
+                self_flagged_unresolved=bool(_SELF_FLAGGED_INDEMNIFICATION_UNRESOLVED_RE.search(window)),
             ))
             seen_spans.append((m.start(), m.end()))
             seen_role_pairs.append((m.start(), pair))
@@ -1239,6 +1292,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             section_label=_section_label_before(text, m.start()),
             is_mutual_reciprocal=True,
             asymmetry_reasons=_detect_reciprocal_asymmetry(window),
+            self_flagged_unresolved=bool(_SELF_FLAGGED_INDEMNIFICATION_UNRESOLVED_RE.search(window)),
         ))
         seen_spans.append((m.start(), m.end()))
 
@@ -1532,6 +1586,16 @@ def evaluate_indemnification_policy(
                 "protection monetary treatment (delegated through a chain of cross-references ending in a "
                 "document not included — cannot verify the actual scope of protection)"
             )
+        elif protection.monetary.kind == "conditional_cap_escalation":
+            unresolved_facts.append(
+                "protection monetary treatment (the stated cap conditionally escalates for a specific claim "
+                "scenario — the base value understates the true best-case protection this clause permits)"
+            )
+        if protection.self_flagged_unresolved:
+            unresolved_facts.append(
+                "protection obligation (the document itself explicitly flags a material term of this "
+                "obligation as not yet finally resolved/determined)"
+            )
 
     # --- Exposure-side unresolved facts ---
     exposure_monetary_value = None
@@ -1556,6 +1620,16 @@ def evaluate_indemnification_policy(
                 "exposure monetary treatment (delegated through a chain of cross-references ending in a "
                 "document not included — the multiplier itself may be clean but what it applies to cannot "
                 "be verified)"
+            )
+        elif exposure.monetary.kind == "conditional_cap_escalation":
+            unresolved_facts.append(
+                "exposure monetary treatment (the stated cap conditionally escalates for a specific claim "
+                "scenario — the base value understates the true worst-case exposure this clause permits)"
+            )
+        if exposure.self_flagged_unresolved:
+            unresolved_facts.append(
+                "exposure obligation (the document itself explicitly flags a material term of this "
+                "obligation as not yet finally resolved/determined)"
             )
 
     if unresolved_facts:

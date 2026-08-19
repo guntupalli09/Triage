@@ -889,6 +889,24 @@ CHAINED_DELEGATION_RE = re.compile(
 )
 
 
+# Step 4A.7.4 — a stated value (a cap, a payment period) can be governed by
+# a "PROVIDED THAT" proviso whose OWN triggering condition is explicitly
+# marked as still unresolved ("a condition not yet verified as of this
+# excerpt" / "it not yet being determined which shipments qualify"). Unlike
+# an ordinary conditional clause (which resolves deterministically once the
+# underlying fact is known), this shape signals the drafter themselves
+# doesn't yet know whether the condition is met — so the stated value's
+# applicability is itself an open question, not merely a business term to
+# read literally. Shared because the shape isn't specific to what kind of
+# value the proviso conditions (liability cap multiplier, payment period,
+# ...) — see fresh-battery F3-L-09 and F3-P-09.
+CONDITIONAL_UNVERIFIED_PRECONDITION_RE = re.compile(
+    r"provided\s+that\b[^.]{0,200}?"
+    r"(?:not\s+yet\s+(?:been\s+)?verified|not\s+yet\s+(?:been\s+)?determined|not\s+yet\s+being\s+determined)",
+    re.I,
+)
+
+
 def chained_delegation_excerpt(window: str, before: int = 60, after: int = 40) -> Optional[str]:
     """Returns the excerpt around a CHAINED_DELEGATION_RE match in `window`,
     or None if the pattern doesn't fire. Each adapter builds its own
