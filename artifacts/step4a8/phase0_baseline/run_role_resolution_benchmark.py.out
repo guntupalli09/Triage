@@ -1,0 +1,66 @@
+# Role-Resolution Verifier Benchmark
+
+Corpus size: 49 cases
+
+| id | role | expected | actual | note |
+|---|---|---|---|---|
+| conv-01 | Customer | consistent | no-conflict | OK |
+| conv-02 | Vendor | consistent | no-conflict | OK |
+| rev-01 | Vendor | conflict | conflict | OK |
+| rev-02 | Customer | conflict | conflict | OK |
+| rev-03 | Licensor | conflict | conflict | OK |
+| rev-04 | Licensee | conflict | conflict | OK |
+| syn-01-means | Customer | consistent | no-conflict | OK |
+| syn-02-shall-mean | Customer | consistent | no-conflict | OK |
+| syn-03-refers-to | Customer | consistent | no-conflict | OK |
+| syn-04-shall-refer-to | Customer | consistent | no-conflict | OK |
+| syn-05-is-defined-as | Customer | consistent | no-conflict | OK |
+| syn-06-shall-have-the-meaning | Customer | consistent | no-conflict | OK |
+| syn-07-has-the-meaning | Customer | consistent | no-conflict | OK |
+| syn-08-shall-be-construed-to-mean | Customer | consistent | no-conflict | OK |
+| syn-09-means-and-includes | Customer | consistent | no-conflict | OK |
+| nondir-01 | Vendor | non_directional | no-conflict | OK |
+| nondir-02 | Customer | non_directional | no-conflict | OK |
+| nondir-03 | Licensee | non_directional | no-conflict | OK |
+| distractor-01 | Vendor | non_directional | no-conflict | OK |
+| distractor-02 | Customer | non_directional | no-conflict | OK |
+| multi-01-first | Licensor | conflict | conflict | OK |
+| multi-01-second | Licensee | conflict | conflict | OK |
+| mixed-01 | Vendor | conflict | conflict | OK |
+| mixed-02 | Distributor | conflict | conflict | OK |
+| unrecognized-predicate-01 | Vendor | unrecognized | no-conflict | EXPECTED MISS (predicate not in recognized vocabulary — documented limitation) |
+| customer-of-01 | Customer | consistent | no-conflict | OK |
+| obtains-services-01 | Client | consistent | no-conflict | OK |
+| furnish-01 | Supplier | consistent | no-conflict | OK |
+| far-definition-01 | Reseller | unknown_generic | no-conflict | definition found but role reversal is directionally consequential only in a 2-party clause; this benchmark scores the primitive alone |
+| broad-01-understood-to-mean | Vendor | conflict | conflict | OK |
+| broad-02-for-purposes-hereof | Licensee | conflict | conflict | OK |
+| broad-03-references-to-quoted | Supplier | conflict | conflict | OK |
+| broad-04-references-to-unquoted | Distributor | conflict | conflict | OK |
+| gerund-01-possessive-noun-phrase | Vendor | conflict | conflict | OK |
+| gerund-02-own-conduct-is-real-reversal | Vendor | conflict | conflict | OK |
+| gerund-03-pronoun-possessive | Reseller | conflict | conflict | OK |
+| passive-01-manufactured-by | Buyer | consistent | no-conflict | OK |
+| passive-02-delivered-by | Recipient | conflict | no-conflict | MISMATCH |
+| indirect-01-resolvable-agrees | Customer | consistent | no-conflict | OK |
+| indirect-02-resolvable-conflicts | Vendor | conflict | conflict | OK |
+| indirect-03-unresolvable-target-missing | Customer | non_directional | no-conflict | OK |
+| verb-01-engages-services-of | Client | consistent | no-conflict | OK |
+| verb-02-commissions | Client | consistent | no-conflict | OK |
+| verb-03-sources-from | Customer | consistent | no-conflict | OK |
+| verb-04-renders-to | Provider | consistent | no-conflict | OK |
+| verb-05-performs-for | Provider | consistent | no-conflict | OK |
+| verb-06-makes-available-to | Provider | consistent | no-conflict | OK |
+| verb-07-licenses-from-relates-to-named-party | Licensee | conflict | conflict | OK |
+| verb-08-licenses-the-is-sellside | Licensor | consistent | no-conflict | OK |
+
+## Metrics
+
+- True positives (correctly flagged conflicts): 17
+- False positives (false conflicts on non-conflicting definitions): 0
+- False negatives (missed real conflicts): 1
+- True negatives: 31
+- Conflict precision: 100.0%
+- Conflict recall: 94.4%
+- False-conflict rate: 0.0%
+- Missed-conflict rate: 5.6%

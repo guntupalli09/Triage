@@ -1,0 +1,47 @@
+Total absence cases: 34
+
+[A6-L-36] adapter=liability state=NOT_APPLICABLE -> CONFIRMED-ABSENT
+[A6-L-37] adapter=liability state=NOT_APPLICABLE -> CONFIRMED-ABSENT
+[A6-L-38] adapter=liability state=REQUIRES_REVIEW -> RECOGNIZED-BUT-UNRESOLVED
+[A6-L-39] adapter=liability state=NOT_APPLICABLE -> CONFIRMED-ABSENT
+[A6-L-40] adapter=liability state=MUST_REDLINE -> EXPECTED-BUT-MISSING
+[A6-L-41] adapter=liability state=NOT_APPLICABLE -> CONFIRMED-ABSENT
+[A6-L-42] adapter=liability state=REQUIRES_REVIEW -> RECOGNIZED-BUT-UNRESOLVED
+[A6-L-43] adapter=liability state=ESCALATE -> EXPECTED-BUT-MISSING
+[A6-L-44] adapter=liability state=REQUIRES_REVIEW -> RECOGNIZED-BUT-UNRESOLVED
+[A6-L-45] adapter=liability state=ACCEPT -> UNEXPECTED-CLEAN (state=ACCEPT, present=True)
+[A6-I-41] adapter=indemnification state=NOT_APPLICABLE -> CONFIRMED-ABSENT
+[A6-I-42] adapter=indemnification state=NOT_APPLICABLE -> CONFIRMED-ABSENT
+[A6-I-43] adapter=indemnification state=REQUIRES_REVIEW -> RECOGNIZED-BUT-UNRESOLVED
+[A6-I-44] adapter=indemnification state=REQUIRES_REVIEW -> RECOGNIZED-BUT-UNRESOLVED
+[A6-I-45] adapter=indemnification state=NOT_APPLICABLE -> CONFIRMED-ABSENT
+[A6-I-46] adapter=indemnification state=REQUIRES_REVIEW -> RECOGNIZED-BUT-UNRESOLVED
+[A6-I-47] adapter=indemnification state=REQUIRES_REVIEW -> RECOGNIZED-BUT-UNRESOLVED
+[A6-I-48] adapter=indemnification state=REQUIRES_REVIEW -> RECOGNIZED-BUT-UNRESOLVED
+[A6-I-49] adapter=indemnification state=REQUIRES_REVIEW -> RECOGNIZED-BUT-UNRESOLVED
+[A6-I-50] adapter=indemnification state=REQUIRES_REVIEW -> RECOGNIZED-BUT-UNRESOLVED
+[A6-I-51] adapter=indemnification state=REQUIRES_REVIEW -> RECOGNIZED-BUT-UNRESOLVED
+[A6-I-52] adapter=indemnification state=REQUIRES_REVIEW -> RECOGNIZED-BUT-UNRESOLVED
+[A6-I-53] adapter=indemnification state=ACCEPT -> UNEXPECTED-CLEAN (state=ACCEPT, present=True)
+[A6-I-54] adapter=indemnification state=REQUIRES_REVIEW -> RECOGNIZED-BUT-UNRESOLVED
+[A6-I-55] adapter=indemnification state=ACCEPT -> UNEXPECTED-CLEAN (state=ACCEPT, present=True)
+[A7-PA-01] adapter=payment_terms state=NOT_APPLICABLE -> CONFIRMED-ABSENT
+[A7-PA-02] adapter=payment_terms state=NOT_APPLICABLE -> CONFIRMED-ABSENT
+[A7-PA-03] adapter=payment_terms state=NOT_APPLICABLE -> CONFIRMED-ABSENT
+[A7-PA-04] adapter=payment_terms state=ACCEPT -> UNEXPECTED-CLEAN (state=ACCEPT, present=True)
+[A7-PA-05] adapter=payment_terms state=REQUIRES_REVIEW -> RECOGNIZED-BUT-UNRESOLVED
+[A7-PA-06] adapter=payment_terms state=ACCEPT -> UNEXPECTED-CLEAN (state=ACCEPT, present=True)
+[A7-PA-07] adapter=payment_terms state=NEGOTIATE -> EXPECTED-BUT-MISSING
+[A7-PA-08] adapter=payment_terms state=NEGOTIATE -> EXPECTED-BUT-MISSING
+[A7-PA-09] adapter=payment_terms state=NOT_APPLICABLE -> NOT-APPLICABLE
+
+=== CLASSIFICATION COUNTS ===
+  CONFIRMED-ABSENT: 10
+  EXPECTED-BUT-MISSING: 4
+  NOT-APPLICABLE: 1
+  RECOGNIZED-BUT-UNRESOLVED: 14
+  UNEXPECTED-CLEAN (state=ACCEPT, present=True): 5
+
+False-absence rate (present-but-reported-absent / all absent-shaped outcomes): 0/10 (0.0%)
+
+=== HARD FINDINGS: 0 ===

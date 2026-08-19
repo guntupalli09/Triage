@@ -1,0 +1,7 @@
+Total cases: 15
+False-safe (true positive not escalated): 0/15
+Unnecessary review (negative control escalated): 0/15
+
+
+HARD REQUIREMENT false_safe == 0: PASS
+HARD REQUIREMENT unnecessary_review == 0: PASS

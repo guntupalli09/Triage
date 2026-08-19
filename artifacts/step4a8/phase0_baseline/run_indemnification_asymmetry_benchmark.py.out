@@ -1,0 +1,33 @@
+Corpus size: 26 (19 scored, 7 informational)
+
+| id | expected | detected | note |
+|---|---|---|---|
+| asym-01 | False | False | OK |
+| asym-02 | False | False | OK |
+| asym-03 | False | False | OK |
+| asym-04 | False | False | OK |
+| asym-05 | False | False | OK |
+| asym-06 | False | False | OK |
+| asym-07 | False | False | OK |
+| asym-08 | False | False | OK |
+| asym-09 | None | False | informational (non-mutual or ambiguous) — not scored |
+| asym-10 | None | False | informational (non-mutual or ambiguous) — not scored |
+| asym-11 | None | False | informational (non-mutual or ambiguous) — not scored |
+| asym-12 | None | False | informational (non-mutual or ambiguous) — not scored |
+| asym-13 | True | True | OK |
+| asym-14 | True | True | OK |
+| asym-15 | True | True | OK |
+| asym-16 | True | True | OK |
+| asym-17 | True | True | OK |
+| asym-18 | True | True | OK |
+| asym-19 | False | False | OK |
+| asym-20 | True | True | OK |
+| asym-21 | True | True | OK |
+| asym-22 | True | True | OK |
+| asym-23 | True | True | OK |
+| asym-24 | None | True | informational (non-mutual or ambiguous) — not scored |
+| asym-25 | None | False | informational (non-mutual or ambiguous) — not scored |
+| asym-26 | None | False | informational (non-mutual or ambiguous) — not scored |
+
+Scored correct: 19/19 (100.0%)
+False-safe (real asymmetry undetected): 0

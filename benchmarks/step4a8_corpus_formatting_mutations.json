@@ -1,0 +1,368 @@
+[
+  {
+    "id": "S48-FMT-01",
+    "base_id": "S48-L-T1-01",
+    "adapter": "liability",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "9.\nLimitation of Liability.\nMeridian Commercial Laundry Services's aggregate liability to Client arising out of or relating to this Agreement shall not exceed 1 times the total laundry-processing fees paid by Client in the twelve (12) months preceding the claim.",
+    "mutation_kind": "line_breaks_mid_sentence",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-02",
+    "base_id": "S48-L-T1-09",
+    "adapter": "liability",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "\t9. Limitation of Liability. Cobalt Janitorial Staffing Solutions's aggregate liability to Facility Manager arising out of or relating to this Agreement shall not exceed 2 times the total janitorial-service fees paid by Facility Manager in the twelve (12) months preceding the claim.",
+    "mutation_kind": "tabs_for_indentation",
+    "expected_result": "ACCEPT_WITH_NOTE",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-03",
+    "base_id": "S48-L-T1-17",
+    "adapter": "liability",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "9.\n\tLimitation of Liability. Harborline Self-Storage Management Co's aggregate liability to Facility Owner arising out of or relating to this Agreement shall not exceed 1 times the total management-fee fees paid by Facility Owner in the twelve (12) months preceding the claim.",
+    "mutation_kind": "numbered_list_reformat",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-04",
+    "base_id": "S48-L-T1-25",
+    "adapter": "liability",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "- 9\n- Limitation of Liability. Fairgreen Golf Course Maintenance Co's aggregate liability to Country Club arising out of or relating to this Agreement shall not exceed 3 times the total maintenance-fee fees paid by Country Club in the twelve (12) months preceding the claim.",
+    "mutation_kind": "bullet_reformat",
+    "expected_result": "NEGOTIATE",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-05",
+    "base_id": "S48-L-T1-RA-03",
+    "adapter": "liability",
+    "kwargs": {
+      "contract_side": "buy_side"
+    },
+    "text": "LIMITATION OF LIABILITY. Consultant's total liability to Client under this Agreement shall in no event exceed $250,000.",
+    "mutation_kind": "all_caps_heading",
+    "expected_result": "ESCALATE",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-06",
+    "base_id": "S48-L-T2-03",
+    "adapter": "liability",
+    "kwargs": {
+      "contract_side": "buy_side"
+    },
+    "text": "   9.  Limitation  of  Liability. Aggregate liability shall not exceed the Cap Amount. The \"Cap Amount\" means one (1) times the annual inspection fees paid, as further itemized for reference purposes in the fee schedule attached as Schedule 1.",
+    "mutation_kind": "extra_whitespace",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-07",
+    "base_id": "S48-L-T3-RA-01",
+    "adapter": "liability",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "1. Definitions. 'Grantee' means the party receiving the benefit conferred hereunder, and 'Grantor' means the party conferring such benefit.\n\nSection 9: Limitation of Liability. Grantor's aggregate liability to Grantee shall not exceed two (2) times the annual service fees paid.",
+    "mutation_kind": "section_number_style_change",
+    "expected_result": "REQUIRES_REVIEW",
+    "review": "SHOULD_REVIEW"
+  },
+  {
+    "id": "S48-FMT-08",
+    "base_id": "S48-L-T3-F-01",
+    "adapter": "liability",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "9. Limitation of Liability. Ashworth Data Migration Specialists' aggregate liability to Client shall not exceed one \n(1)\n times the annual migration fees paid, unless Client has elected the Premium Migration Package under the applicable Order Form, in which case the cap shall instead be three \n(3) times such fees; the parties have not yet executed an Order Form specifying which package applies.",
+    "mutation_kind": "parenthetical_layout_change",
+    "expected_result": "REQUIRES_REVIEW",
+    "review": "SHOULD_REVIEW"
+  },
+  {
+    "id": "S48-FMT-09",
+    "base_id": "S48-L-T3-N-01",
+    "adapter": "liability",
+    "kwargs": {
+      "contract_side": "buy_side"
+    },
+    "text": "1.  Definitions.  'Obligee' means the party to whom performance is owed, and 'Obligor' means the party owing such performance.\n\n9.  Limitation of Liability.  Obligor's aggregate liability to Obligee shall not exceed the amount set forth in Section 4, which Section 4 itself references the rate schedule maintained by Obligor's finance department (not included in this excerpt).",
+    "mutation_kind": "semicolon_to_newline+whitespace_fallback",
+    "expected_result": "REQUIRES_REVIEW",
+    "review": "SHOULD_REVIEW"
+  },
+  {
+    "id": "S48-FMT-10",
+    "base_id": "S48-L-T2B-06",
+    "adapter": "liability",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "9.\nLimitation of Liability.\nSubject to the exceptions in Section 9.2, and without limiting any other right or remedy the Rancher may have at law or in equity, the total aggregate liability of Thornfield Livestock Transport Co arising out of this Agreement, whether in contract or tort, shall not exceed 1 times the transport fees paid by the Rancher during the preceding contract year.",
+    "mutation_kind": "line_breaks_mid_sentence",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-11",
+    "base_id": "S48-I-T1-D-04",
+    "adapter": "indemnification",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "\t8. Risk Allocation. Ferrowine Cellar Climate Systems shall protect Vineyard Owner from, and satisfy on Vineyard Owner's behalf, any third-party claim arising from Ferrowine Cellar Climate Systems's negligent acts or omissions in performing services under this Agreement, up to a cap of one (1) times the annual fees paid.",
+    "mutation_kind": "tabs_for_indentation",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-12",
+    "base_id": "S48-I-T1-D-12",
+    "adapter": "indemnification",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "8.\n\tRisk Allocation. Grimshaw Chimney Sweep Services shall protect Homeowner from, and satisfy on Homeowner's behalf, any third-party claim arising from Grimshaw Chimney Sweep Services's negligent acts or omissions in performing services under this Agreement, up to a cap of one (1) times the annual fees paid.",
+    "mutation_kind": "numbered_list_reformat",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-13",
+    "base_id": "S48-I-E-05",
+    "adapter": "indemnification",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "- 8\n- Indemnification. Emberlight Candle Manufacturing shall indemnify, defend, and hold harmless Wholesaler, and Wholesaler shall indemnify, defend, and hold harmless Emberlight Candle Manufacturing, in each case from third-party claims arising from the indemnifying party's own negligence, PROVIDED THAT Emberlight Candle Manufacturing's obligation is up to a cap of one (1) times the fees paid, whereas Wholesaler's obligation is up to a cap of three (3) times the fees paid.",
+    "mutation_kind": "bullet_reformat",
+    "expected_result": "REQUIRES_REVIEW",
+    "review": "SHOULD_REVIEW"
+  },
+  {
+    "id": "S48-FMT-14",
+    "base_id": "S48-I-E-13",
+    "adapter": "indemnification",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "8. INDEMNIFICATION. Mossgate Terrarium Design Studio shall indemnify, defend, and hold harmless Retail Partner, and Retail Partner shall indemnify, defend, and hold harmless Mossgate Terrarium Design Studio, in each case from third-party claims arising from the indemnifying party's own negligence, PROVIDED THAT Mossgate Terrarium Design Studio's obligation is up to a cap of one (1) times the fees paid, whereas Retail Partner's obligation is up to a cap of three (3) times the fees paid.",
+    "mutation_kind": "all_caps_heading",
+    "expected_result": "REQUIRES_REVIEW",
+    "review": "SHOULD_REVIEW"
+  },
+  {
+    "id": "S48-FMT-15",
+    "base_id": "S48-I-E-SYM-01",
+    "adapter": "indemnification",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "   8.  Indemnification.  Woodbine  Antique Clock Restoration shall indemnify, defend, and hold harmless Client, and Client shall indemnify, defend, and hold harmless Woodbine Antique Clock Restoration, in each case from third-party claims arising from the indemnifying party's own negligence or willful misconduct, up to a cap of one (1) times the annual fees paid, with each indemnifying party controlling the defense of claims for which it is responsible.",
+    "mutation_kind": "extra_whitespace",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-16",
+    "base_id": "S48-I-E-SYM-09",
+    "adapter": "indemnification",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "Section 8: Indemnification. Lanternfish Night-Diving Charters shall indemnify, defend, and hold harmless Client, and Client shall indemnify, defend, and hold harmless Lanternfish Night-Diving Charters, in each case from third-party claims arising from the indemnifying party's own negligence or willful misconduct, up to a cap of one (1) times the annual fees paid, with each indemnifying party controlling the defense of claims for which it is responsible.",
+    "mutation_kind": "section_number_style_change",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-17",
+    "base_id": "S48-I-I-01",
+    "adapter": "indemnification",
+    "kwargs": {
+      "contract_side": "buy_side"
+    },
+    "text": "8. Indemnification. Vendor shall indemnify, defend, and hold harmless Client from claims described in the Risk Allocation Matrix, which Risk Allocation Matrix itself incorporates by reference the claims-handling protocol maintained by Vendor's insurer \n(not included in this excerpt)\n.",
+    "mutation_kind": "parenthetical_layout_change",
+    "expected_result": "REQUIRES_REVIEW",
+    "review": "SHOULD_REVIEW"
+  },
+  {
+    "id": "S48-FMT-18",
+    "base_id": "S48-I-T1-06",
+    "adapter": "indemnification",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "8.  Indemnification.  Fallowfield Organic Seed Cleaning shall indemnify, defend, and hold harmless Cooperative Farm from and against any and all third-party claims, damages, and expenses arising out of Fallowfield Organic Seed Cleaning's negligence or willful misconduct in performing services under this Agreement, up to a cap of 3 times the annual fees paid by Cooperative Farm.",
+    "mutation_kind": "semicolon_to_newline+whitespace_fallback",
+    "expected_result": "NEGOTIATE",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-19",
+    "base_id": "S48-I-T1-14",
+    "adapter": "indemnification",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "8.\nIndemnification.\nNightshade Greenhouse Construction shall indemnify, defend, and hold harmless Commercial Grower from and against any and all third-party claims, damages, and expenses arising out of Nightshade Greenhouse Construction's negligence or willful misconduct in performing services under this Agreement, up to a cap of 1 times the annual fees paid by Commercial Grower.",
+    "mutation_kind": "line_breaks_mid_sentence",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-20",
+    "base_id": "S48-I-T2-22",
+    "adapter": "indemnification",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "\t8. Indemnification. Subject to Section 8.4 (Limitations) and without limiting any other remedy available to Library Foundation at law or in equity, Vellumcraft Custom Bookbinding Studio shall indemnify, defend, and hold harmless Library Foundation, its officers, directors, and employees, from and against any and all third-party claims, damages, and reasonable expenses (including attorneys' fees) arising out of Vellumcraft Custom Bookbinding Studio's negligence or willful misconduct in performing services under this Agreement, up to a cap of 1 times the annual fees paid by Library Foundation hereunder.",
+    "mutation_kind": "tabs_for_indentation",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-21",
+    "base_id": "S48-P-T1-03",
+    "adapter": "payment_terms",
+    "kwargs": {},
+    "text": "6.\n\tPayment Terms. Client shall pay Hartwell Custom Trophy Manufacturing all invoiced amounts within 15 days of the invoice date.",
+    "mutation_kind": "numbered_list_reformat",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-22",
+    "base_id": "S48-P-T1-07",
+    "adapter": "payment_terms",
+    "kwargs": {},
+    "text": "- 6\n- Payment Terms. Client shall pay Larchmont Custom Awning Fabricators all invoiced amounts within 45 days of the invoice date.",
+    "mutation_kind": "bullet_reformat",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-23",
+    "base_id": "S48-P-T1-11",
+    "adapter": "payment_terms",
+    "kwargs": {},
+    "text": "6. PAYMENT TERMS. Client shall pay Pinegate Custom Furniture Refinishing all invoiced amounts within 30 days of the invoice date.",
+    "mutation_kind": "all_caps_heading",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-24",
+    "base_id": "S48-P-T1-15",
+    "adapter": "payment_terms",
+    "kwargs": {},
+    "text": "   6.  Payment  Terms.  Client shall pay Thistlegate Custom Drapery Workroom all invoiced amounts within 30 days of the invoice date.",
+    "mutation_kind": "extra_whitespace",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-25",
+    "base_id": "S48-P-T1-19",
+    "adapter": "payment_terms",
+    "kwargs": {},
+    "text": "Section 6: Payment Terms. Client shall pay Yewbrook Landscape Boulder Delivery all invoiced amounts within 60 days of the invoice date.",
+    "mutation_kind": "section_number_style_change",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-26",
+    "base_id": "S48-P-H-01",
+    "adapter": "payment_terms",
+    "kwargs": {},
+    "text": "6.  Payment Terms.  Payment is due Net 45.  'Net 45' means, for purposes of the domestic-shipment pricing described in Section 6.3, forty-five calendar days from invoice date, and means, for purposes of the international-shipment pricing described in Section 6.11, forty-five business days from invoice date.",
+    "mutation_kind": "parenthetical_layout_change+whitespace_fallback",
+    "expected_result": "REQUIRES_REVIEW",
+    "review": "SHOULD_REVIEW"
+  },
+  {
+    "id": "S48-FMT-27",
+    "base_id": "S48-P-K-02",
+    "adapter": "payment_terms",
+    "kwargs": {},
+    "text": "4.  Damage Deposit.  Client shall pay Vendor a refundable damage deposit of $2,500 upon execution of this Agreement, to be returned within 14 days of the equipment's return in good condition.",
+    "mutation_kind": "semicolon_to_newline+whitespace_fallback",
+    "expected_result": "NOT_APPLICABLE",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-28",
+    "base_id": "S48-L-N-08",
+    "adapter": "liability",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "9.\nLimitation of Liability.\nAggregate liability shall not exceed the amount calculated under the Fee Protocol, which Fee Protocol itself references the then-current rate table maintained by Licensor's finance department (not included), applicable only for claims filed after Licensee's election of the Standard Support Tier, an election not yet made as of this excerpt.",
+    "mutation_kind": "line_breaks_mid_sentence",
+    "expected_result": "REQUIRES_REVIEW",
+    "review": "SHOULD_REVIEW"
+  },
+  {
+    "id": "S48-FMT-29",
+    "base_id": "S48-P-N-04",
+    "adapter": "payment_terms",
+    "kwargs": {},
+    "text": "\t6. Payment Terms. Payment is due Net 45 for standard orders, PROVIDED THAT for orders exceeding $50,000, 'Net 45' shall instead mean forty-five business days rather than calendar days, and whether any given order exceeds this threshold before applicable discounts has not yet been determined for pending orders.",
+    "mutation_kind": "tabs_for_indentation",
+    "expected_result": "REQUIRES_REVIEW",
+    "review": "SHOULD_REVIEW"
+  },
+  {
+    "id": "S48-FMT-30",
+    "base_id": "S48-P-T1M-06",
+    "adapter": "payment_terms",
+    "kwargs": {},
+    "text": "6.\n\tPayment Terms. Client shall pay Foxglove Herbal Skincare Manufacturing within 45 days of invoice date, in U.S. Dollars.",
+    "mutation_kind": "numbered_list_reformat",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-31",
+    "base_id": "S48-L-T2C-01",
+    "adapter": "liability",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "- 9\n- Limitation of Liability. Notwithstanding the generality of the foregoing, and subject always to the parties' respective obligations under Section 4 (Insurance), the aggregate liability of Ashford Custom Pergola Builders to Homeowner, however arising, shall be limited to, and shall in no event exceed, 1 times the annual service fees actually paid by Homeowner to Ashford Custom Pergola Builders in the twelve-month period immediately preceding the claim giving rise to such liability.",
+    "mutation_kind": "bullet_reformat",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  },
+  {
+    "id": "S48-FMT-32",
+    "base_id": "S48-L-T2E-02",
+    "adapter": "liability",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "text": "9. LIMITATION OF LIABILITY. Aggregate liability of Ironhollow Custom Weathervane Forge shall not exceed one (1) times the annual fees paid, calculated per the methodology in Exhibit G.",
+    "mutation_kind": "all_caps_heading",
+    "expected_result": "ACCEPT",
+    "review": "AUTOMATIC"
+  }
+]
