@@ -867,6 +867,41 @@ def trim_role_name(raw: str) -> str:
     return " ".join(words)
 
 
+# Step 4A.7.1 (A6-RB-07), generalized in Step 4A.7.3 — a numeric/defined
+# value can be cleanly extracted while its own source is delegated through a
+# chain of cross-references ending in a document not included in this
+# excerpt ("...set forth in Section 4, which Section 4 itself cross-
+# references Schedule B...not included in this excerpt"). Originally built
+# and scoped to liability's cap-basis shape only; Step 4A.7.3's fresh
+# battery (F3-D-06, F3-P-15) found the identical pattern reachable from
+# indemnification's monetary/scope delegation and payment_terms' rate
+# delegation, and no adapter but liability had any detector for it at all.
+# Shared here so every adapter gets the same, single detection rule rather
+# than three independently-drifting copies. Matches the general SHAPE (a
+# relative "which X itself/in turn <delegates>" clause resolving to an
+# excluded/external document), not one adapter's own vocabulary.
+CHAINED_DELEGATION_RE = re.compile(
+    r"which\s+[A-Z][\w .]{0,40}?\s+(?:itself|in\s+turn)\s+"
+    r"(?:cross-references|references|incorporates(?:\s+by\s+reference)?)\s+"
+    r"[^.]{0,120}?"
+    r"(?:not\s+included\b|external,?\s+not\s+part\s+of\s+this\s+Agreement|not\s+part\s+of\s+this\s+Agreement)",
+    re.I,
+)
+
+
+def chained_delegation_excerpt(window: str, before: int = 60, after: int = 40) -> Optional[str]:
+    """Returns the excerpt around a CHAINED_DELEGATION_RE match in `window`,
+    or None if the pattern doesn't fire. Each adapter builds its own
+    unresolved-fact message around this excerpt (the underlying fact this
+    blocks — a cap, a monetary scope, a rate — differs per adapter)."""
+    m = CHAINED_DELEGATION_RE.search(window)
+    if not m:
+        return None
+    lo = max(0, m.start() - before)
+    hi = min(len(window), m.end() + after)
+    return window[lo:hi].strip()
+
+
 def detect_role_attributed_asymmetry(
     window: str,
     attribution_re: Pattern[str],

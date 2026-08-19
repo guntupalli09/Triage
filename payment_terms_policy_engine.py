@@ -55,6 +55,7 @@ from policy_engine_core import (
     excerpt, section_label_before,
     requires_review_explanation, requires_review_required_action,
     PolicyDecision,
+    CHAINED_DELEGATION_RE as _core_chained_delegation_re,
 )
 
 RULE_ID = "POLICY_PAYMENT_TERMS"
@@ -64,11 +65,37 @@ _GENERIC_WORDS = {"each", "the", "any", "such", "this", "that", "both", "either"
 
 # --- Anchor -----------------------------------------------------------------
 _ANCHOR_RE = re.compile(
-    r"payment\s+terms|invoices?|shall\s+pay|payable|remit(?:tance)?"
+    r"payment\s+terms|invoices?|shall\s+pay|payable|remit(?:tance)?|remunerat\w*"
     r"|late\s+(?:fee|payment|charge)|set-?off|offset|price\s+increase|reimburs\w*|withholding\s+tax"
     r"|sales\s+tax|value[\s-]added\s+tax|\bVAT\b|\bGST\b|service\s+credit|net\s+\d{1,3}\s+days",
     re.I,
 )
+
+# Step 4A.7.3 — absence-audit remediation. A clause whose ONLY payment-shaped
+# language is a security/damage/escrow deposit is not the operative
+# recurring payment-terms provision the policy evaluates (a "wrong-provision
+# substitution": the deposit's dollar amount/return period would otherwise
+# be silently read as if it were the invoicing terms). Scoped narrowly: the
+# heading immediately before the match must name a deposit specifically, AND
+# the sentence carrying the match must not ALSO contain genuine operative
+# payment vocabulary (invoice/Net N/payment terms) — a clause that mentions
+# a deposit in passing while also stating real payment terms is unaffected.
+_DEPOSIT_CONTEXT_HEADING_RE = re.compile(
+    r"\d+(?:\.\d+)?\.?\s*(?:Security|Damage|Escrow|Earnest[\s-]Money)\s+Deposit\b", re.I,
+)
+_OPERATIVE_PAYMENT_VOCAB_RE = re.compile(
+    r"\bnet\s+\d{1,3}\b|\binvoice\b|payment\s+terms", re.I,
+)
+
+
+def _is_deposit_only_context(text: str, match_start: int) -> bool:
+    look = text[max(0, match_start - 150):match_start]
+    if not _DEPOSIT_CONTEXT_HEADING_RE.search(look):
+        return False
+    sentence_end = text.find(".", match_start)
+    sentence_end = sentence_end + 1 if sentence_end != -1 else min(len(text), match_start + 200)
+    sentence = text[max(0, match_start - 100):sentence_end]
+    return not _OPERATIVE_PAYMENT_VOCAB_RE.search(sentence)
 
 # --- Payment direction (who pays whom) ---------------------------------------
 _PAY_DIRECTION_RE = re.compile(
@@ -393,6 +420,17 @@ _SCHEDULE_CROSSREF_RE = re.compile(
     r"as\s+(?:set\s+forth|described|specified)\s+in\s+the\s+(?:applicable\s+)?(?:Order\s+Form|SOW|Statement\s+of\s+Work|Schedule|Exhibit)"
     r"|governed\s+by\s+(?:the\s+)?(?:applicable\s+)?(?:Order\s+Form|SOW|Schedule)", re.I,
 )
+# Step 4A.7.3 (A7-PA-05) — a single-level delegation to ANY named external
+# source (not just the closed Order Form/SOW/Schedule/Exhibit vocabulary
+# above), where the clause itself explicitly discloses the source isn't
+# included — "shall be as set forth in the fee table maintained in the
+# Vendor portal (not included in this excerpt)". The explicit "(not
+# included...)" self-disclosure is the load-bearing signal, not the name of
+# the source document, so this is deliberately NOT scoped to a closed
+# document-type vocabulary the way _SCHEDULE_CROSSREF_RE is.
+_EXTERNAL_SOURCE_NOT_INCLUDED_RE = re.compile(
+    r"(?:as\s+set\s+forth\s+in|per|maintained\s+in)\s+the\s+[^.(]{0,60}?\(\s*not\s+included\b", re.I,
+)
 
 
 _SENTENCE_END_RE = re.compile(r"(?<!\d)\.(?!\d)|;")
@@ -498,6 +536,7 @@ class PaymentFacts:
     service_credit_present: Optional[bool] = None
 
     schedule_cross_reference: bool = False
+    chained_delegation: bool = False
 
 
 class PaymentPolicyRuleLike(Protocol):
@@ -595,6 +634,7 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
     for concept_re in _CONCEPT_ENGAGEMENT_RES:
         concept_matches.extend(concept_re.finditer(text))
     matches = sorted(list(_ANCHOR_RE.finditer(text)) + concept_matches, key=lambda m: m.start())
+    matches = [m for m in matches if not _is_deposit_only_context(text, m.start())]
     if not matches:
         return None
 
@@ -754,6 +794,8 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
 
         if _SCHEDULE_CROSSREF_RE.search(window):
             facts.schedule_cross_reference = True
+        if _core_chained_delegation_re.search(window) or _EXTERNAL_SOURCE_NOT_INCLUDED_RE.search(window):
+            facts.chained_delegation = True
 
         for m in _PAY_DIRECTION_RE.finditer(window):
             payor, payee = m.group(1), m.group(2)
@@ -946,6 +988,18 @@ def evaluate_payment_policy(
     ) if v is not None) + (1 if facts.payment_direction_attributions else 0) + (1 if facts.tax_responsibility_attributions else 0)
     if facts.schedule_cross_reference and established_dimension_count == 0:
         unresolved.append("material payment terms are delegated to a referenced Order Form/SOW/Schedule not included in this text")
+    if facts.chained_delegation:
+        # Step 4A.7.3 — stronger than the single-level schedule_cross_reference
+        # check above: this is an EXPLICIT chain ("which X itself
+        # cross-references/references/incorporates Y...not included") ending
+        # in a document not present, so it's flagged regardless of whether
+        # other dimensions (a due date, a trigger) happen to be established —
+        # the amount/rate itself is still genuinely unresolved even if the
+        # timing is clean. See fresh-battery F3-P-15 and absence-audit A7-PA-05.
+        unresolved.append(
+            "a material payment amount/rate is delegated through a chain of cross-references ending in a "
+            "document not included — the timing terms may be clean but what is actually owed cannot be verified"
+        )
 
     if unresolved:
         explanation = requires_review_explanation("payment terms clause", facts.raw_excerpt, unresolved)

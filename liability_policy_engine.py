@@ -67,6 +67,7 @@ from policy_engine_core import (
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
     trim_role_name,
+    CHAINED_DELEGATION_RE as _core_chained_delegation_re,
 )
 
 RULE_ID = "POLICY_LOL_CAP"
@@ -439,25 +440,19 @@ def _unmapped_cap_role_pair_reason(window: str, document_text: str) -> Optional[
 
 _GENERIC_ROLE_STOPWORDS = {"each", "the", "any", "such", "this", "that", "both", "either", "all", "party", "parties"}
 
-# Step 4A.7.1 (A6-RB-07) — a multiplier can be cleanly extracted while
-# its BASIS (what the multiplier applies to) is itself delegated through
-# a chain of cross-references ending in a document not included in this
-# excerpt ("...set forth in Section 4, which Section 4 itself cross-
-# references Schedule B...not included in this excerpt"). This is a
-# TWO-level delegation, harder than the single-level "see Schedule B"
-# cross-reference the existing _CROSS_REFERENCE_RES family already
-# handles safely — the cap SENTENCE looks self-contained (it states a
-# clean "1 times the fees" multiplier), which is exactly why it's
-# dangerous: nothing else flags the basis itself as unresolved. General
-# shape: a defined/referenced basis term whose OWN source section is
-# stated to point to a further external document not present.
-_CHAINED_BASIS_DELEGATION_RE = re.compile(
-    r"which\s+[A-Z][\w .]{0,40}?\s+(?:itself|in\s+turn)\s+"
-    r"(?:cross-references|references|incorporates(?:\s+by\s+reference)?)\s+"
-    r"[^.]{0,120}?"
-    r"(?:not\s+included\b|external,?\s+not\s+part\s+of\s+this\s+Agreement|not\s+part\s+of\s+this\s+Agreement)",
-    re.I,
-)
+# Step 4A.7.1 (A6-RB-07), generalized and moved to policy_engine_core.py in
+# Step 4A.7.3 as CHAINED_DELEGATION_RE — a multiplier can be cleanly
+# extracted while its BASIS (what the multiplier applies to) is itself
+# delegated through a chain of cross-references ending in a document not
+# included in this excerpt. This is a TWO-level delegation, harder than the
+# single-level "see Schedule B" cross-reference the existing
+# _CROSS_REFERENCE_RES family already handles safely — the cap SENTENCE
+# looks self-contained, which is exactly why it's dangerous: nothing else
+# flags the basis itself as unresolved. Kept as a local alias so every
+# existing call site below is unchanged; indemnification and payment_terms
+# now import the same core regex directly (see step4a7_3 fresh-battery
+# findings F3-D-06/F3-P-15 — this shape isn't liability-specific).
+_CHAINED_BASIS_DELEGATION_RE = _core_chained_delegation_re
 
 # Step 4A.5 — some drafting explicitly flags its own ambiguity ("it being
 # unclear whether these are the same cap stated twice or two independent

@@ -54,6 +54,7 @@ from policy_engine_core import (
     requires_review_explanation, requires_review_required_action,
     detect_role_attributed_asymmetry,
     trim_role_name,
+    CHAINED_DELEGATION_RE as _core_chained_delegation_re,
 )
 
 RULE_ID = "POLICY_INDEMNIFICATION"
@@ -273,6 +274,22 @@ _MONETARY_OTHER_CLAUSE_DISQUALIFIER_RE = re.compile(
 )
 _MONETARY_DISQUALIFIER_PROXIMITY = 40
 _SECTION_REF_NEAR_RE = re.compile(r"Section\s+\d+(?:\.\d+)?", re.I)
+
+# Step 4A.7.3 — indemnification had no conflicting-defined-term detector at
+# all (liability's _CONFLICTING_DEFINED_TERM_RE and payment_terms'
+# _CONFLICTING_PAYMENT_TERM_RE each have one; the fresh-battery absence
+# audit found this adapter's own monetary regex would silently adopt
+# whichever value it matched FIRST when a self-defined term is given two
+# different values scoped to two different sections). Generalized from the
+# start (rather than requiring the bare "for purposes of Section N" phrase
+# liability's original fix used) to also tolerate a category-descriptive
+# phrase between "for purposes of" and the section number ("for purposes of
+# the data-breach-specific indemnity in Section 8.4") — see F3-D-18.
+_CONFLICTING_DEFINED_TERM_RE = re.compile(
+    r"means,?\s+for\s+purposes\s+of\s+[^,]{0,60}?Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,\s+[^,]+,?\s+and\s+means,?"
+    r"\s+for\s+purposes\s+of\s+[^,]{0,60}?Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,",
+    re.I,
+)
 
 # A restatement elsewhere in the document ("Vendor's indemnification
 # obligations shall not exceed 2 times the fees paid") that doesn't use
@@ -623,6 +640,10 @@ class MonetaryTreatment:
             return f"${self.fixed_amount:,.2f} fixed"
         if self.kind == "cross_reference":
             return f"per {self.cross_reference_label}"
+        if self.kind == "conflicting_defined_term":
+            return "conflicting (two different values stated for the same defined term)"
+        if self.kind == "chained_delegation_unresolved":
+            return "delegated to a document not included"
         return "unspecified"
 
 
@@ -799,6 +820,17 @@ def _classify_defense_control(
 
 
 def _classify_monetary(window: str, obligation_start: int) -> MonetaryTreatment:
+    conflicting = _CONFLICTING_DEFINED_TERM_RE.search(window)
+    if conflicting:
+        return MonetaryTreatment(
+            kind="conflicting_defined_term", raw_excerpt=_excerpt(window, conflicting.start(), conflicting.end()),
+        )
+    chained = _core_chained_delegation_re.search(window)
+    if chained:
+        return MonetaryTreatment(
+            kind="chained_delegation_unresolved", raw_excerpt=_excerpt(window, chained.start(), chained.end()),
+        )
+
     xref = _MONETARY_CROSS_REF_RE.search(window)
     unlimited = _MONETARY_UNLIMITED_RE.search(window)
     mult = _MONETARY_MULTIPLIER_RE.search(window)
@@ -1490,6 +1522,16 @@ def evaluate_indemnification_policy(
             unresolved_facts.append(
                 f"protection monetary treatment (delegates to {protection.monetary.cross_reference_label}, not resolved by this evaluation)"
             )
+        elif protection.monetary.kind == "conflicting_defined_term":
+            unresolved_facts.append(
+                "protection monetary treatment (a self-defined term is given two different values scoped to "
+                "two different sections of this document — cannot silently choose one)"
+            )
+        elif protection.monetary.kind == "chained_delegation_unresolved":
+            unresolved_facts.append(
+                "protection monetary treatment (delegated through a chain of cross-references ending in a "
+                "document not included — cannot verify the actual scope of protection)"
+            )
 
     # --- Exposure-side unresolved facts ---
     exposure_monetary_value = None
@@ -1503,6 +1545,17 @@ def evaluate_indemnification_policy(
         if exposure.monetary.kind == "cross_reference":
             unresolved_facts.append(
                 f"exposure monetary treatment (delegates to {exposure.monetary.cross_reference_label}, not resolved by this evaluation)"
+            )
+        elif exposure.monetary.kind == "conflicting_defined_term":
+            unresolved_facts.append(
+                "exposure monetary treatment (a self-defined term is given two different values scoped to "
+                "two different sections of this document — cannot silently choose one)"
+            )
+        elif exposure.monetary.kind == "chained_delegation_unresolved":
+            unresolved_facts.append(
+                "exposure monetary treatment (delegated through a chain of cross-references ending in a "
+                "document not included — the multiplier itself may be clean but what it applies to cannot "
+                "be verified)"
             )
 
     if unresolved_facts:
