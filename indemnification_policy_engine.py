@@ -471,8 +471,21 @@ _RESTATEMENT_MONETARY_RE = re.compile(
 # sensitive within the overall re.I compile via (?-i:...), the same
 # re.I-over-[A-Z] hazard already fixed elsewhere in this file.
 _ROLE_ATTRIBUTION_RE = re.compile(
-    r"(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))(?:'s)?\s+(?i:indemnification\s+)?(?i:obligations?)\s+"
-    r"(?i:under\s+this\s+(?:Section|Agreement)\s+)?",
+    r"(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))"
+    r"(?:"
+    r"(?:'s)?\s+(?i:indemnification\s+)?(?i:obligations?)\s+(?i:under\s+this\s+(?:Section|Agreement)\s+)?"
+    # Step 4A.10.1 — purely additive alternative attribution shape:
+    # "X is liable/responsible for..." names a role and states an
+    # obligation without the possessive "'s obligation" noun phrase the
+    # original pattern required. Found via the false-symmetry benchmark
+    # (artifacts/step4a10_1/symmetry_PRE_output.txt) — the negligence/
+    # fault-standard dimension's asymmetry was invisible to
+    # detect_role_attributed_asymmetry purely because this shape never
+    # registered as an attribution at all (0 matches), not because the
+    # downstream comparison logic failed. Same capture-group semantics
+    # (group(1) = role name), same downstream snapshot/compare machinery.
+    r"|\s+is\s+(?:solely\s+|primarily\s+)?(?:liable|responsible)\s+for\s+"
+    r")",
     re.I,
 )
 _GENERIC_ROLE_WORDS = {

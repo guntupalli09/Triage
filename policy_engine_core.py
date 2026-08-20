@@ -1197,6 +1197,22 @@ def chained_delegation_excerpt(window: str, before: int = 60, after: int = 40) -
     return window[lo:hi].strip()
 
 
+# Step 4A.10.1 — structural markers that a clause is singling out,
+# limiting, or conditioning ONE named party's treatment differently from
+# another, independent of which of the 12 required comparison dimensions
+# (monetary/scope/defense-control/causation/trigger/temporal/etc.) it
+# falls under. Used only as a SAFETY NET (see detect_role_attributed_
+# asymmetry below) when the specific-dimension classifiers found no
+# provable difference — never as the sole/first-line asymmetry signal.
+_DIFFERENTIATING_QUALIFIER_RE = re.compile(
+    r"\bonly\b|\bsolely\b|\bexclusively\b|\bdoes\s+not\s+apply\b|"
+    r"\bdo\s+not\s+apply\b|\bno\s+right\s+to\b|\buncapped\b|\bcapped\s+at\b|"
+    r"\bregardless\s+of\b|\bconditioned\s+on\b|\bextends?\s+to\b|"
+    r"\bdifferent\b|\bdiffering\b|\bunlike\b|\ba\s+carve[- ]?out\b",
+    re.I,
+)
+
+
 def detect_role_attributed_asymmetry(
     window: str,
     attribution_re: Pattern[str],
@@ -1223,6 +1239,7 @@ def detect_role_attributed_asymmetry(
         return []
 
     snapshots: Dict[str, Dict[str, Any]] = {}
+    local_texts: Dict[str, str] = {}
     for i, m in enumerate(matches):
         role = trim_role_name(m.group(1))
         if role in snapshots:
@@ -1232,7 +1249,8 @@ def detect_role_attributed_asymmetry(
         boundary = re.search(r"\.\s", window[m.end():hi])
         if boundary:
             hi = m.end() + boundary.start() + 1
-        snapshots[role] = snapshot_fn(window[m.end():hi])
+        local_texts[role] = window[m.end():hi]
+        snapshots[role] = snapshot_fn(local_texts[role])
 
     roles = list(snapshots.keys())
     if len(roles) < 2:
@@ -1243,6 +1261,29 @@ def detect_role_attributed_asymmetry(
     base_snapshot = snapshots[base_role]
     for role in roles[1:]:
         reasons.extend(compare_fn(base_role, base_snapshot, role, snapshots[role]))
+    if reasons:
+        return reasons
+
+    # Step 4A.10.1 — general safety net (artifacts/step4a10_1/
+    # false_symmetry_root_cause.md): the per-dimension `compare_fn`
+    # classifiers are a closed vocabulary and can silently find "nothing
+    # to compare" even when the drafter plainly attached DIFFERENT,
+    # role-specific qualifying language to each named role — a proviso
+    # phrased outside every classifier's specific keyword set is not
+    # evidence of equivalence, it's evidence the specific-dimension
+    # checks are blind to this phrasing. If every attributed role's own
+    # local window contains an explicit differentiating-qualifier cue
+    # (structural markers of "this text singles out/limits/conditions
+    # THIS party's treatment," not a per-case phrase list), treat the
+    # differentiation as real but UNCONFIRMED by the specific classifiers
+    # — never silently presumed symmetric.
+    if any(_DIFFERENTIATING_QUALIFIER_RE.search(local_texts[role]) for role in roles):
+        return [
+            f"{base_role} and {' and '.join(roles[1:])} each have separately-stated "
+            f"qualifying language attached to their respective obligations that the "
+            f"specific comparison checks could not conclusively characterize as "
+            f"equivalent or different — symmetry cannot be assumed"
+        ]
     return reasons
 
 
