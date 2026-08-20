@@ -1,0 +1,19 @@
+=== PRIMARY CORPUS (394 cases) ===
+  [primary] 25/394 done (23.8s elapsed)
+  [primary] 50/394 done (47.0s elapsed)
+  [primary] 75/394 done (70.7s elapsed)
+  [primary] 100/394 done (97.8s elapsed)
+  [primary] 125/394 done (124.3s elapsed)
+  [primary] 150/394 done (149.9s elapsed)
+  [primary] 175/394 done (174.2s elapsed)
+  [primary] 200/394 done (200.3s elapsed)
+  [primary] 225/394 done (228.0s elapsed)
+  [primary] 250/394 done (246.6s elapsed)
+  [primary] 275/394 done (268.0s elapsed)
+  [primary] 300/394 done (287.5s elapsed)
+  [primary] 325/394 done (306.8s elapsed)
+  [primary] 350/394 done (325.7s elapsed)
+  [primary] 375/394 done (345.1s elapsed)
+=== FORMATTING MUTATIONS (40 cases) ===
+  [mutations] 25/40 done (23.6s elapsed)
+DONE
