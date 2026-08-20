@@ -1,0 +1,282 @@
+[
+  {
+    "id": "S4A10-MUT-001",
+    "source_id": "S4A10-0001",
+    "mutation": "mutate_whitespace",
+    "text": "Vendor  shall  indemnify  and  hold  Client  harmless  from  any  third-party  claims  arising  out  of  Vendor's  performance  of  the  Services  under  this  Agreement.",
+    "note": "formatting mutation of S4A10-0001 via mutate_whitespace"
+  },
+  {
+    "id": "S4A10-MUT-002",
+    "source_id": "S4A10-0002",
+    "mutation": "mutate_linebreaks",
+    "text": "Contractor agrees to indemnify Owner against losses, damages, and expenses\nresulting from a breach of Contractor's obligations under this Master\nServices Agreement.",
+    "note": "formatting mutation of S4A10-0002 via mutate_linebreaks"
+  },
+  {
+    "id": "S4A10-MUT-003",
+    "source_id": "S4A10-0003",
+    "mutation": "mutate_numbering",
+    "text": "1.1  Licensee will indemnify, defend, and hold harmless Licensor and its affiliates from claims relating to Licensee's negligent acts in connection with the deliverables.",
+    "note": "formatting mutation of S4A10-0003 via mutate_numbering"
+  },
+  {
+    "id": "S4A10-MUT-004",
+    "source_id": "S4A10-0004",
+    "mutation": "mutate_heading",
+    "text": "SECTION 7 \u2014 INDEMNIFICATION AND RISK ALLOCATION\n\nReseller shall indemnify Manufacturer for any claim brought by a third party alleging that the licensed technology infringes such party's intellectual property rights.",
+    "note": "formatting mutation of S4A10-0004 via mutate_heading"
+  },
+  {
+    "id": "S4A10-MUT-005",
+    "source_id": "S4A10-0005",
+    "mutation": "mutate_bullets",
+    "text": "In the event of a data breach caused by Operator:\n  - Operator shall indemnify Host for reasonable costs incurred in responding to the breach.",
+    "note": "formatting mutation of S4A10-0005 via mutate_bullets"
+  },
+  {
+    "id": "S4A10-MUT-006",
+    "source_id": "S4A10-0006",
+    "mutation": "mutate_punctuation_spacing",
+    "text": "Consultant shall indemnify Sponsor for any claim arising from Consultant's failure to comply with applicable law in the performance of this Agreement.",
+    "note": "formatting mutation of S4A10-0006 via mutate_punctuation_spacing"
+  },
+  {
+    "id": "S4A10-MUT-007",
+    "source_id": "S4A10-0007",
+    "mutation": "mutate_tabs",
+    "text": "\tServicer agrees to hold Bank harmless from any claim arising out of the use of the products supplied under this distribution agreement.",
+    "note": "formatting mutation of S4A10-0007 via mutate_tabs"
+  },
+  {
+    "id": "S4A10-MUT-008",
+    "source_id": "S4A10-0008",
+    "mutation": "mutate_whitespace",
+    "text": "Carrier  shall  indemnify  Shipper  against  any  claim  that  the  deliverables,  as  delivered,  violate  a  third  party's  patent  or  copyright.",
+    "note": "formatting mutation of S4A10-0008 via mutate_whitespace"
+  },
+  {
+    "id": "S4A10-MUT-009",
+    "source_id": "S4A10-0009",
+    "mutation": "mutate_linebreaks",
+    "text": "Franchisee shall indemnify and hold Franchisor harmless from any third-party\nclaims arising out of Franchisee's performance of the Services under\nthis Agreement.",
+    "note": "formatting mutation of S4A10-0009 via mutate_linebreaks"
+  },
+  {
+    "id": "S4A10-MUT-010",
+    "source_id": "S4A10-0010",
+    "mutation": "mutate_numbering",
+    "text": "1.1  Subcontractor agrees to indemnify Prime Contractor against losses, damages, and expenses resulting from a breach of Subcontractor's obligations under this Master Services Agreement.",
+    "note": "formatting mutation of S4A10-0010 via mutate_numbering"
+  },
+  {
+    "id": "S4A10-MUT-011",
+    "source_id": "S4A10-0011",
+    "mutation": "mutate_heading",
+    "text": "SECTION 7 \u2014 INDEMNIFICATION AND RISK ALLOCATION\n\nDeveloper will indemnify, defend, and hold harmless Investor and its affiliates from claims relating to Developer's negligent acts in connection with the deliverables.",
+    "note": "formatting mutation of S4A10-0011 via mutate_heading"
+  },
+  {
+    "id": "S4A10-MUT-012",
+    "source_id": "S4A10-0012",
+    "mutation": "mutate_bullets",
+    "text": "  - Processor shall indemnify Controller for any claim brought by a third party alleging that the licensed technology infringes such party's intellectual property rights.",
+    "note": "formatting mutation of S4A10-0012 via mutate_bullets"
+  },
+  {
+    "id": "S4A10-MUT-013",
+    "source_id": "S4A10-0013",
+    "mutation": "mutate_punctuation_spacing",
+    "text": "In the event of a data breach caused by Supplier , Supplier shall indemnify Purchaser for reasonable costs incurred in responding to the breach.",
+    "note": "formatting mutation of S4A10-0013 via mutate_punctuation_spacing"
+  },
+  {
+    "id": "S4A10-MUT-014",
+    "source_id": "S4A10-0014",
+    "mutation": "mutate_tabs",
+    "text": "\tTenant shall indemnify Landlord for any claim arising from Tenant's failure to comply with applicable law in the performance of this Agreement.",
+    "note": "formatting mutation of S4A10-0014 via mutate_tabs"
+  },
+  {
+    "id": "S4A10-MUT-015",
+    "source_id": "S4A10-0015",
+    "mutation": "mutate_whitespace",
+    "text": "Distributor  agrees  to  hold  Brand  Owner  harmless  from  any  claim  arising  out  of  the  use  of  the  products  supplied  under  this  distribution  agreement.",
+    "note": "formatting mutation of S4A10-0015 via mutate_whitespace"
+  },
+  {
+    "id": "S4A10-MUT-016",
+    "source_id": "S4A10-0016",
+    "mutation": "mutate_linebreaks",
+    "text": "Integrator shall indemnify End Customer against any claim that the\ndeliverables, as delivered, violate a third party's patent or copyright. \n",
+    "note": "formatting mutation of S4A10-0016 via mutate_linebreaks"
+  },
+  {
+    "id": "S4A10-MUT-017",
+    "source_id": "S4A10-0017",
+    "mutation": "mutate_numbering",
+    "text": "1.1  Outsourcing Provider shall indemnify and hold Enterprise Customer harmless from any third-party claims arising out of Outsourcing Provider's performance of the Services under this Agreement.",
+    "note": "formatting mutation of S4A10-0017 via mutate_numbering"
+  },
+  {
+    "id": "S4A10-MUT-018",
+    "source_id": "S4A10-0018",
+    "mutation": "mutate_heading",
+    "text": "SECTION 7 \u2014 INDEMNIFICATION AND RISK ALLOCATION\n\nBroker agrees to indemnify Principal against losses, damages, and expenses resulting from a breach of Broker's obligations under this Master Services Agreement.",
+    "note": "formatting mutation of S4A10-0018 via mutate_heading"
+  },
+  {
+    "id": "S4A10-MUT-019",
+    "source_id": "S4A10-0019",
+    "mutation": "mutate_bullets",
+    "text": "Vendor will indemnify:\n  - defend\n  - and hold harmless Client and its affiliates from claims relating to Vendor's negligent acts in connection with the deliverables.",
+    "note": "formatting mutation of S4A10-0019 via mutate_bullets"
+  },
+  {
+    "id": "S4A10-MUT-020",
+    "source_id": "S4A10-0020",
+    "mutation": "mutate_punctuation_spacing",
+    "text": "Contractor shall indemnify Owner for any claim brought by a third party alleging that the licensed technology infringes such party's intellectual property rights.",
+    "note": "formatting mutation of S4A10-0020 via mutate_punctuation_spacing"
+  },
+  {
+    "id": "S4A10-MUT-021",
+    "source_id": "S4A10-0021",
+    "mutation": "mutate_tabs",
+    "text": "\tIn the event of a data breach caused by Licensee, Licensee shall indemnify Licensor for reasonable costs incurred in responding to the breach.",
+    "note": "formatting mutation of S4A10-0021 via mutate_tabs"
+  },
+  {
+    "id": "S4A10-MUT-022",
+    "source_id": "S4A10-0022",
+    "mutation": "mutate_whitespace",
+    "text": "Reseller  shall  indemnify  Manufacturer  for  any  claim  arising  from  Reseller's  failure  to  comply  with  applicable  law  in  the  performance  of  this  Agreement.",
+    "note": "formatting mutation of S4A10-0022 via mutate_whitespace"
+  },
+  {
+    "id": "S4A10-MUT-023",
+    "source_id": "S4A10-0023",
+    "mutation": "mutate_linebreaks",
+    "text": "Operator agrees to hold Host harmless from any claim arising\nout of the use of the products supplied under this\ndistribution agreement.",
+    "note": "formatting mutation of S4A10-0023 via mutate_linebreaks"
+  },
+  {
+    "id": "S4A10-MUT-024",
+    "source_id": "S4A10-0024",
+    "mutation": "mutate_numbering",
+    "text": "1.1  Consultant shall indemnify Sponsor against any claim that the deliverables, as delivered, violate a third party's patent or copyright.",
+    "note": "formatting mutation of S4A10-0024 via mutate_numbering"
+  },
+  {
+    "id": "S4A10-MUT-025",
+    "source_id": "S4A10-0025",
+    "mutation": "mutate_heading",
+    "text": "SECTION 7 \u2014 INDEMNIFICATION AND RISK ALLOCATION\n\nServicer shall indemnify and hold Bank harmless from any third-party claims arising out of Servicer's performance of the Services under this Agreement.",
+    "note": "formatting mutation of S4A10-0025 via mutate_heading"
+  },
+  {
+    "id": "S4A10-MUT-026",
+    "source_id": "S4A10-0026",
+    "mutation": "mutate_bullets",
+    "text": "Carrier agrees to indemnify Shipper against losses:\n  - damages\n  - and expenses resulting from a breach of Carrier's obligations under this Master Services Agreement.",
+    "note": "formatting mutation of S4A10-0026 via mutate_bullets"
+  },
+  {
+    "id": "S4A10-MUT-027",
+    "source_id": "S4A10-0027",
+    "mutation": "mutate_punctuation_spacing",
+    "text": "Franchisee will indemnify , defend , and hold harmless Franchisor and its affiliates from claims relating to Franchisee's negligent acts in connection with the deliverables.",
+    "note": "formatting mutation of S4A10-0027 via mutate_punctuation_spacing"
+  },
+  {
+    "id": "S4A10-MUT-028",
+    "source_id": "S4A10-0028",
+    "mutation": "mutate_tabs",
+    "text": "\tSubcontractor shall indemnify Prime Contractor for any claim brought by a third party alleging that the licensed technology infringes such party's intellectual property rights.",
+    "note": "formatting mutation of S4A10-0028 via mutate_tabs"
+  },
+  {
+    "id": "S4A10-MUT-029",
+    "source_id": "S4A10-0029",
+    "mutation": "mutate_whitespace",
+    "text": "In  the  event  of  a  data  breach  caused  by  Developer,  Developer  shall  indemnify  Investor  for  reasonable  costs  incurred  in  responding  to  the  breach.",
+    "note": "formatting mutation of S4A10-0029 via mutate_whitespace"
+  },
+  {
+    "id": "S4A10-MUT-030",
+    "source_id": "S4A10-0030",
+    "mutation": "mutate_linebreaks",
+    "text": "Processor shall indemnify Controller for any claim arising from Processor's\nfailure to comply with applicable law in the performance of\nthis Agreement.",
+    "note": "formatting mutation of S4A10-0030 via mutate_linebreaks"
+  },
+  {
+    "id": "S4A10-MUT-031",
+    "source_id": "S4A10-0031",
+    "mutation": "mutate_numbering",
+    "text": "1.1  Supplier agrees to hold Purchaser harmless from any claim arising out of the use of the products supplied under this distribution agreement.",
+    "note": "formatting mutation of S4A10-0031 via mutate_numbering"
+  },
+  {
+    "id": "S4A10-MUT-032",
+    "source_id": "S4A10-0032",
+    "mutation": "mutate_heading",
+    "text": "SECTION 7 \u2014 INDEMNIFICATION AND RISK ALLOCATION\n\nTenant shall indemnify Landlord against any claim that the deliverables, as delivered, violate a third party's patent or copyright.",
+    "note": "formatting mutation of S4A10-0032 via mutate_heading"
+  },
+  {
+    "id": "S4A10-MUT-033",
+    "source_id": "S4A10-0033",
+    "mutation": "mutate_bullets",
+    "text": "  - Distributor shall indemnify and hold Brand Owner harmless from any third-party claims arising out of Distributor's performance of the Services under this Agreement.",
+    "note": "formatting mutation of S4A10-0033 via mutate_bullets"
+  },
+  {
+    "id": "S4A10-MUT-034",
+    "source_id": "S4A10-0034",
+    "mutation": "mutate_punctuation_spacing",
+    "text": "Integrator agrees to indemnify End Customer against losses , damages , and expenses resulting from a breach of Integrator's obligations under this Master Services Agreement.",
+    "note": "formatting mutation of S4A10-0034 via mutate_punctuation_spacing"
+  },
+  {
+    "id": "S4A10-MUT-035",
+    "source_id": "S4A10-0035",
+    "mutation": "mutate_tabs",
+    "text": "\tOutsourcing Provider will indemnify, defend, and hold harmless Enterprise Customer and its affiliates from claims relating to Outsourcing Provider's negligent acts in connection with the deliverables.",
+    "note": "formatting mutation of S4A10-0035 via mutate_tabs"
+  },
+  {
+    "id": "S4A10-MUT-036",
+    "source_id": "S4A10-0036",
+    "mutation": "mutate_whitespace",
+    "text": "Broker  shall  indemnify  Principal  for  any  claim  brought  by  a  third  party  alleging  that  the  licensed  technology  infringes  such  party's  intellectual  property  rights.",
+    "note": "formatting mutation of S4A10-0036 via mutate_whitespace"
+  },
+  {
+    "id": "S4A10-MUT-037",
+    "source_id": "S4A10-0037",
+    "mutation": "mutate_linebreaks",
+    "text": "In the event of a data breach caused by Vendor,\nVendor shall indemnify Client for reasonable costs incurred in responding\nto the breach.",
+    "note": "formatting mutation of S4A10-0037 via mutate_linebreaks"
+  },
+  {
+    "id": "S4A10-MUT-038",
+    "source_id": "S4A10-0038",
+    "mutation": "mutate_numbering",
+    "text": "1.1  Contractor shall indemnify Owner for any claim arising from Contractor's failure to comply with applicable law in the performance of this Agreement.",
+    "note": "formatting mutation of S4A10-0038 via mutate_numbering"
+  },
+  {
+    "id": "S4A10-MUT-039",
+    "source_id": "S4A10-0039",
+    "mutation": "mutate_heading",
+    "text": "SECTION 7 \u2014 INDEMNIFICATION AND RISK ALLOCATION\n\nLicensee agrees to hold Licensor harmless from any claim arising out of the use of the products supplied under this distribution agreement.",
+    "note": "formatting mutation of S4A10-0039 via mutate_heading"
+  },
+  {
+    "id": "S4A10-MUT-040",
+    "source_id": "S4A10-0040",
+    "mutation": "mutate_bullets",
+    "text": "Reseller shall indemnify Manufacturer against any claim that the deliverables:\n  - as delivered\n  - violate a third party's patent or copyright.",
+    "note": "formatting mutation of S4A10-0040 via mutate_bullets"
+  }
+]

@@ -1,0 +1,32 @@
+  [control_repro] 25/200 done (25.3s elapsed)
+  [control_repro] 50/200 done (45.9s elapsed)
+  [control_repro] 75/200 done (67.2s elapsed)
+  [control_repro] 100/200 done (87.4s elapsed)
+  [control_repro] 125/200 done (107.8s elapsed)
+  [control_repro] 150/200 done (126.2s elapsed)
+  [control_repro] 175/200 done (144.7s elapsed)
+  [control_repro] 200/200 done (161.4s elapsed)
+
+=== STEP 4A.10 PHASE 1 — CONTROL REPRODUCTION ===
+Total wall time: 161.4s over 200 cases
+Run errors (crashed, not provider-unavailable): 0
+
+POSITIVE (n=120): {'PRESENT_AND_VERIFIED': 19, 'PRESENT_BUT_UNRESOLVED': 100, 'RECOGNITION_UNCERTAIN': 0, 'CONFIRMED_ABSENT': 1, 'RUN_ERROR': 0}
+  false-absence rate: 0.8%
+  discovered-or-verified recall: 99.2%
+  clean-VERIFIED recall: 15.8%
+
+NOVEL_UNSEEN (n=30, the killer-gate family): {'PRESENT_AND_VERIFIED': 0, 'PRESENT_BUT_UNRESOLVED': 29, 'RECOGNITION_UNCERTAIN': 0, 'CONFIRMED_ABSENT': 1, 'RUN_ERROR': 0}
+  false-absence rate: 3.3%
+  material recovery (discovered, not absent): 29 / 30
+
+NEGATIVE (n=80): {'PRESENT_AND_VERIFIED': 0, 'PRESENT_BUT_UNRESOLVED': 2, 'RECOGNITION_UNCERTAIN': 0, 'CONFIRMED_ABSENT': 78, 'RUN_ERROR': 0}
+  true-negative rate: 97.5%
+  FALSE clean-verified on a hard negative (dangerous): 0
+  false-candidate rate (routed to review unnecessarily): 2.5%
+
+Latency/cost over 200 successful real API calls:
+  latency ms: min=492 median=736 max=2981 mean=806
+  total input tokens: 69004, total output tokens: 8277
+  mean tokens/doc: in=345.0 out=41.4
+  non-ok calls: 0 ([])
