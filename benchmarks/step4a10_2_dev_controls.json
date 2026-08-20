@@ -1,0 +1,184 @@
+[
+  {
+    "id": "DEVCTL-001",
+    "family": "survival_temporal",
+    "label": "ASYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement; provided that Contractor's indemnification obligation survives termination of this Agreement indefinitely, while Owner's obligation terminates upon expiration of this Agreement.",
+    "note": "survival/temporal asymmetry"
+  },
+  {
+    "id": "DEVCTL-002",
+    "family": "survival_temporal",
+    "label": "ASYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement; provided that Licensee's obligation survives in perpetuity, whereas Licensor's obligation does not survive termination at all.",
+    "note": "survival/temporal asymmetry"
+  },
+  {
+    "id": "DEVCTL-003",
+    "family": "survival_temporal",
+    "label": "ASYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement; provided that Manufacturer's indemnification obligation survives for a period of ten (10) years following termination, while Retailer's obligation survives for a period of two (2) years following termination.",
+    "note": "survival/temporal asymmetry"
+  },
+  {
+    "id": "DEVCTL-004",
+    "family": "survival_temporal",
+    "label": "ASYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement; Broker's obligation continues indefinitely after this Agreement ends, but Principal's obligation ceases immediately upon termination.",
+    "note": "survival/temporal asymmetry"
+  },
+  {
+    "id": "DEVCTL-005",
+    "family": "survival_temporal",
+    "label": "ASYMMETRIC",
+    "text": "Each party's indemnification obligation is ordinarily coextensive with the term of this Agreement; however, Vendor's obligation survives termination indefinitely, and Client's does not survive termination at all.",
+    "note": "survival/temporal asymmetry"
+  },
+  {
+    "id": "DEVCTL-006",
+    "family": "survival_temporal",
+    "label": "SYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement; each party's indemnification obligation survives termination of this Agreement for a period of four (4) years, on identical terms.",
+    "note": "survival/temporal genuinely symmetric"
+  },
+  {
+    "id": "DEVCTL-007",
+    "family": "survival_temporal",
+    "label": "SYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement; Licensee's indemnification obligation survives termination for a period of three (3) years, and Licensor's obligation survives termination for a period of three (3) years as well.",
+    "note": "survival/temporal genuinely symmetric"
+  },
+  {
+    "id": "DEVCTL-008",
+    "family": "survival_temporal",
+    "label": "SYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement; both parties' indemnification obligations survive termination of this Agreement indefinitely.",
+    "note": "survival/temporal genuinely symmetric"
+  },
+  {
+    "id": "DEVCTL-009",
+    "family": "survival_temporal",
+    "label": "SYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement; neither party's obligation survives termination of this Agreement.",
+    "note": "survival/temporal genuinely symmetric"
+  },
+  {
+    "id": "DEVCTL-010",
+    "family": "survival_temporal",
+    "label": "SYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement, with no stated survival term for either party.",
+    "note": "survival/temporal genuinely symmetric"
+  },
+  {
+    "id": "DEVCTL-011",
+    "family": "survival_temporal",
+    "label": "AMBIGUOUS",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement; the parties have not yet agreed whether Contractor's obligation will survive termination.",
+    "note": "survival/temporal unresolved"
+  },
+  {
+    "id": "DEVCTL-012",
+    "family": "survival_temporal",
+    "label": "AMBIGUOUS",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement; survival terms remain subject to future negotiation between Licensee and Licensor.",
+    "note": "survival/temporal unresolved"
+  },
+  {
+    "id": "DEVCTL-013",
+    "family": "survival_temporal",
+    "label": "AMBIGUOUS",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement; the survival period, if any, shall be as set forth in an amendment not yet executed.",
+    "note": "survival/temporal unresolved"
+  },
+  {
+    "id": "DEVCTL-014",
+    "family": "schedule_cross_reference",
+    "label": "ASYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement, subject to the limitations set forth in Schedule 3 for Broker and the different limitations set forth in Schedule 5 for Principal.",
+    "note": "schedule cross-reference asymmetry"
+  },
+  {
+    "id": "DEVCTL-015",
+    "family": "schedule_cross_reference",
+    "label": "ASYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement; the exposure cap applicable to Vendor is set forth in Exhibit B, while the exposure cap applicable to Client is set forth in Exhibit C.",
+    "note": "schedule cross-reference asymmetry"
+  },
+  {
+    "id": "DEVCTL-016",
+    "family": "schedule_cross_reference",
+    "label": "ASYMMETRIC",
+    "text": "Each party's indemnification obligation is subject to the terms of the applicable schedule: Schedule 1 for Contractor, Schedule 2 for Owner.",
+    "note": "schedule cross-reference asymmetry"
+  },
+  {
+    "id": "DEVCTL-017",
+    "family": "schedule_cross_reference",
+    "label": "ASYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement, as further limited by Appendix A for Licensee and Appendix D for Licensor.",
+    "note": "schedule cross-reference asymmetry"
+  },
+  {
+    "id": "DEVCTL-018",
+    "family": "schedule_cross_reference",
+    "label": "ASYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement; see Annex I for Manufacturer's specific terms and Annex II for Retailer's specific terms.",
+    "note": "schedule cross-reference asymmetry"
+  },
+  {
+    "id": "DEVCTL-019",
+    "family": "schedule_cross_reference",
+    "label": "SYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement, subject to the same limitations set forth in Schedule 3, which applies equally to Broker and Principal.",
+    "note": "schedule cross-reference genuinely symmetric"
+  },
+  {
+    "id": "DEVCTL-020",
+    "family": "schedule_cross_reference",
+    "label": "SYMMETRIC",
+    "text": "Each party's indemnification obligation is subject to the terms of Schedule 1, which governs both Vendor and Client identically.",
+    "note": "schedule cross-reference genuinely symmetric"
+  },
+  {
+    "id": "DEVCTL-021",
+    "family": "schedule_cross_reference",
+    "label": "SYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement; the exposure cap applicable to both Contractor and Owner is set forth in Exhibit B.",
+    "note": "schedule cross-reference genuinely symmetric"
+  },
+  {
+    "id": "DEVCTL-022",
+    "family": "schedule_cross_reference",
+    "label": "SYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement, with no schedule or exhibit referenced for either party.",
+    "note": "schedule cross-reference genuinely symmetric"
+  },
+  {
+    "id": "DEVCTL-023",
+    "family": "schedule_cross_reference",
+    "label": "SYMMETRIC",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement, subject to Schedule 3 for Manufacturer and Schedule 3 for Retailer alike.",
+    "note": "schedule cross-reference genuinely symmetric"
+  },
+  {
+    "id": "DEVCTL-024",
+    "family": "schedule_cross_reference",
+    "label": "AMBIGUOUS",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement, subject to the limitations set forth in a schedule to be attached at a later date.",
+    "note": "schedule cross-reference unresolved"
+  },
+  {
+    "id": "DEVCTL-025",
+    "family": "schedule_cross_reference",
+    "label": "AMBIGUOUS",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement, subject to Schedule 3, which has not yet been finalized by the parties.",
+    "note": "schedule cross-reference unresolved"
+  },
+  {
+    "id": "DEVCTL-026",
+    "family": "schedule_cross_reference",
+    "label": "AMBIGUOUS",
+    "text": "Each party shall indemnify the other for claims arising from this Agreement, subject to the limitations set forth in the applicable schedule (schedule reference to be confirmed).",
+    "note": "schedule cross-reference unresolved"
+  }
+]
