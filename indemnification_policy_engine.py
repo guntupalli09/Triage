@@ -59,7 +59,7 @@ from policy_engine_core import (
     parse_multiplier_token as _core_parse_multiplier_token,
     SELF_FLAGGED_UNRESOLVED_RE as _core_self_flagged_unresolved_re,
 )
-from semantic_discovery import discover_candidate_spans as _discover_candidate_spans
+from semantic_discovery import discover_candidate_spans as _discover_candidate_spans_simulated
 
 _core_word_number_alternation = _core_word_number_alternation_fn()
 
@@ -67,6 +67,22 @@ _core_word_number_alternation = _core_word_number_alternation_fn()
 # (Phase 7, Phase 19/20 "regex-only" comparison arm) can be reproduced
 # exactly by flipping one flag, without maintaining two code paths.
 HYBRID_DISCOVERY_ENABLED = True
+
+# Step 4A.9.2 — provider selection. "SIMULATED" (default, preserves every
+# 4A.9.1 result byte-for-byte) or "REAL" (routes to semantic_discovery_
+# real.discover_candidate_spans_real — an actual LLM call). This is the
+# ONLY change 4A.9.2 makes to this file's control flow: which function
+# _run_semantic_discovery calls. Candidate schema, evidence-span
+# verification, structuring/verification, and absence-state logic are
+# byte-identical to 4A.9.1 regardless of this setting.
+SEMANTIC_PROVIDER = "SIMULATED"
+
+
+def _discover_candidate_spans(text: str, concept: str):
+    if SEMANTIC_PROVIDER == "REAL":
+        from semantic_discovery_real import discover_candidate_spans_real
+        return discover_candidate_spans_real(text, concept)
+    return _discover_candidate_spans_simulated(text, concept)
 
 RULE_ID = "POLICY_INDEMNIFICATION"
 
