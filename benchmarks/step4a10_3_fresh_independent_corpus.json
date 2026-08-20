@@ -5,7 +5,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "Each party shall make good any third-party claim traceable to its own performance under this Agreement, on identical terms for both parties.",
+    "text": "Each party shall indemnify the other for any third-party claim traceable to its own performance under this Agreement, on identical terms for both parties.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -27,7 +27,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "Each party's obligation to the other for claims arising under this Agreement is confined to direct third-party claims, carries the same two-year tail for both parties, and is triggered only by the acting party's own fault.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; that indemnification obligation is confined to direct third-party claims, carries the same two-year tail for both parties, and is triggered only by the acting party's own fault.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -38,7 +38,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "The parties agree that each shall respond for claims traceable to a breach of confidentiality by that party, with the same notice period and the same defense-cooperation duty running in both directions.",
+    "text": "Each party shall indemnify the other for claims traceable to a breach of confidentiality by that party, with the same notice period and the same defense-cooperation duty running in both directions.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -49,7 +49,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "As between Toll Manufacturer and Brand Owner, each shall carry the financial burden of any claim traceable to its own conduct, and neither carries a greater share of that burden than the other under this Section.",
+    "text": "As between Toll Manufacturer and Brand Owner, each shall indemnify the other for any claim traceable to its own conduct, and neither carries a greater share of that burden than the other under this Section.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -60,7 +60,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "Each party shall make good any third-party claim traceable to its own performance under this Agreement, on identical terms for both parties.",
+    "text": "Each party shall indemnify the other for any third-party claim traceable to its own performance under this Agreement, on identical terms for both parties.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -82,7 +82,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "Each party's obligation to the other for claims arising under this Agreement is confined to direct third-party claims, carries the same two-year tail for both parties, and is triggered only by the acting party's own fault.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; that indemnification obligation is confined to direct third-party claims, carries the same two-year tail for both parties, and is triggered only by the acting party's own fault.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -93,7 +93,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "The parties agree that each shall respond for claims traceable to a breach of confidentiality by that party, with the same notice period and the same defense-cooperation duty running in both directions.",
+    "text": "Each party shall indemnify the other for claims traceable to a breach of confidentiality by that party, with the same notice period and the same defense-cooperation duty running in both directions.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -104,7 +104,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "As between Third-Party Administrator and Plan Sponsor, each shall carry the financial burden of any claim traceable to its own conduct, and neither carries a greater share of that burden than the other under this Section.",
+    "text": "As between Third-Party Administrator and Plan Sponsor, each shall indemnify the other for any claim traceable to its own conduct, and neither carries a greater share of that burden than the other under this Section.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -115,7 +115,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "Each party shall make good any third-party claim traceable to its own performance under this Agreement, on identical terms for both parties.",
+    "text": "Each party shall indemnify the other for any third-party claim traceable to its own performance under this Agreement, on identical terms for both parties.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -137,7 +137,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "Each party's obligation to the other for claims arising under this Agreement is confined to direct third-party claims, carries the same two-year tail for both parties, and is triggered only by the acting party's own fault.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; that indemnification obligation is confined to direct third-party claims, carries the same two-year tail for both parties, and is triggered only by the acting party's own fault.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -148,7 +148,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "The parties agree that each shall respond for claims traceable to a breach of confidentiality by that party, with the same notice period and the same defense-cooperation duty running in both directions.",
+    "text": "Each party shall indemnify the other for claims traceable to a breach of confidentiality by that party, with the same notice period and the same defense-cooperation duty running in both directions.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -159,7 +159,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "As between Booking Agent and Performer, each shall carry the financial burden of any claim traceable to its own conduct, and neither carries a greater share of that burden than the other under this Section.",
+    "text": "As between Booking Agent and Performer, each shall indemnify the other for any claim traceable to its own conduct, and neither carries a greater share of that burden than the other under this Section.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -170,7 +170,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "Each party shall make good any third-party claim traceable to its own performance under this Agreement, on identical terms for both parties.",
+    "text": "Each party shall indemnify the other for any third-party claim traceable to its own performance under this Agreement, on identical terms for both parties.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -192,7 +192,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "Each party's obligation to the other for claims arising under this Agreement is confined to direct third-party claims, carries the same two-year tail for both parties, and is triggered only by the acting party's own fault.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; that indemnification obligation is confined to direct third-party claims, carries the same two-year tail for both parties, and is triggered only by the acting party's own fault.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -203,7 +203,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "The parties agree that each shall respond for claims traceable to a breach of confidentiality by that party, with the same notice period and the same defense-cooperation duty running in both directions.",
+    "text": "Each party shall indemnify the other for claims traceable to a breach of confidentiality by that party, with the same notice period and the same defense-cooperation duty running in both directions.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -214,7 +214,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "As between Warehouse Operator and Consignor, each shall carry the financial burden of any claim traceable to its own conduct, and neither carries a greater share of that burden than the other under this Section.",
+    "text": "As between Warehouse Operator and Consignor, each shall indemnify the other for any claim traceable to its own conduct, and neither carries a greater share of that burden than the other under this Section.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -225,7 +225,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "Each party shall make good any third-party claim traceable to its own performance under this Agreement, on identical terms for both parties.",
+    "text": "Each party shall indemnify the other for any third-party claim traceable to its own performance under this Agreement, on identical terms for both parties.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -247,7 +247,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "Each party's obligation to the other for claims arising under this Agreement is confined to direct third-party claims, carries the same two-year tail for both parties, and is triggered only by the acting party's own fault.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; that indemnification obligation is confined to direct third-party claims, carries the same two-year tail for both parties, and is triggered only by the acting party's own fault.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -258,7 +258,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "The parties agree that each shall respond for claims traceable to a breach of confidentiality by that party, with the same notice period and the same defense-cooperation duty running in both directions.",
+    "text": "Each party shall indemnify the other for claims traceable to a breach of confidentiality by that party, with the same notice period and the same defense-cooperation duty running in both directions.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -269,7 +269,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "As between Escrow Agent and Depositor, each shall carry the financial burden of any claim traceable to its own conduct, and neither carries a greater share of that burden than the other under this Section.",
+    "text": "As between Escrow Agent and Depositor, each shall indemnify the other for any claim traceable to its own conduct, and neither carries a greater share of that burden than the other under this Section.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -280,7 +280,7 @@
     "label": "SYMMETRIC",
     "family": "genuinely_symmetric",
     "dimensions": [],
-    "text": "Each party shall make good any third-party claim traceable to its own performance under this Agreement, on identical terms for both parties.",
+    "text": "Each party shall indemnify the other for any third-party claim traceable to its own performance under this Agreement, on identical terms for both parties.",
     "note": "ordinary-drafting genuine symmetry",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -447,7 +447,7 @@
     "dimensions": [
       "causation_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Charterer carries this burden only for claims traceable to Charterer's gross negligence or willful misconduct, but Shipowner carries it for claims traceable to Shipowner's plain carelessness.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Charterer carries this burden only for claims traceable to Charterer's gross negligence or willful misconduct, but Shipowner carries it for claims traceable to Shipowner's plain carelessness.",
     "note": "asymmetric: causation_standard",
     "expected_material_dimensions": [
       "causation_standard"
@@ -462,7 +462,7 @@
     "dimensions": [
       "causation_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Escrow Agent carries this burden only for claims traceable to Escrow Agent's gross negligence or willful misconduct, but Depositor carries it for claims traceable to Depositor's plain carelessness.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Escrow Agent carries this burden only for claims traceable to Escrow Agent's gross negligence or willful misconduct, but Depositor carries it for claims traceable to Depositor's plain carelessness.",
     "note": "asymmetric: causation_standard",
     "expected_material_dimensions": [
       "causation_standard"
@@ -477,7 +477,7 @@
     "dimensions": [
       "causation_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Third-Party Administrator carries this burden only for claims traceable to Third-Party Administrator's gross negligence or willful misconduct, but Plan Sponsor carries it for claims traceable to Plan Sponsor's plain carelessness.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Third-Party Administrator carries this burden only for claims traceable to Third-Party Administrator's gross negligence or willful misconduct, but Plan Sponsor carries it for claims traceable to Plan Sponsor's plain carelessness.",
     "note": "asymmetric: causation_standard",
     "expected_material_dimensions": [
       "causation_standard"
@@ -492,7 +492,7 @@
     "dimensions": [
       "causation_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Ceding Company carries this burden only for claims traceable to Ceding Company's gross negligence or willful misconduct, but Reinsurer carries it for claims traceable to Reinsurer's plain carelessness.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Ceding Company carries this burden only for claims traceable to Ceding Company's gross negligence or willful misconduct, but Reinsurer carries it for claims traceable to Reinsurer's plain carelessness.",
     "note": "asymmetric: causation_standard",
     "expected_material_dimensions": [
       "causation_standard"
@@ -507,7 +507,7 @@
     "dimensions": [
       "causation_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Warehouse Operator carries this burden only for claims traceable to Warehouse Operator's gross negligence or willful misconduct, but Consignor carries it for claims traceable to Consignor's plain carelessness.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Warehouse Operator carries this burden only for claims traceable to Warehouse Operator's gross negligence or willful misconduct, but Consignor carries it for claims traceable to Consignor's plain carelessness.",
     "note": "asymmetric: causation_standard",
     "expected_material_dimensions": [
       "causation_standard"
@@ -522,7 +522,7 @@
     "dimensions": [
       "causation_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Toll Manufacturer carries this burden only for claims traceable to Toll Manufacturer's gross negligence or willful misconduct, but Brand Owner carries it for claims traceable to Brand Owner's plain carelessness.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Toll Manufacturer carries this burden only for claims traceable to Toll Manufacturer's gross negligence or willful misconduct, but Brand Owner carries it for claims traceable to Brand Owner's plain carelessness.",
     "note": "asymmetric: causation_standard",
     "expected_material_dimensions": [
       "causation_standard"
@@ -537,7 +537,7 @@
     "dimensions": [
       "causation_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Syndicate Lead carries this burden only for claims traceable to Syndicate Lead's gross negligence or willful misconduct, but Participant Lender carries it for claims traceable to Participant Lender's plain carelessness.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Syndicate Lead carries this burden only for claims traceable to Syndicate Lead's gross negligence or willful misconduct, but Participant Lender carries it for claims traceable to Participant Lender's plain carelessness.",
     "note": "asymmetric: causation_standard",
     "expected_material_dimensions": [
       "causation_standard"
@@ -552,7 +552,7 @@
     "dimensions": [
       "causation_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Booking Agent carries this burden only for claims traceable to Booking Agent's gross negligence or willful misconduct, but Performer carries it for claims traceable to Performer's plain carelessness.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Booking Agent carries this burden only for claims traceable to Booking Agent's gross negligence or willful misconduct, but Performer carries it for claims traceable to Performer's plain carelessness.",
     "note": "asymmetric: causation_standard",
     "expected_material_dimensions": [
       "causation_standard"
@@ -567,7 +567,7 @@
     "dimensions": [
       "claim_category"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Charterer is chargeable only for claims alleging patent infringement, while Shipowner is chargeable for claims of every description.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Charterer is chargeable only for claims alleging patent infringement, while Shipowner is chargeable for claims of every description.",
     "note": "asymmetric: claim_category",
     "expected_material_dimensions": [
       "claim_category"
@@ -582,7 +582,7 @@
     "dimensions": [
       "claim_category"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Escrow Agent is chargeable only for claims alleging patent infringement, while Depositor is chargeable for claims of every description.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent is chargeable only for claims alleging patent infringement, while Depositor is chargeable for claims of every description.",
     "note": "asymmetric: claim_category",
     "expected_material_dimensions": [
       "claim_category"
@@ -597,7 +597,7 @@
     "dimensions": [
       "claim_category"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Third-Party Administrator is chargeable only for claims alleging patent infringement, while Plan Sponsor is chargeable for claims of every description.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Third-Party Administrator is chargeable only for claims alleging patent infringement, while Plan Sponsor is chargeable for claims of every description.",
     "note": "asymmetric: claim_category",
     "expected_material_dimensions": [
       "claim_category"
@@ -612,7 +612,7 @@
     "dimensions": [
       "claim_category"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Ceding Company is chargeable only for claims alleging patent infringement, while Reinsurer is chargeable for claims of every description.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Company is chargeable only for claims alleging patent infringement, while Reinsurer is chargeable for claims of every description.",
     "note": "asymmetric: claim_category",
     "expected_material_dimensions": [
       "claim_category"
@@ -627,7 +627,7 @@
     "dimensions": [
       "claim_category"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Warehouse Operator is chargeable only for claims alleging patent infringement, while Consignor is chargeable for claims of every description.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator is chargeable only for claims alleging patent infringement, while Consignor is chargeable for claims of every description.",
     "note": "asymmetric: claim_category",
     "expected_material_dimensions": [
       "claim_category"
@@ -642,7 +642,7 @@
     "dimensions": [
       "claim_category"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Toll Manufacturer is chargeable only for claims alleging patent infringement, while Brand Owner is chargeable for claims of every description.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer is chargeable only for claims alleging patent infringement, while Brand Owner is chargeable for claims of every description.",
     "note": "asymmetric: claim_category",
     "expected_material_dimensions": [
       "claim_category"
@@ -657,7 +657,7 @@
     "dimensions": [
       "claim_category"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Syndicate Lead is chargeable only for claims alleging patent infringement, while Participant Lender is chargeable for claims of every description.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndicate Lead is chargeable only for claims alleging patent infringement, while Participant Lender is chargeable for claims of every description.",
     "note": "asymmetric: claim_category",
     "expected_material_dimensions": [
       "claim_category"
@@ -672,7 +672,7 @@
     "dimensions": [
       "claim_category"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Booking Agent is chargeable only for claims alleging patent infringement, while Performer is chargeable for claims of every description.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Booking Agent is chargeable only for claims alleging patent infringement, while Performer is chargeable for claims of every description.",
     "note": "asymmetric: claim_category",
     "expected_material_dimensions": [
       "claim_category"
@@ -687,7 +687,7 @@
     "dimensions": [
       "defense_control"
     ],
-    "text": "Each party shall make good the other for third-party claims; Charterer keeps sole command over the defense and settlement of any claim against Shipowner, but Shipowner holds no corresponding command over any claim against Charterer.",
+    "text": "Each party shall indemnify the other for third-party claims; Charterer keeps sole command over the defense and settlement of any claim against Shipowner, but Shipowner holds no corresponding command over any claim against Charterer.",
     "note": "asymmetric: defense_control",
     "expected_material_dimensions": [
       "defense_control"
@@ -702,7 +702,7 @@
     "dimensions": [
       "defense_control"
     ],
-    "text": "Each party shall make good the other for third-party claims; Escrow Agent keeps sole command over the defense and settlement of any claim against Depositor, but Depositor holds no corresponding command over any claim against Escrow Agent.",
+    "text": "Each party shall indemnify the other for third-party claims; Escrow Agent keeps sole command over the defense and settlement of any claim against Depositor, but Depositor holds no corresponding command over any claim against Escrow Agent.",
     "note": "asymmetric: defense_control",
     "expected_material_dimensions": [
       "defense_control"
@@ -717,7 +717,7 @@
     "dimensions": [
       "defense_control"
     ],
-    "text": "Each party shall make good the other for third-party claims; Third-Party Administrator keeps sole command over the defense and settlement of any claim against Plan Sponsor, but Plan Sponsor holds no corresponding command over any claim against Third-Party Administrator.",
+    "text": "Each party shall indemnify the other for third-party claims; Third-Party Administrator keeps sole command over the defense and settlement of any claim against Plan Sponsor, but Plan Sponsor holds no corresponding command over any claim against Third-Party Administrator.",
     "note": "asymmetric: defense_control",
     "expected_material_dimensions": [
       "defense_control"
@@ -732,7 +732,7 @@
     "dimensions": [
       "defense_control"
     ],
-    "text": "Each party shall make good the other for third-party claims; Ceding Company keeps sole command over the defense and settlement of any claim against Reinsurer, but Reinsurer holds no corresponding command over any claim against Ceding Company.",
+    "text": "Each party shall indemnify the other for third-party claims; Ceding Company keeps sole command over the defense and settlement of any claim against Reinsurer, but Reinsurer holds no corresponding command over any claim against Ceding Company.",
     "note": "asymmetric: defense_control",
     "expected_material_dimensions": [
       "defense_control"
@@ -747,7 +747,7 @@
     "dimensions": [
       "defense_control"
     ],
-    "text": "Each party shall make good the other for third-party claims; Warehouse Operator keeps sole command over the defense and settlement of any claim against Consignor, but Consignor holds no corresponding command over any claim against Warehouse Operator.",
+    "text": "Each party shall indemnify the other for third-party claims; Warehouse Operator keeps sole command over the defense and settlement of any claim against Consignor, but Consignor holds no corresponding command over any claim against Warehouse Operator.",
     "note": "asymmetric: defense_control",
     "expected_material_dimensions": [
       "defense_control"
@@ -762,7 +762,7 @@
     "dimensions": [
       "defense_control"
     ],
-    "text": "Each party shall make good the other for third-party claims; Toll Manufacturer keeps sole command over the defense and settlement of any claim against Brand Owner, but Brand Owner holds no corresponding command over any claim against Toll Manufacturer.",
+    "text": "Each party shall indemnify the other for third-party claims; Toll Manufacturer keeps sole command over the defense and settlement of any claim against Brand Owner, but Brand Owner holds no corresponding command over any claim against Toll Manufacturer.",
     "note": "asymmetric: defense_control",
     "expected_material_dimensions": [
       "defense_control"
@@ -777,7 +777,7 @@
     "dimensions": [
       "defense_control"
     ],
-    "text": "Each party shall make good the other for third-party claims; Syndicate Lead keeps sole command over the defense and settlement of any claim against Participant Lender, but Participant Lender holds no corresponding command over any claim against Syndicate Lead.",
+    "text": "Each party shall indemnify the other for third-party claims; Syndicate Lead keeps sole command over the defense and settlement of any claim against Participant Lender, but Participant Lender holds no corresponding command over any claim against Syndicate Lead.",
     "note": "asymmetric: defense_control",
     "expected_material_dimensions": [
       "defense_control"
@@ -792,7 +792,7 @@
     "dimensions": [
       "defense_control"
     ],
-    "text": "Each party shall make good the other for third-party claims; Booking Agent keeps sole command over the defense and settlement of any claim against Performer, but Performer holds no corresponding command over any claim against Booking Agent.",
+    "text": "Each party shall indemnify the other for third-party claims; Booking Agent keeps sole command over the defense and settlement of any claim against Performer, but Performer holds no corresponding command over any claim against Booking Agent.",
     "note": "asymmetric: defense_control",
     "expected_material_dimensions": [
       "defense_control"
@@ -807,7 +807,7 @@
     "dimensions": [
       "monetary_treatment"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Charterer's exposure tops out at nine months' fees, but Shipowner carries no ceiling on its exposure whatsoever.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Charterer's exposure tops out at nine months' fees, but Shipowner carries no ceiling on its exposure whatsoever.",
     "note": "asymmetric: monetary_treatment",
     "expected_material_dimensions": [
       "monetary_treatment"
@@ -822,7 +822,7 @@
     "dimensions": [
       "monetary_treatment"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Escrow Agent's exposure tops out at nine months' fees, but Depositor carries no ceiling on its exposure whatsoever.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent's exposure tops out at nine months' fees, but Depositor carries no ceiling on its exposure whatsoever.",
     "note": "asymmetric: monetary_treatment",
     "expected_material_dimensions": [
       "monetary_treatment"
@@ -837,7 +837,7 @@
     "dimensions": [
       "monetary_treatment"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Third-Party Administrator's exposure tops out at nine months' fees, but Plan Sponsor carries no ceiling on its exposure whatsoever.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Third-Party Administrator's exposure tops out at nine months' fees, but Plan Sponsor carries no ceiling on its exposure whatsoever.",
     "note": "asymmetric: monetary_treatment",
     "expected_material_dimensions": [
       "monetary_treatment"
@@ -852,7 +852,7 @@
     "dimensions": [
       "monetary_treatment"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Ceding Company's exposure tops out at nine months' fees, but Reinsurer carries no ceiling on its exposure whatsoever.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Company's exposure tops out at nine months' fees, but Reinsurer carries no ceiling on its exposure whatsoever.",
     "note": "asymmetric: monetary_treatment",
     "expected_material_dimensions": [
       "monetary_treatment"
@@ -867,7 +867,7 @@
     "dimensions": [
       "monetary_treatment"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Warehouse Operator's exposure tops out at nine months' fees, but Consignor carries no ceiling on its exposure whatsoever.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator's exposure tops out at nine months' fees, but Consignor carries no ceiling on its exposure whatsoever.",
     "note": "asymmetric: monetary_treatment",
     "expected_material_dimensions": [
       "monetary_treatment"
@@ -882,7 +882,7 @@
     "dimensions": [
       "monetary_treatment"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Toll Manufacturer's exposure tops out at nine months' fees, but Brand Owner carries no ceiling on its exposure whatsoever.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer's exposure tops out at nine months' fees, but Brand Owner carries no ceiling on its exposure whatsoever.",
     "note": "asymmetric: monetary_treatment",
     "expected_material_dimensions": [
       "monetary_treatment"
@@ -897,7 +897,7 @@
     "dimensions": [
       "monetary_treatment"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Syndicate Lead's exposure tops out at nine months' fees, but Participant Lender carries no ceiling on its exposure whatsoever.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndicate Lead's exposure tops out at nine months' fees, but Participant Lender carries no ceiling on its exposure whatsoever.",
     "note": "asymmetric: monetary_treatment",
     "expected_material_dimensions": [
       "monetary_treatment"
@@ -912,7 +912,7 @@
     "dimensions": [
       "monetary_treatment"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Booking Agent's exposure tops out at nine months' fees, but Performer carries no ceiling on its exposure whatsoever.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Booking Agent's exposure tops out at nine months' fees, but Performer carries no ceiling on its exposure whatsoever.",
     "note": "asymmetric: monetary_treatment",
     "expected_material_dimensions": [
       "monetary_treatment"
@@ -927,7 +927,7 @@
     "dimensions": [
       "proviso_exception"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement, save that Charterer's duty leaves out any claim traceable to a change Shipowner makes without Charterer's sign-off, a carve-out with nothing matching it on Shipowner's side toward Charterer.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Charterer's duty leaves out any claim traceable to a change Shipowner makes without Charterer's sign-off, a carve-out with nothing matching it on Shipowner's side toward Charterer.",
     "note": "asymmetric: proviso_exception",
     "expected_material_dimensions": [
       "proviso_exception"
@@ -942,7 +942,7 @@
     "dimensions": [
       "proviso_exception"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement, save that Escrow Agent's duty leaves out any claim traceable to a change Depositor makes without Escrow Agent's sign-off, a carve-out with nothing matching it on Depositor's side toward Escrow Agent.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Escrow Agent's duty leaves out any claim traceable to a change Depositor makes without Escrow Agent's sign-off, a carve-out with nothing matching it on Depositor's side toward Escrow Agent.",
     "note": "asymmetric: proviso_exception",
     "expected_material_dimensions": [
       "proviso_exception"
@@ -957,7 +957,7 @@
     "dimensions": [
       "proviso_exception"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement, save that Third-Party Administrator's duty leaves out any claim traceable to a change Plan Sponsor makes without Third-Party Administrator's sign-off, a carve-out with nothing matching it on Plan Sponsor's side toward Third-Party Administrator.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Third-Party Administrator's duty leaves out any claim traceable to a change Plan Sponsor makes without Third-Party Administrator's sign-off, a carve-out with nothing matching it on Plan Sponsor's side toward Third-Party Administrator.",
     "note": "asymmetric: proviso_exception",
     "expected_material_dimensions": [
       "proviso_exception"
@@ -972,7 +972,7 @@
     "dimensions": [
       "proviso_exception"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement, save that Ceding Company's duty leaves out any claim traceable to a change Reinsurer makes without Ceding Company's sign-off, a carve-out with nothing matching it on Reinsurer's side toward Ceding Company.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Ceding Company's duty leaves out any claim traceable to a change Reinsurer makes without Ceding Company's sign-off, a carve-out with nothing matching it on Reinsurer's side toward Ceding Company.",
     "note": "asymmetric: proviso_exception",
     "expected_material_dimensions": [
       "proviso_exception"
@@ -987,7 +987,7 @@
     "dimensions": [
       "proviso_exception"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement, save that Warehouse Operator's duty leaves out any claim traceable to a change Consignor makes without Warehouse Operator's sign-off, a carve-out with nothing matching it on Consignor's side toward Warehouse Operator.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Warehouse Operator's duty leaves out any claim traceable to a change Consignor makes without Warehouse Operator's sign-off, a carve-out with nothing matching it on Consignor's side toward Warehouse Operator.",
     "note": "asymmetric: proviso_exception",
     "expected_material_dimensions": [
       "proviso_exception"
@@ -1002,7 +1002,7 @@
     "dimensions": [
       "proviso_exception"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement, save that Toll Manufacturer's duty leaves out any claim traceable to a change Brand Owner makes without Toll Manufacturer's sign-off, a carve-out with nothing matching it on Brand Owner's side toward Toll Manufacturer.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Toll Manufacturer's duty leaves out any claim traceable to a change Brand Owner makes without Toll Manufacturer's sign-off, a carve-out with nothing matching it on Brand Owner's side toward Toll Manufacturer.",
     "note": "asymmetric: proviso_exception",
     "expected_material_dimensions": [
       "proviso_exception"
@@ -1017,7 +1017,7 @@
     "dimensions": [
       "proviso_exception"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement, save that Syndicate Lead's duty leaves out any claim traceable to a change Participant Lender makes without Syndicate Lead's sign-off, a carve-out with nothing matching it on Participant Lender's side toward Syndicate Lead.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Syndicate Lead's duty leaves out any claim traceable to a change Participant Lender makes without Syndicate Lead's sign-off, a carve-out with nothing matching it on Participant Lender's side toward Syndicate Lead.",
     "note": "asymmetric: proviso_exception",
     "expected_material_dimensions": [
       "proviso_exception"
@@ -1032,7 +1032,7 @@
     "dimensions": [
       "proviso_exception"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement, save that Booking Agent's duty leaves out any claim traceable to a change Performer makes without Booking Agent's sign-off, a carve-out with nothing matching it on Performer's side toward Booking Agent.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Booking Agent's duty leaves out any claim traceable to a change Performer makes without Booking Agent's sign-off, a carve-out with nothing matching it on Performer's side toward Booking Agent.",
     "note": "asymmetric: proviso_exception",
     "expected_material_dimensions": [
       "proviso_exception"
@@ -1047,7 +1047,7 @@
     "dimensions": [
       "conditional_applicability"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Charterer's duty kicks in only once Shipowner has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Shipowner's duty toward Charterer.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Charterer's duty kicks in only once Shipowner has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Shipowner's duty toward Charterer.",
     "note": "asymmetric: conditional_applicability",
     "expected_material_dimensions": [
       "conditional_applicability"
@@ -1062,7 +1062,7 @@
     "dimensions": [
       "conditional_applicability"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Escrow Agent's duty kicks in only once Depositor has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Depositor's duty toward Escrow Agent.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent's duty kicks in only once Depositor has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Depositor's duty toward Escrow Agent.",
     "note": "asymmetric: conditional_applicability",
     "expected_material_dimensions": [
       "conditional_applicability"
@@ -1077,7 +1077,7 @@
     "dimensions": [
       "conditional_applicability"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Third-Party Administrator's duty kicks in only once Plan Sponsor has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Plan Sponsor's duty toward Third-Party Administrator.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Third-Party Administrator's duty kicks in only once Plan Sponsor has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Plan Sponsor's duty toward Third-Party Administrator.",
     "note": "asymmetric: conditional_applicability",
     "expected_material_dimensions": [
       "conditional_applicability"
@@ -1092,7 +1092,7 @@
     "dimensions": [
       "conditional_applicability"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Ceding Company's duty kicks in only once Reinsurer has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Reinsurer's duty toward Ceding Company.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Company's duty kicks in only once Reinsurer has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Reinsurer's duty toward Ceding Company.",
     "note": "asymmetric: conditional_applicability",
     "expected_material_dimensions": [
       "conditional_applicability"
@@ -1107,7 +1107,7 @@
     "dimensions": [
       "conditional_applicability"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Warehouse Operator's duty kicks in only once Consignor has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Consignor's duty toward Warehouse Operator.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator's duty kicks in only once Consignor has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Consignor's duty toward Warehouse Operator.",
     "note": "asymmetric: conditional_applicability",
     "expected_material_dimensions": [
       "conditional_applicability"
@@ -1122,7 +1122,7 @@
     "dimensions": [
       "conditional_applicability"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Toll Manufacturer's duty kicks in only once Brand Owner has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Brand Owner's duty toward Toll Manufacturer.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer's duty kicks in only once Brand Owner has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Brand Owner's duty toward Toll Manufacturer.",
     "note": "asymmetric: conditional_applicability",
     "expected_material_dimensions": [
       "conditional_applicability"
@@ -1137,7 +1137,7 @@
     "dimensions": [
       "conditional_applicability"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Syndicate Lead's duty kicks in only once Participant Lender has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Participant Lender's duty toward Syndicate Lead.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndicate Lead's duty kicks in only once Participant Lender has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Participant Lender's duty toward Syndicate Lead.",
     "note": "asymmetric: conditional_applicability",
     "expected_material_dimensions": [
       "conditional_applicability"
@@ -1152,7 +1152,7 @@
     "dimensions": [
       "conditional_applicability"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Booking Agent's duty kicks in only once Performer has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Performer's duty toward Booking Agent.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Booking Agent's duty kicks in only once Performer has first pursued the escalation steps in Section 12, a precondition with no mirror image applicable to Performer's duty toward Booking Agent.",
     "note": "asymmetric: conditional_applicability",
     "expected_material_dimensions": [
       "conditional_applicability"
@@ -1167,7 +1167,7 @@
     "dimensions": [
       "first_third_party"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Charterer's duty stretches to Shipowner's own direct losses as well as outside claims, but Shipowner's duty is confined strictly to outside claims brought against Charterer.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Charterer's duty stretches to Shipowner's own direct losses as well as outside claims, but Shipowner's duty is confined strictly to outside claims brought against Charterer.",
     "note": "asymmetric: first_third_party",
     "expected_material_dimensions": [
       "first_third_party"
@@ -1182,7 +1182,7 @@
     "dimensions": [
       "first_third_party"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Escrow Agent's duty stretches to Depositor's own direct losses as well as outside claims, but Depositor's duty is confined strictly to outside claims brought against Escrow Agent.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent's duty stretches to Depositor's own direct losses as well as outside claims, but Depositor's duty is confined strictly to outside claims brought against Escrow Agent.",
     "note": "asymmetric: first_third_party",
     "expected_material_dimensions": [
       "first_third_party"
@@ -1197,7 +1197,7 @@
     "dimensions": [
       "first_third_party"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Third-Party Administrator's duty stretches to Plan Sponsor's own direct losses as well as outside claims, but Plan Sponsor's duty is confined strictly to outside claims brought against Third-Party Administrator.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Third-Party Administrator's duty stretches to Plan Sponsor's own direct losses as well as outside claims, but Plan Sponsor's duty is confined strictly to outside claims brought against Third-Party Administrator.",
     "note": "asymmetric: first_third_party",
     "expected_material_dimensions": [
       "first_third_party"
@@ -1212,7 +1212,7 @@
     "dimensions": [
       "first_third_party"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Ceding Company's duty stretches to Reinsurer's own direct losses as well as outside claims, but Reinsurer's duty is confined strictly to outside claims brought against Ceding Company.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Company's duty stretches to Reinsurer's own direct losses as well as outside claims, but Reinsurer's duty is confined strictly to outside claims brought against Ceding Company.",
     "note": "asymmetric: first_third_party",
     "expected_material_dimensions": [
       "first_third_party"
@@ -1227,7 +1227,7 @@
     "dimensions": [
       "first_third_party"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Warehouse Operator's duty stretches to Consignor's own direct losses as well as outside claims, but Consignor's duty is confined strictly to outside claims brought against Warehouse Operator.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator's duty stretches to Consignor's own direct losses as well as outside claims, but Consignor's duty is confined strictly to outside claims brought against Warehouse Operator.",
     "note": "asymmetric: first_third_party",
     "expected_material_dimensions": [
       "first_third_party"
@@ -1242,7 +1242,7 @@
     "dimensions": [
       "first_third_party"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Toll Manufacturer's duty stretches to Brand Owner's own direct losses as well as outside claims, but Brand Owner's duty is confined strictly to outside claims brought against Toll Manufacturer.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer's duty stretches to Brand Owner's own direct losses as well as outside claims, but Brand Owner's duty is confined strictly to outside claims brought against Toll Manufacturer.",
     "note": "asymmetric: first_third_party",
     "expected_material_dimensions": [
       "first_third_party"
@@ -1257,7 +1257,7 @@
     "dimensions": [
       "first_third_party"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Syndicate Lead's duty stretches to Participant Lender's own direct losses as well as outside claims, but Participant Lender's duty is confined strictly to outside claims brought against Syndicate Lead.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndicate Lead's duty stretches to Participant Lender's own direct losses as well as outside claims, but Participant Lender's duty is confined strictly to outside claims brought against Syndicate Lead.",
     "note": "asymmetric: first_third_party",
     "expected_material_dimensions": [
       "first_third_party"
@@ -1272,7 +1272,7 @@
     "dimensions": [
       "first_third_party"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Booking Agent's duty stretches to Performer's own direct losses as well as outside claims, but Performer's duty is confined strictly to outside claims brought against Booking Agent.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Booking Agent's duty stretches to Performer's own direct losses as well as outside claims, but Performer's duty is confined strictly to outside claims brought against Booking Agent.",
     "note": "asymmetric: first_third_party",
     "expected_material_dimensions": [
       "first_third_party"
@@ -1287,7 +1287,7 @@
     "dimensions": [
       "negligence_fault_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Charterer carries this duty strictly, without regard to fault, but Shipowner carries it only where Shipowner's own fault is shown.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Charterer carries this duty strictly, without regard to fault, but Shipowner carries it only where Shipowner's own fault is shown.",
     "note": "asymmetric: negligence_fault_standard",
     "expected_material_dimensions": [
       "negligence_fault_standard"
@@ -1302,7 +1302,7 @@
     "dimensions": [
       "negligence_fault_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Escrow Agent carries this duty strictly, without regard to fault, but Depositor carries it only where Depositor's own fault is shown.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Escrow Agent carries this duty strictly, without regard to fault, but Depositor carries it only where Depositor's own fault is shown.",
     "note": "asymmetric: negligence_fault_standard",
     "expected_material_dimensions": [
       "negligence_fault_standard"
@@ -1317,7 +1317,7 @@
     "dimensions": [
       "negligence_fault_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Third-Party Administrator carries this duty strictly, without regard to fault, but Plan Sponsor carries it only where Plan Sponsor's own fault is shown.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Third-Party Administrator carries this duty strictly, without regard to fault, but Plan Sponsor carries it only where Plan Sponsor's own fault is shown.",
     "note": "asymmetric: negligence_fault_standard",
     "expected_material_dimensions": [
       "negligence_fault_standard"
@@ -1332,7 +1332,7 @@
     "dimensions": [
       "negligence_fault_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Ceding Company carries this duty strictly, without regard to fault, but Reinsurer carries it only where Reinsurer's own fault is shown.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Ceding Company carries this duty strictly, without regard to fault, but Reinsurer carries it only where Reinsurer's own fault is shown.",
     "note": "asymmetric: negligence_fault_standard",
     "expected_material_dimensions": [
       "negligence_fault_standard"
@@ -1347,7 +1347,7 @@
     "dimensions": [
       "negligence_fault_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Warehouse Operator carries this duty strictly, without regard to fault, but Consignor carries it only where Consignor's own fault is shown.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Warehouse Operator carries this duty strictly, without regard to fault, but Consignor carries it only where Consignor's own fault is shown.",
     "note": "asymmetric: negligence_fault_standard",
     "expected_material_dimensions": [
       "negligence_fault_standard"
@@ -1362,7 +1362,7 @@
     "dimensions": [
       "negligence_fault_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Toll Manufacturer carries this duty strictly, without regard to fault, but Brand Owner carries it only where Brand Owner's own fault is shown.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Toll Manufacturer carries this duty strictly, without regard to fault, but Brand Owner carries it only where Brand Owner's own fault is shown.",
     "note": "asymmetric: negligence_fault_standard",
     "expected_material_dimensions": [
       "negligence_fault_standard"
@@ -1377,7 +1377,7 @@
     "dimensions": [
       "negligence_fault_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Syndicate Lead carries this duty strictly, without regard to fault, but Participant Lender carries it only where Participant Lender's own fault is shown.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Syndicate Lead carries this duty strictly, without regard to fault, but Participant Lender carries it only where Participant Lender's own fault is shown.",
     "note": "asymmetric: negligence_fault_standard",
     "expected_material_dimensions": [
       "negligence_fault_standard"
@@ -1392,7 +1392,7 @@
     "dimensions": [
       "negligence_fault_standard"
     ],
-    "text": "Each party shall make good the other for claims traceable to its own conduct; Booking Agent carries this duty strictly, without regard to fault, but Performer carries it only where Performer's own fault is shown.",
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Booking Agent carries this duty strictly, without regard to fault, but Performer carries it only where Performer's own fault is shown.",
     "note": "asymmetric: negligence_fault_standard",
     "expected_material_dimensions": [
       "negligence_fault_standard"
@@ -1407,7 +1407,7 @@
     "dimensions": [
       "scope_geographic"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Charterer's duty reaches claims arising anywhere on earth, but Shipowner's duty is confined to claims arising within the European Union.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Charterer's duty reaches claims arising anywhere on earth, but Shipowner's duty is confined to claims arising within the European Union.",
     "note": "asymmetric: scope_geographic",
     "expected_material_dimensions": [
       "scope_geographic"
@@ -1422,7 +1422,7 @@
     "dimensions": [
       "scope_geographic"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Escrow Agent's duty reaches claims arising anywhere on earth, but Depositor's duty is confined to claims arising within the European Union.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent's duty reaches claims arising anywhere on earth, but Depositor's duty is confined to claims arising within the European Union.",
     "note": "asymmetric: scope_geographic",
     "expected_material_dimensions": [
       "scope_geographic"
@@ -1437,7 +1437,7 @@
     "dimensions": [
       "scope_geographic"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Third-Party Administrator's duty reaches claims arising anywhere on earth, but Plan Sponsor's duty is confined to claims arising within the European Union.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Third-Party Administrator's duty reaches claims arising anywhere on earth, but Plan Sponsor's duty is confined to claims arising within the European Union.",
     "note": "asymmetric: scope_geographic",
     "expected_material_dimensions": [
       "scope_geographic"
@@ -1452,7 +1452,7 @@
     "dimensions": [
       "scope_geographic"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Ceding Company's duty reaches claims arising anywhere on earth, but Reinsurer's duty is confined to claims arising within the European Union.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Company's duty reaches claims arising anywhere on earth, but Reinsurer's duty is confined to claims arising within the European Union.",
     "note": "asymmetric: scope_geographic",
     "expected_material_dimensions": [
       "scope_geographic"
@@ -1467,7 +1467,7 @@
     "dimensions": [
       "scope_geographic"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Warehouse Operator's duty reaches claims arising anywhere on earth, but Consignor's duty is confined to claims arising within the European Union.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator's duty reaches claims arising anywhere on earth, but Consignor's duty is confined to claims arising within the European Union.",
     "note": "asymmetric: scope_geographic",
     "expected_material_dimensions": [
       "scope_geographic"
@@ -1482,7 +1482,7 @@
     "dimensions": [
       "scope_geographic"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Toll Manufacturer's duty reaches claims arising anywhere on earth, but Brand Owner's duty is confined to claims arising within the European Union.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer's duty reaches claims arising anywhere on earth, but Brand Owner's duty is confined to claims arising within the European Union.",
     "note": "asymmetric: scope_geographic",
     "expected_material_dimensions": [
       "scope_geographic"
@@ -1497,7 +1497,7 @@
     "dimensions": [
       "scope_geographic"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Syndicate Lead's duty reaches claims arising anywhere on earth, but Participant Lender's duty is confined to claims arising within the European Union.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndicate Lead's duty reaches claims arising anywhere on earth, but Participant Lender's duty is confined to claims arising within the European Union.",
     "note": "asymmetric: scope_geographic",
     "expected_material_dimensions": [
       "scope_geographic"
@@ -1512,7 +1512,7 @@
     "dimensions": [
       "scope_geographic"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Booking Agent's duty reaches claims arising anywhere on earth, but Performer's duty is confined to claims arising within the European Union.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Booking Agent's duty reaches claims arising anywhere on earth, but Performer's duty is confined to claims arising within the European Union.",
     "note": "asymmetric: scope_geographic",
     "expected_material_dimensions": [
       "scope_geographic"
@@ -1527,7 +1527,7 @@
     "dimensions": [
       "cross_reference_schedule"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the ceiling that binds Charterer is fixed by Annex 4, and the ceiling that binds Shipowner, set out separately in Annex 6, is not the same as Annex 4.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds Charterer is fixed by Annex 4, and the ceiling that binds Shipowner, set out separately in Annex 6, is not the same as Annex 4.",
     "note": "asymmetric: cross_reference_schedule",
     "expected_material_dimensions": [
       "cross_reference_schedule"
@@ -1542,7 +1542,7 @@
     "dimensions": [
       "cross_reference_schedule"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the ceiling that binds Escrow Agent is fixed by Annex 4, and the ceiling that binds Depositor, set out separately in Annex 6, is not the same as Annex 4.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds Escrow Agent is fixed by Annex 4, and the ceiling that binds Depositor, set out separately in Annex 6, is not the same as Annex 4.",
     "note": "asymmetric: cross_reference_schedule",
     "expected_material_dimensions": [
       "cross_reference_schedule"
@@ -1557,7 +1557,7 @@
     "dimensions": [
       "cross_reference_schedule"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the ceiling that binds Third-Party Administrator is fixed by Annex 4, and the ceiling that binds Plan Sponsor, set out separately in Annex 6, is not the same as Annex 4.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds Third-Party Administrator is fixed by Annex 4, and the ceiling that binds Plan Sponsor, set out separately in Annex 6, is not the same as Annex 4.",
     "note": "asymmetric: cross_reference_schedule",
     "expected_material_dimensions": [
       "cross_reference_schedule"
@@ -1572,7 +1572,7 @@
     "dimensions": [
       "cross_reference_schedule"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the ceiling that binds Ceding Company is fixed by Annex 4, and the ceiling that binds Reinsurer, set out separately in Annex 6, is not the same as Annex 4.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds Ceding Company is fixed by Annex 4, and the ceiling that binds Reinsurer, set out separately in Annex 6, is not the same as Annex 4.",
     "note": "asymmetric: cross_reference_schedule",
     "expected_material_dimensions": [
       "cross_reference_schedule"
@@ -1587,7 +1587,7 @@
     "dimensions": [
       "cross_reference_schedule"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the ceiling that binds Warehouse Operator is fixed by Annex 4, and the ceiling that binds Consignor, set out separately in Annex 6, is not the same as Annex 4.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds Warehouse Operator is fixed by Annex 4, and the ceiling that binds Consignor, set out separately in Annex 6, is not the same as Annex 4.",
     "note": "asymmetric: cross_reference_schedule",
     "expected_material_dimensions": [
       "cross_reference_schedule"
@@ -1602,7 +1602,7 @@
     "dimensions": [
       "cross_reference_schedule"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the ceiling that binds Toll Manufacturer is fixed by Annex 4, and the ceiling that binds Brand Owner, set out separately in Annex 6, is not the same as Annex 4.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds Toll Manufacturer is fixed by Annex 4, and the ceiling that binds Brand Owner, set out separately in Annex 6, is not the same as Annex 4.",
     "note": "asymmetric: cross_reference_schedule",
     "expected_material_dimensions": [
       "cross_reference_schedule"
@@ -1617,7 +1617,7 @@
     "dimensions": [
       "cross_reference_schedule"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the ceiling that binds Syndicate Lead is fixed by Annex 4, and the ceiling that binds Participant Lender, set out separately in Annex 6, is not the same as Annex 4.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds Syndicate Lead is fixed by Annex 4, and the ceiling that binds Participant Lender, set out separately in Annex 6, is not the same as Annex 4.",
     "note": "asymmetric: cross_reference_schedule",
     "expected_material_dimensions": [
       "cross_reference_schedule"
@@ -1632,7 +1632,7 @@
     "dimensions": [
       "cross_reference_schedule"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the ceiling that binds Booking Agent is fixed by Annex 4, and the ceiling that binds Performer, set out separately in Annex 6, is not the same as Annex 4.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds Booking Agent is fixed by Annex 4, and the ceiling that binds Performer, set out separately in Annex 6, is not the same as Annex 4.",
     "note": "asymmetric: cross_reference_schedule",
     "expected_material_dimensions": [
       "cross_reference_schedule"
@@ -1647,7 +1647,7 @@
     "dimensions": [
       "temporal_survival"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Charterer's duty carries on without end after this Agreement winds up, but Shipowner's duty stops the moment this Agreement winds up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Charterer's duty carries on without end after this Agreement winds up, but Shipowner's duty stops the moment this Agreement winds up.",
     "note": "asymmetric: temporal_survival",
     "expected_material_dimensions": [
       "temporal_survival"
@@ -1662,7 +1662,7 @@
     "dimensions": [
       "temporal_survival"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Escrow Agent's duty carries on without end after this Agreement winds up, but Depositor's duty stops the moment this Agreement winds up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent's duty carries on without end after this Agreement winds up, but Depositor's duty stops the moment this Agreement winds up.",
     "note": "asymmetric: temporal_survival",
     "expected_material_dimensions": [
       "temporal_survival"
@@ -1677,7 +1677,7 @@
     "dimensions": [
       "temporal_survival"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Third-Party Administrator's duty carries on without end after this Agreement winds up, but Plan Sponsor's duty stops the moment this Agreement winds up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Third-Party Administrator's duty carries on without end after this Agreement winds up, but Plan Sponsor's duty stops the moment this Agreement winds up.",
     "note": "asymmetric: temporal_survival",
     "expected_material_dimensions": [
       "temporal_survival"
@@ -1692,7 +1692,7 @@
     "dimensions": [
       "temporal_survival"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Ceding Company's duty carries on without end after this Agreement winds up, but Reinsurer's duty stops the moment this Agreement winds up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Company's duty carries on without end after this Agreement winds up, but Reinsurer's duty stops the moment this Agreement winds up.",
     "note": "asymmetric: temporal_survival",
     "expected_material_dimensions": [
       "temporal_survival"
@@ -1707,7 +1707,7 @@
     "dimensions": [
       "temporal_survival"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Warehouse Operator's duty carries on without end after this Agreement winds up, but Consignor's duty stops the moment this Agreement winds up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator's duty carries on without end after this Agreement winds up, but Consignor's duty stops the moment this Agreement winds up.",
     "note": "asymmetric: temporal_survival",
     "expected_material_dimensions": [
       "temporal_survival"
@@ -1722,7 +1722,7 @@
     "dimensions": [
       "temporal_survival"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Toll Manufacturer's duty carries on without end after this Agreement winds up, but Brand Owner's duty stops the moment this Agreement winds up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer's duty carries on without end after this Agreement winds up, but Brand Owner's duty stops the moment this Agreement winds up.",
     "note": "asymmetric: temporal_survival",
     "expected_material_dimensions": [
       "temporal_survival"
@@ -1737,7 +1737,7 @@
     "dimensions": [
       "temporal_survival"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Syndicate Lead's duty carries on without end after this Agreement winds up, but Participant Lender's duty stops the moment this Agreement winds up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndicate Lead's duty carries on without end after this Agreement winds up, but Participant Lender's duty stops the moment this Agreement winds up.",
     "note": "asymmetric: temporal_survival",
     "expected_material_dimensions": [
       "temporal_survival"
@@ -1752,7 +1752,7 @@
     "dimensions": [
       "temporal_survival"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Booking Agent's duty carries on without end after this Agreement winds up, but Performer's duty stops the moment this Agreement winds up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Booking Agent's duty carries on without end after this Agreement winds up, but Performer's duty stops the moment this Agreement winds up.",
     "note": "asymmetric: temporal_survival",
     "expected_material_dimensions": [
       "temporal_survival"
@@ -1767,7 +1767,7 @@
     "dimensions": [
       "compound_multi_dimension"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Charterer's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Shipowner's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Charterer's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Shipowner's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
     "note": "asymmetric: compound_multi_dimension",
     "expected_material_dimensions": [
       "compound_multi_dimension"
@@ -1782,7 +1782,7 @@
     "dimensions": [
       "compound_multi_dimension"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Escrow Agent's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Depositor's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Depositor's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
     "note": "asymmetric: compound_multi_dimension",
     "expected_material_dimensions": [
       "compound_multi_dimension"
@@ -1797,7 +1797,7 @@
     "dimensions": [
       "compound_multi_dimension"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Third-Party Administrator's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Plan Sponsor's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Third-Party Administrator's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Plan Sponsor's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
     "note": "asymmetric: compound_multi_dimension",
     "expected_material_dimensions": [
       "compound_multi_dimension"
@@ -1812,7 +1812,7 @@
     "dimensions": [
       "compound_multi_dimension"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Ceding Company's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Reinsurer's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Company's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Reinsurer's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
     "note": "asymmetric: compound_multi_dimension",
     "expected_material_dimensions": [
       "compound_multi_dimension"
@@ -1827,7 +1827,7 @@
     "dimensions": [
       "compound_multi_dimension"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Warehouse Operator's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Consignor's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Consignor's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
     "note": "asymmetric: compound_multi_dimension",
     "expected_material_dimensions": [
       "compound_multi_dimension"
@@ -1842,7 +1842,7 @@
     "dimensions": [
       "compound_multi_dimension"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Toll Manufacturer's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Brand Owner's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Brand Owner's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
     "note": "asymmetric: compound_multi_dimension",
     "expected_material_dimensions": [
       "compound_multi_dimension"
@@ -1857,7 +1857,7 @@
     "dimensions": [
       "compound_multi_dimension"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Syndicate Lead's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Participant Lender's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndicate Lead's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Participant Lender's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
     "note": "asymmetric: compound_multi_dimension",
     "expected_material_dimensions": [
       "compound_multi_dimension"
@@ -1872,7 +1872,7 @@
     "dimensions": [
       "compound_multi_dimension"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Booking Agent's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Performer's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Booking Agent's duty tops out at $400,000, reaches only data-security claims, and rests on a strict standard, but Performer's duty has no ceiling, reaches claims of any kind, and rests on a gross-negligence standard.",
     "note": "asymmetric: compound_multi_dimension",
     "expected_material_dimensions": [
       "compound_multi_dimension"
@@ -1887,7 +1887,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Escrow Agent separately carries its own cyber cover for the same risk, while Depositor's duty additionally tops out at $75,000, a ceiling Escrow Agent's duty does not share.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent separately carries its own cyber cover for the same risk, while Depositor's duty additionally tops out at $75,000, a ceiling Escrow Agent's duty does not share.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -1902,7 +1902,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement, subject to the ceiling in Section 9; that ceiling exempts claims caused by Third-Party Administrator's gross negligence but exempts no category of claim caused by Plan Sponsor.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 9; that ceiling exempts claims caused by Third-Party Administrator's gross negligence but exempts no category of claim caused by Plan Sponsor.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -1917,7 +1917,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for third-party claims; Ceding Company's duty to cover ordinary defense costs runs alongside its main duty, but Reinsurer carries no separate cost-covering duty at all, only the main duty itself.",
+    "text": "Each party shall indemnify the other for third-party claims; Ceding Company's duty to cover ordinary defense costs runs alongside its main duty, but Reinsurer carries no separate cost-covering duty at all, only the main duty itself.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -1932,7 +1932,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Warehouse Operator gives up any right of contribution against Consignor, but Consignor keeps a full right of contribution against Warehouse Operator.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator gives up any right of contribution against Consignor, but Consignor keeps a full right of contribution against Warehouse Operator.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -1947,7 +1947,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Toll Manufacturer separately carries its own cyber cover for the same risk, while Brand Owner's duty additionally tops out at $75,000, a ceiling Toll Manufacturer's duty does not share.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer separately carries its own cyber cover for the same risk, while Brand Owner's duty additionally tops out at $75,000, a ceiling Toll Manufacturer's duty does not share.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -1962,7 +1962,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement, subject to the ceiling in Section 9; that ceiling exempts claims caused by Syndicate Lead's gross negligence but exempts no category of claim caused by Participant Lender.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 9; that ceiling exempts claims caused by Syndicate Lead's gross negligence but exempts no category of claim caused by Participant Lender.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -1977,7 +1977,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for third-party claims; Booking Agent's duty to cover ordinary defense costs runs alongside its main duty, but Performer carries no separate cost-covering duty at all, only the main duty itself.",
+    "text": "Each party shall indemnify the other for third-party claims; Booking Agent's duty to cover ordinary defense costs runs alongside its main duty, but Performer carries no separate cost-covering duty at all, only the main duty itself.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -1992,7 +1992,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Charterer gives up any right of contribution against Shipowner, but Shipowner keeps a full right of contribution against Charterer.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Charterer gives up any right of contribution against Shipowner, but Shipowner keeps a full right of contribution against Charterer.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -2007,7 +2007,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Escrow Agent separately carries its own cyber cover for the same risk, while Depositor's duty additionally tops out at $75,000, a ceiling Escrow Agent's duty does not share.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent separately carries its own cyber cover for the same risk, while Depositor's duty additionally tops out at $75,000, a ceiling Escrow Agent's duty does not share.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -2022,7 +2022,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement, subject to the ceiling in Section 9; that ceiling exempts claims caused by Third-Party Administrator's gross negligence but exempts no category of claim caused by Plan Sponsor.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 9; that ceiling exempts claims caused by Third-Party Administrator's gross negligence but exempts no category of claim caused by Plan Sponsor.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -2037,7 +2037,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for third-party claims; Ceding Company's duty to cover ordinary defense costs runs alongside its main duty, but Reinsurer carries no separate cost-covering duty at all, only the main duty itself.",
+    "text": "Each party shall indemnify the other for third-party claims; Ceding Company's duty to cover ordinary defense costs runs alongside its main duty, but Reinsurer carries no separate cost-covering duty at all, only the main duty itself.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -2052,7 +2052,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Warehouse Operator gives up any right of contribution against Consignor, but Consignor keeps a full right of contribution against Warehouse Operator.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator gives up any right of contribution against Consignor, but Consignor keeps a full right of contribution against Warehouse Operator.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -2067,7 +2067,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Toll Manufacturer separately carries its own cyber cover for the same risk, while Brand Owner's duty additionally tops out at $75,000, a ceiling Toll Manufacturer's duty does not share.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer separately carries its own cyber cover for the same risk, while Brand Owner's duty additionally tops out at $75,000, a ceiling Toll Manufacturer's duty does not share.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -2082,7 +2082,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement, subject to the ceiling in Section 9; that ceiling exempts claims caused by Syndicate Lead's gross negligence but exempts no category of claim caused by Participant Lender.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 9; that ceiling exempts claims caused by Syndicate Lead's gross negligence but exempts no category of claim caused by Participant Lender.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -2097,7 +2097,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for third-party claims; Booking Agent's duty to cover ordinary defense costs runs alongside its main duty, but Performer carries no separate cost-covering duty at all, only the main duty itself.",
+    "text": "Each party shall indemnify the other for third-party claims; Booking Agent's duty to cover ordinary defense costs runs alongside its main duty, but Performer carries no separate cost-covering duty at all, only the main duty itself.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -2112,7 +2112,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Charterer gives up any right of contribution against Shipowner, but Shipowner keeps a full right of contribution against Charterer.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Charterer gives up any right of contribution against Shipowner, but Shipowner keeps a full right of contribution against Charterer.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -2127,7 +2127,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Escrow Agent separately carries its own cyber cover for the same risk, while Depositor's duty additionally tops out at $75,000, a ceiling Escrow Agent's duty does not share.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent separately carries its own cyber cover for the same risk, while Depositor's duty additionally tops out at $75,000, a ceiling Escrow Agent's duty does not share.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -2142,7 +2142,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement, subject to the ceiling in Section 9; that ceiling exempts claims caused by Third-Party Administrator's gross negligence but exempts no category of claim caused by Plan Sponsor.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 9; that ceiling exempts claims caused by Third-Party Administrator's gross negligence but exempts no category of claim caused by Plan Sponsor.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -2157,7 +2157,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for third-party claims; Ceding Company's duty to cover ordinary defense costs runs alongside its main duty, but Reinsurer carries no separate cost-covering duty at all, only the main duty itself.",
+    "text": "Each party shall indemnify the other for third-party claims; Ceding Company's duty to cover ordinary defense costs runs alongside its main duty, but Reinsurer carries no separate cost-covering duty at all, only the main duty itself.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -2172,7 +2172,7 @@
     "dimensions": [
       "compound"
     ],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Warehouse Operator gives up any right of contribution against Consignor, but Consignor keeps a full right of contribution against Warehouse Operator.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator gives up any right of contribution against Consignor, but Consignor keeps a full right of contribution against Warehouse Operator.",
     "note": "compound multi-provision asymmetry",
     "expected_material_dimensions": [
       "compound"
@@ -2185,7 +2185,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the parties note that whether Toll Manufacturer's duty carries the same ceiling as Brand Owner's remains open pending a future amendment.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties note that whether Toll Manufacturer's duty carries the same ceiling as Brand Owner's remains open pending a future amendment.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2196,7 +2196,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2207,7 +2207,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Booking Agent's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Booking Agent's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2218,7 +2218,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the parties note that whether Charterer's duty carries the same ceiling as Shipowner's remains open pending a future amendment.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties note that whether Charterer's duty carries the same ceiling as Shipowner's remains open pending a future amendment.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2229,7 +2229,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2240,7 +2240,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Third-Party Administrator's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Third-Party Administrator's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2251,7 +2251,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the parties note that whether Ceding Company's duty carries the same ceiling as Reinsurer's remains open pending a future amendment.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties note that whether Ceding Company's duty carries the same ceiling as Reinsurer's remains open pending a future amendment.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2262,7 +2262,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2273,7 +2273,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Toll Manufacturer's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2284,7 +2284,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the parties note that whether Syndicate Lead's duty carries the same ceiling as Participant Lender's remains open pending a future amendment.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties note that whether Syndicate Lead's duty carries the same ceiling as Participant Lender's remains open pending a future amendment.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2295,7 +2295,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2306,7 +2306,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Charterer's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Charterer's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2317,7 +2317,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the parties note that whether Escrow Agent's duty carries the same ceiling as Depositor's remains open pending a future amendment.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties note that whether Escrow Agent's duty carries the same ceiling as Depositor's remains open pending a future amendment.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2328,7 +2328,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2339,7 +2339,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Ceding Company's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Company's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2350,7 +2350,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the parties note that whether Warehouse Operator's duty carries the same ceiling as Consignor's remains open pending a future amendment.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties note that whether Warehouse Operator's duty carries the same ceiling as Consignor's remains open pending a future amendment.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2361,7 +2361,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2372,7 +2372,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Syndicate Lead's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndicate Lead's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2383,7 +2383,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the parties note that whether Booking Agent's duty carries the same ceiling as Performer's remains open pending a future amendment.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties note that whether Booking Agent's duty carries the same ceiling as Performer's remains open pending a future amendment.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2394,7 +2394,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2405,7 +2405,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Escrow Agent's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2416,7 +2416,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the parties note that whether Third-Party Administrator's duty carries the same ceiling as Plan Sponsor's remains open pending a future amendment.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties note that whether Third-Party Administrator's duty carries the same ceiling as Plan Sponsor's remains open pending a future amendment.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2427,7 +2427,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2438,7 +2438,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; Warehouse Operator's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator's duty is subject to conditions described elsewhere in this Agreement that have not yet been written.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2449,7 +2449,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement; the parties note that whether Toll Manufacturer's duty carries the same ceiling as Brand Owner's remains open pending a future amendment.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties note that whether Toll Manufacturer's duty carries the same ceiling as Brand Owner's remains open pending a future amendment.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
@@ -2460,7 +2460,7 @@
     "label": "AMBIGUOUS",
     "family": "ambiguous",
     "dimensions": [],
-    "text": "Each party shall make good the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be spelled out in an annex the parties have not yet drawn up.",
     "note": "genuinely unresolved, should route to review",
     "expected_material_dimensions": [],
     "severity_if_false_symmetry": "N/A"
