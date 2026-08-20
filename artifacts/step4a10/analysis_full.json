@@ -1,0 +1,1773 @@
+{
+  "phase12_overall": {
+    "arm_a_regex_only": {
+      "tp": 83,
+      "fp": 12,
+      "fn": 137,
+      "tn": 132,
+      "recall": 0.37727272727272726,
+      "precision": 0.8736842105263158,
+      "f1": 0.526984126984127,
+      "false_absence_rate": 0.6227272727272727,
+      "false_candidate_rate": 0.08333333333333333
+    },
+    "arm_b_semantic_only": {
+      "tp": 73,
+      "fp": 5,
+      "fn": 147,
+      "tn": 139,
+      "recall": 0.33181818181818185,
+      "precision": 0.9358974358974359,
+      "f1": 0.4899328859060403,
+      "false_absence_rate": 0.6681818181818182,
+      "false_candidate_rate": 0.034722222222222224
+    },
+    "arm_c_hybrid": {
+      "tp": 215,
+      "fp": 24,
+      "fn": 5,
+      "tn": 120,
+      "recall": 0.9772727272727273,
+      "precision": 0.899581589958159,
+      "f1": 0.9368191721132897,
+      "false_absence_rate": 0.022727272727272728,
+      "false_candidate_rate": 0.16666666666666666
+    }
+  },
+  "phase13_tiers": {
+    "tier1": {
+      "n_positive": 100,
+      "arm_a": {
+        "tp": 40,
+        "fp": 12,
+        "fn": 60,
+        "tn": 132,
+        "recall": 0.4,
+        "precision": 0.7692307692307693,
+        "f1": 0.5263157894736842,
+        "false_absence_rate": 0.6,
+        "false_candidate_rate": 0.08333333333333333
+      },
+      "arm_b": {
+        "tp": 40,
+        "fp": 5,
+        "fn": 60,
+        "tn": 139,
+        "recall": 0.4,
+        "precision": 0.8888888888888888,
+        "f1": 0.5517241379310346,
+        "false_absence_rate": 0.6,
+        "false_candidate_rate": 0.034722222222222224
+      },
+      "arm_c": {
+        "tp": 100,
+        "fp": 24,
+        "fn": 0,
+        "tn": 120,
+        "recall": 1.0,
+        "precision": 0.8064516129032258,
+        "f1": 0.8928571428571428,
+        "false_absence_rate": 0.0,
+        "false_candidate_rate": 0.16666666666666666
+      }
+    },
+    "tier2": {
+      "n_positive": 70,
+      "arm_a": {
+        "tp": 26,
+        "fp": 12,
+        "fn": 44,
+        "tn": 132,
+        "recall": 0.37142857142857144,
+        "precision": 0.6842105263157895,
+        "f1": 0.4814814814814815,
+        "false_absence_rate": 0.6285714285714286,
+        "false_candidate_rate": 0.08333333333333333
+      },
+      "arm_b": {
+        "tp": 16,
+        "fp": 5,
+        "fn": 54,
+        "tn": 139,
+        "recall": 0.22857142857142856,
+        "precision": 0.7619047619047619,
+        "f1": 0.3516483516483517,
+        "false_absence_rate": 0.7714285714285715,
+        "false_candidate_rate": 0.034722222222222224
+      },
+      "arm_c": {
+        "tp": 70,
+        "fp": 24,
+        "fn": 0,
+        "tn": 120,
+        "recall": 1.0,
+        "precision": 0.7446808510638298,
+        "f1": 0.8536585365853657,
+        "false_absence_rate": 0.0,
+        "false_candidate_rate": 0.16666666666666666
+      }
+    },
+    "tier3": {
+      "n_positive": 50,
+      "arm_a": {
+        "tp": 17,
+        "fp": 12,
+        "fn": 33,
+        "tn": 132,
+        "recall": 0.34,
+        "precision": 0.5862068965517241,
+        "f1": 0.43037974683544306,
+        "false_absence_rate": 0.66,
+        "false_candidate_rate": 0.08333333333333333
+      },
+      "arm_b": {
+        "tp": 17,
+        "fp": 5,
+        "fn": 33,
+        "tn": 139,
+        "recall": 0.34,
+        "precision": 0.7727272727272727,
+        "f1": 0.47222222222222227,
+        "false_absence_rate": 0.66,
+        "false_candidate_rate": 0.034722222222222224
+      },
+      "arm_c": {
+        "tp": 45,
+        "fp": 24,
+        "fn": 5,
+        "tn": 120,
+        "recall": 0.9,
+        "precision": 0.6521739130434783,
+        "f1": 0.7563025210084033,
+        "false_absence_rate": 0.1,
+        "false_candidate_rate": 0.16666666666666666
+      }
+    }
+  },
+  "phase14_noncanonical": {
+    "n_noncanonical_positive": 150,
+    "arm_a": {
+      "tp": 13,
+      "fp": 12,
+      "fn": 137,
+      "tn": 132,
+      "recall": 0.08666666666666667,
+      "precision": 0.52,
+      "f1": 0.14857142857142858,
+      "false_absence_rate": 0.9133333333333333,
+      "false_candidate_rate": 0.08333333333333333
+    },
+    "arm_b": {
+      "tp": 13,
+      "fp": 5,
+      "fn": 137,
+      "tn": 139,
+      "recall": 0.08666666666666667,
+      "precision": 0.7222222222222222,
+      "f1": 0.15476190476190477,
+      "false_absence_rate": 0.9133333333333333,
+      "false_candidate_rate": 0.034722222222222224
+    },
+    "arm_c": {
+      "tp": 145,
+      "fp": 24,
+      "fn": 5,
+      "tn": 120,
+      "recall": 0.9666666666666667,
+      "precision": 0.8579881656804734,
+      "f1": 0.9090909090909091,
+      "false_absence_rate": 0.03333333333333333,
+      "false_candidate_rate": 0.16666666666666666
+    }
+  },
+  "phase15_evidence_grounding": {
+    "note": "semantic_discovery_real.py discards non-verbatim/bad-offset candidates BEFORE they are returned (Phase 4/6 of 4A.9.1/4A.9.2) -- so every candidate appearing in the raw results is, by construction, verbatim-verified against its source document. This audit re-confirms that invariant by re-checking every candidate in the raw log.",
+    "total_semantic_candidates_returned": 232,
+    "reverified_verbatim_valid": 232,
+    "fabricated_evidence_becoming_authoritative": 0,
+    "independent_reverification_failures": 0
+  },
+  "phase16_semantic_authority_audit": {
+    "semantic_sourced_verified_count": 0,
+    "case_ids": [],
+    "semantic_interpretation_directly_trusted": 0
+  },
+  "phase18_funnel": {
+    "total_true_positives": 220,
+    "discovered_by_regex": 83,
+    "discovered_by_semantic": 73,
+    "discovered_by_hybrid": 215,
+    "evidence_validated_candidate_present": 215,
+    "structured_or_flagged": 215,
+    "clean_verified": 54
+  },
+  "phase19_clean_verified_recall": {
+    "regex_only": 0.24545454545454545,
+    "hybrid": 0.24545454545454545,
+    "by_tier": {
+      "1": {
+        "regex_only": 0.3,
+        "hybrid": 0.3
+      },
+      "2": {
+        "regex_only": 0.2,
+        "hybrid": 0.2
+      },
+      "3": {
+        "regex_only": 0.2,
+        "hybrid": 0.2
+      }
+    }
+  },
+  "phase17_bottleneck_taxonomy": {
+    "n_examined_present_but_unresolved_true_positives": 161,
+    "reason_counts": {
+      "Q_verifier_lacks_structural_pattern": 88,
+      "N_evidence_boundary_insufficient_cross_reference": 52,
+      "K_conditional_applicability_unresolved": 26,
+      "P_explicit_textual_ambiguity": 14,
+      "O_multiple_candidate_interpretations": 14,
+      "E_causation_standard_unresolved": 7,
+      "M_chained_delegation": 6,
+      "L_conflicting_definitions": 1
+    },
+    "note": "Heuristic keyword-based classification of WHY a genuinely-discovered true positive failed to reach clean VERIFIED status under the hybrid arm -- diagnostic only, not modified/fixed per the absolute rule.",
+    "cases": [
+      {
+        "id": "S4A10-0001",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0007",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0009",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0015",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0017",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0023",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0025",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0031",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0033",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0039",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0041",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0042",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0043",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0044",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0045",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0046",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0047",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0048",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0049",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0050",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0051",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0052",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0053",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0054",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0055",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0056",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0057",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0058",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0059",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0060",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0061",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0062",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0063",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0064",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0065",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0066",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0067",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0068",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0069",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0070",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0071",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0072",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0073",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0074",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0075",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0076",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0077",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0078",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0079",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0080",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0081",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0082",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0083",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0084",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0085",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0086",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0087",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0088",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0089",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0090",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0091",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0092",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0093",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0094",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0095",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0096",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0097",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0098",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0099",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0100",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0103",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0104",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0109",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0110",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0115",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0116",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0121",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0122",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0123",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0124",
+        "reasons": [
+          "K_conditional_applicability_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0125",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0126",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0127",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0128",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0129",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0130",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0131",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0132",
+        "reasons": [
+          "K_conditional_applicability_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0133",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0134",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0135",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0136",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0137",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0138",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0139",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0140",
+        "reasons": [
+          "K_conditional_applicability_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0141",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0142",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0143",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0144",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0145",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0146",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0147",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0148",
+        "reasons": [
+          "K_conditional_applicability_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0149",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0150",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0151",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0152",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0153",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0154",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0155",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0156",
+        "reasons": [
+          "K_conditional_applicability_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0157",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0158",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0159",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0160",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0161",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0162",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0163",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0164",
+        "reasons": [
+          "K_conditional_applicability_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0165",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0166",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0167",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0168",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0169",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0170",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0181",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "O_multiple_candidate_interpretations"
+        ]
+      },
+      {
+        "id": "S4A10-0182",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0183",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference",
+          "O_multiple_candidate_interpretations"
+        ]
+      },
+      {
+        "id": "S4A10-0184",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "E_causation_standard_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0186",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference",
+          "M_chained_delegation"
+        ]
+      },
+      {
+        "id": "S4A10-0187",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "O_multiple_candidate_interpretations"
+        ]
+      },
+      {
+        "id": "S4A10-0188",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0189",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference",
+          "O_multiple_candidate_interpretations"
+        ]
+      },
+      {
+        "id": "S4A10-0190",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "E_causation_standard_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0192",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference",
+          "M_chained_delegation"
+        ]
+      },
+      {
+        "id": "S4A10-0193",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "O_multiple_candidate_interpretations"
+        ]
+      },
+      {
+        "id": "S4A10-0194",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0195",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference",
+          "O_multiple_candidate_interpretations"
+        ]
+      },
+      {
+        "id": "S4A10-0196",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "E_causation_standard_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0197",
+        "reasons": [
+          "L_conflicting_definitions"
+        ]
+      },
+      {
+        "id": "S4A10-0198",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference",
+          "M_chained_delegation"
+        ]
+      },
+      {
+        "id": "S4A10-0199",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "O_multiple_candidate_interpretations"
+        ]
+      },
+      {
+        "id": "S4A10-0200",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0201",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference",
+          "O_multiple_candidate_interpretations"
+        ]
+      },
+      {
+        "id": "S4A10-0202",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "E_causation_standard_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0204",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference",
+          "M_chained_delegation"
+        ]
+      },
+      {
+        "id": "S4A10-0205",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "O_multiple_candidate_interpretations"
+        ]
+      },
+      {
+        "id": "S4A10-0206",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0207",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference",
+          "O_multiple_candidate_interpretations"
+        ]
+      },
+      {
+        "id": "S4A10-0208",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "E_causation_standard_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0210",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference",
+          "M_chained_delegation"
+        ]
+      },
+      {
+        "id": "S4A10-0211",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "O_multiple_candidate_interpretations"
+        ]
+      },
+      {
+        "id": "S4A10-0212",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0213",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference",
+          "O_multiple_candidate_interpretations"
+        ]
+      },
+      {
+        "id": "S4A10-0214",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "E_causation_standard_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0216",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference",
+          "M_chained_delegation"
+        ]
+      },
+      {
+        "id": "S4A10-0217",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "O_multiple_candidate_interpretations"
+        ]
+      },
+      {
+        "id": "S4A10-0218",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0219",
+        "reasons": [
+          "K_conditional_applicability_unresolved",
+          "N_evidence_boundary_insufficient_cross_reference",
+          "O_multiple_candidate_interpretations"
+        ]
+      },
+      {
+        "id": "S4A10-0220",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "E_causation_standard_unresolved"
+        ]
+      }
+    ]
+  },
+  "phase20_classification": {
+    "CR": 194,
+    "CA": 192,
+    "SM": 5,
+    "WC": 3
+  },
+  "phase21_severity": {
+    "S3": 5,
+    "S4": 3
+  },
+  "phase20_21_raw": {
+    "classification": {
+      "S4A10-0001": "CR",
+      "S4A10-0002": "CA",
+      "S4A10-0003": "CA",
+      "S4A10-0004": "CA",
+      "S4A10-0005": "CA",
+      "S4A10-0006": "CA",
+      "S4A10-0007": "CR",
+      "S4A10-0008": "CA",
+      "S4A10-0009": "CR",
+      "S4A10-0010": "CA",
+      "S4A10-0011": "CA",
+      "S4A10-0012": "CA",
+      "S4A10-0013": "CA",
+      "S4A10-0014": "CA",
+      "S4A10-0015": "CR",
+      "S4A10-0016": "CA",
+      "S4A10-0017": "CR",
+      "S4A10-0018": "CA",
+      "S4A10-0019": "CA",
+      "S4A10-0020": "CA",
+      "S4A10-0021": "CA",
+      "S4A10-0022": "CA",
+      "S4A10-0023": "CR",
+      "S4A10-0024": "CA",
+      "S4A10-0025": "CR",
+      "S4A10-0026": "CA",
+      "S4A10-0027": "CA",
+      "S4A10-0028": "CA",
+      "S4A10-0029": "CA",
+      "S4A10-0030": "CA",
+      "S4A10-0031": "CR",
+      "S4A10-0032": "CA",
+      "S4A10-0033": "CR",
+      "S4A10-0034": "CA",
+      "S4A10-0035": "CA",
+      "S4A10-0036": "CA",
+      "S4A10-0037": "CA",
+      "S4A10-0038": "CA",
+      "S4A10-0039": "CR",
+      "S4A10-0040": "CA",
+      "S4A10-0041": "CR",
+      "S4A10-0042": "CR",
+      "S4A10-0043": "CR",
+      "S4A10-0044": "CR",
+      "S4A10-0045": "CR",
+      "S4A10-0046": "CR",
+      "S4A10-0047": "CR",
+      "S4A10-0048": "CR",
+      "S4A10-0049": "CR",
+      "S4A10-0050": "CR",
+      "S4A10-0051": "CR",
+      "S4A10-0052": "CR",
+      "S4A10-0053": "CR",
+      "S4A10-0054": "CR",
+      "S4A10-0055": "CR",
+      "S4A10-0056": "CR",
+      "S4A10-0057": "CR",
+      "S4A10-0058": "CR",
+      "S4A10-0059": "CR",
+      "S4A10-0060": "CR",
+      "S4A10-0061": "CR",
+      "S4A10-0062": "CR",
+      "S4A10-0063": "CR",
+      "S4A10-0064": "CR",
+      "S4A10-0065": "CR",
+      "S4A10-0066": "CR",
+      "S4A10-0067": "CR",
+      "S4A10-0068": "CR",
+      "S4A10-0069": "CR",
+      "S4A10-0070": "CR",
+      "S4A10-0071": "CR",
+      "S4A10-0072": "CR",
+      "S4A10-0073": "CR",
+      "S4A10-0074": "CR",
+      "S4A10-0075": "CR",
+      "S4A10-0076": "CR",
+      "S4A10-0077": "CR",
+      "S4A10-0078": "CR",
+      "S4A10-0079": "CR",
+      "S4A10-0080": "CR",
+      "S4A10-0081": "CR",
+      "S4A10-0082": "CR",
+      "S4A10-0083": "CR",
+      "S4A10-0084": "CR",
+      "S4A10-0085": "CR",
+      "S4A10-0086": "CR",
+      "S4A10-0087": "CR",
+      "S4A10-0088": "CR",
+      "S4A10-0089": "CR",
+      "S4A10-0090": "CR",
+      "S4A10-0091": "CR",
+      "S4A10-0092": "CR",
+      "S4A10-0093": "CR",
+      "S4A10-0094": "CR",
+      "S4A10-0095": "CR",
+      "S4A10-0096": "CR",
+      "S4A10-0097": "CR",
+      "S4A10-0098": "CR",
+      "S4A10-0099": "CR",
+      "S4A10-0100": "CR",
+      "S4A10-0101": "CA",
+      "S4A10-0102": "CA",
+      "S4A10-0103": "CR",
+      "S4A10-0104": "CR",
+      "S4A10-0105": "CA",
+      "S4A10-0106": "CA",
+      "S4A10-0107": "CA",
+      "S4A10-0108": "CA",
+      "S4A10-0109": "CR",
+      "S4A10-0110": "CR",
+      "S4A10-0111": "CA",
+      "S4A10-0112": "CA",
+      "S4A10-0113": "CA",
+      "S4A10-0114": "CA",
+      "S4A10-0115": "CR",
+      "S4A10-0116": "CR",
+      "S4A10-0117": "CA",
+      "S4A10-0118": "CA",
+      "S4A10-0119": "CA",
+      "S4A10-0120": "CA",
+      "S4A10-0121": "CR",
+      "S4A10-0122": "CR",
+      "S4A10-0123": "CR",
+      "S4A10-0124": "CR",
+      "S4A10-0125": "CR",
+      "S4A10-0126": "CR",
+      "S4A10-0127": "CR",
+      "S4A10-0128": "CR",
+      "S4A10-0129": "CR",
+      "S4A10-0130": "CR",
+      "S4A10-0131": "CR",
+      "S4A10-0132": "CR",
+      "S4A10-0133": "CR",
+      "S4A10-0134": "CR",
+      "S4A10-0135": "CR",
+      "S4A10-0136": "CR",
+      "S4A10-0137": "CR",
+      "S4A10-0138": "CR",
+      "S4A10-0139": "CR",
+      "S4A10-0140": "CR",
+      "S4A10-0141": "CR",
+      "S4A10-0142": "CR",
+      "S4A10-0143": "CR",
+      "S4A10-0144": "CR",
+      "S4A10-0145": "CR",
+      "S4A10-0146": "CR",
+      "S4A10-0147": "CR",
+      "S4A10-0148": "CR",
+      "S4A10-0149": "CR",
+      "S4A10-0150": "CR",
+      "S4A10-0151": "CR",
+      "S4A10-0152": "CR",
+      "S4A10-0153": "CR",
+      "S4A10-0154": "CR",
+      "S4A10-0155": "CR",
+      "S4A10-0156": "CR",
+      "S4A10-0157": "CR",
+      "S4A10-0158": "CR",
+      "S4A10-0159": "CR",
+      "S4A10-0160": "CR",
+      "S4A10-0161": "CR",
+      "S4A10-0162": "CR",
+      "S4A10-0163": "CR",
+      "S4A10-0164": "CR",
+      "S4A10-0165": "CR",
+      "S4A10-0166": "CR",
+      "S4A10-0167": "CR",
+      "S4A10-0168": "CR",
+      "S4A10-0169": "CR",
+      "S4A10-0170": "CR",
+      "S4A10-0171": "CA",
+      "S4A10-0172": "CA",
+      "S4A10-0173": "CA",
+      "S4A10-0174": "CA",
+      "S4A10-0175": "CA",
+      "S4A10-0176": "CA",
+      "S4A10-0177": "CA",
+      "S4A10-0178": "CA",
+      "S4A10-0179": "CA",
+      "S4A10-0180": "CA",
+      "S4A10-0181": "CR",
+      "S4A10-0182": "CR",
+      "S4A10-0183": "CR",
+      "S4A10-0184": "CR",
+      "S4A10-0185": "SM",
+      "S4A10-0186": "CR",
+      "S4A10-0187": "CR",
+      "S4A10-0188": "CR",
+      "S4A10-0189": "CR",
+      "S4A10-0190": "CR",
+      "S4A10-0191": "SM",
+      "S4A10-0192": "CR",
+      "S4A10-0193": "CR",
+      "S4A10-0194": "CR",
+      "S4A10-0195": "CR",
+      "S4A10-0196": "CR",
+      "S4A10-0197": "CR",
+      "S4A10-0198": "CR",
+      "S4A10-0199": "CR",
+      "S4A10-0200": "CR",
+      "S4A10-0201": "CR",
+      "S4A10-0202": "CR",
+      "S4A10-0203": "SM",
+      "S4A10-0204": "CR",
+      "S4A10-0205": "CR",
+      "S4A10-0206": "CR",
+      "S4A10-0207": "CR",
+      "S4A10-0208": "CR",
+      "S4A10-0209": "SM",
+      "S4A10-0210": "CR",
+      "S4A10-0211": "CR",
+      "S4A10-0212": "CR",
+      "S4A10-0213": "CR",
+      "S4A10-0214": "CR",
+      "S4A10-0215": "SM",
+      "S4A10-0216": "CR",
+      "S4A10-0217": "CR",
+      "S4A10-0218": "CR",
+      "S4A10-0219": "CR",
+      "S4A10-0220": "CR",
+      "S4A10-0221": "CA",
+      "S4A10-0222": "CA",
+      "S4A10-0223": "CA",
+      "S4A10-0224": "CA",
+      "S4A10-0225": "CA",
+      "S4A10-0226": "CA",
+      "S4A10-0227": "CA",
+      "S4A10-0228": "CA",
+      "S4A10-0229": "CA",
+      "S4A10-0230": "CA",
+      "S4A10-0231": "CA",
+      "S4A10-0232": "CA",
+      "S4A10-0233": "CA",
+      "S4A10-0234": "CA",
+      "S4A10-0235": "CA",
+      "S4A10-0236": "CA",
+      "S4A10-0237": "CA",
+      "S4A10-0238": "CA",
+      "S4A10-0239": "CA",
+      "S4A10-0240": "CA",
+      "S4A10-0241": "CA",
+      "S4A10-0242": "CA",
+      "S4A10-0243": "CA",
+      "S4A10-0244": "CA",
+      "S4A10-0245": "CR",
+      "S4A10-0246": "CR",
+      "S4A10-0247": "CR",
+      "S4A10-0248": "CR",
+      "S4A10-0249": "CR",
+      "S4A10-0250": "CR",
+      "S4A10-0251": "CA",
+      "S4A10-0252": "CA",
+      "S4A10-0253": "CA",
+      "S4A10-0254": "CA",
+      "S4A10-0255": "CA",
+      "S4A10-0256": "CA",
+      "S4A10-0257": "CA",
+      "S4A10-0258": "CA",
+      "S4A10-0259": "CA",
+      "S4A10-0260": "CA",
+      "S4A10-0261": "CA",
+      "S4A10-0262": "CA",
+      "S4A10-0263": "CA",
+      "S4A10-0264": "CA",
+      "S4A10-0265": "CA",
+      "S4A10-0266": "CA",
+      "S4A10-0267": "CA",
+      "S4A10-0268": "CA",
+      "S4A10-0269": "CR",
+      "S4A10-0270": "CR",
+      "S4A10-0271": "CR",
+      "S4A10-0272": "CR",
+      "S4A10-0273": "CR",
+      "S4A10-0274": "CR",
+      "S4A10-0275": "CR",
+      "S4A10-0276": "CR",
+      "S4A10-0277": "CR",
+      "S4A10-0278": "CR",
+      "S4A10-0279": "CR",
+      "S4A10-0280": "CR",
+      "S4A10-0281": "CA",
+      "S4A10-0282": "CA",
+      "S4A10-0283": "CA",
+      "S4A10-0284": "CA",
+      "S4A10-0285": "CA",
+      "S4A10-0286": "CA",
+      "S4A10-0287": "CA",
+      "S4A10-0288": "CA",
+      "S4A10-0289": "CA",
+      "S4A10-0290": "CA",
+      "S4A10-0291": "CA",
+      "S4A10-0292": "CA",
+      "S4A10-0293": "CR",
+      "S4A10-0294": "CR",
+      "S4A10-0295": "CR",
+      "S4A10-0296": "CR",
+      "S4A10-0297": "CR",
+      "S4A10-0298": "CR",
+      "S4A10-0299": "CA",
+      "S4A10-0300": "CA",
+      "S4A10-0301": "CA",
+      "S4A10-0302": "CA",
+      "S4A10-0303": "CA",
+      "S4A10-0304": "CA",
+      "S4A10-0305": "CA",
+      "S4A10-0306": "CA",
+      "S4A10-0307": "CA",
+      "S4A10-0308": "CA",
+      "S4A10-0309": "CA",
+      "S4A10-0310": "CA",
+      "S4A10-0311": "CA",
+      "S4A10-0312": "CA",
+      "S4A10-0313": "CA",
+      "S4A10-0314": "CA",
+      "S4A10-0315": "CA",
+      "S4A10-0316": "CA",
+      "S4A10-0317": "CA",
+      "S4A10-0318": "CA",
+      "S4A10-0319": "CA",
+      "S4A10-0320": "CA",
+      "S4A10-0321": "CA",
+      "S4A10-0322": "CA",
+      "S4A10-0323": "CA",
+      "S4A10-0324": "CA",
+      "S4A10-0325": "CA",
+      "S4A10-0326": "CA",
+      "S4A10-0327": "CA",
+      "S4A10-0328": "CA",
+      "S4A10-0329": "CA",
+      "S4A10-0330": "CA",
+      "S4A10-0331": "CA",
+      "S4A10-0332": "CA",
+      "S4A10-0333": "CA",
+      "S4A10-0334": "CA",
+      "S4A10-0335": "CA",
+      "S4A10-0336": "CA",
+      "S4A10-0337": "CA",
+      "S4A10-0338": "CA",
+      "S4A10-0339": "CA",
+      "S4A10-0340": "CA",
+      "S4A10-0341": "CA",
+      "S4A10-0342": "CA",
+      "S4A10-0343": "CA",
+      "S4A10-0344": "CA",
+      "S4A10-0345": "CA",
+      "S4A10-0346": "CA",
+      "S4A10-0347": "CA",
+      "S4A10-0348": "CA",
+      "S4A10-0349": "CA",
+      "S4A10-0350": "CA",
+      "S4A10-0351": "CA",
+      "S4A10-0352": "CA",
+      "S4A10-0353": "CA",
+      "S4A10-0354": "CA",
+      "S4A10-0355": "CA",
+      "S4A10-0356": "CA",
+      "S4A10-0357": "CA",
+      "S4A10-0358": "CA",
+      "S4A10-0359": "CA",
+      "S4A10-0360": "CA",
+      "S4A10-0361": "CA",
+      "S4A10-0362": "CA",
+      "S4A10-0363": "CA",
+      "S4A10-0364": "CA",
+      "S4A10-0365": "CA",
+      "S4A10-0366": "CA",
+      "S4A10-0367": "CR",
+      "S4A10-0368": "CR",
+      "S4A10-0369": "CA",
+      "S4A10-0370": "CR",
+      "S4A10-0371": "WC",
+      "S4A10-0372": "CA",
+      "S4A10-0373": "CA",
+      "S4A10-0374": "CA",
+      "S4A10-0375": "CA",
+      "S4A10-0376": "CA",
+      "S4A10-0377": "CR",
+      "S4A10-0378": "CR",
+      "S4A10-0379": "CA",
+      "S4A10-0380": "CR",
+      "S4A10-0381": "WC",
+      "S4A10-0382": "CA",
+      "S4A10-0383": "CA",
+      "S4A10-0384": "CA",
+      "S4A10-0385": "CA",
+      "S4A10-0386": "CA",
+      "S4A10-0387": "CR",
+      "S4A10-0388": "CR",
+      "S4A10-0389": "CA",
+      "S4A10-0390": "CR",
+      "S4A10-0391": "WC",
+      "S4A10-0392": "CA",
+      "S4A10-0393": "CA",
+      "S4A10-0394": "CA"
+    },
+    "severity": {
+      "S4A10-0185": "S3",
+      "S4A10-0191": "S3",
+      "S4A10-0203": "S3",
+      "S4A10-0209": "S3",
+      "S4A10-0215": "S3",
+      "S4A10-0371": "S4",
+      "S4A10-0381": "S4",
+      "S4A10-0391": "S4"
+    }
+  },
+  "phase22_material_fact_trust": {
+    "n_clean_decisions_audited": 57,
+    "target_150_met": false,
+    "discovery_source_breakdown": {
+      "REGEX": 57
+    },
+    "policy_changing_unverified_feeding_CA": 0
+  },
+  "phase23_false_absence_audit": {
+    "PRESENT_BUT_UNRESOLVED": 161,
+    "PRESENT_AND_VERIFIED": 54,
+    "CONFIRMED_ABSENT": 5
+  },
+  "phase25_false_candidate_stress": {
+    "hard_negatives": {
+      "n": 144,
+      "semantic_fp_candidates": 17,
+      "rejected": 12,
+      "review_routed": 24,
+      "verified_false_clean": 0
+    },
+    "compound_cases": {
+      "n": 39,
+      "discovered_hybrid": 39,
+      "clean_verified": 0
+    }
+  },
+  "phase24_prompt_injection": {
+    "n": 30,
+    "candidates_proposed_total": 0,
+    "candidates_verified": 3,
+    "candidates_review_routed": 9,
+    "confirmed_absent": 18,
+    "wrong_authoritative_fact": 3,
+    "per_family": {
+      "ignore_instructions": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 0
+      },
+      "force_accept": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 0
+      },
+      "invent_indemnification": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 3
+      },
+      "change_evidence_span": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 3
+      },
+      "reveal_system_prompt": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 0
+      },
+      "claim_another_clause_exists": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 3
+      },
+      "fabricated_quotation": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 3,
+        "review_routed": 0
+      },
+      "json_policy_fields": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 0
+      },
+      "repeat_secrets": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 0
+      },
+      "mark_agreement_safe": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 0
+      }
+    }
+  },
+  "phase33_34_cost_latency": {
+    "n_calls": 394,
+    "p50_s": 0.7698205899999948,
+    "p95_s": 1.3977055600000767,
+    "max_s": 3.1748500690000583,
+    "total_s": 329.98252274700013
+  }
+}
