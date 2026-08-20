@@ -1,0 +1,1402 @@
+[
+  {
+    "id": "S491-001",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Contractor shall indemnify, defend, and hold harmless Owner from and against any and all third-party claims, losses, and damages arising out of Contractor's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-002",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Vendor shall indemnify, defend, and hold harmless Client from and against any and all third-party claims, losses, and damages arising out of Vendor's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-003",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Licensee shall indemnify, defend, and hold harmless Licensor from and against any and all third-party claims, losses, and damages arising out of Licensee's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-004",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Manufacturer shall indemnify, defend, and hold harmless Distributor from and against any and all third-party claims, losses, and damages arising out of Manufacturer's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-005",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Tenant shall indemnify, defend, and hold harmless Landlord from and against any and all third-party claims, losses, and damages arising out of Tenant's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-006",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Consultant shall indemnify, defend, and hold harmless Company from and against any and all third-party claims, losses, and damages arising out of Consultant's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-007",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Supplier shall indemnify, defend, and hold harmless Purchaser from and against any and all third-party claims, losses, and damages arising out of Supplier's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-008",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Franchisee shall indemnify, defend, and hold harmless Franchisor from and against any and all third-party claims, losses, and damages arising out of Franchisee's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-009",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Operator shall indemnify, defend, and hold harmless Host from and against any and all third-party claims, losses, and damages arising out of Operator's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-010",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Developer shall indemnify, defend, and hold harmless Investor from and against any and all third-party claims, losses, and damages arising out of Developer's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-011",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Broker shall indemnify, defend, and hold harmless Principal from and against any and all third-party claims, losses, and damages arising out of Broker's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-012",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Carrier shall indemnify, defend, and hold harmless Shipper from and against any and all third-party claims, losses, and damages arising out of Carrier's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-013",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Subcontractor shall indemnify, defend, and hold harmless GeneralContractor from and against any and all third-party claims, losses, and damages arising out of Subcontractor's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-014",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Servicer shall indemnify, defend, and hold harmless Bank from and against any and all third-party claims, losses, and damages arising out of Servicer's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-015",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Reseller shall indemnify, defend, and hold harmless Manufacturer2 from and against any and all third-party claims, losses, and damages arising out of Reseller's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-016",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Contractor shall indemnify, defend, and hold harmless Owner from and against any and all third-party claims, losses, and damages arising out of Contractor's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-017",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Vendor shall indemnify, defend, and hold harmless Client from and against any and all third-party claims, losses, and damages arising out of Vendor's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-018",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Licensee shall indemnify, defend, and hold harmless Licensor from and against any and all third-party claims, losses, and damages arising out of Licensee's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-019",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Manufacturer shall indemnify, defend, and hold harmless Distributor from and against any and all third-party claims, losses, and damages arising out of Manufacturer's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-020",
+    "family": "canonical",
+    "label": "POSITIVE",
+    "text": "Tenant shall indemnify, defend, and hold harmless Landlord from and against any and all third-party claims, losses, and damages arising out of Tenant's performance under this Agreement.",
+    "note": "canonical triad phrasing"
+  },
+  {
+    "id": "S491-021",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Contractor shall reimburse Owner in full for any losses Owner incurs arising from Contractor's breach of this Agreement.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-022",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Vendor shall reimburse Client in full for any losses Client incurs arising from Vendor's breach of this Agreement.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-023",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Licensee shall reimburse Licensor in full for any losses Licensor incurs arising from Licensee's breach of this Agreement.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-024",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Manufacturer shall reimburse Distributor in full for any losses Distributor incurs arising from Manufacturer's breach of this Agreement.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-025",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Tenant shall reimburse Landlord in full for any losses Landlord incurs arising from Tenant's breach of this Agreement.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-026",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Contractor shall assume all liability for claims brought against Owner arising out of Contractor's negligent acts.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-027",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Vendor shall assume all liability for claims brought against Client arising out of Vendor's negligent acts.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-028",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Licensee shall assume all liability for claims brought against Licensor arising out of Licensee's negligent acts.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-029",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Manufacturer shall assume all liability for claims brought against Distributor arising out of Manufacturer's negligent acts.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-030",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Tenant shall assume all liability for claims brought against Landlord arising out of Tenant's negligent acts.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-031",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Contractor shall stand in Owner's place with respect to any claim arising from the delivered goods.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-032",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Vendor shall stand in Client's place with respect to any claim arising from the delivered goods.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-033",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Licensee shall stand in Licensor's place with respect to any claim arising from the delivered goods.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-034",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Manufacturer shall stand in Distributor's place with respect to any claim arising from the delivered goods.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-035",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Tenant shall stand in Landlord's place with respect to any claim arising from the delivered goods.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-036",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Contractor shall answer for any claim asserted against Owner in connection with Contractor's services.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-037",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Vendor shall answer for any claim asserted against Client in connection with Vendor's services.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-038",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Licensee shall answer for any claim asserted against Licensor in connection with Licensee's services.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-039",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Manufacturer shall answer for any claim asserted against Distributor in connection with Manufacturer's services.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-040",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Tenant shall answer for any claim asserted against Landlord in connection with Tenant's services.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-041",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Contractor shall protect Owner from and shall satisfy any claims arising out of Contractor's work under this Agreement.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-042",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Vendor shall protect Client from and shall satisfy any claims arising out of Vendor's work under this Agreement.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-043",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Licensee shall protect Licensor from and shall satisfy any claims arising out of Licensee's work under this Agreement.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-044",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Manufacturer shall protect Distributor from and shall satisfy any claims arising out of Manufacturer's work under this Agreement.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-045",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "Tenant shall protect Landlord from and shall satisfy any claims arising out of Tenant's work under this Agreement.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-046",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "On Owner's behalf, Contractor shall bear responsibility for any losses arising from the equipment defects.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-047",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "On Client's behalf, Vendor shall bear responsibility for any losses arising from the equipment defects.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-048",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "On Licensor's behalf, Licensee shall bear responsibility for any losses arising from the equipment defects.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-049",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "On Distributor's behalf, Manufacturer shall bear responsibility for any losses arising from the equipment defects.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-050",
+    "family": "regex_synonym",
+    "label": "POSITIVE",
+    "text": "On Landlord's behalf, Tenant shall bear responsibility for any losses arising from the equipment defects.",
+    "note": "regex-widened synonym obligation pattern"
+  },
+  {
+    "id": "S491-051",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Should a third party bring a claim against Owner, Contractor shall make good to Owner for any resulting loss.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-052",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Should a third party bring a claim against Client, Vendor shall make good to Client for any resulting loss.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-053",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Should a third party bring a claim against Licensor, Licensee shall make good to Licensor for any resulting loss.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-054",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Should a third party bring a claim against Distributor, Manufacturer shall make good to Distributor for any resulting loss.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-055",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Contractor shall recompense Owner in full for any damages Owner sustains because of Contractor's failure to perform.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-056",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Vendor shall recompense Client in full for any damages Client sustains because of Vendor's failure to perform.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-057",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Licensee shall recompense Licensor in full for any damages Licensor sustains because of Licensee's failure to perform.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-058",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Manufacturer shall recompense Distributor in full for any damages Distributor sustains because of Manufacturer's failure to perform.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-059",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Contractor shall be answerable to Owner for any claim arising out of the installation, and Contractor shall settle on Owner's behalf.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-060",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Vendor shall be answerable to Client for any claim arising out of the installation, and Vendor shall settle on Client's behalf.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-061",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Licensee shall be answerable to Licensor for any claim arising out of the installation, and Licensee shall settle on Licensor's behalf.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-062",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Manufacturer shall be answerable to Distributor for any claim arising out of the installation, and Manufacturer shall settle on Distributor's behalf.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-063",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Contractor agrees to shoulder the cost of any claim brought against Owner relating to the products supplied.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-064",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Vendor agrees to shoulder the cost of any claim brought against Client relating to the products supplied.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-065",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Licensee agrees to shoulder the cost of any claim brought against Licensor relating to the products supplied.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-066",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Manufacturer agrees to shoulder the cost of any claim brought against Distributor relating to the products supplied.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-067",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Contractor shall absorb any loss Owner incurs as a result of a third-party claim tied to Contractor's performance.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-068",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Vendor shall absorb any loss Client incurs as a result of a third-party claim tied to Vendor's performance.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-069",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Licensee shall absorb any loss Licensor incurs as a result of a third-party claim tied to Licensee's performance.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-070",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Manufacturer shall absorb any loss Distributor incurs as a result of a third-party claim tied to Manufacturer's performance.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-071",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Contractor shall be on the hook for any judgment entered against Owner arising from Contractor's conduct under this Agreement.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-072",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Vendor shall be on the hook for any judgment entered against Client arising from Vendor's conduct under this Agreement.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-073",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Licensee shall be on the hook for any judgment entered against Licensor arising from Licensee's conduct under this Agreement.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-074",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Manufacturer shall be on the hook for any judgment entered against Distributor arising from Manufacturer's conduct under this Agreement.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-075",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Contractor shall stand behind Owner against any claim relating to defects in the delivered materials.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-076",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Vendor shall stand behind Client against any claim relating to defects in the delivered materials.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-077",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Licensee shall stand behind Licensor against any claim relating to defects in the delivered materials.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-078",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Manufacturer shall stand behind Distributor against any claim relating to defects in the delivered materials.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-079",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Contractor undertakes to make Owner whole for any loss arising from a claim connected to Contractor's services.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-080",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Vendor undertakes to make Client whole for any loss arising from a claim connected to Vendor's services.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-081",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Licensee undertakes to make Licensor whole for any loss arising from a claim connected to Licensee's services.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-082",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Manufacturer undertakes to make Distributor whole for any loss arising from a claim connected to Manufacturer's services.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-083",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Contractor shall cover the cost of any claim asserted against Owner in connection with the work performed.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-084",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Vendor shall cover the cost of any claim asserted against Client in connection with the work performed.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-085",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Licensee shall cover the cost of any claim asserted against Licensor in connection with the work performed.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-086",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Manufacturer shall cover the cost of any claim asserted against Distributor in connection with the work performed.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-087",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Contractor shall take on the liability for any third-party claim arising from Contractor's use of the facility.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-088",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Vendor shall take on the liability for any third-party claim arising from Vendor's use of the facility.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-089",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Licensee shall take on the liability for any third-party claim arising from Licensee's use of the facility.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-090",
+    "family": "semantic_vocab",
+    "label": "POSITIVE",
+    "text": "Manufacturer shall take on the liability for any third-party claim arising from Manufacturer's use of the facility.",
+    "note": "in simulated-semantic vocabulary, outside regex"
+  },
+  {
+    "id": "S491-091",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "If a claim is ever filed against Owner because of something Contractor did under this Agreement, Contractor will make sure Owner does not end up paying for it.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-092",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "If a claim is ever filed against Client because of something Vendor did under this Agreement, Vendor will make sure Client does not end up paying for it.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-093",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "If a claim is ever filed against Licensor because of something Licensee did under this Agreement, Licensee will make sure Licensor does not end up paying for it.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-094",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Contractor promises that Owner will never be left holding the bag for costs tied to Contractor's mistakes on this project.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-095",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Vendor promises that Client will never be left holding the bag for costs tied to Vendor's mistakes on this project.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-096",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Licensee promises that Licensor will never be left holding the bag for costs tied to Licensee's mistakes on this project.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-097",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "In the event Owner faces a lawsuit traceable to Contractor's work, Contractor will step in and foot the bill for Owner's defense and any judgment.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-098",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "In the event Client faces a lawsuit traceable to Vendor's work, Vendor will step in and foot the bill for Client's defense and any judgment.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-099",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "In the event Licensor faces a lawsuit traceable to Licensee's work, Licensee will step in and foot the bill for Licensor's defense and any judgment.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-100",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Contractor accepts that any expense Owner incurs defending a claim arising from Contractor's conduct is Contractor's expense to carry, not Owner's.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-101",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Vendor accepts that any expense Client incurs defending a claim arising from Vendor's conduct is Vendor's expense to carry, not Client's.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-102",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Licensee accepts that any expense Licensor incurs defending a claim arising from Licensee's conduct is Licensee's expense to carry, not Licensor's.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-103",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Where a third party comes after Owner on account of Contractor's performance, Contractor will square things up with Owner financially.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-104",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Where a third party comes after Client on account of Vendor's performance, Vendor will square things up with Client financially.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-105",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Where a third party comes after Licensor on account of Licensee's performance, Licensee will square things up with Licensor financially.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-106",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Contractor will see to it that Owner comes out whole, dollar for dollar, on any claim connected to Contractor's obligations here.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-107",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Vendor will see to it that Client comes out whole, dollar for dollar, on any claim connected to Vendor's obligations here.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-108",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Licensee will see to it that Licensor comes out whole, dollar for dollar, on any claim connected to Licensee's obligations here.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-109",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Contractor is on the hook to keep Owner out of pocket for any losses stemming from claims tied to this engagement.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-110",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Vendor is on the hook to keep Client out of pocket for any losses stemming from claims tied to this engagement.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-111",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Licensee is on the hook to keep Licensor out of pocket for any losses stemming from claims tied to this engagement.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-112",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Any financial fallout Owner experiences from a claim linked to Contractor's actions under this contract falls to Contractor to resolve.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-113",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Any financial fallout Client experiences from a claim linked to Vendor's actions under this contract falls to Vendor to resolve.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-114",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Any financial fallout Licensor experiences from a claim linked to Licensee's actions under this contract falls to Licensee to resolve.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-115",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Contractor will pick up wherever Owner is left exposed by a claim arising out of Contractor's performance of this Agreement.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-116",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Vendor will pick up wherever Client is left exposed by a claim arising out of Vendor's performance of this Agreement.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-117",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Licensee will pick up wherever Licensor is left exposed by a claim arising out of Licensee's performance of this Agreement.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-118",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Contractor shall not allow Owner to bear any cost of a claim that traces back to Contractor's conduct under this Agreement.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-119",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Vendor shall not allow Client to bear any cost of a claim that traces back to Vendor's conduct under this Agreement.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-120",
+    "family": "novel_unseen",
+    "label": "POSITIVE",
+    "text": "Licensee shall not allow Licensor to bear any cost of a claim that traces back to Licensee's conduct under this Agreement.",
+    "note": "genuinely novel phrasing, outside both vocabularies"
+  },
+  {
+    "id": "S491-121",
+    "family": "explicit_negation",
+    "label": "NEGATIVE",
+    "text": "No indemnification obligation of any kind is created by this Agreement between Contractor and Owner.",
+    "note": "hard negative \u2014 explicit_negation"
+  },
+  {
+    "id": "S491-122",
+    "family": "explicit_negation",
+    "label": "NEGATIVE",
+    "text": "No indemnification obligation of any kind is created by this Agreement between Vendor and Client.",
+    "note": "hard negative \u2014 explicit_negation"
+  },
+  {
+    "id": "S491-123",
+    "family": "explicit_negation",
+    "label": "NEGATIVE",
+    "text": "No indemnification obligation of any kind is created by this Agreement between Licensee and Licensor.",
+    "note": "hard negative \u2014 explicit_negation"
+  },
+  {
+    "id": "S491-124",
+    "family": "explicit_negation",
+    "label": "NEGATIVE",
+    "text": "No indemnification obligation of any kind is created by this Agreement between Manufacturer and Distributor.",
+    "note": "hard negative \u2014 explicit_negation"
+  },
+  {
+    "id": "S491-125",
+    "family": "explicit_negation",
+    "label": "NEGATIVE",
+    "text": "No indemnification obligation of any kind is created by this Agreement between Tenant and Landlord.",
+    "note": "hard negative \u2014 explicit_negation"
+  },
+  {
+    "id": "S491-126",
+    "family": "insurance",
+    "label": "NEGATIVE",
+    "text": "Contractor shall maintain commercial general liability insurance with coverage of not less than $1,000,000 per occurrence.",
+    "note": "hard negative \u2014 insurance"
+  },
+  {
+    "id": "S491-127",
+    "family": "insurance",
+    "label": "NEGATIVE",
+    "text": "Vendor shall maintain commercial general liability insurance with coverage of not less than $1,000,000 per occurrence.",
+    "note": "hard negative \u2014 insurance"
+  },
+  {
+    "id": "S491-128",
+    "family": "insurance",
+    "label": "NEGATIVE",
+    "text": "Licensee shall maintain commercial general liability insurance with coverage of not less than $1,000,000 per occurrence.",
+    "note": "hard negative \u2014 insurance"
+  },
+  {
+    "id": "S491-129",
+    "family": "insurance",
+    "label": "NEGATIVE",
+    "text": "Manufacturer shall maintain commercial general liability insurance with coverage of not less than $1,000,000 per occurrence.",
+    "note": "hard negative \u2014 insurance"
+  },
+  {
+    "id": "S491-130",
+    "family": "insurance",
+    "label": "NEGATIVE",
+    "text": "Tenant shall maintain commercial general liability insurance with coverage of not less than $1,000,000 per occurrence.",
+    "note": "hard negative \u2014 insurance"
+  },
+  {
+    "id": "S491-131",
+    "family": "warranty",
+    "label": "NEGATIVE",
+    "text": "Contractor warrants that the goods delivered to Owner will be free from material defects for a period of twelve months.",
+    "note": "hard negative \u2014 warranty"
+  },
+  {
+    "id": "S491-132",
+    "family": "warranty",
+    "label": "NEGATIVE",
+    "text": "Vendor warrants that the goods delivered to Client will be free from material defects for a period of twelve months.",
+    "note": "hard negative \u2014 warranty"
+  },
+  {
+    "id": "S491-133",
+    "family": "warranty",
+    "label": "NEGATIVE",
+    "text": "Licensee warrants that the goods delivered to Licensor will be free from material defects for a period of twelve months.",
+    "note": "hard negative \u2014 warranty"
+  },
+  {
+    "id": "S491-134",
+    "family": "warranty",
+    "label": "NEGATIVE",
+    "text": "Manufacturer warrants that the goods delivered to Distributor will be free from material defects for a period of twelve months.",
+    "note": "hard negative \u2014 warranty"
+  },
+  {
+    "id": "S491-135",
+    "family": "warranty",
+    "label": "NEGATIVE",
+    "text": "Tenant warrants that the goods delivered to Landlord will be free from material defects for a period of twelve months.",
+    "note": "hard negative \u2014 warranty"
+  },
+  {
+    "id": "S491-136",
+    "family": "limitation_of_liability",
+    "label": "NEGATIVE",
+    "text": "In no event shall Contractor's aggregate liability to Owner under this Agreement exceed the fees paid in the preceding twelve months.",
+    "note": "hard negative \u2014 limitation_of_liability"
+  },
+  {
+    "id": "S491-137",
+    "family": "limitation_of_liability",
+    "label": "NEGATIVE",
+    "text": "In no event shall Vendor's aggregate liability to Client under this Agreement exceed the fees paid in the preceding twelve months.",
+    "note": "hard negative \u2014 limitation_of_liability"
+  },
+  {
+    "id": "S491-138",
+    "family": "limitation_of_liability",
+    "label": "NEGATIVE",
+    "text": "In no event shall Licensee's aggregate liability to Licensor under this Agreement exceed the fees paid in the preceding twelve months.",
+    "note": "hard negative \u2014 limitation_of_liability"
+  },
+  {
+    "id": "S491-139",
+    "family": "limitation_of_liability",
+    "label": "NEGATIVE",
+    "text": "In no event shall Manufacturer's aggregate liability to Distributor under this Agreement exceed the fees paid in the preceding twelve months.",
+    "note": "hard negative \u2014 limitation_of_liability"
+  },
+  {
+    "id": "S491-140",
+    "family": "limitation_of_liability",
+    "label": "NEGATIVE",
+    "text": "In no event shall Tenant's aggregate liability to Landlord under this Agreement exceed the fees paid in the preceding twelve months.",
+    "note": "hard negative \u2014 limitation_of_liability"
+  },
+  {
+    "id": "S491-141",
+    "family": "confidentiality",
+    "label": "NEGATIVE",
+    "text": "Contractor shall not disclose Owner's Confidential Information to any third party without prior written consent.",
+    "note": "hard negative \u2014 confidentiality"
+  },
+  {
+    "id": "S491-142",
+    "family": "confidentiality",
+    "label": "NEGATIVE",
+    "text": "Vendor shall not disclose Client's Confidential Information to any third party without prior written consent.",
+    "note": "hard negative \u2014 confidentiality"
+  },
+  {
+    "id": "S491-143",
+    "family": "confidentiality",
+    "label": "NEGATIVE",
+    "text": "Licensee shall not disclose Licensor's Confidential Information to any third party without prior written consent.",
+    "note": "hard negative \u2014 confidentiality"
+  },
+  {
+    "id": "S491-144",
+    "family": "confidentiality",
+    "label": "NEGATIVE",
+    "text": "Manufacturer shall not disclose Distributor's Confidential Information to any third party without prior written consent.",
+    "note": "hard negative \u2014 confidentiality"
+  },
+  {
+    "id": "S491-145",
+    "family": "confidentiality",
+    "label": "NEGATIVE",
+    "text": "Tenant shall not disclose Landlord's Confidential Information to any third party without prior written consent.",
+    "note": "hard negative \u2014 confidentiality"
+  },
+  {
+    "id": "S491-146",
+    "family": "force_majeure",
+    "label": "NEGATIVE",
+    "text": "Neither party shall be liable for delay or failure to perform caused by events beyond its reasonable control.",
+    "note": "hard negative \u2014 force_majeure"
+  },
+  {
+    "id": "S491-147",
+    "family": "force_majeure",
+    "label": "NEGATIVE",
+    "text": "Neither party shall be liable for delay or failure to perform caused by events beyond its reasonable control.",
+    "note": "hard negative \u2014 force_majeure"
+  },
+  {
+    "id": "S491-148",
+    "family": "force_majeure",
+    "label": "NEGATIVE",
+    "text": "Neither party shall be liable for delay or failure to perform caused by events beyond its reasonable control.",
+    "note": "hard negative \u2014 force_majeure"
+  },
+  {
+    "id": "S491-149",
+    "family": "force_majeure",
+    "label": "NEGATIVE",
+    "text": "Neither party shall be liable for delay or failure to perform caused by events beyond its reasonable control.",
+    "note": "hard negative \u2014 force_majeure"
+  },
+  {
+    "id": "S491-150",
+    "family": "force_majeure",
+    "label": "NEGATIVE",
+    "text": "Neither party shall be liable for delay or failure to perform caused by events beyond its reasonable control.",
+    "note": "hard negative \u2014 force_majeure"
+  },
+  {
+    "id": "S491-151",
+    "family": "termination",
+    "label": "NEGATIVE",
+    "text": "Either party may terminate this Agreement upon thirty days' prior written notice to the other party.",
+    "note": "hard negative \u2014 termination"
+  },
+  {
+    "id": "S491-152",
+    "family": "termination",
+    "label": "NEGATIVE",
+    "text": "Either party may terminate this Agreement upon thirty days' prior written notice to the other party.",
+    "note": "hard negative \u2014 termination"
+  },
+  {
+    "id": "S491-153",
+    "family": "termination",
+    "label": "NEGATIVE",
+    "text": "Either party may terminate this Agreement upon thirty days' prior written notice to the other party.",
+    "note": "hard negative \u2014 termination"
+  },
+  {
+    "id": "S491-154",
+    "family": "termination",
+    "label": "NEGATIVE",
+    "text": "Either party may terminate this Agreement upon thirty days' prior written notice to the other party.",
+    "note": "hard negative \u2014 termination"
+  },
+  {
+    "id": "S491-155",
+    "family": "termination",
+    "label": "NEGATIVE",
+    "text": "Either party may terminate this Agreement upon thirty days' prior written notice to the other party.",
+    "note": "hard negative \u2014 termination"
+  },
+  {
+    "id": "S491-156",
+    "family": "assignment",
+    "label": "NEGATIVE",
+    "text": "Contractor may not assign this Agreement without the prior written consent of Owner.",
+    "note": "hard negative \u2014 assignment"
+  },
+  {
+    "id": "S491-157",
+    "family": "assignment",
+    "label": "NEGATIVE",
+    "text": "Vendor may not assign this Agreement without the prior written consent of Client.",
+    "note": "hard negative \u2014 assignment"
+  },
+  {
+    "id": "S491-158",
+    "family": "assignment",
+    "label": "NEGATIVE",
+    "text": "Licensee may not assign this Agreement without the prior written consent of Licensor.",
+    "note": "hard negative \u2014 assignment"
+  },
+  {
+    "id": "S491-159",
+    "family": "assignment",
+    "label": "NEGATIVE",
+    "text": "Manufacturer may not assign this Agreement without the prior written consent of Distributor.",
+    "note": "hard negative \u2014 assignment"
+  },
+  {
+    "id": "S491-160",
+    "family": "assignment",
+    "label": "NEGATIVE",
+    "text": "Tenant may not assign this Agreement without the prior written consent of Landlord.",
+    "note": "hard negative \u2014 assignment"
+  },
+  {
+    "id": "S491-161",
+    "family": "ip_ownership",
+    "label": "NEGATIVE",
+    "text": "All intellectual property created by Contractor in the course of performing the services shall be owned exclusively by Owner.",
+    "note": "hard negative \u2014 ip_ownership"
+  },
+  {
+    "id": "S491-162",
+    "family": "ip_ownership",
+    "label": "NEGATIVE",
+    "text": "All intellectual property created by Vendor in the course of performing the services shall be owned exclusively by Client.",
+    "note": "hard negative \u2014 ip_ownership"
+  },
+  {
+    "id": "S491-163",
+    "family": "ip_ownership",
+    "label": "NEGATIVE",
+    "text": "All intellectual property created by Licensee in the course of performing the services shall be owned exclusively by Licensor.",
+    "note": "hard negative \u2014 ip_ownership"
+  },
+  {
+    "id": "S491-164",
+    "family": "ip_ownership",
+    "label": "NEGATIVE",
+    "text": "All intellectual property created by Manufacturer in the course of performing the services shall be owned exclusively by Distributor.",
+    "note": "hard negative \u2014 ip_ownership"
+  },
+  {
+    "id": "S491-165",
+    "family": "ip_ownership",
+    "label": "NEGATIVE",
+    "text": "All intellectual property created by Tenant in the course of performing the services shall be owned exclusively by Landlord.",
+    "note": "hard negative \u2014 ip_ownership"
+  },
+  {
+    "id": "S491-166",
+    "family": "ordinary_performance",
+    "label": "NEGATIVE",
+    "text": "Contractor shall perform the services in a professional and workmanlike manner consistent with industry standards.",
+    "note": "hard negative \u2014 ordinary_performance"
+  },
+  {
+    "id": "S491-167",
+    "family": "ordinary_performance",
+    "label": "NEGATIVE",
+    "text": "Vendor shall perform the services in a professional and workmanlike manner consistent with industry standards.",
+    "note": "hard negative \u2014 ordinary_performance"
+  },
+  {
+    "id": "S491-168",
+    "family": "ordinary_performance",
+    "label": "NEGATIVE",
+    "text": "Licensee shall perform the services in a professional and workmanlike manner consistent with industry standards.",
+    "note": "hard negative \u2014 ordinary_performance"
+  },
+  {
+    "id": "S491-169",
+    "family": "ordinary_performance",
+    "label": "NEGATIVE",
+    "text": "Manufacturer shall perform the services in a professional and workmanlike manner consistent with industry standards.",
+    "note": "hard negative \u2014 ordinary_performance"
+  },
+  {
+    "id": "S491-170",
+    "family": "ordinary_performance",
+    "label": "NEGATIVE",
+    "text": "Tenant shall perform the services in a professional and workmanlike manner consistent with industry standards.",
+    "note": "hard negative \u2014 ordinary_performance"
+  },
+  {
+    "id": "S491-171",
+    "family": "risk_of_loss",
+    "label": "NEGATIVE",
+    "text": "Risk of loss for goods in transit shall pass to Owner upon delivery to the common carrier.",
+    "note": "hard negative \u2014 risk_of_loss"
+  },
+  {
+    "id": "S491-172",
+    "family": "risk_of_loss",
+    "label": "NEGATIVE",
+    "text": "Risk of loss for goods in transit shall pass to Client upon delivery to the common carrier.",
+    "note": "hard negative \u2014 risk_of_loss"
+  },
+  {
+    "id": "S491-173",
+    "family": "risk_of_loss",
+    "label": "NEGATIVE",
+    "text": "Risk of loss for goods in transit shall pass to Licensor upon delivery to the common carrier.",
+    "note": "hard negative \u2014 risk_of_loss"
+  },
+  {
+    "id": "S491-174",
+    "family": "risk_of_loss",
+    "label": "NEGATIVE",
+    "text": "Risk of loss for goods in transit shall pass to Distributor upon delivery to the common carrier.",
+    "note": "hard negative \u2014 risk_of_loss"
+  },
+  {
+    "id": "S491-175",
+    "family": "risk_of_loss",
+    "label": "NEGATIVE",
+    "text": "Risk of loss for goods in transit shall pass to Landlord upon delivery to the common carrier.",
+    "note": "hard negative \u2014 risk_of_loss"
+  },
+  {
+    "id": "S491-176",
+    "family": "payment_terms",
+    "label": "NEGATIVE",
+    "text": "Owner shall pay Contractor within thirty days of receipt of a correct invoice for services rendered.",
+    "note": "hard negative \u2014 payment_terms"
+  },
+  {
+    "id": "S491-177",
+    "family": "payment_terms",
+    "label": "NEGATIVE",
+    "text": "Client shall pay Vendor within thirty days of receipt of a correct invoice for services rendered.",
+    "note": "hard negative \u2014 payment_terms"
+  },
+  {
+    "id": "S491-178",
+    "family": "payment_terms",
+    "label": "NEGATIVE",
+    "text": "Licensor shall pay Licensee within thirty days of receipt of a correct invoice for services rendered.",
+    "note": "hard negative \u2014 payment_terms"
+  },
+  {
+    "id": "S491-179",
+    "family": "payment_terms",
+    "label": "NEGATIVE",
+    "text": "Distributor shall pay Manufacturer within thirty days of receipt of a correct invoice for services rendered.",
+    "note": "hard negative \u2014 payment_terms"
+  },
+  {
+    "id": "S491-180",
+    "family": "payment_terms",
+    "label": "NEGATIVE",
+    "text": "Landlord shall pay Tenant within thirty days of receipt of a correct invoice for services rendered.",
+    "note": "hard negative \u2014 payment_terms"
+  },
+  {
+    "id": "S491-181",
+    "family": "non_solicitation",
+    "label": "NEGATIVE",
+    "text": "During the term and for one year thereafter, Contractor shall not solicit for employment any employee of Owner.",
+    "note": "hard negative \u2014 non_solicitation"
+  },
+  {
+    "id": "S491-182",
+    "family": "non_solicitation",
+    "label": "NEGATIVE",
+    "text": "During the term and for one year thereafter, Vendor shall not solicit for employment any employee of Client.",
+    "note": "hard negative \u2014 non_solicitation"
+  },
+  {
+    "id": "S491-183",
+    "family": "non_solicitation",
+    "label": "NEGATIVE",
+    "text": "During the term and for one year thereafter, Licensee shall not solicit for employment any employee of Licensor.",
+    "note": "hard negative \u2014 non_solicitation"
+  },
+  {
+    "id": "S491-184",
+    "family": "non_solicitation",
+    "label": "NEGATIVE",
+    "text": "During the term and for one year thereafter, Manufacturer shall not solicit for employment any employee of Distributor.",
+    "note": "hard negative \u2014 non_solicitation"
+  },
+  {
+    "id": "S491-185",
+    "family": "non_solicitation",
+    "label": "NEGATIVE",
+    "text": "During the term and for one year thereafter, Tenant shall not solicit for employment any employee of Landlord.",
+    "note": "hard negative \u2014 non_solicitation"
+  },
+  {
+    "id": "S491-186",
+    "family": "governing_law",
+    "label": "NEGATIVE",
+    "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware.",
+    "note": "hard negative \u2014 governing_law"
+  },
+  {
+    "id": "S491-187",
+    "family": "governing_law",
+    "label": "NEGATIVE",
+    "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware.",
+    "note": "hard negative \u2014 governing_law"
+  },
+  {
+    "id": "S491-188",
+    "family": "governing_law",
+    "label": "NEGATIVE",
+    "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware.",
+    "note": "hard negative \u2014 governing_law"
+  },
+  {
+    "id": "S491-189",
+    "family": "governing_law",
+    "label": "NEGATIVE",
+    "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware.",
+    "note": "hard negative \u2014 governing_law"
+  },
+  {
+    "id": "S491-190",
+    "family": "governing_law",
+    "label": "NEGATIVE",
+    "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware.",
+    "note": "hard negative \u2014 governing_law"
+  },
+  {
+    "id": "S491-191",
+    "family": "self_liability_only",
+    "label": "NEGATIVE",
+    "text": "Contractor shall be solely responsible for its own costs and expenses incurred in performing this Agreement.",
+    "note": "hard negative \u2014 self_liability_only"
+  },
+  {
+    "id": "S491-192",
+    "family": "self_liability_only",
+    "label": "NEGATIVE",
+    "text": "Vendor shall be solely responsible for its own costs and expenses incurred in performing this Agreement.",
+    "note": "hard negative \u2014 self_liability_only"
+  },
+  {
+    "id": "S491-193",
+    "family": "self_liability_only",
+    "label": "NEGATIVE",
+    "text": "Licensee shall be solely responsible for its own costs and expenses incurred in performing this Agreement.",
+    "note": "hard negative \u2014 self_liability_only"
+  },
+  {
+    "id": "S491-194",
+    "family": "self_liability_only",
+    "label": "NEGATIVE",
+    "text": "Manufacturer shall be solely responsible for its own costs and expenses incurred in performing this Agreement.",
+    "note": "hard negative \u2014 self_liability_only"
+  },
+  {
+    "id": "S491-195",
+    "family": "self_liability_only",
+    "label": "NEGATIVE",
+    "text": "Tenant shall be solely responsible for its own costs and expenses incurred in performing this Agreement.",
+    "note": "hard negative \u2014 self_liability_only"
+  },
+  {
+    "id": "S491-196",
+    "family": "notice",
+    "label": "NEGATIVE",
+    "text": "All notices under this Agreement shall be delivered in writing to the addresses set forth on the signature page.",
+    "note": "hard negative \u2014 notice"
+  },
+  {
+    "id": "S491-197",
+    "family": "notice",
+    "label": "NEGATIVE",
+    "text": "All notices under this Agreement shall be delivered in writing to the addresses set forth on the signature page.",
+    "note": "hard negative \u2014 notice"
+  },
+  {
+    "id": "S491-198",
+    "family": "notice",
+    "label": "NEGATIVE",
+    "text": "All notices under this Agreement shall be delivered in writing to the addresses set forth on the signature page.",
+    "note": "hard negative \u2014 notice"
+  },
+  {
+    "id": "S491-199",
+    "family": "notice",
+    "label": "NEGATIVE",
+    "text": "All notices under this Agreement shall be delivered in writing to the addresses set forth on the signature page.",
+    "note": "hard negative \u2014 notice"
+  },
+  {
+    "id": "S491-200",
+    "family": "notice",
+    "label": "NEGATIVE",
+    "text": "All notices under this Agreement shall be delivered in writing to the addresses set forth on the signature page.",
+    "note": "hard negative \u2014 notice"
+  }
+]
