@@ -58,6 +58,7 @@ from policy_engine_core import (
     word_number_alternation as _core_word_number_alternation_fn,
     parse_multiplier_token as _core_parse_multiplier_token,
     SELF_FLAGGED_UNRESOLVED_RE as _core_self_flagged_unresolved_re,
+    is_operative_context as _core_is_operative_context,
 )
 from semantic_discovery import discover_candidate_spans as _discover_candidate_spans_simulated
 
@@ -1309,6 +1310,9 @@ def _verify_semantic_candidate(text: str, candidate) -> Tuple[str, Optional["Ind
         m = structuring_re.search(window)
         if not m:
             continue
+        abs_start, abs_end = candidate.start_offset + m.start(), candidate.start_offset + m.end()
+        if not _core_is_operative_context(text, abs_start, abs_end):
+            continue  # Step 4A.10.1 — see main structuring loop
         indemnifying_role, indemnified_role = trim_role_name(m.group(1)), trim_role_name(m.group(2))
         if indemnifying_role.lower() == indemnified_role.lower():
             continue
@@ -1425,6 +1429,8 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
     seen_role_pairs: List[Tuple[int, Tuple[str, str]]] = []
 
     for m in _OBLIGATION_RE.finditer(text):
+        if not _core_is_operative_context(text, m.start(), m.end()):
+            continue  # Step 4A.10.1 — quoted example/negated/meta-instructional, not the document's own operative term
         indemnifying_role, indemnified_role = trim_role_name(m.group(1)), trim_role_name(m.group(2))
         if indemnifying_role.lower() == indemnified_role.lower():
             continue  # regex false-positive guard, e.g. matched the same word twice
@@ -1478,6 +1484,8 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
         for m in synonym_re.finditer(text):
             if any(lo - 30 <= m.start() <= hi + 30 for lo, hi in seen_spans):
                 continue
+            if not _core_is_operative_context(text, m.start(), m.end()):
+                continue  # Step 4A.10.1 — see main loop above
             indemnifying_role, indemnified_role = trim_role_name(m.group(1)), trim_role_name(m.group(2))
             if indemnifying_role.lower() == indemnified_role.lower():
                 continue

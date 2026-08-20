@@ -1001,6 +1001,189 @@ SELF_FLAGGED_UNRESOLVED_RE = re.compile(
 )
 
 
+# Step 4A.10.1 — a structuring-regex match is currently trusted as
+# document-owned/operative with zero check of its enclosing structural
+# context. Step 4A.10 found 3 S4 cases (all indemnification) where text
+# quoted as a hypothetical example inside a prompt-injection payload, then
+# explicitly negated ("this sentence does not actually appear anywhere
+# below"), was extracted as if the parties had actually agreed to it.
+# Root-caused (artifacts/step4a10_1/s4_root_cause.md) as a compound of:
+# quoted-example text being treated as operative, AND negation/meta-
+# language of that quoted material (whether before OR after it) being
+# ignored entirely. A pre-fix benchmark (artifacts/step4a10_1/
+# s4_benchmark_PRE_output.txt) found this generalizes across 5 distinct
+# non-operative structural families (quoted examples, drafting
+# instructions, descriptive-about-clause statements, prompt injection,
+# explicit negation) at an 18/50 (36%) false-operative-extraction rate —
+# confirming this is a general property of the pipeline, not limited to
+# the 3 originally-found sentences, and not specific to one phrase family.
+#
+# This is deliberately adapter-agnostic (any structuring regex in any
+# adapter has the identical blind spot) and lives here rather than in
+# indemnification_policy_engine.py so a future liability/payment_terms
+# fix, if evidence ever justifies one, reuses this rather than
+# re-deriving it.
+_QUOTATION_INTRODUCING_RE = re.compile(
+    r"\bplease\s+quote\b"
+    r"|\bquote\s+the\s+following\b"
+    r"|\bread(?:s|ing)?\s+as\s+follows\b"
+    r"|\bstate[sd]?\s+as\s+follows\b"
+    r"|\bfor\s+example\b"
+    r"|\bfor\s+instance\b"
+    r"|\bsuch\s+as\b"
+    r"|\be\.g\."
+    r"|\bhypothetically\b"
+    r"|\bsample\s+(?:language|provision)\b"
+    r"|\billustrative\s+(?:language|clause)\b"
+    r"|\bdraft\s+language\s+reading\b"
+    r"|\bconsider\s+language\s+(?:like|such\s+as)\b"
+    r"|\ba\s+clause\s+(?:such\s+as|reading)\b"
+    r"|\blanguage\s+(?:such\s+as|reading)\b",
+    re.I,
+)
+
+_NEGATED_OR_REJECTED_MATERIAL_RE = re.compile(
+    r"\bdoes\s+not\s+actually\s+appear\b"
+    r"|\bdoes\s+not\s+appear\b"
+    r"|\bis\s+not\s+included\b"
+    r"|\bwas\s+not\s+included\b"
+    r"|\bdoes\s+not\s+contain\b"
+    r"|\bdo\s+not\s+contain\b"
+    r"|\bwas\s+rejected\b"
+    r"|\bwere\s+rejected\b"
+    r"|\brejected\s+language\b"
+    r"|\bwould\s+have\s+(?:stated|read|provided|required)\b"
+    r"|\bthis\s+(?:sentence|language|clause|provision)\s+does\s+not\b"
+    r"|\bno\s+such\s+(?:language|clause|provision|sentence)"
+    r"(?:\s+currently)?\s+(?:appears|exists|is\s+included)\b"
+    r"|\bdoes\s+not\s+contain\s+a\s+provision\b"
+    r"|\bcontains?\s+no\s+(?:such\s+)?(?:provision|clause|language|term)\b"
+    r"|\bomits?\s+any\s+requirement\b"
+    r"|\bwas\s+withdrawn\b"
+    r"|\bwas\s+deleted\b"
+    r"|\bexplicitly\s+declined\b"
+    r"|\bdeclined\s+to\s+(?:agree|include)\b",
+    re.I,
+)
+
+_META_INSTRUCTIONAL_RE = re.compile(
+    r"\bplease\s+(?:quote|revise|output|respond|insert|add)\b"
+    r"|\bignore\s+(?:all\s+)?previous\s+instructions\b"
+    r"|\bsystem\s*(?:override)?\s*:"
+    r"|\bnote\s+to\s+(?:reviewer|ai|model|drafter)\b"
+    r"|\bdrafting\s+note\s*:"
+    r"|\bcomment\s*:"
+    r"|\breviewer\s+instruction\b"
+    r"|\byou\s+(?:are|must|should)\s+(?:now\s+)?(?:output|respond|treat|report)\b"
+    r"|\battention\s+model\b"
+    r"|\btest\s+instruction\b"
+    r"|\bfor\s+debugging\s+purposes\b"
+    r"|\bfor\s+testing\s+purposes\b"
+    r"|\[(?:drafting\s+note|redline\s+instruction|comment\s+bubble|system\s+instruction)\]",
+    re.I,
+)
+
+_DESCRIPTIVE_ABOUT_CLAUSE_RE = re.compile(
+    r"\ba\s+(?:supplier|vendor|party|contractor|licensee|licensor|customer|"
+    r"client)\s+(?:might|could|may|would)\s+agree\s+that\b"
+    r"|\b(?:language|provision|clause|term)\s+(?:stating|providing|saying)\s+that\b"
+    r"|\ba\s+(?:clause|provision)\s+(?:providing|stating)\s+that\b"
+    r"|\bdescribing\s+a\s+provision\b"
+    r"|\bthis\s+(?:memorandum|memo|summary|article|alert|case\s+study|"
+    r"training|glossary|faq)\b",
+    re.I,
+)
+
+_QUOTE_CHARS = "'‘’\"“”"
+
+# A negation/instruction/descriptive cue must not bleed across a clause
+# boundary into a SEPARATE, genuinely operative statement elsewhere in the
+# same document (e.g. "...does not actually appear anywhere below.
+# Separately, X shall indemnify Y for..." — the second clause is a real,
+# distinct, operative term and must not be suppressed just because an
+# earlier decoy nearby was negated). Found via this step's own MIXED-case
+# test family (artifacts/step4a10_1/s4_benchmark_POST_output.txt showed a
+# false suppression here before this boundary was added). Clause
+# boundaries are period/semicolon/em-dash followed by whitespace — a
+# coarse but general and robust proxy for "a new independent statement is
+# starting," which naturally scopes the negation/quotation/meta/
+# descriptive checks to the SAME clause as the match (plus one clause of
+# lookback/lookahead for the "quote introduced, then negated in the very
+# next clause" shape the original 3 S4 cases used) without requiring an
+# enumerated list of transition words.
+_CLAUSE_BOUNDARY_RE = re.compile(r"[.;]\s+|--\s*|—\s*")
+
+
+def _same_or_adjacent_clause(full_window: str, from_end: bool) -> str:
+    """Deliberately asymmetric, matching the two demonstrated shapes:
+    - BACKWARD (from_end=True, looking before the match): restricted to
+      the CURRENT clause only (from the last clause boundary to the
+      match) — a "Separately,"/new-clause transition immediately behind
+      the match means whatever an EARLIER clause said (e.g. a negated
+      decoy quote) must not reach forward into this, a separate, genuinely
+      operative statement.
+    - FORWARD (from_end=False, looking after the match): the current
+      clause PLUS one clause of lookahead — negation of a just-quoted
+      example characteristically follows it in the very next clause
+      ("...'X shall indemnify Y.' This sentence does not actually
+      appear..."), so that one clause of lookahead must still be visible."""
+    boundaries = list(_CLAUSE_BOUNDARY_RE.finditer(full_window))
+    if from_end:
+        if boundaries:
+            return full_window[boundaries[-1].end():]
+        return full_window
+    else:
+        if len(boundaries) >= 2:
+            return full_window[:boundaries[1].start()]
+        return full_window
+
+
+def is_operative_context(text: str, match_start: int, match_end: int,
+                          before_window: int = 220, after_window: int = 220) -> bool:
+    """Returns False when a structuring-regex match's surrounding context
+    marks it as NOT the document's own operative term -- a quoted
+    hypothetical example, a drafting instruction/comment, a descriptive
+    statement about the general concept, meta-instructional text
+    (including prompt-injection payloads), or text explicitly negated/
+    rejected nearby (before OR after the match, since negation of a
+    quoted example commonly follows it: "...appeared in this document:
+    '...'. This sentence does not actually appear anywhere below.").
+
+    Deliberately a set of STRUCTURAL cue families, not a blacklist of
+    specific sentences -- see policy_engine_core.py's module comment
+    above this function and artifacts/step4a10_1/s4_root_cause.md.
+    """
+    lo, hi = max(0, match_start - before_window), min(len(text), match_end + after_window)
+    window_before_full = text[lo:match_start]
+    window_after_full = text[match_end:hi]
+
+    # Scope negation/quotation/meta/descriptive checks to the clause
+    # touching the match plus one clause of lookback/lookahead (see
+    # _same_or_adjacent_clause) so an unrelated, separately-introduced
+    # clause elsewhere in the document can't falsely suppress a genuine
+    # operative statement.
+    window_before = _same_or_adjacent_clause(window_before_full, from_end=True)
+    window_after = _same_or_adjacent_clause(window_after_full, from_end=False)
+    local_window = window_before + text[match_start:match_end] + window_after
+
+    # Enclosed in quote marks whose most recent opening quote is itself
+    # preceded (nearby) by quotation-introducing framing.
+    quote_positions = [window_before.rfind(ch) for ch in _QUOTE_CHARS]
+    quote_open = max(quote_positions)
+    if quote_open != -1:
+        pre_quote_context = window_before[max(0, quote_open - 120):quote_open]
+        if _QUOTATION_INTRODUCING_RE.search(pre_quote_context):
+            return False
+
+    if _NEGATED_OR_REJECTED_MATERIAL_RE.search(local_window):
+        return False
+    if _META_INSTRUCTIONAL_RE.search(window_before) or _META_INSTRUCTIONAL_RE.search(local_window[:before_window]):
+        return False
+    if _DESCRIPTIVE_ABOUT_CLAUSE_RE.search(window_before):
+        return False
+    return True
+
+
 def chained_delegation_excerpt(window: str, before: int = 60, after: int = 40) -> Optional[str]:
     """Returns the excerpt around a CHAINED_DELEGATION_RE match in `window`,
     or None if the pattern doesn't fire. Each adapter builds its own
