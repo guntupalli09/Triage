@@ -1,0 +1,62 @@
+
+=== regex-only (PRE) ===
+POSITIVE (n=120): {'PRESENT_AND_VERIFIED': 19, 'PRESENT_BUT_UNRESOLVED': 35, 'RECOGNITION_UNCERTAIN': 0, 'CONFIRMED_ABSENT': 66}
+  recall (clean VERIFIED): 15.8%
+  recall (discovered, verified-or-flagged-for-review): 45.0%
+  false-absence rate: 55.0%
+NEGATIVE (n=80): {'PRESENT_AND_VERIFIED': 0, 'PRESENT_BUT_UNRESOLVED': 0, 'RECOGNITION_UNCERTAIN': 0, 'CONFIRMED_ABSENT': 80}
+  true-negative rate: 100.0%
+  FALSE clean-verified on a hard negative (dangerous): 0
+  routed-to-review-unnecessarily (safe but noisy): 0
+By family:
+  assignment: n=5 verified=0 unresolved=0 absent=5
+  canonical: n=20 verified=19 unresolved=1 absent=0
+  confidentiality: n=5 verified=0 unresolved=0 absent=5
+  explicit_negation: n=5 verified=0 unresolved=0 absent=5
+  force_majeure: n=5 verified=0 unresolved=0 absent=5
+  governing_law: n=5 verified=0 unresolved=0 absent=5
+  insurance: n=5 verified=0 unresolved=0 absent=5
+  ip_ownership: n=5 verified=0 unresolved=0 absent=5
+  limitation_of_liability: n=5 verified=0 unresolved=0 absent=5
+  non_solicitation: n=5 verified=0 unresolved=0 absent=5
+  notice: n=5 verified=0 unresolved=0 absent=5
+  novel_unseen: n=30 verified=0 unresolved=0 absent=30
+  ordinary_performance: n=5 verified=0 unresolved=0 absent=5
+  payment_terms: n=5 verified=0 unresolved=0 absent=5
+  regex_synonym: n=30 verified=0 unresolved=30 absent=0
+  risk_of_loss: n=5 verified=0 unresolved=0 absent=5
+  self_liability_only: n=5 verified=0 unresolved=0 absent=5
+  semantic_vocab: n=40 verified=0 unresolved=4 absent=36
+  termination: n=5 verified=0 unresolved=0 absent=5
+  warranty: n=5 verified=0 unresolved=0 absent=5
+
+=== hybrid ===
+POSITIVE (n=120): {'PRESENT_AND_VERIFIED': 19, 'PRESENT_BUT_UNRESOLVED': 71, 'RECOGNITION_UNCERTAIN': 0, 'CONFIRMED_ABSENT': 30}
+  recall (clean VERIFIED): 15.8%
+  recall (discovered, verified-or-flagged-for-review): 75.0%
+  false-absence rate: 25.0%
+NEGATIVE (n=80): {'PRESENT_AND_VERIFIED': 0, 'PRESENT_BUT_UNRESOLVED': 0, 'RECOGNITION_UNCERTAIN': 0, 'CONFIRMED_ABSENT': 80}
+  true-negative rate: 100.0%
+  FALSE clean-verified on a hard negative (dangerous): 0
+  routed-to-review-unnecessarily (safe but noisy): 0
+By family:
+  assignment: n=5 verified=0 unresolved=0 absent=5
+  canonical: n=20 verified=19 unresolved=1 absent=0
+  confidentiality: n=5 verified=0 unresolved=0 absent=5
+  explicit_negation: n=5 verified=0 unresolved=0 absent=5
+  force_majeure: n=5 verified=0 unresolved=0 absent=5
+  governing_law: n=5 verified=0 unresolved=0 absent=5
+  insurance: n=5 verified=0 unresolved=0 absent=5
+  ip_ownership: n=5 verified=0 unresolved=0 absent=5
+  limitation_of_liability: n=5 verified=0 unresolved=0 absent=5
+  non_solicitation: n=5 verified=0 unresolved=0 absent=5
+  notice: n=5 verified=0 unresolved=0 absent=5
+  novel_unseen: n=30 verified=0 unresolved=0 absent=30
+  ordinary_performance: n=5 verified=0 unresolved=0 absent=5
+  payment_terms: n=5 verified=0 unresolved=0 absent=5
+  regex_synonym: n=30 verified=0 unresolved=30 absent=0
+  risk_of_loss: n=5 verified=0 unresolved=0 absent=5
+  self_liability_only: n=5 verified=0 unresolved=0 absent=5
+  semantic_vocab: n=40 verified=0 unresolved=40 absent=0
+  termination: n=5 verified=0 unresolved=0 absent=5
+  warranty: n=5 verified=0 unresolved=0 absent=5

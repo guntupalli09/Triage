@@ -59,8 +59,14 @@ from policy_engine_core import (
     parse_multiplier_token as _core_parse_multiplier_token,
     SELF_FLAGGED_UNRESOLVED_RE as _core_self_flagged_unresolved_re,
 )
+from semantic_discovery import discover_candidate_spans as _discover_candidate_spans
 
 _core_word_number_alternation = _core_word_number_alternation_fn()
+
+# Step 4A.9.1 — module-level switch so the deterministic-only baseline
+# (Phase 7, Phase 19/20 "regex-only" comparison arm) can be reproduced
+# exactly by flipping one flag, without maintaining two code paths.
+HYBRID_DISCOVERY_ENABLED = True
 
 RULE_ID = "POLICY_INDEMNIFICATION"
 
@@ -849,6 +855,13 @@ class IndemnityObligation:
     # matter not yet finally resolved" doesn't need a second obligation to
     # compare against; the obligation itself is self-evidently incomplete.
     self_flagged_unresolved: bool = False
+    # Step 4A.9.1 — provenance: "REGEX" (deterministic structuring found and
+    # verified this obligation directly) or "SEMANTIC" (a semantic-discovery
+    # candidate span was found, then this SAME deterministic structuring
+    # code verified it — never the semantic layer's own output). Kept
+    # separate from the fact fields themselves so discovery provenance is
+    # always auditable without being mistaken for an authoritative field.
+    discovery_source: str = "REGEX"
 
     def label(self) -> str:
         prefix = f"Section {self.section_label} — " if self.section_label else ""
@@ -859,6 +872,12 @@ class IndemnityObligation:
 class IndemnificationFacts:
     clause_found: bool
     obligations: List[IndemnityObligation] = field(default_factory=list)
+    # Step 4A.9.1 Phase 11 — one of PRESENT_AND_VERIFIED / PRESENT_BUT_
+    # UNRESOLVED / RECOGNITION_UNCERTAIN / CONFIRMED_ABSENT. Diagnostic only
+    # (evaluate_indemnification_policy still keys off obligations/
+    # clause_found) but audited directly in Step 4A.9.1's reports.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
 
 
 class IndemnificationPolicyRuleLike(Protocol):
@@ -1257,6 +1276,79 @@ def _extract_obligation_window(text: str, start: int, end: int) -> str:
     return text[start:min(len(text), start + _PROVISION_WINDOW_CHARS)]
 
 
+def _verify_semantic_candidate(text: str, candidate) -> Tuple[str, Optional["IndemnityObligation"]]:
+    """Step 4A.9.1 Phases 4/6/10 — the ONLY place a semantic discovery
+    candidate can become authoritative: by being re-run through the SAME
+    deterministic structuring regexes the regex-only path already uses.
+    The semantic layer's own confidence/metadata is never consulted here.
+    Returns (outcome, obligation_or_None) with outcome in
+    {"VERIFIED", "UNRESOLVED", "REJECTED"}."""
+    # Phase 4 — mandatory verbatim evidence-span validation.
+    if text[candidate.start_offset:candidate.end_offset] != candidate.evidence_span:
+        return "REJECTED", None
+    if candidate.concept != "indemnification":
+        return "REJECTED", None
+    window = _extract_obligation_window(text, candidate.start_offset, candidate.end_offset)
+    for structuring_re in (_OBLIGATION_RE,) + tuple(_SYNONYM_OBLIGATION_RES):
+        m = structuring_re.search(window)
+        if not m:
+            continue
+        indemnifying_role, indemnified_role = trim_role_name(m.group(1)), trim_role_name(m.group(2))
+        if indemnifying_role.lower() == indemnified_role.lower():
+            continue
+        indemnifying_side, indemnifying_conflict = resolve_role_side(indemnifying_role, text)
+        indemnified_side, indemnified_conflict = resolve_role_side(indemnified_role, text)
+        conflict_reasons = [r for r in (indemnifying_conflict, indemnified_conflict) if r]
+        obligation = IndemnityObligation(
+            indemnifying_role=indemnifying_role, indemnifying_side=indemnifying_side,
+            indemnified_role=indemnified_role, indemnified_side=indemnified_side,
+            trigger_treatments=_classify_triggers(window),
+            scope=_classify_scope(window),
+            defense_control=_classify_defense_control(window, indemnifying_role, indemnified_role),
+            notice_required=True if _NOTICE_RE.search(window) else None,
+            cooperation_required=True if _COOPERATION_RE.search(window) else None,
+            monetary=_classify_monetary(window, candidate.start_offset),
+            raw_excerpt=candidate.evidence_span,
+            start_index=candidate.start_offset, end_index=candidate.end_offset,
+            section_label=_section_label_before(text, candidate.start_offset),
+            role_side_conflict_reasons=conflict_reasons,
+            asymmetry_reasons=_detect_reciprocal_asymmetry(window),
+            self_flagged_unresolved=bool(_SELF_FLAGGED_INDEMNIFICATION_UNRESOLVED_RE.search(window)),
+            discovery_source="SEMANTIC",
+        )
+        return "VERIFIED", obligation
+    # Plausibly indemnification-shaped (broad discovery signal) but the
+    # deterministic structuring code still can't identify a role pair —
+    # safe fallthrough to REQUIRES_REVIEW territory, never authoritative.
+    if _risk_transfer_signal_present(candidate.evidence_span):
+        return "UNRESOLVED", None
+    return "REJECTED", None
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
+    """Wraps the semantic discovery call so an unavailable/misbehaving
+    provider (Phase 18) never propagates an exception into extraction —
+    and, critically, is distinguishable from a provider that ran fine and
+    found nothing (see absence_state in extract_indemnification_facts)."""
+    if not HYBRID_DISCOVERY_ENABLED:
+        return [], None
+    try:
+        candidates = _discover_candidate_spans(text, "indemnification")
+    except Exception as exc:  # noqa: BLE001 — deliberately broad: any provider failure is "unavailable"
+        return [], f"{type(exc).__name__}: {exc}"
+    if candidates is None or not isinstance(candidates, list):
+        return [], "malformed_response"
+    return candidates, None
+
+
+def _spans_overlap(a_start: int, a_end: int, b_start: int, b_end: int) -> bool:
+    lo, hi = max(a_start, b_start), min(a_end, b_end)
+    if hi <= lo:
+        return False
+    overlap = hi - lo
+    return overlap > 0.5 * min(a_end - a_start, b_end - b_start)
+
+
 def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
     """Finds every directional indemnification obligation stated in the
     full document. Unlike Limitation of Liability's single controlling
@@ -1281,8 +1373,27 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
     # NOT itself create policy authority — it only reaches the existing "if
     # not obligations" fallback below, which already safely produces
     # REQUIRES_REVIEW when no directional obligation can be structured.
-    if not anchors and not any(r.search(text) for r in _SYNONYM_OBLIGATION_RES) \
-            and not _risk_transfer_signal_present(text):
+    regex_found_nothing = not anchors and not any(r.search(text) for r in _SYNONYM_OBLIGATION_RES) \
+        and not _risk_transfer_signal_present(text)
+
+    # Step 4A.9.1 Phase 8 — semantic discovery runs ADDITIVELY alongside the
+    # regex path, never in place of it. It is invoked even when regex found
+    # something (a document can state indemnification twice, once in
+    # regex-recognizable form and once in a form only semantic discovery
+    # catches) so recall gains are not gated on regex-first failure.
+    semantic_candidates, semantic_error = _run_semantic_discovery(text)
+
+    # Phase 11 — four-way absence state. CONFIRMED_ABSENT (-> NOT_APPLICABLE
+    # via the `return None` below) is reachable ONLY when regex found
+    # nothing AND semantic discovery ran successfully and also found
+    # nothing. A provider outage/error must never silently collapse into
+    # "confirmed absent" (Phase 18).
+    if regex_found_nothing and not semantic_candidates:
+        if semantic_error is not None:
+            return IndemnificationFacts(
+                clause_found=True, obligations=[], absence_state="RECOGNITION_UNCERTAIN",
+                semantic_discovery_error=semantic_error,
+            )
         return None
 
     obligations: List[IndemnityObligation] = []
@@ -1439,6 +1550,28 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
         ))
         seen_spans.append((m.start(), m.end()))
 
+    # Step 4A.9.1 Phases 4/6/8/9/10 — process semantic candidates, if any,
+    # through the SAME deterministic verification every regex-discovered
+    # obligation already went through. A candidate can only become an
+    # authoritative IndemnityObligation via _verify_semantic_candidate,
+    # never via its own discovery_metadata/confidence.
+    for cand in semantic_candidates:
+        if not isinstance(getattr(cand, "start_offset", None), int) or not isinstance(getattr(cand, "end_offset", None), int):
+            continue  # malformed candidate — discarded, not authoritative
+        if any(_spans_overlap(cand.start_offset, cand.end_offset, lo, hi) for lo, hi in seen_spans):
+            continue  # Phase 4 dedup — already covered by a regex-discovered obligation
+        outcome, semantic_obligation = _verify_semantic_candidate(text, cand)
+        if outcome == "VERIFIED" and semantic_obligation is not None:
+            pair = (semantic_obligation.indemnifying_role.lower(), semantic_obligation.indemnified_role.lower())
+            if any(abs(cand.start_offset - s) < 50 and p == pair for s, p in seen_role_pairs):
+                continue
+            obligations.append(semantic_obligation)
+            seen_spans.append((cand.start_offset, cand.end_offset))
+            seen_role_pairs.append((cand.start_offset, pair))
+        # UNRESOLVED/REJECTED candidates are discarded here — no authoritative effect,
+        # not even on absence_state (an unverifiable/hallucinated candidate
+        # must not be able to force PRESENT_BUT_UNRESOLVED either).
+
     if not obligations:
         if _EXPLICIT_NO_OBLIGATION_RE.search(text):
             # No directional promise was parsed, AND the document contains
@@ -1450,11 +1583,13 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             return None
         # "indemnif..." appears somewhere (e.g. a heading or a cross-
         # reference to an indemnification section elsewhere) but no
-        # directional promise could be parsed from it.
-        return IndemnificationFacts(clause_found=True, obligations=[])
+        # directional promise could be parsed from it — OR only an
+        # UNRESOLVED semantic candidate was found. Either way: present but
+        # unresolved, never a silent absence.
+        return IndemnificationFacts(clause_found=True, obligations=[], absence_state="PRESENT_BUT_UNRESOLVED")
 
     obligations.sort(key=lambda o: o.start_index)
-    return IndemnificationFacts(clause_found=True, obligations=obligations)
+    return IndemnificationFacts(clause_found=True, obligations=obligations, absence_state="PRESENT_AND_VERIFIED")
 
 
 # ---------------------------------------------------------------------------
