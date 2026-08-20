@@ -1205,8 +1205,8 @@ def chained_delegation_excerpt(window: str, before: int = 60, after: int = 40) -
 # asymmetry below) when the specific-dimension classifiers found no
 # provable difference — never as the sole/first-line asymmetry signal.
 _DIFFERENTIATING_QUALIFIER_RE = re.compile(
-    r"\bonly\b|\bsolely\b|\bexclusively\b|\bdoes\s+not\s+apply\b|"
-    r"\bdo\s+not\s+apply\b|\bno\s+right\s+to\b|\buncapped\b|\bcapped\s+at\b|"
+    r"\bonly\b|\bsolely\b|\bexclusively\b|\bexclusive\b|\bdoes\s+not\s+apply\b|"
+    r"\bdo\s+not\s+apply\b|\bno\s+(?:\w+\s+)?right\s+to\b|\buncapped\b|\bcapped\s+at\b|"
     r"\bregardless\s+of\b|\bconditioned\s+on\b|\bextends?\s+to\b|"
     r"\bdifferent\b|\bdiffering\b|\bunlike\b|\ba\s+carve[- ]?out\b",
     re.I,

@@ -1,0 +1,6 @@
+
+=== S4 BENCHMARK ===
+OPERATIVE (n=40): recall (clean VERIFIED) = 20/40 = 50.0%
+NON_OPERATIVE (n=50): correctly NOT clean-verified = 50/50 = 100.0%
+  false operative extraction (clean VERIFIED on non-operative text) = 0
+MIXED (n=10): clean VERIFIED (should find the genuine operative term) = 8/10 = 80.0%

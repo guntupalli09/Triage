@@ -1,0 +1,4 @@
+=== DEV CONTROLS (FINAL) ===
+survival_temporal {'CA': 4, 'CR': 1, 'CS': 5, 'WC': 3}
+schedule_cross_reference {'CA': 4, 'CR': 2, 'CS': 4, 'WC': 3}
+overall: {'CA': 8, 'CR': 3, 'CS': 9, 'WC': 6}

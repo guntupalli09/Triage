@@ -59,6 +59,7 @@ from policy_engine_core import (
     parse_multiplier_token as _core_parse_multiplier_token,
     SELF_FLAGGED_UNRESOLVED_RE as _core_self_flagged_unresolved_re,
     is_operative_context as _core_is_operative_context,
+    _DIFFERENTIATING_QUALIFIER_RE,
 )
 from semantic_discovery import discover_candidate_spans as _discover_candidate_spans_simulated
 
@@ -492,6 +493,64 @@ _GENERIC_ROLE_WORDS = {
     "each", "the", "any", "such", "this", "that", "both", "either", "all",
     "party", "parties", "indemnifying", "indemnified", "other",
 }
+# Step 4A.10.3 — document-structure nouns that can be capitalized and
+# grammatically possessive/subject-shaped ("this Agreement's terms...")
+# but are never a party name; excluded from _NAMED_ROLE_MENTION_RE below
+# to keep that broader, noun/verb-agnostic pattern precise.
+_DOCUMENT_STRUCTURE_WORDS = {
+    "agreement", "section", "schedule", "exhibit", "appendix", "annex",
+    "article", "recital", "preamble", "exhibits", "schedules", "sections",
+    # Common section-heading nouns ("8. Indemnification.") that are
+    # capitalized as titles, not party names -- found via this step's
+    # own historical-regression testing (the heading itself was being
+    # discovered as a third "role").
+    "indemnification", "indemnity", "liability", "limitation",
+    "confidentiality", "termination", "definitions", "warranties",
+    "insurance", "assignment", "notices", "miscellaneous",
+}
+# Step 4A.10.3 — root-cause fix for Step 4A.10.2's 126/126 frozen-corpus
+# failure (artifacts/step4a10_2/step4a10_2_final_report.md Section Y):
+# _ROLE_ATTRIBUTION_RE and the "is liable/responsible for" widening are
+# both anchored to a SPECIFIC noun ("obligation(s)") or SPECIFIC verbs
+# ("liable"/"responsible") -- an unbounded, ever-growing vocabulary list
+# that a fresh corpus using "duty," "is answerable for," "retains the
+# right," "has no corresponding right," etc. defeats entirely, taking
+# every downstream comparison dimension down with it (all 12 share this
+# one gate). Enumerating more verbs was tried during this step's own
+# development iteration and immediately hit the identical wall on a new
+# verb ("retains"/"has") -- confirming that ANY closed verb list repeats
+# the failure at a smaller scale. This pattern instead matches bare,
+# distinctly-named, non-generic, non-document-structure role mentions
+# with NO verb/noun requirement at all -- deliberately maximal recall.
+# This is safe specifically BECAUSE of where it is used: only as a
+# CANDIDATE-discovery signal (see _detect_reciprocal_asymmetry's
+# fail-closed block below), gated on a reciprocal opener AND a
+# differentiation cue already being present in the window, and every
+# candidate still goes through the unchanged _snapshot_indemnity_
+# attribution/_compare_indemnity_attribution machinery. Over-broad
+# candidate discovery here can only push outcomes toward MORE review
+# (the safe direction for this specific failure mode), never toward a
+# false clean symmetric result -- see design.md for the full argument.
+_NAMED_ROLE_MENTION_RE = re.compile(
+    r"(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))",
+)
+# Step 4A.10.3 — the mirror-image structural cue: explicit confirmation
+# that two named parties receive THE SAME treatment, even when no
+# specific-dimension classifier recognizes what that treatment is (e.g.
+# a schedule reference or a bespoke term neither _snapshot_indemnity_
+# attribution nor _SCHEDULE_REFERENCE_PER_ROLE_RE has a field for).
+# Found via this step's own dev-control regression testing: the fail-
+# closed invariant below was, before this cue, incorrectly escalating
+# genuinely symmetric restatements like "applies equally to X and Y" /
+# "Schedule 3 for X and Schedule 3 for Y alike" purely because nothing
+# about their content matched a recognized dimension -- this cue lets a
+# drafter's own explicit statement of equivalence stand as confirmation.
+_EQUAL_TREATMENT_CUE_RE = re.compile(
+    r"\bapplies?\s+equally\b|\bequally\s+to\b|\bboth\b|\balike\b|"
+    r"\bidentical(?:ly)?\b|\bthe\s+same\b|\bon\s+the\s+same\s+terms\b|"
+    r"\bin\s+the\s+same\s+manner\b",
+    re.I,
+)
 # Step 4A.10.2 — a named role bound to its own external Schedule/Exhibit/
 # Appendix/Annex reference, e.g. "Schedule 3 for Vendor... Schedule 5 for
 # Client." See _detect_reciprocal_asymmetry's use of this below.
@@ -1411,7 +1470,115 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
                 f"proviso naming {distinct_other[0]} — two independently differentiated parties in one "
                 f"sentence, neither comparable to a matching statement for the other"
             )
+    if reasons:
+        return reasons
+
+    # Step 4A.10.3 — general candidate discovery + fail-closed invariant
+    # (artifacts/step4a10_3/design.md). Every check above requires a
+    # SPECIFIC attribution phrase or differentiation-cue WORD -- both are
+    # closed vocabularies, and a first version of this block gated on
+    # _DIFFERENTIATING_QUALIFIER_RE was itself defeated by ordinary
+    # phrasing ("continues without end," "differs from," "is fixed by")
+    # that names no recognized cue word at all (found via this step's own
+    # development iteration against the Step 4A.10.2 corpus -- the same
+    # whack-a-mole pattern recurring one layer deeper). This version does
+    # NOT require any cue word. It requires only: (1) a reciprocal opener
+    # matched; (2) >=2 distinctly-named, non-generic, non-document-
+    # structure roles mentioned in the window (bare mention, no verb/noun
+    # requirement -- see _NAMED_ROLE_MENTION_RE); (3) a real, positive
+    # ASYMMETRY OF INFORMATION between their snapshots: at least one
+    # role's snapshot has SOME establishable value on some dimension and
+    # at least one other role's snapshot does not. That is a direct,
+    # general implementation of the required invariant: "failure to
+    # establish two comparable reciprocal obligation snapshots must never
+    # produce a clean symmetric conclusion" -- if one side's snapshot has
+    # information the other side's doesn't, the two are, by definition,
+    # NOT confirmed comparable, regardless of which words were used to
+    # state either side.
+    mentions = [
+        (trim_role_name(m.group(1)), m.start())
+        for m in _NAMED_ROLE_MENTION_RE.finditer(window)
+        if trim_role_name(m.group(1)).lower() not in _GENERIC_ROLE_WORDS
+        and trim_role_name(m.group(1)).lower() not in _DOCUMENT_STRUCTURE_WORDS
+    ]
+    distinct_roles: List[Tuple[str, int]] = []
+    seen_lower: set = set()
+    for role, start in mentions:
+        if role.lower() not in seen_lower:
+            seen_lower.add(role.lower())
+            distinct_roles.append((role, start))
+    # Step 4A.10.3 — this block's comparison premise (two named roles'
+    # snapshots ought to match) is only meaningful for a GENUINELY
+    # reciprocal structure (an "each party"/"mutual" opener, or a third+
+    # role beyond a simple two-party pair). For an ORDINARY single-
+    # directional "X shall indemnify Y" obligation, X (indemnifying) and
+    # Y (indemnified) are not two independent promises that ought to
+    # match each other at all -- they are the two roles of the SAME one
+    # promise, and this obligation's own monetary/causation/etc. terms
+    # are already correctly extracted once, directly, by the top-level
+    # structuring loop that called into this function. Found via this
+    # step's own historical-regression testing (a strictly-named
+    # bidirectional restatement, "X indemnifies Y, and Y indemnifies X,
+    # in each case...", produced two separate _OBLIGATION_RE matches;
+    # this block was firing on the SECOND match's own window, which
+    # contains only that one single direction plus the shared trailing
+    # clause, and misread "the other party's name" as a second role
+    # needing independent, matching terms). Requiring >=3 distinct roles
+    # OR a genuine mutual/reciprocal opener excludes exactly that
+    # ordinary single-obligation shape while still covering every case
+    # this block was built for (all of which use "each party"/"mutual"
+    # phrasing or name a third role).
+    if len(distinct_roles) >= 2 and (len(distinct_roles) >= 3 or _MUTUAL_RECIPROCAL_RE.search(window)):
+        snapshots = {}
+        for i, (role, start) in enumerate(distinct_roles):
+            next_start = distinct_roles[i + 1][1] if i + 1 < len(distinct_roles) else len(window)
+            hi = min(len(window), start + _ROLE_ATTRIBUTION_LOCAL_CHARS, next_start)
+            boundary = re.search(r"\.\s|\.$", window[start:hi])
+            if boundary:
+                hi = start + boundary.end()
+            snapshots[role] = _snapshot_indemnity_attribution(window[start:hi])
+        roles = list(snapshots.keys())
+        cmp_reasons: List[str] = []
+        for role in roles[1:]:
+            cmp_reasons.extend(_compare_indemnity_attribution(roles[0], snapshots[roles[0]], role, snapshots[role]))
+        if cmp_reasons:
+            return cmp_reasons
+        if _EQUAL_TREATMENT_CUE_RE.search(window):
+            pass  # drafter explicitly confirms equivalent treatment -- safe
+        else:
+            has_value = {role: _snapshot_has_any_value(snap) for role, snap in snapshots.items()}
+            value_asymmetry = any(has_value.values()) and not all(has_value.values())
+            cue_present = bool(_DIFFERENTIATING_QUALIFIER_RE.search(window))
+            if value_asymmetry or cue_present:
+                # FAIL-CLOSED: the two snapshots are not confirmed
+                # comparable -- either one side states something
+                # establishable the other doesn't, or the clause plainly
+                # signals differentiated treatment no specific classifier
+                # could characterize. Symmetry cannot be assumed.
+                missing = [r for r, v in has_value.items() if not v]
+                detail = (
+                    f"specific, establishable terms exist for {', '.join(r for r, v in has_value.items() if v)} but "
+                    f"not for {', '.join(missing)}" if value_asymmetry else
+                    "the clause contains language singling out or conditioning treatment for a specific named party"
+                )
+                return [f"{', '.join(roles)}: {detail} — the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"]
     return reasons
+
+
+def _snapshot_has_any_value(snap: Dict[str, Any]) -> bool:
+    """True if a role's snapshot carries ANY establishable value on ANY
+    comparison dimension -- used only by the Step 4A.10.3 fail-closed
+    check above to detect asymmetric information availability between
+    two named roles' snapshots."""
+    return (
+        snap["monetary"].kind != "not_stated"
+        or snap["scope"] not in ("not_addressed", "unresolved")
+        or snap["defense_control"] not in ("not_addressed", "unresolved")
+        or bool(snap["triggers"])
+        or snap["broad_beneficiary"]
+        or snap["causation_standard"] is not None
+        or snap["survival"] is not None
+    )
 
 
 def _extract_obligation_window(text: str, start: int, end: int) -> str:
