@@ -467,4 +467,6 @@ report and its supporting artifacts constitute the complete POC deliverable.
   novel phrasing (0/30), so the architecture's core promise over more
   regex hardening remains empirically unproven pending a real-provider
   test against the already-built, already-locked benchmark.
-- Candidate SHA for this step's work: `cd0825e729494b29effa4cc5b9c6a09c2168a407`.
+- Candidate SHA for this step's work (implementation + benchmark lock:
+  `cd0825e729494b29effa4cc5b9c6a09c2168a407`; full step incl. this report
+  and all Phase 7-31 artifacts: `054c6f7afb2c48195e817aad9a6ce346482a6f6b`).
