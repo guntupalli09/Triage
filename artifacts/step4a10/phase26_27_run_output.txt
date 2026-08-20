@@ -1,0 +1,38 @@
+  1/30 done (4.3s elapsed)
+  2/30 done (8.3s elapsed)
+  3/30 done (13.0s elapsed)
+  4/30 done (17.5s elapsed)
+  5/30 done (21.6s elapsed)
+  6/30 done (25.8s elapsed)
+  7/30 done (32.1s elapsed)
+  8/30 done (36.5s elapsed)
+  9/30 done (41.5s elapsed)
+  10/30 done (46.0s elapsed)
+  11/30 done (50.8s elapsed)
+  12/30 done (54.9s elapsed)
+  13/30 done (59.3s elapsed)
+  14/30 done (63.2s elapsed)
+  15/30 done (84.0s elapsed)
+  16/30 done (88.3s elapsed)
+  17/30 done (93.4s elapsed)
+  18/30 done (97.9s elapsed)
+  19/30 done (102.4s elapsed)
+  20/30 done (106.8s elapsed)
+  21/30 done (110.4s elapsed)
+  22/30 done (114.4s elapsed)
+  23/30 done (117.5s elapsed)
+  24/30 done (121.0s elapsed)
+  25/30 done (125.2s elapsed)
+  26/30 done (128.7s elapsed)
+  27/30 done (133.6s elapsed)
+  28/30 done (138.1s elapsed)
+  29/30 done (143.8s elapsed)
+  30/30 done (147.9s elapsed)
+{
+  "n_documents": 30,
+  "n_runs_per_document": 5,
+  "fully_stable_documents": 30,
+  "documents_with_any_outcome_change": 0,
+  "contradictory_clean_authoritative_decision_count": 0,
+  "review_vs_absent_boundary_flicker_count": 0
+}

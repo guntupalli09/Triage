@@ -1,0 +1,414 @@
+=== run_liability_benchmark ===
+# Limitation of Liability Policy Engine — Benchmark Report
+
+Corpus size: **125** cases across 32 drafting-pattern tags.
+
+## Headline safety metric
+
+**False-safe rate: 0 / 125 (0.0%)** — cases where the correct answer required attorney attention (NEGOTIATE / MUST_REDLINE / PROHIBITED / ESCALATE / REQUIRES_REVIEW) but the engine returned ACCEPT or ACCEPT_WITH_NOTE.
+
+Zero false-safe cases in this run.
+
+## Second safety direction: false-escalation ("annoying automation")
+
+**False-escalation rate: 0 / 125 (0.0%)** — cases where the correct answer was clear-cut (not REQUIRES_REVIEW) but the engine sent it to REQUIRES_REVIEW anyway. Zero false-safe cases achieved by refusing to ever decide would score perfectly on the headline metric while being useless — this is the metric that would catch that.
+
+Zero false-escalation cases in this run.
+
+## Metrics
+
+| Metric | Result | Target |
+|---|---|---|
+| Policy-state accuracy | 97.6% (125 cases) | >95% |
+| General-cap extraction accuracy | 98.9% (90 scored) | >98% |
+| Category-treatment accuracy | 100.0% (27 scored) | >95% |
+| Consequential-damages-exclusion accuracy | 100.0% (8 scored) | — |
+| Ambiguity detection recall (REQUIRES_REVIEW) | 97.5% (39/40) | very high |
+| False-safe rate | 0.0% (0/125) | ≈0% |
+| False-escalation rate | 0.0% (0/125) | (tracked, no fixed target yet) |
+| Determinism (5x repeat, byte-identical) | 125/125 identical | 100% |
+
+## Release gate check
+
+- PASS — False-safe = 0 (actual: 0)
+- PASS — Policy-state accuracy > 95% (actual: 97.6%)
+- PASS — General-cap extraction > 98% (actual: 98.9%)
+- PASS — Category treatment > 95% (actual: 100.0%)
+- PASS — Determinism = 100% (actual: 100.0%)
+
+**Overall: PASS**
+
+## GROUND_TRUTH_REVIEW_REQUIRED
+
+Cases where a capability added in this pass changed the engine's output on a case whose label was written before that capability existed, and the new output is plausibly *more* correct than the original label — not a demonstrated error, a genuine judgment call flagged for human review rather than silently relabeled to raise accuracy.
+
+### `partial-01`
+
+Expected `ACCEPT`, engine now returns `NEGOTIATE`.
+
+Label was ACCEPT, on a carve-out worded 'gross negligence in performing its data security obligations' credited against a required_exceptions list of [gross_negligence, data_breach]. The original note already flagged uncertainty: crediting this narrow, compound carve-out as satisfying a general data_breach requirement was a judgment call, not a clear-cut reading. The engine now returns NEGOTIATE because data_breach isn't independently addressed — arguably the more conservative, defensible legal reading (the carve-out is scoped to negligence in a specific obligation, not to data breaches generally). Recommend: review with a lawyer; do not resolve by adjusting the engine to match the original guess.
+
+### `amendment-02`
+
+Expected `REQUIRES_REVIEW`, engine now returns `ESCALATE`.
+
+Label was REQUIRES_REVIEW, recorded before document-wide provision discovery existed (the engine could not see past its old ~3000-char window at all). The engine now finds the amendment, recognizes its explicit 'hereby amended and restated' language, and deterministically resolves to the amendment's 6x figure -> ESCALATE. Priority 1's own spec calls deterministic resolution one of the two acceptable outcomes (the other being REQUIRES_REVIEW) — so ESCALATE may be the better answer now, not a regression. Recommend: accept ESCALATE as correct and update the label in a future pass, but not as part of this one, since that would be tuning a label using the same change that produced the mismatch.
+
+## Failures by drafting pattern
+
+Grouped by tag so recurring gaps in one drafting pattern are visible together, rather than as N isolated case failures. Extraction logic was not modified to force individual cases to pass — these are the actual current gaps.
+
+### `unheaded` — 1 failing case(s)
+
+- `unheaded-08`: expected state `ACCEPT`, got `MUST_REDLINE`; general-cap extraction mismatch
+
+### `unquantified_cap` — 1 failing case(s)
+
+- `unheaded-08`: expected state `ACCEPT`, got `MUST_REDLINE`; general-cap extraction mismatch
+
+
+=== run_liability_ownership_benchmark ===
+Corpus size: 42
+
+| id | expect_review | got_review | expected_value | got_value | ok |
+|---|---|---|---|---|---|
+| own-01 | False | False | 2 times the annual fees paid | '2 times the annual fees paid' | OK |
+| own-02 | False | False | $1,000,000 | 'In no event shall aggregate liability exceed $1,000,000' | OK |
+| own-03 | False | False | 3 times the total fees paid | '3 times the total fees paid' | OK |
+| own-04 | False | False | $500,000 | 'limited to $500,000' | OK |
+| own-05 | False | False | 1.5 times the annual fees paid | '1.5 times the annual fees paid' | OK |
+| own-06 | False | False | $2,500,000 | 'maximum aggregate liability shall not exceed $2,500,000' | OK |
+| own-07 | False | False | no cap | 'There shall be no cap' | OK |
+| own-08 | False | False | 4 times the fees paid | '4 times the fees paid in the twelve (12) months' | OK |
+| own-09 | True | True | None | None | OK |
+| own-10 | True | True | None | None | OK |
+| own-11 | True | True | None | None | OK |
+| own-12 | True | True | None | None | OK |
+| own-13 | True | True | None | None | OK |
+| own-14 | True | True | None | None | OK |
+| own-15 | False | False | $2,000,000 | 'shall in the aggregate not exceed $2,000,000' | OK |
+| own-16 | True | True | None | None | OK |
+| own-17 | False | False | $3,000,000 | 'shall not exceed $3,000,000' | OK |
+| own-18 | False | False | $1,500,000 | 'shall not exceed $1,500,000,' | OK |
+| own-19 | False | False | 1 times the annual fees paid | '1 times the annual fees paid' | OK |
+| own-20 | False | False | $1,000,000 | 'shall not exceed $1,000,000' | OK |
+| own-21 | False | False | 2 times the annual fees paid | '2 times the annual fees paid' | OK |
+| own-22 | False | False | $2,000,000 | 'shall not exceed $2,000,000,' | OK |
+| own-23 | False | False | $750,000 | 'limited to $750,000' | OK |
+| own-24 | False | False | 3 times the annual fees paid | '3 times the annual fees paid' | OK |
+| own-25 | False | False | $900,000 | 'shall not exceed $900,000' | OK |
+| own-26 | False | False | $1,200,000 | 'shall not exceed $1,200,000' | OK |
+| own-27 | False | False | 2 times the annual fees paid | '2 times the annual fees paid' | OK |
+| own-28 | False | False | $600,000 | 'shall not exceed $600,000,' | OK |
+| own-29 | False | False | 1 times the annual fees paid | '1 times the annual fees paid' | OK |
+| own-30 | True | True | None | None | OK |
+| own-31 | True | True | None | None | OK |
+| own-32 | True | True | None | None | OK |
+| own-33 | True | True | None | None | OK |
+| own-34 | True | True | None | None | OK |
+| own-35 | False | False | 3 times the annual fees paid | '3 times the annual fees paid' | OK |
+| own-36 | False | False | $1,500,000 | 'Cap Amount, which the parties agree is $1,500,000' | OK |
+| own-37 | True | True | None | None | OK |
+| own-38 | True | True | None | None | OK |
+| own-39 | False | False | 2 times the annual fees paid | '2 times the annual fees paid' | OK |
+| own-40 | True | True | None | None | OK |
+| own-41 | False | False | $850,000 | 'shall not exceed $850,000' | OK |
+| own-42 | True | True | None | None | OK |
+
+Correct: 42/42 (100.0%)
+False-safe (review required but confident value adopted): 0
+
+=== run_payment_recognition_benchmark ===
+Corpus size: 65 (45 positive, 20 negative)
+
+| id | concept | expected | recognized | ok |
+|---|---|---|---|---|
+| PT-01 | payment_timing | positive | True | OK |
+| PT-02 | payment_timing | positive | True | OK |
+| PT-03 | payment_timing | positive | True | OK |
+| PT-04 | payment_timing | positive | True | OK |
+| PT-05 | payment_timing | positive | True | OK |
+| PT-06 | invoice_obligation | positive | True | OK |
+| PT-07 | invoice_obligation | positive | True | OK |
+| PT-08 | invoice_obligation | positive | True | OK |
+| PT-09 | invoice_obligation | positive | True | OK |
+| PT-10 | invoice_obligation | positive | True | OK |
+| PT-11 | taxes | positive | True | OK |
+| PT-12 | taxes | positive | True | OK |
+| PT-13 | taxes | positive | True | OK |
+| PT-14 | taxes | positive | True | OK |
+| PT-15 | taxes | positive | True | OK |
+| PT-16 | withholding | positive | True | OK |
+| PT-17 | withholding | positive | True | OK |
+| PT-18 | withholding | positive | True | OK |
+| PT-19 | currency | positive | True | OK |
+| PT-20 | currency | positive | True | OK |
+| PT-21 | currency | positive | True | OK |
+| PT-22 | currency | positive | True | OK |
+| PT-23 | disputed_amounts | positive | True | OK |
+| PT-24 | disputed_amounts | positive | True | OK |
+| PT-25 | disputed_amounts | positive | True | OK |
+| PT-26 | disputed_amounts | positive | True | OK |
+| PT-27 | disputed_amounts | positive | True | OK |
+| PT-28 | undisputed_payable | positive | True | OK |
+| PT-29 | undisputed_payable | positive | True | OK |
+| PT-30 | undisputed_payable | positive | True | OK |
+| PT-31 | set_off | positive | True | OK |
+| PT-32 | set_off | positive | True | OK |
+| PT-33 | set_off | positive | True | OK |
+| PT-34 | set_off | positive | True | OK |
+| PT-35 | set_off | positive | True | OK |
+| PT-36 | late_fee | positive | True | OK |
+| PT-37 | late_fee | positive | True | OK |
+| PT-38 | late_fee | positive | True | OK |
+| PT-39 | late_fee | positive | True | OK |
+| PT-40 | reimbursement | positive | True | OK |
+| PT-41 | reimbursement | positive | True | OK |
+| PT-42 | reimbursement | positive | True | OK |
+| PT-43 | price_increase | positive | True | OK |
+| PT-44 | price_increase | positive | True | OK |
+| PT-45 | price_increase | positive | True | OK |
+| NEG-01 | distractor_insurance | negative | False | OK |
+| NEG-02 | distractor_liability_cap | negative | False | OK |
+| NEG-03 | distractor_ma_purchase_price | negative | True | MISS |
+| NEG-04 | distractor_indemnification | negative | False | OK |
+| NEG-05 | distractor_confidentiality | negative | False | OK |
+| NEG-06 | distractor_governing_law | negative | False | OK |
+| NEG-07 | distractor_representation | negative | False | OK |
+| NEG-08 | distractor_representation | negative | False | OK |
+| NEG-09 | distractor_insurance | negative | False | OK |
+| NEG-10 | distractor_security_deposit | negative | False | OK |
+| NEG-11 | distractor_valuation | negative | False | OK |
+| NEG-12 | distractor_damages | negative | False | OK |
+| NEG-13 | distractor_insurance | negative | False | OK |
+| NEG-14 | distractor_indemnification | negative | False | OK |
+| NEG-15 | distractor_termination_fee | negative | True | MISS |
+| NEG-16 | distractor_generic_dispute | negative | False | OK |
+| NEG-17 | distractor_warranty | negative | False | OK |
+| NEG-18 | distractor_assignment | negative | False | OK |
+| NEG-19 | distractor_dispute_resolution | negative | False | OK |
+| NEG-20 | distractor_boilerplate_tax_id | negative | False | OK |
+
+Recall: 100.0% (45/45)
+Precision: 95.7% (45/47)
+False-negative rate: 0.0% (0/45)
+False-positive rate: 10.0% (2/20)
+
+=== run_payment_terms_benchmark ===
+# Payment Terms / Commercial Terms Policy Engine — Benchmark Report
+
+Corpus size: **84** cases across 86 drafting-pattern tags. Adapter #10 — see payment_terms_policy_engine.py module docstring.
+
+## Headline safety metric
+
+**False-safe rate: 0 / 84 (0.0%)**
+
+Zero false-safe cases in this run.
+
+## False-escalation
+
+**False-escalation rate: 0 / 84 (0.0%)**
+
+Zero false-escalation cases in this run.
+
+## Metrics
+
+| Metric | Result | Scored on |
+|---|---|---|
+| Provision detection (fact extraction: clause found) | 100.0% | 84 (all cases) |
+| Policy-state accuracy | 100.0% | 84 (all cases) |
+| Ambiguity/conflict routing (REQUIRES_REVIEW) recall | 100.0% | 8 |
+| False-safe rate | 0.0% | 84 (all cases) |
+| False-escalation rate | 0.0% | 84 (all cases) |
+| Determinism (5x repeat) | 100.0% | 84 (all cases) |
+
+## Release gate check
+
+- PASS — False-safe = 0 (actual: 0)
+- PASS — False-escalation = 0 (actual: 0)
+- PASS — Determinism = 100% (actual: 100.0%)
+- PASS — Policy-state accuracy > 95% (actual: 100.0%)
+
+## Failures by drafting pattern
+
+None.
+
+
+=== run_role_boundary_benchmark ===
+Corpus size: 53 (33 positive, 20 negative)
+
+
+Exact-boundary recall (positives): 100.0% (33/33)
+Precision: 100.0% (33/33)
+False-negative rate (positives): 0.0% (0/33)
+False-positive rate (over-capture on negatives): 0.0% (0/20)
+
+=== run_role_resolution_benchmark ===
+# Role-Resolution Verifier Benchmark
+
+Corpus size: 49 cases
+
+| id | role | expected | actual | note |
+|---|---|---|---|---|
+| conv-01 | Customer | consistent | no-conflict | OK |
+| conv-02 | Vendor | consistent | no-conflict | OK |
+| rev-01 | Vendor | conflict | conflict | OK |
+| rev-02 | Customer | conflict | conflict | OK |
+| rev-03 | Licensor | conflict | conflict | OK |
+| rev-04 | Licensee | conflict | conflict | OK |
+| syn-01-means | Customer | consistent | no-conflict | OK |
+| syn-02-shall-mean | Customer | consistent | no-conflict | OK |
+| syn-03-refers-to | Customer | consistent | no-conflict | OK |
+| syn-04-shall-refer-to | Customer | consistent | no-conflict | OK |
+| syn-05-is-defined-as | Customer | consistent | no-conflict | OK |
+| syn-06-shall-have-the-meaning | Customer | consistent | no-conflict | OK |
+| syn-07-has-the-meaning | Customer | consistent | no-conflict | OK |
+| syn-08-shall-be-construed-to-mean | Customer | consistent | no-conflict | OK |
+| syn-09-means-and-includes | Customer | consistent | no-conflict | OK |
+| nondir-01 | Vendor | non_directional | no-conflict | OK |
+| nondir-02 | Customer | non_directional | no-conflict | OK |
+| nondir-03 | Licensee | non_directional | no-conflict | OK |
+| distractor-01 | Vendor | non_directional | no-conflict | OK |
+| distractor-02 | Customer | non_directional | no-conflict | OK |
+| multi-01-first | Licensor | conflict | conflict | OK |
+| multi-01-second | Licensee | conflict | conflict | OK |
+| mixed-01 | Vendor | conflict | conflict | OK |
+| mixed-02 | Distributor | conflict | conflict | OK |
+| unrecognized-predicate-01 | Vendor | unrecognized | no-conflict | EXPECTED MISS (predicate not in recognized vocabulary — documented limitation) |
+| customer-of-01 | Customer | consistent | no-conflict | OK |
+| obtains-services-01 | Client | consistent | no-conflict | OK |
+| furnish-01 | Supplier | consistent | no-conflict | OK |
+| far-definition-01 | Reseller | unknown_generic | no-conflict | definition found but role reversal is directionally consequential only in a 2-party clause; this benchmark scores the primitive alone |
+| broad-01-understood-to-mean | Vendor | conflict | conflict | OK |
+| broad-02-for-purposes-hereof | Licensee | conflict | conflict | OK |
+| broad-03-references-to-quoted | Supplier | conflict | conflict | OK |
+| broad-04-references-to-unquoted | Distributor | conflict | conflict | OK |
+| gerund-01-possessive-noun-phrase | Vendor | conflict | conflict | OK |
+| gerund-02-own-conduct-is-real-reversal | Vendor | conflict | conflict | OK |
+| gerund-03-pronoun-possessive | Reseller | conflict | conflict | OK |
+| passive-01-manufactured-by | Buyer | consistent | no-conflict | OK |
+| passive-02-delivered-by | Recipient | conflict | no-conflict | MISMATCH |
+| indirect-01-resolvable-agrees | Customer | consistent | no-conflict | OK |
+| indirect-02-resolvable-conflicts | Vendor | conflict | conflict | OK |
+| indirect-03-unresolvable-target-missing | Customer | non_directional | no-conflict | OK |
+| verb-01-engages-services-of | Client | consistent | no-conflict | OK |
+| verb-02-commissions | Client | consistent | no-conflict | OK |
+| verb-03-sources-from | Customer | consistent | no-conflict | OK |
+| verb-04-renders-to | Provider | consistent | no-conflict | OK |
+| verb-05-performs-for | Provider | consistent | no-conflict | OK |
+| verb-06-makes-available-to | Provider | consistent | no-conflict | OK |
+| verb-07-licenses-from-relates-to-named-party | Licensee | conflict | conflict | OK |
+| verb-08-licenses-the-is-sellside | Licensor | consistent | no-conflict | OK |
+
+## Metrics
+
+- True positives (correctly flagged conflicts): 17
+- False positives (false conflicts on non-conflicting definitions): 0
+- False negatives (missed real conflicts): 1
+- True negatives: 31
+- Conflict precision: 100.0%
+- Conflict recall: 94.4%
+- False-conflict rate: 0.0%
+- Missed-conflict rate: 5.6%
+
+=== run_bystander_discrimination_benchmark ===
+Corpus size: 47 (22 positive, 25 negative)
+
+| NEG-BD-09 | negative | side=None reason="the document's own definition of 'Landlord' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Landlord''s conventional classification still applies" | MISS | subcontracted property-manager bystander mention
+| NEG-BD-11 | negative | side=sell_side reason=None | MISS | Carrier's own unrelated third-party customer bystander mention
+| NEG-BD-19 | negative | side=None reason="the document's own definition of 'Grower' uses both purchasing/receiving language and providing/selling language — cannot determine which transactional side 'Grower' actually occupies" | MISS | Processor's own unrelated third-party purchase is a bystander clause about Processor, not Grower
+
+Recall (genuine evidence correctly resolved): 100.0% (22/22)
+Precision: 88.0% (22/25)
+False-negative rate: 0.0% (0/22)
+False-positive rate (bystander wrongly escalated/misresolved): 12.0% (3/25)
+
+=== run_direction_invariance_benchmark ===
+Corpus size: 40
+
+
+Correct-automatic-on-invariant / correct-review-on-sensitive: 40/40 (100.0%)
+Unsafe-automatic count (direction-sensitive case resolved automatically): 0
+Unnecessary-review count (direction-invariant case escalated): 0
+
+=== run_liability_concept_benchmark ===
+## Section 1 — Direct CONCEPT+LIMIT verification (isolated from VALUE extraction)
+
+Corpus size: 30 cases (15 positive, 15 negative)
+
+Measures _has_liability_concept_nearby() directly against a synthetic CapValue at the numeric figure's actual span — isolated from _find_cap_values' own separate, pre-existing value-extraction drafting-pattern coverage (out of Step 4A.1's scope; noted separately below where it independently fails to extract a value at all).
+
+| id | expected | concept-verifier result | note |
+|---|---|---|---|
+| pos-01-shall-not-exceed | genuine | ACCEPTED | OK |
+| pos-02-multiplier-fees | genuine | ACCEPTED | OK |
+| pos-03-intervening-clause | genuine | ACCEPTED | OK |
+| pos-04-total-liability-under-or-relating | genuine | ACCEPTED | OK |
+| pos-05-maximum-aggregate | genuine | ACCEPTED | OK |
+| pos-06-contract-tort-or-otherwise | genuine | ACCEPTED | OK |
+| pos-07-referenced-schedule-heading | genuine | ACCEPTED | OK |
+| pos-08-unusual-heading-2 | genuine | ACCEPTED | OK |
+| pos-09-modifier-between | genuine | ACCEPTED | OK |
+| pos-10-multiline | genuine | ACCEPTED | OK |
+| pos-11-parenthetical | genuine | ACCEPTED | OK |
+| pos-12-uncapped-negative-signal | genuine | ACCEPTED | OK |
+| pos-13-ceiling-word | genuine | ACCEPTED | OK |
+| pos-14-cumulative | genuine | ACCEPTED | OK |
+| pos-15-liable-for-phrasing | genuine | ACCEPTED | OK |
+| neg-01-sla-service-credit | unrelated | REJECTED | OK |
+| neg-02-insurance-limit | unrelated | REJECTED | OK |
+| neg-03-purchase-price | unrelated | REJECTED | OK |
+| neg-04-fee-amount | unrelated | REJECTED | OK |
+| neg-05-damages-example | unrelated | REJECTED | OK |
+| neg-06-notice-period | unrelated | REJECTED | OK |
+| neg-07-deductible | unrelated | REJECTED | OK |
+| neg-08-indemnification-basket | unrelated | REJECTED | OK |
+| neg-09-termination-fee | unrelated | REJECTED | OK |
+| neg-10-security-deposit | unrelated | REJECTED | OK |
+| neg-11-unrelated-schedule-number | unrelated | REJECTED | OK |
+| neg-12-liability-word-service-credit-same-sentence | unrelated | REJECTED | OK |
+| neg-13-followed-by-unrelated-definition | unrelated | REJECTED | OK |
+| neg-14-cross-ref-identifier | unrelated | REJECTED | OK |
+| neg-15-late-fee | unrelated | REJECTED | OK |
+
+- Genuine-cap verification recall (concept+limit check alone): 100.0% (15/15)
+- Unrelated-number rejection rate: 100.0% (15/15)
+- False acceptance rate: 0.0% (0/15)
+- Unnecessary rejection/escalation rate: 0.0% (0/15)
+
+Note — separately, 3/15 genuine cases would ALSO fail at the unrelated VALUE-extraction step (_find_cap_values), independent of concept verification: pos-05-maximum-aggregate, pos-11-parenthetical, pos-13-ceiling-word. This is a pre-existing _find_cap_values drafting-pattern coverage gap, not a Step 4A.1 regression — flagged for a future extraction-recall pass, out of this step's scope.
+
+
+## Section 2 — End-to-end cross-reference resolution
+
+
+### Genuine (5 cases)
+
+| id | state | extracted_summary |
+|---|---|---|
+| gxr-01 | ESCALATE | '$500,000.00 fixed' |
+| gxr-02 | ACCEPT_WITH_NOTE | '2x annual fees' |
+| gxr-03 | ESCALATE | '$750,000.00 fixed' |
+| gxr-04 | ESCALATE | '$1,000,000.00 fixed' |
+| gxr-05 | NEGOTIATE | '3x annual fees' |
+
+### Unrelated (5 cases)
+
+| id | state | extracted_summary |
+|---|---|---|
+| uxr-01 | REQUIRES_REVIEW | 'Could not be reliably established' |
+| uxr-02 | REQUIRES_REVIEW | 'Could not be reliably established' |
+| uxr-03 | REQUIRES_REVIEW | 'Could not be reliably established' |
+| uxr-04 | REQUIRES_REVIEW | 'Could not be reliably established' |
+| uxr-05 | REQUIRES_REVIEW | 'Could not be reliably established' |
+
+### Mixed (5 cases)
+
+| id | state | extracted_summary |
+|---|---|---|
+| mxr-01 | ESCALATE | '$1,000,000.00 fixed' |
+| mxr-02 | ESCALATE | '$500,000.00 fixed' |
+| mxr-03 | ESCALATE | '$2,000,000.00 fixed' |
+| mxr-04 | ESCALATE | '$500,000.00 fixed' |
+| mxr-05 | ESCALATE | '$1,000,000.00 fixed' |
+

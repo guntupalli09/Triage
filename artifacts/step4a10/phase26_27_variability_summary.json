@@ -1,0 +1,8 @@
+{
+  "n_documents": 30,
+  "n_runs_per_document": 5,
+  "fully_stable_documents": 30,
+  "documents_with_any_outcome_change": 0,
+  "contradictory_clean_authoritative_decision_count": 0,
+  "review_vs_absent_boundary_flicker_count": 0
+}
