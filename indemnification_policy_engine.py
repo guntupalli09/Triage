@@ -492,6 +492,19 @@ _GENERIC_ROLE_WORDS = {
     "each", "the", "any", "such", "this", "that", "both", "either", "all",
     "party", "parties", "indemnifying", "indemnified", "other",
 }
+# Step 4A.10.2 — a named role bound to its own external Schedule/Exhibit/
+# Appendix/Annex reference, e.g. "Schedule 3 for Vendor... Schedule 5 for
+# Client." See _detect_reciprocal_asymmetry's use of this below.
+_SCHEDULE_REFERENCE_PER_ROLE_RE = re.compile(
+    r"(?:Schedule|Exhibit|Appendix|Annex)\s+([A-Za-z0-9]+)\s+for\s+"
+    r"(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))"
+    # reversed ordering: "...applicable to [Role] is set forth in Schedule/
+    # Exhibit N" -- same underlying concept (role bound to an external
+    # reference), role named before the label instead of after.
+    r"|(?:applicable\s+to|for)\s+(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))"
+    r"\s+is\s+set\s+forth\s+in\s+(?:Schedule|Exhibit|Appendix|Annex)\s+([A-Za-z0-9]+)",
+    re.I,
+)
 # Step 4A.3 — Failure Family 4: a reciprocal opener ("each party shall
 # indemnify... up to a cap of 2x fees") can be immediately qualified by an
 # "except that/provided that" proviso naming ONE specific party and giving
@@ -550,6 +563,60 @@ def _classify_causation_standard(local: str) -> Optional[str]:
         return None
     phrase = (m.group(1) or m.group(2) or "").strip().lower()
     return phrase or None
+
+# Step 4A.10.2 — survival/temporal is a genuine comparison dimension the
+# snapshot/compare architecture never represented at all (Step 4A.10.1
+# closed most false-symmetry dimensions via a generic differentiating-
+# qualifier safety net, but that net only fires on a handful of cue
+# words and, per artifacts/step4a10_2/architecture_audit.md, this
+# dimension needs an actual normalized value to compare -- the same
+# treatment causation_standard already gets, not a keyword proxy. The
+# pre-existing _survival_period_value/_find_procedural_differentiation_
+# roles mechanism (Step 4A.5) only recognizes a NUMERIC year/month period
+# stated via "shall survive/not apply" phrasing; it has no representation
+# for a CATEGORICAL difference (indefinite/perpetual survival vs. no
+# survival / termination-triggered end), which is at least as common a
+# drafting shape. This adds that missing categorical value, normalized
+# onto the same numeric scale so a mixed indefinite-vs-bounded or
+# bounded-vs-none comparison also works without a separate code path.
+_SURVIVAL_INDEFINITE_RE = re.compile(
+    r"\bsurvives?\b.{0,40}\bindefinitely\b|\bindefinitely\b.{0,40}\bsurvives?\b"
+    r"|\bin\s+perpetuity\b|\bno\s+time\s+limit\b|\bcontinues?\s+indefinitely\b",
+    re.I,
+)
+_SURVIVAL_NONE_RE = re.compile(
+    r"\bterminates?\s+upon\s+(?:termination|expiration)\b"
+    r"|\bdoes\s+not\s+survive\b|\bshall\s+not\s+survive\b"
+    r"|\bceases?\s+(?:immediately\s+)?upon\s+(?:termination|expiration)\b",
+    re.I,
+)
+_SURVIVAL_PERIOD_YEARS_RE = re.compile(
+    r"\bsurvives?\b(?:\s+termination)?(?:\s+of\s+this\s+agreement)?\s+for\s+a\s+period\s+of\s+"
+    r"(\w+)\s*\(?\d*\)?\s*(years?|months?)\b",
+    re.I,
+)
+
+
+def _classify_survival(local: str) -> Optional[Tuple[float, str]]:
+    """Returns a normalized (magnitude, unit) value on a shared scale so
+    indefinite/none/bounded values are all directly comparable -- mirrors
+    _survival_period_value's tuple shape but adds the two categorical
+    values it couldn't represent."""
+    if _SURVIVAL_INDEFINITE_RE.search(local):
+        return (float("inf"), "indefinite")
+    if _SURVIVAL_NONE_RE.search(local):
+        return (0.0, "none")
+    m = _SURVIVAL_PERIOD_YEARS_RE.search(local)
+    if m:
+        word = m.group(1).lower()
+        n = _SURVIVAL_WORD_NUMBERS.get(word)
+        if n is None and word.isdigit():
+            n = float(word)
+        if n is not None:
+            unit = m.group(2).lower().rstrip("s")
+            months = n * 12 if unit == "month" else n
+            return (months, "bounded")
+    return None
 
 # Step 4A.5 — Failure Family: a reciprocal opener can be qualified by
 # PROCEDURAL (not monetary/trigger/scope) terms stated separately for two
@@ -1130,6 +1197,7 @@ def _snapshot_indemnity_attribution(local: str) -> Dict[str, Any]:
         ),
         "broad_beneficiary": bool(_BROAD_BENEFICIARY_RE.search(local)),
         "causation_standard": _classify_causation_standard(local),
+        "survival": _classify_survival(local),
     }
 
 
@@ -1176,6 +1244,14 @@ def _compare_indemnity_attribution(base_role: str, base: Dict[str, Any], role: s
             f"{base_role} and {role} are subject to different named causation standards "
             f"({base['causation_standard']!r} vs {snap['causation_standard']!r})"
         )
+    # Step 4A.10.2 — survival/temporal, normalized onto a shared
+    # (magnitude, unit) scale so indefinite/none/bounded values all
+    # compare directly, same treatment as causation_standard above.
+    if base["survival"] is not None and snap["survival"] is not None and base["survival"] != snap["survival"]:
+        reasons.append(
+            f"{base_role} and {role} state different survival/temporal terms "
+            f"({base['survival'][1]} vs {snap['survival'][1]})"
+        )
     return reasons
 
 
@@ -1217,6 +1293,42 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
     )
     if reasons:
         return reasons
+
+    # Step 4A.10.2 — a named role bound to its OWN external Schedule/
+    # Exhibit/Appendix/Annex reference ("Schedule 3 for Vendor... Schedule
+    # 5 for Client") never registers as a _ROLE_ATTRIBUTION_RE match at
+    # all (no "obligation"/"is liable for" phrase — the role is only the
+    # object of "for"), so detect_role_attributed_asymmetry above never
+    # even runs for this shape (architecture audit:
+    # artifacts/step4a10_2/architecture_audit.md Section K). This is a
+    # distinct structural pattern (cross-reference-per-role, not
+    # attribution-then-value), so it gets its own general detector rather
+    # than trying to widen _ROLE_ATTRIBUTION_RE to also match a bare "for
+    # X" (too generic — would false-positive on ordinary non-attributive
+    # "for" phrases throughout the document). Two DIFFERENT named roles
+    # bound to two DIFFERENT schedule/exhibit labels is flagged
+    # regardless of whether the schedules' actual contents differ,
+    # because the clause's own text cannot verify what an external
+    # document contains — symmetry can never be established from it.
+    schedule_refs: Dict[str, str] = {}
+    for m in _SCHEDULE_REFERENCE_PER_ROLE_RE.finditer(window):
+        # Two alternatives, two different group layouts: (label, role) for
+        # "Schedule N for Role", (role, label) for "...Role is set forth
+        # in Schedule N" -- whichever pair matched has non-None groups.
+        if m.group(1) is not None:
+            label, role = m.group(1), trim_role_name(m.group(2))
+        else:
+            role, label = trim_role_name(m.group(3)), m.group(4)
+        if role.lower() in _GENERIC_ROLE_WORDS:
+            continue
+        schedule_refs.setdefault(role, label)
+    distinct_labels = set(schedule_refs.values())
+    if len(schedule_refs) >= 2 and len(distinct_labels) >= 2:
+        pairs = ", ".join(f"{role} ({label})" for role, label in schedule_refs.items())
+        return [
+            f"the clause binds different named parties to different external schedule/exhibit "
+            f"references whose contents this clause's own text cannot verify as equivalent: {pairs}"
+        ]
 
     # One-named-party-vs-general-terms check (see _PARTY_SPECIFIC_EXCEPTION_RE).
     em = _PARTY_SPECIFIC_EXCEPTION_RE.search(window)
