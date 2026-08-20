@@ -1,0 +1,402 @@
+{
+  "S4FIX-001": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-002": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-003": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-004": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-005": {
+    "outcome": "CONFIRMED_ABSENT",
+    "n_obligations": 0
+  },
+  "S4FIX-006": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-007": {
+    "outcome": "CONFIRMED_ABSENT",
+    "n_obligations": 0
+  },
+  "S4FIX-008": {
+    "outcome": "CONFIRMED_ABSENT",
+    "n_obligations": 0
+  },
+  "S4FIX-009": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-010": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-011": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-012": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-013": {
+    "outcome": "CONFIRMED_ABSENT",
+    "n_obligations": 0
+  },
+  "S4FIX-014": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-015": {
+    "outcome": "CONFIRMED_ABSENT",
+    "n_obligations": 0
+  },
+  "S4FIX-016": {
+    "outcome": "CONFIRMED_ABSENT",
+    "n_obligations": 0
+  },
+  "S4FIX-017": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-018": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-019": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-020": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-021": {
+    "outcome": "CONFIRMED_ABSENT",
+    "n_obligations": 0
+  },
+  "S4FIX-022": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-023": {
+    "outcome": "CONFIRMED_ABSENT",
+    "n_obligations": 0
+  },
+  "S4FIX-024": {
+    "outcome": "CONFIRMED_ABSENT",
+    "n_obligations": 0
+  },
+  "S4FIX-025": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-026": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-027": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-028": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-029": {
+    "outcome": "CONFIRMED_ABSENT",
+    "n_obligations": 0
+  },
+  "S4FIX-030": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-031": {
+    "outcome": "CONFIRMED_ABSENT",
+    "n_obligations": 0
+  },
+  "S4FIX-032": {
+    "outcome": "CONFIRMED_ABSENT",
+    "n_obligations": 0
+  },
+  "S4FIX-033": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-034": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-035": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-036": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-037": {
+    "outcome": "CONFIRMED_ABSENT",
+    "n_obligations": 0
+  },
+  "S4FIX-038": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-039": {
+    "outcome": "CONFIRMED_ABSENT",
+    "n_obligations": 0
+  },
+  "S4FIX-040": {
+    "outcome": "CONFIRMED_ABSENT",
+    "n_obligations": 0
+  },
+  "S4FIX-041": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-042": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-043": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-044": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-045": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-046": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-047": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-048": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-049": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-050": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-051": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-052": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-053": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-054": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-055": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-056": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-057": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-058": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-059": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-060": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-061": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-062": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-063": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-064": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-065": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-066": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-067": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-068": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-069": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-070": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-071": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-072": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-073": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-074": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-075": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-076": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-077": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-078": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-079": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-080": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-081": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-082": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-083": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-084": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-085": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-086": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-087": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-088": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-089": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-090": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-091": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-092": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-093": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-094": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-095": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-096": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-097": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-098": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  },
+  "S4FIX-099": {
+    "outcome": "PRESENT_BUT_UNRESOLVED",
+    "n_obligations": 0
+  },
+  "S4FIX-100": {
+    "outcome": "PRESENT_AND_VERIFIED",
+    "n_obligations": 1
+  }
+}
