@@ -1,0 +1,1148 @@
+{
+  "S4A102-0001": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0002": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0003": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0004": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0005": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0006": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0007": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0008": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0009": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0010": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0011": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0012": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0013": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0014": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0015": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0016": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0017": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0018": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0019": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0020": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0021": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0022": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0023": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0024": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0025": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0026": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0027": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0028": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0029": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0030": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0031": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0032": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0033": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0034": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0035": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0036": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0037": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0038": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0039": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0040": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0041": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0042": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0043": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0044": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0045": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0046": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0047": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0048": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0049": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0050": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0051": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0052": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0053": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0054": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0055": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0056": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0057": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0058": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0059": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0060": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0061": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0062": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0063": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0064": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0065": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0066": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0067": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0068": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0069": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0070": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0071": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0072": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0073": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0074": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0075": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0076": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0077": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0078": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0079": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0080": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0081": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0082": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0083": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0084": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0085": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0086": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0087": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0088": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0089": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0090": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0091": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0092": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0093": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0094": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0095": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0096": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0097": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0098": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0099": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0100": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0101": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0102": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0103": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0104": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0105": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0106": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0107": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0108": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0109": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0110": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0111": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0112": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0113": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0114": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0115": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0116": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0117": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0118": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0119": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0120": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0121": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0122": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0123": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0124": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0125": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0126": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0127": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0128": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0129": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0130": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0131": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0132": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0133": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0134": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0135": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0136": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0137": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0138": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0139": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0140": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0141": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0142": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0143": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0144": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0145": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0146": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0147": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0148": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0149": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0150": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0151": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0152": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0153": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0154": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0155": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0156": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0157": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0158": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0159": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0160": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0161": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0162": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0163": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0164": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0165": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0166": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0167": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0168": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0169": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0170": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0171": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0172": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0173": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0174": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0175": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0176": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0177": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0178": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0179": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0180": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0181": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0182": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0183": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0184": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0185": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0186": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0187": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0188": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0189": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0190": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "the document explicitly states the parties have not yet reached agreement on this clause's terms"
+    ]
+  },
+  "S4A102-0191": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0192": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0193": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0194": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0195": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "the document explicitly states the parties have not yet reached agreement on this clause's terms"
+    ]
+  },
+  "S4A102-0196": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0197": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0198": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0199": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0200": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "the document explicitly states the parties have not yet reached agreement on this clause's terms"
+    ]
+  },
+  "S4A102-0201": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0202": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0203": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0204": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0205": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "the document explicitly states the parties have not yet reached agreement on this clause's terms"
+    ]
+  },
+  "S4A102-0206": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0207": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0208": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0209": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0210": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "the document explicitly states the parties have not yet reached agreement on this clause's terms"
+    ]
+  },
+  "S4A102-0211": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0212": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0213": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0214": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0215": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "the document explicitly states the parties have not yet reached agreement on this clause's terms"
+    ]
+  },
+  "S4A102-0216": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0217": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0218": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0219": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0220": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "the document explicitly states the parties have not yet reached agreement on this clause's terms"
+    ]
+  },
+  "S4A102-0221": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0222": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0223": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0224": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "S4A102-0225": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "the document explicitly states the parties have not yet reached agreement on this clause's terms"
+    ]
+  },
+  "S4A102-0226": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  }
+}
