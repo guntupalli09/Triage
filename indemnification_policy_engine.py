@@ -359,6 +359,28 @@ _NAMED_DEFENSE_CONTROL_RE = re.compile(
     r"(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))\s+(?i:shall\s+(?:have\s+the\s+right\s+to\s+)?control(?:ling)?|controlling|shall\s+assume\s+and\s+control)\s+(?:the\s+)?defense",
     re.I,
 )
+# Step 4A.10.5 — a SELF-scoped local snapshot span (as built by
+# _snapshot_indemnity_attribution/the Step 4A.10.3-4 general discovery
+# block) already begins with the named role's own name as grammatical
+# subject; when that subject controls/directs/decides the handling of a
+# claim brought AGAINST ITSELF, that's a genuine defense-control value
+# regardless of which specific verb the drafter uses ("takes charge
+# of," "directs the handling of," "controls," "decides ... strategy
+# for") -- enumerating verbs would repeat the same closed-vocabulary
+# anti-pattern. Requires "against it/itself" (self-reference) so this
+# never fires on a role controlling a claim against the OTHER named
+# role (a genuinely asymmetric shape -- see the dimension family
+# templates in benchmarks/step4a10_5_fresh_independent_corpus.json,
+# which phrase that as "...against {b}", not "...against it"). Found
+# via this step's own frozen-corpus execution: "Data Processor takes
+# charge of defending and settling any claim brought against it" /
+# "Data Controller likewise takes charge of ... against it" both
+# established nothing at all under the pre-existing patterns.
+_DEFENSE_SELF_CONTROL_RE = re.compile(
+    r"\b(?:takes?\s+charge\s+of|directs?|controls?|decides?|manages?|handles?)\b"
+    r"[^.]{0,80}\bagainst\s+it(?:self)?\b",
+    re.I,
+)
 
 _NOTICE_RE = re.compile(r"prompt(?:ly)?\s+(?:written\s+)?notice|notify\s+.{0,20}\s+in\s+writing|written\s+notice\s+of\s+(?:any\s+)?claim", re.I)
 _COOPERATION_RE = re.compile(r"reasonable\s+cooperation|shall\s+cooperate|cooperate\s+(?:fully\s+)?with", re.I)
@@ -760,8 +782,18 @@ _SURVIVAL_DURATION_NUMBER_RE = re.compile(
     r"\b(" + _core_word_number_alternation + r")\s*(?:\(\d+\))?[-\s](years?|months?)\b", re.I,
 )
 _SURVIVAL_CONTINUATION_CUE_RE = re.compile(
-    r"\btail\b|\bsurvive[sd]?\b|\bon\s+the\s+hook\b|\bremains?\s+(?:liable|responsible|bound)\b|"
-    r"\bcontinues?\b|\bextends?\b|\bafter\s+this\s+agreement\s+(?:ends?|terminates?|expires?)\b|"
+    r"\btail\b|\bsurvive[sd]?\b|\bon\s+the\s+hook\b|"
+    r"\bremains?\s+(?:liable|responsible|bound|answerable)\b|"
+    r"\bcontinues?\b|\bextends?\b|"
+    # Step 4A.10.5 — generalized past the single "after this Agreement
+    # ends" phrase: any of "after/past/following" combined with
+    # "termination/expiration" or "this Agreement ends/terminates/
+    # expires" all signal the same "continues beyond the Agreement's
+    # end" concept ("remains answerable for four years past
+    # termination" was found via this step's own frozen-corpus
+    # execution using "past," not "after").
+    r"\b(?:after|past|following)\s+(?:this\s+agreement'?s?\s+)?"
+    r"(?:termination|expiration|ends?|terminates?|expires?)\b|"
     r"\bpost[- ]termination\b",
     re.I,
 )
@@ -1276,6 +1308,16 @@ def _classify_defense_control(
         return "indemnifying_party"
     if has_indemnified:
         return "indemnified_party"
+    if _DEFENSE_SELF_CONTROL_RE.search(window):
+        # Step 4A.10.5 — a self-referential control statement ("X
+        # controls ... against it") doesn't map onto the indemnifying/
+        # indemnified dichotomy above at all (that dichotomy needs role
+        # params this call site often doesn't have -- see
+        # _snapshot_indemnity_attribution). Its own distinct category,
+        # so two roles independently making the SAME self-control
+        # statement compare equal without being confused with (or
+        # silently overriding) the indemnifying/indemnified categories.
+        return "self_controls"
     return "not_addressed"
 
 
