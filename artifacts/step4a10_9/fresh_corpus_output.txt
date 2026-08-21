@@ -1,0 +1,43 @@
+=== OVERALL ===
+{'CA': 154, 'CS': 65, 'FS': 16, 'CR': 6, 'WC': 12}
+
+=== BY TIER (asymmetric+symmetric only) ===
+Tier 1 (n=147): {'CA': 78, 'CS': 55, 'FS': 14}
+Tier 2 (n=24): {'CS': 10, 'CA': 14}
+Tier 3 (n=64): {'CA': 62, 'FS': 2}
+
+=== BY DIMENSION FAMILY (asymmetric only) ===
+  survival (n=8): {'CA': 7, 'FS': 1}
+  monetary_cap (n=10): {'CA': 9, 'FS': 1}
+  defense_control (n=18): {'CA': 16, 'FS': 2}
+  causation (n=8): {'CA': 7, 'FS': 1}
+  causation_standard (n=10): {'CA': 9, 'FS': 1}
+  claim_category (n=10): {'CA': 9, 'FS': 1}
+  monetary_treatment (n=10): {'CA': 9, 'FS': 1}
+  proviso_exception (n=10): {'CA': 9, 'FS': 1}
+  conditional_applicability (n=10): {'CA': 9, 'FS': 1}
+  first_third_party (n=10): {'CA': 9, 'FS': 1}
+  negligence_fault_standard (n=10): {'CA': 9, 'FS': 1}
+  scope_geographic (n=10): {'CA': 10}
+  cross_reference_schedule (n=10): {'CA': 10}
+  temporal_survival (n=10): {'CA': 9, 'FS': 1}
+  compound_multi_dimension (n=10): {'CA': 9, 'FS': 1}
+  compound (n=16): {'CA': 14, 'FS': 2}
+
+FS (dangerous) total: 16
+  FRESH109-0033 [['survival']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; U.K. Distributor's dut
+  FRESH109-0035 [['monetary_cap']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; U.K. Distributor's lia
+  FRESH109-0037 [['defense_control']] tier=1: Each party shall indemnify the other for third-party claims; U.K. Distributor alone decides litigati
+  FRESH109-0039 [['causation']] tier=1: Each party shall indemnify the other for claims traceable to its own conduct; U.K. Distributor is on
+  FRESH109-0104 [['causation_standard']] tier=1: Each party shall indemnify the other for claims traceable to its own conduct; U.K. Distributor is on
+  FRESH109-0114 [['claim_category']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; U.K. Distributor's dut
+  FRESH109-0124 [['defense_control']] tier=1: Each party shall indemnify the other for third-party claims; U.K. Distributor alone commands litigat
+  FRESH109-0134 [['monetary_treatment']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; U.K. Distributor's lia
+  FRESH109-0144 [['proviso_exception']] tier=1: Each party shall indemnify the other for claims arising under this Agreement, save that U.K. Distrib
+  FRESH109-0154 [['conditional_applicability']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; U.K. Distributor's dut
+  FRESH109-0164 [['first_third_party']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; U.K. Distributor's dut
+  FRESH109-0174 [['negligence_fault_standard']] tier=1: Each party shall indemnify the other for claims traceable to its own conduct; U.K. Distributor owes 
+  FRESH109-0204 [['temporal_survival']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; U.K. Distributor's dut
+  FRESH109-0214 [['compound_multi_dimension']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; U.K. Distributor's dut
+  FRESH109-0224 [['compound']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; U.K. Distributor keeps
+  FRESH109-0234 [['compound']] tier=3: Each party shall indemnify the other for third-party claims; U.K. Distributor's duty to front defens
