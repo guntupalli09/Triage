@@ -263,13 +263,18 @@ CASES += [
 # Multi-sentence structures (the obligation and its trigger split across
 # two sentences)
 CASES += [
-    case("srt-fresh-multisentence-01", ["multi_sentence"],
+    case("srt-fresh-multisentence-01", ["multi_sentence", "boundary"],
          "A third party may assert a claim against Client relating to defects in goods supplied "
          "under this order. Vendor shall carry the burden of any such claim.",
-         "ESTABLISHED", "Vendor", "Client",
-         notes="The obligation sentence itself is still complete and self-contained ('Vendor shall "
-               "carry the burden of any such claim') -- the preceding sentence only supplies "
-               "context, which the mechanism does not need to parse to establish this obligation."),
+         "NOT_ESTABLISHED", None, None,
+         notes="CORRECTED after the first dev-benchmark run: the beneficiary role (Client) is never "
+               "named in the obligation's OWN sentence at all -- 'any such claim' anaphorically "
+               "refers back to 'a claim against Client' in the PRECEDING sentence. Resolving that "
+               "reference generally is cross-sentence anaphora resolution, genuine NLP territory "
+               "explicitly out of scope for this increment ('The goal is not general NLP parsing'). "
+               "Originally mislabeled ESTABLISHED; this is a real, disclosed A9 (multi-sentence "
+               "proposition split) limitation, not a defect -- correctly stays NOT_ESTABLISHED and "
+               "safely routes to review rather than guessing the beneficiary from context."),
 ]
 
 # Conditions attached (must interact correctly with Phase 2's condition

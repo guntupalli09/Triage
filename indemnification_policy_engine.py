@@ -340,6 +340,158 @@ _SYNONYM_OBLIGATION_RES = (
     _SYNONYM_OBLIGATION_PROTECT_FROM_SATISFY_RE,
     _SYNONYM_OBLIGATION_ANSWER_FOR_RE,
 )
+
+# ---------------------------------------------------------------------------
+# Step 4A.11 Phase 3 — structural risk-transfer proposition establishment.
+#
+# The ten patterns above are each a single, rigidly-ordered COMPOUND
+# multi-clause phrase template ("hold X harmless from and defend X
+# against," "shall bear full responsibility for defending and satisfying
+# such claims on X's behalf"). The Category A decomposition
+# (artifacts/step4a11/category_a_decomposition.md) found 88 real,
+# previously-stuck true positives that use much SIMPLER, single-clause
+# risk-transfer idioms none of those ten cover, and confirmed that simply
+# adding one more full-phrase entry per idiom would repeat the exact
+# closed-vocabulary anti-pattern already flagged in this module's own
+# comments as "not the architectural fix."
+#
+# Each entry below is instead a single-clause VERB-CLUSTER match with
+# TWO NAMED-ROLE capture groups in known, per-pattern positions (actor,
+# beneficiary) — genuinely new vocabulary (this remains a bounded,
+# disclosed list, same as _RISK_TRANSFER_SIGNAL_RE below), but each
+# pattern only supplies WHERE to look for the two roles; it does not by
+# itself authorize anything. A match is only promoted to an authoritative
+# obligation when, in addition:
+#   1. both role captures are DISTINCT (no self-referential false match);
+#   2. the match sits in operative context (is_operative_context — same
+#      quoted/negated/heading/meta-instructional guard every other
+#      obligation-structuring path already uses);
+#   3. a claim/loss noun (_CLAIM_LOSS_NOUN_RE) appears within a bounded
+#      window of the match — the SAME evidence this module's own
+#      non-authoritative _RISK_TRANSFER_SIGNAL_RE already requires before
+#      even treating a verb cluster as a DISCOVERY signal. This is what
+#      keeps "Vendor shall discharge any obligation Client would
+#      otherwise owe [a third party]" (risk transfer) structurally
+#      distinct from "...would otherwise owe [the taxing authority]" (an
+#      unrelated tax-remittance mechanic using the identical verb
+#      phrase) — found and fixed via this increment's own DEV benchmark
+#      hard negatives, not guessed in advance.
+# See extract_indemnification_facts' new extraction loop for how these
+# three checks are applied together.
+_STRUCTURAL_RISK_TRANSFER_PATTERNS: Tuple[Tuple[str, "re.Pattern[str]", int, int], ...] = (
+    # "hold/keep X [financially] harmless/unharmed" — the OBJECT sits
+    # BETWEEN the verb and the predicate adjective, the far more common
+    # English word order than "hold harmless X" (the only order
+    # _SYNONYM_OBLIGATION_HOLD_HARMLESS_RE's compound phrase supports).
+    ("hold_keep_predicate_adjective", re.compile(
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?:(?i:shall\s+indemnify\s+and\s+)|(?i:agrees\s+to\s+)|(?i:shall\s+))?"
+        r"(?i:hold|keep)\s+(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:financially\s+)?(?i:harmless|unharmed)\b"
+    ), 1, 2),
+    # "takes responsibility for making X [financially] whole" / "shall
+    # make X whole" — same predicate-adjective object-insertion shape,
+    # different governing verb/adjective.
+    ("making_whole_predicate_adjective", re.compile(
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:takes\s+responsibility\s+for\s+making|shall\s+make|undertakes\s+to\s+make)\s+"
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:financially\s+)?(?i:whole)\b"
+    ), 1, 2),
+    ("liable_to_compensate", re.compile(
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall|will)\s+be\s+liable\s+to\s+compensate\s+"
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:for)\b"
+    ), 1, 2),
+    ("carry_burden_of_claim", re.compile(
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall)\s+carry\s+the\s+burden\s+of\s+any\s+(?:such\s+)?claim\s+brought\s+against\s+"
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\b"
+    ), 1, 2),
+    ("discharge_obligation_owed", re.compile(
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall)\s+discharge\s+any\s+obligation\s+"
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:would\s+otherwise\s+owe)\b"
+    ), 1, 2),
+    ("commit_covering_exposure", re.compile(
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:commits?\s+to\s+covering)\s+"
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")(?:'s)?\s+(?i:exposure)\b"
+    ), 1, 2),
+    ("relieve_of_financial_burden", re.compile(
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+relieve)\s+"
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:of\s+any\s+financial\s+burden)\b"
+    ), 1, 2),
+    ("undertakes_suffer_no_detriment", re.compile(
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:undertakes\s+that)\s+"
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:will\s+suffer\s+no\s+monetary\s+detriment)\b"
+    ), 1, 2),
+    ("pay_on_behalf", re.compile(
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+pay,?\s+on)\s+"
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")(?:'s)?\s+(?i:behalf)\b"
+    ), 1, 2),
+    ("settle_at_own_expense", re.compile(
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+settle,?\s+at)\s+\1(?:'s)?\s+"
+        r"(?i:own\s+expense,?\s+any\s+claim\s+directed\s+at)\s+(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\b"
+    ), 1, 2),
+    ("cover_expense_defending", re.compile(
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+cover\s+any\s+expense)\s+"
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:incurs\s+defending)\b"
+    ), 1, 2),
+    ("bare_reimburse", re.compile(
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+reimburse)\s+"
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:for)\b"
+    ), 1, 2),
+)
+
+# Step 4A.11 Phase 3 — three additional evidence-bound guards found via
+# this increment's own DEV benchmark hard negatives (never guessed in
+# advance): a genuine, distinct-from-any-existing-check false-
+# establishment risk each, specific to the WIDER surface area these new,
+# single-clause patterns expose (the ten pre-existing compound patterns
+# were never tested against these particular shapes because their far
+# more specific full-phrase wording made them naturally immune).
+#
+# 1. COMPOUND SUBJECT: "Vendor and its Affiliates shall carry the burden
+#    of..." — _MULTIWORD_ROLE_NAME_FRAGMENT (shared, protected — not
+#    modified here) captures only the LAST capitalized run before the
+#    verb ("Affiliates"), silently dropping "Vendor and its" instead of
+#    recognizing a genuinely compound, unparsed subject. A short lookback
+#    for "and/or its/their/his/her" immediately before the captured
+#    actor span catches this without touching the shared role-fragment
+#    pattern itself.
+_COMPOUND_SUBJECT_PRECEDING_RE = re.compile(r"(?:\band|\bor)\s+(?:its|their|his|her)\s*$", re.I)
+# 2. SUPERSEDED PROVISION: a real promise once existed in the document but
+#    a later sentence states it was subsequently deleted/replaced by an
+#    amendment — the promise is no longer operative even though the
+#    original sentence itself parses cleanly and states a complete,
+#    unconditional proposition.
+_SUPERSEDED_PROVISION_NEARBY_RE = re.compile(
+    r"\bwas\s+(?:subsequently\s+)?(?:deleted|superseded|replaced)\b"
+    r"|\bhas\s+been\s+(?:deleted|superseded|replaced)\b"
+    r"|\bis\s+no\s+longer\s+in\s+(?:effect|force)\b",
+    re.I,
+)
+# 3. DESCRIPTIVE REDIRECT FRAME: "See Section 15 for the terms under which
+#    Vendor shall carry the burden..." — the matched clause is being used
+#    to describe WHERE the real operative terms live, not to state them
+#    here; the shared _DESCRIPTIVE_ABOUT_CLAUSE_RE family (in
+#    policy_engine_core.py) doesn't cover this specific "See Section N
+#    for the terms under which" redirect shape.
+_DESCRIPTIVE_REDIRECT_FRAME_RE = re.compile(
+    r"\bSee\s+(?:Section|Schedule|Exhibit|Appendix|Annex|Article)\s+[0-9A-Z]+(?:\.[0-9]+)*\s+"
+    r"for\s+the\s+terms\s+under\s+which\b",
+    re.I,
+)
+
+
+def _structural_risk_transfer_guard_ok(text: str, m: "re.Match[str]", actor_start: int) -> bool:
+    """The three additional checks above, applied together. Returns False
+    (reject the match) if any guard fires."""
+    preceding_actor = text[max(0, actor_start - 20):actor_start]
+    if _COMPOUND_SUBJECT_PRECEDING_RE.search(preceding_actor):
+        return False
+    nearby = text[max(0, m.start() - 200):min(len(text), m.end() + 300)]
+    if _SUPERSEDED_PROVISION_NEARBY_RE.search(nearby):
+        return False
+    preceding_match = text[max(0, m.start() - 100):m.start()]
+    if _DESCRIPTIVE_REDIRECT_FRAME_RE.search(preceding_match):
+        return False
+    return True
+
+
 # Broad, recall-favoring DISCOVERY signal — deliberately NOT authoritative
 # (see recognition_design.md, Sections A/C/D). Fires on a wider verb set
 # than obligation STRUCTURING above, but still requires a nearby claim/loss
@@ -404,7 +556,15 @@ _OBLIGATION_RE = re.compile(
     # "party"/"the" out of "Each party shall indemnify ... the other
     # party." The verb phrase alone is wrapped in a scoped (?i:...) so
     # "Shall"/"SHALL"/"shall" all still match.
-    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")(?:\s*\([^)]{0,65}\))?\s+(?i:shall|will|agrees to)\s+"
+    # Step 4A.11 Phase 3 — the parenthetical allowance above only covers
+    # "Vendor (the 'Indemnitor') shall..."; a comma-delimited APPOSITIVE
+    # clause between the subject and the modal ("Reseller, on behalf of
+    # itself and its subcontractors, shall indemnify...") is a distinct,
+    # common shape neither the parenthetical allowance nor any prior
+    # widening covered (Category A decomposition, appositive_interrupt
+    # family). Bounded (short clause, no period inside) so it cannot
+    # swallow a genuinely new sentence.
+    r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")(?:\s*\([^)]{0,65}\))?(?:,\s+[a-z][^,\.]{0,80}?,)?\s+(?i:shall|will|agrees to)\s+"
     r"(?i:defend,?\s*(?:and\s+)?indemnify|indemnify,?\s*(?:and\s+)?defend|indemnify)"
     r"(?i:,?\s*(?:and\s+)?(?:defend\s+and\s+)?hold\s+harmless)?\s+"
     r"(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\b"
@@ -2368,7 +2528,8 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
     # not obligations" fallback below, which already safely produces
     # REQUIRES_REVIEW when no directional obligation can be structured.
     regex_found_nothing = not anchors and not any(r.search(text) for r in _SYNONYM_OBLIGATION_RES) \
-        and not _risk_transfer_signal_present(text)
+        and not _risk_transfer_signal_present(text) \
+        and not any(pat.search(text) for _, pat, _, _ in _STRUCTURAL_RISK_TRANSFER_PATTERNS)
 
     # Step 4A.9.1 Phase 8 — semantic discovery runs ADDITIVELY alongside the
     # regex path, never in place of it. It is invoked even when regex found
@@ -2487,6 +2648,56 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
                 asymmetry_reasons=_detect_reciprocal_asymmetry(window),  # Step 4A.7 — see main loop above
                 self_flagged_unresolved=bool(_SELF_FLAGGED_INDEMNIFICATION_UNRESOLVED_RE.search(window)),
                 condition=_detect_obligation_condition(text, m.start(), m.end()),
+            ))
+            seen_spans.append((m.start(), m.end()))
+            seen_role_pairs.append((m.start(), pair))
+
+    # Step 4A.11 Phase 3 — structural risk-transfer proposition
+    # establishment (see _STRUCTURAL_RISK_TRANSFER_PATTERNS above). Each
+    # match still must pass ALL THREE evidence-bound checks before
+    # becoming authoritative: distinct roles, operative context, AND a
+    # claim/loss noun within a bounded window of the match (the same
+    # discovery-grade evidence _risk_transfer_signal_present already
+    # requires) — a verb-cluster match alone is never sufficient.
+    for pattern_name, structural_re, actor_group, beneficiary_group in _STRUCTURAL_RISK_TRANSFER_PATTERNS:
+        for m in structural_re.finditer(text):
+            if any(lo - 30 <= m.start() <= hi + 30 for lo, hi in seen_spans):
+                continue
+            if not _core_is_operative_context(text, m.start(), m.end()):
+                continue
+            if not _structural_risk_transfer_guard_ok(text, m, m.start(actor_group)):
+                continue
+            claim_window = text[max(0, m.start() - 150):min(len(text), m.end() + 150)]
+            if not _CLAIM_LOSS_NOUN_RE.search(claim_window):
+                continue  # verb cluster present, but no claim/loss evidence nearby -- not risk transfer
+            indemnifying_role = trim_role_name(m.group(actor_group))
+            indemnified_role = trim_role_name(m.group(beneficiary_group))
+            if indemnifying_role.lower() == indemnified_role.lower():
+                continue
+            pair = (indemnifying_role.lower(), indemnified_role.lower())
+            if any(abs(m.start() - s) < 50 and p == pair for s, p in seen_role_pairs):
+                continue
+            window = _extract_obligation_window(text, m.start(), min(len(text), m.start() + _PROVISION_WINDOW_CHARS))
+            indemnifying_side, indemnifying_conflict = resolve_role_side(indemnifying_role, text)
+            indemnified_side, indemnified_conflict = resolve_role_side(indemnified_role, text)
+            conflict_reasons = [r for r in (indemnifying_conflict, indemnified_conflict) if r]
+            obligations.append(IndemnityObligation(
+                indemnifying_role=indemnifying_role, indemnifying_side=indemnifying_side,
+                indemnified_role=indemnified_role, indemnified_side=indemnified_side,
+                trigger_treatments=_classify_triggers(window),
+                scope=_classify_scope(window),
+                defense_control=_classify_defense_control(window, indemnifying_role, indemnified_role),
+                notice_required=True if _NOTICE_RE.search(window) else None,
+                cooperation_required=True if _COOPERATION_RE.search(window) else None,
+                monetary=_classify_monetary(window, m.start(), full_text=text),
+                raw_excerpt=_excerpt(text, m.start(), m.end()),
+                start_index=m.start(), end_index=m.end(),
+                section_label=_section_label_before(text, m.start()),
+                role_side_conflict_reasons=conflict_reasons,
+                asymmetry_reasons=_detect_reciprocal_asymmetry(window),
+                self_flagged_unresolved=bool(_SELF_FLAGGED_INDEMNIFICATION_UNRESOLVED_RE.search(window)),
+                condition=_detect_obligation_condition(text, m.start(), m.end()),
+                discovery_source=f"STRUCTURAL:{pattern_name}",
             ))
             seen_spans.append((m.start(), m.end()))
             seen_role_pairs.append((m.start(), pair))
