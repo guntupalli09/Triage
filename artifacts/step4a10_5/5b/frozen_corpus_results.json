@@ -1,0 +1,1303 @@
+{
+  "FRESH105B-0001": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0002": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0003": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0004": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0005": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0006": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0007": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0008": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0009": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0010": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0011": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0012": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0013": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0014": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0015": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0016": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0017": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0018": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0019": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0020": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0021": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0022": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0023": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0024": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0025": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0026": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0027": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0028": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0029": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0030": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0031": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0032": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0033": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0034": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0035": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0036": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0037": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0038": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0039": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0040": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0041": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0042": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0043": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0044": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0045": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0046": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0047": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0048": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0049": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0050": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0051": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0052": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0053": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0054": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0055": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0056": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0057": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0058": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0059": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0060": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0061": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0062": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0063": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0064": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0065": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0066": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0067": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0068": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0069": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0070": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0071": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0072": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Bondholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0073": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Managing Member, Non: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0074": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Consignor Bank: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0075": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Platform Operator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0076": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Franchise Broker, Prospective Franchisee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0077": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0078": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0079": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Broker, Fronting Insurer: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0080": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Bondholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0081": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Managing Member, Non: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0082": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Consignor Bank: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0083": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Platform Operator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0084": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Franchise Broker, Prospective Franchisee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0085": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0086": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0087": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Broker, Fronting Insurer: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0088": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Bondholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0089": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Managing Member, Non: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0090": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Consignor Bank: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0091": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Platform Operator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0092": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Franchise Broker, Prospective Franchisee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0093": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0094": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0095": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Broker, Fronting Insurer: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0096": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Bondholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0097": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Managing Member, Non: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0098": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Consignor Bank: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0099": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Platform Operator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0100": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Franchise Broker, Prospective Franchisee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0101": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0102": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0103": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Broker, Fronting Insurer: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0104": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Bondholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0105": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Managing Member, Non: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0106": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Consignor Bank: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0107": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Platform Operator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0108": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Franchise Broker, Prospective Franchisee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0109": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0110": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0111": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Broker, Fronting Insurer: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0112": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Bondholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0113": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Managing Member, Non: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0114": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Consignor Bank: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0115": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Platform Operator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0116": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Franchise Broker, Prospective Franchisee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0117": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0118": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0119": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Broker, Fronting Insurer: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0120": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Bondholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0121": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Managing Member, Non: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0122": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Consignor Bank: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0123": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Platform Operator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0124": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Franchise Broker, Prospective Franchisee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0125": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0126": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0127": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Broker, Fronting Insurer: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0128": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Bondholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0129": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Managing Member, Non: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0130": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Consignor Bank: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0131": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Platform Operator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0132": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Franchise Broker, Prospective Franchisee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0133": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0134": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0135": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Broker, Fronting Insurer: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0136": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Bondholder, Canada: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0137": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Managing Member, Non, Canada: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0138": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Consignor Bank, Canada: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0139": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Platform Operator, Canada: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0140": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Franchise Broker, Prospective Franchisee, Canada: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0141": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator, Canada: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0142": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor, Canada: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0143": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Broker, Fronting Insurer, Canada: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0144": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Rider, Bondholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0145": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Managing Member, Rider, Non: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0146": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Rider, Consignor Bank: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0147": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Rider, Platform Operator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0148": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Franchise Broker, Rider, Prospective Franchisee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0149": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Rider, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0150": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Rider, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0151": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Broker, Rider, Fronting Insurer: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0152": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Bondholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0153": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Managing Member, Non: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0154": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Consignor Bank: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0155": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Platform Operator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0156": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Franchise Broker, Prospective Franchisee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0157": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0158": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0159": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Broker, Fronting Insurer: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0160": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Bondholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0161": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Managing Member, Non: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0162": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Consignor Bank: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0163": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Platform Operator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0164": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Franchise Broker, Prospective Franchisee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0165": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0166": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0167": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Broker, Fronting Insurer: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0168": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Bondholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0169": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Managing Member, Non: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0170": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Consignor Bank: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0171": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Platform Operator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0172": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Franchise Broker, Prospective Franchisee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0173": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0174": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0175": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Broker, Fronting Insurer: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0176": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Bondholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0177": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Managing Member, Non: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0178": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Consignor Bank: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0179": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Platform Operator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0180": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Franchise Broker, Prospective Franchisee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0181": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0182": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0183": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Broker, Fronting Insurer: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0184": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Bondholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0185": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Managing Member, Non: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0186": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Consignor Bank: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0187": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Platform Operator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0188": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Franchise Broker, Prospective Franchisee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0189": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0190": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0191": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Broker, Fronting Insurer: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0192": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0193": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0194": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Consignee, Consignor Bank: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0195": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0196": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0197": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Loan Servicer, Loan Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0198": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0199": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0200": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Paying Agent, Bondholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0201": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0202": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0203": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Reseller, Platform Operator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0204": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0205": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH105B-0206": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ground Lessee, Ground Lessor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH105B-0207": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  }
+}
