@@ -317,10 +317,43 @@ _MUTUAL_RECIPROCAL_RE = re.compile(
     # party (the 'Indemnified Party') ...") is common shorthand-defining
     # drafting layered on top of an otherwise plain reciprocal opener —
     # it must not break recognition of the reciprocal structure itself.
-    r"each\s+party(?:\s*\([^)]{0,60}\))?\s+shall\s+indemnify(?:,?\s*defend,?)?(?:\s+and\s+hold\s+harmless)?"
-    r"\s+the\s+other(?:\s+party)?(?:\s*\([^)]{0,60}\))?"
-    r"|the\s+parties\s+shall\s+(?:mutually\s+)?indemnify\s+each\s+other"
-    r"|mutual\s+indemnification",
+    #
+    # Step 4A.10.7 — the SUBJECT quantifier was hardcoded to "each," and
+    # the verb modal to "shall," even though _OBLIGATION_RE's own
+    # named-role path already accepts "shall/will/agrees to" for the
+    # same verb. "Each party shall indemnify and hold harmless the
+    # other..." is recognized, but "Either party shall indemnify and
+    # hold harmless the other..." is not — a pure discovery-layer miss
+    # (this regex is the ONLY gate for the dedicated reciprocal-
+    # obligation code path; see the _MUTUAL_RECIPROCAL_RE.finditer loop
+    # below) with no relationship to symmetry comparison at all, found
+    # via the Step 4A.10.5/4A.10.6 frozen corpora's own CR results
+    # (non-canonical opener phrasing routed correctly to review, never
+    # to false symmetry, but recall suffered). Generalized the SUBJECT
+    # from one hardcoded quantifier to the small, genuinely closed,
+    # finite class of English reciprocal quantifiers a contract opener
+    # can use (each/either/both/every) — unlike a domain phrase list,
+    # this is a closed function-word set, the same reasoning already
+    # applied to WORD_NUMBERS in Step 4A.10.5 — and the VERB MODAL to
+    # match _OBLIGATION_RE's own existing shall/will/agrees-to set,
+    # rather than introducing an inconsistency between the two
+    # discovery paths for what should be the identical verb phrase.
+    r"(?:each|either|both|every)\s+part(?:y|ies)(?:\s*\([^)]{0,60}\))?\s+"
+    r"(?:shall|will|agrees\s+to)\s+indemnify(?:,?\s*defend,?)?(?:\s+and\s+hold\s+harmless)?"
+    r"\s+the\s+other(?:\s+part(?:y|ies))?(?:\s*\([^)]{0,60}\))?"
+    r"|the\s+parties\s+(?:shall|will|agree\s+to)\s+(?:mutually\s+)?indemnify\s+(?:each\s+other|one\s+another)"
+    r"|mutual\s+indemnification"
+    # Step 4A.10.7 — a second, distinct opener SHAPE: a NOMINALIZED
+    # statement of the reciprocal duty ("Each party's indemnification
+    # duty ... binds/applies to/governs X and Y identically") rather
+    # than a verb-phrase sentence ("[party] shall indemnify [other]").
+    # Both are still openers asserting the SAME thing -- a reciprocal
+    # indemnification obligation exists -- just with the obligation
+    # expressed as a noun-phrase subject instead of a verb; still
+    # squarely reciprocal-opener discovery, not comparison logic. Found
+    # via the same Step 4A.10.6 frozen corpus CR results.
+    r"|(?:each|either|both|every)\s+part(?:y|ies)(?:'s)?\s+indemnification\s+(?:duty|obligation)s?"
+    r"\s+.{0,80}?\b(?:binds?|applies\s+to|governs?)\b",
     re.I,
 )
 
