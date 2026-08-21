@@ -359,28 +359,63 @@ _NAMED_DEFENSE_CONTROL_RE = re.compile(
     r"(?-i:(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r"))\s+(?i:shall\s+(?:have\s+the\s+right\s+to\s+)?control(?:ling)?|controlling|shall\s+assume\s+and\s+control)\s+(?:the\s+)?defense",
     re.I,
 )
-# Step 4A.10.5 — a SELF-scoped local snapshot span (as built by
-# _snapshot_indemnity_attribution/the Step 4A.10.3-4 general discovery
-# block) already begins with the named role's own name as grammatical
-# subject; when that subject controls/directs/decides the handling of a
-# claim brought AGAINST ITSELF, that's a genuine defense-control value
-# regardless of which specific verb the drafter uses ("takes charge
-# of," "directs the handling of," "controls," "decides ... strategy
-# for") -- enumerating verbs would repeat the same closed-vocabulary
-# anti-pattern. Requires "against it/itself" (self-reference) so this
-# never fires on a role controlling a claim against the OTHER named
-# role (a genuinely asymmetric shape -- see the dimension family
-# templates in benchmarks/step4a10_5_fresh_independent_corpus.json,
-# which phrase that as "...against {b}", not "...against it"). Found
-# via this step's own frozen-corpus execution: "Data Processor takes
-# charge of defending and settling any claim brought against it" /
-# "Data Controller likewise takes charge of ... against it" both
-# established nothing at all under the pre-existing patterns.
-_DEFENSE_SELF_CONTROL_RE = re.compile(
-    r"\b(?:takes?\s+charge\s+of|directs?|controls?|decides?|manages?|handles?)\b"
-    r"[^.]{0,80}\bagainst\s+it(?:self)?\b",
+# Step 4A.10.6 — structural (verb-agnostic) recognition of a named
+# role's own decision/control authority over the response to a claim
+# against ITSELF. Step 4A.10.5's own attempt at this
+# (_DEFENSE_SELF_CONTROL_RE, retired below) enumerated verbs (takes
+# charge of/directs/controls/decides/manages/handles) and was defeated
+# again, on Step 4A.10.5's own authoritative frozen corpus, by fresh
+# verbs ("runs point on," "steers the response to") -- confirming that
+# widening a verb list, however many times, still leaves a verb list.
+# The target proposition per the user's own framing: role -> exercises
+# decision/control authority -> over the defense/response process --
+# not "role + approved verb + defense object." Implemented by dropping
+# the verb entirely: look for a RESPONSE-PROCESS NOUN (defense/
+# response/handling/litigation/settlement/strategy/resolution) tied
+# self-referentially to the subject ("against it/itself" -- never a
+# different named role, which is what makes this structurally safe: a
+# role's claim against the OTHER named role, e.g. "strategy for any
+# claim against {b}", never matches). A nearby negation ("has no say
+# in," "without any role in") flips the polarity to an explicit
+# self_no_control value rather than being silently ignored or
+# discarded to not_addressed -- abstention only happens when NEITHER a
+# response-process noun NOR a self-reference is present at all, per the
+# user's "keep reciprocal verification and abstention when attribution
+# cannot be established" instruction.
+_RESPONSE_PROCESS_NOUN_RE = re.compile(
+    # Stems, not whole words: the drafter's grammatical FORM (noun,
+    # verb, gerund -- "defense" vs "defending," "settlement" vs
+    # "settling," "resolution" vs "resolving") is exactly the kind of
+    # surface variation this step targets; matching the stem instead of
+    # an enumerated word list absorbs all of them at once. Boundaries
+    # chosen to avoid real false-friend overlaps (e.g. "respon(?:se|d)"
+    # rather than bare "respon", which would also swallow
+    # "responsible"/"responsibility").
+    r"\bdefen[sc]\w*\b|\brespon(?:se|d\w*)\b|\bhandl\w*\b|\blitigat\w*\b|"
+    r"\bsettl\w*\b|\bstrateg\w*\b|\bresolv\w*\b|\bresolut\w*\b",
     re.I,
 )
+_SELF_REFERENCE_NEARBY_RE = re.compile(r"\bagainst\s+it(?:self)?\b", re.I)
+_CONTROL_NEGATION_NEARBY_RE = re.compile(
+    r"\bno\b|\bnot\b|\bwithout\b|\blacks?\b|\bexcluded\s+from\b|\bdoes\s+not\b|\bhas\s+no\b",
+    re.I,
+)
+
+
+def _classify_self_response_control(window: str) -> Optional[str]:
+    """Returns 'self_controls'/'self_no_control' when a response-process
+    noun is self-referentially tied to the local span's own subject
+    (with or without a nearby negation), else None (abstain -- no
+    structural evidence either way)."""
+    for m in _RESPONSE_PROCESS_NOUN_RE.finditer(window):
+        tail = window[m.end():min(len(window), m.end() + 80)]
+        if not _SELF_REFERENCE_NEARBY_RE.search(tail):
+            continue
+        head = window[max(0, m.start() - 40):m.start()]
+        if _CONTROL_NEGATION_NEARBY_RE.search(head):
+            return "self_no_control"
+        return "self_controls"
+    return None
 
 _NOTICE_RE = re.compile(r"prompt(?:ly)?\s+(?:written\s+)?notice|notify\s+.{0,20}\s+in\s+writing|written\s+notice\s+of\s+(?:any\s+)?claim", re.I)
 _COOPERATION_RE = re.compile(r"reasonable\s+cooperation|shall\s+cooperate|cooperate\s+(?:fully\s+)?with", re.I)
@@ -619,6 +654,22 @@ _PARTY_WORD_RE = re.compile(r"\bpart(?:y|ies)\b", re.I)
 # the fail-closed check on a clause that explicitly says the two ceilings
 # differ.
 _EQUAL_TREATMENT_NEGATION_RE = re.compile(r"\b(?:not|n't|never|no\s+longer|cannot|can't)\s+\w*\s*$", re.I)
+# Step 4A.10.6 — a differentiation verb governing the whole clause
+# ("differs materially from X's approach to the same") makes a trailing
+# "the same" a BACKREFERENCE ("the same [thing]"), not an equal-
+# treatment assertion -- the clause is explicitly stating the two are
+# DIFFERENT. Checked over a wider span than the negation check above
+# since the differentiation verb is typically clause-initial, further
+# from the cue than a simple "not." Found via this step's own
+# adversarial dev controls (script step4a10_6_dev_adversarial_
+# controls.py): a three-role case with "Founder Holdings's approach
+# differs materially from Meridian Capital's approach to the same" was
+# wrongly stood down as equal-treatment-confirmed, masking a real
+# escalation signal.
+_EQUAL_TREATMENT_DIFFERENTIATION_OVERRIDE_RE = re.compile(
+    r"\bdiffers?\b|\bdiffering\b|\bdifferent\s+from\b|\bunlike\b|\bdistinct\s+from\b|\bvaries?\s+from\b",
+    re.I,
+)
 # a contrastive conjunction BETWEEN a weak cue and a nearby role name
 # means the two are in different clauses that are being set AGAINST each
 # other, not equated -- e.g. "carries its own cyber cover for the same
@@ -635,7 +686,10 @@ _CONTRASTIVE_CONJUNCTION_RE = re.compile(
 def _equal_treatment_cue_present(window: str, roles: Optional[List[str]] = None) -> bool:
     def not_negated(m: "re.Match[str]") -> bool:
         preceding = window[max(0, m.start() - 30):m.start()]
-        return not _EQUAL_TREATMENT_NEGATION_RE.search(preceding)
+        if _EQUAL_TREATMENT_NEGATION_RE.search(preceding):
+            return False
+        wider_preceding = window[max(0, m.start() - 70):m.start()]
+        return not _EQUAL_TREATMENT_DIFFERENTIATION_OVERRIDE_RE.search(wider_preceding)
 
     role_re = None
     if roles:
@@ -1308,16 +1362,19 @@ def _classify_defense_control(
         return "indemnifying_party"
     if has_indemnified:
         return "indemnified_party"
-    if _DEFENSE_SELF_CONTROL_RE.search(window):
-        # Step 4A.10.5 — a self-referential control statement ("X
-        # controls ... against it") doesn't map onto the indemnifying/
-        # indemnified dichotomy above at all (that dichotomy needs role
-        # params this call site often doesn't have -- see
-        # _snapshot_indemnity_attribution). Its own distinct category,
-        # so two roles independently making the SAME self-control
-        # statement compare equal without being confused with (or
-        # silently overriding) the indemnifying/indemnified categories.
-        return "self_controls"
+    # Step 4A.10.6 — a self-referential control/no-control statement ("X
+    # [any verb] the defense/response/... against it") doesn't map onto
+    # the indemnifying/indemnified dichotomy above at all (that
+    # dichotomy needs role params this call site often doesn't have --
+    # see _snapshot_indemnity_attribution). Its own distinct category
+    # pair, so two roles independently making the SAME self-referential
+    # statement compare equal without being confused with (or silently
+    # overriding) the indemnifying/indemnified categories, and two roles
+    # making DIFFERENT self-referential statements (one controls, one
+    # explicitly doesn't) still compare unequal.
+    self_response = _classify_self_response_control(window)
+    if self_response is not None:
+        return self_response
     return "not_addressed"
 
 

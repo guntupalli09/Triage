@@ -1223,12 +1223,32 @@ _DIFFERENTIATING_QUALIFIER_RE = re.compile(
 )
 
 
+# Step 4A.10.6 — the per-role local span is bounded by the NEXT role
+# mention (see the callers building local_texts), so the first role
+# mentioned in a list is almost always cut off mid-sentence with a
+# trailing connector ("Founder Holdings, " / "...against it, and ") the
+# LAST-mentioned role's span never has (it runs to the sentence's real
+# end instead). That is a window-slicing artifact, not real drafted
+# content, and comparing it literally manufactures a "difference" out
+# of pure position-in-sentence. Stripped before comparison so the
+# structural check reflects actual stated content, not where the
+# clause happened to end this particular role's turn.
+_TRAILING_CONNECTOR_NOISE_RE = re.compile(
+    r"[,;]?\s*(?:and|but|or|while|whereas|as\s+well)?\s*[.,;]?\s*$", re.I,
+)
+_LEADING_CONNECTOR_NOISE_RE = re.compile(
+    r"^\s*(?:likewise|similarly|correspondingly|in\s+turn)\s*,?\s*", re.I,
+)
+
+
 def _normalize_role_text_for_structural_compare(text: str, self_role: str, other_roles: List[str]) -> str:
     t = text
     for r in sorted((o for o in other_roles if o), key=len, reverse=True):
         t = re.sub(re.escape(r) + r"(?:'s|’s)?", " <OTHER> ", t, flags=re.I)
     if self_role:
         t = re.sub(re.escape(self_role) + r"(?:'s|’s)?", " <SELF> ", t, flags=re.I)
+    t = _LEADING_CONNECTOR_NOISE_RE.sub("", t)
+    t = _TRAILING_CONNECTOR_NOISE_RE.sub("", t)
     return re.sub(r"\s+", " ", t).strip().lower()
 
 
