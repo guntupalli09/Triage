@@ -1,0 +1,24 @@
+=== OVERALL ===
+{'CS': 60, 'CR': 17, 'CA': 124, 'WC': 13}
+
+=== BY TIER (asymmetric+symmetric only) ===
+Tier 1 (n=75): {'CS': 10, 'CR': 5, 'CA': 60}
+Tier 2 (n=75): {'CS': 50, 'CR': 5, 'CA': 20}
+Tier 3 (n=44): {'CA': 44}
+
+=== BY DIMENSION FAMILY (asymmetric only) ===
+  causation_standard (n=8): {'CA': 8}
+  claim_category (n=8): {'CA': 8}
+  defense_control (n=16): {'CA': 16}
+  monetary_treatment (n=8): {'CA': 8}
+  proviso_exception (n=8): {'CA': 8}
+  conditional_applicability (n=8): {'CA': 8}
+  first_third_party (n=8): {'CA': 8}
+  negligence_fault_standard (n=8): {'CA': 8}
+  scope_geographic (n=8): {'CA': 8}
+  cross_reference_schedule (n=8): {'CA': 8}
+  temporal_survival (n=8): {'CA': 8}
+  compound_multi_dimension (n=8): {'CA': 8}
+  compound (n=20): {'CA': 20}
+
+FS (dangerous) total: 0
