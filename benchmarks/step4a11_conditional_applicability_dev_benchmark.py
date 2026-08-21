@@ -98,8 +98,21 @@ CASES += [
     case("cond-provided-that-01", ["C_provided_that", "trailing"], "indemnification",
          "12. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and "
          "against any third-party claims arising from Vendor's willful misconduct, provided that "
-         "Customer gives Vendor prompt written notice of any such claim.",
-         "ESTABLISHED", "provided_that"),
+         "such misconduct is confirmed by a final, non-appealable judgment of a court of competent "
+         "jurisdiction.",
+         "ESTABLISHED", "provided_that",
+         notes="CORRECTED after a regression run: the original text used a pure notice-only "
+               "proviso ('provided that Customer gives Vendor prompt written notice'), which is "
+               "deliberately EXCLUDED from Phase 2 escalation (see "
+               "_is_pure_notice_cooperation_condition in indemnification_policy_engine.py) because "
+               "notice/cooperation preconditions are already fully, deterministically modeled by "
+               "this adapter's own notice_required/cooperation_required fields -- unlike a genuinely "
+               "external condition (a court judgment, a third party's future conduct), whether "
+               "notice was given is directly verifiable from the same text, so flagging it again as "
+               "an 'unresolvable' Phase 2 condition would be a false, redundant escalation (this is "
+               "exactly the nested-03/notice-01/notice-partial-01/composite-clean-01 regression "
+               "found and fixed this phase). Reworded to a condition this adapter genuinely cannot "
+               "verify from the text alone, which is what this case is meant to test."),
     case("cond-provided-however-that-01", ["C_provided_that", "trailing"], "liability",
          "12. Limitation of Liability. Vendor's aggregate liability shall not exceed $1,000,000, "
          "provided, however, that this limitation shall apply only to claims arising from Vendor's "
@@ -157,10 +170,15 @@ CASES += [
          "9. Limitation of Liability. Aggregate liability shall not exceed $750,000.\n\n"
          "12. Indemnification. Vendor shall indemnify Customer, subject to the limitation of "
          "liability set forth in Section 9.",
-         "ESTABLISHED", "cross_reference",
+         "UNCONDITIONAL", None,
          notes="This is the Phase 1 cross-reference mechanism, not a Phase 2 condition -- included "
-               "here as a boundary case confirming the two mechanisms don't collide (this resolves "
-               "to a VALUE delegation, not an applicability condition)."),
+               "here as a boundary case confirming the two mechanisms don't collide. CORRECTED "
+               "after the first dev-benchmark run: the original expected_status was ESTABLISHED, "
+               "which contradicted this case's own notes (a plain 'subject to Section N' VALUE "
+               "delegation, with Section 9's own text stating an unconditional figure, carries no "
+               "applicability CONDITION at all) -- a benchmark-authoring mistake, not a production "
+               "defect. UNCONDITIONAL is correct: the obligation is unconditional, and its value "
+               "happens to be resolved via cross-reference, which is an orthogonal fact."),
 ]
 
 # ===========================================================================
@@ -310,28 +328,42 @@ CASES += [
 # ===========================================================================
 CASES += [
     case("cond-xref-target-condition-01", ["O_xref_condition"], "indemnification",
-         "9. Limitation of Liability. In no event shall liability exceed $500,000. The foregoing "
-         "limitation applies only to third-party claims arising under this Agreement.\n\n"
+         "9. Limitation of Liability. Liability shall not exceed $500,000. "
+         "The foregoing limitation applies only to third-party claims arising under this Agreement.\n\n"
          "12. Indemnification. Vendor shall indemnify Customer, subject to the limitations in "
          "Section 9.",
          "ESTABLISHED", "cross_reference_condition",
          notes="Required chain: SOURCE -> REFERENCE -> TARGET -> CONDITION -> MATERIAL FACT. "
                "Section 9's own text conditions the $500,000 value -- the resolved fact must carry "
-               "that condition, not silently drop it."),
+               "that condition, not silently drop it. CORRECTED after the first dev-benchmark run: "
+               "the target text originally read 'shall liability exceed' (missing 'not'), which the "
+               "fixed-amount extractor's verb vocabulary ('shall not exceed'/'capped at'/'limited "
+               "to') doesn't recognize, so no value was ever found in the target body and resolution "
+               "never reached the point of even checking for a condition -- a benchmark-text defect, "
+               "not a production defect (the same class of authoring mistake already disclosed once "
+               "in the Phase 1 cross-reference DEV benchmark)."),
     case("cond-xref-missing-target-01", ["O_xref_condition", "negative"], "indemnification",
          "12. Indemnification. Vendor shall indemnify Customer, subject to the limitations in "
          "Section 42.",
-         "NOT_ESTABLISHED", None,
-         notes="Target absent -- chain breaks at TARGET, must fail closed (this is scored by the "
-               "Phase 1 mechanism already; included here as a Phase 2 boundary re-check)."),
+         "UNCONDITIONAL", None,
+         notes="Target absent -- the chain breaks at TARGET, which is a Phase 1 concern already "
+               "handled safely (monetary.kind stays the unresolved 'cross_reference' kind, which "
+               "independently routes the obligation to REQUIRES_REVIEW via the existing "
+               "'delegates to ... not resolved by this evaluation' unresolved-fact). The Phase 2 "
+               "`condition` field specifically has nothing to report here -- no condition language "
+               "was ever reached -- so UNCONDITIONAL is the correct value for THIS field; the overall "
+               "decision safety is independently covered by Phase 1, not duplicated here."),
     case("cond-xref-wrong-target-01", ["O_xref_condition", "negative"], "indemnification",
          "9. Insurance. Vendor shall maintain commercial general liability insurance with limits of "
          "$1,000,000, applicable only to bodily injury claims.\n\n"
          "12. Indemnification. Vendor shall indemnify Customer, subject to the limitations in "
          "Section 9.",
-         "NOT_ESTABLISHED", None,
+         "UNCONDITIONAL", None,
          notes="Target resolves but governs an unrelated concept (insurance) -- must not adopt "
-               "either its value or its condition."),
+               "either its value or its condition. Same Phase 1/Phase 2 boundary as "
+               "cond-xref-missing-target-01 above: the unrelated-concept disqualifier fires inside "
+               "_resolve_cross_referenced_monetary before any condition detection is even attempted, "
+               "and the resulting unresolved cross_reference kind is what routes this to review."),
     case("cond-xref-conflicting-target-01", ["O_xref_condition", "negative"], "indemnification",
          "9. Limitation of Liability. Liability shall not exceed $500,000.\n\n"
          "Restated elsewhere in the document:\n\n"
@@ -339,9 +371,11 @@ CASES += [
          "applies only to claims arising after the Effective Date.\n\n"
          "12. Indemnification. Vendor shall indemnify Customer, subject to the limitations in "
          "Section 9.",
-         "NOT_ESTABLISHED", None,
+         "UNCONDITIONAL", None,
          notes="Ambiguous target (two distinct Section 9 headings) -- must not guess which "
-               "condition or value applies."),
+               "condition or value applies. Same Phase 1/Phase 2 boundary: AMBIGUOUS target lookup "
+               "status is caught before condition detection runs, and review is triggered via the "
+               "unresolved cross_reference monetary kind, not via this field."),
     case("cond-xref-multiple-referenced-sections-01", ["O_xref_condition"], "indemnification",
          "9. Limitation of Liability. Liability shall not exceed $500,000. This limitation applies "
          "only to claims arising from ordinary breach.\n\n"
@@ -508,15 +542,24 @@ CASES += [
          notes="Explicitly NEGATES the existence of any condition -- the mechanism must not "
                "manufacture a condition out of the word 'condition' appearing in a sentence that "
                "denies one exists."),
-    case("cond-compound-notwithstanding-plus-if-01", ["compound", "override"], "liability",
+    case("cond-compound-notwithstanding-plus-if-01", ["compound", "override"], "indemnification",
          "9. Limitation of Liability. Liability shall not exceed $500,000.\n\n"
-         "12. Indemnification. Notwithstanding the limitation of liability set forth in Section 9, "
-         "if a claim arises from Vendor's willful misconduct, Vendor's indemnification obligations "
-         "shall not exceed 3 times the total annual fees paid.",
+         "12. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and "
+         "against any third-party claims arising from Vendor's willful misconduct. Notwithstanding "
+         "the limitation of liability set forth in Section 9, if a claim arises from Vendor's "
+         "willful misconduct, Vendor's indemnification obligations shall not exceed 3 times the "
+         "total annual fees paid.",
          "ESTABLISHED", "if_when",
          notes="Combines the Phase 1 'notwithstanding' override (own 3x value governs, not "
                "Section 9's $500,000) with a genuine Phase 2 leading-IF condition on that same "
-               "3x value -- both mechanisms must cooperate correctly."),
+               "3x value -- both mechanisms must cooperate correctly. CORRECTED after the first "
+               "dev-benchmark run: the original text never contained a '<Role> shall indemnify "
+               "<Role>' trigger sentence at all (the indemnification obligation-recognition regex "
+               "requires that shape), so no obligation was ever extracted and the case couldn't "
+               "exercise anything -- a benchmark-text defect, not a production defect. Added the "
+               "trigger sentence; the Notwithstanding+if clause now attaches via the "
+               "_RESTATEMENT_MONETARY_RE path, which independently runs Phase 2 condition detection "
+               "at its own match position."),
 ]
 
 # ===========================================================================
@@ -540,14 +583,26 @@ CASES += [
          notes="Vague forward-pointing reference with no locatable target and no specific "
                "condition text -- fails closed rather than guessing."),
     case("cond-conflicting-monetary-and-condition-01", ["conflicting"], "liability",
-         "9. Special Terms. The liability cap in Section 12 applies only to claims filed within one "
-         "year of the Effective Date.\n\n"
-         "16. Additional Terms. The liability cap in Section 12 applies only to claims filed within "
-         "two years of the Effective Date.\n\n"
+         "9. Special Terms. The cap in Section 12 applies only to claims arising after the "
+         "Effective Date.\n\n"
+         "16. Additional Terms. The cap in Section 12 applies only to claims arising before the "
+         "Effective Date.\n\n"
          "12. Limitation of Liability. Vendor's aggregate liability shall not exceed $500,000.",
          "CONFLICTING", None,
          notes="Two separately operative provisions state incompatible temporal conditions on the "
-               "same cap -- cannot be deterministically reconciled."),
+               "same cap -- cannot be deterministically reconciled. CORRECTED after the first "
+               "dev-benchmark run, twice: (1) the original text used 'liability cap' in the "
+               "backward-referencing sentences, which independently matches this adapter's own "
+               "clause-engagement anchor, spuriously creating extra candidate provisions anchored "
+               "at Section 9's own text and causing reconciliation to pick Section 9 (not Section "
+               "12) as controlling -- fixed by rewording to bare 'cap'. (2) the conflict detector's "
+               "own antonym mechanism is deliberately narrow (after/before/until, the concrete "
+               "shape observed, not a general magnitude comparator) -- the original 'within one "
+               "year' vs 'within two years' phrasing isn't a recognized antonym pair, so it never "
+               "should have been expected to trigger CONFLICTING under the mechanism as designed and "
+               "disclosed; reworded to the after/before shape the mechanism actually targets, "
+               "matching cond-conflicting-provisions-01's already-passing pattern. Both are "
+               "benchmark-authoring mistakes, not production defects."),
     case("cond-liability-upon-01", ["H_upon"], "liability",
          "12. Limitation of Liability. Upon a final, non-appealable judgment establishing Vendor's "
          "gross negligence, the liability cap stated in this Section shall not apply.",

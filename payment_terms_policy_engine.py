@@ -58,6 +58,9 @@ from policy_engine_core import (
     CHAINED_DELEGATION_RE as _core_chained_delegation_re,
     CONDITIONAL_UNVERIFIED_PRECONDITION_RE as _core_conditional_unverified_precondition_re,
     SELF_FLAGGED_UNRESOLVED_RE as _core_self_flagged_unresolved_re,
+    ConditionEvidence,
+    detect_condition_in_span as _core_detect_condition_in_span,
+    detect_conflicting_backward_conditions as _core_detect_conflicting_backward_conditions,
 )
 
 RULE_ID = "POLICY_PAYMENT_TERMS"
@@ -559,6 +562,9 @@ class PaymentFacts:
     schedule_cross_reference: bool = False
     chained_delegation: bool = False
     conditional_unverified_precondition: bool = False
+    # Step 4A.11 Phase 2 — whether the payment clause's own applicability
+    # is conditioned (see policy_engine_core.ConditionEvidence).
+    condition: Optional[ConditionEvidence] = None
 
 
 class PaymentPolicyRuleLike(Protocol):
@@ -677,6 +683,33 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
 
     facts = PaymentFacts(clause_found=True, raw_excerpt=raw_excerpt, start_index=start_index,
                           end_index=end_index, section_label=section_label)
+    # Step 4A.11 Phase 2 — unlike indemnification's single obligation
+    # concept, a payment clause routinely bundles MANY independently
+    # already-modeled dimensions in one window (grace periods,
+    # price-increase caps and notice, dispute-notice days, milestone
+    # conditions, ...), each often phrased with its own "provided that"/
+    # "subject to"/"upon" language. A whole-window condition scan
+    # regressed on real compliant text (FULLY_COMPLIANT_TEXT's "subject
+    # to a 10-day grace period" and "provided that any such increase
+    # shall not exceed 5%..." are both already deterministically modeled
+    # via grace_period_days/price_increase_percent, not unmodeled
+    # conditions) by escalating the WHOLE clause on language that belongs
+    # to a different, already-handled dimension entirely. The scan is
+    # instead sentence-scoped to the core payment-obligation anchor
+    # (a "shall pay"/"payable"/"remit..." match specifically, not the
+    # clause heading or a price/late-fee/tax mention), mirroring
+    # indemnification's own obligation-level granularity.
+    _payment_obligation_anchor_re = re.compile(
+        r"shall(?:\s+\w+){0,3}\s+pay\b|obligation\s+to\s+pay|payable|remit(?:tance)?|remunerat\w*", re.I,
+    )
+    payment_verb_match = _payment_obligation_anchor_re.search(text, start_index, end_index)
+    payment_anchor_span = payment_verb_match.span() if payment_verb_match else (first_match.start(), first_match.end())
+    facts.condition = _core_detect_condition_in_span(text, payment_anchor_span[0], payment_anchor_span[1])
+    if section_label:
+        conflict = _core_detect_conflicting_backward_conditions(text, "Section", section_label)
+        if conflict is not None:
+            priority = {"CONFLICTING": 3, "ESTABLISHED": 2, "NOT_ESTABLISHED": 1, "UNCONDITIONAL": 0}
+            facts.condition = max((facts.condition, conflict), key=lambda e: priority.get(e.status, 0))
     facts.self_flagged_unresolved = bool(
         _SELF_FLAGGED_PAYMENT_UNRESOLVED_RE.search(raw_excerpt)
         or _CONFLICTING_PAYMENT_TERM_RE.search(raw_excerpt)
@@ -1030,6 +1063,23 @@ def evaluate_payment_policy(
             "a material payment amount/rate is delegated through a chain of cross-references ending in a "
             "document not included — the timing terms may be clean but what is actually owed cannot be verified"
         )
+
+    # Step 4A.11 Phase 2 — a conditional fact may become authoritative only
+    # WITH its condition preserved; this engine does not evaluate whether a
+    # condition's real-world trigger is satisfied.
+    if facts.condition is not None and facts.condition.status == "ESTABLISHED":
+        unresolved.append(
+            f"payment terms are conditionally applicable ({facts.condition.condition_type}: "
+            f"\"{facts.condition.evidence_span}\") — this evaluation does not determine whether the "
+            f"stated condition is satisfied"
+        )
+    elif facts.condition is not None and facts.condition.status == "NOT_ESTABLISHED":
+        unresolved.append(
+            f"payment terms' applicability (condition-shaped language present but its scope/"
+            f"attachment cannot be established: \"{facts.condition.evidence_span}\")"
+        )
+    elif facts.condition is not None and facts.condition.status == "CONFLICTING":
+        unresolved.append(f"payment terms' applicability ({facts.condition.note})")
 
     if unresolved:
         explanation = requires_review_explanation("payment terms clause", facts.raw_excerpt, unresolved)

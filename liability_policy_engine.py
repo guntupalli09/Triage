@@ -71,6 +71,10 @@ from policy_engine_core import (
     CONDITIONAL_UNVERIFIED_PRECONDITION_RE as _core_conditional_unverified_precondition_re,
     WORD_NUMBERS as _core_word_numbers,
     SELF_FLAGGED_UNRESOLVED_RE as _core_self_flagged_unresolved_re,
+    ConditionEvidence,
+    detect_condition_in_span as _core_detect_condition_in_span,
+    detect_condition_in_text as _core_detect_condition_in_text,
+    detect_conflicting_backward_conditions as _core_detect_conflicting_backward_conditions,
 )
 
 RULE_ID = "POLICY_LOL_CAP"
@@ -698,6 +702,9 @@ class Provision:
     consequential_damages_established: bool
     consequential_damages_carveouts: List[str]
     cross_reference: Optional[Dict[str, Any]] = None  # {"label", "resolved", "reason"} — see _resolve_cross_reference
+    # Step 4A.11 Phase 2 — whether this provision's own applicability is
+    # conditioned (see policy_engine_core.ConditionEvidence).
+    condition: Optional[ConditionEvidence] = None
 
     def provision_label(self) -> str:
         if self.section_label:
@@ -1485,13 +1492,34 @@ def _extract_provision(text: str, anchor_start: int, index: int) -> Provision:
             c.start_index += window_start
             c.end_index += window_start
 
+    section_label = _section_label_before(text, window_start)
+    # Step 4A.11 Phase 2 — when a cap VALUE was actually found, start_index/
+    # end_index above are already anchored at that value's own position
+    # (not the clause heading), so a sentence-scoped scan there correctly
+    # attaches a condition stated in the same sentence, or the sentence
+    # immediately after (the backref family), to THIS value rather than a
+    # different party's separately-stated figure elsewhere in the window.
+    # When no value was found at all, start_index/end_index fall back to
+    # the heading's own position, which is the wrong anchor for a
+    # condition that only appears later in the clause — the whole
+    # provision window is scanned instead in that case.
+    if general_cap_expr.components:
+        condition = _core_detect_condition_in_span(text, start_index, end_index)
+    else:
+        condition = _core_detect_condition_in_text(text[window_start:window_end])
+    if section_label:
+        conflict = _core_detect_conflicting_backward_conditions(text, "Section", section_label)
+        if conflict is not None:
+            priority = {"CONFLICTING": 3, "ESTABLISHED": 2, "NOT_ESTABLISHED": 1, "UNCONDITIONAL": 0}
+            condition = max((condition, conflict), key=lambda e: priority.get(e.status, 0))
+
     return Provision(
-        index=index, section_label=_section_label_before(text, window_start), is_amendment=is_amendment,
+        index=index, section_label=section_label, is_amendment=is_amendment,
         start_index=start_index, end_index=end_index, raw_excerpt=raw_excerpt,
         general_cap_expression=general_cap_expr, category_treatments=category_treatments,
         party_positions=party_positions, consequential_damages_excluded=consequential_excluded,
         consequential_damages_established=consequential_established, consequential_damages_carveouts=carveouts,
-        cross_reference=cross_reference_info,
+        cross_reference=cross_reference_info, condition=condition,
     )
 
 
@@ -1782,6 +1810,23 @@ def evaluate_liability_policy(
 
     if policy.require_consequential_damages_exclusion and not provision.consequential_damages_established:
         unresolved_facts.append("consequential damages exclusion (ambiguous language)")
+
+    # Step 4A.11 Phase 2 — a conditional fact may become authoritative only
+    # WITH its condition preserved; this engine does not evaluate whether a
+    # condition's real-world trigger is satisfied.
+    if provision.condition is not None and provision.condition.status == "ESTABLISHED":
+        unresolved_facts.append(
+            f"liability cap is conditionally applicable ({provision.condition.condition_type}: "
+            f"\"{provision.condition.evidence_span}\") — this evaluation does not determine whether "
+            f"the stated condition is satisfied"
+        )
+    elif provision.condition is not None and provision.condition.status == "NOT_ESTABLISHED":
+        unresolved_facts.append(
+            f"liability cap's applicability (condition-shaped language present but its scope/"
+            f"attachment cannot be established: \"{provision.condition.evidence_span}\")"
+        )
+    elif provision.condition is not None and provision.condition.status == "CONFLICTING":
+        unresolved_facts.append(f"liability cap's applicability ({provision.condition.note})")
 
     if unresolved_facts:
         state = REQUIRES_REVIEW

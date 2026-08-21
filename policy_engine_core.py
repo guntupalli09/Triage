@@ -997,6 +997,339 @@ def locate_target_provision(full_text: str, kind: str, identifier: str, max_char
 
 
 # ---------------------------------------------------------------------------
+# Step 4A.11 Phase 2 — conditional applicability. Shared infrastructure for
+# detecting whether a material fact's applicability is conditioned by
+# contractual language, and — the central problem per the phase spec —
+# whether that condition structurally ATTACHES to the specific fact in
+# question rather than merely appearing somewhere nearby in the document.
+#
+# Three-state model (plus UNCONDITIONAL for "no condition at all"), no
+# probabilistic authority:
+#   UNCONDITIONAL   -- no material condition modifies this fact.
+#   ESTABLISHED     -- a condition is present and its attachment is
+#                      deterministically clear (same-sentence leading
+#                      clause, same-sentence trailing proviso, a specific
+#                      mid-clause modifier shape, or an explicit backward
+#                      reference from the immediately following sentence).
+#   NOT_ESTABLISHED -- condition-shaped language exists but scope/
+#                      attachment cannot be confirmed.
+#   CONFLICTING     -- two separately operative provisions impose
+#                      incompatible conditions that cannot be
+#                      deterministically reconciled.
+#
+# Attachment is scoped by SENTENCE, not by a fixed character window: a
+# condition connector occurring in a different sentence than the fact
+# (a different obligation, a different party's clause, a heading, a
+# quoted/negated example separated by its own sentence boundary) is
+# structurally out of scope by construction, without needing a
+# hand-maintained list of "which phrases mean this belongs to someone
+# else." This mirrors the structural-over-lexical principle used
+# throughout the Step 4A.10.x symmetry work and the Phase 1 cross-
+# reference mechanism above.
+# ---------------------------------------------------------------------------
+
+@dataclass
+class ConditionEvidence:
+    status: str  # "UNCONDITIONAL" | "ESTABLISHED" | "NOT_ESTABLISHED" | "CONFLICTING"
+    condition_type: Optional[str] = None
+    evidence_span: Optional[str] = None
+    note: str = ""
+
+
+def unconditional() -> ConditionEvidence:
+    return ConditionEvidence(status="UNCONDITIONAL")
+
+
+# Leading conditional clause: the fact's own SENTENCE opens with a
+# connector clause, terminated by a comma, before the main clause begins
+# ("If Customer breaches..., Vendor shall indemnify..."). Also matches a
+# clause-initial "if/when/unless" that starts right after an EARLIER
+# comma-separated clause in a compound sentence ("Notwithstanding X, if Y,
+# Z shall apply.") -- still structurally "leading" relative to the main
+# clause that follows its own comma, just not at the sentence's absolute
+# start.
+_LEADING_CONDITION_RE = re.compile(
+    r"(?:\A|,\s*)(?:If|When|Unless|Only\s+if|But\s+only\s+if)\b(?:(?!,).){1,220}?,\s*",
+    re.I,
+)
+
+# Trailing proviso: after the main clause, within the SAME sentence, a
+# connector introduces a qualifying clause running toward the sentence's
+# own end ("..., provided that...", "..., unless...", "..., to the extent...").
+_TRAILING_PROVISO_RE = re.compile(
+    r",?\s*(?:provided(?:,)?\s+(?:however,?\s+)?that|unless|except\s+(?:when|to\s+the\s+extent)|"
+    r"only\s+if|but\s+only\s+if|to\s+the\s+extent|only\s+to\s+the\s+extent|"
+    r"so\s+long\s+as|as\s+long\s+as|where\s+applicable)\b",
+    re.I,
+)
+
+# Mid-clause modifiers, each requiring a specific structural shape rather
+# than a bare connector word, to avoid flooding on ordinary prose ("upon
+# receipt of written notice" is a condition; "upon execution" is
+# contract-effectiveness boilerplate and is deliberately not matched).
+_MIDCLAUSE_SUBJECT_TO_CONDITIONS_RE = re.compile(
+    r"\bsubject\s+to\s+(?:the\s+following\s+conditions|"
+    r"(?:[A-Z][\w'-]*(?:'s)?\s+){1,4}(?:prior\s+)?(?:written\s+)?consent)\b",
+    re.I,
+)
+_MIDCLAUSE_UPON_RE = re.compile(
+    r"\bupon\s+(?:the\s+)?(?:occurrence\s+of|receipt\s+of|written\s+notice\s+of|"
+    r"a\s+final,?\s+non-appealable\s+judgment|[a-z]+'s\s+material\s+breach\s+of|termination\s+of)\b",
+    re.I,
+)
+_MIDCLAUSE_CONTINGENT_RE = re.compile(r"\b(?:contingent|conditioned)\s+(?:up)?on\b", re.I)
+_MIDCLAUSE_WHERE_APPLICABLE_RE = re.compile(r"\bwhere\s+applicable\b", re.I)
+_MIDCLAUSE_EXCEPT_RE = re.compile(r"\bexcept\s+(?:when|to\s+the\s+extent)\b", re.I)
+# "shall apply only if/when/to the extent" / "applies only if/when/to the
+# extent" -- a direct (no leading comma) applicability restriction, as
+# opposed to the temporal-only shape below.
+_MIDCLAUSE_APPLIES_ONLY_RE = re.compile(
+    r"\b(?:shall\s+apply|applies)\s+only\s+(?:if|when|to\s+the\s+extent)\b",
+    re.I,
+)
+
+# Temporal applicability change: NOT ordinary duration language ("during
+# the Term") but an explicit "does/shall not apply until/after" or "only
+# applies until/after/before" shape that changes WHETHER the fact applies,
+# not merely how long it lasts.
+_TEMPORAL_APPLICABILITY_RE = re.compile(
+    r"\b(?:shall\s+not\s+apply\s+until|does\s+not\s+apply\s+until|not\s+apply\s+until|"
+    r"shall\s+apply\s+only\s+(?:until|after)|apply\s+only\s+(?:until|after))\b",
+    re.I,
+)
+
+# Family N — condition located in the sentence immediately AFTER the
+# fact's own sentence, explicitly naming the fact by a referential noun
+# phrase ("This obligation", "The foregoing limitation", "Such cap")
+# before stating a condition.
+_BACKREF_CONDITION_RE = re.compile(
+    r"\A\s*(?:This|The\s+foregoing|Such)\s+(?:indemnification\s+)?"
+    r"(?:obligation|limitation|cap|exception)\b(?:(?!\.).){1,120}?"
+    r"\b(?:shall\s+not\s+apply\s+to|does\s+not\s+apply\s+to|shall\s+not\s+apply|does\s+not\s+apply|"
+    r"applies\s+only\s+to|applies\s+only|shall\s+apply\s+only)\b"
+    r"(?:(?!\.).){1,220}?\b(?:if|when|unless|to\s+the\s+extent|until|after|before|arising\s+from|"
+    r"arising\s+out\s+of)\b",
+    re.I,
+)
+
+# An explicit denial that any condition exists at all ("is not subject to
+# any condition precedent") — must not be mistaken for a condition just
+# because a condition-shaped word appears in a sentence that DENIES one.
+_CONDITION_DENIAL_RE = re.compile(
+    r"\bis\s+not\s+subject\s+to\s+any\s+condition\b|\bwithout\s+condition\b|\bunconditionally\b",
+    re.I,
+)
+
+# A vague forward/sideways pointer to an unnamed, unlocated condition
+# ("certain conditions... may apply", "certain limitations... may
+# further restrict") — signals a condition exists without identifying
+# scope or target, so attachment cannot be established either way.
+_VAGUE_CONDITION_POINTER_RE = re.compile(
+    r"\bcertain\s+(?:conditions|limitations)\b(?:(?!\.).){0,120}?\bmay\s+(?:apply|further\s+restrict)\b",
+    re.I,
+)
+
+_MIDCLAUSE_PATTERNS: Tuple[Tuple[Pattern, str], ...] = (
+    (_MIDCLAUSE_SUBJECT_TO_CONDITIONS_RE, "subject_to_conditions"),
+    (_MIDCLAUSE_UPON_RE, "upon"),
+    (_MIDCLAUSE_CONTINGENT_RE, "contingent"),
+    (_MIDCLAUSE_WHERE_APPLICABLE_RE, "where_applicable"),
+    (_MIDCLAUSE_EXCEPT_RE, "except"),
+    (_MIDCLAUSE_APPLIES_ONLY_RE, "only_if"),
+    (_TEMPORAL_APPLICABILITY_RE, "temporal"),
+)
+
+
+def _leading_condition_type(head: str) -> str:
+    head = head.strip().lstrip(",").strip().lower()
+    if head.startswith("unless"):
+        return "unless"
+    if head.startswith("only if") or head.startswith("but only if"):
+        return "only_if"
+    return "if_when"
+
+
+def _trailing_proviso_type(body: str) -> str:
+    body = body.lower()
+    if "provided" in body:
+        return "provided_that"
+    if "unless" in body:
+        return "unless"
+    if "except" in body:
+        return "except"
+    if "only if" in body:
+        return "only_if"
+    if "to the extent" in body:
+        return "to_the_extent"
+    if "so long as" in body or "as long as" in body:
+        return "so_long_as"
+    if "where applicable" in body:
+        return "where_applicable"
+    return "provided_that"
+
+
+def sentence_bounds(text: str, pos: int) -> Tuple[int, int]:
+    """Returns (start, end) of the sentence containing `pos`, bounded by a
+    sentence-ending punctuation mark followed by whitespace/EOL, a blank
+    line, or the text boundaries."""
+    start = 0
+    for m in re.finditer(r"[.!?]\s+|\n\s*\n", text[:pos]):
+        start = m.end()
+    end = len(text)
+    m2 = re.search(r"[.!?](?=\s|\Z)", text[pos:])
+    if m2:
+        end = pos + m2.end()
+    return start, end
+
+
+def detect_condition_in_span(text: str, span_start: int, span_end: int) -> ConditionEvidence:
+    """Looks for a condition connector structurally attached to the
+    sentence spanning [span_start, span_end) in `text`: a leading clause
+    at the sentence's own start, a trailing proviso later in the SAME
+    sentence, a mid-clause modifier anywhere in the sentence, or an
+    explicit backward reference from the sentence immediately after.
+    Never searches beyond the fact's own sentence (plus exactly one
+    sentence of backward-reference lookahead) — a condition elsewhere in
+    the document, in a different obligation's sentence, or in a different
+    party's sentence is structurally out of scope by construction."""
+    sent_start, sent_end = sentence_bounds(text, span_start)
+    sentence = text[sent_start:sent_end]
+
+    if _CONDITION_DENIAL_RE.search(sentence):
+        return unconditional()
+
+    leading = _LEADING_CONDITION_RE.search(sentence)
+    if leading and is_operative_context(text, sent_start + leading.start(), sent_start + leading.end()):
+        return ConditionEvidence(
+            status="ESTABLISHED",
+            condition_type=_leading_condition_type(leading.group(0)),
+            evidence_span=leading.group(0).strip().lstrip(",").strip().rstrip(","),
+        )
+
+    trailing = _TRAILING_PROVISO_RE.search(sentence)
+    if trailing and is_operative_context(text, sent_start + trailing.start(), sent_start + trailing.end()):
+        return ConditionEvidence(
+            status="ESTABLISHED",
+            condition_type=_trailing_proviso_type(trailing.group(0)),
+            evidence_span=sentence[trailing.start():].strip(),
+        )
+
+    for pattern, type_name in _MIDCLAUSE_PATTERNS:
+        m = pattern.search(sentence)
+        if m and is_operative_context(text, sent_start + m.start(), sent_start + m.end()):
+            lo = max(0, m.start() - 40)
+            hi = min(len(sentence), m.end() + 80)
+            return ConditionEvidence(status="ESTABLISHED", condition_type=type_name, evidence_span=sentence[lo:hi].strip())
+
+    # Family N — the sentence immediately after may explicitly reference
+    # this fact by name and condition it there.
+    if sent_end < len(text):
+        next_start, next_end = sentence_bounds(text, sent_end + 1)
+        next_sentence = text[next_start:next_end]
+        backref = _BACKREF_CONDITION_RE.match(next_sentence)
+        if backref and is_operative_context(text, next_start + backref.start(), next_start + backref.end()):
+            return ConditionEvidence(status="ESTABLISHED", condition_type="backref", evidence_span=backref.group(0).strip())
+        vague = _VAGUE_CONDITION_POINTER_RE.search(next_sentence)
+        if vague:
+            return ConditionEvidence(
+                status="NOT_ESTABLISHED", condition_type=None,
+                evidence_span=vague.group(0).strip(),
+                note="a condition is referenced but not identified/located -- attachment cannot be established",
+            )
+    vague_same = _VAGUE_CONDITION_POINTER_RE.search(sentence)
+    if vague_same:
+        return ConditionEvidence(
+            status="NOT_ESTABLISHED", condition_type=None,
+            evidence_span=vague_same.group(0).strip(),
+            note="a condition is referenced but not identified/located -- attachment cannot be established",
+        )
+
+    return unconditional()
+
+
+def detect_condition_in_text(text: str) -> ConditionEvidence:
+    """Same detection, scoped to the ENTIRE given text rather than one
+    sentence around a specific offset -- used for a cross-reference
+    TARGET division's own body, where the whole resolved body is already
+    the correct scope (Section 7 of the phase-2 spec: SOURCE -> REFERENCE
+    -> TARGET -> CONDITION -> MATERIAL FACT)."""
+    if _CONDITION_DENIAL_RE.search(text):
+        return unconditional()
+    # Scan every sentence in the body for a leading or trailing marker,
+    # or a mid-clause modifier.
+    pos = 0
+    while pos < len(text):
+        sent_start, sent_end = sentence_bounds(text, pos)
+        if sent_end <= pos:
+            break
+        sentence = text[sent_start:sent_end]
+        leading = _LEADING_CONDITION_RE.search(sentence)
+        if leading:
+            return ConditionEvidence(status="ESTABLISHED", condition_type=_leading_condition_type(leading.group(0)),
+                                      evidence_span=leading.group(0).strip().lstrip(",").strip().rstrip(","))
+        trailing = _TRAILING_PROVISO_RE.search(sentence)
+        if trailing:
+            return ConditionEvidence(status="ESTABLISHED", condition_type=_trailing_proviso_type(trailing.group(0)),
+                                      evidence_span=sentence[trailing.start():].strip())
+        applies_only = re.search(r"\bapplies\s+only\s+to\b(?:(?!\.).){1,150}", sentence, re.I)
+        if applies_only:
+            return ConditionEvidence(status="ESTABLISHED", condition_type="to_the_extent",
+                                      evidence_span=applies_only.group(0).strip())
+        for pattern, type_name in _MIDCLAUSE_PATTERNS:
+            m = pattern.search(sentence)
+            if m:
+                lo = max(0, m.start() - 40)
+                hi = min(len(sentence), m.end() + 80)
+                return ConditionEvidence(status="ESTABLISHED", condition_type=type_name, evidence_span=sentence[lo:hi].strip())
+        pos = sent_end + 1
+    return unconditional()
+
+
+# Family CONFLICTING (bounded) — two separately operative provisions,
+# elsewhere in the document, each backward-reference the SOURCE division
+# by "under Section N" (or Schedule/Exhibit/etc.) and each impose a
+# temporal condition on it. If two such conditions use directly opposite
+# temporal markers (after/before, until/after) they cannot both be true
+# for the same claim -- reported CONFLICTING rather than silently picking
+# either. This is deliberately narrow (temporal antonyms only, the
+# concrete shape actually observed) rather than a general incompatible-
+# condition prover, which is out of scope for this phase.
+_BACKWARD_CONDITION_ON_SECTION_RE = re.compile(
+    r"\b(?:the\s+)?(?:indemnification\s+obligation|liability\s+cap|limitation\s+of\s+liability|cap)\b"
+    r"(?:(?!\.).){0,40}?\b(?:under|in)\s+(" + _DIVISION_KIND_ALTERNATION + r")\s+(" + _DIVISION_IDENTIFIER_FRAGMENT + r")\b"
+    r"(?:(?!\.).){1,220}?\b(?:shall\s+apply\s+only|applies\s+only|shall\s+not\s+apply)\b(?:(?!\.).){0,220}",
+    re.I,
+)
+_TEMPORAL_ANTONYM_PAIRS = (("after", "before"), ("until", "after"))
+
+
+def detect_conflicting_backward_conditions(full_text: str, source_kind: str, source_identifier: str) -> Optional[ConditionEvidence]:
+    """Scans `full_text` for 2+ provisions that each backward-reference
+    `<source_kind> <source_identifier>` (the fact's own division) with a
+    temporal condition, and reports CONFLICTING when two of them use
+    directly opposite temporal markers. Returns None when fewer than 2
+    such backward-references exist (nothing to reconcile)."""
+    matches = [
+        m for m in _BACKWARD_CONDITION_ON_SECTION_RE.finditer(full_text)
+        if m.group(1).lower() == source_kind.lower() and m.group(2).upper() == source_identifier.upper()
+    ]
+    if len(matches) < 2:
+        return None
+    tails = [m.group(0).lower() for m in matches]
+    for a, b in _TEMPORAL_ANTONYM_PAIRS:
+        has_a = any(a in t for t in tails)
+        has_b = any(b in t for t in tails)
+        if has_a and has_b:
+            return ConditionEvidence(
+                status="CONFLICTING", condition_type="temporal",
+                evidence_span=" | ".join(m.group(0).strip() for m in matches),
+                note=f"{len(matches)} separately operative provisions impose incompatible temporal "
+                     f"conditions on {source_kind} {source_identifier} -- cannot be deterministically reconciled",
+            )
+    return None
+
+
+# ---------------------------------------------------------------------------
 # Formulaic REQUIRES_REVIEW explanation/action text — the string-formatting
 # half of the "unresolved facts -> abstain" pattern used by every adapter
 # with a directional or multi-fact structure (see benchmarks/duplication_

@@ -63,6 +63,11 @@ from policy_engine_core import (
     CROSS_REFERENCE_RE as _core_cross_reference_re,
     find_delegating_cross_reference as _core_find_delegating_cross_reference,
     locate_target_provision as _core_locate_target_provision,
+    ConditionEvidence,
+    detect_condition_in_span as _core_detect_condition_in_span_raw,
+    detect_condition_in_text as _core_detect_condition_in_text,
+    detect_conflicting_backward_conditions as _core_detect_conflicting_backward_conditions,
+    unconditional as _core_unconditional,
 )
 from semantic_discovery import discover_candidate_spans as _discover_candidate_spans_simulated
 
@@ -1316,6 +1321,13 @@ class MonetaryTreatment:
     # auditable rather than becoming an opaque number. See
     # _resolve_cross_referenced_monetary.
     resolution_provenance: Optional[Dict[str, Any]] = None
+    # Step 4A.11 Phase 2 — set when a cross-reference TARGET division's own
+    # body text carries an applicability condition on the resolved value
+    # (Section 7 of the phase-2 spec: SOURCE -> REFERENCE -> TARGET ->
+    # CONDITION -> MATERIAL FACT). None for a value that was never
+    # resolved through a cross-reference, or whose target carries no
+    # condition.
+    condition: Optional[ConditionEvidence] = None
 
     def summary(self) -> str:
         if self.kind == "unlimited":
@@ -1395,6 +1407,13 @@ class IndemnityObligation:
     # separate from the fact fields themselves so discovery provenance is
     # always auditable without being mistaken for an authoritative field.
     discovery_source: str = "REGEX"
+    # Step 4A.11 Phase 2 — whether this obligation's own applicability is
+    # conditioned, and by what (see policy_engine_core.ConditionEvidence).
+    # None only for obligations built by paths that never had full_text
+    # available to search (mirrors monetary.resolution_provenance's own
+    # None-when-not-attempted convention) -- every top-level obligation
+    # extraction call site populates this.
+    condition: Optional[ConditionEvidence] = None
 
     def label(self) -> str:
         prefix = f"Section {self.section_label} — " if self.section_label else ""
@@ -1434,6 +1453,65 @@ class IndemnificationPolicyRuleLike(Protocol):
 
 # _excerpt / _section_label_before are imported from policy_engine_core
 # (promoted — see policy_engine_core.excerpt / section_label_before).
+
+_CONDITION_STATUS_PRIORITY = {"CONFLICTING": 3, "ESTABLISHED": 2, "NOT_ESTABLISHED": 1, "UNCONDITIONAL": 0}
+
+# Step 4A.11 Phase 2 regression fix — a "provided that Customer gives
+# Vendor prompt written notice ... and reasonable cooperation" proviso is
+# NOT a novel, unmodeled applicability condition: this adapter has
+# structurally modeled notice_required/cooperation_required as their own
+# dimension since well before this step (see _NOTICE_RE/_COOPERATION_RE).
+# The general Phase 2 detector correctly recognizes it as a trailing
+# "provided that" clause, but flagging it AGAIN as an unresolved material
+# condition double-counts a fact this engine already safely captures —
+# discovered via the regression suite (nested-03, notice-01,
+# notice-partial-01, composite-clean-01 all false-escalated to
+# REQUIRES_REVIEW). Filtered by checking whether the connector clause's
+# content is, in substance, entirely the notice/cooperation phrase (a
+# structural "what's left after removing the already-modeled part" check,
+# not a list of clause texts to special-case).
+_CONDITION_REMAINDER_STRIP_RE = re.compile(
+    r"\b(?:provided(?:,)?\s+(?:however,?\s+)?that|and|its|of\s+any\s+such\s+claim|thereof|"
+    r"prompt(?:ly)?|written|reasonable|gives?|shall|customer|vendor|in\s+the\s+defense|"
+    r"the\s+(?:party\s+seeking\s+indemnification|indemnifying\s+party)|such\s+claim)\b",
+    re.I,
+)
+
+
+def _is_pure_notice_cooperation_condition(condition: Optional[ConditionEvidence]) -> bool:
+    if condition is None or condition.status != "ESTABLISHED" or not condition.evidence_span:
+        return False
+    span = condition.evidence_span
+    if not (_NOTICE_RE.search(span) or _COOPERATION_RE.search(span)):
+        return False
+    remainder = _NOTICE_RE.sub("", span)
+    remainder = _COOPERATION_RE.sub("", remainder)
+    remainder = _CONDITION_REMAINDER_STRIP_RE.sub("", remainder)
+    remainder = re.sub(r"[\s,\.]+", " ", remainder).strip()
+    return len(remainder) < 12
+
+
+_PROVISO_CONDITION_TYPES = {"provided_that", "unless", "except", "to_the_extent"}
+
+
+def _detect_obligation_condition(text: str, start: int, end: int) -> ConditionEvidence:
+    condition = _core_detect_condition_in_span_raw(text, start, end)
+    if _is_pure_notice_cooperation_condition(condition):
+        return _core_unconditional()
+    return condition
+
+
+def _merge_condition_evidence(*evidences: Optional[ConditionEvidence]) -> Optional[ConditionEvidence]:
+    """Combines multiple independently-detected ConditionEvidence signals
+    for the same material fact (e.g. the obligation's own sentence and a
+    document-wide conflicting-provisions check) by taking the most severe/
+    informative one -- CONFLICTING > ESTABLISHED > NOT_ESTABLISHED >
+    UNCONDITIONAL -- rather than letting a later, weaker check silently
+    overwrite an earlier, stronger finding."""
+    candidates = [e for e in evidences if e is not None]
+    if not candidates:
+        return None
+    return max(candidates, key=lambda e: _CONDITION_STATUS_PRIORITY.get(e.status, 0))
 
 def _classify_triggers(window: str) -> Dict[str, TriggerTreatment]:
     """Mirrors liability_policy_engine's forward-coverage-span exclusion
@@ -1628,6 +1706,16 @@ def _resolve_cross_referenced_monetary(full_text: str, kind: str, identifier: st
     value = values[0]
     provenance["established_value"] = value.summary()
     value.resolution_provenance = provenance
+    # Step 4A.11 Phase 2 — Section 7: SOURCE -> REFERENCE -> TARGET ->
+    # CONDITION -> MATERIAL FACT. The target division's own body may
+    # itself condition the resolved value ("The foregoing limitation
+    # applies only to third-party claims...") -- that condition must
+    # travel with the resolved value, never be silently dropped just
+    # because the value was reached via a cross-reference.
+    target_condition = _core_detect_condition_in_text(body)
+    if target_condition.status != "UNCONDITIONAL":
+        value.condition = target_condition
+        provenance["target_condition"] = target_condition.status
     return "ESTABLISHED", value, provenance
 
 
@@ -1715,21 +1803,38 @@ def _classify_monetary(window: str, obligation_start: int, full_text: Optional[s
             if status == "ESTABLISHED" and resolved is not None:
                 return resolved
         return MonetaryTreatment(kind="cross_reference", cross_reference_label=xref_label, raw_excerpt=_excerpt(window, xref.start(), xref.end()))
+    # Step 4A.11 Phase 2 — the material VALUE's own local position is
+    # checked for a condition, independent of the obligation's own trigger
+    # sentence: a restated/later-in-window figure (e.g. a "Notwithstanding
+    # X, if Y, ... shall not exceed 3 times..." proviso layered after the
+    # base obligation sentence) can carry its own condition that the
+    # obligation-level sentence never sees.
+    def _value_condition(m: "re.Match[str]") -> Optional[ConditionEvidence]:
+        if full_text is None:
+            return None
+        return _detect_obligation_condition(full_text, obligation_start + m.start(), obligation_start + m.end())
+
     if first is unlimited:
         return MonetaryTreatment(kind="unlimited", raw_excerpt=_excerpt(window, unlimited.start(), unlimited.end()))
     if first is mult:
         return MonetaryTreatment(
             kind="multiplier", multiplier=_core_parse_multiplier_token(mult.group(1)),
             raw_excerpt=_excerpt(window, mult.start(), mult.end()),
+            condition=_value_condition(mult),
         )
     if first is fixed:
-        return MonetaryTreatment(kind="fixed", fixed_amount=float(fixed.group(1).replace(",", "")), raw_excerpt=_excerpt(window, fixed.start(), fixed.end()))
+        return MonetaryTreatment(
+            kind="fixed", fixed_amount=float(fixed.group(1).replace(",", "")),
+            raw_excerpt=_excerpt(window, fixed.start(), fixed.end()),
+            condition=_value_condition(fixed),
+        )
     n = _core_parse_multiplier_token(duration_fees.group(1))
     unit = duration_fees.group(2).lower().rstrip("s")
     duration_months = (n * 12 if unit == "year" else n) if n is not None else None
     return MonetaryTreatment(
         kind="duration_fees", duration_months=duration_months,
         raw_excerpt=_excerpt(window, duration_fees.start(), duration_fees.end()),
+        condition=_value_condition(duration_fees),
     )
 
 
@@ -2203,6 +2308,7 @@ def _verify_semantic_candidate(text: str, candidate) -> Tuple[str, Optional["Ind
             asymmetry_reasons=_detect_reciprocal_asymmetry(window),
             self_flagged_unresolved=bool(_SELF_FLAGGED_INDEMNIFICATION_UNRESOLVED_RE.search(window)),
             discovery_source="SEMANTIC",
+            condition=_detect_obligation_condition(text, abs_start, abs_end),
         )
         return "VERIFIED", obligation
     # Plausibly indemnification-shaped (broad discovery signal) but the
@@ -2339,6 +2445,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             # See _resolve_obligations_for_side's same_pair check.
             asymmetry_reasons=_detect_reciprocal_asymmetry(window),
             self_flagged_unresolved=bool(_SELF_FLAGGED_INDEMNIFICATION_UNRESOLVED_RE.search(window)),
+            condition=_detect_obligation_condition(text, m.start(), m.end()),
         ))
         seen_spans.append((m.start(), m.end()))
         seen_role_pairs.append((m.start(), pair))
@@ -2379,6 +2486,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
                 role_side_conflict_reasons=conflict_reasons,
                 asymmetry_reasons=_detect_reciprocal_asymmetry(window),  # Step 4A.7 — see main loop above
                 self_flagged_unresolved=bool(_SELF_FLAGGED_INDEMNIFICATION_UNRESOLVED_RE.search(window)),
+                condition=_detect_obligation_condition(text, m.start(), m.end()),
             ))
             seen_spans.append((m.start(), m.end()))
             seen_role_pairs.append((m.start(), pair))
@@ -2414,6 +2522,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             start_index=rm.start(), end_index=rm.end(),
             section_label=_section_label_before(text, rm.start()),
             role_side_conflict_reasons=base.role_side_conflict_reasons,
+            condition=_detect_obligation_condition(text, rm.start(), rm.end()),
         ))
         seen_spans.append((rm.start(), rm.end()))
 
@@ -2439,6 +2548,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             is_mutual_reciprocal=True,
             asymmetry_reasons=_detect_reciprocal_asymmetry(window),
             self_flagged_unresolved=bool(_SELF_FLAGGED_INDEMNIFICATION_UNRESOLVED_RE.search(window)),
+            condition=_detect_obligation_condition(text, m.start(), m.end()),
         ))
         seen_spans.append((m.start(), m.end()))
 
@@ -2479,6 +2589,49 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
         # UNRESOLVED semantic candidate was found. Either way: present but
         # unresolved, never a silent absence.
         return IndemnificationFacts(clause_found=True, obligations=[], absence_state="PRESENT_BUT_UNRESOLVED")
+
+    # Step 4A.11 Phase 2 — conflicting backward-referencing provisions
+    # (Family: CONFLICTING). Checked once, over every obligation, after
+    # all extraction is complete, since it requires scanning the WHOLE
+    # document for provisions elsewhere that name this obligation's own
+    # section and impose incompatible conditions on it — a document-wide
+    # check, not a per-window one. When found, this overrides (merges
+    # over) whatever condition state the obligation's own sentence
+    # produced, since an unreconcilable conflict is the more severe,
+    # more attention-worthy fact.
+    for ob in obligations:
+        # A condition carried by the resolved monetary VALUE (e.g. via a
+        # cross-reference target's own condition, Section 7) is just as
+        # material as one on the obligation's own sentence -- merge both
+        # rather than letting the obligation-level check silently mask a
+        # value-level condition or vice versa.
+        ob.condition = _merge_condition_evidence(ob.condition, ob.monetary.condition)
+        # A trailing proviso-shaped condition ("provided that"/"unless"/
+        # "except"/"to the extent") whose subject matter is ALREADY
+        # reflected as an "unresolved" trigger_treatments entry is not a
+        # novel, unmodeled fact -- this adapter's existing per-trigger
+        # carve-out ambiguity detector (_classify_triggers) already
+        # surfaces it, and already decides (via the policy's own
+        # required_protection/prohibited_exposure lists) whether that
+        # ambiguity is material enough to force review. Double-flagging it
+        # here bypasses that more precise, policy-aware decision with a
+        # blanket one. Discovered via regression (nested-03: a
+        # "provided, however, that... shall not apply where Customer
+        # contributed..." carve-out on the gross_negligence trigger,
+        # already correctly reflected as trigger_treatments["gross_
+        # negligence"].treatment == "unresolved", with a default policy
+        # that doesn't require resolving it -- ACCEPT is correct).
+        # Leading/mid-clause/backref/temporal conditions are NOT
+        # proviso-shaped in this sense and are not suppressed.
+        if ob.condition is not None and ob.condition.status == "ESTABLISHED" \
+                and ob.condition.condition_type in _PROVISO_CONDITION_TYPES \
+                and any(t.treatment == "unresolved" for t in ob.trigger_treatments.values()):
+            ob.condition = _core_unconditional()
+        if not ob.section_label:
+            continue
+        conflict = _core_detect_conflicting_backward_conditions(text, "Section", ob.section_label)
+        if conflict is not None:
+            ob.condition = _merge_condition_evidence(ob.condition, conflict)
 
     obligations.sort(key=lambda o: o.start_index)
     return IndemnificationFacts(clause_found=True, obligations=obligations, absence_state="PRESENT_AND_VERIFIED")
@@ -2766,6 +2919,27 @@ def evaluate_indemnification_policy(
                 "protection obligation (the document itself explicitly flags a material term of this "
                 "obligation as not yet finally resolved/determined)"
             )
+        # Step 4A.11 Phase 2 — a conditional fact may become authoritative
+        # only WITH its condition preserved; this engine does not evaluate
+        # whether a condition's real-world trigger is satisfied, so any
+        # confirmed condition (or unresolved/conflicting condition
+        # language) routes to review rather than being silently stripped
+        # or silently treated as met.
+        if protection.condition is not None and protection.condition.status == "ESTABLISHED":
+            unresolved_facts.append(
+                f"protection obligation is conditionally applicable ({protection.condition.condition_type}: "
+                f"\"{protection.condition.evidence_span}\") — this evaluation does not determine whether the "
+                f"stated condition is satisfied"
+            )
+        elif protection.condition is not None and protection.condition.status == "NOT_ESTABLISHED":
+            unresolved_facts.append(
+                f"protection obligation's applicability (condition-shaped language present but its scope/"
+                f"attachment cannot be established: \"{protection.condition.evidence_span}\")"
+            )
+        elif protection.condition is not None and protection.condition.status == "CONFLICTING":
+            unresolved_facts.append(
+                f"protection obligation's applicability ({protection.condition.note})"
+            )
 
     # --- Exposure-side unresolved facts ---
     exposure_monetary_value = None
@@ -2800,6 +2974,21 @@ def evaluate_indemnification_policy(
             unresolved_facts.append(
                 "exposure obligation (the document itself explicitly flags a material term of this "
                 "obligation as not yet finally resolved/determined)"
+            )
+        if exposure.condition is not None and exposure.condition.status == "ESTABLISHED":
+            unresolved_facts.append(
+                f"exposure obligation is conditionally applicable ({exposure.condition.condition_type}: "
+                f"\"{exposure.condition.evidence_span}\") — this evaluation does not determine whether the "
+                f"stated condition is satisfied"
+            )
+        elif exposure.condition is not None and exposure.condition.status == "NOT_ESTABLISHED":
+            unresolved_facts.append(
+                f"exposure obligation's applicability (condition-shaped language present but its scope/"
+                f"attachment cannot be established: \"{exposure.condition.evidence_span}\")"
+            )
+        elif exposure.condition is not None and exposure.condition.status == "CONFLICTING":
+            unresolved_facts.append(
+                f"exposure obligation's applicability ({exposure.condition.note})"
             )
 
     if unresolved_facts:

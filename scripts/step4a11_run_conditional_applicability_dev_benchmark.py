@@ -66,7 +66,10 @@ def _condition_status(adapter: str, text: str):
         facts = le.extract_liability_facts(text)
         if not facts:
             return None
-        cond = getattr(facts, "condition", None)
+        provision = facts.controlling_provision or (facts.provisions[0] if facts.provisions else None)
+        if provision is None:
+            return None
+        cond = getattr(provision, "condition", None)
         if cond is None:
             return None
         return cond.status, cond.condition_type
