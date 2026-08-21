@@ -1,0 +1,1219 @@
+{
+  "FRESH104-0001": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0002": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0003": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0004": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0005": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0006": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0007": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0008": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0009": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0010": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0011": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0012": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0013": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0014": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0015": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0016": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0017": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0018": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0019": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0020": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0021": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0022": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0023": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0024": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0025": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0026": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0027": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0028": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0029": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0030": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0031": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0032": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0033": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0034": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0035": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0036": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0037": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0038": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0039": {
+    "classification": "FA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0040": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0041": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0042": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0043": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0044": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0045": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0046": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0047": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0048": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0049": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0050": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0051": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0052": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0053": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Servicer, Noteholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0054": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0055": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0056": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0057": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Trustee, Beneficiary: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0058": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0059": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0060": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0061": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Servicer, Noteholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0062": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0063": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0064": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0065": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Trustee, Beneficiary: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0066": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0067": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0068": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0069": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Servicer, Noteholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0070": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0071": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0072": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0073": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Trustee, Beneficiary: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0074": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0075": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0076": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0077": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Servicer, Noteholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0078": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0079": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0080": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0081": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Trustee, Beneficiary: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0082": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0083": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0084": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0085": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Servicer, Noteholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0086": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0087": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0088": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0089": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Trustee, Beneficiary: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0090": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0091": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0092": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0093": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Servicer, Noteholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0094": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0095": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0096": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0097": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Trustee, Beneficiary: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0098": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0099": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0100": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0101": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Servicer, Noteholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0102": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0103": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0104": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0105": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Trustee, Beneficiary: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0106": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0107": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0108": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0109": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Servicer, Noteholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0110": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0111": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0112": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0113": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Trustee, Beneficiary: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0114": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0115": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0116": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper, North America: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0117": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Servicer, Noteholder, North America: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0118": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner, North America: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0119": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee, North America: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0120": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor, North America: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0121": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Trustee, Beneficiary, North America: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0122": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange, North America: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0123": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator, North America: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0124": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Rider, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0125": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Servicer, Rider, Noteholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0126": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Rider, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0127": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Rider, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0128": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Rider, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0129": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Trustee, Rider, Beneficiary: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0130": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Rider, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0131": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Rider, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0132": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0133": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Servicer, Noteholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0134": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0135": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0136": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0137": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Trustee, Beneficiary: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0138": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0139": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0140": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0141": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Servicer, Noteholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0142": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0143": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0144": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0145": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Trustee, Beneficiary: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0146": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0147": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0148": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0149": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Trustee, Beneficiary: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0150": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0151": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0152": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0153": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Servicer, Noteholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0154": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0155": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0156": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0157": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Trustee, Beneficiary: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0158": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0159": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0160": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0161": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Servicer, Noteholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0162": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0163": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0164": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0165": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Trustee, Beneficiary: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0166": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0167": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0168": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Freight Forwarder, Shipper: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0169": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0170": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0171": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Sublicensor, Sublicensee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0172": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0173": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0174": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Clearing Member, Exchange: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0175": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0176": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0177": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Servicer, Noteholder: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0178": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0179": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0180": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Prime Contractor, Subcontractor: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0181": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0182": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0183": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aggregator, Originator: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0184": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0185": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH104-0186": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Fund Manager, Limited Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH104-0187": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  }
+}
