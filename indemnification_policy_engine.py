@@ -153,7 +153,6 @@ _TRIGGER_KEYWORD_RE = {
 # ("U.S."); tokens may be joined by whitespace, a hyphen, or an
 # ampersand ("Smith & Co.," found via this step's own adversarial dev
 # iteration), not whitespace alone.
-_ROLE_NAME_FIRST_TOKEN = r"[A-Z][A-Za-z]{1,25}"
 _ROLE_NAME_CONTINUATION_TOKEN = (
     r"[A-Z][A-Za-z]{1,25}"       # ordinary capitalized word: Border, Processor, Distributor
     r"|(?:[A-Z]\.){1,4}"          # dotted abbreviation: U.S., U.K., N.A. -- tried before the
@@ -162,9 +161,27 @@ _ROLE_NAME_CONTINUATION_TOKEN = (
     r"|[A-Z](?![A-Za-z])"         # bare designator letter, not the start of a longer word: the "B" in "Class B"
     r"|\d{1,3}"                    # bare designator number: the "1" in "Tier-1"
 )
+# Step 4A.10.10 (final stabilization pass) — Step 4A.10.9's own
+# authoritative frozen corpus found that a role name STARTING with a
+# dotted abbreviation ("U.K. Distributor," "U.S. Distributor") could
+# never be captured with its distinguishing prefix at all: the
+# abbreviation was accepted only as a CONTINUATION token, so the match
+# engine skipped forward to the next ordinary word ("Distributor"),
+# collapsing two distinct roles into one and silently defeating the
+# entire comparison (FS=16/170). Two alternative FIRST-token shapes:
+# an ordinary capitalized word (unchanged, may stand alone, same
+# precision guard as before), OR a dotted abbreviation -- but ONLY when
+# followed by at least one more token ({1,5}, not {0,5}), so a bare
+# abbreviation used in ordinary prose ("under U.S. law") can never
+# match by itself; "law" being lowercase fails the continuation-token
+# shape anyway, but requiring a mandatory continuation keeps the
+# abbreviation-first branch from ever being satisfied by the
+# abbreviation alone.
 _MULTIWORD_ROLE_NAME_FRAGMENT = (
-    _ROLE_NAME_FIRST_TOKEN
-    + r"(?:[\s&-]+(?:" + _ROLE_NAME_CONTINUATION_TOKEN + r")){0,5}"
+    r"(?:"
+    r"[A-Z][A-Za-z]{1,25}(?:[\s&-]+(?:" + _ROLE_NAME_CONTINUATION_TOKEN + r")){0,5}"
+    r"|(?:[A-Z]\.){1,4}(?:[\s&-]+(?:" + _ROLE_NAME_CONTINUATION_TOKEN + r")){1,5}"
+    r")"
     # Step 4A.5 Priority 4: a role name occasionally has one lowercase
     # connector word inside it ("Importer of Record") — a small, closed
     # set of common connectors (of/the/for), never an arbitrary word,
@@ -173,20 +190,49 @@ _MULTIWORD_ROLE_NAME_FRAGMENT = (
 )
 
 
-def _role_name_first_word(name: str) -> str:
-    """The lowercased FIRST TOKEN of a captured role-name fragment,
-    splitting on whitespace or hyphen — used to reject a fragment whose
-    first word alone would identify it as document-structure/generic
-    reference language, even when what follows is now a designator
-    letter/number the widened fragment above also accepts (e.g.
-    "Schedule A," "Section 2," "Exhibit B" must never become roles just
-    because "A"/"2"/"B" are now valid CONTINUATION tokens for genuine
-    multi-word role names like "Class B Purchaser"). Checking only the
-    whole captured string against the stoplist (the pre-4A.10.9
-    approach) stops working once bare letters/digits can appear as a
-    second token — "schedule a" was never in the stoplist as an exact
-    phrase, only "schedule" was."""
-    return re.split(r"[\s&-]+", name.strip(), maxsplit=1)[0].lower()
+def _role_name_any_word_is_structural(name: str) -> bool:
+    """True if ANY word (not just the first — see history below) of a
+    captured role-name fragment is a document-structure/generic-role
+    stoplist word, splitting on whitespace, hyphen, or ampersand.
+    Needed once bare letters/digits became valid CONTINUATION tokens
+    (Step 4A.10.9): checking only the exact whole string against the
+    stoplist stopped working, since "schedule a" was never in the
+    stoplist as an exact phrase, only "schedule" was — so "Schedule A,"
+    "Section 2," "Exhibit B" could leak through as roles just because
+    "A"/"2"/"B" are now valid continuation tokens for genuine multi-word
+    names like "Class B Purchaser." A first-word-only version of this
+    check (superseded here) in turn missed "IP Indemnification" (a
+    section heading, "13. IP Indemnification.," swept up because "IP"
+    alone isn't stoplisted and only the SECOND word, "Indemnification,"
+    is) and "Order Form" — both found via this step's own regression
+    run (benchmarks/indemnification_corpus.py's "multi-reciprocal-01"
+    and indemnification_asymmetry_benchmark.py's "asym-25")."""
+    words = re.split(r"[\s&-]+", name.strip())
+    return any(w.lower() in _GENERIC_ROLE_WORDS or w.lower() in _DOCUMENT_STRUCTURE_WORDS for w in words)
+
+
+def _looks_like_plausible_role_name(name: str) -> bool:
+    """Step 4A.10.10 (final stabilization pass) — guards the single-role
+    fail-closed cardinality invariant against firing on NOISE rather
+    than a genuine attribution. A bare, short, single-token capture
+    (e.g. "IP" picked up from "third-party IP infringement claims," an
+    ordinary abbreviation, not a party name) is exactly the kind of
+    spurious "role" _NAMED_ROLE_MENTION_RE's broad, verb-agnostic match
+    can produce -- treating ITS absence-of-a-second-role as suspicious
+    would manufacture a false escalation on ordinary text that never
+    attempted any named-party attribution at all (found via this step's
+    own regression run: benchmarks/indemnification_corpus.py's
+    "multi-reciprocal-01" and indemnification_asymmetry_benchmark.py's
+    "asym-03"/"asym-25", all containing bare "IP" swept up from "IP
+    infringement"/"IP Indemnification" section headings). A genuine
+    single-role attribution -- the shape the cardinality invariant is
+    meant to catch -- is a real name: either multiple words/tokens, or
+    one token of a length no ordinary short abbreviation would have."""
+    words = re.split(r"[\s&-]+", name.strip())
+    if len(words) >= 2:
+        return True
+    return len(words[0]) > 3
+
 
 _ANCHOR_RE = re.compile(r"indemnif\w*", re.I)
 
@@ -660,6 +706,13 @@ _DOCUMENT_STRUCTURE_WORDS = {
     "indemnification", "indemnity", "liability", "limitation",
     "confidentiality", "termination", "definitions", "warranties",
     "insurance", "assignment", "notices", "miscellaneous",
+    # Step 4A.10.10 (final stabilization pass) — "Order Form" (a common
+    # contract-document reference, "with respect to a particular Order
+    # Form") was being swept up as a two-word "role" by the same
+    # mechanism as "IP Indemnification" below; found via this step's
+    # own regression run (indemnification_asymmetry_benchmark.py's
+    # asym-25).
+    "order", "orders", "form", "forms",
 }
 # Step 4A.10.3 — root-cause fix for Step 4A.10.2's 126/126 frozen-corpus
 # failure (artifacts/step4a10_2/step4a10_2_final_report.md Section Y):
@@ -1879,8 +1932,7 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
         for m in _NAMED_ROLE_MENTION_RE.finditer(window)
         if trim_role_name(m.group(1)).lower() not in _GENERIC_ROLE_WORDS
         and trim_role_name(m.group(1)).lower() not in _DOCUMENT_STRUCTURE_WORDS
-        and _role_name_first_word(trim_role_name(m.group(1))) not in _GENERIC_ROLE_WORDS
-        and _role_name_first_word(trim_role_name(m.group(1))) not in _DOCUMENT_STRUCTURE_WORDS
+        and not _role_name_any_word_is_structural(trim_role_name(m.group(1)))
     ]
     distinct_roles: List[Tuple[str, int]] = []
     seen_lower: set = set()
@@ -1888,6 +1940,38 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
         if role.lower() not in seen_lower:
             seen_lower.add(role.lower())
             distinct_roles.append((role, start))
+    # Step 4A.10.10 (final stabilization pass) — the fail-closed
+    # cardinality invariant: if the clause's own opener structurally
+    # asserts a reciprocal/mutual obligation AND named-role attribution
+    # language is clearly present (at least one specific role is being
+    # attributed something), but extraction could establish only ONE
+    # distinct, comparable role -- never TWO -- that is not evidence of
+    # symmetry. It is evidence that a second role's attribution
+    # couldn't be resolved, for whatever reason (a tokenizer gap like
+    # Step 4A.10.9's leading-abbreviation bug, an unusual name shape,
+    # anything else not yet seen). Silently falling through to an empty
+    # reasons list here is exactly the mechanism that produced Step
+    # 4A.10.9's FS=16: two named, textually DIFFERENT roles collapsed
+    # into one and the entire comparison silently never ran. This is
+    # deliberately narrower than "zero roles found" (an ordinary "each
+    # party shall indemnify the other" clause with no attempt at named-
+    # role attribution at all is not itself suspicious and must not be
+    # forced to review) -- it fires only when the clause plainly tried
+    # to attribute something to a specific named party (exactly one such
+    # attribution was found) inside a structure that claims reciprocity,
+    # and a second, comparable attribution could not be confirmed.
+    if (
+        len(distinct_roles) == 1
+        and _MUTUAL_RECIPROCAL_RE.search(window)
+        and _looks_like_plausible_role_name(distinct_roles[0][0])
+    ):
+        return [
+            f"{distinct_roles[0][0]}: this reciprocal/mutual clause attributes specific terms to "
+            f"{distinct_roles[0][0]} by name, but a second, comparable named role could not be "
+            f"established -- symmetry cannot be confirmed from a single extracted role, so this "
+            f"requires review rather than a clean symmetric conclusion"
+        ]
+
     # Step 4A.10.3 — this block's comparison premise (two named roles'
     # snapshots ought to match) is only meaningful for a GENUINELY
     # reciprocal structure (an "each party"/"mutual" opener, or a third+
