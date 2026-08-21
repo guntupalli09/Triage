@@ -402,6 +402,25 @@ _MONETARY_FIXED_RE = re.compile(
     r"(?:shall\s+not\s+exceed|(?:is\s+)?capped\s+at|limited\s+to)\s*\$\s*([\d,]+(?:\.\d{2})?)",
     re.I,
 )
+# Step 4A.10.5 — a cap stated as a DURATION of fees ("twelve months'
+# fees," "eighteen months of fees," "two years' fees") is a common
+# drafting shape distinct from both the fixed-dollar and "Nx fees"
+# multiplier shapes above, and neither recognized it at all (Step
+# 4A.10.4's FA=18/51 finding: "capped at twelve months' fees" and "does
+# not exceed twelve months' fees" both returned kind="not_stated" on
+# both sides, so no value was ever established to compare). Verb-
+# agnostic by design, same as the multiplier patterns above: the value
+# is the (quantity, unit) phrase itself, not whichever governing verb
+# happens to introduce it ("capped at"/"tops out at"/"does not
+# exceed"/"answers for no more than"/...) -- enumerating governing verbs
+# would repeat the exact closed-vocabulary pattern this program keeps
+# rejecting. Normalized onto a shared months scale, mirroring
+# _classify_survival's own (magnitude, unit) normalization below.
+_MONETARY_DURATION_FEES_RE = re.compile(
+    r"\b(" + _core_word_number_alternation + r")\s*(?:\(\d+\))?[-\s]?(years?|months?)'?\s*"
+    r"(?:worth\s+of\s+)?(?:fees?|rent|royalt(?:y|ies)|premiums?|charges?)",
+    re.I,
+)
 _MONETARY_CROSS_REF_RE = re.compile(
     r"subject\s+to\s+the\s+(?:limitation\s+of\s+liability|liability\s+cap)\s+(?:set\s+forth\s+)?in\s+(Section\s+\d+(?:\.\d+)?)",
     re.I,
@@ -562,7 +581,13 @@ _EQUAL_TREATMENT_STRONG_CUE_RE = re.compile(
     re.I,
 )
 _EQUAL_TREATMENT_WEAK_CUE_RE = re.compile(
-    r"\bboth\b|\balike\b|\bidentical(?:ly)?\b|\bthe\s+same\b", re.I,
+    # Step 4A.10.5 — "that same"/"this same" added alongside "the same":
+    # a demonstrative pronoun referring back to a value just stated for
+    # the OTHER role ("Sublicensor controls the defense...; Sublicensee
+    # retains THAT SAME control...") is the same equal-treatment
+    # assertion as "the same," just with a different (equally common)
+    # determiner -- found via Step 4A.10.4's FA=18/51 finding.
+    r"\bboth\b|\balike\b|\bidentical(?:ly)?\b|\b(?:the|that|this)\s+same\b", re.I,
 )
 _PARTY_WORD_RE = re.compile(r"\bpart(?:y|ies)\b", re.I)
 # a negation immediately before an equal-treatment cue ("is NOT the same
@@ -717,6 +742,29 @@ _SURVIVAL_PERIOD_YEARS_RE = re.compile(
     r"(\w+)\s*\(?\d*\)?\s*(years?|months?)\b",
     re.I,
 )
+# Step 4A.10.5 — _SURVIVAL_PERIOD_YEARS_RE only recognizes ONE rigid
+# phrase shape ("survives ... for a period of N years"). Step 4A.10.4's
+# FA=18/51 finding: "carries a five-year tail after this Agreement ends"
+# and "remains on the hook for five years after this Agreement ends"
+# BOTH returned None -- neither side established a value, so the new
+# structural fail-closed check (correctly, given no info) escalated a
+# genuinely symmetric restatement. Generalized the same way discovery
+# was generalized in Step 4A.10.3: separate the NUMBER+UNIT (which can
+# appear as "five-year" (adjective) or "five years" (plain noun) after
+# any governing verb at all) from the CONTEXT that confirms it describes
+# survival/continuation rather than some unrelated duration elsewhere in
+# the clause (a notice period, a cure period, etc.) -- verb-agnostic by
+# design, enumerating governing verbs would be the same closed-
+# vocabulary anti-pattern again.
+_SURVIVAL_DURATION_NUMBER_RE = re.compile(
+    r"\b(" + _core_word_number_alternation + r")\s*(?:\(\d+\))?[-\s](years?|months?)\b", re.I,
+)
+_SURVIVAL_CONTINUATION_CUE_RE = re.compile(
+    r"\btail\b|\bsurvive[sd]?\b|\bon\s+the\s+hook\b|\bremains?\s+(?:liable|responsible|bound)\b|"
+    r"\bcontinues?\b|\bextends?\b|\bafter\s+this\s+agreement\s+(?:ends?|terminates?|expires?)\b|"
+    r"\bpost[- ]termination\b",
+    re.I,
+)
 
 
 def _classify_survival(local: str) -> Optional[Tuple[float, str]]:
@@ -737,6 +785,13 @@ def _classify_survival(local: str) -> Optional[Tuple[float, str]]:
         if n is not None:
             unit = m.group(2).lower().rstrip("s")
             months = n * 12 if unit == "month" else n
+            return (months, "bounded")
+    m2 = _SURVIVAL_DURATION_NUMBER_RE.search(local)
+    if m2 and _SURVIVAL_CONTINUATION_CUE_RE.search(local):
+        n = _core_parse_multiplier_token(m2.group(1))
+        if n is not None:
+            unit = m2.group(2).lower().rstrip("s")
+            months = n * 12 if unit == "year" else n
             return (months, "bounded")
     return None
 
@@ -999,11 +1054,17 @@ _ROLE_ATTRIBUTION_LOCAL_CHARS = 220
 
 @dataclass
 class MonetaryTreatment:
-    kind: str  # "multiplier" | "fixed" | "unlimited" | "cross_reference" | "not_stated"
+    kind: str  # "multiplier" | "fixed" | "unlimited" | "cross_reference" | "duration_fees" | "not_stated"
     multiplier: Optional[float] = None
     fixed_amount: Optional[float] = None
     cross_reference_label: Optional[str] = None
     raw_excerpt: str = ""
+    # Step 4A.10.5 — only set when kind == "duration_fees": the cap
+    # normalized onto a shared months scale (see
+    # _MONETARY_DURATION_FEES_RE), so "twelve months' fees" and "one
+    # year's fees" compare equal regardless of which unit the drafter
+    # used.
+    duration_months: Optional[float] = None
 
     def summary(self) -> str:
         if self.kind == "unlimited":
@@ -1014,6 +1075,8 @@ class MonetaryTreatment:
             return f"${self.fixed_amount:,.2f} fixed"
         if self.kind == "cross_reference":
             return f"per {self.cross_reference_label}"
+        if self.kind == "duration_fees":
+            return f"{self.duration_months:g} months' fees"
         if self.kind == "conflicting_defined_term":
             return "conflicting (two different values stated for the same defined term)"
         if self.kind == "chained_delegation_unresolved":
@@ -1246,6 +1309,7 @@ def _classify_monetary(window: str, obligation_start: int) -> MonetaryTreatment:
     mult = _MONETARY_MULTIPLIER_RE.search(window)
     mult_word = _MONETARY_MULTIPLIER_WORD_RE.search(window)
     fixed = _MONETARY_FIXED_RE.search(window)
+    duration_fees = _MONETARY_DURATION_FEES_RE.search(window)
     # Bare-digit and spelled-out-number multiplier matches never overlap in
     # practice (a number is spelled out in words XOR written as a digit at
     # any one position); when a window somehow contains both (e.g. two
@@ -1268,7 +1332,7 @@ def _classify_monetary(window: str, obligation_start: int) -> MonetaryTreatment:
     if fixed_disq_label is not None:
         fixed = None
 
-    candidates = [c for c in (xref, unlimited, mult, fixed) if c is not None]
+    candidates = [c for c in (xref, unlimited, mult, fixed, duration_fees) if c is not None]
     if not candidates:
         # A figure that looked like this obligation's own monetary term but
         # was disqualified as belonging to a different clause (e.g. "subject
@@ -1293,11 +1357,19 @@ def _classify_monetary(window: str, obligation_start: int) -> MonetaryTreatment:
             kind="multiplier", multiplier=_core_parse_multiplier_token(mult.group(1)),
             raw_excerpt=_excerpt(window, mult.start(), mult.end()),
         )
-    return MonetaryTreatment(kind="fixed", fixed_amount=float(fixed.group(1).replace(",", "")), raw_excerpt=_excerpt(window, fixed.start(), fixed.end()))
+    if first is fixed:
+        return MonetaryTreatment(kind="fixed", fixed_amount=float(fixed.group(1).replace(",", "")), raw_excerpt=_excerpt(window, fixed.start(), fixed.end()))
+    n = _core_parse_multiplier_token(duration_fees.group(1))
+    unit = duration_fees.group(2).lower().rstrip("s")
+    duration_months = (n * 12 if unit == "year" else n) if n is not None else None
+    return MonetaryTreatment(
+        kind="duration_fees", duration_months=duration_months,
+        raw_excerpt=_excerpt(window, duration_fees.start(), duration_fees.end()),
+    )
 
 
-def _monetary_key(m: MonetaryTreatment) -> Tuple[str, Optional[float], Optional[float]]:
-    return (m.kind, m.multiplier, m.fixed_amount)
+def _monetary_key(m: MonetaryTreatment) -> Tuple[str, Optional[float], Optional[float], Optional[float]]:
+    return (m.kind, m.multiplier, m.fixed_amount, m.duration_months)
 
 
 def _trigger_treatment_key(trigger_treatments: Dict[str, TriggerTreatment]) -> FrozenSet[Tuple[str, str]]:

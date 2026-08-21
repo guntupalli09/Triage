@@ -80,6 +80,16 @@ SELL_SIDE_ROLES = {"supplier", "vendor", "contractor", "licensor", "provider", "
 WORD_NUMBERS = {
     "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
     "seven": 7, "eight": 8, "nine": 9, "ten": 10,
+    # Step 4A.10.5 — extended past ten: contract duration/cap language
+    # routinely spells out numbers this dict didn't cover ("twelve
+    # months' fees," "eighteen months," "thirty days"), and this is a
+    # genuinely closed, finite set (English number words), unlike a
+    # domain phrase list — extending it is not the anti-pattern this
+    # program otherwise rejects.
+    "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14,
+    "fifteen": 15, "sixteen": 16, "seventeen": 17, "eighteen": 18,
+    "nineteen": 19, "twenty": 20, "thirty": 30, "forty": 40,
+    "sixty": 60, "ninety": 90,
 }
 
 
