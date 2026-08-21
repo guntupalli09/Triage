@@ -60,6 +60,9 @@ from policy_engine_core import (
     SELF_FLAGGED_UNRESOLVED_RE as _core_self_flagged_unresolved_re,
     is_operative_context as _core_is_operative_context,
     role_texts_structurally_equivalent,
+    CROSS_REFERENCE_RE as _core_cross_reference_re,
+    find_delegating_cross_reference as _core_find_delegating_cross_reference,
+    locate_target_provision as _core_locate_target_provision,
 )
 from semantic_discovery import discover_candidate_spans as _discover_candidate_spans_simulated
 
@@ -1305,6 +1308,14 @@ class MonetaryTreatment:
     # year's fees" compare equal regardless of which unit the drafter
     # used.
     duration_months: Optional[float] = None
+    # Step 4A.11 — only set when a cross-reference was successfully
+    # RESOLVED (kind is then the resolved value's own kind, e.g.
+    # "fixed"/"multiplier"/"unlimited", not "cross_reference"): the full
+    # SOURCE -> REFERENCE -> TARGET -> CONCEPT -> VALUE provenance chain,
+    # so every resolved cross-referenced fact stays independently
+    # auditable rather than becoming an opaque number. See
+    # _resolve_cross_referenced_monetary.
+    resolution_provenance: Optional[Dict[str, Any]] = None
 
     def summary(self) -> str:
         if self.kind == "unlimited":
@@ -1532,7 +1543,95 @@ def _classify_defense_control(
     return "not_addressed"
 
 
-def _classify_monetary(window: str, obligation_start: int) -> MonetaryTreatment:
+# Step 4A.11 — cross-reference CONCEPT verification (adapter-specific;
+# the reference-parsing/target-lookup machinery this builds on is shared,
+# see policy_engine_core.CROSS_REFERENCE_RE/locate_target_provision). A
+# target division's body text may genuinely discuss a DIFFERENT concept
+# entirely (an insurance-policy limit, an SLA service credit, a purchase
+# price, a license fee, a security deposit) that happens to contain a
+# dollar figure — finding a body is not evidence that body's own value
+# belongs to THIS indemnification obligation. Checked against the first
+# ~200 characters of the target body (where a heading/topic sentence would
+# establish what the division actually governs); a small, disclosed,
+# closed set of concept nouns, not an attempt to enumerate every possible
+# unrelated concept — see the DEV benchmark's negative controls for what
+# this catches and what it doesn't.
+_XREF_TARGET_UNRELATED_CONCEPT_RE = re.compile(
+    r"\binsurance\b|\bcertificate\s+of\s+insurance\b|\bservice\s+level\b|\bSLA\b|"
+    r"\bservice\s+credits?\b|\bdeductible\b|\bpurchase\s+price\b|\blicense\s+fee\b|"
+    r"\bsubscription\s+fee\b|\bsecurity\s+deposit\b|\brenewal\s+fee\b",
+    re.I,
+)
+
+
+def _find_all_distinct_monetary_values(body: str) -> List["MonetaryTreatment"]:
+    """Scans `body` (a resolved target-division's own text, NOT a single
+    obligation's local window) for every monetary-value-shaped match, using
+    the SAME extraction primitives _classify_monetary itself uses, and
+    returns the DISTINCT values found (deduped by _monetary_key so the same
+    figure restated twice doesn't look like two different values). >1
+    distinct value means the target division states more than one figure
+    and this resolver cannot determine which one applies -- the caller
+    treats that as NOT_ESTABLISHED, never guesses via "first match wins.\""""
+    candidates: List[MonetaryTreatment] = []
+    for m in _MONETARY_UNLIMITED_RE.finditer(body):
+        candidates.append(MonetaryTreatment(kind="unlimited", raw_excerpt=_excerpt(body, m.start(), m.end())))
+    for m in _MONETARY_FIXED_RE.finditer(body):
+        candidates.append(MonetaryTreatment(kind="fixed", fixed_amount=float(m.group(1).replace(",", "")), raw_excerpt=_excerpt(body, m.start(), m.end())))
+    for m in _MONETARY_MULTIPLIER_RE.finditer(body):
+        candidates.append(MonetaryTreatment(kind="multiplier", multiplier=_core_parse_multiplier_token(m.group(1)), raw_excerpt=_excerpt(body, m.start(), m.end())))
+    for m in _MONETARY_MULTIPLIER_WORD_RE.finditer(body):
+        candidates.append(MonetaryTreatment(kind="multiplier", multiplier=_core_parse_multiplier_token(m.group(1)), raw_excerpt=_excerpt(body, m.start(), m.end())))
+    for m in _MONETARY_DURATION_FEES_RE.finditer(body):
+        n = _core_parse_multiplier_token(m.group(1))
+        unit = m.group(2).lower().rstrip("s")
+        dm = (n * 12 if unit == "year" else n) if n is not None else None
+        candidates.append(MonetaryTreatment(kind="duration_fees", duration_months=dm, raw_excerpt=_excerpt(body, m.start(), m.end())))
+    seen: List[MonetaryTreatment] = []
+    seen_keys = set()
+    for c in candidates:
+        key = _monetary_key(c)
+        if key not in seen_keys:
+            seen_keys.add(key)
+            seen.append(c)
+    return seen
+
+
+def _resolve_cross_referenced_monetary(full_text: str, kind: str, identifier: str) -> Tuple[str, Optional[MonetaryTreatment], Dict[str, Any]]:
+    """Implements the SOURCE -> REFERENCE -> TARGET -> CONCEPT -> VALUE
+    chain for a monetary cross-reference. Returns (status, resolved_value,
+    provenance) with status in {"ESTABLISHED", "NOT_ESTABLISHED"}.
+    `resolved_value` is only non-None when status is ESTABLISHED. Fails
+    closed at every step: target not found, target ambiguous, target
+    governs an unrelated concept, target has zero or multiple distinct
+    values, or the target's own value is itself a further (unfollowed)
+    cross-reference all produce NOT_ESTABLISHED, never a guess."""
+    provenance: Dict[str, Any] = {"reference_kind": kind, "reference_identifier": identifier}
+    lookup = _core_locate_target_provision(full_text, kind, identifier)
+    provenance["target_lookup_status"] = lookup.status
+    if lookup.status != "FOUND":
+        provenance["reason"] = lookup.note
+        return "NOT_ESTABLISHED", None, provenance
+    body = lookup.body or ""
+    provenance["target_body_excerpt"] = body[:200].strip()
+    if _XREF_TARGET_UNRELATED_CONCEPT_RE.search(body[:250]):
+        provenance["reason"] = "target division's own text appears to govern a different concept (insurance/SLA/deductible/purchase-price/license-fee/etc.), not this indemnification obligation's monetary term"
+        return "NOT_ESTABLISHED", None, provenance
+    values = _find_all_distinct_monetary_values(body)
+    if len(values) == 0:
+        provenance["reason"] = "no monetary value found in the target division's text"
+        return "NOT_ESTABLISHED", None, provenance
+    if len(values) > 1:
+        provenance["reason"] = f"target division states {len(values)} distinct monetary values -- cannot determine which one applies"
+        provenance["competing_values"] = [v.summary() for v in values]
+        return "NOT_ESTABLISHED", None, provenance
+    value = values[0]
+    provenance["established_value"] = value.summary()
+    value.resolution_provenance = provenance
+    return "ESTABLISHED", value, provenance
+
+
+def _classify_monetary(window: str, obligation_start: int, full_text: Optional[str] = None) -> MonetaryTreatment:
     conflicting = _CONFLICTING_DEFINED_TERM_RE.search(window)
     if conflicting:
         return MonetaryTreatment(
@@ -1557,7 +1656,7 @@ def _classify_monetary(window: str, obligation_start: int) -> MonetaryTreatment:
             kind="chained_delegation_unresolved", raw_excerpt=_excerpt(window, chained.start(), chained.end()),
         )
 
-    xref = _MONETARY_CROSS_REF_RE.search(window)
+    xref = _core_find_delegating_cross_reference(window)
     unlimited = _MONETARY_UNLIMITED_RE.search(window)
     mult = _MONETARY_MULTIPLIER_RE.search(window)
     mult_word = _MONETARY_MULTIPLIER_WORD_RE.search(window)
@@ -1602,7 +1701,20 @@ def _classify_monetary(window: str, obligation_start: int) -> MonetaryTreatment:
     # with "closest stated position wins" used throughout the LoL adapter.
     first = min(candidates, key=lambda m: m.start())
     if first is xref:
-        return MonetaryTreatment(kind="cross_reference", cross_reference_label=xref.group(1), raw_excerpt=_excerpt(window, xref.start(), xref.end()))
+        xref_label = f"{xref.group(1)} {xref.group(2)}"
+        # Step 4A.11 — attempt deterministic SOURCE->REFERENCE->TARGET->
+        # CONCEPT->VALUE resolution before falling back to the unresolved
+        # "cross_reference" kind. `full_text` is only provided by the
+        # top-level obligation-extraction call sites (which have the whole
+        # document available); the local-snippet callers used for symmetry
+        # comparison (_snapshot_indemnity_attribution) never pass it, so
+        # this is purely additive there — identical fallback behavior to
+        # before this step.
+        if full_text is not None:
+            status, resolved, _provenance = _resolve_cross_referenced_monetary(full_text, xref.group(1), xref.group(2))
+            if status == "ESTABLISHED" and resolved is not None:
+                return resolved
+        return MonetaryTreatment(kind="cross_reference", cross_reference_label=xref_label, raw_excerpt=_excerpt(window, xref.start(), xref.end()))
     if first is unlimited:
         return MonetaryTreatment(kind="unlimited", raw_excerpt=_excerpt(window, unlimited.start(), unlimited.end()))
     if first is mult:
@@ -2083,7 +2195,7 @@ def _verify_semantic_candidate(text: str, candidate) -> Tuple[str, Optional["Ind
             defense_control=_classify_defense_control(window, indemnifying_role, indemnified_role),
             notice_required=True if _NOTICE_RE.search(window) else None,
             cooperation_required=True if _COOPERATION_RE.search(window) else None,
-            monetary=_classify_monetary(window, candidate.start_offset),
+            monetary=_classify_monetary(window, candidate.start_offset, full_text=text),
             raw_excerpt=candidate.evidence_span,
             start_index=candidate.start_offset, end_index=candidate.end_offset,
             section_label=_section_label_before(text, candidate.start_offset),
@@ -2209,7 +2321,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             defense_control=_classify_defense_control(window, indemnifying_role, indemnified_role),
             notice_required=True if _NOTICE_RE.search(window) else None,
             cooperation_required=True if _COOPERATION_RE.search(window) else None,
-            monetary=_classify_monetary(window, m.start()),
+            monetary=_classify_monetary(window, m.start(), full_text=text),
             raw_excerpt=_excerpt(text, m.start(), m.end()),
             start_index=m.start(), end_index=m.end(),
             section_label=_section_label_before(text, m.start()),
@@ -2260,7 +2372,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
                 defense_control=_classify_defense_control(window, indemnifying_role, indemnified_role),
                 notice_required=True if _NOTICE_RE.search(window) else None,
                 cooperation_required=True if _COOPERATION_RE.search(window) else None,
-                monetary=_classify_monetary(window, m.start()),
+                monetary=_classify_monetary(window, m.start(), full_text=text),
                 raw_excerpt=_excerpt(text, m.start(), m.end()),
                 start_index=m.start(), end_index=m.end(),
                 section_label=_section_label_before(text, m.start()),
@@ -2320,7 +2432,7 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             defense_control=_classify_defense_control(window, "Each Party", "the Other Party"),
             notice_required=True if _NOTICE_RE.search(window) else None,
             cooperation_required=True if _COOPERATION_RE.search(window) else None,
-            monetary=_classify_monetary(window, m.start()),
+            monetary=_classify_monetary(window, m.start(), full_text=text),
             raw_excerpt=_excerpt(text, m.start(), m.end()),
             start_index=m.start(), end_index=m.end(),
             section_label=_section_label_before(text, m.start()),

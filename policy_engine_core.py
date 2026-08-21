@@ -839,6 +839,164 @@ def section_label_before(text: str, anchor_start: int, lookback: int = 30) -> Op
 
 
 # ---------------------------------------------------------------------------
+# Step 4A.11 — Cross-Reference Resolution (SOURCE -> REFERENCE -> TARGET ->
+# CONCEPT -> VALUE). Shared, adapter-agnostic infrastructure: locating a
+# document DIVISION (Section/Schedule/Exhibit/Appendix/Annex/Article N) and
+# extracting its body text once a reference to it is found. What the body
+# means (is this actually a monetary cap? a liability limit? a payment
+# term?) is adapter-specific and lives in each adapter's own module — this
+# primitive only answers "where is the target division, and what text does
+# it contain," never "what does that text establish." A cross-reference
+# resolver built on this must still independently verify the CONCEPT and
+# extract the VALUE from the returned body; finding a body is not itself
+# evidence of anything material.
+# ---------------------------------------------------------------------------
+
+_DIVISION_KIND_ALTERNATION = r"Section|Schedule|Exhibit|Appendix|Annex|Article"
+_DIVISION_IDENTIFIER_FRAGMENT = r"[0-9]+(?:\.[0-9]+)*|[A-Z]\b"
+# A REFERENCE: some connector phrase (structural set, not exhaustive prose)
+# followed, within a bounded span of non-sentence-ending characters, by a
+# division label. The gap between connector and label is matched lazily and
+# WITHOUT constraining what nouns may appear there ("the cap set forth in,"
+# "the limitation of liability described in," "the applicable ceiling
+# specified in," ...) — bounding the STRUCTURE (connector ... label, same
+# sentence) generalizes across drafting styles without enumerating the
+# possible intervening descriptive phrases, the same structural-over-
+# lexical principle used throughout the Step 4A.10.x symmetry work.
+CROSS_REFERENCE_RE = re.compile(
+    r"(?:subject\s+to|as\s+set\s+forth\s+in|set\s+forth\s+in|pursuant\s+to|"
+    r"except\s+as\s+provided\s+in|in\s+accordance\s+with|as\s+described\s+in|"
+    r"as\s+specified\s+in|as\s+provided\s+in|as\s+limited\s+by)"
+    r"(?:(?!\.)[^.]){0,60}?\b(" + _DIVISION_KIND_ALTERNATION + r")\s+(" + _DIVISION_IDENTIFIER_FRAGMENT + r")",
+    re.I,
+)
+# A CROSS_REFERENCE_RE match only describes a genuine DELEGATION to the
+# referenced provision — the two structural shapes that break that
+# assumption, found by regression during Step 4A.11 development:
+#
+# 1. The connector itself is negated ("shall not be subject to the cap
+#    set forth in Section 9") — this states the OPPOSITE of delegation,
+#    an explicit carve-OUT from the referenced provision, not a
+#    reference to its value.
+# 2. The reference sits inside a "notwithstanding" clause ("Notwithstanding
+#    the limitation of liability set forth in Section 9, ...") — this is an
+#    OVERRIDE signal: the sentence goes on to state its own value despite
+#    the referenced provision, not to adopt it.
+#
+# Both are grammatical scoping relationships (what governs the connector),
+# not new connector phrases to enumerate — checking them keeps the
+# connector list itself general while not mistaking negation/override
+# prose for delegation prose.
+_CROSS_REFERENCE_NEGATION_RE = re.compile(
+    r"\b(?:not|no\s+longer|shall\s+not|will\s+not|does\s+not|is\s+not|are\s+not)\s+"
+    r"(?:otherwise\s+)?(?:be\s+)?$",
+    re.I,
+)
+_CROSS_REFERENCE_OVERRIDE_RE = re.compile(r"\bnotwithstanding\b", re.I)
+
+
+def cross_reference_is_delegation(text: str, match: "re.Match[str]") -> bool:
+    """False when a CROSS_REFERENCE_RE match is negated or sits inside a
+    "notwithstanding" override clause — see the comment above. Callers
+    should treat a non-delegating match the same as no match at all."""
+    preceding = text[max(0, match.start() - 40):match.start()]
+    if _CROSS_REFERENCE_NEGATION_RE.search(preceding):
+        return False
+    clause_start = max(
+        text.rfind(".", 0, match.start()),
+        text.rfind(";", 0, match.start()),
+        text.rfind("\n", 0, match.start()),
+    )
+    clause = text[clause_start + 1:match.start()]
+    if _CROSS_REFERENCE_OVERRIDE_RE.search(clause):
+        return False
+    return True
+
+
+def find_delegating_cross_reference(text: str) -> Optional["re.Match[str]"]:
+    """First CROSS_REFERENCE_RE match in `text` that actually describes a
+    delegation (see `cross_reference_is_delegation`) — skips negated or
+    "notwithstanding"-overridden matches rather than stopping at the first
+    connector occurrence regardless of its grammatical scope."""
+    for m in CROSS_REFERENCE_RE.finditer(text):
+        if cross_reference_is_delegation(text, m):
+            return m
+    return None
+
+
+# A HEADING occurrence of a division label — distinguished from a mere
+# INLINE reference to it by requiring the label sit at a sentence/paragraph
+# boundary (start of text, a newline, or immediately after ". "). This is
+# what makes target-lookup structural rather than "find the number
+# anywhere": an inline mention ("as capped by Section 9") must never be
+# mistaken for Section 9's own heading. The kind word is OPTIONAL for a
+# purely numeric identifier ("9. Indemnification Cap." is exactly as common
+# in real drafting as "Section 9. Indemnification Cap.") — but required for
+# a letter identifier, since a bare capital letter at a sentence boundary
+# ("A. This is...") is an ordinary enumerated list item far more often than
+# a genuine "Exhibit A"-style heading, and the kind word is what
+# distinguishes the two structurally.
+_DIVISION_HEADING_RE = re.compile(
+    r"(?:\A|\n|\.\s{1,3})\s*(?:(" + _DIVISION_KIND_ALTERNATION + r")\s+([0-9]+(?:\.[0-9]+)*|[A-Z])"
+    r"|([0-9]+(?:\.[0-9]+)*))\b\.?[:\-–—]?",
+    re.I,
+)
+
+
+def _division_heading_kind_identifier(m: "re.Match[str]") -> Tuple[str, str]:
+    """Normalizes a _DIVISION_HEADING_RE match into (kind, identifier),
+    treating a bare numeric heading with no kind word as an implicit
+    "Section" (see the regex comment above for why letter identifiers
+    don't get the same treatment)."""
+    if m.group(1):
+        return m.group(1), m.group(2)
+    return "Section", m.group(3)
+
+
+@dataclass
+class TargetLookupResult:
+    status: str  # "FOUND" | "NOT_FOUND" | "AMBIGUOUS"
+    body: Optional[str] = None
+    match_start: Optional[int] = None
+    note: str = ""
+
+
+def locate_target_provision(full_text: str, kind: str, identifier: str, max_chars: int = 1500) -> TargetLookupResult:
+    """Finds the HEADING occurrence of `<kind> <identifier>` (e.g. "Section
+    9", "Schedule 3") in `full_text` and returns the body text that follows
+    it, up to the next division-heading-shaped boundary (of ANY kind/
+    identifier) or `max_chars`, whichever comes first — a structural
+    boundary, not a lexical one (it doesn't need to know what the NEXT
+    division is called, only that a new one starts).
+
+    Fails closed on ambiguity: >=2 distinct heading occurrences of the same
+    "<kind> <identifier>" is reported AMBIGUOUS, not resolved to the first
+    one found — a genuine drafting defect (duplicate numbering) or a
+    parsing false-positive both deserve human review, not a silent guess.
+    """
+    heading_positions = [
+        m.start() for m in _DIVISION_HEADING_RE.finditer(full_text)
+        if _division_heading_kind_identifier(m)[0].lower() == kind.lower()
+        and _division_heading_kind_identifier(m)[1].upper() == identifier.upper()
+    ]
+    if not heading_positions:
+        return TargetLookupResult(status="NOT_FOUND", note=f"no heading occurrence of {kind} {identifier} found in the document")
+    if len(heading_positions) > 1:
+        return TargetLookupResult(
+            status="AMBIGUOUS",
+            note=f"{len(heading_positions)} distinct heading occurrences of {kind} {identifier} found — cannot determine which governs",
+        )
+    start = heading_positions[0]
+    heading_match = _DIVISION_HEADING_RE.search(full_text[start:start + 200])
+    body_start = start + (heading_match.end() if heading_match else 0)
+    hi = min(len(full_text), body_start + max_chars)
+    next_boundary = _DIVISION_HEADING_RE.search(full_text[body_start:hi])
+    if next_boundary:
+        hi = body_start + next_boundary.start()
+    return TargetLookupResult(status="FOUND", body=full_text[body_start:hi], match_start=start)
+
+
+# ---------------------------------------------------------------------------
 # Formulaic REQUIRES_REVIEW explanation/action text — the string-formatting
 # half of the "unresolved facts -> abstain" pattern used by every adapter
 # with a directional or multi-fact structure (see benchmarks/duplication_
