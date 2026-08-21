@@ -430,9 +430,21 @@ _STRUCTURAL_RISK_TRANSFER_PATTERNS: Tuple[Tuple[str, "re.Pattern[str]", int, int
         r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+cover\s+any\s+expense)\s+"
         r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:incurs\s+defending)\b"
     ), 1, 2),
+    # "shall reimburse X for [that/any/such] claim/loss/damages/judgment"
+    # -- deliberately NOT a bare "reimburse X for <anything>": ordinary
+    # expense reimbursement ("reimburse Vendor for travel expenses,"
+    # "reimburse Client for licensing fees paid on its behalf") uses the
+    # identical verb and would otherwise satisfy the generic claim/loss-
+    # noun proximity gate too, since "expenses" and "third-party" are
+    # both members of that same noun class -- found as a genuine false-
+    # establishment regression on this module's own hard-negative
+    # corpus (S4A10-0245..0250, S4A10-0275..0280) and fixed by requiring
+    # the claim/loss noun to be the DIRECT object of "for," not merely
+    # present somewhere in a wide surrounding window.
     ("bare_reimburse", re.compile(
         r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:shall\s+reimburse)\s+"
-        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+(?i:for)\b"
+        r"(?:[Tt]he\s+)?(" + _MULTIWORD_ROLE_NAME_FRAGMENT + r")\s+"
+        r"(?i:for)\s+(?i:(?:the|that|any|such)\s+)?(?i:claims?|loss(?:es)?|damages?|judgments?)\b"
     ), 1, 2),
 )
 
