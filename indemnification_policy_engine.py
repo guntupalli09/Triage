@@ -135,14 +135,58 @@ _TRIGGER_KEYWORD_RE = {
 # increase, not a new vocabulary entry, and remains far short of
 # "arbitrary run of capitalized words" (still stops at the first
 # lowercase word).
+# Step 4A.10.9 — Role-Name Boundary & Tokenization Generalization. The
+# prior fragment required plain WHITESPACE between every constituent
+# word, so any role name using another common boundary punctuation
+# (hyphen: "Cross-Border Agent," "Sub-Processor," "Tier-1 Supplier";
+# a bare designator letter/number: "Class B Purchaser," "Tier-1"; a
+# dotted abbreviation: "Non-U.S. Distributor") either fractured into
+# spurious multiple "roles" mid-name or failed to match at all — found
+# via Step 4A.10.8's own authoritative frozen corpus (FA=4/58, all from
+# "Cross-Border Agent" splitting into "Cross" + "Border Agent").
+# Generalized to a TOKEN + CONNECTOR model: the first token must still
+# be a real capitalized word (unchanged — this is what keeps the
+# fragment from starting a match on an isolated stray letter or digit
+# in ordinary prose); each subsequent token may be an ordinary
+# capitalized word, a bare designator (single capital letter or short
+# digit run, for "Class B"/"Tier-1"), or a dotted abbreviation
+# ("U.S."); tokens may be joined by whitespace, a hyphen, or an
+# ampersand ("Smith & Co.," found via this step's own adversarial dev
+# iteration), not whitespace alone.
+_ROLE_NAME_FIRST_TOKEN = r"[A-Z][A-Za-z]{1,25}"
+_ROLE_NAME_CONTINUATION_TOKEN = (
+    r"[A-Z][A-Za-z]{1,25}"       # ordinary capitalized word: Border, Processor, Distributor
+    r"|(?:[A-Z]\.){1,4}"          # dotted abbreviation: U.S., U.K., N.A. -- tried before the
+                                    # bare single-letter alternative below, or "U" alone would
+                                    # match first and stop short of the rest of "U.S."
+    r"|[A-Z](?![A-Za-z])"         # bare designator letter, not the start of a longer word: the "B" in "Class B"
+    r"|\d{1,3}"                    # bare designator number: the "1" in "Tier-1"
+)
 _MULTIWORD_ROLE_NAME_FRAGMENT = (
-    r"[A-Z][A-Za-z]{1,25}(?:\s+[A-Z][A-Za-z]{1,25}){0,4}"
+    _ROLE_NAME_FIRST_TOKEN
+    + r"(?:[\s&-]+(?:" + _ROLE_NAME_CONTINUATION_TOKEN + r")){0,5}"
     # Step 4A.5 Priority 4: a role name occasionally has one lowercase
     # connector word inside it ("Importer of Record") — a small, closed
     # set of common connectors (of/the/for), never an arbitrary word,
     # optionally followed by one more capitalized word.
-    r"(?:\s+(?:of|the|for)\s+[A-Z][A-Za-z]{1,25})?"
+    + r"(?:\s+(?:of|the|for)\s+[A-Z][A-Za-z]{1,25})?"
 )
+
+
+def _role_name_first_word(name: str) -> str:
+    """The lowercased FIRST TOKEN of a captured role-name fragment,
+    splitting on whitespace or hyphen — used to reject a fragment whose
+    first word alone would identify it as document-structure/generic
+    reference language, even when what follows is now a designator
+    letter/number the widened fragment above also accepts (e.g.
+    "Schedule A," "Section 2," "Exhibit B" must never become roles just
+    because "A"/"2"/"B" are now valid CONTINUATION tokens for genuine
+    multi-word role names like "Class B Purchaser"). Checking only the
+    whole captured string against the stoplist (the pre-4A.10.9
+    approach) stops working once bare letters/digits can appear as a
+    second token — "schedule a" was never in the stoplist as an exact
+    phrase, only "schedule" was."""
+    return re.split(r"[\s&-]+", name.strip(), maxsplit=1)[0].lower()
 
 _ANCHOR_RE = re.compile(r"indemnif\w*", re.I)
 
@@ -1835,6 +1879,8 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
         for m in _NAMED_ROLE_MENTION_RE.finditer(window)
         if trim_role_name(m.group(1)).lower() not in _GENERIC_ROLE_WORDS
         and trim_role_name(m.group(1)).lower() not in _DOCUMENT_STRUCTURE_WORDS
+        and _role_name_first_word(trim_role_name(m.group(1))) not in _GENERIC_ROLE_WORDS
+        and _role_name_first_word(trim_role_name(m.group(1))) not in _DOCUMENT_STRUCTURE_WORDS
     ]
     distinct_roles: List[Tuple[str, int]] = []
     seen_lower: set = set()
@@ -1869,9 +1915,20 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
         for i, (role, start) in enumerate(distinct_roles):
             next_start = distinct_roles[i + 1][1] if i + 1 < len(distinct_roles) else len(window)
             hi = min(len(window), start + _ROLE_ATTRIBUTION_LOCAL_CHARS, next_start)
-            boundary = re.search(r"\.\s|\.$", window[start:hi])
+            # Step 4A.10.9 — the boundary search must start AFTER the
+            # role name's own captured span, not at its start: a role
+            # name can now itself contain a period (a dotted
+            # abbreviation like "Non-U.S. Distributor," see
+            # _MULTIWORD_ROLE_NAME_FRAGMENT above), and searching from
+            # `start` let that internal period be mistaken for the
+            # clause's own sentence-ending period, truncating the local
+            # span down to just the role name itself ("Non-U.S. ") and
+            # losing all the real content after it. Found via this
+            # step's own adversarial dev iteration.
+            boundary_search_start = start + len(role)
+            boundary = re.search(r"\.\s|\.$", window[boundary_search_start:hi])
             if boundary:
-                hi = start + boundary.end()
+                hi = boundary_search_start + boundary.end()
             local_texts[role] = window[start:hi]
             snapshots[role] = _snapshot_indemnity_attribution(window[start:hi])
         roles = list(snapshots.keys())
