@@ -2483,6 +2483,50 @@ def _verify_semantic_candidate(text: str, candidate) -> Tuple[str, Optional["Ind
             condition=_detect_obligation_condition(text, abs_start, abs_end),
         )
         return "VERIFIED", obligation
+    # Step 4A.11 Phase 3 — Section 11 parity: a semantic candidate whose
+    # verbatim text matches one of the structural risk-transfer patterns
+    # must be verifiable through the SAME deterministic checks the main
+    # document-wide scan already applies (operative context, the three
+    # additional structural guards, claim/loss-noun proximity) — never
+    # upgraded to VERIFIED on the semantic provider's say-so alone.
+    for pattern_name, structural_re, actor_group, beneficiary_group in _STRUCTURAL_RISK_TRANSFER_PATTERNS:
+        m = structural_re.search(window)
+        if not m:
+            continue
+        abs_start, abs_end = candidate.start_offset + m.start(), candidate.start_offset + m.end()
+        if not _core_is_operative_context(text, abs_start, abs_end):
+            continue
+        if not _structural_risk_transfer_guard_ok(text, m, candidate.start_offset + m.start(actor_group)):
+            continue
+        claim_window = text[max(0, abs_start - 150):min(len(text), abs_end + 150)]
+        if not _CLAIM_LOSS_NOUN_RE.search(claim_window):
+            continue
+        indemnifying_role = trim_role_name(m.group(actor_group))
+        indemnified_role = trim_role_name(m.group(beneficiary_group))
+        if indemnifying_role.lower() == indemnified_role.lower():
+            continue
+        indemnifying_side, indemnifying_conflict = resolve_role_side(indemnifying_role, text)
+        indemnified_side, indemnified_conflict = resolve_role_side(indemnified_role, text)
+        conflict_reasons = [r for r in (indemnifying_conflict, indemnified_conflict) if r]
+        obligation = IndemnityObligation(
+            indemnifying_role=indemnifying_role, indemnifying_side=indemnifying_side,
+            indemnified_role=indemnified_role, indemnified_side=indemnified_side,
+            trigger_treatments=_classify_triggers(window),
+            scope=_classify_scope(window),
+            defense_control=_classify_defense_control(window, indemnifying_role, indemnified_role),
+            notice_required=True if _NOTICE_RE.search(window) else None,
+            cooperation_required=True if _COOPERATION_RE.search(window) else None,
+            monetary=_classify_monetary(window, candidate.start_offset, full_text=text),
+            raw_excerpt=candidate.evidence_span,
+            start_index=candidate.start_offset, end_index=candidate.end_offset,
+            section_label=_section_label_before(text, candidate.start_offset),
+            role_side_conflict_reasons=conflict_reasons,
+            asymmetry_reasons=_detect_reciprocal_asymmetry(window),
+            self_flagged_unresolved=bool(_SELF_FLAGGED_INDEMNIFICATION_UNRESOLVED_RE.search(window)),
+            discovery_source=f"SEMANTIC:STRUCTURAL:{pattern_name}",
+            condition=_detect_obligation_condition(text, abs_start, abs_end),
+        )
+        return "VERIFIED", obligation
     # Plausibly indemnification-shaped (broad discovery signal) but the
     # deterministic structuring code still can't identify a role pair —
     # safe fallthrough to REQUIRES_REVIEW territory, never authoritative.
