@@ -599,7 +599,7 @@ _ROLE_ATTRIBUTION_RE = re.compile(
     re.I,
 )
 _GENERIC_ROLE_WORDS = {
-    "each", "the", "any", "such", "this", "that", "both", "either", "all",
+    "each", "the", "any", "such", "this", "that", "both", "either", "all", "every",
     "party", "parties", "indemnifying", "indemnified", "other",
 }
 # Step 4A.10.3 — document-structure nouns that can be capitalized and
@@ -717,6 +717,30 @@ _CONTRASTIVE_CONJUNCTION_RE = re.compile(
 
 
 def _equal_treatment_cue_present(window: str, roles: Optional[List[str]] = None) -> bool:
+    # Step 4A.10.8 — architectural rule: a reciprocal quantifier
+    # ("each"/"either"/"both"/"every party ... shall indemnify ... the
+    # other," "the parties ... indemnify each other/one another," the
+    # nominalized "party's indemnification duty ... binds/applies to/
+    # governs" shape) is the STRUCTURAL SCAFFOLDING that creates the two
+    # obligations being compared -- it is never itself evidence that
+    # their TERMS are equivalent. Step 4A.10.7's frozen evidence: "Both
+    # parties shall indemnify the other..." was misread as a party-to-
+    # party equality statement purely because the opener's own
+    # quantifier ("both") sits next to its own subject noun ("party"),
+    # which the WEAK cue's proximity guard couldn't distinguish from a
+    # genuine drafter statement like "applicable to both Contractor and
+    # Owner." Rather than special-casing "both" (the one quantifier that
+    # happened to trigger it), every match of the reciprocal-opener
+    # regex itself is masked out of the text before cue-word scanning —
+    # this covers each/either/both/every, "one another," and the
+    # nominalized shape uniformly, and stays correct automatically if
+    # _MUTUAL_RECIPROCAL_RE is ever widened again. An equal-treatment
+    # cue can only be found in what's left: language actually describing
+    # the two named roles' obligations, not the opener that creates them.
+    masked = window
+    for om in _MUTUAL_RECIPROCAL_RE.finditer(window):
+        masked = masked[:om.start()] + (" " * (om.end() - om.start())) + masked[om.end():]
+
     def not_negated(m: "re.Match[str]") -> bool:
         preceding = window[max(0, m.start() - 30):m.start()]
         if _EQUAL_TREATMENT_NEGATION_RE.search(preceding):
@@ -728,10 +752,10 @@ def _equal_treatment_cue_present(window: str, roles: Optional[List[str]] = None)
     if roles:
         role_re = re.compile("|".join(re.escape(r) for r in roles if r), re.I)
 
-    for m in _EQUAL_TREATMENT_STRONG_CUE_RE.finditer(window):
+    for m in _EQUAL_TREATMENT_STRONG_CUE_RE.finditer(masked):
         if not_negated(m):
             return True
-    for m in _EQUAL_TREATMENT_WEAK_CUE_RE.finditer(window):
+    for m in _EQUAL_TREATMENT_WEAK_CUE_RE.finditer(masked):
         if not not_negated(m):
             continue
         nearby_lo, nearby_hi = max(0, m.start() - 40), min(len(window), m.end() + 40)
