@@ -1213,6 +1213,49 @@ _DIFFERENTIATING_QUALIFIER_RE = re.compile(
 )
 
 
+def _normalize_role_text_for_structural_compare(text: str, self_role: str, other_roles: List[str]) -> str:
+    t = text
+    for r in sorted((o for o in other_roles if o), key=len, reverse=True):
+        t = re.sub(re.escape(r) + r"(?:'s|’s)?", " <OTHER> ", t, flags=re.I)
+    if self_role:
+        t = re.sub(re.escape(self_role) + r"(?:'s|’s)?", " <SELF> ", t, flags=re.I)
+    return re.sub(r"\s+", " ", t).strip().lower()
+
+
+def role_texts_structurally_equivalent(local_texts: Dict[str, str]) -> bool:
+    """Step 4A.10.4 — general, non-lexical differentiation check. Two (or
+    more) named roles' own local text spans are 'structurally equivalent'
+    only if, after substituting every role name with a generic <SELF>/
+    <OTHER> placeholder, the resulting normalized strings are IDENTICAL —
+    i.e. the drafter used the exact same mirrored language for each named
+    role, modulo which role is which. This replaces the Step 4A.10.1/
+    4A.10.3 approach of scanning for a recognized "differentiating
+    qualifier" cue WORD (see _DIFFERENTIATING_QUALIFIER_RE, now retired
+    from this safety-boundary role): that approach put the burden of
+    proof on detecting a difference, which is itself a closed vocabulary
+    problem — every fresh corpus finds a new phrase that differentiates
+    treatment without using any recognized cue word (Step 4A.10.3's
+    independent 182-case corpus found six such families: defense
+    control, monetary treatment, first/third-party, geographic scope,
+    cross-reference/schedule, temporal/survival — see
+    artifacts/step4a10_3/step4a10_3_final_report.md). This function
+    inverts the burden: symmetry requires POSITIVE structural proof the
+    two spans say the same thing, not merely the absence of a recognized
+    difference. A single role, or no local text, is vacuously equivalent
+    (nothing to compare) — this is a comparison primitive only; callers
+    remain responsible for deciding whether >=2 comparable roles exist at
+    all."""
+    roles = list(local_texts.keys())
+    if len(roles) < 2:
+        return True
+    normalized = {
+        r: _normalize_role_text_for_structural_compare(local_texts[r], r, [o for o in roles if o != r])
+        for r in roles
+    }
+    base = normalized[roles[0]]
+    return all(normalized[r] == base for r in roles[1:])
+
+
 def detect_role_attributed_asymmetry(
     window: str,
     attribution_re: Pattern[str],
@@ -1220,6 +1263,7 @@ def detect_role_attributed_asymmetry(
     snapshot_fn: Callable[[str], Dict[str, Any]],
     compare_fn: Callable[[str, Dict[str, Any], str, Dict[str, Any]], List[str]],
     max_chars: int = 220,
+    established_equal_fn: Optional[Callable[[Dict[str, Any], Dict[str, Any]], bool]] = None,
 ) -> List[str]:
     """Returns a list of human-readable disagreement reasons; empty means
     either fewer than two distinct named-role attributions were found
@@ -1232,7 +1276,12 @@ def detect_role_attributed_asymmetry(
     its own bounded local window. `compare_fn(base_role, base_snapshot,
     other_role, other_snapshot) -> List[str]` compares the first-seen
     role's snapshot against every other role's snapshot pairwise and
-    returns zero or more reason strings for that pair.
+    returns zero or more reason strings for that pair. `established_equal_fn(base_snapshot,
+    other_snapshot) -> bool`, if given, lets the caller declare that some
+    dimension was positively established equal for both roles (real proof
+    of sameness despite differing surface wording) — when true for every
+    pair, it stands down the structural fail-closed check below, same as
+    an explicit equal-treatment cue.
     """
     matches = [m for m in attribution_re.finditer(window) if trim_role_name(m.group(1)).lower() not in generic_role_words]
     if len(matches) < 2:
@@ -1264,25 +1313,29 @@ def detect_role_attributed_asymmetry(
     if reasons:
         return reasons
 
-    # Step 4A.10.1 — general safety net (artifacts/step4a10_1/
-    # false_symmetry_root_cause.md): the per-dimension `compare_fn`
-    # classifiers are a closed vocabulary and can silently find "nothing
-    # to compare" even when the drafter plainly attached DIFFERENT,
-    # role-specific qualifying language to each named role — a proviso
-    # phrased outside every classifier's specific keyword set is not
-    # evidence of equivalence, it's evidence the specific-dimension
-    # checks are blind to this phrasing. If every attributed role's own
-    # local window contains an explicit differentiating-qualifier cue
-    # (structural markers of "this text singles out/limits/conditions
-    # THIS party's treatment," not a per-case phrase list), treat the
-    # differentiation as real but UNCONFIRMED by the specific classifiers
-    # — never silently presumed symmetric.
-    if any(_DIFFERENTIATING_QUALIFIER_RE.search(local_texts[role]) for role in roles):
+    # Step 4A.10.4 — general safety net (artifacts/step4a10_4/design.md),
+    # superseding the Step 4A.10.1 lexical-cue version. The per-dimension
+    # `compare_fn` classifiers are a closed vocabulary and can silently
+    # find "nothing to compare" even when the drafter plainly attached
+    # DIFFERENT, role-specific language to each named role. The prior
+    # version treated an explicit "differentiating qualifier" cue WORD as
+    # the trigger for escalation — itself a closed vocabulary that a
+    # fresh corpus repeatedly found new phrasing to evade. This version
+    # requires POSITIVE structural proof of sameness instead: symmetry is
+    # declared only if every attributed role's own local text, once role
+    # names are normalized out, is IDENTICAL to every other's. Absence of
+    # a recognized difference cue is never itself evidence of symmetry.
+    if established_equal_fn is not None and all(
+        established_equal_fn(base_snapshot, snapshots[role]) for role in roles[1:]
+    ):
+        return reasons  # a real dimension was established equal for every pair -- positive proof, safe
+    if not role_texts_structurally_equivalent(local_texts):
         return [
             f"{base_role} and {' and '.join(roles[1:])} each have separately-stated "
-            f"qualifying language attached to their respective obligations that the "
-            f"specific comparison checks could not conclusively characterize as "
-            f"equivalent or different — symmetry cannot be assumed"
+            f"language attached to their respective obligations that is not structurally "
+            f"identical once each role's own name is normalized out — the specific "
+            f"comparison checks could not establish these as equivalent, and symmetry "
+            f"cannot be assumed"
         ]
     return reasons
 

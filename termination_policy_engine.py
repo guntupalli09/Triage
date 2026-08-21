@@ -349,6 +349,22 @@ def _compare_right_attribution(base_role: str, base: Dict[str, Any], role: str, 
     return reasons
 
 
+def _any_right_dimension_established_equal(base: Dict[str, Any], snap: Dict[str, Any]) -> bool:
+    """Step 4A.10.4 — real, positively-established agreement on notice or
+    cure period stands down the structural fail-closed check. `immediate`
+    is deliberately excluded: it is a bool that is always "established"
+    (never not-stated), so False==False would trivially satisfy this for
+    every clause; it already compares unconditionally in
+    _compare_right_attribution above. See
+    indemnification_policy_engine._any_dimension_established_equal for
+    the full rationale."""
+    if base["notice"] is not None and snap["notice"] is not None and base["notice"] == snap["notice"]:
+        return True
+    if base["cure"] is not None and snap["cure"] is not None and base["cure"] == snap["cure"]:
+        return True
+    return False
+
+
 def _detect_right_asymmetry(window: str) -> List[str]:
     """Same verification idea as indemnification_policy_engine's
     _detect_reciprocal_asymmetry: a mutual ("either party"/"each party")
@@ -365,6 +381,7 @@ def _detect_right_asymmetry(window: str) -> List[str]:
         window, _ROLE_ATTRIBUTION_RE, _GENERIC_ROLE_WORDS,
         _snapshot_right_attribution, _compare_right_attribution,
         max_chars=_ROLE_ATTRIBUTION_LOCAL_CHARS,
+        established_equal_fn=_any_right_dimension_established_equal,
     )
 
 

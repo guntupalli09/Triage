@@ -177,6 +177,22 @@ def _compare_confidentiality_attribution(base_role: str, base: Dict[str, Any], r
     return reasons
 
 
+def _any_confidentiality_dimension_established_equal(base: Dict[str, Any], snap: Dict[str, Any]) -> bool:
+    """Step 4A.10.4 — real, positively-established agreement on at least
+    one dimension (e.g. both roles' spans state the SAME duration or
+    perpetual status, even if surface wording around the window-slicing
+    boundary differs) stands down the structural fail-closed check; see
+    indemnification_policy_engine._any_dimension_established_equal for
+    the full rationale."""
+    if base["perpetual"] and snap["perpetual"]:
+        return True
+    if base["duration_years"] is not None and snap["duration_years"] is not None and base["duration_years"] == snap["duration_years"]:
+        return True
+    if base["care"] not in ("not_stated",) and snap["care"] not in ("not_stated",) and base["care"] == snap["care"]:
+        return True
+    return False
+
+
 def _detect_confidentiality_asymmetry(window: str) -> List[str]:
     """The scan/window/compare mechanics are shared (see policy_engine_core.
     detect_role_attributed_asymmetry, which also owns the next-attribution-
@@ -186,6 +202,7 @@ def _detect_confidentiality_asymmetry(window: str) -> List[str]:
     return detect_role_attributed_asymmetry(
         window, _ROLE_ATTRIBUTION_RE, _GENERIC_ROLE_WORDS,
         _snapshot_confidentiality_attribution, _compare_confidentiality_attribution,
+        established_equal_fn=_any_confidentiality_dimension_established_equal,
     )
 
 

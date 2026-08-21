@@ -59,7 +59,7 @@ from policy_engine_core import (
     parse_multiplier_token as _core_parse_multiplier_token,
     SELF_FLAGGED_UNRESOLVED_RE as _core_self_flagged_unresolved_re,
     is_operative_context as _core_is_operative_context,
-    _DIFFERENTIATING_QUALIFIER_RE,
+    role_texts_structurally_equivalent,
 )
 from semantic_discovery import discover_candidate_spans as _discover_candidate_spans_simulated
 
@@ -545,12 +545,75 @@ _NAMED_ROLE_MENTION_RE = re.compile(
 # "Schedule 3 for X and Schedule 3 for Y alike" purely because nothing
 # about their content matched a recognized dimension -- this cue lets a
 # drafter's own explicit statement of equivalence stand as confirmation.
-_EQUAL_TREATMENT_CUE_RE = re.compile(
-    r"\bapplies?\s+equally\b|\bequally\s+to\b|\bboth\b|\balike\b|"
-    r"\bidentical(?:ly)?\b|\bthe\s+same\b|\bon\s+the\s+same\s+terms\b|"
+# Step 4A.10.4 — split into STRONG cues (already inherently party-
+# referential phrase-level patterns, e.g. "applies equally", "on the
+# same terms" -- safe to trust bare) and WEAK cues (a single word like
+# "the same"/"both"/"alike"/"identical" that ordinary English also uses
+# for countless things having nothing to do with party symmetry, e.g.
+# "carries its own cyber cover for the same risk" -- describing the RISK
+# as the same, not the two parties' treatment. A weak cue only counts if
+# "part(y|ies)" or one of THIS window's own named roles appears nearby,
+# tying it back to party-to-party equivalence rather than some unrelated
+# "same"/"both"/"alike"; found via this step's own development iteration
+# against the Step 4A.10.3 corpus's "compound" family).
+_EQUAL_TREATMENT_STRONG_CUE_RE = re.compile(
+    r"\bapplies?\s+equally\b|\bequally\s+to\b|\bon\s+the\s+same\s+terms\b|"
     r"\bin\s+the\s+same\s+manner\b",
     re.I,
 )
+_EQUAL_TREATMENT_WEAK_CUE_RE = re.compile(
+    r"\bboth\b|\balike\b|\bidentical(?:ly)?\b|\bthe\s+same\b", re.I,
+)
+_PARTY_WORD_RE = re.compile(r"\bpart(?:y|ies)\b", re.I)
+# a negation immediately before an equal-treatment cue ("is NOT the same
+# as Annex 4") states the OPPOSITE of equivalence; found via this step's
+# own development iteration: "the ceiling that binds Shipowner ... is not
+# the same as Annex 4" was matching "the same" and wrongly standing down
+# the fail-closed check on a clause that explicitly says the two ceilings
+# differ.
+_EQUAL_TREATMENT_NEGATION_RE = re.compile(r"\b(?:not|n't|never|no\s+longer|cannot|can't)\s+\w*\s*$", re.I)
+# a contrastive conjunction BETWEEN a weak cue and a nearby role name
+# means the two are in different clauses that are being set AGAINST each
+# other, not equated -- e.g. "carries its own cyber cover for the same
+# risk, WHILE Depositor's duty additionally tops out at $75,000" has
+# "Depositor" within 40 chars of "the same," but "while" between them
+# signals the sentence is drawing a contrast, not stating the two named
+# roles are treated the same. Found via this step's own development
+# iteration against the Step 4A.10.3 "compound" family.
+_CONTRASTIVE_CONJUNCTION_RE = re.compile(
+    r"\bwhile\b|\bbut\b|\bwhereas\b|\bhowever\b|\byet\b|\balthough\b|\bnevertheless\b", re.I,
+)
+
+
+def _equal_treatment_cue_present(window: str, roles: Optional[List[str]] = None) -> bool:
+    def not_negated(m: "re.Match[str]") -> bool:
+        preceding = window[max(0, m.start() - 30):m.start()]
+        return not _EQUAL_TREATMENT_NEGATION_RE.search(preceding)
+
+    role_re = None
+    if roles:
+        role_re = re.compile("|".join(re.escape(r) for r in roles if r), re.I)
+
+    for m in _EQUAL_TREATMENT_STRONG_CUE_RE.finditer(window):
+        if not_negated(m):
+            return True
+    for m in _EQUAL_TREATMENT_WEAK_CUE_RE.finditer(window):
+        if not not_negated(m):
+            continue
+        nearby_lo, nearby_hi = max(0, m.start() - 40), min(len(window), m.end() + 40)
+        nearby = window[nearby_lo:nearby_hi]
+        if _PARTY_WORD_RE.search(nearby):
+            return True
+        if role_re is None:
+            continue
+        for rm in role_re.finditer(window):
+            if not (nearby_lo <= rm.start() <= nearby_hi):
+                continue
+            lo, hi = (m.end(), rm.start()) if rm.start() >= m.end() else (rm.end(), m.start())
+            between = window[lo:hi] if lo <= hi else ""
+            if not _CONTRASTIVE_CONJUNCTION_RE.search(between):
+                return True
+    return False
 # Step 4A.10.2 — a named role bound to its own external Schedule/Exhibit/
 # Appendix/Annex reference, e.g. "Schedule 3 for Vendor... Schedule 5 for
 # Client." See _detect_reciprocal_asymmetry's use of this below.
@@ -1314,6 +1377,47 @@ def _compare_indemnity_attribution(base_role: str, base: Dict[str, Any], role: s
     return reasons
 
 
+def _any_dimension_established_equal(base: Dict[str, Any], snap: Dict[str, Any]) -> bool:
+    """Step 4A.10.4 — true if at least one comparison dimension was
+    POSITIVELY established for BOTH roles and matched. Used to let the
+    structural fail-closed check (below) stand down when the specific
+    classifiers already found real, established agreement on some
+    dimension — e.g. "Licensee's obligation survives for 3 years" /
+    "Licensor's obligation survives for 3 years as well" state the
+    SAME established survival value in slightly different surface
+    wording; that established match is real positive proof of symmetry,
+    even though the two spans' raw text is not byte-identical.
+    broad_beneficiary is deliberately excluded: it is a bool that is
+    always "established" (never not-stated), so False==False would
+    trivially satisfy this check for every clause and defeat its
+    purpose — it already compares unconditionally in
+    _compare_indemnity_attribution above."""
+    if (
+        base["monetary"].kind != "not_stated" and snap["monetary"].kind != "not_stated"
+        and _monetary_key(base["monetary"]) == _monetary_key(snap["monetary"])
+    ):
+        return True
+    if base["triggers"] and snap["triggers"] and base["triggers"] == snap["triggers"]:
+        return True
+    if (
+        base["scope"] not in ("not_addressed", "unresolved")
+        and snap["scope"] not in ("not_addressed", "unresolved")
+        and base["scope"] == snap["scope"]
+    ):
+        return True
+    if (
+        base["defense_control"] not in ("not_addressed", "unresolved")
+        and snap["defense_control"] not in ("not_addressed", "unresolved")
+        and base["defense_control"] == snap["defense_control"]
+    ):
+        return True
+    if base["causation_standard"] and snap["causation_standard"] and base["causation_standard"] == snap["causation_standard"]:
+        return True
+    if base["survival"] is not None and snap["survival"] is not None and base["survival"] == snap["survival"]:
+        return True
+    return False
+
+
 def _detect_reciprocal_asymmetry(window: str) -> List[str]:
     """A mutual/reciprocal match ("each party shall indemnify... the other
     party" / "the parties shall mutually indemnify each other") claims
@@ -1349,6 +1453,7 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
         window, _ROLE_ATTRIBUTION_RE, _GENERIC_ROLE_WORDS,
         _snapshot_indemnity_attribution, _compare_indemnity_attribution,
         max_chars=_ROLE_ATTRIBUTION_LOCAL_CHARS,
+        established_equal_fn=_any_dimension_established_equal,
     )
     if reasons:
         return reasons
@@ -1473,28 +1578,30 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
     if reasons:
         return reasons
 
-    # Step 4A.10.3 — general candidate discovery + fail-closed invariant
-    # (artifacts/step4a10_3/design.md). Every check above requires a
-    # SPECIFIC attribution phrase or differentiation-cue WORD -- both are
-    # closed vocabularies, and a first version of this block gated on
-    # _DIFFERENTIATING_QUALIFIER_RE was itself defeated by ordinary
-    # phrasing ("continues without end," "differs from," "is fixed by")
-    # that names no recognized cue word at all (found via this step's own
-    # development iteration against the Step 4A.10.2 corpus -- the same
-    # whack-a-mole pattern recurring one layer deeper). This version does
-    # NOT require any cue word. It requires only: (1) a reciprocal opener
-    # matched; (2) >=2 distinctly-named, non-generic, non-document-
-    # structure roles mentioned in the window (bare mention, no verb/noun
-    # requirement -- see _NAMED_ROLE_MENTION_RE); (3) a real, positive
-    # ASYMMETRY OF INFORMATION between their snapshots: at least one
-    # role's snapshot has SOME establishable value on some dimension and
-    # at least one other role's snapshot does not. That is a direct,
-    # general implementation of the required invariant: "failure to
-    # establish two comparable reciprocal obligation snapshots must never
-    # produce a clean symmetric conclusion" -- if one side's snapshot has
-    # information the other side's doesn't, the two are, by definition,
-    # NOT confirmed comparable, regardless of which words were used to
-    # state either side.
+    # Step 4A.10.3/4A.10.4 — general candidate discovery + fail-closed
+    # invariant (artifacts/step4a10_4/design.md). Every check above
+    # requires a SPECIFIC attribution phrase or differentiation-cue WORD
+    # -- both are closed vocabularies. Step 4A.10.3's own first version of
+    # this block was gated on _DIFFERENTIATING_QUALIFIER_RE and was
+    # defeated by ordinary phrasing that named no recognized cue word at
+    # all (found via Step 4A.10.3's independent frozen 182-case corpus:
+    # 58/116 asymmetric cases -- defense control, monetary treatment,
+    # first/third-party, geographic scope, cross-reference/schedule,
+    # temporal/survival -- still came back falsely symmetric, because
+    # NEITHER role's snapshot could establish a value on any dimension for
+    # this fresh vocabulary, so even the "asymmetric information
+    # availability" trigger stayed silent -- see
+    # artifacts/step4a10_3/step4a10_3_final_report.md). This version
+    # requires no cue word AND no snapshot-emptiness asymmetry. It
+    # requires only: (1) a reciprocal opener matched; (2) >=2 distinctly-
+    # named, non-generic, non-document-structure roles mentioned in the
+    # window (bare mention, no verb/noun requirement -- see
+    # _NAMED_ROLE_MENTION_RE); (3) POSITIVE structural proof the two named
+    # roles' own local text spans are NOT the same mirrored statement
+    # (see role_texts_structurally_equivalent) -- burden of proof is
+    # inverted from "detect a difference" to "prove sameness," so a
+    # snapshot classifier's failure to characterize either side's
+    # language is never itself grounds for concluding they match.
     mentions = [
         (trim_role_name(m.group(1)), m.start())
         for m in _NAMED_ROLE_MENTION_RE.finditer(window)
@@ -1530,12 +1637,14 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
     # phrasing or name a third role).
     if len(distinct_roles) >= 2 and (len(distinct_roles) >= 3 or _MUTUAL_RECIPROCAL_RE.search(window)):
         snapshots = {}
+        local_texts: Dict[str, str] = {}
         for i, (role, start) in enumerate(distinct_roles):
             next_start = distinct_roles[i + 1][1] if i + 1 < len(distinct_roles) else len(window)
             hi = min(len(window), start + _ROLE_ATTRIBUTION_LOCAL_CHARS, next_start)
             boundary = re.search(r"\.\s|\.$", window[start:hi])
             if boundary:
                 hi = start + boundary.end()
+            local_texts[role] = window[start:hi]
             snapshots[role] = _snapshot_indemnity_attribution(window[start:hi])
         roles = list(snapshots.keys())
         cmp_reasons: List[str] = []
@@ -1543,42 +1652,28 @@ def _detect_reciprocal_asymmetry(window: str) -> List[str]:
             cmp_reasons.extend(_compare_indemnity_attribution(roles[0], snapshots[roles[0]], role, snapshots[role]))
         if cmp_reasons:
             return cmp_reasons
-        if _EQUAL_TREATMENT_CUE_RE.search(window):
+        established_equal = all(
+            _any_dimension_established_equal(snapshots[roles[0]], snapshots[role])
+            for role in roles[1:]
+        )
+        if _equal_treatment_cue_present(window, roles):
             pass  # drafter explicitly confirms equivalent treatment -- safe
-        else:
-            has_value = {role: _snapshot_has_any_value(snap) for role, snap in snapshots.items()}
-            value_asymmetry = any(has_value.values()) and not all(has_value.values())
-            cue_present = bool(_DIFFERENTIATING_QUALIFIER_RE.search(window))
-            if value_asymmetry or cue_present:
-                # FAIL-CLOSED: the two snapshots are not confirmed
-                # comparable -- either one side states something
-                # establishable the other doesn't, or the clause plainly
-                # signals differentiated treatment no specific classifier
-                # could characterize. Symmetry cannot be assumed.
-                missing = [r for r, v in has_value.items() if not v]
-                detail = (
-                    f"specific, establishable terms exist for {', '.join(r for r, v in has_value.items() if v)} but "
-                    f"not for {', '.join(missing)}" if value_asymmetry else
-                    "the clause contains language singling out or conditioning treatment for a specific named party"
-                )
-                return [f"{', '.join(roles)}: {detail} — the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"]
+        elif established_equal:
+            pass  # a real dimension was established equal for every pair -- positive proof, safe
+        elif not role_texts_structurally_equivalent(local_texts):
+            # FAIL-CLOSED: the two roles' own local text is not the same
+            # mirrored statement once role names are normalized out.
+            # Neither the specific-dimension classifiers nor the
+            # snapshot-emptiness check needs to have found anything for
+            # this to fire -- the structural comparison is the proof
+            # requirement itself, not a fallback for when something else
+            # detects a difference.
+            return [
+                f"{', '.join(roles)}: the clause states different, non-mirrored language for each named "
+                f"party rather than a single shared symmetric term — the two obligations cannot be "
+                f"confirmed comparable, so symmetry cannot be assumed"
+            ]
     return reasons
-
-
-def _snapshot_has_any_value(snap: Dict[str, Any]) -> bool:
-    """True if a role's snapshot carries ANY establishable value on ANY
-    comparison dimension -- used only by the Step 4A.10.3 fail-closed
-    check above to detect asymmetric information availability between
-    two named roles' snapshots."""
-    return (
-        snap["monetary"].kind != "not_stated"
-        or snap["scope"] not in ("not_addressed", "unresolved")
-        or snap["defense_control"] not in ("not_addressed", "unresolved")
-        or bool(snap["triggers"])
-        or snap["broad_beneficiary"]
-        or snap["causation_standard"] is not None
-        or snap["survival"] is not None
-    )
 
 
 def _extract_obligation_window(text: str, start: int, end: int) -> str:
