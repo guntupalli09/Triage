@@ -1,0 +1,2852 @@
+[
+  {
+    "id": "FRESH106-0001",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims traceable to that party's own performance under this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0002",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising from that party's own wrongful acts under this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0003",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another reciprocally for claims traceable to their own respective conduct, applying no distinction in how either is treated.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0004",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims traceable to that party's own performance under this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0005",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising from that party's own wrongful acts under this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0006",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another reciprocally for claims traceable to their own respective conduct, applying no distinction in how either is treated.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0007",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims traceable to that party's own performance under this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0008",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising from that party's own wrongful acts under this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0009",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another reciprocally for claims traceable to their own respective conduct, applying no distinction in how either is treated.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0010",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims traceable to that party's own performance under this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0011",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising from that party's own wrongful acts under this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0012",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another reciprocally for claims traceable to their own respective conduct, applying no distinction in how either is treated.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0013",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims traceable to that party's own performance under this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0014",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising from that party's own wrongful acts under this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0015",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another reciprocally for claims traceable to their own respective conduct, applying no distinction in how either is treated.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0016",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Aircraft Lessor helms the defense of any claim brought against it, and Aircraft Lessee likewise helms the defense of any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0017",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Technology Licensor quarterbacks the litigation response to any claim against it, while Implementation Partner quarterbacks the litigation response to any claim against it in just the same way.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0018",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Storage Provider presides over settlement of any claim brought against it, and Depositing Client presides over that same settlement process for any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0019",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Underwriting Agent shepherds the resolution of any claim against it, while Capacity Provider shepherds the resolution of any claim against it as well.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0020",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Outsourcing Provider holds the reins on any claim's defense against it, and Client Enterprise holds the reins on any claim's defense against it too.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0021",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Import Broker helms the defense of any claim brought against it, and Export Broker likewise helms the defense of any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0022",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Facility Operator quarterbacks the litigation response to any claim against it, while Facility User quarterbacks the litigation response to any claim against it in just the same way.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0023",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Benefits Administrator presides over settlement of any claim brought against it, and Plan Participant presides over that same settlement process for any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0024",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Aircraft Lessor shepherds the resolution of any claim against it, while Aircraft Lessee shepherds the resolution of any claim against it as well.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0025",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Technology Licensor holds the reins on any claim's defense against it, and Implementation Partner holds the reins on any claim's defense against it too.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0026",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Storage Provider helms the defense of any claim brought against it, and Depositing Client likewise helms the defense of any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0027",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Underwriting Agent quarterbacks the litigation response to any claim against it, while Capacity Provider quarterbacks the litigation response to any claim against it in just the same way.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0028",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Outsourcing Provider presides over settlement of any claim brought against it, and Client Enterprise presides over that same settlement process for any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0029",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Import Broker shepherds the resolution of any claim against it, while Export Broker shepherds the resolution of any claim against it as well.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0030",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Facility Operator holds the reins on any claim's defense against it, and Facility User holds the reins on any claim's defense against it too.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0031",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Benefits Administrator helms the defense of any claim brought against it, and Plan Participant likewise helms the defense of any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0032",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Aircraft Lessor quarterbacks the litigation response to any claim against it, while Aircraft Lessee quarterbacks the litigation response to any claim against it in just the same way.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0033",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Technology Licensor presides over settlement of any claim brought against it, and Implementation Partner presides over that same settlement process for any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0034",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Storage Provider shepherds the resolution of any claim against it, while Depositing Client shepherds the resolution of any claim against it as well.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0035",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Underwriting Agent holds the reins on any claim's defense against it, and Capacity Provider holds the reins on any claim's defense against it too.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0036",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Outsourcing Provider helms the defense of any claim brought against it, and Client Enterprise likewise helms the defense of any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0037",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Import Broker quarterbacks the litigation response to any claim against it, while Export Broker quarterbacks the litigation response to any claim against it in just the same way.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0038",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Facility Operator presides over settlement of any claim brought against it, and Facility User presides over that same settlement process for any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0039",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Benefits Administrator shepherds the resolution of any claim against it, while Plan Participant shepherds the resolution of any claim against it as well.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0040",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Aircraft Lessor holds the reins on any claim's defense against it, and Aircraft Lessee holds the reins on any claim's defense against it too.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0041",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Technology Licensor helms the defense of any claim brought against it, and Implementation Partner likewise helms the defense of any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0042",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Storage Provider quarterbacks the litigation response to any claim against it, while Depositing Client quarterbacks the litigation response to any claim against it in just the same way.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0043",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Underwriting Agent presides over settlement of any claim brought against it, and Capacity Provider presides over that same settlement process for any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0044",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Outsourcing Provider shepherds the resolution of any claim against it, while Client Enterprise shepherds the resolution of any claim against it as well.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0045",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Import Broker holds the reins on any claim's defense against it, and Export Broker holds the reins on any claim's defense against it too.",
+    "note": "defense-control paraphrase, fresh verbs never used elsewhere in this program",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0046",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_other_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Facility Operator's duty stretches on for five years after this Agreement lapses, and Facility User stays bound for that same five years after this Agreement lapses.",
+    "note": "survival/monetary paraphrase, confirming prior generalization holds on fresh vocabulary",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0047",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_other_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefits Administrator is capped at eight months' worth of fees, and Plan Participant's exposure likewise does not go past eight months' worth of fees.",
+    "note": "survival/monetary paraphrase, confirming prior generalization holds on fresh vocabulary",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0048",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_other_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Aircraft Lessor's duty stretches on for five years after this Agreement lapses, and Aircraft Lessee stays bound for that same five years after this Agreement lapses.",
+    "note": "survival/monetary paraphrase, confirming prior generalization holds on fresh vocabulary",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0049",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_other_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Technology Licensor is capped at eight months' worth of fees, and Implementation Partner's exposure likewise does not go past eight months' worth of fees.",
+    "note": "survival/monetary paraphrase, confirming prior generalization holds on fresh vocabulary",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0050",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_other_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Storage Provider's duty stretches on for five years after this Agreement lapses, and Depositing Client stays bound for that same five years after this Agreement lapses.",
+    "note": "survival/monetary paraphrase, confirming prior generalization holds on fresh vocabulary",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0051",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_other_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriting Agent is capped at eight months' worth of fees, and Capacity Provider's exposure likewise does not go past eight months' worth of fees.",
+    "note": "survival/monetary paraphrase, confirming prior generalization holds on fresh vocabulary",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0052",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_other_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Outsourcing Provider's duty stretches on for five years after this Agreement lapses, and Client Enterprise stays bound for that same five years after this Agreement lapses.",
+    "note": "survival/monetary paraphrase, confirming prior generalization holds on fresh vocabulary",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0053",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_other_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker is capped at eight months' worth of fees, and Export Broker's exposure likewise does not go past eight months' worth of fees.",
+    "note": "survival/monetary paraphrase, confirming prior generalization holds on fresh vocabulary",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0054",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_other_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Facility Operator's duty stretches on for five years after this Agreement lapses, and Facility User stays bound for that same five years after this Agreement lapses.",
+    "note": "survival/monetary paraphrase, confirming prior generalization holds on fresh vocabulary",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0055",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_other_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefits Administrator is capped at eight months' worth of fees, and Plan Participant's exposure likewise does not go past eight months' worth of fees.",
+    "note": "survival/monetary paraphrase, confirming prior generalization holds on fresh vocabulary",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0056",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 9 applies equally to Aircraft Lessor and Aircraft Lessee.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0057",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Technology Licensor and Implementation Partner alike.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0058",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party's indemnification duty under this Agreement binds Storage Provider and Depositing Client identically.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0059",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 9 applies equally to Underwriting Agent and Capacity Provider.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0060",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Outsourcing Provider and Client Enterprise alike.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0061",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party's indemnification duty under this Agreement binds Import Broker and Export Broker identically.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0062",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 9 applies equally to Facility Operator and Facility User.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0063",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Benefits Administrator and Plan Participant alike.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0064",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party's indemnification duty under this Agreement binds Aircraft Lessor and Aircraft Lessee identically.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0065",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 9 applies equally to Technology Licensor and Implementation Partner.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0066",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Storage Provider and Depositing Client alike.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0067",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party's indemnification duty under this Agreement binds Underwriting Agent and Capacity Provider identically.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0068",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 9 applies equally to Outsourcing Provider and Client Enterprise.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0069",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Import Broker and Export Broker alike.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0070",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party's indemnification duty under this Agreement binds Facility Operator and Facility User identically.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0071",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Aircraft Lessor is on the hook only where the claim stems from Aircraft Lessor's knowing misconduct, whereas Aircraft Lessee is on the hook whenever the claim stems from Aircraft Lessee's simple oversight.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0072",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Technology Licensor is on the hook only where the claim stems from Technology Licensor's knowing misconduct, whereas Implementation Partner is on the hook whenever the claim stems from Implementation Partner's simple oversight.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0073",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Storage Provider is on the hook only where the claim stems from Storage Provider's knowing misconduct, whereas Depositing Client is on the hook whenever the claim stems from Depositing Client's simple oversight.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0074",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Underwriting Agent is on the hook only where the claim stems from Underwriting Agent's knowing misconduct, whereas Capacity Provider is on the hook whenever the claim stems from Capacity Provider's simple oversight.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0075",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Outsourcing Provider is on the hook only where the claim stems from Outsourcing Provider's knowing misconduct, whereas Client Enterprise is on the hook whenever the claim stems from Client Enterprise's simple oversight.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0076",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Import Broker is on the hook only where the claim stems from Import Broker's knowing misconduct, whereas Export Broker is on the hook whenever the claim stems from Export Broker's simple oversight.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0077",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Facility Operator is on the hook only where the claim stems from Facility Operator's knowing misconduct, whereas Facility User is on the hook whenever the claim stems from Facility User's simple oversight.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0078",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Benefits Administrator is on the hook only where the claim stems from Benefits Administrator's knowing misconduct, whereas Plan Participant is on the hook whenever the claim stems from Plan Participant's simple oversight.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0079",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Aircraft Lessor's duty is confined to claims alleging an environmental violation, whereas Aircraft Lessee's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0080",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Technology Licensor's duty is confined to claims alleging an environmental violation, whereas Implementation Partner's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0081",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Storage Provider's duty is confined to claims alleging an environmental violation, whereas Depositing Client's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0082",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriting Agent's duty is confined to claims alleging an environmental violation, whereas Capacity Provider's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0083",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Outsourcing Provider's duty is confined to claims alleging an environmental violation, whereas Client Enterprise's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0084",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's duty is confined to claims alleging an environmental violation, whereas Export Broker's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0085",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Facility Operator's duty is confined to claims alleging an environmental violation, whereas Facility User's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0086",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefits Administrator's duty is confined to claims alleging an environmental violation, whereas Plan Participant's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0087",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Aircraft Lessor alone helms litigation and settlement strategy for any claim against Aircraft Lessee, whereas Aircraft Lessee has no input at all into strategy for any claim against Aircraft Lessor.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0088",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Technology Licensor alone helms litigation and settlement strategy for any claim against Implementation Partner, whereas Implementation Partner has no input at all into strategy for any claim against Technology Licensor.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0089",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Storage Provider alone helms litigation and settlement strategy for any claim against Depositing Client, whereas Depositing Client has no input at all into strategy for any claim against Storage Provider.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0090",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Underwriting Agent alone helms litigation and settlement strategy for any claim against Capacity Provider, whereas Capacity Provider has no input at all into strategy for any claim against Underwriting Agent.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0091",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Outsourcing Provider alone helms litigation and settlement strategy for any claim against Client Enterprise, whereas Client Enterprise has no input at all into strategy for any claim against Outsourcing Provider.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0092",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Import Broker alone helms litigation and settlement strategy for any claim against Export Broker, whereas Export Broker has no input at all into strategy for any claim against Import Broker.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0093",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Facility Operator alone helms litigation and settlement strategy for any claim against Facility User, whereas Facility User has no input at all into strategy for any claim against Facility Operator.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0094",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Benefits Administrator alone helms litigation and settlement strategy for any claim against Plan Participant, whereas Plan Participant has no input at all into strategy for any claim against Benefits Administrator.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0095",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Aircraft Lessor's liability tops out at six months' worth of fees, whereas Aircraft Lessee faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0096",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Technology Licensor's liability tops out at six months' worth of fees, whereas Implementation Partner faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0097",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Storage Provider's liability tops out at six months' worth of fees, whereas Depositing Client faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0098",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriting Agent's liability tops out at six months' worth of fees, whereas Capacity Provider faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0099",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Outsourcing Provider's liability tops out at six months' worth of fees, whereas Client Enterprise faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0100",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's liability tops out at six months' worth of fees, whereas Export Broker faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0101",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Facility Operator's liability tops out at six months' worth of fees, whereas Facility User faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0102",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefits Administrator's liability tops out at six months' worth of fees, whereas Plan Participant faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0103",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Aircraft Lessor's duty excludes any claim traceable to Aircraft Lessee's own unauthorized modification of the deliverable, an exclusion Aircraft Lessee's duty toward Aircraft Lessor does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0104",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Technology Licensor's duty excludes any claim traceable to Implementation Partner's own unauthorized modification of the deliverable, an exclusion Implementation Partner's duty toward Technology Licensor does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0105",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Storage Provider's duty excludes any claim traceable to Depositing Client's own unauthorized modification of the deliverable, an exclusion Depositing Client's duty toward Storage Provider does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0106",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Underwriting Agent's duty excludes any claim traceable to Capacity Provider's own unauthorized modification of the deliverable, an exclusion Capacity Provider's duty toward Underwriting Agent does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0107",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Outsourcing Provider's duty excludes any claim traceable to Client Enterprise's own unauthorized modification of the deliverable, an exclusion Client Enterprise's duty toward Outsourcing Provider does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0108",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Import Broker's duty excludes any claim traceable to Export Broker's own unauthorized modification of the deliverable, an exclusion Export Broker's duty toward Import Broker does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0109",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Facility Operator's duty excludes any claim traceable to Facility User's own unauthorized modification of the deliverable, an exclusion Facility User's duty toward Facility Operator does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0110",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Benefits Administrator's duty excludes any claim traceable to Plan Participant's own unauthorized modification of the deliverable, an exclusion Plan Participant's duty toward Benefits Administrator does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0111",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Aircraft Lessor's duty does not attach unless Aircraft Lessee first exhausts the escalation procedure in Section 11, a precondition Aircraft Lessee's duty toward Aircraft Lessor does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0112",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Technology Licensor's duty does not attach unless Implementation Partner first exhausts the escalation procedure in Section 11, a precondition Implementation Partner's duty toward Technology Licensor does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0113",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Storage Provider's duty does not attach unless Depositing Client first exhausts the escalation procedure in Section 11, a precondition Depositing Client's duty toward Storage Provider does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0114",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriting Agent's duty does not attach unless Capacity Provider first exhausts the escalation procedure in Section 11, a precondition Capacity Provider's duty toward Underwriting Agent does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0115",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Outsourcing Provider's duty does not attach unless Client Enterprise first exhausts the escalation procedure in Section 11, a precondition Client Enterprise's duty toward Outsourcing Provider does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0116",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's duty does not attach unless Export Broker first exhausts the escalation procedure in Section 11, a precondition Export Broker's duty toward Import Broker does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0117",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Facility Operator's duty does not attach unless Facility User first exhausts the escalation procedure in Section 11, a precondition Facility User's duty toward Facility Operator does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0118",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefits Administrator's duty does not attach unless Plan Participant first exhausts the escalation procedure in Section 11, a precondition Plan Participant's duty toward Benefits Administrator does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0119",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Aircraft Lessor's duty reaches Aircraft Lessee's own internal losses in addition to outside claims, whereas Aircraft Lessee's duty reaches only outside claims brought against Aircraft Lessor.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0120",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Technology Licensor's duty reaches Implementation Partner's own internal losses in addition to outside claims, whereas Implementation Partner's duty reaches only outside claims brought against Technology Licensor.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0121",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Storage Provider's duty reaches Depositing Client's own internal losses in addition to outside claims, whereas Depositing Client's duty reaches only outside claims brought against Storage Provider.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0122",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriting Agent's duty reaches Capacity Provider's own internal losses in addition to outside claims, whereas Capacity Provider's duty reaches only outside claims brought against Underwriting Agent.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0123",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Outsourcing Provider's duty reaches Client Enterprise's own internal losses in addition to outside claims, whereas Client Enterprise's duty reaches only outside claims brought against Outsourcing Provider.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0124",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's duty reaches Export Broker's own internal losses in addition to outside claims, whereas Export Broker's duty reaches only outside claims brought against Import Broker.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0125",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Facility Operator's duty reaches Facility User's own internal losses in addition to outside claims, whereas Facility User's duty reaches only outside claims brought against Facility Operator.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0126",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefits Administrator's duty reaches Plan Participant's own internal losses in addition to outside claims, whereas Plan Participant's duty reaches only outside claims brought against Benefits Administrator.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0127",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Aircraft Lessor owes this duty even absent any fault on Aircraft Lessor's part, whereas Aircraft Lessee owes it only once Aircraft Lessee's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0128",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Technology Licensor owes this duty even absent any fault on Technology Licensor's part, whereas Implementation Partner owes it only once Implementation Partner's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0129",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Storage Provider owes this duty even absent any fault on Storage Provider's part, whereas Depositing Client owes it only once Depositing Client's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0130",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Underwriting Agent owes this duty even absent any fault on Underwriting Agent's part, whereas Capacity Provider owes it only once Capacity Provider's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0131",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Outsourcing Provider owes this duty even absent any fault on Outsourcing Provider's part, whereas Client Enterprise owes it only once Client Enterprise's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0132",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Import Broker owes this duty even absent any fault on Import Broker's part, whereas Export Broker owes it only once Export Broker's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0133",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Facility Operator owes this duty even absent any fault on Facility Operator's part, whereas Facility User owes it only once Facility User's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0134",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Benefits Administrator owes this duty even absent any fault on Benefits Administrator's part, whereas Plan Participant owes it only once Plan Participant's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0135",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Aircraft Lessor's duty follows claims arising anywhere on the globe, whereas Aircraft Lessee's duty is confined to claims arising within Australia.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0136",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Technology Licensor's duty follows claims arising anywhere on the globe, whereas Implementation Partner's duty is confined to claims arising within Australia.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0137",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Storage Provider's duty follows claims arising anywhere on the globe, whereas Depositing Client's duty is confined to claims arising within Australia.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0138",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriting Agent's duty follows claims arising anywhere on the globe, whereas Capacity Provider's duty is confined to claims arising within Australia.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0139",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Outsourcing Provider's duty follows claims arising anywhere on the globe, whereas Client Enterprise's duty is confined to claims arising within Australia.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0140",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's duty follows claims arising anywhere on the globe, whereas Export Broker's duty is confined to claims arising within Australia.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0141",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Facility Operator's duty follows claims arising anywhere on the globe, whereas Facility User's duty is confined to claims arising within Australia.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0142",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefits Administrator's duty follows claims arising anywhere on the globe, whereas Plan Participant's duty is confined to claims arising within Australia.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0143",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Aircraft Lessor is set out in Appendix 1, and the figure binding Aircraft Lessee, set out separately in Appendix 2, is a different figure than Appendix 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0144",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Technology Licensor is set out in Appendix 1, and the figure binding Implementation Partner, set out separately in Appendix 2, is a different figure than Appendix 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0145",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Storage Provider is set out in Appendix 1, and the figure binding Depositing Client, set out separately in Appendix 2, is a different figure than Appendix 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0146",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Underwriting Agent is set out in Appendix 1, and the figure binding Capacity Provider, set out separately in Appendix 2, is a different figure than Appendix 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0147",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Outsourcing Provider is set out in Appendix 1, and the figure binding Client Enterprise, set out separately in Appendix 2, is a different figure than Appendix 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0148",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Import Broker is set out in Appendix 1, and the figure binding Export Broker, set out separately in Appendix 2, is a different figure than Appendix 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0149",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Facility Operator is set out in Appendix 1, and the figure binding Facility User, set out separately in Appendix 2, is a different figure than Appendix 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0150",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Benefits Administrator is set out in Appendix 1, and the figure binding Plan Participant, set out separately in Appendix 2, is a different figure than Appendix 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0151",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Aircraft Lessor's duty carries on with no end date once this Agreement winds down, whereas Aircraft Lessee's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0152",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Technology Licensor's duty carries on with no end date once this Agreement winds down, whereas Implementation Partner's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0153",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Storage Provider's duty carries on with no end date once this Agreement winds down, whereas Depositing Client's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0154",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriting Agent's duty carries on with no end date once this Agreement winds down, whereas Capacity Provider's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0155",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Outsourcing Provider's duty carries on with no end date once this Agreement winds down, whereas Client Enterprise's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0156",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's duty carries on with no end date once this Agreement winds down, whereas Export Broker's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0157",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Facility Operator's duty carries on with no end date once this Agreement winds down, whereas Facility User's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0158",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefits Administrator's duty carries on with no end date once this Agreement winds down, whereas Plan Participant's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0159",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Aircraft Lessor's duty is capped at $600,000, reaches only cybersecurity claims, and applies strictly, whereas Aircraft Lessee's duty carries no cap, reaches claims of any kind, and applies only where Aircraft Lessee is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0160",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Technology Licensor's duty is capped at $600,000, reaches only cybersecurity claims, and applies strictly, whereas Implementation Partner's duty carries no cap, reaches claims of any kind, and applies only where Implementation Partner is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0161",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Storage Provider's duty is capped at $600,000, reaches only cybersecurity claims, and applies strictly, whereas Depositing Client's duty carries no cap, reaches claims of any kind, and applies only where Depositing Client is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0162",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriting Agent's duty is capped at $600,000, reaches only cybersecurity claims, and applies strictly, whereas Capacity Provider's duty carries no cap, reaches claims of any kind, and applies only where Capacity Provider is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0163",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Outsourcing Provider's duty is capped at $600,000, reaches only cybersecurity claims, and applies strictly, whereas Client Enterprise's duty carries no cap, reaches claims of any kind, and applies only where Client Enterprise is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0164",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's duty is capped at $600,000, reaches only cybersecurity claims, and applies strictly, whereas Export Broker's duty carries no cap, reaches claims of any kind, and applies only where Export Broker is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0165",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Facility Operator's duty is capped at $600,000, reaches only cybersecurity claims, and applies strictly, whereas Facility User's duty carries no cap, reaches claims of any kind, and applies only where Facility User is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0166",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefits Administrator's duty is capped at $600,000, reaches only cybersecurity claims, and applies strictly, whereas Plan Participant's duty carries no cap, reaches claims of any kind, and applies only where Plan Participant is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0167",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "defense_control_no_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Aircraft Lessor commands the response to any claim brought against it, while Aircraft Lessee has absolutely no say in the response to any claim brought against it.",
+    "note": "genuine control-vs-no-control asymmetry, fresh verbs",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0168",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "defense_control_no_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Technology Licensor captains the defense of any claim against it, whereas Implementation Partner is excluded from any role in the defense of a claim against it.",
+    "note": "genuine control-vs-no-control asymmetry, fresh verbs",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0169",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "defense_control_no_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Storage Provider commands the response to any claim brought against it, while Depositing Client has absolutely no say in the response to any claim brought against it.",
+    "note": "genuine control-vs-no-control asymmetry, fresh verbs",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0170",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "defense_control_no_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Underwriting Agent captains the defense of any claim against it, whereas Capacity Provider is excluded from any role in the defense of a claim against it.",
+    "note": "genuine control-vs-no-control asymmetry, fresh verbs",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0171",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "defense_control_no_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Outsourcing Provider commands the response to any claim brought against it, while Client Enterprise has absolutely no say in the response to any claim brought against it.",
+    "note": "genuine control-vs-no-control asymmetry, fresh verbs",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0172",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "defense_control_no_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Import Broker captains the defense of any claim against it, whereas Export Broker is excluded from any role in the defense of a claim against it.",
+    "note": "genuine control-vs-no-control asymmetry, fresh verbs",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0173",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "defense_control_no_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Facility Operator commands the response to any claim brought against it, while Facility User has absolutely no say in the response to any claim brought against it.",
+    "note": "genuine control-vs-no-control asymmetry, fresh verbs",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0174",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "defense_control_no_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Benefits Administrator captains the defense of any claim against it, whereas Plan Participant is excluded from any role in the defense of a claim against it.",
+    "note": "genuine control-vs-no-control asymmetry, fresh verbs",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0175",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefits Administrator keeps its own standalone insurance covering this exposure, while Plan Participant's duty is additionally capped at $95,000, a limit Benefits Administrator's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0176",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 10; that ceiling excludes claims caused by Aircraft Lessor's knowing misconduct but excludes no category of claim caused by Aircraft Lessee.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0177",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Technology Licensor's duty to front defense costs as incurred runs alongside its main duty, but Implementation Partner carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0178",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Storage Provider relinquishes any right of contribution against Depositing Client, but Depositing Client retains its full right of contribution against Storage Provider.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0179",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriting Agent keeps its own standalone insurance covering this exposure, while Capacity Provider's duty is additionally capped at $95,000, a limit Underwriting Agent's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0180",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 10; that ceiling excludes claims caused by Outsourcing Provider's knowing misconduct but excludes no category of claim caused by Client Enterprise.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0181",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Import Broker's duty to front defense costs as incurred runs alongside its main duty, but Export Broker carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0182",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Facility Operator relinquishes any right of contribution against Facility User, but Facility User retains its full right of contribution against Facility Operator.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0183",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefits Administrator keeps its own standalone insurance covering this exposure, while Plan Participant's duty is additionally capped at $95,000, a limit Benefits Administrator's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0184",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 10; that ceiling excludes claims caused by Aircraft Lessor's knowing misconduct but excludes no category of claim caused by Aircraft Lessee.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0185",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Technology Licensor's duty to front defense costs as incurred runs alongside its main duty, but Implementation Partner carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0186",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Storage Provider relinquishes any right of contribution against Depositing Client, but Depositing Client retains its full right of contribution against Storage Provider.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0187",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriting Agent keeps its own standalone insurance covering this exposure, while Capacity Provider's duty is additionally capped at $95,000, a limit Underwriting Agent's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0188",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 10; that ceiling excludes claims caused by Outsourcing Provider's knowing misconduct but excludes no category of claim caused by Client Enterprise.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0189",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Import Broker's duty to front defense costs as incurred runs alongside its main duty, but Export Broker carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0190",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Facility Operator relinquishes any right of contribution against Facility User, but Facility User retains its full right of contribution against Facility Operator.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0191",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefits Administrator keeps its own standalone insurance covering this exposure, while Plan Participant's duty is additionally capped at $95,000, a limit Benefits Administrator's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0192",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 10; that ceiling excludes claims caused by Aircraft Lessor's knowing misconduct but excludes no category of claim caused by Aircraft Lessee.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0193",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Technology Licensor's duty to front defense costs as incurred runs alongside its main duty, but Implementation Partner carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0194",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Storage Provider relinquishes any right of contribution against Depositing Client, but Depositing Client retains its full right of contribution against Storage Provider.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH106-0195",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Underwriting Agent's ceiling matches Capacity Provider's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0196",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms the parties still intend to work out in a future amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0197",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0198",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Facility Operator's ceiling matches Facility User's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0199",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms the parties still intend to work out in a future amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0200",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Aircraft Lessor's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0201",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Technology Licensor's ceiling matches Implementation Partner's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0202",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms the parties still intend to work out in a future amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0203",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriting Agent's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0204",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Outsourcing Provider's ceiling matches Client Enterprise's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0205",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms the parties still intend to work out in a future amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0206",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Facility Operator's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0207",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Benefits Administrator's ceiling matches Plan Participant's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0208",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms the parties still intend to work out in a future amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0209",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Technology Licensor's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0210",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Storage Provider's ceiling matches Depositing Client's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0211",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms the parties still intend to work out in a future amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0212",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Outsourcing Provider's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0213",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Import Broker's ceiling matches Export Broker's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH106-0214",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms the parties still intend to work out in a future amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  }
+]
