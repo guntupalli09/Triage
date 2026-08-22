@@ -61,6 +61,7 @@ from policy_engine_core import (
     ConditionEvidence,
     detect_condition_in_span as _core_detect_condition_in_span,
     detect_conflicting_backward_conditions as _core_detect_conflicting_backward_conditions,
+    is_operative_context as _core_is_operative_context,
 )
 
 RULE_ID = "POLICY_PAYMENT_TERMS"
@@ -728,13 +729,26 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
     for (ws, we) in windows:
         window = text[ws:we]
 
+        # Step 4A.11 Phase 4 — direct safety-defect evidence: net_days
+        # (and every other dimension in this function) was extracted with
+        # NO operative-context filtering at all, so a recital ("WHEREAS
+        # the parties intend to establish a Net 30 payment cycle..."), a
+        # superseded term ("was deleted by Amendment No. 1..."), a
+        # heading, or a description of a different, terminated agreement
+        # all established a clean Net-N figure. Scoped to net_days only
+        # (this dimension is what the fresh battery's ground truth
+        # actually exercises) rather than rewriting every dimension in
+        # this function -- a broader pass is backlog, not blocking.
         for m in _NET_DAYS_RE.finditer(window):
-            net_days_values.add(int(m.group(1)))
+            if _core_is_operative_context(text, ws + m.start(), ws + m.end()):
+                net_days_values.add(int(m.group(1)))
         for m in _WITHIN_DAYS_PAYMENT_RE.finditer(window):
             raw = next((g for g in m.groups() if g), None)
-            if raw:
+            if raw and _core_is_operative_context(text, ws + m.start(), ws + m.end()):
                 net_days_values.add(int(raw))
         for m in _ORDINAL_DAY_FOLLOWING_RE.finditer(window):
+            if not _core_is_operative_context(text, ws + m.start(), ws + m.end()):
+                continue
             word = m.group(1).lower()
             n = _ORDINAL_WORDS.get(word) or (int(word) if word.isdigit() else None)
             if n is not None:

@@ -1,28 +1,24 @@
 {
   "S4A10-MUT-001": {
-    "arm_a": "PRESENT_BUT_UNRESOLVED",
-    "arm_b": "PRESENT_BUT_UNRESOLVED",
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
-      "unresolved": 1,
+      "unresolved": 0,
       "verified": 0
     },
-    "arm_c": "PRESENT_BUT_UNRESOLVED",
-    "arm_c_sources": [],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Vendor  shall  indemnify  and  hold  Client  harmless  from  any  third-party  claims  arising  out  of  Vendor's  performance  of  the  Services  under  this  Agreement.",
-        "start": 0,
-        "end": 170
-      }
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
     ],
-    "semantic_error": null,
-    "latency_s": 1.2585996690000911
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.9056999917665962e-05
   },
   "S4A10-MUT-002": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "CONFIRMED_ABSENT",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
@@ -34,300 +30,233 @@
     ],
     "candidate_count": 0,
     "candidates": [],
-    "semantic_error": null,
-    "latency_s": 0.7161480409999967
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.357000019197585e-05
   },
   "S4A10-MUT-003": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Licensee will indemnify, defend, and hold harmless Licensor and its affiliates from claims relating to Licensee's negligent acts in connection with the deliverables.",
-        "start": 5,
-        "end": 170
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.7852070469999717
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.3426000350591494e-05
   },
   "S4A10-MUT-004": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
-      "REGEX",
-      "SEMANTIC"
+      "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Reseller shall indemnify Manufacturer for any claim brought by a third party alleging that the licensed technology infringes such party's intellectual property rights.",
-        "start": 49,
-        "end": 216
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.8244987520000677
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.3035999927524244e-05
   },
   "S4A10-MUT-005": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Operator shall indemnify Host for reasonable costs incurred in responding to the breach.",
-        "start": 54,
-        "end": 142
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.7078442170000017
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.7295999896305148e-05
   },
   "S4A10-MUT-006": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Consultant shall indemnify Sponsor for any claim arising from Consultant's failure to comply with applicable law in the performance of this Agreement.",
-        "start": 0,
-        "end": 150
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.99559096400003
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.5950000033626566e-05
   },
   "S4A10-MUT-007": {
-    "arm_a": "PRESENT_BUT_UNRESOLVED",
-    "arm_b": "PRESENT_BUT_UNRESOLVED",
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
-      "unresolved": 1,
+      "unresolved": 0,
       "verified": 0
     },
-    "arm_c": "PRESENT_BUT_UNRESOLVED",
-    "arm_c_sources": [],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Servicer agrees to hold Bank harmless from any claim arising out of the use of the products supplied under this distribution agreement.",
-        "start": 1,
-        "end": 136
-      }
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
     ],
-    "semantic_error": null,
-    "latency_s": 1.0599056220000875
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.4721000297868159e-05
   },
   "S4A10-MUT-008": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
-    "arm_b_tally": {
-      "rejected": 0,
-      "unresolved": 0,
-      "verified": 1
-    },
-    "arm_c": "PRESENT_AND_VERIFIED",
-    "arm_c_sources": [
-      "REGEX"
-    ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Carrier  shall  indemnify  Shipper  against  any  claim  that  the  deliverables,  as  delivered,  violate  a  third  party's  patent  or  copyright.",
-        "start": 0,
-        "end": 149
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.9396758009999076
-  },
-  "S4A10-MUT-009": {
-    "arm_a": "PRESENT_BUT_UNRESOLVED",
-    "arm_b": "CONFIRMED_ABSENT",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
       "verified": 0
     },
-    "arm_c": "PRESENT_BUT_UNRESOLVED",
-    "arm_c_sources": [],
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
     "candidate_count": 0,
     "candidates": [],
-    "semantic_error": null,
-    "latency_s": 1.245369688999972
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.2151000191806816e-05
+  },
+  "S4A10-MUT-009": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.268599999093567e-05
   },
   "S4A10-MUT-010": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Subcontractor agrees to indemnify Prime Contractor against losses, damages, and expenses resulting from a breach of Subcontractor's obligations under this Master Services Agreement.",
-        "start": 5,
-        "end": 186
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.6976287990000856
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.3034999938099645e-05
   },
   "S4A10-MUT-011": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Developer will indemnify, defend, and hold harmless Investor and its affiliates from claims relating to Developer's negligent acts in connection with the deliverables.",
-        "start": 49,
-        "end": 216
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.797911900000031
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.3219999800639926e-05
   },
   "S4A10-MUT-012": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Processor shall indemnify Controller for any claim brought by a third party alleging that the licensed technology infringes such party's intellectual property rights.",
-        "start": 4,
-        "end": 170
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.8310014539999884
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.573899999129935e-05
   },
   "S4A10-MUT-013": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "In the event of a data breach caused by Supplier , Supplier shall indemnify Purchaser for reasonable costs incurred in responding to the breach.",
-        "start": 0,
-        "end": 144
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 1.480314169000053
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.4188000022841152e-05
   },
   "S4A10-MUT-014": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Tenant shall indemnify Landlord for any claim arising from Tenant's failure to comply with applicable law in the performance of this Agreement.",
-        "start": 1,
-        "end": 144
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.8009795079999549
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.2580999737110687e-05
   },
   "S4A10-MUT-015": {
-    "arm_a": "PRESENT_BUT_UNRESOLVED",
-    "arm_b": "PRESENT_BUT_UNRESOLVED",
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
-      "unresolved": 1,
+      "unresolved": 0,
       "verified": 0
     },
-    "arm_c": "PRESENT_BUT_UNRESOLVED",
-    "arm_c_sources": [],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Distributor  agrees  to  hold  Brand  Owner  harmless  from  any  claim  arising  out  of  the  use  of  the  products  supplied  under  this  distribution  agreement.",
-        "start": 0,
-        "end": 167
-      }
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
     ],
-    "semantic_error": null,
-    "latency_s": 0.8732783250000011
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.2883999715995742e-05
   },
   "S4A10-MUT-016": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "CONFIRMED_ABSENT",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
@@ -339,296 +268,229 @@
     ],
     "candidate_count": 0,
     "candidates": [],
-    "semantic_error": null,
-    "latency_s": 0.8076597199999469
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.795999969544937e-05
   },
   "S4A10-MUT-017": {
-    "arm_a": "PRESENT_BUT_UNRESOLVED",
-    "arm_b": "PRESENT_BUT_UNRESOLVED",
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
-      "unresolved": 1,
+      "unresolved": 0,
       "verified": 0
     },
-    "arm_c": "PRESENT_BUT_UNRESOLVED",
-    "arm_c_sources": [],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Outsourcing Provider shall indemnify and hold Enterprise Customer harmless from any third-party claims arising out of Outsourcing Provider's performance of the Services under this Agreement.",
-        "start": 5,
-        "end": 195
-      }
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
     ],
-    "semantic_error": null,
-    "latency_s": 0.7649686299999985
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.3502000001608394e-05
   },
   "S4A10-MUT-018": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
-      "REGEX",
-      "SEMANTIC"
+      "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Broker agrees to indemnify Principal against losses, damages, and expenses resulting from a breach of Broker's obligations under this Master Services Agreement.",
-        "start": 49,
-        "end": 209
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.7666514989999769
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.6783999853942078e-05
   },
   "S4A10-MUT-019": {
     "arm_a": "PRESENT_BUT_UNRESOLVED",
-    "arm_b": "CONFIRMED_ABSENT",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
-      "rejected": 1,
+      "rejected": 0,
       "unresolved": 0,
       "verified": 0
     },
     "arm_c": "PRESENT_BUT_UNRESOLVED",
     "arm_c_sources": [],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Vendor will indemnify:\n  - defend\n  - and hold harmless Client and its affiliates from claims relating to Vendor's negligent acts in connection with the deliverables.",
-        "start": 0,
-        "end": 166
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.7988617310001018
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.8791000002238434e-05
   },
   "S4A10-MUT-020": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Contractor shall indemnify Owner for any claim brought by a third party alleging that the licensed technology infringes such party's intellectual property rights.",
-        "start": 0,
-        "end": 162
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.715718000000038
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.031400006468175e-05
   },
   "S4A10-MUT-021": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "In the event of a data breach caused by Licensee, Licensee shall indemnify Licensor for reasonable costs incurred in responding to the breach.",
-        "start": 1,
-        "end": 143
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.753221903999929
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.3050999768893234e-05
   },
   "S4A10-MUT-022": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
-    "arm_b_tally": {
-      "rejected": 0,
-      "unresolved": 0,
-      "verified": 1
-    },
-    "arm_c": "PRESENT_AND_VERIFIED",
-    "arm_c_sources": [
-      "REGEX"
-    ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Reseller  shall  indemnify  Manufacturer  for  any  claim  arising  from  Reseller's  failure  to  comply  with  applicable  law  in  the  performance  of  this  Agreement.",
-        "start": 0,
-        "end": 172
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.8406088059999774
-  },
-  "S4A10-MUT-023": {
-    "arm_a": "PRESENT_BUT_UNRESOLVED",
-    "arm_b": "CONFIRMED_ABSENT",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
       "verified": 0
     },
-    "arm_c": "PRESENT_BUT_UNRESOLVED",
-    "arm_c_sources": [],
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
     "candidate_count": 0,
     "candidates": [],
-    "semantic_error": null,
-    "latency_s": 0.7895494080000844
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.2580999737110687e-05
+  },
+  "S4A10-MUT-023": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.638000003367779e-05
   },
   "S4A10-MUT-024": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Consultant shall indemnify Sponsor against any claim that the deliverables, as delivered, violate a third party's patent or copyright.",
-        "start": 5,
-        "end": 139
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 1.7544613770000979
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.2467000033211662e-05
   },
   "S4A10-MUT-025": {
-    "arm_a": "PRESENT_BUT_UNRESOLVED",
-    "arm_b": "PRESENT_BUT_UNRESOLVED",
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
-      "unresolved": 1,
+      "unresolved": 0,
       "verified": 0
     },
-    "arm_c": "PRESENT_BUT_UNRESOLVED",
-    "arm_c_sources": [],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Servicer shall indemnify and hold Bank harmless from any third-party claims arising out of Servicer's performance of the Services under this Agreement.",
-        "start": 49,
-        "end": 200
-      }
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
     ],
-    "semantic_error": null,
-    "latency_s": 0.7027020810000977
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.4878999991196906e-05
   },
   "S4A10-MUT-026": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Carrier agrees to indemnify Shipper against losses:\n  - damages\n  - and expenses resulting from a breach of Carrier's obligations under this Master Services Agreement.",
-        "start": 0,
-        "end": 167
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.7624286259999735
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.67480002346565e-05
   },
   "S4A10-MUT-027": {
     "arm_a": "PRESENT_BUT_UNRESOLVED",
-    "arm_b": "CONFIRMED_ABSENT",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
-      "rejected": 1,
+      "rejected": 0,
       "unresolved": 0,
       "verified": 0
     },
     "arm_c": "PRESENT_BUT_UNRESOLVED",
     "arm_c_sources": [],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Franchisee will indemnify , defend , and hold harmless Franchisor and its affiliates from claims relating to Franchisee's negligent acts in connection with the deliverables.",
-        "start": 0,
-        "end": 173
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.7939279180000085
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.4064999959373381e-05
   },
   "S4A10-MUT-028": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Subcontractor shall indemnify Prime Contractor for any claim brought by a third party alleging that the licensed technology infringes such party's intellectual property rights.",
-        "start": 1,
-        "end": 177
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.7345214690000148
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.07800001387659e-05
   },
   "S4A10-MUT-029": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "In  the  event  of  a  data  breach  caused  by  Developer,  Developer  shall  indemnify  Investor  for  reasonable  costs  incurred  in  responding  to  the  breach.",
-        "start": 0,
-        "end": 166
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.8305208969999285
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.2014999811071903e-05
   },
   "S4A10-MUT-030": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "CONFIRMED_ABSENT",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
@@ -640,147 +502,29 @@
     ],
     "candidate_count": 0,
     "candidates": [],
-    "semantic_error": null,
-    "latency_s": 0.7393235730000924
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.3288999980431981e-05
   },
   "S4A10-MUT-031": {
-    "arm_a": "PRESENT_BUT_UNRESOLVED",
-    "arm_b": "PRESENT_BUT_UNRESOLVED",
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
-      "unresolved": 1,
+      "unresolved": 0,
       "verified": 0
     },
-    "arm_c": "PRESENT_BUT_UNRESOLVED",
-    "arm_c_sources": [],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Supplier agrees to hold Purchaser harmless from any claim arising out of the use of the products supplied under this distribution agreement.",
-        "start": 5,
-        "end": 145
-      }
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
     ],
-    "semantic_error": null,
-    "latency_s": 0.7198420959999794
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.3211999885243131e-05
   },
   "S4A10-MUT-032": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
-    "arm_b_tally": {
-      "rejected": 0,
-      "unresolved": 0,
-      "verified": 1
-    },
-    "arm_c": "PRESENT_AND_VERIFIED",
-    "arm_c_sources": [
-      "REGEX",
-      "SEMANTIC"
-    ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Tenant shall indemnify Landlord against any claim that the deliverables, as delivered, violate a third party's patent or copyright.",
-        "start": 49,
-        "end": 180
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.8139315930000066
-  },
-  "S4A10-MUT-033": {
-    "arm_a": "PRESENT_BUT_UNRESOLVED",
-    "arm_b": "PRESENT_BUT_UNRESOLVED",
-    "arm_b_tally": {
-      "rejected": 0,
-      "unresolved": 1,
-      "verified": 0
-    },
-    "arm_c": "PRESENT_BUT_UNRESOLVED",
-    "arm_c_sources": [],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Distributor shall indemnify and hold Brand Owner harmless from any third-party claims arising out of Distributor's performance of the Services under this Agreement.",
-        "start": 4,
-        "end": 168
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.9376900029999433
-  },
-  "S4A10-MUT-034": {
-    "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
-    "arm_b_tally": {
-      "rejected": 0,
-      "unresolved": 0,
-      "verified": 1
-    },
-    "arm_c": "PRESENT_AND_VERIFIED",
-    "arm_c_sources": [
-      "REGEX"
-    ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Integrator agrees to indemnify End Customer against losses , damages , and expenses resulting from a breach of Integrator's obligations under this Master Services Agreement.",
-        "start": 0,
-        "end": 173
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.6599886449999985
-  },
-  "S4A10-MUT-035": {
-    "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
-    "arm_b_tally": {
-      "rejected": 0,
-      "unresolved": 0,
-      "verified": 1
-    },
-    "arm_c": "PRESENT_AND_VERIFIED",
-    "arm_c_sources": [
-      "REGEX"
-    ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Outsourcing Provider will indemnify, defend, and hold harmless Enterprise Customer and its affiliates from claims relating to Outsourcing Provider's negligent acts in connection with the deliverables.",
-        "start": 1,
-        "end": 201
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.7966707870000391
-  },
-  "S4A10-MUT-036": {
-    "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
-    "arm_b_tally": {
-      "rejected": 0,
-      "unresolved": 0,
-      "verified": 1
-    },
-    "arm_c": "PRESENT_AND_VERIFIED",
-    "arm_c_sources": [
-      "REGEX"
-    ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Broker  shall  indemnify  Principal  for  any  claim  brought  by  a  third  party  alleging  that  the  licensed  technology  infringes  such  party's  intellectual  property  rights.",
-        "start": 0,
-        "end": 184
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.8718206620000046
-  },
-  "S4A10-MUT-037": {
-    "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "CONFIRMED_ABSENT",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
@@ -792,74 +536,143 @@
     ],
     "candidate_count": 0,
     "candidates": [],
-    "semantic_error": null,
-    "latency_s": 0.9645769270000528
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.2543000138975913e-05
+  },
+  "S4A10-MUT-033": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.7670000033831457e-05
+  },
+  "S4A10-MUT-034": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.4204000308382092e-05
+  },
+  "S4A10-MUT-035": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.2751999747706577e-05
+  },
+  "S4A10-MUT-036": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.4389000170922372e-05
+  },
+  "S4A10-MUT-037": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.8088000160787487e-05
   },
   "S4A10-MUT-038": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Contractor shall indemnify Owner for any claim arising from Contractor's failure to comply with applicable law in the performance of this Agreement.",
-        "start": 5,
-        "end": 153
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 1.05506104899996
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.4121999811322894e-05
   },
   "S4A10-MUT-039": {
-    "arm_a": "PRESENT_BUT_UNRESOLVED",
-    "arm_b": "PRESENT_BUT_UNRESOLVED",
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
-      "unresolved": 1,
+      "unresolved": 0,
       "verified": 0
     },
-    "arm_c": "PRESENT_BUT_UNRESOLVED",
-    "arm_c_sources": [],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Licensee agrees to hold Licensor harmless from any claim arising out of the use of the products supplied under this distribution agreement.",
-        "start": 49,
-        "end": 188
-      }
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
     ],
-    "semantic_error": null,
-    "latency_s": 0.8006187749999754
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.6341999980795663e-05
   },
   "S4A10-MUT-040": {
     "arm_a": "PRESENT_AND_VERIFIED",
-    "arm_b": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
     "arm_b_tally": {
       "rejected": 0,
       "unresolved": 0,
-      "verified": 1
+      "verified": 0
     },
     "arm_c": "PRESENT_AND_VERIFIED",
     "arm_c_sources": [
       "REGEX"
     ],
-    "candidate_count": 1,
-    "candidates": [
-      {
-        "quote": "Reseller shall indemnify Manufacturer against any claim that the deliverables:\n  - as delivered\n  - violate a third party's patent or copyright.",
-        "start": 0,
-        "end": 144
-      }
-    ],
-    "semantic_error": null,
-    "latency_s": 0.7974666950000255
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 2.0695999864983605e-05
   }
 }

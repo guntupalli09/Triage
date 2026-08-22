@@ -1059,6 +1059,7 @@ _LEADING_CONDITION_RE = re.compile(
 _TRAILING_PROVISO_RE = re.compile(
     r",?\s*(?:provided(?:,)?\s+(?:however,?\s+)?that|unless|except\s+(?:when|to\s+the\s+extent)|"
     r"only\s+if|but\s+only\s+if|to\s+the\s+extent|only\s+to\s+the\s+extent|"
+    r"only\s+for|but\s+only\s+for|"
     r"so\s+long\s+as|as\s+long\s+as|where\s+applicable)\b",
     re.I,
 )
@@ -1072,8 +1073,15 @@ _MIDCLAUSE_SUBJECT_TO_CONDITIONS_RE = re.compile(
     r"(?:[A-Z][\w'-]*(?:'s)?\s+){1,4}(?:prior\s+)?(?:written\s+)?consent)\b",
     re.I,
 )
+# The role possessive ("Customer's", "the Vendor's") is optional before
+# "receipt of"/"written notice of" -- Step 4A.11 Phase 4
+# (fab-ind-af3-payment-triggered-by-event-01) found "Upon Customer's receipt
+# of a signed change order, Customer shall pay..." went undetected because
+# the pattern previously required "upon (the )?receipt of" with nothing
+# between "upon" and "receipt", missing the ordinary case where the party
+# receiving is named directly.
 _MIDCLAUSE_UPON_RE = re.compile(
-    r"\bupon\s+(?:the\s+)?(?:occurrence\s+of|receipt\s+of|written\s+notice\s+of|"
+    r"\bupon\s+(?:the\s+)?(?:(?:[A-Z][\w'-]*(?:'s)?\s+){1,3})?(?:occurrence\s+of|receipt\s+of|written\s+notice\s+of|"
     r"a\s+final,?\s+non-appealable\s+judgment|[a-z]+'s\s+material\s+breach\s+of|termination\s+of)\b",
     re.I,
 )
@@ -1101,14 +1109,27 @@ _TEMPORAL_APPLICABILITY_RE = re.compile(
 # Family N — condition located in the sentence immediately AFTER the
 # fact's own sentence, explicitly naming the fact by a referential noun
 # phrase ("This obligation", "The foregoing limitation", "Such cap")
-# before stating a condition.
+# before stating a condition. A further qualifying trigger word (if/when/
+# unless/until/after/before/arising-from/arising-out-of/arising-under, or a
+# "within N days"-shaped procedural window) is REQUIRED after the noun-
+# phrase scope -- this is what distinguishes a genuine attachment condition
+# ("applies only to claims arising under this Agreement", "does not apply
+# to invoices disputed in good faith within 10 days of receipt") from a
+# bare category carve-out ("shall not apply to willful misconduct"), which
+# is already handled separately by each adapter's own carve-out/category
+# classification and must NOT be reinterpreted as a condition on the whole
+# fact (Step 4A.11 Phase 4: multisupercap-05 regressed when this
+# requirement was first relaxed to fully optional -- "This limitation
+# shall not apply to willful misconduct" was wrongly treated as an
+# unresolved condition on the entire cap instead of the plain uncapped
+# carve-out it actually is).
 _BACKREF_CONDITION_RE = re.compile(
     r"\A\s*(?:This|The\s+foregoing|Such)\s+(?:indemnification\s+)?"
     r"(?:obligation|limitation|cap|exception)\b(?:(?!\.).){1,120}?"
     r"\b(?:shall\s+not\s+apply\s+to|does\s+not\s+apply\s+to|shall\s+not\s+apply|does\s+not\s+apply|"
     r"applies\s+only\s+to|applies\s+only|shall\s+apply\s+only)\b"
     r"(?:(?!\.).){1,220}?\b(?:if|when|unless|to\s+the\s+extent|until|after|before|arising\s+from|"
-    r"arising\s+out\s+of)\b",
+    r"arising\s+out\s+of|arising\s+under|within\s+\d+)\b",
     re.I,
 )
 
@@ -1126,6 +1147,22 @@ _CONDITION_DENIAL_RE = re.compile(
 # scope or target, so attachment cannot be established either way.
 _VAGUE_CONDITION_POINTER_RE = re.compile(
     r"\bcertain\s+(?:conditions|limitations)\b(?:(?!\.).){0,120}?\bmay\s+(?:apply|further\s+restrict)\b",
+    re.I,
+)
+
+# A backward-referencing conditional marker ("In that event, Seller shall
+# indemnify...") points to a triggering circumstance stated in an EARLIER
+# sentence — genuinely harder anaphora than the forward _BACKREF_CONDITION_RE
+# family above (which only resolves the fact's own condition from the
+# FOLLOWING sentence). Step 4A.11 Phase 4
+# (fab-ind-af3-condition-prior-sentence-01) found this silently reported as
+# UNCONDITIONAL — as if no condition existed at all — when the sentence
+# itself plainly signals one exists that this engine does not resolve.
+# Correct behavior is NOT_ESTABLISHED (condition-shaped language detected,
+# attachment/trigger not confirmed), not UNCONDITIONAL.
+_BACKWARD_VAGUE_CONDITION_RE = re.compile(
+    r"\A\s*(?:In\s+(?:that|such)\s+event|In\s+such\s+(?:a\s+)?case|"
+    r"Under\s+(?:those|such)\s+circumstances)\s*,",
     re.I,
 )
 
@@ -1159,6 +1196,8 @@ def _trailing_proviso_type(body: str) -> str:
         return "except"
     if "only if" in body:
         return "only_if"
+    if "only for" in body:
+        return "only_for"
     if "to the extent" in body:
         return "to_the_extent"
     if "so long as" in body or "as long as" in body:
@@ -1168,15 +1207,33 @@ def _trailing_proviso_type(body: str) -> str:
     return "provided_that"
 
 
+# Shared negative lookbehind for common abbreviation periods that are not
+# real sentence/clause boundaries — "Inc.", "Corp.", "Co.", "Ltd.", "LLC."
+# (all routinely embedded mid-sentence in a party's own name) alongside the
+# pre-existing e.g./i.e./etc./vs./Mr./Dr./No. set. Shared between
+# sentence_bounds (condition-attachment scoping) and _CLAUSE_BOUNDARY_RE
+# below (is_operative_context's clause scoping) so a fix to one doesn't
+# silently miss the other — Step 4A.11 Phase 4 found "...Northstar Data
+# Systems Inc. within Net 30 days..., provided that..." was being split at
+# "Inc." into two sentences, hiding the trailing proviso from
+# detect_condition_in_span entirely (fab-pay-af10-multiword-plus-condition-01).
+_ABBREVIATION_LOOKBEHIND = (
+    r"(?<!e\.g)(?<!i\.e)(?<!\betc)(?<!\bvs)(?<!\bMr)(?<!\bDr)(?<!\bNo)"
+    r"(?<!\bInc)(?<!\bCorp)(?<!\bCo)(?<!\bLtd)(?<!\bLLC)(?<!\bLLP)"
+)
+_SENTENCE_SPLIT_RE = re.compile(_ABBREVIATION_LOOKBEHIND + r"[.!?]\s+|\n\s*\n")
+_SENTENCE_END_RE = re.compile(_ABBREVIATION_LOOKBEHIND + r"[.!?](?=\s|\Z)")
+
+
 def sentence_bounds(text: str, pos: int) -> Tuple[int, int]:
     """Returns (start, end) of the sentence containing `pos`, bounded by a
     sentence-ending punctuation mark followed by whitespace/EOL, a blank
     line, or the text boundaries."""
     start = 0
-    for m in re.finditer(r"[.!?]\s+|\n\s*\n", text[:pos]):
+    for m in _SENTENCE_SPLIT_RE.finditer(text[:pos]):
         start = m.end()
     end = len(text)
-    m2 = re.search(r"[.!?](?=\s|\Z)", text[pos:])
+    m2 = _SENTENCE_END_RE.search(text[pos:])
     if m2:
         end = pos + m2.end()
     return start, end
@@ -1197,6 +1254,15 @@ def detect_condition_in_span(text: str, span_start: int, span_end: int) -> Condi
 
     if _CONDITION_DENIAL_RE.search(sentence):
         return unconditional()
+
+    backward_vague = _BACKWARD_VAGUE_CONDITION_RE.match(sentence)
+    if backward_vague and is_operative_context(text, sent_start + backward_vague.start(), sent_start + backward_vague.end()):
+        return ConditionEvidence(
+            status="NOT_ESTABLISHED", condition_type=None,
+            evidence_span=backward_vague.group(0).strip().rstrip(","),
+            note="a triggering condition is referenced from an earlier sentence but its specific "
+            "attachment/trigger cannot be resolved",
+        )
 
     leading = _LEADING_CONDITION_RE.search(sentence)
     if leading and is_operative_context(text, sent_start + leading.start(), sent_start + leading.end()):
@@ -1539,7 +1605,13 @@ _QUOTATION_INTRODUCING_RE = re.compile(
     r"|\bdraft\s+language\s+reading\b"
     r"|\bconsider\s+language\s+(?:like|such\s+as)\b"
     r"|\ba\s+clause\s+(?:such\s+as|reading)\b"
-    r"|\blanguage\s+(?:such\s+as|reading)\b",
+    r"|\blanguage\s+(?:such\s+as|reading)\b"
+    # Step 4A.11 Phase 4 — "A typical [limitation] clause reads:" (colon,
+    # no "as follows") wasn't covered by the "reads as follows" phrase
+    # above; found via a genuine false structural establishment
+    # (fab-lia-af6-quoted-example-01).
+    r"|\breads?\s*:\s*$"
+    r"|\btypical\s+\w+\s+clause\b",
     re.I,
 )
 
@@ -1558,12 +1630,51 @@ _NEGATED_OR_REJECTED_MATERIAL_RE = re.compile(
     r"|\bno\s+such\s+(?:language|clause|provision|sentence)"
     r"(?:\s+currently)?\s+(?:appears|exists|is\s+included)\b"
     r"|\bdoes\s+not\s+contain\s+a\s+provision\b"
-    r"|\bcontains?\s+no\s+(?:such\s+)?(?:provision|clause|language|term)\b"
+    r"|\bcontains?\s+no\s+(?:such\s+)?(?:\w+[\s-]){0,3}(?:provision|clause|language|term)\b"
     r"|\bomits?\s+any\s+requirement\b"
     r"|\bwas\s+withdrawn\b"
     r"|\bwas\s+deleted\b"
     r"|\bexplicitly\s+declined\b"
-    r"|\bdeclined\s+to\s+(?:agree|include)\b",
+    r"|\bdeclined\s+to\s+(?:agree|include)\b"
+    # Step 4A.11 Phase 4 — direct safety-defect evidence: a provision
+    # marked "(no longer in effect)" and later stated to have been
+    # "replaced... in its entirety" by an amendment was still being
+    # established as if currently operative (fab-ind-af6-superseded-01),
+    # because no existing check covered this specific superseded-
+    # provision language family.
+    r"|\bno\s+longer\s+in\s+(?:effect|force)\b"
+    r"|\breplaced\b(?:(?!\.).){0,40}?\bin\s+its\s+entirety\b"
+    r"|\bsuperseded\b"
+    # A schedule/exhibit/clause explicitly marked as illustrative/
+    # informational only, or explicitly stated not to be part of the
+    # Agreement -- a sample clause shown "for reference purposes only"
+    # (fab-ind-af6-nonoperative-schedule-01) states real-looking
+    # obligation text without actually adopting it.
+    r"|\binformational\s+only\b"
+    r"|\bnot\s+part\s+of\s+the\s+Agreement\b"
+    r"|\bfor\s+reference\s+purposes\s+only\b"
+    r"|\bprovided\s+for\s+reference\s+only\b"
+    r"|\b(?:shown|provided|given|included|listed)\s+(?:here\s+)?for\s+reference\b"
+    # A hypothetical/unfinalized-draft marker: the surrounding text
+    # explicitly states nothing has been agreed/finalized yet.
+    r"|\bhave\s+not\s+been\s+finalized\b"
+    r"|\bhas\s+not\s+been\s+finalized\b"
+    r"|\bnot\s+yet\s+finalized\b"
+    r"|\bno\b(?:(?!\.).){0,40}?\bhave\s+been\s+finalized\b"
+    # A description of a PRIOR, terminated/different agreement's terms --
+    # explicitly not this Agreement's own operative term.
+    r"|\bprior,?\s+now[\s-]terminated\s+agreement\b"
+    r"|\bunder\s+the\s+parties'?\s+prior\s+agreement\b",
+    re.I,
+)
+
+# Recital/intent language ("WHEREAS the parties intend to...") states an
+# aspiration the operative sections below may or may not adopt verbatim
+# -- it is not itself the operative term. Separate from
+# _NEGATED_OR_REJECTED_MATERIAL_RE because nothing is being negated or
+# rejected here; it simply was never asserted as current fact.
+_RECITAL_INTENT_RE = re.compile(
+    r"\bWHEREAS\b(?:(?!\.).){0,120}?\bintend(?:s|ed)?\s+to\b",
     re.I,
 )
 
@@ -1612,7 +1723,19 @@ _QUOTE_CHARS = "'‘’\"“”"
 # lookback/lookahead for the "quote introduced, then negated in the very
 # next clause" shape the original 3 S4 cases used) without requiring an
 # enumerated list of transition words.
-_CLAUSE_BOUNDARY_RE = re.compile(r"[.;]\s+|--\s*|—\s*")
+#
+# Step 4A.11 Phase 4 — direct safety-defect evidence found via the fresh
+# adversarial battery: a common abbreviation period ("e.g.", "i.e.",
+# "etc.") followed by whitespace was itself being treated as a clause
+# boundary, so "[DRAFTING NOTE: insert standard language here, e.g.
+# 'Vendor shall indemnify Customer...']" scoped window_before to AFTER
+# "e.g. ", making the earlier "[DRAFTING NOTE:" meta-instructional
+# marker invisible to is_operative_context and allowing the bracketed
+# example to be falsely established as a real obligation (fab-ind-af6-
+# drafting-instruction-01). The negative lookbehind below excludes the
+# small, closed set of abbreviation periods that commonly appear
+# mid-sentence; it does not touch genuine sentence-ending periods.
+_CLAUSE_BOUNDARY_RE = re.compile(_ABBREVIATION_LOOKBEHIND + r"[.;]\s+|--\s*|—\s*")
 
 
 def _same_or_adjacent_clause(full_window: str, from_end: bool) -> str:
@@ -1681,6 +1804,8 @@ def is_operative_context(text: str, match_start: int, match_end: int,
     if _META_INSTRUCTIONAL_RE.search(window_before) or _META_INSTRUCTIONAL_RE.search(local_window[:before_window]):
         return False
     if _DESCRIPTIVE_ABOUT_CLAUSE_RE.search(window_before):
+        return False
+    if _RECITAL_INTENT_RE.search(window_before):
         return False
     return True
 

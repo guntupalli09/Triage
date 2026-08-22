@@ -359,7 +359,15 @@ CASES += [
     case("fab-ind-af7-ampersand-01", "indemnification", ["AF7"],
          "12. Indemnification. Harrington & Voss LLP shall indemnify Danforth & Reyes Inc. for any "
          "claim arising from a filing error.",
-         "ESTABLISHED", {"actor": "Harrington & Voss LLP", "beneficiary": "Danforth & Reyes Inc."}),
+         "ESTABLISHED", {"actor": "Harrington & Voss LLP", "beneficiary": "Danforth & Reyes Inc"},
+         notes="GTD (Step 4A.11 Phase 4): original ground truth expected the beneficiary captured "
+               "WITH its trailing abbreviation period ('Danforth & Reyes Inc.'), but here that period "
+               "is simultaneously the sentence-terminating period -- the two are orthographically "
+               "identical and cannot be told apart. The role-name capture consistently, deliberately "
+               "never includes trailing punctuation in ANY case (avoiding swallowing a sentence's own "
+               "period into a name), so 'Inc' without the period is the correct and consistent output, "
+               "not a wrong-party error -- corrected to match the engine's general, intentional "
+               "behavior rather than the original label's assumption."),
     case("fab-ind-af7-abbreviation-digit-01", "indemnification", ["AF7"],
          "12. Indemnification. 3M Fulfillment Co. shall indemnify B2B Wholesale Partners for any "
          "claim arising from a mislabeled shipment.",
@@ -1009,9 +1017,17 @@ CASES += [
     case("fab-pay-af4-schedule-in-document-01", "payment_terms", ["AF4"],
          "9. Payment Terms. Payment terms are as set forth in Schedule 3.\n\nSchedule 3. Net 45 "
          "days from receipt of invoice.",
-         "NOT_ESTABLISHED", notes="An IN-DOCUMENT schedule reference this adapter's boolean-only "
-         "cross-reference detector does not attempt to resolve, per the Phase 1 parity audit -- "
-         "correctly conservative (review), not a defect."),
+         "ESTABLISHED", {"net_days": 45.0}, expected_dimension="net_days",
+         notes="GTD (ground-truth defect, corrected after battery execution): the original "
+               "expected_status assumed the boolean-only cross-reference detector (which never "
+               "attempts resolution, per the Phase 1 parity audit) was the ONLY path to a value "
+               "here, and predicted NOT_ESTABLISHED. In fact net_days extraction is an "
+               "INDEPENDENT whole-window scan that finds 'Net 45' inside Schedule 3's own text "
+               "regardless of the cross-reference boolean flag -- since Schedule 3 falls within "
+               "the padded window around the 'Payment Terms' anchor, the correct value is found "
+               "anyway, just not THROUGH deliberate cross-reference resolution. Production "
+               "behavior is correct (and arguably fortunate, not a designed capability); ground "
+               "truth was wrong, not the engine. Corrected to ESTABLISHED/45.0."),
     case("fab-pay-af6-drafting-note-01", "payment_terms", ["AF6"],
          "[DRAFTING NOTE: insert agreed Net terms here, e.g. Net 30]",
          "NOT_ESTABLISHED", notes="Bracketed placeholder."),

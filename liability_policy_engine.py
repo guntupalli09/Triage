@@ -75,6 +75,7 @@ from policy_engine_core import (
     detect_condition_in_span as _core_detect_condition_in_span,
     detect_condition_in_text as _core_detect_condition_in_text,
     detect_conflicting_backward_conditions as _core_detect_conflicting_backward_conditions,
+    is_operative_context as _core_is_operative_context,
 )
 
 RULE_ID = "POLICY_LOL_CAP"
@@ -278,7 +279,7 @@ _FIXED_AMOUNT_RE = re.compile(
     r"|limited\s+to"
     r"|(?:is\s+)?capped\s+at"
     r"|is\s+fixed\s+at"
-    r"|(?:a\s+)?cap(?:\s+\w+){0,4}\s+of"
+    r"|(?:a\s+)?cap(?:\s+\w+){0,4}\s+(?:of|is)"
     r"|(?:greater|lesser)\s+of"
     r"|in\s+no\s+event\s+shall(?:\s+[\w']+){0,8}\s+exceed"
     r"|shall(?:\s+in\s+the\s+aggregate)?\s+not\s+exceed"
@@ -1379,12 +1380,21 @@ def _resolve_cross_reference(
 
     all_candidates: List[Tuple[re.Match, CapValue]] = []
     for m in occurrences:
+        if not _core_is_operative_context(text, m.start(), m.end()):
+            # The reference label itself sits in non-operative context near
+            # this occurrence (e.g. "(informational only)", "for reference
+            # only", a superseded/negated summary) — a candidate value found
+            # near it is not a binding cap and must not compete with a
+            # genuinely operative occurrence found elsewhere in the document.
+            continue
         forward = text[m.end():min(len(text), m.end() + _CROSS_REF_RESOLUTION_WINDOW)]
         caps = _find_cap_values(forward)
         if caps:
             cap = caps[0]
             cap.start_index += m.end()
             cap.end_index += m.end()
+            if not _core_is_operative_context(text, cap.start_index, cap.end_index):
+                continue
             all_candidates.append((m, cap))
 
     if not all_candidates:
@@ -1491,6 +1501,27 @@ def _extract_provision(text: str, anchor_start: int, index: int) -> Provision:
         for c in pp.cap_expression.components:
             c.start_index += window_start
             c.end_index += window_start
+
+    # Step 4A.11 Phase 4 — direct safety-defect evidence: this module
+    # never checked is_operative_context anywhere, so a quoted example
+    # explicitly negated afterward ("A typical clause reads: 'Aggregate
+    # liability shall not exceed $1,000,000.' This Agreement does not
+    # include such a clause.") was established as a real cap
+    # (fab-lia-af6-quoted-example-01). If EVERY component of the
+    # resolved cap expression fails the shared operative-context check,
+    # the expression is downgraded to unresolved rather than trusted --
+    # mirrors how a cross-reference failure already downgrades to
+    # unresolved elsewhere in this function.
+    if general_cap_expr.components and general_cap_expr.structure != "unresolved":
+        if all(not _core_is_operative_context(text, c.start_index, c.end_index) for c in general_cap_expr.components):
+            general_cap_expr = _unresolved(
+                "the only candidate cap value found sits in quoted/negated/non-operative "
+                "context (e.g. a rejected example, a heading, or explicitly negated text), "
+                "not the document's own operative term",
+                raw_excerpt=general_cap_expr.raw_excerpt,
+                start_index=general_cap_expr.start_index, end_index=general_cap_expr.end_index,
+            )
+            cap = None
 
     section_label = _section_label_before(text, window_start)
     # Step 4A.11 Phase 2 — when a cap VALUE was actually found, start_index/

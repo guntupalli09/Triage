@@ -185,10 +185,19 @@ _ROLE_NAME_CONTINUATION_TOKEN = (
 # shape anyway, but requiring a mandatory continuation keeps the
 # abbreviation-first branch from ever being satisfied by the
 # abbreviation alone.
+# A hyphen-joined compound adjective mid-name ("Best-in-Class Logistics
+# Corp") has a lowercase word directly between two hyphens — the hyphen
+# delimiter itself (as opposed to a space, which separates ordinary name
+# words) is the structural signal that this is a single compound token,
+# not a break into unrelated lowercase prose. Step 4A.11 Phase 4
+# (fab-ind-af7-hyphenated-01) found this caused the whole leading
+# "Best-in-" to be skipped (falling through to matching starting at
+# "Class" instead, silently truncating the captured name) because
+# continuation tokens require an initial capital letter unconditionally.
 _MULTIWORD_ROLE_NAME_FRAGMENT = (
     r"(?:"
-    r"[A-Z][A-Za-z]{1,25}(?:[\s&-]+(?:" + _ROLE_NAME_CONTINUATION_TOKEN + r")){0,5}"
-    r"|(?:[A-Z]\.){1,4}(?:[\s&-]+(?:" + _ROLE_NAME_CONTINUATION_TOKEN + r")){1,5}"
+    r"[A-Z][A-Za-z]{1,25}(?:[\s&-]+(?:[a-z][A-Za-z]{0,15}-)?(?:" + _ROLE_NAME_CONTINUATION_TOKEN + r")){0,5}"
+    r"|(?:[A-Z]\.){1,4}(?:[\s&-]+(?:[a-z][A-Za-z]{0,15}-)?(?:" + _ROLE_NAME_CONTINUATION_TOKEN + r")){1,5}"
     r")"
     # Step 4A.5 Priority 4: a role name occasionally has one lowercase
     # connector word inside it ("Importer of Record") — a small, closed
@@ -540,9 +549,21 @@ _CLAIM_LOSS_NOUN_RE = re.compile(
 def _risk_transfer_signal_present(text: str) -> bool:
     """Broad discovery only — a verb-cluster hit AND a claim/loss noun
     within a bounded window of it. Never itself authorizes a policy
-    decision; see _RISK_TRANSFER_SIGNAL_RE's docstring above."""
+    decision; see _RISK_TRANSFER_SIGNAL_RE's docstring above.
+
+    Step 4A.11 Phase 4 (fab-ind-af9-unusual-structure-01): a verbose,
+    unusually-worded but genuinely present risk-transfer sentence
+    ("responsibility for that claim... rests with Wholesaler, who shall
+    answer for it directly to Retailer") was silently reported
+    CONFIRMED_ABSENT because its own claim/loss noun sat 108 chars back
+    from the verb-cluster hit, just outside the previous 60-char backward
+    window — even though this signal is explicitly non-authoritative and
+    exists ONLY to route to safe REQUIRES_REVIEW rather than a false
+    absence. Widening the backward window is a low-risk, purely-recall
+    change for exactly that reason: it can only ever move a case from
+    CONFIRMED_ABSENT toward review, never toward an established fact."""
     for m in _RISK_TRANSFER_SIGNAL_RE.finditer(text):
-        window = text[max(0, m.start() - 60):min(len(text), m.end() + 120)]
+        window = text[max(0, m.start() - 150):min(len(text), m.end() + 120)]
         if _CLAIM_LOSS_NOUN_RE.search(window):
             return True
     return False
@@ -2795,6 +2816,15 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
 
     for m in _MUTUAL_RECIPROCAL_RE.finditer(text):
         if any(abs(m.start() - s) < 50 for s, _ in seen_spans):
+            continue
+        # Step 4A.11 Phase 4 — this loop was the one obligation-extraction
+        # path with NO operative-context guard at all (every other loop --
+        # main, synonym, structural -- already checks it). Found via the
+        # fresh adversarial battery: a bracketed drafting note containing
+        # "mutual indemnification language" (an example/placeholder, not
+        # real text) was silently established as a genuine reciprocal
+        # obligation. General fix, not case-specific.
+        if not _core_is_operative_context(text, m.start(), m.end()):
             continue
         window = _extract_obligation_window(text, m.start(), min(len(text), m.start() + _PROVISION_WINDOW_CHARS))
         # A mutual/reciprocal clause names no specific roles — represented
