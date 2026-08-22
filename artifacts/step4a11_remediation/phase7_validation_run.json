@@ -1,0 +1,1349 @@
+{
+  "rows": [
+    {
+      "id": "rv-rb-AF-heading-allcaps-00-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-heading-allcaps-00-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-heading-allcaps-01-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-allcaps-01-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-allcaps-02-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-allcaps-02-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-allcaps-03-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-heading-allcaps-03-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-heading-allcaps-04-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-allcaps-04-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-titlecase-05-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-titlecase-05-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-titlecase-06-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-titlecase-06-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-colon-07-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-colon-07-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-colon-08-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-colon-08-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-none-09-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-heading-none-09-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-numbered-10-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-numbered-10-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-lettered-11-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-lettered-11-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-lettered-12-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-lettered-12-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-long-name-13-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-long-name-13-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-long-name-14-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-long-name-14-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-hyphenated-15-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-hyphenated-15-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-dotted-16-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-dotted-16-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-ampersand-17-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-ampersand-17-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-apostrophe-18-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-apostrophe-18-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-connector-from-19-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-from-19-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-relating-20-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-relating-20-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-subject-21-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-subject-21-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-provided-22-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-provided-22-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-except-23-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-except-23-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-including-24-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-including-24-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-against-25-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-against-25-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-allcaps-1-26-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-allcaps-1-26-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-allcaps-2-27-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-allcaps-2-27-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-allcaps-3-28-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-connector-allcaps-3-28-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-reciprocal-allcaps-29-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-reciprocal-allcaps-29-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-bystander-30-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-bystander-30-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-role-words-31-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-heading-role-words-31-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-defined-term-32-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-defined-term-32-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-heading-unrelated-33-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-heading-unrelated-33-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-unusual-caps-34-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-unusual-caps-34-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-rb-AF-prior-heading-35-0",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-rb-AF-prior-heading-35-1",
+      "focus": "role_boundary",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-ind-00-0",
+      "focus": "ownership",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-ind-00-1",
+      "focus": "ownership",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-ind-00-2",
+      "focus": "ownership",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-ind-00-3",
+      "focus": "ownership",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-ind-00-4",
+      "focus": "ownership",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-ind-01-0",
+      "focus": "ownership",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-ind-01-1",
+      "focus": "ownership",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-ind-01-2",
+      "focus": "ownership",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-ind-01-3",
+      "focus": "ownership",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-ind-01-4",
+      "focus": "ownership",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-ind-02-0",
+      "focus": "ownership",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-ind-02-1",
+      "focus": "ownership",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-ind-02-2",
+      "focus": "ownership",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-ind-02-3",
+      "focus": "ownership",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-ind-02-4",
+      "focus": "ownership",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-lia-00-0",
+      "focus": "ownership",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-lia-00-1",
+      "focus": "ownership",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-lia-00-2",
+      "focus": "ownership",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-lia-00-3",
+      "focus": "ownership",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-lia-00-4",
+      "focus": "ownership",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-lia-01-0",
+      "focus": "ownership",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-lia-01-1",
+      "focus": "ownership",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-lia-01-2",
+      "focus": "ownership",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-lia-01-3",
+      "focus": "ownership",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-lia-01-4",
+      "focus": "ownership",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-pay-00-0",
+      "focus": "ownership",
+      "adapter": "payment_terms",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-pay-00-1",
+      "focus": "ownership",
+      "adapter": "payment_terms",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-pay-00-2",
+      "focus": "ownership",
+      "adapter": "payment_terms",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-pay-00-3",
+      "focus": "ownership",
+      "adapter": "payment_terms",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-pay-00-4",
+      "focus": "ownership",
+      "adapter": "payment_terms",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-own-pay-01-0",
+      "focus": "ownership",
+      "adapter": "payment_terms",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-own-pay-01-1",
+      "focus": "ownership",
+      "adapter": "payment_terms",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-own-pay-01-2",
+      "focus": "ownership",
+      "adapter": "payment_terms",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-own-pay-01-3",
+      "focus": "ownership",
+      "adapter": "payment_terms",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-own-pay-01-4",
+      "focus": "ownership",
+      "adapter": "payment_terms",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-sym-00-0",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-00-1",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-00-2",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-00-3",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-00-4",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-00-5",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-01-0",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-01-1",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-01-2",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-01-3",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-01-4",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-01-5",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-02-0",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-02-1",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-02-2",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-02-3",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-02-4",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-02-5",
+      "focus": "symmetry",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-03-0",
+      "focus": "symmetry",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-03-1",
+      "focus": "symmetry",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-03-2",
+      "focus": "symmetry",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-03-3",
+      "focus": "symmetry",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-03-4",
+      "focus": "symmetry",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-03-5",
+      "focus": "symmetry",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-sym-04-0",
+      "focus": "symmetry",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-sym-04-1",
+      "focus": "symmetry",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-sym-04-2",
+      "focus": "symmetry",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-sym-04-3",
+      "focus": "symmetry",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-sym-04-4",
+      "focus": "symmetry",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-sym-04-5",
+      "focus": "symmetry",
+      "adapter": "liability",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-cmp-00-0",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-cmp-00-1",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-cmp-00-2",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-cmp-00-3",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-cmp-00-4",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-cmp-00-5",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": false
+    },
+    {
+      "id": "rv-cmp-01-0",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-01-1",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-01-2",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-01-3",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-01-4",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-01-5",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-02-0",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-02-1",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-02-2",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-02-3",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-02-4",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-02-5",
+      "focus": "compound",
+      "adapter": "indemnification",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-03-0",
+      "focus": "compound",
+      "adapter": "liability",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-03-1",
+      "focus": "compound",
+      "adapter": "liability",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-03-2",
+      "focus": "compound",
+      "adapter": "liability",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-03-3",
+      "focus": "compound",
+      "adapter": "liability",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-03-4",
+      "focus": "compound",
+      "adapter": "liability",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-03-5",
+      "focus": "compound",
+      "adapter": "liability",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-04-0",
+      "focus": "compound",
+      "adapter": "payment_terms",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-04-1",
+      "focus": "compound",
+      "adapter": "payment_terms",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-04-2",
+      "focus": "compound",
+      "adapter": "payment_terms",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-04-3",
+      "focus": "compound",
+      "adapter": "payment_terms",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-04-4",
+      "focus": "compound",
+      "adapter": "payment_terms",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    },
+    {
+      "id": "rv-cmp-04-5",
+      "focus": "compound",
+      "adapter": "payment_terms",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_value": true
+    }
+  ],
+  "metrics": {
+    "CA": 108,
+    "CR": 12,
+    "FE": 47,
+    "WC": 0
+  },
+  "wrong_ownership": [],
+  "semantic_authority_diffs": [],
+  "determinism_mismatches": []
+}
