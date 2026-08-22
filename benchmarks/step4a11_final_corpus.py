@@ -183,8 +183,8 @@ _IND_TEMPLATES = [
      "from materials {A} supplied under Section 5, {A} shall indemnify {B} "
      "as set forth in the Master Risk Allocation Terms referenced in that "
      "Section, provided that {B} gives {A} prompt written notice of the "
-     "claim.", 3, ["AF10", "AF3", "AF4"], "NOT_ESTABLISHED", "none", "SHOULD_REVIEW",
-     "Compound: leading condition + cross-reference delegation + trailing notice proviso, no inline value -- correctly unresolved pending the cross-referenced terms."),
+     "claim.", 3, ["AF10", "AF3", "AF4"], "ESTABLISHED", "ab", "AUTOMATABLE",
+     "GTD (Step 4A.11 Phase 6, pre-numbers-disclosure correction): original ground truth wrongly treated the cross-reference delegation as leaving the WHOLE fact unresolved, by analogy to liability's cap-cross-reference mechanism. On correct legal reading this is a different shape -- the obligation itself and both parties are stated directly in the operative sentence ('{A} shall indemnify {B}'); only the additional scope/terms are delegated to the referenced Master Risk Allocation Terms, exactly as in the already-accepted Phase 4 GTD correction for fab-pay-af4-schedule-in-document-01 (a delegated VALUE detail does not strip the directly-stated obligation of its own authority). Corrected to ESTABLISHED before any production/corpus performance numbers were reported."),
     ("Best-Fit Solutions & Partners LLC shall indemnify Cross-Town Retail "
      "Alliance Inc. for any claim arising from a mislabeled shipment, but "
      "only for claims asserted within eighteen months of delivery.",
@@ -664,8 +664,8 @@ _COMPOUND_IND = [
     ("Where a regulator brings an enforcement action against {B} arising "
      "from {A}'s mislabeling of a shipment, {A} shall indemnify {B} as "
      "described in the Master Risk Allocation Terms referenced in Section "
-     "3.", ["AF10", "AF3", "AF4"], "NOT_ESTABLISHED", "none",
-     "Compound: leading condition + cross-reference to a target not included -- correctly unresolved."),
+     "3.", ["AF10", "AF3", "AF4"], "ESTABLISHED", "ab",
+     "GTD (Step 4A.11 Phase 6, pre-numbers-disclosure correction): same objective ground-truth error as fin-ind-t3-33 -- the obligation and both named parties are stated directly ('{A} shall indemnify {B}'), the cross-reference only delegates additional scope/terms detail, not the existence or ownership of the obligation itself. Corrected to ESTABLISHED before any production/corpus performance numbers were reported."),
     ("{A}-in-Trust for {B}'s benefit shall indemnify {B} for any claim "
      "arising from a breach of fiduciary duty, but only for claims "
      "asserted within two years of the breach.", ["AF10", "AF7", "AF3"],

@@ -69,7 +69,16 @@ def _actual_payment(text: str, expected_dimension):
         if val is None:
             return "NOT_ESTABLISHED", None, "PRESENT_NO_VALUE", cond
         return "ESTABLISHED", {"late_fee_rate_percent": val}, "PRESENT", cond
-    established_any = facts.net_days is not None or (facts.condition is not None and facts.condition.status != "UNCONDITIONAL")
+    # Step 4A.11 Phase 6 harness fix (pre-official-numbers): the presence of
+    # a condition is NOT itself a material fact -- a case with no expected
+    # dimension declared must be scored on whether an actual material value
+    # (net_days or late_fee_rate_percent) was established, never on whether
+    # conditional language happens to be nearby. The prior version treated
+    # ANY detected condition as "established," which produced a false
+    # ESTABLISHED reading on cases with no material value at all (a payment
+    # obligation entirely delegated to an unincluded cross-referenced
+    # schedule, with only a proviso about the schedule's own execution).
+    established_any = facts.net_days is not None or getattr(facts, "late_fee_rate_percent", None) is not None
     return ("ESTABLISHED" if established_any else "NOT_ESTABLISHED"), None, ("PRESENT" if established_any else "PRESENT_NO_VALUE"), cond
 
 
