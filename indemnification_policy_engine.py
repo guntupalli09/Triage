@@ -194,10 +194,29 @@ _ROLE_NAME_CONTINUATION_TOKEN = (
 # "Best-in-" to be skipped (falling through to matching starting at
 # "Class" instead, silently truncating the captured name) because
 # continuation tokens require an initial capital letter unconditionally.
+#
+# Step 4A.11 Remediation (Phase 3, role-boundary defect): the separator
+# between continuation words used to be the bare character class
+# `[\s&-]+`, which cannot distinguish a genuine word-joining hyphen
+# ("Best-in-Class", no surrounding whitespace) from a spaced or doubled
+# dash used as PUNCTUATION marking a heading/clause boundary ("...OF X --
+# X SHALL...", "13. HEADING -- Actual Sentence."). Because `-` alone
+# satisfied the class regardless of whitespace, a heading label or a
+# repeated clause fragment on the far side of a "--" was silently pulled
+# into the same continuation run as the real name (ROOT_CAUSE.md Defect
+# 1). `_ROLE_NAME_SEPARATOR` replaces the bare class with an explicit
+# alternation: plain whitespace, an ampersand with optional surrounding
+# whitespace, or a bare hyphen ONLY when flanked by a letter/digit on
+# both sides with NO whitespace at all (`(?<=[A-Za-z0-9])-(?=[A-Za-z])`).
+# A doubled hyphen can never satisfy this (the second hyphen's lookbehind
+# sees a hyphen, not a letter), and neither can a spaced hyphen (the
+# lookbehind/lookahead sees whitespace) — both fall through and correctly
+# terminate the continuation loop instead of bridging across them.
+_ROLE_NAME_SEPARATOR = r"(?:\s+|\s*&\s*|(?<=[A-Za-z0-9])-(?=[A-Za-z]))"
 _MULTIWORD_ROLE_NAME_FRAGMENT = (
     r"(?:"
-    r"[A-Z][A-Za-z]{1,25}(?:[\s&-]+(?:[a-z][A-Za-z]{0,15}-)?(?:" + _ROLE_NAME_CONTINUATION_TOKEN + r")){0,5}"
-    r"|(?:[A-Z]\.){1,4}(?:[\s&-]+(?:[a-z][A-Za-z]{0,15}-)?(?:" + _ROLE_NAME_CONTINUATION_TOKEN + r")){1,5}"
+    r"[A-Z][A-Za-z]{1,25}(?:" + _ROLE_NAME_SEPARATOR + r"(?:[a-z][A-Za-z]{0,15}-){0,2}(?:" + _ROLE_NAME_CONTINUATION_TOKEN + r")){0,5}"
+    r"|(?:[A-Z]\.){1,4}(?:" + _ROLE_NAME_SEPARATOR + r"(?:[a-z][A-Za-z]{0,15}-){0,2}(?:" + _ROLE_NAME_CONTINUATION_TOKEN + r")){1,5}"
     r")"
     # Step 4A.5 Priority 4: a role name occasionally has one lowercase
     # connector word inside it ("Importer of Record") — a small, closed
@@ -205,6 +224,80 @@ _MULTIWORD_ROLE_NAME_FRAGMENT = (
     # optionally followed by one more capitalized word.
     + r"(?:\s+(?:of|the|for)\s+[A-Z][A-Za-z]{1,25})?"
 )
+
+# Step 4A.11 Remediation (Phase 3, Defect 2 -- ALL-CAPS/connector-word
+# overflow): fixing the dash-boundary defect (Defect 1, above) does not by
+# itself bound a capture running through ordinary capitalized connector
+# words ("...Group FROM ANY THIRD...", or the same shape in ALL-CAPS
+# where every word is capitalized and the usual lowercase-breaks-the-match
+# signal is entirely unavailable). No stop-word list can close this
+# generally -- clause text after the real name is open-ended prose, not a
+# small closed vocabulary. The reliable STRUCTURAL signal instead is
+# budget exhaustion: every real multi-word entity name in this domain's
+# own corpora tops out at 5 words (e.g. "West Coast Regional Distribution
+# Group"); a capture that consumes the full 6-word continuation budget
+# this fragment allows is evidence the match ran out of budget rather than
+# finding a natural boundary, not evidence of a genuinely long name. This
+# regex requires strictly MORE continuations (6 total) than the trusted
+# budget (5 total) accepts, so a raw span that matches ONLY the full
+# pattern and not the reduced one is flagged as exhausted -- and per the
+# Phase 4 material-fact-ownership invariant, an exhausted span must never
+# silently become part of a clean ESTABLISHED decision; the caller treats
+# it as unresolved.
+_MULTIWORD_ROLE_NAME_FRAGMENT_TRUSTED_BUDGET = (
+    r"(?:"
+    r"[A-Z][A-Za-z]{1,25}(?:" + _ROLE_NAME_SEPARATOR + r"(?:[a-z][A-Za-z]{0,15}-){0,2}(?:" + _ROLE_NAME_CONTINUATION_TOKEN + r")){0,4}"
+    r"|(?:[A-Z]\.){1,4}(?:" + _ROLE_NAME_SEPARATOR + r"(?:[a-z][A-Za-z]{0,15}-){0,2}(?:" + _ROLE_NAME_CONTINUATION_TOKEN + r")){1,4}"
+    r")"
+    + r"(?:\s+(?:of|the|for)\s+[A-Z][A-Za-z]{1,25})?"
+)
+_ROLE_NAME_TRUSTED_BUDGET_FULLMATCH_RE = re.compile(r"\A(?:" + _MULTIWORD_ROLE_NAME_FRAGMENT_TRUSTED_BUDGET + r")\Z")
+
+# Budget exhaustion alone does not catch every over-capture -- a short
+# overrun (e.g. "Group WITH RESPECT", 2 extra words) can still fit inside
+# the trusted 5-word budget. The second, independent structural signal is
+# a SUBORDINATE-CLAUSE-CONNECTOR BOUNDARY: a role name can never
+# legitimately continue past the point where the grammar itself starts a
+# subordinate/relative/prepositional clause attaching to the obligation
+# (a "provided that", "subject to", "arising from/out of/under", "with
+# respect to", "relating to", "including" clause). This is NOT a new,
+# growing vocabulary of trailing stop phrases chasing specific discovered
+# examples -- it reuses the SAME closed connector class this module
+# already treats as structurally significant elsewhere (compare
+# policy_engine_core.py's _TRAILING_PROVISO_RE "provided that/unless/
+# except.../to the extent/so long as" and _BACKREF_CONDITION_RE's
+# "arising from/out of/under"): a fixed, small, closed set of English
+# subordinating prepositions/conjunctions, applied here as a role-name
+# boundary rather than a condition boundary, not an open list of
+# discovered attack phrases like "FROM ANY THIRD" itself.
+_ROLE_NAME_CLAUSE_CONNECTOR_BOUNDARY_RE = re.compile(
+    r"\b(?:provided\s+that|subject(?:\s+to)?|except(?:\s+(?:when|that|for))?|including|"
+    r"arising(?:\s+(?:from|out\s+of|under))?|relating(?:\s+to)?|with\s+respect(?:\s+to)?|"
+    r"in\s+connection\s+with|against)\b",
+    re.I,
+)
+
+
+def _verify_role_capture(raw: str) -> Optional[str]:
+    """Trims known trailing connector words (existing trim_role_name
+    behavior), truncates at the first subordinate-clause-connector
+    boundary if one appears past the first word, then rejects (returns
+    None) a span that only fits the full 6-word continuation budget and
+    not the 5-word trusted budget -- see
+    _MULTIWORD_ROLE_NAME_FRAGMENT_TRUSTED_BUDGET above. The caller must
+    treat None as "role boundary not deterministically established"
+    (skip/unresolved), never fall back to the untrimmed capture."""
+    trimmed = trim_role_name(raw)
+    if not trimmed:
+        return None
+    boundary = _ROLE_NAME_CLAUSE_CONNECTOR_BOUNDARY_RE.search(trimmed)
+    if boundary and boundary.start() > 0:
+        trimmed = trim_role_name(trimmed[:boundary.start()].strip())
+        if not trimmed:
+            return None
+    if not _ROLE_NAME_TRUSTED_BUDGET_FULLMATCH_RE.match(trimmed):
+        return None
+    return trimmed
 
 
 def _role_name_any_word_is_structural(name: str) -> bool:
@@ -2479,7 +2572,9 @@ def _verify_semantic_candidate(text: str, candidate) -> Tuple[str, Optional["Ind
         abs_start, abs_end = candidate.start_offset + m.start(), candidate.start_offset + m.end()
         if not _core_is_operative_context(text, abs_start, abs_end):
             continue  # Step 4A.10.1 — see main structuring loop
-        indemnifying_role, indemnified_role = trim_role_name(m.group(1)), trim_role_name(m.group(2))
+        indemnifying_role, indemnified_role = _verify_role_capture(m.group(1)), _verify_role_capture(m.group(2))
+        if indemnifying_role is None or indemnified_role is None:
+            continue
         if indemnifying_role.lower() == indemnified_role.lower():
             continue
         indemnifying_side, indemnifying_conflict = resolve_role_side(indemnifying_role, text)
@@ -2522,8 +2617,10 @@ def _verify_semantic_candidate(text: str, candidate) -> Tuple[str, Optional["Ind
         claim_window = text[max(0, abs_start - 150):min(len(text), abs_end + 150)]
         if not _CLAIM_LOSS_NOUN_RE.search(claim_window):
             continue
-        indemnifying_role = trim_role_name(m.group(actor_group))
-        indemnified_role = trim_role_name(m.group(beneficiary_group))
+        indemnifying_role = _verify_role_capture(m.group(actor_group))
+        indemnified_role = _verify_role_capture(m.group(beneficiary_group))
+        if indemnifying_role is None or indemnified_role is None:
+            continue
         if indemnifying_role.lower() == indemnified_role.lower():
             continue
         indemnifying_side, indemnifying_conflict = resolve_role_side(indemnifying_role, text)
@@ -2643,7 +2740,9 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
     for m in _OBLIGATION_RE.finditer(text):
         if not _core_is_operative_context(text, m.start(), m.end()):
             continue  # Step 4A.10.1 — quoted example/negated/meta-instructional, not the document's own operative term
-        indemnifying_role, indemnified_role = trim_role_name(m.group(1)), trim_role_name(m.group(2))
+        indemnifying_role, indemnified_role = _verify_role_capture(m.group(1)), _verify_role_capture(m.group(2))
+        if indemnifying_role is None or indemnified_role is None:
+            continue  # role-name capture exhausted its trusted boundary budget -- unresolved, not established
         if indemnifying_role.lower() == indemnified_role.lower():
             continue  # regex false-positive guard, e.g. matched the same word twice
         # Ordered (not unordered) pair: "Landlord indemnifies Tenant" and
@@ -2699,7 +2798,9 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
                 continue
             if not _core_is_operative_context(text, m.start(), m.end()):
                 continue  # Step 4A.10.1 — see main loop above
-            indemnifying_role, indemnified_role = trim_role_name(m.group(1)), trim_role_name(m.group(2))
+            indemnifying_role, indemnified_role = _verify_role_capture(m.group(1)), _verify_role_capture(m.group(2))
+            if indemnifying_role is None or indemnified_role is None:
+                continue
             if indemnifying_role.lower() == indemnified_role.lower():
                 continue
             pair = (indemnifying_role.lower(), indemnified_role.lower())
@@ -2747,8 +2848,10 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             claim_window = text[max(0, m.start() - 150):min(len(text), m.end() + 150)]
             if not _CLAIM_LOSS_NOUN_RE.search(claim_window):
                 continue  # verb cluster present, but no claim/loss evidence nearby -- not risk transfer
-            indemnifying_role = trim_role_name(m.group(actor_group))
-            indemnified_role = trim_role_name(m.group(beneficiary_group))
+            indemnifying_role = _verify_role_capture(m.group(actor_group))
+            indemnified_role = _verify_role_capture(m.group(beneficiary_group))
+            if indemnifying_role is None or indemnified_role is None:
+                continue
             if indemnifying_role.lower() == indemnified_role.lower():
                 continue
             pair = (indemnifying_role.lower(), indemnified_role.lower())

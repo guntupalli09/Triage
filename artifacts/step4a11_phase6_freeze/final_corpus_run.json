@@ -1111,11 +1111,11 @@
       ],
       "disposition": "AUTOMATABLE",
       "expected_status": "ESTABLISHED",
-      "actual_status": "ESTABLISHED",
-      "correct_status": true,
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
       "correct_value": false,
-      "absence_state": "PRESENT_AND_VERIFIED",
-      "actual_condition": "UNCONDITIONAL"
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
     },
     {
       "id": "fin-ind-t3-26-1",
@@ -1126,11 +1126,11 @@
       ],
       "disposition": "AUTOMATABLE",
       "expected_status": "ESTABLISHED",
-      "actual_status": "ESTABLISHED",
-      "correct_status": true,
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
       "correct_value": false,
-      "absence_state": "PRESENT_AND_VERIFIED",
-      "actual_condition": "UNCONDITIONAL"
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
     },
     {
       "id": "fin-ind-t3-26-2",
@@ -1141,11 +1141,11 @@
       ],
       "disposition": "AUTOMATABLE",
       "expected_status": "ESTABLISHED",
-      "actual_status": "ESTABLISHED",
-      "correct_status": true,
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
       "correct_value": false,
-      "absence_state": "PRESENT_AND_VERIFIED",
-      "actual_condition": "UNCONDITIONAL"
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
     },
     {
       "id": "fin-ind-t3-27-0",
@@ -1158,7 +1158,7 @@
       "expected_status": "ESTABLISHED",
       "actual_status": "ESTABLISHED",
       "correct_status": true,
-      "correct_value": false,
+      "correct_value": true,
       "absence_state": "PRESENT_AND_VERIFIED",
       "actual_condition": "UNCONDITIONAL"
     },
@@ -1173,7 +1173,7 @@
       "expected_status": "ESTABLISHED",
       "actual_status": "ESTABLISHED",
       "correct_status": true,
-      "correct_value": false,
+      "correct_value": true,
       "absence_state": "PRESENT_AND_VERIFIED",
       "actual_condition": "UNCONDITIONAL"
     },
@@ -1188,7 +1188,7 @@
       "expected_status": "ESTABLISHED",
       "actual_status": "ESTABLISHED",
       "correct_status": true,
-      "correct_value": false,
+      "correct_value": true,
       "absence_state": "PRESENT_AND_VERIFIED",
       "actual_condition": "UNCONDITIONAL"
     },
@@ -6079,21 +6079,14 @@
     }
   ],
   "metrics": {
-    "CA": 196,
+    "CA": 199,
     "CR": 52,
-    "FE": 139,
-    "WC": 6,
+    "FE": 142,
+    "WC": 0,
     "SM": 7
   },
   "false_structural_establishment": [],
-  "wrong_ownership": [
-    "fin-ind-t3-26-0",
-    "fin-ind-t3-26-1",
-    "fin-ind-t3-26-2",
-    "fin-ind-t3-27-0",
-    "fin-ind-t3-27-1",
-    "fin-ind-t3-27-2"
-  ],
+  "wrong_ownership": [],
   "semantic_authority_diffs": [],
   "determinism_mismatches": []
 }
