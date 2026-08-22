@@ -1,0 +1,2806 @@
+{
+  "cases": [
+    {
+      "id": "batL-0001-g1-doc-00",
+      "family": "end-to-end-real-text",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0002-g1-doc-01",
+      "family": "end-to-end-real-text",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0003-g1-doc-02",
+      "family": "end-to-end-real-text",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0004-g1-doc-03",
+      "family": "end-to-end-real-text",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0005-g1-doc-04",
+      "family": "end-to-end-real-text",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0006-g1-doc-05",
+      "family": "end-to-end-real-text",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0007-g1-doc-06",
+      "family": "end-to-end-real-text",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0008-g1-doc-07",
+      "family": "end-to-end-real-text",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0009-g1-doc-08",
+      "family": "end-to-end-real-text",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0010-g1-doc-09",
+      "family": "end-to-end-real-text",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0011-g1-doc-10",
+      "family": "end-to-end-real-text",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0012-g1-doc-11",
+      "family": "end-to-end-real-text",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0013-g1-doc-12",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0014-g1-doc-13",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0015-g1-doc-14",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0016-g1-doc-15",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0017-g1-doc-16",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0018-g1-doc-17",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0019-g1-doc-18",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0020-g1-doc-19",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0021-g1-doc-20",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0022-g1-doc-21",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0023-g1-doc-22",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0024-g1-doc-23",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0025-g1-doc-24",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0026-g1-doc-25",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0027-g1-doc-26",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0028-g1-doc-27",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0029-g1-doc-28",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0030-g1-doc-29",
+      "family": "end-to-end-real-text",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0031-g2-combo-000",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0032-g2-combo-001",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0033-g2-combo-002",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0034-g2-combo-003",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0035-g2-combo-004",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0036-g2-combo-005",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0037-g2-combo-006",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0038-g2-combo-007",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0039-g2-combo-008",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0040-g2-combo-009",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0041-g2-combo-010",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0042-g2-combo-011",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0043-g2-combo-012",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0044-g2-combo-013",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0045-g2-combo-014",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0046-g2-combo-015",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0047-g2-combo-016",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0048-g2-combo-017",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0049-g2-combo-018",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0050-g2-combo-019",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0051-g2-combo-020",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0052-g2-combo-021",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0053-g2-combo-022",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0054-g2-combo-023",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0055-g2-combo-024",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0056-g2-combo-025",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0057-g2-combo-026",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0058-g2-combo-027",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0059-g2-combo-028",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0060-g2-combo-029",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0061-g2-combo-030",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0062-g2-combo-031",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0063-g2-combo-032",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0064-g2-combo-033",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0065-g2-combo-034",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0066-g2-combo-035",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0067-g2-combo-036",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0068-g2-combo-037",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0069-g2-combo-038",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0070-g2-combo-039",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0071-g2-combo-040",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0072-g2-combo-041",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0073-g2-combo-042",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0074-g2-combo-043",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0075-g2-combo-044",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0076-g2-combo-045",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0077-g2-combo-046",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0078-g2-combo-047",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0079-g2-combo-048",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0080-g2-combo-049",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0081-g2-combo-050",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0082-g2-combo-051",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0083-g2-combo-052",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0084-g2-combo-053",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0085-g2-combo-054",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0086-g2-combo-055",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0087-g2-combo-056",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0088-g2-combo-057",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0089-g2-combo-058",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0090-g2-combo-059",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0091-g2-combo-060",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0092-g2-combo-061",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0093-g2-combo-062",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0094-g2-combo-063",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0095-g2-combo-064",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0096-g2-combo-065",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0097-g2-combo-066",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0098-g2-combo-067",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0099-g2-combo-068",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0100-g2-combo-069",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0101-g2-combo-070",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0102-g2-combo-071",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0103-g2-combo-072",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0104-g2-combo-073",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0105-g2-combo-074",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0106-g2-combo-075",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=12",
+      "repeats": 5
+    },
+    {
+      "id": "batL-0107-g2-combo-076",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0108-g2-combo-077",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0109-g2-combo-078",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0110-g2-combo-079",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0111-g2-combo-080",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0112-g2-combo-081",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0113-g2-combo-082",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0114-g2-combo-083",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0115-g2-combo-084",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0116-g2-combo-085",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0117-g2-combo-086",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0118-g2-combo-087",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0119-g2-combo-088",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0120-g2-combo-089",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0121-g2-combo-090",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0122-g2-combo-091",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0123-g2-combo-092",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0124-g2-combo-093",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0125-g2-combo-094",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0126-g2-combo-095",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0127-g2-combo-096",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0128-g2-combo-097",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0129-g2-combo-098",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0130-g2-combo-099",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0131-g2-combo-100",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0132-g2-combo-101",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0133-g2-combo-102",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0134-g2-combo-103",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0135-g2-combo-104",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0136-g2-combo-105",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0137-g2-combo-106",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0138-g2-combo-107",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0139-g2-combo-108",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0140-g2-combo-109",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0141-g2-combo-110",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0142-g2-combo-111",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0143-g2-combo-112",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0144-g2-combo-113",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0145-g2-combo-114",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0146-g2-combo-115",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0147-g2-combo-116",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0148-g2-combo-117",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0149-g2-combo-118",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0150-g2-combo-119",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0151-g2-combo-120",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=12",
+      "repeats": 5
+    },
+    {
+      "id": "batL-0152-g2-combo-121",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0153-g2-combo-122",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0154-g2-combo-123",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0155-g2-combo-124",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0156-g2-combo-125",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0157-g2-combo-126",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0158-g2-combo-127",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0159-g2-combo-128",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0160-g2-combo-129",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0161-g2-combo-130",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0162-g2-combo-131",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0163-g2-combo-132",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0164-g2-combo-133",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0165-g2-combo-134",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0166-g2-combo-135",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0167-g2-combo-136",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0168-g2-combo-137",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0169-g2-combo-138",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0170-g2-combo-139",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0171-g2-combo-140",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0172-g2-combo-141",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0173-g2-combo-142",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0174-g2-combo-143",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0175-g2-combo-144",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0176-g2-combo-145",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0177-g2-combo-146",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0178-g2-combo-147",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0179-g2-combo-148",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0180-g2-combo-149",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0181-g2-combo-150",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0182-g2-combo-151",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0183-g2-combo-152",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0184-g2-combo-153",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0185-g2-combo-154",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0186-g2-combo-155",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0187-g2-combo-156",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0188-g2-combo-157",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0189-g2-combo-158",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0190-g2-combo-159",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0191-g2-combo-160",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0192-g2-combo-161",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0193-g2-combo-162",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0194-g2-combo-163",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0195-g2-combo-164",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0196-g2-combo-165",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0197-g2-combo-166",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0198-g2-combo-167",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0199-g2-combo-168",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0200-g2-combo-169",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0201-g2-combo-170",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0202-g2-combo-171",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0203-g2-combo-172",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0204-g2-combo-173",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0205-g2-combo-174",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0206-g2-combo-175",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0207-g2-combo-176",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0208-g2-combo-177",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0209-g2-combo-178",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0210-g2-combo-179",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0211-g2-combo-180",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 5
+    },
+    {
+      "id": "batL-0212-g2-combo-181",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0213-g2-combo-182",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0214-g2-combo-183",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0215-g2-combo-184",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0216-g2-combo-185",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0217-g2-combo-186",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0218-g2-combo-187",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0219-g2-combo-188",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0220-g2-combo-189",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0221-g2-combo-190",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0222-g2-combo-191",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0223-g2-combo-192",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0224-g2-combo-193",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0225-g2-combo-194",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0226-g2-combo-195",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0227-g2-combo-196",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0228-g2-combo-197",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0229-g2-combo-198",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0230-g2-combo-199",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0231-g2-combo-200",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0232-g2-combo-201",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0233-g2-combo-202",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0234-g2-combo-203",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0235-g2-combo-204",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0236-g2-combo-205",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0237-g2-combo-206",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0238-g2-combo-207",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0239-g2-combo-208",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0240-g2-combo-209",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0241-g2-combo-210",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0242-g2-combo-211",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0243-g2-combo-212",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0244-g2-combo-213",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0245-g2-combo-214",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0246-g2-combo-215",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0247-g2-combo-216",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0248-g2-combo-217",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0249-g2-combo-218",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0250-g2-combo-219",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0251-g2-combo-220",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0252-g2-combo-221",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0253-g2-combo-222",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0254-g2-combo-223",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0255-g2-combo-224",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0256-g2-combo-225",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0257-g2-combo-226",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0258-g2-combo-227",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0259-g2-combo-228",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0260-g2-combo-229",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0261-g2-combo-230",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0262-g2-combo-231",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0263-g2-combo-232",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0264-g2-combo-233",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0265-g2-combo-234",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0266-g2-combo-235",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0267-g2-combo-236",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0268-g2-combo-237",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0269-g2-combo-238",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0270-g2-combo-239",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0271-g2-combo-240",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0272-g2-combo-241",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0273-g2-combo-242",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0274-g2-combo-243",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0275-g2-combo-244",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0276-g2-combo-245",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0277-g2-combo-246",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0278-g2-combo-247",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0279-g2-combo-248",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0280-g2-combo-249",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0281-g2-combo-250",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0282-g2-combo-251",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0283-g2-combo-252",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0284-g2-combo-253",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0285-g2-combo-254",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0286-g2-combo-255",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 5
+    },
+    {
+      "id": "batL-0287-g2-combo-256",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0288-g2-combo-257",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0289-g2-combo-258",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0290-g2-combo-259",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0291-g2-combo-260",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0292-g2-combo-261",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0293-g2-combo-262",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0294-g2-combo-263",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=9",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0295-g2-combo-264",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=11",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0296-g2-combo-265",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=4",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0297-g2-combo-266",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0298-g2-combo-267",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0299-g2-combo-268",
+      "family": "fixture-combination-coverage",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0300-g2-combo-269",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0301-g2-combo-270",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0302-g2-combo-271",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0303-g2-combo-272",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0304-g2-combo-273",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=6",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0305-g2-combo-274",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=7",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0306-g2-combo-275",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=8",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0307-g2-combo-276",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=REQUIRES_REVIEW, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0308-g2-combo-277",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=5",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0309-g2-combo-278",
+      "family": "fixture-combination-coverage",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=HAS_POLICY_VIOLATION, materially_clean_ok=True, covered=10",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0310-g2-combo-279",
+      "family": "fixture-combination-coverage",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "replay_equal=True, document_state=CLEAN, materially_clean_ok=True, covered=12",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0311-g3-injection-00",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0312-g3-injection-01",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0313-g3-injection-02",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0314-g3-injection-03",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0315-g3-injection-04",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0316-g3-injection-05",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0317-g3-injection-06",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0318-g3-injection-07",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0319-g3-injection-08",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0320-g3-injection-09",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier1",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0321-g3-injection-10",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0322-g3-injection-11",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0323-g3-injection-12",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0324-g3-injection-13",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0325-g3-injection-14",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0326-g3-injection-15",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0327-g3-injection-16",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0328-g3-injection-17",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0329-g3-injection-18",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0330-g3-injection-19",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0331-g3-injection-20",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0332-g3-injection-21",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0333-g3-injection-22",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0334-g3-injection-23",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0335-g3-injection-24",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0336-g3-injection-25",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0337-g3-injection-26",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0338-g3-injection-27",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0339-g3-injection-28",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0340-g3-injection-29",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier2",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0341-g3-injection-30",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0342-g3-injection-31",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0343-g3-injection-32",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0344-g3-injection-33",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0345-g3-injection-34",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0346-g3-injection-35",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0347-g3-injection-36",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0348-g3-injection-37",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0349-g3-injection-38",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    },
+    {
+      "id": "batL-0350-g3-injection-39",
+      "family": "prompt-injection-full-pipeline",
+      "tier": "tier3",
+      "passed": true,
+      "notes": "title_protected=True, severity_protected=True, fabricated_dropped=True",
+      "repeats": 2
+    }
+  ],
+  "total": 350,
+  "passed": 350
+}
