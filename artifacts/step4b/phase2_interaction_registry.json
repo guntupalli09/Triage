@@ -1,0 +1,129 @@
+{
+  "source": "interaction_rules.py LAUNCH_CATALOG, extracted 2026-08-22, matches docs/architecture/interaction_engine_v1_design.md S3.10 exactly",
+  "count": 7,
+  "rules": [
+    {
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "label": "IP infringement: uncapped liability with indemnity exposure",
+      "kind": "CONFLICT",
+      "ceiling_state": "ESCALATE",
+      "participating_clause_types": ["limitation_of_liability", "indemnification"],
+      "directionality": "non-directional (category-treatment match, no party-role comparison)",
+      "required_material_facts": {
+        "limitation_of_liability": "category_treatments['ip_infringement'].treatment in {uncapped, super_cap}",
+        "indemnification": "category_treatments['ip_infringement'].treatment == covered"
+      },
+      "evidence_requirements": "both participating decisions' controlling_provision",
+      "symmetric_or_directional": "n/a - category presence match, not a party-direction comparison",
+      "unresolved_input_blocks_interaction": true,
+      "one_policy_can_suppress_other": false,
+      "duplicate_findings_merged": "n/a - single fixed predicate, cannot fire twice for the same review"
+    },
+    {
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "label": "Shared risk category: uncapped liability with indemnity exposure",
+      "kind": "CONFLICT",
+      "ceiling_state": "ESCALATE",
+      "participating_clause_types": ["limitation_of_liability", "indemnification"],
+      "directionality": "non-directional",
+      "required_material_facts": {
+        "limitation_of_liability": "category_treatments[cat].treatment in {uncapped, super_cap} for cat in {data_breach, confidentiality, gross_negligence, willful_misconduct}",
+        "indemnification": "category_treatments[cat].treatment == covered, same cat"
+      },
+      "evidence_requirements": "both participating decisions' controlling_provision",
+      "symmetric_or_directional": "n/a",
+      "unresolved_input_blocks_interaction": true,
+      "one_policy_can_suppress_other": false,
+      "duplicate_findings_merged": "self-merging by design - one interaction reports every matching category together, not one row per category"
+    },
+    {
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "label": "Indemnification exposure rides inside the general liability cap",
+      "kind": "DEPENDENCY",
+      "ceiling_state": "ACCEPT_WITH_NOTE",
+      "participating_clause_types": ["limitation_of_liability", "indemnification"],
+      "directionality": "non-directional",
+      "required_material_facts": {
+        "limitation_of_liability": "category_treatments[cat].treatment in {within_general_cap, not_addressed}",
+        "indemnification": "category_treatments[cat].treatment == covered"
+      },
+      "evidence_requirements": "both participating decisions' controlling_provision",
+      "unresolved_input_blocks_interaction": true,
+      "one_policy_can_suppress_other": false,
+      "notes": "informational, not adversarial - the opposite branch of rules 1/2"
+    },
+    {
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "label": "Liability/Indemnification: ambiguous shared-category treatment",
+      "kind": "DEPENDENCY",
+      "ceiling_state": "REQUIRES_REVIEW",
+      "participating_clause_types": ["limitation_of_liability", "indemnification"],
+      "directionality": "non-directional",
+      "required_material_facts": {
+        "either": "category_treatments[cat].treatment == 'unresolved' for any shared category"
+      },
+      "evidence_requirements": "both participating decisions' controlling_provision",
+      "unresolved_input_blocks_interaction": true,
+      "one_policy_can_suppress_other": false,
+      "notes": "catches PER-CATEGORY ambiguity on an otherwise-resolved whole decision - distinct from interaction_engine_core's whole-decision INSUFFICIENT_FACTS gating"
+    },
+    {
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "label": "Uncapped data-breach liability with no cyber insurance",
+      "kind": "CONFLICT",
+      "ceiling_state": "ESCALATE",
+      "participating_clause_types": ["limitation_of_liability", "insurance"],
+      "directionality": "non-directional",
+      "required_material_facts": {
+        "limitation_of_liability": "category_treatments['data_breach'].treatment in {uncapped, super_cap}",
+        "insurance": "category_treatments['cyber_liability'].established == False"
+      },
+      "evidence_requirements": "both participating decisions' controlling_provision",
+      "unresolved_input_blocks_interaction": true,
+      "one_policy_can_suppress_other": false,
+      "notes": "data_breach is the ONLY liability category with a real insurance coverage-type mapping; do not generalize to other categories (e.g. ip_infringement has no matching insurance product)"
+    },
+    {
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "label": "Non-payment termination right vs. dispute withholding",
+      "kind": "CONFLICT",
+      "ceiling_state": "ESCALATE",
+      "participating_clause_types": ["termination", "payment_terms"],
+      "directionality": "directional - termination's non_payment right is held by the counterparty specifically (per termination_policy_engine's category_treatments unconditional non_payment entry)",
+      "required_material_facts": {
+        "termination": "category_treatments['non_payment'].treatment == 'immediate'",
+        "payment_terms": "interaction_facts['disputed_amounts_withholdable'] is True"
+      },
+      "evidence_requirements": "both participating decisions' controlling_provision",
+      "unresolved_input_blocks_interaction": true,
+      "one_policy_can_suppress_other": false,
+      "uses_interaction_facts_extension": true
+    },
+    {
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "label": "SLA and Payment Terms both reference service credits",
+      "kind": "DEPENDENCY",
+      "ceiling_state": "REQUIRES_REVIEW",
+      "participating_clause_types": ["sla", "payment_terms"],
+      "directionality": "non-directional",
+      "required_material_facts": {
+        "sla": "interaction_facts['service_credit_present'] is True",
+        "payment_terms": "interaction_facts['service_credit_present'] is True"
+      },
+      "evidence_requirements": "both participating decisions' controlling_provision",
+      "unresolved_input_blocks_interaction": true,
+      "one_policy_can_suppress_other": false,
+      "uses_interaction_facts_extension": true,
+      "notes": "presence-consistency depth ONLY, by explicit prior design decision (sla_policy_engine.py docstring, sla_adapter_design.md S7/S8) - payment_terms deliberately never extracts the percentage/basis/cap, so this can never become a numeric CONFLICT check without a separate, explicitly-authorized adapter change"
+    }
+  ],
+  "explicitly_deferred_v1_1_candidates": [
+    {"pair": "Warranties x Liability/Indemnification (non_infringement mapping)", "reason": "needs a one-line category-name mapping table, not new extraction"},
+    {"pair": "Liability x Insurance (magnitude comparison)", "reason": "needs a numeric_facts extension on PolicyDecision, never built"},
+    {"pair": "SLA x Termination (chronic-failure trigger consistency)", "reason": "needs a new sla_failure trigger_type value in termination_policy_engine.py, never built"}
+  ],
+  "explicitly_excluded_not_safe_for_v1": [
+    {"pair": "Confidentiality x Data Security (personal-data materiality)", "reason": "neither adapter's structured facts support a deterministic 'differs materially' predicate; a presence-only substitute was scoped instead but per this registry extraction was NOT found implemented in LAUNCH_CATALOG - verify against interaction_rules.py before assuming it exists"},
+    {"pair": "General warranty breach vs. liability cap (non-IP)", "reason": "warranties carries no cap/monetary concept for its own remedies outside the IP-specific mapping"}
+  ]
+}
