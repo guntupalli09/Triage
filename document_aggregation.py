@@ -73,16 +73,75 @@ def _interaction_is_genuinely_inapplicable(decision: Dict[str, Any], policy_deci
     return all(ct not in pd for ct in missing)
 
 
+def _safe_entries(decisions: Optional[Dict[str, Any]]):
+    """`decisions` is meant to be None or a dict (Contract.policy_decisions_json
+    / interaction_decisions_json, as persisted) -- but a corrupted
+    EncryptedJSON row can hand back any JSON-decodable shape (a bare
+    string, a number, a list). `(decisions or {}).items()` crashes with
+    AttributeError/TypeError the moment `decisions` is present but not a
+    dict itself (found via Step 4B Phase K, in exactly this scenario, one
+    level up from the already-hardened per-entry case below): every entry
+    loop must route through here instead of calling `.items()` directly, so
+    a malformed *container* degrades to "no entries to iterate" the same
+    safe way a malformed *entry* degrades to "not a recognized state" --
+    never a crash. The top-level malformed-container signal itself is
+    still surfaced, in _malformed_reasons, so this never becomes a silent
+    skip."""
+    return decisions.items() if isinstance(decisions, dict) else {}.items()
+
+
 def _interaction_review_reasons(interaction_decisions: Optional[Dict[str, Any]], policy_decisions: Optional[Dict[str, Any]]) -> list:
     reasons = []
-    for interaction_id, decision in (interaction_decisions or {}).items():
-        state = decision.get("state")
+    safe_policy_decisions = policy_decisions if isinstance(policy_decisions, dict) else {}
+    for interaction_id, decision in _safe_entries(interaction_decisions):
+        if not isinstance(decision, dict):
+            continue  # malformed entries are collected separately -- see _malformed_reasons
+        state = _state_of(decision)
         if state not in _INTERACTION_REVIEW_STATES:
             continue
-        if state == "INSUFFICIENT_FACTS" and _interaction_is_genuinely_inapplicable(decision, policy_decisions):
+        if state == "INSUFFICIENT_FACTS" and _interaction_is_genuinely_inapplicable(decision, safe_policy_decisions):
             continue
         reasons.append(f"interaction {interaction_id} state={state}")
     return reasons
+
+
+def _malformed_reasons(label: str, decisions: Optional[Dict[str, Any]]) -> list:
+    """Two distinct malformed shapes, both found via Step 4B Phase K's
+    direct dependency-failure probing, both hard-required never to crash
+    and never to be silently treated as CLEAN:
+
+    1. The whole payload isn't even a dict (None is the one legitimate
+       non-dict value -- "genuinely not resolved this review", handled
+       elsewhere; anything else is a corrupted EncryptedJSON row).
+    2. An individual entry isn't a dict, OR is a dict whose "state" value
+       isn't a string (e.g. a dict/list landed in the "state" slot) --
+       `_state_of` already refuses to return a non-string state (so it can
+       never crash a `state in {...}` membership check upstream), but a
+       non-string "state" is exactly as suspicious as a whole malformed
+       entry and must surface the same way, not silently resolve to "no
+       recognized state, therefore clean"."""
+    if decisions is not None and not isinstance(decisions, dict):
+        return [f"{label} decisions payload is malformed (expected a dict, got {type(decisions).__name__})"]
+    reasons = []
+    for key, decision in (decisions or {}).items():
+        if not isinstance(decision, dict):
+            reasons.append(f"{label} {key} is malformed (expected a dict, got {type(decision).__name__})")
+        elif "state" in decision and not isinstance(decision.get("state"), str):
+            reasons.append(f"{label} {key} has a malformed state value (expected a string, got {type(decision.get('state')).__name__})")
+    return reasons
+
+
+def _state_of(decision: Any) -> Optional[str]:
+    """Only a string is ever a recognized state -- a dict/list/number
+    landing in the "state" slot (corrupted row) must never reach a
+    `state in {...}` membership test (unhashable types raise TypeError
+    there), and must never be treated as if it were some legitimate-but-
+    unrecognized state string either. Flagged separately by
+    _malformed_reasons so this degrades safely, not silently."""
+    if not isinstance(decision, dict):
+        return None
+    state = decision.get("state")
+    return state if isinstance(state, str) else None
 
 
 def aggregate_document_state(
@@ -105,22 +164,24 @@ def aggregate_document_state(
     """
     reasons = []
 
-    for interaction_id, decision in (interaction_decisions or {}).items():
-        if decision.get("state") in _INTERACTION_CRITICAL_STATES:
-            reasons.append(f"interaction {interaction_id} state={decision.get('state')}")
+    for interaction_id, decision in _safe_entries(interaction_decisions):
+        if _state_of(decision) in _INTERACTION_CRITICAL_STATES:
+            reasons.append(f"interaction {interaction_id} state={_state_of(decision)}")
     if reasons:
         return {"document_state": DOC_HAS_CRITICAL_INTERACTION, "reasons": reasons}
 
-    for clause_type, decision in (policy_decisions or {}).items():
-        if decision.get("state") in _POLICY_VIOLATION_STATES:
-            reasons.append(f"policy {clause_type} state={decision.get('state')}")
+    for clause_type, decision in _safe_entries(policy_decisions):
+        if _state_of(decision) in _POLICY_VIOLATION_STATES:
+            reasons.append(f"policy {clause_type} state={_state_of(decision)}")
     if reasons:
         return {"document_state": DOC_HAS_POLICY_VIOLATION, "reasons": reasons}
 
-    for clause_type, decision in (policy_decisions or {}).items():
-        if decision.get("state") in _POLICY_REVIEW_STATES:
-            reasons.append(f"policy {clause_type} state={decision.get('state')}")
+    for clause_type, decision in _safe_entries(policy_decisions):
+        if _state_of(decision) in _POLICY_REVIEW_STATES:
+            reasons.append(f"policy {clause_type} state={_state_of(decision)}")
     reasons.extend(_interaction_review_reasons(interaction_decisions, policy_decisions))
+    reasons.extend(_malformed_reasons("policy", policy_decisions))
+    reasons.extend(_malformed_reasons("interaction", interaction_decisions))
     if reasons:
         return {"document_state": DOC_REQUIRES_REVIEW, "reasons": reasons}
 

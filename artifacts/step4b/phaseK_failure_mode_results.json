@@ -1,0 +1,1918 @@
+{
+  "rows": [
+    {
+      "id": "provider-unavailable-0",
+      "family": "explanation-provider-unavailable",
+      "target": "evaluate_provider_none",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "no OpenAI client configured -- evaluate() must return None, never raise or fabricate"
+    },
+    {
+      "id": "provider-unavailable-1",
+      "family": "explanation-provider-unavailable",
+      "target": "evaluate_provider_none",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "no OpenAI client configured -- evaluate() must return None, never raise or fabricate"
+    },
+    {
+      "id": "provider-unavailable-2",
+      "family": "explanation-provider-unavailable",
+      "target": "evaluate_provider_none",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "no OpenAI client configured -- evaluate() must return None, never raise or fabricate"
+    },
+    {
+      "id": "provider-unavailable-3",
+      "family": "explanation-provider-unavailable",
+      "target": "evaluate_provider_none",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "no OpenAI client configured -- evaluate() must return None, never raise or fabricate"
+    },
+    {
+      "id": "provider-unavailable-4",
+      "family": "explanation-provider-unavailable",
+      "target": "evaluate_provider_none",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "no OpenAI client configured -- evaluate() must return None, never raise or fabricate"
+    },
+    {
+      "id": "provider-unavailable-5",
+      "family": "explanation-provider-unavailable",
+      "target": "evaluate_provider_none",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "no OpenAI client configured -- evaluate() must return None, never raise or fabricate"
+    },
+    {
+      "id": "provider-unavailable-6",
+      "family": "explanation-provider-unavailable",
+      "target": "evaluate_provider_none",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "no OpenAI client configured -- evaluate() must return None, never raise or fabricate"
+    },
+    {
+      "id": "provider-unavailable-7",
+      "family": "explanation-provider-unavailable",
+      "target": "evaluate_provider_none",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "no OpenAI client configured -- evaluate() must return None, never raise or fabricate"
+    },
+    {
+      "id": "provider-exception-0",
+      "family": "explanation-provider-exception",
+      "target": "evaluate_client_raises",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "client.chat.completions.create raises TimeoutError -- evaluate() must catch and return None, never propagate"
+    },
+    {
+      "id": "provider-exception-1",
+      "family": "explanation-provider-exception",
+      "target": "evaluate_client_raises",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "client.chat.completions.create raises ConnectionError -- evaluate() must catch and return None, never propagate"
+    },
+    {
+      "id": "provider-exception-2",
+      "family": "explanation-provider-exception",
+      "target": "evaluate_client_raises",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "client.chat.completions.create raises ValueError -- evaluate() must catch and return None, never propagate"
+    },
+    {
+      "id": "provider-exception-3",
+      "family": "explanation-provider-exception",
+      "target": "evaluate_client_raises",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "client.chat.completions.create raises RuntimeError -- evaluate() must catch and return None, never propagate"
+    },
+    {
+      "id": "provider-exception-4",
+      "family": "explanation-provider-exception",
+      "target": "evaluate_client_raises",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "client.chat.completions.create raises json.JSONDecodeError-equivalent -- evaluate() must catch and return None, never propagate"
+    },
+    {
+      "id": "provider-malformed-json-0",
+      "family": "explanation-provider-malformed-output",
+      "target": "evaluate_malformed_json_response",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "model returned non-JSON/malformed content -- must be caught, never crash the review"
+    },
+    {
+      "id": "provider-malformed-json-1",
+      "family": "explanation-provider-malformed-output",
+      "target": "evaluate_malformed_json_response",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "model returned non-JSON/malformed content -- must be caught, never crash the review"
+    },
+    {
+      "id": "provider-malformed-json-2",
+      "family": "explanation-provider-malformed-output",
+      "target": "evaluate_malformed_json_response",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "model returned non-JSON/malformed content -- must be caught, never crash the review"
+    },
+    {
+      "id": "provider-malformed-json-3",
+      "family": "explanation-provider-malformed-output",
+      "target": "evaluate_malformed_json_response",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "model returned non-JSON/malformed content -- must be caught, never crash the review"
+    },
+    {
+      "id": "provider-malformed-json-4",
+      "family": "explanation-provider-malformed-output",
+      "target": "evaluate_malformed_json_response",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "model returned non-JSON/malformed content -- must be caught, never crash the review"
+    },
+    {
+      "id": "provider-malformed-json-5",
+      "family": "explanation-provider-malformed-output",
+      "target": "evaluate_malformed_json_response",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "model returned non-JSON/malformed content -- must be caught, never crash the review"
+    },
+    {
+      "id": "provider-contradictory-output-0",
+      "family": "explanation-provider-contradictory-output",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "contradictory/wrong-typed model output -- _validate_result must reject"
+    },
+    {
+      "id": "provider-contradictory-output-1",
+      "family": "explanation-provider-contradictory-output",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "contradictory/wrong-typed model output -- _validate_result must reject"
+    },
+    {
+      "id": "provider-contradictory-output-2",
+      "family": "explanation-provider-contradictory-output",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "contradictory/wrong-typed model output -- _validate_result must reject"
+    },
+    {
+      "id": "provider-contradictory-output-3",
+      "family": "explanation-provider-contradictory-output",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "contradictory/wrong-typed model output -- _validate_result must reject"
+    },
+    {
+      "id": "provider-contradictory-output-4",
+      "family": "explanation-provider-contradictory-output",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "contradictory/wrong-typed model output -- _validate_result must reject"
+    },
+    {
+      "id": "provider-contradictory-output-5",
+      "family": "explanation-provider-contradictory-output",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "contradictory/wrong-typed model output -- _validate_result must reject"
+    },
+    {
+      "id": "corrupt-policy-decision-0",
+      "family": "corrupt-policy-decision-entry",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "REQUIRES_REVIEW",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "policy_decisions['indemnification']=None (type NoneType) -- must not crash and must not resolve to CLEAN"
+    },
+    {
+      "id": "corrupt-policy-decision-1",
+      "family": "corrupt-policy-decision-entry",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "REQUIRES_REVIEW",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "policy_decisions['indemnification']='not-a-dict' (type str) -- must not crash and must not resolve to CLEAN"
+    },
+    {
+      "id": "corrupt-policy-decision-2",
+      "family": "corrupt-policy-decision-entry",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "REQUIRES_REVIEW",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "policy_decisions['indemnification']=42 (type int) -- must not crash and must not resolve to CLEAN"
+    },
+    {
+      "id": "corrupt-policy-decision-3",
+      "family": "corrupt-policy-decision-entry",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "REQUIRES_REVIEW",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "policy_decisions['indemnification']=['a', 'list'] (type list) -- must not crash and must not resolve to CLEAN"
+    },
+    {
+      "id": "corrupt-policy-decision-4",
+      "family": "corrupt-policy-decision-entry",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "REQUIRES_REVIEW",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "policy_decisions['indemnification']=True (type bool) -- must not crash and must not resolve to CLEAN"
+    },
+    {
+      "id": "corrupt-policy-decision-5",
+      "family": "corrupt-policy-decision-entry",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "REQUIRES_REVIEW",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "policy_decisions['indemnification']=3.14 (type float) -- must not crash and must not resolve to CLEAN"
+    },
+    {
+      "id": "corrupt-interaction-decision-0",
+      "family": "corrupt-interaction-decision-entry",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "REQUIRES_REVIEW",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "interaction_decisions['IX_TEST']=None (type NoneType) -- must not crash and must not resolve to CLEAN"
+    },
+    {
+      "id": "corrupt-interaction-decision-1",
+      "family": "corrupt-interaction-decision-entry",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "REQUIRES_REVIEW",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "interaction_decisions['IX_TEST']='not-a-dict' (type str) -- must not crash and must not resolve to CLEAN"
+    },
+    {
+      "id": "corrupt-interaction-decision-2",
+      "family": "corrupt-interaction-decision-entry",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "REQUIRES_REVIEW",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "interaction_decisions['IX_TEST']=42 (type int) -- must not crash and must not resolve to CLEAN"
+    },
+    {
+      "id": "corrupt-interaction-decision-3",
+      "family": "corrupt-interaction-decision-entry",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "REQUIRES_REVIEW",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "interaction_decisions['IX_TEST']=['a', 'list'] (type list) -- must not crash and must not resolve to CLEAN"
+    },
+    {
+      "id": "corrupt-interaction-decision-4",
+      "family": "corrupt-interaction-decision-entry",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "REQUIRES_REVIEW",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "interaction_decisions['IX_TEST']=True (type bool) -- must not crash and must not resolve to CLEAN"
+    },
+    {
+      "id": "corrupt-interaction-decision-5",
+      "family": "corrupt-interaction-decision-entry",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "REQUIRES_REVIEW",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "interaction_decisions['IX_TEST']=3.14 (type float) -- must not crash and must not resolve to CLEAN"
+    },
+    {
+      "id": "missing-interaction-payload-0",
+      "family": "missing-interaction-payload",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": false
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN",
+        "not_clean": false
+      },
+      "correct": true,
+      "notes": "interaction_decisions entirely None (legacy/shadow-shaped or genuinely empty) -- must not crash; CLEAN is correct here since nothing else is material"
+    },
+    {
+      "id": "missing-interaction-payload-1",
+      "family": "missing-interaction-payload",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": false
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN",
+        "not_clean": false
+      },
+      "correct": true,
+      "notes": "interaction_decisions entirely None (legacy/shadow-shaped or genuinely empty) -- must not crash; CLEAN is correct here since nothing else is material"
+    },
+    {
+      "id": "missing-interaction-payload-2",
+      "family": "missing-interaction-payload",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": false
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN",
+        "not_clean": false
+      },
+      "correct": true,
+      "notes": "interaction_decisions entirely None (legacy/shadow-shaped or genuinely empty) -- must not crash; CLEAN is correct here since nothing else is material"
+    },
+    {
+      "id": "missing-interaction-payload-3",
+      "family": "missing-interaction-payload",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": false
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN",
+        "not_clean": false
+      },
+      "correct": true,
+      "notes": "interaction_decisions entirely None (legacy/shadow-shaped or genuinely empty) -- must not crash; CLEAN is correct here since nothing else is material"
+    },
+    {
+      "id": "missing-interaction-payload-4",
+      "family": "missing-interaction-payload",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": false
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN",
+        "not_clean": false
+      },
+      "correct": true,
+      "notes": "interaction_decisions entirely None (legacy/shadow-shaped or genuinely empty) -- must not crash; CLEAN is correct here since nothing else is material"
+    },
+    {
+      "id": "missing-interaction-payload-5",
+      "family": "missing-interaction-payload",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": false
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN",
+        "not_clean": false
+      },
+      "correct": true,
+      "notes": "interaction_decisions entirely None (legacy/shadow-shaped or genuinely empty) -- must not crash; CLEAN is correct here since nothing else is material"
+    },
+    {
+      "id": "missing-policy-payload-0",
+      "family": "missing-policy-payload-cutover-unresolved",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CONFIGURATION_UNRESOLVED",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "policy_decisions is None in cutover mode -- must resolve to CONFIGURATION_UNRESOLVED, never crash or CLEAN"
+    },
+    {
+      "id": "missing-policy-payload-1",
+      "family": "missing-policy-payload-cutover-unresolved",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CONFIGURATION_UNRESOLVED",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "policy_decisions is None in cutover mode -- must resolve to CONFIGURATION_UNRESOLVED, never crash or CLEAN"
+    },
+    {
+      "id": "missing-policy-payload-2",
+      "family": "missing-policy-payload-cutover-unresolved",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CONFIGURATION_UNRESOLVED",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "policy_decisions is None in cutover mode -- must resolve to CONFIGURATION_UNRESOLVED, never crash or CLEAN"
+    },
+    {
+      "id": "missing-policy-payload-3",
+      "family": "missing-policy-payload-cutover-unresolved",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CONFIGURATION_UNRESOLVED",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "policy_decisions is None in cutover mode -- must resolve to CONFIGURATION_UNRESOLVED, never crash or CLEAN"
+    },
+    {
+      "id": "missing-policy-payload-4",
+      "family": "missing-policy-payload-cutover-unresolved",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CONFIGURATION_UNRESOLVED",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "policy_decisions is None in cutover mode -- must resolve to CONFIGURATION_UNRESOLVED, never crash or CLEAN"
+    },
+    {
+      "id": "missing-policy-payload-5",
+      "family": "missing-policy-payload-cutover-unresolved",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CONFIGURATION_UNRESOLVED",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "policy_decisions is None in cutover mode -- must resolve to CONFIGURATION_UNRESOLVED, never crash or CLEAN"
+    },
+    {
+      "id": "empty-but-present-payload-0",
+      "family": "empty-dict-not-missing",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": false
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN",
+        "not_clean": false
+      },
+      "correct": true,
+      "notes": "empty dict (resolved, zero clause types matched) is legitimately CLEAN, distinct from None -- confirms the None-vs-{} distinction survives malformed-input hardening"
+    },
+    {
+      "id": "empty-but-present-payload-1",
+      "family": "empty-dict-not-missing",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": false
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN",
+        "not_clean": false
+      },
+      "correct": true,
+      "notes": "empty dict (resolved, zero clause types matched) is legitimately CLEAN, distinct from None -- confirms the None-vs-{} distinction survives malformed-input hardening"
+    },
+    {
+      "id": "empty-but-present-payload-2",
+      "family": "empty-dict-not-missing",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": false
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN",
+        "not_clean": false
+      },
+      "correct": true,
+      "notes": "empty dict (resolved, zero clause types matched) is legitimately CLEAN, distinct from None -- confirms the None-vs-{} distinction survives malformed-input hardening"
+    },
+    {
+      "id": "empty-but-present-payload-3",
+      "family": "empty-dict-not-missing",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": false
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN",
+        "not_clean": false
+      },
+      "correct": true,
+      "notes": "empty dict (resolved, zero clause types matched) is legitimately CLEAN, distinct from None -- confirms the None-vs-{} distinction survives malformed-input hardening"
+    },
+    {
+      "id": "config-no-active-playbook-0",
+      "family": "configuration-no-active-playbook",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CONFIGURATION_UNRESOLVED",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "no active playbook resolved -- CONFIGURATION_UNRESOLVED, not crash"
+    },
+    {
+      "id": "config-no-active-playbook-1",
+      "family": "configuration-no-active-playbook",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CONFIGURATION_UNRESOLVED",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "no active playbook resolved -- CONFIGURATION_UNRESOLVED, not crash"
+    },
+    {
+      "id": "config-no-active-playbook-2",
+      "family": "configuration-no-active-playbook",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CONFIGURATION_UNRESOLVED",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "no active playbook resolved -- CONFIGURATION_UNRESOLVED, not crash"
+    },
+    {
+      "id": "config-no-active-playbook-3",
+      "family": "configuration-no-active-playbook",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CONFIGURATION_UNRESOLVED",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "no active playbook resolved -- CONFIGURATION_UNRESOLVED, not crash"
+    },
+    {
+      "id": "config-no-active-playbook-4",
+      "family": "configuration-no-active-playbook",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CONFIGURATION_UNRESOLVED",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "no active playbook resolved -- CONFIGURATION_UNRESOLVED, not crash"
+    },
+    {
+      "id": "config-no-active-playbook-5",
+      "family": "configuration-no-active-playbook",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CONFIGURATION_UNRESOLVED",
+        "not_clean": true
+      },
+      "correct": true,
+      "notes": "no active playbook resolved -- CONFIGURATION_UNRESOLVED, not crash"
+    },
+    {
+      "id": "config-malformed-deal-value-0",
+      "family": "configuration-malformed-deal-value",
+      "target": "segment_match_no_crash",
+      "expected": {
+        "no_crash": true,
+        "matches_bound": false
+      },
+      "actual": {
+        "no_crash": true,
+        "matches_bound": false
+      },
+      "correct": true,
+      "notes": "deal_value=nan -- must not crash; must satisfy the bound only if genuinely a real number >= it"
+    },
+    {
+      "id": "config-malformed-deal-value-1",
+      "family": "configuration-malformed-deal-value",
+      "target": "segment_match_no_crash",
+      "expected": {
+        "no_crash": true,
+        "matches_bound": true
+      },
+      "actual": {
+        "no_crash": true,
+        "matches_bound": true
+      },
+      "correct": true,
+      "notes": "deal_value=inf -- must not crash; must satisfy the bound only if genuinely a real number >= it"
+    },
+    {
+      "id": "config-malformed-deal-value-2",
+      "family": "configuration-malformed-deal-value",
+      "target": "segment_match_no_crash",
+      "expected": {
+        "no_crash": true,
+        "matches_bound": false
+      },
+      "actual": {
+        "no_crash": true,
+        "matches_bound": false
+      },
+      "correct": true,
+      "notes": "deal_value=-inf -- must not crash; must satisfy the bound only if genuinely a real number >= it"
+    },
+    {
+      "id": "config-malformed-deal-value-3",
+      "family": "configuration-malformed-deal-value",
+      "target": "segment_match_no_crash",
+      "expected": {
+        "no_crash": true,
+        "matches_bound": false
+      },
+      "actual": {
+        "no_crash": true,
+        "matches_bound": false
+      },
+      "correct": true,
+      "notes": "deal_value=None -- must not crash; must satisfy the bound only if genuinely a real number >= it"
+    },
+    {
+      "id": "config-malformed-deal-value-4",
+      "family": "configuration-malformed-deal-value",
+      "target": "segment_match_no_crash",
+      "expected": {
+        "no_crash": true,
+        "matches_bound": false
+      },
+      "actual": {
+        "no_crash": true,
+        "matches_bound": false
+      },
+      "correct": true,
+      "notes": "deal_value='not-a-number' -- must not crash; must satisfy the bound only if genuinely a real number >= it"
+    },
+    {
+      "id": "config-malformed-deal-value-5",
+      "family": "configuration-malformed-deal-value",
+      "target": "segment_match_no_crash",
+      "expected": {
+        "no_crash": true,
+        "matches_bound": false
+      },
+      "actual": {
+        "no_crash": true,
+        "matches_bound": false
+      },
+      "correct": true,
+      "notes": "deal_value=-1 -- must not crash; must satisfy the bound only if genuinely a real number >= it"
+    },
+    {
+      "id": "config-unknown-severity-0",
+      "family": "configuration-unknown-severity",
+      "target": "build_enhanced_issues_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity='unknown_severity_value' -- build_enhanced_issues' sort key must not crash on an unknown/malformed severity value"
+    },
+    {
+      "id": "config-unknown-severity-1",
+      "family": "configuration-unknown-severity",
+      "target": "build_enhanced_issues_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity=None -- build_enhanced_issues' sort key must not crash on an unknown/malformed severity value"
+    },
+    {
+      "id": "config-unknown-severity-2",
+      "family": "configuration-unknown-severity",
+      "target": "build_enhanced_issues_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity=12345 -- build_enhanced_issues' sort key must not crash on an unknown/malformed severity value"
+    },
+    {
+      "id": "config-unknown-severity-3",
+      "family": "configuration-unknown-severity",
+      "target": "build_enhanced_issues_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity={'nested': 'dict'} -- build_enhanced_issues' sort key must not crash on an unknown/malformed severity value"
+    },
+    {
+      "id": "config-unknown-severity-4",
+      "family": "configuration-unknown-severity",
+      "target": "build_enhanced_issues_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity=['a', 'list'] -- build_enhanced_issues' sort key must not crash on an unknown/malformed severity value"
+    },
+    {
+      "id": "config-unknown-policy-state-0",
+      "family": "configuration-unknown-policy-state",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN"
+      },
+      "correct": true,
+      "notes": "policy_decisions state='UNKNOWN_STATE_XYZ' (unrecognized value) -- must not crash; an unrecognized state falls through every known bucket safely to CLEAN, which is correct ONLY because it is genuinely not one of the known violation/review states -- disclosed, not silently assumed"
+    },
+    {
+      "id": "config-unknown-policy-state-1",
+      "family": "configuration-unknown-policy-state",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "policy_decisions state=None (unrecognized value) -- must not crash; an unrecognized state falls through every known bucket safely to CLEAN, which is correct ONLY because it is genuinely not one of the known violation/review states -- disclosed, not silently assumed"
+    },
+    {
+      "id": "config-unknown-policy-state-2",
+      "family": "configuration-unknown-policy-state",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN"
+      },
+      "correct": true,
+      "notes": "policy_decisions state='' (unrecognized value) -- must not crash; an unrecognized state falls through every known bucket safely to CLEAN, which is correct ONLY because it is genuinely not one of the known violation/review states -- disclosed, not silently assumed"
+    },
+    {
+      "id": "config-unknown-policy-state-3",
+      "family": "configuration-unknown-policy-state",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN"
+      },
+      "correct": true,
+      "notes": "policy_decisions state='accept' (unrecognized value) -- must not crash; an unrecognized state falls through every known bucket safely to CLEAN, which is correct ONLY because it is genuinely not one of the known violation/review states -- disclosed, not silently assumed"
+    },
+    {
+      "id": "config-unknown-policy-state-4",
+      "family": "configuration-unknown-policy-state",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN"
+      },
+      "correct": true,
+      "notes": "policy_decisions state='Accept' (unrecognized value) -- must not crash; an unrecognized state falls through every known bucket safely to CLEAN, which is correct ONLY because it is genuinely not one of the known violation/review states -- disclosed, not silently assumed"
+    },
+    {
+      "id": "config-unknown-policy-state-5",
+      "family": "configuration-unknown-policy-state",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "policy_decisions state=123 (unrecognized value) -- must not crash; an unrecognized state falls through every known bucket safely to CLEAN, which is correct ONLY because it is genuinely not one of the known violation/review states -- disclosed, not silently assumed"
+    },
+    {
+      "id": "one-adapter-raises-0",
+      "family": "one-adapter-raises-isolated",
+      "target": "apply_active_policies_isolation",
+      "expected": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "actual": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "correct": true,
+      "notes": "one adapter's extract_fn/evaluate_fn raises -- policy_enforcement.evaluate_active_policies must isolate it as an error outcome, every other clause type proceeds"
+    },
+    {
+      "id": "one-adapter-raises-1",
+      "family": "one-adapter-raises-isolated",
+      "target": "apply_active_policies_isolation",
+      "expected": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "actual": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "correct": true,
+      "notes": "one adapter's extract_fn/evaluate_fn raises -- policy_enforcement.evaluate_active_policies must isolate it as an error outcome, every other clause type proceeds"
+    },
+    {
+      "id": "one-adapter-raises-2",
+      "family": "one-adapter-raises-isolated",
+      "target": "apply_active_policies_isolation",
+      "expected": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "actual": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "correct": true,
+      "notes": "one adapter's extract_fn/evaluate_fn raises -- policy_enforcement.evaluate_active_policies must isolate it as an error outcome, every other clause type proceeds"
+    },
+    {
+      "id": "one-adapter-raises-3",
+      "family": "one-adapter-raises-isolated",
+      "target": "apply_active_policies_isolation",
+      "expected": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "actual": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "correct": true,
+      "notes": "one adapter's extract_fn/evaluate_fn raises -- policy_enforcement.evaluate_active_policies must isolate it as an error outcome, every other clause type proceeds"
+    },
+    {
+      "id": "one-adapter-raises-4",
+      "family": "one-adapter-raises-isolated",
+      "target": "apply_active_policies_isolation",
+      "expected": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "actual": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "correct": true,
+      "notes": "one adapter's extract_fn/evaluate_fn raises -- policy_enforcement.evaluate_active_policies must isolate it as an error outcome, every other clause type proceeds"
+    },
+    {
+      "id": "one-adapter-raises-5",
+      "family": "one-adapter-raises-isolated",
+      "target": "apply_active_policies_isolation",
+      "expected": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "actual": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "correct": true,
+      "notes": "one adapter's extract_fn/evaluate_fn raises -- policy_enforcement.evaluate_active_policies must isolate it as an error outcome, every other clause type proceeds"
+    },
+    {
+      "id": "one-adapter-raises-6",
+      "family": "one-adapter-raises-isolated",
+      "target": "apply_active_policies_isolation",
+      "expected": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "actual": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "correct": true,
+      "notes": "one adapter's extract_fn/evaluate_fn raises -- policy_enforcement.evaluate_active_policies must isolate it as an error outcome, every other clause type proceeds"
+    },
+    {
+      "id": "one-adapter-raises-7",
+      "family": "one-adapter-raises-isolated",
+      "target": "apply_active_policies_isolation",
+      "expected": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "actual": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "correct": true,
+      "notes": "one adapter's extract_fn/evaluate_fn raises -- policy_enforcement.evaluate_active_policies must isolate it as an error outcome, every other clause type proceeds"
+    },
+    {
+      "id": "interaction-eval-error-0",
+      "family": "interaction-evaluation-error-isolated",
+      "target": "interaction_engine_predicate_raises",
+      "expected": {
+        "other_rules_unaffected": true,
+        "raising_rule_becomes_error": true
+      },
+      "actual": {
+        "other_rules_unaffected": true,
+        "raising_rule_becomes_error": true
+      },
+      "correct": true,
+      "notes": "one interaction rule's predicate raises -- interaction_engine_core.evaluate must isolate it as EVALUATION_ERROR, every other rule proceeds"
+    },
+    {
+      "id": "interaction-eval-error-1",
+      "family": "interaction-evaluation-error-isolated",
+      "target": "interaction_engine_predicate_raises",
+      "expected": {
+        "other_rules_unaffected": true,
+        "raising_rule_becomes_error": true
+      },
+      "actual": {
+        "other_rules_unaffected": true,
+        "raising_rule_becomes_error": true
+      },
+      "correct": true,
+      "notes": "one interaction rule's predicate raises -- interaction_engine_core.evaluate must isolate it as EVALUATION_ERROR, every other rule proceeds"
+    },
+    {
+      "id": "interaction-eval-error-2",
+      "family": "interaction-evaluation-error-isolated",
+      "target": "interaction_engine_predicate_raises",
+      "expected": {
+        "other_rules_unaffected": true,
+        "raising_rule_becomes_error": true
+      },
+      "actual": {
+        "other_rules_unaffected": true,
+        "raising_rule_becomes_error": true
+      },
+      "correct": true,
+      "notes": "one interaction rule's predicate raises -- interaction_engine_core.evaluate must isolate it as EVALUATION_ERROR, every other rule proceeds"
+    },
+    {
+      "id": "interaction-eval-error-3",
+      "family": "interaction-evaluation-error-isolated",
+      "target": "interaction_engine_predicate_raises",
+      "expected": {
+        "other_rules_unaffected": true,
+        "raising_rule_becomes_error": true
+      },
+      "actual": {
+        "other_rules_unaffected": true,
+        "raising_rule_becomes_error": true
+      },
+      "correct": true,
+      "notes": "one interaction rule's predicate raises -- interaction_engine_core.evaluate must isolate it as EVALUATION_ERROR, every other rule proceeds"
+    },
+    {
+      "id": "interaction-eval-error-4",
+      "family": "interaction-evaluation-error-isolated",
+      "target": "interaction_engine_predicate_raises",
+      "expected": {
+        "other_rules_unaffected": true,
+        "raising_rule_becomes_error": true
+      },
+      "actual": {
+        "other_rules_unaffected": true,
+        "raising_rule_becomes_error": true
+      },
+      "correct": true,
+      "notes": "one interaction rule's predicate raises -- interaction_engine_core.evaluate must isolate it as EVALUATION_ERROR, every other rule proceeds"
+    },
+    {
+      "id": "interaction-eval-error-5",
+      "family": "interaction-evaluation-error-isolated",
+      "target": "interaction_engine_predicate_raises",
+      "expected": {
+        "other_rules_unaffected": true,
+        "raising_rule_becomes_error": true
+      },
+      "actual": {
+        "other_rules_unaffected": true,
+        "raising_rule_becomes_error": true
+      },
+      "correct": true,
+      "notes": "one interaction rule's predicate raises -- interaction_engine_core.evaluate must isolate it as EVALUATION_ERROR, every other rule proceeds"
+    },
+    {
+      "id": "history-malformed-record-0",
+      "family": "history-loads-incomplete-record",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": false,
+        "state": "CLEAN"
+      },
+      "correct": true,
+      "notes": "a contract row with partially/incorrectly persisted fields (simulating incomplete persistence) must not crash the dashboard/history computation"
+    },
+    {
+      "id": "history-malformed-record-1",
+      "family": "history-loads-incomplete-record",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": false,
+        "state": "CLEAN"
+      },
+      "correct": true,
+      "notes": "a contract row with partially/incorrectly persisted fields (simulating incomplete persistence) must not crash the dashboard/history computation"
+    },
+    {
+      "id": "history-malformed-record-2",
+      "family": "history-loads-incomplete-record",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "a contract row with partially/incorrectly persisted fields (simulating incomplete persistence) must not crash the dashboard/history computation"
+    },
+    {
+      "id": "history-malformed-record-3",
+      "family": "history-loads-incomplete-record",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "a contract row with partially/incorrectly persisted fields (simulating incomplete persistence) must not crash the dashboard/history computation"
+    },
+    {
+      "id": "history-malformed-record-4",
+      "family": "history-loads-incomplete-record",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "a contract row with partially/incorrectly persisted fields (simulating incomplete persistence) must not crash the dashboard/history computation"
+    },
+    {
+      "id": "history-malformed-record-5",
+      "family": "history-loads-incomplete-record",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "a contract row with partially/incorrectly persisted fields (simulating incomplete persistence) must not crash the dashboard/history computation"
+    },
+    {
+      "id": "dashboard-malformed-stored-state-0",
+      "family": "dashboard-encounters-malformed-stored-state",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "HAS_CRITICAL_INTERACTION"
+      },
+      "correct": true,
+      "notes": "mixed valid+corrupted entries in one document -- must not crash, and the real violation/interaction must still surface (not swallowed by the corrupted siblings)"
+    },
+    {
+      "id": "dashboard-malformed-stored-state-1",
+      "family": "dashboard-encounters-malformed-stored-state",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "HAS_CRITICAL_INTERACTION"
+      },
+      "correct": true,
+      "notes": "mixed valid+corrupted entries in one document -- must not crash, and the real violation/interaction must still surface (not swallowed by the corrupted siblings)"
+    },
+    {
+      "id": "dashboard-malformed-stored-state-2",
+      "family": "dashboard-encounters-malformed-stored-state",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "HAS_CRITICAL_INTERACTION"
+      },
+      "correct": true,
+      "notes": "mixed valid+corrupted entries in one document -- must not crash, and the real violation/interaction must still surface (not swallowed by the corrupted siblings)"
+    },
+    {
+      "id": "dashboard-malformed-stored-state-3",
+      "family": "dashboard-encounters-malformed-stored-state",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "HAS_CRITICAL_INTERACTION"
+      },
+      "correct": true,
+      "notes": "mixed valid+corrupted entries in one document -- must not crash, and the real violation/interaction must still surface (not swallowed by the corrupted siblings)"
+    },
+    {
+      "id": "dashboard-malformed-stored-state-4",
+      "family": "dashboard-encounters-malformed-stored-state",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "HAS_CRITICAL_INTERACTION"
+      },
+      "correct": true,
+      "notes": "mixed valid+corrupted entries in one document -- must not crash, and the real violation/interaction must still surface (not swallowed by the corrupted siblings)"
+    },
+    {
+      "id": "dashboard-malformed-stored-state-5",
+      "family": "dashboard-encounters-malformed-stored-state",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "HAS_CRITICAL_INTERACTION"
+      },
+      "correct": true,
+      "notes": "mixed valid+corrupted entries in one document -- must not crash, and the real violation/interaction must still surface (not swallowed by the corrupted siblings)"
+    },
+    {
+      "id": "config-malformed-deal-value-upper-0",
+      "family": "configuration-malformed-deal-value",
+      "target": "segment_match_no_crash",
+      "expected": {
+        "no_crash": true,
+        "matches_bound": false
+      },
+      "actual": {
+        "no_crash": true,
+        "matches_bound": false
+      },
+      "correct": true,
+      "notes": "deal_value=nan against an upper bound -- must not crash and must not satisfy it"
+    },
+    {
+      "id": "config-malformed-deal-value-upper-1",
+      "family": "configuration-malformed-deal-value",
+      "target": "segment_match_no_crash",
+      "expected": {
+        "no_crash": true,
+        "matches_bound": false
+      },
+      "actual": {
+        "no_crash": true,
+        "matches_bound": false
+      },
+      "correct": true,
+      "notes": "deal_value=inf against an upper bound -- must not crash and must not satisfy it"
+    },
+    {
+      "id": "one-adapter-raises-extra-0",
+      "family": "one-adapter-raises-isolated",
+      "target": "apply_active_policies_isolation",
+      "expected": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "actual": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "correct": true,
+      "notes": "additional clause types raising -- same isolation contract must hold across all 12 adapters"
+    },
+    {
+      "id": "one-adapter-raises-extra-1",
+      "family": "one-adapter-raises-isolated",
+      "target": "apply_active_policies_isolation",
+      "expected": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "actual": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "correct": true,
+      "notes": "additional clause types raising -- same isolation contract must hold across all 12 adapters"
+    },
+    {
+      "id": "one-adapter-raises-extra-2",
+      "family": "one-adapter-raises-isolated",
+      "target": "apply_active_policies_isolation",
+      "expected": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "actual": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "correct": true,
+      "notes": "additional clause types raising -- same isolation contract must hold across all 12 adapters"
+    },
+    {
+      "id": "one-adapter-raises-extra-3",
+      "family": "one-adapter-raises-isolated",
+      "target": "apply_active_policies_isolation",
+      "expected": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "actual": {
+        "other_clauses_unaffected": true,
+        "raising_clause_becomes_error": true
+      },
+      "correct": true,
+      "notes": "additional clause types raising -- same isolation contract must hold across all 12 adapters"
+    },
+    {
+      "id": "provider-exception-extra-0",
+      "family": "explanation-provider-exception",
+      "target": "evaluate_client_raises",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "client.chat.completions.create raises OSError -- evaluate() must catch and return None, never propagate"
+    },
+    {
+      "id": "provider-exception-extra-1",
+      "family": "explanation-provider-exception",
+      "target": "evaluate_client_raises",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "client.chat.completions.create raises MemoryError -- evaluate() must catch and return None, never propagate"
+    },
+    {
+      "id": "provider-exception-extra-2",
+      "family": "explanation-provider-exception",
+      "target": "evaluate_client_raises",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "client.chat.completions.create raises AttributeError -- evaluate() must catch and return None, never propagate"
+    },
+    {
+      "id": "provider-malformed-json-extra-0",
+      "family": "explanation-provider-malformed-output",
+      "target": "evaluate_malformed_json_response",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "additional malformed/non-JSON content shapes -- must be caught, never crash the review"
+    },
+    {
+      "id": "provider-malformed-json-extra-1",
+      "family": "explanation-provider-malformed-output",
+      "target": "evaluate_malformed_json_response",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "additional malformed/non-JSON content shapes -- must be caught, never crash the review"
+    },
+    {
+      "id": "provider-malformed-json-extra-2",
+      "family": "explanation-provider-malformed-output",
+      "target": "evaluate_malformed_json_response",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "additional malformed/non-JSON content shapes -- must be caught, never crash the review"
+    },
+    {
+      "id": "provider-malformed-json-extra-3",
+      "family": "explanation-provider-malformed-output",
+      "target": "evaluate_malformed_json_response",
+      "expected": {
+        "returns_none": true
+      },
+      "actual": {
+        "returns_none": true
+      },
+      "correct": true,
+      "notes": "additional malformed/non-JSON content shapes -- must be caught, never crash the review"
+    },
+    {
+      "id": "provider-contradictory-output-extra-0",
+      "family": "explanation-provider-contradictory-output",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": false
+      },
+      "actual": {
+        "raises": false
+      },
+      "correct": true,
+      "notes": "overall_risk's own value is never validated here -- evaluate() already overwrote it before calling this, by design"
+    },
+    {
+      "id": "provider-contradictory-output-extra-1",
+      "family": "explanation-provider-contradictory-output",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "summary_bullets wrong type -- _validate_result must reject"
+    },
+    {
+      "id": "provider-contradictory-output-extra-2",
+      "family": "explanation-provider-contradictory-output",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "entire result is not even a dict -- _validate_result must reject"
+    },
+    {
+      "id": "config-unknown-severity-extra-0",
+      "family": "configuration-unknown-severity",
+      "target": "build_enhanced_issues_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity='' -- additional unknown/malformed severity values must not crash the sort key"
+    },
+    {
+      "id": "config-unknown-severity-extra-1",
+      "family": "configuration-unknown-severity",
+      "target": "build_enhanced_issues_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity=-1 -- additional unknown/malformed severity values must not crash the sort key"
+    },
+    {
+      "id": "config-unknown-severity-extra-2",
+      "family": "configuration-unknown-severity",
+      "target": "build_enhanced_issues_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity=3.7 -- additional unknown/malformed severity values must not crash the sort key"
+    },
+    {
+      "id": "config-unknown-policy-state-extra-0",
+      "family": "configuration-unknown-policy-state",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN"
+      },
+      "correct": true,
+      "notes": "policy_decisions state='not_applicable' -- must not crash regardless of unrecognized/whitespace-padded state value"
+    },
+    {
+      "id": "config-unknown-policy-state-extra-1",
+      "family": "configuration-unknown-policy-state",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "CLEAN"
+      },
+      "correct": true,
+      "notes": "policy_decisions state='REQUIRES_REVIEW ' -- must not crash regardless of unrecognized/whitespace-padded state value"
+    },
+    {
+      "id": "config-unknown-policy-state-extra-2",
+      "family": "configuration-unknown-policy-state",
+      "target": "aggregate_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "policy_decisions state=None -- must not crash regardless of unrecognized/whitespace-padded state value"
+    },
+    {
+      "id": "history-malformed-record-extra-0",
+      "family": "history-loads-incomplete-record",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "additional partially/incorrectly persisted field shapes must not crash the dashboard/history computation"
+    },
+    {
+      "id": "history-malformed-record-extra-1",
+      "family": "history-loads-incomplete-record",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "additional partially/incorrectly persisted field shapes must not crash the dashboard/history computation"
+    },
+    {
+      "id": "history-malformed-record-extra-2",
+      "family": "history-loads-incomplete-record",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "additional partially/incorrectly persisted field shapes must not crash the dashboard/history computation"
+    },
+    {
+      "id": "dashboard-malformed-stored-state-extra-0",
+      "family": "dashboard-encounters-malformed-stored-state",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "additional mixed valid+corrupted entries -- must not crash, and the real violation must still surface"
+    },
+    {
+      "id": "dashboard-malformed-stored-state-extra-1",
+      "family": "dashboard-encounters-malformed-stored-state",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "additional mixed valid+corrupted entries -- must not crash, and the real violation must still surface"
+    },
+    {
+      "id": "dashboard-malformed-stored-state-extra-2",
+      "family": "dashboard-encounters-malformed-stored-state",
+      "target": "document_state_for_contract_no_crash",
+      "expected": {
+        "no_crash": true,
+        "not_clean": true
+      },
+      "actual": {
+        "no_crash": true,
+        "not_clean": true,
+        "state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "additional mixed valid+corrupted entries -- must not crash, and the real violation must still surface"
+    }
+  ],
+  "gates": {
+    "dependency_failure_crashes_application": [],
+    "dependency_failure_becomes_false_clean": [],
+    "unhandled_exception_in_benchmark_harness": [],
+    "single_component_failure_not_isolated": []
+  },
+  "total": 130,
+  "correct": 130
+}

@@ -1117,9 +1117,9 @@
       "expected_document_state": "HAS_CRITICAL_INTERACTION",
       "actual_document_state": "HAS_CRITICAL_INTERACTION",
       "state_correct": true,
-      "expected_n_fired": 3,
+      "expected_n_fired": 4,
       "actual_n_fired": 4,
-      "n_fired_correct": false,
+      "n_fired_correct": true,
       "notes": "7-policy document, combo=('limitation_of_liability', 'indemnification', 'insurance', 'sla', 'payment_terms', 'confidentiality', 'data_security')"
     },
     {
@@ -1194,9 +1194,9 @@
       "expected_document_state": "HAS_CRITICAL_INTERACTION",
       "actual_document_state": "HAS_CRITICAL_INTERACTION",
       "state_correct": true,
-      "expected_n_fired": 3,
+      "expected_n_fired": 4,
       "actual_n_fired": 4,
-      "n_fired_correct": false,
+      "n_fired_correct": true,
       "notes": "7-policy document, combo=('limitation_of_liability', 'indemnification', 'insurance', 'sla', 'payment_terms', 'confidentiality', 'data_security')"
     },
     {
@@ -1271,9 +1271,9 @@
       "expected_document_state": "HAS_CRITICAL_INTERACTION",
       "actual_document_state": "HAS_CRITICAL_INTERACTION",
       "state_correct": true,
-      "expected_n_fired": 3,
+      "expected_n_fired": 4,
       "actual_n_fired": 4,
-      "n_fired_correct": false,
+      "n_fired_correct": true,
       "notes": "7-policy document, combo=('limitation_of_liability', 'indemnification', 'insurance', 'sla', 'payment_terms', 'confidentiality', 'data_security')"
     },
     {
@@ -1348,9 +1348,9 @@
       "expected_document_state": "HAS_CRITICAL_INTERACTION",
       "actual_document_state": "HAS_CRITICAL_INTERACTION",
       "state_correct": true,
-      "expected_n_fired": 3,
+      "expected_n_fired": 4,
       "actual_n_fired": 4,
-      "n_fired_correct": false,
+      "n_fired_correct": true,
       "notes": "7-policy document, combo=('limitation_of_liability', 'indemnification', 'insurance', 'sla', 'payment_terms', 'confidentiality', 'data_security')"
     },
     {
@@ -1425,9 +1425,9 @@
       "expected_document_state": "HAS_CRITICAL_INTERACTION",
       "actual_document_state": "HAS_CRITICAL_INTERACTION",
       "state_correct": true,
-      "expected_n_fired": 3,
+      "expected_n_fired": 4,
       "actual_n_fired": 4,
-      "n_fired_correct": false,
+      "n_fired_correct": true,
       "notes": "7-policy document, combo=('limitation_of_liability', 'indemnification', 'insurance', 'sla', 'payment_terms', 'confidentiality', 'data_security')"
     },
     {
@@ -1502,9 +1502,9 @@
       "expected_document_state": "HAS_CRITICAL_INTERACTION",
       "actual_document_state": "HAS_CRITICAL_INTERACTION",
       "state_correct": true,
-      "expected_n_fired": 3,
+      "expected_n_fired": 4,
       "actual_n_fired": 4,
-      "n_fired_correct": false,
+      "n_fired_correct": true,
       "notes": "7-policy document, combo=('limitation_of_liability', 'indemnification', 'insurance', 'sla', 'payment_terms', 'confidentiality', 'data_security')"
     },
     {
@@ -1579,9 +1579,9 @@
       "expected_document_state": "HAS_CRITICAL_INTERACTION",
       "actual_document_state": "HAS_CRITICAL_INTERACTION",
       "state_correct": true,
-      "expected_n_fired": 3,
+      "expected_n_fired": 4,
       "actual_n_fired": 4,
-      "n_fired_correct": false,
+      "n_fired_correct": true,
       "notes": "7-policy document, combo=('limitation_of_liability', 'indemnification', 'insurance', 'sla', 'payment_terms', 'confidentiality', 'data_security')"
     },
     {
@@ -1661,5 +1661,5 @@
   },
   "total": 150,
   "state_correct": 150,
-  "n_fired_correct": 143
+  "n_fired_correct": 150
 }

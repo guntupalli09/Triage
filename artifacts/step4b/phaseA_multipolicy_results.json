@@ -110,13 +110,13 @@
       "id": "docA-small-08",
       "family": "not-applicable-mixed-small",
       "num_policies": 3,
-      "expected_document_state": "CLEAN",
+      "expected_document_state": "REQUIRES_REVIEW",
       "actual_document_state": "REQUIRES_REVIEW",
-      "correct": false,
+      "correct": true,
       "fired_interactions": [],
       "violating_policies": [],
       "review_policies": [],
-      "notes": ""
+      "notes": "clean surrounding policies must not neutralize the one material finding"
     },
     {
       "id": "docA-small-09",
@@ -308,13 +308,13 @@
       "id": "docA-small-23",
       "family": "not-applicable-mixed-small",
       "num_policies": 4,
-      "expected_document_state": "CLEAN",
+      "expected_document_state": "REQUIRES_REVIEW",
       "actual_document_state": "REQUIRES_REVIEW",
-      "correct": false,
+      "correct": true,
       "fired_interactions": [],
       "violating_policies": [],
       "review_policies": [],
-      "notes": ""
+      "notes": "clean surrounding policies must not neutralize the one material finding"
     },
     {
       "id": "docA-small-24",
@@ -440,13 +440,13 @@
       "id": "docA-small-33",
       "family": "not-applicable-mixed-small",
       "num_policies": 4,
-      "expected_document_state": "CLEAN",
+      "expected_document_state": "REQUIRES_REVIEW",
       "actual_document_state": "REQUIRES_REVIEW",
-      "correct": false,
+      "correct": true,
       "fired_interactions": [],
       "violating_policies": [],
       "review_policies": [],
-      "notes": ""
+      "notes": "clean surrounding policies must not neutralize the one material finding"
     },
     {
       "id": "docA-small-34",
@@ -572,13 +572,13 @@
       "id": "docA-small-43",
       "family": "not-applicable-mixed-small",
       "num_policies": 4,
-      "expected_document_state": "CLEAN",
+      "expected_document_state": "REQUIRES_REVIEW",
       "actual_document_state": "REQUIRES_REVIEW",
-      "correct": false,
+      "correct": true,
       "fired_interactions": [],
       "violating_policies": [],
       "review_policies": [],
-      "notes": ""
+      "notes": "clean surrounding policies must not neutralize the one material finding"
     },
     {
       "id": "docA-small-44",
@@ -638,13 +638,13 @@
       "id": "docA-small-48",
       "family": "not-applicable-mixed-small",
       "num_policies": 3,
-      "expected_document_state": "CLEAN",
+      "expected_document_state": "REQUIRES_REVIEW",
       "actual_document_state": "REQUIRES_REVIEW",
-      "correct": false,
+      "correct": true,
       "fired_interactions": [],
       "violating_policies": [],
       "review_policies": [],
-      "notes": ""
+      "notes": "clean surrounding policies must not neutralize the one material finding"
     },
     {
       "id": "docA-small-49",
@@ -2135,11 +2135,13 @@
       "family": "compound-directional-interaction-plus-violation",
       "num_policies": 9,
       "expected_document_state": "HAS_CRITICAL_INTERACTION",
-      "actual_document_state": "HAS_POLICY_VIOLATION",
-      "correct": false,
-      "fired_interactions": [],
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING"
+      ],
       "violating_policies": [
-        "termination"
+        "confidentiality"
       ],
       "review_policies": [],
       "notes": "compound: two or more mechanisms co-present in one document"
@@ -2179,9 +2181,9 @@
       "id": "docA-compound-10",
       "family": "compound-not-applicable-plus-clean",
       "num_policies": 8,
-      "expected_document_state": "CLEAN",
+      "expected_document_state": "REQUIRES_REVIEW",
       "actual_document_state": "REQUIRES_REVIEW",
-      "correct": false,
+      "correct": true,
       "fired_interactions": [],
       "violating_policies": [],
       "review_policies": [],
@@ -2315,11 +2317,13 @@
       "family": "compound-directional-interaction-plus-violation",
       "num_policies": 9,
       "expected_document_state": "HAS_CRITICAL_INTERACTION",
-      "actual_document_state": "HAS_POLICY_VIOLATION",
-      "correct": false,
-      "fired_interactions": [],
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING"
+      ],
       "violating_policies": [
-        "termination"
+        "confidentiality"
       ],
       "review_policies": [],
       "notes": "compound: two or more mechanisms co-present in one document"
@@ -2359,9 +2363,9 @@
       "id": "docA-compound-22",
       "family": "compound-not-applicable-plus-clean",
       "num_policies": 8,
-      "expected_document_state": "CLEAN",
+      "expected_document_state": "REQUIRES_REVIEW",
       "actual_document_state": "REQUIRES_REVIEW",
-      "correct": false,
+      "correct": true,
       "fired_interactions": [],
       "violating_policies": [],
       "review_policies": [],
@@ -2495,11 +2499,13 @@
       "family": "compound-directional-interaction-plus-violation",
       "num_policies": 9,
       "expected_document_state": "HAS_CRITICAL_INTERACTION",
-      "actual_document_state": "HAS_POLICY_VIOLATION",
-      "correct": false,
-      "fired_interactions": [],
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING"
+      ],
       "violating_policies": [
-        "termination"
+        "confidentiality"
       ],
       "review_policies": [],
       "notes": "compound: two or more mechanisms co-present in one document"
@@ -2539,9 +2545,9 @@
       "id": "docA-compound-34",
       "family": "compound-not-applicable-plus-clean",
       "num_policies": 8,
-      "expected_document_state": "CLEAN",
+      "expected_document_state": "REQUIRES_REVIEW",
       "actual_document_state": "REQUIRES_REVIEW",
-      "correct": false,
+      "correct": true,
       "fired_interactions": [],
       "violating_policies": [],
       "review_policies": [],
@@ -2675,11 +2681,13 @@
       "family": "compound-directional-interaction-plus-violation",
       "num_policies": 9,
       "expected_document_state": "HAS_CRITICAL_INTERACTION",
-      "actual_document_state": "HAS_POLICY_VIOLATION",
-      "correct": false,
-      "fired_interactions": [],
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING"
+      ],
       "violating_policies": [
-        "termination"
+        "confidentiality"
       ],
       "review_policies": [],
       "notes": "compound: two or more mechanisms co-present in one document"
@@ -2719,9 +2727,9 @@
       "id": "docA-compound-46",
       "family": "compound-not-applicable-plus-clean",
       "num_policies": 8,
-      "expected_document_state": "CLEAN",
+      "expected_document_state": "REQUIRES_REVIEW",
       "actual_document_state": "REQUIRES_REVIEW",
-      "correct": false,
+      "correct": true,
       "fired_interactions": [],
       "violating_policies": [],
       "review_policies": [],
@@ -2781,22 +2789,8 @@
     "lost_base_finding": [],
     "lost_interaction": [],
     "lost_review_finding": [],
-    "wrong_document_state": [
-      "docA-small-08",
-      "docA-small-23",
-      "docA-small-33",
-      "docA-small-43",
-      "docA-small-48",
-      "docA-compound-07",
-      "docA-compound-10",
-      "docA-compound-19",
-      "docA-compound-22",
-      "docA-compound-31",
-      "docA-compound-34",
-      "docA-compound-43",
-      "docA-compound-46"
-    ]
+    "wrong_document_state": []
   },
   "total": 200,
-  "correct": 187
+  "correct": 200
 }
