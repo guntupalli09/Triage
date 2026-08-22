@@ -276,9 +276,19 @@ def _segment_matches_context(position: PolicyPosition, context: Optional[Dict[st
     if position.segment_customer_type is not None and position.segment_customer_type != ctx.get("customer_type"):
         return False
     deal_value = ctx.get("deal_value")
-    if position.segment_deal_value_min is not None and (deal_value is None or deal_value < position.segment_deal_value_min):
+    # NaN fails closed against ANY numeric bound explicitly -- found via
+    # Step 4B Phase G's segment benchmark: `nan < x` and `nan > x` are
+    # BOTH False under IEEE754, so a NaN deal_value silently satisfied a
+    # `>= min` (and would equally satisfy a `<= max`) bound it should
+    # never satisfy, causing a corrupt/malformed deal_value to select the
+    # wrong (non-GLOBAL) governing PolicyPosition instead of failing back
+    # to GLOBAL. A string or other non-numeric value already raises
+    # TypeError here (a loud, safe failure) -- NaN is the one numeric
+    # value that silently produces the wrong logical answer instead.
+    deal_value_is_nan = isinstance(deal_value, float) and deal_value != deal_value
+    if position.segment_deal_value_min is not None and (deal_value is None or deal_value_is_nan or deal_value < position.segment_deal_value_min):
         return False
-    if position.segment_deal_value_max is not None and (deal_value is None or deal_value > position.segment_deal_value_max):
+    if position.segment_deal_value_max is not None and (deal_value is None or deal_value_is_nan or deal_value > position.segment_deal_value_max):
         return False
     return True
 
