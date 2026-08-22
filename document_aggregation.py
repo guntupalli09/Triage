@@ -44,6 +44,47 @@ _INTERACTION_CRITICAL_STATES = {"ESCALATE"}
 _INTERACTION_REVIEW_STATES = {"REQUIRES_REVIEW", "INSUFFICIENT_FACTS", "EVALUATION_ERROR"}
 
 
+def _interaction_is_genuinely_inapplicable(decision: Dict[str, Any], policy_decisions: Optional[Dict[str, Any]]) -> bool:
+    """An INSUFFICIENT_FACTS interaction whose EVERY missing/unsafe
+    participating clause type is entirely absent from this document's own
+    policy_decisions (never evaluated at all -- e.g. the playbook has no
+    ACTIVE position for that clause type, see policy_enforcement.
+    evaluate_active_policies: "absence of an ACTIVE position ... clause
+    type is simply skipped") means this rule's own participants were never
+    part of this document's applicable policy set -- no interaction is
+    possible here, structurally, not merely uncertain. Distinguished from
+    a participant that WAS evaluated but came back NOT_APPLICABLE/
+    REQUIRES_REVIEW/EVALUATION_ERROR (present as a key in policy_decisions,
+    just unsafe to reason over) -- that case is genuine uncertainty and
+    must still escalate to document-level REQUIRES_REVIEW.
+
+    Root-caused via benchmarks/step4b_phaseA_multipolicy_document_benchmark.py:
+    a document covered by a playbook lacking e.g. an SLA/Insurance/Payment-
+    Terms position would otherwise always show REQUIRES_REVIEW purely from
+    interaction rules needing those uncovered clause types -- never a
+    false-clean/wrong-authority defect (INSUFFICIENT_FACTS is always the
+    safe direction), but a material selectivity defect that would make the
+    document-level REQUIRES_REVIEW state nearly universal for any playbook
+    not covering all 6 interaction-participating clause types."""
+    missing = decision.get("missing_clause_types") or []
+    if not missing:
+        return False
+    pd = policy_decisions or {}
+    return all(ct not in pd for ct in missing)
+
+
+def _interaction_review_reasons(interaction_decisions: Optional[Dict[str, Any]], policy_decisions: Optional[Dict[str, Any]]) -> list:
+    reasons = []
+    for interaction_id, decision in (interaction_decisions or {}).items():
+        state = decision.get("state")
+        if state not in _INTERACTION_REVIEW_STATES:
+            continue
+        if state == "INSUFFICIENT_FACTS" and _interaction_is_genuinely_inapplicable(decision, policy_decisions):
+            continue
+        reasons.append(f"interaction {interaction_id} state={state}")
+    return reasons
+
+
 def aggregate_document_state(
     overall_risk: Optional[str],
     policy_decisions: Optional[Dict[str, Any]],
@@ -79,9 +120,7 @@ def aggregate_document_state(
     for clause_type, decision in (policy_decisions or {}).items():
         if decision.get("state") in _POLICY_REVIEW_STATES:
             reasons.append(f"policy {clause_type} state={decision.get('state')}")
-    for interaction_id, decision in (interaction_decisions or {}).items():
-        if decision.get("state") in _INTERACTION_REVIEW_STATES:
-            reasons.append(f"interaction {interaction_id} state={decision.get('state')}")
+    reasons.extend(_interaction_review_reasons(interaction_decisions, policy_decisions))
     if reasons:
         return {"document_state": DOC_REQUIRES_REVIEW, "reasons": reasons}
 

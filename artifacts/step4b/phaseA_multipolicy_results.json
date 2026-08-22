@@ -1,0 +1,2802 @@
+{
+  "rows": [
+    {
+      "id": "docA-small-00",
+      "family": "fully-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-01",
+      "family": "one-violation-among-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "indemnification"
+      ],
+      "review_policies": [],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-02",
+      "family": "one-review-among-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "assignment"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-03",
+      "family": "not-applicable-mixed-small",
+      "num_policies": 4,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-04",
+      "family": "evaluation-error-among-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "assignment"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-05",
+      "family": "fully-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-06",
+      "family": "one-violation-among-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "data_security"
+      ],
+      "review_policies": [],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-07",
+      "family": "one-review-among-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "warranties"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-08",
+      "family": "not-applicable-mixed-small",
+      "num_policies": 3,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": false,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-09",
+      "family": "evaluation-error-among-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "payment_terms"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-10",
+      "family": "fully-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-11",
+      "family": "one-violation-among-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "sla"
+      ],
+      "review_policies": [],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-12",
+      "family": "one-review-among-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "termination"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-13",
+      "family": "not-applicable-mixed-small",
+      "num_policies": 4,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-14",
+      "family": "evaluation-error-among-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "termination"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-15",
+      "family": "fully-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-16",
+      "family": "one-violation-among-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "assignment"
+      ],
+      "review_policies": [],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-17",
+      "family": "one-review-among-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "insurance"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-18",
+      "family": "not-applicable-mixed-small",
+      "num_policies": 3,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-19",
+      "family": "evaluation-error-among-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "ip_ownership"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-20",
+      "family": "fully-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-21",
+      "family": "one-violation-among-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "payment_terms"
+      ],
+      "review_policies": [],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-22",
+      "family": "one-review-among-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "limitation_of_liability"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-23",
+      "family": "not-applicable-mixed-small",
+      "num_policies": 4,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": false,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-24",
+      "family": "evaluation-error-among-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "limitation_of_liability"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-25",
+      "family": "fully-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-26",
+      "family": "one-violation-among-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "termination"
+      ],
+      "review_policies": [],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-27",
+      "family": "one-review-among-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "data_security"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-28",
+      "family": "not-applicable-mixed-small",
+      "num_policies": 3,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-29",
+      "family": "evaluation-error-among-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "governing_law"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-30",
+      "family": "fully-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-31",
+      "family": "one-violation-among-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "ip_ownership"
+      ],
+      "review_policies": [],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-32",
+      "family": "one-review-among-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "warranties"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-33",
+      "family": "not-applicable-mixed-small",
+      "num_policies": 4,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": false,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-34",
+      "family": "evaluation-error-among-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "warranties"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-35",
+      "family": "fully-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-36",
+      "family": "one-violation-among-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "limitation_of_liability"
+      ],
+      "review_policies": [],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-37",
+      "family": "one-review-among-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "assignment"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-38",
+      "family": "not-applicable-mixed-small",
+      "num_policies": 3,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-39",
+      "family": "evaluation-error-among-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "confidentiality"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-40",
+      "family": "fully-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-41",
+      "family": "one-violation-among-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "governing_law"
+      ],
+      "review_policies": [],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-42",
+      "family": "one-review-among-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "insurance"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-43",
+      "family": "not-applicable-mixed-small",
+      "num_policies": 4,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": false,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-44",
+      "family": "evaluation-error-among-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "insurance"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-45",
+      "family": "fully-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-46",
+      "family": "one-violation-among-clean-small",
+      "num_policies": 3,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "warranties"
+      ],
+      "review_policies": [],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-47",
+      "family": "one-review-among-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "termination"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-small-48",
+      "family": "not-applicable-mixed-small",
+      "num_policies": 3,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": false,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": ""
+    },
+    {
+      "id": "docA-small-49",
+      "family": "evaluation-error-among-clean-small",
+      "num_policies": 4,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "indemnification"
+      ],
+      "notes": "clean surrounding policies must not neutralize the one material finding"
+    },
+    {
+      "id": "docA-medium-00",
+      "family": "fully-clean-medium",
+      "num_policies": 5,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-01",
+      "family": "one-violation-among-clean-medium",
+      "num_policies": 6,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "confidentiality"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-02",
+      "family": "one-review-among-clean-medium",
+      "num_policies": 7,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "ip_ownership"
+      ],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-03",
+      "family": "interaction-finding-among-clean-medium",
+      "num_policies": 5,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-04",
+      "family": "amendment-resolved-violation-medium",
+      "num_policies": 6,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "limitation_of_liability"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-05",
+      "family": "multiple-provisions-unreconciled-medium",
+      "num_policies": 7,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "confidentiality"
+      ],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-06",
+      "family": "negotiate-state-among-clean-medium",
+      "num_policies": 5,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "warranties"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-07",
+      "family": "non-operative-text-framing-clean-medium",
+      "num_policies": 6,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-08",
+      "family": "fully-clean-medium",
+      "num_policies": 7,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-09",
+      "family": "one-violation-among-clean-medium",
+      "num_policies": 5,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "confidentiality"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-10",
+      "family": "one-review-among-clean-medium",
+      "num_policies": 6,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "ip_ownership"
+      ],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-11",
+      "family": "interaction-finding-among-clean-medium",
+      "num_policies": 7,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-12",
+      "family": "amendment-resolved-violation-medium",
+      "num_policies": 5,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "limitation_of_liability"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-13",
+      "family": "multiple-provisions-unreconciled-medium",
+      "num_policies": 6,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "confidentiality"
+      ],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-14",
+      "family": "negotiate-state-among-clean-medium",
+      "num_policies": 7,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "limitation_of_liability"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-15",
+      "family": "non-operative-text-framing-clean-medium",
+      "num_policies": 5,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-16",
+      "family": "fully-clean-medium",
+      "num_policies": 6,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-17",
+      "family": "one-violation-among-clean-medium",
+      "num_policies": 7,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "confidentiality"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-18",
+      "family": "one-review-among-clean-medium",
+      "num_policies": 5,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "ip_ownership"
+      ],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-19",
+      "family": "interaction-finding-among-clean-medium",
+      "num_policies": 6,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-20",
+      "family": "amendment-resolved-violation-medium",
+      "num_policies": 7,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "limitation_of_liability"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-21",
+      "family": "multiple-provisions-unreconciled-medium",
+      "num_policies": 5,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "confidentiality"
+      ],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-22",
+      "family": "negotiate-state-among-clean-medium",
+      "num_policies": 6,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "sla"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-23",
+      "family": "non-operative-text-framing-clean-medium",
+      "num_policies": 7,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-24",
+      "family": "fully-clean-medium",
+      "num_policies": 5,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-25",
+      "family": "one-violation-among-clean-medium",
+      "num_policies": 6,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "confidentiality"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-26",
+      "family": "one-review-among-clean-medium",
+      "num_policies": 7,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "ip_ownership"
+      ],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-27",
+      "family": "interaction-finding-among-clean-medium",
+      "num_policies": 5,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-28",
+      "family": "amendment-resolved-violation-medium",
+      "num_policies": 6,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "limitation_of_liability"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-29",
+      "family": "multiple-provisions-unreconciled-medium",
+      "num_policies": 7,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "confidentiality"
+      ],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-30",
+      "family": "negotiate-state-among-clean-medium",
+      "num_policies": 5,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "warranties"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-31",
+      "family": "non-operative-text-framing-clean-medium",
+      "num_policies": 6,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-32",
+      "family": "fully-clean-medium",
+      "num_policies": 7,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-33",
+      "family": "one-violation-among-clean-medium",
+      "num_policies": 5,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "confidentiality"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-34",
+      "family": "one-review-among-clean-medium",
+      "num_policies": 6,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "ip_ownership"
+      ],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-35",
+      "family": "interaction-finding-among-clean-medium",
+      "num_policies": 7,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-36",
+      "family": "amendment-resolved-violation-medium",
+      "num_policies": 5,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "limitation_of_liability"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-37",
+      "family": "multiple-provisions-unreconciled-medium",
+      "num_policies": 6,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "confidentiality"
+      ],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-38",
+      "family": "negotiate-state-among-clean-medium",
+      "num_policies": 7,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "limitation_of_liability"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-39",
+      "family": "non-operative-text-framing-clean-medium",
+      "num_policies": 5,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-40",
+      "family": "fully-clean-medium",
+      "num_policies": 6,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-41",
+      "family": "one-violation-among-clean-medium",
+      "num_policies": 7,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "confidentiality"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-42",
+      "family": "one-review-among-clean-medium",
+      "num_policies": 5,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "ip_ownership"
+      ],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-43",
+      "family": "interaction-finding-among-clean-medium",
+      "num_policies": 6,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-44",
+      "family": "amendment-resolved-violation-medium",
+      "num_policies": 7,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "limitation_of_liability"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-45",
+      "family": "multiple-provisions-unreconciled-medium",
+      "num_policies": 5,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "confidentiality"
+      ],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-46",
+      "family": "negotiate-state-among-clean-medium",
+      "num_policies": 6,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "sla"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-47",
+      "family": "non-operative-text-framing-clean-medium",
+      "num_policies": 7,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-48",
+      "family": "fully-clean-medium",
+      "num_policies": 5,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-medium-49",
+      "family": "one-violation-among-clean-medium",
+      "num_policies": 6,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "confidentiality"
+      ],
+      "review_policies": [],
+      "notes": "one signal must survive regardless of 5-7 surrounding policies"
+    },
+    {
+      "id": "docA-large-00",
+      "family": "fully-clean-large",
+      "num_policies": 8,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "8-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-01",
+      "family": "one-violation-among-20-clean-large",
+      "num_policies": 9,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "governing_law"
+      ],
+      "review_policies": [],
+      "notes": "9-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-02",
+      "family": "one-review-among-clean-large",
+      "num_policies": 10,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "sla"
+      ],
+      "notes": "10-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-03",
+      "family": "interaction-finding-large",
+      "num_policies": 11,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "11-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-04",
+      "family": "directional-interaction-large",
+      "num_policies": 12,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "12-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-05",
+      "family": "fully-clean-large",
+      "num_policies": 8,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "8-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-06",
+      "family": "evaluation-error-among-many-clean-large",
+      "num_policies": 9,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "data_security"
+      ],
+      "notes": "9-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-07",
+      "family": "compound-multiple-violations-large",
+      "num_policies": 10,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "sla",
+        "limitation_of_liability"
+      ],
+      "review_policies": [],
+      "notes": "10-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-08",
+      "family": "compound-violation-and-review-large",
+      "num_policies": 11,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "assignment"
+      ],
+      "review_policies": [
+        "governing_law"
+      ],
+      "notes": "11-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-09",
+      "family": "duplicate-evidence-large",
+      "num_policies": 12,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "12-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-10",
+      "family": "fully-clean-large",
+      "num_policies": 8,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "8-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-11",
+      "family": "one-violation-among-20-clean-large",
+      "num_policies": 9,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "ip_ownership"
+      ],
+      "review_policies": [],
+      "notes": "9-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-12",
+      "family": "one-review-among-clean-large",
+      "num_policies": 10,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "indemnification"
+      ],
+      "notes": "10-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-13",
+      "family": "interaction-finding-large",
+      "num_policies": 11,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "11-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-14",
+      "family": "directional-interaction-large",
+      "num_policies": 12,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "12-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-15",
+      "family": "fully-clean-large",
+      "num_policies": 8,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "8-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-16",
+      "family": "evaluation-error-among-many-clean-large",
+      "num_policies": 9,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "insurance"
+      ],
+      "notes": "9-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-17",
+      "family": "compound-multiple-violations-large",
+      "num_policies": 10,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "indemnification",
+        "termination"
+      ],
+      "review_policies": [],
+      "notes": "10-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-18",
+      "family": "compound-violation-and-review-large",
+      "num_policies": 11,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "data_security"
+      ],
+      "review_policies": [
+        "ip_ownership"
+      ],
+      "notes": "11-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-19",
+      "family": "duplicate-evidence-large",
+      "num_policies": 12,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "12-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-20",
+      "family": "fully-clean-large",
+      "num_policies": 8,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "8-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-21",
+      "family": "one-violation-among-20-clean-large",
+      "num_policies": 9,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "payment_terms"
+      ],
+      "review_policies": [],
+      "notes": "9-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-22",
+      "family": "one-review-among-clean-large",
+      "num_policies": 10,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "confidentiality"
+      ],
+      "notes": "10-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-23",
+      "family": "interaction-finding-large",
+      "num_policies": 11,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "11-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-24",
+      "family": "directional-interaction-large",
+      "num_policies": 12,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "12-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-25",
+      "family": "dependency-interaction-review-large",
+      "num_policies": 8,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [
+        "IX_SLA_PAYMENT_CREDIT_DEPENDENCY"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "8-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-26",
+      "family": "evaluation-error-among-many-clean-large",
+      "num_policies": 9,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "warranties"
+      ],
+      "notes": "9-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-27",
+      "family": "compound-multiple-violations-large",
+      "num_policies": 10,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "confidentiality",
+        "assignment"
+      ],
+      "review_policies": [],
+      "notes": "10-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-28",
+      "family": "compound-violation-and-review-large",
+      "num_policies": 11,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "insurance"
+      ],
+      "review_policies": [
+        "payment_terms"
+      ],
+      "notes": "11-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-29",
+      "family": "duplicate-evidence-large",
+      "num_policies": 12,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "12-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-30",
+      "family": "fully-clean-large",
+      "num_policies": 8,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "8-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-31",
+      "family": "one-violation-among-20-clean-large",
+      "num_policies": 9,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "sla"
+      ],
+      "review_policies": [],
+      "notes": "9-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-32",
+      "family": "one-review-among-clean-large",
+      "num_policies": 10,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "governing_law"
+      ],
+      "notes": "10-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-33",
+      "family": "fully-clean-large",
+      "num_policies": 11,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "11-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-34",
+      "family": "directional-interaction-large",
+      "num_policies": 12,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "12-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-35",
+      "family": "dependency-interaction-review-large",
+      "num_policies": 8,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [
+        "IX_SLA_PAYMENT_CREDIT_DEPENDENCY"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "8-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-36",
+      "family": "evaluation-error-among-many-clean-large",
+      "num_policies": 9,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "limitation_of_liability"
+      ],
+      "notes": "9-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-37",
+      "family": "compound-multiple-violations-large",
+      "num_policies": 10,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "governing_law",
+        "data_security"
+      ],
+      "review_policies": [],
+      "notes": "10-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-38",
+      "family": "compound-violation-and-review-large",
+      "num_policies": 11,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "warranties"
+      ],
+      "review_policies": [
+        "sla"
+      ],
+      "notes": "11-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-39",
+      "family": "duplicate-evidence-large",
+      "num_policies": 12,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "12-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-40",
+      "family": "fully-clean-large",
+      "num_policies": 8,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "8-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-41",
+      "family": "one-violation-among-20-clean-large",
+      "num_policies": 9,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "indemnification"
+      ],
+      "review_policies": [],
+      "notes": "9-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-42",
+      "family": "one-review-among-clean-large",
+      "num_policies": 10,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "ip_ownership"
+      ],
+      "notes": "10-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-43",
+      "family": "interaction-finding-large",
+      "num_policies": 11,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "11-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-44",
+      "family": "directional-interaction-large",
+      "num_policies": 12,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "12-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-45",
+      "family": "dependency-interaction-review-large",
+      "num_policies": 8,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [
+        "IX_SLA_PAYMENT_CREDIT_DEPENDENCY"
+      ],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "8-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-46",
+      "family": "evaluation-error-among-many-clean-large",
+      "num_policies": 9,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "termination"
+      ],
+      "notes": "9-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-47",
+      "family": "compound-multiple-violations-large",
+      "num_policies": 10,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "ip_ownership",
+        "insurance"
+      ],
+      "review_policies": [],
+      "notes": "10-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-48",
+      "family": "compound-violation-and-review-large",
+      "num_policies": 11,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "limitation_of_liability"
+      ],
+      "review_policies": [
+        "indemnification"
+      ],
+      "notes": "11-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-large-49",
+      "family": "duplicate-evidence-large",
+      "num_policies": 12,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "12-policy document; one signal must survive regardless of scale"
+    },
+    {
+      "id": "docA-compound-00",
+      "family": "compound-triple-mechanism",
+      "num_policies": 6,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "indemnification"
+      ],
+      "review_policies": [
+        "termination"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-01",
+      "family": "compound-directional-interaction-plus-violation",
+      "num_policies": 7,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING"
+      ],
+      "violating_policies": [
+        "insurance"
+      ],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-02",
+      "family": "compound-multiple-provisions-plus-evaluation-error",
+      "num_policies": 8,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "confidentiality",
+        "assignment"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-03",
+      "family": "compound-triple-mechanism",
+      "num_policies": 9,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "warranties"
+      ],
+      "review_policies": [
+        "sla"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-04",
+      "family": "compound-not-applicable-plus-clean",
+      "num_policies": 6,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-05",
+      "family": "compound-triple-mechanism",
+      "num_policies": 7,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "limitation_of_liability"
+      ],
+      "review_policies": [
+        "indemnification"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-06",
+      "family": "compound-interaction-plus-amendment-plus-review",
+      "num_policies": 8,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY"
+      ],
+      "violating_policies": [],
+      "review_policies": [
+        "payment_terms"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-07",
+      "family": "compound-directional-interaction-plus-violation",
+      "num_policies": 9,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": false,
+      "fired_interactions": [],
+      "violating_policies": [
+        "termination"
+      ],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-08",
+      "family": "compound-multiple-provisions-plus-evaluation-error",
+      "num_policies": 6,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "payment_terms",
+        "warranties"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-09",
+      "family": "compound-triple-mechanism",
+      "num_policies": 7,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "assignment"
+      ],
+      "review_policies": [
+        "governing_law"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-10",
+      "family": "compound-not-applicable-plus-clean",
+      "num_policies": 8,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": false,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-11",
+      "family": "compound-triple-mechanism",
+      "num_policies": 9,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "data_security"
+      ],
+      "review_policies": [
+        "ip_ownership"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-12",
+      "family": "compound-triple-mechanism",
+      "num_policies": 6,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "indemnification"
+      ],
+      "review_policies": [
+        "termination"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-13",
+      "family": "compound-directional-interaction-plus-violation",
+      "num_policies": 7,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING"
+      ],
+      "violating_policies": [
+        "insurance"
+      ],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-14",
+      "family": "compound-multiple-provisions-plus-evaluation-error",
+      "num_policies": 8,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "confidentiality",
+        "assignment"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-15",
+      "family": "compound-triple-mechanism",
+      "num_policies": 9,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "warranties"
+      ],
+      "review_policies": [
+        "sla"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-16",
+      "family": "compound-not-applicable-plus-clean",
+      "num_policies": 6,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-17",
+      "family": "compound-triple-mechanism",
+      "num_policies": 7,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "limitation_of_liability"
+      ],
+      "review_policies": [
+        "indemnification"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-18",
+      "family": "compound-interaction-plus-amendment-plus-review",
+      "num_policies": 8,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY"
+      ],
+      "violating_policies": [],
+      "review_policies": [
+        "payment_terms"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-19",
+      "family": "compound-directional-interaction-plus-violation",
+      "num_policies": 9,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": false,
+      "fired_interactions": [],
+      "violating_policies": [
+        "termination"
+      ],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-20",
+      "family": "compound-multiple-provisions-plus-evaluation-error",
+      "num_policies": 6,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "payment_terms",
+        "warranties"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-21",
+      "family": "compound-triple-mechanism",
+      "num_policies": 7,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "assignment"
+      ],
+      "review_policies": [
+        "governing_law"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-22",
+      "family": "compound-not-applicable-plus-clean",
+      "num_policies": 8,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": false,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-23",
+      "family": "compound-triple-mechanism",
+      "num_policies": 9,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "data_security"
+      ],
+      "review_policies": [
+        "ip_ownership"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-24",
+      "family": "compound-triple-mechanism",
+      "num_policies": 6,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "indemnification"
+      ],
+      "review_policies": [
+        "termination"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-25",
+      "family": "compound-directional-interaction-plus-violation",
+      "num_policies": 7,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING"
+      ],
+      "violating_policies": [
+        "insurance"
+      ],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-26",
+      "family": "compound-multiple-provisions-plus-evaluation-error",
+      "num_policies": 8,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "confidentiality",
+        "assignment"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-27",
+      "family": "compound-triple-mechanism",
+      "num_policies": 9,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "warranties"
+      ],
+      "review_policies": [
+        "sla"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-28",
+      "family": "compound-not-applicable-plus-clean",
+      "num_policies": 6,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-29",
+      "family": "compound-triple-mechanism",
+      "num_policies": 7,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "limitation_of_liability"
+      ],
+      "review_policies": [
+        "indemnification"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-30",
+      "family": "compound-interaction-plus-amendment-plus-review",
+      "num_policies": 8,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY"
+      ],
+      "violating_policies": [],
+      "review_policies": [
+        "payment_terms"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-31",
+      "family": "compound-directional-interaction-plus-violation",
+      "num_policies": 9,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": false,
+      "fired_interactions": [],
+      "violating_policies": [
+        "termination"
+      ],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-32",
+      "family": "compound-multiple-provisions-plus-evaluation-error",
+      "num_policies": 6,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "payment_terms",
+        "warranties"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-33",
+      "family": "compound-triple-mechanism",
+      "num_policies": 7,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "assignment"
+      ],
+      "review_policies": [
+        "governing_law"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-34",
+      "family": "compound-not-applicable-plus-clean",
+      "num_policies": 8,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": false,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-35",
+      "family": "compound-triple-mechanism",
+      "num_policies": 9,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "data_security"
+      ],
+      "review_policies": [
+        "ip_ownership"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-36",
+      "family": "compound-triple-mechanism",
+      "num_policies": 6,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "indemnification"
+      ],
+      "review_policies": [
+        "termination"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-37",
+      "family": "compound-directional-interaction-plus-violation",
+      "num_policies": 7,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING"
+      ],
+      "violating_policies": [
+        "insurance"
+      ],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-38",
+      "family": "compound-multiple-provisions-plus-evaluation-error",
+      "num_policies": 8,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "confidentiality",
+        "assignment"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-39",
+      "family": "compound-triple-mechanism",
+      "num_policies": 9,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "warranties"
+      ],
+      "review_policies": [
+        "sla"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-40",
+      "family": "compound-not-applicable-plus-clean",
+      "num_policies": 6,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-41",
+      "family": "compound-triple-mechanism",
+      "num_policies": 7,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "limitation_of_liability"
+      ],
+      "review_policies": [
+        "indemnification"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-42",
+      "family": "compound-interaction-plus-amendment-plus-review",
+      "num_policies": 8,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY"
+      ],
+      "violating_policies": [],
+      "review_policies": [
+        "payment_terms"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-43",
+      "family": "compound-directional-interaction-plus-violation",
+      "num_policies": 9,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": false,
+      "fired_interactions": [],
+      "violating_policies": [
+        "termination"
+      ],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-44",
+      "family": "compound-multiple-provisions-plus-evaluation-error",
+      "num_policies": 6,
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [
+        "payment_terms",
+        "warranties"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-45",
+      "family": "compound-triple-mechanism",
+      "num_policies": 7,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "assignment"
+      ],
+      "review_policies": [
+        "governing_law"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-46",
+      "family": "compound-not-applicable-plus-clean",
+      "num_policies": 8,
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": false,
+      "fired_interactions": [],
+      "violating_policies": [],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-47",
+      "family": "compound-triple-mechanism",
+      "num_policies": 9,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "data_security"
+      ],
+      "review_policies": [
+        "ip_ownership"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-48",
+      "family": "compound-triple-mechanism",
+      "num_policies": 6,
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "fired_interactions": [],
+      "violating_policies": [
+        "indemnification"
+      ],
+      "review_policies": [
+        "termination"
+      ],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    },
+    {
+      "id": "docA-compound-49",
+      "family": "compound-directional-interaction-plus-violation",
+      "num_policies": 7,
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "fired_interactions": [
+        "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING"
+      ],
+      "violating_policies": [
+        "insurance"
+      ],
+      "review_policies": [],
+      "notes": "compound: two or more mechanisms co-present in one document"
+    }
+  ],
+  "metrics": {
+    "false_clean_document": [],
+    "lost_base_finding": [],
+    "lost_interaction": [],
+    "lost_review_finding": [],
+    "wrong_document_state": [
+      "docA-small-08",
+      "docA-small-23",
+      "docA-small-33",
+      "docA-small-43",
+      "docA-small-48",
+      "docA-compound-07",
+      "docA-compound-10",
+      "docA-compound-19",
+      "docA-compound-22",
+      "docA-compound-31",
+      "docA-compound-34",
+      "docA-compound-43",
+      "docA-compound-46"
+    ]
+  },
+  "total": 200,
+  "correct": 187
+}
