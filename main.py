@@ -480,7 +480,20 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
         all_issues.append(enhanced)
 
     severity_order = {"critical": 0, "high": 1, "medium": 2, "low": 3}
-    all_issues.sort(key=lambda x: (severity_order.get(x.get("severity", "low"), 9), x.get("title", "")))
+
+    def _severity_rank(sev) -> int:
+        # severity is display/prioritization metadata read back from
+        # persisted findings_json -- a stray non-string value (found via
+        # Step 4B Phase C's severity benchmark: an unhashable value here
+        # raised TypeError inside dict.get() and 500'd the ENTIRE contract
+        # report, not just the one malformed finding) must never crash or
+        # drop findings; unrecognized/malformed severities just sort last.
+        try:
+            return severity_order.get(sev, 9)
+        except TypeError:  # unhashable (dict/list/etc.)
+            return 9
+
+    all_issues.sort(key=lambda x: (_severity_rank(x.get("severity", "low")), str(x.get("title", ""))))
     return all_issues
 
 
