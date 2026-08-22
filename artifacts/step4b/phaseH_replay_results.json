@@ -1,0 +1,1489 @@
+{
+  "cases": [
+    {
+      "id": "repH-001-e2e-doc-00",
+      "family": "end-to-end-real-text-replay",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, sample_state={'indemnification': 'MUST_REDLINE', 'limitation_of_liability': 'MUST_REDLINE'}",
+      "repeats": 2
+    },
+    {
+      "id": "repH-002-e2e-doc-01",
+      "family": "end-to-end-real-text-replay",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, sample_state={'indemnification': 'MUST_REDLINE', 'limitation_of_liability': 'NOT_APPLICABLE'}",
+      "repeats": 2
+    },
+    {
+      "id": "repH-003-e2e-doc-02",
+      "family": "end-to-end-real-text-replay",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, sample_state={'indemnification': 'NOT_APPLICABLE', 'limitation_of_liability': 'NOT_APPLICABLE'}",
+      "repeats": 2
+    },
+    {
+      "id": "repH-004-e2e-doc-03",
+      "family": "end-to-end-real-text-replay",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, sample_state={'indemnification': 'NOT_APPLICABLE', 'limitation_of_liability': 'NOT_APPLICABLE'}",
+      "repeats": 2
+    },
+    {
+      "id": "repH-005-e2e-doc-04",
+      "family": "end-to-end-real-text-replay",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, sample_state={'indemnification': 'NOT_APPLICABLE', 'limitation_of_liability': 'NOT_APPLICABLE'}",
+      "repeats": 2
+    },
+    {
+      "id": "repH-006-e2e-doc-05",
+      "family": "end-to-end-real-text-replay",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, sample_state={'indemnification': 'NOT_APPLICABLE', 'limitation_of_liability': 'NOT_APPLICABLE'}",
+      "repeats": 2
+    },
+    {
+      "id": "repH-007-e2e-doc-06",
+      "family": "end-to-end-real-text-replay",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, sample_state={'indemnification': 'NOT_APPLICABLE', 'limitation_of_liability': 'NOT_APPLICABLE'}",
+      "repeats": 2
+    },
+    {
+      "id": "repH-008-e2e-doc-07",
+      "family": "end-to-end-real-text-replay",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, sample_state={'indemnification': 'NOT_APPLICABLE', 'limitation_of_liability': 'NOT_APPLICABLE'}",
+      "repeats": 2
+    },
+    {
+      "id": "repH-009-e2e-doc-08",
+      "family": "end-to-end-real-text-replay",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, sample_state={'indemnification': 'NOT_APPLICABLE', 'limitation_of_liability': 'NOT_APPLICABLE'}",
+      "repeats": 2
+    },
+    {
+      "id": "repH-010-e2e-doc-09",
+      "family": "end-to-end-real-text-replay",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, sample_state={'indemnification': 'NOT_APPLICABLE', 'limitation_of_liability': 'NOT_APPLICABLE'}",
+      "repeats": 2
+    },
+    {
+      "id": "repH-011-e2e-doc-10",
+      "family": "end-to-end-real-text-replay",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, sample_state={'indemnification': 'NOT_APPLICABLE', 'limitation_of_liability': 'NOT_APPLICABLE'}",
+      "repeats": 2
+    },
+    {
+      "id": "repH-012-e2e-doc-11",
+      "family": "end-to-end-real-text-replay",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, sample_state={'indemnification': 'NOT_APPLICABLE', 'limitation_of_liability': 'NOT_APPLICABLE'}",
+      "repeats": 2
+    },
+    {
+      "id": "repH-013-e2e-doc-12",
+      "family": "end-to-end-real-text-replay",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, sample_state={'indemnification': 'NOT_APPLICABLE', 'limitation_of_liability': 'NOT_APPLICABLE'}",
+      "repeats": 2
+    },
+    {
+      "id": "repH-014-e2e-doc-13",
+      "family": "end-to-end-real-text-replay",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, sample_state={'indemnification': 'NOT_APPLICABLE', 'limitation_of_liability': 'NOT_APPLICABLE'}",
+      "repeats": 2
+    },
+    {
+      "id": "repH-015-e2e-doc-14",
+      "family": "end-to-end-real-text-replay",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, sample_state={'indemnification': 'NOT_APPLICABLE', 'limitation_of_liability': 'MUST_REDLINE'}",
+      "repeats": 2
+    },
+    {
+      "id": "repH-016-clean-0",
+      "family": "replay-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-017-clean-1",
+      "family": "replay-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-018-clean-2",
+      "family": "replay-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-019-clean-3",
+      "family": "replay-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-020-clean-4",
+      "family": "replay-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-021-clean-5",
+      "family": "replay-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-022-clean-6",
+      "family": "replay-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-023-clean-7",
+      "family": "replay-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-024-clean-8",
+      "family": "replay-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-025-clean-9",
+      "family": "replay-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-026-violation-0",
+      "family": "replay-policy-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-027-violation-1",
+      "family": "replay-policy-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-028-violation-2",
+      "family": "replay-policy-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-029-violation-3",
+      "family": "replay-policy-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-030-violation-4",
+      "family": "replay-policy-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-031-violation-5",
+      "family": "replay-policy-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-032-violation-6",
+      "family": "replay-policy-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-033-violation-7",
+      "family": "replay-policy-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-034-violation-8",
+      "family": "replay-policy-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-035-violation-9",
+      "family": "replay-policy-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-036-review-0",
+      "family": "replay-requires-review",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-037-review-1",
+      "family": "replay-requires-review",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-038-review-2",
+      "family": "replay-requires-review",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-039-review-3",
+      "family": "replay-requires-review",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-040-review-4",
+      "family": "replay-requires-review",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-041-review-5",
+      "family": "replay-requires-review",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-042-review-6",
+      "family": "replay-requires-review",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-043-review-7",
+      "family": "replay-requires-review",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-044-review-8",
+      "family": "replay-requires-review",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-045-review-9",
+      "family": "replay-requires-review",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-046-critical-interaction-0",
+      "family": "replay-critical-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-047-critical-interaction-1",
+      "family": "replay-critical-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-048-critical-interaction-2",
+      "family": "replay-critical-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-049-critical-interaction-3",
+      "family": "replay-critical-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-050-critical-interaction-4",
+      "family": "replay-critical-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-051-critical-interaction-5",
+      "family": "replay-critical-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-052-critical-interaction-6",
+      "family": "replay-critical-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-053-critical-interaction-7",
+      "family": "replay-critical-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-054-critical-interaction-8",
+      "family": "replay-critical-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-055-critical-interaction-9",
+      "family": "replay-critical-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-056-eval-error-0",
+      "family": "replay-evaluation-error",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-057-eval-error-1",
+      "family": "replay-evaluation-error",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-058-eval-error-2",
+      "family": "replay-evaluation-error",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-059-eval-error-3",
+      "family": "replay-evaluation-error",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-060-eval-error-4",
+      "family": "replay-evaluation-error",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-061-eval-error-5",
+      "family": "replay-evaluation-error",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-062-eval-error-6",
+      "family": "replay-evaluation-error",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-063-eval-error-7",
+      "family": "replay-evaluation-error",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-064-multi-policy-0",
+      "family": "replay-multi-policy",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 5
+    },
+    {
+      "id": "repH-065-multi-policy-1",
+      "family": "replay-multi-policy",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 5
+    },
+    {
+      "id": "repH-066-multi-policy-2",
+      "family": "replay-multi-policy",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 5
+    },
+    {
+      "id": "repH-067-multi-policy-3",
+      "family": "replay-multi-policy",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 5
+    },
+    {
+      "id": "repH-068-multi-policy-4",
+      "family": "replay-multi-policy",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 5
+    },
+    {
+      "id": "repH-069-multi-policy-5",
+      "family": "replay-multi-policy",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 5
+    },
+    {
+      "id": "repH-070-multi-policy-6",
+      "family": "replay-multi-policy",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 5
+    },
+    {
+      "id": "repH-071-multi-policy-7",
+      "family": "replay-multi-policy",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 5
+    },
+    {
+      "id": "repH-072-multi-policy-8",
+      "family": "replay-multi-policy",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 5
+    },
+    {
+      "id": "repH-073-multi-policy-9",
+      "family": "replay-multi-policy",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 5
+    },
+    {
+      "id": "repH-074-multi-interaction-0",
+      "family": "replay-multi-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-075-multi-interaction-1",
+      "family": "replay-multi-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-076-multi-interaction-2",
+      "family": "replay-multi-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-077-multi-interaction-3",
+      "family": "replay-multi-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-078-multi-interaction-4",
+      "family": "replay-multi-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-079-multi-interaction-5",
+      "family": "replay-multi-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-080-multi-interaction-6",
+      "family": "replay-multi-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-081-multi-interaction-7",
+      "family": "replay-multi-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-082-multi-interaction-8",
+      "family": "replay-multi-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-083-multi-interaction-9",
+      "family": "replay-multi-interaction",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-084-conditional-0",
+      "family": "replay-conditional",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-085-conditional-1",
+      "family": "replay-conditional",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-086-conditional-2",
+      "family": "replay-conditional",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-087-conditional-3",
+      "family": "replay-conditional",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-088-conditional-4",
+      "family": "replay-conditional",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-089-conditional-5",
+      "family": "replay-conditional",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-090-conditional-6",
+      "family": "replay-conditional",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-091-conditional-7",
+      "family": "replay-conditional",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-092-cross-reference-0",
+      "family": "replay-cross-reference",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-093-cross-reference-1",
+      "family": "replay-cross-reference",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-094-cross-reference-2",
+      "family": "replay-cross-reference",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-095-cross-reference-3",
+      "family": "replay-cross-reference",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-096-cross-reference-4",
+      "family": "replay-cross-reference",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-097-cross-reference-5",
+      "family": "replay-cross-reference",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-098-cross-reference-6",
+      "family": "replay-cross-reference",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-099-cross-reference-7",
+      "family": "replay-cross-reference",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-100-compound-0",
+      "family": "replay-compound",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-101-compound-1",
+      "family": "replay-compound",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-102-compound-2",
+      "family": "replay-compound",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-103-compound-3",
+      "family": "replay-compound",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-104-compound-4",
+      "family": "replay-compound",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-105-compound-5",
+      "family": "replay-compound",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-106-compound-6",
+      "family": "replay-compound",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-107-compound-7",
+      "family": "replay-compound",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-108-compound-8",
+      "family": "replay-compound",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-109-compound-9",
+      "family": "replay-compound",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-110-compound-10",
+      "family": "replay-compound",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-111-compound-11",
+      "family": "replay-compound",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_CRITICAL_INTERACTION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-112-old-revision-0",
+      "family": "replay-old-revision",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-113-old-revision-1",
+      "family": "replay-old-revision",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-114-old-revision-2",
+      "family": "replay-old-revision",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-115-old-revision-3",
+      "family": "replay-old-revision",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-116-old-revision-4",
+      "family": "replay-old-revision",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-117-old-revision-5",
+      "family": "replay-old-revision",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-118-new-revision-0",
+      "family": "replay-new-revision",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-119-new-revision-1",
+      "family": "replay-new-revision",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-120-new-revision-2",
+      "family": "replay-new-revision",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-121-new-revision-3",
+      "family": "replay-new-revision",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-122-new-revision-4",
+      "family": "replay-new-revision",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-123-new-revision-5",
+      "family": "replay-new-revision",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-124-lowlegacy-detviolation-0",
+      "family": "replay-low-legacy-plus-deterministic-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-125-lowlegacy-detviolation-1",
+      "family": "replay-low-legacy-plus-deterministic-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-126-lowlegacy-detviolation-2",
+      "family": "replay-low-legacy-plus-deterministic-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-127-lowlegacy-detviolation-3",
+      "family": "replay-low-legacy-plus-deterministic-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-128-lowlegacy-detviolation-4",
+      "family": "replay-low-legacy-plus-deterministic-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-129-lowlegacy-detviolation-5",
+      "family": "replay-low-legacy-plus-deterministic-violation",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-130-highlegacy-detclean-0",
+      "family": "replay-high-legacy-plus-deterministic-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN_LEGACY_ATTENTION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-131-highlegacy-detclean-1",
+      "family": "replay-high-legacy-plus-deterministic-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN_LEGACY_ATTENTION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-132-highlegacy-detclean-2",
+      "family": "replay-high-legacy-plus-deterministic-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN_LEGACY_ATTENTION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-133-highlegacy-detclean-3",
+      "family": "replay-high-legacy-plus-deterministic-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN_LEGACY_ATTENTION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-134-highlegacy-detclean-4",
+      "family": "replay-high-legacy-plus-deterministic-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN_LEGACY_ATTENTION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-135-highlegacy-detclean-5",
+      "family": "replay-high-legacy-plus-deterministic-clean",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN_LEGACY_ATTENTION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-136-multi-distinct-findings-0",
+      "family": "replay-multiple-distinct-findings",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-137-multi-distinct-findings-1",
+      "family": "replay-multiple-distinct-findings",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-138-multi-distinct-findings-2",
+      "family": "replay-multiple-distinct-findings",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-139-multi-distinct-findings-3",
+      "family": "replay-multiple-distinct-findings",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-140-multi-distinct-findings-4",
+      "family": "replay-multiple-distinct-findings",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-141-multi-distinct-findings-5",
+      "family": "replay-multiple-distinct-findings",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-142-multi-provision-0",
+      "family": "replay-multiple-provisions",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-143-multi-provision-1",
+      "family": "replay-multiple-provisions",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-144-multi-provision-2",
+      "family": "replay-multiple-provisions",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-145-multi-provision-3",
+      "family": "replay-multiple-provisions",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-146-multi-provision-4",
+      "family": "replay-multiple-provisions",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-147-multi-provision-5",
+      "family": "replay-multiple-provisions",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-148-multi-provision-6",
+      "family": "replay-multiple-provisions",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-149-multi-provision-7",
+      "family": "replay-multiple-provisions",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-150-multi-provision-8",
+      "family": "replay-multiple-provisions",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-151-multi-provision-9",
+      "family": "replay-multiple-provisions",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-152-duplicate-evidence-0",
+      "family": "replay-duplicate-evidence",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-153-duplicate-evidence-1",
+      "family": "replay-duplicate-evidence",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-154-duplicate-evidence-2",
+      "family": "replay-duplicate-evidence",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-155-duplicate-evidence-3",
+      "family": "replay-duplicate-evidence",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-156-duplicate-evidence-4",
+      "family": "replay-duplicate-evidence",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-157-duplicate-evidence-5",
+      "family": "replay-duplicate-evidence",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-158-duplicate-evidence-6",
+      "family": "replay-duplicate-evidence",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-159-duplicate-evidence-7",
+      "family": "replay-duplicate-evidence",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-160-duplicate-evidence-8",
+      "family": "replay-duplicate-evidence",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-161-duplicate-evidence-9",
+      "family": "replay-duplicate-evidence",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CLEAN",
+      "repeats": 2
+    },
+    {
+      "id": "repH-162-severity-ordering-0",
+      "family": "replay-severity-ordering",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-163-severity-ordering-1",
+      "family": "replay-severity-ordering",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-164-severity-ordering-2",
+      "family": "replay-severity-ordering",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-165-severity-ordering-3",
+      "family": "replay-severity-ordering",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-166-severity-ordering-4",
+      "family": "replay-severity-ordering",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-167-severity-ordering-5",
+      "family": "replay-severity-ordering",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-168-severity-ordering-6",
+      "family": "replay-severity-ordering",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-169-severity-ordering-7",
+      "family": "replay-severity-ordering",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-170-severity-ordering-8",
+      "family": "replay-severity-ordering",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-171-severity-ordering-9",
+      "family": "replay-severity-ordering",
+      "passed": true,
+      "notes": "5x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 5
+    },
+    {
+      "id": "repH-172-not-applicable-0",
+      "family": "replay-not-applicable",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-173-not-applicable-1",
+      "family": "replay-not-applicable",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-174-not-applicable-2",
+      "family": "replay-not-applicable",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-175-not-applicable-3",
+      "family": "replay-not-applicable",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=REQUIRES_REVIEW",
+      "repeats": 2
+    },
+    {
+      "id": "repH-176-negotiate-state-0",
+      "family": "replay-negotiate-state",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-177-negotiate-state-1",
+      "family": "replay-negotiate-state",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-178-negotiate-state-2",
+      "family": "replay-negotiate-state",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-179-negotiate-state-3",
+      "family": "replay-negotiate-state",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-180-negotiate-state-4",
+      "family": "replay-negotiate-state",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-181-negotiate-state-5",
+      "family": "replay-negotiate-state",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-182-negotiate-state-6",
+      "family": "replay-negotiate-state",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-183-negotiate-state-7",
+      "family": "replay-negotiate-state",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-184-negotiate-state-8",
+      "family": "replay-negotiate-state",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-185-negotiate-state-9",
+      "family": "replay-negotiate-state",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=HAS_POLICY_VIOLATION",
+      "repeats": 2
+    },
+    {
+      "id": "repH-186-configuration-unresolved-0",
+      "family": "replay-configuration-unresolved",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CONFIGURATION_UNRESOLVED",
+      "repeats": 2
+    },
+    {
+      "id": "repH-187-configuration-unresolved-1",
+      "family": "replay-configuration-unresolved",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CONFIGURATION_UNRESOLVED",
+      "repeats": 2
+    },
+    {
+      "id": "repH-188-configuration-unresolved-2",
+      "family": "replay-configuration-unresolved",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CONFIGURATION_UNRESOLVED",
+      "repeats": 2
+    },
+    {
+      "id": "repH-189-configuration-unresolved-3",
+      "family": "replay-configuration-unresolved",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CONFIGURATION_UNRESOLVED",
+      "repeats": 2
+    },
+    {
+      "id": "repH-190-configuration-unresolved-4",
+      "family": "replay-configuration-unresolved",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CONFIGURATION_UNRESOLVED",
+      "repeats": 2
+    },
+    {
+      "id": "repH-191-configuration-unresolved-5",
+      "family": "replay-configuration-unresolved",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CONFIGURATION_UNRESOLVED",
+      "repeats": 2
+    },
+    {
+      "id": "repH-192-configuration-unresolved-6",
+      "family": "replay-configuration-unresolved",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CONFIGURATION_UNRESOLVED",
+      "repeats": 2
+    },
+    {
+      "id": "repH-193-configuration-unresolved-7",
+      "family": "replay-configuration-unresolved",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CONFIGURATION_UNRESOLVED",
+      "repeats": 2
+    },
+    {
+      "id": "repH-194-configuration-unresolved-8",
+      "family": "replay-configuration-unresolved",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CONFIGURATION_UNRESOLVED",
+      "repeats": 2
+    },
+    {
+      "id": "repH-195-configuration-unresolved-9",
+      "family": "replay-configuration-unresolved",
+      "passed": true,
+      "notes": "2x replay, all_equal=True, document_state=CONFIGURATION_UNRESOLVED",
+      "repeats": 2
+    },
+    {
+      "id": "repH-196-temporal-replay-0",
+      "family": "temporal-replay-A-then-B",
+      "passed": true,
+      "notes": "a_unchanged=True pin_a=31(expect 31) pin_b=32(expect 32)",
+      "repeats": 1
+    },
+    {
+      "id": "repH-197-temporal-replay-1",
+      "family": "temporal-replay-A-then-B",
+      "passed": true,
+      "notes": "a_unchanged=True pin_a=33(expect 33) pin_b=34(expect 34)",
+      "repeats": 1
+    },
+    {
+      "id": "repH-198-temporal-replay-2",
+      "family": "temporal-replay-A-then-B",
+      "passed": true,
+      "notes": "a_unchanged=True pin_a=35(expect 35) pin_b=36(expect 36)",
+      "repeats": 1
+    },
+    {
+      "id": "repH-199-temporal-replay-3",
+      "family": "temporal-replay-A-then-B",
+      "passed": true,
+      "notes": "a_unchanged=True pin_a=37(expect 37) pin_b=38(expect 38)",
+      "repeats": 1
+    },
+    {
+      "id": "repH-200-temporal-replay-4",
+      "family": "temporal-replay-A-then-B",
+      "passed": true,
+      "notes": "a_unchanged=True pin_a=39(expect 39) pin_b=40(expect 40)",
+      "repeats": 1
+    },
+    {
+      "id": "repH-201-temporal-replay-5",
+      "family": "temporal-replay-A-then-B",
+      "passed": true,
+      "notes": "a_unchanged=True pin_a=41(expect 41) pin_b=42(expect 42)",
+      "repeats": 1
+    },
+    {
+      "id": "repH-202-temporal-replay-6",
+      "family": "temporal-replay-A-then-B",
+      "passed": true,
+      "notes": "a_unchanged=True pin_a=43(expect 43) pin_b=44(expect 44)",
+      "repeats": 1
+    },
+    {
+      "id": "repH-203-temporal-replay-7",
+      "family": "temporal-replay-A-then-B",
+      "passed": true,
+      "notes": "a_unchanged=True pin_a=45(expect 45) pin_b=46(expect 46)",
+      "repeats": 1
+    },
+    {
+      "id": "repH-204-temporal-replay-8",
+      "family": "temporal-replay-A-then-B",
+      "passed": true,
+      "notes": "a_unchanged=True pin_a=47(expect 47) pin_b=48(expect 48)",
+      "repeats": 1
+    },
+    {
+      "id": "repH-205-temporal-replay-9",
+      "family": "temporal-replay-A-then-B",
+      "passed": true,
+      "notes": "a_unchanged=True pin_a=49(expect 49) pin_b=50(expect 50)",
+      "repeats": 1
+    },
+    {
+      "id": "repH-206-temporal-replay-10",
+      "family": "temporal-replay-A-then-B",
+      "passed": true,
+      "notes": "a_unchanged=True pin_a=51(expect 51) pin_b=52(expect 52)",
+      "repeats": 1
+    },
+    {
+      "id": "repH-207-temporal-replay-11",
+      "family": "temporal-replay-A-then-B",
+      "passed": true,
+      "notes": "a_unchanged=True pin_a=53(expect 53) pin_b=54(expect 54)",
+      "repeats": 1
+    },
+    {
+      "id": "repH-208-temporal-replay-12",
+      "family": "temporal-replay-A-then-B",
+      "passed": true,
+      "notes": "a_unchanged=True pin_a=55(expect 55) pin_b=56(expect 56)",
+      "repeats": 1
+    },
+    {
+      "id": "repH-209-temporal-replay-13",
+      "family": "temporal-replay-A-then-B",
+      "passed": true,
+      "notes": "a_unchanged=True pin_a=57(expect 57) pin_b=58(expect 58)",
+      "repeats": 1
+    },
+    {
+      "id": "repH-210-temporal-replay-14",
+      "family": "temporal-replay-A-then-B",
+      "passed": true,
+      "notes": "a_unchanged=True pin_a=59(expect 59) pin_b=60(expect 60)",
+      "repeats": 1
+    }
+  ],
+  "metrics": {
+    "fact_drift": [],
+    "ownership_drift": [],
+    "policy_decision_drift": [],
+    "interaction_drift": [],
+    "evidence_drift": [],
+    "document_state_drift": [],
+    "governance_drift": [],
+    "segment_drift": [],
+    "attention_state_drift": [],
+    "authoritative_contradiction": []
+  },
+  "total": 210,
+  "passed": 210,
+  "total_executions": 561
+}
