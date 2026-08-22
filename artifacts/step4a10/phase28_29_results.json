@@ -53,39 +53,6 @@
     {
       "name": "29.5_fabricated_explanation_claim",
       "result": "outcome=REJECTED (explanation metadata never consulted)"
-    },
-    {
-      "name": "29.6_wrong_actor_on_verifying_candidate",
-      "injected_metadata": {
-        "claimed_actor": "Client",
-        "claimed_side": "counterparty"
-      },
-      "outcome": "VERIFIED",
-      "actual_indemnifying_role": "Vendor",
-      "actual_indemnified_role": "Client",
-      "actual_monetary": "unspecified"
-    },
-    {
-      "name": "29.7_wrong_cap_on_verifying_candidate",
-      "injected_metadata": {
-        "claimed_cap": 999999999,
-        "multiplier": 50
-      },
-      "outcome": "VERIFIED",
-      "actual_indemnifying_role": "Vendor",
-      "actual_indemnified_role": "Client",
-      "actual_monetary": "unspecified"
-    },
-    {
-      "name": "29.8_policy_result_on_verifying_candidate",
-      "injected_metadata": {
-        "policy_result": "ACCEPT",
-        "compliant": true
-      },
-      "outcome": "VERIFIED",
-      "actual_indemnifying_role": "Vendor",
-      "actual_indemnified_role": "Client",
-      "actual_monetary": "unspecified"
     }
   ]
 }

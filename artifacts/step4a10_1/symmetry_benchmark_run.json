@@ -1,0 +1,822 @@
+{
+  "SYM-001": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-002": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-003": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-004": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-005": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-006": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-007": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-008": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-009": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-010": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-011": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-012": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-013": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-014": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-015": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-016": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-017": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-018": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-019": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-020": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-021": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-022": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-023": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-024": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-025": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-026": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-027": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-028": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-029": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-030": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-031": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-032": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-033": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-034": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-035": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-036": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-037": {
+    "classification": "CS",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-038": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-039": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-040": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-041": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Vendor and Client cover different trigger sets"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-042": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Contractor and Owner cover different trigger sets"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-043": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Licensee and Licensor cover different trigger sets"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-044": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Servicer and Bank cover different trigger sets"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-045": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Supplier and Purchaser cover different trigger sets"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-046": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Distributor and Brand Owner cover different trigger sets"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-047": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Vendor and Client each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-048": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Contractor and Owner each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-049": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Licensee and Licensor each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-050": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Servicer and Bank each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-051": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Supplier and Purchaser each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-052": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Distributor and Brand Owner each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-053": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause attaches a party-specific procedural grant or carve-out to Vendor alone, rather than applying it to both parties symmetrically"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-054": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause attaches a party-specific procedural grant or carve-out to Contractor alone, rather than applying it to both parties symmetrically"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-055": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause attaches a party-specific procedural grant or carve-out to Licensee alone, rather than applying it to both parties symmetrically"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-056": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause attaches a party-specific procedural grant or carve-out to Servicer alone, rather than applying it to both parties symmetrically"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-057": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause attaches a party-specific procedural grant or carve-out to Supplier alone, rather than applying it to both parties symmetrically"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-058": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause attaches a party-specific procedural grant or carve-out to Distributor alone, rather than applying it to both parties symmetrically"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-059": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Vendor and Client each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-060": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Contractor and Owner each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-061": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Licensee and Licensor each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-062": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Servicer and Bank each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-063": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Supplier and Purchaser each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-064": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Distributor and Brand Owner each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-065": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Vendor and Client each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-066": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Contractor and Owner each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-067": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Licensee and Licensor each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-068": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Servicer and Bank each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-069": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Supplier and Purchaser each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-070": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Distributor and Brand Owner each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-071": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Vendor and Client each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-072": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Contractor and Owner each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-073": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Licensee and Licensor each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-074": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Servicer and Bank each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-075": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Supplier and Purchaser each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-076": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Distributor and Brand Owner each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-077": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Vendor and Client each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-078": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Contractor and Owner each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-079": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Licensee and Licensor each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-080": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Servicer and Bank each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-081": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Supplier and Purchaser each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-082": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Distributor and Brand Owner each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-083": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause states a 'Vendor's...obligation is subject to a named standard' differentiation for one party, AND a separate except/provided-that proviso naming Client \u2014 two independently differentiated parties in one sentence, neither comparable to a matching statement for the other"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-084": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause states a 'Contractor's...obligation is subject to a named standard' differentiation for one party, AND a separate except/provided-that proviso naming Owner \u2014 two independently differentiated parties in one sentence, neither comparable to a matching statement for the other"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-085": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause states a 'Licensee's...obligation is subject to a named standard' differentiation for one party, AND a separate except/provided-that proviso naming Licensor \u2014 two independently differentiated parties in one sentence, neither comparable to a matching statement for the other"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-086": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause states a 'Servicer's...obligation is subject to a named standard' differentiation for one party, AND a separate except/provided-that proviso naming Bank \u2014 two independently differentiated parties in one sentence, neither comparable to a matching statement for the other"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-087": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause states a 'Supplier's...obligation is subject to a named standard' differentiation for one party, AND a separate except/provided-that proviso naming Purchaser \u2014 two independently differentiated parties in one sentence, neither comparable to a matching statement for the other"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-088": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause states a 'Distributor's...obligation is subject to a named standard' differentiation for one party, AND a separate except/provided-that proviso naming Brand Owner \u2014 two independently differentiated parties in one sentence, neither comparable to a matching statement for the other"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-089": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Vendor and Client each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-090": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Contractor and Owner each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-091": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Licensee and Licensor each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-092": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Servicer and Bank each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-093": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Supplier and Purchaser each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-094": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Distributor and Brand Owner each have separately-stated language attached to their respective obligations that is not structurally identical once each role's own name is normalized out \u2014 the specific comparison checks could not establish these as equivalent, and symmetry cannot be assumed"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-095": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause binds different named parties to different external schedule/exhibit references whose contents this clause's own text cannot verify as equivalent: Vendor (3), Client (5)"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-096": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause binds different named parties to different external schedule/exhibit references whose contents this clause's own text cannot verify as equivalent: Contractor (3), Owner (5)"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-097": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause binds different named parties to different external schedule/exhibit references whose contents this clause's own text cannot verify as equivalent: Licensee (3), Licensor (5)"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-098": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause binds different named parties to different external schedule/exhibit references whose contents this clause's own text cannot verify as equivalent: Servicer (3), Bank (5)"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-099": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause binds different named parties to different external schedule/exhibit references whose contents this clause's own text cannot verify as equivalent: Supplier (3), Purchaser (5)"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-100": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "the clause binds different named parties to different external schedule/exhibit references whose contents this clause's own text cannot verify as equivalent: Distributor (3), Brand Owner (5)"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-101": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Vendor and Client state different survival/temporal terms (indefinite vs none)"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-102": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Contractor and Owner state different survival/temporal terms (indefinite vs none)"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-103": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Licensee and Licensor state different survival/temporal terms (indefinite vs none)"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-104": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Servicer and Bank state different survival/temporal terms (indefinite vs none)"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-105": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Supplier and Purchaser state different survival/temporal terms (indefinite vs none)"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-106": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Distributor and Brand Owner state different survival/temporal terms (indefinite vs none)"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-107": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Vendor and Client cover different trigger sets"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-108": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Contractor and Owner cover different trigger sets"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-109": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Licensee and Licensor cover different trigger sets"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-110": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Servicer and Bank cover different trigger sets"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-111": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Supplier and Purchaser cover different trigger sets"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-112": {
+    "classification": "CA",
+    "asymmetry_reasons": [
+      "Distributor and Brand Owner cover different trigger sets"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-113": {
+    "classification": "CR",
+    "asymmetry_reasons": [
+      "Distributor: this reciprocal/mutual clause attributes specific terms to Distributor by name, but a second, comparable named role could not be established -- symmetry cannot be confirmed from a single extracted role, so this requires review rather than a clean symmetric conclusion"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-114": {
+    "classification": "CR",
+    "asymmetry_reasons": [
+      "the clause contains an 'except that'/'provided that' proviso naming Vendor specifically, rather than stating the condition for both parties uniformly \u2014 the reciprocal opener's symmetry claim cannot be verified from this proviso"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-115": {
+    "classification": "FE_missed_ambiguity",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-116": {
+    "classification": "FE_missed_ambiguity",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-117": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-118": {
+    "classification": "CR",
+    "asymmetry_reasons": [
+      "Supplier: this reciprocal/mutual clause attributes specific terms to Supplier by name, but a second, comparable named role could not be established -- symmetry cannot be confirmed from a single extracted role, so this requires review rather than a clean symmetric conclusion"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-119": {
+    "classification": "CR",
+    "asymmetry_reasons": [
+      "the clause contains an 'except that'/'provided that' proviso naming Distributor specifically, rather than stating the condition for both parties uniformly \u2014 the reciprocal opener's symmetry claim cannot be verified from this proviso"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-120": {
+    "classification": "FE_missed_ambiguity",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-121": {
+    "classification": "FE_missed_ambiguity",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-122": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-123": {
+    "classification": "CR",
+    "asymmetry_reasons": [
+      "Servicer: this reciprocal/mutual clause attributes specific terms to Servicer by name, but a second, comparable named role could not be established -- symmetry cannot be confirmed from a single extracted role, so this requires review rather than a clean symmetric conclusion"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-124": {
+    "classification": "CR",
+    "asymmetry_reasons": [
+      "the clause contains an 'except that'/'provided that' proviso naming Supplier specifically, rather than stating the condition for both parties uniformly \u2014 the reciprocal opener's symmetry claim cannot be verified from this proviso"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-125": {
+    "classification": "FE_missed_ambiguity",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-126": {
+    "classification": "FE_missed_ambiguity",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-127": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  },
+  "SYM-128": {
+    "classification": "CR",
+    "asymmetry_reasons": [
+      "Licensee: this reciprocal/mutual clause attributes specific terms to Licensee by name, but a second, comparable named role could not be established -- symmetry cannot be confirmed from a single extracted role, so this requires review rather than a clean symmetric conclusion"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-129": {
+    "classification": "CR",
+    "asymmetry_reasons": [
+      "the clause contains an 'except that'/'provided that' proviso naming Servicer specifically, rather than stating the condition for both parties uniformly \u2014 the reciprocal opener's symmetry claim cannot be verified from this proviso"
+    ],
+    "n_obligations": 1
+  },
+  "SYM-130": {
+    "classification": "FE_missed_ambiguity",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-131": {
+    "classification": "FE_missed_ambiguity",
+    "asymmetry_reasons": [],
+    "n_obligations": 1
+  },
+  "SYM-132": {
+    "classification": "CR",
+    "asymmetry_reasons": [],
+    "n_obligations": 0
+  }
+}
