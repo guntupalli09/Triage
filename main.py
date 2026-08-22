@@ -401,13 +401,28 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
         llm_issues_map[issue.get("title", "").lower()] = issue
 
     all_issues = []
-    seen_rule_ids = set()
+    seen_finding_keys = set()
 
     for finding in findings_dict:
         rule_id = finding.get("rule_id", "")
-        if rule_id in seen_rule_ids:
+        # Dedup key includes location (start_index/end_index/clause_number),
+        # not rule_id alone -- rules_engine.analyze() already documents its
+        # own internal dedup as "(rule_id, clause_number)" (step 4 of its
+        # docstring), meaning it deliberately PRESERVES the same rule firing
+        # on two genuinely different clause occurrences in one document
+        # (e.g. the same uncapped-liability pattern matched in two separate
+        # provisions). A rule_id-only key here silently collapsed that back
+        # down to one, discarding a materially distinct finding -- found via
+        # Step 4B Phase B's deduplication inventory, reproduced directly
+        # against this function before fixing. policy_decision/
+        # interaction_decision synthetic findings are unaffected (each
+        # clause_type/interaction_id already produces at most one finding
+        # per review by construction, so this key is still exactly as
+        # unique for them as rule_id alone was).
+        finding_key = (rule_id, finding.get("start_index"), finding.get("end_index"), finding.get("clause_number"))
+        if finding_key in seen_finding_keys:
             continue
-        seen_rule_ids.add(rule_id)
+        seen_finding_keys.add(finding_key)
 
         finding_title = finding.get("title", "").lower()
         llm_issue = None
