@@ -1,0 +1,132 @@
+{
+  "DEVCTL-001": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-002": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-003": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-004": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-005": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-006": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-007": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-008": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-009": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-010": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-011": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-012": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-013": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-014": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-015": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-016": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-017": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-018": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-019": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-020": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-021": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-022": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-023": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-024": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-025": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-026": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  }
+}

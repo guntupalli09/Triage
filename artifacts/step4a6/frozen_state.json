@@ -1,0 +1,23 @@
+{
+  "step": "4A.6",
+  "phase": "PRE (before corpus construction / execution)",
+  "commit": "0c4ae5486d7b3cdfdbfbb40be114229aef3d6b58",
+  "commit_short": "0c4ae54",
+  "branch": "claude/triage-counsel-audit-44xogk",
+  "git_status": "clean (no output from git status --short at freeze time)",
+  "production_file_sha256_pre": {
+    "policy_engine_core.py": "3cd5bd025f9daa3b158910b00560bef30822ea9f29adfd986e36d7049f8be179",
+    "liability_policy_engine.py": "461239d32ba831214d76cc5ea0d2ca34d1b5d4029372821db28452173afad5e3",
+    "indemnification_policy_engine.py": "26fa1fc5bd1af4ef0d7a7026214c6bb04b0bbe6c0bfa80c5aa20cc9b62da9c5a",
+    "payment_terms_policy_engine.py": "1ce3b921d4455861bbcf4bacf61c9f564ea99e02e1063bef3c318952b2801af9"
+  },
+  "scope_note": "These 4 files are confirmed to be the complete evaluated pipeline for the Liability/Indemnification/Payment Terms adapters exercised by this validation (verified by inspecting benchmarks/run_step4a4_heldout.py's imports, the same harness pattern this step reuses). No other production file is materially involved in the evaluated policy-decision pipeline.",
+  "production_file_sha256_post": {
+    "policy_engine_core.py": "3cd5bd025f9daa3b158910b00560bef30822ea9f29adfd986e36d7049f8be179",
+    "liability_policy_engine.py": "461239d32ba831214d76cc5ea0d2ca34d1b5d4029372821db28452173afad5e3",
+    "indemnification_policy_engine.py": "26fa1fc5bd1af4ef0d7a7026214c6bb04b0bbe6c0bfa80c5aa20cc9b62da9c5a",
+    "payment_terms_policy_engine.py": "1ce3b921d4455861bbcf4bacf61c9f564ea99e02e1063bef3c318952b2801af9"
+  },
+  "contamination_status": "CLEAN \u2014 byte-identical pre/post, no production code modified",
+  "git_status_post": "?? artifacts/step4a6/\n?? benchmarks/run_step4a6_heldout.py\n?? benchmarks/step4a6_checksums.json\n?? benchmarks/step4a6_checksums.txt\n?? benchmarks/step4a6_corpus.py\n?? benchmarks/step4a6_corpus_compound.py\n?? benchmarks/step4a6_corpus_compound_more.py\n?? benchmarks/step4a6_corpus_indemnification.py\n?? benchmarks/step4a6_corpus_indemnification_absence.py\n?? benchmarks/step4a6_corpus_indemnification_direction.py\n?? benchmarks/step4a6_corpus_indemnification_reciprocal.py\n?? benchmarks/step4a6_corpus_indemnification_subject.py\n?? benchmarks/step4a6_corpus_liability.py\n?? benchmarks/step4a6_corpus_liability_absence.py\n?? benchmarks/step4a6_corpus_liability_ownership.py\n?? benchmarks/step4a6_corpus_liability_role.py\n?? benchmarks/step4a6_corpus_liability_subject.py\n?? benchmarks/step4a6_corpus_payment.py\n?? benchmarks/step4a6_corpus_payment_final.py\n?? benchmarks/step4a6_corpus_payment_more.py\n?? benchmarks/step4a6_corpus_ratio_balance.py\n?? benchmarks/step4a6_formatting_mutations.py\n"
+}

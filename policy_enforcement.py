@@ -276,9 +276,26 @@ def _segment_matches_context(position: PolicyPosition, context: Optional[Dict[st
     if position.segment_customer_type is not None and position.segment_customer_type != ctx.get("customer_type"):
         return False
     deal_value = ctx.get("deal_value")
-    if position.segment_deal_value_min is not None and (deal_value is None or deal_value < position.segment_deal_value_min):
+    # A deal_value that isn't a real, comparable number at all (a string,
+    # e.g. from a corrupted/malformed contract-metadata field -- found via
+    # Step 4B Phase K's direct dependency-failure probing) must fail
+    # closed against any numeric bound exactly like NaN does below, not
+    # raise TypeError out of `<`/`>` and crash the whole review. `bool` is
+    # explicitly excluded even though it is technically an int subclass --
+    # True/False are never a legitimate deal_value.
+    deal_value_is_numeric = isinstance(deal_value, (int, float)) and not isinstance(deal_value, bool)
+    # NaN fails closed against ANY numeric bound explicitly -- found via
+    # Step 4B Phase G's segment benchmark: `nan < x` and `nan > x` are
+    # BOTH False under IEEE754, so a NaN deal_value silently satisfied a
+    # `>= min` (and would equally satisfy a `<= max`) bound it should
+    # never satisfy, causing a corrupt/malformed deal_value to select the
+    # wrong (non-GLOBAL) governing PolicyPosition instead of failing back
+    # to GLOBAL.
+    deal_value_is_nan = deal_value_is_numeric and isinstance(deal_value, float) and deal_value != deal_value
+    deal_value_unusable = deal_value is None or not deal_value_is_numeric or deal_value_is_nan
+    if position.segment_deal_value_min is not None and (deal_value_unusable or deal_value < position.segment_deal_value_min):
         return False
-    if position.segment_deal_value_max is not None and (deal_value is None or deal_value > position.segment_deal_value_max):
+    if position.segment_deal_value_max is not None and (deal_value_unusable or deal_value > position.segment_deal_value_max):
         return False
     return True
 

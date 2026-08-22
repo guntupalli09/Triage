@@ -1,0 +1,13 @@
+Total cases: 108
+TP=25 FP=0 TN=80 FN=3
+Symmetric precision: 100.0%
+Symmetric recall: 89.3%
+Unsafe false-symmetry rate: 0/108 = 0.0%
+Unnecessary-asymmetry rate: 3/108 = 2.8%
+
+=== UNNECESSARY ASYMMETRY (over-escalation, safe but not free) ===
+  ('S4B-SYM-03', 'true_symmetric', 'REQUIRES_REVIEW')
+  ('S4B-SYM-18', 'true_symmetric', 'REQUIRES_REVIEW')
+  ('S4B-NEG-06', 'adversarial_negative', 'REQUIRES_REVIEW')
+
+HARD REQUIREMENT unsafe_false_symmetry == 0: PASS

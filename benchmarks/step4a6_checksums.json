@@ -1,0 +1,96 @@
+{
+  "corpus_bundle_sha256": "adcc1fe9b9fa5f468f284741e4becbc785f2488883674a88005249927b720fde",
+  "labels_sha256": "c06601e90da4da067b0bfbd9f92af9324139b81b716e412ca4c378f33c001736",
+  "per_file_sha256": {
+    "benchmarks/step4a6_corpus_liability.py": "67107937e5641cb6b0b2453978f9ca46f87dabafaba00330b9da766ca9c6c87c",
+    "benchmarks/step4a6_corpus_liability_ownership.py": "fcdc68b249cdffe30d6e474b905710ce055f4f2963190ea31b672b232916ab13",
+    "benchmarks/step4a6_corpus_liability_absence.py": "791874d0589f6c7a72957e688187d5d56f31dbc460cc996faf5e708344e08b25",
+    "benchmarks/step4a6_corpus_liability_subject.py": "edb8b4290911c1f54845fa327d08f9c6fa60e50b3077b50fbf63bbe6191f3dfd",
+    "benchmarks/step4a6_corpus_liability_role.py": "2fa55c816fdc5edc13ee61ec3dce68671127362135e542ed73079bb85e4d9b4f",
+    "benchmarks/step4a6_corpus_indemnification.py": "9242c8b94824655d2871a8f5edc6dad50fac6826d6d90a5224f3c5ca2a60d72e",
+    "benchmarks/step4a6_corpus_indemnification_reciprocal.py": "c3e043599edb8e5fa01d15764e7c26e3ab9a620a4c661d50944310a182b3ac13",
+    "benchmarks/step4a6_corpus_indemnification_subject.py": "4d567bd93c4de026470c8dffae912c8dd988356a693078684540ab7a693ce98a",
+    "benchmarks/step4a6_corpus_indemnification_direction.py": "5901e0edeabbf0391d5bff16bfa5e568e93af26a8ddf8f381964ea612ae41d39",
+    "benchmarks/step4a6_corpus_indemnification_absence.py": "bb6bd75ce94184c657ffce3ae0e9fea952108aa4af1ffa18b9a1f0541c60d64e",
+    "benchmarks/step4a6_corpus_payment.py": "1c778537573fc177dc272886688b1c9e8a7c7acb46c252f170e7e0d4f7ec725f",
+    "benchmarks/step4a6_corpus_payment_more.py": "3316c910a678fecce095d1ac5a90d672a1b1b98256786ab83dc0f73c0074c673",
+    "benchmarks/step4a6_corpus_payment_final.py": "8bee3f7b86339c437e328dfa657a34c61e8cfaff39ba5c192c8a2c2322b39c1c",
+    "benchmarks/step4a6_corpus_compound.py": "4fbabb55e6ac510155ee40fc6f15ca33329eabb3f9cf164315ac59881a0f0724",
+    "benchmarks/step4a6_corpus_compound_more.py": "90c396f1343bda5cdd461833c72e63a9531fe7831b07a8c88d06f23ed051d08d",
+    "benchmarks/step4a6_corpus_ratio_balance.py": "b98a78122bbaddfc2fad1345db3c09513b5fbb715f6e910ad1cd079948d7293d",
+    "benchmarks/step4a6_corpus.py": "d6bfde0ed77aa4059acfb9cc613d6f9684120436101820f056dabd4dde74e348",
+    "benchmarks/step4a6_formatting_mutations.py": "cec2471ed0cb7ed2de86405662a2694d3919c520e4452f27ffbd4ac296611bc2",
+    "benchmarks/run_step4a6_heldout.py": "f3ce0d52ce5dcd336dd2be7d7008a0f3fbf18693354c46676613d8010af9c9f3"
+  },
+  "semantic_case_count": 212,
+  "mutation_case_count": 30,
+  "label_counts": {
+    "AUTOMATABLE": 163,
+    "SHOULD_REVIEW": 49
+  },
+  "automatable_pct": 76.9,
+  "should_review_pct": 23.1,
+  "tier_counts": {
+    "1": 51,
+    "2": 95,
+    "3": 66
+  },
+  "adapter_counts": {
+    "liability": 78,
+    "indemnification": 68,
+    "payment_terms": 66
+  },
+  "family_counts": {
+    "ordinary": 37,
+    "varied": 35,
+    "adversarial": 20,
+    "ownership": 11,
+    "absence": 14,
+    "structural": 5,
+    "grammatical_subject": 12,
+    "role_definition": 8,
+    "reciprocal_scope": 10,
+    "direction_invariance": 10,
+    "silent_miss_attack": 14,
+    "setoff_hard_negative": 6,
+    "compound": 30
+  },
+  "family_targets_vs_actual": {
+    "grammatical_subject": {
+      "target": "25-30 (mandatory)",
+      "actual": 12
+    },
+    "reciprocal_scope": {
+      "target": "25-30 (mandatory)",
+      "actual": 10
+    },
+    "role_definition": {
+      "target": ">=20",
+      "actual": 8
+    },
+    "direction_invariance": {
+      "target": ">=20",
+      "actual": 10
+    },
+    "silent_miss_attack": {
+      "target": ">=25",
+      "actual": 14
+    },
+    "ownership": {
+      "target": ">=25",
+      "actual": 11
+    },
+    "compound": {
+      "target": ">=30",
+      "actual": 30
+    },
+    "structural": {
+      "target": "included in absence family",
+      "actual": 5
+    },
+    "absence": {
+      "target": "mandatory family present",
+      "actual": 14
+    }
+  }
+}

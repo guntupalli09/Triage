@@ -1,0 +1,49 @@
+{
+  "file_hashes": {
+    "benchmarks/step4a8_corpus_semantic.json": "1e1550b1a63fceda2bebccb453f0754545f48756f1dea63317301944b3a24c17",
+    "benchmarks/step4a8_corpus_formatting_mutations.json": "88affdc941937c65e556d9387edd169021ada6ba4254da5deff8448d17d150d3"
+  },
+  "semantic_case_count": 284,
+  "formatting_mutation_count": 32,
+  "total_executions": 316,
+  "tier_counts": {
+    "1": 126,
+    "2": 87,
+    "3": 71
+  },
+  "adapter_counts": {
+    "liability": 97,
+    "indemnification": 97,
+    "payment_terms": 90
+  },
+  "review_counts": {
+    "AUTOMATIC": 212,
+    "SHOULD_REVIEW": 72
+  },
+  "attack_family_counts": {
+    "B": 65,
+    "A": 80,
+    "H": 24,
+    "C": 8,
+    "F": 19,
+    "G": 14,
+    "I": 21,
+    "N": 30,
+    "D": 47,
+    "E": 39,
+    "J": 6,
+    "K": 5,
+    "L": 5,
+    "M": 3
+  },
+  "family_n_compound_count": 30,
+  "family_n_three_plus_mechanism_count": 10,
+  "gtd_corrections": [
+    {
+      "case_id": "S48-L-T3-I-02",
+      "defect": "text field was accidentally a 1-element list (Python tuple trailing-comma typo in the generator script) instead of a plain string, causing a TypeError crash in liability_policy_engine.extract_liability_facts before any classification-relevant output was produced for this or any subsequent case.",
+      "correction": "Unwrapped to the plain string value already present inside the list \u2014 no change to the actual clause text, ground truth fields, or expected outcome.",
+      "discovered_via": "Python TypeError traceback during the FIRST execution attempt, before any case output was inspected or classified \u2014 this is a data-construction defect, not a ground-truth judgment revised after seeing a policy decision."
+    }
+  ]
+}

@@ -1,0 +1,502 @@
+{
+  "FRESH-001": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry": false
+  },
+  "FRESH-002": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-003": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-004": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-005": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-006": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-007": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-008": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry": false
+  },
+  "FRESH-009": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-010": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-011": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-012": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-013": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-014": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-015": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry": false
+  },
+  "FRESH-016": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-017": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-018": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-019": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-020": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-021": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-022": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry": false
+  },
+  "FRESH-023": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-024": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-025": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-026": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-027": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-028": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-029": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry": false
+  },
+  "FRESH-030": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-031": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-032": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-033": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-034": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-035": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-036": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-037": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-038": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-039": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-040": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-041": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-042": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-043": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-044": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-045": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-046": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-047": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-048": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-049": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-050": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-051": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-052": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-053": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-054": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-055": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-056": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-057": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-058": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-059": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-060": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-061": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-062": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-063": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-064": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-065": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-066": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-067": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-068": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-069": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-070": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-071": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-072": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-073": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-074": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-075": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-076": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-077": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-078": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-079": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-080": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-081": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-082": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-083": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-084": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-085": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-086": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-087": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-088": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-089": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-090": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-091": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-092": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-093": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-094": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-095": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-096": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-097": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-098": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-099": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  },
+  "FRESH-100": {
+    "classification": "CA",
+    "verified": false,
+    "asymmetry": false
+  }
+}

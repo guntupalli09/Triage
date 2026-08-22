@@ -1,0 +1,38 @@
+# Payment Terms / Commercial Terms Policy Engine — Benchmark Report
+
+Corpus size: **84** cases across 86 drafting-pattern tags. Adapter #10 — see payment_terms_policy_engine.py module docstring.
+
+## Headline safety metric
+
+**False-safe rate: 0 / 84 (0.0%)**
+
+Zero false-safe cases in this run.
+
+## False-escalation
+
+**False-escalation rate: 0 / 84 (0.0%)**
+
+Zero false-escalation cases in this run.
+
+## Metrics
+
+| Metric | Result | Scored on |
+|---|---|---|
+| Provision detection (fact extraction: clause found) | 100.0% | 84 (all cases) |
+| Policy-state accuracy | 100.0% | 84 (all cases) |
+| Ambiguity/conflict routing (REQUIRES_REVIEW) recall | 100.0% | 8 |
+| False-safe rate | 0.0% | 84 (all cases) |
+| False-escalation rate | 0.0% | 84 (all cases) |
+| Determinism (5x repeat) | 100.0% | 84 (all cases) |
+
+## Release gate check
+
+- PASS — False-safe = 0 (actual: 0)
+- PASS — False-escalation = 0 (actual: 0)
+- PASS — Determinism = 100% (actual: 100.0%)
+- PASS — Policy-state accuracy > 95% (actual: 100.0%)
+
+## Failures by drafting pattern
+
+None.
+

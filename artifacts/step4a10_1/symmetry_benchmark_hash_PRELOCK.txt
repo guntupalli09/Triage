@@ -1,0 +1,1 @@
+cc2b4ebf07b2b5d6e114614da26e9dcf7cc30ef1ace514190c6e4e56f2249ec9  benchmarks/step4a10_1_symmetry_benchmark.json

@@ -1,0 +1,2340 @@
+{
+  "rows": [
+    {
+      "id": "fabricated-issue-0",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Executive Termination Bonus Clause Missing' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-1",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Hidden Non-Compete Discovered' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-2",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Undisclosed Change of Control Trigger' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-3",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Secret Arbitration Waiver Found' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-4",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Mandatory Class Action Waiver Detected' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-5",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Unlimited Personal Guarantee Required' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-6",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Automatic Renewal Trap Identified' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-7",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Reverse Indemnification Obligation' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-8",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Undisclosed Exclusivity Requirement' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-9",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Hidden Most-Favored-Nation Clause' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "mixed-real-and-fabricated-0",
+      "family": "mixed-real-and-fabricated",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "the real, correctly-matching issue must survive; the fabricated one must be dropped"
+    },
+    {
+      "id": "mixed-real-and-fabricated-1",
+      "family": "mixed-real-and-fabricated",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "the real, correctly-matching issue must survive; the fabricated one must be dropped"
+    },
+    {
+      "id": "mixed-real-and-fabricated-2",
+      "family": "mixed-real-and-fabricated",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "the real, correctly-matching issue must survive; the fabricated one must be dropped"
+    },
+    {
+      "id": "mixed-real-and-fabricated-3",
+      "family": "mixed-real-and-fabricated",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "the real, correctly-matching issue must survive; the fabricated one must be dropped"
+    },
+    {
+      "id": "mixed-real-and-fabricated-4",
+      "family": "mixed-real-and-fabricated",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "the real, correctly-matching issue must survive; the fabricated one must be dropped"
+    },
+    {
+      "id": "mixed-real-and-fabricated-5",
+      "family": "mixed-real-and-fabricated",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "the real, correctly-matching issue must survive; the fabricated one must be dropped"
+    },
+    {
+      "id": "mixed-real-and-fabricated-6",
+      "family": "mixed-real-and-fabricated",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "the real, correctly-matching issue must survive; the fabricated one must be dropped"
+    },
+    {
+      "id": "mixed-real-and-fabricated-7",
+      "family": "mixed-real-and-fabricated",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "the real, correctly-matching issue must survive; the fabricated one must be dropped"
+    },
+    {
+      "id": "mixed-real-and-fabricated-8",
+      "family": "mixed-real-and-fabricated",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "the real, correctly-matching issue must survive; the fabricated one must be dropped"
+    },
+    {
+      "id": "mixed-real-and-fabricated-9",
+      "family": "mixed-real-and-fabricated",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 1,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "the real, correctly-matching issue must survive; the fabricated one must be dropped"
+    },
+    {
+      "id": "zero-findings-fabrication-0",
+      "family": "zero-findings-all-dropped",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "no deterministic findings exist at all -- any top_issue is fabricated by definition"
+    },
+    {
+      "id": "zero-findings-fabrication-1",
+      "family": "zero-findings-all-dropped",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "no deterministic findings exist at all -- any top_issue is fabricated by definition"
+    },
+    {
+      "id": "zero-findings-fabrication-2",
+      "family": "zero-findings-all-dropped",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "no deterministic findings exist at all -- any top_issue is fabricated by definition"
+    },
+    {
+      "id": "zero-findings-fabrication-3",
+      "family": "zero-findings-all-dropped",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "no deterministic findings exist at all -- any top_issue is fabricated by definition"
+    },
+    {
+      "id": "zero-findings-fabrication-4",
+      "family": "zero-findings-all-dropped",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "no deterministic findings exist at all -- any top_issue is fabricated by definition"
+    },
+    {
+      "id": "zero-findings-fabrication-5",
+      "family": "zero-findings-all-dropped",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "no deterministic findings exist at all -- any top_issue is fabricated by definition"
+    },
+    {
+      "id": "zero-findings-fabrication-6",
+      "family": "zero-findings-all-dropped",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "no deterministic findings exist at all -- any top_issue is fabricated by definition"
+    },
+    {
+      "id": "zero-findings-fabrication-7",
+      "family": "zero-findings-all-dropped",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "no deterministic findings exist at all -- any top_issue is fabricated by definition"
+    },
+    {
+      "id": "no-issues-clean-0",
+      "family": "no-issues-nothing-to-drop",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": true
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": true
+      },
+      "correct": true,
+      "notes": "no top_issues at all -- vacuously true, nothing fabricated"
+    },
+    {
+      "id": "no-issues-clean-1",
+      "family": "no-issues-nothing-to-drop",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": true
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": true
+      },
+      "correct": true,
+      "notes": "no top_issues at all -- vacuously true, nothing fabricated"
+    },
+    {
+      "id": "no-issues-clean-2",
+      "family": "no-issues-nothing-to-drop",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": true
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": true
+      },
+      "correct": true,
+      "notes": "no top_issues at all -- vacuously true, nothing fabricated"
+    },
+    {
+      "id": "no-issues-clean-3",
+      "family": "no-issues-nothing-to-drop",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": true
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": true
+      },
+      "correct": true,
+      "notes": "no top_issues at all -- vacuously true, nothing fabricated"
+    },
+    {
+      "id": "no-issues-clean-4",
+      "family": "no-issues-nothing-to-drop",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": true
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": true
+      },
+      "correct": true,
+      "notes": "no top_issues at all -- vacuously true, nothing fabricated"
+    },
+    {
+      "id": "no-issues-clean-5",
+      "family": "no-issues-nothing-to-drop",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": true
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": true
+      },
+      "correct": true,
+      "notes": "no top_issues at all -- vacuously true, nothing fabricated"
+    },
+    {
+      "id": "multiple-real-all-survive-0",
+      "family": "multiple-real-findings-all-survive",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "actual": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "correct": true,
+      "notes": "3 genuinely matching issues -- all 3 survive"
+    },
+    {
+      "id": "multiple-real-all-survive-1",
+      "family": "multiple-real-findings-all-survive",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "actual": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "correct": true,
+      "notes": "3 genuinely matching issues -- all 3 survive"
+    },
+    {
+      "id": "multiple-real-all-survive-2",
+      "family": "multiple-real-findings-all-survive",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "actual": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "correct": true,
+      "notes": "3 genuinely matching issues -- all 3 survive"
+    },
+    {
+      "id": "multiple-real-all-survive-3",
+      "family": "multiple-real-findings-all-survive",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "actual": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "correct": true,
+      "notes": "3 genuinely matching issues -- all 3 survive"
+    },
+    {
+      "id": "multiple-real-all-survive-4",
+      "family": "multiple-real-findings-all-survive",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "actual": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "correct": true,
+      "notes": "3 genuinely matching issues -- all 3 survive"
+    },
+    {
+      "id": "multiple-real-all-survive-5",
+      "family": "multiple-real-findings-all-survive",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "actual": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "correct": true,
+      "notes": "3 genuinely matching issues -- all 3 survive"
+    },
+    {
+      "id": "multiple-real-all-survive-6",
+      "family": "multiple-real-findings-all-survive",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "actual": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "correct": true,
+      "notes": "3 genuinely matching issues -- all 3 survive"
+    },
+    {
+      "id": "multiple-real-all-survive-7",
+      "family": "multiple-real-findings-all-survive",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "actual": {
+        "top_issues_count": 3,
+        "verify_result": true
+      },
+      "correct": true,
+      "notes": "3 genuinely matching issues -- all 3 survive"
+    },
+    {
+      "id": "overall-risk-override-0",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "low"
+      },
+      "actual": {
+        "final_overall_risk": "low"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk='high' -- must be forced back to the deterministic value 'low'"
+    },
+    {
+      "id": "overall-risk-override-1",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "low"
+      },
+      "actual": {
+        "final_overall_risk": "low"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk='critical' -- must be forced back to the deterministic value 'low'"
+    },
+    {
+      "id": "overall-risk-override-2",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "low"
+      },
+      "actual": {
+        "final_overall_risk": "low"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk='none' -- must be forced back to the deterministic value 'low'"
+    },
+    {
+      "id": "overall-risk-override-3",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "low"
+      },
+      "actual": {
+        "final_overall_risk": "low"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk='SAFE' -- must be forced back to the deterministic value 'low'"
+    },
+    {
+      "id": "overall-risk-override-4",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "low"
+      },
+      "actual": {
+        "final_overall_risk": "low"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk='clean' -- must be forced back to the deterministic value 'low'"
+    },
+    {
+      "id": "overall-risk-override-5",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "low"
+      },
+      "actual": {
+        "final_overall_risk": "low"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk='unknown' -- must be forced back to the deterministic value 'low'"
+    },
+    {
+      "id": "overall-risk-override-6",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "low"
+      },
+      "actual": {
+        "final_overall_risk": "low"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk=None -- must be forced back to the deterministic value 'low'"
+    },
+    {
+      "id": "overall-risk-override-7",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "low"
+      },
+      "actual": {
+        "final_overall_risk": "low"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk='' -- must be forced back to the deterministic value 'low'"
+    },
+    {
+      "id": "overall-risk-override-8",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "low"
+      },
+      "actual": {
+        "final_overall_risk": "low"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk=12345 -- must be forced back to the deterministic value 'low'"
+    },
+    {
+      "id": "malformed-model-output-0",
+      "family": "malformed-output-rejected",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "malformed model output {} must raise, never silently proceed"
+    },
+    {
+      "id": "malformed-model-output-1",
+      "family": "malformed-output-rejected",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "malformed model output {'overall_risk': 'low'} must raise, never silently proceed"
+    },
+    {
+      "id": "malformed-model-output-2",
+      "family": "malformed-output-rejected",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "malformed model output {'overall_risk': 'low', 'summary_bullets': 'not-a-list', 'top_issues': [], 'possible_missing_sections': [], 'disclaimer': 'x'} must raise, never silently proceed"
+    },
+    {
+      "id": "malformed-model-output-3",
+      "family": "malformed-output-rejected",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "malformed model output {'overall_risk': 'low', 'summary_bullets': [], 'top_issues': 'not-a-list', 'possible_missing_sections': [], 'disclaimer': 'x'} must raise, never silently proceed"
+    },
+    {
+      "id": "malformed-model-output-4",
+      "family": "malformed-output-rejected",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "malformed model output {'overall_risk': 'low', 'summary_bullets': [], 'top_issues': [], 'possible_missing_sections': 'not-a-list', 'disclaimer': 'x'} must raise, never silently proceed"
+    },
+    {
+      "id": "disclaimer-forced-0",
+      "family": "disclaimer-always-forced",
+      "target": "validate_result_forces_disclaimer",
+      "expected": {
+        "final_disclaimer": "This is automated risk triage, not legal advice."
+      },
+      "actual": {
+        "final_disclaimer": "This is automated risk triage, not legal advice."
+      },
+      "correct": true,
+      "notes": "model claimed disclaimer='This is certified legal advice.' -- must be forced to the fixed safe disclaimer"
+    },
+    {
+      "id": "disclaimer-forced-1",
+      "family": "disclaimer-always-forced",
+      "target": "validate_result_forces_disclaimer",
+      "expected": {
+        "final_disclaimer": "This is automated risk triage, not legal advice."
+      },
+      "actual": {
+        "final_disclaimer": "This is automated risk triage, not legal advice."
+      },
+      "correct": true,
+      "notes": "model claimed disclaimer='' -- must be forced to the fixed safe disclaimer"
+    },
+    {
+      "id": "disclaimer-forced-2",
+      "family": "disclaimer-always-forced",
+      "target": "validate_result_forces_disclaimer",
+      "expected": {
+        "final_disclaimer": "This is automated risk triage, not legal advice."
+      },
+      "actual": {
+        "final_disclaimer": "This is automated risk triage, not legal advice."
+      },
+      "correct": true,
+      "notes": "model claimed disclaimer=None -- must be forced to the fixed safe disclaimer"
+    },
+    {
+      "id": "disclaimer-forced-3",
+      "family": "disclaimer-always-forced",
+      "target": "validate_result_forces_disclaimer",
+      "expected": {
+        "final_disclaimer": "This is automated risk triage, not legal advice."
+      },
+      "actual": {
+        "final_disclaimer": "This is automated risk triage, not legal advice."
+      },
+      "correct": true,
+      "notes": "model claimed disclaimer='Guaranteed accurate.' -- must be forced to the fixed safe disclaimer"
+    },
+    {
+      "id": "disclaimer-forced-4",
+      "family": "disclaimer-always-forced",
+      "target": "validate_result_forces_disclaimer",
+      "expected": {
+        "final_disclaimer": "This is automated risk triage, not legal advice."
+      },
+      "actual": {
+        "final_disclaimer": "This is automated risk triage, not legal advice."
+      },
+      "correct": true,
+      "notes": "model claimed disclaimer='No disclaimer needed.' -- must be forced to the fixed safe disclaimer"
+    },
+    {
+      "id": "title-attack-0",
+      "family": "adversarial-title-attack",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Uncapped Liability Clause",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Uncapped Liability Clause",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "attack=reversed conclusion; displayed title/severity must remain deterministic"
+    },
+    {
+      "id": "title-attack-1",
+      "family": "adversarial-title-attack",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Uncapped Liability Clause",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Uncapped Liability Clause",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "attack=wrong amount; displayed title/severity must remain deterministic"
+    },
+    {
+      "id": "title-attack-2",
+      "family": "adversarial-title-attack",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Unilateral Termination Right",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Unilateral Termination Right",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "attack=wrong party; displayed title/severity must remain deterministic"
+    },
+    {
+      "id": "title-attack-3",
+      "family": "adversarial-title-attack",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Missing Confidentiality Term",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Missing Confidentiality Term",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "attack=wrong clause / fabricated location; displayed title/severity must remain deterministic"
+    },
+    {
+      "id": "title-attack-4",
+      "family": "adversarial-title-attack",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Uncapped Liability Clause",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Uncapped Liability Clause",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "attack=wrong direction; displayed title/severity must remain deterministic"
+    },
+    {
+      "id": "title-attack-5",
+      "family": "adversarial-title-attack",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Unilateral Termination Right",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Unilateral Termination Right",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "attack=invented condition; displayed title/severity must remain deterministic"
+    },
+    {
+      "id": "title-attack-6",
+      "family": "adversarial-title-attack",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Uncapped Liability Clause",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Uncapped Liability Clause",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "attack=invented interaction; displayed title/severity must remain deterministic"
+    },
+    {
+      "id": "title-attack-7",
+      "family": "adversarial-title-attack",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Missing Confidentiality Term",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Missing Confidentiality Term",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "attack=wrong governance provenance; displayed title/severity must remain deterministic"
+    },
+    {
+      "id": "title-attack-8",
+      "family": "adversarial-title-attack",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Unilateral Termination Right",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Unilateral Termination Right",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "attack=wrong segment claim; displayed title/severity must remain deterministic"
+    },
+    {
+      "id": "title-attack-9",
+      "family": "adversarial-title-attack",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Uncapped Liability Clause",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Uncapped Liability Clause",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "attack=unsupported recommendation; displayed title/severity must remain deterministic"
+    },
+    {
+      "id": "evidence-fields-protected-0",
+      "family": "evidence-fields-never-llm-sourced",
+      "target": "build_enhanced_issues_evidence_protected",
+      "expected": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "actual": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "correct": true,
+      "notes": "evidence/citation fields must come from the deterministic finding, never llm_issue, regardless of narrative severity claim"
+    },
+    {
+      "id": "evidence-fields-protected-1",
+      "family": "evidence-fields-never-llm-sourced",
+      "target": "build_enhanced_issues_evidence_protected",
+      "expected": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "actual": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "correct": true,
+      "notes": "evidence/citation fields must come from the deterministic finding, never llm_issue, regardless of narrative severity claim"
+    },
+    {
+      "id": "evidence-fields-protected-2",
+      "family": "evidence-fields-never-llm-sourced",
+      "target": "build_enhanced_issues_evidence_protected",
+      "expected": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "actual": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "correct": true,
+      "notes": "evidence/citation fields must come from the deterministic finding, never llm_issue, regardless of narrative severity claim"
+    },
+    {
+      "id": "evidence-fields-protected-3",
+      "family": "evidence-fields-never-llm-sourced",
+      "target": "build_enhanced_issues_evidence_protected",
+      "expected": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "actual": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "correct": true,
+      "notes": "evidence/citation fields must come from the deterministic finding, never llm_issue, regardless of narrative severity claim"
+    },
+    {
+      "id": "evidence-fields-protected-4",
+      "family": "evidence-fields-never-llm-sourced",
+      "target": "build_enhanced_issues_evidence_protected",
+      "expected": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "actual": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "correct": true,
+      "notes": "evidence/citation fields must come from the deterministic finding, never llm_issue, regardless of narrative severity claim"
+    },
+    {
+      "id": "evidence-fields-protected-5",
+      "family": "evidence-fields-never-llm-sourced",
+      "target": "build_enhanced_issues_evidence_protected",
+      "expected": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "actual": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "correct": true,
+      "notes": "evidence/citation fields must come from the deterministic finding, never llm_issue, regardless of narrative severity claim"
+    },
+    {
+      "id": "evidence-fields-protected-6",
+      "family": "evidence-fields-never-llm-sourced",
+      "target": "build_enhanced_issues_evidence_protected",
+      "expected": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "actual": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "correct": true,
+      "notes": "evidence/citation fields must come from the deterministic finding, never llm_issue, regardless of narrative severity claim"
+    },
+    {
+      "id": "evidence-fields-protected-7",
+      "family": "evidence-fields-never-llm-sourced",
+      "target": "build_enhanced_issues_evidence_protected",
+      "expected": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "actual": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "correct": true,
+      "notes": "evidence/citation fields must come from the deterministic finding, never llm_issue, regardless of narrative severity claim"
+    },
+    {
+      "id": "evidence-fields-protected-8",
+      "family": "evidence-fields-never-llm-sourced",
+      "target": "build_enhanced_issues_evidence_protected",
+      "expected": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "actual": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "correct": true,
+      "notes": "evidence/citation fields must come from the deterministic finding, never llm_issue, regardless of narrative severity claim"
+    },
+    {
+      "id": "evidence-fields-protected-9",
+      "family": "evidence-fields-never-llm-sourced",
+      "target": "build_enhanced_issues_evidence_protected",
+      "expected": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "actual": {
+        "exact_snippet": "real excerpt",
+        "matched_excerpt": "real matched text",
+        "party_direction": {
+          "obligor": "us"
+        },
+        "severity": "critical"
+      },
+      "correct": true,
+      "notes": "evidence/citation fields must come from the deterministic finding, never llm_issue, regardless of narrative severity claim"
+    },
+    {
+      "id": "policy-decision-fields-protected-0",
+      "family": "policy-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of a policy_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "policy-decision-fields-protected-1",
+      "family": "policy-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of a policy_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "policy-decision-fields-protected-2",
+      "family": "policy-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of a policy_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "policy-decision-fields-protected-3",
+      "family": "policy-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of a policy_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "policy-decision-fields-protected-4",
+      "family": "policy-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of a policy_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "policy-decision-fields-protected-5",
+      "family": "policy-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of a policy_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "policy-decision-fields-protected-6",
+      "family": "policy-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of a policy_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "policy-decision-fields-protected-7",
+      "family": "policy-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Limitation of Liability - PROHIBITED",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of a policy_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "interaction-decision-fields-protected-0",
+      "family": "interaction-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of an interaction_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "interaction-decision-fields-protected-1",
+      "family": "interaction-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of an interaction_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "interaction-decision-fields-protected-2",
+      "family": "interaction-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of an interaction_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "interaction-decision-fields-protected-3",
+      "family": "interaction-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of an interaction_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "interaction-decision-fields-protected-4",
+      "family": "interaction-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of an interaction_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "interaction-decision-fields-protected-5",
+      "family": "interaction-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of an interaction_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "interaction-decision-fields-protected-6",
+      "family": "interaction-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of an interaction_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "interaction-decision-fields-protected-7",
+      "family": "interaction-decision-fields-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "IP interaction - ESCALATE",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "title/severity of an interaction_decision-shaped finding must never be touched by the LLM merge path"
+    },
+    {
+      "id": "family-clean-0",
+      "family": "family-coverage-clean",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Standard Confidentiality Term",
+        "displayed_severity": "low"
+      },
+      "actual": {
+        "displayed_title": "Standard Confidentiality Term",
+        "displayed_severity": "low"
+      },
+      "correct": true,
+      "notes": "family=clean; adversarial downplaying narrative must not alter displayed title/severity"
+    },
+    {
+      "id": "family-clean-1",
+      "family": "family-coverage-clean",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Standard Confidentiality Term",
+        "displayed_severity": "low"
+      },
+      "actual": {
+        "displayed_title": "Standard Confidentiality Term",
+        "displayed_severity": "low"
+      },
+      "correct": true,
+      "notes": "family=clean; adversarial downplaying narrative must not alter displayed title/severity"
+    },
+    {
+      "id": "family-clean-2",
+      "family": "family-coverage-clean",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Standard Confidentiality Term",
+        "displayed_severity": "low"
+      },
+      "actual": {
+        "displayed_title": "Standard Confidentiality Term",
+        "displayed_severity": "low"
+      },
+      "correct": true,
+      "notes": "family=clean; adversarial downplaying narrative must not alter displayed title/severity"
+    },
+    {
+      "id": "family-violation-0",
+      "family": "family-coverage-violation",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Prohibited Assignment Clause",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Prohibited Assignment Clause",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "family=violation; adversarial downplaying narrative must not alter displayed title/severity"
+    },
+    {
+      "id": "family-violation-1",
+      "family": "family-coverage-violation",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Prohibited Assignment Clause",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Prohibited Assignment Clause",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "family=violation; adversarial downplaying narrative must not alter displayed title/severity"
+    },
+    {
+      "id": "family-violation-2",
+      "family": "family-coverage-violation",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Prohibited Assignment Clause",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Prohibited Assignment Clause",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "family=violation; adversarial downplaying narrative must not alter displayed title/severity"
+    },
+    {
+      "id": "family-requires-review-0",
+      "family": "family-coverage-requires-review",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Ambiguous Carve-Out Language",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Ambiguous Carve-Out Language",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "family=requires-review; adversarial downplaying narrative must not alter displayed title/severity"
+    },
+    {
+      "id": "family-requires-review-1",
+      "family": "family-coverage-requires-review",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Ambiguous Carve-Out Language",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Ambiguous Carve-Out Language",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "family=requires-review; adversarial downplaying narrative must not alter displayed title/severity"
+    },
+    {
+      "id": "family-requires-review-2",
+      "family": "family-coverage-requires-review",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Ambiguous Carve-Out Language",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Ambiguous Carve-Out Language",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "family=requires-review; adversarial downplaying narrative must not alter displayed title/severity"
+    },
+    {
+      "id": "family-critical-interaction-0",
+      "family": "family-coverage-critical-interaction",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Cross-Policy Interaction",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Cross-Policy Interaction",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "family=critical-interaction; adversarial downplaying narrative must not alter displayed title/severity"
+    },
+    {
+      "id": "family-critical-interaction-1",
+      "family": "family-coverage-critical-interaction",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Cross-Policy Interaction",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Cross-Policy Interaction",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "family=critical-interaction; adversarial downplaying narrative must not alter displayed title/severity"
+    },
+    {
+      "id": "family-critical-interaction-2",
+      "family": "family-coverage-critical-interaction",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Cross-Policy Interaction",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Cross-Policy Interaction",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "family=critical-interaction; adversarial downplaying narrative must not alter displayed title/severity"
+    },
+    {
+      "id": "family-evaluation-error-0",
+      "family": "family-coverage-evaluation-error",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Data Security Evaluation Error",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Data Security Evaluation Error",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "family=evaluation-error; adversarial downplaying narrative must not alter displayed title/severity"
+    },
+    {
+      "id": "family-evaluation-error-1",
+      "family": "family-coverage-evaluation-error",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Data Security Evaluation Error",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Data Security Evaluation Error",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "family=evaluation-error; adversarial downplaying narrative must not alter displayed title/severity"
+    },
+    {
+      "id": "family-evaluation-error-2",
+      "family": "family-coverage-evaluation-error",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Data Security Evaluation Error",
+        "displayed_severity": "high"
+      },
+      "actual": {
+        "displayed_title": "Data Security Evaluation Error",
+        "displayed_severity": "high"
+      },
+      "correct": true,
+      "notes": "family=evaluation-error; adversarial downplaying narrative must not alter displayed title/severity"
+    },
+    {
+      "id": "fabricated-issue-v2-0",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Data Localization Requirement Discovered' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-v2-1",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Undisclosed Audit Rights Granted' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-v2-2",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Perpetual License Grant Identified' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-v2-3",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Springing Guarantee Clause Found' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-v2-4",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Undisclosed Most-Favored-Customer Pricing' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-v2-5",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Hidden Liquidated Damages Clause' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-v2-6",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Automatic Rate Escalation Discovered' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-v2-7",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Undisclosed Sublicense Restriction' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-v2-8",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Reverse Termination for Convenience' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "fabricated-issue-v2-9",
+      "family": "fabricated-finding-invented",
+      "target": "verify_output_maps_to_findings",
+      "expected": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "actual": {
+        "top_issues_count": 0,
+        "verify_result": false
+      },
+      "correct": true,
+      "notes": "'Hidden Cross-Default Provision' has no basis in any real finding -- must be dropped entirely"
+    },
+    {
+      "id": "overall-risk-override-v2-0",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "medium"
+      },
+      "actual": {
+        "final_overall_risk": "medium"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk='HIGH' -- must be forced back to the deterministic value 'medium'"
+    },
+    {
+      "id": "overall-risk-override-v2-1",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "medium"
+      },
+      "actual": {
+        "final_overall_risk": "medium"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk='Low' -- must be forced back to the deterministic value 'medium'"
+    },
+    {
+      "id": "overall-risk-override-v2-2",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "medium"
+      },
+      "actual": {
+        "final_overall_risk": "medium"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk='medium ' -- must be forced back to the deterministic value 'medium'"
+    },
+    {
+      "id": "overall-risk-override-v2-3",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "medium"
+      },
+      "actual": {
+        "final_overall_risk": "medium"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk=' low' -- must be forced back to the deterministic value 'medium'"
+    },
+    {
+      "id": "overall-risk-override-v2-4",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "medium"
+      },
+      "actual": {
+        "final_overall_risk": "medium"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk='n/a' -- must be forced back to the deterministic value 'medium'"
+    },
+    {
+      "id": "overall-risk-override-v2-5",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "medium"
+      },
+      "actual": {
+        "final_overall_risk": "medium"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk='TBD' -- must be forced back to the deterministic value 'medium'"
+    },
+    {
+      "id": "overall-risk-override-v2-6",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "medium"
+      },
+      "actual": {
+        "final_overall_risk": "medium"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk='ACCEPT' -- must be forced back to the deterministic value 'medium'"
+    },
+    {
+      "id": "overall-risk-override-v2-7",
+      "family": "overall-risk-forced-deterministic",
+      "target": "evaluate_force_overall_risk",
+      "expected": {
+        "final_overall_risk": "medium"
+      },
+      "actual": {
+        "final_overall_risk": "medium"
+      },
+      "correct": true,
+      "notes": "model claimed overall_risk='REJECTED' -- must be forced back to the deterministic value 'medium'"
+    },
+    {
+      "id": "malformed-model-output-v2-0",
+      "family": "malformed-output-rejected",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "malformed model output {'overall_risk': 'low', 'summary_bullets': [], 'top_issues': [], 'disclaimer': 'x'} must raise, never silently proceed"
+    },
+    {
+      "id": "malformed-model-output-v2-1",
+      "family": "malformed-output-rejected",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "malformed model output {'overall_risk': 'low', 'summary_bullets': [], 'possible_missing_sections': []} must raise, never silently proceed"
+    },
+    {
+      "id": "malformed-model-output-v2-2",
+      "family": "malformed-output-rejected",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "malformed model output None must raise, never silently proceed"
+    },
+    {
+      "id": "malformed-model-output-v2-3",
+      "family": "malformed-output-rejected",
+      "target": "validate_result_rejects_malformed",
+      "expected": {
+        "raises": true
+      },
+      "actual": {
+        "raises": true
+      },
+      "correct": true,
+      "notes": "malformed model output 'not-a-dict' must raise, never silently proceed"
+    },
+    {
+      "id": "multi-policy-doc-0",
+      "family": "multi-policy-document-independent-protection",
+      "target": "build_enhanced_issues_multi",
+      "expected": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Missing Confidentiality Term": "medium",
+          "Unilateral Termination Right": "high"
+        }
+      },
+      "actual": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Unilateral Termination Right": "high",
+          "Missing Confidentiality Term": "medium"
+        }
+      },
+      "correct": true,
+      "notes": "each of 3 findings must independently keep its own deterministic title/severity regardless of the LLM's per-issue severity claim, regardless of output ordering"
+    },
+    {
+      "id": "multi-policy-doc-1",
+      "family": "multi-policy-document-independent-protection",
+      "target": "build_enhanced_issues_multi",
+      "expected": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Missing Confidentiality Term": "medium",
+          "Unilateral Termination Right": "high"
+        }
+      },
+      "actual": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Unilateral Termination Right": "high",
+          "Missing Confidentiality Term": "medium"
+        }
+      },
+      "correct": true,
+      "notes": "each of 3 findings must independently keep its own deterministic title/severity regardless of the LLM's per-issue severity claim, regardless of output ordering"
+    },
+    {
+      "id": "multi-policy-doc-2",
+      "family": "multi-policy-document-independent-protection",
+      "target": "build_enhanced_issues_multi",
+      "expected": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Missing Confidentiality Term": "medium",
+          "Unilateral Termination Right": "high"
+        }
+      },
+      "actual": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Unilateral Termination Right": "high",
+          "Missing Confidentiality Term": "medium"
+        }
+      },
+      "correct": true,
+      "notes": "each of 3 findings must independently keep its own deterministic title/severity regardless of the LLM's per-issue severity claim, regardless of output ordering"
+    },
+    {
+      "id": "multi-policy-doc-3",
+      "family": "multi-policy-document-independent-protection",
+      "target": "build_enhanced_issues_multi",
+      "expected": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Missing Confidentiality Term": "medium",
+          "Unilateral Termination Right": "high"
+        }
+      },
+      "actual": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Unilateral Termination Right": "high",
+          "Missing Confidentiality Term": "medium"
+        }
+      },
+      "correct": true,
+      "notes": "each of 3 findings must independently keep its own deterministic title/severity regardless of the LLM's per-issue severity claim, regardless of output ordering"
+    },
+    {
+      "id": "multi-policy-doc-4",
+      "family": "multi-policy-document-independent-protection",
+      "target": "build_enhanced_issues_multi",
+      "expected": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Missing Confidentiality Term": "medium",
+          "Unilateral Termination Right": "high"
+        }
+      },
+      "actual": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Unilateral Termination Right": "high",
+          "Missing Confidentiality Term": "medium"
+        }
+      },
+      "correct": true,
+      "notes": "each of 3 findings must independently keep its own deterministic title/severity regardless of the LLM's per-issue severity claim, regardless of output ordering"
+    },
+    {
+      "id": "multi-policy-doc-5",
+      "family": "multi-policy-document-independent-protection",
+      "target": "build_enhanced_issues_multi",
+      "expected": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Missing Confidentiality Term": "medium",
+          "Unilateral Termination Right": "high"
+        }
+      },
+      "actual": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Unilateral Termination Right": "high",
+          "Missing Confidentiality Term": "medium"
+        }
+      },
+      "correct": true,
+      "notes": "each of 3 findings must independently keep its own deterministic title/severity regardless of the LLM's per-issue severity claim, regardless of output ordering"
+    },
+    {
+      "id": "multi-policy-doc-6",
+      "family": "multi-policy-document-independent-protection",
+      "target": "build_enhanced_issues_multi",
+      "expected": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Missing Confidentiality Term": "medium",
+          "Unilateral Termination Right": "high"
+        }
+      },
+      "actual": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Unilateral Termination Right": "high",
+          "Missing Confidentiality Term": "medium"
+        }
+      },
+      "correct": true,
+      "notes": "each of 3 findings must independently keep its own deterministic title/severity regardless of the LLM's per-issue severity claim, regardless of output ordering"
+    },
+    {
+      "id": "multi-policy-doc-7",
+      "family": "multi-policy-document-independent-protection",
+      "target": "build_enhanced_issues_multi",
+      "expected": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Missing Confidentiality Term": "medium",
+          "Unilateral Termination Right": "high"
+        }
+      },
+      "actual": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Unilateral Termination Right": "high",
+          "Missing Confidentiality Term": "medium"
+        }
+      },
+      "correct": true,
+      "notes": "each of 3 findings must independently keep its own deterministic title/severity regardless of the LLM's per-issue severity claim, regardless of output ordering"
+    },
+    {
+      "id": "multi-policy-doc-8",
+      "family": "multi-policy-document-independent-protection",
+      "target": "build_enhanced_issues_multi",
+      "expected": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Missing Confidentiality Term": "medium",
+          "Unilateral Termination Right": "high"
+        }
+      },
+      "actual": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Unilateral Termination Right": "high",
+          "Missing Confidentiality Term": "medium"
+        }
+      },
+      "correct": true,
+      "notes": "each of 3 findings must independently keep its own deterministic title/severity regardless of the LLM's per-issue severity claim, regardless of output ordering"
+    },
+    {
+      "id": "multi-policy-doc-9",
+      "family": "multi-policy-document-independent-protection",
+      "target": "build_enhanced_issues_multi",
+      "expected": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Missing Confidentiality Term": "medium",
+          "Unilateral Termination Right": "high"
+        }
+      },
+      "actual": {
+        "title_to_severity": {
+          "Uncapped Liability Clause": "critical",
+          "Unilateral Termination Right": "high",
+          "Missing Confidentiality Term": "medium"
+        }
+      },
+      "correct": true,
+      "notes": "each of 3 findings must independently keep its own deterministic title/severity regardless of the LLM's per-issue severity claim, regardless of output ordering"
+    },
+    {
+      "id": "governance-sensitive-narrative-0",
+      "family": "governance-sensitive-review-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Segment-Specific Liability Cap Violation",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Segment-Specific Liability Cap Violation",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "a fabricated governance/segment claim in the narrative must not alter the deterministic title/severity"
+    },
+    {
+      "id": "governance-sensitive-narrative-1",
+      "family": "governance-sensitive-review-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Segment-Specific Liability Cap Violation",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Segment-Specific Liability Cap Violation",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "a fabricated governance/segment claim in the narrative must not alter the deterministic title/severity"
+    },
+    {
+      "id": "governance-sensitive-narrative-2",
+      "family": "governance-sensitive-review-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Segment-Specific Liability Cap Violation",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Segment-Specific Liability Cap Violation",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "a fabricated governance/segment claim in the narrative must not alter the deterministic title/severity"
+    },
+    {
+      "id": "governance-sensitive-narrative-3",
+      "family": "governance-sensitive-review-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Segment-Specific Liability Cap Violation",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Segment-Specific Liability Cap Violation",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "a fabricated governance/segment claim in the narrative must not alter the deterministic title/severity"
+    },
+    {
+      "id": "governance-sensitive-narrative-4",
+      "family": "governance-sensitive-review-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Segment-Specific Liability Cap Violation",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Segment-Specific Liability Cap Violation",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "a fabricated governance/segment claim in the narrative must not alter the deterministic title/severity"
+    },
+    {
+      "id": "governance-sensitive-narrative-5",
+      "family": "governance-sensitive-review-protected",
+      "target": "build_enhanced_issues_title_protected",
+      "expected": {
+        "displayed_title": "Segment-Specific Liability Cap Violation",
+        "displayed_severity": "critical"
+      },
+      "actual": {
+        "displayed_title": "Segment-Specific Liability Cap Violation",
+        "displayed_severity": "critical"
+      },
+      "correct": true,
+      "notes": "a fabricated governance/segment claim in the narrative must not alter the deterministic title/severity"
+    }
+  ],
+  "gates": {
+    "fabricated_material_fact_displayed": [],
+    "authority_explanation_contradiction": [],
+    "wrong_overall_risk_displayed": [],
+    "malformed_output_not_rejected": []
+  },
+  "total": 150,
+  "correct": 150
+}

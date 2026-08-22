@@ -1,0 +1,74 @@
+Corpus size: 65 (45 positive, 20 negative)
+
+| id | concept | expected | recognized | ok |
+|---|---|---|---|---|
+| PT-01 | payment_timing | positive | True | OK |
+| PT-02 | payment_timing | positive | True | OK |
+| PT-03 | payment_timing | positive | True | OK |
+| PT-04 | payment_timing | positive | True | OK |
+| PT-05 | payment_timing | positive | True | OK |
+| PT-06 | invoice_obligation | positive | True | OK |
+| PT-07 | invoice_obligation | positive | True | OK |
+| PT-08 | invoice_obligation | positive | True | OK |
+| PT-09 | invoice_obligation | positive | True | OK |
+| PT-10 | invoice_obligation | positive | True | OK |
+| PT-11 | taxes | positive | True | OK |
+| PT-12 | taxes | positive | True | OK |
+| PT-13 | taxes | positive | True | OK |
+| PT-14 | taxes | positive | True | OK |
+| PT-15 | taxes | positive | True | OK |
+| PT-16 | withholding | positive | True | OK |
+| PT-17 | withholding | positive | True | OK |
+| PT-18 | withholding | positive | True | OK |
+| PT-19 | currency | positive | True | OK |
+| PT-20 | currency | positive | True | OK |
+| PT-21 | currency | positive | True | OK |
+| PT-22 | currency | positive | True | OK |
+| PT-23 | disputed_amounts | positive | True | OK |
+| PT-24 | disputed_amounts | positive | True | OK |
+| PT-25 | disputed_amounts | positive | True | OK |
+| PT-26 | disputed_amounts | positive | True | OK |
+| PT-27 | disputed_amounts | positive | True | OK |
+| PT-28 | undisputed_payable | positive | True | OK |
+| PT-29 | undisputed_payable | positive | True | OK |
+| PT-30 | undisputed_payable | positive | True | OK |
+| PT-31 | set_off | positive | True | OK |
+| PT-32 | set_off | positive | True | OK |
+| PT-33 | set_off | positive | True | OK |
+| PT-34 | set_off | positive | True | OK |
+| PT-35 | set_off | positive | True | OK |
+| PT-36 | late_fee | positive | True | OK |
+| PT-37 | late_fee | positive | True | OK |
+| PT-38 | late_fee | positive | True | OK |
+| PT-39 | late_fee | positive | True | OK |
+| PT-40 | reimbursement | positive | True | OK |
+| PT-41 | reimbursement | positive | True | OK |
+| PT-42 | reimbursement | positive | True | OK |
+| PT-43 | price_increase | positive | True | OK |
+| PT-44 | price_increase | positive | True | OK |
+| PT-45 | price_increase | positive | True | OK |
+| NEG-01 | distractor_insurance | negative | False | OK |
+| NEG-02 | distractor_liability_cap | negative | False | OK |
+| NEG-03 | distractor_ma_purchase_price | negative | True | MISS |
+| NEG-04 | distractor_indemnification | negative | False | OK |
+| NEG-05 | distractor_confidentiality | negative | False | OK |
+| NEG-06 | distractor_governing_law | negative | False | OK |
+| NEG-07 | distractor_representation | negative | False | OK |
+| NEG-08 | distractor_representation | negative | False | OK |
+| NEG-09 | distractor_insurance | negative | False | OK |
+| NEG-10 | distractor_security_deposit | negative | False | OK |
+| NEG-11 | distractor_valuation | negative | False | OK |
+| NEG-12 | distractor_damages | negative | False | OK |
+| NEG-13 | distractor_insurance | negative | False | OK |
+| NEG-14 | distractor_indemnification | negative | False | OK |
+| NEG-15 | distractor_termination_fee | negative | True | MISS |
+| NEG-16 | distractor_generic_dispute | negative | False | OK |
+| NEG-17 | distractor_warranty | negative | False | OK |
+| NEG-18 | distractor_assignment | negative | False | OK |
+| NEG-19 | distractor_dispute_resolution | negative | False | OK |
+| NEG-20 | distractor_boilerplate_tax_id | negative | False | OK |
+
+Recall: 100.0% (45/45)
+Precision: 95.7% (45/47)
+False-negative rate: 0.0% (0/45)
+False-positive rate: 10.0% (2/20)

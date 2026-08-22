@@ -1,0 +1,606 @@
+{
+  "results": [
+    {
+      "id": "final-0029",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0030",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0031",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0032",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0033",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0034",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0035",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0036",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0037",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0038",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0039",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0040",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0041",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0042",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0043",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0044",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0045",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0046",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0047",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0048",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0049",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0050",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0051",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0052",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0053",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0054",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0055",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0056",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0057",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0058",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0059",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0060",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0061",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0062",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0063",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0064",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0065",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0066",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0067",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0068",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0069",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0070",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0071",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0072",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0073",
+      "family": "compound-multi-interaction",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0146",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0147",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0148",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0149",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0150",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0151",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0152",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0153",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0154",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0155",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0156",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0157",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0158",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0159",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0160",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0161",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0162",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0163",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0164",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0165",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0166",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0167",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0168",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0169",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0170",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0171",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0172",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0173",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0174",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0175",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0176",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0177",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0178",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0179",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0180",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0181",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0182",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0183",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0184",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0185",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0186",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0187",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0188",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0189",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0190",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0191",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0192",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0193",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0194",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0195",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0196",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0197",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0198",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0199",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    },
+    {
+      "id": "final-0200",
+      "family": "high-complexity-replay-pool",
+      "all_equal": true,
+      "document_state": "HAS_CRITICAL_INTERACTION"
+    }
+  ],
+  "total": 100,
+  "contradictions": 0
+}

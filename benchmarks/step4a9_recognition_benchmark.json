@@ -1,0 +1,2362 @@
+[
+  {
+    "id": "S49-REC-POS-001",
+    "label": "positive",
+    "text": "8. Risk Allocation. Ferrowatch Industrial Boiler Inspection shall indemnify, defend, and hold harmless Client from any third-party claim arising from Ferrowatch Industrial Boiler Inspection's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Ferrowatch Industrial Boiler Inspection",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: canonical"
+  },
+  {
+    "id": "S49-REC-POS-002",
+    "label": "positive",
+    "text": "8. Risk Allocation. Lockstone Vault Installation Services shall indemnify and hold Client harmless from any third-party claim arising from Lockstone Vault Installation Services's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Lockstone Vault Installation Services",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: canonical-variant"
+  },
+  {
+    "id": "S49-REC-POS-003",
+    "label": "positive",
+    "text": "8. Risk Allocation. Nightloom Custom Lighting Design shall be responsible for, and shall reimburse Client in full for any third-party claim arising from Nightloom Custom Lighting Design's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Nightloom Custom Lighting Design",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: reimbursement"
+  },
+  {
+    "id": "S49-REC-POS-004",
+    "label": "positive",
+    "text": "8. Risk Allocation. Oakspire Timber Framing Guild shall assume all liability for, and undertakes to make Client whole in respect of any third-party claim arising from Oakspire Timber Framing Guild's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Oakspire Timber Framing Guild",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: loss-bearing"
+  },
+  {
+    "id": "S49-REC-POS-005",
+    "label": "positive",
+    "text": "8. Risk Allocation. Pikeview Alpine Rescue Training shall stand in Client's place in defending against, and shall bear the cost of resolving any third-party claim arising from Pikeview Alpine Rescue Training's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Pikeview Alpine Rescue Training",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: duty-to-defend"
+  },
+  {
+    "id": "S49-REC-POS-006",
+    "label": "positive",
+    "text": "8. Risk Allocation. Quenchfield Fire Hydrant Servicing shall protect Client from, and satisfy on Client's behalf, any claim arising from any third-party claim arising from Quenchfield Fire Hydrant Servicing's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Quenchfield Fire Hydrant Servicing",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: protection"
+  },
+  {
+    "id": "S49-REC-POS-007",
+    "label": "positive",
+    "text": "8. Risk Allocation. Ridgemark Land Surveying Corp agrees to answer for, and to save Client harmless from any third-party claim arising from Ridgemark Land Surveying Corp's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Ridgemark Land Surveying Corp",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: answer-for"
+  },
+  {
+    "id": "S49-REC-POS-008",
+    "label": "positive",
+    "text": "8. Risk Allocation. Sableridge Custom Taxidermy Studio shall bear full responsibility for defending and satisfying, on Client's behalf, any third-party claim arising from Sableridge Custom Taxidermy Studio's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Sableridge Custom Taxidermy Studio",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-reordered"
+  },
+  {
+    "id": "S49-REC-POS-009",
+    "label": "positive",
+    "text": "8. Risk Allocation. Tarnhollow Custom Blacksmithing shall bear full responsibility for defending and satisfying any claim on Client's behalf, arising from any third-party claim arising from Tarnhollow Custom Blacksmithing's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Tarnhollow Custom Blacksmithing",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-canonical-order"
+  },
+  {
+    "id": "S49-REC-POS-010",
+    "label": "positive",
+    "text": "8. Risk Allocation. Umberlight Solar Array Cleaning undertakes to make Client whole for, and to assume the defense of any third-party claim arising from Umberlight Solar Array Cleaning's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Umberlight Solar Array Cleaning",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: make-whole-canonical"
+  },
+  {
+    "id": "S49-REC-POS-011",
+    "label": "positive",
+    "text": "8. Risk Allocation. Vesperwood Custom Organ Building shall indemnify, defend, and hold harmless Client from any third-party claim arising from Vesperwood Custom Organ Building's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Vesperwood Custom Organ Building",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: canonical"
+  },
+  {
+    "id": "S49-REC-POS-012",
+    "label": "positive",
+    "text": "8. Risk Allocation. Wraithmoor Pest Fumigation Services shall indemnify and hold Client harmless from any third-party claim arising from Wraithmoor Pest Fumigation Services's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Wraithmoor Pest Fumigation Services",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: canonical-variant"
+  },
+  {
+    "id": "S49-REC-POS-013",
+    "label": "positive",
+    "text": "8. Risk Allocation. Xandergate Custom Metal Casting shall be responsible for, and shall reimburse Client in full for any third-party claim arising from Xandergate Custom Metal Casting's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Xandergate Custom Metal Casting",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: reimbursement"
+  },
+  {
+    "id": "S49-REC-POS-014",
+    "label": "positive",
+    "text": "8. Risk Allocation. Yewfield Custom Barn Restoration shall assume all liability for, and undertakes to make Client whole in respect of any third-party claim arising from Yewfield Custom Barn Restoration's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Yewfield Custom Barn Restoration",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: loss-bearing"
+  },
+  {
+    "id": "S49-REC-POS-015",
+    "label": "positive",
+    "text": "8. Risk Allocation. Zenithcrest Custom Antenna Installation shall stand in Client's place in defending against, and shall bear the cost of resolving any third-party claim arising from Zenithcrest Custom Antenna Installation's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Zenithcrest Custom Antenna Installation",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: duty-to-defend"
+  },
+  {
+    "id": "S49-REC-POS-016",
+    "label": "positive",
+    "text": "8. Risk Allocation. Ashfall Custom Ceramic Tiling shall protect Client from, and satisfy on Client's behalf, any claim arising from any third-party claim arising from Ashfall Custom Ceramic Tiling's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Ashfall Custom Ceramic Tiling",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: protection"
+  },
+  {
+    "id": "S49-REC-POS-017",
+    "label": "positive",
+    "text": "8. Risk Allocation. Briarcliff Custom Stonemasonry agrees to answer for, and to save Client harmless from any third-party claim arising from Briarcliff Custom Stonemasonry's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Briarcliff Custom Stonemasonry",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: answer-for"
+  },
+  {
+    "id": "S49-REC-POS-018",
+    "label": "positive",
+    "text": "8. Risk Allocation. Cragwater Custom Diving Instruction shall bear full responsibility for defending and satisfying, on Client's behalf, any third-party claim arising from Cragwater Custom Diving Instruction's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Cragwater Custom Diving Instruction",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-reordered"
+  },
+  {
+    "id": "S49-REC-POS-019",
+    "label": "positive",
+    "text": "8. Risk Allocation. Duskmere Custom Puppet Theater shall bear full responsibility for defending and satisfying any claim on Client's behalf, arising from any third-party claim arising from Duskmere Custom Puppet Theater's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Duskmere Custom Puppet Theater",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-canonical-order"
+  },
+  {
+    "id": "S49-REC-POS-020",
+    "label": "positive",
+    "text": "8. Risk Allocation. Emberfall Custom Glassblowing Studio undertakes to make Client whole for, and to assume the defense of any third-party claim arising from Emberfall Custom Glassblowing Studio's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Emberfall Custom Glassblowing Studio",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: make-whole-canonical"
+  },
+  {
+    "id": "S49-REC-POS-021",
+    "label": "positive",
+    "text": "8. Risk Allocation. Frostgate Custom Ice Carving shall indemnify, defend, and hold harmless Client from any third-party claim arising from Frostgate Custom Ice Carving's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Frostgate Custom Ice Carving",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: canonical"
+  },
+  {
+    "id": "S49-REC-POS-022",
+    "label": "positive",
+    "text": "8. Risk Allocation. Gravenhurst Custom Tattoo Studio shall indemnify and hold Client harmless from any third-party claim arising from Gravenhurst Custom Tattoo Studio's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Gravenhurst Custom Tattoo Studio",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: canonical-variant"
+  },
+  {
+    "id": "S49-REC-POS-023",
+    "label": "positive",
+    "text": "8. Risk Allocation. Hallowbrook Custom Beekeeping Removal shall be responsible for, and shall reimburse Client in full for any third-party claim arising from Hallowbrook Custom Beekeeping Removal's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Hallowbrook Custom Beekeeping Removal",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: reimbursement"
+  },
+  {
+    "id": "S49-REC-POS-024",
+    "label": "positive",
+    "text": "8. Risk Allocation. Ironspan Custom Bridge Inspection shall assume all liability for, and undertakes to make Client whole in respect of any third-party claim arising from Ironspan Custom Bridge Inspection's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Ironspan Custom Bridge Inspection",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: loss-bearing"
+  },
+  {
+    "id": "S49-REC-POS-025",
+    "label": "positive",
+    "text": "8. Risk Allocation. Junipergate Custom Aromatherapy Blending shall stand in Client's place in defending against, and shall bear the cost of resolving any third-party claim arising from Junipergate Custom Aromatherapy Blending's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Junipergate Custom Aromatherapy Blending",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: duty-to-defend"
+  },
+  {
+    "id": "S49-REC-POS-026",
+    "label": "positive",
+    "text": "8. Risk Allocation. Kettlespire Custom Distillery Servicing shall protect Client from, and satisfy on Client's behalf, any claim arising from any third-party claim arising from Kettlespire Custom Distillery Servicing's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Kettlespire Custom Distillery Servicing",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: protection"
+  },
+  {
+    "id": "S49-REC-POS-027",
+    "label": "positive",
+    "text": "8. Risk Allocation. Larkmoor Custom Falconry Training agrees to answer for, and to save Client harmless from any third-party claim arising from Larkmoor Custom Falconry Training's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Larkmoor Custom Falconry Training",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: answer-for"
+  },
+  {
+    "id": "S49-REC-POS-028",
+    "label": "positive",
+    "text": "8. Risk Allocation. Millgate Custom Weaving Instruction shall bear full responsibility for defending and satisfying, on Client's behalf, any third-party claim arising from Millgate Custom Weaving Instruction's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Millgate Custom Weaving Instruction",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-reordered"
+  },
+  {
+    "id": "S49-REC-POS-029",
+    "label": "positive",
+    "text": "8. Risk Allocation. Nettlewood Custom Herbalism Consulting shall bear full responsibility for defending and satisfying any claim on Client's behalf, arising from any third-party claim arising from Nettlewood Custom Herbalism Consulting's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Nettlewood Custom Herbalism Consulting",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-canonical-order"
+  },
+  {
+    "id": "S49-REC-POS-030",
+    "label": "positive",
+    "text": "8. Risk Allocation. Oxfordale Custom Cheese Aging undertakes to make Client whole for, and to assume the defense of any third-party claim arising from Oxfordale Custom Cheese Aging's negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Oxfordale Custom Cheese Aging",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "verb family: make-whole-canonical"
+  },
+  {
+    "id": "S49-REC-POS-PASS-01",
+    "label": "positive",
+    "text": "8. Risk Allocation. Any third-party claim arising from Palewick Custom Cartography Studio's negligence shall be defended and satisfied by Palewick Custom Cartography Studio on Client's behalf, with all resulting losses to be reimbursed to Client in full.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Palewick Custom Cartography Studio",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "passive-voice risk-transfer statement"
+  },
+  {
+    "id": "S49-REC-POS-PASS-02",
+    "label": "positive",
+    "text": "8. Risk Allocation. Any third-party claim arising from Quillhaven Custom Bookplate Engraving's negligence shall be defended and satisfied by Quillhaven Custom Bookplate Engraving on Client's behalf, with all resulting losses to be reimbursed to Client in full.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Quillhaven Custom Bookplate Engraving",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "passive-voice risk-transfer statement"
+  },
+  {
+    "id": "S49-REC-POS-PASS-03",
+    "label": "positive",
+    "text": "8. Risk Allocation. Any third-party claim arising from Rimefrost Custom Snowshoe Making's negligence shall be defended and satisfied by Rimefrost Custom Snowshoe Making on Client's behalf, with all resulting losses to be reimbursed to Client in full.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Rimefrost Custom Snowshoe Making",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "passive-voice risk-transfer statement"
+  },
+  {
+    "id": "S49-REC-POS-PASS-04",
+    "label": "positive",
+    "text": "8. Risk Allocation. Any third-party claim arising from Silverbrook Custom Violin Repair's negligence shall be defended and satisfied by Silverbrook Custom Violin Repair on Client's behalf, with all resulting losses to be reimbursed to Client in full.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Silverbrook Custom Violin Repair",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "passive-voice risk-transfer statement"
+  },
+  {
+    "id": "S49-REC-POS-PASS-05",
+    "label": "positive",
+    "text": "8. Risk Allocation. Any third-party claim arising from Thistlemoor Custom Wreath Weaving's negligence shall be defended and satisfied by Thistlemoor Custom Wreath Weaving on Client's behalf, with all resulting losses to be reimbursed to Client in full.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Thistlemoor Custom Wreath Weaving",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "passive-voice risk-transfer statement"
+  },
+  {
+    "id": "S49-REC-POS-PASS-06",
+    "label": "positive",
+    "text": "8. Risk Allocation. Any third-party claim arising from Underspire Custom Well Capping's negligence shall be defended and satisfied by Underspire Custom Well Capping on Client's behalf, with all resulting losses to be reimbursed to Client in full.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Underspire Custom Well Capping",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "passive-voice risk-transfer statement"
+  },
+  {
+    "id": "S49-REC-POS-RECIP-01",
+    "label": "positive",
+    "text": "8. Risk Allocation. Vantagepoint Custom Kite Design shall bear responsibility for, and reimburse Retailer in full for, any claim arising from Vantagepoint Custom Kite Design's own negligence, and Retailer shall likewise bear responsibility for, and reimburse Vantagepoint Custom Kite Design in full for, any claim arising from Retailer's own negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Vantagepoint Custom Kite Design",
+    "beneficiary": "Retailer",
+    "direction": "reciprocal",
+    "note": "reciprocal risk-transfer using the fresh reimbursement idiom on both sides"
+  },
+  {
+    "id": "S49-REC-POS-RECIP-02",
+    "label": "positive",
+    "text": "8. Risk Allocation. Wickerlight Custom Basket Import shall bear responsibility for, and reimburse Distributor in full for, any claim arising from Wickerlight Custom Basket Import's own negligence, and Distributor shall likewise bear responsibility for, and reimburse Wickerlight Custom Basket Import in full for, any claim arising from Distributor's own negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Wickerlight Custom Basket Import",
+    "beneficiary": "Distributor",
+    "direction": "reciprocal",
+    "note": "reciprocal risk-transfer using the fresh reimbursement idiom on both sides"
+  },
+  {
+    "id": "S49-REC-POS-RECIP-03",
+    "label": "positive",
+    "text": "8. Risk Allocation. Xenonfrost Custom Neon Repair shall bear responsibility for, and reimburse Client in full for, any claim arising from Xenonfrost Custom Neon Repair's own negligence, and Client shall likewise bear responsibility for, and reimburse Xenonfrost Custom Neon Repair in full for, any claim arising from Client's own negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Xenonfrost Custom Neon Repair",
+    "beneficiary": "Client",
+    "direction": "reciprocal",
+    "note": "reciprocal risk-transfer using the fresh reimbursement idiom on both sides"
+  },
+  {
+    "id": "S49-REC-POS-RECIP-04",
+    "label": "positive",
+    "text": "8. Risk Allocation. Yarrowdale Custom Herb Drying shall bear responsibility for, and reimburse Cooperative in full for, any claim arising from Yarrowdale Custom Herb Drying's own negligence, and Cooperative shall likewise bear responsibility for, and reimburse Yarrowdale Custom Herb Drying in full for, any claim arising from Cooperative's own negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Yarrowdale Custom Herb Drying",
+    "beneficiary": "Cooperative",
+    "direction": "reciprocal",
+    "note": "reciprocal risk-transfer using the fresh reimbursement idiom on both sides"
+  },
+  {
+    "id": "S49-REC-POS-RECIP-05",
+    "label": "positive",
+    "text": "8. Risk Allocation. Zephyrmoor Custom Windvane Casting shall bear responsibility for, and reimburse Architect in full for, any claim arising from Zephyrmoor Custom Windvane Casting's own negligence, and Architect shall likewise bear responsibility for, and reimburse Zephyrmoor Custom Windvane Casting in full for, any claim arising from Architect's own negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Zephyrmoor Custom Windvane Casting",
+    "beneficiary": "Architect",
+    "direction": "reciprocal",
+    "note": "reciprocal risk-transfer using the fresh reimbursement idiom on both sides"
+  },
+  {
+    "id": "S49-REC-POS-TRIG-01",
+    "label": "positive",
+    "text": "8. Risk Allocation. Ashworth Custom Circuit Board Fab shall assume all liability for, and shall make Client whole in respect of, any third-party patent infringement claims attributable to Ashworth Custom Circuit Board Fab's performance under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Ashworth Custom Circuit Board Fab",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "specific trigger category: third-party patent infringement claims"
+  },
+  {
+    "id": "S49-REC-POS-TRIG-02",
+    "label": "positive",
+    "text": "8. Risk Allocation. Briardown Custom Playground Install shall assume all liability for, and shall make Client whole in respect of, any bodily injury or property damage claims attributable to Briardown Custom Playground Install's performance under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Briardown Custom Playground Install",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "specific trigger category: bodily injury or property damage claims"
+  },
+  {
+    "id": "S49-REC-POS-TRIG-03",
+    "label": "positive",
+    "text": "8. Risk Allocation. Cloverpeak Custom Food Truck Fabrication shall assume all liability for, and shall make Client whole in respect of, any regulatory fines arising from health-code violations attributable to Cloverpeak Custom Food Truck Fabrication's performance under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Cloverpeak Custom Food Truck Fabrication",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "specific trigger category: regulatory fines arising from health-code violations"
+  },
+  {
+    "id": "S49-REC-POS-TRIG-04",
+    "label": "positive",
+    "text": "8. Risk Allocation. Driftglass Custom Data Migration Services shall assume all liability for, and shall make Client whole in respect of, any claims arising from unauthorized disclosure of personal data attributable to Driftglass Custom Data Migration Services's performance under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Driftglass Custom Data Migration Services",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "specific trigger category: claims arising from unauthorized disclosure of personal data"
+  },
+  {
+    "id": "S49-REC-POS-TRIG-05",
+    "label": "positive",
+    "text": "8. Risk Allocation. Emberton Custom Payroll Bureau shall assume all liability for, and shall make Client whole in respect of, any claims arising from misclassification of workers attributable to Emberton Custom Payroll Bureau's performance under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Emberton Custom Payroll Bureau",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "specific trigger category: claims arising from misclassification of workers"
+  },
+  {
+    "id": "S49-REC-POS-TRIG-06",
+    "label": "positive",
+    "text": "8. Risk Allocation. Falconbridge Custom Tax Advisory shall assume all liability for, and shall make Client whole in respect of, any penalties assessed due to advisory errors attributable to Falconbridge Custom Tax Advisory's performance under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Falconbridge Custom Tax Advisory",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "specific trigger category: penalties assessed due to advisory errors"
+  },
+  {
+    "id": "S49-REC-POS-LONG-01",
+    "label": "positive",
+    "text": "8. Risk Allocation. Notwithstanding anything to the contrary elsewhere in this Agreement, and subject only to the express carve-outs in Section 8.5, Northgate Regional Environmental Consulting Group, LLC shall, at its own cost and expense, assume all liability for and shall make Client Municipal Water Authority whole in respect of any and all third-party claims, of whatever kind or nature, arising out of or in any way related to Northgate Regional Environmental Consulting Group, LLC's negligent performance of the services described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Northgate Regional Environmental Consulting Group, LLC",
+    "beneficiary": "Client Municipal Water Authority",
+    "direction": "exposure",
+    "note": "long, heavily-qualified sentence, multi-word entity name"
+  },
+  {
+    "id": "S49-REC-POS-DEF-01",
+    "label": "positive",
+    "text": "1. Definitions. 'Fabricator' means Coldwater Custom HVAC Ductwork Fabrication, and 'Owner' means the party engaging Fabricator's services.\n\n8. Risk Allocation. Fabricator shall bear full responsibility for defending and satisfying, on Owner's behalf, any claim arising from Fabricator's negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Fabricator",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "defined-term role names, reordered bear-responsibility idiom"
+  },
+  {
+    "id": "S49-REC-POS-FIRST-01",
+    "label": "positive",
+    "text": "8. Risk Allocation. Ashgrove Custom Aquarium Livestock Import shall protect Client from, and satisfy on Client's behalf, any claim, whether asserted by a third party or brought directly between the parties, arising from Ashgrove's negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Ashgrove Custom Aquarium Livestock Import",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "first-party (direct-claim) risk-transfer structure"
+  },
+  {
+    "id": "S49-REC-POS-MORE-01",
+    "label": "positive",
+    "text": "8. Risk Allocation. Subject to Section 8.6 and without limiting any other remedy Owner may have, Grovemantle Custom Vineyard Trellising shall assume all liability for, and undertakes to make Owner whole in respect of any claim, of whatever kind, arising from Grovemantle Custom Vineyard Trellising's negligent acts or omissions in connection with this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Grovemantle Custom Vineyard Trellising",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: loss-bearing"
+  },
+  {
+    "id": "S49-REC-POS-MORE-02",
+    "label": "positive",
+    "text": "8. Risk Allocation. Hollowspire Custom Church Bell Repair shall stand in Owner's place in defending against, and shall bear the cost of resolving any claim arising from Hollowspire Custom Church Bell Repair's negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Hollowspire Custom Church Bell Repair",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: duty-to-defend"
+  },
+  {
+    "id": "S49-REC-POS-MORE-03",
+    "label": "positive",
+    "text": "8. Risk Allocation. Subject to Section 8.6 and without limiting any other remedy Owner may have, Ironvale Custom Anvil Forging shall protect Owner from, and satisfy on Owner's behalf, any claim arising from any claim, of whatever kind, arising from Ironvale Custom Anvil Forging's negligent acts or omissions in connection with this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Ironvale Custom Anvil Forging",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: protection"
+  },
+  {
+    "id": "S49-REC-POS-MORE-04",
+    "label": "positive",
+    "text": "8. Risk Allocation. Jasperfield Custom Gemstone Cutting agrees to answer for, and to save Owner harmless from any claim arising from Jasperfield Custom Gemstone Cutting's negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Jasperfield Custom Gemstone Cutting",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: answer-for"
+  },
+  {
+    "id": "S49-REC-POS-MORE-05",
+    "label": "positive",
+    "text": "8. Risk Allocation. Subject to Section 8.6 and without limiting any other remedy Owner may have, Kettlebridge Custom Rain Gutter Fab shall bear full responsibility for defending and satisfying, on Owner's behalf, any claim, of whatever kind, arising from Kettlebridge Custom Rain Gutter Fab's negligent acts or omissions in connection with this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Kettlebridge Custom Rain Gutter Fab",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-reordered"
+  },
+  {
+    "id": "S49-REC-POS-MORE-06",
+    "label": "positive",
+    "text": "8. Risk Allocation. Larkspire Custom Weathercock Casting shall bear full responsibility for defending and satisfying any claim on Owner's behalf, arising from any claim arising from Larkspire Custom Weathercock Casting's negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Larkspire Custom Weathercock Casting",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-canonical-order"
+  },
+  {
+    "id": "S49-REC-POS-MORE-07",
+    "label": "positive",
+    "text": "8. Risk Allocation. Subject to Section 8.6 and without limiting any other remedy Owner may have, Moonvale Custom Herbal Tincture Blending undertakes to make Owner whole for, and to assume the defense of any claim, of whatever kind, arising from Moonvale Custom Herbal Tincture Blending's negligent acts or omissions in connection with this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Moonvale Custom Herbal Tincture Blending",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: make-whole-canonical"
+  },
+  {
+    "id": "S49-REC-POS-MORE-08",
+    "label": "positive",
+    "text": "8. Risk Allocation. Nettlefen Custom Reed Basket Weaving shall indemnify, defend, and hold harmless Owner from any claim arising from Nettlefen Custom Reed Basket Weaving's negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Nettlefen Custom Reed Basket Weaving",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: canonical"
+  },
+  {
+    "id": "S49-REC-POS-MORE-09",
+    "label": "positive",
+    "text": "8. Risk Allocation. Subject to Section 8.6 and without limiting any other remedy Owner may have, Oxhollow Custom Cider Press Building shall indemnify and hold Owner harmless from any claim, of whatever kind, arising from Oxhollow Custom Cider Press Building's negligent acts or omissions in connection with this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Oxhollow Custom Cider Press Building",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: canonical-variant"
+  },
+  {
+    "id": "S49-REC-POS-MORE-10",
+    "label": "positive",
+    "text": "8. Risk Allocation. Pemberly Custom Sundial Engraving shall be responsible for, and shall reimburse Owner in full for any claim arising from Pemberly Custom Sundial Engraving's negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Pemberly Custom Sundial Engraving",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: reimbursement"
+  },
+  {
+    "id": "S49-REC-POS-MORE-11",
+    "label": "positive",
+    "text": "8. Risk Allocation. Subject to Section 8.6 and without limiting any other remedy Owner may have, Quiverfield Custom Archery Range Design shall assume all liability for, and undertakes to make Owner whole in respect of any claim, of whatever kind, arising from Quiverfield Custom Archery Range Design's negligent acts or omissions in connection with this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Quiverfield Custom Archery Range Design",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: loss-bearing"
+  },
+  {
+    "id": "S49-REC-POS-MORE-12",
+    "label": "positive",
+    "text": "8. Risk Allocation. Ravensdale Custom Falconry Mews Construction shall stand in Owner's place in defending against, and shall bear the cost of resolving any claim arising from Ravensdale Custom Falconry Mews Construction's negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Ravensdale Custom Falconry Mews Construction",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: duty-to-defend"
+  },
+  {
+    "id": "S49-REC-POS-MORE-13",
+    "label": "positive",
+    "text": "8. Risk Allocation. Subject to Section 8.6 and without limiting any other remedy Owner may have, Silverfen Custom Wetland Boardwalk Build shall protect Owner from, and satisfy on Owner's behalf, any claim arising from any claim, of whatever kind, arising from Silverfen Custom Wetland Boardwalk Build's negligent acts or omissions in connection with this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Silverfen Custom Wetland Boardwalk Build",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: protection"
+  },
+  {
+    "id": "S49-REC-POS-MORE-14",
+    "label": "positive",
+    "text": "8. Risk Allocation. Thornspire Custom Beehive Carpentry agrees to answer for, and to save Owner harmless from any claim arising from Thornspire Custom Beehive Carpentry's negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Thornspire Custom Beehive Carpentry",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: answer-for"
+  },
+  {
+    "id": "S49-REC-POS-MORE-15",
+    "label": "positive",
+    "text": "8. Risk Allocation. Subject to Section 8.6 and without limiting any other remedy Owner may have, Underfell Custom Mine Shaft Inspection shall bear full responsibility for defending and satisfying, on Owner's behalf, any claim, of whatever kind, arising from Underfell Custom Mine Shaft Inspection's negligent acts or omissions in connection with this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Underfell Custom Mine Shaft Inspection",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-reordered"
+  },
+  {
+    "id": "S49-REC-POS-MORE-16",
+    "label": "positive",
+    "text": "8. Risk Allocation. Vellumoor Custom Parchment Making shall bear full responsibility for defending and satisfying any claim on Owner's behalf, arising from any claim arising from Vellumoor Custom Parchment Making's negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Vellumoor Custom Parchment Making",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-canonical-order"
+  },
+  {
+    "id": "S49-REC-POS-MORE-17",
+    "label": "positive",
+    "text": "8. Risk Allocation. Subject to Section 8.6 and without limiting any other remedy Owner may have, Whistlecrag Custom Bagpipe Repair undertakes to make Owner whole for, and to assume the defense of any claim, of whatever kind, arising from Whistlecrag Custom Bagpipe Repair's negligent acts or omissions in connection with this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Whistlecrag Custom Bagpipe Repair",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: make-whole-canonical"
+  },
+  {
+    "id": "S49-REC-POS-MORE-18",
+    "label": "positive",
+    "text": "8. Risk Allocation. Xylophage Custom Termite Treatment shall indemnify, defend, and hold harmless Owner from any claim arising from Xylophage Custom Termite Treatment's negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Xylophage Custom Termite Treatment",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: canonical"
+  },
+  {
+    "id": "S49-REC-POS-MORE-19",
+    "label": "positive",
+    "text": "8. Risk Allocation. Subject to Section 8.6 and without limiting any other remedy Owner may have, Yewshade Custom Arbor Trellis Design shall indemnify and hold Owner harmless from any claim, of whatever kind, arising from Yewshade Custom Arbor Trellis Design's negligent acts or omissions in connection with this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Yewshade Custom Arbor Trellis Design",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: canonical-variant"
+  },
+  {
+    "id": "S49-REC-POS-MORE-20",
+    "label": "positive",
+    "text": "8. Risk Allocation. Zestwood Custom Citrus Grove Consulting shall be responsible for, and shall reimburse Owner in full for any claim arising from Zestwood Custom Citrus Grove Consulting's negligence.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Zestwood Custom Citrus Grove Consulting",
+    "beneficiary": "Owner",
+    "direction": "exposure",
+    "note": "verb family: reimbursement"
+  },
+  {
+    "id": "S49-REC-POS-UNI-01",
+    "label": "positive",
+    "text": "8. Risk Allocation. Ashcombe Custom Millpond Restoration shall answer for, and save Client harmless from, any claim arising from Ashcombe Custom Millpond Restoration's negligence, and shall cooperate fully with Client in the defense of any such claim upon prompt written notice.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Ashcombe Custom Millpond Restoration",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "procedural cooperation layered on risk-transfer"
+  },
+  {
+    "id": "S49-REC-POS-UNI-02",
+    "label": "positive",
+    "text": "8. Risk Allocation. Briarhollow Custom Grist Mill Repair shall answer for, and save Client harmless from, any claim arising from Briarhollow Custom Grist Mill Repair's negligence, and shall cooperate fully with Client in the defense of any such claim upon prompt written notice.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Briarhollow Custom Grist Mill Repair",
+    "beneficiary": "Client",
+    "direction": "exposure",
+    "note": "procedural cooperation layered on risk-transfer"
+  },
+  {
+    "id": "S49-REC-POS-MULTI-01",
+    "label": "positive",
+    "text": "8. Risk Allocation. Coldharbor Consortium Members (defined collectively in Exhibit A) shall each assume all liability for, and shall make the Sponsoring Municipality whole in respect of, any claim arising from that Member's own negligence in performing services under this Agreement.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Coldharbor Consortium Members",
+    "beneficiary": "Sponsoring Municipality",
+    "direction": "exposure",
+    "note": "multi-party (consortium) risk-transfer"
+  },
+  {
+    "id": "S49-REC-POS-AMEND-01",
+    "label": "positive",
+    "text": "8. Risk Allocation. Fenwright Custom Cooperage Services shall bear full responsibility for defending and satisfying any claim on Winery's behalf, arising from Fenwright's negligence.\n\nAmendment No. 1. Section 8 is amended to add: 'This obligation extends to claims arising from subcontractors Fenwright engages.'",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Fenwright Custom Cooperage Services",
+    "beneficiary": "Winery",
+    "direction": "exposure",
+    "note": "canonical idiom plus a valid amendment expanding scope"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-01",
+    "label": "positive",
+    "text": "8. Risk Allocation. Alderwick Custom Millrace Repair shall bear full responsibility for defending and satisfying, on Landowner's behalf, any claim arising from Alderwick Custom Millrace Repair's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Alderwick Custom Millrace Repair",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-reordered"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-02",
+    "label": "positive",
+    "text": "8. Risk Allocation. Barrowfen Custom Reed Thatching shall bear full responsibility for defending and satisfying any claim on Landowner's behalf, arising from any claim arising from Barrowfen Custom Reed Thatching's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Barrowfen Custom Reed Thatching",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-canonical-order"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-03",
+    "label": "positive",
+    "text": "8. Risk Allocation. Cindergrove Custom Kiln Building undertakes to make Landowner whole for, and to assume the defense of any claim arising from Cindergrove Custom Kiln Building's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Cindergrove Custom Kiln Building",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: make-whole-canonical"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-04",
+    "label": "positive",
+    "text": "8. Risk Allocation. Duskholt Custom Watchtower Restoration shall indemnify, defend, and hold harmless Landowner from any claim arising from Duskholt Custom Watchtower Restoration's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Duskholt Custom Watchtower Restoration",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: canonical"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-05",
+    "label": "positive",
+    "text": "8. Risk Allocation. Elmscar Custom Drystone Walling shall indemnify and hold Landowner harmless from any claim arising from Elmscar Custom Drystone Walling's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Elmscar Custom Drystone Walling",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: canonical-variant"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-06",
+    "label": "positive",
+    "text": "8. Risk Allocation. Fallowmere Custom Hedgerow Laying shall be responsible for, and shall reimburse Landowner in full for any claim arising from Fallowmere Custom Hedgerow Laying's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Fallowmere Custom Hedgerow Laying",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: reimbursement"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-07",
+    "label": "positive",
+    "text": "8. Risk Allocation. Grimsby Custom Weathercock Repair shall assume all liability for, and undertakes to make Landowner whole in respect of any claim arising from Grimsby Custom Weathercock Repair's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Grimsby Custom Weathercock Repair",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: loss-bearing"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-08",
+    "label": "positive",
+    "text": "8. Risk Allocation. Hearthstone Custom Bake Oven Building shall stand in Landowner's place in defending against, and shall bear the cost of resolving any claim arising from Hearthstone Custom Bake Oven Building's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Hearthstone Custom Bake Oven Building",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: duty-to-defend"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-09",
+    "label": "positive",
+    "text": "8. Risk Allocation. Ivorygate Custom Piano Case Restoration shall protect Landowner from, and satisfy on Landowner's behalf, any claim arising from any claim arising from Ivorygate Custom Piano Case Restoration's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Ivorygate Custom Piano Case Restoration",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: protection"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-10",
+    "label": "positive",
+    "text": "8. Risk Allocation. Junebrook Custom Springhouse Repair agrees to answer for, and to save Landowner harmless from any claim arising from Junebrook Custom Springhouse Repair's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Junebrook Custom Springhouse Repair",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: answer-for"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-11",
+    "label": "positive",
+    "text": "8. Risk Allocation. Kestrelfen Custom Dovecote Building shall bear full responsibility for defending and satisfying, on Landowner's behalf, any claim arising from Kestrelfen Custom Dovecote Building's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Kestrelfen Custom Dovecote Building",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-reordered"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-12",
+    "label": "positive",
+    "text": "8. Risk Allocation. Larchwood Custom Timber Bridge Repair shall bear full responsibility for defending and satisfying any claim on Landowner's behalf, arising from any claim arising from Larchwood Custom Timber Bridge Repair's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Larchwood Custom Timber Bridge Repair",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-canonical-order"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-13",
+    "label": "positive",
+    "text": "8. Risk Allocation. Marrowfield Custom Threshing Floor Repair undertakes to make Landowner whole for, and to assume the defense of any claim arising from Marrowfield Custom Threshing Floor Repair's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Marrowfield Custom Threshing Floor Repair",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: make-whole-canonical"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-14",
+    "label": "positive",
+    "text": "8. Risk Allocation. Nightshade Custom Herb Garden Design shall indemnify, defend, and hold harmless Landowner from any claim arising from Nightshade Custom Herb Garden Design's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Nightshade Custom Herb Garden Design",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: canonical"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-15",
+    "label": "positive",
+    "text": "8. Risk Allocation. Oxbridge Custom Punt Boat Building shall indemnify and hold Landowner harmless from any claim arising from Oxbridge Custom Punt Boat Building's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Oxbridge Custom Punt Boat Building",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: canonical-variant"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-16",
+    "label": "positive",
+    "text": "8. Risk Allocation. Pinewick Custom Sawmill Servicing shall be responsible for, and shall reimburse Landowner in full for any claim arising from Pinewick Custom Sawmill Servicing's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Pinewick Custom Sawmill Servicing",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: reimbursement"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-17",
+    "label": "positive",
+    "text": "8. Risk Allocation. Quillfen Custom Feather Duster Making shall assume all liability for, and undertakes to make Landowner whole in respect of any claim arising from Quillfen Custom Feather Duster Making's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Quillfen Custom Feather Duster Making",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: loss-bearing"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-18",
+    "label": "positive",
+    "text": "8. Risk Allocation. Rosemere Custom Rose Arbor Building shall stand in Landowner's place in defending against, and shall bear the cost of resolving any claim arising from Rosemere Custom Rose Arbor Building's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Rosemere Custom Rose Arbor Building",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: duty-to-defend"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-19",
+    "label": "positive",
+    "text": "8. Risk Allocation. Stonebrook Custom Millwheel Repair shall protect Landowner from, and satisfy on Landowner's behalf, any claim arising from any claim arising from Stonebrook Custom Millwheel Repair's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Stonebrook Custom Millwheel Repair",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: protection"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-20",
+    "label": "positive",
+    "text": "8. Risk Allocation. Thatchgate Custom Roof Thatching agrees to answer for, and to save Landowner harmless from any claim arising from Thatchgate Custom Roof Thatching's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Thatchgate Custom Roof Thatching",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: answer-for"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-21",
+    "label": "positive",
+    "text": "8. Risk Allocation. Underbrook Custom Ford Crossing Repair shall bear full responsibility for defending and satisfying, on Landowner's behalf, any claim arising from Underbrook Custom Ford Crossing Repair's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Underbrook Custom Ford Crossing Repair",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-reordered"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-22",
+    "label": "positive",
+    "text": "8. Risk Allocation. Vinehollow Custom Grape Press Building shall bear full responsibility for defending and satisfying any claim on Landowner's behalf, arising from any claim arising from Vinehollow Custom Grape Press Building's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Vinehollow Custom Grape Press Building",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: bear-responsibility-canonical-order"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-23",
+    "label": "positive",
+    "text": "8. Risk Allocation. Windmere Custom Windmill Sail Repair undertakes to make Landowner whole for, and to assume the defense of any claim arising from Windmere Custom Windmill Sail Repair's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Windmere Custom Windmill Sail Repair",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: make-whole-canonical"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-24",
+    "label": "positive",
+    "text": "8. Risk Allocation. Yewbridge Custom Footbridge Repair shall indemnify, defend, and hold harmless Landowner from any claim arising from Yewbridge Custom Footbridge Repair's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Yewbridge Custom Footbridge Repair",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: canonical"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-25",
+    "label": "positive",
+    "text": "8. Risk Allocation. Zestholm Custom Orchard Ladder Building shall indemnify and hold Landowner harmless from any claim arising from Zestholm Custom Orchard Ladder Building's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Zestholm Custom Orchard Ladder Building",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: canonical-variant"
+  },
+  {
+    "id": "S49-REC-POS-FINAL-26",
+    "label": "positive",
+    "text": "8. Risk Allocation. Ashcroft Custom Well Pump Repair shall be responsible for, and shall reimburse Landowner in full for any claim arising from Ashcroft Custom Well Pump Repair's negligence in connection with the work described in Exhibit A.",
+    "kwargs": {
+      "contract_side": "sell_side"
+    },
+    "discover_expected": true,
+    "structure_expected": "ESTABLISHED",
+    "actor": "Ashcroft Custom Well Pump Repair",
+    "beneficiary": "Landowner",
+    "direction": "exposure",
+    "note": "verb family: reimbursement"
+  },
+  {
+    "id": "S49-REC-NEG-INS-01",
+    "label": "negative",
+    "text": "12. Insurance. Alderfen Custom Rope Access Services shall maintain commercial general liability insurance with limits of not less than $2,000,000 per occurrence, and shall provide Client with a certificate of insurance evidencing such coverage upon request.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "insurance requirement, no risk-transfer obligation stated"
+  },
+  {
+    "id": "S49-REC-NEG-INS-02",
+    "label": "negative",
+    "text": "12. Insurance. Briskwater Custom Tunnel Lighting shall maintain commercial general liability insurance with limits of not less than $2,000,000 per occurrence, and shall provide Client with a certificate of insurance evidencing such coverage upon request.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "insurance requirement, no risk-transfer obligation stated"
+  },
+  {
+    "id": "S49-REC-NEG-INS-03",
+    "label": "negative",
+    "text": "12. Insurance. Cragmoor Custom Avalanche Barrier Install shall maintain commercial general liability insurance with limits of not less than $2,000,000 per occurrence, and shall provide Client with a certificate of insurance evidencing such coverage upon request.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "insurance requirement, no risk-transfer obligation stated"
+  },
+  {
+    "id": "S49-REC-NEG-LOL-01",
+    "label": "negative",
+    "text": "9. Limitation of Liability. Duskwell Custom Elevator Cab Refinishing's aggregate liability to Client shall not exceed one (1) times the annual fees paid.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary liability cap, not a risk-transfer/indemnity obligation"
+  },
+  {
+    "id": "S49-REC-NEG-LOL-02",
+    "label": "negative",
+    "text": "9. Limitation of Liability. Emberline Custom Cold Room Install's aggregate liability to Client shall not exceed one (1) times the annual fees paid.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary liability cap, not a risk-transfer/indemnity obligation"
+  },
+  {
+    "id": "S49-REC-NEG-WARR-01",
+    "label": "negative",
+    "text": "7. Warranty. Frostgate Custom Skylight Sealing warrants that all work will be free from defects in materials and workmanship for a period of two years, and shall repair or replace any defective work at no additional cost.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "warranty repair-or-replace remedy, not indemnity"
+  },
+  {
+    "id": "S49-REC-NEG-WARR-02",
+    "label": "negative",
+    "text": "7. Warranty. Graveltide Custom Retaining Wall Build warrants that all work will be free from defects in materials and workmanship for a period of two years, and shall repair or replace any defective work at no additional cost.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "warranty repair-or-replace remedy, not indemnity"
+  },
+  {
+    "id": "S49-REC-NEG-DMG-01",
+    "label": "negative",
+    "text": "10. Liquidated Damages. Hollowfield Custom Grain Bin Repair shall pay liquidated damages of $500 per day for each day of delay beyond the agreed completion date, subject to a cap of $15,000.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "liquidated damages, not risk-transfer"
+  },
+  {
+    "id": "S49-REC-NEG-DMG-02",
+    "label": "negative",
+    "text": "10. Liquidated Damages. Ironwood Custom Sluice Gate Building shall pay liquidated damages of $500 per day for each day of delay beyond the agreed completion date, subject to a cap of $15,000.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "liquidated damages, not risk-transfer"
+  },
+  {
+    "id": "S49-REC-NEG-PAY-01",
+    "label": "negative",
+    "text": "6. Payment. Client shall pay Junipergrove Custom Root Cellar Digging within 30 days of invoice, and shall bear responsibility for remitting payment on the schedule set forth in Exhibit B.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "'bear responsibility for remitting payment' is a payment obligation, not risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-PAY-02",
+    "label": "negative",
+    "text": "6. Payment. Client shall pay Kettlebrook Custom Sluiceway Repair within 30 days of invoice, and shall bear responsibility for remitting payment on the schedule set forth in Exhibit B.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "'bear responsibility for remitting payment' is a payment obligation, not risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-REF-01",
+    "label": "negative",
+    "text": "11. Refunds. Larchmont Custom Weathervane Polishing shall reimburse Client for any prepaid amounts attributable to services not rendered, within 15 days of Client's written request.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "'reimburse' used for an ordinary refund of unrendered fees, not a third-party claim"
+  },
+  {
+    "id": "S49-REC-NEG-REF-02",
+    "label": "negative",
+    "text": "11. Refunds. Millhaven Custom Grist Stone Dressing shall reimburse Client for any prepaid amounts attributable to services not rendered, within 15 days of Client's written request.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "'reimburse' used for an ordinary refund of unrendered fees, not a third-party claim"
+  },
+  {
+    "id": "S49-REC-NEG-BR-01",
+    "label": "negative",
+    "text": "13. Remedies. In the event of a material breach by Nettlefield Custom Cistern Lining, Client may terminate this Agreement upon 30 days' written notice and pursue any remedy available at law or in equity.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary breach/termination remedy, no risk-transfer language"
+  },
+  {
+    "id": "S49-REC-NEG-BR-02",
+    "label": "negative",
+    "text": "13. Remedies. In the event of a material breach by Oxwood Custom Barn Door Track Repair, Client may terminate this Agreement upon 30 days' written notice and pursue any remedy available at law or in equity.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary breach/termination remedy, no risk-transfer language"
+  },
+  {
+    "id": "S49-REC-NEG-DEF-01",
+    "label": "negative",
+    "text": "14. Litigation Cooperation. Pemberton Custom Chimney Cap Fabrication shall reasonably cooperate with Client and provide requested documents and witnesses in connection with any litigation involving Client, at Client's expense.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "procedural litigation cooperation without any assumption of liability"
+  },
+  {
+    "id": "S49-REC-NEG-DEF-02",
+    "label": "negative",
+    "text": "14. Litigation Cooperation. Quarrystone Custom Foundation Underpinning shall reasonably cooperate with Client and provide requested documents and witnesses in connection with any litigation involving Client, at Client's expense.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "procedural litigation cooperation without any assumption of liability"
+  },
+  {
+    "id": "S49-REC-NEG-RESP-01",
+    "label": "negative",
+    "text": "5. Scope of Work. Ravensfield Custom Silo Ladder Install shall be responsible for supplying all materials, tools, and labor necessary to complete the work described in Exhibit A on schedule.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "'shall be responsible for' describing ordinary performance scope, not a third-party claim obligation"
+  },
+  {
+    "id": "S49-REC-NEG-RESP-02",
+    "label": "negative",
+    "text": "5. Scope of Work. Sablewood Custom Grain Auger Repair shall be responsible for supplying all materials, tools, and labor necessary to complete the work described in Exhibit A on schedule.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "'shall be responsible for' describing ordinary performance scope, not a third-party claim obligation"
+  },
+  {
+    "id": "S49-REC-NEG-REL-01",
+    "label": "negative",
+    "text": "15. Release. Client releases Thornfield Custom Livestock Fence Repair from any claim arising from Client's own use of the completed work after final acceptance.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "a release running FROM Client TO the vendor \u2014 the inverse direction of indemnity, not itself an indemnity obligation"
+  },
+  {
+    "id": "S49-REC-NEG-REL-02",
+    "label": "negative",
+    "text": "15. Release. Client releases Underbrook Custom Spring Box Building from any claim arising from Client's own use of the completed work after final acceptance.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "a release running FROM Client TO the vendor \u2014 the inverse direction of indemnity, not itself an indemnity obligation"
+  },
+  {
+    "id": "S49-REC-NEG-HOLD-01",
+    "label": "negative",
+    "text": "16. Confidentiality. Vinemoor Custom Trellis Repair shall hold Client's confidential information in strict confidence and shall not disclose it to any third party without prior written consent.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "'hold...in confidence' \u2014 a confidentiality obligation, not 'hold harmless'"
+  },
+  {
+    "id": "S49-REC-NEG-HOLD-02",
+    "label": "negative",
+    "text": "16. Confidentiality. Wickford Custom Hay Loft Repair shall hold Client's confidential information in strict confidence and shall not disclose it to any third party without prior written consent.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "'hold...in confidence' \u2014 a confidentiality obligation, not 'hold harmless'"
+  },
+  {
+    "id": "S49-REC-NEG-MISC-01",
+    "label": "negative",
+    "text": "17. Force Majeure. Neither party shall be liable for delay caused by events beyond its reasonable control, including acts of God, labor disputes, or governmental action.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer, entity name unused in clause body"
+  },
+  {
+    "id": "S49-REC-NEG-MISC-02",
+    "label": "negative",
+    "text": "18. Assignment. Neither party may assign this Agreement without the prior written consent of the other party, which consent shall not be unreasonably withheld.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer, entity name unused in clause body"
+  },
+  {
+    "id": "S49-REC-NEG-MISC-03",
+    "label": "negative",
+    "text": "19. Governing Law. This Agreement shall be governed by the laws of the State of Delaware, without regard to conflict-of-law principles.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer, entity name unused in clause body"
+  },
+  {
+    "id": "S49-REC-NEG-MISC-04",
+    "label": "negative",
+    "text": "20. Notices. All notices shall be sent by certified mail to the addresses set forth on the signature page of this Agreement.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer, entity name unused in clause body"
+  },
+  {
+    "id": "S49-REC-NEG-MISC-05",
+    "label": "negative",
+    "text": "21. Entire Agreement. This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, or agreements.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer, entity name unused in clause body"
+  },
+  {
+    "id": "S49-REC-NEG-MISC-06",
+    "label": "negative",
+    "text": "22. Severability. If any provision of this Agreement is held invalid, the remaining provisions shall continue in full force and effect.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer, entity name unused in clause body"
+  },
+  {
+    "id": "S49-REC-NEG-MISC-07",
+    "label": "negative",
+    "text": "23. Independent Contractor. The relationship of the parties is that of independent contractors, and nothing herein shall be construed to create a partnership or joint venture.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer, entity name unused in clause body"
+  },
+  {
+    "id": "S49-REC-NEG-MISC-08",
+    "label": "negative",
+    "text": "24. Non-Solicitation. Neither party shall solicit the other's employees for a period of one year following termination of this Agreement.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer, entity name unused in clause body"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-01",
+    "label": "negative",
+    "text": "17. Force Majeure. Neither party shall be liable for delay caused by events beyond its reasonable control, including acts of God, labor disputes, or governmental action.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-02",
+    "label": "negative",
+    "text": "18. Assignment. Neither party may assign this Agreement without the prior written consent of the other party, which consent shall not be unreasonably withheld.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-03",
+    "label": "negative",
+    "text": "19. Governing Law. This Agreement shall be governed by the laws of the State of Delaware, without regard to conflict-of-law principles.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-04",
+    "label": "negative",
+    "text": "20. Notices. All notices shall be sent by certified mail to the addresses set forth on the signature page of this Agreement.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-05",
+    "label": "negative",
+    "text": "21. Entire Agreement. This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, or agreements.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-06",
+    "label": "negative",
+    "text": "22. Severability. If any provision of this Agreement is held invalid, the remaining provisions shall continue in full force and effect.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-07",
+    "label": "negative",
+    "text": "23. Independent Contractor. The relationship of the parties is that of independent contractors, and nothing herein shall be construed to create a partnership or joint venture.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-08",
+    "label": "negative",
+    "text": "24. Non-Solicitation. Neither party shall solicit the other's employees for a period of one year following termination of this Agreement.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-09",
+    "label": "negative",
+    "text": "17. Force Majeure. Neither party shall be liable for delay caused by events beyond its reasonable control, including acts of God, labor disputes, or governmental action.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-10",
+    "label": "negative",
+    "text": "18. Assignment. Neither party may assign this Agreement without the prior written consent of the other party, which consent shall not be unreasonably withheld.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-11",
+    "label": "negative",
+    "text": "19. Governing Law. This Agreement shall be governed by the laws of the State of Delaware, without regard to conflict-of-law principles.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-12",
+    "label": "negative",
+    "text": "20. Notices. All notices shall be sent by certified mail to the addresses set forth on the signature page of this Agreement.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-13",
+    "label": "negative",
+    "text": "21. Entire Agreement. This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, or agreements.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-14",
+    "label": "negative",
+    "text": "22. Severability. If any provision of this Agreement is held invalid, the remaining provisions shall continue in full force and effect.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-15",
+    "label": "negative",
+    "text": "23. Independent Contractor. The relationship of the parties is that of independent contractors, and nothing herein shall be construed to create a partnership or joint venture.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-16",
+    "label": "negative",
+    "text": "24. Non-Solicitation. Neither party shall solicit the other's employees for a period of one year following termination of this Agreement.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-17",
+    "label": "negative",
+    "text": "17. Force Majeure. Neither party shall be liable for delay caused by events beyond its reasonable control, including acts of God, labor disputes, or governmental action.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-18",
+    "label": "negative",
+    "text": "18. Assignment. Neither party may assign this Agreement without the prior written consent of the other party, which consent shall not be unreasonably withheld.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-19",
+    "label": "negative",
+    "text": "19. Governing Law. This Agreement shall be governed by the laws of the State of Delaware, without regard to conflict-of-law principles.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-20",
+    "label": "negative",
+    "text": "20. Notices. All notices shall be sent by certified mail to the addresses set forth on the signature page of this Agreement.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-21",
+    "label": "negative",
+    "text": "21. Entire Agreement. This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, or agreements.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-22",
+    "label": "negative",
+    "text": "22. Severability. If any provision of this Agreement is held invalid, the remaining provisions shall continue in full force and effect.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-23",
+    "label": "negative",
+    "text": "23. Independent Contractor. The relationship of the parties is that of independent contractors, and nothing herein shall be construed to create a partnership or joint venture.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-24",
+    "label": "negative",
+    "text": "24. Non-Solicitation. Neither party shall solicit the other's employees for a period of one year following termination of this Agreement.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-25",
+    "label": "negative",
+    "text": "17. Force Majeure. Neither party shall be liable for delay caused by events beyond its reasonable control, including acts of God, labor disputes, or governmental action.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-26",
+    "label": "negative",
+    "text": "18. Assignment. Neither party may assign this Agreement without the prior written consent of the other party, which consent shall not be unreasonably withheld.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-27",
+    "label": "negative",
+    "text": "19. Governing Law. This Agreement shall be governed by the laws of the State of Delaware, without regard to conflict-of-law principles.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-28",
+    "label": "negative",
+    "text": "20. Notices. All notices shall be sent by certified mail to the addresses set forth on the signature page of this Agreement.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-29",
+    "label": "negative",
+    "text": "21. Entire Agreement. This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, or agreements.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-MISC2-30",
+    "label": "negative",
+    "text": "22. Severability. If any provision of this Agreement is held invalid, the remaining provisions shall continue in full force and effect.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-FINAL-01",
+    "label": "negative",
+    "text": "21. Entire Agreement. This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, or agreements.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-FINAL-02",
+    "label": "negative",
+    "text": "22. Severability. If any provision of this Agreement is held invalid, the remaining provisions shall continue in full force and effect.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-FINAL-03",
+    "label": "negative",
+    "text": "23. Independent Contractor. The relationship of the parties is that of independent contractors, and nothing herein shall be construed to create a partnership or joint venture.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-FINAL-04",
+    "label": "negative",
+    "text": "24. Non-Solicitation. Neither party shall solicit the other's employees for a period of one year following termination of this Agreement.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-FINAL-05",
+    "label": "negative",
+    "text": "17. Force Majeure. Neither party shall be liable for delay caused by events beyond its reasonable control, including acts of God, labor disputes, or governmental action.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-FINAL-06",
+    "label": "negative",
+    "text": "18. Assignment. Neither party may assign this Agreement without the prior written consent of the other party, which consent shall not be unreasonably withheld.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-FINAL-07",
+    "label": "negative",
+    "text": "19. Governing Law. This Agreement shall be governed by the laws of the State of Delaware, without regard to conflict-of-law principles.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-FINAL-08",
+    "label": "negative",
+    "text": "20. Notices. All notices shall be sent by certified mail to the addresses set forth on the signature page of this Agreement.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-FINAL-09",
+    "label": "negative",
+    "text": "21. Entire Agreement. This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, or agreements.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-FINAL-10",
+    "label": "negative",
+    "text": "22. Severability. If any provision of this Agreement is held invalid, the remaining provisions shall continue in full force and effect.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-FINAL-11",
+    "label": "negative",
+    "text": "23. Independent Contractor. The relationship of the parties is that of independent contractors, and nothing herein shall be construed to create a partnership or joint venture.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-FINAL-12",
+    "label": "negative",
+    "text": "24. Non-Solicitation. Neither party shall solicit the other's employees for a period of one year following termination of this Agreement.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "ordinary boilerplate clause unrelated to risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-CLOSE-01",
+    "label": "negative",
+    "text": "8. Service Standards. Vendor shall be responsible for maintaining service levels described in Exhibit C and shall remediate any deficiency identified during the quarterly review.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "'responsible for' + 'remediate' describing SLA performance, not risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-CLOSE-02",
+    "label": "negative",
+    "text": "8. Quality Assurance. Vendor shall assume responsibility for final inspection of all units prior to shipment and shall bear the cost of any rework required to meet specification.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "'assume responsibility' + 'bear the cost' describing internal QA rework, no third party involved"
+  },
+  {
+    "id": "S49-REC-NEG-CLOSE-03",
+    "label": "negative",
+    "text": "8. Support Obligations. Vendor shall protect the integrity of Client's production environment and shall satisfy all service-level commitments described in the Support Addendum.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "'protect' + 'satisfy' describing operational commitments, not a claim/loss context"
+  },
+  {
+    "id": "S49-REC-NEG-CLOSE-04",
+    "label": "negative",
+    "text": "8. Escrow. The parties shall deposit disputed funds into escrow pending resolution, and the escrow agent shall hold such funds harmless from claims by either party pending release.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "'hold...harmless' used in an escrow-mechanics sense, not third-party indemnity"
+  },
+  {
+    "id": "S49-REC-NEG-CLOSE-05",
+    "label": "negative",
+    "text": "8. Data Backup. Vendor shall reimburse Client's IT department for reasonable costs incurred in restoring data from backup following a scheduled maintenance window, up to $500 per incident.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "'reimburse' for a routine operational cost, not a third-party claim"
+  },
+  {
+    "id": "S49-REC-NEG-CLOSE-06",
+    "label": "negative",
+    "text": "8. Facility Access. Contractor's personnel shall be responsible for badge check-in and shall answer for any lost access credentials by paying a $50 replacement fee.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "'responsible for' + 'answer for' describing a badge-replacement fee, not risk transfer"
+  },
+  {
+    "id": "S49-REC-NEG-CLOSE-07",
+    "label": "negative",
+    "text": "8. Equipment Return. Lessee shall bear the cost of any damage to leased equipment beyond normal wear and tear upon return, as assessed by Lessor's inspection.",
+    "kwargs": {},
+    "discover_expected": false,
+    "structure_expected": null,
+    "actor": null,
+    "beneficiary": null,
+    "direction": null,
+    "note": "'bear the cost' for equipment condition on return, a lease mechanic not risk transfer"
+  }
+]

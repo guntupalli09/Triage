@@ -1,0 +1,58 @@
+
+=== SYMMETRY BENCHMARK (PRE) ===
+{'CS': 19, 'CR': 29, 'CA': 18, 'FS': 54, 'FE_missed_ambiguity': 12}
+FS (False Symmetry, dangerous) count: 54
+  SYM-047 [claim_category]: Each party shall indemnify the other for claims arising from this Agreement; provided that Vendor's 
+  SYM-048 [claim_category]: Each party shall indemnify the other for claims arising from this Agreement; provided that Contracto
+  SYM-049 [claim_category]: Each party shall indemnify the other for claims arising from this Agreement; provided that Licensee'
+  SYM-050 [claim_category]: Each party shall indemnify the other for claims arising from this Agreement; provided that Servicer'
+  SYM-051 [claim_category]: Each party shall indemnify the other for claims arising from this Agreement; provided that Supplier'
+  SYM-052 [claim_category]: Each party shall indemnify the other for claims arising from this Agreement; provided that Distribut
+  SYM-059 [monetary_treatment]: Each party shall indemnify the other for claims arising from this Agreement; provided that Vendor's 
+  SYM-060 [monetary_treatment]: Each party shall indemnify the other for claims arising from this Agreement; provided that Contracto
+  SYM-061 [monetary_treatment]: Each party shall indemnify the other for claims arising from this Agreement; provided that Licensee'
+  SYM-062 [monetary_treatment]: Each party shall indemnify the other for claims arising from this Agreement; provided that Servicer'
+  SYM-063 [monetary_treatment]: Each party shall indemnify the other for claims arising from this Agreement; provided that Supplier'
+  SYM-064 [monetary_treatment]: Each party shall indemnify the other for claims arising from this Agreement; provided that Distribut
+  SYM-065 [exception_proviso]: Each party shall indemnify the other for claims arising from this Agreement, except that Vendor's ob
+  SYM-066 [exception_proviso]: Each party shall indemnify the other for claims arising from this Agreement, except that Contractor'
+  SYM-067 [exception_proviso]: Each party shall indemnify the other for claims arising from this Agreement, except that Licensee's 
+  SYM-068 [exception_proviso]: Each party shall indemnify the other for claims arising from this Agreement, except that Servicer's 
+  SYM-069 [exception_proviso]: Each party shall indemnify the other for claims arising from this Agreement, except that Supplier's 
+  SYM-070 [exception_proviso]: Each party shall indemnify the other for claims arising from this Agreement, except that Distributor
+  SYM-071 [conditional_applicability]: Each party shall indemnify the other for claims arising from this Agreement; provided, however, that
+  SYM-072 [conditional_applicability]: Each party shall indemnify the other for claims arising from this Agreement; provided, however, that
+  SYM-073 [conditional_applicability]: Each party shall indemnify the other for claims arising from this Agreement; provided, however, that
+  SYM-074 [conditional_applicability]: Each party shall indemnify the other for claims arising from this Agreement; provided, however, that
+  SYM-075 [conditional_applicability]: Each party shall indemnify the other for claims arising from this Agreement; provided, however, that
+  SYM-076 [conditional_applicability]: Each party shall indemnify the other for claims arising from this Agreement; provided, however, that
+  SYM-077 [first_third_party]: Each party shall indemnify the other for claims arising from this Agreement; provided that Vendor's 
+  SYM-078 [first_third_party]: Each party shall indemnify the other for claims arising from this Agreement; provided that Contracto
+  SYM-079 [first_third_party]: Each party shall indemnify the other for claims arising from this Agreement; provided that Licensee'
+  SYM-080 [first_third_party]: Each party shall indemnify the other for claims arising from this Agreement; provided that Servicer'
+  SYM-081 [first_third_party]: Each party shall indemnify the other for claims arising from this Agreement; provided that Supplier'
+  SYM-082 [first_third_party]: Each party shall indemnify the other for claims arising from this Agreement; provided that Distribut
+  SYM-083 [negligence_fault_standard]: Each party shall indemnify the other for claims arising from its own acts; provided that Vendor is l
+  SYM-084 [negligence_fault_standard]: Each party shall indemnify the other for claims arising from its own acts; provided that Contractor 
+  SYM-085 [negligence_fault_standard]: Each party shall indemnify the other for claims arising from its own acts; provided that Licensee is
+  SYM-086 [negligence_fault_standard]: Each party shall indemnify the other for claims arising from its own acts; provided that Servicer is
+  SYM-087 [negligence_fault_standard]: Each party shall indemnify the other for claims arising from its own acts; provided that Supplier is
+  SYM-088 [negligence_fault_standard]: Each party shall indemnify the other for claims arising from its own acts; provided that Distributor
+  SYM-089 [scope_difference]: Each party shall indemnify the other for claims arising from this Agreement; provided that Vendor's 
+  SYM-090 [scope_difference]: Each party shall indemnify the other for claims arising from this Agreement; provided that Contracto
+  SYM-091 [scope_difference]: Each party shall indemnify the other for claims arising from this Agreement; provided that Licensee'
+  SYM-092 [scope_difference]: Each party shall indemnify the other for claims arising from this Agreement; provided that Servicer'
+  SYM-093 [scope_difference]: Each party shall indemnify the other for claims arising from this Agreement; provided that Supplier'
+  SYM-094 [scope_difference]: Each party shall indemnify the other for claims arising from this Agreement; provided that Distribut
+  SYM-095 [cross_reference]: Each party shall indemnify the other for claims arising from this Agreement, subject to the limitati
+  SYM-096 [cross_reference]: Each party shall indemnify the other for claims arising from this Agreement, subject to the limitati
+  SYM-097 [cross_reference]: Each party shall indemnify the other for claims arising from this Agreement, subject to the limitati
+  SYM-098 [cross_reference]: Each party shall indemnify the other for claims arising from this Agreement, subject to the limitati
+  SYM-099 [cross_reference]: Each party shall indemnify the other for claims arising from this Agreement, subject to the limitati
+  SYM-100 [cross_reference]: Each party shall indemnify the other for claims arising from this Agreement, subject to the limitati
+  SYM-101 [temporal_survival]: Each party shall indemnify the other for claims arising from this Agreement; provided that Vendor's 
+  SYM-102 [temporal_survival]: Each party shall indemnify the other for claims arising from this Agreement; provided that Contracto
+  SYM-103 [temporal_survival]: Each party shall indemnify the other for claims arising from this Agreement; provided that Licensee'
+  SYM-104 [temporal_survival]: Each party shall indemnify the other for claims arising from this Agreement; provided that Servicer'
+  SYM-105 [temporal_survival]: Each party shall indemnify the other for claims arising from this Agreement; provided that Supplier'
+  SYM-106 [temporal_survival]: Each party shall indemnify the other for claims arising from this Agreement; provided that Distribut

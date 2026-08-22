@@ -1,0 +1,710 @@
+{
+  "rows": [
+    {
+      "id": "mb-r1-01",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "attack": "missing_participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r1-02",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "attack": "unresolved_participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r1-03",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "attack": "conflicting_participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r1-04",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "attack": "false_applicability",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "within_general_cap is NOT uncapped/super_cap -- must not falsely fire"
+    },
+    {
+      "id": "mb-r1-05",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "attack": "insufficient_evidence_bare_category",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "liability has no ip_infringement category entry at all -- must not fire on absence-as-uncapped"
+    },
+    {
+      "id": "mb-r1-06",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "attack": "duplicated_participant_category",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "GTD: corrected ground truth -- dict-building (_by_category) keeps the LAST duplicate entry (within_general_cap), which is not uncapped/super_cap, so the rule correctly does NOT fire. Original expected value (ESCALATE) was a corpus-authoring error contradicting this case's own notes; verified directly via _by_category before correcting. Safe-direction mismatch (NOT_TRIGGERED, not a false fire), not a production defect."
+    },
+    {
+      "id": "mb-r1-07",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "attack": "one_safe_one_unsafe_a",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": false,
+      "notes": "liability side is 'unsafe' (uncapped) but indemnification absent -- must not fire on the unsafe side alone"
+    },
+    {
+      "id": "mb-r1-08",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "attack": "one_safe_one_unsafe_b",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "indemnification side resolved+covered but liability side benign -- correctly does not fire"
+    },
+    {
+      "id": "mb-r1-09",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "attack": "uncertainty_laundering_wrong_category_present",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "an unresolved OTHER category must not be laundered into firing this ip_infringement-specific rule"
+    },
+    {
+      "id": "mb-r1-10",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "attack": "wrong_owner_wrong_clause_type_key",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "a third, non-participating decision (insurance) present in the dict must not affect rule 1's own two-participant evaluation"
+    },
+    {
+      "id": "mb-r2-01",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "attack": "missing_participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r2-02",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "attack": "unresolved_participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r2-03",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "attack": "false_applicability_ip_excluded",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "ip_infringement is deliberately excluded from rule 2 (rule 1's job) -- must not double-fire"
+    },
+    {
+      "id": "mb-r2-04",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "attack": "insufficient_evidence_no_categories",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r2-05",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "attack": "duplicated_participant_categories",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "3 matching categories must merge into ONE finding, not 3 separate fires"
+    },
+    {
+      "id": "mb-r2-06",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "attack": "one_safe_one_unsafe",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "indemnification does not COVER this category -- must not fire on liability's exposure alone"
+    },
+    {
+      "id": "mb-r2-07",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "attack": "uncertainty_laundering_partial_categories",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "data_breach genuinely matches (fires correctly); confidentiality's unresolved status must not be silently folded into the same finding as if resolved"
+    },
+    {
+      "id": "mb-r2-08",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "attack": "wrong_direction_na",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": false,
+      "notes": ""
+    },
+    {
+      "id": "mb-r2-09",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "attack": "false_applicability_super_cap_still_fires",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "super_cap is a genuine trigger condition, not a false positive -- must fire"
+    },
+    {
+      "id": "mb-r2-10",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "attack": "bystander_third_decision",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "unrelated termination decision present must not affect this rule's own evaluation"
+    },
+    {
+      "id": "mb-r3-01",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "attack": "missing_participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r3-02",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "attack": "unresolved_participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r3-03",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "attack": "false_applicability_uncapped_excluded",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "uncapped must route to rules 1/2, never double-report as a benign dependency too"
+    },
+    {
+      "id": "mb-r3-04",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "attack": "insufficient_evidence_no_category",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r3-05",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "attack": "one_safe_one_unsafe",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "indemnification EXCLUDES the category -- no exposure to be inside the cap, must not fire"
+    },
+    {
+      "id": "mb-r3-06",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "attack": "duplicated_categories_merge",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "both categories qualify -- must merge into one finding"
+    },
+    {
+      "id": "mb-r3-07",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "attack": "ceiling_never_exceeds_accept_with_note",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "rule's ceiling_state is ACCEPT_WITH_NOTE -- can never escalate past it even under attack framing"
+    },
+    {
+      "id": "mb-r3-08",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "attack": "wrong_participant_key",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "wrong clause_type key (insurance) supplied instead of limitation_of_liability -- must gate, not misread"
+    },
+    {
+      "id": "mb-r3-09",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "attack": "bystander_third_decision",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "unrelated sla decision must not affect this rule"
+    },
+    {
+      "id": "mb-r4-01",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "attack": "missing_participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r4-02",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "attack": "whole_decision_requires_review_gates_first",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "decision-level REQUIRES_REVIEW gates before rule 4's own category-level check ever runs"
+    },
+    {
+      "id": "mb-r4-03",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "attack": "false_applicability_no_ambiguity",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r4-04",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "attack": "insufficient_evidence_no_categories",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r4-05",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "attack": "conflicting_both_categories_unresolved",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "both sides ambiguous on the SAME category -- must resolve to review, listed once"
+    },
+    {
+      "id": "mb-r4-06",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "attack": "one_safe_one_unsafe_indemnification_side",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "liability side is clean but indemnification's own category is ambiguous -- must still surface"
+    },
+    {
+      "id": "mb-r4-07",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "attack": "uncertainty_laundering_multiple_categories_one_ambiguous",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "data_breach is clean but willful_misconduct is ambiguous -- the ambiguous category must not be laundered away by the clean one"
+    },
+    {
+      "id": "mb-r4-08",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "attack": "duplicated_category_entries",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "documents actual last-wins dict behavior on duplicate categories -- last entry (within_general_cap) overwrites the ambiguous one"
+    },
+    {
+      "id": "mb-r4-09",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "attack": "bystander_third_decision",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "unrelated insurance ambiguity must not affect this rule's own two-participant scope"
+    },
+    {
+      "id": "mb-r5-01",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "attack": "missing_participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r5-02",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "attack": "unresolved_participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r5-03",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "attack": "false_applicability_established_insurance",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "insurance IS established -- must not fire"
+    },
+    {
+      "id": "mb-r5-04",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "attack": "wrong_owner_wrong_category_mapping",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "confidentiality is not data_breach -- this rule is scoped to data_breach only, must not generalize"
+    },
+    {
+      "id": "mb-r5-05",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "attack": "insufficient_evidence_no_insurance_coverage_entry",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "no cyber_liability category entry present at all -- must not assume not-established"
+    },
+    {
+      "id": "mb-r5-06",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "attack": "duplicated_insurance_entries",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "documents last-wins on duplicate insurance entries -- established=True wins"
+    },
+    {
+      "id": "mb-r5-07",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "attack": "one_safe_one_unsafe",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "liability side is benign (within_general_cap) -- missing insurance alone is not the trigger"
+    },
+    {
+      "id": "mb-r5-08",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "attack": "insurance_not_applicable",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": false,
+      "notes": "no insurance clause at all is NOT the same as 'established=False' -- must gate as insufficient facts, never silently treated as evidence of the conflict"
+    },
+    {
+      "id": "mb-r5-09",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "attack": "bystander_third_decision",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "unrelated indemnification decision present must not change rule 5's own two-participant evaluation"
+    },
+    {
+      "id": "mb-r6-01",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "attack": "missing_participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r6-02",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "attack": "unresolved_participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r6-03",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "attack": "false_applicability_notice_and_cure",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "termination right has notice/cure -- immediate is required to fire"
+    },
+    {
+      "id": "mb-r6-04",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "attack": "wrong_direction_our_own_right_never_in_category_treatments",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "fires correctly when the adapter has already scoped this to a counterparty-held right (verified upstream, not re-checked by this rule)"
+    },
+    {
+      "id": "mb-r6-05",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "attack": "insufficient_evidence_withholdable_none",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "withholdable fact never established -- must not assume True"
+    },
+    {
+      "id": "mb-r6-06",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "attack": "insufficient_evidence_withholdable_explicit_false",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r6-07",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "attack": "one_safe_one_unsafe",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "payment side is 'unsafe' (withholdable=True) but termination side is benign -- must not fire on one side alone"
+    },
+    {
+      "id": "mb-r6-08",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "attack": "missing_category_entry",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "no non_payment category entry at all -- must not assume immediate"
+    },
+    {
+      "id": "mb-r6-09",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "attack": "bystander_third_decision",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "unrelated sla decision must not change this rule's own evaluation"
+    },
+    {
+      "id": "mb-r7-01",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "attack": "missing_participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r7-02",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "attack": "unresolved_participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r7-03",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "attack": "false_applicability_one_false",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r7-04",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "attack": "insufficient_evidence_both_unestablished",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r7-05",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "attack": "one_safe_one_unsafe",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "payment side unestablished (None) despite sla True -- must not fire"
+    },
+    {
+      "id": "mb-r7-06",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "attack": "sla_not_applicable",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": false,
+      "notes": ""
+    },
+    {
+      "id": "mb-r7-07",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "attack": "payment_evaluation_error",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "mb-r7-08",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "attack": "ceiling_never_exceeds_requires_review",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "rule's ceiling_state is REQUIRES_REVIEW -- can never escalate past it"
+    },
+    {
+      "id": "mb-r7-09",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "attack": "bystander_third_decision",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "unrelated termination decision must not affect this rule"
+    },
+    {
+      "id": "mb-r3-10",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "attack": "wrong_participant_key_swap",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "limitation_of_liability key entirely absent (termination substituted) -- must gate, not misread termination's category_treatments as liability's"
+    },
+    {
+      "id": "mb-r4-10",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "attack": "wrong_participant_key_swap",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "limitation_of_liability key absent -- must gate"
+    },
+    {
+      "id": "mb-r5-10",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "attack": "wrong_participant_key_swap",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "limitation_of_liability key absent (termination substituted) -- must gate"
+    },
+    {
+      "id": "mb-r6-10",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "attack": "wrong_participant_key_swap",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "termination key absent (sla substituted) -- must gate"
+    },
+    {
+      "id": "mb-r7-10",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "attack": "wrong_participant_key_swap",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "sla key absent (insurance substituted) -- must gate"
+    }
+  ],
+  "metrics": {
+    "false_authoritative_interaction": [],
+    "uncertainty_laundering": [],
+    "missing_evidence_interaction": [],
+    "wrong_state_other_mismatch": []
+  }
+}

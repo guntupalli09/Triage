@@ -1,0 +1,82 @@
+=== OVERALL ===
+{'CS': 16, 'CR': 24, 'CA': 58, 'FS': 58, 'WC': 26}
+
+=== BY TIER (asymmetric+symmetric only) ===
+Tier 1 (n=86): {'CS': 16, 'CR': 10, 'CA': 30, 'FS': 30}
+Tier 2 (n=26): {'CR': 14, 'CA': 6, 'FS': 6}
+Tier 3 (n=44): {'CA': 22, 'FS': 22}
+
+=== BY DIMENSION FAMILY (asymmetric only) ===
+  causation_standard (n=8): {'CA': 8}
+  claim_category (n=8): {'CA': 8}
+  defense_control (n=8): {'FS': 8}
+  monetary_treatment (n=8): {'FS': 8}
+  proviso_exception (n=8): {'CA': 8}
+  conditional_applicability (n=8): {'CA': 8}
+  first_third_party (n=8): {'FS': 8}
+  negligence_fault_standard (n=8): {'CA': 8}
+  scope_geographic (n=8): {'FS': 8}
+  cross_reference_schedule (n=8): {'FS': 8}
+  temporal_survival (n=8): {'FS': 8}
+  compound_multi_dimension (n=8): {'CA': 8}
+  compound (n=20): {'FS': 10, 'CA': 10}
+
+FS (dangerous) total: 58
+  FRESH103-0057 [['defense_control']] tier=1: Each party shall indemnify the other for third-party claims; Charterer keeps sole command over the d
+  FRESH103-0058 [['defense_control']] tier=1: Each party shall indemnify the other for third-party claims; Escrow Agent keeps sole command over th
+  FRESH103-0059 [['defense_control']] tier=1: Each party shall indemnify the other for third-party claims; Third-Party Administrator keeps sole co
+  FRESH103-0060 [['defense_control']] tier=1: Each party shall indemnify the other for third-party claims; Ceding Company keeps sole command over 
+  FRESH103-0061 [['defense_control']] tier=1: Each party shall indemnify the other for third-party claims; Warehouse Operator keeps sole command o
+  FRESH103-0062 [['defense_control']] tier=2: Each party shall indemnify the other for third-party claims; Toll Manufacturer keeps sole command ov
+  FRESH103-0063 [['defense_control']] tier=3: Each party shall indemnify the other for third-party claims; Syndicate Lead keeps sole command over 
+  FRESH103-0064 [['defense_control']] tier=3: Each party shall indemnify the other for third-party claims; Booking Agent keeps sole command over t
+  FRESH103-0065 [['monetary_treatment']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Charterer's exposure t
+  FRESH103-0066 [['monetary_treatment']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent's exposur
+  FRESH103-0067 [['monetary_treatment']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Third-Party Administra
+  FRESH103-0068 [['monetary_treatment']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Ceding Company's expos
+  FRESH103-0069 [['monetary_treatment']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator's e
+  FRESH103-0070 [['monetary_treatment']] tier=2: Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer's ex
+  FRESH103-0071 [['monetary_treatment']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Syndicate Lead's expos
+  FRESH103-0072 [['monetary_treatment']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Booking Agent's exposu
+  FRESH103-0089 [['first_third_party']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Charterer's duty stret
+  FRESH103-0090 [['first_third_party']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent's duty st
+  FRESH103-0091 [['first_third_party']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Third-Party Administra
+  FRESH103-0092 [['first_third_party']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Ceding Company's duty 
+  FRESH103-0093 [['first_third_party']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator's d
+  FRESH103-0094 [['first_third_party']] tier=2: Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer's du
+  FRESH103-0095 [['first_third_party']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Syndicate Lead's duty 
+  FRESH103-0096 [['first_third_party']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Booking Agent's duty s
+  FRESH103-0105 [['scope_geographic']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Charterer's duty reach
+  FRESH103-0106 [['scope_geographic']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent's duty re
+  FRESH103-0107 [['scope_geographic']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Third-Party Administra
+  FRESH103-0108 [['scope_geographic']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Ceding Company's duty 
+  FRESH103-0109 [['scope_geographic']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator's d
+  FRESH103-0110 [['scope_geographic']] tier=2: Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer's du
+  FRESH103-0111 [['scope_geographic']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Syndicate Lead's duty 
+  FRESH103-0112 [['scope_geographic']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Booking Agent's duty r
+  FRESH103-0113 [['cross_reference_schedule']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds
+  FRESH103-0114 [['cross_reference_schedule']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds
+  FRESH103-0115 [['cross_reference_schedule']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds
+  FRESH103-0116 [['cross_reference_schedule']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds
+  FRESH103-0117 [['cross_reference_schedule']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds
+  FRESH103-0118 [['cross_reference_schedule']] tier=2: Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds
+  FRESH103-0119 [['cross_reference_schedule']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds
+  FRESH103-0120 [['cross_reference_schedule']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; the ceiling that binds
+  FRESH103-0121 [['temporal_survival']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Charterer's duty carri
+  FRESH103-0122 [['temporal_survival']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent's duty ca
+  FRESH103-0123 [['temporal_survival']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Third-Party Administra
+  FRESH103-0124 [['temporal_survival']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Ceding Company's duty 
+  FRESH103-0125 [['temporal_survival']] tier=1: Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator's d
+  FRESH103-0126 [['temporal_survival']] tier=2: Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer's du
+  FRESH103-0127 [['temporal_survival']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Syndicate Lead's duty 
+  FRESH103-0128 [['temporal_survival']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Booking Agent's duty c
+  FRESH103-0137 [['compound']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent separatel
+  FRESH103-0140 [['compound']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator giv
+  FRESH103-0141 [['compound']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer sepa
+  FRESH103-0144 [['compound']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Charterer gives up any
+  FRESH103-0145 [['compound']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent separatel
+  FRESH103-0148 [['compound']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator giv
+  FRESH103-0149 [['compound']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Toll Manufacturer sepa
+  FRESH103-0152 [['compound']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Charterer gives up any
+  FRESH103-0153 [['compound']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Escrow Agent separatel
+  FRESH103-0156 [['compound']] tier=3: Each party shall indemnify the other for claims arising under this Agreement; Warehouse Operator giv

@@ -1,0 +1,70 @@
+  [run1] 25/200 done (25.7s elapsed)
+  [run1] 50/200 done (48.1s elapsed)
+  [run1] 75/200 done (69.6s elapsed)
+  [run1] 100/200 done (90.1s elapsed)
+  [run1] 125/200 done (110.9s elapsed)
+  [run1] 150/200 done (127.6s elapsed)
+  [run1] 175/200 done (147.0s elapsed)
+  [run1] 200/200 done (163.8s elapsed)
+
+=== REAL PROVIDER — RUN 1 ===
+Total wall time: 163.8s over 200 cases
+Run errors (crashed, not provider-unavailable): 0
+
+POSITIVE (n=120): {'PRESENT_AND_VERIFIED': 19, 'PRESENT_BUT_UNRESOLVED': 101, 'RECOGNITION_UNCERTAIN': 0, 'CONFIRMED_ABSENT': 0, 'RUN_ERROR': 0}
+  false-absence rate: 0.0%
+  discovered-or-verified recall: 100.0%
+  clean-VERIFIED recall: 15.8%
+
+NOVEL_UNSEEN (n=30, the killer-gate family): {'PRESENT_AND_VERIFIED': 0, 'PRESENT_BUT_UNRESOLVED': 30, 'RECOGNITION_UNCERTAIN': 0, 'CONFIRMED_ABSENT': 0, 'RUN_ERROR': 0}
+  false-absence rate: 0.0%
+  material recovery (discovered, not absent): 30 / 30
+
+NEGATIVE (n=80): {'PRESENT_AND_VERIFIED': 0, 'PRESENT_BUT_UNRESOLVED': 3, 'RECOGNITION_UNCERTAIN': 0, 'CONFIRMED_ABSENT': 77, 'RUN_ERROR': 0}
+  true-negative rate: 96.2%
+  FALSE clean-verified on a hard negative (dangerous): 0
+  false-candidate rate (routed to review unnecessarily): 3.8%
+
+Latency/cost over 200 successful real API calls:
+  latency ms: min=505 median=748 max=2717 mean=818
+  total input tokens: 69004, total output tokens: 8227
+  mean tokens/doc: in=345.0 out=41.1
+  non-ok calls: 0 ([])
+  [run2] 25/200 done (22.6s elapsed)
+  [run2] 50/200 done (46.9s elapsed)
+  [run2] 75/200 done (68.1s elapsed)
+  [run2] 100/200 done (91.3s elapsed)
+  [run2] 125/200 done (116.9s elapsed)
+  [run2] 150/200 done (132.6s elapsed)
+  [run2] 175/200 done (150.6s elapsed)
+  [run2] 200/200 done (169.7s elapsed)
+
+=== REAL PROVIDER — RUN 2 (determinism check) ===
+Total wall time: 169.7s over 200 cases
+Run errors (crashed, not provider-unavailable): 0
+
+POSITIVE (n=120): {'PRESENT_AND_VERIFIED': 19, 'PRESENT_BUT_UNRESOLVED': 100, 'RECOGNITION_UNCERTAIN': 1, 'CONFIRMED_ABSENT': 0, 'RUN_ERROR': 0}
+  false-absence rate: 0.0%
+  discovered-or-verified recall: 100.0%
+  clean-VERIFIED recall: 15.8%
+
+NOVEL_UNSEEN (n=30, the killer-gate family): {'PRESENT_AND_VERIFIED': 0, 'PRESENT_BUT_UNRESOLVED': 29, 'RECOGNITION_UNCERTAIN': 1, 'CONFIRMED_ABSENT': 0, 'RUN_ERROR': 0}
+  false-absence rate: 0.0%
+  material recovery (discovered, not absent): 30 / 30
+
+NEGATIVE (n=80): {'PRESENT_AND_VERIFIED': 0, 'PRESENT_BUT_UNRESOLVED': 1, 'RECOGNITION_UNCERTAIN': 0, 'CONFIRMED_ABSENT': 79, 'RUN_ERROR': 0}
+  true-negative rate: 98.8%
+  FALSE clean-verified on a hard negative (dangerous): 0
+  false-candidate rate (routed to review unnecessarily): 1.2%
+
+Latency/cost over 200 successful real API calls:
+  latency ms: min=482 median=755 max=2744 mean=848
+  total input tokens: 69004, total output tokens: 8431
+  mean tokens/doc: in=345.0 out=42.2
+  non-ok calls: 0 ([])
+
+=== AUTHORITATIVE-OUTCOME DETERMINISM (run1 vs run2) ===
+Mismatches: 3 / 200
+  ('S491-114', 'PRESENT_BUT_UNRESOLVED', 'RECOGNITION_UNCERTAIN')
+  ('S491-121', 'PRESENT_BUT_UNRESOLVED', 'CONFIRMED_ABSENT')
+  ('S491-122', 'PRESENT_BUT_UNRESOLVED', 'CONFIRMED_ABSENT')

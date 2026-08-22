@@ -187,37 +187,72 @@ OUTPUT FORMAT: JSON ONLY with this schema:
 
     def _verify_output_maps_to_findings(self, llm_output: Dict, input_findings: List[Dict]) -> bool:
         """
-        ✅ VERIFICATION 5: Ensure LLM output maps back to deterministic findings.
+        VERIFICATION 5: Ensure LLM output maps back to deterministic findings.
         Every top_issue should correspond to a rule from input_findings.
         Uses normalized title matching to avoid false warnings.
-        """
+
+        Mutates llm_output["top_issues"] IN PLACE, dropping any issue that
+        does not map to a real deterministic finding, and returns whether
+        anything was dropped. Found via Step 4B Phase I: this function
+        previously only logged a warning for a non-mapping issue and
+        unconditionally `return True`d regardless of what it found, and
+        its caller (evaluate()) discarded that return value anyway --
+        together, a fabricated LLM top_issue (a hallucinated finding with
+        no basis in any deterministic rule) sailed straight through to the
+        user with zero automated protection despite this function's own
+        docstring describing it as a hard verification boundary. Reproduced
+        directly before fixing. The fix is enforced here, in the one place
+        that already has both the LLM output and the canonical mapping, so
+        it holds regardless of whether a caller checks the return value."""
         if not input_findings:
-            # Zero findings case - LLM should only suggest missing sections
-            return len(llm_output.get("top_issues", [])) == 0
+            # Zero findings case - LLM should only suggest missing sections.
+            # Any top_issue here has no deterministic basis at all -- drop
+            # every one of them rather than merely reporting the mismatch.
+            dropped_all = bool(llm_output.get("top_issues"))
+            if dropped_all:
+                logger.warning(
+                    f"LLM produced {len(llm_output['top_issues'])} top_issue(s) with zero deterministic "
+                    f"findings to explain -- all dropped as fabricated."
+                )
+            llm_output["top_issues"] = []
+            return not dropped_all
 
         # Build canonical mapping from deterministic findings
         canonical_mapping = self._build_canonical_mapping(input_findings)
-        
-        # Collect all normalized identifiers for matching (rule_name, title, and aliases)
+
+        # Collect all normalized identifiers for matching (rule_name, title, and aliases).
+        # Empty strings are explicitly excluded: `_normalize_title` returns
+        # "" for a missing/empty rule_name or title, and Python's `"" in x`
+        # is always True -- an empty normalized value in these sets would
+        # make the `norm_rule_name in normalized_issue_title` substring
+        # check trivially match EVERY LLM issue title, silently defeating
+        # this entire verification for any finding that happens to omit
+        # rule_name (or have an empty title). Found via Step 4B Phase I's
+        # own benchmark before trusting this function's fix.
         normalized_rule_names: Set[str] = set()
         normalized_titles: Set[str] = set()
         normalized_aliases: Set[str] = set()
         for rule_data in canonical_mapping.values():
-            normalized_rule_names.add(rule_data["normalized_rule_name"])
-            normalized_titles.add(rule_data["normalized_title"])
-            normalized_aliases.update(rule_data.get("normalized_aliases", []))
+            if rule_data["normalized_rule_name"]:
+                normalized_rule_names.add(rule_data["normalized_rule_name"])
+            if rule_data["normalized_title"]:
+                normalized_titles.add(rule_data["normalized_title"])
+            normalized_aliases.update(a for a in rule_data.get("normalized_aliases", []) if a)
 
         # Check that top_issues map to input findings using normalized matching
+        # -- fabricated/non-mapping issues are DROPPED, not merely logged.
+        validated_issues = []
+        any_dropped = False
         for issue in llm_output.get("top_issues", []):
             issue_title = issue.get("title", "")
             normalized_issue_title = _normalize_title(issue_title)
-            
+
             # An LLM issue is valid if normalized_title matches:
             # - deterministic rule_name
             # - deterministic title
             # - explicit aliases (BEST - 2-line mental model)
             is_valid = False
-            
+
             # Check against normalized rule names
             for norm_rule_name in normalized_rule_names:
                 if (normalized_issue_title == norm_rule_name or
@@ -225,7 +260,7 @@ OUTPUT FORMAT: JSON ONLY with this schema:
                     norm_rule_name in normalized_issue_title):
                     is_valid = True
                     break
-            
+
             # Check against normalized titles
             if not is_valid:
                 for norm_title in normalized_titles:
@@ -234,7 +269,7 @@ OUTPUT FORMAT: JSON ONLY with this schema:
                         norm_title in normalized_issue_title):
                         is_valid = True
                         break
-            
+
             # Check against explicit aliases (production-grade approach)
             if not is_valid:
                 for norm_alias in normalized_aliases:
@@ -244,15 +279,18 @@ OUTPUT FORMAT: JSON ONLY with this schema:
                         is_valid = True
                         break
 
-            # Only warn on TRUE mismatches
-            if not is_valid:
+            if is_valid:
+                validated_issues.append(issue)
+            else:
+                any_dropped = True
                 logger.warning(
                     f"LLM output issue '{issue_title}' (normalized: '{normalized_issue_title}') "
-                    f"may not map to deterministic findings. "
+                    f"does not map to any deterministic finding -- dropped as fabricated. "
                     f"Available normalized rules: {sorted(list(normalized_rule_names))[:10]}"
                 )
 
-        return True
+        llm_output["top_issues"] = validated_issues
+        return not any_dropped
 
     def evaluate(self, findings: List[Dict], overall_risk: str, contract_text: Optional[str] = None) -> Optional[Dict]:
         """

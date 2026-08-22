@@ -1,0 +1,2336 @@
+[
+  {
+    "id": "FRESH1010-0001",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Bond Trustee is on the hook only where the claim stems from Bond Trustee's reckless disregard, whereas Bond Issuer is on the hook whenever the claim stems from Bond Issuer's plain inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0002",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Anchor Investor is on the hook only where the claim stems from Anchor Investor's reckless disregard, whereas Co-Investor is on the hook whenever the claim stems from Co-Investor's plain inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0003",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Import Agent is on the hook only where the claim stems from Import Agent's reckless disregard, whereas Export Agent is on the hook whenever the claim stems from Export Agent's plain inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0004",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Field Technician is on the hook only where the claim stems from Field Technician's reckless disregard, whereas Dispatch Center is on the hook whenever the claim stems from Dispatch Center's plain inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0005",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Tier-4 Contractor is on the hook only where the claim stems from Tier-4 Contractor's reckless disregard, whereas Tier-5 Contractor is on the hook whenever the claim stems from Tier-5 Contractor's plain inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0006",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Class M Shareholder is on the hook only where the claim stems from Class M Shareholder's reckless disregard, whereas Class N Shareholder is on the hook whenever the claim stems from Class N Shareholder's plain inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0007",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Hargrove & Sons is on the hook only where the claim stems from Hargrove & Sons's reckless disregard, whereas Whitfield & Co is on the hook whenever the claim stems from Whitfield & Co's plain inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0008",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; U.S. Reseller is on the hook only where the claim stems from U.S. Reseller's reckless disregard, whereas Non-U.S. Reseller is on the hook whenever the claim stems from Non-U.S. Reseller's plain inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0009",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Bond Trustee's duty is confined to claims alleging false advertising, whereas Bond Issuer's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0010",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Investor's duty is confined to claims alleging false advertising, whereas Co-Investor's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0011",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Agent's duty is confined to claims alleging false advertising, whereas Export Agent's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0012",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Field Technician's duty is confined to claims alleging false advertising, whereas Dispatch Center's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0013",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Tier-4 Contractor's duty is confined to claims alleging false advertising, whereas Tier-5 Contractor's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0014",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Class M Shareholder's duty is confined to claims alleging false advertising, whereas Class N Shareholder's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0015",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Hargrove & Sons's duty is confined to claims alleging false advertising, whereas Whitfield & Co's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0016",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; U.S. Reseller's duty is confined to claims alleging false advertising, whereas Non-U.S. Reseller's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0017",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Bond Trustee alone decides litigation and settlement strategy for any claim against Bond Issuer, whereas Bond Issuer has no input at all into strategy for any claim against Bond Trustee.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0018",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Anchor Investor alone decides litigation and settlement strategy for any claim against Co-Investor, whereas Co-Investor has no input at all into strategy for any claim against Anchor Investor.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0019",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Import Agent alone decides litigation and settlement strategy for any claim against Export Agent, whereas Export Agent has no input at all into strategy for any claim against Import Agent.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0020",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Field Technician alone decides litigation and settlement strategy for any claim against Dispatch Center, whereas Dispatch Center has no input at all into strategy for any claim against Field Technician.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0021",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Tier-4 Contractor alone decides litigation and settlement strategy for any claim against Tier-5 Contractor, whereas Tier-5 Contractor has no input at all into strategy for any claim against Tier-4 Contractor.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0022",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Class M Shareholder alone decides litigation and settlement strategy for any claim against Class N Shareholder, whereas Class N Shareholder has no input at all into strategy for any claim against Class M Shareholder.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0023",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Hargrove & Sons alone decides litigation and settlement strategy for any claim against Whitfield & Co, whereas Whitfield & Co has no input at all into strategy for any claim against Hargrove & Sons.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0024",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; U.S. Reseller alone decides litigation and settlement strategy for any claim against Non-U.S. Reseller, whereas Non-U.S. Reseller has no input at all into strategy for any claim against U.S. Reseller.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0025",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Bond Trustee's liability tops out at $270,000, whereas Bond Issuer faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0026",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Investor's liability tops out at $270,000, whereas Co-Investor faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0027",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Agent's liability tops out at $270,000, whereas Export Agent faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0028",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Field Technician's liability tops out at $270,000, whereas Dispatch Center faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0029",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Tier-4 Contractor's liability tops out at $270,000, whereas Tier-5 Contractor faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0030",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Class M Shareholder's liability tops out at $270,000, whereas Class N Shareholder faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0031",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Hargrove & Sons's liability tops out at $270,000, whereas Whitfield & Co faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0032",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; U.S. Reseller's liability tops out at $270,000, whereas Non-U.S. Reseller faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0033",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Bond Trustee's duty excludes any claim traceable to Bond Issuer's own unauthorized use of the deliverable, an exclusion Bond Issuer's duty toward Bond Trustee does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0034",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Anchor Investor's duty excludes any claim traceable to Co-Investor's own unauthorized use of the deliverable, an exclusion Co-Investor's duty toward Anchor Investor does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0035",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Import Agent's duty excludes any claim traceable to Export Agent's own unauthorized use of the deliverable, an exclusion Export Agent's duty toward Import Agent does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0036",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Field Technician's duty excludes any claim traceable to Dispatch Center's own unauthorized use of the deliverable, an exclusion Dispatch Center's duty toward Field Technician does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0037",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Tier-4 Contractor's duty excludes any claim traceable to Tier-5 Contractor's own unauthorized use of the deliverable, an exclusion Tier-5 Contractor's duty toward Tier-4 Contractor does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0038",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Class M Shareholder's duty excludes any claim traceable to Class N Shareholder's own unauthorized use of the deliverable, an exclusion Class N Shareholder's duty toward Class M Shareholder does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0039",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Hargrove & Sons's duty excludes any claim traceable to Whitfield & Co's own unauthorized use of the deliverable, an exclusion Whitfield & Co's duty toward Hargrove & Sons does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0040",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that U.S. Reseller's duty excludes any claim traceable to Non-U.S. Reseller's own unauthorized use of the deliverable, an exclusion Non-U.S. Reseller's duty toward U.S. Reseller does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0041",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Bond Trustee's duty does not attach unless Bond Issuer first exhausts the escalation steps in Section 9, a precondition Bond Issuer's duty toward Bond Trustee does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0042",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Investor's duty does not attach unless Co-Investor first exhausts the escalation steps in Section 9, a precondition Co-Investor's duty toward Anchor Investor does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0043",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Agent's duty does not attach unless Export Agent first exhausts the escalation steps in Section 9, a precondition Export Agent's duty toward Import Agent does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0044",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Field Technician's duty does not attach unless Dispatch Center first exhausts the escalation steps in Section 9, a precondition Dispatch Center's duty toward Field Technician does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0045",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Tier-4 Contractor's duty does not attach unless Tier-5 Contractor first exhausts the escalation steps in Section 9, a precondition Tier-5 Contractor's duty toward Tier-4 Contractor does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0046",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Class M Shareholder's duty does not attach unless Class N Shareholder first exhausts the escalation steps in Section 9, a precondition Class N Shareholder's duty toward Class M Shareholder does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0047",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Hargrove & Sons's duty does not attach unless Whitfield & Co first exhausts the escalation steps in Section 9, a precondition Whitfield & Co's duty toward Hargrove & Sons does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0048",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; U.S. Reseller's duty does not attach unless Non-U.S. Reseller first exhausts the escalation steps in Section 9, a precondition Non-U.S. Reseller's duty toward U.S. Reseller does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0049",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Bond Trustee's duty reaches Bond Issuer's own internal losses in addition to outside claims, whereas Bond Issuer's duty reaches only outside claims brought against Bond Trustee.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0050",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Investor's duty reaches Co-Investor's own internal losses in addition to outside claims, whereas Co-Investor's duty reaches only outside claims brought against Anchor Investor.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0051",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Agent's duty reaches Export Agent's own internal losses in addition to outside claims, whereas Export Agent's duty reaches only outside claims brought against Import Agent.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0052",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Field Technician's duty reaches Dispatch Center's own internal losses in addition to outside claims, whereas Dispatch Center's duty reaches only outside claims brought against Field Technician.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0053",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Tier-4 Contractor's duty reaches Tier-5 Contractor's own internal losses in addition to outside claims, whereas Tier-5 Contractor's duty reaches only outside claims brought against Tier-4 Contractor.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0054",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Class M Shareholder's duty reaches Class N Shareholder's own internal losses in addition to outside claims, whereas Class N Shareholder's duty reaches only outside claims brought against Class M Shareholder.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0055",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Hargrove & Sons's duty reaches Whitfield & Co's own internal losses in addition to outside claims, whereas Whitfield & Co's duty reaches only outside claims brought against Hargrove & Sons.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0056",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; U.S. Reseller's duty reaches Non-U.S. Reseller's own internal losses in addition to outside claims, whereas Non-U.S. Reseller's duty reaches only outside claims brought against U.S. Reseller.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0057",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Bond Trustee owes this duty even absent any fault on Bond Trustee's part, whereas Bond Issuer owes it only once Bond Issuer's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0058",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Anchor Investor owes this duty even absent any fault on Anchor Investor's part, whereas Co-Investor owes it only once Co-Investor's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0059",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Import Agent owes this duty even absent any fault on Import Agent's part, whereas Export Agent owes it only once Export Agent's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0060",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Field Technician owes this duty even absent any fault on Field Technician's part, whereas Dispatch Center owes it only once Dispatch Center's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0061",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Tier-4 Contractor owes this duty even absent any fault on Tier-4 Contractor's part, whereas Tier-5 Contractor owes it only once Tier-5 Contractor's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0062",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Class M Shareholder owes this duty even absent any fault on Class M Shareholder's part, whereas Class N Shareholder owes it only once Class N Shareholder's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0063",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Hargrove & Sons owes this duty even absent any fault on Hargrove & Sons's part, whereas Whitfield & Co owes it only once Whitfield & Co's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0064",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; U.S. Reseller owes this duty even absent any fault on U.S. Reseller's part, whereas Non-U.S. Reseller owes it only once Non-U.S. Reseller's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0065",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Bond Trustee's duty follows claims arising anywhere on the globe, whereas Bond Issuer's duty is confined to claims arising within Sweden.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0066",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Investor's duty follows claims arising anywhere on the globe, whereas Co-Investor's duty is confined to claims arising within Sweden.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0067",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Agent's duty follows claims arising anywhere on the globe, whereas Export Agent's duty is confined to claims arising within Sweden.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0068",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Field Technician's duty follows claims arising anywhere on the globe, whereas Dispatch Center's duty is confined to claims arising within Sweden.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0069",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Tier-4 Contractor's duty follows claims arising anywhere on the globe, whereas Tier-5 Contractor's duty is confined to claims arising within Sweden.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0070",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Class M Shareholder's duty follows claims arising anywhere on the globe, whereas Class N Shareholder's duty is confined to claims arising within Sweden.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0071",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Hargrove & Sons's duty follows claims arising anywhere on the globe, whereas Whitfield & Co's duty is confined to claims arising within Sweden.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0072",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; U.S. Reseller's duty follows claims arising anywhere on the globe, whereas Non-U.S. Reseller's duty is confined to claims arising within Sweden.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0073",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Bond Trustee is set out in Rider X, and the figure binding Bond Issuer, set out separately in Rider Y, is a different figure than Rider X states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0074",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Anchor Investor is set out in Rider X, and the figure binding Co-Investor, set out separately in Rider Y, is a different figure than Rider X states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0075",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Import Agent is set out in Rider X, and the figure binding Export Agent, set out separately in Rider Y, is a different figure than Rider X states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0076",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Field Technician is set out in Rider X, and the figure binding Dispatch Center, set out separately in Rider Y, is a different figure than Rider X states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0077",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Tier-4 Contractor is set out in Rider X, and the figure binding Tier-5 Contractor, set out separately in Rider Y, is a different figure than Rider X states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0078",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Class M Shareholder is set out in Rider X, and the figure binding Class N Shareholder, set out separately in Rider Y, is a different figure than Rider X states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0079",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Hargrove & Sons is set out in Rider X, and the figure binding Whitfield & Co, set out separately in Rider Y, is a different figure than Rider X states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0080",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding U.S. Reseller is set out in Rider X, and the figure binding Non-U.S. Reseller, set out separately in Rider Y, is a different figure than Rider X states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0081",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Bond Trustee's duty carries on with no end date once this Agreement winds down, whereas Bond Issuer's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0082",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Investor's duty carries on with no end date once this Agreement winds down, whereas Co-Investor's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0083",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Agent's duty carries on with no end date once this Agreement winds down, whereas Export Agent's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0084",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Field Technician's duty carries on with no end date once this Agreement winds down, whereas Dispatch Center's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0085",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Tier-4 Contractor's duty carries on with no end date once this Agreement winds down, whereas Tier-5 Contractor's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0086",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Class M Shareholder's duty carries on with no end date once this Agreement winds down, whereas Class N Shareholder's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0087",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Hargrove & Sons's duty carries on with no end date once this Agreement winds down, whereas Whitfield & Co's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0088",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; U.S. Reseller's duty carries on with no end date once this Agreement winds down, whereas Non-U.S. Reseller's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0089",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Bond Trustee's duty is capped at $410,000, reaches only false-advertising claims, and applies strictly, whereas Bond Issuer's duty carries no cap, reaches claims of any kind, and applies only where Bond Issuer is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0090",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Investor's duty is capped at $410,000, reaches only false-advertising claims, and applies strictly, whereas Co-Investor's duty carries no cap, reaches claims of any kind, and applies only where Co-Investor is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0091",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Agent's duty is capped at $410,000, reaches only false-advertising claims, and applies strictly, whereas Export Agent's duty carries no cap, reaches claims of any kind, and applies only where Export Agent is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0092",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Field Technician's duty is capped at $410,000, reaches only false-advertising claims, and applies strictly, whereas Dispatch Center's duty carries no cap, reaches claims of any kind, and applies only where Dispatch Center is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0093",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Tier-4 Contractor's duty is capped at $410,000, reaches only false-advertising claims, and applies strictly, whereas Tier-5 Contractor's duty carries no cap, reaches claims of any kind, and applies only where Tier-5 Contractor is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0094",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Class M Shareholder's duty is capped at $410,000, reaches only false-advertising claims, and applies strictly, whereas Class N Shareholder's duty carries no cap, reaches claims of any kind, and applies only where Class N Shareholder is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0095",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Hargrove & Sons's duty is capped at $410,000, reaches only false-advertising claims, and applies strictly, whereas Whitfield & Co's duty carries no cap, reaches claims of any kind, and applies only where Whitfield & Co is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0096",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; U.S. Reseller's duty is capped at $410,000, reaches only false-advertising claims, and applies strictly, whereas Non-U.S. Reseller's duty carries no cap, reaches claims of any kind, and applies only where Non-U.S. Reseller is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0097",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Bond Trustee keeps its own standalone insurance covering this exposure, while Bond Issuer's duty is additionally capped at $55,000, a limit Bond Trustee's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0098",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 12; that ceiling excludes claims caused by Anchor Investor's reckless disregard but excludes no category of claim caused by Co-Investor.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0099",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Import Agent's duty to front defense costs as incurred runs alongside its main duty, but Export Agent carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0100",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Field Technician relinquishes any right of contribution against Dispatch Center, but Dispatch Center retains its full right of contribution against Field Technician.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0101",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Tier-4 Contractor keeps its own standalone insurance covering this exposure, while Tier-5 Contractor's duty is additionally capped at $55,000, a limit Tier-4 Contractor's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0102",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 12; that ceiling excludes claims caused by Class M Shareholder's reckless disregard but excludes no category of claim caused by Class N Shareholder.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0103",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Hargrove & Sons's duty to front defense costs as incurred runs alongside its main duty, but Whitfield & Co carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0104",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; U.S. Reseller relinquishes any right of contribution against Non-U.S. Reseller, but Non-U.S. Reseller retains its full right of contribution against U.S. Reseller.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0105",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Bond Trustee keeps its own standalone insurance covering this exposure, while Bond Issuer's duty is additionally capped at $55,000, a limit Bond Trustee's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0106",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 12; that ceiling excludes claims caused by Anchor Investor's reckless disregard but excludes no category of claim caused by Co-Investor.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0107",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Import Agent's duty to front defense costs as incurred runs alongside its main duty, but Export Agent carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0108",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Field Technician relinquishes any right of contribution against Dispatch Center, but Dispatch Center retains its full right of contribution against Field Technician.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0109",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Bond Trustee anchors the response to any claim brought against it, and Bond Issuer likewise anchors the response to any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verb regression",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0110",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Anchor Investor anchors the response to any claim brought against it, and Co-Investor likewise anchors the response to any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verb regression",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0111",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Import Agent anchors the response to any claim brought against it, and Export Agent likewise anchors the response to any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verb regression",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0112",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Field Technician anchors the response to any claim brought against it, and Dispatch Center likewise anchors the response to any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verb regression",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0113",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Tier-4 Contractor anchors the response to any claim brought against it, and Tier-5 Contractor likewise anchors the response to any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verb regression",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0114",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Class M Shareholder anchors the response to any claim brought against it, and Class N Shareholder likewise anchors the response to any claim brought against it.",
+    "note": "defense-control paraphrase, fresh verb regression",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0115",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_opener",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims traceable to that party's own dealings under this Agreement.",
+    "note": "reciprocal-opener variety regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0116",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_opener",
+    "dimensions": [],
+    "text": "Either party shall indemnify and hold harmless the other against claims traceable to a breach of this Agreement by that party.",
+    "note": "reciprocal-opener variety regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0117",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_opener",
+    "dimensions": [],
+    "text": "Both parties shall indemnify and hold harmless the other against third-party claims traceable to this Agreement's performance.",
+    "note": "reciprocal-opener variety regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0118",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_opener",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another for claims traceable to each party's own respective misconduct under this Agreement.",
+    "note": "reciprocal-opener variety regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0119",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_opener",
+    "dimensions": [],
+    "text": "Every party shall indemnify and hold harmless the other for claims traceable to how it carried out this Agreement.",
+    "note": "reciprocal-opener variety regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0120",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_opener",
+    "dimensions": [],
+    "text": "Both parties' indemnification obligation under this Agreement applies to each of them on an identical footing.",
+    "note": "reciprocal-opener variety regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0121",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_opener",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims traceable to that party's own dealings under this Agreement.",
+    "note": "reciprocal-opener variety regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0122",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_opener",
+    "dimensions": [],
+    "text": "Either party shall indemnify and hold harmless the other against claims traceable to a breach of this Agreement by that party.",
+    "note": "reciprocal-opener variety regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0123",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_opener",
+    "dimensions": [],
+    "text": "Both parties shall indemnify and hold harmless the other against third-party claims traceable to this Agreement's performance.",
+    "note": "reciprocal-opener variety regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0124",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_opener",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another for claims traceable to each party's own respective misconduct under this Agreement.",
+    "note": "reciprocal-opener variety regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0125",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_opener",
+    "dimensions": [],
+    "text": "Every party shall indemnify and hold harmless the other for claims traceable to how it carried out this Agreement.",
+    "note": "reciprocal-opener variety regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0126",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_opener",
+    "dimensions": [],
+    "text": "Both parties' indemnification obligation under this Agreement applies to each of them on an identical footing.",
+    "note": "reciprocal-opener variety regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0127",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "role_shape_x_monetary_cap",
+    "dimensions": [
+      "monetary_cap"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; U.S. Reseller's liability is capped at $195,000, whereas Non-U.S. Reseller's liability carries no cap at all.",
+    "note": "U.S. Reseller/Non-U.S. Reseller x monetary_cap, asymmetric",
+    "expected_material_dimensions": [
+      "monetary_cap"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0128",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "role_shape_x_monetary_cap",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; U.S. Reseller's liability is capped at $195,000, and Non-U.S. Reseller's liability is capped at $195,000 as well.",
+    "note": "U.S. Reseller/Non-U.S. Reseller x monetary_cap, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0129",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "role_shape_x_survival",
+    "dimensions": [
+      "survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; U.S. Reseller's duty carries on with no end date once this Agreement winds down, whereas Non-U.S. Reseller's duty ends the moment this Agreement winds down.",
+    "note": "U.S. Reseller/Non-U.S. Reseller x survival, asymmetric",
+    "expected_material_dimensions": [
+      "survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0130",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "role_shape_x_survival",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; U.S. Reseller's duty survives for a period of four years, and Non-U.S. Reseller's duty survives for a period of four years as well.",
+    "note": "U.S. Reseller/Non-U.S. Reseller x survival, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0131",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "role_shape_x_monetary_cap",
+    "dimensions": [
+      "monetary_cap"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Tier-4 Contractor's liability is capped at $195,000, whereas Tier-5 Contractor's liability carries no cap at all.",
+    "note": "Tier-4 Contractor/Tier-5 Contractor x monetary_cap, asymmetric",
+    "expected_material_dimensions": [
+      "monetary_cap"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0132",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "role_shape_x_monetary_cap",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Tier-4 Contractor's liability is capped at $195,000, and Tier-5 Contractor's liability is capped at $195,000 as well.",
+    "note": "Tier-4 Contractor/Tier-5 Contractor x monetary_cap, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0133",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "role_shape_x_survival",
+    "dimensions": [
+      "survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Tier-4 Contractor's duty carries on with no end date once this Agreement winds down, whereas Tier-5 Contractor's duty ends the moment this Agreement winds down.",
+    "note": "Tier-4 Contractor/Tier-5 Contractor x survival, asymmetric",
+    "expected_material_dimensions": [
+      "survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0134",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "role_shape_x_survival",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Tier-4 Contractor's duty survives for a period of four years, and Tier-5 Contractor's duty survives for a period of four years as well.",
+    "note": "Tier-4 Contractor/Tier-5 Contractor x survival, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0135",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "role_shape_x_monetary_cap",
+    "dimensions": [
+      "monetary_cap"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Class M Shareholder's liability is capped at $195,000, whereas Class N Shareholder's liability carries no cap at all.",
+    "note": "Class M Shareholder/Class N Shareholder x monetary_cap, asymmetric",
+    "expected_material_dimensions": [
+      "monetary_cap"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0136",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "role_shape_x_monetary_cap",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Class M Shareholder's liability is capped at $195,000, and Class N Shareholder's liability is capped at $195,000 as well.",
+    "note": "Class M Shareholder/Class N Shareholder x monetary_cap, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0137",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "role_shape_x_survival",
+    "dimensions": [
+      "survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Class M Shareholder's duty carries on with no end date once this Agreement winds down, whereas Class N Shareholder's duty ends the moment this Agreement winds down.",
+    "note": "Class M Shareholder/Class N Shareholder x survival, asymmetric",
+    "expected_material_dimensions": [
+      "survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0138",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "role_shape_x_survival",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Class M Shareholder's duty survives for a period of four years, and Class N Shareholder's duty survives for a period of four years as well.",
+    "note": "Class M Shareholder/Class N Shareholder x survival, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0139",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "role_shape_x_monetary_cap",
+    "dimensions": [
+      "monetary_cap"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Hargrove & Sons's liability is capped at $195,000, whereas Whitfield & Co's liability carries no cap at all.",
+    "note": "Hargrove & Sons/Whitfield & Co x monetary_cap, asymmetric",
+    "expected_material_dimensions": [
+      "monetary_cap"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0140",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "role_shape_x_monetary_cap",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Hargrove & Sons's liability is capped at $195,000, and Whitfield & Co's liability is capped at $195,000 as well.",
+    "note": "Hargrove & Sons/Whitfield & Co x monetary_cap, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0141",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "role_shape_x_survival",
+    "dimensions": [
+      "survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Hargrove & Sons's duty carries on with no end date once this Agreement winds down, whereas Whitfield & Co's duty ends the moment this Agreement winds down.",
+    "note": "Hargrove & Sons/Whitfield & Co x survival, asymmetric",
+    "expected_material_dimensions": [
+      "survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH1010-0142",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "role_shape_x_survival",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Hargrove & Sons's duty survives for a period of four years, and Whitfield & Co's duty survives for a period of four years as well.",
+    "note": "Hargrove & Sons/Whitfield & Co x survival, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0143",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "cardinality_guard_stress",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; O'Malley Holdings's liability is capped at $80,000, whereas O'Malley Holdings's liability carries no cap at all.",
+    "note": "role shape the tokenizer cannot distinguish -- must route to review, not silently pass",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0144",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "cardinality_guard_stress",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; D'Angelo Trading's duty survives for a period of two years, and D'Angelo Trading's duty survives for a period of two years as well.",
+    "note": "role shape the tokenizer cannot distinguish -- must route to review, not silently pass",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0145",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "cardinality_guard_stress",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; O'Malley Holdings's liability is capped at $80,000, whereas O'Malley Holdings's liability carries no cap at all.",
+    "note": "role shape the tokenizer cannot distinguish -- must route to review, not silently pass",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0146",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "cardinality_guard_stress",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; D'Angelo Trading's duty survives for a period of two years, and D'Angelo Trading's duty survives for a period of two years as well.",
+    "note": "role shape the tokenizer cannot distinguish -- must route to review, not silently pass",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0147",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "over_capture_guard",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the cap for Schedule A is $40,000 and the cap for Schedule B is $40,000 as well.",
+    "note": "document-structure reference must not become a role",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0148",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "over_capture_guard",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the limitations set forth in Section 6 and Section 7.",
+    "note": "document-structure reference must not become a role",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0149",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "over_capture_guard",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the terms in Exhibit E govern one direction, and the terms in Exhibit F govern the other.",
+    "note": "document-structure reference must not become a role",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0150",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "over_capture_guard",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the cap for Schedule A is $40,000 and the cap for Schedule B is $40,000 as well.",
+    "note": "document-structure reference must not become a role",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0151",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "over_capture_guard",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the limitations set forth in Section 6 and Section 7.",
+    "note": "document-structure reference must not become a role",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0152",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "over_capture_guard",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the terms in Exhibit E govern one direction, and the terms in Exhibit F govern the other.",
+    "note": "document-structure reference must not become a role",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0153",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 8 applies equally to Bond Trustee and Bond Issuer.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0154",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Anchor Investor and Co-Investor alike.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0155",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 8 applies equally to Bond Trustee and Bond Issuer.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0156",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Anchor Investor and Co-Investor alike.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0157",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 8 applies equally to Bond Trustee and Bond Issuer.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0158",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Anchor Investor and Co-Investor alike.",
+    "note": "explicit drafter statement of equivalence",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0159",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Bond Trustee's ceiling matches Bond Issuer's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0160",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Either party shall indemnify the other for claims arising under this Agreement, on terms the parties expect to hammer out in a subsequent side letter.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0161",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Agent's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0162",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Field Technician's ceiling matches Dispatch Center's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0163",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Either party shall indemnify the other for claims arising under this Agreement, on terms the parties expect to hammer out in a subsequent side letter.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0164",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Class M Shareholder's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0165",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Hargrove & Sons's ceiling matches Whitfield & Co's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0166",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Either party shall indemnify the other for claims arising under this Agreement, on terms the parties expect to hammer out in a subsequent side letter.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0167",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Bond Trustee's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0168",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Anchor Investor's ceiling matches Co-Investor's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0169",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Either party shall indemnify the other for claims arising under this Agreement, on terms the parties expect to hammer out in a subsequent side letter.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH1010-0170",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Field Technician's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  }
+]

@@ -51,10 +51,17 @@ from policy_engine_core import (
     ACCEPT, ACCEPT_WITH_NOTE, NEGOTIATE, MUST_REDLINE, PROHIBITED, ESCALATE,
     REQUIRES_REVIEW, NOT_APPLICABLE,
     LadderStep, build_ladder as _core_build_ladder,
-    escalate_to_for_state, fallback_text_for_state, side_for_role,
+    escalate_to_for_state, fallback_text_for_state, side_for_role, resolve_role_side,
     excerpt, section_label_before,
     requires_review_explanation, requires_review_required_action,
     PolicyDecision,
+    CHAINED_DELEGATION_RE as _core_chained_delegation_re,
+    CONDITIONAL_UNVERIFIED_PRECONDITION_RE as _core_conditional_unverified_precondition_re,
+    SELF_FLAGGED_UNRESOLVED_RE as _core_self_flagged_unresolved_re,
+    ConditionEvidence,
+    detect_condition_in_span as _core_detect_condition_in_span,
+    detect_conflicting_backward_conditions as _core_detect_conflicting_backward_conditions,
+    is_operative_context as _core_is_operative_context,
 )
 
 RULE_ID = "POLICY_PAYMENT_TERMS"
@@ -64,11 +71,37 @@ _GENERIC_WORDS = {"each", "the", "any", "such", "this", "that", "both", "either"
 
 # --- Anchor -----------------------------------------------------------------
 _ANCHOR_RE = re.compile(
-    r"payment\s+terms|invoices?|shall\s+pay|payable|remit(?:tance)?"
-    r"|late\s+(?:fee|payment|charge)|set-?off|price\s+increase|reimburs\w*|withholding\s+tax"
+    r"payment\s+terms|invoices?|shall\s+pay|payable|remit(?:tance)?|remunerat\w*"
+    r"|late\s+(?:fee|payment|charge)|set-?off|offset|price\s+increase|reimburs\w*|withholding\s+tax"
     r"|sales\s+tax|value[\s-]added\s+tax|\bVAT\b|\bGST\b|service\s+credit|net\s+\d{1,3}\s+days",
     re.I,
 )
+
+# Step 4A.7.3 — absence-audit remediation. A clause whose ONLY payment-shaped
+# language is a security/damage/escrow deposit is not the operative
+# recurring payment-terms provision the policy evaluates (a "wrong-provision
+# substitution": the deposit's dollar amount/return period would otherwise
+# be silently read as if it were the invoicing terms). Scoped narrowly: the
+# heading immediately before the match must name a deposit specifically, AND
+# the sentence carrying the match must not ALSO contain genuine operative
+# payment vocabulary (invoice/Net N/payment terms) — a clause that mentions
+# a deposit in passing while also stating real payment terms is unaffected.
+_DEPOSIT_CONTEXT_HEADING_RE = re.compile(
+    r"\d+(?:\.\d+)?\.?\s*(?:Security|Damage|Escrow|Earnest[\s-]Money)\s+Deposit\b", re.I,
+)
+_OPERATIVE_PAYMENT_VOCAB_RE = re.compile(
+    r"\bnet\s+\d{1,3}\b|\binvoice\b|payment\s+terms", re.I,
+)
+
+
+def _is_deposit_only_context(text: str, match_start: int) -> bool:
+    look = text[max(0, match_start - 150):match_start]
+    if not _DEPOSIT_CONTEXT_HEADING_RE.search(look):
+        return False
+    sentence_end = text.find(".", match_start)
+    sentence_end = sentence_end + 1 if sentence_end != -1 else min(len(text), match_start + 200)
+    sentence = text[max(0, match_start - 100):sentence_end]
+    return not _OPERATIVE_PAYMENT_VOCAB_RE.search(sentence)
 
 # --- Payment direction (who pays whom) ---------------------------------------
 _PAY_DIRECTION_RE = re.compile(
@@ -83,6 +116,24 @@ _WITHIN_DAYS_PAYMENT_RE = re.compile(
     r"|within\s+(\d{1,3})\s+days\s+(?:of|after|from)\s+(?:the\s+date\s+of\s+)?(?:written\s+)?acceptance"
     r"|shall\s+pay[^.]{0,60}?within\s+(\d{1,3})\s+days"
     r"|payment\s+(?:shall\s+be\s+)?due\s+within\s+(\d{1,3})\s+days", re.I,
+)
+# Step 4A.5 Priority 3 — the same "payment due N days after a trigger
+# event" concept stated as "no later than the Nth (calendar) day
+# following <event>" — an ordinal-day construction rather than "within N
+# days", including the ordinal spelled out as a word ("the tenth day").
+# Scoped to the same trigger-event vocabulary (invoice/acceptance/
+# delivery/receipt) as _WITHIN_DAYS_PAYMENT_RE, not a bare "Nth day"
+# anywhere, so this does not engage on unrelated ordinal-day mentions.
+_ORDINAL_WORDS = {
+    "first": 1, "second": 2, "third": 3, "fourth": 4, "fifth": 5,
+    "sixth": 6, "seventh": 7, "eighth": 8, "ninth": 9, "tenth": 10,
+    "eleventh": 11, "twelfth": 12, "thirteenth": 13, "fourteenth": 14,
+    "fifteenth": 15, "twentieth": 20, "thirtieth": 30,
+}
+_ORDINAL_DAY_FOLLOWING_RE = re.compile(
+    r"no\s+later\s+than\s+the\s+(\w+)\s+calendar\s+day\s+following\s+(?:the\s+date\s+of\s+)?"
+    r"(?:acceptance|delivery|invoice|receipt)",
+    re.I,
 )
 
 # --- Payment trigger ------------------------------------------------------------
@@ -128,14 +179,197 @@ _GRACE_PERIOD_RE = re.compile(
 _STATUTORY_MAX_RE = re.compile(r"maximum\s+rate\s+permitted\s+by\s+(?:applicable\s+)?law|lesser\s+of[^.]{0,60}?(?:permitted\s+by\s+)?law", re.I)
 
 # --- Set-off ------------------------------------------------------------------------
-_SETOFF_PERMIT_RE = re.compile(r"(?:may|right\s+to|entitled\s+to)\s+set-?off", re.I)
-_SETOFF_PROHIBIT_RE = re.compile(r"shall\s+not\s+set-?off|no\s+right\s+(?:of|to)\s+set-?off|without\s+(?:any\s+)?(?:right\s+of\s+)?set-?off", re.I)
+# Step 4A.3: "offset" is a synonym family for "set-off"/"setoff" — the
+# identical legal right in commercial contracts (British/formal "set-off"
+# vs. American/colloquial "offset"), not a case-specific addition. Every
+# set-off pattern below recognizes both spellings.
+_SETOFF_TERM_FRAGMENT = r"(?:set[\s-]?off|offset)"
+_SETOFF_PERMIT_RE = re.compile(
+    r"(?:(?<!not\s)(?<!not\shave\s)(?<!not\shave\sany\s)right\s+(?:to|of)|may|entitled\s+to)\s+" + _SETOFF_TERM_FRAGMENT,
+    re.I,
+)
+_SETOFF_PROHIBIT_RE = re.compile(
+    r"shall\s+not\s+" + _SETOFF_TERM_FRAGMENT
+    # "right of deduction, counterclaim, or set-off" — an enumerated list
+    # between "right of" and the set-off term must not break the match;
+    # up to 3 intervening list items (", word"), each optionally preceded
+    # by "or", is tolerated. Covers both "no right of X" and "shall not
+    # have any right of X" framings.
+    + r"|(?:no|shall\s+not\s+have\s+(?:any\s+)?)\s*right\s+(?:of|to)\s+(?:[\w-]+,\s*){0,3}(?:or\s+)?" + _SETOFF_TERM_FRAGMENT
+    + r"|without\s+(?:any\s+)?(?:right\s+of\s+)?(?:[\w-]+,\s*){0,3}(?:or\s+)?" + _SETOFF_TERM_FRAGMENT,
+    re.I,
+)
 _UNILATERAL_DEDUCTION_RE = re.compile(
     r"unilaterally\s+deduct|deduct[^.]{0,30}?without\s+(?:prior\s+)?(?:written\s+)?(?:consent|approval)", re.I,
 )
 
+# Step 4A.5 — Priority 1 (SM-CRITICAL fix). The legal concept behind
+# "set-off"/"offset" is mutual-debt netting: one party satisfies (or is
+# barred from satisfying) an amount it owes by reference to an amount the
+# OTHER party owes it — however that's phrased ("withhold", "deduct",
+# "reduce", "net", "retain", "recoup", "debit", "apply as a credit", ...).
+# The Step 4A.4 held-out corpus (A4-K-07) demonstrated this concept
+# silently disappearing — NOT_APPLICABLE — when drafted without the
+# literal words "set-off"/"offset". Recognizing the WORD is not the same
+# as recognizing the CONCEPT.
+#
+# The two-part test below requires BOTH:
+#   (1) a satisfaction/reduction verb governing a payment-shaped object
+#       ("amount", "sum", "payment", "invoice", "royalt(y/ies)",
+#       "commission", "fee(s)", "rent", "freight", "hire", "charge(s)"),
+#   (2) an explicit "owe(s)/owed/owing" reference elsewhere in the same
+#       sentence — the deterministic signal that a SECOND, counterparty-
+#       held debt is what justifies the reduction.
+# "Due"/"payable" alone (part 1's own object) is NOT itself sufficient for
+# part 2 — every ordinary invoice is "due" or "payable"; only "owe(s)/
+# owed/owing" reliably signals a debt attributed to a specific party
+# rather than an ordinary payment obligation. This is why plain tax
+# withholding ("shall be responsible for... withholding taxes"), service
+# credits, refunds, rebates, billing corrections, and accounting net
+# presentation do not match: none of them describe an amount the RECIPIENT
+# of a payment owes the payor — see benchmarks/setoff_concept_benchmark.py
+# for the 30 negative controls this was validated against, including
+# "withhold DELIVERY pending payment" (a performance-leverage right, not a
+# payment-netting right) and "retain its OWN commission" (compensation,
+# not netting against a debt owed BY the other party).
+_DEBT_SATISFACTION_VERB_RE = re.compile(
+    r"\b(?:withhold\w*|deduct\w*|reduc\w*|net(?:s|ted|ting)?|retain\w*|recoup\w*|debit\w*"
+    r"|apply|applying|applied|credit(?:ing|ed)?|set(?:s|ting)?\s+off)\b",
+    re.I,
+)
+_PAYMENT_OBJECT_FRAGMENT = (
+    r"(?:amounts?|sums?|payments?|invoices?|royalt(?:y|ies)|commissions?|fees?|rent|freight|hire|charges?)"
+)
+_DEBT_SATISFACTION_ACTION_RE = re.compile(
+    _DEBT_SATISFACTION_VERB_RE.pattern + r"[^.;]{0,80}?" + _PAYMENT_OBJECT_FRAGMENT +
+    # Step 4A.5 Priority 3: the same concept in PASSIVE voice, where the
+    # payment object precedes the verb ("all amounts owed by either party
+    # ... may be netted") rather than following it — the active-voice
+    # ordering above only reads left-to-right.
+    r"|" + _PAYMENT_OBJECT_FRAGMENT + r"[^.;]{0,150}?may\s+be\s+" + _DEBT_SATISFACTION_VERB_RE.pattern,
+    re.I,
+)
+# Step 4A.7 — S4B/SM-CRITICAL remediation (Step 4A.6 A6-P-12): "owe(s)/
+# owed/owing" alone is a narrow vocabulary net for the underlying concept
+# — a party being under an existing obligation to pay/remit the other.
+# "is independently obligated to remit" / "is required to pay" express the
+# identical debt relationship without the word "owe" at all. This is a
+# bounded extension of the SAME concept family (a finite, closed set of
+# obligated-to-pay phrasings), not an open-ended vocabulary net — see
+# benchmarks/step4a7_setoff_netting_benchmark.py for the positive/negative
+# tests establishing the boundary (e.g. "is entitled to a refund" or "is
+# eligible for a rebate" do NOT match — those aren't a debt owed TO the
+# other party).
+# Step 4A.7.1 (Step 4A.6 A6-P-33, A6-RB-10) — same closed self-flagged-
+# unresolved phrase family as liability_policy_engine.py's
+# _SELF_FLAGGED_AMBIGUITY_RE, independently defined here since the two
+# adapters do not share extraction code. "No payment obligation arises
+# until [future event]", "does not indicate which is the most recent" —
+# a document explicitly deferring or leaving ambiguous which of several
+# instruments controls a material payment term must not resolve cleanly.
+# Step 4A.7.1 (A6-P-48) — the same defined-term-with-a-quoted-name is
+# given two different meanings, each explicitly scoped "for purposes of
+# Section N" — the payment-terms-side counterpart of liability's
+# _CONFLICTING_DEFINED_TERM_RE. A per-section day-count/day-type
+# redefinition ("'Net 30' ... means thirty days ... and 'Net 30' ...
+# shall instead mean thirty BUSINESS days") is not caught by
+# _NET_DAYS_RE's plain digit extraction (both read "30"), so this is a
+# separate, general shape check: a quoted term redefined a second time,
+# introduced by "shall instead mean" and scoped to a different Section.
+_CONFLICTING_PAYMENT_TERM_RE = re.compile(
+    r"for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+shall\s+mean\s+[^,]+,?\s+and\s+['‘][^'’]+['’]\s+for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+shall\s+instead\s+mean\b"
+    # Step 4A.7.4 (F3-P-06) — same conflicting-term concept, clause order
+    # reversed: "for purposes of Section N, 'TERM' shall mean X, and for
+    # purposes of Section M, 'TERM' shall instead mean Y" (the "for
+    # purposes of" phrase precedes the quoted term both times, rather than
+    # only the second time).
+    r"|for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,?\s+['‘][^'’]+['’]\s+shall\s+mean\s+[^,]+,?"
+    r"\s+and\s+for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,?\s+['‘][^'’]+['’]\s+shall\s+instead\s+mean\b"
+    # Step 4A.7.4 (F3-D-15) — the SAME "'TERM' means, for purposes of
+    # Section N, VALUE, and means, for purposes of Section M, VALUE2" shape
+    # liability/indemnification's own conflicting-defined-term detectors
+    # use, applied here to a rate rather than a monetary cap or net-days
+    # value — payment_terms never had this second phrasing at all.
+    r"|means,?\s+for\s+purposes\s+of\s+[^,]{0,60}?Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,\s+[^,]+,?\s+and\s+means,?"
+    r"\s+for\s+purposes\s+of\s+[^,]{0,60}?Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,",
+    re.I,
+)
+_SELF_FLAGGED_PAYMENT_UNRESOLVED_RE = re.compile(
+    _core_self_flagged_unresolved_re.pattern
+    + r"|no\s+payment\s+obligation\s+arises\s+until\b"
+    # Step 4A.7.4 (F3-P-05) — same "nothing is owed until a future
+    # instrument is executed" concept, a fresh verb ("no invoice SHALL
+    # ISSUE until..." rather than "no payment obligation ARISES until...").
+    r"|no\s+invoice\s+shall\s+issue\s+until\b"
+    r"|does\s+not\s+indicate\s+which\s+is\s+the\s+most\s+recent\b"
+    # Step 4A.7.4 (F3-D-09) — same "ambiguous which instrument governs"
+    # concept, generalized beyond the "most recent" phrasing specifically.
+    r"|does\s+not\s+(?:specify|indicate)\s+which\b",
+    re.I,
+)
+
+
+_COUNTERPARTY_OWES_RE = re.compile(
+    r"\bowe[sd]?\b|\bowing\b"
+    r"|(?:is|are)\s+(?:independently\s+)?(?:obligated|required)\s+to\s+(?:remit|pay)\b",
+    re.I,
+)
+_DEBT_SATISFACTION_LOCAL_CHARS = 150
+
+# Step 4A.7 — S4B/SM-CRITICAL remediation (Step 4A.6 A6-P-14, A6-P-24): the
+# verb-then-payment-object pattern above requires an explicit deduction
+# VERB (withhold/deduct/net/recoup/...) governing a payment noun. Genuine
+# netting/set-off is sometimes drafted as a pure STRUCTURAL statement with
+# no such verb at all — "only the net difference...shall actually change
+# hands", "only the resulting balance...being transferred" — the defining
+# shape is "only the [net/balance/difference amount] ... changes hands /
+# is transferred/paid/due", regardless of which verb (if any) introduces
+# it. This is a second, independent discovery path for the SAME underlying
+# concept (mutual debt netting), not a widening of the first path's verb
+# list — see benchmarks/step4a7_setoff_netting_benchmark.py for the hard
+# negatives this must NOT fire on.
+_NET_SETTLEMENT_STRUCTURAL_RE = re.compile(
+    r"only\s+the\s+(?:net\s+(?:difference|amount)|resulting\s+balance|difference)\b"
+    r"[^.;]{0,260}?\b(?:chang(?:e|es|ing)\s+hands|(?:be|being|is|are)\s+(?:paid|transferred|due|remitted)"
+    r"|transferred|remitted)\b",
+    re.I,
+)
+
+
+_MUTUAL_DEBT_NEGATION_RE = re.compile(
+    r"shall\s+not\s+(?:have\s+(?:any\s+)?right|be\s+entitled)|no\s+right|without\s+(?:any\s+)?right"
+    r"|shall\s+not\s+" + _DEBT_SATISFACTION_VERB_RE.pattern,
+    re.I,
+)
+
+
+def _find_mutual_debt_netting_span(text: str) -> Optional[Tuple[int, int]]:
+    """Returns the (start, end) span of the first payment-reduction
+    action (withhold/deduct/reduce/net/retain/recoup/debit/apply-as-
+    credit, governing a payment-shaped object) that has an explicit
+    "owe(s)/owed/owing" reference within a bounded local window of it —
+    scoped locally (not whole-window) so an unrelated "owe" elsewhere in
+    a large provision window can't combine with an unrelated deduction
+    verb elsewhere in the same window to produce a false match. None if
+    no such pairing exists. Falls back to the verb-independent structural
+    "only the net/balance/difference ... changes hands" shape (Step 4A.7)
+    when no verb-governed match is found."""
+    for m in _DEBT_SATISFACTION_ACTION_RE.finditer(text):
+        lo = max(0, m.start() - _DEBT_SATISFACTION_LOCAL_CHARS)
+        hi = min(len(text), m.end() + _DEBT_SATISFACTION_LOCAL_CHARS)
+        if _COUNTERPARTY_OWES_RE.search(text[lo:hi]):
+            return m.start(), m.end()
+    m = _NET_SETTLEMENT_STRUCTURAL_RE.search(text)
+    if m:
+        return m.start(), m.end()
+    return None
+
+
+def _has_mutual_debt_netting(text: str) -> bool:
+    return _find_mutual_debt_netting_span(text) is not None
+
 # --- Pricing --------------------------------------------------------------------------
-_FIXED_PRICE_RE = re.compile(r"prices?\s+(?:shall\s+be\s+)?fixed|fixed[\s-]price", re.I)
+_FIXED_PRICE_RE = re.compile(r"(?:prices?|fees?)\s+(?:shall\s+be\s+|are\s+)?fixed|fixed[\s-](?:price|fee)", re.I)
 _PRICE_INCREASE_RIGHT_RE = re.compile(r"(?:may|right\s+to)\s+increase\s+(?:the\s+)?(?:prices?|fees?)", re.I)
 _PRICE_INCREASE_UNILATERAL_RE = re.compile(r"unilaterally\s+increase[^.]{0,20}?(?:prices?|fees?)|sole\s+discretion[^.]{0,40}?increase[^.]{0,20}?(?:prices?|fees?)", re.I)
 _PRICE_INCREASE_NOTICE_RE = re.compile(
@@ -159,9 +393,23 @@ _EXPENSE_DOCS_RE = re.compile(r"(?:receipts?|documentation)[^.]{0,30}?expenses|e
 
 # --- Taxes -------------------------------------------------------------------------------
 _TAX_RESPONSIBILITY_RE = re.compile(
-    r"(?-i:([A-Z][A-Za-z]{2,30}))\s+(?:shall\s+be\s+)?responsible\s+for\s+(?:all\s+)?(?:applicable\s+)?[^.]{0,40}?taxes", re.I,
+    r"(?-i:([A-Z][A-Za-z]{2,30}))\s+"
+    r"(?:(?:shall\s+be\s+)?responsible\s+for|shall\s+bear\s+the\s+cost\s+of)\s+"
+    r"(?:all\s+)?(?:applicable\s+|any\s+)?[^.]{0,100}?taxes", re.I,
 )
 _WITHHOLDING_TAX_RE = re.compile(r"withholding\s+tax", re.I)
+# Engagement-only (Step 4A.3): _TAX_RESPONSIBILITY_RE requires a
+# CAPITALIZED role word immediately before "responsible for...taxes" so
+# it can ATTRIBUTE the obligation to a specific party — "Each party
+# shall be responsible for taxes..." has no attributable single party
+# (an extra common noun sits between the determiner and the verb) but
+# is still unambiguously a supported tax-responsibility clause that
+# must engage the adapter, even though it correctly yields no
+# attribution.
+_TAX_RESPONSIBILITY_TOPIC_RE = re.compile(
+    r"responsible\s+for\s+(?:all\s+)?(?:applicable\s+)?[^.]{0,100}?taxes"
+    r"|shall\s+bear\s+the\s+cost\s+of\s+(?:all\s+)?(?:applicable\s+|any\s+)?[^.]{0,100}?taxes", re.I,
+)
 
 # --- Currency -----------------------------------------------------------------------------
 # Scoped to a local sentence anchored on an actual payment-currency
@@ -170,7 +418,13 @@ _WITHHOLDING_TAX_RE = re.compile(r"withholding\s+tax", re.I)
 # (e.g. a liability cap expressed cross-referencing a different
 # currency in an unrelated clause) is misread as establishing a second,
 # conflicting payment currency.
-_CURRENCY_CONTEXT_RE = re.compile(r"(?:paid|payable|made|denominated|invoiced)\s+in\b", re.I)
+_CURRENCY_CONTEXT_RE = re.compile(
+    # Allow a short object between the payment verb and "in" ("shall pay
+    # Vendor in United States Dollars") — active-voice phrasing routinely
+    # places the payee between the verb and the currency, not just the
+    # passive "amounts payable in X" form already covered.
+    r"(?:pay|paid|payable|made|denominated|invoiced)(?:\s+\w+){0,3}?\s+in\b", re.I,
+)
 _CURRENCY_RE = re.compile(
     r"\b(USD|EUR|GBP|CAD|AUD|JPY|CHF)\b|United\s+States\s+Dollars|US\s+Dollars|Euros?\b|British\s+Pounds?|Pounds\s+Sterling",
     re.I,
@@ -190,6 +444,17 @@ _SERVICE_CREDIT_RE = re.compile(r"service\s+credits?", re.I)
 _SCHEDULE_CROSSREF_RE = re.compile(
     r"as\s+(?:set\s+forth|described|specified)\s+in\s+the\s+(?:applicable\s+)?(?:Order\s+Form|SOW|Statement\s+of\s+Work|Schedule|Exhibit)"
     r"|governed\s+by\s+(?:the\s+)?(?:applicable\s+)?(?:Order\s+Form|SOW|Schedule)", re.I,
+)
+# Step 4A.7.3 (A7-PA-05) — a single-level delegation to ANY named external
+# source (not just the closed Order Form/SOW/Schedule/Exhibit vocabulary
+# above), where the clause itself explicitly discloses the source isn't
+# included — "shall be as set forth in the fee table maintained in the
+# Vendor portal (not included in this excerpt)". The explicit "(not
+# included...)" self-disclosure is the load-bearing signal, not the name of
+# the source document, so this is deliberately NOT scoped to a closed
+# document-type vocabulary the way _SCHEDULE_CROSSREF_RE is.
+_EXTERNAL_SOURCE_NOT_INCLUDED_RE = re.compile(
+    r"(?:as\s+set\s+forth\s+in|per|maintained\s+in)\s+the\s+[^.(]{0,60}?\(\s*not\s+included\b", re.I,
 )
 
 
@@ -250,6 +515,12 @@ class PaymentFacts:
     grace_period_days: Optional[float] = None
     statutory_max_reference: Optional[bool] = None
 
+    # Step 4A.7.1 — the document itself explicitly flags a material
+    # payment term as not yet finally settled (deferred to a future Order
+    # Form, an unexecuted amendment, an ambiguous "most recently executed"
+    # reference among several). See _SELF_FLAGGED_ambiguity family below.
+    self_flagged_unresolved: bool = False
+
     # Set-off
     setoff_permitted: Optional[bool] = None
     unilateral_deduction_permitted: Optional[bool] = None
@@ -273,6 +544,14 @@ class PaymentFacts:
     tax_responsibility_conflict: bool = False
     withholding_tax_addressed: Optional[bool] = None
 
+    # Step 4A: {role_name: reason} for every role named in
+    # payment_direction_attributions/tax_responsibility_attributions whose
+    # generic side_for_role() mapping conflicts with the document's own
+    # definition of that role (see policy_engine_core.resolve_role_side).
+    # A name present here must never be treated as confidently mapped to
+    # either side, regardless of what the generic vocabulary alone says.
+    role_side_conflicts: Dict[str, str] = field(default_factory=dict)
+
     # Currency
     currency: Optional[str] = None
     currency_conflict: bool = False
@@ -282,6 +561,11 @@ class PaymentFacts:
     service_credit_present: Optional[bool] = None
 
     schedule_cross_reference: bool = False
+    chained_delegation: bool = False
+    conditional_unverified_precondition: bool = False
+    # Step 4A.11 Phase 2 — whether the payment clause's own applicability
+    # is conditioned (see policy_engine_core.ConditionEvidence).
+    condition: Optional[ConditionEvidence] = None
 
 
 class PaymentPolicyRuleLike(Protocol):
@@ -331,8 +615,55 @@ def _annualize_late_fee(rate: float, period: Optional[str]) -> float:
     return rate
 
 
+# Step 4A.3 — the decomposed set of concept-specific recognizers that can
+# independently engage the adapter, each already used elsewhere in this
+# module for its own field-level extraction (never a new pattern
+# invented solely to widen the gate). Deliberately excludes
+# _CURRENCY_RE/_PRICE_INCREASE_PERCENT_RE-style bare-value regexes,
+# which match on numbers/short tokens alone and would engage on
+# unrelated numeric mentions — only regexes that already require
+# concept-specific surrounding language are used as engagement signals.
+_CONCEPT_ENGAGEMENT_RES = [
+    _TAX_RESPONSIBILITY_RE, _TAX_RESPONSIBILITY_TOPIC_RE, _WITHHOLDING_TAX_RE,
+    _SETOFF_PERMIT_RE, _SETOFF_PROHIBIT_RE, _UNILATERAL_DEDUCTION_RE, _DEBT_SATISFACTION_ACTION_RE,
+    _DISPUTE_RIGHT_RE, _UNDISPUTED_PAYABLE_RE, _DISPUTED_WITHHOLD_RE, _DISPUTED_NO_WITHHOLD_RE,
+    _LATE_FEE_MONTHLY_RE, _LATE_FEE_ANNUAL_RE, _STATUTORY_MAX_RE,
+    _PRICE_INCREASE_RIGHT_RE, _PRICE_INCREASE_UNILATERAL_RE, _FIXED_PRICE_RE,
+    _EXPENSES_RE, _EXPENSE_PREAPPROVAL_RE, _CURRENCY_CONTEXT_RE,
+    _WITHIN_DAYS_PAYMENT_RE, _ORDINAL_DAY_FOLLOWING_RE,
+]
+
+
 def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
-    matches = list(_ANCHOR_RE.finditer(text))
+    # Step 4A.3 — Failure Family 2 hardening. Step 4A.2's held-out corpus
+    # found that engagement for the ENTIRE adapter depended on one
+    # monolithic _ANCHOR_RE — a genuine tax-responsibility, set-off, or
+    # dispute-payment clause using ordinary phrasing outside that single
+    # regex's vocabulary produced NOT_APPLICABLE ("no payment terms
+    # clause found"), silently hiding the clause from policy evaluation
+    # entirely (18 of Step 4A.2's 29 wrong-clean decisions traced here,
+    # including a role-reversal case that would have been a genuine
+    # false-safe had recognition engaged at all).
+    #
+    # Recognition is decomposed by supported policy concept: engagement
+    # now fires on _ANCHOR_RE OR any of the field-specific extraction
+    # regexes this module ALREADY ships (tax responsibility, withholding,
+    # set-off/offset, dispute-payment, late-fee/interest, price-increase,
+    # expense reimbursement) — each of those is already more precise than
+    # a generic keyword (e.g. _TAX_RESPONSIBILITY_RE requires a named
+    # party + "responsible for...taxes", not just the word "tax"
+    # anywhere), so reusing them as engagement signals doesn't trade
+    # recall for false engagement on unrelated clauses (see
+    # benchmarks/payment_recognition_benchmark.py's 20 negative controls,
+    # none of which mention taxes/set-off/disputes in a supported-concept
+    # way). This directly answers "why does one narrow anchor gate the
+    # whole adapter" — it no longer does; any independently-recognized
+    # concept is sufficient to engage.
+    concept_matches: List[re.Match] = []
+    for concept_re in _CONCEPT_ENGAGEMENT_RES:
+        concept_matches.extend(concept_re.finditer(text))
+    matches = sorted(list(_ANCHOR_RE.finditer(text)) + concept_matches, key=lambda m: m.start())
+    matches = [m for m in matches if not _is_deposit_only_context(text, m.start())]
     if not matches:
         return None
 
@@ -353,6 +684,40 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
 
     facts = PaymentFacts(clause_found=True, raw_excerpt=raw_excerpt, start_index=start_index,
                           end_index=end_index, section_label=section_label)
+    # Step 4A.11 Phase 2 — unlike indemnification's single obligation
+    # concept, a payment clause routinely bundles MANY independently
+    # already-modeled dimensions in one window (grace periods,
+    # price-increase caps and notice, dispute-notice days, milestone
+    # conditions, ...), each often phrased with its own "provided that"/
+    # "subject to"/"upon" language. A whole-window condition scan
+    # regressed on real compliant text (FULLY_COMPLIANT_TEXT's "subject
+    # to a 10-day grace period" and "provided that any such increase
+    # shall not exceed 5%..." are both already deterministically modeled
+    # via grace_period_days/price_increase_percent, not unmodeled
+    # conditions) by escalating the WHOLE clause on language that belongs
+    # to a different, already-handled dimension entirely. The scan is
+    # instead sentence-scoped to the core payment-obligation anchor
+    # (a "shall pay"/"payable"/"remit..." match specifically, not the
+    # clause heading or a price/late-fee/tax mention), mirroring
+    # indemnification's own obligation-level granularity.
+    _payment_obligation_anchor_re = re.compile(
+        r"shall(?:\s+\w+){0,3}\s+pay\b|obligation\s+to\s+pay|payable|remit(?:tance)?|remunerat\w*", re.I,
+    )
+    payment_verb_match = _payment_obligation_anchor_re.search(text, start_index, end_index)
+    payment_anchor_span = payment_verb_match.span() if payment_verb_match else (first_match.start(), first_match.end())
+    facts.condition = _core_detect_condition_in_span(text, payment_anchor_span[0], payment_anchor_span[1])
+    if section_label:
+        conflict = _core_detect_conflicting_backward_conditions(text, "Section", section_label)
+        if conflict is not None:
+            priority = {"CONFLICTING": 3, "ESTABLISHED": 2, "NOT_ESTABLISHED": 1, "UNCONDITIONAL": 0}
+            facts.condition = max((facts.condition, conflict), key=lambda e: priority.get(e.status, 0))
+    facts.self_flagged_unresolved = bool(
+        _SELF_FLAGGED_PAYMENT_UNRESOLVED_RE.search(raw_excerpt)
+        or _CONFLICTING_PAYMENT_TERM_RE.search(raw_excerpt)
+    )
+    facts.conditional_unverified_precondition = bool(
+        _core_conditional_unverified_precondition_re.search(raw_excerpt)
+    )
 
     net_days_values: set = set()
     trigger_tokens: set = set()
@@ -364,12 +729,30 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
     for (ws, we) in windows:
         window = text[ws:we]
 
+        # Step 4A.11 Phase 4 — direct safety-defect evidence: net_days
+        # (and every other dimension in this function) was extracted with
+        # NO operative-context filtering at all, so a recital ("WHEREAS
+        # the parties intend to establish a Net 30 payment cycle..."), a
+        # superseded term ("was deleted by Amendment No. 1..."), a
+        # heading, or a description of a different, terminated agreement
+        # all established a clean Net-N figure. Scoped to net_days only
+        # (this dimension is what the fresh battery's ground truth
+        # actually exercises) rather than rewriting every dimension in
+        # this function -- a broader pass is backlog, not blocking.
         for m in _NET_DAYS_RE.finditer(window):
-            net_days_values.add(int(m.group(1)))
+            if _core_is_operative_context(text, ws + m.start(), ws + m.end()):
+                net_days_values.add(int(m.group(1)))
         for m in _WITHIN_DAYS_PAYMENT_RE.finditer(window):
             raw = next((g for g in m.groups() if g), None)
-            if raw:
+            if raw and _core_is_operative_context(text, ws + m.start(), ws + m.end()):
                 net_days_values.add(int(raw))
+        for m in _ORDINAL_DAY_FOLLOWING_RE.finditer(window):
+            if not _core_is_operative_context(text, ws + m.start(), ws + m.end()):
+                continue
+            word = m.group(1).lower()
+            n = _ORDINAL_WORDS.get(word) or (int(word) if word.isdigit() else None)
+            if n is not None:
+                net_days_values.add(n)
 
         trigger_tokens |= _classify_trigger(window)
 
@@ -415,6 +798,18 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
             facts.setoff_permitted = True
         elif _SETOFF_PROHIBIT_RE.search(window):
             facts.setoff_permitted = False
+        else:
+            netting_span = _find_mutual_debt_netting_span(window)
+            if netting_span is not None:
+                # Step 4A.5: the mutual-debt-netting concept is present
+                # but phrased without "set-off"/"offset" — a negation cue
+                # ("shall not", "no right", "without any right") found
+                # near the SAME match (not merely anywhere in a large
+                # provision window) still controls; otherwise this is a
+                # permitted mutual-debt-netting right.
+                lo = max(0, netting_span[0] - _DEBT_SATISFACTION_LOCAL_CHARS)
+                hi = min(len(window), netting_span[1] + _DEBT_SATISFACTION_LOCAL_CHARS)
+                facts.setoff_permitted = not bool(_MUTUAL_DEBT_NEGATION_RE.search(window[lo:hi]))
         if _UNILATERAL_DEDUCTION_RE.search(window):
             facts.unilateral_deduction_permitted = True
 
@@ -471,6 +866,8 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
 
         if _SCHEDULE_CROSSREF_RE.search(window):
             facts.schedule_cross_reference = True
+        if _core_chained_delegation_re.search(window) or _EXTERNAL_SOURCE_NOT_INCLUDED_RE.search(window):
+            facts.chained_delegation = True
 
         for m in _PAY_DIRECTION_RE.finditer(window):
             payor, payee = m.group(1), m.group(2)
@@ -516,6 +913,17 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
     if any(len(payees) > 1 for payees in facts.payment_direction_attributions.values()) or len(facts.payment_direction_attributions) > 1:
         facts.payment_direction_conflict = True
 
+    # Step 4A: verify every role name this extraction attributed
+    # responsibility to (payor or tax) against the document's own
+    # definition of that role, not just the generic buy/sell vocabulary.
+    role_names = set(facts.tax_responsibility_attributions) | set(facts.payment_direction_attributions) | {
+        payee for payees in facts.payment_direction_attributions.values() for payee in payees
+    }
+    for name in role_names:
+        _, conflict_reason = resolve_role_side(name, text)
+        if conflict_reason:
+            facts.role_side_conflicts[name] = conflict_reason
+
     return facts
 
 
@@ -530,7 +938,11 @@ def _resolve_payor_side(facts: PaymentFacts, contract_side: str) -> Tuple[Option
         return None, True
     sides: set = set()
     for payor_name in facts.payment_direction_attributions:
-        mapped = side_for_role(payor_name)
+        # Step 4A: a role whose document-specific definition conflicts
+        # with the generic vocabulary (facts.role_side_conflicts) must
+        # never be trusted as mapped to either side, even though
+        # side_for_role() alone would happily return one.
+        mapped = None if payor_name in facts.role_side_conflicts else side_for_role(payor_name)
         if mapped == contract_side:
             sides.add("us")
         elif mapped is not None:
@@ -547,7 +959,7 @@ def _resolve_tax_responsibility(facts: PaymentFacts, contract_side: str) -> Tupl
         return None, True
     sides: set = set()
     for name in facts.tax_responsibility_attributions:
-        mapped = side_for_role(name)
+        mapped = None if name in facts.role_side_conflicts else side_for_role(name)
         if mapped == contract_side:
             sides.add("us")
         elif mapped is not None:
@@ -603,6 +1015,13 @@ def evaluate_payment_policy(
     tax_side, tax_unresolved = _resolve_tax_responsibility(facts, policy.contract_side)
 
     unresolved: List[str] = []
+    if facts.self_flagged_unresolved:
+        unresolved.append("the document itself explicitly flags a material payment term as not yet finally settled")
+    if facts.conditional_unverified_precondition:
+        unresolved.append(
+            "a stated payment term's applicability is conditioned on a precondition the document itself "
+            "marks as not yet determined/verified — cannot confirm which term actually governs"
+        )
     if facts.net_days_conflict:
         unresolved.append("multiple conflicting Net payment periods are stated")
     if facts.payment_trigger_conflict:
@@ -610,8 +1029,13 @@ def evaluate_payment_policy(
     if facts.payment_direction_conflict:
         unresolved.append("the payor/payee relationship is stated inconsistently — cannot safely attribute who pays whom")
     elif policy.require_counterparty_is_payor and facts.payment_direction_attributions and payor_unresolved:
-        unresolved.append("the party obligated to pay could not be confidently mapped to our configured contract side, "
-                           "or this playbook is configured for a mutual position — cannot determine who pays whom")
+        payor_conflicts = [r for n, r in facts.role_side_conflicts.items() if n in facts.payment_direction_attributions
+                           or any(n in payees for payees in facts.payment_direction_attributions.values())]
+        if payor_conflicts:
+            unresolved.extend(payor_conflicts)
+        else:
+            unresolved.append("the party obligated to pay could not be confidently mapped to our configured contract side, "
+                               "or this playbook is configured for a mutual position — cannot determine who pays whom")
     if facts.dispute_notice_conflict:
         unresolved.append("the dispute-notice period is stated inconsistently across the document")
     if facts.late_fee_conflict:
@@ -623,8 +1047,12 @@ def evaluate_payment_policy(
     if facts.tax_responsibility_conflict:
         unresolved.append("tax responsibility is stated inconsistently — attributed to different parties in different places")
     elif policy.require_tax_responsibility_counterparty and facts.tax_responsibility_attributions and tax_unresolved:
-        unresolved.append("tax responsibility is stated by named party but could not be confidently mapped to our "
-                           "configured contract side, or this playbook is configured for a mutual position")
+        tax_conflicts = [r for n, r in facts.role_side_conflicts.items() if n in facts.tax_responsibility_attributions]
+        if tax_conflicts:
+            unresolved.extend(tax_conflicts)
+        else:
+            unresolved.append("tax responsibility is stated by named party but could not be confidently mapped to our "
+                               "configured contract side, or this playbook is configured for a mutual position")
 
     established_dimension_count = sum(1 for v in (
         facts.net_days, facts.payment_trigger, facts.prepayment_required, facts.milestone_payment_present,
@@ -637,6 +1065,35 @@ def evaluate_payment_policy(
     ) if v is not None) + (1 if facts.payment_direction_attributions else 0) + (1 if facts.tax_responsibility_attributions else 0)
     if facts.schedule_cross_reference and established_dimension_count == 0:
         unresolved.append("material payment terms are delegated to a referenced Order Form/SOW/Schedule not included in this text")
+    if facts.chained_delegation:
+        # Step 4A.7.3 — stronger than the single-level schedule_cross_reference
+        # check above: this is an EXPLICIT chain ("which X itself
+        # cross-references/references/incorporates Y...not included") ending
+        # in a document not present, so it's flagged regardless of whether
+        # other dimensions (a due date, a trigger) happen to be established —
+        # the amount/rate itself is still genuinely unresolved even if the
+        # timing is clean. See fresh-battery F3-P-15 and absence-audit A7-PA-05.
+        unresolved.append(
+            "a material payment amount/rate is delegated through a chain of cross-references ending in a "
+            "document not included — the timing terms may be clean but what is actually owed cannot be verified"
+        )
+
+    # Step 4A.11 Phase 2 — a conditional fact may become authoritative only
+    # WITH its condition preserved; this engine does not evaluate whether a
+    # condition's real-world trigger is satisfied.
+    if facts.condition is not None and facts.condition.status == "ESTABLISHED":
+        unresolved.append(
+            f"payment terms are conditionally applicable ({facts.condition.condition_type}: "
+            f"\"{facts.condition.evidence_span}\") — this evaluation does not determine whether the "
+            f"stated condition is satisfied"
+        )
+    elif facts.condition is not None and facts.condition.status == "NOT_ESTABLISHED":
+        unresolved.append(
+            f"payment terms' applicability (condition-shaped language present but its scope/"
+            f"attachment cannot be established: \"{facts.condition.evidence_span}\")"
+        )
+    elif facts.condition is not None and facts.condition.status == "CONFLICTING":
+        unresolved.append(f"payment terms' applicability ({facts.condition.note})")
 
     if unresolved:
         explanation = requires_review_explanation("payment terms clause", facts.raw_excerpt, unresolved)

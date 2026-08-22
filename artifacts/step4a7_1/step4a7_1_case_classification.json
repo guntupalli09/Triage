@@ -1,0 +1,2122 @@
+[
+  {
+    "id": "A6-L-01",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-02",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ESCALATE",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-03",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "CA",
+    "expected": "NEGOTIATE or ACCEPT depending on policy threshold (default policy: 2x within acceptable range)"
+  },
+  {
+    "id": "A6-L-04",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ESCALATE",
+    "outcome": "CA",
+    "expected": "ESCALATE (fixed-dollar, compare manually per existing architecture) or ACCEPT depending on config"
+  },
+  {
+    "id": "A6-L-05",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-06",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "depends on actual fee amount; system should extract structure and escalate for value comparison unless resolvable"
+  },
+  {
+    "id": "A6-L-07",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ESCALATE",
+    "outcome": "FE",
+    "expected": "REQUIRES_REVIEW (scope ambiguity per existing architecture: per-claim vs aggregate distinct values, policy threshold scope unspecified)"
+  },
+  {
+    "id": "A6-L-08",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "NEGOTIATE",
+    "outcome": "CA",
+    "expected": "NEGOTIATE (3x exceeds acceptable_max but within negotiate_max under default policy)"
+  },
+  {
+    "id": "A6-L-09",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ESCALATE",
+    "outcome": "CA",
+    "expected": "ESCALATE (exceeds negotiate_max under default policy)"
+  },
+  {
+    "id": "A6-L-10",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "MUST_REDLINE",
+    "outcome": "BOUNDARY_CONSISTENT",
+    "expected": "requires human legal judgment on whether 'no liability whatsoever' is enforceable/desired; system likely treats as unlimited/uncapped signal -> escalate or note"
+  },
+  {
+    "id": "A6-L-11",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-12",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "varied",
+    "label": "SHOULD_REVIEW",
+    "actual": "ACCEPT",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW is plausible ONLY if the cumulative-across-renewals language creates genuine ambiguity about which period's fees the multiplier applies to; otherwise should ACCEPT"
+  },
+  {
+    "id": "A6-L-13",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "CA",
+    "expected": "ACCEPT for the general cap (2x fees); the confidentiality carve-out is a scope note, not a blocking ambiguity for the numeric cap itself"
+  },
+  {
+    "id": "A6-L-14",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT for general cap value; willful_misconduct tracked as uncapped carve-out per existing carve-out architecture"
+  },
+  {
+    "id": "A6-L-15",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CA",
+    "expected": "the second operand requires computing annual-equivalent from 'monthly storage fee x twelve' \u2014 if the system cannot resolve this into a directly comparable annual-fees multiplier, REQUIRES_REVIEW is defensible; otherwise ACCEPT if it correctly extracts lesser_of($5000, annualized 1x fee)"
+  },
+  {
+    "id": "A6-L-16",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-17",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-18",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CA",
+    "expected": "ACCEPT if the fractional multiplier is correctly parsed from the parenthetical numeral; REQUIRES_REVIEW is defensible if only the spelled-out words are present without recognition"
+  },
+  {
+    "id": "A6-L-19",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT for the general cap (1x fees); the food-safety carve-out is a distinct, correctly-scoped super-cap for that specific category, not a competing definition of the SAME quantity"
+  },
+  {
+    "id": "A6-L-20",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "CA",
+    "expected": "ACCEPT for the multiplier value itself"
+  },
+  {
+    "id": "A6-L-21",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "SHOULD_REVIEW",
+    "actual": "MUST_REDLINE",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW or MUST_REDLINE (no cap value stated) \u2014 must NOT fabricate a value"
+  },
+  {
+    "id": "A6-L-22",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-L-23",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-L-24",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT (2x fees, not $500,000)"
+  },
+  {
+    "id": "A6-L-25",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "SHOULD_REVIEW",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "CA",
+    "expected": "REQUIRES_REVIEW is the more defensible outcome given the disclosed 'Liability Terms' tabular-exception-field gap from Step 4A.5, though the general cap value itself (2x fees) is clean if resolved separately"
+  },
+  {
+    "id": "A6-L-26",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "ownership",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT (1x fees)"
+  },
+  {
+    "id": "A6-L-27",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "ownership",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-28",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "ownership",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-29",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "ownership",
+    "label": "AUTOMATABLE",
+    "actual": "NEGOTIATE",
+    "outcome": "CA",
+    "expected": "NEGOTIATE (3x)"
+  },
+  {
+    "id": "A6-L-30",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "ownership",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "BOUNDARY_CONSISTENT",
+    "expected": "REQUIRES_REVIEW is defensible if the system cannot separate the two premium concepts cleanly; ACCEPT (2x) is correct if it does"
+  },
+  {
+    "id": "A6-L-31",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "ownership",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-32",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "ownership",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT (1x fees) on the liability adapter"
+  },
+  {
+    "id": "A6-L-33",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "ownership",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "CA",
+    "expected": "ACCEPT (2x fees)"
+  },
+  {
+    "id": "A6-L-34",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "ownership",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-L-35",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "ownership",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT (1x fees)"
+  },
+  {
+    "id": "A6-L-36",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "absence",
+    "label": "AUTOMATABLE",
+    "actual": "NOT_APPLICABLE",
+    "outcome": "CA",
+    "expected": "NOT_APPLICABLE"
+  },
+  {
+    "id": "A6-L-37",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "absence",
+    "label": "AUTOMATABLE",
+    "actual": "NOT_APPLICABLE",
+    "outcome": "CA",
+    "expected": "NOT_APPLICABLE"
+  },
+  {
+    "id": "A6-L-38",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "absence",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW is defensible (a heading exists suggesting the parties intended to address this, but no cap is stated) OR NOT_APPLICABLE if the system correctly reads 'no limitation currently applies' as equivalent to unlimited/uncapped \u2014 genuinely debatable, hence SHOULD_REVIEW"
+  },
+  {
+    "id": "A6-L-39",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "absence",
+    "label": "AUTOMATABLE",
+    "actual": "NOT_APPLICABLE",
+    "outcome": "CA",
+    "expected": "NOT_APPLICABLE"
+  },
+  {
+    "id": "A6-L-40",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "absence",
+    "label": "SHOULD_REVIEW",
+    "actual": "MUST_REDLINE",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW or MUST_REDLINE (no cap value stated, delegated to an unincluded document) \u2014 must not fabricate a value or treat as NOT_APPLICABLE (the clause DOES exist and DOES address liability, just without a resolvable figure)"
+  },
+  {
+    "id": "A6-L-41",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "structural",
+    "label": "AUTOMATABLE",
+    "actual": "NOT_APPLICABLE",
+    "outcome": "SM",
+    "expected": "ACCEPT for general cap (2x); category caps tracked separately"
+  },
+  {
+    "id": "A6-L-42",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "structural",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ESCALATE (3x exceeds acceptable range) \u2014 the correct amended value must be used, not the superseded 1x"
+  },
+  {
+    "id": "A6-L-43",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "structural",
+    "label": "AUTOMATABLE",
+    "actual": "ESCALATE",
+    "outcome": "CA",
+    "expected": "ESCALATE (fixed dollar, per existing architecture) or ACCEPT depending on config"
+  },
+  {
+    "id": "A6-L-44",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "structural",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-L-45",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "structural",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-46",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "grammatical_subject",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-47",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "grammatical_subject",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT if correctly resolved to buy_side; a WRONG-CLEAN risk exists if the system naively credits 'releases' (a sell-side verb) to Distributor merely because Distributor is the role being classified and appears grammatically close to the verb"
+  },
+  {
+    "id": "A6-L-48",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "grammatical_subject",
+    "label": "AUTOMATABLE",
+    "actual": "NOT_APPLICABLE",
+    "outcome": "SM",
+    "expected": "Licensee correctly resolves buy_side, not 'mixed'"
+  },
+  {
+    "id": "A6-L-49",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "grammatical_subject",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-50",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "grammatical_subject",
+    "label": "AUTOMATABLE",
+    "actual": "NOT_APPLICABLE",
+    "outcome": "SM",
+    "expected": "Operator resolves sell_side via its OWN licensing conduct, not confused by the subcontractor's retail activity"
+  },
+  {
+    "id": "A6-L-51",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "grammatical_subject",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-52",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "grammatical_subject",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW (generic mapping for 'Grantee'/'Grantor' may not exist, and no directional verb is recognized)"
+  },
+  {
+    "id": "A6-L-53",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "role_definition",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-54",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "role_definition",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-55",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "role_definition",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-56",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "role_definition",
+    "label": "AUTOMATABLE",
+    "actual": "NOT_APPLICABLE",
+    "outcome": "SM",
+    "expected": "ACCEPT/clean resolution \u2014 the proviso is unambiguous"
+  },
+  {
+    "id": "A6-L-57",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "role_definition",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-L-58",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "role_definition",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-59",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "role_definition",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-L-60",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "role_definition",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-01",
+    "adapter": "indemnification",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT (protection exists)"
+  },
+  {
+    "id": "A6-I-02",
+    "adapter": "indemnification",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-03",
+    "adapter": "indemnification",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-04",
+    "adapter": "indemnification",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-05",
+    "adapter": "indemnification",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-06",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-07",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CA",
+    "expected": "ACCEPT if the parenthetical-shorthand tolerance generalizes beyond the exact 'Indemnifying/Indemnified Party' wording; REQUIRES_REVIEW is a defensible fallback if it does not"
+  },
+  {
+    "id": "A6-I-08",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT for the monetary cap itself"
+  },
+  {
+    "id": "A6-I-09",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-10",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-11",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-I-12",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-I-13",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-14",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-15",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-16",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "reciprocal_scope",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-I-17",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "reciprocal_scope",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-I-18",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "reciprocal_scope",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-I-19",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "reciprocal_scope",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-I-20",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "reciprocal_scope",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-I-21",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "reciprocal_scope",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-22",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "reciprocal_scope",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-23",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "reciprocal_scope",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-I-24",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "reciprocal_scope",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-I-25",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "reciprocal_scope",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-26",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "grammatical_subject",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-27",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "grammatical_subject",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT if correctly resolved buy_side; WC risk if the sell-side-adjacent 'is granted' language is wrongly attributed active-voice to Franchisee"
+  },
+  {
+    "id": "A6-I-28",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "grammatical_subject",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT (buy_side)"
+  },
+  {
+    "id": "A6-I-29",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "grammatical_subject",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-I-30",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "grammatical_subject",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-31",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "direction_invariance",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-32",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "direction_invariance",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-33",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "direction_invariance",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-34",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "direction_invariance",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-35",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "direction_invariance",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-I-36",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "direction_invariance",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-37",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "direction_invariance",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-38",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "direction_invariance",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-I-39",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "direction_invariance",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-40",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "direction_invariance",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-41",
+    "adapter": "indemnification",
+    "tier": 1,
+    "family": "absence",
+    "label": "AUTOMATABLE",
+    "actual": "NOT_APPLICABLE",
+    "outcome": "CA",
+    "expected": "NOT_APPLICABLE"
+  },
+  {
+    "id": "A6-I-42",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "absence",
+    "label": "AUTOMATABLE",
+    "actual": "NOT_APPLICABLE",
+    "outcome": "CA",
+    "expected": "NOT_APPLICABLE"
+  },
+  {
+    "id": "A6-I-43",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "absence",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-I-44",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "absence",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW or MUST_REDLINE"
+  },
+  {
+    "id": "A6-I-45",
+    "adapter": "indemnification",
+    "tier": 1,
+    "family": "absence",
+    "label": "AUTOMATABLE",
+    "actual": "NOT_APPLICABLE",
+    "outcome": "CA",
+    "expected": "NOT_APPLICABLE"
+  },
+  {
+    "id": "A6-I-46",
+    "adapter": "indemnification",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-47",
+    "adapter": "indemnification",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-48",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-49",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-50",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-51",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-52",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-53",
+    "adapter": "indemnification",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-54",
+    "adapter": "indemnification",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-I-55",
+    "adapter": "indemnification",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-P-01",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "depends on policy threshold"
+  },
+  {
+    "id": "A6-P-02",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-P-03",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-P-04",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "depends on policy threshold"
+  },
+  {
+    "id": "A6-P-05",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "depends on annualized threshold"
+  },
+  {
+    "id": "A6-P-06",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "silent_miss_attack",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "AUTOMATABLE target: engage and extract; if missed, this is a genuine SM"
+  },
+  {
+    "id": "A6-P-07",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "silent_miss_attack",
+    "label": "AUTOMATABLE",
+    "actual": "NEGOTIATE",
+    "outcome": "CA",
+    "expected": "AUTOMATABLE target: engage; if missed, genuine SM"
+  },
+  {
+    "id": "A6-P-08",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "silent_miss_attack",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "AUTOMATABLE target: engage; if missed, genuine SM"
+  },
+  {
+    "id": "A6-P-09",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "silent_miss_attack",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "AUTOMATABLE target: engage; if missed, genuine SM (compound-ordinal-word gap)"
+  },
+  {
+    "id": "A6-P-10",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "silent_miss_attack",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "AUTOMATABLE target: engage; if missed, genuine SM"
+  },
+  {
+    "id": "A6-P-11",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "silent_miss_attack",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "must NOT trigger setoff_permitted/prohibited \u2014 this is a hard-negative control for the set-off detector"
+  },
+  {
+    "id": "A6-P-12",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "silent_miss_attack",
+    "label": "AUTOMATABLE",
+    "actual": "MUST_REDLINE",
+    "outcome": "CA",
+    "expected": "MUST_REDLINE (prohibited set-off, policy violated) \u2014 must NOT be silently missed"
+  },
+  {
+    "id": "A6-P-13",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "silent_miss_attack",
+    "label": "SHOULD_REVIEW",
+    "actual": "ACCEPT",
+    "outcome": "BOUNDARY_CONSISTENT",
+    "expected": "REQUIRES_REVIEW is the most defensible label \u2014 this sits precisely at the documented boundary between set-off and ordinary damages/self-help deduction that Step 4A.5 explicitly declined to resolve further"
+  },
+  {
+    "id": "A6-P-14",
+    "adapter": "payment_terms",
+    "tier": 3,
+    "family": "silent_miss_attack",
+    "label": "AUTOMATABLE",
+    "actual": "MUST_REDLINE",
+    "outcome": "CA",
+    "expected": "MUST_REDLINE if recognized; a MISS here would be a genuine SM demonstrating the vocabulary boundary is real"
+  },
+  {
+    "id": "A6-P-15",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "silent_miss_attack",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "AUTOMATABLE target: engage both concepts"
+  },
+  {
+    "id": "A6-P-16",
+    "adapter": "payment_terms",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "SHOULD_REVIEW",
+    "actual": "NOT_APPLICABLE",
+    "outcome": "BOUNDARY_CONSISTENT",
+    "expected": "REQUIRES_REVIEW is defensible given the genuine scope-changing carve-out; ACCEPT is also defensible if income-tax exclusion is standard/expected and doesn't affect the counterparty-tax-responsibility requirement"
+  },
+  {
+    "id": "A6-P-17",
+    "adapter": "payment_terms",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW (net_days_conflict=True, genuinely two different values with no way to resolve which governs from the text alone)"
+  },
+  {
+    "id": "A6-P-18",
+    "adapter": "payment_terms",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT for the general disputed-withholding right; the tax carve-out is a clean, non-ambiguating clarification"
+  },
+  {
+    "id": "A6-P-19",
+    "adapter": "payment_terms",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-P-20",
+    "adapter": "payment_terms",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-P-21",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "silent_miss_attack",
+    "label": "AUTOMATABLE",
+    "actual": "NEGOTIATE",
+    "outcome": "CA",
+    "expected": "AUTOMATABLE target"
+  },
+  {
+    "id": "A6-P-22",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "silent_miss_attack",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "AUTOMATABLE target"
+  },
+  {
+    "id": "A6-P-23",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "silent_miss_attack",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "AUTOMATABLE target"
+  },
+  {
+    "id": "A6-P-24",
+    "adapter": "payment_terms",
+    "tier": 3,
+    "family": "silent_miss_attack",
+    "label": "AUTOMATABLE",
+    "actual": "MUST_REDLINE",
+    "outcome": "CA",
+    "expected": "MUST_REDLINE if recognized"
+  },
+  {
+    "id": "A6-P-25",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "setoff_hard_negative",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "must NOT trigger setoff_permitted/prohibited"
+  },
+  {
+    "id": "A6-P-26",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "setoff_hard_negative",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "must NOT trigger setoff_permitted/prohibited"
+  },
+  {
+    "id": "A6-P-27",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "setoff_hard_negative",
+    "label": "SHOULD_REVIEW",
+    "actual": "MUST_REDLINE",
+    "outcome": "BOUNDARY_CONSISTENT",
+    "expected": "REQUIRES_REVIEW \u2014 this is the disclosed cost-of-cover boundary case, deliberately not resolved further"
+  },
+  {
+    "id": "A6-P-28",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "setoff_hard_negative",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "must NOT trigger setoff_permitted/prohibited"
+  },
+  {
+    "id": "A6-P-29",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "setoff_hard_negative",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "must NOT trigger setoff_permitted/prohibited"
+  },
+  {
+    "id": "A6-P-30",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "setoff_hard_negative",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "must NOT trigger setoff_permitted/prohibited"
+  },
+  {
+    "id": "A6-P-31",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "absence",
+    "label": "AUTOMATABLE",
+    "actual": "NOT_APPLICABLE",
+    "outcome": "CA",
+    "expected": "NOT_APPLICABLE"
+  },
+  {
+    "id": "A6-P-32",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "absence",
+    "label": "AUTOMATABLE",
+    "actual": "NOT_APPLICABLE",
+    "outcome": "CA",
+    "expected": "NOT_APPLICABLE"
+  },
+  {
+    "id": "A6-P-33",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "absence",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-P-34",
+    "adapter": "payment_terms",
+    "tier": 3,
+    "family": "absence",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW or MUST_REDLINE"
+  },
+  {
+    "id": "A6-P-35",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "depends on threshold"
+  },
+  {
+    "id": "A6-P-36",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT (compliant, tax on landlord side)"
+  },
+  {
+    "id": "A6-P-37",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "depends on threshold"
+  },
+  {
+    "id": "A6-P-38",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "depends on threshold"
+  },
+  {
+    "id": "A6-P-39",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT for currency; net_days extraction depends on whether 'bill of lading date' is recognized as a valid trigger"
+  },
+  {
+    "id": "A6-P-40",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-P-41",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "depends on threshold"
+  },
+  {
+    "id": "A6-P-42",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-P-43",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "depends on threshold"
+  },
+  {
+    "id": "A6-P-44",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-P-45",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-P-46",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "depends on threshold"
+  },
+  {
+    "id": "A6-P-47",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-P-48",
+    "adapter": "payment_terms",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-P-49",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "NOT_APPLICABLE",
+    "outcome": "BOUNDARY_CONSISTENT",
+    "expected": "ACCEPT if 'duties and customs fees' is recognized as a tax-equivalent category; REQUIRES_REVIEW/SM risk if the adapter requires the literal word 'tax'"
+  },
+  {
+    "id": "A6-P-50",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "depends on threshold"
+  },
+  {
+    "id": "A6-P-51",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT for currency; tax responsibility here is stated as Ironclad's OWN collection/remittance duty (a vendor-side VAT-style mechanic), which is a genuinely different concept from 'who bears the economic cost of the tax'"
+  },
+  {
+    "id": "A6-P-52",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "depends on threshold"
+  },
+  {
+    "id": "A6-P-53",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT for net_days; dispute mechanics tracked separately"
+  },
+  {
+    "id": "A6-P-54",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-P-55",
+    "adapter": "payment_terms",
+    "tier": 1,
+    "family": "ordinary",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "depends on threshold"
+  },
+  {
+    "id": "A6-C-01",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT (1x premiums) on liability adapter"
+  },
+  {
+    "id": "A6-C-02",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT (2x premiums) on indemnification adapter"
+  },
+  {
+    "id": "A6-C-03",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "MUST_REDLINE (multiple violations)"
+  },
+  {
+    "id": "A6-C-04",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "GTD",
+    "expected": "NEGOTIATE (2x) on liability adapter"
+  },
+  {
+    "id": "A6-C-05",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "ESCALATE",
+    "outcome": "CA",
+    "expected": "ACCEPT/ESCALATE depending on fixed-dollar handling ($2,000,000)"
+  },
+  {
+    "id": "A6-C-06",
+    "adapter": "payment_terms",
+    "tier": 3,
+    "family": "compound",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-C-07",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "MUST_REDLINE",
+    "outcome": "WC",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-C-08",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "compound",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-C-09",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "ESCALATE",
+    "outcome": "CA",
+    "expected": "ACCEPT/ESCALATE"
+  },
+  {
+    "id": "A6-C-10",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT (compliant tax placement, clean Net 30)"
+  },
+  {
+    "id": "A6-C-11",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT (2x)"
+  },
+  {
+    "id": "A6-C-12",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "GTD",
+    "expected": "NEGOTIATE (2x royalties)"
+  },
+  {
+    "id": "A6-C-13",
+    "adapter": "payment_terms",
+    "tier": 3,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT for both concepts"
+  },
+  {
+    "id": "A6-C-14",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT structure, escalate for value comparison if needed"
+  },
+  {
+    "id": "A6-C-15",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "compound",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-C-16",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT (1x fees)"
+  },
+  {
+    "id": "A6-C-17",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT (Net 30)"
+  },
+  {
+    "id": "A6-C-18",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "compound",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-C-19",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT (1x)"
+  },
+  {
+    "id": "A6-C-20",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT (2x)"
+  },
+  {
+    "id": "A6-C-21",
+    "adapter": "payment_terms",
+    "tier": 3,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-C-22",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "compound",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW on the liability adapter"
+  },
+  {
+    "id": "A6-C-23",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "FE",
+    "expected": "ACCEPT (2x)"
+  },
+  {
+    "id": "A6-C-24",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "GTD",
+    "expected": "NEGOTIATE (2x) on liability adapter"
+  },
+  {
+    "id": "A6-C-25",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "MUST_REDLINE",
+    "outcome": "CA",
+    "expected": "MUST_REDLINE (prohibited set-off)"
+  },
+  {
+    "id": "A6-C-26",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "compound",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-C-27",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "GTD",
+    "expected": "NEGOTIATE (2x)"
+  },
+  {
+    "id": "A6-C-28",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT (Net 10)"
+  },
+  {
+    "id": "A6-C-29",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT (2x)"
+  },
+  {
+    "id": "A6-C-30",
+    "adapter": "liability",
+    "tier": 1,
+    "family": "compound",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT",
+    "outcome": "CA",
+    "expected": "ACCEPT"
+  },
+  {
+    "id": "A6-RB-01",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "varied",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-RB-02",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "varied",
+    "label": "SHOULD_REVIEW",
+    "actual": "MUST_REDLINE",
+    "outcome": "WC",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-RB-03",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "varied",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-RB-04",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "varied",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-RB-05",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "varied",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-RB-06",
+    "adapter": "payment_terms",
+    "tier": 2,
+    "family": "varied",
+    "label": "SHOULD_REVIEW",
+    "actual": "NOT_APPLICABLE",
+    "outcome": "SM",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-RB-07",
+    "adapter": "liability",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-RB-08",
+    "adapter": "indemnification",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-RB-09",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "ownership",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-RB-10",
+    "adapter": "payment_terms",
+    "tier": 3,
+    "family": "adversarial",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-RB-11",
+    "adapter": "indemnification",
+    "tier": 2,
+    "family": "varied",
+    "label": "SHOULD_REVIEW",
+    "actual": "REQUIRES_REVIEW",
+    "outcome": "CR",
+    "expected": "REQUIRES_REVIEW"
+  },
+  {
+    "id": "A6-RB-12",
+    "adapter": "liability",
+    "tier": 2,
+    "family": "varied",
+    "label": "AUTOMATABLE",
+    "actual": "ACCEPT_WITH_NOTE",
+    "outcome": "CA",
+    "expected": "ACCEPT (2x, since the trigger explicitly preserves the current figure until renegotiation, and no renegotiation is stated to have occurred)"
+  }
+]

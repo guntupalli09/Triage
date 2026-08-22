@@ -1,0 +1,984 @@
+{
+  "cases": [
+    {
+      "id": "batN-0001-attention-filter-0",
+      "family": "attention-filter-omission",
+      "passed": true,
+      "notes": "state=HAS_CRITICAL_INTERACTION, needs_attention=True, expected_material=True"
+    },
+    {
+      "id": "batN-0002-attention-filter-1",
+      "family": "attention-filter-omission",
+      "passed": true,
+      "notes": "state=HAS_POLICY_VIOLATION, needs_attention=True, expected_material=True"
+    },
+    {
+      "id": "batN-0003-attention-filter-2",
+      "family": "attention-filter-omission",
+      "passed": true,
+      "notes": "state=REQUIRES_REVIEW, needs_attention=True, expected_material=True"
+    },
+    {
+      "id": "batN-0004-attention-filter-3",
+      "family": "attention-filter-omission",
+      "passed": true,
+      "notes": "state=CONFIGURATION_UNRESOLVED, needs_attention=True, expected_material=True"
+    },
+    {
+      "id": "batN-0005-attention-filter-4",
+      "family": "attention-filter-omission",
+      "passed": true,
+      "notes": "state=CLEAN_LEGACY_ATTENTION, needs_attention=False, expected_material=False"
+    },
+    {
+      "id": "batN-0006-attention-filter-5",
+      "family": "attention-filter-omission",
+      "passed": true,
+      "notes": "state=CLEAN, needs_attention=False, expected_material=False"
+    },
+    {
+      "id": "batN-0007-clean-legacy-attention-still-visible-0",
+      "family": "attention-filter-omission",
+      "passed": true,
+      "notes": "state=CLEAN_LEGACY_ATTENTION, visible_via_overall_risk=True"
+    },
+    {
+      "id": "batN-0008-clean-legacy-attention-still-visible-1",
+      "family": "attention-filter-omission",
+      "passed": true,
+      "notes": "state=CLEAN_LEGACY_ATTENTION, visible_via_overall_risk=True"
+    },
+    {
+      "id": "batN-0009-clean-legacy-attention-still-visible-2",
+      "family": "attention-filter-omission",
+      "passed": true,
+      "notes": "state=CLEAN_LEGACY_ATTENTION, visible_via_overall_risk=True"
+    },
+    {
+      "id": "batN-0010-clean-legacy-attention-still-visible-3",
+      "family": "attention-filter-omission",
+      "passed": true,
+      "notes": "state=CLEAN_LEGACY_ATTENTION, visible_via_overall_risk=True"
+    },
+    {
+      "id": "batN-0011-clean-legacy-attention-still-visible-4",
+      "family": "attention-filter-omission",
+      "passed": true,
+      "notes": "state=CLEAN_LEGACY_ATTENTION, visible_via_overall_risk=True"
+    },
+    {
+      "id": "batN-0012-clean-legacy-attention-still-visible-5",
+      "family": "attention-filter-omission",
+      "passed": true,
+      "notes": "state=CLEAN_LEGACY_ATTENTION, visible_via_overall_risk=True"
+    },
+    {
+      "id": "batN-0013-sparse-coverage-0",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=9, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0014-sparse-coverage-1",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=8, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0015-sparse-coverage-2",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=10, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0016-sparse-coverage-3",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=10, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0017-sparse-coverage-4",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=1, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0018-sparse-coverage-5",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=7, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0019-sparse-coverage-6",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=9, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0020-sparse-coverage-7",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=8, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0021-sparse-coverage-8",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=9, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0022-sparse-coverage-9",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=1, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0023-sparse-coverage-10",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=10, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0024-sparse-coverage-11",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=5, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0025-sparse-coverage-12",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=10, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0026-sparse-coverage-13",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=5, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0027-sparse-coverage-14",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=11, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0028-sparse-coverage-15",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=7, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0029-sparse-coverage-16",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=9, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0030-sparse-coverage-17",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=8, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0031-sparse-coverage-18",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=3, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0032-sparse-coverage-19",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=1, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0033-sparse-coverage-20",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=8, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0034-sparse-coverage-21",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=2, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0035-sparse-coverage-22",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=1, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0036-sparse-coverage-23",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=10, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0037-sparse-coverage-24",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=9, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0038-sparse-coverage-25",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=5, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0039-sparse-coverage-26",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=10, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0040-sparse-coverage-27",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=11, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0041-sparse-coverage-28",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=8, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0042-sparse-coverage-29",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=1, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0043-sparse-coverage-30",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=10, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0044-sparse-coverage-31",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=3, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0045-sparse-coverage-32",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=1, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0046-sparse-coverage-33",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=11, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0047-sparse-coverage-34",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=3, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0048-sparse-coverage-35",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=9, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0049-sparse-coverage-36",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=7, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0050-sparse-coverage-37",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=5, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0051-sparse-coverage-38",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=4, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0052-sparse-coverage-39",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=3, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0053-sparse-coverage-40",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=2, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0054-sparse-coverage-41",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=11, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0055-sparse-coverage-42",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=4, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0056-sparse-coverage-43",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=6, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0057-sparse-coverage-44",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=11, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0058-sparse-coverage-45",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=4, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0059-sparse-coverage-46",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=10, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0060-sparse-coverage-47",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=1, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0061-sparse-coverage-48",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=11, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0062-sparse-coverage-49",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=9, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0063-sparse-coverage-50",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=11, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0064-sparse-coverage-51",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=1, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0065-sparse-coverage-52",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=7, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0066-sparse-coverage-53",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=11, inject_violation=False, state=CLEAN"
+    },
+    {
+      "id": "batN-0067-sparse-coverage-54",
+      "family": "clause-false-absence",
+      "passed": true,
+      "notes": "n_covered=4, inject_violation=True, state=HAS_POLICY_VIOLATION"
+    },
+    {
+      "id": "batN-0068-interaction-genuine-uncertainty-IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "interaction-false-absence",
+      "passed": true,
+      "notes": "state=REQUIRES_REVIEW, reasons=['policy limitation_of_liability state=REQUIRES_REVIEW', 'interaction IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY state=INSUFFICIENT_FACTS', 'interaction IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH state=INSUFFICIENT_FACTS', 'interaction IX_INDEMNITY_WITHIN_GENERAL_CAP state=INSUFFICIENT_FACTS', 'interaction IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY state=INSUFFICIENT_FACTS', 'interaction IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE state=INSUFFICIENT_FACTS']"
+    },
+    {
+      "id": "batN-0069-interaction-genuinely-inapplicable-IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "interaction-false-absence",
+      "passed": true,
+      "notes": "state=CLEAN"
+    },
+    {
+      "id": "batN-0070-interaction-genuine-uncertainty-IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "interaction-false-absence",
+      "passed": true,
+      "notes": "state=REQUIRES_REVIEW, reasons=['policy limitation_of_liability state=REQUIRES_REVIEW', 'interaction IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY state=INSUFFICIENT_FACTS', 'interaction IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH state=INSUFFICIENT_FACTS', 'interaction IX_INDEMNITY_WITHIN_GENERAL_CAP state=INSUFFICIENT_FACTS', 'interaction IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY state=INSUFFICIENT_FACTS', 'interaction IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE state=INSUFFICIENT_FACTS']"
+    },
+    {
+      "id": "batN-0071-interaction-genuinely-inapplicable-IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "interaction-false-absence",
+      "passed": true,
+      "notes": "state=CLEAN"
+    },
+    {
+      "id": "batN-0072-interaction-genuine-uncertainty-IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "interaction-false-absence",
+      "passed": true,
+      "notes": "state=REQUIRES_REVIEW, reasons=['policy limitation_of_liability state=REQUIRES_REVIEW', 'interaction IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY state=INSUFFICIENT_FACTS', 'interaction IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH state=INSUFFICIENT_FACTS', 'interaction IX_INDEMNITY_WITHIN_GENERAL_CAP state=INSUFFICIENT_FACTS', 'interaction IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY state=INSUFFICIENT_FACTS', 'interaction IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE state=INSUFFICIENT_FACTS']"
+    },
+    {
+      "id": "batN-0073-interaction-genuinely-inapplicable-IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "interaction-false-absence",
+      "passed": true,
+      "notes": "state=CLEAN"
+    },
+    {
+      "id": "batN-0074-interaction-genuine-uncertainty-IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "interaction-false-absence",
+      "passed": true,
+      "notes": "state=REQUIRES_REVIEW, reasons=['policy limitation_of_liability state=REQUIRES_REVIEW', 'interaction IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY state=INSUFFICIENT_FACTS', 'interaction IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH state=INSUFFICIENT_FACTS', 'interaction IX_INDEMNITY_WITHIN_GENERAL_CAP state=INSUFFICIENT_FACTS', 'interaction IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY state=INSUFFICIENT_FACTS', 'interaction IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE state=INSUFFICIENT_FACTS']"
+    },
+    {
+      "id": "batN-0075-interaction-genuinely-inapplicable-IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "interaction-false-absence",
+      "passed": true,
+      "notes": "state=CLEAN"
+    },
+    {
+      "id": "batN-0076-interaction-genuine-uncertainty-IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "interaction-false-absence",
+      "passed": true,
+      "notes": "state=REQUIRES_REVIEW, reasons=['policy limitation_of_liability state=REQUIRES_REVIEW', 'interaction IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY state=INSUFFICIENT_FACTS', 'interaction IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH state=INSUFFICIENT_FACTS', 'interaction IX_INDEMNITY_WITHIN_GENERAL_CAP state=INSUFFICIENT_FACTS', 'interaction IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY state=INSUFFICIENT_FACTS', 'interaction IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE state=INSUFFICIENT_FACTS']"
+    },
+    {
+      "id": "batN-0077-interaction-genuinely-inapplicable-IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "interaction-false-absence",
+      "passed": true,
+      "notes": "state=CLEAN"
+    },
+    {
+      "id": "batN-0078-interaction-genuine-uncertainty-IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "interaction-false-absence",
+      "passed": true,
+      "notes": "state=REQUIRES_REVIEW, reasons=['policy termination state=REQUIRES_REVIEW', 'interaction IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING state=INSUFFICIENT_FACTS']"
+    },
+    {
+      "id": "batN-0079-interaction-genuinely-inapplicable-IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "interaction-false-absence",
+      "passed": true,
+      "notes": "state=CLEAN"
+    },
+    {
+      "id": "batN-0080-interaction-genuine-uncertainty-IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "interaction-false-absence",
+      "passed": true,
+      "notes": "state=REQUIRES_REVIEW, reasons=['policy sla state=REQUIRES_REVIEW', 'interaction IX_SLA_PAYMENT_CREDIT_DEPENDENCY state=INSUFFICIENT_FACTS']"
+    },
+    {
+      "id": "batN-0081-interaction-genuinely-inapplicable-IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "interaction-false-absence",
+      "passed": true,
+      "notes": "state=CLEAN"
+    },
+    {
+      "id": "batN-0082-multi-finding-survival-0",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=6, got=6, titles_match=True"
+    },
+    {
+      "id": "batN-0083-multi-finding-survival-1",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=2, got=2, titles_match=True"
+    },
+    {
+      "id": "batN-0084-multi-finding-survival-2",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=4, got=4, titles_match=True"
+    },
+    {
+      "id": "batN-0085-multi-finding-survival-3",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=2, got=2, titles_match=True"
+    },
+    {
+      "id": "batN-0086-multi-finding-survival-4",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=5, got=5, titles_match=True"
+    },
+    {
+      "id": "batN-0087-multi-finding-survival-5",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=4, got=4, titles_match=True"
+    },
+    {
+      "id": "batN-0088-multi-finding-survival-6",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=2, got=2, titles_match=True"
+    },
+    {
+      "id": "batN-0089-multi-finding-survival-7",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=4, got=4, titles_match=True"
+    },
+    {
+      "id": "batN-0090-multi-finding-survival-8",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=4, got=4, titles_match=True"
+    },
+    {
+      "id": "batN-0091-multi-finding-survival-9",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=3, got=3, titles_match=True"
+    },
+    {
+      "id": "batN-0092-multi-finding-survival-10",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=6, got=6, titles_match=True"
+    },
+    {
+      "id": "batN-0093-multi-finding-survival-11",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=6, got=6, titles_match=True"
+    },
+    {
+      "id": "batN-0094-multi-finding-survival-12",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=2, got=2, titles_match=True"
+    },
+    {
+      "id": "batN-0095-multi-finding-survival-13",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=6, got=6, titles_match=True"
+    },
+    {
+      "id": "batN-0096-multi-finding-survival-14",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=2, got=2, titles_match=True"
+    },
+    {
+      "id": "batN-0097-multi-finding-survival-15",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=5, got=5, titles_match=True"
+    },
+    {
+      "id": "batN-0098-multi-finding-survival-16",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=3, got=3, titles_match=True"
+    },
+    {
+      "id": "batN-0099-multi-finding-survival-17",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=2, got=2, titles_match=True"
+    },
+    {
+      "id": "batN-0100-multi-finding-survival-18",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=4, got=4, titles_match=True"
+    },
+    {
+      "id": "batN-0101-multi-finding-survival-19",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=6, got=6, titles_match=True"
+    },
+    {
+      "id": "batN-0102-multi-finding-survival-20",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=4, got=4, titles_match=True"
+    },
+    {
+      "id": "batN-0103-multi-finding-survival-21",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=4, got=4, titles_match=True"
+    },
+    {
+      "id": "batN-0104-multi-finding-survival-22",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=2, got=2, titles_match=True"
+    },
+    {
+      "id": "batN-0105-multi-finding-survival-23",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=3, got=3, titles_match=True"
+    },
+    {
+      "id": "batN-0106-multi-finding-survival-24",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=4, got=4, titles_match=True"
+    },
+    {
+      "id": "batN-0107-multi-finding-survival-25",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=5, got=5, titles_match=True"
+    },
+    {
+      "id": "batN-0108-multi-finding-survival-26",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=2, got=2, titles_match=True"
+    },
+    {
+      "id": "batN-0109-multi-finding-survival-27",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=5, got=5, titles_match=True"
+    },
+    {
+      "id": "batN-0110-multi-finding-survival-28",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=2, got=2, titles_match=True"
+    },
+    {
+      "id": "batN-0111-multi-finding-survival-29",
+      "family": "finding-suppression",
+      "passed": true,
+      "notes": "n_findings=3, got=3, titles_match=True"
+    },
+    {
+      "id": "batN-0112-governance-omission-0",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=medium, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0113-governance-omission-1",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=low, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0114-governance-omission-2",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=high, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0115-governance-omission-3",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=low, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0116-governance-omission-4",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=medium, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0117-governance-omission-5",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=high, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0118-governance-omission-6",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=medium, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0119-governance-omission-7",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=high, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0120-governance-omission-8",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=low, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0121-governance-omission-9",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=low, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0122-governance-omission-10",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=high, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0123-governance-omission-11",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=medium, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0124-governance-omission-12",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=low, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0125-governance-omission-13",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=high, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0126-governance-omission-14",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=low, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0127-governance-omission-15",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=medium, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0128-governance-omission-16",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=low, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0129-governance-omission-17",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=medium, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0130-governance-omission-18",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=low, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0131-governance-omission-19",
+      "family": "governance-omission",
+      "passed": true,
+      "notes": "overall_risk=medium, state=CONFIGURATION_UNRESOLVED"
+    },
+    {
+      "id": "batN-0132-segment-omission-0",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': 'Legal'}, resolved=None"
+    },
+    {
+      "id": "batN-0133-segment-omission-1",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': None}, resolved=None"
+    },
+    {
+      "id": "batN-0134-segment-omission-2",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': 'Finance'}, resolved=None"
+    },
+    {
+      "id": "batN-0135-segment-omission-3",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': 'Marketing'}, resolved=None"
+    },
+    {
+      "id": "batN-0136-segment-omission-4",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': 'Finance'}, resolved=None"
+    },
+    {
+      "id": "batN-0137-segment-omission-5",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': None}, resolved=None"
+    },
+    {
+      "id": "batN-0138-segment-omission-6",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': None}, resolved=None"
+    },
+    {
+      "id": "batN-0139-segment-omission-7",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': 'Marketing'}, resolved=None"
+    },
+    {
+      "id": "batN-0140-segment-omission-8",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': None}, resolved=None"
+    },
+    {
+      "id": "batN-0141-segment-omission-9",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': None}, resolved=None"
+    },
+    {
+      "id": "batN-0142-segment-omission-10",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': 'Legal'}, resolved=None"
+    },
+    {
+      "id": "batN-0143-segment-omission-11",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': 'Finance'}, resolved=None"
+    },
+    {
+      "id": "batN-0144-segment-omission-12",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': None}, resolved=None"
+    },
+    {
+      "id": "batN-0145-segment-omission-13",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': 'Legal'}, resolved=None"
+    },
+    {
+      "id": "batN-0146-segment-omission-14",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': None}, resolved=None"
+    },
+    {
+      "id": "batN-0147-segment-omission-15",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': 'Finance'}, resolved=None"
+    },
+    {
+      "id": "batN-0148-segment-omission-16",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': 'Marketing'}, resolved=None"
+    },
+    {
+      "id": "batN-0149-segment-omission-17",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': 'Marketing'}, resolved=None"
+    },
+    {
+      "id": "batN-0150-segment-omission-18",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': 'Marketing'}, resolved=None"
+    },
+    {
+      "id": "batN-0151-segment-omission-19",
+      "family": "segment-selection-omission",
+      "passed": true,
+      "notes": "ctx={'business_unit': 'Finance'}, resolved=None"
+    },
+    {
+      "id": "batN-0152-dependency-failure-not-absence-0",
+      "family": "dependency-failure-as-absence",
+      "passed": true,
+      "notes": "shape=None, state=REQUIRES_REVIEW"
+    },
+    {
+      "id": "batN-0153-dependency-failure-not-absence-1",
+      "family": "dependency-failure-as-absence",
+      "passed": true,
+      "notes": "shape='corrupted', state=REQUIRES_REVIEW"
+    },
+    {
+      "id": "batN-0154-dependency-failure-not-absence-2",
+      "family": "dependency-failure-as-absence",
+      "passed": true,
+      "notes": "shape=42, state=REQUIRES_REVIEW"
+    },
+    {
+      "id": "batN-0155-dependency-failure-not-absence-3",
+      "family": "dependency-failure-as-absence",
+      "passed": true,
+      "notes": "shape=['a', 'list'], state=REQUIRES_REVIEW"
+    },
+    {
+      "id": "batN-0156-dependency-failure-not-absence-4",
+      "family": "dependency-failure-as-absence",
+      "passed": true,
+      "notes": "shape=True, state=REQUIRES_REVIEW"
+    },
+    {
+      "id": "batN-0157-dependency-failure-not-absence-5",
+      "family": "dependency-failure-as-absence",
+      "passed": true,
+      "notes": "shape=3.14, state=REQUIRES_REVIEW"
+    },
+    {
+      "id": "batN-0158-dependency-failure-interaction-not-absence-0",
+      "family": "dependency-failure-as-absence",
+      "passed": true,
+      "notes": "shape=None, state=REQUIRES_REVIEW"
+    },
+    {
+      "id": "batN-0159-dependency-failure-interaction-not-absence-1",
+      "family": "dependency-failure-as-absence",
+      "passed": true,
+      "notes": "shape='corrupted', state=REQUIRES_REVIEW"
+    },
+    {
+      "id": "batN-0160-dependency-failure-interaction-not-absence-2",
+      "family": "dependency-failure-as-absence",
+      "passed": true,
+      "notes": "shape=42, state=REQUIRES_REVIEW"
+    },
+    {
+      "id": "batN-0161-dependency-failure-interaction-not-absence-3",
+      "family": "dependency-failure-as-absence",
+      "passed": true,
+      "notes": "shape=['a', 'list'], state=REQUIRES_REVIEW"
+    },
+    {
+      "id": "batN-0162-dependency-failure-interaction-not-absence-4",
+      "family": "dependency-failure-as-absence",
+      "passed": true,
+      "notes": "shape=True, state=REQUIRES_REVIEW"
+    },
+    {
+      "id": "batN-0163-dependency-failure-interaction-not-absence-5",
+      "family": "dependency-failure-as-absence",
+      "passed": true,
+      "notes": "shape=3.14, state=REQUIRES_REVIEW"
+    }
+  ],
+  "total": 163,
+  "passed": 163
+}

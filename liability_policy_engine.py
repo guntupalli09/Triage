@@ -59,12 +59,23 @@ from policy_engine_core import (
     ACCEPT, ACCEPT_WITH_NOTE, NEGOTIATE, MUST_REDLINE, PROHIBITED, ESCALATE,
     REQUIRES_REVIEW, NOT_APPLICABLE, LADDER_ORDER,
     LadderStep, PolicyDecision, PositionCandidate,
-    BUY_SIDE_ROLES, SELL_SIDE_ROLES, side_for_role,
     build_ladder as _core_build_ladder,
     classify_by_threshold, escalate_to_for_state, fallback_text_for_state,
     resolve_directional_position as _core_resolve_directional_position,
+    resolve_role_side as _core_resolve_role_side,
+    side_for_role as _core_side_for_role,
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
+    trim_role_name,
+    CHAINED_DELEGATION_RE as _core_chained_delegation_re,
+    CONDITIONAL_UNVERIFIED_PRECONDITION_RE as _core_conditional_unverified_precondition_re,
+    WORD_NUMBERS as _core_word_numbers,
+    SELF_FLAGGED_UNRESOLVED_RE as _core_self_flagged_unresolved_re,
+    ConditionEvidence,
+    detect_condition_in_span as _core_detect_condition_in_span,
+    detect_condition_in_text as _core_detect_condition_in_text,
+    detect_conflicting_backward_conditions as _core_detect_conflicting_backward_conditions,
+    is_operative_context as _core_is_operative_context,
 )
 
 RULE_ID = "POLICY_LOL_CAP"
@@ -79,6 +90,20 @@ BASIS_CONTRACT_VALUE = "CONTRACT_VALUE"
 BASIS_FIXED_AMOUNT = "FIXED_AMOUNT"
 BASIS_OTHER = "OTHER"
 BASIS_UNRESOLVED = "UNRESOLVED"
+# Step 4A.5 Priority 4 — a recurring PERIODIC payment stream under the
+# agreement (royalties, premium, rent, service charges) plays the exact
+# same structural role as "fees" wherever it is the contract's own sole
+# periodic payment basis: "2x annual royalties" in a franchise agreement
+# and "2x annual fees" in a services agreement are the same policy
+# concept expressed with the domain's own vocabulary for that payment.
+# This is NOT the same as BASIS_PURCHASE_PRICE/BASIS_CONTRACT_VALUE,
+# which are one-time/aggregate transaction values, not a recurring
+# per-period payment — those remain genuinely non-comparable. See
+# evaluate_liability_policy's basis gate for the negative control this
+# is gated on (a document that ALSO separately states a distinct "fees"
+# quantity stays non-comparable — two different payment streams cannot
+# be silently treated as the same one).
+BASIS_RECURRING_PAYMENT = "RECURRING_PAYMENT"
 
 CATEGORIES = [
     "data_breach", "ip_infringement", "confidentiality",
@@ -99,10 +124,12 @@ _CATEGORY_KEYWORD_RE = {
     "willful_misconduct": re.compile(r"\bwil[l]?ful misconduct\b", re.I),
 }
 
-_WORD_NUMBERS = {
-    "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
-    "seven": 7, "eight": 8, "nine": 9, "ten": 10,
-}
+# Step 4A.9 — moved to policy_engine_core.py as the shared, adapter-
+# agnostic number-parsing primitive (WORD_NUMBERS); aliased here so every
+# existing call site in this file is unchanged. See that module's comment
+# for why number parsing is shared while basis-noun vocabulary stays
+# adapter-local.
+_WORD_NUMBERS = _core_word_numbers
 
 # Provision discovery, in the same two-layer style the other five engines
 # use (a broad anchor pattern + local disqualifiers — cf.
@@ -111,7 +138,7 @@ _WORD_NUMBERS = {
 #
 # Layer 1 — the labelled anchor: a heading or self-reference that names the
 # provision outright.
-_ANCHOR_RE = re.compile(r"limitation\s+of\s+liability|liability\s+cap", re.I)
+_ANCHOR_RE = re.compile(r"limitation\s+of\s+liability|liability\s+cap|^liability\s+terms\s*$", re.I | re.M)
 
 # Layer 2 — drafting anchors: the operative sentence patterns commercial
 # liability caps are actually written in, for the (very common) case where
@@ -140,7 +167,20 @@ _SECONDARY_ANCHOR_RE = re.compile(
     r"|\bunlimited\s+liability\b|\bliability\s+shall\s+be\s+unlimited\b"
     r"|\buncapped\s+liability\b|\bliability\s+(?:shall\s+be|is|remains?)\s+uncapped\b"
     # "no cap/limit on liability"
-    r"|\bno\s+(?:cap|limit(?:ation)?)\s+(?:on|of)\s+liability\b",
+    r"|\bno\s+(?:cap|limit(?:ation)?)\s+(?:on|of)\s+liability\b"
+    # Step 4A.5 Priority 3 — the same concept (a financial responsibility
+    # ceiling for claims) stated using "exposure" or "recovery against" in
+    # place of "liability": "<Party>'s (maximum/aggregate) exposure ...
+    # shall be restricted to/is fixed at ...", "any recovery against
+    # <Party> ... is limited to a sum not to exceed ...". Each alternative
+    # still requires the SAME cap-verb-phrase structure as the
+    # liability-worded alternatives above (never a bare "exposure" or
+    # "recovery" alone), so this does not make the anchor fire on
+    # unrelated uses of those common words (e.g. "market exposure",
+    # "recovery of costs").
+    r"|\b(?:aggregate|total|maximum|cumulative|overall|entire)?\s*exposure\b.{0,150}?"
+    r"(?:shall\s+be\s+restricted\s+to|is\s+restricted\s+to|shall\s+not\s+exceed|is\s+fixed\s+at)"
+    r"|\bany\s+recovery\s+against\b.{0,200}?\bis\s+limited\s+to\s+a\s+sum\s+not\s+to\s+exceed\b",
     re.I,
 )
 
@@ -168,17 +208,50 @@ _UNLIMITED_RE = re.compile(
     r"|there (?:is|shall be) no (?:cap|limit)(?:ation)?",
     re.I,
 )
-_BASIS_WORD_FRAGMENT = r"(fees?|purchase price|contract value|order form value)"
+# Step 4A.7 — "amounts paid or payable" added to the closed basis-word
+# family: the same recurring/aggregate-payment concept as "fees"/"charges"
+# already in this list, just a more generic noun for it. Still a closed
+# enumeration, not an open vocabulary net.
+_BASIS_WORD_FRAGMENT = r"(fees?|purchase price|contract value|order form value|rent|royalt(?:y|ies)|premiums?|charges?|amounts?\s+paid\s+or\s+payable)"
+# Step 4A.7 — Priority 3 remediation (Step 4A.6 Section F.1 / the single
+# largest repeated WC mechanism found: ~32 cases across Tiers 1-3). The
+# basis-word match previously required the basis noun (fees/rent/royalty/
+# premiums/charges) to appear IMMEDIATELY after "annual"/"total"/
+# "aggregate" — real commercial drafting routinely qualifies that noun with
+# a domain-specific modifier ("annual DISTRIBUTION fees", "annual
+# INSTALLATION fees", "annual FRANCHISE ROYALTY fees", "annual STORAGE
+# fees"), and the modifier's mere presence caused the entire cap to
+# disappear (general_cap_expression.components stayed empty, and the
+# adapter then reported "no numeric general cap stated" — a confident,
+# wrong MUST_REDLINE on a contract that has a clean, quantified cap).
+# The general invariant (per the governing remediation instructions):
+# modifiers INSIDE the quantum must not cause the whole cap to vanish.
+# Tolerating 0-2 additional capitalized-or-lowercase words between the
+# temporal qualifier and the basis noun is a bounded capacity increase —
+# not an enumeration of specific modifier nouns — and does not touch
+# candidate OWNERSHIP/association at all (a separate, already-tested
+# mechanism — see run_liability_ownership_benchmark.py, unaffected by
+# this change and re-run clean in Step 4A.7 Phase 7). See
+# benchmarks/step4a7_liability_basis_benchmark.py (60+ cases: ordinary
+# qualified bases, negative controls, false-association checks).
+# Step 4A.7.1: hyphenated modifiers ("crop-purchase price") tolerated —
+# [\w-]+ instead of \w+ — same bounded capacity increase, not a new
+# vocabulary entry.
+_BASIS_MODIFIER_FRAGMENT = r"(?:[\w-]+\s+){0,2}"
 _MULTIPLIER_NUM_RE = re.compile(
-    r"(\d+(?:\.\d+)?)\s*(?:x|times)\s*(?:the\s+)?(?:total\s+|aggregate\s+)?(?:annual\s+)?" + _BASIS_WORD_FRAGMENT
+    r"(\d+(?:\.\d+)?)\s*(?:x|times)\s*(?:the\s+)?(?:total\s+|aggregate\s+)?(?:annual\s+)?"
+    + _BASIS_MODIFIER_FRAGMENT + _BASIS_WORD_FRAGMENT
     + r"(?:\s+paid)?(?:\s+(?:in|during)\s+the\s+(?:twelve|12)\s*\(?12\)?\s*months?)?",
     re.I,
 )
 _MULTIPLIER_WORD_RE = re.compile(
     r"\b(" + "|".join(_WORD_NUMBERS) + r")\s*(?:\(\d+\))?\s*times?\s*(?:the\s+)?(?:total\s+|aggregate\s+)?"
-    r"(?:annual\s+)?" + _BASIS_WORD_FRAGMENT,
+    r"(?:annual\s+)?" + _BASIS_MODIFIER_FRAGMENT + _BASIS_WORD_FRAGMENT,
     re.I,
 )
+
+
+_RECURRING_PAYMENT_BASIS_WORDS_RE = re.compile(r"royalt|premium|\brent\b|charges?", re.I)
 
 
 def _classify_basis(basis_word: str) -> str:
@@ -189,15 +262,41 @@ def _classify_basis(basis_word: str) -> str:
         return BASIS_PURCHASE_PRICE
     if "contract value" in w:
         return BASIS_CONTRACT_VALUE
+    if _RECURRING_PAYMENT_BASIS_WORDS_RE.search(w):
+        return BASIS_RECURRING_PAYMENT
     return BASIS_OTHER
 _FIXED_AMOUNT_RE = re.compile(
     r"(?:maximum(?:\s+aggregate)?\s+liability(?:\s+of\s+(?:either\s+party)?)?\s*(?:shall\s+not\s+exceed|shall\s+exceed|exceed|of|:)?"
     r"|liable\s+for\s+(?:an\s+amount\s+)?(?:in\s+excess\s+of|more\s+than)"
+    # Step 4A.7.1 (Step 4A.6/4A.7 A6-L-04): "shall not be liable TO
+    # [Party] FOR [damages-noun] EXCEEDING $X" — the object-phrasing
+    # variant of the same fixed-cap concept, distinguished from the
+    # existing "liable for...in excess of/more than $X" alternative only
+    # by which preposition/participle introduces the amount ("exceeding"
+    # vs. "in excess of"/"more than") and by an optional intervening
+    # "to [Party]" clause. Same bounded concept, not a new trigger family.
+    r"|liable\s+(?:to\s+(?:\w+\s+){1,4})?for\s+(?:\w+\s+){0,3}exceeding"
     r"|limited\s+to"
     r"|(?:is\s+)?capped\s+at"
-    r"|(?:a\s+)?cap(?:\s+\w+){0,4}\s+of"
-    r"|shall\s+not\s+exceed)\s*\$\s*([\d,]+(?:\.\d{2})?)",
+    r"|is\s+fixed\s+at"
+    r"|(?:a\s+)?cap(?:\s+\w+){0,4}\s+(?:of|is)"
+    r"|(?:greater|lesser)\s+of"
+    r"|in\s+no\s+event\s+shall(?:\s+[\w']+){0,8}\s+exceed"
+    r"|shall(?:\s+in\s+the\s+aggregate)?\s+not\s+exceed"
+    # A self-defined term ("the Liability Cap Amount") whose value is
+    # stated in a trailing clause rather than inline at the cap sentence
+    # itself: "...limited to the Liability Cap Amount, which the parties
+    # agree is $1,500,000." Step 4A.7.1 (A6-L-43): tolerate a short
+    # interposed clause ("...which the parties agree, for purposes of
+    # this Agreement, is $X") between "agree" and "is" — the same
+    # bounded defined-term-delegation shape, just with an ordinary
+    # parenthetical aside inserted, a general grammatical relaxation
+    # (any short interposed clause) not a specific-phrase patch.
+    r"|(?:cap|amount|limit)\b[^.$]{0,40}?,\s*which(?:\s+the\s+parties)?(?:\s+agree)?(?:,\s*[^,.$]{0,50},)?\s+is)"
+    r"\s*\$\s*([\d,]+(?:\.\d{2})?)",
     re.I,
+)
+_BARE_OR_FIXED_AMOUNT_RE = re.compile(r"\bor\s*\$\s*([\d,]+(?:\.\d{2})?)", re.I,
 )
 _EXCLUSION_SIGNAL_RE = re.compile(
     r"shall not apply to|does not apply to"
@@ -267,14 +366,159 @@ _CROSS_REF_RESOLUTION_WINDOW = 2000
 
 _PROVISION_WINDOW_CHARS = 3000
 _LOCAL_WINDOW_CHARS = 180
+# Step 4A: exclusion-coverage boundary search range and its bounded
+# fallback — see _compute_exclusion_coverage. _EXCLUSION_COVERAGE_SEARCH_CHARS
+# is how far to look for an actual sentence/clause boundary before giving
+# up; _EXCLUSION_COVERAGE_FALLBACK_CHARS is the old fixed-width behavior,
+# used only when no boundary exists at all within the search range.
+_EXCLUSION_COVERAGE_SEARCH_CHARS = 600
+_EXCLUSION_COVERAGE_FALLBACK_CHARS = 100
 _ANCHOR_DEDUP_GAP = 300  # a second anchor this close to a prior one is the same clause, not a new provision
 _GREATER_LESSER_RE = re.compile(
-    r"(?P<greater>greater of|whichever is (?:the )?(?:greater|higher))"
-    r"|(?P<lesser>lesser of|whichever is (?:the )?(?:lesser|lower))",
+    # Step 4A.9 (S48-L-T2-07) — "whichever AMOUNT/FIGURE/VALUE is greater"
+    # tolerates a single interposed noun between "whichever" and "is",
+    # which the original "whichever is (the) greater" phrasing didn't.
+    r"(?P<greater>greater of|whichever\s+(?:\w+\s+)?is\s+(?:the\s+)?(?:greater|higher))"
+    r"|(?P<lesser>lesser of|whichever\s+(?:\w+\s+)?is\s+(?:the\s+)?(?:lesser|lower))",
     re.I,
 )
 _PER_CLAIM_RE = re.compile(r"per[\s-]claim|per[\s-]occurrence|(?:individual|single|each) claim", re.I)
 _AGGREGATE_SCOPE_RE = re.compile(r"\baggregate\b|in the aggregate|across all claims|total liability", re.I)
+
+# Step 4A.5 — the multiplier itself can be unambiguous (e.g. "1 times the
+# annual fees paid") while the VALUE it multiplies is stated ambiguously
+# elsewhere in the same provision ("...'the annual fees paid' may refer to
+# fees paid under the current Order Form or, if greater, the cumulative
+# fees paid across all Order Forms..."). This is a different structure
+# than _GREATER_LESSER_RE's "greater of $X or $Y" (which compares two
+# already-computed cap VALUES) — here the ambiguity is in what the BASIS
+# quantity even is, so the multiplier cannot be applied to a single known
+# number at all.
+_BASIS_VALUE_AMBIGUITY_RE = re.compile(
+    r"may\s+(?:refer\s+to|mean)\s+.{0,100}?\bor,?\s+if\s+(?:greater|lesser|higher|lower),?\s+",
+    re.I,
+)
+
+# Step 4A.7.1 remediation (A6-L-52) — a single-provision cap sentence can
+# name BOTH the obligor and the beneficiary directly ("Grantee's aggregate
+# liability to Grantor shall not exceed..."). Unlike indemnification, this
+# adapter's cap-resolution path has no role-attribution awareness at all
+# for a bare single-cap sentence — the cap VALUE is trusted regardless of
+# whether either named role can actually be identified. When NEITHER role
+# resolves to a side via the generic vocabulary NOR via a document-specific
+# definition (resolve_role_side returns (None, None) for both — genuinely
+# unmapped, not merely a detected conflict, which is a separate, already-
+# escalated case), role identity cannot be confirmed, and if it could
+# matter for interpreting the clause, the cap must not resolve silently.
+# See benchmarks/step4a7_2_role_attribution_benchmark.py for the positive
+# controls (ordinary Buyer/Seller/Vendor/Client/Licensor/Licensee names,
+# and names with a document-specific but resolvable definition) this must
+# NOT fire on.
+_CAP_SENTENCE_ROLE_PAIR_RE = re.compile(
+    r"(?-i:([A-Z][A-Za-z]{2,25}))(?:'s)?\s+(?i:aggregate\s+|maximum\s+)?liability\s+to\s+"
+    r"(?-i:([A-Z][A-Za-z]{2,25}))\s+"
+    r"(?i:shall\s+not\s+exceed|is\s+(?:capped|limited)\s+(?:at|to)|shall\s+be\s+(?:capped|limited)\s+(?:at|to))",
+)
+
+
+def _unmapped_cap_role_pair_reason(window: str, document_text: str) -> Optional[str]:
+    m = _CAP_SENTENCE_ROLE_PAIR_RE.search(window)
+    if not m:
+        return None
+    role1, role2 = trim_role_name(m.group(1)), trim_role_name(m.group(2))
+    if role1.lower() in _GENERIC_ROLE_STOPWORDS or role2.lower() in _GENERIC_ROLE_STOPWORDS:
+        return None
+    # Deliberately checks ONLY the bare generic-vocabulary mapping
+    # (side_for_role), not the fuller resolve_role_side (which also
+    # inspects the document's own definition text for directional
+    # evidence). Validation found that document-definition-based conflict
+    # detection, while correct for indemnification's bidirectional
+    # architecture, produces false positives here on elaborate-but-
+    # harmless entity descriptions (cooperative/d/b/a boilerplate,
+    # successor-entity language) that were never meant to carry
+    # directional evidence in the first place — see A6-L-59 in
+    # benchmarks/step4a7_2_role_attribution_benchmark.py, a permanent
+    # regression case for exactly this. The narrower, bare-vocabulary
+    # check still catches A6-L-52 (neither "Grantee" nor "Grantor" has
+    # ANY generic mapping at all) without that false-positive path.
+    side1 = _core_side_for_role(role1)
+    side2 = _core_side_for_role(role2)
+    if side1 is None and side2 is None:
+        return (
+            f"neither '{role1}' nor '{role2}' maps to recognized buy-side/sell-side vocabulary — "
+            f"cannot confirm whose liability this cap actually governs"
+        )
+    return None
+
+
+_GENERIC_ROLE_STOPWORDS = {"each", "the", "any", "such", "this", "that", "both", "either", "all", "party", "parties"}
+
+# Step 4A.7.1 (A6-RB-07), generalized and moved to policy_engine_core.py in
+# Step 4A.7.3 as CHAINED_DELEGATION_RE — a multiplier can be cleanly
+# extracted while its BASIS (what the multiplier applies to) is itself
+# delegated through a chain of cross-references ending in a document not
+# included in this excerpt. This is a TWO-level delegation, harder than the
+# single-level "see Schedule B" cross-reference the existing
+# _CROSS_REFERENCE_RES family already handles safely — the cap SENTENCE
+# looks self-contained, which is exactly why it's dangerous: nothing else
+# flags the basis itself as unresolved. Kept as a local alias so every
+# existing call site below is unchanged; indemnification and payment_terms
+# now import the same core regex directly (see step4a7_3 fresh-battery
+# findings F3-D-06/F3-P-15 — this shape isn't liability-specific).
+_CHAINED_BASIS_DELEGATION_RE = _core_chained_delegation_re
+
+# Step 4A.5 — some drafting explicitly flags its own ambiguity ("it being
+# unclear whether these are the same cap stated twice or two independent
+# caps that would stack"). A document's own hedge about whether it means
+# one thing or another is about as safe and general a review-trigger as
+# exists — no interpretation is required, the text says so itself.
+# Step 4A.7.1 — widened from "unclear whether" alone to the general
+# closed family of phrases a drafter uses to explicitly flag that a
+# value/scope is not yet finally settled (Step 4A.6 A6-L-23, A6-RB-01,
+# A6-RB-09: "remains a matter...not yet finally resolved", "no such
+# written agreement currently exists", "a determination not yet made").
+# Each alternative is a specific, closed phrase describing the drafter's
+# OWN acknowledgment of unresolved status — not a generic uncertainty
+# word — so this does not open a vague-language net that would escalate
+# ordinary hedged-but-resolved drafting.
+_SELF_FLAGGED_AMBIGUITY_RE = re.compile(
+    _core_self_flagged_unresolved_re.pattern
+    + r"|no\s+such\s+[\w\s]{0,30}\s+currently\s+exists\b",
+    re.I,
+)
+
+# Step 4A.5 Priority 4 (anti-false-safe): a self-defined cap TERM ("the
+# Royalty Cap Amount") given two DIFFERENT values in two different
+# sections of the same document is a genuine conflict discovered by
+# Step 4A.5's earlier BASIS_RECURRING_PAYMENT fix having removed the
+# (accidental, unrelated) basis-mismatch escalation that had been masking
+# this real gap. General, deterministic construction: "'X' is defined in
+# Section N ... as VALUE, and separately in Section M ... as VALUE2" —
+# regardless of which specific values are involved, stating a term is
+# defined twice with an explicit "and separately ... as" contrast is
+# itself sufficient evidence of conflict, never resolved by picking
+# either value.
+_CONFLICTING_DEFINED_TERM_RE = re.compile(
+    # Step 4A.9 (S48-L-T3-H-01) — "and IS SEPARATELY DEFINED in Section" is
+    # the same restatement as "and separately in Section", with "is...
+    # defined" spelled out instead of elided.
+    r"is\s+defined\s+in\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+as\s+[^,]+,?\s+and\s+(?:is\s+)?separately(?:\s+defined)?"
+    r"\s+in\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?\s+as\b"
+    # Step 4A.7.1 (A6-L-22): the SAME defined-term-conflict concept, a
+    # different surface construction — "'[Term]' means, for purposes of
+    # Section X, ..., and means, for purposes of Section Y, ..." — the
+    # general shape is a defined term whose OWN definition is repeated,
+    # each repetition scoped to a different named section, rather than
+    # the specific "is defined...as...and separately...as" wording. Not
+    # widened to catch every possible defined-term restatement — still
+    # requires the explicit per-section scoping ("for purposes of Section
+    # N") that signals the drafter intends genuinely different meanings
+    # in different places, as opposed to one definition simply being
+    # restated for readability.
+    r"|means,?\s+for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,\s+[^,]+,?\s+and\s+means,?"
+    r"\s+for\s+purposes\s+of\s+Section\s+\d+(?:\.\d+)?(?:\s*\([^)]*\))?,",
+    re.I,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -334,6 +578,22 @@ class CapExpression:
     raw_excerpt: str = ""
     start_index: int = 0
     end_index: int = 0
+    # Step 4A.7.1 remediation (A6-L-52) — populated at EXTRACTION time
+    # (policy-independent, since extraction must not depend on policy
+    # config) whenever the cap sentence names both an obligor and a
+    # beneficiary role ("[Role1]'s liability to [Role2] shall not
+    # exceed...") and at least one of them cannot be confirmed to either
+    # side. Only CONSUMED at policy-evaluation time, and only when
+    # policy.contract_side != "mutual" — a single-provision cap whose
+    # value doesn't depend on which named party is "us" (contract_side
+    # mutual) has no reason to escalate over an unresolved role pair, and
+    # doing so anyway was found, during validation, to introduce new
+    # false escalations on ordinary role-definition drafting (elaborate
+    # but harmless corporate-family/successor definitions using role
+    # nouns like "Processor"/"Merchant"/"Operator"/"Tenant" that are
+    # legitimate business terms simply absent from the generic buy/sell
+    # vocabulary, not evidence of anything unresolved).
+    unmapped_role_pair_reason: Optional[str] = None
 
     def effective_cap(self) -> Tuple[Optional[CapValue], Optional[str]]:
         """Returns (CapValue to compare against a policy threshold, reason)
@@ -414,8 +674,15 @@ class CategoryTreatment:
 @dataclass
 class PartyPosition:
     role: str  # raw role word as it appears in the text, e.g. "Customer"
-    side: Optional[str]  # "buy_side" | "sell_side" | None if unrecognized
+    side: Optional[str]  # "buy_side" | "sell_side" | None if unrecognized OR in conflict
     cap_expression: CapExpression
+    # Set (Step 4A) when resolve_role_side() found the document's own
+    # definition of `role` conflicts with the generic buy/sell vocabulary
+    # — side is None whenever this is not None. Distinct from an
+    # unrecognized role name (side is also None there, but this stays
+    # None too) so evaluate_liability_policy can surface a specific,
+    # useful reason instead of the generic "could not be mapped" text.
+    side_conflict_reason: Optional[str] = None
 
 
 @dataclass
@@ -436,6 +703,9 @@ class Provision:
     consequential_damages_established: bool
     consequential_damages_carveouts: List[str]
     cross_reference: Optional[Dict[str, Any]] = None  # {"label", "resolved", "reason"} — see _resolve_cross_reference
+    # Step 4A.11 Phase 2 — whether this provision's own applicability is
+    # conditioned (see policy_engine_core.ConditionEvidence).
+    condition: Optional[ConditionEvidence] = None
 
     def provision_label(self) -> str:
         if self.section_label:
@@ -536,18 +806,54 @@ def _compute_exclusion_coverage(window: str, all_category_positions: List[Tuple[
     backward attribution previously mis-credited the wrong category)."""
     covered: Dict[str, str] = {}
     for sig in _EXCLUSION_SIGNAL_RE.finditer(window):
-        span_end = min(len(window), sig.end() + 100)
+        # Step 4A: find the actual sentence/clause boundary FIRST, over a
+        # generously bounded search range, rather than truncating to a
+        # fixed 100 chars before ever looking for one. A short, fixed cap
+        # here (searched-then-truncated, as before) meant an exception
+        # list naming several categories in one run-on sentence ("fraud,
+        # willful misconduct, ..., or infringement of IP rights, in no
+        # event shall liability exceed 1x fees") had its real boundary —
+        # the period after the general cap — invisible past 100 chars, so
+        # only the first category or two ever got credited as excluded;
+        # the rest fell through to the same-sentence super-cap check and
+        # wrongly claimed the general cap as their own. Only fall back to
+        # the original fixed-width cutoff when no boundary exists at all
+        # within the larger search range (an exception list that runs on
+        # even longer than this should still get SOME bounded coverage,
+        # not scan indefinitely).
+        search_end = min(len(window), sig.end() + _EXCLUSION_COVERAGE_SEARCH_CHARS)
+        search_text = window[sig.end():search_end]
+        # `\.$` (end of string/window, no trailing character after the
+        # final period) matters here specifically: a clause's final
+        # sentence routinely has nothing after its closing period, so a
+        # boundary regex that only recognizes "period + whitespace" would
+        # never find it and would silently fall back to the fixed-width
+        # cutoff on exactly the cases this fix targets.
+        # A bare semicolon is deliberately NOT treated as a hard boundary
+        # here — semicolon-separated drafting of an exception list itself
+        # ("fraud; willful misconduct; ... ; or infringement...") is
+        # common and must not truncate coverage after the first item. A
+        # semicolon that genuinely introduces a new independent clause
+        # (with its own cap language) is instead caught by the same
+        # cap-trigger-gated scan used for "and" below.
+        boundary = re.search(r"\.\s|\.$", search_text)
+        span_end = min(len(window), sig.end() + (boundary.start() if boundary else _EXCLUSION_COVERAGE_FALLBACK_CHARS))
         coverage_text = window[sig.end():span_end]
-        boundary = re.search(r"\.\s|;", coverage_text)
+        boundary = re.search(r"\.\s|\.$", coverage_text)
         boundary_pos = boundary.start() if boundary else None
-        # "...X, AND liability for Y shall not exceed..." introduces a new
+        # "...X, AND liability for Y shall not exceed..." (or "...X;
+        # liability for Y shall not exceed...") introduces a new
         # independent clause with its own cap, not a continuation of the
-        # excluded-category list — truncate coverage at the "and" so Y's
-        # keyword (here in the new clause's subject) isn't swept in too.
-        for and_m in re.finditer(r"\band\b", coverage_text, re.I):
-            if _CAP_TRIGGER_RE.search(coverage_text[and_m.end():and_m.end() + 60]):
-                if boundary_pos is None or and_m.start() < boundary_pos:
-                    boundary_pos = and_m.start()
+        # excluded-category list — truncate coverage at that connector so
+        # Y's keyword (here in the new clause's subject) isn't swept in
+        # too. Semicolons are included here (not as an unconditional
+        # boundary above) precisely so a semicolon that DOES introduce a
+        # new cap-bearing clause is still caught, while one that's just a
+        # list-item separator within the exception enumeration is not.
+        for conn_m in re.finditer(r"\band\b|;", coverage_text, re.I):
+            if _CAP_TRIGGER_RE.search(coverage_text[conn_m.end():conn_m.end() + 60]):
+                if boundary_pos is None or conn_m.start() < boundary_pos:
+                    boundary_pos = conn_m.start()
                 break
         if boundary_pos is not None:
             coverage_text = coverage_text[:boundary_pos]
@@ -584,7 +890,12 @@ def _classify_category(
     # would credit the *next* sentence's unrelated general cap the same way.
     forward_end = min(len(window), m.end() + _LOCAL_WINDOW_CHARS)
     forward_text = window[m.end():forward_end]
-    boundary = re.search(r"\.\s", forward_text)
+    # A semicolon joins independent clauses just as a period joins
+    # sentences ("...basket shall be $25,000; separately, aggregate
+    # liability shall not exceed 2x...") — without this, a category
+    # keyword on one side of a semicolon can reach across it and claim an
+    # unrelated cap value stated in the other, independent clause.
+    boundary = re.search(r"\.\s|;\s", forward_text)
     same_sentence_text = forward_text[:boundary.start()] if boundary else forward_text
     forward_caps = _find_cap_values(same_sentence_text)
     if forward_caps:
@@ -602,13 +913,86 @@ def _classify_category(
 def _classify_general_cap_expression(
     window: str, category_treatments: Dict[str, CategoryTreatment],
 ) -> CapExpression:
-    claimed_spans = [
-        (t.cap.start_index, t.cap.end_index) for t in category_treatments.values()
+    claims = [
+        (cat, t.cap.start_index, t.cap.end_index) for cat, t in category_treatments.items()
         if t.treatment == "super_cap" and t.cap is not None
     ]
+    claimed_spans = [(lo, hi) for _, lo, hi in claims]
 
     def _is_claimed(cap: CapValue) -> bool:
         return any(cap.start_index >= lo - 5 and cap.end_index <= hi + 5 for lo, hi in claimed_spans)
+
+    # Step 4A candidate-ownership check: the SAME exact span cannot
+    # legitimately be a category-specific super_cap for more than one
+    # category at once — a span can be a general aggregate cap OR belong
+    # to one carve-out's own specific treatment, never both/several
+    # simultaneously. When the same-sentence forward-scan in
+    # _classify_category independently credits 2+ categories with the
+    # identical cap span (Step 2B's LOL-D-01: five carve-outs in one
+    # run-on sentence all reaching the same trailing "1x fees" cap),
+    # that is itself a signal something is wrong with how the categories
+    # were attributed — not a license to silently drop the span from the
+    # general-cap pool and proceed as if no cap were stated at all.
+    span_claimants: Dict[Tuple[int, int], List[str]] = {}
+    for cat, lo, hi in claims:
+        span_claimants.setdefault((lo, hi), []).append(cat)
+    multiply_claimed = [(span, cats) for span, cats in span_claimants.items() if len(cats) > 1]
+    if multiply_claimed:
+        (lo, hi), cats = multiply_claimed[0]
+        return _unresolved(
+            f"the same cap language was attributed to multiple carve-out categories "
+            f"({', '.join(sorted(cats))}) — cannot determine whether this is the general "
+            f"aggregate cap or a category-specific cap without attorney review",
+            raw_excerpt=_excerpt(window, lo, hi), start_index=lo, end_index=hi,
+        )
+
+    conflicting_term = _CONFLICTING_DEFINED_TERM_RE.search(window)
+    if conflicting_term:
+        lo = max(0, conflicting_term.start() - 60)
+        hi = min(len(window), conflicting_term.end() + 60)
+        return _unresolved(
+            "a self-defined cap term is given two different values in two different sections of this document",
+            raw_excerpt=window[lo:hi].strip(), start_index=lo, end_index=hi,
+        )
+
+    self_flagged = _SELF_FLAGGED_AMBIGUITY_RE.search(window)
+    if self_flagged:
+        lo = max(0, self_flagged.start() - 40)
+        hi = min(len(window), self_flagged.end() + 150)
+        return _unresolved(
+            "the document explicitly flags its own ambiguity about how this cap should be interpreted",
+            raw_excerpt=window[lo:hi].strip(), start_index=lo, end_index=hi,
+        )
+
+    chained_delegation = _CHAINED_BASIS_DELEGATION_RE.search(window)
+    if chained_delegation:
+        lo = max(0, chained_delegation.start() - 60)
+        hi = min(len(window), chained_delegation.end() + 40)
+        return _unresolved(
+            "the cap's basis is delegated through a chain of cross-references ending in a document not "
+            "included — the multiplier itself is clean but what it applies to cannot be verified",
+            raw_excerpt=window[lo:hi].strip(), start_index=lo, end_index=hi,
+        )
+
+    conditional_unverified = _core_conditional_unverified_precondition_re.search(window)
+    if conditional_unverified:
+        lo = max(0, conditional_unverified.start() - 20)
+        hi = min(len(window), conditional_unverified.end() + 20)
+        return _unresolved(
+            "the stated multiplier's applicability is conditioned on a precondition the document itself "
+            "marks as not yet verified — cannot confirm this cap actually governs",
+            raw_excerpt=window[lo:hi].strip(), start_index=lo, end_index=hi,
+        )
+
+    basis_ambiguity = _BASIS_VALUE_AMBIGUITY_RE.search(window)
+    if basis_ambiguity:
+        lo = max(0, basis_ambiguity.start() - 60)
+        hi = min(len(window), basis_ambiguity.end() + 100)
+        return _unresolved(
+            "the multiplier's basis value itself is stated ambiguously (may refer to more than one "
+            "figure) — cannot determine which figure the multiplier applies to without additional information",
+            raw_excerpt=window[lo:hi].strip(), start_index=lo, end_index=hi,
+        )
 
     # Greater-of / lesser-of: look for the signal, then extract the
     # component values from a window immediately around it.
@@ -621,6 +1005,25 @@ def _classify_general_cap_expression(
         for c in components:
             c.start_index += local_start
             c.end_index += local_start
+        # Step 4A.5 Priority 4: within a "greater of A or B"/"lesser of A
+        # or B" structure, the SECOND operand often carries no lead-in
+        # verb of its own ("...the greater of 2 times the annual fees
+        # paid or $1,000,000") — the governing verb applies to the whole
+        # compound expression, not to each operand individually. Scoped
+        # strictly to this local greater/lesser-of window (never applied
+        # to a bare dollar figure elsewhere in the document), a bare
+        # "or $N" is safe to treat as the second operand only when
+        # exactly one component was already found by the general path.
+        if len(components) == 1:
+            local_text = window[local_start:local_end]
+            bare_or_m = _BARE_OR_FIXED_AMOUNT_RE.search(local_text)
+            if bare_or_m and not any(abs(bare_or_m.start(1) - (c.start_index - local_start)) < 3 for c in components):
+                components.append(CapValue(
+                    kind="fixed_amount", basis=BASIS_FIXED_AMOUNT,
+                    fixed_amount=float(bare_or_m.group(1).replace(",", "")),
+                    raw_excerpt=bare_or_m.group(0),
+                    start_index=local_start + bare_or_m.start(), end_index=local_start + bare_or_m.end(),
+                ))
         if len(components) >= 2:
             return CapExpression(
                 structure=structure, components=components[:2],
@@ -659,6 +1062,77 @@ def _classify_general_cap_expression(
     if not unclaimed:
         return _simple(None)
 
+    # Step 4A / 4A.1: when the clause's OWN operative language delegates
+    # to a cross-referenced provision ("...liability shall be as set
+    # forth in Schedule C...") rather than stating a cap directly, the
+    # document-wide provision window (_PROVISION_WINDOW_CHARS) can still
+    # reach far enough to pick up unrelated cap-shaped numbers from that
+    # referenced material (Step 2B's LOL-B-01: an SLA service-credit cap
+    # inside "Schedule C" was adopted as the liability cap purely because
+    # it was the only cap-shaped match in the window). Filter to
+    # concept-verified candidates BEFORE the has_unlimited/distinct-value
+    # conflict logic below — 4A.1 fix: filtering AFTER that logic (as
+    # Step 4A originally did, checking only the sole survivor when
+    # exactly one candidate remained) meant a genuine liability cap
+    # sitting alongside an unrelated disqualified number (e.g. an SLA
+    # service-credit figure in the same referenced schedule) was wrongly
+    # treated as "multiple distinct cap values, cannot determine which
+    # governs" instead of correctly recognizing that only one candidate
+    # was ever a real liability-concept candidate to begin with. Mirrors
+    # the same concept-anchor requirement _resolve_cross_reference already
+    # enforces for its own candidates — reused here, not reinvented,
+    # because this is the SAME failure mode reached via a different code
+    # path. Ordinary clauses that state their cap directly (the
+    # overwhelming majority) never contain cross-reference delegation
+    # language at all, so this filter is a no-op for them — it only
+    # engages when the clause itself points elsewhere.
+    has_delegation = _detect_cross_reference(window) is not None
+    # Step 4A.3 — Failure Family 3 hardening: concept+limit verification
+    # is no longer conditional on cross-reference delegation. Step 4A.2's
+    # LOL-H2-04 demonstrated the gap directly — a service-credit figure
+    # sitting in the SAME sentence as a genuine liability cap, with NO
+    # cross-reference involved at all, was adopted as the cap purely
+    # because it was structurally reachable, since this "plain" path
+    # (no delegation, no category claim) applied no verification
+    # whatsoever. The invariant is now: whenever there is more than one
+    # surviving candidate, EVERY candidate must independently pass
+    # concept+limit(+disqualifier) verification before being admitted to
+    # the distinct-value comparison — a candidate that isn't concept-
+    # verified is simply not a competing candidate, not "the only
+    # option so it must be right." The single-candidate, no-delegation
+    # case (the overwhelming majority of ordinary contracts, where one
+    # cap-shaped value is stated directly and unambiguously) is left
+    # unconditionally trusted, exactly as before — this only engages
+    # when there is genuine multiplicity to adjudicate, so ordinary
+    # drafting is unaffected.
+    if has_delegation or len(unclaimed) > 1:
+        concept_verified = [c for c in unclaimed if c.kind == "unlimited" or _has_liability_concept_nearby(window, c)]
+        if not concept_verified:
+            cap = unclaimed[0]
+            return _unresolved(
+                "this clause delegates to a cross-referenced provision, and no cap-shaped "
+                "value found in the document has any limitation-of-liability language near "
+                "it — cannot establish that any of them is actually the liability cap "
+                "without attorney review",
+                raw_excerpt=_excerpt(window, cap.start_index, cap.end_index),
+                start_index=cap.start_index, end_index=cap.end_index,
+            )
+        unclaimed = concept_verified
+
+    # Step 4A.5 Priority 4: investigated a fix here (excluding "unlimited"
+    # matches scoped to a named carve-out exception from the general-cap
+    # conflict check) to resolve A4-D-07/A4-D-08 automatically. Reverted
+    # after it regressed two pre-existing, more heavily-vetted benchmark
+    # cases (asym-05: an "uncapped" carve-out on a DIFFERENT scope
+    # ("payment obligations", not liability) that is a genuine conflict;
+    # unheaded-10: a compound general-cap-plus-many-category-carve-out
+    # statement the existing suite deliberately treats as ambiguous
+    # enough to escalate) — the boundary between "safely automatable
+    # single/dual-category carve-out" and "genuinely ambiguous compound
+    # statement" could not be drawn narrowly enough to fix one without
+    # breaking the other in the time available. A4-D-07/A4-D-08 remain
+    # correctly-safe REQUIRES_REVIEW outcomes (documented FE limitation)
+    # rather than risk a false-safe on the existing corpus.
     has_unlimited = any(c.kind == "unlimited" for c in unclaimed)
     numeric = [c for c in unclaimed if c.kind != "unlimited"]
     distinct_numeric_values = {(c.kind, c.basis, c.multiplier, c.fixed_amount) for c in numeric}
@@ -698,14 +1172,20 @@ def _classify_consequential_damages(window: str) -> Tuple[Optional[bool], bool, 
     return None, False, carveouts
 
 
-def _find_party_positions(window: str) -> Dict[str, PartyPosition]:
+def _find_party_positions(window: str, document_text: Optional[str] = None) -> Dict[str, PartyPosition]:
     """Detects distinct named-role liability statements ('Customer's
     liability shall not exceed...', 'Vendor's liability is not subject
     to...') and their cap values. Two or more distinct roles with distinct
     cap expressions is the signal for a directional/asymmetric structure —
     see evaluate_liability_policy for how "ours" vs. "counterparty" is
-    resolved from this."""
+    resolved from this.
+
+    `document_text` (Step 4A) is the FULL document, not just `window` — a
+    role's own defined-terms sentence is routinely far from the operative
+    liability clause. When not given (e.g. legacy/test callers), falls
+    back to `window` alone, so this stays backward compatible."""
     positions: Dict[str, PartyPosition] = {}
+    scan_text = document_text if document_text is not None else window
     for m in _ROLE_POSITION_RE.finditer(window):
         role = m.group(1)
         role_key = role.lower()
@@ -724,8 +1204,10 @@ def _find_party_positions(window: str) -> Dict[str, PartyPosition]:
         cap = caps[0]
         cap.start_index += m.end() - len(padding)
         cap.end_index += m.end() - len(padding)
-        side = "buy_side" if role_key in BUY_SIDE_ROLES else ("sell_side" if role_key in SELL_SIDE_ROLES else None)
-        positions[role_key] = PartyPosition(role=role, side=side, cap_expression=_simple(cap))
+        side, conflict_reason = _core_resolve_role_side(role, scan_text)
+        positions[role_key] = PartyPosition(
+            role=role, side=side, cap_expression=_simple(cap), side_conflict_reason=conflict_reason,
+        )
     return positions
 
 
@@ -741,15 +1223,154 @@ def _detect_cross_reference(window: str) -> Optional[Tuple[str, int, int]]:
     return None
 
 
+# Step 4A.1 — liability-concept ownership, restructured. Step 4A's
+# _has_liability_concept_nearby (a fixed 250-char window checked against
+# _ANCHOR_RE/_SECONDARY_ANCHOR_RE, the SAME narrow patterns used for
+# primary clause recognition) rejected a genuine cap phrased "liability
+# arising under this Agreement ... exceed ..." because
+# _SECONDARY_ANCHOR_RE's "in no event shall ... liability exceed" pattern
+# requires those two words adjacent, with no intervening relative clause
+# (XR-4). Root cause: one regex was being asked to prove three different
+# things at once (this is about liability AND this imposes a limit AND
+# this specific number is the value) — any single narrow pattern that
+# happens to satisfy all three simultaneously is inherently brittle to
+# ordinary drafting variation. 4A.1 splits this into three independently
+# testable questions, each answered over the SENTENCE containing the
+# candidate (a structural boundary — not a fixed character window):
+#
+#   1. CONCEPT — does the sentence concern liability at all?
+#   2. LIMIT   — does the sentence impose a maximum/limitation?
+#   3. VALUE   — the numeric candidate itself (already established by
+#      the caller via _find_cap_values before this function runs).
+#
+# All three together (not one giant regex) are required before a
+# candidate is treated as an established liability cap. A DISQUALIFYING
+# check additionally rejects a sentence whose dominant subject is a
+# different, commonly-confused concept (service credits, insurance,
+# deductibles, purchase price, etc.) even if the word "liability" or a
+# limit predicate happens to also appear in it — see Step 4A.1's negative
+# cross-reference test suite for the concrete confusions this guards.
+_LIABILITY_CONCEPT_RE = re.compile(r"\bliabilit(?:y|ies)\b|\bliable\b", re.I)
+_LIABILITY_LIMIT_PREDICATE_RE = re.compile(
+    r"shall\s+not\s+exceed|is\s+capped\s+at|shall\s+be\s+capped|\blimited\s+to\b"
+    r"|shall\s+not\s+be\s+liable\s+for|\bmaximum\b|in\s+no\s+event.{0,120}?exceed"
+    r"|\baggregate\b|\bcumulative\b|\bceiling\b|\buncapped\b|\bunlimited\b"
+    r"|\bcap(?:s|ped)?\b",
+    re.I,
+)
+# Concepts that commonly co-occur with cap-shaped numbers but are NOT
+# limitation-of-liability — each one is a real drafting pattern that
+# produced a wrong candidate somewhere in Step 2B/4A/4A.1 testing or is a
+# realistic analog of one (SLA service credits; insurance policy limits;
+# a deal's purchase price; late/termination fees; security deposits;
+# indemnification baskets/deductibles).
+_LIABILITY_DISQUALIFYING_CONCEPT_RE = re.compile(
+    r"service\s+credit|\bSLA\b|service\s+level|\binsurance\b|\bdeductible\b|\bpurchase\s+price\b"
+    r"|indemnification\s+basket|\bbasket\b|\btermination\s+fee\b|\bsecurity\s+deposit\b"
+    r"|\blate\s+fee\b|\bpenalty\b",
+    re.I,
+)
+# How far to search, in EITHER direction, for the sentence boundary
+# around a candidate — a bounded fallback only, structural boundaries
+# (period+space, period+end-of-text) are always preferred when found
+# within this range. Generous enough for realistic multi-clause
+# sentences without scanning unboundedly.
+_LIABILITY_SENTENCE_SEARCH_CHARS = 500
+
+
+def _sentence_containing_with_offset(text: str, start: int, end: int) -> Tuple[str, int]:
+    """Returns (sentence, sentence_start_offset_in_text) for the sentence
+    containing text[start:end], found via structural boundaries (". ", or
+    start/end of text) rather than a fixed character window — falls back
+    to a bounded window only when no boundary exists within
+    _LIABILITY_SENTENCE_SEARCH_CHARS."""
+    back_lo = max(0, start - _LIABILITY_SENTENCE_SEARCH_CHARS)
+    back_text = text[back_lo:start]
+    back_boundary = back_text.rfind(". ")
+    sentence_start = back_lo + back_boundary + 2 if back_boundary != -1 else back_lo
+
+    fwd_hi = min(len(text), end + _LIABILITY_SENTENCE_SEARCH_CHARS)
+    fwd_text = text[end:fwd_hi]
+    fwd_m = re.search(r"\.\s|\.$", fwd_text)
+    sentence_end = end + fwd_m.end() if fwd_m else fwd_hi
+
+    return text[sentence_start:sentence_end], sentence_start
+
+
+def _sentence_containing(text: str, start: int, end: int) -> str:
+    """Returns the sentence containing text[start:end] — see
+    _sentence_containing_with_offset for the offset-returning variant used
+    when a caller needs to map indices back into sentence-relative
+    coordinates."""
+    sentence, _ = _sentence_containing_with_offset(text, start, end)
+    return sentence
+
+
+# Step 4A.3: a disqualifying-concept mention that is itself being
+# EXCLUDED/DISCLAIMED ("separate from any insurance requirement",
+# "independent of insurance proceeds", "insurance proceeds do not limit
+# Provider's contractual liability") must not disqualify the candidate —
+# the sentence is explicitly saying the disqualifying concept does NOT
+# govern here. Scoped narrowly around the disqualifier match itself
+# (not the whole sentence) so this doesn't accidentally neutralize a
+# genuine disqualifier elsewhere in a longer sentence.
+_DISQUALIFIER_NEGATION_RE = re.compile(
+    r"separate\s+from|independent\s+of|exclusive\s+of|regardless\s+of|notwithstanding"
+    r"|in\s+addition\s+to|(?:shall\s+not|does\s+not|do\s+not)\s+limit|not\s+a\s+limitation\s+on",
+    re.I,
+)
+_DISQUALIFIER_NEGATION_WINDOW = 60
+
+
+def _comma_delimited_span(sentence: str, start: int, end: int) -> Tuple[int, int]:
+    """The comma-to-comma (or sentence-boundary) sub-clause containing
+    sentence[start:end] — the structural unit a parenthetical/appositive
+    disqualifier concept ("including without limitation any service
+    credits...") actually applies to, as opposed to the whole sentence."""
+    seg_start = sentence.rfind(",", 0, start)
+    seg_start = seg_start + 1 if seg_start != -1 else 0
+    seg_end = sentence.find(",", end)
+    seg_end = seg_end if seg_end != -1 else len(sentence)
+    return seg_start, seg_end
+
+
+def _has_liability_concept_nearby(text: str, cap: CapValue) -> bool:
+    """CONCEPT + LIMIT (+ disqualifier) verification for one candidate
+    value, scoped to its containing sentence. Does NOT re-verify VALUE —
+    the caller already established the candidate via _find_cap_values.
+
+    A disqualifying concept (e.g. "service credit", "insurance") only
+    disqualifies THIS candidate when it appears in the SAME comma-
+    delimited sub-clause as the candidate — a sentence can legitimately
+    contain an unrelated disqualifying sub-clause (an SLA service-credit
+    parenthetical, an insurance carve-out) alongside a genuine liability
+    cap elsewhere in the same sentence, and that sub-clause must not
+    poison the whole sentence for every candidate in it."""
+    sentence, sentence_offset = _sentence_containing_with_offset(text, cap.start_index, cap.end_index)
+    cap_lo = cap.start_index - sentence_offset
+    cap_hi = cap.end_index - sentence_offset
+    cap_seg_start, cap_seg_end = _comma_delimited_span(sentence, cap_lo, cap_hi)
+    for dm in _LIABILITY_DISQUALIFYING_CONCEPT_RE.finditer(sentence):
+        if dm.start() >= cap_seg_end or dm.end() <= cap_seg_start:
+            continue  # disqualifying concept sits in a different sub-clause — not about THIS candidate
+        lo = max(0, dm.start() - _DISQUALIFIER_NEGATION_WINDOW)
+        hi = min(len(sentence), dm.end() + _DISQUALIFIER_NEGATION_WINDOW)
+        if not _DISQUALIFIER_NEGATION_RE.search(sentence[lo:hi]):
+            return False
+    return bool(_LIABILITY_CONCEPT_RE.search(sentence) and _LIABILITY_LIMIT_PREDICATE_RE.search(sentence))
+
+
 def _resolve_cross_reference(
     text: str, provision_start: int, provision_end: int, label: str,
 ) -> Tuple[Optional[CapValue], str]:
     """Searches the full document for the named reference target (e.g.
     "Schedule C") outside the current provision and attempts to locate a
     cap value stated near it. Resolves deterministically only when exactly
-    one candidate location yields a value (or every candidate agrees) —
+    one candidate location yields a value THAT IS ALSO INDEPENDENTLY
+    ANCHORED to the liability concept (or every such candidate agrees) —
     otherwise returns (None, reason) naming why it couldn't, never a guess
-    among multiple candidates."""
+    among multiple candidates, and never a numeric value whose surrounding
+    text gives no indication it is even about liability."""
     occurrences = [
         m for m in re.finditer(re.escape(label), text, re.I)
         if not (provision_start <= m.start() <= provision_end)
@@ -757,26 +1378,43 @@ def _resolve_cross_reference(
     if not occurrences:
         return None, f"referenced provision \"{label}\" was not found elsewhere in the extracted document text"
 
-    resolved: List[Tuple[re.Match, CapValue]] = []
+    all_candidates: List[Tuple[re.Match, CapValue]] = []
     for m in occurrences:
+        if not _core_is_operative_context(text, m.start(), m.end()):
+            # The reference label itself sits in non-operative context near
+            # this occurrence (e.g. "(informational only)", "for reference
+            # only", a superseded/negated summary) — a candidate value found
+            # near it is not a binding cap and must not compete with a
+            # genuinely operative occurrence found elsewhere in the document.
+            continue
         forward = text[m.end():min(len(text), m.end() + _CROSS_REF_RESOLUTION_WINDOW)]
         caps = _find_cap_values(forward)
         if caps:
             cap = caps[0]
             cap.start_index += m.end()
             cap.end_index += m.end()
-            resolved.append((m, cap))
+            if not _core_is_operative_context(text, cap.start_index, cap.end_index):
+                continue
+            all_candidates.append((m, cap))
 
-    if not resolved:
+    if not all_candidates:
         return None, (
             f"referenced provision \"{label}\" was found but no cap value could be located near it"
+        )
+
+    resolved = [(m, cap) for m, cap in all_candidates if _has_liability_concept_nearby(text, cap)]
+    if not resolved:
+        return None, (
+            f"referenced provision \"{label}\" was found and states a numeric value, but the "
+            f"surrounding text does not state a limitation-of-liability concept — cannot establish "
+            f"that this value is actually the liability cap without attorney review"
         )
 
     distinct_values = {(c.kind, c.basis, c.multiplier, c.fixed_amount) for _, c in resolved}
     if len(distinct_values) > 1:
         return None, (
-            f"multiple mentions of \"{label}\" were found with different cap values; "
-            f"cannot determine which governs without attorney review"
+            f"multiple mentions of \"{label}\" were found with different, liability-concept-anchored "
+            f"cap values; cannot determine which governs without attorney review"
         )
     return resolved[0][1], ""
 
@@ -792,8 +1430,10 @@ def _extract_provision(text: str, anchor_start: int, index: int) -> Provision:
         cat: _classify_category(window, cat, all_cat_positions, exclusion_coverage) for cat in CATEGORIES
     }
     general_cap_expr = _classify_general_cap_expression(window, category_treatments)
+    if general_cap_expr.structure != "unresolved" and general_cap_expr.components:
+        general_cap_expr.unmapped_role_pair_reason = _unmapped_cap_role_pair_reason(window, text)
     consequential_excluded, consequential_established, carveouts = _classify_consequential_damages(window)
-    party_positions = _find_party_positions(window)
+    party_positions = _find_party_positions(window, document_text=text)
 
     lookback_start = max(0, window_start - 300)
     is_amendment = bool(_AMENDMENT_SIGNAL_RE.search(text[lookback_start:window_end]))
@@ -862,13 +1502,55 @@ def _extract_provision(text: str, anchor_start: int, index: int) -> Provision:
             c.start_index += window_start
             c.end_index += window_start
 
+    # Step 4A.11 Phase 4 — direct safety-defect evidence: this module
+    # never checked is_operative_context anywhere, so a quoted example
+    # explicitly negated afterward ("A typical clause reads: 'Aggregate
+    # liability shall not exceed $1,000,000.' This Agreement does not
+    # include such a clause.") was established as a real cap
+    # (fab-lia-af6-quoted-example-01). If EVERY component of the
+    # resolved cap expression fails the shared operative-context check,
+    # the expression is downgraded to unresolved rather than trusted --
+    # mirrors how a cross-reference failure already downgrades to
+    # unresolved elsewhere in this function.
+    if general_cap_expr.components and general_cap_expr.structure != "unresolved":
+        if all(not _core_is_operative_context(text, c.start_index, c.end_index) for c in general_cap_expr.components):
+            general_cap_expr = _unresolved(
+                "the only candidate cap value found sits in quoted/negated/non-operative "
+                "context (e.g. a rejected example, a heading, or explicitly negated text), "
+                "not the document's own operative term",
+                raw_excerpt=general_cap_expr.raw_excerpt,
+                start_index=general_cap_expr.start_index, end_index=general_cap_expr.end_index,
+            )
+            cap = None
+
+    section_label = _section_label_before(text, window_start)
+    # Step 4A.11 Phase 2 — when a cap VALUE was actually found, start_index/
+    # end_index above are already anchored at that value's own position
+    # (not the clause heading), so a sentence-scoped scan there correctly
+    # attaches a condition stated in the same sentence, or the sentence
+    # immediately after (the backref family), to THIS value rather than a
+    # different party's separately-stated figure elsewhere in the window.
+    # When no value was found at all, start_index/end_index fall back to
+    # the heading's own position, which is the wrong anchor for a
+    # condition that only appears later in the clause — the whole
+    # provision window is scanned instead in that case.
+    if general_cap_expr.components:
+        condition = _core_detect_condition_in_span(text, start_index, end_index)
+    else:
+        condition = _core_detect_condition_in_text(text[window_start:window_end])
+    if section_label:
+        conflict = _core_detect_conflicting_backward_conditions(text, "Section", section_label)
+        if conflict is not None:
+            priority = {"CONFLICTING": 3, "ESTABLISHED": 2, "NOT_ESTABLISHED": 1, "UNCONDITIONAL": 0}
+            condition = max((condition, conflict), key=lambda e: priority.get(e.status, 0))
+
     return Provision(
-        index=index, section_label=_section_label_before(text, window_start), is_amendment=is_amendment,
+        index=index, section_label=section_label, is_amendment=is_amendment,
         start_index=start_index, end_index=end_index, raw_excerpt=raw_excerpt,
         general_cap_expression=general_cap_expr, category_treatments=category_treatments,
         party_positions=party_positions, consequential_damages_excluded=consequential_excluded,
         consequential_damages_established=consequential_established, consequential_damages_carveouts=carveouts,
-        cross_reference=cross_reference_info,
+        cross_reference=cross_reference_info, condition=condition,
     )
 
 
@@ -1038,6 +1720,15 @@ def _resolve_directional_position(
         position_label="asymmetric liability positions", value_label="cap",
     )
     if chosen is None:
+        # Step 4A: if any position's side is unresolved specifically
+        # because the document's own definition of that role conflicts
+        # with the generic vocabulary (not merely because the role name
+        # was unrecognized), surface that specific reason instead of the
+        # generic "could not be confidently mapped" text — a lawyer
+        # reading unresolved_facts should see WHY, not just THAT.
+        conflict_reasons = [pp.side_conflict_reason for pp in positions if pp.side_conflict_reason]
+        if conflict_reasons:
+            reason = "; ".join(conflict_reasons) + (f" ({reason})" if reason else "")
         return None, our_dict, their_dict, reason
     matching_pp = next(pp for pp in positions if pp.role == chosen.role)
     return matching_pp.cap_expression, our_dict, their_dict, reason
@@ -1087,6 +1778,15 @@ def evaluate_liability_policy(
     required_exceptions = list(policy.required_exceptions_json or [])
     unresolved_facts: List[str] = []
 
+    # Step 4A.7.1 remediation (A6-L-52) — only relevant when the policy
+    # actually needs to know which named party is "us" (see the
+    # CapExpression.unmapped_role_pair_reason docstring for why this is
+    # gated on contract_side rather than firing unconditionally).
+    if policy.contract_side != "mutual" and provision.general_cap_expression.unmapped_role_pair_reason:
+        unresolved_facts.append(
+            f"role attribution ({provision.general_cap_expression.unmapped_role_pair_reason})"
+        )
+
     # Directional resolution — only engages when 2+ distinct role positions exist.
     directional_cap_expr, our_position, counterparty_position, directional_reason = _resolve_directional_position(
         provision, policy,
@@ -1098,7 +1798,24 @@ def evaluate_liability_policy(
     general_cap, general_cap_reason = general_cap_expr.effective_cap()
     if general_cap_reason:
         unresolved_facts.append(f"general liability cap ({general_cap_reason})")
-    elif general_cap is not None and general_cap.kind == "fee_multiplier" and general_cap.basis != BASIS_FEES:
+    elif (
+        general_cap is not None and general_cap.kind == "fee_multiplier"
+        and general_cap.basis == BASIS_RECURRING_PAYMENT
+        and "fee" in provision.raw_excerpt.lower()
+    ):
+        # Step 4A.5 Priority 4 negative control: this clause ALSO
+        # separately mentions "fee(s)" as a distinct quantity alongside
+        # its own royalties/premium/rent/charges basis — two different
+        # payment streams may exist, so this basis must not be silently
+        # treated as interchangeable with the policy's fees-defined
+        # threshold.
+        general_cap_reason = (
+            "cap is expressed as a multiplier of a recurring payment basis that is not 'fees', and this "
+            "document separately mentions fees as well — cannot confirm they are the same quantity"
+        )
+        unresolved_facts.append(f"general liability cap ({general_cap_reason})")
+        general_cap = None
+    elif general_cap is not None and general_cap.kind == "fee_multiplier" and general_cap.basis not in (BASIS_FEES, BASIS_RECURRING_PAYMENT):
         # A multiplier of purchase price / contract value / some other
         # basis is not comparable to a policy threshold defined as "Nx
         # annual fees" — preserve the exact source language, don't force
@@ -1110,6 +1827,12 @@ def evaluate_liability_policy(
         )
         unresolved_facts.append(f"general liability cap ({general_cap_reason})")
         general_cap = None
+    # Step 4A.5 Priority 4: BASIS_RECURRING_PAYMENT with no competing "fee"
+    # mention falls through here with general_cap intact — a recurring
+    # per-period payment stream (royalties/premium/rent/charges) that is
+    # the clause's own sole payment basis is functionally the same policy
+    # concept as "fees" and is compared against the threshold exactly like
+    # a BASIS_FEES multiplier below.
 
     for cat in required_exceptions:
         treatment = provision.category_treatments.get(cat)
@@ -1118,6 +1841,23 @@ def evaluate_liability_policy(
 
     if policy.require_consequential_damages_exclusion and not provision.consequential_damages_established:
         unresolved_facts.append("consequential damages exclusion (ambiguous language)")
+
+    # Step 4A.11 Phase 2 — a conditional fact may become authoritative only
+    # WITH its condition preserved; this engine does not evaluate whether a
+    # condition's real-world trigger is satisfied.
+    if provision.condition is not None and provision.condition.status == "ESTABLISHED":
+        unresolved_facts.append(
+            f"liability cap is conditionally applicable ({provision.condition.condition_type}: "
+            f"\"{provision.condition.evidence_span}\") — this evaluation does not determine whether "
+            f"the stated condition is satisfied"
+        )
+    elif provision.condition is not None and provision.condition.status == "NOT_ESTABLISHED":
+        unresolved_facts.append(
+            f"liability cap's applicability (condition-shaped language present but its scope/"
+            f"attachment cannot be established: \"{provision.condition.evidence_span}\")"
+        )
+    elif provision.condition is not None and provision.condition.status == "CONFLICTING":
+        unresolved_facts.append(f"liability cap's applicability ({provision.condition.note})")
 
     if unresolved_facts:
         state = REQUIRES_REVIEW

@@ -1,0 +1,1093 @@
+=== family: liability (20 cases) ===
+[F3-L-01] adapter=liability tier=1 label=AUTOMATABLE
+    concept: ordinary multiplier, new basis noun
+    reason: Tests whether the basis-modifier fix generalizes to a fresh domain noun not in any prior corpus.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual cultivation fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-L-02] adapter=liability tier=1 label=AUTOMATABLE
+    concept: ordinary multiplier at threshold boundary
+    reason: 2x is exactly acceptable_max_multiplier; tests correct NEGOTIATE (not ACCEPT, not ESCALATE).
+    expected_result: NEGOTIATE (2x)
+    STATE: ACCEPT_WITH_NOTE
+    extracted_summary: '2x Recurring Payment'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "2 times the annual rent". Extracted value: 2x Recurring Payment. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+[F3-L-03] adapter=liability tier=2 label=AUTOMATABLE
+    concept: ordinary multiplier with a two-word modifier before fees
+    reason: 'preservation-service fees' — a hyphenated two-word modifier, distinct shape from any prior hyphen case (which fused into the basis word itself, not preceding it).
+    expected_result: NEGOTIATE (3x)
+    STATE: NEGOTIATE
+    extracted_summary: '3x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "3 times the annual preservation-service fees paid". Extracted value: 3x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: NEGOTIATE.
+[F3-L-04] adapter=liability tier=2 label=AUTOMATABLE
+    concept: greater-of with a fresh basis phrase
+    reason: Fresh domain test of the existing greater-of mechanism combined with the modifier-tolerant basis extractor.
+    expected_result: ACCEPT (greater-of structure, both components extractable)
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['general liability cap (cannot resolve a greater of structure mixing a fee multiplier and a fixed dollar amount without the actual annual fee value)']
+    our_position: None
+    explanation: Contract language: "greater of $40,000 or 2 times the annual millinery-commission fees paid.". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (cannot resolve a greater of structure mixing a fee multiplier and a fixed dollar amount without the actual annual fee value). Result: REQUIRES_REVIEW.
+[F3-L-05] adapter=liability tier=3 label=AUTOMATABLE
+    concept: unlimited + defined-term delegation with an interposed CPI-adjustment clause
+    reason: Fresh variant of the interposed-clause defined-term-delegation fix (Step 4A.7.1), with a DIFFERENT interposing phrase ('subject to annual CPI adjustment') than the one the fix was built against.
+    expected_result: ESCALATE or ACCEPT depending on config (fixed-dollar, unlimited-elsewhere edge phrasing)
+    STATE: MUST_REDLINE
+    extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "9. Limitation of Liability. Silverfen Wetland Restoration Consultants shall have no liability whatsoever to Client for claims arising under this Agreement, except that claims arising from willful misconduct shall remain subject to the Restoration Damages Cap, which". A limitation-of-liability clause exists but states no enforceable numeric general cap. Company policy requires a stated cap. Result: MUST_REDLINE.
+[F3-L-06] adapter=liability tier=2 label=SHOULD_REVIEW
+    concept: self-flagged unresolved delegation, fresh phrasing
+    reason: 'it being acknowledged that no such [X] has yet been finalized' — a fresh variant of the self-flagged-unresolved family, testing generalization beyond the six phrases the fix covers.
+    expected_result: REQUIRES_REVIEW
+    STATE: MUST_REDLINE
+    extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "9. Limitation of Liability. Duskglow Neon Fabrication Corp's aggregate liability shall not exceed the amount specified in the fabrication-cost schedule referenced in Section 5, it being acknowledged that no such schedule has yet been finalized.". A limitation-of-liability clause exists but states no enforceable numeric general cap. Company policy requires a stated cap. Result: MUST_REDLINE.
+[F3-L-07] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: conflicting defined term, fresh domain and target label
+    reason: Same shape as the Step 4A.7.1 fix (means...for purposes of Section X...and means...for purposes of Section Y) but referencing a Schedule instead of a Section as the second scope — tests whether the fix generalizes beyond 'Section' specifically.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['general liability cap (this clause delegates to a cross-referenced provision, and no cap-shaped value found in the document has any limitation-of-liability language near it — cannot establish that any of them is actually the liability cap without attorney review)']
+    our_position: None
+    explanation: Contract language: "Damage Cap. 'Kiln Damage Cap' means, for purposes of Section 9, 1 times the annual firing fees paid, and means, for purposes of Schedule C (Insurance Coordination),". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (this clause delegates to a cross-referenced provision, and no cap-shaped value found in the document has any limitation-of-liability language near it — cannot establish that any of them is actually the liability cap without attorney review). Result: REQUIRES_REVIEW.
+[F3-L-08] adapter=liability tier=2 label=AUTOMATABLE
+    concept: ordinary named-role pair, both generic vocabulary
+    reason: Fresh two-word hyphenless modifier ('equipment-lease' is hyphenated, tests the OTHER hyphen direction — modifier hyphenated internally, not fused to the basis word).
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual equipment-lease fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-L-09] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: conditional multiplier with an unverified precondition
+    reason: A genuinely new mechanism not covered by any existing fix: the multiplier's APPLICABILITY (not its value or basis) is conditioned on an unverified fact.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["general liability cap (the stated multiplier's applicability is conditioned on a precondition the document itself marks as not yet verified — cannot confirm this cap actually governs)"]
+    our_position: None
+    explanation: Contract language: "-support fees paid, PROVIDED THAT the foregoing multiplier applies only if Producer has maintained continuous production insurance throughout the Term, a condition not yet verified as of this excerpt.". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (the stated multiplier's applicability is conditioned on a precondition the document itself marks as not yet verified — cannot confirm this cap actually governs). Result: REQUIRES_REVIEW.
+[F3-L-10] adapter=liability tier=1 label=AUTOMATABLE
+    concept: ordinary multiplier, clean
+    reason: Plain Tier-1 control, no distractor at all.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual craftsmanship fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-L-11] adapter=liability tier=2 label=SHOULD_REVIEW
+    concept: lesser-of general cap with a category delegated externally
+    reason: Tests whether a category-specific delegation to an unincluded exhibit correctly leaves the GENERAL cap resolvable while the excluded category remains unresolved (category-scoped, not general-cap chained delegation).
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['general liability cap (cannot resolve a lesser of structure mixing a fee multiplier and a fixed dollar amount without the actual annual fee value)']
+    our_position: None
+    explanation: Contract language: "lesser of $80,000 or 1 times the annual production fees paid, excluding claims arising from product contamination, which shall be governed by the Contamination Liability Rider (Exhibit F, not included in this excerpt).". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (cannot resolve a lesser of structure mixing a fee multiplier and a fixed dollar amount without the actual annual fee value). Result: REQUIRES_REVIEW.
+[F3-L-12] adapter=liability tier=2 label=AUTOMATABLE
+    concept: three-word compound modifier before fees
+    reason: 'membership-processing fees' tests a longer compound modifier than any prior basis-fix test case.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual membership-processing fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-L-13] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: self-flagged basis-value ambiguity, fresh phrasing
+    reason: 'it being unclear whether [basis] includes [X]' — a fresh construction of the existing self-flagged-ambiguity family, phrased around the BASIS specifically rather than the whole cap.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['general liability cap (the document explicitly flags its own ambiguity about how this cap should be interpreted)']
+    our_position: None
+    explanation: Contract language: "d 1 times the annual forging fees paid, it being unclear whether 'forging fees' includes raw-material surcharges billed separately under Section 11.". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (the document explicitly flags its own ambiguity about how this cap should be interpreted). Result: REQUIRES_REVIEW.
+[F3-L-14] adapter=liability tier=1 label=AUTOMATABLE
+    concept: ordinary multiplier at threshold, fresh basis
+    reason: Another 2x-exactly-at-threshold control, different domain from F3-L-02.
+    expected_result: NEGOTIATE (2x)
+    STATE: MUST_REDLINE
+    extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "9. Limitation of Liability. Thornfield Beekeeping Cooperative's aggregate liability shall not exceed 2 times the annual honey-sales commission paid.". A limitation-of-liability clause exists but states no enforceable numeric general cap. Company policy requires a stated cap. Result: MUST_REDLINE.
+[F3-L-15] adapter=liability tier=2 label=AUTOMATABLE
+    concept: clean cap with an explicitly-disclaimed insurance distractor
+    reason: Insurance distractor that EXPLICITLY disclaims relevance ('which is unrelated to this Section') — must not be misassociated as the cap value, and the explicit disclaimer must not itself trigger unnecessary review.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual exhibition fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-L-16] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: open-ended future-negotiation qualifier, fresh phrasing
+    reason: 'no such separate negotiation having occurred' — a fresh variant of the self-flagged-unresolved family, different grammatical construction (absolute participial clause) than any case the fix was built against.
+    expected_result: REQUIRES_REVIEW
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual training fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-L-17] adapter=liability tier=2 label=AUTOMATABLE
+    concept: plain control
+    reason: Second plain Tier-2 control for baseline comparison.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual restoration fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-L-18] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: chained delegation via Appendix rather than Schedule/Exhibit
+    reason: Fresh variant of the Step 4A.7.1 chained-delegation fix using 'Appendix' + 'Service Order' instead of 'Schedule'/'Exhibit' — tests whether the fix's specific document-type wording generalizes.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["general liability cap (the cap's basis is delegated through a chain of cross-references ending in a document not included — the multiplier itself is clean but what it applies to cannot be verified)"]
+    our_position: None
+    explanation: Contract language: "ed per the definition of 'tack-fitting fees' in Appendix 2, which Appendix 2 in turn incorporates the fee schedule attached to the separately-executed Service Order (not included).". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (the cap's basis is delegated through a chain of cross-references ending in a document not included — the multiplier itself is clean but what it applies to cannot be verified). Result: REQUIRES_REVIEW.
+[F3-L-19] adapter=liability tier=2 label=AUTOMATABLE
+    concept: plain control, trust-adjacent entity name
+    reason: Third plain control, entity name uses 'Trust' suffix to test entity-name-fragment capture doesn't misfire on the word 'Trust'.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual rehabilitation-program fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-L-20] adapter=liability tier=1 label=AUTOMATABLE
+    concept: ampersand in entity name
+    reason: Entity name contains '&' — tests whether the multi-word name capture tolerates a non-letter connector without breaking (similar risk class to the earlier hyphen-in-name issue).
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual bindery fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+
+=== family: indemnification (20 cases) ===
+[F3-I-01] adapter=indemnification tier=1 label=AUTOMATABLE
+    concept: ordinary clean obligation
+    reason: Plain control, fresh domain.
+    expected_result: ACCEPT
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['obligation "Hollowreach Cave Tour Operators indemnifies Guest" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s)']
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Hollowreach Cave Tour Operators shall indemnify, defend, and hold harmless Guest from third-party claims arising from Hollowreach Cave Tour Operators'". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Hollowreach Cave Tour Operators indemnifies Guest" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+[F3-I-02] adapter=indemnification tier=2 label=SHOULD_REVIEW
+    concept: reciprocal with a fresh differentiated exclusion category
+    reason: 'excludes claims arising from equipment malfunction' — tests the fraud-trigger-style fix generalizes to a novel exclusion category not itself a tracked trigger keyword at all (a genuinely new category, unlike 'fraud' which was added as a category).
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['obligation "Rescue Training indemnifies Trainee" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)', 'obligation "Trainee indemnifies Pinnacle Ridge Search" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Pinnacle Ridge Search & Rescue Training shall indemnify, defend, and hold harmless Trainee, and Trainee shall indemnify, defend, and hold harmless Pinnacle". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Rescue Training indemnifies Trainee" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s); obligation "Trainee indemnifies Pinnacle Ridge Search" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+[F3-I-03] adapter=indemnification tier=2 label=SHOULD_REVIEW
+    concept: causation-standard differentiation, fresh standard names
+    reason: Fresh causation-standard pair ('direct and proximate cause' vs. 'but-for cause') neither of which appeared in any prior corpus — tests generalization of the causation-standard comparison beyond its original 'sole and proximate'/'contributing cause' pair.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["the document states this obligation in both directions by name, but a per-party differentiation was found (Thistlebrook Organic Seed Bank and Distributor are subject to different named causation standards ('direct and proximate cause,' vs 'but-for cause')) — cannot confirm the two directions are actually equivalent"]
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Thistlebrook Organic Seed Bank shall indemnify, defend, and hold harmless Distributor, and Distributor shall indemnify, defend, and hold harmless". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document states this obligation in both directions by name, but a per-party differentiation was found (Thistlebrook Organic Seed Bank and Distributor are subject to different named causation standards ('direct and proximate cause,' vs 'but-for cause')) — cannot confirm the two directions are actually equivalent. Result: REQUIRES_REVIEW.
+[F3-I-04] adapter=indemnification tier=3 label=SHOULD_REVIEW
+    concept: compound: exception-clause + causation-standard differentiation, fresh domain
+    reason: Same compound shape as S4B-COMP-05/07 (the two cases the Step 4A.7.1 cross-mechanism fix targeted) but with entirely fresh entity names, exclusion category, and causation standard — the most direct generalization test of that specific fix.
+    expected_result: REQUIRES_REVIEW
+    STATE: MUST_REDLINE
+    extracted_summary: 'Exposure: unspecified; Protection: present'
+    unresolved_facts: []
+    our_position: {'exposure': 'Larkspur Custom Perfumery Corp', 'protection': 'Retailer'}
+    explanation: Contract language: "8. Indemnification. Larkspur Custom Perfumery Corp shall indemnify, defend, and hold harmless Retailer, and Retailer shall indemnify, defend, and hold harmless Larkspur". exposure obligation states no monetary treatment at all. Result: MUST_REDLINE.
+[F3-I-05] adapter=indemnification tier=1 label=AUTOMATABLE
+    concept: ordinary clean obligation
+    reason: Plain control at the 2x threshold.
+    expected_result: ACCEPT
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['obligation "Copperfield Vintage Motorcycle Restoration indemnifies Consignor" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s)']
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Copperfield Vintage Motorcycle Restoration shall indemnify, defend, and hold harmless Consignor from third-party claims arising from Copperfield Vintage Motorcycle". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Copperfield Vintage Motorcycle Restoration indemnifies Consignor" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+[F3-I-06] adapter=indemnification tier=2 label=SHOULD_REVIEW
+    concept: conditional monetary escalation tied to a facility, not a second named party
+    reason: A NEW variant of the exception-clause differentiation family: the escalation condition names a FACILITY (a sub-entity of the SAME party), not a different named party — tests whether the general exception-clause detector over-fires (there's technically no 'second party' at all here, just a scope qualifier on the same party's own obligation) or correctly still catches it.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['exposure monetary treatment (the stated cap conditionally escalates for a specific claim scenario — the base value understates the true worst-case exposure this clause permits)']
+    our_position: {'exposure': 'Fenwick Artisanal Cheese Affinage', 'protection': None}
+    explanation: Contract language: "8. Indemnification. Fenwick Artisanal Cheese Affinage shall indemnify, defend, and hold harmless Buyer from third-party claims arising from Fenwick Artisanal Cheese". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: exposure monetary treatment (the stated cap conditionally escalates for a specific claim scenario — the base value understates the true worst-case exposure this clause permits). Result: REQUIRES_REVIEW.
+[F3-I-07] adapter=indemnification tier=1 label=AUTOMATABLE
+    concept: plain control
+    reason: Second plain control.
+    expected_result: ACCEPT
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['obligation "Moonvale Herbal Apothecary indemnifies Wholesaler" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s)']
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Moonvale Herbal Apothecary shall indemnify, defend, and hold harmless Wholesaler from third-party claims arising from Moonvale Herbal Apothecary's". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Moonvale Herbal Apothecary indemnifies Wholesaler" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+[F3-I-08] adapter=indemnification tier=2 label=AUTOMATABLE
+    concept: genuinely symmetric procedural term, fresh domain
+    reason: 'each party's' generic placeholder — true symmetric control, must not escalate.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+    unresolved_facts: []
+    our_position: {'exposure': 'Windmere Pipe Organ Restoration Guild', 'protection': 'Cathedral'}
+    explanation: Contract language: "8. Indemnification. Windmere Pipe Organ Restoration Guild shall indemnify, defend, and hold harmless Cathedral, and Cathedral shall indemnify, defend, and hold harmless Windmere". No policy gaps found. Result: ACCEPT.
+[F3-I-09] adapter=indemnification tier=3 label=SHOULD_REVIEW
+    concept: conflicting defined term on the indemnification side, fresh domain
+    reason: Tests whether the Step 4A.7.1 conflicting-defined-term fix (built for liability's monetary regex and independently for payment-terms) generalizes to indemnification's SEPARATE monetary extraction regex, which was never itself given this specific fix.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['obligation "Vance Rare Book Appraisers indemnifies Auction House" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s)']
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Thackeray & Vance Rare Book Appraisers shall indemnify, defend, and hold harmless Auction House from third-party claims arising from Thackeray & Vance Rare". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Vance Rare Book Appraisers indemnifies Auction House" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+[F3-I-10] adapter=indemnification tier=1 label=AUTOMATABLE
+    concept: plain control
+    reason: Third plain control, compound basis modifier.
+    expected_result: ACCEPT
+    STATE: MUST_REDLINE
+    extracted_summary: 'Exposure: unspecified; Protection: not found'
+    unresolved_facts: []
+    our_position: {'exposure': 'Somerled Highland Cattle Ranch', 'protection': None}
+    explanation: Contract language: "8. Indemnification. Somerled Highland Cattle Ranch shall indemnify, defend, and hold harmless Buyer from third-party claims arising from Somerled Highland Cattle". exposure obligation states no monetary treatment at all. Result: MUST_REDLINE.
+[F3-I-11] adapter=indemnification tier=2 label=AUTOMATABLE
+    concept: closed synonym-idiom family, fresh domain
+    reason: Tests the EXISTING 'undertakes to make...whole for, and to assume the defense of' synonym regex (not modified this session) against a fresh domain, confirming it still generalizes.
+    expected_result: ACCEPT
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['obligation "Thornapple Cider Press Cooperative indemnifies Retailer" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s)']
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Thornapple Cider Press Cooperative undertakes to make Retailer whole for, and to assume the defense of, any third-party claims arising from Thornapple Cider Press". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Thornapple Cider Press Cooperative indemnifies Retailer" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+[F3-I-12] adapter=indemnification tier=3 label=SHOULD_REVIEW
+    concept: survival-period differentiation via 'attributable to', fresh category
+    reason: Same shape as A6-I-18 (the survival-period fix target) with a fresh trigger category ('equipment theft', not 'data-breach') — direct generalization test.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["the document states this obligation in both directions by name, but a per-party differentiation was found (the clause contains an 'except that'/'provided that' proviso naming Ashgrove Community Solar Cooperative specifically, rather than stating the condition for both parties uniformly — the reciprocal opener's symmetry claim cannot be verified from this proviso) — cannot confirm the two directions are actually equivalent"]
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Ashgrove Community Solar Cooperative shall indemnify, defend, and hold harmless Member, and Member shall indemnify, defend, and hold harmless Ashgrove". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document states this obligation in both directions by name, but a per-party differentiation was found (the clause contains an 'except that'/'provided that' proviso naming Ashgrove Community Solar Cooperative specifically, rather than stating the condition for both parties uniformly — the reciprocal opener's symmetry claim cannot be verified from this proviso) — cannot confirm the two directions are actually equivalent. Result: REQUIRES_REVIEW.
+[F3-I-13] adapter=indemnification tier=1 label=AUTOMATABLE
+    concept: plain control
+    reason: Fourth plain control.
+    expected_result: ACCEPT
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+    unresolved_facts: ['indemnification obligation structure could not be parsed']
+    our_position: {'exposure': None, 'protection': None}
+    explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+[F3-I-14] adapter=indemnification tier=2 label=AUTOMATABLE
+    concept: closed synonym-idiom family (hold-harmless variant), fresh domain
+    reason: Tests the 'hold X harmless from and defend X against' synonym regex on a fresh domain.
+    expected_result: ACCEPT
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['obligation "Redcliff Canyon Zipline Adventures indemnifies Guest" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s)']
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Redcliff Canyon Zipline Adventures agrees to hold Guest harmless from and defend Guest against any and all third-party claims arising from Redcliff Canyon". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Redcliff Canyon Zipline Adventures indemnifies Guest" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+[F3-I-15] adapter=indemnification tier=3 label=AUTOMATABLE
+    concept: defined-term monetary delegation with interposed clause, indemnification side
+    reason: Tests whether liability's interposed-clause defined-term-delegation fix (Step 4A.7.1) has any counterpart need on indemnification's separate monetary regex — indemnification's _MONETARY_FIXED_RE was never examined for this specific gap.
+    expected_result: ESCALATE or ACCEPT depending on config (fixed-dollar, interposed-clause defined-term delegation)
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['obligation "Marchbanks Custom Violin Makers indemnifies Conservatory" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s)']
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Marchbanks Custom Violin Makers shall indemnify, defend, and hold harmless Conservatory from third-party claims arising from Marchbanks Custom Violin". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Marchbanks Custom Violin Makers indemnifies Conservatory" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+[F3-I-16] adapter=indemnification tier=1 label=AUTOMATABLE
+    concept: plain control
+    reason: Fifth plain control.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+    unresolved_facts: []
+    our_position: {'exposure': 'Willowmere Antique Map Dealers', 'protection': None}
+    explanation: Contract language: "8. Indemnification. Willowmere Antique Map Dealers shall indemnify, defend, and hold harmless Buyer from third-party claims arising from Willowmere Antique Map". No policy gaps found. Result: ACCEPT.
+[F3-I-17] adapter=indemnification tier=2 label=AUTOMATABLE
+    concept: symmetric cross-referenced notice requirement, fresh domain
+    reason: 'both parties'' generic placeholder plus a shared cross-reference — must resolve automatically.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+    unresolved_facts: []
+    our_position: {'exposure': 'Nightjar Astronomical Observatory Tours', 'protection': 'Guest'}
+    explanation: Contract language: "8. Indemnification. Nightjar Astronomical Observatory Tours shall indemnify, defend, and hold harmless Guest, and Guest shall indemnify, defend, and hold harmless Nightjar". No policy gaps found. Result: ACCEPT.
+[F3-I-18] adapter=indemnification tier=3 label=SHOULD_REVIEW
+    concept: genuine exclusion immediately followed by a partial self-negation phrase
+    reason: A deliberately adversarial near-miss: contains the self-negation phrase ('does not affect either party's...obligations') that the A6-I-37 fix is designed to make the detector SKIP, but here the self-negation is qualified ('...beyond the stated exclusion') so the exclusion is REAL, not a bystander aside — tests whether the self-negation check over-fires on a genuine exception that merely uses similar words.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['obligation "Fiber Guild indemnifies Spinner" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s)', 'obligation "Spinner indemnifies Thistledown Wool" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s)']
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Thistledown Wool & Fiber Guild shall indemnify, defend, and hold harmless Spinner, and Spinner shall indemnify, defend, and hold harmless Thistledown". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Fiber Guild indemnifies Spinner" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s); obligation "Spinner indemnifies Thistledown Wool" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+[F3-I-19] adapter=indemnification tier=1 label=AUTOMATABLE
+    concept: plain control
+    reason: Sixth plain control.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+    unresolved_facts: []
+    our_position: {'exposure': 'Hallowmere Antique Silver Restoration', 'protection': None}
+    explanation: Contract language: "8. Indemnification. Hallowmere Antique Silver Restoration shall indemnify, defend, and hold harmless Buyer from third-party claims arising from Hallowmere Antique Silver". No policy gaps found. Result: ACCEPT.
+[F3-I-20] adapter=indemnification tier=2 label=AUTOMATABLE
+    concept: closed synonym-idiom family (bear-responsibility variant), fresh domain
+    reason: Tests the 'shall bear full responsibility for defending and satisfying...on X's behalf' synonym regex on a fresh domain.
+    expected_result: ACCEPT
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['obligation "Crestfall Timber Framing Guild indemnifies Homeowner" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s)']
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Crestfall Timber Framing Guild shall bear full responsibility for defending and satisfying any claim on Homeowner's behalf, arising from Crestfall Timber Framing Guild's own negligence,". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Crestfall Timber Framing Guild indemnifies Homeowner" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+
+=== family: payment_terms (20 cases) ===
+[F3-P-01] adapter=payment_terms tier=1 label=AUTOMATABLE
+    concept: ordinary net-days
+    reason: Plain control.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Net 45; Trigger: invoice'
+    unresolved_facts: []
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Invoices under this Agreement are due Net 45 from the date of invoice.". No policy gaps found. Result: ACCEPT.
+[F3-P-02] adapter=payment_terms tier=2 label=AUTOMATABLE
+    concept: set-off via cross-referenced exhibit, fresh 'required to pay' phrasing
+    reason: Tests the bounded 'obligated/required to remit/pay' synonym extension (Step 4A.7 Phase G) with 'required to pay' specifically (the fix's phrasing was 'obligated to remit'/'required to pay' — this exercises the second alternative directly).
+    expected_result: MUST_REDLINE
+    STATE: MUST_REDLINE
+    extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+    unresolved_facts: []
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Client shall remit payment within 30 days of receiving Vendor's invoice, and Client shall be permitted to recoup from any future payment due to Vendor any amount that Vendor is independently required to pay Client under the separate quality-rebate program described in Exhibit Q.". clause permits set-off, prohibited by policy. Result: MUST_REDLINE.
+[F3-P-03] adapter=payment_terms tier=3 label=AUTOMATABLE
+    concept: structural net-settlement, 'net shortfall' instead of 'net difference'
+    reason: Tests the _NET_SETTLEMENT_STRUCTURAL_RE fix's generalization: 'net shortfall' is a different noun than the fix's own 'net difference'/'resulting balance' alternatives — if this fails, it demonstrates the fix is a narrower vocabulary patch than the general shape it claims to be.
+    expected_result: MUST_REDLINE
+    STATE: ACCEPT
+    extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+    unresolved_facts: []
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Rather than each party paying the other in full each month, the parties shall settle only the net shortfall between what Licensor is due from Licensee and what Licensee is due from Licensor under this and all related license agreements, with that net shortfall payable within 15 days of each month's close.". No policy gaps found. Result: ACCEPT.
+[F3-P-04] adapter=payment_terms tier=1 label=AUTOMATABLE
+    concept: ordinary dispute-right clause
+    reason: Plain control.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Net 30'
+    unresolved_facts: []
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Client shall pay all undisputed invoiced amounts within 30 days; amounts in good-faith dispute may be withheld pending resolution.". No policy gaps found. Result: ACCEPT.
+[F3-P-05] adapter=payment_terms tier=2 label=SHOULD_REVIEW
+    concept: deferred payment terms, fresh phrasing
+    reason: 'no invoice shall issue until such Addendum is executed' — a fresh construction of the self-flagged-unresolved-payment-terms family (the fix's own phrase was 'no payment obligation arises until'; this uses a functionally identical but textually different construction).
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['the document itself explicitly flags a material payment term as not yet finally settled']
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. The parties acknowledge that final pricing terms remain subject to completion of the ongoing rate study and agree to formalize them in a subsequent Pricing Addendum; no invoice shall issue until such Addendum is executed.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document itself explicitly flags a material payment term as not yet finally settled. Result: REQUIRES_REVIEW.
+[F3-P-06] adapter=payment_terms tier=3 label=SHOULD_REVIEW
+    concept: conflicting Net-30 definition, reordered clause structure
+    reason: Same underlying concept as A6-P-48 but with the 'for purposes of Section N' clause placed BEFORE the quoted term instead of after — tests whether the fix's regex, which assumed a specific clause order, is sensitive to this reordering.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['the document itself explicitly flags a material payment term as not yet finally settled']
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Payment is due Net 30. For purposes of Section 6.2 (Early Payment Discount), 'Net 30' shall mean thirty calendar days from invoice date, and for purposes of Section 6.5 (Late Fee Calculation), 'Net 30' shall instead mean thirty business days from invoice date.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document itself explicitly flags a material payment term as not yet finally settled. Result: REQUIRES_REVIEW.
+[F3-P-07] adapter=payment_terms tier=1 label=AUTOMATABLE
+    concept: ordinary trigger clause
+    reason: Plain control.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Net 60; Trigger: invoice'
+    unresolved_facts: []
+    our_position: {'payor_side': 'us', 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Client shall pay Vendor within 60 days of the later of invoice date or delivery date.". No policy gaps found. Result: ACCEPT.
+[F3-P-08] adapter=payment_terms tier=2 label=AUTOMATABLE
+    concept: rejected-goods price deduction — hard negative, not mutual debt netting
+    reason: A self-help deduction tied to Client's OWN performance failure (rejected goods), not a debt Client independently owes Vendor — must NOT trigger the set-off detector, testing precision on a fresh hard-negative shape.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+    unresolved_facts: []
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Vendor shall be entitled to deduct from any amount otherwise payable to Client the value of any nonconforming goods Client has rejected under Section 4, as measured by the rejected goods' invoiced price.". No policy gaps found. Result: ACCEPT.
+[F3-P-09] adapter=payment_terms tier=3 label=SHOULD_REVIEW
+    concept: conditional payment-period conflict with unresolved qualifier
+    reason: A genuinely new mechanism: two DIFFERENT net-day values (30 vs. 45) exist, but which applies depends on an unresolved classification ("which shipments qualify") rather than a simple stated conflict — tests generalization of net_days_conflict detection to a conditional shape.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["a stated payment term's applicability is conditioned on a precondition the document itself marks as not yet determined/verified — cannot confirm which term actually governs"]
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Distributor shall remit payment to Manufacturer within 30 days, PROVIDED THAT for shipments under the Coastal Region Program specifically, payment shall instead be due within 45 days, it not yet being determined which shipments qualify for the Coastal Region Program as of this excerpt.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: a stated payment term's applicability is conditioned on a precondition the document itself marks as not yet determined/verified — cannot confirm which term actually governs. Result: REQUIRES_REVIEW.
+[F3-P-10] adapter=payment_terms tier=1 label=AUTOMATABLE
+    concept: ordinary late-fee clause
+    reason: Plain control.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Net 30'
+    unresolved_facts: []
+    our_position: {'payor_side': 'us', 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Client shall pay Vendor's invoices within 30 days; late payments accrue interest at 1.5% per month.". No policy gaps found. Result: ACCEPT.
+[F3-P-11] adapter=payment_terms tier=2 label=AUTOMATABLE
+    concept: 'true-up amount...shall be transferred' — structural netting without 'only the net/balance'
+    reason: A THIRD structural phrasing of net settlement, using 'true-up amount' as the subject rather than 'net difference'/'net shortfall' — a harder generalization test since it doesn't even use the word 'net' at all.
+    expected_result: MUST_REDLINE
+    STATE: ACCEPT
+    extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+    unresolved_facts: []
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Rather than remitting duplicate payments, the parties agree that only the true-up amount determined at each quarter's close, reflecting the difference between Franchisor's royalty entitlement and Franchisee's marketing-fund credit, shall be transferred between the parties.". No policy gaps found. Result: ACCEPT.
+[F3-P-12] adapter=payment_terms tier=3 label=AUTOMATABLE
+    concept: withhold-shipment-not-payment — hard negative, explicit carve-out
+    reason: Explicitly and self-consciously distinguishes withholding SHIPMENT from withholding PAYMENT — must not trigger the set-off detector despite using 'withhold' near a payment context.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Net 30; Trigger: invoice'
+    unresolved_facts: []
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Retailer shall pay Wholesaler within 30 days of invoice, and Wholesaler shall be entitled to withhold shipment of future orders (but not to withhold or reduce any payment already invoiced) if Retailer's account becomes more than 60 days past due.". No policy gaps found. Result: ACCEPT.
+[F3-P-13] adapter=payment_terms tier=1 label=AUTOMATABLE
+    concept: ordinary currency clause
+    reason: Plain control.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Net 45; Trigger: invoice'
+    unresolved_facts: []
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Client shall pay all amounts due within 45 days of invoice date, in U.S. Dollars.". No policy gaps found. Result: ACCEPT.
+[F3-P-14] adapter=payment_terms tier=2 label=AUTOMATABLE
+    concept: tax-on-us via self-assessment language, fresh phrasing
+    reason: 'self-assess and remit...with Buyer bearing no responsibility' — tests generalization of tax-responsibility attribution to a self-assessment construction rather than a direct 'responsible for' statement.
+    expected_result: MUST_REDLINE
+    STATE: NEGOTIATE
+    extracted_summary: 'Net 30'
+    unresolved_facts: []
+    our_position: {'payor_side': 'us', 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Buyer shall pay Seller within 30 days, and Seller shall self-assess and remit any applicable goods-and-services tax directly to the taxing authority, with Buyer bearing no responsibility for such remittance.". policy requires the counterparty to bear tax responsibility, but no tax-responsibility statement was found. Result: NEGOTIATE.
+[F3-P-15] adapter=payment_terms tier=3 label=SHOULD_REVIEW
+    concept: chained delegation, payment-terms side
+    reason: Payment-terms counterpart of the F3-L-18/A6-RB-07 chained-delegation shape — tests whether payment_terms_policy_engine.py needs (or already has) an equivalent chained-delegation detector; none was built for this adapter in any prior step.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['a material payment amount/rate is delegated through a chain of cross-references ending in a document not included — the timing terms may be clean but what is actually owed cannot be verified']
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Licensee shall pay royalties within 30 days of each quarter's close, calculated per the royalty rate set forth in Schedule R, which Schedule R itself cross-references the then-current Rate Card maintained by Licensor's finance department (not included in this excerpt).". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: a material payment amount/rate is delegated through a chain of cross-references ending in a document not included — the timing terms may be clean but what is actually owed cannot be verified. Result: REQUIRES_REVIEW.
+[F3-P-16] adapter=payment_terms tier=1 label=AUTOMATABLE
+    concept: ordinary invoice-frequency clause
+    reason: Plain control.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Net 30; Trigger: invoice'
+    unresolved_facts: []
+    our_position: {'payor_side': 'us', 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Client shall pay Vendor within 30 days of invoice date; invoices shall be submitted monthly.". No policy gaps found. Result: ACCEPT.
+[F3-P-17] adapter=payment_terms tier=2 label=AUTOMATABLE
+    concept: credit-memo application — hard negative
+    reason: Ordinary credit-memo application is a routine accounting mechanic, not mutual debt netting — must not trigger the set-off detector.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+    unresolved_facts: []
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Distributor shall be entitled to apply any credit memo issued by Manufacturer against Distributor's next invoice.". No policy gaps found. Result: ACCEPT.
+[F3-P-18] adapter=payment_terms tier=3 label=SHOULD_REVIEW
+    concept: self-flagged basis ambiguity, payment-terms side
+    reason: Payment-terms counterpart of F3-L-13's self-flagged basis-value ambiguity — tests whether the self-flagged-unresolved fix (built primarily around deferred/unexecuted-instrument phrasing) also generalizes to a basis-scope ambiguity specifically.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['the document itself explicitly flags a material payment term as not yet finally settled']
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Franchisee shall remit royalties within 30 days, it remaining under negotiation whether the royalty base includes online sales originating outside the Franchisee's designated territory.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document itself explicitly flags a material payment term as not yet finally settled. Result: REQUIRES_REVIEW.
+[F3-P-19] adapter=payment_terms tier=1 label=AUTOMATABLE
+    concept: ordinary undisputed-still-payable clause
+    reason: Plain control.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Net 30'
+    unresolved_facts: []
+    our_position: {'payor_side': 'us', 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Client shall pay Vendor within 30 days; disputed amounts remain payable pending resolution unless withholding is expressly authorized elsewhere in this Agreement.". No policy gaps found. Result: ACCEPT.
+[F3-P-20] adapter=payment_terms tier=2 label=AUTOMATABLE
+    concept: true set-off dressed as a 'quality-rejection credit', cross-referenced independent debt
+    reason: A deliberately adversarial near-miss to F3-P-08/F3-P-17 (which are legitimate hard negatives) — this one uses similar 'credit'/'rejection' vocabulary but the credits are explicitly tied to an INDEPENDENT debt Wholesaler owes Grower under a separate agreement, which is genuine mutual-debt netting, not an ordinary accounting adjustment.
+    expected_result: MUST_REDLINE
+    STATE: MUST_REDLINE
+    extracted_summary: 'Net 15'
+    unresolved_facts: []
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Wholesaler shall pay Grower within 15 days of delivery, and Grower shall be entitled to net any quality-rejection credits against Wholesaler's next scheduled payment, where such credits reflect amounts Wholesaler independently owes Grower under the separate cooperative marketing agreement.". clause permits set-off, prohibited by policy. Result: MUST_REDLINE.
+
+=== family: reciprocal_role (20 cases) ===
+[F3-R-01] adapter=indemnification tier=2 label=SHOULD_REVIEW
+    concept: reciprocal + party-specific exclusive-defense grant
+    reason: Same shape as A6-I-12 (the 'but not [subgroup]' fix target) with a fresh subgroup phrase ('subcontracted pilot') and a fresh claim category (FAA violations).
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the clause contains an 'except that'/'provided that' proviso naming Northwind Aerial Survey Corp specifically, rather than stating the condition for both parties uniformly — the reciprocal opener's symmetry claim cannot be verified from this proviso) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone"]
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from its own negligence, up". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the clause contains an 'except that'/'provided that' proviso naming Northwind Aerial Survey Corp specifically, rather than stating the condition for both parties uniformly — the reciprocal opener's symmetry claim cannot be verified from this proviso) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone. Result: REQUIRES_REVIEW.
+[F3-R-02] adapter=indemnification tier=1 label=AUTOMATABLE
+    concept: plain reciprocal control
+    reason: Plain control.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+    unresolved_facts: []
+    our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+    explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from its own negligence, up". No policy gaps found. Result: ACCEPT.
+[F3-R-03] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: unmapped role pair, fresh vocabulary, directional contract_side
+    reason: Direct generalization test of the Step 4A.7.2 role-attribution fix: 'Custodian'/'Beneficiary' (trust/custody vocabulary) is a fresh unmapped pair not used in that fix's own benchmark.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["role attribution (neither 'Custodian' nor 'Beneficiary' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs)"]
+    our_position: None
+    explanation: Contract language: "1 times the annual custodial fees paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: role attribution (neither 'Custodian' nor 'Beneficiary' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs). Result: REQUIRES_REVIEW.
+[F3-R-04] adapter=liability tier=2 label=AUTOMATABLE
+    concept: unmapped role pair, MUTUAL contract_side
+    reason: Same unmapped-vocabulary shape as F3-R-03 but mutual contract_side (kwargs empty) — must NOT escalate, direct generalization test of the contract_side gate.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual trustee fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-R-05] adapter=indemnification tier=2 label=AUTOMATABLE
+    concept: identical-value near-miss control, fresh domain
+    reason: Two named roles with IDENTICAL survival values (4 years each) — must resolve automatically, not be mistaken for differentiation (same shape as the asym-19 permanent regression case).
+    expected_result: ACCEPT
+    STATE: MUST_REDLINE
+    extracted_summary: 'Exposure: unspecified; Protection: present'
+    unresolved_facts: []
+    our_position: {'exposure': 'Harborview Ferry Operators', 'protection': 'Passenger'}
+    explanation: Contract language: "8. Indemnification. Harborview Ferry Operators shall indemnify, defend, and hold harmless Passenger, and Passenger shall indemnify, defend, and hold harmless Harborview". exposure obligation states no monetary treatment at all. Result: MUST_REDLINE.
+[F3-R-06] adapter=indemnification tier=3 label=AUTOMATABLE
+    concept: identical causation-standard near-miss control
+    reason: Both parties explicitly stated to have the SAME causation standard ('sole cause' for both) — must not be misread as a differentiation merely because two attributions exist.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+    unresolved_facts: []
+    our_position: {'exposure': 'Ironwork', 'protection': 'Blackthorn Fencing'}
+    explanation: Contract language: "8. Indemnification. Blackthorn Fencing & Ironwork shall indemnify, defend, and hold harmless Client, and Client shall indemnify, defend, and hold harmless Blackthorn". No policy gaps found. Result: ACCEPT.
+[F3-R-07] adapter=liability tier=2 label=SHOULD_REVIEW
+    concept: unmapped role pair, warehousing vocabulary
+    reason: Another fresh unmapped pair ('Depositor'/'Warehouseman') with a directional contract_side.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["role attribution (neither 'Depositor' nor 'Warehouseman' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs)"]
+    our_position: None
+    explanation: Contract language: "1 times the annual storage fees paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: role attribution (neither 'Depositor' nor 'Warehouseman' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs). Result: REQUIRES_REVIEW.
+[F3-R-08] adapter=indemnification tier=2 label=SHOULD_REVIEW
+    concept: single-role exception-clause differentiation, fresh category
+    reason: Direct generalization test of the general exception-clause detector on a fresh category ('wildfire') and fresh entity names.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["the document states this obligation in both directions by name, but a per-party differentiation was found (the clause contains an 'except that'/'provided that' proviso naming Silverpine Timber Cooperative specifically, rather than stating the condition for both parties uniformly — the reciprocal opener's symmetry claim cannot be verified from this proviso) — cannot confirm the two directions are actually equivalent"]
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Silverpine Timber Cooperative shall indemnify, defend, and hold harmless Mill, and Mill shall indemnify, defend, and hold harmless Silverpine". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document states this obligation in both directions by name, but a per-party differentiation was found (the clause contains an 'except that'/'provided that' proviso naming Silverpine Timber Cooperative specifically, rather than stating the condition for both parties uniformly — the reciprocal opener's symmetry claim cannot be verified from this proviso) — cannot confirm the two directions are actually equivalent. Result: REQUIRES_REVIEW.
+[F3-R-09] adapter=liability tier=1 label=SHOULD_REVIEW
+    concept: unmapped role pair, bailment vocabulary, Tier 1 phrasing
+    reason: Tests the role-attribution fix at Tier 1 (ordinary, non-adversarial phrasing) rather than Tier 2/3 — confirms the fix isn't accidentally scoped to only complex sentences.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["role attribution (neither 'Bailee' nor 'Bailor' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs)"]
+    our_position: None
+    explanation: Contract language: "1 times the annual bailment fees paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: role attribution (neither 'Bailee' nor 'Bailor' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs). Result: REQUIRES_REVIEW.
+[F3-R-10] adapter=indemnification tier=1 label=AUTOMATABLE
+    concept: plain named-pair reciprocal control, generic vocabulary
+    reason: Plain control confirming the named-pair (not 'each party') symmetric path still works cleanly with ordinary vocabulary.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+    unresolved_facts: []
+    our_position: {'exposure': 'Vendor', 'protection': 'Client'}
+    explanation: Contract language: "8. Indemnification. Vendor shall indemnify, defend, and hold harmless Client, and Client shall indemnify, defend, and hold harmless Vendor,". No policy gaps found. Result: ACCEPT.
+[F3-R-11] adapter=indemnification tier=3 label=SHOULD_REVIEW
+    concept: causation-standard differentiation, named-pair (not reciprocal-opener) shape
+    reason: Same causation-standard concept as F3-I-03 but using the STRICTLY-NAMED PAIR shape (two separate 'X shall indemnify Y' sentences) rather than the 'each party' reciprocal opener — tests the OTHER code path (same_pair equality check) rather than _detect_reciprocal_asymmetry.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["the document states this obligation in both directions by name, but a per-party differentiation was found (Nightshade Apothecary Guild and Buyer are subject to different named causation standards ('proximate cause,' vs 'sole and exclusive cause')) — cannot confirm the two directions are actually equivalent"]
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Nightshade Apothecary Guild shall indemnify, defend, and hold harmless Buyer, and Buyer shall indemnify, defend, and hold harmless Nightshade". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document states this obligation in both directions by name, but a per-party differentiation was found (Nightshade Apothecary Guild and Buyer are subject to different named causation standards ('proximate cause,' vs 'sole and exclusive cause')) — cannot confirm the two directions are actually equivalent. Result: REQUIRES_REVIEW.
+[F3-R-12] adapter=liability tier=2 label=SHOULD_REVIEW
+    concept: unmapped role pair with a compound-modifier basis
+    reason: Combines the role-attribution fix and the basis-modifier fix in the SAME sentence — tests that the role-attribution check still fires even though the basis extracts cleanly.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["role attribution (neither 'Consignor' nor 'Consignee' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs)"]
+    our_position: None
+    explanation: Contract language: "1 times the annual consignment-handling fees paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: role attribution (neither 'Consignor' nor 'Consignee' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs). Result: REQUIRES_REVIEW.
+[F3-R-13] adapter=indemnification tier=2 label=AUTOMATABLE
+    concept: identical notice-requirement near-miss, named-pair shape
+    reason: Named-pair (not reciprocal-opener) identical-value control — tests the same_pair equality check's notice_required comparison specifically.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+    unresolved_facts: []
+    our_position: {'exposure': 'Redshank Falconry Supply', 'protection': 'Buyer'}
+    explanation: Contract language: "8. Indemnification. Redshank Falconry Supply shall indemnify, defend, and hold harmless Buyer, and Buyer shall indemnify, defend, and hold harmless Redshank". No policy gaps found. Result: ACCEPT.
+[F3-R-14] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: unmapped role pair with an explicit self-acknowledgment of no definition
+    reason: Combines the role-attribution gap with an explicit self-flagged-absence-of-definition statement — tests whether either or both mechanisms correctly escalate (should not conflict or double-fire incorrectly).
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["role attribution (neither 'Agent' nor 'Principal' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs)"]
+    our_position: None
+    explanation: Contract language: "1 times the annual escrow fees paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: role attribution (neither 'Agent' nor 'Principal' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs). Result: REQUIRES_REVIEW.
+[F3-R-15] adapter=indemnification tier=1 label=AUTOMATABLE
+    concept: plain control
+    reason: Plain control.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+    unresolved_facts: []
+    our_position: {'exposure': 'Supplier', 'protection': 'Buyer'}
+    explanation: Contract language: "8. Indemnification. Supplier shall indemnify, defend, and hold harmless Buyer, and Buyer shall indemnify, defend, and hold harmless Supplier,". No policy gaps found. Result: ACCEPT.
+[F3-R-16] adapter=indemnification tier=2 label=SHOULD_REVIEW
+    concept: single-role exclusion attached to the OTHER party (beneficiary, not the obligor tested so far)
+    reason: Most prior exception-clause tests named the FIRST-mentioned party; this one differentiates the SECOND-mentioned party ('Museum') — tests the detector isn't order-dependent.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["the document states this obligation in both directions by name, but a per-party differentiation was found (the clause contains an 'except that'/'provided that' proviso naming Museum specifically, rather than stating the condition for both parties uniformly — the reciprocal opener's symmetry claim cannot be verified from this proviso) — cannot confirm the two directions are actually equivalent"]
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Thistlebury Antique Instrument Restorers shall indemnify, defend, and hold harmless Museum, and Museum shall indemnify, defend, and hold harmless Thistlebury". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document states this obligation in both directions by name, but a per-party differentiation was found (the clause contains an 'except that'/'provided that' proviso naming Museum specifically, rather than stating the condition for both parties uniformly — the reciprocal opener's symmetry claim cannot be verified from this proviso) — cannot confirm the two directions are actually equivalent. Result: REQUIRES_REVIEW.
+[F3-R-17] adapter=liability tier=2 label=AUTOMATABLE
+    concept: one mapped role, one unmapped role, directional contract_side
+    reason: 'Licensor' resolves (sell_side) but 'Sublicensee' does not — tests that the fix correctly requires BOTH roles unmapped, not just one, before escalating (by design, per the A6-L-52 root-cause: only fire when NEITHER role has a mapping).
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual sublicense fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-R-18] adapter=indemnification tier=3 label=SHOULD_REVIEW
+    concept: compound: reciprocal-opener exception-clause + causation-standard, fresh names
+    reason: A THIRD instance of the compound cross-mechanism shape (reciprocal opener this time, not named-pair like F3-I-04) — broadens the generalization test of the Step 4A.7.2... actually Step 4A.7.1 cross-mechanism fix to the reciprocal-opener code path specifically.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the clause states a 'Client's...obligation is subject to a named standard' differentiation for one party, AND a separate except/provided-that proviso naming Coastal Ridge Vineyard Management — two independently differentiated parties in one sentence, neither comparable to a matching statement for the other) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone"]
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from its own negligence, up". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the clause states a 'Client's...obligation is subject to a named standard' differentiation for one party, AND a separate except/provided-that proviso naming Coastal Ridge Vineyard Management — two independently differentiated parties in one sentence, neither comparable to a matching statement for the other) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone. Result: REQUIRES_REVIEW.
+[F3-R-19] adapter=liability tier=1 label=SHOULD_REVIEW
+    concept: unmapped role pair, UK secured-lending vocabulary
+    reason: 'Chargee'/'Chargor' (English secured-lending terminology) — another fresh unmapped pair, tests generalization to non-US legal vocabulary.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["role attribution (neither 'Chargee' nor 'Chargor' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs)"]
+    our_position: None
+    explanation: Contract language: "1 times the annual facility fees paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: role attribution (neither 'Chargee' nor 'Chargor' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs). Result: REQUIRES_REVIEW.
+[F3-R-20] adapter=indemnification tier=2 label=AUTOMATABLE
+    concept: symmetric defense-control grant near-miss, fresh domain
+    reason: Same shape as the A6-I-15 permanent control (symmetric 'each...respectively' defense-control grant) — must resolve automatically, not be mistaken for asymmetric differentiation.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+    unresolved_facts: []
+    our_position: {'exposure': 'Bramblewood Orchard Cooperative', 'protection': 'Packer'}
+    explanation: Contract language: "8. Indemnification. Bramblewood Orchard Cooperative shall indemnify, defend, and hold harmless Packer, and Packer shall indemnify, defend, and hold harmless Bramblewood". No policy gaps found. Result: ACCEPT.
+
+=== family: cross_ref_definition_ambiguity (20 cases) ===
+[F3-D-01] adapter=liability tier=2 label=SHOULD_REVIEW
+    concept: conflicting defined term, ORIGINAL fixed-phrase shape
+    reason: Uses the EXACT phrase shape ('is defined in Section X as..., and separately in Section Y as...') the original Step 4A.5 fix targeted — a control confirming that mechanism still works after all subsequent generalizations, not just the newer 'means...for purposes of' shape.
+    expected_result: REQUIRES_REVIEW
+    STATE: MUST_REDLINE
+    extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "9. Limitation of Liability. Aggregate liability shall not exceed the Ceiling Amount. 'Ceiling Amount' is defined in Section 9.2 as $200,000, and separately in Section 31 (Warranty Interaction) as $500,000.". A limitation-of-liability clause exists but states no enforceable numeric general cap. Company policy requires a stated cap. Result: MUST_REDLINE.
+[F3-D-02] adapter=liability tier=1 label=AUTOMATABLE
+    concept: single consistent definition with a harmless cross-reference
+    reason: A near-miss control: only ONE definition exists, with a bystander reference to another Section that does NOT restate or conflict — must resolve automatically, not be mistaken for the conflicting-definition shape.
+    expected_result: ACCEPT
+    STATE: MUST_REDLINE
+    extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "9. Limitation of Liability. Aggregate liability shall not exceed the Ceiling Amount. 'Ceiling Amount' means $300,000, as further described in Section 12 for reference purposes only.". A limitation-of-liability clause exists but states no enforceable numeric general cap. Company policy requires a stated cap. Result: MUST_REDLINE.
+[F3-D-03] adapter=payment_terms tier=2 label=AUTOMATABLE
+    concept: single consistent definition with harmless cross-reference, payment side
+    reason: Payment-terms counterpart of F3-D-02 — single definition, bystander confirming cross-reference, must not escalate.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Net 30; Trigger: invoice'
+    unresolved_facts: []
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Payment is due Net 30. 'Net 30' means thirty days from invoice date, as also confirmed in Section 19.". No policy gaps found. Result: ACCEPT.
+[F3-D-04] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: chained delegation via Exhibit-to-Exhibit, fresh phrasing
+    reason: Chained delegation using 'Exhibit' for BOTH levels (the fix's own test case used 'Section' then 'Schedule') — tests whether same-document-type chaining is still caught.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["general liability cap (the cap's basis is delegated through a chain of cross-references ending in a document not included — the multiplier itself is clean but what it applies to cannot be verified)"]
+    our_position: None
+    explanation: Contract language: "al fees paid, calculated per the fee schedule in Exhibit A, which Exhibit A itself references the master rate table maintained in Exhibit B (not included in this excerpt).". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (the cap's basis is delegated through a chain of cross-references ending in a document not included — the multiplier itself is clean but what it applies to cannot be verified). Result: REQUIRES_REVIEW.
+[F3-D-05] adapter=liability tier=1 label=AUTOMATABLE
+    concept: single-level cross-reference, no chain
+    reason: A near-miss control: ONE level of delegation only (no 'which Exhibit A itself references...' second hop) — the existing single-level cross-reference handling should resolve this automatically without needing the chained-delegation escalation.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-D-06] adapter=indemnification tier=2 label=SHOULD_REVIEW
+    concept: chained delegation, indemnification side
+    reason: Indemnification counterpart of the chained-delegation family — no equivalent detector was built for this adapter in any prior step (only liability got the Section-4/Schedule-B fix); tests whether this is a genuine, disclosed gap.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['protection monetary treatment (delegated through a chain of cross-references ending in a document not included — cannot verify the actual scope of protection)']
+    our_position: {'exposure': None, 'protection': 'Client'}
+    explanation: Contract language: "8. Indemnification. Vendor shall indemnify, defend, and hold harmless Client from claims described in the Indemnification Schedule, which". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: protection monetary treatment (delegated through a chain of cross-references ending in a document not included — cannot verify the actual scope of protection). Result: REQUIRES_REVIEW.
+[F3-D-07] adapter=liability tier=2 label=SHOULD_REVIEW
+    concept: original 'unclear whether' phrasing, basis-scoped
+    reason: Uses the EXACT original 'unclear whether' phrase (the fix's starting point before generalization) but scoped to the BASIS specifically rather than the whole cap — confirms the original mechanism still works after the family was widened.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['general liability cap (the document explicitly flags its own ambiguity about how this cap should be interpreted)']
+    our_position: None
+    explanation: Contract language: "ot exceed 1 times the annual fees paid, it being unclear whether 'fees' as used in this Section includes pass-through expenses billed separately.". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (the document explicitly flags its own ambiguity about how this cap should be interpreted). Result: REQUIRES_REVIEW.
+[F3-D-08] adapter=liability tier=1 label=AUTOMATABLE
+    concept: single clean definition, no conflict, no chain
+    reason: A near-miss control: a definition exists and is referenced, but there's no second conflicting definition and no further chain — must resolve automatically.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-D-09] adapter=payment_terms tier=3 label=SHOULD_REVIEW
+    concept: ambiguous-most-recent-instrument, fresh phrasing
+    reason: Same underlying concept as A6-RB-10 (ambiguous which of several instruments is 'most recent') but a fresh construction ('issues updated...quarterly and this excerpt does not specify which quarter's') rather than the fix's own 'does not indicate which is the most recent' phrase.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['the document itself explicitly flags a material payment term as not yet finally settled']
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Payment is due within the period stated in the Rate Sheet most recently issued by Vendor, it being noted that Vendor issues updated Rate Sheets quarterly and this excerpt does not specify which quarter's Rate Sheet governs.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document itself explicitly flags a material payment term as not yet finally settled. Result: REQUIRES_REVIEW.
+[F3-D-10] adapter=liability tier=2 label=AUTOMATABLE
+    concept: greater-of with an explicit resolution mechanism ('as determined at the time a claim is asserted')
+    reason: A near-miss control to the either/or-ambiguity family (A6-RB-09): this ALSO uses either/or language but explicitly states HOW and WHEN it resolves (greater-of, at claim time) rather than leaving the selection criterion genuinely undetermined — must be treated as the resolvable greater-of structure the system already handles, not escalated as ambiguous.
+    expected_result: NEGOTIATE or ESCALATE (greater-of, resolvable structure, value comparison needed)
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["general liability cap (a 'greater of' structure was signaled but its component values could not both be extracted)"]
+    our_position: None
+    explanation: Contract language: "s the annual fees paid, or (b) $50,000, whichever is greater, as determined at the time a claim is asserted.". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (a 'greater of' structure was signaled but its component values could not both be extracted). Result: REQUIRES_REVIEW.
+[F3-D-11] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: either/or ambiguity, fresh domain
+    reason: Direct generalization test of the A6-RB-09 either/or-ambiguity fix on a fresh domain (equipment replacement cost vs. artwork fair market value).
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['general liability cap (the document explicitly flags its own ambiguity about how this cap should be interpreted)']
+    our_position: None
+    explanation: Contract language: "propriate given the nature of the loss, no such determination having yet been made.". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (the document explicitly flags its own ambiguity about how this cap should be interpreted). Result: REQUIRES_REVIEW.
+[F3-D-12] adapter=indemnification tier=2 label=SHOULD_REVIEW
+    concept: self-flagged unresolved scope, indemnification side
+    reason: Direct generalization test of the self-flagged-unresolved fix on indemnification (the liability-side fix's exact phrase family, tested on the OTHER adapter that received an independent implementation of the same concept).
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['protection obligation (the document itself explicitly flags a material term of this obligation as not yet finally resolved/determined)']
+    our_position: {'exposure': None, 'protection': 'Client'}
+    explanation: Contract language: "8. Indemnification. Vendor shall indemnify, defend, and hold harmless Client from claims arising under this Agreement, the parties acknowledging". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: protection obligation (the document itself explicitly flags a material term of this obligation as not yet finally resolved/determined). Result: REQUIRES_REVIEW.
+[F3-D-13] adapter=liability tier=1 label=AUTOMATABLE
+    concept: plain control, no ambiguity of any kind
+    reason: Plain control.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-D-14] adapter=liability tier=2 label=AUTOMATABLE
+    concept: restated-but-identical defined term, explicit 'for convenience' framing
+    reason: A near-miss control: the term is defined TWICE but the drafter explicitly frames the second instance as a convenience restatement with an IDENTICAL value — must not be mistaken for a genuine conflict.
+    expected_result: ACCEPT
+    STATE: MUST_REDLINE
+    extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "9. Limitation of Liability. Aggregate liability shall not exceed the Warranty Cap Amount. 'Warranty Cap Amount' means $75,000 and 'Warranty Cap Amount' is restated for convenience in Section 40 as $75,000.". A limitation-of-liability clause exists but states no enforceable numeric general cap. Company policy requires a stated cap. Result: MUST_REDLINE.
+[F3-D-15] adapter=payment_terms tier=2 label=SHOULD_REVIEW
+    concept: conflicting defined term, late-interest-rate concept
+    reason: A fresh application of the conflicting-defined-term shape to a late-fee RATE rather than a monetary cap or net-days value — tests generalization to a third policy-fact type.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['the document itself explicitly flags a material payment term as not yet finally settled']
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Late payments accrue interest at the Default Rate. 'Default Rate' means, for purposes of Section 6.8, 1.5% per month, and means, for purposes of Section 22 (Acceleration), 2.5% per month.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document itself explicitly flags a material payment term as not yet finally settled. Result: REQUIRES_REVIEW.
+[F3-D-16] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: THREE-level chained delegation
+    reason: A harder variant of the chained-delegation family: THREE levels (Section 4 -> Appendix C -> external rate card), not two — tests whether the fix (built for exactly two levels) still catches a deeper chain or requires the specific two-level shape.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["general liability cap (the cap's basis is delegated through a chain of cross-references ending in a document not included — the multiplier itself is clean but what it applies to cannot be verified)"]
+    our_position: None
+    explanation: Contract language: "per Section 4, which Section 4 cross-references Appendix C, which Appendix C in turn cross-references the vendor's own published rate card (external, not part of this Agreement).". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (the cap's basis is delegated through a chain of cross-references ending in a document not included — the multiplier itself is clean but what it applies to cannot be verified). Result: REQUIRES_REVIEW.
+[F3-D-17] adapter=liability tier=1 label=AUTOMATABLE
+    concept: plain control at threshold
+    reason: Plain control.
+    expected_result: NEGOTIATE (2x)
+    STATE: ACCEPT_WITH_NOTE
+    extracted_summary: '2x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "2 times the annual fees paid". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+[F3-D-18] adapter=indemnification tier=3 label=SHOULD_REVIEW
+    concept: conflicting defined term, indemnification monetary side, category-scoped
+    reason: Combines the conflicting-defined-term shape with category-specific scoping language (general vs. data-breach-specific) — tests whether the detector still fires when the two 'for purposes of' clauses reference substantively different categories, not just different Section numbers.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['protection monetary treatment (a self-defined term is given two different values scoped to two different sections of this document — cannot silently choose one)']
+    our_position: {'exposure': None, 'protection': 'Client'}
+    explanation: Contract language: "8. Indemnification. Vendor shall indemnify, defend, and hold harmless Client from claims arising under this Agreement, up to a cap of the". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: protection monetary treatment (a self-defined term is given two different values scoped to two different sections of this document — cannot silently choose one). Result: REQUIRES_REVIEW.
+[F3-D-19] adapter=liability tier=2 label=AUTOMATABLE
+    concept: explicit consistency assurance, near-miss control
+    reason: An explicit 'for the avoidance of doubt...has the same meaning throughout' clause — must not be mistaken for a self-flagged ambiguity signal merely because it discusses definitional scope.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-D-20] adapter=payment_terms tier=1 label=AUTOMATABLE
+    concept: plain control with a harmless single-definition cross-reference
+    reason: Plain control confirming an ordinary, single, non-conflicting cross-reference to a definitions section does not itself trigger review.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Net 30; Trigger: invoice'
+    unresolved_facts: []
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Payment is due Net 30 from invoice date, as defined in Section 1.". No policy gaps found. Result: ACCEPT.
+
+=== family: compound (20 cases) ===
+[F3-CM-01] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: compound: unmapped role pair + compound-hyphenated basis modifier
+    reason: Combines role-attribution (Consignor/Consignee unmapped) with a hyphenated basis modifier — both mechanisms present in one sentence; the role-attribution escalation must govern regardless of the basis extracting cleanly.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["role attribution (neither 'Consignor' nor 'Consignee' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs)"]
+    our_position: None
+    explanation: Contract language: "1 times the annual consignment-handling fees paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: role attribution (neither 'Consignor' nor 'Consignee' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs). Result: REQUIRES_REVIEW.
+[F3-CM-02] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: compound: conflicting defined term + compound-hyphenated basis modifier
+    reason: Combines conflicting-defined-term detection with a hyphenated basis modifier inside the conflicting value itself.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['general liability cap (a self-defined cap term is given two different values in two different sections of this document)']
+    our_position: None
+    explanation: Contract language: "l not exceed the Facility Cap Amount. 'Facility Cap Amount' means, for purposes of Section 9, 1 times the annual usage-tier fees paid, and means, for purposes of Section 27 (Casualty Coordination), 4 times the annual usage-tier fees paid.". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (a self-defined cap term is given two different values in two different sections of this document). Result: REQUIRES_REVIEW.
+[F3-CM-03] adapter=indemnification tier=3 label=SHOULD_REVIEW
+    concept: compound: conflicting defined term + exception-clause differentiation, THREE mechanisms
+    reason: Combines conflicting-defined-term detection with a party-specific exception clause in the SAME provision — either mechanism alone should escalate; tests they don't interfere.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the clause contains an 'except that'/'provided that' proviso naming Underwriting Partner specifically, rather than stating the condition for both parties uniformly — the reciprocal opener's symmetry claim cannot be verified from this proviso) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone"]
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from its own negligence, up". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the clause contains an 'except that'/'provided that' proviso naming Underwriting Partner specifically, rather than stating the condition for both parties uniformly — the reciprocal opener's symmetry claim cannot be verified from this proviso) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone. Result: REQUIRES_REVIEW.
+[F3-CM-04] adapter=payment_terms tier=3 label=SHOULD_REVIEW
+    concept: compound: conflicting Net-30 definition + genuine set-off, payment terms
+    reason: Combines the conflicting-defined-term fix with a genuine set-off violation in the SAME clause — both are independently sufficient for REQUIRES_REVIEW-or-worse; tests neither mechanism accidentally suppresses the other (e.g. via an early-return path).
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['the document itself explicitly flags a material payment term as not yet finally settled']
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Payment is due Net 30. 'Net 30' for purposes of Section 6.1 shall mean thirty calendar days, and 'Net 30' for purposes of Section 6.9 (Early Termination) shall instead mean thirty business days, and Vendor shall be entitled to net any amount Client independently owes Vendor under the separate maintenance agreement against Client's next invoice.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document itself explicitly flags a material payment term as not yet finally settled. Result: REQUIRES_REVIEW.
+[F3-CM-05] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: compound: unmapped role pair + chained cross-reference delegation
+    reason: Combines two independently-sufficient escalation reasons (role attribution AND chained delegation) in one sentence — either alone should escalate.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["general liability cap (the cap's basis is delegated through a chain of cross-references ending in a document not included — the multiplier itself is clean but what it applies to cannot be verified)"]
+    our_position: None
+    explanation: Contract language: "nt fees paid, calculated per the fee schedule in Section 4, which Section 4 itself cross-references Schedule D (a rate table not included in this excerpt).". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (the cap's basis is delegated through a chain of cross-references ending in a document not included — the multiplier itself is clean but what it applies to cannot be verified). Result: REQUIRES_REVIEW.
+[F3-CM-06] adapter=indemnification tier=3 label=SHOULD_REVIEW
+    concept: compound: causation-standard + survival-period differentiation, THREE mechanisms in one sentence
+    reason: A harder compound than S4B-COMP-05/07: causation-standard differentiation for the pair PLUS a survival-period differentiation attributable to just one party — tests whether multiple SEPARATE differentiation signals (not just two different mechanisms for two different parties, but two mechanisms possibly both implicating the same party) still resolve to escalation.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["the document states this obligation in both directions by name, but a per-party differentiation was found (Northstar Aerial Mapping Corp and Client are subject to different named causation standards ('direct cause,' vs 'contributing cause')) — cannot confirm the two directions are actually equivalent"]
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Northstar Aerial Mapping Corp shall indemnify, defend, and hold harmless Client, and Client shall indemnify, defend, and hold harmless Northstar". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document states this obligation in both directions by name, but a per-party differentiation was found (Northstar Aerial Mapping Corp and Client are subject to different named causation standards ('direct cause,' vs 'contributing cause')) — cannot confirm the two directions are actually equivalent. Result: REQUIRES_REVIEW.
+[F3-CM-07] adapter=liability tier=2 label=AUTOMATABLE
+    concept: compound distractor stack: insurance + SLA credit, both explicitly non-cap
+    reason: Two DIFFERENT distractor mechanisms (insurance, SLA credit) in one document, testing that neither is misassociated as the general cap and that stacking distractors doesn't artificially trigger review.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual warehousing-throughput fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-CM-08] adapter=payment_terms tier=2 label=AUTOMATABLE
+    concept: compound: genuine tax-on-us violation + hard-negative credit-memo, must not cross-contaminate
+    reason: Tests that a genuine violation (tax) and a hard negative (credit memo) in the SAME document are correctly, independently classified rather than one contaminating the other's result.
+    expected_result: MUST_REDLINE (tax-on-us) while credit-memo application correctly does NOT separately trigger set-off
+    STATE: NEGOTIATE
+    extracted_summary: 'Net 30'
+    unresolved_facts: []
+    our_position: {'payor_side': 'us', 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Client shall pay Vendor within 30 days. Vendor shall self-assess and remit applicable sales tax with Client bearing no responsibility for such remittance, and Vendor shall be entitled to apply routine credit memos against Client's future invoices.". policy requires the counterparty to bear tax responsibility, but no tax-responsibility statement was found. Result: NEGOTIATE.
+[F3-CM-09] adapter=indemnification tier=3 label=AUTOMATABLE
+    concept: compound: reciprocal structure + interposed-clause fixed-dollar delegation
+    reason: Tests the interposed-clause defined-term-delegation fix on the indemnification side (never directly tested there before) combined with a reciprocal structure.
+    expected_result: ESCALATE or ACCEPT depending on config (fixed-dollar defined-term delegation with interposed clause)
+    STATE: MUST_REDLINE
+    extracted_summary: 'Exposure: unspecified; Protection: present'
+    unresolved_facts: []
+    our_position: {'exposure': 'Thistlemoor Adventure Racing', 'protection': 'Participant'}
+    explanation: Contract language: "8. Indemnification. Thistlemoor Adventure Racing shall indemnify, defend, and hold harmless Participant, and Participant shall indemnify, defend, and hold harmless". exposure obligation states no monetary treatment at all. Result: MUST_REDLINE.
+[F3-CM-10] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: compound: unmapped role pair (Grantee/Grantor again) + conflicting defined term
+    reason: Directly reuses the A6-L-52 unmapped-role-pair vocabulary but adds a conflicting-defined-term layer on top — two independently-sufficient reasons, tests neither is required alone for the case to correctly escalate (i.e., even if role-attribution were somehow bypassed, the conflicting term alone should still catch it).
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['general liability cap (a self-defined cap term is given two different values in two different sections of this document)']
+    our_position: None
+    explanation: Contract language: "ed the Conveyance Liability Cap. 'Conveyance Liability Cap' means, for purposes of Section 9, 1 times the annual royalty payments made, and means, for purposes of Section 30 (Title Insurance Coordination), 3 times the annual royalty payments made.". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (a self-defined cap term is given two different values in two different sections of this document). Result: REQUIRES_REVIEW.
+[F3-CM-11] adapter=payment_terms tier=2 label=SHOULD_REVIEW
+    concept: compound: clean net-days + self-flagged-unresolved freight-surcharge term
+    reason: The NET-DAYS fact is clean and resolvable (30 days), but a SEPARATE, deferred sub-term (freight surcharge) is unresolved — tests whether a genuinely-resolvable primary fact alongside an unresolved secondary fact still correctly escalates overall, rather than the clean net-days fact masking the deferred one.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['the document itself explicitly flags a material payment term as not yet finally settled']
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Distributor shall remit payment within 30 days, and the parties agree that final freight-surcharge terms remain under negotiation and will be formalized in a subsequent Freight Addendum; no freight surcharge shall be invoiced until such Addendum is executed.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document itself explicitly flags a material payment term as not yet finally settled. Result: REQUIRES_REVIEW.
+[F3-CM-12] adapter=indemnification tier=2 label=AUTOMATABLE
+    concept: compound near-miss: TWO simultaneous symmetric-control shapes stacked
+    reason: Stacks two DIFFERENT genuinely-symmetric control shapes (identical notice + symmetric cost-bearing) in one sentence — must resolve automatically; tests that stacking multiple clean symmetric signals doesn't accidentally trip a false-positive threshold.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+    unresolved_facts: []
+    our_position: {'exposure': 'Fernbridge Apiary Cooperative', 'protection': 'Distributor'}
+    explanation: Contract language: "8. Indemnification. Fernbridge Apiary Cooperative shall indemnify, defend, and hold harmless Distributor, and Distributor shall indemnify, defend, and hold harmless". No policy gaps found. Result: ACCEPT.
+[F3-CM-13] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: compound: triple-hyphenated basis modifier + self-flagged basis ambiguity
+    reason: A three-word hyphenated-chain modifier ('crop-insurance-adjusted') combined with a self-flagged ambiguity about the SAME basis phrase — tests the basis-modifier extractor's tolerance limit alongside the ambiguity detector.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['general liability cap (the document explicitly flags its own ambiguity about how this cap should be interpreted)']
+    our_position: None
+    explanation: Contract language: "nual crop-insurance-adjusted fees paid, it being unclear whether 'crop-insurance-adjusted fees' includes government subsidy payments received by Grower.". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (the document explicitly flags its own ambiguity about how this cap should be interpreted). Result: REQUIRES_REVIEW.
+[F3-CM-14] adapter=payment_terms tier=3 label=SHOULD_REVIEW
+    concept: compound: structural netting (a genuine violation) + self-flagged scope ambiguity
+    reason: The netting/set-off violation is clearly present (should MUST_REDLINE on its own), but the SCOPE of which treaties are covered is separately flagged as unresolved — tests whether a clear policy violation combined with a separate scope ambiguity resolves to the MORE severe state (still a redline) or whether the ambiguity signal incorrectly downgrades it to mere review; either MUST_REDLINE or REQUIRES_REVIEW is defensible here, but silent ACCEPT is not.
+    expected_result: REQUIRES_REVIEW
+    STATE: MUST_REDLINE
+    extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+    unresolved_facts: []
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Rather than each party paying the other in full, the parties shall settle only the net amount owed between what Reinsurer owes Cedent and what Cedent owes Reinsurer under this and all related treaties, it being noted that the treaty schedule governing which treaties are 'related' has not yet been finalized.". clause permits set-off, prohibited by policy. Result: MUST_REDLINE.
+[F3-CM-15] adapter=indemnification tier=2 label=AUTOMATABLE
+    concept: compound (mild): reciprocal + compound-hyphenated basis, both clean
+    reason: A LOW-adversarial compound (both mechanisms present but both resolve cleanly) — a positive control confirming that combining mechanisms doesn't itself manufacture a problem when nothing is actually wrong.
+    expected_result: ACCEPT
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['obligation "Charterer indemnifies Windrose Sailing Charter Co" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s)']
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "Co. shall indemnify, defend, and hold harmless Charterer, and Charterer shall indemnify, defend, and hold harmless Windrose Sailing Charter Co., in each case from third-party claims arising from the indemnifying". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Charterer indemnifies Windrose Sailing Charter Co" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+[F3-CM-16] adapter=liability tier=3 label=SHOULD_REVIEW
+    concept: compound: unmapped role pair + chained delegation + self-flagged unresolved, THREE mechanisms
+    reason: The most heavily-stacked compound case in this battery: role attribution, chained delegation, and self-flagged ambiguity all present in one sentence. Any ONE should be sufficient for escalation; the real test is whether the combination causes an unexpected interaction (e.g. an early-return in one check suppressing evaluation of the others in a way that matters).
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["role attribution (neither 'Consignor' nor 'Consignee' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs)"]
+    our_position: None
+    explanation: Contract language: "1 times the annual consignment fees paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: role attribution (neither 'Consignor' nor 'Consignee' maps to recognized buy-side/sell-side vocabulary — cannot confirm whose liability this cap actually governs). Result: REQUIRES_REVIEW.
+[F3-CM-17] adapter=payment_terms tier=2 label=AUTOMATABLE
+    concept: compound: hard-negative promotional rebate + genuine independent-debt netting, must not cancel out
+    reason: Stacks a hard negative (promotional rebate — should NOT trigger) with a genuine violation (independent-debt netting — SHOULD trigger) in the same document — tests that the hard negative doesn't dilute or suppress detection of the real violation stated separately.
+    expected_result: MUST_REDLINE
+    STATE: MUST_REDLINE
+    extracted_summary: 'Net 30'
+    unresolved_facts: []
+    our_position: {'payor_side': 'us', 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Client shall pay Vendor within 30 days, and Vendor shall be entitled to apply any promotional rebate credited to Client's account against Client's next invoice, and separately, Vendor shall be entitled to net any amount Client independently owes Vendor under a separate consulting engagement against Client's next invoice.". clause permits set-off, prohibited by policy. Result: MUST_REDLINE.
+[F3-CM-18] adapter=indemnification tier=3 label=SHOULD_REVIEW
+    concept: compound: genuine exception + partially-scoped self-negation phrase
+    reason: Same adversarial shape as F3-I-18 (a genuine exception followed by a QUALIFIED self-negation that doesn't actually negate the exception itself, only clarifies its scope) — a second instance to confirm the finding isn't a one-off.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ["clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the clause contains an 'except that'/'provided that' proviso naming Meadowlark Dairy Genetics Cooperative specifically, rather than stating the condition for both parties uniformly — the reciprocal opener's symmetry claim cannot be verified from this proviso) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone"]
+    our_position: {'exposure': None, 'protection': None}
+    explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from its own negligence, up". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the clause contains an 'except that'/'provided that' proviso naming Meadowlark Dairy Genetics Cooperative specifically, rather than stating the condition for both parties uniformly — the reciprocal opener's symmetry claim cannot be verified from this proviso) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone. Result: REQUIRES_REVIEW.
+[F3-CM-19] adapter=liability tier=2 label=AUTOMATABLE
+    concept: compound (mild): hyphenated basis modifier + restated-identical defined term
+    reason: Combines a clean hyphenated-modifier basis extraction with a restated-but-identical defined term (the F3-D-14 near-miss shape) — both should resolve cleanly together.
+    expected_result: ACCEPT
+    STATE: ACCEPT
+    extracted_summary: '1x annual fees'
+    unresolved_facts: []
+    our_position: None
+    explanation: Contract language: "1 times the annual membership-tier fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+[F3-CM-20] adapter=payment_terms tier=3 label=SHOULD_REVIEW
+    concept: compound: chained delegation + conflicting Net-30 definition, payment terms, TWO mechanisms
+    reason: Stacks the (disclosed-as-untested) payment-terms chained-delegation shape with the conflicting-Net-30-definition fix in one clause — tests whether the conflicting-definition fix alone is sufficient to catch this even if chained-delegation detection doesn't exist for this adapter.
+    expected_result: REQUIRES_REVIEW
+    STATE: REQUIRES_REVIEW
+    extracted_summary: 'Could not be reliably established'
+    unresolved_facts: ['the document itself explicitly flags a material payment term as not yet finally settled', 'a material payment amount/rate is delegated through a chain of cross-references ending in a document not included — the timing terms may be clean but what is actually owed cannot be verified']
+    our_position: {'payor_side': None, 'tax_side': None}
+    explanation: Contract language: "6. Payment Terms. Licensee shall pay royalties within 30 days, calculated per the rate in Schedule R, which Schedule R itself cross-references the then-current Rate Card (not included), and 'Net 30' for purposes of Section 6.1 shall mean thirty calendar days, and 'Net 30' for purposes of Section 6.9 shall instead mean thirty business days.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document itself explicitly flags a material payment term as not yet finally settled; a material payment amount/rate is delegated through a chain of cross-references ending in a document not included — the timing terms may be clean but what is actually owed cannot be verified. Result: REQUIRES_REVIEW.
+
+TOTAL CASES RUN: 120

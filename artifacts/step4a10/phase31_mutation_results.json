@@ -1,0 +1,678 @@
+{
+  "S4A10-MUT-001": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 2.0489999997153063e-05
+  },
+  "S4A10-MUT-002": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.652700007070962e-05
+  },
+  "S4A10-MUT-003": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.5111999914552143e-05
+  },
+  "S4A10-MUT-004": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.4747000022907741e-05
+  },
+  "S4A10-MUT-005": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 2.2460999957729655e-05
+  },
+  "S4A10-MUT-006": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.673199994911556e-05
+  },
+  "S4A10-MUT-007": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.570599999922706e-05
+  },
+  "S4A10-MUT-008": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.5481999980693217e-05
+  },
+  "S4A10-MUT-009": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.5538999946329568e-05
+  },
+  "S4A10-MUT-010": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.570799997807626e-05
+  },
+  "S4A10-MUT-011": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.641300002575008e-05
+  },
+  "S4A10-MUT-012": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 2.2015000013198005e-05
+  },
+  "S4A10-MUT-013": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.8102000012731878e-05
+  },
+  "S4A10-MUT-014": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.5998999970179284e-05
+  },
+  "S4A10-MUT-015": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.6198000025724468e-05
+  },
+  "S4A10-MUT-016": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.567300000715477e-05
+  },
+  "S4A10-MUT-017": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.5031999964776332e-05
+  },
+  "S4A10-MUT-018": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 3.676899996207794e-05
+  },
+  "S4A10-MUT-019": {
+    "arm_a": "PRESENT_BUT_UNRESOLVED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_BUT_UNRESOLVED",
+    "arm_c_sources": [],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 2.06070000103864e-05
+  },
+  "S4A10-MUT-020": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.4779000025555433e-05
+  },
+  "S4A10-MUT-021": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.530800000182353e-05
+  },
+  "S4A10-MUT-022": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.807700004974322e-05
+  },
+  "S4A10-MUT-023": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.6939000033744378e-05
+  },
+  "S4A10-MUT-024": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.5199000017673825e-05
+  },
+  "S4A10-MUT-025": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.5935000078570738e-05
+  },
+  "S4A10-MUT-026": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 2.7334000037626538e-05
+  },
+  "S4A10-MUT-027": {
+    "arm_a": "PRESENT_BUT_UNRESOLVED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_BUT_UNRESOLVED",
+    "arm_c_sources": [],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.536599995688448e-05
+  },
+  "S4A10-MUT-028": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.5092000012373319e-05
+  },
+  "S4A10-MUT-029": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.4974999999139982e-05
+  },
+  "S4A10-MUT-030": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.6687000083948078e-05
+  },
+  "S4A10-MUT-031": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 5.306999992171768e-05
+  },
+  "S4A10-MUT-032": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.5039000004435366e-05
+  },
+  "S4A10-MUT-033": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.7456000023230445e-05
+  },
+  "S4A10-MUT-034": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.7066000054910546e-05
+  },
+  "S4A10-MUT-035": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.5691000044171233e-05
+  },
+  "S4A10-MUT-036": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.6108999943753588e-05
+  },
+  "S4A10-MUT-037": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.4546999977937958e-05
+  },
+  "S4A10-MUT-038": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.462200009427761e-05
+  },
+  "S4A10-MUT-039": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "STRUCTURAL:hold_keep_predicate_adjective"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.6534999986106413e-05
+  },
+  "S4A10-MUT-040": {
+    "arm_a": "PRESENT_AND_VERIFIED",
+    "arm_b": "RECOGNITION_UNCERTAIN",
+    "arm_b_tally": {
+      "rejected": 0,
+      "unresolved": 0,
+      "verified": 0
+    },
+    "arm_c": "PRESENT_AND_VERIFIED",
+    "arm_c_sources": [
+      "REGEX"
+    ],
+    "candidate_count": 0,
+    "candidates": [],
+    "semantic_error": "RuntimeError: ANTHROPIC_API_KEY not set \u2014 real semantic provider unavailable",
+    "latency_s": 1.744900009725825e-05
+  }
+}

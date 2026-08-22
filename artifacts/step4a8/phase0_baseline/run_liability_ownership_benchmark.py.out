@@ -1,0 +1,49 @@
+Corpus size: 42
+
+| id | expect_review | got_review | expected_value | got_value | ok |
+|---|---|---|---|---|---|
+| own-01 | False | False | 2 times the annual fees paid | '2 times the annual fees paid' | OK |
+| own-02 | False | False | $1,000,000 | 'In no event shall aggregate liability exceed $1,000,000' | OK |
+| own-03 | False | False | 3 times the total fees paid | '3 times the total fees paid' | OK |
+| own-04 | False | False | $500,000 | 'limited to $500,000' | OK |
+| own-05 | False | False | 1.5 times the annual fees paid | '1.5 times the annual fees paid' | OK |
+| own-06 | False | False | $2,500,000 | 'maximum aggregate liability shall not exceed $2,500,000' | OK |
+| own-07 | False | False | no cap | 'There shall be no cap' | OK |
+| own-08 | False | False | 4 times the fees paid | '4 times the fees paid in the twelve (12) months' | OK |
+| own-09 | True | True | None | None | OK |
+| own-10 | True | True | None | None | OK |
+| own-11 | True | True | None | None | OK |
+| own-12 | True | True | None | None | OK |
+| own-13 | True | True | None | None | OK |
+| own-14 | True | True | None | None | OK |
+| own-15 | False | False | $2,000,000 | 'shall in the aggregate not exceed $2,000,000' | OK |
+| own-16 | True | True | None | None | OK |
+| own-17 | False | False | $3,000,000 | 'shall not exceed $3,000,000' | OK |
+| own-18 | False | False | $1,500,000 | 'shall not exceed $1,500,000,' | OK |
+| own-19 | False | False | 1 times the annual fees paid | '1 times the annual fees paid' | OK |
+| own-20 | False | False | $1,000,000 | 'shall not exceed $1,000,000' | OK |
+| own-21 | False | False | 2 times the annual fees paid | '2 times the annual fees paid' | OK |
+| own-22 | False | False | $2,000,000 | 'shall not exceed $2,000,000,' | OK |
+| own-23 | False | False | $750,000 | 'limited to $750,000' | OK |
+| own-24 | False | False | 3 times the annual fees paid | '3 times the annual fees paid' | OK |
+| own-25 | False | False | $900,000 | 'shall not exceed $900,000' | OK |
+| own-26 | False | False | $1,200,000 | 'shall not exceed $1,200,000' | OK |
+| own-27 | False | False | 2 times the annual fees paid | '2 times the annual fees paid' | OK |
+| own-28 | False | False | $600,000 | 'shall not exceed $600,000,' | OK |
+| own-29 | False | False | 1 times the annual fees paid | '1 times the annual fees paid' | OK |
+| own-30 | True | True | None | None | OK |
+| own-31 | True | True | None | None | OK |
+| own-32 | True | True | None | None | OK |
+| own-33 | True | True | None | None | OK |
+| own-34 | True | True | None | None | OK |
+| own-35 | False | False | 3 times the annual fees paid | '3 times the annual fees paid' | OK |
+| own-36 | False | False | $1,500,000 | 'Cap Amount, which the parties agree is $1,500,000' | OK |
+| own-37 | True | True | None | None | OK |
+| own-38 | True | True | None | None | OK |
+| own-39 | False | False | 2 times the annual fees paid | '2 times the annual fees paid' | OK |
+| own-40 | True | True | None | None | OK |
+| own-41 | False | False | $850,000 | 'shall not exceed $850,000' | OK |
+| own-42 | True | True | None | None | OK |
+
+Correct: 42/42 (100.0%)
+False-safe (review required but confident value adopted): 0

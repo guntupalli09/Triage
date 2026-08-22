@@ -87,6 +87,7 @@ import playbook_workbench
 import playbook_authoring as pa
 import policy_enforcement
 import review_queue
+import document_aggregation
 from analytics_middleware import AnalyticsMiddleware
 from channel_classifier import CHANNELS as ACQUISITION_CHANNELS
 
@@ -400,13 +401,28 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
         llm_issues_map[issue.get("title", "").lower()] = issue
 
     all_issues = []
-    seen_rule_ids = set()
+    seen_finding_keys = set()
 
     for finding in findings_dict:
         rule_id = finding.get("rule_id", "")
-        if rule_id in seen_rule_ids:
+        # Dedup key includes location (start_index/end_index/clause_number),
+        # not rule_id alone -- rules_engine.analyze() already documents its
+        # own internal dedup as "(rule_id, clause_number)" (step 4 of its
+        # docstring), meaning it deliberately PRESERVES the same rule firing
+        # on two genuinely different clause occurrences in one document
+        # (e.g. the same uncapped-liability pattern matched in two separate
+        # provisions). A rule_id-only key here silently collapsed that back
+        # down to one, discarding a materially distinct finding -- found via
+        # Step 4B Phase B's deduplication inventory, reproduced directly
+        # against this function before fixing. policy_decision/
+        # interaction_decision synthetic findings are unaffected (each
+        # clause_type/interaction_id already produces at most one finding
+        # per review by construction, so this key is still exactly as
+        # unique for them as rule_id alone was).
+        finding_key = (rule_id, finding.get("start_index"), finding.get("end_index"), finding.get("clause_number"))
+        if finding_key in seen_finding_keys:
             continue
-        seen_rule_ids.add(rule_id)
+        seen_finding_keys.add(finding_key)
 
         finding_title = finding.get("title", "").lower()
         llm_issue = None
@@ -418,6 +434,20 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
         if llm_issue:
             enhanced = llm_issue.copy()
             enhanced["severity"] = finding.get("severity", llm_issue.get("severity", "low"))
+            # The displayed title is the headline conclusion statement
+            # (results.html renders it as the finding's <h3>) -- it must
+            # always be the deterministic finding's own title, never the
+            # LLM's rephrasing. _verify_output_maps_to_findings only checks
+            # a fuzzy substring match between the two titles (needed
+            # because the LLM naturally paraphrases), so an LLM title that
+            # passes that check could still diverge in framing/conclusion
+            # from the actual deterministic finding -- e.g. reframing an
+            # "Uncapped Liability Found" finding's headline into something
+            # that reads as reassuring. Found via Step 4B Phase I. The
+            # LLM's own free-text narrative (why_it_matters, etc.) is left
+            # untouched -- only the declarative title is forced back to
+            # the deterministic value.
+            enhanced["title"] = finding.get("title", "")
         else:
             # No LLM explanation for this finding — surface only the
             # deterministic rationale rather than repeating canned filler text
@@ -464,7 +494,20 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
         all_issues.append(enhanced)
 
     severity_order = {"critical": 0, "high": 1, "medium": 2, "low": 3}
-    all_issues.sort(key=lambda x: (severity_order.get(x.get("severity", "low"), 9), x.get("title", "")))
+
+    def _severity_rank(sev) -> int:
+        # severity is display/prioritization metadata read back from
+        # persisted findings_json -- a stray non-string value (found via
+        # Step 4B Phase C's severity benchmark: an unhashable value here
+        # raised TypeError inside dict.get() and 500'd the ENTIRE contract
+        # report, not just the one malformed finding) must never crash or
+        # drop findings; unrecognized/malformed severities just sort last.
+        try:
+            return severity_order.get(sev, 9)
+        except TypeError:  # unhashable (dict/list/etc.)
+            return 9
+
+    all_issues.sort(key=lambda x: (_severity_rank(x.get("severity", "low")), str(x.get("title", ""))))
     return all_issues
 
 
@@ -1187,6 +1230,59 @@ async def delete_account(request: Request, db: DBSession = Depends(get_db), _csr
 
 
 # ============================================================
+# DOCUMENT-LEVEL AGGREGATION (Step 4B) -- attention-queue safety
+# ============================================================
+#
+# Contract.overall_risk (legacy pattern-match risk, computed before the
+# policy/interaction layers ever run -- see
+# artifacts/step4b/document_aggregation_spec.md) is not sufficient, on its
+# own, to decide whether a contract needs a lawyer's attention: a contract
+# can have overall_risk == "low" while the deterministic policy layer (in
+# cutover mode) finds a PROHIBITED clause, or the Interaction Engine finds
+# a critical cross-policy conflict. document_aggregation.aggregate_document_state
+# is the single aggregation authority for that richer signal -- this
+# module never recomputes policy truth itself, only reads what the policy
+# and interaction layers already decided and persisted.
+#
+# `policy_decisions_json`/`interaction_decisions_json` are EncryptedJSON
+# columns (see encryption.py) -- their content cannot be filtered or
+# aggregated in SQL, so this is computed here, in Python, per already-
+# fetched row, not as a query. See the consumer map/mode-contract doc
+# (artifacts/step4b/consumer_map_and_mode_contract.md §4) for why no
+# schema migration or persisted summary column was added for this.
+_DOCUMENT_MATERIAL_STATES = frozenset({
+    document_aggregation.DOC_HAS_CRITICAL_INTERACTION,
+    document_aggregation.DOC_HAS_POLICY_VIOLATION,
+    document_aggregation.DOC_REQUIRES_REVIEW,
+    document_aggregation.DOC_CONFIGURATION_UNRESOLVED,
+})
+
+
+def _document_state_for_contract(contract: "Contract") -> str:
+    """Read-time-only aggregation (no write, no recomputation of policy
+    truth) -- see module note above. `interaction_decisions_json is not
+    None` is used as a positive signal that this contract's review ran
+    under cutover mode (only the cutover branch of
+    policy_enforcement.apply_policies_for_review ever populates it, even
+    with every rule NOT_TRIGGERED); this is an approximation, not a stored
+    fact (no per-contract enforcement-mode column exists), and is
+    deliberately conservative: an ambiguous legacy/shadow-shaped contract
+    (interaction_decisions_json is None) is never escalated to
+    CONFIGURATION_UNRESOLVED by this approximation, only ever a real
+    cutover-shaped one. See consumer_map_and_mode_contract.md §2 mode
+    contract for the full reasoning."""
+    effective_mode = "cutover" if contract.interaction_decisions_json is not None else "shadow"
+    result = document_aggregation.aggregate_document_state(
+        contract.overall_risk, contract.policy_decisions_json, contract.interaction_decisions_json, effective_mode,
+    )
+    return result["document_state"]
+
+
+def _needs_attention(contract: "Contract") -> bool:
+    return _document_state_for_contract(contract) in _DOCUMENT_MATERIAL_STATES
+
+
+# ============================================================
 # DASHBOARD
 # ============================================================
 
@@ -1202,16 +1298,27 @@ async def dashboard(request: Request, db: DBSession = Depends(get_db)):
     high_count = db.query(Contract).filter(
         Contract.user_id == user.id, Contract.overall_risk == "high", Contract.analysis_completed == True
     ).count()
+    # Attention count -- must include contracts a bare overall_risk=="high"
+    # filter would miss (see _document_state_for_contract above). Computed
+    # in Python (EncryptedJSON columns cannot be filtered in SQL), scoped
+    # to this user only, same bound the pre-existing total/high_count
+    # queries already use.
+    all_user_contracts = db.query(Contract).filter(
+        Contract.user_id == user.id, Contract.analysis_completed == True
+    ).all()
+    attention_count = sum(1 for c in all_user_contracts if _needs_attention(c))
 
     stats = {
         "total_contracts": total,
         "high_risk_count": high_count,
+        "attention_count": attention_count,
         "contracts_this_month": user.contracts_this_month,
     }
+    document_states = {c.id: _document_state_for_contract(c) for c in contracts}
 
     return templates.TemplateResponse("dashboard.html", {
         "request": request, "user": user, "contracts": contracts,
-        "stats": stats, "current_year": datetime.now().year,
+        "stats": stats, "document_states": document_states, "current_year": datetime.now().year,
     })
 
 
@@ -1230,15 +1337,30 @@ async def history(request: Request, q: str = "", risk: str = "", page: int = 1, 
     if risk in ("high", "medium", "low"):
         query = query.filter(Contract.overall_risk == risk)
 
-    total = query.count()
-    total_pages = max(1, (total + per_page - 1) // per_page)
-    page = max(1, min(page, total_pages))
-    contracts = query.order_by(Contract.created_at.desc()).offset((page - 1) * per_page).limit(per_page).all()
+    if risk == "attention":
+        # Cannot be expressed as a SQL WHERE (EncryptedJSON content is not
+        # filterable at the DB layer -- see _document_state_for_contract
+        # module note). Fetch this user's matching rows and filter/paginate
+        # in Python instead of the DB-level offset/limit used by every
+        # other filter value.
+        all_matching = query.order_by(Contract.created_at.desc()).all()
+        attention_matching = [c for c in all_matching if _needs_attention(c)]
+        total = len(attention_matching)
+        total_pages = max(1, (total + per_page - 1) // per_page)
+        page = max(1, min(page, total_pages))
+        contracts = attention_matching[(page - 1) * per_page: page * per_page]
+    else:
+        total = query.count()
+        total_pages = max(1, (total + per_page - 1) // per_page)
+        page = max(1, min(page, total_pages))
+        contracts = query.order_by(Contract.created_at.desc()).offset((page - 1) * per_page).limit(per_page).all()
+
+    document_states = {c.id: _document_state_for_contract(c) for c in contracts}
 
     return templates.TemplateResponse("history.html", {
         "request": request, "user": user, "contracts": contracts,
         "q": q, "active_filter": risk or "all", "page": page, "total_pages": total_pages,
-        "current_year": datetime.now().year,
+        "document_states": document_states, "current_year": datetime.now().year,
     })
 
 
@@ -2921,6 +3043,24 @@ async def playbook_delete(
     playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
     if not playbook:
         raise HTTPException(status_code=404, detail="Playbook not found")
+    # Step 4B Phase F: a playbook delete cascades to its PolicyPosition
+    # rows (Playbook.policy_positions has cascade="all, delete-orphan" --
+    # models.py), which would hard-delete the exact rows any historical
+    # Contract.policy_revision_metadata_json.policy_position_id points to,
+    # permanently destroying that review's governing-revision provenance
+    # (verify_policy_finding would then report "no longer exists" instead
+    # of being able to replay it) -- reproduced directly against a real DB
+    # before adding this guard. A playbook with any reviewed contract must
+    # be archived by the reviewer (stop using it for new reviews), never
+    # deleted, exactly as an ACTIVE PolicyPosition is archived rather than
+    # mutated/deleted elsewhere in this same lifecycle model.
+    if db.query(Contract.id).filter(Contract.playbook_id == playbook_id).first() is not None:
+        raise HTTPException(
+            status_code=409,
+            detail="This playbook has been used for one or more contract reviews and cannot be deleted "
+                   "(doing so would destroy those reviews' governing policy record). Stop using it for new "
+                   "reviews instead.",
+        )
     playbook_name = playbook.name
     db.delete(playbook)
     db.commit()

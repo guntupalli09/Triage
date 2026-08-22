@@ -543,3 +543,48 @@ class TestEvidenceProvenance:
         assert "Indemnification treatment" in report
         assert "Section 12" in report
         assert d.state == core.ESCALATE
+
+
+class TestStep4ARoleReversal:
+    """INDEM-C-01 (Step 2). Document redefines 'Customer'/'Vendor' opposite
+    to their conventional buy/sell mapping: 'Customer' is defined as the
+    entity that develops/licenses (i.e. the real seller) and 'Vendor' is
+    defined as the reseller that purchases (i.e. the real buyer). Before
+    Step 4A: side_for_role() used only the literal word, so an uncapped
+    promise FROM the real seller TO us (a favorable protection obligation)
+    was misclassified as OUR exposure and confidently PROHIBITED."""
+
+    def test_defined_term_reversal_no_longer_silently_prohibits(self):
+        text = (
+            "1. Definitions. As used in this Agreement, 'Customer' means Acme Corp, the "
+            "entity that originally developed and licenses the Deliverables into the resale "
+            "channel, and 'Vendor' means Beta Inc., the reseller entity that purchases and "
+            "pays for the Deliverables from Customer for resale to end users.\n\n"
+            "8. Indemnification. Customer shall indemnify, defend, and hold harmless Vendor "
+            "from and against any third-party claims arising from Customer's gross "
+            "negligence in performing its obligations under this Agreement, and such "
+            "indemnification obligation shall not be subject to any cap."
+        )
+        d = evaluate(text, contract_side="buy_side", prohibit_uncapped_exposure=True)
+        # PREVIOUS WRONG BEHAVIOR being prevented: a clean PROHIBITED with
+        # unresolved_facts == [], treating a favorable uncapped PROTECTION
+        # promise from the real seller as if it were OUR uncapped exposure.
+        assert not (d.state == core.PROHIBITED and d.unresolved_facts == []), (
+            "role-reversal must not silently reach a clean PROHIBITED on what is actually "
+            f"a favorable protection obligation — got state={d.state} "
+            f"unresolved_facts={d.unresolved_facts}"
+        )
+        if d.state == core.REQUIRES_REVIEW:
+            assert d.unresolved_facts
+
+    def test_ordinary_customer_vendor_roles_are_unaffected(self):
+        # Positive control: conventional roles, no redefinition anywhere —
+        # must continue to resolve automatically exactly as before.
+        text = (
+            "8. Indemnification. Vendor shall indemnify, defend, and hold harmless Customer "
+            "from and against any third-party claims arising from Vendor's gross negligence, "
+            "up to a cap equal to 2 times the fees paid in the preceding twelve (12) months."
+        )
+        d = evaluate(text, contract_side="buy_side")
+        assert d.state == core.ACCEPT
+        assert d.unresolved_facts == []

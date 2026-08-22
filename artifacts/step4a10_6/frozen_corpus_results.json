@@ -1,0 +1,1334 @@
+{
+  "FRESH106-0001": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0002": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0003": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0004": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0005": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0006": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0007": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0008": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0009": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0010": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0011": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0012": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0013": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0014": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0015": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0016": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0017": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0018": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0019": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0020": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0021": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0022": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0023": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0024": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0025": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0026": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0027": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0028": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0029": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0030": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0031": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0032": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0033": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0034": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0035": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0036": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0037": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0038": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0039": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0040": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0041": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0042": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0043": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0044": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0045": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0046": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0047": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0048": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0049": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0050": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0051": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0052": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0053": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0054": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0055": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0056": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0057": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0058": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0059": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0060": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0061": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0062": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0063": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0064": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0065": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0066": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0067": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0068": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0069": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0070": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0071": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor, Aircraft Lessee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0072": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0073": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0074": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent, Capacity Provider: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0075": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider, Client Enterprise: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0076": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker, Export Broker: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0077": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator, Facility User: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0078": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0079": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor, Aircraft Lessee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0080": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0081": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0082": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent, Capacity Provider: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0083": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider, Client Enterprise: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0084": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker, Export Broker: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0085": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator, Facility User: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0086": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0087": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor, Aircraft Lessee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0088": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0089": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0090": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent, Capacity Provider: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0091": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider, Client Enterprise: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0092": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker, Export Broker: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0093": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator, Facility User: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0094": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0095": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor, Aircraft Lessee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0096": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0097": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0098": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent, Capacity Provider: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0099": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider, Client Enterprise: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0100": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker, Export Broker: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0101": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator, Facility User: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0102": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0103": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor, Aircraft Lessee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0104": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0105": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0106": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent, Capacity Provider: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0107": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider, Client Enterprise: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0108": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker, Export Broker: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0109": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator, Facility User: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0110": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0111": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor, Aircraft Lessee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0112": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0113": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0114": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent, Capacity Provider: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0115": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider, Client Enterprise: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0116": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker, Export Broker: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0117": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator, Facility User: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0118": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0119": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor, Aircraft Lessee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0120": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0121": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0122": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent, Capacity Provider: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0123": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider, Client Enterprise: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0124": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker, Export Broker: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0125": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator, Facility User: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0126": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0127": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor, Aircraft Lessee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0128": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0129": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0130": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent, Capacity Provider: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0131": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider, Client Enterprise: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0132": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker, Export Broker: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0133": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator, Facility User: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0134": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0135": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor, Aircraft Lessee, Australia: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0136": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner, Australia: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0137": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client, Australia: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0138": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent, Capacity Provider, Australia: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0139": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider, Client Enterprise, Australia: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0140": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker, Export Broker, Australia: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0141": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator, Facility User, Australia: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0142": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant, Australia: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0143": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor, Aircraft Lessee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0144": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0145": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0146": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent, Capacity Provider: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0147": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider, Client Enterprise: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0148": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker, Export Broker: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0149": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator, Facility User: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0150": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0151": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor, Aircraft Lessee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0152": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0153": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0154": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent, Capacity Provider: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0155": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider, Client Enterprise: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0156": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker, Export Broker: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0157": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator, Facility User: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0158": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0159": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor, Aircraft Lessee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0160": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0161": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0162": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent, Capacity Provider: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0163": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider, Client Enterprise: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0164": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker, Export Broker: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0165": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator, Facility User: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0166": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0167": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor and Aircraft Lessee state different defense-control terms"
+    ]
+  },
+  "FRESH106-0168": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor and Implementation Partner state different defense-control terms"
+    ]
+  },
+  "FRESH106-0169": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider and Depositing Client state different defense-control terms"
+    ]
+  },
+  "FRESH106-0170": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent and Capacity Provider state different defense-control terms"
+    ]
+  },
+  "FRESH106-0171": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider and Client Enterprise state different defense-control terms"
+    ]
+  },
+  "FRESH106-0172": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker and Export Broker state different defense-control terms"
+    ]
+  },
+  "FRESH106-0173": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator and Facility User state different defense-control terms"
+    ]
+  },
+  "FRESH106-0174": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator and Plan Participant state different defense-control terms"
+    ]
+  },
+  "FRESH106-0175": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0176": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor, Aircraft Lessee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0177": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0178": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0179": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent, Capacity Provider: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0180": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider, Client Enterprise: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0181": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker, Export Broker: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0182": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator, Facility User: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0183": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0184": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor, Aircraft Lessee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0185": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0186": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0187": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent, Capacity Provider: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0188": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider, Client Enterprise: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0189": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker, Export Broker: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0190": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator, Facility User: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0191": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0192": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Aircraft Lessor, Aircraft Lessee: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0193": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0194": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0195": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Underwriting Agent, Capacity Provider: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0196": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0197": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0198": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Facility Operator, Facility User: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0199": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0200": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0201": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Technology Licensor, Implementation Partner: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0202": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0203": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0204": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Outsourcing Provider, Client Enterprise: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0205": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0206": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0207": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Benefits Administrator, Plan Participant: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0208": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0209": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0210": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Storage Provider, Depositing Client: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0211": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0212": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH106-0213": {
+    "classification": "CR",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Import Broker, Export Broker: the clause states different, non-mirrored language for each named party rather than a single shared symmetric term \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH106-0214": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  }
+}

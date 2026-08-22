@@ -1,0 +1,618 @@
+=== S49-DEV-I-01 [indemnification] gt=REQUIRES_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-02 [indemnification] gt=ACCEPT_OR_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-03 [indemnification] gt=ACCEPT_OR_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-04 [indemnification] gt=ACCEPT_OR_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-05 [indemnification] gt=REQUIRES_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-06 [indemnification] gt=ACCEPT_OR_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-07 [indemnification] gt=ACCEPT_OR_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-08 [indemnification] gt=ACCEPT_OR_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-09 [indemnification] gt=REQUIRES_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-10 [indemnification] gt=ACCEPT_OR_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-11 [indemnification] gt=ACCEPT_OR_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-12 [indemnification] gt=ACCEPT_OR_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-13 [indemnification] gt=REQUIRES_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-14 [indemnification] gt=ACCEPT_OR_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-15 [indemnification] gt=ACCEPT_OR_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-16 [indemnification] gt=ACCEPT_OR_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-17 [indemnification] gt=REQUIRES_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-18 [indemnification] gt=ACCEPT_OR_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-19 [indemnification] gt=ACCEPT_OR_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-20 [indemnification] gt=ACCEPT_OR_REVIEW note=fresh verb, generalization test of the recognition widening ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+
+=== S49-DEV-I-MULT-01 [indemnification] gt=ACCEPT_OR_NEGOTIATE note=word-number multiplier generalization test: four (4) ===
+STATE: ESCALATE
+extracted_summary: 'Exposure: 4x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Amberfield Custom Trellis Repair shall indemnify, defend, and hold harmless Client from claims arising from Amberfield Custom Trellis Repair's". exposure cap 4x annual fees exceeds preferred position. Result: ESCALATE.
+
+=== S49-DEV-I-MULT-02 [indemnification] gt=ACCEPT_OR_NEGOTIATE note=word-number multiplier generalization test: five (5) ===
+STATE: ESCALATE
+extracted_summary: 'Exposure: 5x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Briarcross Custom Anvil Sharpening shall indemnify, defend, and hold harmless Client from claims arising from Briarcross Custom Anvil Sharpening's". exposure cap 5x annual fees exceeds preferred position. Result: ESCALATE.
+
+=== S49-DEV-I-MULT-03 [indemnification] gt=ACCEPT_OR_NEGOTIATE note=word-number multiplier generalization test: six (6) ===
+STATE: ESCALATE
+extracted_summary: 'Exposure: 6x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Cragmont Custom Bellows Repair shall indemnify, defend, and hold harmless Client from claims arising from Cragmont Custom Bellows Repair's negligence,". exposure cap 6x annual fees exceeds preferred position. Result: ESCALATE.
+
+=== S49-DEV-I-MULT-04 [indemnification] gt=ACCEPT_OR_NEGOTIATE note=word-number multiplier generalization test: seven (7) ===
+STATE: ESCALATE
+extracted_summary: 'Exposure: 7x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Duskvale Custom Loom Threading shall indemnify, defend, and hold harmless Client from claims arising from Duskvale Custom Loom Threading's negligence,". exposure cap 7x annual fees exceeds preferred position. Result: ESCALATE.
+
+=== S49-DEV-I-MULT-05 [indemnification] gt=ACCEPT_OR_NEGOTIATE note=word-number multiplier generalization test: eight (8) ===
+STATE: ESCALATE
+extracted_summary: 'Exposure: 8x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Elmshadow Custom Kiln Firing shall indemnify, defend, and hold harmless Client from claims arising from Elmshadow Custom Kiln Firing's negligence,". exposure cap 8x annual fees exceeds preferred position. Result: ESCALATE.
+
+=== S49-DEV-I-MULT-06 [indemnification] gt=ACCEPT_OR_NEGOTIATE note=word-number multiplier generalization test: nine (9) ===
+STATE: ESCALATE
+extracted_summary: 'Exposure: 9x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Fallowdale Custom Millstone Dressing shall indemnify, defend, and hold harmless Client from claims arising from Fallowdale Custom Millstone Dressing's". exposure cap 9x annual fees exceeds preferred position. Result: ESCALATE.
+
+=== S49-DEV-I-MULT-07 [indemnification] gt=ACCEPT_OR_NEGOTIATE note=word-number multiplier generalization test: ten (10) ===
+STATE: ESCALATE
+extracted_summary: 'Exposure: 10x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Grimwald Custom Forge Bellows shall indemnify, defend, and hold harmless Client from claims arising from Grimwald Custom Forge Bellows's negligence,". exposure cap 10x annual fees exceeds preferred position. Result: ESCALATE.
+
+=== S49-DEV-I-MULT-08 [indemnification] gt=ACCEPT_OR_NEGOTIATE note=word-number multiplier generalization test: two (2) ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: 'Exposure: 2x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Hollowmere Custom Spinning Wheel Repair shall indemnify, defend, and hold harmless Client from claims arising from Hollowmere Custom Spinning Wheel Repair's". exposure cap 2x annual fees exceeds preferred position. Result: ACCEPT_WITH_NOTE.
+
+=== S49-DEV-I-MULT-09 [indemnification] gt=ACCEPT_OR_NEGOTIATE note=word-number multiplier generalization test: three (3) ===
+STATE: NEGOTIATE
+extracted_summary: 'Exposure: 3x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Ironbark Custom Weathercock Casting shall indemnify, defend, and hold harmless Client from claims arising from Ironbark Custom Weathercock Casting's". exposure cap 3x annual fees exceeds preferred position. Result: NEGOTIATE.
+
+=== S49-DEV-I-MULT-10 [indemnification] gt=ACCEPT_OR_NEGOTIATE note=word-number multiplier generalization test: one (1) ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Junipercrag Custom Bee Skep Weaving shall indemnify, defend, and hold harmless Client from claims arising from Junipercrag Custom Bee Skep Weaving's". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-COND-01 [indemnification] gt=REQUIRES_REVIEW note=conditional-applicability, fresh 'finalized' verb ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Fenwright Custom Cooperage indemnifies Winery" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s)']
+explanation: Contract language: "8. Indemnification. Fenwright Custom Cooperage shall indemnify, defend, and hold harmless Winery from claims arising from Fenwright's negligence, up to a cap". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Fenwright Custom Cooperage indemnifies Winery" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+
+=== S49-DEV-I-SELF-01 [indemnification] gt=REQUIRES_REVIEW note=self-flagged, fresh 'remains an open question' phrasing ===
+STATE: MUST_REDLINE
+extracted_summary: 'Exposure: unspecified; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Ashgrove Custom Livestock Fence Repair shall indemnify, defend, and hold harmless Client from claims arising from Ashgrove's negligence, the parties". exposure obligation states no monetary treatment at all. Result: MUST_REDLINE.
+
+=== S49-DEV-I-CHAIN-01 [indemnification] gt=REQUIRES_REVIEW note=chained delegation, fresh 'points to' verb (NOT in the widened verb list - true generalization test) ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: n/a; Protection: present'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Vendor shall indemnify, defend, and hold harmless Client from claims described in the Risk Matrix, which Risk Matrix". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-NEG-01 [indemnification] gt=NOT_APPLICABLE note=hard negative — ordinary clause using a risk-transfer-adjacent verb, no claim/loss context ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No indemnification clause found'
+unresolved_facts: []
+explanation: No indemnification clause was found in this contract, so the policy has nothing to evaluate against.
+
+=== S49-DEV-I-NEG-02 [indemnification] gt=NOT_APPLICABLE note=hard negative — ordinary clause using a risk-transfer-adjacent verb, no claim/loss context ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No indemnification clause found'
+unresolved_facts: []
+explanation: No indemnification clause was found in this contract, so the policy has nothing to evaluate against.
+
+=== S49-DEV-I-NEG-03 [indemnification] gt=NOT_APPLICABLE note=hard negative — ordinary clause using a risk-transfer-adjacent verb, no claim/loss context ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No indemnification clause found'
+unresolved_facts: []
+explanation: No indemnification clause was found in this contract, so the policy has nothing to evaluate against.
+
+=== S49-DEV-I-NEG-04 [indemnification] gt=NOT_APPLICABLE note=hard negative — ordinary clause using a risk-transfer-adjacent verb, no claim/loss context ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No indemnification clause found'
+unresolved_facts: []
+explanation: No indemnification clause was found in this contract, so the policy has nothing to evaluate against.
+
+=== S49-DEV-I-NEG-05 [indemnification] gt=NOT_APPLICABLE note=hard negative — ordinary clause using a risk-transfer-adjacent verb, no claim/loss context ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No indemnification clause found'
+unresolved_facts: []
+explanation: No indemnification clause was found in this contract, so the policy has nothing to evaluate against.
+
+=== S49-DEV-I-NEG-06 [indemnification] gt=NOT_APPLICABLE note=hard negative — ordinary clause using a risk-transfer-adjacent verb, no claim/loss context ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No indemnification clause found'
+unresolved_facts: []
+explanation: No indemnification clause was found in this contract, so the policy has nothing to evaluate against.
+
+=== S49-DEV-I-RECIP-01 [indemnification] gt=REQUIRES_REVIEW note=causation-standard-style asymmetry via a fresh 'gross negligence only' vs 'ordinary negligence' contrast ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['the document states this obligation in both directions by name, but a per-party differentiation was found (Coalridge Custom Smokehouse Repair and Distributor cover different trigger sets) — cannot confirm the two directions are actually equivalent']
+explanation: Contract language: "8. Indemnification. Coalridge Custom Smokehouse Repair shall indemnify, defend, and hold harmless Distributor, and Distributor shall indemnify, defend, and hold harmless". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document states this obligation in both directions by name, but a per-party differentiation was found (Coalridge Custom Smokehouse Repair and Distributor cover different trigger sets) — cannot confirm the two directions are actually equivalent. Result: REQUIRES_REVIEW.
+
+=== S49-DEV-I-RECIP-02 [indemnification] gt=REQUIRES_REVIEW note=causation-standard-style asymmetry via a fresh 'gross negligence only' vs 'ordinary negligence' contrast ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['the document states this obligation in both directions by name, but a per-party differentiation was found (Driftwood Custom Kayak Repair and Outfitter cover different trigger sets) — cannot confirm the two directions are actually equivalent']
+explanation: Contract language: "8. Indemnification. Driftwood Custom Kayak Repair shall indemnify, defend, and hold harmless Outfitter, and Outfitter shall indemnify, defend, and hold harmless Driftwood". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document states this obligation in both directions by name, but a per-party differentiation was found (Driftwood Custom Kayak Repair and Outfitter cover different trigger sets) — cannot confirm the two directions are actually equivalent. Result: REQUIRES_REVIEW.
+
+=== S49-DEV-I-RECIP-03 [indemnification] gt=REQUIRES_REVIEW note=causation-standard-style asymmetry via a fresh 'gross negligence only' vs 'ordinary negligence' contrast ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['the document states this obligation in both directions by name, but a per-party differentiation was found (Emberlight Custom Candle Repair and Retailer cover different trigger sets) — cannot confirm the two directions are actually equivalent']
+explanation: Contract language: "8. Indemnification. Emberlight Custom Candle Repair shall indemnify, defend, and hold harmless Retailer, and Retailer shall indemnify, defend, and hold harmless Emberlight". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document states this obligation in both directions by name, but a per-party differentiation was found (Emberlight Custom Candle Repair and Retailer cover different trigger sets) — cannot confirm the two directions are actually equivalent. Result: REQUIRES_REVIEW.
+
+=== S49-DEV-I-RECIP-04 [indemnification] gt=REQUIRES_REVIEW note=causation-standard-style asymmetry via a fresh 'gross negligence only' vs 'ordinary negligence' contrast ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['the document states this obligation in both directions by name, but a per-party differentiation was found (Frostpine Custom Sled Repair and Lot Operator cover different trigger sets) — cannot confirm the two directions are actually equivalent']
+explanation: Contract language: "8. Indemnification. Frostpine Custom Sled Repair shall indemnify, defend, and hold harmless Lot Operator, and Lot Operator shall indemnify, defend, and hold harmless". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document states this obligation in both directions by name, but a per-party differentiation was found (Frostpine Custom Sled Repair and Lot Operator cover different trigger sets) — cannot confirm the two directions are actually equivalent. Result: REQUIRES_REVIEW.
+
+=== S49-DEV-I-FILL-01 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Gravelback Custom Sawmill Repair shall indemnify, defend, and hold harmless Client from claims arising from Gravelback Custom Sawmill Repair's". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-02 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Hollowfen Custom Grist Mill Repair shall indemnify, defend, and hold harmless Client from claims arising from Hollowfen Custom Grist Mill Repair's". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-03 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Inglewood Custom Sheep Dip Repair shall indemnify, defend, and hold harmless Client from claims arising from Inglewood Custom Sheep Dip Repair's". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-04 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Junipervale Custom Cattle Guard Repair shall indemnify, defend, and hold harmless Client from claims arising from Junipervale Custom Cattle Guard Repair's". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-05 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Kettlemoor Custom Windbreak Repair shall indemnify, defend, and hold harmless Client from claims arising from Kettlemoor Custom Windbreak Repair's". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-06 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Larkhollow Custom Hedge Repair shall indemnify, defend, and hold harmless Client from claims arising from Larkhollow Custom Hedge Repair's negligence,". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-07 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Mosswick Custom Rain Garden Repair shall indemnify, defend, and hold harmless Client from claims arising from Mosswick Custom Rain Garden Repair's". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-08 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Nightfen Custom Bat House Repair shall indemnify, defend, and hold harmless Client from claims arising from Nightfen Custom Bat House Repair's". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-09 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Oxendale Custom Owl Box Repair shall indemnify, defend, and hold harmless Client from claims arising from Oxendale Custom Owl Box Repair's negligence,". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-10 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Pinemarsh Custom Bee Skep Repair shall indemnify, defend, and hold harmless Client from claims arising from Pinemarsh Custom Bee Skep Repair's". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-11 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Quillmoor Custom Falcon Perch Repair shall indemnify, defend, and hold harmless Client from claims arising from Quillmoor Custom Falcon Perch Repair's". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-12 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Ravenscar Custom Crow Nest Repair shall indemnify, defend, and hold harmless Client from claims arising from Ravenscar Custom Crow Nest Repair's". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-13 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Silverdale Custom Lamp Repair shall indemnify, defend, and hold harmless Client from claims arising from Silverdale Custom Lamp Repair's negligence,". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-14 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Thornwick Custom Buoy Repair shall indemnify, defend, and hold harmless Client from claims arising from Thornwick Custom Buoy Repair's negligence,". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-15 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Underwood Custom Dock Repair shall indemnify, defend, and hold harmless Client from claims arising from Underwood Custom Dock Repair's negligence,". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-16 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Vinehollow Custom Gate Repair shall indemnify, defend, and hold harmless Client from claims arising from Vinehollow Custom Gate Repair's negligence,". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-I-FILL-17 [indemnification] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: not found'
+unresolved_facts: []
+explanation: Contract language: "8. Indemnification. Gravelback Custom Sawmill Repair shall indemnify, defend, and hold harmless Client from claims arising from Gravelback Custom Sawmill Repair's". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-L-01 [liability] gt=ACCEPT_OR_NEGOTIATE note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+explanation: Contract language: "one (1) times the annual servicing fees". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+
+=== S49-DEV-L-02 [liability] gt=ACCEPT_OR_NEGOTIATE note=ordinary control ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+explanation: Contract language: "two (2) times the annual servicing fees". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+
+=== S49-DEV-L-03 [liability] gt=ACCEPT_OR_NEGOTIATE note=ordinary control ===
+STATE: NEGOTIATE
+extracted_summary: '3x annual fees'
+unresolved_facts: []
+explanation: Contract language: "three (3) times the annual servicing fees". Extracted value: 3x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: NEGOTIATE.
+
+=== S49-DEV-L-04 [liability] gt=ACCEPT_OR_NEGOTIATE note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+explanation: Contract language: "one (1) times the annual servicing fees". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+
+=== S49-DEV-L-05 [liability] gt=ACCEPT_OR_NEGOTIATE note=ordinary control ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+explanation: Contract language: "two (2) times the annual servicing fees". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+
+=== S49-DEV-L-06 [liability] gt=ACCEPT_OR_NEGOTIATE note=ordinary control ===
+STATE: NEGOTIATE
+extracted_summary: '3x annual fees'
+unresolved_facts: []
+explanation: Contract language: "three (3) times the annual servicing fees". Extracted value: 3x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: NEGOTIATE.
+
+=== S49-DEV-L-07 [liability] gt=ACCEPT_OR_NEGOTIATE note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+explanation: Contract language: "one (1) times the annual servicing fees". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+
+=== S49-DEV-L-08 [liability] gt=ACCEPT_OR_NEGOTIATE note=ordinary control ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+explanation: Contract language: "two (2) times the annual servicing fees". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+
+=== S49-DEV-L-COND-01 [liability] gt=REQUIRES_REVIEW note=conditional-applicability, fresh 'certification...completed' phrasing ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+explanation: Contract language: "two (2) times the annual fees". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+
+=== S49-DEV-L-SELF-01 [liability] gt=REQUIRES_REVIEW note=self-flagged, fresh 'remaining an open point' phrasing ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+explanation: Contract language: "one (1) times the annual fees". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+
+=== S49-DEV-L-CHAIN-01 [liability] gt=REQUIRES_REVIEW note=chained delegation, fresh 'points to' verb ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+explanation: Contract language: "one (1) times the annual fees". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+
+=== S49-DEV-L-GL-01 [liability] gt=REQUIRES_REVIEW note=greater-of, fresh 'whichever TOTAL is greater' interposed-noun test ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["general liability cap (a 'greater of' structure was signaled but its component values could not both be extracted)"]
+explanation: Contract language: "s the annual fees paid, or (b) $40,000, whichever total is greater, as determined when a claim is filed.". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (a 'greater of' structure was signaled but its component values could not both be extracted). Result: REQUIRES_REVIEW.
+
+=== S49-DEV-L-DEF-01 [liability] gt=REQUIRES_REVIEW note=conflicting definition, fresh 'is likewise separately defined' phrasing ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (this clause delegates to a cross-referenced provision, and no cap-shaped value found in the document has any limitation-of-liability language near it — cannot establish that any of them is actually the liability cap without attorney review)']
+explanation: Contract language: "shall not exceed the Cap. 'Cap' is defined in Section 9.1 as one (1) times the annual fees paid, and is likewise separately defined in Section 14.3 as". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (this clause delegates to a cross-referenced provision, and no cap-shaped value found in the document has any limitation-of-liability language near it — cannot establish that any of them is actually the liability cap without attorney review). Result: REQUIRES_REVIEW.
+
+=== S49-DEV-P-01 [payment_terms] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Net 30; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Client shall pay Ashenvale Custom Barn Repair within 30 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-02 [payment_terms] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Net 45; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Client shall pay Briarfen Custom Corn Crib Repair within 45 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-03 [payment_terms] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Net 15; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Client shall pay Cindervale Custom Smokehouse Repair within 15 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-04 [payment_terms] gt=ACCEPT note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: 'Net 60; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Client shall pay Duskfield Custom Well House Repair within 60 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-COND-01 [payment_terms] gt=REQUIRES_REVIEW note=conditional-applicability, fresh 'finalized' verb ===
+STATE: ACCEPT
+extracted_summary: 'Net 30; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Client shall pay Vendor within 30 days of invoice, unless Vendor has designated the order under the Rush Fulfillment Program, in which case payment is due within 10 days; that designation has not yet been finalized for pending orders.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-SELF-01 [payment_terms] gt=REQUIRES_REVIEW note=self-flagged, fresh 'remains an open question' phrasing ===
+STATE: ACCEPT
+extracted_summary: 'Net 30; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Client shall pay Vendor within 30 days of invoice for base services; the parties concede that whether expedite fees are included in this schedule remains an open question.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-CHAIN-01 [payment_terms] gt=REQUIRES_REVIEW note=chained delegation, fresh 'points to' verb ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Client shall pay the amount set forth in the Rate Sheet, which Rate Sheet in turn points to the index maintained by a third-party pricing service (not included in this excerpt).". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-SF-PORT-01 [payment_terms] gt=REQUIRES_REVIEW note=cross-adapter propagation check — the exact liability-origin phrase, now expected in payment_terms too ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['the document itself explicitly flags a material payment term as not yet finally settled']
+explanation: Contract language: "6. Payment Terms. Payment terms shall be as the parties later determine, no such determination having yet been made as of the Effective Date.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document itself explicitly flags a material payment term as not yet finally settled. Result: REQUIRES_REVIEW.
+
+=== S49-DEV-P-MORE-01 [payment_terms] gt=ACCEPT note=ordinary control, passive voice ===
+STATE: ACCEPT
+extracted_summary: 'Net 30; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Emberton Custom Root Cellar Repair shall be paid by Client within 30 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-MORE-02 [payment_terms] gt=ACCEPT note=ordinary control, passive voice ===
+STATE: ACCEPT
+extracted_summary: 'Net 45; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Falconbridge Custom Tax Advisory Fee Schedule shall be paid by Client within 45 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-MORE-03 [payment_terms] gt=ACCEPT note=ordinary control, passive voice ===
+STATE: ACCEPT
+extracted_summary: 'Net 60; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Grovemantle Custom Trellis Repair shall be paid by Client within 60 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-MORE-04 [payment_terms] gt=ACCEPT note=ordinary control, passive voice ===
+STATE: ACCEPT
+extracted_summary: 'Net 30; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Hollowspire Custom Bell Repair shall be paid by Client within 30 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-MORE-05 [payment_terms] gt=ACCEPT note=ordinary control, passive voice ===
+STATE: ACCEPT
+extracted_summary: 'Net 45; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Ironvale Custom Anvil Repair shall be paid by Client within 45 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-MORE-06 [payment_terms] gt=ACCEPT note=ordinary control, passive voice ===
+STATE: ACCEPT
+extracted_summary: 'Net 60; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Jasperfield Custom Gemstone Cutting Fees shall be paid by Client within 60 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-MORE-07 [payment_terms] gt=ACCEPT note=ordinary control, passive voice ===
+STATE: ACCEPT
+extracted_summary: 'Net 30; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Kettlebridge Custom Gutter Repair shall be paid by Client within 30 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-MORE-08 [payment_terms] gt=ACCEPT note=ordinary control, passive voice ===
+STATE: ACCEPT
+extracted_summary: 'Net 45; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Larkspire Custom Weathercock Repair shall be paid by Client within 45 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-MORE-09 [payment_terms] gt=ACCEPT note=ordinary control, passive voice ===
+STATE: ACCEPT
+extracted_summary: 'Net 60; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Moonvale Custom Tincture Blending Fees shall be paid by Client within 60 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-MORE-10 [payment_terms] gt=ACCEPT note=ordinary control, passive voice ===
+STATE: ACCEPT
+extracted_summary: 'Net 30; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Nettlefen Custom Basket Repair shall be paid by Client within 30 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-MORE-11 [payment_terms] gt=ACCEPT note=ordinary control, passive voice ===
+STATE: ACCEPT
+extracted_summary: 'Net 45; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Oxhollow Custom Cider Press Repair shall be paid by Client within 45 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-MORE-12 [payment_terms] gt=ACCEPT note=ordinary control, passive voice ===
+STATE: ACCEPT
+extracted_summary: 'Net 60; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Pemberly Custom Sundial Repair shall be paid by Client within 60 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-MORE-13 [payment_terms] gt=ACCEPT note=ordinary control, passive voice ===
+STATE: ACCEPT
+extracted_summary: 'Net 30; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Quiverfield Custom Range Repair shall be paid by Client within 30 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-MORE-14 [payment_terms] gt=ACCEPT note=ordinary control, passive voice ===
+STATE: ACCEPT
+extracted_summary: 'Net 45; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Ravensdale Custom Mews Repair shall be paid by Client within 45 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-P-MORE-15 [payment_terms] gt=ACCEPT note=ordinary control, passive voice ===
+STATE: ACCEPT
+extracted_summary: 'Net 60; Trigger: invoice'
+unresolved_facts: []
+explanation: Contract language: "6. Payment Terms. Silverfen Custom Boardwalk Repair shall be paid by Client within 60 days of invoice date.". No policy gaps found. Result: ACCEPT.
+
+=== S49-DEV-L-MORE-01 [liability] gt=ACCEPT_OR_NEGOTIATE note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+explanation: Contract language: "one (1) times the annual fees". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+
+=== S49-DEV-L-MORE-02 [liability] gt=ACCEPT_OR_NEGOTIATE note=ordinary control ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+explanation: Contract language: "two (2) times the annual fees". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+
+=== S49-DEV-L-MORE-03 [liability] gt=ACCEPT_OR_NEGOTIATE note=ordinary control ===
+STATE: NEGOTIATE
+extracted_summary: '3x annual fees'
+unresolved_facts: []
+explanation: Contract language: "three (3) times the annual fees". Extracted value: 3x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: NEGOTIATE.
+
+=== S49-DEV-L-MORE-04 [liability] gt=ACCEPT_OR_NEGOTIATE note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+explanation: Contract language: "one (1) times the annual fees". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+
+=== S49-DEV-L-MORE-05 [liability] gt=ACCEPT_OR_NEGOTIATE note=ordinary control ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+explanation: Contract language: "two (2) times the annual fees". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+
+=== S49-DEV-L-MORE-06 [liability] gt=ACCEPT_OR_NEGOTIATE note=ordinary control ===
+STATE: NEGOTIATE
+extracted_summary: '3x annual fees'
+unresolved_facts: []
+explanation: Contract language: "three (3) times the annual fees". Extracted value: 3x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: NEGOTIATE.
+
+=== S49-DEV-L-MORE-07 [liability] gt=ACCEPT_OR_NEGOTIATE note=ordinary control ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+explanation: Contract language: "one (1) times the annual fees". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+

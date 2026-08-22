@@ -1,0 +1,144 @@
+{
+  "DEVCTL-001": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Contractor and Owner state different survival/temporal terms (indefinite vs none)"
+    ]
+  },
+  "DEVCTL-002": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Licensee and Licensor state different survival/temporal terms (indefinite vs none)"
+    ]
+  },
+  "DEVCTL-003": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Manufacturer and Retailer state different survival/temporal terms (bounded vs bounded)"
+    ]
+  },
+  "DEVCTL-004": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Broker and Principal state different survival/temporal terms (indefinite vs none)"
+    ]
+  },
+  "DEVCTL-005": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-006": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-007": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-008": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-009": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-010": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-011": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-012": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-013": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-014": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "the clause binds different named parties to different external schedule/exhibit references whose contents this clause's own text cannot verify as equivalent: Broker and the different limitations (3), Principal (5)"
+    ]
+  },
+  "DEVCTL-015": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-016": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-017": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-018": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "the clause binds different named parties to different external schedule/exhibit references whose contents this clause's own text cannot verify as equivalent: Manufacturer (I), Retailer (II)"
+    ]
+  },
+  "DEVCTL-019": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-020": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-021": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-022": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-023": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-024": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-025": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "DEVCTL-026": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  }
+}

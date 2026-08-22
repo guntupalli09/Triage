@@ -1,0 +1,58 @@
+{
+  "phase28_outage": [
+    {
+      "name": "28.1_no_api_key",
+      "result": "RECOGNITION_UNCERTAIN"
+    },
+    {
+      "name": "28.2_timeout",
+      "result": "RECOGNITION_UNCERTAIN"
+    },
+    {
+      "name": "28.3_http_error",
+      "result": "RECOGNITION_UNCERTAIN"
+    },
+    {
+      "name": "28.4_malformed_response",
+      "result": "RECOGNITION_UNCERTAIN"
+    },
+    {
+      "name": "28.5_empty_response",
+      "result": "CONFIRMED_ABSENT (facts is None)"
+    },
+    {
+      "name": "28.6_rate_limit",
+      "result": "RECOGNITION_UNCERTAIN"
+    },
+    {
+      "name": "28.7_invalid_json_schema",
+      "result": "RECOGNITION_UNCERTAIN"
+    },
+    {
+      "name": "28.8_provider_unavailable_but_regex_hits",
+      "result": "absence_state=PRESENT_AND_VERIFIED, n_obligations=1"
+    }
+  ],
+  "phase29_malicious": [
+    {
+      "name": "29.1_wrong_actor_claim",
+      "result": "outcome=REJECTED, obligation=None"
+    },
+    {
+      "name": "29.2_wrong_cap_claim",
+      "result": "outcome=REJECTED, monetary=None (claimed_cap metadata never read)"
+    },
+    {
+      "name": "29.3_wrong_policy_result_claim",
+      "result": "outcome=REJECTED (policy_result/compliant metadata never read; DiscoveryCandidate has no such fields)"
+    },
+    {
+      "name": "29.4_accept_injection_claim",
+      "result": "outcome=REJECTED (note field never consulted for policy)"
+    },
+    {
+      "name": "29.5_fabricated_explanation_claim",
+      "result": "outcome=REJECTED (explanation metadata never consulted)"
+    }
+  ]
+}

@@ -1,0 +1,942 @@
+{
+  "S4A10-0001": {
+    "label": "POSITIVE",
+    "tier": "1",
+    "runs": [
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      }
+    ]
+  },
+  "S4A10-0002": {
+    "label": "POSITIVE",
+    "tier": "1",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0003": {
+    "label": "POSITIVE",
+    "tier": "1",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0004": {
+    "label": "POSITIVE",
+    "tier": "1",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0005": {
+    "label": "POSITIVE",
+    "tier": "1",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0006": {
+    "label": "POSITIVE",
+    "tier": "1",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0007": {
+    "label": "POSITIVE",
+    "tier": "1",
+    "runs": [
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      }
+    ]
+  },
+  "S4A10-0008": {
+    "label": "POSITIVE",
+    "tier": "1",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0101": {
+    "label": "POSITIVE",
+    "tier": "2",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0102": {
+    "label": "POSITIVE",
+    "tier": "2",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0103": {
+    "label": "POSITIVE",
+    "tier": "2",
+    "runs": [
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      }
+    ]
+  },
+  "S4A10-0104": {
+    "label": "POSITIVE",
+    "tier": "2",
+    "runs": [
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      }
+    ]
+  },
+  "S4A10-0105": {
+    "label": "POSITIVE",
+    "tier": "2",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0106": {
+    "label": "POSITIVE",
+    "tier": "2",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0171": {
+    "label": "POSITIVE",
+    "tier": "3",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0172": {
+    "label": "POSITIVE",
+    "tier": "3",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0173": {
+    "label": "POSITIVE",
+    "tier": "3",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0174": {
+    "label": "POSITIVE",
+    "tier": "3",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0175": {
+    "label": "POSITIVE",
+    "tier": "3",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0176": {
+    "label": "POSITIVE",
+    "tier": "3",
+    "runs": [
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      },
+      {
+        "outcome": "PRESENT_AND_VERIFIED",
+        "sources": [
+          "REGEX"
+        ]
+      }
+    ]
+  },
+  "S4A10-0221": {
+    "label": "NEGATIVE",
+    "tier": "neg",
+    "runs": [
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      }
+    ]
+  },
+  "S4A10-0222": {
+    "label": "NEGATIVE",
+    "tier": "neg",
+    "runs": [
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      }
+    ]
+  },
+  "S4A10-0223": {
+    "label": "NEGATIVE",
+    "tier": "neg",
+    "runs": [
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      }
+    ]
+  },
+  "S4A10-0224": {
+    "label": "NEGATIVE",
+    "tier": "neg",
+    "runs": [
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      }
+    ]
+  },
+  "S4A10-0225": {
+    "label": "NEGATIVE",
+    "tier": "neg",
+    "runs": [
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      }
+    ]
+  },
+  "S4A10-0226": {
+    "label": "NEGATIVE",
+    "tier": "neg",
+    "runs": [
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      },
+      {
+        "outcome": "CONFIRMED_ABSENT",
+        "sources": []
+      }
+    ]
+  },
+  "S4A10-0041": {
+    "label": "POSITIVE",
+    "tier": "1",
+    "runs": [
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      }
+    ]
+  },
+  "S4A10-0042": {
+    "label": "POSITIVE",
+    "tier": "1",
+    "runs": [
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      }
+    ]
+  },
+  "S4A10-0043": {
+    "label": "POSITIVE",
+    "tier": "1",
+    "runs": [
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      }
+    ]
+  },
+  "S4A10-0044": {
+    "label": "POSITIVE",
+    "tier": "1",
+    "runs": [
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      },
+      {
+        "outcome": "PRESENT_BUT_UNRESOLVED",
+        "sources": []
+      }
+    ]
+  }
+}

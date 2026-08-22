@@ -357,6 +357,18 @@ def _compare_warranty_attribution(base_role: str, base: Dict[str, Any], role: st
     return reasons
 
 
+def _any_warranty_dimension_established_equal(base: Dict[str, Any], snap: Dict[str, Any]) -> bool:
+    """Step 4A.10.4 — real, positively-established agreement on warranted
+    categories or duration stands down the structural fail-closed check.
+    See indemnification_policy_engine._any_dimension_established_equal
+    for the full rationale."""
+    if base["categories"] and snap["categories"] and base["categories"] == snap["categories"]:
+        return True
+    if base["duration_days"] is not None and snap["duration_days"] is not None and base["duration_days"] == snap["duration_days"]:
+        return True
+    return False
+
+
 def _detect_warranty_asymmetry(window: str) -> List[str]:
     """Mirrors confidentiality_policy_engine._detect_confidentiality_asymmetry
     and assignment_policy_engine._detect_restriction_asymmetry -- reuses
@@ -366,6 +378,7 @@ def _detect_warranty_asymmetry(window: str) -> List[str]:
     return detect_role_attributed_asymmetry(
         window, _ROLE_ATTRIBUTION_RE, _GENERIC_ROLE_WORDS,
         _snapshot_warranty_attribution, _compare_warranty_attribution,
+        established_equal_fn=_any_warranty_dimension_established_equal,
     )
 
 

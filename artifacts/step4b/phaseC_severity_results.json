@@ -1,0 +1,1662 @@
+{
+  "rows": [
+    {
+      "id": "sevC-be-survives-0",
+      "family": "same-finding-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity='critical' must not cause suppression"
+    },
+    {
+      "id": "sevC-be-survives-1",
+      "family": "same-finding-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity='high' must not cause suppression"
+    },
+    {
+      "id": "sevC-be-survives-2",
+      "family": "same-finding-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity='medium' must not cause suppression"
+    },
+    {
+      "id": "sevC-be-survives-3",
+      "family": "same-finding-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity='low' must not cause suppression"
+    },
+    {
+      "id": "sevC-be-survives-4",
+      "family": "same-finding-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity='' must not cause suppression"
+    },
+    {
+      "id": "sevC-be-survives-5",
+      "family": "same-finding-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity=None must not cause suppression"
+    },
+    {
+      "id": "sevC-be-survives-6",
+      "family": "same-finding-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity='URGENT!!' must not cause suppression"
+    },
+    {
+      "id": "sevC-be-survives-7",
+      "family": "same-finding-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity='unknown_value' must not cause suppression"
+    },
+    {
+      "id": "sevC-be-survives-8",
+      "family": "same-finding-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity=12345 must not cause suppression"
+    },
+    {
+      "id": "sevC-be-survives-9",
+      "family": "same-finding-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity='Critical' must not cause suppression"
+    },
+    {
+      "id": "sevC-be-survives-10",
+      "family": "same-finding-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "severity='LOW' must not cause suppression"
+    },
+    {
+      "id": "sevC-be-same-evidence-diffsev-0",
+      "family": "same-evidence-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "different rule_ids, same evidence span -- both survive regardless of differing severity"
+    },
+    {
+      "id": "sevC-be-same-evidence-diffsev-1",
+      "family": "same-evidence-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "different rule_ids, same evidence span -- both survive regardless of differing severity"
+    },
+    {
+      "id": "sevC-be-same-evidence-diffsev-2",
+      "family": "same-evidence-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "different rule_ids, same evidence span -- both survive regardless of differing severity"
+    },
+    {
+      "id": "sevC-be-same-evidence-diffsev-3",
+      "family": "same-evidence-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "different rule_ids, same evidence span -- both survive regardless of differing severity"
+    },
+    {
+      "id": "sevC-be-same-evidence-diffsev-4",
+      "family": "same-evidence-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "different rule_ids, same evidence span -- both survive regardless of differing severity"
+    },
+    {
+      "id": "sevC-be-same-evidence-diffsev-5",
+      "family": "same-evidence-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "different rule_ids, same evidence span -- both survive regardless of differing severity"
+    },
+    {
+      "id": "sevC-be-same-rule-diffsev-diffloc-0",
+      "family": "same-rule-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "same rule_id, different locations AND different severities -- both survive"
+    },
+    {
+      "id": "sevC-be-same-rule-diffsev-diffloc-1",
+      "family": "same-rule-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "same rule_id, different locations AND different severities -- both survive"
+    },
+    {
+      "id": "sevC-be-same-rule-diffsev-diffloc-2",
+      "family": "same-rule-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "same rule_id, different locations AND different severities -- both survive"
+    },
+    {
+      "id": "sevC-be-same-rule-diffsev-diffloc-3",
+      "family": "same-rule-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "same rule_id, different locations AND different severities -- both survive"
+    },
+    {
+      "id": "sevC-be-same-rule-diffsev-diffloc-4",
+      "family": "same-rule-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "same rule_id, different locations AND different severities -- both survive"
+    },
+    {
+      "id": "sevC-be-same-rule-diffsev-diffloc-5",
+      "family": "same-rule-different-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "same rule_id, different locations AND different severities -- both survive"
+    },
+    {
+      "id": "sevC-be-order-0",
+      "family": "ordering-many-severities",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 4,
+        "order": [
+          "critical",
+          "high",
+          "medium",
+          "low"
+        ]
+      },
+      "actual": {
+        "count": 4,
+        "order": [
+          "critical",
+          "high",
+          "medium",
+          "low"
+        ]
+      },
+      "correct": true,
+      "notes": "sort must be by severity, all 4 must survive"
+    },
+    {
+      "id": "sevC-be-order-1",
+      "family": "ordering-many-severities",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 4,
+        "order": [
+          "critical",
+          "high",
+          "medium",
+          "low"
+        ]
+      },
+      "actual": {
+        "count": 4,
+        "order": [
+          "critical",
+          "high",
+          "medium",
+          "low"
+        ]
+      },
+      "correct": true,
+      "notes": "sort must be by severity, all 4 must survive"
+    },
+    {
+      "id": "sevC-be-order-2",
+      "family": "ordering-many-severities",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 4,
+        "order": [
+          "critical",
+          "high",
+          "medium",
+          "low"
+        ]
+      },
+      "actual": {
+        "count": 4,
+        "order": [
+          "critical",
+          "high",
+          "medium",
+          "low"
+        ]
+      },
+      "correct": true,
+      "notes": "sort must be by severity, all 4 must survive"
+    },
+    {
+      "id": "sevC-be-order-3",
+      "family": "ordering-many-severities",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 4,
+        "order": [
+          "critical",
+          "high",
+          "medium",
+          "low"
+        ]
+      },
+      "actual": {
+        "count": 4,
+        "order": [
+          "critical",
+          "high",
+          "medium",
+          "low"
+        ]
+      },
+      "correct": true,
+      "notes": "sort must be by severity, all 4 must survive"
+    },
+    {
+      "id": "sevC-be-order-4",
+      "family": "ordering-many-severities",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 4,
+        "order": [
+          "critical",
+          "high",
+          "medium",
+          "low"
+        ]
+      },
+      "actual": {
+        "count": 4,
+        "order": [
+          "critical",
+          "high",
+          "medium",
+          "low"
+        ]
+      },
+      "correct": true,
+      "notes": "sort must be by severity, all 4 must survive"
+    },
+    {
+      "id": "sevC-be-order-5",
+      "family": "ordering-many-severities",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 4,
+        "order": [
+          "critical",
+          "high",
+          "medium",
+          "low"
+        ]
+      },
+      "actual": {
+        "count": 4,
+        "order": [
+          "critical",
+          "high",
+          "medium",
+          "low"
+        ]
+      },
+      "correct": true,
+      "notes": "sort must be by severity, all 4 must survive"
+    },
+    {
+      "id": "sevC-be-malformed-0",
+      "family": "malformed-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "malformed severity {'nested': 'dict'} must not crash or suppress"
+    },
+    {
+      "id": "sevC-be-malformed-1",
+      "family": "malformed-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "malformed severity [1, 2] must not crash or suppress"
+    },
+    {
+      "id": "sevC-be-malformed-2",
+      "family": "malformed-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "malformed severity 0 must not crash or suppress"
+    },
+    {
+      "id": "sevC-be-malformed-3",
+      "family": "malformed-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "malformed severity False must not crash or suppress"
+    },
+    {
+      "id": "sevC-be-malformed-4",
+      "family": "malformed-severity",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 1
+      },
+      "actual": {
+        "count": 1
+      },
+      "correct": true,
+      "notes": "malformed severity True must not crash or suppress"
+    },
+    {
+      "id": "sevC-rq-tier-immune-0",
+      "family": "tier-rank-immune-to-severity",
+      "target": "build_review_queue",
+      "expected": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE"
+        ]
+      },
+      "actual": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE"
+        ]
+      },
+      "correct": true,
+      "notes": "TIER_RANK ordering must follow policy_state, completely ignoring a contradicting severity label"
+    },
+    {
+      "id": "sevC-rq-tier-immune-1",
+      "family": "tier-rank-immune-to-severity",
+      "target": "build_review_queue",
+      "expected": {
+        "policy_order_states": [
+          "MUST_REDLINE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_order_states": [
+          "MUST_REDLINE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "correct": true,
+      "notes": "TIER_RANK ordering must follow policy_state, completely ignoring a contradicting severity label"
+    },
+    {
+      "id": "sevC-rq-tier-immune-2",
+      "family": "tier-rank-immune-to-severity",
+      "target": "build_review_queue",
+      "expected": {
+        "policy_order_states": [
+          "ESCALATE",
+          "EVALUATION_ERROR"
+        ]
+      },
+      "actual": {
+        "policy_order_states": [
+          "ESCALATE",
+          "EVALUATION_ERROR"
+        ]
+      },
+      "correct": true,
+      "notes": "TIER_RANK ordering must follow policy_state, completely ignoring a contradicting severity label"
+    },
+    {
+      "id": "sevC-rq-passed-immune-0",
+      "family": "passed-classification-immune-to-severity",
+      "target": "build_review_queue",
+      "expected": {
+        "passed_count": 1,
+        "policy_exception_count": 0
+      },
+      "actual": {
+        "passed_count": 1,
+        "policy_exception_count": 0
+      },
+      "correct": true,
+      "notes": "a spoofed severity='critical' on an ACCEPT_WITH_NOTE decision must not promote it into the exception queue"
+    },
+    {
+      "id": "sevC-rq-passed-immune-1",
+      "family": "passed-classification-immune-to-severity",
+      "target": "build_review_queue",
+      "expected": {
+        "passed_count": 1,
+        "policy_exception_count": 0
+      },
+      "actual": {
+        "passed_count": 1,
+        "policy_exception_count": 0
+      },
+      "correct": true,
+      "notes": "a spoofed severity='critical' on an ACCEPT_WITH_NOTE decision must not promote it into the exception queue"
+    },
+    {
+      "id": "sevC-rq-passed-immune-2",
+      "family": "passed-classification-immune-to-severity",
+      "target": "build_review_queue",
+      "expected": {
+        "passed_count": 1,
+        "policy_exception_count": 0
+      },
+      "actual": {
+        "passed_count": 1,
+        "policy_exception_count": 0
+      },
+      "correct": true,
+      "notes": "a spoofed severity='critical' on an ACCEPT_WITH_NOTE decision must not promote it into the exception queue"
+    },
+    {
+      "id": "sevC-rq-passed-immune-3",
+      "family": "passed-classification-immune-to-severity",
+      "target": "build_review_queue",
+      "expected": {
+        "passed_count": 1,
+        "policy_exception_count": 0
+      },
+      "actual": {
+        "passed_count": 1,
+        "policy_exception_count": 0
+      },
+      "correct": true,
+      "notes": "a spoofed severity='critical' on an ACCEPT_WITH_NOTE decision must not promote it into the exception queue"
+    },
+    {
+      "id": "sevC-rq-passed-immune-4",
+      "family": "passed-classification-immune-to-severity",
+      "target": "build_review_queue",
+      "expected": {
+        "passed_count": 1,
+        "policy_exception_count": 0
+      },
+      "actual": {
+        "passed_count": 1,
+        "policy_exception_count": 0
+      },
+      "correct": true,
+      "notes": "a spoofed severity='critical' on an ACCEPT_WITH_NOTE decision must not promote it into the exception queue"
+    },
+    {
+      "id": "sevC-rq-passed-immune-5",
+      "family": "passed-classification-immune-to-severity",
+      "target": "build_review_queue",
+      "expected": {
+        "passed_count": 1,
+        "policy_exception_count": 0
+      },
+      "actual": {
+        "passed_count": 1,
+        "policy_exception_count": 0
+      },
+      "correct": true,
+      "notes": "a spoofed severity='critical' on an ACCEPT_WITH_NOTE decision must not promote it into the exception queue"
+    },
+    {
+      "id": "sevC-agg-clean-sev0",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN"
+      },
+      "actual": {
+        "document_state": "CLEAN"
+      },
+      "correct": true,
+      "notes": "severity='critical' embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-clean-sev1",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN"
+      },
+      "actual": {
+        "document_state": "CLEAN"
+      },
+      "correct": true,
+      "notes": "severity='low' embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-clean-sev2",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN"
+      },
+      "actual": {
+        "document_state": "CLEAN"
+      },
+      "correct": true,
+      "notes": "severity=None embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-clean-sev3",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN"
+      },
+      "actual": {
+        "document_state": "CLEAN"
+      },
+      "correct": true,
+      "notes": "severity='garbage' embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-clean-sev4",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN"
+      },
+      "actual": {
+        "document_state": "CLEAN"
+      },
+      "correct": true,
+      "notes": "severity=999 embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-violation-sev0",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "actual": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "severity='critical' embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-violation-sev1",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "actual": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "severity='low' embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-violation-sev2",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "actual": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "severity=None embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-violation-sev3",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "actual": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "severity='garbage' embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-violation-sev4",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "actual": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "severity=999 embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-review-sev0",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "REQUIRES_REVIEW"
+      },
+      "actual": {
+        "document_state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "severity='critical' embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-review-sev1",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "REQUIRES_REVIEW"
+      },
+      "actual": {
+        "document_state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "severity='low' embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-review-sev2",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "REQUIRES_REVIEW"
+      },
+      "actual": {
+        "document_state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "severity=None embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-review-sev3",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "REQUIRES_REVIEW"
+      },
+      "actual": {
+        "document_state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "severity='garbage' embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-review-sev4",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "REQUIRES_REVIEW"
+      },
+      "actual": {
+        "document_state": "REQUIRES_REVIEW"
+      },
+      "correct": true,
+      "notes": "severity=999 embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-interaction-sev0",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_CRITICAL_INTERACTION"
+      },
+      "actual": {
+        "document_state": "HAS_CRITICAL_INTERACTION"
+      },
+      "correct": true,
+      "notes": "severity='critical' embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-interaction-sev1",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_CRITICAL_INTERACTION"
+      },
+      "actual": {
+        "document_state": "HAS_CRITICAL_INTERACTION"
+      },
+      "correct": true,
+      "notes": "severity='low' embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-interaction-sev2",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_CRITICAL_INTERACTION"
+      },
+      "actual": {
+        "document_state": "HAS_CRITICAL_INTERACTION"
+      },
+      "correct": true,
+      "notes": "severity=None embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-interaction-sev3",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_CRITICAL_INTERACTION"
+      },
+      "actual": {
+        "document_state": "HAS_CRITICAL_INTERACTION"
+      },
+      "correct": true,
+      "notes": "severity='garbage' embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-interaction-sev4",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_CRITICAL_INTERACTION"
+      },
+      "actual": {
+        "document_state": "HAS_CRITICAL_INTERACTION"
+      },
+      "correct": true,
+      "notes": "severity=999 embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-legacy-high-clean-sev0",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "actual": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "correct": true,
+      "notes": "severity='critical' embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-legacy-high-clean-sev1",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "actual": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "correct": true,
+      "notes": "severity='low' embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-legacy-high-clean-sev2",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "actual": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "correct": true,
+      "notes": "severity=None embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-legacy-high-clean-sev3",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "actual": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "correct": true,
+      "notes": "severity='garbage' embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-legacy-high-clean-sev4",
+      "family": "aggregation-immune-to-severity",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "actual": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "correct": true,
+      "notes": "severity=999 embedded in the decision dict must have zero effect on document_state"
+    },
+    {
+      "id": "sevC-agg-legacyhigh-lowsev-0",
+      "family": "legacy-high-plus-low-severity-finding",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "actual": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "correct": true,
+      "notes": "a low-severity-labeled clean finding does not erase legacy-high attention"
+    },
+    {
+      "id": "sevC-agg-legacyhigh-lowsev-1",
+      "family": "legacy-high-plus-low-severity-finding",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "actual": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "correct": true,
+      "notes": "a low-severity-labeled clean finding does not erase legacy-high attention"
+    },
+    {
+      "id": "sevC-agg-legacyhigh-lowsev-2",
+      "family": "legacy-high-plus-low-severity-finding",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "actual": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "correct": true,
+      "notes": "a low-severity-labeled clean finding does not erase legacy-high attention"
+    },
+    {
+      "id": "sevC-agg-legacyhigh-lowsev-3",
+      "family": "legacy-high-plus-low-severity-finding",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "actual": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "correct": true,
+      "notes": "a low-severity-labeled clean finding does not erase legacy-high attention"
+    },
+    {
+      "id": "sevC-agg-legacyhigh-lowsev-4",
+      "family": "legacy-high-plus-low-severity-finding",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "actual": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "correct": true,
+      "notes": "a low-severity-labeled clean finding does not erase legacy-high attention"
+    },
+    {
+      "id": "sevC-agg-legacyhigh-lowsev-5",
+      "family": "legacy-high-plus-low-severity-finding",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "actual": {
+        "document_state": "CLEAN_LEGACY_ATTENTION"
+      },
+      "correct": true,
+      "notes": "a low-severity-labeled clean finding does not erase legacy-high attention"
+    },
+    {
+      "id": "sevC-agg-legacylow-criticalsev-0",
+      "family": "legacy-low-plus-critical-severity-violation",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "actual": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "governed by state=PROHIBITED, not by the severity label"
+    },
+    {
+      "id": "sevC-agg-legacylow-criticalsev-1",
+      "family": "legacy-low-plus-critical-severity-violation",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "actual": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "governed by state=PROHIBITED, not by the severity label"
+    },
+    {
+      "id": "sevC-agg-legacylow-criticalsev-2",
+      "family": "legacy-low-plus-critical-severity-violation",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "actual": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "governed by state=PROHIBITED, not by the severity label"
+    },
+    {
+      "id": "sevC-agg-legacylow-criticalsev-3",
+      "family": "legacy-low-plus-critical-severity-violation",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "actual": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "governed by state=PROHIBITED, not by the severity label"
+    },
+    {
+      "id": "sevC-agg-legacylow-criticalsev-4",
+      "family": "legacy-low-plus-critical-severity-violation",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "actual": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "governed by state=PROHIBITED, not by the severity label"
+    },
+    {
+      "id": "sevC-agg-legacylow-criticalsev-5",
+      "family": "legacy-low-plus-critical-severity-violation",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "actual": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "governed by state=PROHIBITED, not by the severity label"
+    },
+    {
+      "id": "sevC-agg-violation-vs-review-precedence-0",
+      "family": "review-plus-violation-severity-crossed",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "actual": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "violation_severity='low' review_severity='critical' -- precedence must still favor the violation STATE, unaffected by which one is labeled more severe"
+    },
+    {
+      "id": "sevC-agg-violation-vs-review-precedence-1",
+      "family": "review-plus-violation-severity-crossed",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "actual": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "violation_severity='critical' review_severity='low' -- precedence must still favor the violation STATE, unaffected by which one is labeled more severe"
+    },
+    {
+      "id": "sevC-agg-violation-vs-review-precedence-2",
+      "family": "review-plus-violation-severity-crossed",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "actual": {
+        "document_state": "HAS_POLICY_VIOLATION"
+      },
+      "correct": true,
+      "notes": "violation_severity='medium' review_severity='medium' -- precedence must still favor the violation STATE, unaffected by which one is labeled more severe"
+    },
+    {
+      "id": "sevC-agg-interaction-vs-policy-severity-crossed-0",
+      "family": "interaction-plus-base-finding-severity-crossed",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_CRITICAL_INTERACTION"
+      },
+      "actual": {
+        "document_state": "HAS_CRITICAL_INTERACTION"
+      },
+      "correct": true,
+      "notes": "interaction_severity='low' policy_severity='critical' -- interaction ESCALATE state still wins precedence regardless of which side is labeled more severe"
+    },
+    {
+      "id": "sevC-agg-interaction-vs-policy-severity-crossed-1",
+      "family": "interaction-plus-base-finding-severity-crossed",
+      "target": "aggregate_document_state",
+      "expected": {
+        "document_state": "HAS_CRITICAL_INTERACTION"
+      },
+      "actual": {
+        "document_state": "HAS_CRITICAL_INTERACTION"
+      },
+      "correct": true,
+      "notes": "interaction_severity='critical' policy_severity='low' -- interaction ESCALATE state still wins precedence regardless of which side is labeled more severe"
+    },
+    {
+      "id": "sevC-be-samesev-diffpolicy-0",
+      "family": "same-severity-different-policies",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity, different rule_ids/evidence -- both survive"
+    },
+    {
+      "id": "sevC-be-samesev-diffpolicy-1",
+      "family": "same-severity-different-policies",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity, different rule_ids/evidence -- both survive"
+    },
+    {
+      "id": "sevC-be-samesev-diffpolicy-2",
+      "family": "same-severity-different-policies",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity, different rule_ids/evidence -- both survive"
+    },
+    {
+      "id": "sevC-be-samesev-diffpolicy-3",
+      "family": "same-severity-different-policies",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity, different rule_ids/evidence -- both survive"
+    },
+    {
+      "id": "sevC-be-samesev-diffpolicy-4",
+      "family": "same-severity-different-policies",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity, different rule_ids/evidence -- both survive"
+    },
+    {
+      "id": "sevC-be-samesev-diffpolicy-5",
+      "family": "same-severity-different-policies",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity, different rule_ids/evidence -- both survive"
+    },
+    {
+      "id": "sevC-be-samesev-diffpolicy-6",
+      "family": "same-severity-different-policies",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity, different rule_ids/evidence -- both survive"
+    },
+    {
+      "id": "sevC-be-samesev-diffpolicy-7",
+      "family": "same-severity-different-policies",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity, different rule_ids/evidence -- both survive"
+    },
+    {
+      "id": "sevC-be-samesev-diffpolicy-8",
+      "family": "same-severity-different-policies",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity, different rule_ids/evidence -- both survive"
+    },
+    {
+      "id": "sevC-be-samesev-diffpolicy-9",
+      "family": "same-severity-different-policies",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity, different rule_ids/evidence -- both survive"
+    },
+    {
+      "id": "sevC-be-samesev-diffevidence-0",
+      "family": "same-severity-different-evidence",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity AND rule_id, different evidence locations -- both survive (Phase B dedup key)"
+    },
+    {
+      "id": "sevC-be-samesev-diffevidence-1",
+      "family": "same-severity-different-evidence",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity AND rule_id, different evidence locations -- both survive (Phase B dedup key)"
+    },
+    {
+      "id": "sevC-be-samesev-diffevidence-2",
+      "family": "same-severity-different-evidence",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity AND rule_id, different evidence locations -- both survive (Phase B dedup key)"
+    },
+    {
+      "id": "sevC-be-samesev-diffevidence-3",
+      "family": "same-severity-different-evidence",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity AND rule_id, different evidence locations -- both survive (Phase B dedup key)"
+    },
+    {
+      "id": "sevC-be-samesev-diffevidence-4",
+      "family": "same-severity-different-evidence",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity AND rule_id, different evidence locations -- both survive (Phase B dedup key)"
+    },
+    {
+      "id": "sevC-be-samesev-diffevidence-5",
+      "family": "same-severity-different-evidence",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity AND rule_id, different evidence locations -- both survive (Phase B dedup key)"
+    },
+    {
+      "id": "sevC-be-samesev-diffevidence-6",
+      "family": "same-severity-different-evidence",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity AND rule_id, different evidence locations -- both survive (Phase B dedup key)"
+    },
+    {
+      "id": "sevC-be-samesev-diffevidence-7",
+      "family": "same-severity-different-evidence",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity AND rule_id, different evidence locations -- both survive (Phase B dedup key)"
+    },
+    {
+      "id": "sevC-be-samesev-diffevidence-8",
+      "family": "same-severity-different-evidence",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity AND rule_id, different evidence locations -- both survive (Phase B dedup key)"
+    },
+    {
+      "id": "sevC-be-samesev-diffevidence-9",
+      "family": "same-severity-different-evidence",
+      "target": "build_enhanced_issues",
+      "expected": {
+        "count": 2
+      },
+      "actual": {
+        "count": 2
+      },
+      "correct": true,
+      "notes": "identical severity AND rule_id, different evidence locations -- both survive (Phase B dedup key)"
+    },
+    {
+      "id": "sevC-rq-tier-volume-0",
+      "family": "tier-rank-immune-to-severity-volume",
+      "target": "build_review_queue",
+      "expected": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "correct": true,
+      "notes": "3-item tier ordering must follow policy_state alone, ignoring severity ordering entirely (critical-labeled NEGOTIATE ranks after medium-labeled PROHIBITED)"
+    },
+    {
+      "id": "sevC-rq-tier-volume-1",
+      "family": "tier-rank-immune-to-severity-volume",
+      "target": "build_review_queue",
+      "expected": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "correct": true,
+      "notes": "3-item tier ordering must follow policy_state alone, ignoring severity ordering entirely (critical-labeled NEGOTIATE ranks after medium-labeled PROHIBITED)"
+    },
+    {
+      "id": "sevC-rq-tier-volume-2",
+      "family": "tier-rank-immune-to-severity-volume",
+      "target": "build_review_queue",
+      "expected": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "correct": true,
+      "notes": "3-item tier ordering must follow policy_state alone, ignoring severity ordering entirely (critical-labeled NEGOTIATE ranks after medium-labeled PROHIBITED)"
+    },
+    {
+      "id": "sevC-rq-tier-volume-3",
+      "family": "tier-rank-immune-to-severity-volume",
+      "target": "build_review_queue",
+      "expected": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "correct": true,
+      "notes": "3-item tier ordering must follow policy_state alone, ignoring severity ordering entirely (critical-labeled NEGOTIATE ranks after medium-labeled PROHIBITED)"
+    },
+    {
+      "id": "sevC-rq-tier-volume-4",
+      "family": "tier-rank-immune-to-severity-volume",
+      "target": "build_review_queue",
+      "expected": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "correct": true,
+      "notes": "3-item tier ordering must follow policy_state alone, ignoring severity ordering entirely (critical-labeled NEGOTIATE ranks after medium-labeled PROHIBITED)"
+    },
+    {
+      "id": "sevC-rq-tier-volume-5",
+      "family": "tier-rank-immune-to-severity-volume",
+      "target": "build_review_queue",
+      "expected": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "correct": true,
+      "notes": "3-item tier ordering must follow policy_state alone, ignoring severity ordering entirely (critical-labeled NEGOTIATE ranks after medium-labeled PROHIBITED)"
+    },
+    {
+      "id": "sevC-rq-tier-volume-6",
+      "family": "tier-rank-immune-to-severity-volume",
+      "target": "build_review_queue",
+      "expected": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "correct": true,
+      "notes": "3-item tier ordering must follow policy_state alone, ignoring severity ordering entirely (critical-labeled NEGOTIATE ranks after medium-labeled PROHIBITED)"
+    },
+    {
+      "id": "sevC-rq-tier-volume-7",
+      "family": "tier-rank-immune-to-severity-volume",
+      "target": "build_review_queue",
+      "expected": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "correct": true,
+      "notes": "3-item tier ordering must follow policy_state alone, ignoring severity ordering entirely (critical-labeled NEGOTIATE ranks after medium-labeled PROHIBITED)"
+    },
+    {
+      "id": "sevC-rq-tier-volume-8",
+      "family": "tier-rank-immune-to-severity-volume",
+      "target": "build_review_queue",
+      "expected": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_order_states": [
+          "PROHIBITED",
+          "NEGOTIATE",
+          "REQUIRES_REVIEW"
+        ]
+      },
+      "correct": true,
+      "notes": "3-item tier ordering must follow policy_state alone, ignoring severity ordering entirely (critical-labeled NEGOTIATE ranks after medium-labeled PROHIBITED)"
+    }
+  ],
+  "total": 114,
+  "correct": 114
+}

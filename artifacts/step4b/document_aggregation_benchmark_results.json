@@ -1,0 +1,1329 @@
+{
+  "rows": [
+    {
+      "id": "agg-clean-legacy-clean-policy-0",
+      "family": "clean-legacy-clean-policy",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "agg-clean-legacy-clean-policy-1",
+      "family": "clean-legacy-clean-policy",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "agg-clean-legacy-policy-violation-0",
+      "family": "clean-legacy-policy-violation",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy indemnification state=PROHIBITED"
+      ],
+      "notes": "the central false-clean scenario: legacy risk says nothing is wrong, deterministic policy layer disagrees"
+    },
+    {
+      "id": "agg-clean-legacy-policy-violation-1",
+      "family": "clean-legacy-policy-violation",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy indemnification state=MUST_REDLINE"
+      ],
+      "notes": "the central false-clean scenario: legacy risk says nothing is wrong, deterministic policy layer disagrees"
+    },
+    {
+      "id": "agg-clean-legacy-policy-violation-2",
+      "family": "clean-legacy-policy-violation",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy indemnification state=ESCALATE"
+      ],
+      "notes": "the central false-clean scenario: legacy risk says nothing is wrong, deterministic policy layer disagrees"
+    },
+    {
+      "id": "agg-clean-legacy-policy-violation-3",
+      "family": "clean-legacy-policy-violation",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy indemnification state=NEGOTIATE"
+      ],
+      "notes": "the central false-clean scenario: legacy risk says nothing is wrong, deterministic policy layer disagrees"
+    },
+    {
+      "id": "agg-clean-legacy-interaction-violation-0",
+      "family": "clean-legacy-interaction-violation",
+      "mode": "cutover",
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY state=ESCALATE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-clean-legacy-interaction-violation-1",
+      "family": "clean-legacy-interaction-violation",
+      "mode": "cutover",
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH state=ESCALATE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-clean-legacy-interaction-violation-2",
+      "family": "clean-legacy-interaction-violation",
+      "mode": "cutover",
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_INDEMNITY_WITHIN_GENERAL_CAP state=ESCALATE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-clean-legacy-interaction-violation-3",
+      "family": "clean-legacy-interaction-violation",
+      "mode": "cutover",
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY state=ESCALATE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-clean-legacy-policy-review-0",
+      "family": "clean-legacy-policy-review",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy sla state=REQUIRES_REVIEW"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-clean-legacy-policy-review-1",
+      "family": "clean-legacy-policy-review",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy sla state=REQUIRES_REVIEW"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-clean-legacy-conflicting-evidence-0",
+      "family": "clean-legacy-conflicting-policy-evidence",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy payment_terms state=REQUIRES_REVIEW",
+        "interaction IX_SLA_PAYMENT_CREDIT_DEPENDENCY state=INSUFFICIENT_FACTS"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-clean-legacy-conflicting-evidence-1",
+      "family": "clean-legacy-conflicting-policy-evidence",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy payment_terms state=REQUIRES_REVIEW",
+        "interaction IX_SLA_PAYMENT_CREDIT_DEPENDENCY state=INSUFFICIENT_FACTS"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-clean-legacy-conflicting-evidence-2",
+      "family": "clean-legacy-conflicting-policy-evidence",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy payment_terms state=REQUIRES_REVIEW",
+        "interaction IX_SLA_PAYMENT_CREDIT_DEPENDENCY state=INSUFFICIENT_FACTS"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-high-legacy-policy-clean-0",
+      "family": "high-legacy-policy-clean",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN_LEGACY_ATTENTION",
+      "actual_document_state": "CLEAN_LEGACY_ATTENTION",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [
+        "no deterministic policy/interaction finding, but legacy overall_risk=high"
+      ],
+      "notes": "policy layer clean does not erase a legacy high-risk signal; must not look SAFER than pre-Step-4B"
+    },
+    {
+      "id": "agg-high-legacy-policy-clean-1",
+      "family": "high-legacy-policy-clean",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN_LEGACY_ATTENTION",
+      "actual_document_state": "CLEAN_LEGACY_ATTENTION",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [
+        "no deterministic policy/interaction finding, but legacy overall_risk=high"
+      ],
+      "notes": "policy layer clean does not erase a legacy high-risk signal; must not look SAFER than pre-Step-4B"
+    },
+    {
+      "id": "agg-high-legacy-policy-clean-2",
+      "family": "high-legacy-policy-clean",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN_LEGACY_ATTENTION",
+      "actual_document_state": "CLEAN_LEGACY_ATTENTION",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [
+        "no deterministic policy/interaction finding, but legacy overall_risk=high"
+      ],
+      "notes": "policy layer clean does not erase a legacy high-risk signal; must not look SAFER than pre-Step-4B"
+    },
+    {
+      "id": "agg-high-legacy-policy-na-0",
+      "family": "high-legacy-policy-not-applicable",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN_LEGACY_ATTENTION",
+      "actual_document_state": "CLEAN_LEGACY_ATTENTION",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [
+        "no deterministic policy/interaction finding, but legacy overall_risk=high"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-high-legacy-policy-na-1",
+      "family": "high-legacy-policy-not-applicable",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN_LEGACY_ATTENTION",
+      "actual_document_state": "CLEAN_LEGACY_ATTENTION",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [
+        "no deterministic policy/interaction finding, but legacy overall_risk=high"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-high-legacy-policy-na-2",
+      "family": "high-legacy-policy-not-applicable",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN_LEGACY_ATTENTION",
+      "actual_document_state": "CLEAN_LEGACY_ATTENTION",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [
+        "no deterministic policy/interaction finding, but legacy overall_risk=high"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-multiple-policy-violations-0",
+      "family": "multiple-policy-violations",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy indemnification state=PROHIBITED",
+        "policy termination state=ESCALATE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-multiple-policy-violations-1",
+      "family": "multiple-policy-violations",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy indemnification state=PROHIBITED",
+        "policy termination state=ESCALATE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-multiple-policy-violations-2",
+      "family": "multiple-policy-violations",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy indemnification state=PROHIBITED",
+        "policy termination state=ESCALATE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-multiple-policy-violations-3",
+      "family": "multiple-policy-violations",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy indemnification state=PROHIBITED",
+        "policy termination state=ESCALATE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-multiple-interactions-0",
+      "family": "multiple-interactions",
+      "mode": "cutover",
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY state=ESCALATE",
+        "interaction IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE state=ESCALATE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-multiple-interactions-1",
+      "family": "multiple-interactions",
+      "mode": "cutover",
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY state=ESCALATE",
+        "interaction IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE state=ESCALATE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-multiple-interactions-2",
+      "family": "multiple-interactions",
+      "mode": "cutover",
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY state=ESCALATE",
+        "interaction IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE state=ESCALATE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-hidden-among-clean-0",
+      "family": "one-critical-hidden-among-many-clean",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy limitation_of_liability state=PROHIBITED"
+      ],
+      "notes": "12-adapter-scale document where 11 of 12 policies are clean -- the one violation must not be diluted/averaged away"
+    },
+    {
+      "id": "agg-hidden-among-clean-1",
+      "family": "one-critical-hidden-among-many-clean",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy indemnification state=PROHIBITED"
+      ],
+      "notes": "12-adapter-scale document where 11 of 12 policies are clean -- the one violation must not be diluted/averaged away"
+    },
+    {
+      "id": "agg-hidden-among-clean-2",
+      "family": "one-critical-hidden-among-many-clean",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy payment_terms state=PROHIBITED"
+      ],
+      "notes": "12-adapter-scale document where 11 of 12 policies are clean -- the one violation must not be diluted/averaged away"
+    },
+    {
+      "id": "agg-hidden-among-clean-3",
+      "family": "one-critical-hidden-among-many-clean",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy termination state=PROHIBITED"
+      ],
+      "notes": "12-adapter-scale document where 11 of 12 policies are clean -- the one violation must not be diluted/averaged away"
+    },
+    {
+      "id": "agg-hidden-among-clean-4",
+      "family": "one-critical-hidden-among-many-clean",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy insurance state=PROHIBITED"
+      ],
+      "notes": "12-adapter-scale document where 11 of 12 policies are clean -- the one violation must not be diluted/averaged away"
+    },
+    {
+      "id": "agg-shadow-clean-0",
+      "family": "shadow-mode",
+      "mode": "shadow",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "agg-shadow-clean-1",
+      "family": "shadow-mode",
+      "mode": "shadow",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "agg-shadow-clean-2",
+      "family": "shadow-mode",
+      "mode": "shadow",
+      "expected_document_state": "CLEAN_LEGACY_ATTENTION",
+      "actual_document_state": "CLEAN_LEGACY_ATTENTION",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [
+        "no deterministic policy/interaction finding, but legacy overall_risk=high"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-shadow-legacy-liability-violation",
+      "family": "shadow-mode",
+      "mode": "shadow",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy limitation_of_liability state=PROHIBITED"
+      ],
+      "notes": "shadow mode still runs the single legacy liability decision as the user-visible policy_decisions -- this remains reachable even though the 12-adapter layer and interaction engine are not"
+    },
+    {
+      "id": "agg-shadow-no-playbook",
+      "family": "shadow-mode",
+      "mode": "shadow",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": "shadow mode with no playbook at all -- policy_decisions is None but mode != cutover, so CONFIGURATION_UNRESOLVED does not apply (that state is cutover-specific by design)"
+    },
+    {
+      "id": "agg-legacy-mode-0",
+      "family": "legacy-mode",
+      "mode": "legacy",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "agg-legacy-mode-1",
+      "family": "legacy-mode",
+      "mode": "legacy",
+      "expected_document_state": "CLEAN_LEGACY_ATTENTION",
+      "actual_document_state": "CLEAN_LEGACY_ATTENTION",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [
+        "no deterministic policy/interaction finding, but legacy overall_risk=high"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-cutover-no-playbook-0",
+      "family": "cutover-configuration-unresolved",
+      "mode": "cutover",
+      "expected_document_state": "CONFIGURATION_UNRESOLVED",
+      "actual_document_state": "CONFIGURATION_UNRESOLVED",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "cutover mode active but no policy_decisions resolved for this contract"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-cutover-no-playbook-1",
+      "family": "cutover-configuration-unresolved",
+      "mode": "cutover",
+      "expected_document_state": "CONFIGURATION_UNRESOLVED",
+      "actual_document_state": "CONFIGURATION_UNRESOLVED",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [
+        "cutover mode active but no policy_decisions resolved for this contract"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-precedence-interaction-over-policy",
+      "family": "precedence",
+      "mode": "cutover",
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY state=ESCALATE"
+      ],
+      "notes": "both a policy violation and a critical interaction present -- interaction takes precedence per the spec's ordering"
+    },
+    {
+      "id": "agg-precedence-policy-over-review",
+      "family": "precedence",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy indemnification state=PROHIBITED"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-precedence-review-over-legacy-high",
+      "family": "precedence",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [
+        "policy sla state=REQUIRES_REVIEW"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-interaction-evaluation-error-0",
+      "family": "interaction-evaluation-error",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_SLA_PAYMENT_CREDIT_DEPENDENCY state=EVALUATION_ERROR"
+      ],
+      "notes": "an EVALUATION_ERROR interaction is not clean -- must surface as REQUIRES_REVIEW, not be silently ignored as if untriggered"
+    },
+    {
+      "id": "agg-interaction-evaluation-error-1",
+      "family": "interaction-evaluation-error",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_SLA_PAYMENT_CREDIT_DEPENDENCY state=EVALUATION_ERROR"
+      ],
+      "notes": "an EVALUATION_ERROR interaction is not clean -- must surface as REQUIRES_REVIEW, not be silently ignored as if untriggered"
+    },
+    {
+      "id": "agg-interaction-evaluation-error-2",
+      "family": "interaction-evaluation-error",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_SLA_PAYMENT_CREDIT_DEPENDENCY state=EVALUATION_ERROR"
+      ],
+      "notes": "an EVALUATION_ERROR interaction is not clean -- must surface as REQUIRES_REVIEW, not be silently ignored as if untriggered"
+    },
+    {
+      "id": "agg-interaction-insufficient-facts-0",
+      "family": "interaction-insufficient-facts",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING state=INSUFFICIENT_FACTS"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-interaction-insufficient-facts-1",
+      "family": "interaction-insufficient-facts",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING state=INSUFFICIENT_FACTS"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-interaction-insufficient-facts-2",
+      "family": "interaction-insufficient-facts",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING state=INSUFFICIENT_FACTS"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-interaction-requires-review-0",
+      "family": "interaction-requires-review",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY state=REQUIRES_REVIEW"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-interaction-requires-review-1",
+      "family": "interaction-requires-review",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY state=REQUIRES_REVIEW"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-interaction-requires-review-2",
+      "family": "interaction-requires-review",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY state=REQUIRES_REVIEW"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-interaction-accept-with-note-0",
+      "family": "interaction-accept-with-note",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": "ACCEPT_WITH_NOTE is Rule 3's own ceiling (informational DEPENDENCY, not a conflict) -- must not be conflated with the ESCALATE/REQUIRES_REVIEW states that DO carry document-level weight"
+    },
+    {
+      "id": "agg-interaction-accept-with-note-1",
+      "family": "interaction-accept-with-note",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": "ACCEPT_WITH_NOTE is Rule 3's own ceiling (informational DEPENDENCY, not a conflict) -- must not be conflated with the ESCALATE/REQUIRES_REVIEW states that DO carry document-level weight"
+    },
+    {
+      "id": "agg-interaction-accept-with-note-2",
+      "family": "interaction-accept-with-note",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": "ACCEPT_WITH_NOTE is Rule 3's own ceiling (informational DEPENDENCY, not a conflict) -- must not be conflated with the ESCALATE/REQUIRES_REVIEW states that DO carry document-level weight"
+    },
+    {
+      "id": "agg-policy-accept-with-note-0",
+      "family": "policy-accept-with-note",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "agg-policy-accept-with-note-1",
+      "family": "policy-accept-with-note",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "agg-policy-accept-with-note-2",
+      "family": "policy-accept-with-note",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "agg-policy-not-applicable-0",
+      "family": "policy-not-applicable",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": "NOT_APPLICABLE is correctly not-evaluated, never itself a review trigger -- distinct from REQUIRES_REVIEW / EVALUATION_ERROR"
+    },
+    {
+      "id": "agg-policy-not-applicable-1",
+      "family": "policy-not-applicable",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": "NOT_APPLICABLE is correctly not-evaluated, never itself a review trigger -- distinct from REQUIRES_REVIEW / EVALUATION_ERROR"
+    },
+    {
+      "id": "agg-policy-not-applicable-2",
+      "family": "policy-not-applicable",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": "NOT_APPLICABLE is correctly not-evaluated, never itself a review trigger -- distinct from REQUIRES_REVIEW / EVALUATION_ERROR"
+    },
+    {
+      "id": "agg-policy-evaluation-error-0",
+      "family": "policy-evaluation-error",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy governing_law state=EVALUATION_ERROR"
+      ],
+      "notes": "EVALUATION_ERROR is not in the violation-state set, but is also not clean -- must not disappear"
+    },
+    {
+      "id": "agg-policy-evaluation-error-1",
+      "family": "policy-evaluation-error",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy governing_law state=EVALUATION_ERROR"
+      ],
+      "notes": "EVALUATION_ERROR is not in the violation-state set, but is also not clean -- must not disappear"
+    },
+    {
+      "id": "agg-policy-evaluation-error-2",
+      "family": "policy-evaluation-error",
+      "mode": "cutover",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy governing_law state=EVALUATION_ERROR"
+      ],
+      "notes": "EVALUATION_ERROR is not in the violation-state set, but is also not clean -- must not disappear"
+    },
+    {
+      "id": "agg-empty-dict-policy",
+      "family": "empty-vs-none",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "agg-none-policy-shadow",
+      "family": "empty-vs-none",
+      "mode": "shadow",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "agg-compound-violation-and-review-0",
+      "family": "compound-violation-and-review",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy indemnification state=MUST_REDLINE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-compound-violation-and-review-1",
+      "family": "compound-violation-and-review",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy indemnification state=MUST_REDLINE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-compound-violation-and-review-2",
+      "family": "compound-violation-and-review",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy indemnification state=MUST_REDLINE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-listing-safety-violation-0",
+      "family": "dashboard-listing-safety",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy confidentiality state=PROHIBITED"
+      ],
+      "notes": "listing-safety probe: overall_risk=low with confidentiality=PROHIBITED must not be filterable-out of every attention queue"
+    },
+    {
+      "id": "agg-listing-safety-violation-1",
+      "family": "dashboard-listing-safety",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy confidentiality state=MUST_REDLINE"
+      ],
+      "notes": "listing-safety probe: overall_risk=low with confidentiality=MUST_REDLINE must not be filterable-out of every attention queue"
+    },
+    {
+      "id": "agg-listing-safety-violation-2",
+      "family": "dashboard-listing-safety",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy confidentiality state=ESCALATE"
+      ],
+      "notes": "listing-safety probe: overall_risk=low with confidentiality=ESCALATE must not be filterable-out of every attention queue"
+    },
+    {
+      "id": "agg-listing-safety-violation-3",
+      "family": "dashboard-listing-safety",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy confidentiality state=NEGOTIATE"
+      ],
+      "notes": "listing-safety probe: overall_risk=low with confidentiality=NEGOTIATE must not be filterable-out of every attention queue"
+    },
+    {
+      "id": "agg-listing-safety-interaction-0",
+      "family": "dashboard-listing-safety",
+      "mode": "cutover",
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_INDEMNITY_WITHIN_GENERAL_CAP state=ESCALATE"
+      ],
+      "notes": "listing-safety probe: a critical interaction with overall_risk=low must not disappear from every attention queue"
+    },
+    {
+      "id": "agg-listing-safety-interaction-1",
+      "family": "dashboard-listing-safety",
+      "mode": "cutover",
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY state=ESCALATE"
+      ],
+      "notes": "listing-safety probe: a critical interaction with overall_risk=low must not disappear from every attention queue"
+    },
+    {
+      "id": "agg-listing-safety-interaction-2",
+      "family": "dashboard-listing-safety",
+      "mode": "cutover",
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE state=ESCALATE"
+      ],
+      "notes": "listing-safety probe: a critical interaction with overall_risk=low must not disappear from every attention queue"
+    },
+    {
+      "id": "agg-full-scale-clean-0",
+      "family": "full-scale-clean",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "agg-full-scale-clean-1",
+      "family": "full-scale-clean",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "agg-full-scale-violation-position-0",
+      "family": "full-scale-violation-position-independence",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy limitation_of_liability state=ESCALATE"
+      ],
+      "notes": "violation must be found regardless of which of the 12 adapters (dict iteration order) carries it"
+    },
+    {
+      "id": "agg-full-scale-violation-position-1",
+      "family": "full-scale-violation-position-independence",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy indemnification state=ESCALATE"
+      ],
+      "notes": "violation must be found regardless of which of the 12 adapters (dict iteration order) carries it"
+    },
+    {
+      "id": "agg-full-scale-violation-position-2",
+      "family": "full-scale-violation-position-independence",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy payment_terms state=ESCALATE"
+      ],
+      "notes": "violation must be found regardless of which of the 12 adapters (dict iteration order) carries it"
+    },
+    {
+      "id": "agg-full-scale-violation-position-3",
+      "family": "full-scale-violation-position-independence",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy termination state=ESCALATE"
+      ],
+      "notes": "violation must be found regardless of which of the 12 adapters (dict iteration order) carries it"
+    },
+    {
+      "id": "agg-full-scale-violation-position-4",
+      "family": "full-scale-violation-position-independence",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy insurance state=ESCALATE"
+      ],
+      "notes": "violation must be found regardless of which of the 12 adapters (dict iteration order) carries it"
+    },
+    {
+      "id": "agg-full-scale-violation-position-5",
+      "family": "full-scale-violation-position-independence",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy sla state=ESCALATE"
+      ],
+      "notes": "violation must be found regardless of which of the 12 adapters (dict iteration order) carries it"
+    },
+    {
+      "id": "agg-full-scale-violation-position-6",
+      "family": "full-scale-violation-position-independence",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy confidentiality state=ESCALATE"
+      ],
+      "notes": "violation must be found regardless of which of the 12 adapters (dict iteration order) carries it"
+    },
+    {
+      "id": "agg-full-scale-violation-position-7",
+      "family": "full-scale-violation-position-independence",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy ip state=ESCALATE"
+      ],
+      "notes": "violation must be found regardless of which of the 12 adapters (dict iteration order) carries it"
+    },
+    {
+      "id": "agg-full-scale-violation-position-8",
+      "family": "full-scale-violation-position-independence",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy data_security state=ESCALATE"
+      ],
+      "notes": "violation must be found regardless of which of the 12 adapters (dict iteration order) carries it"
+    },
+    {
+      "id": "agg-full-scale-violation-position-9",
+      "family": "full-scale-violation-position-independence",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy governing_law state=ESCALATE"
+      ],
+      "notes": "violation must be found regardless of which of the 12 adapters (dict iteration order) carries it"
+    },
+    {
+      "id": "agg-full-scale-violation-position-10",
+      "family": "full-scale-violation-position-independence",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy assignment state=ESCALATE"
+      ],
+      "notes": "violation must be found regardless of which of the 12 adapters (dict iteration order) carries it"
+    },
+    {
+      "id": "agg-full-scale-violation-position-11",
+      "family": "full-scale-violation-position-independence",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy non_compete state=ESCALATE"
+      ],
+      "notes": "violation must be found regardless of which of the 12 adapters (dict iteration order) carries it"
+    },
+    {
+      "id": "agg-shadow-legacy-liability-review-0",
+      "family": "shadow-mode",
+      "mode": "shadow",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy limitation_of_liability state=REQUIRES_REVIEW"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-shadow-legacy-liability-review-1",
+      "family": "shadow-mode",
+      "mode": "shadow",
+      "expected_document_state": "REQUIRES_REVIEW",
+      "actual_document_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy limitation_of_liability state=REQUIRES_REVIEW"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-cutover-empty-policy-decisions-0",
+      "family": "cutover-empty-policy-decisions",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": "empty dict (not None) means the playbook WAS resolved but matched nothing -- distinct from CONFIGURATION_UNRESOLVED, which requires policy_decisions is None"
+    },
+    {
+      "id": "agg-cutover-empty-policy-decisions-1",
+      "family": "cutover-empty-policy-decisions",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN_LEGACY_ATTENTION",
+      "actual_document_state": "CLEAN_LEGACY_ATTENTION",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [
+        "no deterministic policy/interaction finding, but legacy overall_risk=high"
+      ],
+      "notes": "empty dict (not None) means the playbook WAS resolved but matched nothing -- distinct from CONFIGURATION_UNRESOLVED, which requires policy_decisions is None"
+    },
+    {
+      "id": "agg-overall-risk-none-0",
+      "family": "overall-risk-none",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": "None overall_risk must not be treated as 'high' or crash the comparison"
+    },
+    {
+      "id": "agg-overall-risk-none-1",
+      "family": "overall-risk-none",
+      "mode": "cutover",
+      "expected_document_state": "CLEAN",
+      "actual_document_state": "CLEAN",
+      "correct": true,
+      "pre_false_clean": false,
+      "reasons": [],
+      "notes": "None overall_risk must not be treated as 'high' or crash the comparison"
+    },
+    {
+      "id": "agg-compound-worst-case-0",
+      "family": "compound-multiple-critical-plus-violation",
+      "mode": "cutover",
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY state=ESCALATE",
+        "interaction IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE state=ESCALATE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-compound-worst-case-1",
+      "family": "compound-multiple-critical-plus-violation",
+      "mode": "cutover",
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY state=ESCALATE",
+        "interaction IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE state=ESCALATE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-compound-worst-case-2",
+      "family": "compound-multiple-critical-plus-violation",
+      "mode": "cutover",
+      "expected_document_state": "HAS_CRITICAL_INTERACTION",
+      "actual_document_state": "HAS_CRITICAL_INTERACTION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "interaction IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY state=ESCALATE",
+        "interaction IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE state=ESCALATE"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "agg-policy-negotiate-0",
+      "family": "policy-negotiate-state",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy assignment state=NEGOTIATE"
+      ],
+      "notes": "NEGOTIATE must not be miscategorized as merely REQUIRES_REVIEW -- it is a policy position taken, a violation of the playbook's preferred term"
+    },
+    {
+      "id": "agg-policy-negotiate-1",
+      "family": "policy-negotiate-state",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy assignment state=NEGOTIATE"
+      ],
+      "notes": "NEGOTIATE must not be miscategorized as merely REQUIRES_REVIEW -- it is a policy position taken, a violation of the playbook's preferred term"
+    },
+    {
+      "id": "agg-policy-negotiate-2",
+      "family": "policy-negotiate-state",
+      "mode": "cutover",
+      "expected_document_state": "HAS_POLICY_VIOLATION",
+      "actual_document_state": "HAS_POLICY_VIOLATION",
+      "correct": true,
+      "pre_false_clean": true,
+      "reasons": [
+        "policy assignment state=NEGOTIATE"
+      ],
+      "notes": "NEGOTIATE must not be miscategorized as merely REQUIRES_REVIEW -- it is a policy position taken, a violation of the playbook's preferred term"
+    }
+  ],
+  "total": 104,
+  "pre_false_clean_count": 71,
+  "post_correct": 104,
+  "post_false_clean_count": 0
+}

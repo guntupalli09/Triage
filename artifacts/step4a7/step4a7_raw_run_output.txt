@@ -1,0 +1,2061 @@
+
+=== A6-L-01 [liability/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: ordinary multiplier cap, single clean value
+EXPECTED_RESULT: ACCEPT
+REASON: Textbook single-value multiplier cap naming a multi-word installer entity; nothing ambiguous.
+
+=== A6-L-02 [liability/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$250,000.00 fixed'
+unresolved_facts: []
+our_position: None
+CONCEPT: ordinary fixed-dollar cap
+EXPECTED_RESULT: ACCEPT
+REASON: Clean fixed dollar cap, no distractors.
+
+=== A6-L-03 [liability/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: ordinary multiplier cap
+EXPECTED_RESULT: NEGOTIATE or ACCEPT depending on policy threshold (default policy: 2x within acceptable range)
+REASON: Clean multiplier, marina domain, no distractor.
+
+=== A6-L-04 [liability/tier1/ordinary] label=AUTOMATABLE ===
+STATE: MUST_REDLINE
+extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+unresolved_facts: []
+our_position: None
+CONCEPT: fixed cap, alternate phrasing 'shall not be liable...exceeding'
+EXPECTED_RESULT: ESCALATE (fixed-dollar, compare manually per existing architecture) or ACCEPT depending on config
+REASON: Ordinary fixed cap using a slightly different verb ordering than the canonical 'shall not exceed', but clean.
+
+=== A6-L-05 [liability/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: recurring-payment basis multiplier (distribution fees)
+EXPECTED_RESULT: ACCEPT
+REASON: Ordinary clean multiplier cap.
+
+=== A6-L-06 [liability/tier1/ordinary] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (cannot resolve a greater of structure mixing a fee multiplier and a fixed dollar amount without the actual annual fee value)']
+our_position: None
+CONCEPT: greater-of structure, dollar first
+EXPECTED_RESULT: depends on actual fee amount; system should extract structure and escalate for value comparison unless resolvable
+REASON: Clean greater-of, both components clearly extractable.
+
+=== A6-L-07 [liability/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$10,000.00 fixed'
+unresolved_facts: []
+our_position: None
+CONCEPT: per-claim vs aggregate, matching structure but DIFFERENT numeric scope
+EXPECTED_RESULT: REQUIRES_REVIEW (scope ambiguity per existing architecture: per-claim vs aggregate distinct values, policy threshold scope unspecified)
+REASON: Genuinely two different numbers for two different scopes; existing architecture correctly escalates when it can't determine which scope governs.
+
+=== A6-L-08 [liability/tier1/ordinary] label=AUTOMATABLE ===
+STATE: NEGOTIATE
+extracted_summary: '3x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: ordinary multiplier, above-threshold value
+EXPECTED_RESULT: NEGOTIATE (3x exceeds acceptable_max but within negotiate_max under default policy)
+REASON: Clean multiplier above the preferred threshold — tests correct NEGOTIATE classification, not just ACCEPT.
+
+=== A6-L-09 [liability/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '5x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: ordinary multiplier, high value
+EXPECTED_RESULT: ESCALATE (exceeds negotiate_max under default policy)
+REASON: Clean multiplier well above acceptable range — tests correct ESCALATE.
+
+=== A6-L-10 [liability/tier1/ordinary] label=AUTOMATABLE ===
+STATE: MUST_REDLINE
+extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+unresolved_facts: []
+our_position: None
+CONCEPT: unlimited liability stated affirmatively as zero-liability (edge phrasing)
+EXPECTED_RESULT: requires human legal judgment on whether 'no liability whatsoever' is enforceable/desired; system likely treats as unlimited/uncapped signal -> escalate or note
+REASON: Deliberately edge-case phrasing that describes zero liability using unlimited-adjacent vocabulary ('no liability whatsoever') — tests whether the system conflates 'no liability owed' with 'uncapped liability exposure'. Labeled AUTOMATABLE cautiously since a favorable zero-exposure clause for the reviewing party's own protection should not by itself require review, but flagged for careful evaluation.
+
+=== A6-L-11 [liability/tier2/varied] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: ordinary multiplier cap wrapped in extensive boilerplate qualifiers
+EXPECTED_RESULT: ACCEPT
+REASON: Heavy legal boilerplate ('notwithstanding...whether in contract, tort, or otherwise') surrounds a genuinely clean, single value; the Section 11 cross-reference is a carve-out ACKNOWLEDGMENT, not a competing value — tests whether verbosity alone triggers unnecessary escalation.
+
+=== A6-L-12 [liability/tier2/varied] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: mutual liability cap with directional ambiguity
+EXPECTED_RESULT: REQUIRES_REVIEW is plausible ONLY if the cumulative-across-renewals language creates genuine ambiguity about which period's fees the multiplier applies to; otherwise should ACCEPT
+REASON: Labeled SHOULD_REVIEW because 'cumulative basis across the entire Term including any renewal terms' genuinely conflicts with 'total colocation fees paid during the twelve-month period immediately preceding the claim' — two different accounting bases stated in the same sentence for what the multiplier's basis actually covers, a genuine unresolved ambiguity.
+
+=== A6-L-13 [liability/tier2/varied] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: mutual-looking cap with a scoped named-party carve-out that cross-references a SEPARATE section rather than stating a competing value
+EXPECTED_RESULT: ACCEPT for the general cap (2x fees); the confidentiality carve-out is a scope note, not a blocking ambiguity for the numeric cap itself
+REASON: Distinguishes clean cross-reference-as-carve-out (no competing number stated) from the genuinely ambiguous cases elsewhere in this corpus that DO restate a conflicting figure.
+
+=== A6-L-14 [liability/tier2/varied] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (conflicting unlimited and numeric cap language for the general cap)']
+our_position: None
+CONCEPT: structured sub-section cap with a clean, unambiguous carve-out for a specific trigger
+EXPECTED_RESULT: ACCEPT for general cap value; willful_misconduct tracked as uncapped carve-out per existing carve-out architecture
+REASON: Numbered sub-section structure (9.1/9.2) rather than a single run-on sentence — tests structural variation while keeping the underlying concept (general cap + clean carve-out) unambiguous.
+
+=== A6-L-15 [liability/tier2/varied] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["general liability cap (a 'lesser of' structure was signaled but its component values could not both be extracted)"]
+our_position: None
+CONCEPT: lesser-of structure with an elaborate qualifying preamble and a computed second operand (monthly fee x 12)
+EXPECTED_RESULT: the second operand requires computing annual-equivalent from 'monthly storage fee x twelve' — if the system cannot resolve this into a directly comparable annual-fees multiplier, REQUIRES_REVIEW is defensible; otherwise ACCEPT if it correctly extracts lesser_of($5000, annualized 1x fee)
+REASON: Genuinely tests whether the multiplier extraction handles a computed/derived basis ('monthly fee...multiplied by twelve') rather than a bare 'annual fees' phrase — a legitimately harder but real-world-common construction, not a pathological trap.
+
+=== A6-L-16 [liability/tier2/varied] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (this clause delegates to a cross-referenced provision, and no cap-shaped value found in the document has any limitation-of-liability language near it — cannot establish that any of them is actually the liability cap without attorney review)']
+our_position: None
+CONCEPT: delegated-to-exhibit cap with distractor line items in the exhibit
+EXPECTED_RESULT: ACCEPT
+REASON: Labeled exhibit with clearly-named line items, one of which is unambiguously the liability cap; the monthly fee and late-payment penalty are distractors that must not be confused with the cap.
+
+=== A6-L-17 [liability/tier2/varied] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: multiplier cap with an explicit, clarifying (not ambiguating) per-relationship scope statement
+EXPECTED_RESULT: ACCEPT
+REASON: The lengthy trailing clarification RESOLVES rather than creates ambiguity (explicitly stating the cap does NOT aggregate across locations) — tests whether length/complexity alone triggers unnecessary escalation despite the clause being self-resolving.
+
+=== A6-L-18 [liability/tier2/varied] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["general liability cap (a 'greater of' structure was signaled but its component values could not both be extracted)"]
+our_position: None
+CONCEPT: greater-of with a fractional multiplier (1.5x) spelled out in words
+EXPECTED_RESULT: ACCEPT if the fractional multiplier is correctly parsed from the parenthetical numeral; REQUIRES_REVIEW is defensible if only the spelled-out words are present without recognition
+REASON: Tests numeral-in-parentheses extraction for a non-integer multiplier within a greater-of structure.
+
+=== A6-L-19 [liability/tier2/varied] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: two independently-stated, clearly-scoped caps (general vs. a specific claim category), NOT a conflicting redefinition of the same cap
+EXPECTED_RESULT: ACCEPT for the general cap (1x fees); the food-safety carve-out is a distinct, correctly-scoped super-cap for that specific category, not a competing definition of the SAME quantity
+REASON: Deliberately similar in shape to a conflicting-definition trap but is NOT one — two different, clearly-labeled figures govern two different scopes (general vs. food-safety claims), which is ordinary, common drafting and must not be treated as ambiguous.
+
+=== A6-L-20 [liability/tier2/varied] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: multiplier cap combined with a direct-damages-only limitation (a different, non-conflicting concept)
+EXPECTED_RESULT: ACCEPT for the multiplier value itself
+REASON: UCC/direct-damages boilerplate is a real, common addition that must not itself trigger unnecessary escalation of the clean multiplier value.
+
+=== A6-L-21 [liability/tier3/adversarial] label=SHOULD_REVIEW ===
+STATE: MUST_REDLINE
+extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+unresolved_facts: []
+our_position: None
+CONCEPT: genuine cross-reference delegation to an EXTERNAL, unrelated, unincluded third-party document
+EXPECTED_RESULT: REQUIRES_REVIEW or MUST_REDLINE (no cap value stated) — must NOT fabricate a value
+REASON: Adversarially constructed so the delegated document is not just 'not attached' but affirmatively describes a DIFFERENT bilateral relationship Tenant isn't part of — tests that the system doesn't hallucinate applicability of an unrelated third-party document's terms.
+
+=== A6-L-22 [liability/tier3/adversarial] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: self-defined term with two genuinely conflicting, section-scoped definitions
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Directly attacks the conflicting-defined-term detector added in Step 4A.5 with a differently-worded construction ('for purposes of Section X, means...' rather than 'is defined in Section X as...') — genuinely new phrasing testing whether the fix generalizes or was narrowly pattern-matched to the exact original wording.
+
+=== A6-L-23 [liability/tier3/adversarial] label=SHOULD_REVIEW ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: self-flagged basis ambiguity (the parties themselves say the basis term is unresolved)
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Different self-flagged-ambiguity phrasing than the Step 4A.5 fixed pattern ('unclear whether') — tests whether 'remains a matter...not yet finally resolved' generalizes as a self-flagged-ambiguity signal or only the exact 'unclear whether' phrase was fixed.
+
+=== A6-L-24 [liability/tier3/adversarial] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Multiple unreconciled provisions'
+unresolved_facts: ['controlling provision could not be determined among multiple candidates']
+our_position: None
+CONCEPT: exposure-vocabulary cap with an explicitly-disclaimed-as-separate distractor figure ($500,000 bond)
+EXPECTED_RESULT: ACCEPT (2x fees, not $500,000)
+REASON: Adversarially combines the Step 4A.5 exposure-vocabulary fix with a distractor figure test — the distractor is EXPLICITLY disclaimed as independent/additional, so a correct system must extract 2x fees, not the $500,000 bond amount or treat them as conflicting.
+
+=== A6-L-25 [liability/tier3/adversarial] label=SHOULD_REVIEW ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: tabular structure with a genuine carve-out field delegating to an unincluded exhibit
+EXPECTED_RESULT: REQUIRES_REVIEW is the more defensible outcome given the disclosed 'Liability Terms' tabular-exception-field gap from Step 4A.5, though the general cap value itself (2x fees) is clean if resolved separately
+REASON: Directly attacks the disclosed Step 4A.5 gap (tabular Exception/Carve-Out fields not scanned by the new 'Liability Terms' recognizer) with fresh wording ('Carve-Out:' instead of 'Exception:') to test whether the underlying gap generalizes across field-label variants.
+
+=== A6-L-26 [liability/tier1/ownership] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: insurance-requirement distractor explicitly disclaimed as separate from the genuine cap
+EXPECTED_RESULT: ACCEPT (1x fees)
+REASON: Classic insurance-vs-liability-cap distinction, new courier domain, new numbers.
+
+=== A6-L-27 [liability/tier1/ownership] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: SLA service-credit distractor explicitly disclaimed as separate
+EXPECTED_RESULT: ACCEPT
+REASON: SLA-credit distractor in a new IT-services domain.
+
+=== A6-L-28 [liability/tier1/ownership] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: termination-fee distractor
+EXPECTED_RESULT: ACCEPT
+REASON: Termination-fee distractor, landscaping domain.
+
+=== A6-L-29 [liability/tier1/ownership] label=AUTOMATABLE ===
+STATE: NEGOTIATE
+extracted_summary: '3x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: rent-figure distractor in a coworking-lease-adjacent document
+EXPECTED_RESULT: NEGOTIATE (3x)
+REASON: Rent-figure distractor, new coworking domain.
+
+=== A6-L-30 [liability/tier2/ownership] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x Recurring Payment'
+unresolved_facts: []
+our_position: None
+CONCEPT: premium-figure distractor (a DIFFERENT premium, paid in the opposite direction, under a different agreement) vs. the genuine basis (premiums paid by Policyholder)
+EXPECTED_RESULT: REQUIRES_REVIEW is defensible if the system cannot separate the two premium concepts cleanly; ACCEPT (2x) is correct if it does
+REASON: A genuinely hard ownership test: TWO premium concepts exist, flowing in OPPOSITE directions, in the SAME document — tests whether basis-word recognition alone (without direction-checking) would wrongly grab the $180,000 figure.
+
+=== A6-L-31 [liability/tier2/ownership] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: insurance-deductible distractor (Bayview's OWN deductible, not a liability cap to the counterparty)
+EXPECTED_RESULT: ACCEPT
+REASON: Insurance-deductible distractor, marina domain — a deductible is neither a liability cap nor an SLA credit, testing generalization beyond the two known distractor types.
+
+=== A6-L-32 [liability/tier2/ownership] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: indemnification-limit distractor in the same document, explicitly scoped as a DIFFERENT clause governing DIFFERENT claims
+EXPECTED_RESULT: ACCEPT (1x fees) on the liability adapter
+REASON: Classic cross-clause-leakage test using an indemnification-limit distractor rather than the more commonly-tested insurance/SLA distractors.
+
+=== A6-L-33 [liability/tier2/ownership] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: liquidated-damages-schedule distractor with a per-day accrual structure, explicitly scoped to a different category (delay claims) than the general cap
+EXPECTED_RESULT: ACCEPT (2x fees)
+REASON: Liquidated-damages distractor with per-day accrual math, a structurally different distractor shape than fixed dollar figures.
+
+=== A6-L-34 [liability/tier2/ownership] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (the document explicitly flags its own ambiguity about how this cap should be interpreted)']
+our_position: None
+CONCEPT: self-flagged stacking ambiguity between a general cap and a category-specific cap stated with the SAME numeric value
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Tests the self-flagged-ambiguity detector on a genuinely different domain and figure than the Step 4A.5 fixed case, with identical (not merely similar) numeric values on both sides — the hardest version of this pattern.
+
+=== A6-L-35 [liability/tier3/ownership] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: THREE stacked distractors (insurance, SLA credit, termination-fee schedule) all explicitly disclaimed as separate, in one document
+EXPECTED_RESULT: ACCEPT (1x fees)
+REASON: Stress-tests candidate-ownership discrimination with three simultaneous distractor types (more than any single prior corpus case), all explicitly and individually disclaimed as separate.
+
+=== A6-L-36 [liability/tier1/absence] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No limitation-of-liability clause found'
+unresolved_facts: []
+our_position: None
+CONCEPT: genuinely ABSENT limitation-of-liability clause
+EXPECTED_RESULT: NOT_APPLICABLE
+REASON: No liability clause exists anywhere in this document at all — the correct, safe outcome is NOT_APPLICABLE, and this is the AUTOMATABLE-labeled expectation: the system should confidently and correctly report absence, not fabricate a finding.
+
+=== A6-L-37 [liability/tier2/absence] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No limitation-of-liability clause found'
+unresolved_facts: []
+our_position: None
+CONCEPT: similar-but-IRRELEVANT provision (insurance requirement) that must NOT count as a limitation-of-liability clause
+EXPECTED_RESULT: NOT_APPLICABLE
+REASON: Directly tests the 'similar but irrelevant provision exists' absence sub-case — an insurance-minimums section must not be misread as a liability limitation, per the existing _SECONDARY_DISQUALIFIER_RE guard; this document has NO actual cap language at all.
+
+=== A6-L-38 [liability/tier2/absence] label=SHOULD_REVIEW ===
+STATE: MUST_REDLINE
+extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+unresolved_facts: []
+our_position: None
+CONCEPT: provision heading present but explicitly states no operative cap currently exists (a 'reserved' clause)
+EXPECTED_RESULT: REQUIRES_REVIEW is defensible (a heading exists suggesting the parties intended to address this, but no cap is stated) OR NOT_APPLICABLE if the system correctly reads 'no limitation currently applies' as equivalent to unlimited/uncapped — genuinely debatable, hence SHOULD_REVIEW
+REASON: Tests 'provision partially present' — a heading exists and is clearly about liability, but its own text says no cap currently applies; this is NOT the same as a clean absence (no heading at all) and deserves at least review, not silent NOT_APPLICABLE treated identically to a document that never mentions liability.
+
+=== A6-L-39 [liability/tier1/absence] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No limitation-of-liability clause found'
+unresolved_facts: []
+our_position: None
+CONCEPT: warranty-disclaimer boilerplate that superficially resembles liability-limiting language ('sole and exclusive remedy') but is not a liability cap
+EXPECTED_RESULT: NOT_APPLICABLE
+REASON: 'Sole and exclusive remedy' warranty-disclaimer language is adjacent to but distinct from a liability cap; this document genuinely has no limitation-of-liability clause and the system must not misfire on the warranty section.
+
+=== A6-L-40 [liability/tier3/absence] label=SHOULD_REVIEW ===
+STATE: MUST_REDLINE
+extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+unresolved_facts: []
+our_position: None
+CONCEPT: provision present in bare, minimal form delegating entirely to an unincluded external document with no fallback value
+EXPECTED_RESULT: REQUIRES_REVIEW or MUST_REDLINE (no cap value stated, delegated to an unincluded document) — must not fabricate a value or treat as NOT_APPLICABLE (the clause DOES exist and DOES address liability, just without a resolvable figure)
+REASON: Tests the distinction between 'clause genuinely absent' (should be NOT_APPLICABLE) and 'clause present but unresolvable' (should be REQUIRES_REVIEW/MUST_REDLINE, never silently treated the same as absence).
+
+=== A6-L-41 [liability/tier2/structural] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No limitation-of-liability clause found'
+unresolved_facts: []
+our_position: None
+CONCEPT: markdown-table-style normalized presentation with multiple category-specific caps
+EXPECTED_RESULT: ACCEPT for general cap (2x); category caps tracked separately
+REASON: Markdown-table structure (different from the plain field:value 'Liability Terms' structure already fixed) — tests whether tabular recognition generalizes to a genuinely different tabular syntax.
+
+=== A6-L-42 [liability/tier2/structural] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (multiple distinct cap values found for the general clause; cannot determine which governs)']
+our_position: None
+CONCEPT: amendment explicitly superseding an original cap value
+EXPECTED_RESULT: ESCALATE (3x exceeds acceptable range) — the correct amended value must be used, not the superseded 1x
+REASON: Amendment-supersession test, new domain (fitness studio), explicit 'amended and restated in its entirety' language.
+
+=== A6-L-43 [liability/tier2/structural] label=AUTOMATABLE ===
+STATE: MUST_REDLINE
+extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+unresolved_facts: []
+our_position: None
+CONCEPT: self-defined term with its value stated in a trailing clause
+EXPECTED_RESULT: ESCALATE (fixed dollar, per existing architecture) or ACCEPT depending on config
+REASON: Self-defined-term-with-value pattern, new adventure-tourism domain.
+
+=== A6-L-44 [liability/tier3/structural] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (multiple distinct cap values found for the general clause; cannot determine which governs)']
+our_position: None
+CONCEPT: THREE different service-category caps in one sentence, one delegated to an unincluded section
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Adversarially dense multi-category cap sentence combining a clean split (general vs. medical) with a genuine external delegation (court-reporting) — tests whether the system can distinguish resolvable category splits from a genuinely unresolvable delegation within the SAME sentence.
+
+=== A6-L-45 [liability/tier1/structural] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: per-site (not per-contract) scope clarification, ordinary multiplier
+EXPECTED_RESULT: ACCEPT
+REASON: Ordinary multiplier with a clarifying (not ambiguating) per-site scope note, new pool-maintenance domain.
+
+=== A6-L-46 [liability/tier3/grammatical_subject] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["directional liability position (the document's own definition of 'Vendor' uses purchasing/receiving language, which conflicts with 'Vendor''s conventional sell-side classification)"]
+our_position: None
+CONCEPT: a subordinate clause ('upon receiving...') names Buyer's department before the main verb, but the main verb's subject is unambiguously Vendor
+EXPECTED_RESULT: ACCEPT
+REASON: Tests whether a subordinate temporal clause mentioning the OTHER party before the main verb confuses subject attribution — the main clause's subject (Vendor, via 'the entity that... ships') is objectively clear.
+
+=== A6-L-47 [liability/tier3/grammatical_subject] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["directional liability position (the document's own definition of 'Distributor' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Distributor''s conventional classification still applies)"]
+our_position: None
+CONCEPT: passive-voice-adjacent construction: Distributor is the OBJECT ('to which... releases') not the subject of the verb 'releases' (Manufacturer is)
+EXPECTED_RESULT: ACCEPT if correctly resolved to buy_side; a WRONG-CLEAN risk exists if the system naively credits 'releases' (a sell-side verb) to Distributor merely because Distributor is the role being classified and appears grammatically close to the verb
+REASON: This is exactly the grammatical-subject-misattribution family the task requires: the verb 'releases' is objectively Manufacturer's action, and Distributor is merely its object — a system that credits the sell-side verb to Distributor (the role being classified, since it's textually closer to the defined term) would get the DIRECTION BACKWARDS, a genuine WC risk, not just an unnecessary escalation.
+
+=== A6-L-48 [liability/tier3/grammatical_subject] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No limitation-of-liability clause found'
+unresolved_facts: []
+our_position: None
+CONCEPT: a parenthetical aside describes an AFFILIATE's unrelated sell-side conduct ('licenses...to unrelated third parties'); the role being defined (Licensee) has its OWN clearly buy-side conduct ('obtains its rights...from Licensor') outside the parenthetical
+EXPECTED_RESULT: Licensee correctly resolves buy_side, not 'mixed'
+REASON: Combines the bystander-affiliate family with subject misattribution: an explicit 'unlike its affiliate X (which...)' construction names a SEPARATE entity's conduct in a way a shallow classifier could still misattribute to the role being defined, since the affiliate name (Meridian Systems Integration Group) sits inside the SAME sentence and uses recognized sell-side vocabulary ('licenses...to').
+
+=== A6-L-49 [liability/tier3/grammatical_subject] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: two sentences, two different roles, each with its OWN verb about a THIRD entity (Originators) — must not cross-contaminate
+EXPECTED_RESULT: ACCEPT
+REASON: Tests whether a buy-side verb ('purchases...from') attributed to a DIFFERENT role (Loan Trust) in an adjacent clause gets wrongly folded into the role actually being classified (Servicer), which would flip Servicer's direction incorrectly.
+
+=== A6-L-50 [liability/tier3/grammatical_subject] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No limitation-of-liability clause found'
+unresolved_facts: []
+our_position: None
+CONCEPT: a subcontractor's clear sell-side conduct ('sells...directly to park guests') must not be attributed to the role being defined (Operator), whose OWN conduct is explicitly stated to be different (licensing space to the subcontractor)
+EXPECTED_RESULT: Operator resolves sell_side via its OWN licensing conduct, not confused by the subcontractor's retail activity
+REASON: The explicit self-disclaimer ('Operator itself does not...') is the clearest possible signal a subcontractor's conduct is NOT the role's own — tests whether the system correctly uses this positive disclaiming evidence rather than being confused by the presence of two sell-side-shaped verbs (subcontractor sells; Operator licenses) in the same passage.
+
+=== A6-L-51 [liability/tier2/grammatical_subject] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (cap is expressed as a multiplier of Purchase Price, not fees — policy thresholds are defined as a multiplier of annual fees and this cannot be compared without additional information)']
+our_position: None
+CONCEPT: simple, clean, unambiguous subject — a CONTROL case for the grammatical-subject family (grammatical ownership is objectively clear, no misattribution risk at all)
+EXPECTED_RESULT: ACCEPT
+REASON: A deliberate CONTROL case within the grammatical-subject family: no ambiguity exists at all, testing that the system does not over-apply subject-tracking caution to genuinely simple sentences.
+
+=== A6-L-52 [liability/tier3/grammatical_subject] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: '1x Recurring Payment'
+unresolved_facts: []
+our_position: None
+CONCEPT: a single passive-voice sentence defines BOTH roles simultaneously via 'to whom'/'by whom' relative pronouns with no independent recognized buy/sell verb at all
+EXPECTED_RESULT: REQUIRES_REVIEW (generic mapping for 'Grantee'/'Grantor' may not exist, and no directional verb is recognized)
+REASON: A genuinely hard case where NO recognized vocabulary applies at all (mineral-rights 'conveyance' language), combined with a dual to-whom/by-whom structure — correctly should escalate rather than guess, testing that the system doesn't force a wrong resolution just because SOME structure is present.
+
+=== A6-L-53 [liability/tier2/role_definition] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: entity + TWO role aliases (short-name and role-word), definition embedded in the recital paragraph rather than a formal Definitions section
+EXPECTED_RESULT: ACCEPT
+REASON: No formal 'Definitions' section heading at all — the alias is established in an ordinary recital sentence, testing recognition outside the canonical structure.
+
+=== A6-L-54 [liability/tier2/role_definition] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: acquisition/name-change boilerplate combined with a clarifying functional statement ('continues to process transactions... as its primary function') that IS genuine sell-side evidence
+EXPECTED_RESULT: ACCEPT
+REASON: Combines acquisition/name-change boilerplate (a named category the task requires) with a genuine functional clause, testing that the bystander M&A language doesn't obscure the real evidence OR get mistaken for it.
+
+=== A6-L-55 [liability/tier2/role_definition] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: nested defined term ('Operator' defined generically, then explicitly equated with 'Facility Operator' as an interchangeable alias) before the real directional evidence appears
+EXPECTED_RESULT: ACCEPT
+REASON: The cap clause uses 'Facility Operator' while the directional evidence is stated for 'Operator'/the named entity — tests whether the interchangeable-alias link is correctly followed.
+
+=== A6-L-56 [liability/tier3/role_definition] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No limitation-of-liability clause found'
+unresolved_facts: []
+our_position: None
+CONCEPT: an elaborate corporate-family definition (parent, subsidiary, joint ventures) immediately followed by an explicit narrowing proviso limiting actual liability to ONE specific entity
+EXPECTED_RESULT: ACCEPT/clean resolution — the proviso is unambiguous
+REASON: Stress-tests corporate-family boilerplate discrimination combined with an explicit narrowing clause — genuinely dense but ultimately self-resolving, testing whether length alone triggers unnecessary escalation.
+
+=== A6-L-57 [liability/tier3/role_definition] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (cap is expressed as a multiplier of Purchase Price, not fees — policy thresholds are defined as a multiplier of annual fees and this cannot be compared without additional information)']
+our_position: None
+CONCEPT: conditional, externally-dependent identity definition (depends on an unincluded Purchase Order, with a fallback that depends on physical signature-block ordering not present in the text)
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: A fresh variant of the externally-conditioned-identity family (different from the 'party other than X' pattern already fixed) — depends on physical document structure (signature-block ordering) rather than a stated alternative party, testing generalization of the self-referential-identity-unresolvable concept to a new mechanism.
+
+=== A6-L-58 [liability/tier1/role_definition] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: a bare corporate-identity definition with a professional-corporation ('P.C.') suffix, a control case
+EXPECTED_RESULT: ACCEPT
+REASON: Simple control case: 'P.C.' professional-corporation suffix is a corporate-form variant not seen in prior corpora (Inc./LLC/Corp./L.P./LLP), testing that the entity-name-exclusion mechanism generalizes to it.
+
+=== A6-L-59 [liability/tier2/role_definition] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: cooperative boilerplate combined with a d/b/a trade name
+EXPECTED_RESULT: ACCEPT
+REASON: Combines two known bystander-boilerplate categories (cooperative + d/b/a) in one definition, new grain-milling domain.
+
+=== A6-L-60 [liability/tier3/role_definition] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (cap is expressed as a multiplier of Purchase Price, not fees — policy thresholds are defined as a multiplier of annual fees and this cannot be compared without additional information)']
+our_position: None
+CONCEPT: a section-scoped alternate definition that does NOT actually conflict for purposes of THIS section — both branches describe buy-side conduct (acquiring goods vs. receiving goods on consignment), just with different downstream obligations
+EXPECTED_RESULT: ACCEPT
+REASON: Deliberately similar in SHAPE to the multi-definition-conflict trap (a 'solely for purposes of Section N' scoped alternate definition) but is NOT actually a conflict — both definitions are buy-side and the scoped one explicitly disclaims applicability to Section 9, testing that the multi-definition-conflict detector doesn't over-trigger on every scoped alternate definition regardless of whether it actually disagrees.
+
+=== A6-I-01 [indemnification/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: n/a; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': None, 'protection': 'Client'}
+CONCEPT: ordinary single directional obligation
+EXPECTED_RESULT: ACCEPT (protection exists)
+REASON: Clean single-directional obligation, new aquarium domain.
+
+=== A6-I-02 [indemnification/tier1/ordinary] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Cinderpeak Adventure Tours indemnifies Participant Insurance Underwriter" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: ordinary single directional obligation, unmapped multi-word counterparty
+EXPECTED_RESULT: ACCEPT
+REASON: Clean obligation with an unmapped multi-word counterparty name.
+
+=== A6-I-03 [indemnification/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+CONCEPT: plain reciprocal opener, no exceptions
+EXPECTED_RESULT: ACCEPT
+REASON: Clean reciprocal control case.
+
+=== A6-I-04 [indemnification/tier1/ordinary] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Spirits Distribution indemnifies Retail Partner" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: ordinary obligation, multi-word indemnifying party name
+EXPECTED_RESULT: ACCEPT
+REASON: Clean, new wine-distribution domain.
+
+=== A6-I-05 [indemnification/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: n/a; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': None, 'protection': 'Client'}
+CONCEPT: ordinary obligation, willful-misconduct trigger
+EXPECTED_RESULT: ACCEPT
+REASON: Clean, willful-misconduct trigger tested.
+
+=== A6-I-06 [indemnification/tier2/varied] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: n/a; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': None, 'protection': 'Client'}
+CONCEPT: ordinary obligation buried in extensive qualifying boilerplate
+EXPECTED_RESULT: ACCEPT
+REASON: Tests whether verbose boilerplate ('notwithstanding...internal risk-management policies...not incorporated') triggers unnecessary escalation of an otherwise clean obligation.
+
+=== A6-I-07 [indemnification/tier2/varied] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: reciprocal opener with a NEW defined-term-shorthand pair (Responsible/Protected, not the fixed Indemnifying/Indemnified Party pair)
+EXPECTED_RESULT: ACCEPT if the parenthetical-shorthand tolerance generalizes beyond the exact 'Indemnifying/Indemnified Party' wording; REQUIRES_REVIEW is a defensible fallback if it does not
+REASON: Directly tests whether the Step 4A.5 fix for '(the 'Indemnifying Party')' parenthetical asides generalizes to ANY defined-term-shorthand pair, or was narrowly pattern-matched to that specific wording.
+
+=== A6-I-08 [indemnification/tier2/varied] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Harborlight Art Gallery Consignment Services indemnifies Consigning Artist" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: ordinary obligation with a scope carve-out that cross-references a section presumably in the SAME broader agreement, without stating a competing monetary value
+EXPECTED_RESULT: ACCEPT for the monetary cap itself
+REASON: Scope carve-out that doesn't create monetary ambiguity, new art-consignment domain.
+
+=== A6-I-09 [indemnification/tier2/varied] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: ordinary obligation with a broad-beneficiary clause (officers/directors/employees) and extensive boilerplate
+EXPECTED_RESULT: ACCEPT
+REASON: Broad-beneficiary language plus dense boilerplate, tests robustness.
+
+=== A6-I-10 [indemnification/tier2/varied] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: synonym-idiom obligation ('make X whole for...assume the defense of') combined with an SLA cross-reference that explicitly supplements rather than conflicts
+EXPECTED_RESULT: ACCEPT
+REASON: Tests the fixed synonym-idiom family combined with a non-conflicting cross-reference distractor.
+
+=== A6-I-11 [indemnification/tier3/adversarial] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: synonym-idiom obligation whose cap is a self-defined term with two genuinely conflicting section-scoped definitions
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Combines the synonym-idiom recognition fix with a fresh conflicting-defined-term construction (indemnification-side, not liability-side) — tests generalization across adapters.
+
+=== A6-I-12 [indemnification/tier3/adversarial] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the clause attaches a party-specific procedural grant or carve-out to Franchisee alone, rather than applying it to both parties symmetrically) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone"]
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: reciprocal opener + a 'but not' parenthetical exclusion granting sole defense responsibility to one named party for a specific claim category
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Directly attacks the fixed '(but not X)' defense-control asymmetry detector with a franchise-domain variant and a category-scoped (not general) grant.
+
+=== A6-I-13 [indemnification/tier3/adversarial] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Redwood Craft Brewery Distribution', 'protection': 'Retail Partner'}
+CONCEPT: reciprocal-but-named pair with an EXPLICITLY IDENTICAL survival period stated separately for each party (a deliberate near-miss for the differentiated-survival-period detector)
+EXPECTED_RESULT: ACCEPT
+REASON: Deliberately constructed as a near-miss for the survival-period-differentiation detector: BOTH periods are stated per-party (matching the shape of the genuine asymmetry cases) but are numerically IDENTICAL — must not be a false escalation.
+
+=== A6-I-14 [indemnification/tier3/adversarial] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Ceding Reinsurer', 'protection': 'Fronting Insurer'}
+CONCEPT: reciprocal-but-named pair with an IDENTICAL notice precondition applying to BOTH parties equally ('each party's...against it'), not just one
+EXPECTED_RESULT: ACCEPT
+REASON: A near-miss for the notice-precondition-differentiation detector (Step 4A.5's A4-J-14-family fix): the precondition is stated using 'each party'/'against it', genuinely symmetric, not differentiated per named role — must not be a false escalation.
+
+=== A6-I-15 [indemnification/tier3/adversarial] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: 'Exposure: 2x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Underwriting Manager', 'protection': 'Ceding Reinsurer'}
+CONCEPT: reciprocal-but-named pair with defense control granted to BOTH named parties symmetrically (explicit 'both...and...shall each control...respectively')
+EXPECTED_RESULT: ACCEPT
+REASON: Directly attacks the newly-fixed named-defense-control mechanism from the OPPOSITE direction: this must NOT over-escalate now that named-party defense-control grants are recognized — a genuinely symmetric grant naming both parties must still resolve automatically.
+
+=== A6-I-16 [indemnification/tier3/reciprocal_scope] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document states this obligation in both directions by name, but a per-party differentiation was found (the clause contains an 'except that'/'provided that' proviso naming Sublicensee specifically, rather than stating the condition for both parties uniformly — the reciprocal opener's symmetry claim cannot be verified from this proviso) — cannot confirm the two directions are actually equivalent"]
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: reciprocal-but-named pair with a trigger-category exclusion (patent infringement) for ONE direction only
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Directly attacks the disclosed Step 4A.5 gap with a NEW trigger category (patent infringement, biotech domain) and a NEW exclusion phrasing ('does not extend to') distinct from the original 'excludes claims arising from' wording.
+
+=== A6-I-17 [indemnification/tier3/reciprocal_scope] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['the document states this obligation in both directions by name, but a per-party differentiation was found (the clause attaches a party-specific procedural grant or carve-out to Building Owner alone, rather than applying it to both parties symmetrically) — cannot confirm the two directions are actually equivalent']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: trigger-category exclusion phrased as a separate 'provided, however' proviso rather than an 'except that' clause
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Tests whether the reciprocal-scope-exclusion gap (and any partial mitigation) generalizes across proviso phrasing variants, HVAC domain.
+
+=== A6-I-18 [indemnification/tier3/reciprocal_scope] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document states this obligation in both directions by name, but a per-party differentiation was found (the clause contains an 'except that'/'provided that' proviso naming Timberline Coworking Space specifically, rather than stating the condition for both parties uniformly — the reciprocal opener's symmetry claim cannot be verified from this proviso) — cannot confirm the two directions are actually equivalent"]
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: a symmetric general survival period (2 years) with a trigger-AND-party-specific exception (data-breach claims attributable to ONE named party survive longer)
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: A compound attack: combines the ALREADY-fixed survival-period-differentiation detector's shape (should catch it) with a trigger-category dimension (data breach) layered on top — tests whether adding the trigger dimension breaks the existing survival-period detection or whether it still correctly catches this.
+
+=== A6-I-19 [indemnification/tier3/reciprocal_scope] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Farm Energy Trading LLC indemnifies Counterparty" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)', 'obligation "Counterparty indemnifies Northwind Wind" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: asymmetric AFFILIATE-COVERAGE (broad-beneficiary) scope for one direction only
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Attacks with a NEW differentiation dimension (affiliate/broad-beneficiary coverage) not explicitly covered by any Step 4A.5 fix — tests whether the reciprocal-pair equality check (which DOES compare 'broad_beneficiary' in the snapshot-comparison logic used for the SEPARATE single-named-party-exception path, but may not apply the same comparison in the len(named)==2 reciprocal-pair path) catches this.
+
+=== A6-I-20 [indemnification/tier3/reciprocal_scope] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Spirits Distribution indemnifies Retail Partner" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)', 'obligation "Retail Partner indemnifies Vantage Wine" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: a trigger-specific MONETARY differentiation for one named party (willful misconduct carved out to a different multiplier, for Retail Partner only)
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Combines a monetary difference (which the EXISTING equality check DOES compare) with a trigger-specific scoping — this SHOULD already be caught by the existing monetary comparison, serving as a control/sanity-check case within the reciprocal-scope family to confirm the monetary check still works correctly.
+
+=== A6-I-21 [indemnification/tier2/reciprocal_scope] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Retail Distributor indemnifies Golden Gate Kombucha Brewing Co" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: genuinely reciprocal control case (no exclusions at all) within the reciprocal-scope family
+EXPECTED_RESULT: ACCEPT
+REASON: Control case within the reciprocal-scope family — a genuinely, completely symmetric pair must resolve automatically, confirming the family isn't just testing 'escalate everything reciprocal-shaped'.
+
+=== A6-I-22 [indemnification/tier2/reciprocal_scope] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Franchisee indemnifies Optique Vision Franchise Partners" could not be mapped to our configured contract side (sell_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: genuinely symmetric defense-cost allocation ('each party shall bear its own costs') — not a differentiated defense-control grant
+EXPECTED_RESULT: ACCEPT
+REASON: A near-miss control case: mentions 'defense' in a way that could superficially resemble a differentiated defense-control grant, but is explicitly symmetric ('each party...its own') — must not falsely trigger the named-defense-control detector.
+
+=== A6-I-23 [indemnification/tier3/reciprocal_scope] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document states this obligation in both directions by name, but a per-party differentiation was found (Pinehollow Veterinary Group and Pet Insurance Partner are subject to different named causation standards ('sole and proximate cause,' vs 'contributing cause')) — cannot confirm the two directions are actually equivalent"]
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: differentiated CAUSATION STANDARD for the two directions (sole-and-proximate-cause vs. contributing-cause) — a legal concept not tracked by any existing comparison field at all
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Attacks with a genuinely novel differentiation dimension (causation standard) not explicitly named in Step 4A.5's disclosed gap or any existing comparison field — tests whether the architecture has ANY generic mechanism for catching an unanticipated kind of asymmetry, or whether it is limited strictly to the enumerated fields.
+
+=== A6-I-24 [indemnification/tier3/reciprocal_scope] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Retail Partner indemnifies Fresh Sprout Meal" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: another affiliate-coverage asymmetry variant (broader wording than A6-I-19)
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: A second affiliate-coverage-asymmetry case with different wording, to confirm whether any partial detection is a one-off or generalizes to the family.
+
+=== A6-I-25 [indemnification/tier2/reciprocal_scope] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Bayview Marina Boat Storage', 'protection': 'Boat Owner'}
+CONCEPT: genuinely symmetric notice requirement via cross-reference to a shared, non-party-specific section
+EXPECTED_RESULT: ACCEPT
+REASON: A near-miss control: mentions notice requirements (a differentiation dimension already fixed for asymmetric cases) but explicitly states BOTH parties share the SAME requirement via a common cross-reference — must not falsely escalate.
+
+=== A6-I-26 [indemnification/tier3/grammatical_subject] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Servicer' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Servicer''s conventional classification still applies"]
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: Servicer's own conduct ('negotiates...on behalf of Investor') is expressed as acting THROUGH a named subsidiary — the subsidiary name sits between 'acting through' and the verb, testing whether it gets wrongly treated as the verb's subject
+EXPECTED_RESULT: ACCEPT
+REASON: Tests whether a named subsidiary sitting grammatically between 'acting through its...subsidiary' and the main verb confuses subject attribution for the role actually being defined.
+
+=== A6-I-27 [indemnification/tier3/grammatical_subject] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Franchisee' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Franchisee''s conventional classification still applies"]
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: Franchisee is the OBJECT of 'a license...is granted' (passive voice), with an intervening approval-committee subordinate clause naming the OTHER party
+EXPECTED_RESULT: ACCEPT if correctly resolved buy_side; WC risk if the sell-side-adjacent 'is granted' language is wrongly attributed active-voice to Franchisee
+REASON: A passive-voice grant construction where Franchisee is the recipient (buy-side) — tests whether the system correctly identifies Franchisee as receiving rather than granting.
+
+=== A6-I-28 [indemnification/tier3/grammatical_subject] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Distributor' uses both purchasing/receiving language and providing/selling language — cannot determine which transactional side 'Distributor' actually occupies"]
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: a sub-distributor's own sell-side conduct (named, with a recognized sell verb 'sells...to') sits in a subordinate clause, while Distributor's OWN buy-side conduct ('itself purchases...from Manufacturer') is the main clause
+EXPECTED_RESULT: ACCEPT (buy_side)
+REASON: The drafter's own use of 'itself' to disambiguate is a strong hint this exact confusion is a known real-world drafting concern — directly tests whether a NAMED bystander with a MATCHING recognized verb (sells) in a subordinate clause gets incorrectly folded into the main role's classification.
+
+=== A6-I-29 [indemnification/tier3/grammatical_subject] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Underwriting Manager' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Underwriting Manager''s conventional classification still applies"]
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: both roles defined simultaneously via 'through which'/'for which' relative-pronoun structure with a passive verb ('is placed') and no recognized buy/sell vocabulary
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: A reinsurance-domain variant of the dual-relative-pronoun pattern with genuinely unrecognized vocabulary — correctly should escalate.
+
+=== A6-I-30 [indemnification/tier3/grammatical_subject] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: n/a; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': None, 'protection': 'Shipper'}
+CONCEPT: Consignee is the OBJECT of a passive verb ('goods are consigned...by Shipper'), plus an explicit bystander disclaimer naming a THIRD entity (Shipper's upstream supplier) with NO relationship to Consignee at all
+EXPECTED_RESULT: ACCEPT
+REASON: Stacks passive-voice object attribution with an explicitly-disclaimed third-party bystander — the disclaimer ('no direct contractual relationship...whatsoever') is a strong positive signal the drafter is pre-empting exactly this kind of misattribution.
+
+=== A6-I-31 [indemnification/tier2/direction_invariance] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Thornfield Precision Machining', 'protection': 'Aerospace Parts Buyer'}
+CONCEPT: symmetric obligations, unusual precision-manufacturing role names
+EXPECTED_RESULT: ACCEPT
+REASON: Unusual role names, clean symmetric pair.
+
+=== A6-I-32 [indemnification/tier2/direction_invariance] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: 'Exposure: 2x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Quicksilver Courier Services', 'protection': 'Regional Logistics Hub'}
+CONCEPT: symmetric monetary treatment, unmapped names
+EXPECTED_RESULT: ACCEPT
+REASON: Symmetric monetary treatment test.
+
+=== A6-I-33 [indemnification/tier2/direction_invariance] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Northgate Behavioral Health Partners', 'protection': 'Referring Physician Network'}
+CONCEPT: symmetric carve-out trigger (confidentiality breach) applied identically both directions
+EXPECTED_RESULT: ACCEPT
+REASON: Symmetric carve-out/trigger test, healthcare domain.
+
+=== A6-I-34 [indemnification/tier3/direction_invariance] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+CONCEPT: symmetric opener with an explicit statement that role identity truly does not matter
+EXPECTED_RESULT: ACCEPT
+REASON: Explicit statement that side identity doesn't matter — strongest possible positive evidence for automatic resolution.
+
+=== A6-I-35 [indemnification/tier3/direction_invariance] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the clause contains an 'except that'/'provided that' proviso naming Zenith specifically, rather than stating the condition for both parties uniformly — the reciprocal opener's symmetry claim cannot be verified from this proviso) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone"]
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: symmetric opener with a LATER exception naming one specific party for a specific claim type
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Classic symmetric-opener-with-later-exception pattern, 3D-printing domain, new phrasing ('as opposed to...any other party').
+
+=== A6-I-36 [indemnification/tier3/direction_invariance] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Spirits Distribution indemnifies Retail Partner" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)', 'obligation "Retail Partner indemnifies Falconridge Wine" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: reciprocal-but-named pair split across TWO SEPARATE SENTENCES (not one run-on sentence) with an explicit statement of symmetric intent
+EXPECTED_RESULT: ACCEPT
+REASON: Tests whether the reciprocal-pair detection generalizes to a TWO-SENTENCE structure (rather than the usual single run-on sentence joined by 'and') — a genuinely different structural shape than any prior corpus's reciprocal-pair cases.
+
+=== A6-I-37 [indemnification/tier3/direction_invariance] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Underwriting Manager', 'protection': 'Ceding Reinsurer'}
+CONCEPT: unfamiliar/unmapped role names where side identity truly does not matter, PLUS an explicit bystander-disclaimer clause that must not be mistaken for a genuine exception
+EXPECTED_RESULT: ACCEPT
+REASON: Adversarially uses the word 'except that' (the EXACT trigger phrase for the party-specific-exception detector) in a clause that is NOT actually a substantive exception at all — just a bystander factual aside about the parties' downstream relationships — testing whether the exception detector over-triggers on the trigger PHRASE alone versus genuine substantive content.
+
+=== A6-I-38 [indemnification/tier3/direction_invariance] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Pacific Rim Manufacturing Group indemnifies Meridian Import Trading Co" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: genuinely direction-sensitive: an exception distinguishes GROSS negligence from ORDINARY negligence for ONE named party only, a real monetary asymmetry
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: A role-identity-DOES-matter case (per the task's explicit requirement to include both kinds): the exception is real and creates genuine asymmetry, must not be waved through as invariant merely because the opener is reciprocal.
+
+=== A6-I-39 [indemnification/tier2/direction_invariance] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Meadowbrook Dental Practice Management Group', 'protection': 'Referring Dentist Network'}
+CONCEPT: clean reciprocal-but-named pair, new dental-practice domain
+EXPECTED_RESULT: ACCEPT
+REASON: Additional clean direction-invariant control case.
+
+=== A6-I-40 [indemnification/tier2/direction_invariance] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: 'Exposure: 2x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Summit Physical Therapy Network', 'protection': 'Referring Physician Group'}
+CONCEPT: clean reciprocal-but-named pair, physical-therapy domain
+EXPECTED_RESULT: ACCEPT
+REASON: Additional clean control case.
+
+=== A6-I-41 [indemnification/tier1/absence] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No indemnification clause found'
+unresolved_facts: []
+our_position: None
+CONCEPT: genuinely absent indemnification clause
+EXPECTED_RESULT: NOT_APPLICABLE
+REASON: No indemnification language anywhere in the document; correct outcome is confident absence, not fabrication.
+
+=== A6-I-42 [indemnification/tier2/absence] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No indemnification clause found'
+unresolved_facts: []
+our_position: None
+CONCEPT: similar-but-irrelevant provision (insurance/additional-insured) that must not be mistaken for an indemnification obligation
+EXPECTED_RESULT: NOT_APPLICABLE
+REASON: Additional-insured/insurance language is adjacent to but distinct from indemnification; no actual indemnification obligation is stated.
+
+=== A6-I-43 [indemnification/tier2/absence] label=SHOULD_REVIEW ===
+STATE: MUST_REDLINE
+extracted_summary: 'Exposure: unspecified; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+CONCEPT: heading present but explicitly reserved/empty of operative content
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: A heading exists and clearly concerns indemnification, but no obligation is stated — distinct from clean absence, deserves review not silent NOT_APPLICABLE.
+
+=== A6-I-44 [indemnification/tier3/absence] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: clause present but delegated entirely to an external, unincluded, and differently-scoped document (parent-level agreement)
+EXPECTED_RESULT: REQUIRES_REVIEW or MUST_REDLINE
+REASON: Tests whether delegation to an unincluded PARENT-LEVEL (not even the same parties') document is correctly treated as unresolved rather than silently absent.
+
+=== A6-I-45 [indemnification/tier1/absence] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No indemnification clause found'
+unresolved_facts: []
+our_position: None
+CONCEPT: warranty-disclaimer boilerplate superficially near indemnification-adjacent territory but not an indemnification clause
+EXPECTED_RESULT: NOT_APPLICABLE
+REASON: Warranty disclaimer and consequential-damages exclusion are distinct concepts; no indemnification clause exists.
+
+=== A6-I-46 [indemnification/tier1/ordinary] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Willowbrook Pool Maintenance Services indemnifies Homeowners Association" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: ordinary single obligation
+EXPECTED_RESULT: ACCEPT
+REASON: Clean control case, pool-maintenance domain.
+
+=== A6-I-47 [indemnification/tier1/ordinary] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "EverGreen Landscaping Services indemnifies Property Manager" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: ordinary single obligation
+EXPECTED_RESULT: ACCEPT
+REASON: Clean control case, landscaping domain.
+
+=== A6-I-48 [indemnification/tier2/varied] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Coastal Marina Storage Group indemnifies Boat Owner" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: synonym-idiom obligation ('hold X harmless from and defend X against')
+EXPECTED_RESULT: ACCEPT
+REASON: Tests the fixed hold-harmless synonym idiom, marina domain.
+
+=== A6-I-49 [indemnification/tier2/varied] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Northeast Beverage Partners indemnifies Retail Chain" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: synonym-idiom obligation ('make X whole for...assume the defense of')
+EXPECTED_RESULT: ACCEPT
+REASON: Tests the fixed make-whole synonym idiom, beverage-distribution domain.
+
+=== A6-I-50 [indemnification/tier2/varied] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Cascade HVAC Servicing Corp indemnifies Building Owner" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: synonym-idiom obligation with conditional lead-in ('Should a third party assert...')
+EXPECTED_RESULT: ACCEPT
+REASON: Tests the fixed conditional-construction synonym idiom with a non-canonical section heading, HVAC domain.
+
+=== A6-I-51 [indemnification/tier2/varied] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Northgate Behavioral Health Partners indemnifies Referring Physician Network" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: self-defined cap term with a SINGLE, clean, non-conflicting definition
+EXPECTED_RESULT: ACCEPT
+REASON: A control case for the conflicting-defined-term family: this term is defined ONCE, cleanly — must resolve automatically, not be over-cautiously escalated merely because a self-defined term is present.
+
+=== A6-I-52 [indemnification/tier3/adversarial] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Redstone Industrial Park Management LLC indemnifies Tenant" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: a restated identical figure with an EXPLICIT non-stacking clarification (the opposite of the self-flagged-ambiguity pattern)
+EXPECTED_RESULT: ACCEPT
+REASON: A deliberate near-miss for the self-flagged-ambiguity/stacking-ambiguity detector: superficially similar shape to the genuinely ambiguous stacking cases elsewhere in this corpus, but EXPLICITLY resolved by the parties' own clarifying language — must not falsely escalate.
+
+=== A6-I-53 [indemnification/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: n/a; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': None, 'protection': 'Buyer'}
+CONCEPT: ordinary single obligation, cooperative domain
+EXPECTED_RESULT: ACCEPT
+REASON: Clean control case.
+
+=== A6-I-54 [indemnification/tier1/ordinary] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Defense Training Studios indemnifies Member" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: ordinary single obligation, fitness-studio domain
+EXPECTED_RESULT: ACCEPT
+REASON: Clean control case.
+
+=== A6-I-55 [indemnification/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: n/a; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': None, 'protection': 'Client'}
+CONCEPT: ordinary single obligation, cloud-backup domain
+EXPECTED_RESULT: ACCEPT
+REASON: Clean control case, rounds out Indemnification to 55.
+
+=== A6-P-01 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': 'us', 'tax_side': None}
+CONCEPT: ordinary payment timing
+EXPECTED_RESULT: depends on policy threshold
+REASON: Textbook Net 30, biotech domain.
+
+=== A6-P-02 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position']
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: ordinary tax-responsibility clause, tax on the OTHER side (compliant)
+EXPECTED_RESULT: ACCEPT
+REASON: Clean tax clause, sales/use tax category.
+
+=== A6-P-03 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: ordinary undisputed-amounts-still-payable clause
+EXPECTED_RESULT: ACCEPT
+REASON: Clean control case for the undisputed-payable concept.
+
+=== A6-P-04 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Trigger: invoice'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: ordinary invoice-frequency + payment-timing combination
+EXPECTED_RESULT: depends on policy threshold
+REASON: Clean, common combination.
+
+=== A6-P-05 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: ordinary monthly late-fee rate
+EXPECTED_RESULT: depends on annualized threshold
+REASON: Clean monthly late-fee rate.
+
+=== A6-P-06 [payment_terms/tier2/silent_miss_attack] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: payment timing via 'settled by' verb + ordinal-day-following an ISSUANCE (not acceptance/delivery/invoice-receipt) trigger
+EXPECTED_RESULT: AUTOMATABLE target: engage and extract; if missed, this is a genuine SM
+REASON: Tests generalization of 'disbursed by'/'remitted by' family to 'settled by', plus a NEW trigger event (invoice issuance) not in the fixed acceptance/delivery/invoice/receipt vocabulary — a genuine silent-miss-attack probe.
+
+=== A6-P-07 [payment_terms/tier2/silent_miss_attack] label=AUTOMATABLE ===
+STATE: NEGOTIATE
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: VAT-specific tax-responsibility clause (not the fixed 'responsible for/bear the cost of...taxes' phrasing at all — a genuinely different verb, 'remit')
+EXPECTED_RESULT: AUTOMATABLE target: engage; if missed, genuine SM
+REASON: Directly probes whether VAT-specific tax language (common in EU/international contracts, genuinely different phrasing than the fixed sales/premium/telecom tax vocabulary) is recognized at all.
+
+=== A6-P-08 [payment_terms/tier2/silent_miss_attack] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: withholding-tax clause using 'deducted at source' rather than the literal word 'withholding tax'
+EXPECTED_RESULT: AUTOMATABLE target: engage; if missed, genuine SM
+REASON: Tests whether 'deducted at source' (a common international-tax phrase) is recognized as equivalent to 'withholding tax' — the heading says 'Withholding' but the operative sentence never uses that word.
+
+=== A6-P-09 [payment_terms/tier2/silent_miss_attack] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: ordinal-day-following payment timing with a HIGH ordinal number (twenty-second) not in the fixed word-number map (which only covers first through thirtieth in whole-word form, but 'twenty-second' is a compound word)
+EXPECTED_RESULT: AUTOMATABLE target: engage; if missed, genuine SM (compound-ordinal-word gap)
+REASON: Directly probes the ordinal-word map's coverage boundary — 'twenty-second' is a compound spelled-out ordinal, testing whether the fixed vocabulary (which explicitly lists first-fifteenth, twentieth, thirtieth but not compound forms like twenty-second/twenty-third) generalizes or has a real gap.
+
+=== A6-P-10 [payment_terms/tier2/silent_miss_attack] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Trigger: invoice'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: payment timing phrased as 'the date that is N days after X' rather than 'within N days'/'due within N days'/ordinal-day-following
+EXPECTED_RESULT: AUTOMATABLE target: engage; if missed, genuine SM
+REASON: A THIRD distinct payment-timing sentence shape (neither 'within N days' nor ordinal-day-following) — tests whether recognition generalizes to genuinely new syntactic shapes for the same concept.
+
+=== A6-P-11 [payment_terms/tier2/silent_miss_attack] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: an ORDINARY, NON-SET-OFF credit-application mechanism (correcting a genuine overpayment) that must NOT be recognized as prohibited set-off
+EXPECTED_RESULT: must NOT trigger setoff_permitted/prohibited — this is a hard-negative control for the set-off detector
+REASON: A set-off HARD NEGATIVE: 'apply a credit...equal to any amount Tenant overpaid' is an ordinary overpayment correction, not a mutual-debt-netting right — this must NOT be recognized as set-off despite superficially matching some of the debt-satisfaction verb vocabulary ('apply...credit').
+
+=== A6-P-12 [payment_terms/tier2/silent_miss_attack] label=AUTOMATABLE ===
+STATE: MUST_REDLINE
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: a TRUE POSITIVE self-help mechanism that effectively nets mutual obligations WITHOUT using the words 'set-off' or 'offset' at all — 'recoup...any amount...independently obligated to remit'
+EXPECTED_RESULT: MUST_REDLINE (prohibited set-off, policy violated) — must NOT be silently missed
+REASON: A genuine true-positive set-off case using 'recoup' (already in the fixed verb vocabulary) combined with a cross-referenced Exhibit as the source of the counterparty's debt — tests whether the concept generalizes when the debt's origin is delegated to an exhibit rather than stated inline.
+
+=== A6-P-13 [payment_terms/tier2/silent_miss_attack] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: a cost-of-cover self-help deduction for the counterparty's OWN NON-PERFORMANCE (unremedied warranty defect), NOT a mutual monetary debt — the same conceptual boundary as SO-33 from the Step 4A.5 benchmark, tested with fresh wording
+EXPECTED_RESULT: REQUIRES_REVIEW is the most defensible label — this sits precisely at the documented boundary between set-off and ordinary damages/self-help deduction that Step 4A.5 explicitly declined to resolve further
+REASON: Deliberately re-probes the EXACT conceptual boundary Step 4A.5 left undecided (SO-33/cost-of-cover), with entirely new wording and a solar-installation domain, to test whether the boundary is stable or whether the detector's behavior on this shape has drifted.
+
+=== A6-P-14 [payment_terms/tier3/silent_miss_attack] label=AUTOMATABLE ===
+STATE: MUST_REDLINE
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: mutual-debt-netting stated as an operational settlement mechanism ('only the net difference...shall actually change hands') rather than using any of the fixed verb vocabulary (withhold/deduct/reduce/net/retain/recoup/debit/apply/credit/set off) at all
+EXPECTED_RESULT: MUST_REDLINE if recognized; a MISS here would be a genuine SM demonstrating the vocabulary boundary is real
+REASON: The hardest possible set-off recognition test: describes the EXACT netting concept using NONE of the fixed verb vocabulary at all — purely through the operational description 'only the net difference...shall actually change hands' — directly probes whether recognition is truly concept-based or ultimately still anchored to specific verbs.
+
+=== A6-P-15 [payment_terms/tier2/silent_miss_attack] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Trigger: invoice'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: dispute-notice-window clause combined with a deemed-acceptance-of-undisputed-amounts consequence
+EXPECTED_RESULT: AUTOMATABLE target: engage both concepts
+REASON: Combines dispute-notice-window recognition with a deemed-acceptance consequence phrased differently than a bare 'undisputed amounts remain payable' statement.
+
+=== A6-P-16 [payment_terms/tier3/adversarial] label=SHOULD_REVIEW ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No payment terms clause found'
+unresolved_facts: []
+our_position: None
+CONCEPT: broad tax-responsibility language with a genuine carve-out (net-income taxes) that changes the actual scope of who bears what
+EXPECTED_RESULT: REQUIRES_REVIEW is defensible given the genuine scope-changing carve-out; ACCEPT is also defensible if income-tax exclusion is standard/expected and doesn't affect the counterparty-tax-responsibility requirement
+REASON: Tests whether a genuine, scope-changing tax carve-out is recognized as creating a real question about compliance, rather than being ignored because the broad first clause satisfies the surface pattern.
+
+=== A6-P-17 [payment_terms/tier3/adversarial] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['multiple conflicting Net payment periods are stated']
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: genuinely conditional payment timing that depends on an external, unincluded Purchase Order's currency selection
+EXPECTED_RESULT: REQUIRES_REVIEW (net_days_conflict=True, genuinely two different values with no way to resolve which governs from the text alone)
+REASON: Tests the existing multiple-conflicting-Net-periods detection with a genuinely NEW structure: the conflict is conditional on external Purchase Order content, not simply two flatly stated different periods.
+
+=== A6-P-18 [payment_terms/tier3/adversarial] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: disputed-amount-withholding right combined with a carve-out for TAX AMOUNTS SPECIFICALLY (a genuinely different, common real-world nuance)
+EXPECTED_RESULT: ACCEPT for the general disputed-withholding right; the tax carve-out is a clean, non-ambiguating clarification
+REASON: Tests whether a clean, resolving carve-out (tax amounts specifically excluded, clearly stated) is correctly distinguished from a genuinely ambiguating one.
+
+=== A6-P-19 [payment_terms/tier3/adversarial] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: due-upon-receipt payment timing with an elaborate, but ultimately CLARIFYING (not ambiguating), definition of what 'receipt' means
+EXPECTED_RESULT: ACCEPT
+REASON: Tests whether an elaborate clarifying definition (which RESOLVES rather than creates ambiguity about what counts as 'receipt') triggers unnecessary escalation despite being self-resolving, similar in spirit to the liability corpus's analogous cases.
+
+=== A6-P-20 [payment_terms/tier3/adversarial] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: net-30 combined with dispute-timing carve-out AND an explicit undisputed-amounts-still-payable clarification, all in one sentence
+EXPECTED_RESULT: ACCEPT
+REASON: A dense, realistic compound sentence combining three payment concepts (net-30, dispute timing, undisputed-still-payable) with an explicit resolving intent clause — tests whether density alone triggers unnecessary escalation of an ultimately self-resolving clause.
+
+=== A6-P-21 [payment_terms/tier2/silent_miss_attack] label=AUTOMATABLE ===
+STATE: NEGOTIATE
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: GST-specific tax-responsibility clause using 'self-assessing and remitting'
+EXPECTED_RESULT: AUTOMATABLE target
+REASON: GST (goods-and-services-tax, common in Canada/Australia/NZ/Singapore) tests generalization beyond VAT and sales/use tax.
+
+=== A6-P-22 [payment_terms/tier2/silent_miss_attack] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Trigger: invoice'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: payment timing via 'discharge' (a further verb paraphrase beyond disbursed/remitted/settled) + 'rendered' as the trigger event
+EXPECTED_RESULT: AUTOMATABLE target
+REASON: A further paraphrase step beyond 'disbursed by'/'remitted by'/'settled by' — tests the true boundary of verb-vocabulary generalization.
+
+=== A6-P-23 [payment_terms/tier2/silent_miss_attack] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: prepayment requirement combined with a separate net-days term for the balance
+EXPECTED_RESULT: AUTOMATABLE target
+REASON: Split prepayment-percentage plus balance-timing structure, manufacturing domain.
+
+=== A6-P-24 [payment_terms/tier3/silent_miss_attack] label=AUTOMATABLE ===
+STATE: MUST_REDLINE
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: mutual-debt-netting stated via 'true up their respective obligations...with only the resulting balance actually being transferred' — a further paraphrase of the operational-settlement-mechanism shape
+EXPECTED_RESULT: MUST_REDLINE if recognized
+REASON: Uses 'true up' (common informal business/accounting jargon for netting) — a genuinely different register than any prior positive case, testing whether recognition depends on formal legal phrasing.
+
+=== A6-P-25 [payment_terms/tier2/setoff_hard_negative] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: promotional-rebate credit — a hard negative that must NOT be recognized as set-off
+EXPECTED_RESULT: must NOT trigger setoff_permitted/prohibited
+REASON: Promotional/loyalty-program rebate hard negative, new domain and phrasing from any prior corpus.
+
+=== A6-P-26 [payment_terms/tier2/setoff_hard_negative] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: pricing-error correction via credit memo — a hard negative
+EXPECTED_RESULT: must NOT trigger setoff_permitted/prohibited
+REASON: Pricing-error/credit-memo hard negative, industrial-park domain.
+
+=== A6-P-27 [payment_terms/tier2/setoff_hard_negative] label=SHOULD_REVIEW ===
+STATE: MUST_REDLINE
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: a damages-based direct-deduction remedy for the counterparty's OWN non-performance (equipment failure) — the same cost-of-cover boundary case as A6-P-13, tested a second time with a different domain to check consistency
+EXPECTED_RESULT: REQUIRES_REVIEW — this is the disclosed cost-of-cover boundary case, deliberately not resolved further
+REASON: A second instance of the cost-of-cover/damages-deduction boundary (drone domain), explicitly under a 'Damages' heading this time (a stronger signal it's NOT ordinary set-off) — tests whether the heading context changes the outcome versus A6-P-13's more neutral framing.
+
+=== A6-P-28 [payment_terms/tier1/setoff_hard_negative] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: withholding DELIVERY/ACCEPTANCE (a performance-leverage right), explicitly NOT payment — a clean hard negative
+EXPECTED_RESULT: must NOT trigger setoff_permitted/prohibited
+REASON: Withhold-delivery-not-payment hard negative, explicitly clarified, solar domain.
+
+=== A6-P-29 [payment_terms/tier1/setoff_hard_negative] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: an insurance-deductible concept, textually resembling deduction language but conceptually unrelated to payment set-off
+EXPECTED_RESULT: must NOT trigger setoff_permitted/prohibited
+REASON: Insurance-deductible hard negative, marina domain — 'deductible' resembles 'deduct' vocabulary but is a wholly different insurance concept.
+
+=== A6-P-30 [payment_terms/tier2/setoff_hard_negative] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: retaining one's OWN agreed compensation percentage (not a debt owed by the counterparty) — a hard negative
+EXPECTED_RESULT: must NOT trigger setoff_permitted/prohibited
+REASON: Retain-own-commission hard negative, dental-practice-management domain — matches the 'retaining OWN commission' negative-control category the Step 4A.5 benchmark already covers, but with fresh wording.
+
+=== A6-P-31 [payment_terms/tier1/absence] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No payment terms clause found'
+unresolved_facts: []
+our_position: None
+CONCEPT: genuinely absent payment terms clause
+EXPECTED_RESULT: NOT_APPLICABLE
+REASON: No payment-terms language anywhere; correct outcome is confident absence.
+
+=== A6-P-32 [payment_terms/tier2/absence] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No payment terms clause found'
+unresolved_facts: []
+our_position: None
+CONCEPT: a document that mentions 'fees paid' (in a liability clause) but has NO actual payment-terms provision — must not be mistaken for one
+EXPECTED_RESULT: NOT_APPLICABLE
+REASON: 'Annual fees paid' appears only inside a liability-cap multiplier basis, not as an actual payment-terms provision — tests that the payment adapter doesn't falsely engage on a bystander mention of 'fees paid' in an unrelated clause.
+
+=== A6-P-33 [payment_terms/tier2/absence] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: heading present but explicitly reserved/empty
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Heading exists and is clearly about payment, but explicitly states no obligation currently arises — distinct from clean absence.
+
+=== A6-P-34 [payment_terms/tier3/absence] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['material payment terms are delegated to a referenced Order Form/SOW/Schedule not included in this text']
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: clause present but delegated entirely to an unincluded Order Form
+EXPECTED_RESULT: REQUIRES_REVIEW or MUST_REDLINE
+REASON: Tests delegation-to-unincluded-document handling for payment terms specifically.
+
+=== A6-P-35 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': 'us', 'tax_side': None}
+CONCEPT: ordinary Net 45
+EXPECTED_RESULT: depends on threshold
+REASON: Clean control case, kombucha-brewing domain.
+
+=== A6-P-36 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position']
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: ordinary tax clause, property-tax category
+EXPECTED_RESULT: ACCEPT (compliant, tax on landlord side)
+REASON: Property-tax category, industrial-park domain.
+
+=== A6-P-37 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: ordinary Net 10
+EXPECTED_RESULT: depends on threshold
+REASON: Clean control case, marina domain.
+
+=== A6-P-38 [payment_terms/tier2/varied] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: ordinary Net 30 wrapped in boilerplate qualifiers
+EXPECTED_RESULT: depends on threshold
+REASON: Tests whether verbose qualifying language triggers unnecessary escalation of a clean Net 30.
+
+=== A6-P-39 [payment_terms/tier2/varied] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: currency clause combined with payment timing tied to a shipping-document date (bill of lading) rather than invoice/acceptance/delivery
+EXPECTED_RESULT: ACCEPT for currency; net_days extraction depends on whether 'bill of lading date' is recognized as a valid trigger
+REASON: Import/trading domain, new trigger-event vocabulary (bill of lading) for payment timing.
+
+=== A6-P-40 [payment_terms/tier2/varied] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: late-fee rate with a statutory-maximum reference (lesser-of structure)
+EXPECTED_RESULT: ACCEPT
+REASON: Statutory-maximum late-fee clause, a real common construction.
+
+=== A6-P-41 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': 'us', 'tax_side': None}
+CONCEPT: ordinary Net 20
+EXPECTED_RESULT: depends on threshold
+REASON: Clean control case, agricultural-drone domain.
+
+=== A6-P-42 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position']
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: ordinary tax clause, excise-tax category
+EXPECTED_RESULT: ACCEPT
+REASON: Excise-tax category, beverage-distribution domain.
+
+=== A6-P-43 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Trigger: invoice'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: ordinary Net 30
+EXPECTED_RESULT: depends on threshold
+REASON: Clean control case, physical-therapy domain.
+
+=== A6-P-44 [payment_terms/tier2/varied] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: expense-reimbursement clause with documentation and pre-approval requirements
+EXPECTED_RESULT: ACCEPT
+REASON: Expense-reimbursement clause with a monetary pre-approval threshold, biotech domain.
+
+=== A6-P-45 [payment_terms/tier2/varied] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: unilateral price-increase right with notice period and percentage cap
+EXPECTED_RESULT: ACCEPT
+REASON: Price-increase clause with both notice and percentage-cap modifiers, manufacturing domain.
+
+=== A6-P-46 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: ordinary Net 15, delivery-triggered
+EXPECTED_RESULT: depends on threshold
+REASON: Clean control case, wine-distribution domain.
+
+=== A6-P-47 [payment_terms/tier2/varied] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: fixed pricing clause with an explicit no-unilateral-increase statement
+EXPECTED_RESULT: ACCEPT
+REASON: Fixed-pricing clause, pool-maintenance domain.
+
+=== A6-P-48 [payment_terms/tier3/adversarial] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: 'Net 30; Trigger: invoice'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: the SAME defined term ('Net 30') given two genuinely different meanings (calendar vs. business days) in two different sections
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: A payment-terms-side conflicting-defined-term attack — tests whether the conflicting-defined-term detector (built for liability's dollar/multiplier caps) generalizes to a payment-timing concept.
+
+=== A6-P-49 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No payment terms clause found'
+unresolved_facts: []
+our_position: None
+CONCEPT: ordinary tax-adjacent clause using 'import duties and customs fees' rather than 'taxes'
+EXPECTED_RESULT: ACCEPT if 'duties and customs fees' is recognized as a tax-equivalent category; REQUIRES_REVIEW/SM risk if the adapter requires the literal word 'tax'
+REASON: Import-duty/customs-fee language is functionally a tax-responsibility clause but never uses the word 'tax' at all — tests whether the tax-recognition concept generalizes beyond its literal keyword.
+
+=== A6-P-50 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Trigger: invoice'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: ordinary Net 30
+EXPECTED_RESULT: depends on threshold
+REASON: Clean control case, cloud-backup domain.
+
+=== A6-P-51 [payment_terms/tier2/varied] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: currency clause + GST/HST tax clause combined, Canadian-tax-authority reference
+EXPECTED_RESULT: ACCEPT for currency; tax responsibility here is stated as Ironclad's OWN collection/remittance duty (a vendor-side VAT-style mechanic), which is a genuinely different concept from 'who bears the economic cost of the tax'
+REASON: GST/HST combined Canadian tax reference, tests whether the tax-responsibility concept correctly distinguishes 'who collects and remits' from 'who bears the cost' — a real nuance in VAT-style tax systems.
+
+=== A6-P-52 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: ordinary Net 30 with a correctness qualifier
+EXPECTED_RESULT: depends on threshold
+REASON: Clean Net 30 with a common qualifying phrase, colocation domain.
+
+=== A6-P-53 [payment_terms/tier2/varied] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: short payment cycle (Net 7, weekly) combined with a detailed dispute-notice procedure
+EXPECTED_RESULT: ACCEPT for net_days; dispute mechanics tracked separately
+REASON: Short weekly billing cycle (unusual but clean), franchise-royalty domain, combined with a detailed dispute procedure.
+
+=== A6-P-54 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position']
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: ordinary tax clause, telecom-infrastructure-tax category, municipal franchise fees
+EXPECTED_RESULT: ACCEPT
+REASON: Telecom-infrastructure tax category, data-center domain.
+
+=== A6-P-55 [payment_terms/tier1/ordinary] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: ordinary Net 5, membership-dues domain
+EXPECTED_RESULT: depends on threshold
+REASON: Clean control case, rounds Payment Terms out to 55.
+
+=== A6-C-01 [liability/tier2/compound] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x Recurring Payment'
+unresolved_facts: []
+our_position: None
+CONCEPT: liability + insurance + indemnification combined; each clause has its own distinct, unambiguous cap
+EXPECTED_RESULT: ACCEPT (1x premiums) on liability adapter
+REASON: Liability+insurance+indemnification triple combination, each with its own genuine figure — reinsurance domain.
+
+=== A6-C-02 [indemnification/tier2/compound] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['contract states directional (non-mutual) indemnification obligations, but this playbook is configured for a mutual position — cannot determine which obligation is ours']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: same document, scored on the indemnification adapter — must extract 2x, not 1x or $3M
+EXPECTED_RESULT: ACCEPT (2x premiums) on indemnification adapter
+REASON: Companion case to A6-C-01: same document, verifying the INDEMNIFICATION adapter independently extracts its own correct figure without cross-contamination from the liability/insurance clauses.
+
+=== A6-C-03 [payment_terms/tier2/compound] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position']
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: payment + tax + netting combination, both a tax-on-us violation AND a set-off violation independently correct
+EXPECTED_RESULT: MUST_REDLINE (multiple violations)
+REASON: Payment+tax+netting combination with bystander boilerplate layered in, new logistics domain and wording than any prior corpus's analogous case.
+
+=== A6-C-04 [liability/tier2/compound] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: liability + indemnification, each with its own DISTINCT unambiguous cap, scored on liability
+EXPECTED_RESULT: NEGOTIATE (2x) on liability adapter
+REASON: Liability+indemnification, each with its own distinct cap, wine-distribution domain.
+
+=== A6-C-05 [liability/tier3/compound] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$2,000,000.00 fixed'
+unresolved_facts: []
+our_position: None
+CONCEPT: SLA + insurance + liability combination, two distractors both explicitly disclaimed as separate
+EXPECTED_RESULT: ACCEPT/ESCALATE depending on fixed-dollar handling ($2,000,000)
+REASON: Classic triple-figure disambiguation, data-center domain, new numbers.
+
+=== A6-C-06 [payment_terms/tier3/compound] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document appears to define or recharacterize the role of 'Agent' using language this system does not confidently recognize — cannot safely confirm whether 'Agent''s conventional classification still applies"]
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: role reversal + broad-unrecognized-predicate combination ('is understood to mean')
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Role reversal + broad-unrecognized-predicate combination, must escalate regardless of whether trailing text happens to agree with generic mapping — reinsurance domain, fresh wording from any prior corpus's analogous case.
+
+=== A6-C-07 [liability/tier2/compound] label=AUTOMATABLE ===
+STATE: MUST_REDLINE
+extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+unresolved_facts: []
+our_position: None
+CONCEPT: bystander-noun + domain-specific-basis-word combination: 'Processor being the party that purchases equipment from a third-party dealer' describes Processor's unrelated conduct, not Grower's
+EXPECTED_RESULT: ACCEPT
+REASON: Bystander-noun + domain-specific-basis combination, agricultural domain, new wording variant of a known Step 4A.4 pattern shape.
+
+=== A6-C-08 [indemnification/tier3/compound] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the general terms and Charter Operator state different monetary terms (2x annual fees vs 5x annual fees)) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone"]
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: bystander boilerplate + genuine reciprocal-opener-plus-monetary-exception asymmetry
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Combines bystander boilerplate with a genuine reciprocal-opener-plus-exception asymmetry — must still escalate on the asymmetry despite the clean boilerplate, maritime domain.
+
+=== A6-C-09 [liability/tier2/compound] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$2,500,000.00 fixed'
+unresolved_facts: []
+our_position: None
+CONCEPT: liability + indemnification, evaluated on liability adapter
+EXPECTED_RESULT: ACCEPT/ESCALATE
+REASON: Liability adapter's own figure ($2,500,000), unaffected by the indemnification clause's 3x figure.
+
+=== A6-C-10 [payment_terms/tier2/compound] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position']
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: four-concept document (role definition, tax, liability, payment timing), scored on payment terms
+EXPECTED_RESULT: ACCEPT (compliant tax placement, clean Net 30)
+REASON: A four-concept document (definitions/tax/liability/payment) scored on the payment adapter alone — tests independent-adapter extraction in a genuinely dense document.
+
+=== A6-C-11 [indemnification/tier3/compound] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Servicer indemnifies Investor" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)', 'obligation "Investor indemnifies Servicer" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: cross-clause-leakage + reciprocal-but-named pair + SYMMETRIC defense control granted to both directions
+EXPECTED_RESULT: ACCEPT (2x)
+REASON: Verifies the named-defense-control fix does NOT over-escalate a genuinely symmetric grant, combined with cross-clause leakage discipline.
+
+=== A6-C-12 [liability/tier2/compound] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x Recurring Payment'
+unresolved_facts: []
+our_position: None
+CONCEPT: liability + indemnification, each with its OWN distinct cap, recurring-payment basis (royalties)
+EXPECTED_RESULT: NEGOTIATE (2x royalties)
+REASON: Tests the recurring-payment basis fix (royalties) in a compound liability+indemnification document — franchise domain.
+
+=== A6-C-13 [payment_terms/tier3/compound] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: multi-word connector-word role name + bystander boilerplate + ordinal-day payment timing + duty/fee tax-equivalent clause, all in one document
+EXPECTED_RESULT: ACCEPT for both concepts
+REASON: Stacks the connector-word role-name fix, bystander boilerplate, ordinal-day timing, and duty/fee tax-equivalent recognition — customs/import domain.
+
+=== A6-C-14 [liability/tier3/compound] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (cannot resolve a greater of structure mixing a fee multiplier and a fixed dollar amount without the actual annual fee value)']
+our_position: None
+CONCEPT: three-word role name + bystander boilerplate + greater-of structure + cross-clause distractor, all in one document, scored on liability
+EXPECTED_RESULT: ACCEPT structure, escalate for value comparison if needed
+REASON: Stacks four mechanisms simultaneously on the liability adapter — maritime domain.
+
+=== A6-C-15 [indemnification/tier3/compound] label=SHOULD_REVIEW ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: 'Exposure: 2x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Servicing Agent', 'protection': 'Investor'}
+CONCEPT: bystander incorporation boilerplate + reciprocal-but-named pair + a genuine trigger-level scope exclusion for one direction
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Directly combines the bystander-boilerplate family with the reciprocal-pair trigger-level-scope-exclusion family in one compound case, lending-domain.
+
+=== A6-C-16 [liability/tier2/compound] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: liability + insurance + payment terms combination, scored on liability
+EXPECTED_RESULT: ACCEPT (1x fees)
+REASON: Liability+insurance+payment, healthcare domain.
+
+=== A6-C-17 [payment_terms/tier2/compound] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Trigger: invoice'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: same document, scored on payment terms
+EXPECTED_RESULT: ACCEPT (Net 30)
+REASON: Companion to A6-C-16: payment adapter must correctly extract Net 30 unaffected by the liability/insurance clauses.
+
+=== A6-C-18 [indemnification/tier3/compound] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Underwriting Manager indemnifies Ceding Reinsurer" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: unrecognized passive-voice role-definition vocabulary combined with an ordinary obligation
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Reinsurance-domain unrecognized-vocabulary role definition combined with an otherwise-clean obligation — tests whether the obligation's own cleanliness overrides the genuine definitional ambiguity (it should not).
+
+=== A6-C-19 [liability/tier2/compound] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: three-concept document (liability, indemnification, payment), scored on liability
+EXPECTED_RESULT: ACCEPT (1x)
+REASON: Three-concept solar-installation document, liability-adapter isolation test.
+
+=== A6-C-20 [indemnification/tier2/compound] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Solar Ridge Installation Partners indemnifies Homeowner" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: same document, scored on indemnification
+EXPECTED_RESULT: ACCEPT (2x)
+REASON: Companion to A6-C-19, verifying independent indemnification extraction.
+
+=== A6-C-21 [payment_terms/tier3/compound] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: four-concept agricultural document with a genuine (non-ambiguous) quality-dispute payment-withholding carve-out
+EXPECTED_RESULT: ACCEPT
+REASON: Dense agricultural compound document with a genuine, self-resolving dispute-withholding carve-out.
+
+=== A6-C-22 [liability/tier3/compound] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (a self-defined cap term is given two different values in two different sections of this document)']
+our_position: None
+CONCEPT: conflicting-defined-term (liability side) combined with a distinct, clean indemnification clause
+EXPECTED_RESULT: REQUIRES_REVIEW on the liability adapter
+REASON: Conflicting-defined-term attack combined with a clean but distinct indemnification clause in the same document, marina domain — tests that the indemnification clause's cleanliness doesn't mask the liability clause's genuine ambiguity.
+
+=== A6-C-23 [indemnification/tier3/compound] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Coastal Marina Storage Group indemnifies Boat Owner" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: same document, scored on indemnification (which is clean, unaffected by the liability clause's own internal conflict)
+EXPECTED_RESULT: ACCEPT (2x)
+REASON: Companion to A6-C-22: the indemnification clause is genuinely clean and must resolve automatically even though the SAME document's liability clause is internally conflicted — tests that adapter independence works in BOTH directions (one clause's ambiguity doesn't leak into the other's cleanliness either).
+
+=== A6-C-24 [liability/tier2/compound] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: liability + a genuine set-off provision in the payment section, scored on liability (must not be confused by the set-off content)
+EXPECTED_RESULT: NEGOTIATE (2x) on liability adapter
+REASON: Liability adapter must not be affected by an unrelated genuine set-off clause elsewhere in the document — brewery-distribution domain.
+
+=== A6-C-25 [payment_terms/tier2/compound] label=AUTOMATABLE ===
+STATE: MUST_REDLINE
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: same document, scored on payment terms (the genuine set-off violation)
+EXPECTED_RESULT: MUST_REDLINE (prohibited set-off)
+REASON: Companion to A6-C-24: the payment adapter must independently catch the genuine set-off violation, unaffected by the liability clause.
+
+=== A6-C-26 [indemnification/tier3/compound] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Consignee' uses both purchasing/receiving language and providing/selling language — cannot determine which transactional side 'Consignee' actually occupies"]
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: genuine mixed buy+sell evidence about the role's OWN core business, applied to indemnification role resolution
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Tests the 'resell(s)' vocabulary fix on the INDEMNIFICATION side (rather than liability, where the analogous safety-attack case lives) — a genuine conflict about the role's own conduct must still escalate.
+
+=== A6-C-27 [liability/tier2/compound] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: liability + indemnification + payment (three concepts), scored on liability
+EXPECTED_RESULT: NEGOTIATE (2x)
+REASON: Three-concept spa-franchise document, liability-isolation test.
+
+=== A6-C-28 [payment_terms/tier2/compound] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: same document, scored on payment terms
+EXPECTED_RESULT: ACCEPT (Net 10)
+REASON: Companion to A6-C-27, verifying independent payment extraction.
+
+=== A6-C-29 [indemnification/tier3/compound] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: n/a; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': None, 'protection': 'Patient Referral Source'}
+CONCEPT: bystander administrative-invoicing clause + liability distractor, scored on indemnification
+EXPECTED_RESULT: ACCEPT (2x)
+REASON: Combines the bystander-administrative-clause fix with cross-clause-leakage discipline in one compound case, healthcare domain.
+
+=== A6-C-30 [liability/tier1/compound] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: clean three-concept document with no distractors at all, scored on liability — a compound-family control case
+EXPECTED_RESULT: ACCEPT
+REASON: Control case: an entirely ordinary, non-adversarial three-clause document — tests that the compound family isn't ALL pathological, per the realism requirement.
+
+=== A6-RB-01 [liability/tier2/varied] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: a stated multiplier value immediately qualified by an open-ended 'or such other amount as agreed' clause with an acknowledgment that no such agreement exists yet
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: An open-ended 'or as otherwise agreed' qualifier genuinely undermines confidence that 1x is the final, governing figure.
+
+=== A6-RB-02 [liability/tier2/varied] label=SHOULD_REVIEW ===
+STATE: MUST_REDLINE
+extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+unresolved_facts: []
+our_position: None
+CONCEPT: a cap delegated to a unilaterally-updatable external fee schedule not included in the text
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Genuine external delegation combined with a unilateral-discretion update right, ski-resort domain.
+
+=== A6-RB-03 [indemnification/tier2/varied] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Blue Ridge Biotech Licensing Partners indemnifies Sublicensee" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: an indemnification obligation exists but its monetary cap is explicitly not-yet-determined
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Genuinely unresolved cap, biotech domain.
+
+=== A6-RB-04 [indemnification/tier2/varied] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Cinderpeak Adventure Tours indemnifies Participant Insurance Underwriter" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: a clean general cap with a genuine carve-out delegated to an unincluded schedule with explicitly UNSPECIFIED terms
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Adventure-tourism domain, genuine external delegation with explicitly unknown terms for a real carve-out category.
+
+=== A6-RB-05 [payment_terms/tier2/varied] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['multiple conflicting Net payment periods are stated']
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: genuinely conflicting Net-day terms depending on an undetermined tier classification
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Two genuinely different Net-day terms with no way to determine which applies from the text alone, data-center domain.
+
+=== A6-RB-06 [payment_terms/tier2/varied] label=SHOULD_REVIEW ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No payment terms clause found'
+unresolved_facts: []
+our_position: None
+CONCEPT: tax responsibility entirely delegated to an unincluded separate memorandum
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Genuine external delegation for tax responsibility, franchise domain.
+
+=== A6-RB-07 [liability/tier3/adversarial] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: a clean-looking multiplier whose BASIS term is itself delegated through a chain of cross-references ending in an unincluded pricing schedule
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: A chained-delegation attack: the multiplier itself looks clean (1x) but its BASIS is genuinely unresolvable through a two-level cross-reference chain, drone-services domain.
+
+=== A6-RB-08 [indemnification/tier3/adversarial] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Meltwater Data Center Colocation Services indemnifies Tenant" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: chained cross-reference delegation for the basis term, indemnification side
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Indemnification-side companion to A6-RB-07's chained-delegation attack, data-center domain.
+
+=== A6-RB-09 [liability/tier2/ownership] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: a genuine either/or structure where WHICH branch applies is explicitly undetermined (not a resolvable greater-of/lesser-of, but a claim-type-dependent choice)
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Distinguishes a genuine either/or ambiguity (selection criterion unresolved) from a resolvable greater-of/lesser-of structure — art-gallery domain.
+
+=== A6-RB-10 [payment_terms/tier3/adversarial] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+CONCEPT: payment timing delegated to whichever of multiple amendments is 'most recent,' with the text itself acknowledging ambiguity about which that is
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: Self-flagged amendment-sequencing ambiguity for payment timing specifically, beverage-distribution domain.
+
+=== A6-RB-11 [indemnification/tier2/varied] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+our_position: {'exposure': None, 'protection': None}
+CONCEPT: a cap explicitly stated to be subject to annual revision, with the stated 1x figure only valid 'as of the Effective Date'
+EXPECTED_RESULT: REQUIRES_REVIEW
+REASON: A stated figure that is explicitly only a snapshot, subject to an annual revision mechanism — genuinely undermines confidence the extracted value is the governing one, import-trading domain.
+
+=== A6-RB-12 [liability/tier2/varied] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+CONCEPT: a stated cap with a CONTINGENT future renegotiation trigger that has NOT occurred and explicitly does not suspend the current figure's applicability
+EXPECTED_RESULT: ACCEPT (2x, since the trigger explicitly preserves the current figure until renegotiation, and no renegotiation is stated to have occurred)
+REASON: A deliberate NEAR-MISS for the ratio-balancing SHOULD_REVIEW cases in this file: superficially resembles an unresolved-cap pattern (future renegotiation mechanism) but EXPLICITLY preserves the current figure's applicability — must resolve automatically, testing that the system doesn't over-apply caution to every future-contingency clause regardless of whether it actually suspends the current value.
+
+
+########## FORMATTING MUTATIONS ##########
+
+=== A6-L-01-FMT-caps (base=A6-L-01, ALL-CAPS) ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+
+=== A6-L-02-FMT-linebreaks (base=A6-L-02, line breaks mid-sentence) ===
+STATE: ESCALATE
+extracted_summary: '$250,000.00 fixed'
+unresolved_facts: []
+
+=== A6-L-05-FMT-semicolons (base=A6-L-05, semicolon replacing period after heading) ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+
+=== A6-L-08-FMT-bullets (base=A6-L-08, bulleted restatement) ===
+STATE: NEGOTIATE
+extracted_summary: '3x annual fees'
+unresolved_facts: []
+
+=== A6-L-14-FMT-numbered (base=A6-L-14, numbered-list structure replacing decimal sub-sections) ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (conflicting unlimited and numeric cap language for the general cap)']
+
+=== A6-L-26-FMT-quotes (base=A6-L-26, quoted numeric terms) ===
+STATE: MUST_REDLINE
+extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+unresolved_facts: []
+
+=== A6-L-41-FMT-table-whitespace (base=A6-L-41, excess whitespace / OCR-like table spacing) ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No limitation-of-liability clause found'
+unresolved_facts: []
+
+=== A6-L-53-FMT-heading-removed (base=A6-L-53, section heading and number removed entirely) ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+
+=== A6-I-01-FMT-caps (base=A6-I-01, ALL-CAPS) ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "SAPPHIRE AQUARIUM EXHIBIT SERVICES indemnifies CLIENT FROM AND AGAINST THIRD" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+
+=== A6-I-03-FMT-linebreaks (base=A6-I-03, line breaks mid-sentence) ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+
+=== A6-I-05-FMT-heading-inserted (base=A6-I-05, expanded heading + sub-numbering inserted) ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: n/a; Protection: present'
+unresolved_facts: []
+
+=== A6-I-21-FMT-semicolons (base=A6-I-21, commas replaced with semicolons throughout) ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Retail Distributor indemnifies Golden Gate Kombucha Brewing Co" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+
+=== A6-I-46-FMT-bullets (base=A6-I-46, bulleted field:value restatement) ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+
+=== A6-P-01-FMT-caps (base=A6-P-01, ALL-CAPS) ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+
+=== A6-P-04-FMT-linebreaks (base=A6-P-04, line breaks mid-sentence) ===
+STATE: ACCEPT
+extracted_summary: 'Trigger: invoice'
+unresolved_facts: []
+
+=== A6-P-35-FMT-quoted (base=A6-P-35, quoted numeric term) ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+
+=== A6-P-42-FMT-numbered (base=A6-P-42, sentence artificially split across a lettered list) ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position']
+
+=== A6-P-05-FMT-table (base=A6-P-05, field:value tabular restatement) ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+
+=== A6-P-50-FMT-ocr (base=A6-P-50, OCR-like irregular spacing, textually interpretable) ===
+STATE: ACCEPT
+extracted_summary: 'Trigger: invoice'
+unresolved_facts: []
+
+=== A6-C-01-FMT-caps (base=A6-C-01, ALL-CAPS, compound document) ===
+STATE: ACCEPT
+extracted_summary: '1x Recurring Payment'
+unresolved_facts: []
+
+=== A6-C-03-FMT-linebreaks (base=A6-C-03, line breaks throughout, compound document) ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position']
+
+=== A6-L-46-FMT-caps (base=A6-L-46, ALL-CAPS, grammatical-subject-attack case) ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+
+=== A6-I-16-FMT-caps (base=A6-I-16, ALL-CAPS, reciprocal-scope-exclusion attack case) ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "MERIDIAN BIOTECH LICENSING PARTNERS indemnifies SUBLICENSEE" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)', 'obligation "AND SUBLICENSEE indemnifies MERIDIAN BIOTECH LICENSING PARTNERS" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+
+=== A6-P-12-FMT-caps (base=A6-P-12, ALL-CAPS, set-off true-positive case) ===
+STATE: MUST_REDLINE
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+
+=== A6-L-36-FMT-caps (base=A6-L-36, ALL-CAPS, absence case) ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No limitation-of-liability clause found'
+unresolved_facts: []
+
+=== A6-I-41-FMT-linebreaks (base=A6-I-41, line breaks, absence case) ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No indemnification clause found'
+unresolved_facts: []
+
+=== A6-P-31-FMT-bullets (base=A6-P-31, bulleted restatement, absence case) ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No payment terms clause found'
+unresolved_facts: []
+
+=== A6-L-57-FMT-quotes (base=A6-L-57, straight double quotes instead of curly single quotes) ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (cap is expressed as a multiplier of Purchase Price, not fees — policy thresholds are defined as a multiplier of annual fees and this cannot be compared without additional information)']
+
+=== A6-I-52-FMT-numbered (base=A6-I-52, numbered-list structure) ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Redstone Industrial Park Management LLC indemnifies Tenant" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+
+=== A6-P-53-FMT-paragraph-merge (base=A6-P-53, unrelated boilerplate paragraph merged into the same block) ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []

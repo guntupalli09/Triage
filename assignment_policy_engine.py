@@ -143,6 +143,19 @@ def _compare_restriction_attribution(base_role: str, base: Dict[str, Any], role:
     return reasons
 
 
+def _any_restriction_dimension_established_equal(base: Dict[str, Any], snap: Dict[str, Any]) -> bool:
+    """Step 4A.10.4 — real, positively-established agreement on the
+    consent standard or standing exceptions stands down the structural
+    fail-closed check. See
+    indemnification_policy_engine._any_dimension_established_equal for
+    the full rationale."""
+    if base["consent_standard"] not in ("not_stated",) and snap["consent_standard"] not in ("not_stated",) and base["consent_standard"] == snap["consent_standard"]:
+        return True
+    if base["exceptions"] and snap["exceptions"] and base["exceptions"] == snap["exceptions"]:
+        return True
+    return False
+
+
 def _detect_restriction_asymmetry(window: str) -> List[str]:
     """The scan/window/compare mechanics are shared (see policy_engine_core.
     detect_role_attributed_asymmetry, which also owns the next-attribution-
@@ -152,6 +165,7 @@ def _detect_restriction_asymmetry(window: str) -> List[str]:
     return detect_role_attributed_asymmetry(
         window, _ROLE_ATTRIBUTION_RE, _GENERIC_ROLE_WORDS,
         _snapshot_restriction_attribution, _compare_restriction_attribution,
+        established_equal_fn=_any_restriction_dimension_established_equal,
     )
 
 

@@ -1,0 +1,1028 @@
+{
+  "FRESH103-0001": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0002": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0003": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0004": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0005": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0006": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0007": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0008": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0009": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0010": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0011": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0012": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0013": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0014": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0015": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0016": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0017": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0018": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0019": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0020": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0021": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0022": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0023": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0024": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0025": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0026": {
+    "classification": "CS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0027": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0028": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0029": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0030": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0031": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0032": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0033": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0034": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0035": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0036": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0037": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0038": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0039": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0040": {
+    "classification": "CR",
+    "verified": false,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0041": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Charterer, Shipowner: specific, establishable terms exist for Charterer but not for Shipowner \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0042": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Escrow Agent, Depositor: specific, establishable terms exist for Escrow Agent but not for Depositor \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0043": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Third, Party Administrator, Plan Sponsor: specific, establishable terms exist for Party Administrator but not for Third, Plan Sponsor \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0044": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Company, Reinsurer: specific, establishable terms exist for Ceding Company but not for Reinsurer \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0045": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Warehouse Operator, Consignor: specific, establishable terms exist for Warehouse Operator but not for Consignor \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0046": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Toll Manufacturer, Brand Owner: specific, establishable terms exist for Toll Manufacturer but not for Brand Owner \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0047": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Syndicate Lead, Participant Lender: specific, establishable terms exist for Syndicate Lead but not for Participant Lender \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0048": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Booking Agent, Performer: specific, establishable terms exist for Booking Agent but not for Performer \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0049": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Charterer, Shipowner: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0050": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Escrow Agent, Depositor: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0051": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Third, Party Administrator, Plan Sponsor: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0052": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Company, Reinsurer: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0053": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Warehouse Operator, Consignor: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0054": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Toll Manufacturer, Brand Owner: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0055": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Syndicate Lead, Participant Lender: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0056": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Booking Agent, Performer: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0057": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0058": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0059": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0060": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0061": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0062": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0063": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0064": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0065": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0066": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0067": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0068": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0069": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0070": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0071": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0072": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0073": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Charterer, Shipowner: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0074": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Escrow Agent, Depositor: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0075": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Third, Party Administrator, Plan Sponsor: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0076": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Company, Reinsurer: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0077": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Warehouse Operator, Consignor: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0078": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Toll Manufacturer, Brand Owner: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0079": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Syndicate Lead, Participant Lender: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0080": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Booking Agent, Performer: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0081": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Charterer, Shipowner: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0082": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Escrow Agent, Depositor: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0083": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Third, Party Administrator, Plan Sponsor: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0084": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Company, Reinsurer: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0085": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Warehouse Operator, Consignor: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0086": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Toll Manufacturer, Brand Owner: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0087": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Syndicate Lead, Participant Lender: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0088": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Booking Agent, Performer: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0089": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0090": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0091": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0092": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0093": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0094": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0095": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0096": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0097": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Charterer, Shipowner: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0098": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Escrow Agent, Depositor: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0099": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Third, Party Administrator, Plan Sponsor: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0100": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Company, Reinsurer: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0101": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Warehouse Operator, Consignor: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0102": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Toll Manufacturer, Brand Owner: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0103": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Syndicate Lead, Participant Lender: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0104": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Booking Agent, Performer: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0105": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0106": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0107": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0108": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0109": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0110": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0111": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0112": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0113": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0114": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0115": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0116": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0117": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0118": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0119": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0120": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0121": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0122": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0123": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0124": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0125": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0126": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0127": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0128": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0129": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Charterer, Shipowner: specific, establishable terms exist for Shipowner but not for Charterer \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0130": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Escrow Agent, Depositor: specific, establishable terms exist for Depositor but not for Escrow Agent \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0131": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Third, Party Administrator, Plan Sponsor: specific, establishable terms exist for Plan Sponsor but not for Third, Party Administrator \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0132": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Company, Reinsurer: specific, establishable terms exist for Reinsurer but not for Ceding Company \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0133": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Warehouse Operator, Consignor: specific, establishable terms exist for Consignor but not for Warehouse Operator \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0134": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Toll Manufacturer, Brand Owner: specific, establishable terms exist for Brand Owner but not for Toll Manufacturer \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0135": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Syndicate Lead, Participant Lender: specific, establishable terms exist for Participant Lender but not for Syndicate Lead \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0136": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Booking Agent, Performer: specific, establishable terms exist for Performer but not for Booking Agent \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0137": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0138": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Third, Party Administrator, Plan Sponsor: specific, establishable terms exist for Party Administrator but not for Third, Plan Sponsor \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0139": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Company, Reinsurer: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0140": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0141": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0142": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Syndicate Lead, Participant Lender: specific, establishable terms exist for Syndicate Lead but not for Participant Lender \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0143": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Booking Agent, Performer: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0144": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0145": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0146": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Third, Party Administrator, Plan Sponsor: specific, establishable terms exist for Party Administrator but not for Third, Plan Sponsor \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0147": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Company, Reinsurer: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0148": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0149": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0150": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Syndicate Lead, Participant Lender: specific, establishable terms exist for Syndicate Lead but not for Participant Lender \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0151": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Booking Agent, Performer: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0152": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0153": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0154": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Third, Party Administrator, Plan Sponsor: specific, establishable terms exist for Party Administrator but not for Third, Plan Sponsor \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0155": {
+    "classification": "CA",
+    "verified": true,
+    "asymmetry_reasons": [
+      "Ceding Company, Reinsurer: the clause contains language singling out or conditioning treatment for a specific named party \u2014 the two obligations cannot be confirmed comparable, so symmetry cannot be assumed"
+    ]
+  },
+  "FRESH103-0156": {
+    "classification": "FS",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0157": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0158": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0159": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0160": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0161": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0162": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0163": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0164": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0165": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0166": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0167": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0168": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0169": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0170": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0171": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0172": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0173": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0174": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0175": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0176": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0177": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0178": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0179": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0180": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0181": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  },
+  "FRESH103-0182": {
+    "classification": "WC",
+    "verified": true,
+    "asymmetry_reasons": []
+  }
+}

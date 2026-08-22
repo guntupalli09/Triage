@@ -1,0 +1,25 @@
+=== liability: 56 clean decisions available, auditing 50 ===
+  (56 total clean; 50 counted toward the >=50 target)
+=== indemnification: 46 clean decisions available, auditing 46 ===
+  (46 total clean; 46 counted toward the >=50 target)
+  *** SHORT: only 46 clean decisions available, need 50 ***
+=== payment_terms: 59 clean decisions available, auditing 50 ===
+  (59 total clean; 50 counted toward the >=50 target)
+
+TOTAL MATERIAL FACTS CLASSIFIED: 139
+  ESTABLISHED: 69 (49.6%)
+  BOUNDED-MECHANICALLY-ESTABLISHED: 67 (48.2%)
+  WEAKLY-ESTABLISHED: 3 (2.2%)
+  UNVERIFIED: 0 (0.0%)
+
+=== HARD FINDINGS (UNVERIFIED facts behind a clean decision): 0 ===
+
+=== SPOT-CHECK SAMPLE (first 3 per adapter, for independent human verification) ===
+  ('A6-L-01', 'liability', 'general liability cap value (1x annual fees)', 'ESTABLISHED')
+  ('A6-L-03', 'liability', 'general liability cap value (2x annual fees)', 'ESTABLISHED')
+  ('A6-L-05', 'liability', 'general liability cap value (1x annual fees)', 'ESTABLISHED')
+  ('A6-I-01', 'indemnification', "protection party identity ('Client')", 'ESTABLISHED')
+  ('A6-I-03', 'indemnification', "exposure party identity ('Each Party')", 'BOUNDED-MECHANICALLY-ESTABLISHED')
+  ('A6-I-03', 'indemnification', "protection party identity ('the Other Party')", 'BOUNDED-MECHANICALLY-ESTABLISHED')
+  ('A6-I-05', 'indemnification', "protection party identity ('Client')", 'ESTABLISHED')
+  ('A6-P-01', 'payment_terms', "payor side ('us')", 'BOUNDED-MECHANICALLY-ESTABLISHED')

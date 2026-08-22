@@ -1,0 +1,287 @@
+{
+  "results": {
+    "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY": [
+      {
+        "case": "ESTABLISHED+ESTABLISHED (fires)",
+        "state": "ESCALATE",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "ESTABLISHED+ESTABLISHED (no match: within_general_cap)",
+        "state": "NOT_TRIGGERED",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "ESTABLISHED+NOT_APPLICABLE",
+        "state": "INSUFFICIENT_FACTS",
+        "missing": [
+          "indemnification"
+        ],
+        "evidence_ok": true
+      },
+      {
+        "case": "ESTABLISHED+REQUIRES_REVIEW",
+        "state": "INSUFFICIENT_FACTS",
+        "missing": [
+          "indemnification"
+        ],
+        "evidence_ok": true
+      },
+      {
+        "case": "missing participant entirely",
+        "state": "INSUFFICIENT_FACTS",
+        "missing": [
+          "indemnification"
+        ],
+        "evidence_ok": true
+      },
+      {
+        "case": "wrong category (data_breach, not ip_infringement)",
+        "state": "NOT_TRIGGERED",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "EVALUATION_ERROR participant",
+        "state": "INSUFFICIENT_FACTS",
+        "missing": [
+          "limitation_of_liability"
+        ],
+        "evidence_ok": true
+      },
+      {
+        "case": "both resolved, treatment excludes (excluded not covered)",
+        "state": "NOT_TRIGGERED",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "duplicate/repeated call determinism (5x)",
+        "state": "ESCALATE",
+        "missing": [],
+        "evidence_ok": true
+      }
+    ],
+    "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH": [
+      {
+        "case": "ESTABLISHED+ESTABLISHED single category fires",
+        "state": "ESCALATE",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "multiple categories fire together (not separate rows)",
+        "state": "ESCALATE",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "ip_infringement excluded from this rule (rule 1's job)",
+        "state": "NOT_TRIGGERED",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "missing participant",
+        "state": "INSUFFICIENT_FACTS",
+        "missing": [
+          "indemnification"
+        ],
+        "evidence_ok": true
+      },
+      {
+        "case": "one REQUIRES_REVIEW",
+        "state": "INSUFFICIENT_FACTS",
+        "missing": [
+          "indemnification"
+        ],
+        "evidence_ok": true
+      }
+    ],
+    "IX_INDEMNITY_WITHIN_GENERAL_CAP": [
+      {
+        "case": "within_general_cap + covered fires (informational)",
+        "state": "ACCEPT_WITH_NOTE",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "not_addressed + covered fires",
+        "state": "ACCEPT_WITH_NOTE",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "uncapped does NOT trigger this rule (rule 1/2's job)",
+        "state": "NOT_TRIGGERED",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "one REQUIRES_REVIEW blocks",
+        "state": "INSUFFICIENT_FACTS",
+        "missing": [
+          "limitation_of_liability"
+        ],
+        "evidence_ok": true
+      }
+    ],
+    "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY": [
+      {
+        "case": "liability category unresolved, decision otherwise ACCEPT",
+        "state": "REQUIRES_REVIEW",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "indemnification category unresolved",
+        "state": "REQUIRES_REVIEW",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "BOTH categories unresolved simultaneously (CONFLICTING+CONFLICTING analog)",
+        "state": "REQUIRES_REVIEW",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "no ambiguity, clean categories",
+        "state": "NOT_TRIGGERED",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "whole-decision REQUIRES_REVIEW (gated before rule 4 even runs)",
+        "state": "INSUFFICIENT_FACTS",
+        "missing": [
+          "limitation_of_liability"
+        ],
+        "evidence_ok": true
+      }
+    ],
+    "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE": [
+      {
+        "case": "uncapped + not established fires",
+        "state": "ESCALATE",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "uncapped + established does NOT fire",
+        "state": "NOT_TRIGGERED",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "within_general_cap does not fire regardless of insurance",
+        "state": "NOT_TRIGGERED",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "wrong category (ip_infringement has no insurance mapping)",
+        "state": "NOT_TRIGGERED",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "missing insurance participant",
+        "state": "INSUFFICIENT_FACTS",
+        "missing": [
+          "insurance"
+        ],
+        "evidence_ok": true
+      },
+      {
+        "case": "insurance NOT_APPLICABLE",
+        "state": "INSUFFICIENT_FACTS",
+        "missing": [
+          "insurance"
+        ],
+        "evidence_ok": true
+      }
+    ],
+    "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING": [
+      {
+        "case": "immediate + withholdable=True fires",
+        "state": "ESCALATE",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "immediate + withholdable=False does not fire",
+        "state": "NOT_TRIGGERED",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "immediate + withholdable=None (unestablished) does not fire",
+        "state": "NOT_TRIGGERED",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "non-immediate (has notice/cure) does not fire even if withholdable",
+        "state": "NOT_TRIGGERED",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "missing payment_terms participant",
+        "state": "INSUFFICIENT_FACTS",
+        "missing": [
+          "payment_terms"
+        ],
+        "evidence_ok": true
+      },
+      {
+        "case": "termination REQUIRES_REVIEW gates",
+        "state": "INSUFFICIENT_FACTS",
+        "missing": [
+          "termination"
+        ],
+        "evidence_ok": true
+      }
+    ],
+    "IX_SLA_PAYMENT_CREDIT_DEPENDENCY": [
+      {
+        "case": "both True fires",
+        "state": "REQUIRES_REVIEW",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "SLA True, Payment False does not fire",
+        "state": "NOT_TRIGGERED",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "both None (unestablished) does not fire",
+        "state": "NOT_TRIGGERED",
+        "missing": [],
+        "evidence_ok": true
+      },
+      {
+        "case": "missing sla participant",
+        "state": "INSUFFICIENT_FACTS",
+        "missing": [
+          "sla"
+        ],
+        "evidence_ok": true
+      },
+      {
+        "case": "sla NOT_APPLICABLE",
+        "state": "INSUFFICIENT_FACTS",
+        "missing": [
+          "sla"
+        ],
+        "evidence_ok": true
+      }
+    ]
+  },
+  "full_catalog_determinism_5x": true
+}

@@ -1,0 +1,2743 @@
+[
+  {
+    "id": "FRESH105B-0001",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims traceable to that party's own conduct in performing this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0002",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising out of that party's own breach of this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0003",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another reciprocally for claims traceable to their own respective acts, with no distinction in how either is treated.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0004",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims traceable to that party's own conduct in performing this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0005",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising out of that party's own breach of this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0006",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another reciprocally for claims traceable to their own respective acts, with no distinction in how either is treated.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0007",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims traceable to that party's own conduct in performing this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0008",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising out of that party's own breach of this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0009",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another reciprocally for claims traceable to their own respective acts, with no distinction in how either is treated.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0010",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims traceable to that party's own conduct in performing this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0011",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising out of that party's own breach of this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0012",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another reciprocally for claims traceable to their own respective acts, with no distinction in how either is treated.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0013",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims traceable to that party's own conduct in performing this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0014",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising out of that party's own breach of this Agreement.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0015",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another reciprocally for claims traceable to their own respective acts, with no distinction in how either is treated.",
+    "note": "no named roles -- discovery block never activates",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0016",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Paying Agent's duty runs on for six years once this Agreement ends, and Bondholder stays on the hook for that same six-year run once this Agreement ends.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0017",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managing Member remains answerable for two years past termination, while Non-Managing Member is equally answerable for two years past termination.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0018",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Consignee's duty does not lapse until three years after this Agreement terminates, and Consignor Bank's duty does not lapse until that same three years after this Agreement terminates.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0019",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller is on the hook for no more than seven months' worth of fees, and Platform Operator's exposure likewise tops out at seven months' worth of fees.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0020",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchise Broker's payout ceiling sits at $750,000, and Prospective Franchisee faces that same $750,000 ceiling.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0021",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Loan Servicer runs point on defending and resolving any claim brought against it, and Loan Originator likewise runs point on defending and resolving any claim brought against it.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0022",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Ground Lessee steers the response to any claim filed against it, while Ground Lessor steers the response to any claim filed against it in just the same way.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0023",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker must flag the other in writing within twenty days of learning of a claim, and Fronting Insurer is under that same twenty-day written-notice duty.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0024",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Paying Agent's duty runs on for six years once this Agreement ends, and Bondholder stays on the hook for that same six-year run once this Agreement ends.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0025",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managing Member remains answerable for two years past termination, while Non-Managing Member is equally answerable for two years past termination.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0026",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Consignee's duty does not lapse until three years after this Agreement terminates, and Consignor Bank's duty does not lapse until that same three years after this Agreement terminates.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0027",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller is on the hook for no more than seven months' worth of fees, and Platform Operator's exposure likewise tops out at seven months' worth of fees.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0028",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchise Broker's payout ceiling sits at $750,000, and Prospective Franchisee faces that same $750,000 ceiling.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0029",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Loan Servicer runs point on defending and resolving any claim brought against it, and Loan Originator likewise runs point on defending and resolving any claim brought against it.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0030",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Ground Lessee steers the response to any claim filed against it, while Ground Lessor steers the response to any claim filed against it in just the same way.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0031",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker must flag the other in writing within twenty days of learning of a claim, and Fronting Insurer is under that same twenty-day written-notice duty.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0032",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Paying Agent's duty runs on for six years once this Agreement ends, and Bondholder stays on the hook for that same six-year run once this Agreement ends.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0033",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managing Member remains answerable for two years past termination, while Non-Managing Member is equally answerable for two years past termination.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0034",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Consignee's duty does not lapse until three years after this Agreement terminates, and Consignor Bank's duty does not lapse until that same three years after this Agreement terminates.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0035",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller is on the hook for no more than seven months' worth of fees, and Platform Operator's exposure likewise tops out at seven months' worth of fees.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0036",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchise Broker's payout ceiling sits at $750,000, and Prospective Franchisee faces that same $750,000 ceiling.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0037",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Loan Servicer runs point on defending and resolving any claim brought against it, and Loan Originator likewise runs point on defending and resolving any claim brought against it.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0038",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Ground Lessee steers the response to any claim filed against it, while Ground Lessor steers the response to any claim filed against it in just the same way.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0039",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker must flag the other in writing within twenty days of learning of a claim, and Fronting Insurer is under that same twenty-day written-notice duty.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0040",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Paying Agent's duty runs on for six years once this Agreement ends, and Bondholder stays on the hook for that same six-year run once this Agreement ends.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0041",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managing Member remains answerable for two years past termination, while Non-Managing Member is equally answerable for two years past termination.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0042",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Consignee's duty does not lapse until three years after this Agreement terminates, and Consignor Bank's duty does not lapse until that same three years after this Agreement terminates.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0043",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller is on the hook for no more than seven months' worth of fees, and Platform Operator's exposure likewise tops out at seven months' worth of fees.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0044",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchise Broker's payout ceiling sits at $750,000, and Prospective Franchisee faces that same $750,000 ceiling.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0045",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Loan Servicer runs point on defending and resolving any claim brought against it, and Loan Originator likewise runs point on defending and resolving any claim brought against it.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0046",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Ground Lessee steers the response to any claim filed against it, while Ground Lessor steers the response to any claim filed against it in just the same way.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0047",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker must flag the other in writing within twenty days of learning of a claim, and Fronting Insurer is under that same twenty-day written-notice duty.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0048",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Paying Agent's duty runs on for six years once this Agreement ends, and Bondholder stays on the hook for that same six-year run once this Agreement ends.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0049",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managing Member remains answerable for two years past termination, while Non-Managing Member is equally answerable for two years past termination.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0050",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Consignee's duty does not lapse until three years after this Agreement terminates, and Consignor Bank's duty does not lapse until that same three years after this Agreement terminates.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0051",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller is on the hook for no more than seven months' worth of fees, and Platform Operator's exposure likewise tops out at seven months' worth of fees.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0052",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchise Broker's payout ceiling sits at $750,000, and Prospective Franchisee faces that same $750,000 ceiling.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0053",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Loan Servicer runs point on defending and resolving any claim brought against it, and Loan Originator likewise runs point on defending and resolving any claim brought against it.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0054",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Ground Lessee steers the response to any claim filed against it, while Ground Lessor steers the response to any claim filed against it in just the same way.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0055",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_paraphrase",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker must flag the other in writing within twenty days of learning of a claim, and Fronting Insurer is under that same twenty-day written-notice duty.",
+    "note": "named roles, real matching value stated with heavy paraphrase",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0056",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 6 applies equally to Paying Agent and Bondholder.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0057",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Managing Member and Non-Managing Member alike.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0058",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party's indemnification duty under this Agreement binds Consignee and Consignor Bank identically.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0059",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller owes a duty to cooperate with the defense, and Platform Operator owes that same duty to cooperate with the defense.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0060",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 6 applies equally to Franchise Broker and Prospective Franchisee.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0061",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Loan Servicer and Loan Originator alike.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0062",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party's indemnification duty under this Agreement binds Ground Lessee and Ground Lessor identically.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0063",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker owes a duty to cooperate with the defense, and Fronting Insurer owes that same duty to cooperate with the defense.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0064",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 6 applies equally to Paying Agent and Bondholder.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0065",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Managing Member and Non-Managing Member alike.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0066",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party's indemnification duty under this Agreement binds Consignee and Consignor Bank identically.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0067",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller owes a duty to cooperate with the defense, and Platform Operator owes that same duty to cooperate with the defense.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0068",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 6 applies equally to Franchise Broker and Prospective Franchisee.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0069",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Loan Servicer and Loan Originator alike.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0070",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party's indemnification duty under this Agreement binds Ground Lessee and Ground Lessor identically.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0071",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker owes a duty to cooperate with the defense, and Fronting Insurer owes that same duty to cooperate with the defense.",
+    "note": "explicit drafter statement of equivalence, varied determiners",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0072",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Paying Agent is on the hook only where the claim stems from Paying Agent's deliberate misconduct, whereas Bondholder is on the hook whenever the claim stems from Bondholder's ordinary inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0073",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Managing Member is on the hook only where the claim stems from Managing Member's deliberate misconduct, whereas Non-Managing Member is on the hook whenever the claim stems from Non-Managing Member's ordinary inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0074",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Consignee is on the hook only where the claim stems from Consignee's deliberate misconduct, whereas Consignor Bank is on the hook whenever the claim stems from Consignor Bank's ordinary inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0075",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Reseller is on the hook only where the claim stems from Reseller's deliberate misconduct, whereas Platform Operator is on the hook whenever the claim stems from Platform Operator's ordinary inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0076",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Franchise Broker is on the hook only where the claim stems from Franchise Broker's deliberate misconduct, whereas Prospective Franchisee is on the hook whenever the claim stems from Prospective Franchisee's ordinary inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0077",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Loan Servicer is on the hook only where the claim stems from Loan Servicer's deliberate misconduct, whereas Loan Originator is on the hook whenever the claim stems from Loan Originator's ordinary inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0078",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Ground Lessee is on the hook only where the claim stems from Ground Lessee's deliberate misconduct, whereas Ground Lessor is on the hook whenever the claim stems from Ground Lessor's ordinary inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0079",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Ceding Broker is on the hook only where the claim stems from Ceding Broker's deliberate misconduct, whereas Fronting Insurer is on the hook whenever the claim stems from Fronting Insurer's ordinary inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0080",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Paying Agent's duty is confined to claims alleging a securities-law violation, whereas Bondholder's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0081",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managing Member's duty is confined to claims alleging a securities-law violation, whereas Non-Managing Member's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0082",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Consignee's duty is confined to claims alleging a securities-law violation, whereas Consignor Bank's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0083",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller's duty is confined to claims alleging a securities-law violation, whereas Platform Operator's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0084",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchise Broker's duty is confined to claims alleging a securities-law violation, whereas Prospective Franchisee's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0085",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Loan Servicer's duty is confined to claims alleging a securities-law violation, whereas Loan Originator's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0086",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ground Lessee's duty is confined to claims alleging a securities-law violation, whereas Ground Lessor's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0087",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker's duty is confined to claims alleging a securities-law violation, whereas Fronting Insurer's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0088",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Paying Agent alone sets litigation and settlement strategy for any claim against Bondholder, whereas Bondholder has no input at all into strategy for any claim against Paying Agent.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0089",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Managing Member alone sets litigation and settlement strategy for any claim against Non-Managing Member, whereas Non-Managing Member has no input at all into strategy for any claim against Managing Member.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0090",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Consignee alone sets litigation and settlement strategy for any claim against Consignor Bank, whereas Consignor Bank has no input at all into strategy for any claim against Consignee.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0091",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Reseller alone sets litigation and settlement strategy for any claim against Platform Operator, whereas Platform Operator has no input at all into strategy for any claim against Reseller.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0092",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Franchise Broker alone sets litigation and settlement strategy for any claim against Prospective Franchisee, whereas Prospective Franchisee has no input at all into strategy for any claim against Franchise Broker.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0093",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Loan Servicer alone sets litigation and settlement strategy for any claim against Loan Originator, whereas Loan Originator has no input at all into strategy for any claim against Loan Servicer.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0094",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Ground Lessee alone sets litigation and settlement strategy for any claim against Ground Lessor, whereas Ground Lessor has no input at all into strategy for any claim against Ground Lessee.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0095",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Ceding Broker alone sets litigation and settlement strategy for any claim against Fronting Insurer, whereas Fronting Insurer has no input at all into strategy for any claim against Ceding Broker.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0096",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Paying Agent's liability tops out at five months' worth of fees, whereas Bondholder faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0097",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managing Member's liability tops out at five months' worth of fees, whereas Non-Managing Member faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0098",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Consignee's liability tops out at five months' worth of fees, whereas Consignor Bank faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0099",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller's liability tops out at five months' worth of fees, whereas Platform Operator faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0100",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchise Broker's liability tops out at five months' worth of fees, whereas Prospective Franchisee faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0101",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Loan Servicer's liability tops out at five months' worth of fees, whereas Loan Originator faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0102",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ground Lessee's liability tops out at five months' worth of fees, whereas Ground Lessor faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0103",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker's liability tops out at five months' worth of fees, whereas Fronting Insurer faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0104",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Paying Agent's duty excludes any claim traceable to Bondholder's own unauthorized alteration of the deliverable, an exclusion Bondholder's duty toward Paying Agent does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0105",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Managing Member's duty excludes any claim traceable to Non-Managing Member's own unauthorized alteration of the deliverable, an exclusion Non-Managing Member's duty toward Managing Member does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0106",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Consignee's duty excludes any claim traceable to Consignor Bank's own unauthorized alteration of the deliverable, an exclusion Consignor Bank's duty toward Consignee does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0107",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Reseller's duty excludes any claim traceable to Platform Operator's own unauthorized alteration of the deliverable, an exclusion Platform Operator's duty toward Reseller does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0108",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Franchise Broker's duty excludes any claim traceable to Prospective Franchisee's own unauthorized alteration of the deliverable, an exclusion Prospective Franchisee's duty toward Franchise Broker does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0109",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Loan Servicer's duty excludes any claim traceable to Loan Originator's own unauthorized alteration of the deliverable, an exclusion Loan Originator's duty toward Loan Servicer does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0110",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Ground Lessee's duty excludes any claim traceable to Ground Lessor's own unauthorized alteration of the deliverable, an exclusion Ground Lessor's duty toward Ground Lessee does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0111",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Ceding Broker's duty excludes any claim traceable to Fronting Insurer's own unauthorized alteration of the deliverable, an exclusion Fronting Insurer's duty toward Ceding Broker does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0112",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Paying Agent's duty does not attach unless Bondholder first exhausts the notice-and-cure procedure in Section 7, a precondition Bondholder's duty toward Paying Agent does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0113",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managing Member's duty does not attach unless Non-Managing Member first exhausts the notice-and-cure procedure in Section 7, a precondition Non-Managing Member's duty toward Managing Member does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0114",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Consignee's duty does not attach unless Consignor Bank first exhausts the notice-and-cure procedure in Section 7, a precondition Consignor Bank's duty toward Consignee does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0115",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller's duty does not attach unless Platform Operator first exhausts the notice-and-cure procedure in Section 7, a precondition Platform Operator's duty toward Reseller does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0116",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchise Broker's duty does not attach unless Prospective Franchisee first exhausts the notice-and-cure procedure in Section 7, a precondition Prospective Franchisee's duty toward Franchise Broker does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0117",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Loan Servicer's duty does not attach unless Loan Originator first exhausts the notice-and-cure procedure in Section 7, a precondition Loan Originator's duty toward Loan Servicer does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0118",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ground Lessee's duty does not attach unless Ground Lessor first exhausts the notice-and-cure procedure in Section 7, a precondition Ground Lessor's duty toward Ground Lessee does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0119",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker's duty does not attach unless Fronting Insurer first exhausts the notice-and-cure procedure in Section 7, a precondition Fronting Insurer's duty toward Ceding Broker does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0120",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Paying Agent's duty reaches Bondholder's own internal losses in addition to outside claims, whereas Bondholder's duty reaches only outside claims brought against Paying Agent.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0121",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managing Member's duty reaches Non-Managing Member's own internal losses in addition to outside claims, whereas Non-Managing Member's duty reaches only outside claims brought against Managing Member.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0122",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Consignee's duty reaches Consignor Bank's own internal losses in addition to outside claims, whereas Consignor Bank's duty reaches only outside claims brought against Consignee.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0123",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller's duty reaches Platform Operator's own internal losses in addition to outside claims, whereas Platform Operator's duty reaches only outside claims brought against Reseller.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0124",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchise Broker's duty reaches Prospective Franchisee's own internal losses in addition to outside claims, whereas Prospective Franchisee's duty reaches only outside claims brought against Franchise Broker.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0125",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Loan Servicer's duty reaches Loan Originator's own internal losses in addition to outside claims, whereas Loan Originator's duty reaches only outside claims brought against Loan Servicer.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0126",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ground Lessee's duty reaches Ground Lessor's own internal losses in addition to outside claims, whereas Ground Lessor's duty reaches only outside claims brought against Ground Lessee.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0127",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker's duty reaches Fronting Insurer's own internal losses in addition to outside claims, whereas Fronting Insurer's duty reaches only outside claims brought against Ceding Broker.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0128",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Paying Agent owes this duty even absent any fault on Paying Agent's part, whereas Bondholder owes it only once Bondholder's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0129",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Managing Member owes this duty even absent any fault on Managing Member's part, whereas Non-Managing Member owes it only once Non-Managing Member's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0130",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Consignee owes this duty even absent any fault on Consignee's part, whereas Consignor Bank owes it only once Consignor Bank's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0131",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Reseller owes this duty even absent any fault on Reseller's part, whereas Platform Operator owes it only once Platform Operator's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0132",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Franchise Broker owes this duty even absent any fault on Franchise Broker's part, whereas Prospective Franchisee owes it only once Prospective Franchisee's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0133",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Loan Servicer owes this duty even absent any fault on Loan Servicer's part, whereas Loan Originator owes it only once Loan Originator's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0134",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Ground Lessee owes this duty even absent any fault on Ground Lessee's part, whereas Ground Lessor owes it only once Ground Lessor's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0135",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Ceding Broker owes this duty even absent any fault on Ceding Broker's part, whereas Fronting Insurer owes it only once Fronting Insurer's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0136",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Paying Agent's duty follows claims arising anywhere in the world, whereas Bondholder's duty is confined to claims arising within Canada.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0137",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managing Member's duty follows claims arising anywhere in the world, whereas Non-Managing Member's duty is confined to claims arising within Canada.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0138",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Consignee's duty follows claims arising anywhere in the world, whereas Consignor Bank's duty is confined to claims arising within Canada.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0139",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller's duty follows claims arising anywhere in the world, whereas Platform Operator's duty is confined to claims arising within Canada.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0140",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchise Broker's duty follows claims arising anywhere in the world, whereas Prospective Franchisee's duty is confined to claims arising within Canada.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0141",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Loan Servicer's duty follows claims arising anywhere in the world, whereas Loan Originator's duty is confined to claims arising within Canada.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0142",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ground Lessee's duty follows claims arising anywhere in the world, whereas Ground Lessor's duty is confined to claims arising within Canada.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0143",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker's duty follows claims arising anywhere in the world, whereas Fronting Insurer's duty is confined to claims arising within Canada.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0144",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Paying Agent is set out in Rider A, and the figure binding Bondholder, set out separately in Rider B, is a different figure than Rider A states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0145",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Managing Member is set out in Rider A, and the figure binding Non-Managing Member, set out separately in Rider B, is a different figure than Rider A states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0146",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Consignee is set out in Rider A, and the figure binding Consignor Bank, set out separately in Rider B, is a different figure than Rider A states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0147",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Reseller is set out in Rider A, and the figure binding Platform Operator, set out separately in Rider B, is a different figure than Rider A states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0148",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Franchise Broker is set out in Rider A, and the figure binding Prospective Franchisee, set out separately in Rider B, is a different figure than Rider A states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0149",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Loan Servicer is set out in Rider A, and the figure binding Loan Originator, set out separately in Rider B, is a different figure than Rider A states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0150",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Ground Lessee is set out in Rider A, and the figure binding Ground Lessor, set out separately in Rider B, is a different figure than Rider A states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0151",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Ceding Broker is set out in Rider A, and the figure binding Fronting Insurer, set out separately in Rider B, is a different figure than Rider A states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0152",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Paying Agent's duty carries on with no end date once this Agreement winds down, whereas Bondholder's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0153",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managing Member's duty carries on with no end date once this Agreement winds down, whereas Non-Managing Member's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0154",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Consignee's duty carries on with no end date once this Agreement winds down, whereas Consignor Bank's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0155",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller's duty carries on with no end date once this Agreement winds down, whereas Platform Operator's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0156",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchise Broker's duty carries on with no end date once this Agreement winds down, whereas Prospective Franchisee's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0157",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Loan Servicer's duty carries on with no end date once this Agreement winds down, whereas Loan Originator's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0158",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ground Lessee's duty carries on with no end date once this Agreement winds down, whereas Ground Lessor's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0159",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker's duty carries on with no end date once this Agreement winds down, whereas Fronting Insurer's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0160",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Paying Agent's duty is capped at $200,000, reaches only regulatory-penalty claims, and applies strictly, whereas Bondholder's duty carries no cap, reaches claims of any kind, and applies only where Bondholder is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0161",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managing Member's duty is capped at $200,000, reaches only regulatory-penalty claims, and applies strictly, whereas Non-Managing Member's duty carries no cap, reaches claims of any kind, and applies only where Non-Managing Member is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0162",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Consignee's duty is capped at $200,000, reaches only regulatory-penalty claims, and applies strictly, whereas Consignor Bank's duty carries no cap, reaches claims of any kind, and applies only where Consignor Bank is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0163",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller's duty is capped at $200,000, reaches only regulatory-penalty claims, and applies strictly, whereas Platform Operator's duty carries no cap, reaches claims of any kind, and applies only where Platform Operator is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0164",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchise Broker's duty is capped at $200,000, reaches only regulatory-penalty claims, and applies strictly, whereas Prospective Franchisee's duty carries no cap, reaches claims of any kind, and applies only where Prospective Franchisee is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0165",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Loan Servicer's duty is capped at $200,000, reaches only regulatory-penalty claims, and applies strictly, whereas Loan Originator's duty carries no cap, reaches claims of any kind, and applies only where Loan Originator is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0166",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ground Lessee's duty is capped at $200,000, reaches only regulatory-penalty claims, and applies strictly, whereas Ground Lessor's duty carries no cap, reaches claims of any kind, and applies only where Ground Lessor is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0167",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker's duty is capped at $200,000, reaches only regulatory-penalty claims, and applies strictly, whereas Fronting Insurer's duty carries no cap, reaches claims of any kind, and applies only where Fronting Insurer is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0168",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Paying Agent keeps its own standalone insurance covering this exposure, while Bondholder's duty is additionally capped at $85,000, a limit Paying Agent's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0169",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 6; that ceiling excludes claims caused by Managing Member's deliberate misconduct but excludes no category of claim caused by Non-Managing Member.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0170",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Consignee's duty to front defense costs as incurred runs alongside its main duty, but Consignor Bank carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0171",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller relinquishes any right of contribution against Platform Operator, but Platform Operator retains its full right of contribution against Reseller.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0172",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchise Broker keeps its own standalone insurance covering this exposure, while Prospective Franchisee's duty is additionally capped at $85,000, a limit Franchise Broker's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0173",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 6; that ceiling excludes claims caused by Loan Servicer's deliberate misconduct but excludes no category of claim caused by Loan Originator.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0174",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Ground Lessee's duty to front defense costs as incurred runs alongside its main duty, but Ground Lessor carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0175",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker relinquishes any right of contribution against Fronting Insurer, but Fronting Insurer retains its full right of contribution against Ceding Broker.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0176",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Paying Agent keeps its own standalone insurance covering this exposure, while Bondholder's duty is additionally capped at $85,000, a limit Paying Agent's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0177",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 6; that ceiling excludes claims caused by Managing Member's deliberate misconduct but excludes no category of claim caused by Non-Managing Member.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0178",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Consignee's duty to front defense costs as incurred runs alongside its main duty, but Consignor Bank carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0179",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller relinquishes any right of contribution against Platform Operator, but Platform Operator retains its full right of contribution against Reseller.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0180",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchise Broker keeps its own standalone insurance covering this exposure, while Prospective Franchisee's duty is additionally capped at $85,000, a limit Franchise Broker's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0181",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 6; that ceiling excludes claims caused by Loan Servicer's deliberate misconduct but excludes no category of claim caused by Loan Originator.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0182",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Ground Lessee's duty to front defense costs as incurred runs alongside its main duty, but Ground Lessor carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0183",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker relinquishes any right of contribution against Fronting Insurer, but Fronting Insurer retains its full right of contribution against Ceding Broker.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0184",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Paying Agent keeps its own standalone insurance covering this exposure, while Bondholder's duty is additionally capped at $85,000, a limit Paying Agent's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0185",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 6; that ceiling excludes claims caused by Managing Member's deliberate misconduct but excludes no category of claim caused by Non-Managing Member.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0186",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Consignee's duty to front defense costs as incurred runs alongside its main duty, but Consignor Bank carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0187",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller relinquishes any right of contribution against Platform Operator, but Platform Operator retains its full right of contribution against Reseller.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH105B-0188",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Franchise Broker's ceiling matches Prospective Franchisee's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0189",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms the parties still intend to work out in a future side letter.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0190",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ground Lessee's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0191",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Ceding Broker's ceiling matches Fronting Insurer's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0192",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms the parties still intend to work out in a future side letter.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0193",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managing Member's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0194",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Consignee's ceiling matches Consignor Bank's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0195",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms the parties still intend to work out in a future side letter.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0196",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchise Broker's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0197",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Loan Servicer's ceiling matches Loan Originator's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0198",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms the parties still intend to work out in a future side letter.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0199",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Ceding Broker's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0200",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Paying Agent's ceiling matches Bondholder's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0201",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms the parties still intend to work out in a future side letter.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0202",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Consignee's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0203",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Reseller's ceiling matches Platform Operator's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0204",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms the parties still intend to work out in a future side letter.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0205",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Loan Servicer's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0206",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Ground Lessee's ceiling matches Ground Lessor's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH105B-0207",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms the parties still intend to work out in a future side letter.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  }
+]

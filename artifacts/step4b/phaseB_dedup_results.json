@@ -1,0 +1,982 @@
+{
+  "rows": [
+    {
+      "id": "dedupB-diffpolicy-0",
+      "family": "same-clause-different-policies",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different rule_ids -- distinct policies, both must survive"
+    },
+    {
+      "id": "dedupB-diffpolicy-1",
+      "family": "same-clause-different-policies",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different rule_ids -- distinct policies, both must survive"
+    },
+    {
+      "id": "dedupB-diffpolicy-2",
+      "family": "same-clause-different-policies",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different rule_ids -- distinct policies, both must survive"
+    },
+    {
+      "id": "dedupB-diffpolicy-3",
+      "family": "same-clause-different-policies",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different rule_ids -- distinct policies, both must survive"
+    },
+    {
+      "id": "dedupB-diffpolicy-4",
+      "family": "same-clause-different-policies",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different rule_ids -- distinct policies, both must survive"
+    },
+    {
+      "id": "dedupB-diffpolicy-5",
+      "family": "same-clause-different-policies",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different rule_ids -- distinct policies, both must survive"
+    },
+    {
+      "id": "dedupB-samerule-diffclause-0",
+      "family": "same-policy-different-clauses",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "same rule_id, genuinely different clause occurrences -- both must survive"
+    },
+    {
+      "id": "dedupB-samerule-diffclause-1",
+      "family": "same-policy-different-clauses",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "same rule_id, genuinely different clause occurrences -- both must survive"
+    },
+    {
+      "id": "dedupB-samerule-diffclause-2",
+      "family": "same-policy-different-clauses",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "same rule_id, genuinely different clause occurrences -- both must survive"
+    },
+    {
+      "id": "dedupB-samerule-diffclause-3",
+      "family": "same-policy-different-clauses",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "same rule_id, genuinely different clause occurrences -- both must survive"
+    },
+    {
+      "id": "dedupB-samerule-diffclause-4",
+      "family": "same-policy-different-clauses",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "same rule_id, genuinely different clause occurrences -- both must survive"
+    },
+    {
+      "id": "dedupB-samerule-diffclause-5",
+      "family": "same-policy-different-clauses",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "same rule_id, genuinely different clause occurrences -- both must survive"
+    },
+    {
+      "id": "dedupB-samerule-diffclause-6",
+      "family": "same-policy-different-clauses",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "same rule_id, genuinely different clause occurrences -- both must survive"
+    },
+    {
+      "id": "dedupB-samerule-diffclause-7",
+      "family": "same-policy-different-clauses",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "same rule_id, genuinely different clause occurrences -- both must survive"
+    },
+    {
+      "id": "dedupB-samespan-diffdirection-0",
+      "family": "same-evidence-different-direction",
+      "expected_count": 1,
+      "actual_count": 1,
+      "correct": true,
+      "input_count": 2,
+      "notes": "identical rule_id+location -- collapses to one at this layer by design; direction distinctness is resolved upstream, not duplicated by this dedup"
+    },
+    {
+      "id": "dedupB-samespan-diffdirection-1",
+      "family": "same-evidence-different-direction",
+      "expected_count": 1,
+      "actual_count": 1,
+      "correct": true,
+      "input_count": 2,
+      "notes": "identical rule_id+location -- collapses to one at this layer by design; direction distinctness is resolved upstream, not duplicated by this dedup"
+    },
+    {
+      "id": "dedupB-samespan-diffdirection-2",
+      "family": "same-evidence-different-direction",
+      "expected_count": 1,
+      "actual_count": 1,
+      "correct": true,
+      "input_count": 2,
+      "notes": "identical rule_id+location -- collapses to one at this layer by design; direction distinctness is resolved upstream, not duplicated by this dedup"
+    },
+    {
+      "id": "dedupB-samespan-diffdirection-3",
+      "family": "same-evidence-different-direction",
+      "expected_count": 1,
+      "actual_count": 1,
+      "correct": true,
+      "input_count": 2,
+      "notes": "identical rule_id+location -- collapses to one at this layer by design; direction distinctness is resolved upstream, not duplicated by this dedup"
+    },
+    {
+      "id": "dedupB-diffowner-0",
+      "family": "same-value-different-owners",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different clause types/rule_ids -- both survive regardless of matching monetary value"
+    },
+    {
+      "id": "dedupB-diffowner-1",
+      "family": "same-value-different-owners",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different clause types/rule_ids -- both survive regardless of matching monetary value"
+    },
+    {
+      "id": "dedupB-diffowner-2",
+      "family": "same-value-different-owners",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different clause types/rule_ids -- both survive regardless of matching monetary value"
+    },
+    {
+      "id": "dedupB-diffowner-3",
+      "family": "same-value-different-owners",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different clause types/rule_ids -- both survive regardless of matching monetary value"
+    },
+    {
+      "id": "dedupB-samerole-diffobligation-0",
+      "family": "same-role-different-obligations",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different rule_ids on the same clause_number -- both survive"
+    },
+    {
+      "id": "dedupB-samerole-diffobligation-1",
+      "family": "same-role-different-obligations",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different rule_ids on the same clause_number -- both survive"
+    },
+    {
+      "id": "dedupB-samerole-diffobligation-2",
+      "family": "same-role-different-obligations",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different rule_ids on the same clause_number -- both survive"
+    },
+    {
+      "id": "dedupB-samerole-diffobligation-3",
+      "family": "same-role-different-obligations",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different rule_ids on the same clause_number -- both survive"
+    },
+    {
+      "id": "dedupB-base-plus-interaction-0",
+      "family": "base-plus-interaction",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "base findings and interaction finding share no rule_id namespace -- all 3 survive"
+    },
+    {
+      "id": "dedupB-base-plus-interaction-1",
+      "family": "base-plus-interaction",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "base findings and interaction finding share no rule_id namespace -- all 3 survive"
+    },
+    {
+      "id": "dedupB-base-plus-interaction-2",
+      "family": "base-plus-interaction",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "base findings and interaction finding share no rule_id namespace -- all 3 survive"
+    },
+    {
+      "id": "dedupB-base-plus-interaction-3",
+      "family": "base-plus-interaction",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "base findings and interaction finding share no rule_id namespace -- all 3 survive"
+    },
+    {
+      "id": "dedupB-base-plus-interaction-4",
+      "family": "base-plus-interaction",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "base findings and interaction finding share no rule_id namespace -- all 3 survive"
+    },
+    {
+      "id": "dedupB-base-plus-interaction-5",
+      "family": "base-plus-interaction",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "base findings and interaction finding share no rule_id namespace -- all 3 survive"
+    },
+    {
+      "id": "dedupB-two-interactions-shared-policy-0",
+      "family": "two-interactions-shared-policy",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "both reference limitation_of_liability+indemnification but have distinct interaction_ids"
+    },
+    {
+      "id": "dedupB-two-interactions-shared-policy-1",
+      "family": "two-interactions-shared-policy",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "both reference limitation_of_liability+indemnification but have distinct interaction_ids"
+    },
+    {
+      "id": "dedupB-two-interactions-shared-policy-2",
+      "family": "two-interactions-shared-policy",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "both reference limitation_of_liability+indemnification but have distinct interaction_ids"
+    },
+    {
+      "id": "dedupB-two-interactions-shared-policy-3",
+      "family": "two-interactions-shared-policy",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "both reference limitation_of_liability+indemnification but have distinct interaction_ids"
+    },
+    {
+      "id": "dedupB-two-interactions-shared-evidence-0",
+      "family": "two-interactions-shared-evidence",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "distinct interaction_ids -- both survive even if they were to share an evidence excerpt"
+    },
+    {
+      "id": "dedupB-two-interactions-shared-evidence-1",
+      "family": "two-interactions-shared-evidence",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "distinct interaction_ids -- both survive even if they were to share an evidence excerpt"
+    },
+    {
+      "id": "dedupB-two-interactions-shared-evidence-2",
+      "family": "two-interactions-shared-evidence",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "distinct interaction_ids -- both survive even if they were to share an evidence excerpt"
+    },
+    {
+      "id": "dedupB-two-interactions-shared-evidence-3",
+      "family": "two-interactions-shared-evidence",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "distinct interaction_ids -- both survive even if they were to share an evidence excerpt"
+    },
+    {
+      "id": "dedupB-amendment-repeat-0",
+      "family": "same-policy-repeated-in-amendment",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "original clause + amendment both fire the same rule at different locations -- both survive"
+    },
+    {
+      "id": "dedupB-amendment-repeat-1",
+      "family": "same-policy-repeated-in-amendment",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "original clause + amendment both fire the same rule at different locations -- both survive"
+    },
+    {
+      "id": "dedupB-amendment-repeat-2",
+      "family": "same-policy-repeated-in-amendment",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "original clause + amendment both fire the same rule at different locations -- both survive"
+    },
+    {
+      "id": "dedupB-amendment-repeat-3",
+      "family": "same-policy-repeated-in-amendment",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "original clause + amendment both fire the same rule at different locations -- both survive"
+    },
+    {
+      "id": "dedupB-amendment-repeat-4",
+      "family": "same-policy-repeated-in-amendment",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "original clause + amendment both fire the same rule at different locations -- both survive"
+    },
+    {
+      "id": "dedupB-amendment-repeat-5",
+      "family": "same-policy-repeated-in-amendment",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "original clause + amendment both fire the same rule at different locations -- both survive"
+    },
+    {
+      "id": "dedupB-superseded-plus-operative-0",
+      "family": "superseded-plus-operative-clause",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "both survive at the display-dedup layer -- which one governs is a separate reconciliation question"
+    },
+    {
+      "id": "dedupB-superseded-plus-operative-1",
+      "family": "superseded-plus-operative-clause",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "both survive at the display-dedup layer -- which one governs is a separate reconciliation question"
+    },
+    {
+      "id": "dedupB-superseded-plus-operative-2",
+      "family": "superseded-plus-operative-clause",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "both survive at the display-dedup layer -- which one governs is a separate reconciliation question"
+    },
+    {
+      "id": "dedupB-superseded-plus-operative-3",
+      "family": "superseded-plus-operative-clause",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "both survive at the display-dedup layer -- which one governs is a separate reconciliation question"
+    },
+    {
+      "id": "dedupB-superseded-plus-operative-4",
+      "family": "superseded-plus-operative-clause",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "both survive at the display-dedup layer -- which one governs is a separate reconciliation question"
+    },
+    {
+      "id": "dedupB-superseded-plus-operative-5",
+      "family": "superseded-plus-operative-clause",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "both survive at the display-dedup layer -- which one governs is a separate reconciliation question"
+    },
+    {
+      "id": "dedupB-semantic-candidate-0",
+      "family": "duplicate-semantic-candidate-plus-deterministic",
+      "expected_count": 1,
+      "actual_count": 1,
+      "correct": true,
+      "input_count": 1,
+      "notes": "LLM candidate only ever enriches an existing deterministic finding via title-matching, never adds a second entry"
+    },
+    {
+      "id": "dedupB-semantic-candidate-1",
+      "family": "duplicate-semantic-candidate-plus-deterministic",
+      "expected_count": 1,
+      "actual_count": 1,
+      "correct": true,
+      "input_count": 1,
+      "notes": "LLM candidate only ever enriches an existing deterministic finding via title-matching, never adds a second entry"
+    },
+    {
+      "id": "dedupB-semantic-candidate-2",
+      "family": "duplicate-semantic-candidate-plus-deterministic",
+      "expected_count": 1,
+      "actual_count": 1,
+      "correct": true,
+      "input_count": 1,
+      "notes": "LLM candidate only ever enriches an existing deterministic finding via title-matching, never adds a second entry"
+    },
+    {
+      "id": "dedupB-semantic-candidate-3",
+      "family": "duplicate-semantic-candidate-plus-deterministic",
+      "expected_count": 1,
+      "actual_count": 1,
+      "correct": true,
+      "input_count": 1,
+      "notes": "LLM candidate only ever enriches an existing deterministic finding via title-matching, never adds a second entry"
+    },
+    {
+      "id": "dedupB-same-text-diff-provenance-0",
+      "family": "same-text-different-provenance",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different rule_ids despite identical span/text -- both survive, different provenance/authority"
+    },
+    {
+      "id": "dedupB-same-text-diff-provenance-1",
+      "family": "same-text-different-provenance",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different rule_ids despite identical span/text -- both survive, different provenance/authority"
+    },
+    {
+      "id": "dedupB-same-text-diff-provenance-2",
+      "family": "same-text-different-provenance",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different rule_ids despite identical span/text -- both survive, different provenance/authority"
+    },
+    {
+      "id": "dedupB-same-text-diff-provenance-3",
+      "family": "same-text-different-provenance",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "different rule_ids despite identical span/text -- both survive, different provenance/authority"
+    },
+    {
+      "id": "dedupB-diff-revision-0",
+      "family": "same-finding-type-different-revision",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "two clause types' policy_decision findings, distinct rule_ids -- both survive"
+    },
+    {
+      "id": "dedupB-diff-revision-1",
+      "family": "same-finding-type-different-revision",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "two clause types' policy_decision findings, distinct rule_ids -- both survive"
+    },
+    {
+      "id": "dedupB-diff-revision-2",
+      "family": "same-finding-type-different-revision",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "two clause types' policy_decision findings, distinct rule_ids -- both survive"
+    },
+    {
+      "id": "dedupB-diff-revision-3",
+      "family": "same-finding-type-different-revision",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "two clause types' policy_decision findings, distinct rule_ids -- both survive"
+    },
+    {
+      "id": "dedupB-interaction-defensive-duplicate-0",
+      "family": "same-interaction-rule-defensive-duplicate",
+      "expected_count": 1,
+      "actual_count": 1,
+      "correct": true,
+      "input_count": 2,
+      "notes": "defensive: an accidental exact duplicate entry for the same interaction_id (same rule_id, same None/None/None location) correctly collapses to one -- this IS a true duplicate, not two distinct findings"
+    },
+    {
+      "id": "dedupB-interaction-defensive-duplicate-1",
+      "family": "same-interaction-rule-defensive-duplicate",
+      "expected_count": 1,
+      "actual_count": 1,
+      "correct": true,
+      "input_count": 2,
+      "notes": "defensive: an accidental exact duplicate entry for the same interaction_id (same rule_id, same None/None/None location) correctly collapses to one -- this IS a true duplicate, not two distinct findings"
+    },
+    {
+      "id": "dedupB-interaction-defensive-duplicate-2",
+      "family": "same-interaction-rule-defensive-duplicate",
+      "expected_count": 1,
+      "actual_count": 1,
+      "correct": true,
+      "input_count": 2,
+      "notes": "defensive: an accidental exact duplicate entry for the same interaction_id (same rule_id, same None/None/None location) correctly collapses to one -- this IS a true duplicate, not two distinct findings"
+    },
+    {
+      "id": "dedupB-interaction-defensive-duplicate-3",
+      "family": "same-interaction-rule-defensive-duplicate",
+      "expected_count": 1,
+      "actual_count": 1,
+      "correct": true,
+      "input_count": 2,
+      "notes": "defensive: an accidental exact duplicate entry for the same interaction_id (same rule_id, same None/None/None location) correctly collapses to one -- this IS a true duplicate, not two distinct findings"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-0",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "2 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-1",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "3 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-2",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 4,
+      "actual_count": 4,
+      "correct": true,
+      "input_count": 4,
+      "notes": "4 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-3",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "2 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-4",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "3 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-5",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 4,
+      "actual_count": 4,
+      "correct": true,
+      "input_count": 4,
+      "notes": "4 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-6",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "2 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-7",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "3 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-8",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 4,
+      "actual_count": 4,
+      "correct": true,
+      "input_count": 4,
+      "notes": "4 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-9",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "2 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-10",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "3 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-11",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 4,
+      "actual_count": 4,
+      "correct": true,
+      "input_count": 4,
+      "notes": "4 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-12",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "2 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-13",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "3 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-14",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 4,
+      "actual_count": 4,
+      "correct": true,
+      "input_count": 4,
+      "notes": "4 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-15",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "2 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-16",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "3 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-17",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 4,
+      "actual_count": 4,
+      "correct": true,
+      "input_count": 4,
+      "notes": "4 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-18",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "2 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-19",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "3 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-20",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 4,
+      "actual_count": 4,
+      "correct": true,
+      "input_count": 4,
+      "notes": "4 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-21",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "2 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-22",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "3 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-23",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 4,
+      "actual_count": 4,
+      "correct": true,
+      "input_count": 4,
+      "notes": "4 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-24",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "2 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-25",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "3 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-26",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 4,
+      "actual_count": 4,
+      "correct": true,
+      "input_count": 4,
+      "notes": "4 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-27",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "2 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-28",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "3 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-29",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 4,
+      "actual_count": 4,
+      "correct": true,
+      "input_count": 4,
+      "notes": "4 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-30",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "2 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-31",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "3 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-32",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 4,
+      "actual_count": 4,
+      "correct": true,
+      "input_count": 4,
+      "notes": "4 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-33",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "2 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-34",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "3 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-35",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 4,
+      "actual_count": 4,
+      "correct": true,
+      "input_count": 4,
+      "notes": "4 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-36",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "2 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-37",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 3,
+      "actual_count": 3,
+      "correct": true,
+      "input_count": 3,
+      "notes": "3 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-38",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 4,
+      "actual_count": 4,
+      "correct": true,
+      "input_count": 4,
+      "notes": "4 genuinely distinct occurrences of the same rule_id -- all must survive"
+    },
+    {
+      "id": "dedupB-volume-multi-occurrence-39",
+      "family": "same-policy-different-clauses-volume",
+      "expected_count": 2,
+      "actual_count": 2,
+      "correct": true,
+      "input_count": 2,
+      "notes": "2 genuinely distinct occurrences of the same rule_id -- all must survive"
+    }
+  ],
+  "metrics": {
+    "materially_distinct_finding_suppression": [],
+    "duplicate_finding_leakage": []
+  },
+  "total": 108,
+  "correct": 108
+}

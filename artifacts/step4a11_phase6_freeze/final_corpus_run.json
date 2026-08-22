@@ -1,0 +1,6092 @@
+{
+  "rows": [
+    {
+      "id": "fin-ind-t1-00-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-00-1",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-00-2",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-00-3",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-00-4",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-01-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-01-1",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-01-2",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-01-3",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-01-4",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-02-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-02-1",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-02-2",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-02-3",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-02-4",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-03-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-03-1",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-03-2",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-03-3",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-03-4",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-04-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-04-1",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-04-2",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-04-3",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-04-4",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-05-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-05-1",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-05-2",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-05-3",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-05-4",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-06-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-06-1",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-06-2",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-06-3",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-06-4",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-07-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1",
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-07-1",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1",
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-07-2",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1",
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-07-3",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1",
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-07-4",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1",
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-08-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-09-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-10-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-11-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-12-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-12-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-12-2",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-13-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-13-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-13-2",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-14-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-14-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-14-2",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-15-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-15-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-15-2",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-16-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1",
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-16-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1",
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-16-2",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1",
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-17-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-17-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-17-2",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-18-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-18-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-18-2",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-19-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF3"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-ind-t2-20-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-21-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF4",
+        "AF8"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-22-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-23-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-24-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-25-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-26-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-26-1",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-26-2",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-27-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t3-27-1",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t3-27-2",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t3-28-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF4",
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t3-28-1",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF4",
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t3-28-2",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF4",
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t3-29-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-30-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF9"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-30-1",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF9"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-30-2",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF9"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-31-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF8"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t3-32-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF8"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t3-33-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-ind-t3-33-1",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-ind-t3-33-2",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-ind-t3-34-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-ind-t2-b2-00-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-b2-00-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-b2-00-2",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-b2-01-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-b2-01-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-b2-01-2",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-b2-02-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-b2-02-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-b2-02-2",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-b2-03-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-b2-03-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-b2-03-2",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-b2-04-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-b2-04-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-b2-04-2",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-b2-05-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-b2-05-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-b2-05-2",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-b2-06-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-b2-06-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-b2-06-2",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-b2-07-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-b2-07-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-b2-08-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF7",
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-b2-08-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF7",
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-b2-08-2",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF7",
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-b2-09-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-09-1",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-09-2",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-09-3",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-09-4",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-10-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-10-1",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-10-2",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-10-3",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-10-4",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-11-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-11-1",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-11-2",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-11-3",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-11-4",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-12-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-b2-12-1",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-b2-12-2",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-b2-12-3",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-b2-12-4",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t2-b2-13-0",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF2",
+        "AF3"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t2-b2-13-1",
+      "adapter": "indemnification",
+      "tier": 2,
+      "attack_families": [
+        "AF2",
+        "AF3"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t1-b2-14-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-b2-14-1",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-b2-15-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-b2-15-1",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-b2-16-0",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t1-b2-16-1",
+      "adapter": "indemnification",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "CONFIRMED_ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t1-00-0",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-00-1",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-00-2",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-00-3",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-01-0",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-01-1",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-01-2",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-01-3",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-02-0",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-02-1",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-02-2",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-02-3",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-03-0",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-03-1",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-03-2",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-03-3",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-04-0",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-04-1",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-04-2",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-04-3",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-05-0",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t1-05-1",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t1-06-0",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t1-06-1",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t1-07-0",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t1-07-1",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t2-08-0",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t2-08-1",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t2-09-0",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t2-09-1",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t2-10-0",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-10-1",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-11-0",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t2-11-1",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t2-12-0",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF1",
+        "AF2"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-12-1",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF1",
+        "AF2"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t3-13-0",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t3-13-1",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t3-14-0",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t3-14-1",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t3-15-0",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t3-15-1",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t3-16-0",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF4",
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t3-16-1",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF4",
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t3-17-0",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF9"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t3-17-1",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF9"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t3-18-0",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF9"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t3-18-1",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF9"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t3-19-0",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF8"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t3-19-1",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF8"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t3-20-0",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF8"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t3-20-1",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF8"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-00-0",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t2-b2-00-1",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t2-b2-00-2",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t2-b2-00-3",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t2-b2-01-0",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF3"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t2-b2-01-1",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF3"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t2-b2-01-2",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF3"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t2-b2-01-3",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF3"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t2-b2-02-0",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-02-1",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-02-2",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-02-3",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-03-0",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-03-1",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-03-2",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-03-3",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-04-0",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t2-b2-04-1",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t2-b2-04-2",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t2-b2-04-3",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t2-b2-05-0",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t2-b2-05-1",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t2-b2-05-2",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t2-b2-05-3",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-lia-t2-b2-06-0",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-06-1",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-06-2",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-06-3",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-07-0",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-07-1",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-07-2",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t2-b2-07-3",
+      "adapter": "liability",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t3-b2-08-0",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-b2-08-1",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-b2-08-2",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-b2-08-3",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-b2-09-0",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-b2-09-1",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-b2-09-2",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-b2-09-3",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t1-b3-00-0",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-b3-00-1",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-b3-00-2",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-b3-00-3",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-b3-00-4",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-b3-01-0",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-b3-01-1",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-b3-01-2",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-b3-01-3",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-lia-t1-b3-01-4",
+      "adapter": "liability",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-00-0",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-00-1",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-00-2",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-00-3",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-00-4",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-01-0",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-01-1",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-01-2",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-01-3",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-01-4",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-02-0",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-02-1",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-02-2",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-02-3",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-02-4",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-03-0",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-03-1",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-03-2",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-03-3",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-03-4",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-04-0",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-04-1",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t1-05-0",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-pay-t1-05-1",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-pay-t1-06-0",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-pay-t1-06-1",
+      "adapter": "payment_terms",
+      "tier": 1,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-pay-t2-07-0",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-07-1",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-07-2",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-08-0",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-08-1",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-08-2",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-09-0",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-09-1",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-09-2",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-10-0",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t2-10-1",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t2-10-2",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t2-11-0",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-11-1",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-11-2",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-12-0",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-12-1",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-13-0",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-13-1",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-14-0",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-14-1",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "HARD_NEGATIVE",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-15-0",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-15-1",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-15-2",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF6"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-16-0",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF4"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-16-1",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF4"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-16-2",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF4"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-17-0",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-17-1",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-18-0",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF9"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-18-1",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF9"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-18-2",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF9"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-00-0",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-00-1",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-00-2",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-00-3",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-00-4",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-00-5",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-01-0",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-01-1",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-01-2",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-01-3",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-01-4",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-01-5",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF2"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-02-0",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-02-1",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-02-2",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-02-3",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-02-4",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-02-5",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-03-0",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-pay-t2-b2-03-1",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-pay-t2-b2-03-2",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-pay-t2-b2-03-3",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-pay-t2-b2-03-4",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-pay-t2-b2-03-5",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF5",
+        "AF1"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "ABSENT",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-pay-t2-b2-04-0",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-04-1",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-04-2",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-04-3",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-04-4",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-04-5",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-05-0",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-05-1",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-05-2",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-05-3",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-05-4",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t2-b2-05-5",
+      "adapter": "payment_terms",
+      "tier": 2,
+      "attack_families": [
+        "AF7"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-b2-06-0",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-b2-06-1",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-b2-06-2",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-b2-06-3",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-b2-06-4",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-b2-06-5",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-pay-t3-b2-07-0",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-b2-07-1",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-b2-07-2",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-b2-07-3",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-b2-07-4",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-b2-07-5",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-ind-t3-cmp-00-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t3-cmp-00-1",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t3-cmp-00-2",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t3-cmp-00-3",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "UNCONDITIONAL"
+    },
+    {
+      "id": "fin-ind-t3-cmp-01-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-cmp-01-1",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-cmp-01-2",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-cmp-01-3",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_BUT_UNRESOLVED",
+      "actual_condition": null
+    },
+    {
+      "id": "fin-ind-t3-cmp-02-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "fin-ind-t3-cmp-02-1",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "fin-ind-t3-cmp-02-2",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "fin-ind-t3-cmp-02-3",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "fin-ind-t3-cmp-03-0",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF8",
+        "AF3"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-ind-t3-cmp-03-1",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF8",
+        "AF3"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-ind-t3-cmp-03-2",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF8",
+        "AF3"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-ind-t3-cmp-03-3",
+      "adapter": "indemnification",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF8",
+        "AF3"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_AND_VERIFIED",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-cmp-00-0",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-cmp-00-1",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-cmp-00-2",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-cmp-00-3",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_UNRESOLVED_CAP",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-cmp-01-0",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-cmp-01-1",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-cmp-01-2",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-cmp-01-3",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-cmp-02-0",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF2",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-cmp-02-1",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF2",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-cmp-02-2",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF2",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-lia-t3-cmp-02-3",
+      "adapter": "liability",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF2",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-cmp-00-0",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-cmp-00-1",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-cmp-00-2",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-cmp-00-3",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF3",
+        "AF4"
+      ],
+      "disposition": "SHOULD_REVIEW",
+      "expected_status": "NOT_ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-cmp-01-0",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-cmp-01-1",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-cmp-01-2",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-cmp-01-3",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF7",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "ESTABLISHED",
+      "correct_status": true,
+      "correct_value": true,
+      "absence_state": "PRESENT",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-cmp-02-0",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF2",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-cmp-02-1",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF2",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-cmp-02-2",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF2",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "ESTABLISHED"
+    },
+    {
+      "id": "fin-pay-t3-cmp-02-3",
+      "adapter": "payment_terms",
+      "tier": 3,
+      "attack_families": [
+        "AF10",
+        "AF2",
+        "AF3"
+      ],
+      "disposition": "AUTOMATABLE",
+      "expected_status": "ESTABLISHED",
+      "actual_status": "NOT_ESTABLISHED",
+      "correct_status": false,
+      "correct_value": false,
+      "absence_state": "PRESENT_NO_VALUE",
+      "actual_condition": "ESTABLISHED"
+    }
+  ],
+  "metrics": {
+    "CA": 199,
+    "CR": 52,
+    "FE": 142,
+    "WC": 0,
+    "SM": 7
+  },
+  "false_structural_establishment": [],
+  "wrong_ownership": [],
+  "semantic_authority_diffs": [],
+  "determinism_mismatches": []
+}

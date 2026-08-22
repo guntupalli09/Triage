@@ -1,0 +1,4 @@
+
+=== SYMMETRY BENCHMARK (FINAL) ===
+{'CS': 19, 'CR': 29, 'CA': 72, 'FE_missed_ambiguity': 12}
+FS (False Symmetry, dangerous) count: 0

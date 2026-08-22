@@ -1,0 +1,3670 @@
+[
+  {
+    "id": "S4A102-0001",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party shall indemnify and hold harmless the other party from any third-party claim arising out of the indemnifying party's breach of this Agreement, on identical terms applicable to both parties.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0002",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Managed Service Provider and Client shall each indemnify the other for losses arising from their own respective negligence, subject to the same aggregate cap of twelve months' fees applicable to both.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0003",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation to the other is limited to direct third-party claims, excludes consequential damages for both parties equally, and survives termination for two years on both sides.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0004",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "The parties mutually agree to indemnify one another for claims arising from a breach of confidentiality, with identical notice and defense-cooperation obligations running in both directions.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0005",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each of Data Processor and Data Controller shall bear the cost of defending any claim traceable to its own acts, with neither party bearing any greater share of exposure than the other under this Section.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0006",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party shall indemnify and hold harmless the other party from any third-party claim arising out of the indemnifying party's breach of this Agreement, on identical terms applicable to both parties.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0007",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Reseller and Original Manufacturer shall each indemnify the other for losses arising from their own respective negligence, subject to the same aggregate cap of twelve months' fees applicable to both.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0008",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation to the other is limited to direct third-party claims, excludes consequential damages for both parties equally, and survives termination for two years on both sides.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0009",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "The parties mutually agree to indemnify one another for claims arising from a breach of confidentiality, with identical notice and defense-cooperation obligations running in both directions.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0010",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each of Managed Service Provider and Client shall bear the cost of defending any claim traceable to its own acts, with neither party bearing any greater share of exposure than the other under this Section.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0011",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party shall indemnify and hold harmless the other party from any third-party claim arising out of the indemnifying party's breach of this Agreement, on identical terms applicable to both parties.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0012",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Import Broker and Principal shall each indemnify the other for losses arising from their own respective negligence, subject to the same aggregate cap of twelve months' fees applicable to both.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0013",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation to the other is limited to direct third-party claims, excludes consequential damages for both parties equally, and survives termination for two years on both sides.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0014",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "The parties mutually agree to indemnify one another for claims arising from a breach of confidentiality, with identical notice and defense-cooperation obligations running in both directions.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0015",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each of Reseller and Original Manufacturer shall bear the cost of defending any claim traceable to its own acts, with neither party bearing any greater share of exposure than the other under this Section.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0016",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party shall indemnify and hold harmless the other party from any third-party claim arising out of the indemnifying party's breach of this Agreement, on identical terms applicable to both parties.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0017",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Colocation Provider and Enterprise Customer shall each indemnify the other for losses arising from their own respective negligence, subject to the same aggregate cap of twelve months' fees applicable to both.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0018",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation to the other is limited to direct third-party claims, excludes consequential damages for both parties equally, and survives termination for two years on both sides.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0019",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "The parties mutually agree to indemnify one another for claims arising from a breach of confidentiality, with identical notice and defense-cooperation obligations running in both directions.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0020",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each of Import Broker and Principal shall bear the cost of defending any claim traceable to its own acts, with neither party bearing any greater share of exposure than the other under this Section.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0021",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party shall indemnify and hold harmless the other party from any third-party claim arising out of the indemnifying party's breach of this Agreement, on identical terms applicable to both parties.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0022",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Subcontractor and General Contractor shall each indemnify the other for losses arising from their own respective negligence, subject to the same aggregate cap of twelve months' fees applicable to both.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0023",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation to the other is limited to direct third-party claims, excludes consequential damages for both parties equally, and survives termination for two years on both sides.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0024",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "The parties mutually agree to indemnify one another for claims arising from a breach of confidentiality, with identical notice and defense-cooperation obligations running in both directions.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0025",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each of Colocation Provider and Enterprise Customer shall bear the cost of defending any claim traceable to its own acts, with neither party bearing any greater share of exposure than the other under this Section.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0026",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party shall indemnify and hold harmless the other party from any third-party claim arising out of the indemnifying party's breach of this Agreement, on identical terms applicable to both parties.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0027",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Underwriter and Cedent shall each indemnify the other for losses arising from their own respective negligence, subject to the same aggregate cap of twelve months' fees applicable to both.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0028",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation to the other is limited to direct third-party claims, excludes consequential damages for both parties equally, and survives termination for two years on both sides.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0029",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "The parties mutually agree to indemnify one another for claims arising from a breach of confidentiality, with identical notice and defense-cooperation obligations running in both directions.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0030",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each of Subcontractor and General Contractor shall bear the cost of defending any claim traceable to its own acts, with neither party bearing any greater share of exposure than the other under this Section.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0031",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party shall indemnify and hold harmless the other party from any third-party claim arising out of the indemnifying party's breach of this Agreement, on identical terms applicable to both parties.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0032",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Franchisee and Franchisor shall each indemnify the other for losses arising from their own respective negligence, subject to the same aggregate cap of twelve months' fees applicable to both.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0033",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation to the other is limited to direct third-party claims, excludes consequential damages for both parties equally, and survives termination for two years on both sides.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0034",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "The parties mutually agree to indemnify one another for claims arising from a breach of confidentiality, with identical notice and defense-cooperation obligations running in both directions.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0035",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each of Underwriter and Cedent shall bear the cost of defending any claim traceable to its own acts, with neither party bearing any greater share of exposure than the other under this Section.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0036",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party shall indemnify and hold harmless the other party from any third-party claim arising out of the indemnifying party's breach of this Agreement, on identical terms applicable to both parties.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0037",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Data Processor and Data Controller shall each indemnify the other for losses arising from their own respective negligence, subject to the same aggregate cap of twelve months' fees applicable to both.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0038",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation to the other is limited to direct third-party claims, excludes consequential damages for both parties equally, and survives termination for two years on both sides.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0039",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "The parties mutually agree to indemnify one another for claims arising from a breach of confidentiality, with identical notice and defense-cooperation obligations running in both directions.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0040",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each of Franchisee and Franchisor shall bear the cost of defending any claim traceable to its own acts, with neither party bearing any greater share of exposure than the other under this Section.",
+    "note": "ordinary-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0041",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "As between Colocation Provider and Enterprise Customer, each shall indemnify the other for third-party claims of the type described in Section 4, and, for the avoidance of doubt, the survival period, monetary cap, and defense-control terms set out in Section 4 apply identically regardless of which party is indemnifying.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0042",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation under this Section 9 mirrors the other's in every respect: same claim categories, same causation standard (negligence), same $2,000,000 cap, and same one-year survival period.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0043",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "As between Underwriter and Cedent, each shall indemnify the other for third-party claims of the type described in Section 4, and, for the avoidance of doubt, the survival period, monetary cap, and defense-control terms set out in Section 4 apply identically regardless of which party is indemnifying.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0044",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation under this Section 9 mirrors the other's in every respect: same claim categories, same causation standard (negligence), same $2,000,000 cap, and same one-year survival period.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0045",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "As between Data Processor and Data Controller, each shall indemnify the other for third-party claims of the type described in Section 4, and, for the avoidance of doubt, the survival period, monetary cap, and defense-control terms set out in Section 4 apply identically regardless of which party is indemnifying.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0046",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation under this Section 9 mirrors the other's in every respect: same claim categories, same causation standard (negligence), same $2,000,000 cap, and same one-year survival period.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0047",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "As between Reseller and Original Manufacturer, each shall indemnify the other for third-party claims of the type described in Section 4, and, for the avoidance of doubt, the survival period, monetary cap, and defense-control terms set out in Section 4 apply identically regardless of which party is indemnifying.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0048",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation under this Section 9 mirrors the other's in every respect: same claim categories, same causation standard (negligence), same $2,000,000 cap, and same one-year survival period.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0049",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "As between Colocation Provider and Enterprise Customer, each shall indemnify the other for third-party claims of the type described in Section 4, and, for the avoidance of doubt, the survival period, monetary cap, and defense-control terms set out in Section 4 apply identically regardless of which party is indemnifying.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0050",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation under this Section 9 mirrors the other's in every respect: same claim categories, same causation standard (negligence), same $2,000,000 cap, and same one-year survival period.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0051",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "As between Underwriter and Cedent, each shall indemnify the other for third-party claims of the type described in Section 4, and, for the avoidance of doubt, the survival period, monetary cap, and defense-control terms set out in Section 4 apply identically regardless of which party is indemnifying.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0052",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation under this Section 9 mirrors the other's in every respect: same claim categories, same causation standard (negligence), same $2,000,000 cap, and same one-year survival period.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0053",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "As between Data Processor and Data Controller, each shall indemnify the other for third-party claims of the type described in Section 4, and, for the avoidance of doubt, the survival period, monetary cap, and defense-control terms set out in Section 4 apply identically regardless of which party is indemnifying.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0054",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation under this Section 9 mirrors the other's in every respect: same claim categories, same causation standard (negligence), same $2,000,000 cap, and same one-year survival period.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0055",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "As between Reseller and Original Manufacturer, each shall indemnify the other for third-party claims of the type described in Section 4, and, for the avoidance of doubt, the survival period, monetary cap, and defense-control terms set out in Section 4 apply identically regardless of which party is indemnifying.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0056",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation under this Section 9 mirrors the other's in every respect: same claim categories, same causation standard (negligence), same $2,000,000 cap, and same one-year survival period.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0057",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "As between Colocation Provider and Enterprise Customer, each shall indemnify the other for third-party claims of the type described in Section 4, and, for the avoidance of doubt, the survival period, monetary cap, and defense-control terms set out in Section 4 apply identically regardless of which party is indemnifying.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0058",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation under this Section 9 mirrors the other's in every respect: same claim categories, same causation standard (negligence), same $2,000,000 cap, and same one-year survival period.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0059",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "As between Underwriter and Cedent, each shall indemnify the other for third-party claims of the type described in Section 4, and, for the avoidance of doubt, the survival period, monetary cap, and defense-control terms set out in Section 4 apply identically regardless of which party is indemnifying.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0060",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric",
+    "dimensions": [],
+    "text": "Each party's indemnification obligation under this Section 9 mirrors the other's in every respect: same claim categories, same causation standard (negligence), same $2,000,000 cap, and same one-year survival period.",
+    "note": "varied-drafting genuine symmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CS (clean, correctly symmetric)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0061",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Franchisee is answerable only for claims traceable to Franchisee's gross negligence or willful misconduct, whereas Franchisor is answerable for claims traceable to Franchisor's ordinary carelessness.",
+    "note": "asymmetric: causation_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0062",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Colocation Provider is answerable only for claims traceable to Colocation Provider's gross negligence or willful misconduct, whereas Enterprise Customer is answerable for claims traceable to Enterprise Customer's ordinary carelessness.",
+    "note": "asymmetric: causation_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0063",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Managed Service Provider is answerable only for claims traceable to Managed Service Provider's gross negligence or willful misconduct, whereas Client is answerable for claims traceable to Client's ordinary carelessness.",
+    "note": "asymmetric: causation_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0064",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Underwriter is answerable only for claims traceable to Underwriter's gross negligence or willful misconduct, whereas Cedent is answerable for claims traceable to Cedent's ordinary carelessness.",
+    "note": "asymmetric: causation_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0065",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Import Broker is answerable only for claims traceable to Import Broker's gross negligence or willful misconduct, whereas Principal is answerable for claims traceable to Principal's ordinary carelessness.",
+    "note": "asymmetric: causation_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0066",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Data Processor is answerable only for claims traceable to Data Processor's gross negligence or willful misconduct, whereas Data Controller is answerable for claims traceable to Data Controller's ordinary carelessness.",
+    "note": "asymmetric: causation_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0067",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Subcontractor is answerable only for claims traceable to Subcontractor's gross negligence or willful misconduct, whereas General Contractor is answerable for claims traceable to General Contractor's ordinary carelessness.",
+    "note": "asymmetric: causation_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0068",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Reseller is answerable only for claims traceable to Reseller's gross negligence or willful misconduct, whereas Original Manufacturer is answerable for claims traceable to Original Manufacturer's ordinary carelessness.",
+    "note": "asymmetric: causation_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0069",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchisee's duty runs only to claims alleging trademark infringement, whereas Franchisor's duty runs to claims of any nature whatsoever.",
+    "note": "asymmetric: claim_category",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0070",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Colocation Provider's duty runs only to claims alleging trademark infringement, whereas Enterprise Customer's duty runs to claims of any nature whatsoever.",
+    "note": "asymmetric: claim_category",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0071",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managed Service Provider's duty runs only to claims alleging trademark infringement, whereas Client's duty runs to claims of any nature whatsoever.",
+    "note": "asymmetric: claim_category",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0072",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriter's duty runs only to claims alleging trademark infringement, whereas Cedent's duty runs to claims of any nature whatsoever.",
+    "note": "asymmetric: claim_category",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0073",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's duty runs only to claims alleging trademark infringement, whereas Principal's duty runs to claims of any nature whatsoever.",
+    "note": "asymmetric: claim_category",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0074",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Data Processor's duty runs only to claims alleging trademark infringement, whereas Data Controller's duty runs to claims of any nature whatsoever.",
+    "note": "asymmetric: claim_category",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0075",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Subcontractor's duty runs only to claims alleging trademark infringement, whereas General Contractor's duty runs to claims of any nature whatsoever.",
+    "note": "asymmetric: claim_category",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0076",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller's duty runs only to claims alleging trademark infringement, whereas Original Manufacturer's duty runs to claims of any nature whatsoever.",
+    "note": "asymmetric: claim_category",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0077",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Franchisee retains the exclusive right to control and settle any claim against Franchisor, whereas Franchisor has no corresponding right to control or settle any claim against Franchisee.",
+    "note": "asymmetric: defense_control",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0078",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Colocation Provider retains the exclusive right to control and settle any claim against Enterprise Customer, whereas Enterprise Customer has no corresponding right to control or settle any claim against Colocation Provider.",
+    "note": "asymmetric: defense_control",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0079",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Managed Service Provider retains the exclusive right to control and settle any claim against Client, whereas Client has no corresponding right to control or settle any claim against Managed Service Provider.",
+    "note": "asymmetric: defense_control",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0080",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Underwriter retains the exclusive right to control and settle any claim against Cedent, whereas Cedent has no corresponding right to control or settle any claim against Underwriter.",
+    "note": "asymmetric: defense_control",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0081",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Import Broker retains the exclusive right to control and settle any claim against Principal, whereas Principal has no corresponding right to control or settle any claim against Import Broker.",
+    "note": "asymmetric: defense_control",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0082",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Data Processor retains the exclusive right to control and settle any claim against Data Controller, whereas Data Controller has no corresponding right to control or settle any claim against Data Processor.",
+    "note": "asymmetric: defense_control",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0083",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Subcontractor retains the exclusive right to control and settle any claim against General Contractor, whereas General Contractor has no corresponding right to control or settle any claim against Subcontractor.",
+    "note": "asymmetric: defense_control",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0084",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Reseller retains the exclusive right to control and settle any claim against Original Manufacturer, whereas Original Manufacturer has no corresponding right to control or settle any claim against Reseller.",
+    "note": "asymmetric: defense_control",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0085",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchisee's exposure is capped at the amount of fees paid over the prior six months, whereas Franchisor's exposure carries no cap of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0086",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Colocation Provider's exposure is capped at the amount of fees paid over the prior six months, whereas Enterprise Customer's exposure carries no cap of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0087",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managed Service Provider's exposure is capped at the amount of fees paid over the prior six months, whereas Client's exposure carries no cap of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0088",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriter's exposure is capped at the amount of fees paid over the prior six months, whereas Cedent's exposure carries no cap of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0089",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's exposure is capped at the amount of fees paid over the prior six months, whereas Principal's exposure carries no cap of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0090",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Data Processor's exposure is capped at the amount of fees paid over the prior six months, whereas Data Controller's exposure carries no cap of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0091",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Subcontractor's exposure is capped at the amount of fees paid over the prior six months, whereas General Contractor's exposure carries no cap of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0092",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller's exposure is capped at the amount of fees paid over the prior six months, whereas Original Manufacturer's exposure carries no cap of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0093",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Franchisee's duty excludes any claim traceable to a modification Franchisor makes without Franchisee's consent, an exclusion with no counterpart limiting Franchisor's duty to Franchisee.",
+    "note": "asymmetric: proviso_exception",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0094",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Colocation Provider's duty excludes any claim traceable to a modification Enterprise Customer makes without Colocation Provider's consent, an exclusion with no counterpart limiting Enterprise Customer's duty to Colocation Provider.",
+    "note": "asymmetric: proviso_exception",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0095",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Managed Service Provider's duty excludes any claim traceable to a modification Client makes without Managed Service Provider's consent, an exclusion with no counterpart limiting Client's duty to Managed Service Provider.",
+    "note": "asymmetric: proviso_exception",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0096",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Underwriter's duty excludes any claim traceable to a modification Cedent makes without Underwriter's consent, an exclusion with no counterpart limiting Cedent's duty to Underwriter.",
+    "note": "asymmetric: proviso_exception",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0097",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Import Broker's duty excludes any claim traceable to a modification Principal makes without Import Broker's consent, an exclusion with no counterpart limiting Principal's duty to Import Broker.",
+    "note": "asymmetric: proviso_exception",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0098",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Data Processor's duty excludes any claim traceable to a modification Data Controller makes without Data Processor's consent, an exclusion with no counterpart limiting Data Controller's duty to Data Processor.",
+    "note": "asymmetric: proviso_exception",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0099",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Subcontractor's duty excludes any claim traceable to a modification General Contractor makes without Subcontractor's consent, an exclusion with no counterpart limiting General Contractor's duty to Subcontractor.",
+    "note": "asymmetric: proviso_exception",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0100",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Reseller's duty excludes any claim traceable to a modification Original Manufacturer makes without Reseller's consent, an exclusion with no counterpart limiting Original Manufacturer's duty to Reseller.",
+    "note": "asymmetric: proviso_exception",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0101",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchisee's duty arises only once Franchisor has exhausted the dispute-resolution steps in Section 14, a precondition with no counterpart applicable to Franchisor's duty to Franchisee.",
+    "note": "asymmetric: conditional_applicability",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0102",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Colocation Provider's duty arises only once Enterprise Customer has exhausted the dispute-resolution steps in Section 14, a precondition with no counterpart applicable to Enterprise Customer's duty to Colocation Provider.",
+    "note": "asymmetric: conditional_applicability",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0103",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managed Service Provider's duty arises only once Client has exhausted the dispute-resolution steps in Section 14, a precondition with no counterpart applicable to Client's duty to Managed Service Provider.",
+    "note": "asymmetric: conditional_applicability",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0104",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriter's duty arises only once Cedent has exhausted the dispute-resolution steps in Section 14, a precondition with no counterpart applicable to Cedent's duty to Underwriter.",
+    "note": "asymmetric: conditional_applicability",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0105",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's duty arises only once Principal has exhausted the dispute-resolution steps in Section 14, a precondition with no counterpart applicable to Principal's duty to Import Broker.",
+    "note": "asymmetric: conditional_applicability",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0106",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Data Processor's duty arises only once Data Controller has exhausted the dispute-resolution steps in Section 14, a precondition with no counterpart applicable to Data Controller's duty to Data Processor.",
+    "note": "asymmetric: conditional_applicability",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0107",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Subcontractor's duty arises only once General Contractor has exhausted the dispute-resolution steps in Section 14, a precondition with no counterpart applicable to General Contractor's duty to Subcontractor.",
+    "note": "asymmetric: conditional_applicability",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0108",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller's duty arises only once Original Manufacturer has exhausted the dispute-resolution steps in Section 14, a precondition with no counterpart applicable to Original Manufacturer's duty to Reseller.",
+    "note": "asymmetric: conditional_applicability",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0109",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchisee's duty extends to Franchisor's own direct losses as well as third-party claims, whereas Franchisor's duty is confined strictly to third-party claims asserted against Franchisee.",
+    "note": "asymmetric: first_third_party",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0110",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Colocation Provider's duty extends to Enterprise Customer's own direct losses as well as third-party claims, whereas Enterprise Customer's duty is confined strictly to third-party claims asserted against Colocation Provider.",
+    "note": "asymmetric: first_third_party",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0111",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managed Service Provider's duty extends to Client's own direct losses as well as third-party claims, whereas Client's duty is confined strictly to third-party claims asserted against Managed Service Provider.",
+    "note": "asymmetric: first_third_party",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0112",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriter's duty extends to Cedent's own direct losses as well as third-party claims, whereas Cedent's duty is confined strictly to third-party claims asserted against Underwriter.",
+    "note": "asymmetric: first_third_party",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0113",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's duty extends to Principal's own direct losses as well as third-party claims, whereas Principal's duty is confined strictly to third-party claims asserted against Import Broker.",
+    "note": "asymmetric: first_third_party",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0114",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Data Processor's duty extends to Data Controller's own direct losses as well as third-party claims, whereas Data Controller's duty is confined strictly to third-party claims asserted against Data Processor.",
+    "note": "asymmetric: first_third_party",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0115",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Subcontractor's duty extends to General Contractor's own direct losses as well as third-party claims, whereas General Contractor's duty is confined strictly to third-party claims asserted against Subcontractor.",
+    "note": "asymmetric: first_third_party",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0116",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller's duty extends to Original Manufacturer's own direct losses as well as third-party claims, whereas Original Manufacturer's duty is confined strictly to third-party claims asserted against Reseller.",
+    "note": "asymmetric: first_third_party",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0117",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Franchisee answers for such claims strictly, without regard to fault, whereas Franchisor answers only where Franchisor's own fault is affirmatively shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0118",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Colocation Provider answers for such claims strictly, without regard to fault, whereas Enterprise Customer answers only where Enterprise Customer's own fault is affirmatively shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0119",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Managed Service Provider answers for such claims strictly, without regard to fault, whereas Client answers only where Client's own fault is affirmatively shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0120",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Underwriter answers for such claims strictly, without regard to fault, whereas Cedent answers only where Cedent's own fault is affirmatively shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0121",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Import Broker answers for such claims strictly, without regard to fault, whereas Principal answers only where Principal's own fault is affirmatively shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0122",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Data Processor answers for such claims strictly, without regard to fault, whereas Data Controller answers only where Data Controller's own fault is affirmatively shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0123",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Subcontractor answers for such claims strictly, without regard to fault, whereas General Contractor answers only where General Contractor's own fault is affirmatively shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0124",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own acts; Reseller answers for such claims strictly, without regard to fault, whereas Original Manufacturer answers only where Original Manufacturer's own fault is affirmatively shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0125",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchisee's duty applies to claims wherever they arise, whereas Franchisor's duty is confined to claims arising within North America.",
+    "note": "asymmetric: scope_geographic",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0126",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Colocation Provider's duty applies to claims wherever they arise, whereas Enterprise Customer's duty is confined to claims arising within North America.",
+    "note": "asymmetric: scope_geographic",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0127",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managed Service Provider's duty applies to claims wherever they arise, whereas Client's duty is confined to claims arising within North America.",
+    "note": "asymmetric: scope_geographic",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0128",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriter's duty applies to claims wherever they arise, whereas Cedent's duty is confined to claims arising within North America.",
+    "note": "asymmetric: scope_geographic",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0129",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's duty applies to claims wherever they arise, whereas Principal's duty is confined to claims arising within North America.",
+    "note": "asymmetric: scope_geographic",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0130",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Data Processor's duty applies to claims wherever they arise, whereas Data Controller's duty is confined to claims arising within North America.",
+    "note": "asymmetric: scope_geographic",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0131",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Subcontractor's duty applies to claims wherever they arise, whereas General Contractor's duty is confined to claims arising within North America.",
+    "note": "asymmetric: scope_geographic",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0132",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller's duty applies to claims wherever they arise, whereas Original Manufacturer's duty is confined to claims arising within North America.",
+    "note": "asymmetric: scope_geographic",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0133",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling applicable to Franchisee is fixed by Schedule 7, and the ceiling applicable to Franchisor, set by the separate terms of Schedule 9, differs from Schedule 7.",
+    "note": "asymmetric: cross_reference_schedule",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0134",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling applicable to Colocation Provider is fixed by Schedule 7, and the ceiling applicable to Enterprise Customer, set by the separate terms of Schedule 9, differs from Schedule 7.",
+    "note": "asymmetric: cross_reference_schedule",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0135",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling applicable to Managed Service Provider is fixed by Schedule 7, and the ceiling applicable to Client, set by the separate terms of Schedule 9, differs from Schedule 7.",
+    "note": "asymmetric: cross_reference_schedule",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0136",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling applicable to Underwriter is fixed by Schedule 7, and the ceiling applicable to Cedent, set by the separate terms of Schedule 9, differs from Schedule 7.",
+    "note": "asymmetric: cross_reference_schedule",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0137",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling applicable to Import Broker is fixed by Schedule 7, and the ceiling applicable to Principal, set by the separate terms of Schedule 9, differs from Schedule 7.",
+    "note": "asymmetric: cross_reference_schedule",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0138",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling applicable to Data Processor is fixed by Schedule 7, and the ceiling applicable to Data Controller, set by the separate terms of Schedule 9, differs from Schedule 7.",
+    "note": "asymmetric: cross_reference_schedule",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0139",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling applicable to Subcontractor is fixed by Schedule 7, and the ceiling applicable to General Contractor, set by the separate terms of Schedule 9, differs from Schedule 7.",
+    "note": "asymmetric: cross_reference_schedule",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0140",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling applicable to Reseller is fixed by Schedule 7, and the ceiling applicable to Original Manufacturer, set by the separate terms of Schedule 9, differs from Schedule 7.",
+    "note": "asymmetric: cross_reference_schedule",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0141",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchisee's duty continues without end after this Agreement concludes, whereas Franchisor's duty lapses the moment this Agreement concludes.",
+    "note": "asymmetric: temporal_survival",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0142",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Colocation Provider's duty continues without end after this Agreement concludes, whereas Enterprise Customer's duty lapses the moment this Agreement concludes.",
+    "note": "asymmetric: temporal_survival",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0143",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managed Service Provider's duty continues without end after this Agreement concludes, whereas Client's duty lapses the moment this Agreement concludes.",
+    "note": "asymmetric: temporal_survival",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0144",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriter's duty continues without end after this Agreement concludes, whereas Cedent's duty lapses the moment this Agreement concludes.",
+    "note": "asymmetric: temporal_survival",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0145",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's duty continues without end after this Agreement concludes, whereas Principal's duty lapses the moment this Agreement concludes.",
+    "note": "asymmetric: temporal_survival",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0146",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Data Processor's duty continues without end after this Agreement concludes, whereas Data Controller's duty lapses the moment this Agreement concludes.",
+    "note": "asymmetric: temporal_survival",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0147",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Subcontractor's duty continues without end after this Agreement concludes, whereas General Contractor's duty lapses the moment this Agreement concludes.",
+    "note": "asymmetric: temporal_survival",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0148",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller's duty continues without end after this Agreement concludes, whereas Original Manufacturer's duty lapses the moment this Agreement concludes.",
+    "note": "asymmetric: temporal_survival",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0149",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchisee's duty is capped at $250,000, covers only data-security claims, and rests on a strict-liability standard, whereas Franchisor's duty is uncapped, covers claims of any nature, and rests on a gross-negligence standard.",
+    "note": "asymmetric: compound_multi_dimension",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0150",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Colocation Provider's duty is capped at $250,000, covers only data-security claims, and rests on a strict-liability standard, whereas Enterprise Customer's duty is uncapped, covers claims of any nature, and rests on a gross-negligence standard.",
+    "note": "asymmetric: compound_multi_dimension",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0151",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managed Service Provider's duty is capped at $250,000, covers only data-security claims, and rests on a strict-liability standard, whereas Client's duty is uncapped, covers claims of any nature, and rests on a gross-negligence standard.",
+    "note": "asymmetric: compound_multi_dimension",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0152",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriter's duty is capped at $250,000, covers only data-security claims, and rests on a strict-liability standard, whereas Cedent's duty is uncapped, covers claims of any nature, and rests on a gross-negligence standard.",
+    "note": "asymmetric: compound_multi_dimension",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0153",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's duty is capped at $250,000, covers only data-security claims, and rests on a strict-liability standard, whereas Principal's duty is uncapped, covers claims of any nature, and rests on a gross-negligence standard.",
+    "note": "asymmetric: compound_multi_dimension",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0154",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Data Processor's duty is capped at $250,000, covers only data-security claims, and rests on a strict-liability standard, whereas Data Controller's duty is uncapped, covers claims of any nature, and rests on a gross-negligence standard.",
+    "note": "asymmetric: compound_multi_dimension",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0155",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Subcontractor's duty is capped at $250,000, covers only data-security claims, and rests on a strict-liability standard, whereas General Contractor's duty is uncapped, covers claims of any nature, and rests on a gross-negligence standard.",
+    "note": "asymmetric: compound_multi_dimension",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0156",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller's duty is capped at $250,000, covers only data-security claims, and rests on a strict-liability standard, whereas Original Manufacturer's duty is uncapped, covers claims of any nature, and rests on a gross-negligence standard.",
+    "note": "asymmetric: compound_multi_dimension",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0157",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Data Processor separately maintains cyber-liability insurance covering the same risk, while Data Controller's indemnification duty is additionally capped at $100,000 -- a limitation Data Processor's duty does not share.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0158",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the liability cap in Section 11; that cap, however, exempts claims caused by Subcontractor's gross negligence but does not exempt any category of claim caused by General Contractor.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0159",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Reseller's duty to reimburse ordinary defense costs runs alongside its indemnification duty, whereas Original Manufacturer has no separate reimbursement duty at all, only the indemnification duty itself.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0160",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchisee waives any right of contribution against Franchisor, while Franchisor retains a full right of contribution against Franchisee.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0161",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, and Colocation Provider shall additionally reimburse Enterprise Customer for the cost of any tax assessed on amounts paid under this Section, a reimbursement duty with no counterpart running from Enterprise Customer to Colocation Provider.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0162",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising from this Agreement's multiple risk-transfer provisions: Section 6 addresses IP claims, Section 7 addresses data claims. Section 6 applies identically to both parties, but Section 7 caps only Client's exposure, leaving Managed Service Provider's Section 7 exposure uncapped.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0163",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriter separately maintains cyber-liability insurance covering the same risk, while Cedent's indemnification duty is additionally capped at $100,000 -- a limitation Underwriter's duty does not share.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0164",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the liability cap in Section 11; that cap, however, exempts claims caused by Import Broker's gross negligence but does not exempt any category of claim caused by Principal.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0165",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Data Processor's duty to reimburse ordinary defense costs runs alongside its indemnification duty, whereas Data Controller has no separate reimbursement duty at all, only the indemnification duty itself.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0166",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Subcontractor waives any right of contribution against General Contractor, while General Contractor retains a full right of contribution against Subcontractor.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0167",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, and Reseller shall additionally reimburse Original Manufacturer for the cost of any tax assessed on amounts paid under this Section, a reimbursement duty with no counterpart running from Original Manufacturer to Reseller.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0168",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising from this Agreement's multiple risk-transfer provisions: Section 6 addresses IP claims, Section 7 addresses data claims. Section 6 applies identically to both parties, but Section 7 caps only Franchisor's exposure, leaving Franchisee's Section 7 exposure uncapped.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0169",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Colocation Provider separately maintains cyber-liability insurance covering the same risk, while Enterprise Customer's indemnification duty is additionally capped at $100,000 -- a limitation Colocation Provider's duty does not share.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0170",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the liability cap in Section 11; that cap, however, exempts claims caused by Managed Service Provider's gross negligence but does not exempt any category of claim caused by Client.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0171",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Underwriter's duty to reimburse ordinary defense costs runs alongside its indemnification duty, whereas Cedent has no separate reimbursement duty at all, only the indemnification duty itself.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0172",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker waives any right of contribution against Principal, while Principal retains a full right of contribution against Import Broker.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0173",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, and Data Processor shall additionally reimburse Data Controller for the cost of any tax assessed on amounts paid under this Section, a reimbursement duty with no counterpart running from Data Controller to Data Processor.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0174",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising from this Agreement's multiple risk-transfer provisions: Section 6 addresses IP claims, Section 7 addresses data claims. Section 6 applies identically to both parties, but Section 7 caps only General Contractor's exposure, leaving Subcontractor's Section 7 exposure uncapped.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0175",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller separately maintains cyber-liability insurance covering the same risk, while Original Manufacturer's indemnification duty is additionally capped at $100,000 -- a limitation Reseller's duty does not share.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0176",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the liability cap in Section 11; that cap, however, exempts claims caused by Franchisee's gross negligence but does not exempt any category of claim caused by Franchisor.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0177",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Colocation Provider's duty to reimburse ordinary defense costs runs alongside its indemnification duty, whereas Enterprise Customer has no separate reimbursement duty at all, only the indemnification duty itself.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0178",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managed Service Provider waives any right of contribution against Client, while Client retains a full right of contribution against Managed Service Provider.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0179",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, and Underwriter shall additionally reimburse Cedent for the cost of any tax assessed on amounts paid under this Section, a reimbursement duty with no counterpart running from Cedent to Underwriter.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0180",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising from this Agreement's multiple risk-transfer provisions: Section 6 addresses IP claims, Section 7 addresses data claims. Section 6 applies identically to both parties, but Section 7 caps only Principal's exposure, leaving Import Broker's Section 7 exposure uncapped.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0181",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Data Processor separately maintains cyber-liability insurance covering the same risk, while Data Controller's indemnification duty is additionally capped at $100,000 -- a limitation Data Processor's duty does not share.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0182",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the liability cap in Section 11; that cap, however, exempts claims caused by Subcontractor's gross negligence but does not exempt any category of claim caused by General Contractor.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0183",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Reseller's duty to reimburse ordinary defense costs runs alongside its indemnification duty, whereas Original Manufacturer has no separate reimbursement duty at all, only the indemnification duty itself.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0184",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchisee waives any right of contribution against Franchisor, while Franchisor retains a full right of contribution against Franchisee.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0185",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, and Colocation Provider shall additionally reimburse Enterprise Customer for the cost of any tax assessed on amounts paid under this Section, a reimbursement duty with no counterpart running from Enterprise Customer to Colocation Provider.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0186",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising from this Agreement's multiple risk-transfer provisions: Section 6 addresses IP claims, Section 7 addresses data claims. Section 6 applies identically to both parties, but Section 7 caps only Client's exposure, leaving Managed Service Provider's Section 7 exposure uncapped.",
+    "note": "compound multi-provision asymmetry",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "expected_safe_outcome": "CA (flagged asymmetric) or CR (routed to review) -- never a clean unflagged symmetric result",
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "S4A102-0187",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties acknowledge that whether Underwriter's duty is subject to the same cap as Cedent's remains an open question pending a forthcoming amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0188",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be finalized in a schedule the parties have not yet prepared.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0189",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Data Processor's obligation is subject to conditions described elsewhere in this Agreement that have not yet been drafted.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0190",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, provided that the parties have not yet reached agreement on which claim categories are covered.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0191",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the causation standard applicable to each party's duty remains a matter the parties intend to address in a future amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0192",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties acknowledge that whether Franchisee's duty is subject to the same cap as Franchisor's remains an open question pending a forthcoming amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0193",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be finalized in a schedule the parties have not yet prepared.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0194",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Managed Service Provider's obligation is subject to conditions described elsewhere in this Agreement that have not yet been drafted.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0195",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, provided that the parties have not yet reached agreement on which claim categories are covered.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0196",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the causation standard applicable to each party's duty remains a matter the parties intend to address in a future amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0197",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties acknowledge that whether Data Processor's duty is subject to the same cap as Data Controller's remains an open question pending a forthcoming amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0198",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be finalized in a schedule the parties have not yet prepared.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0199",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Reseller's obligation is subject to conditions described elsewhere in this Agreement that have not yet been drafted.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0200",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, provided that the parties have not yet reached agreement on which claim categories are covered.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0201",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the causation standard applicable to each party's duty remains a matter the parties intend to address in a future amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0202",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties acknowledge that whether Managed Service Provider's duty is subject to the same cap as Client's remains an open question pending a forthcoming amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0203",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be finalized in a schedule the parties have not yet prepared.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0204",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Import Broker's obligation is subject to conditions described elsewhere in this Agreement that have not yet been drafted.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0205",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, provided that the parties have not yet reached agreement on which claim categories are covered.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0206",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the causation standard applicable to each party's duty remains a matter the parties intend to address in a future amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0207",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties acknowledge that whether Reseller's duty is subject to the same cap as Original Manufacturer's remains an open question pending a forthcoming amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0208",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be finalized in a schedule the parties have not yet prepared.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0209",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Colocation Provider's obligation is subject to conditions described elsewhere in this Agreement that have not yet been drafted.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0210",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, provided that the parties have not yet reached agreement on which claim categories are covered.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0211",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the causation standard applicable to each party's duty remains a matter the parties intend to address in a future amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0212",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties acknowledge that whether Import Broker's duty is subject to the same cap as Principal's remains an open question pending a forthcoming amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0213",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be finalized in a schedule the parties have not yet prepared.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0214",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Subcontractor's obligation is subject to conditions described elsewhere in this Agreement that have not yet been drafted.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0215",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, provided that the parties have not yet reached agreement on which claim categories are covered.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0216",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the causation standard applicable to each party's duty remains a matter the parties intend to address in a future amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0217",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties acknowledge that whether Colocation Provider's duty is subject to the same cap as Enterprise Customer's remains an open question pending a forthcoming amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0218",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be finalized in a schedule the parties have not yet prepared.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0219",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Underwriter's obligation is subject to conditions described elsewhere in this Agreement that have not yet been drafted.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0220",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, provided that the parties have not yet reached agreement on which claim categories are covered.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0221",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the causation standard applicable to each party's duty remains a matter the parties intend to address in a future amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0222",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the parties acknowledge that whether Subcontractor's duty is subject to the same cap as General Contractor's remains an open question pending a forthcoming amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0223",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on terms to be finalized in a schedule the parties have not yet prepared.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0224",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Franchisee's obligation is subject to conditions described elsewhere in this Agreement that have not yet been drafted.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0225",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, provided that the parties have not yet reached agreement on which claim categories are covered.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "S4A102-0226",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the causation standard applicable to each party's duty remains a matter the parties intend to address in a future amendment.",
+    "note": "genuinely unresolved, should route to review",
+    "obligated_party_a": "first-named role in template",
+    "protected_party_b": "second-named role in template",
+    "expected_material_dimensions": [],
+    "expected_safe_outcome": "CR (routed to review)",
+    "severity_if_false_symmetry": "N/A"
+  }
+]

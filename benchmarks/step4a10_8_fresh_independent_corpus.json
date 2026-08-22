@@ -1,0 +1,2878 @@
+[
+  {
+    "id": "FRESH108-0001",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_scope_first_third_party",
+    "dimensions": [
+      "scope_first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndication Partner's duty extends to Media Network's own first-party losses as well as third-party claims, whereas Media Network's duty is confined strictly to third-party claims brought against Syndication Partner.",
+    "note": "opener x scope_first_third_party, asymmetric",
+    "expected_material_dimensions": [
+      "scope_first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0002",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_scope_first_third_party",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cross-Border Agent's duty is confined strictly to third-party claims, and Local Distributor's duty is likewise confined strictly to third-party claims.",
+    "note": "opener x scope_first_third_party, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0003",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_scope_first_third_party",
+    "dimensions": [
+      "scope_first_third_party"
+    ],
+    "text": "Both parties shall indemnify the other for claims arising under this Agreement; Wholesale Buyer's duty extends to Retail Reseller's own first-party losses as well as third-party claims, whereas Retail Reseller's duty is confined strictly to third-party claims brought against Wholesale Buyer.",
+    "note": "opener x scope_first_third_party, asymmetric",
+    "expected_material_dimensions": [
+      "scope_first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0004",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_scope_first_third_party",
+    "dimensions": [],
+    "text": "Both parties shall indemnify the other for claims arising under this Agreement; Pipeline Operator's duty is confined strictly to third-party claims, and Shipper Client's duty is likewise confined strictly to third-party claims.",
+    "note": "opener x scope_first_third_party, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0005",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_scope_first_third_party",
+    "dimensions": [
+      "scope_first_third_party"
+    ],
+    "text": "The parties shall indemnify one another for claims arising under this Agreement; Benefit Plan Trustee's duty extends to Contributing Employer's own first-party losses as well as third-party claims, whereas Contributing Employer's duty is confined strictly to third-party claims brought against Benefit Plan Trustee.",
+    "note": "opener x scope_first_third_party, asymmetric",
+    "expected_material_dimensions": [
+      "scope_first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0006",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_scope_first_third_party",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another for claims arising under this Agreement; Cloud Host's duty is confined strictly to third-party claims, and Managed Service Client's duty is likewise confined strictly to third-party claims.",
+    "note": "opener x scope_first_third_party, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0007",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_survival",
+    "dimensions": [
+      "survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Territory Holder's duty carries on with no end date once this Agreement winds down, whereas Brand Licensor's duty ends the moment this Agreement winds down.",
+    "note": "opener x survival, asymmetric",
+    "expected_material_dimensions": [
+      "survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0008",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_survival",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Tenant's duty survives for a period of six years, and Property Manager's duty survives for a period of six years as well.",
+    "note": "opener x survival, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0009",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_survival",
+    "dimensions": [
+      "survival"
+    ],
+    "text": "Both parties shall indemnify the other for claims arising under this Agreement; Syndication Partner's duty carries on with no end date once this Agreement winds down, whereas Media Network's duty ends the moment this Agreement winds down.",
+    "note": "opener x survival, asymmetric",
+    "expected_material_dimensions": [
+      "survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0010",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_survival",
+    "dimensions": [],
+    "text": "Both parties shall indemnify the other for claims arising under this Agreement; Cross-Border Agent's duty survives for a period of six years, and Local Distributor's duty survives for a period of six years as well.",
+    "note": "opener x survival, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0011",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_survival",
+    "dimensions": [
+      "survival"
+    ],
+    "text": "The parties shall indemnify one another for claims arising under this Agreement; Wholesale Buyer's duty carries on with no end date once this Agreement winds down, whereas Retail Reseller's duty ends the moment this Agreement winds down.",
+    "note": "opener x survival, asymmetric",
+    "expected_material_dimensions": [
+      "survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0012",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_survival",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another for claims arising under this Agreement; Pipeline Operator's duty survives for a period of six years, and Shipper Client's duty survives for a period of six years as well.",
+    "note": "opener x survival, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0013",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_monetary_cap",
+    "dimensions": [
+      "monetary_cap"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefit Plan Trustee's liability is capped at $180,000, whereas Contributing Employer's liability carries no cap at all.",
+    "note": "opener x monetary_cap, asymmetric",
+    "expected_material_dimensions": [
+      "monetary_cap"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0014",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_monetary_cap",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cloud Host's liability is capped at $180,000, and Managed Service Client's liability is capped at $180,000 as well.",
+    "note": "opener x monetary_cap, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0015",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_monetary_cap",
+    "dimensions": [
+      "monetary_cap"
+    ],
+    "text": "Both parties shall indemnify the other for claims arising under this Agreement; Territory Holder's liability is capped at $180,000, whereas Brand Licensor's liability carries no cap at all.",
+    "note": "opener x monetary_cap, asymmetric",
+    "expected_material_dimensions": [
+      "monetary_cap"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0016",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_monetary_cap",
+    "dimensions": [],
+    "text": "Both parties shall indemnify the other for claims arising under this Agreement; Anchor Tenant's liability is capped at $180,000, and Property Manager's liability is capped at $180,000 as well.",
+    "note": "opener x monetary_cap, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0017",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_monetary_cap",
+    "dimensions": [
+      "monetary_cap"
+    ],
+    "text": "The parties shall indemnify one another for claims arising under this Agreement; Syndication Partner's liability is capped at $180,000, whereas Media Network's liability carries no cap at all.",
+    "note": "opener x monetary_cap, asymmetric",
+    "expected_material_dimensions": [
+      "monetary_cap"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0018",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_monetary_cap",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another for claims arising under this Agreement; Cross-Border Agent's liability is capped at $180,000, and Local Distributor's liability is capped at $180,000 as well.",
+    "note": "opener x monetary_cap, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0019",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_causation",
+    "dimensions": [
+      "causation"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Wholesale Buyer is on the hook only where the claim stems from Wholesale Buyer's gross negligence, whereas Retail Reseller is on the hook whenever the claim stems from Retail Reseller's ordinary carelessness.",
+    "note": "opener x causation, asymmetric",
+    "expected_material_dimensions": [
+      "causation"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0020",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_causation",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Pipeline Operator is on the hook only where the claim stems from Pipeline Operator's gross negligence, and Shipper Client is on the hook only where the claim stems from Shipper Client's gross negligence as well.",
+    "note": "opener x causation, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0021",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_causation",
+    "dimensions": [
+      "causation"
+    ],
+    "text": "Both parties shall indemnify the other for claims traceable to its own conduct; Benefit Plan Trustee is on the hook only where the claim stems from Benefit Plan Trustee's gross negligence, whereas Contributing Employer is on the hook whenever the claim stems from Contributing Employer's ordinary carelessness.",
+    "note": "opener x causation, asymmetric",
+    "expected_material_dimensions": [
+      "causation"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0022",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_causation",
+    "dimensions": [],
+    "text": "Both parties shall indemnify the other for claims traceable to its own conduct; Cloud Host is on the hook only where the claim stems from Cloud Host's gross negligence, and Managed Service Client is on the hook only where the claim stems from Managed Service Client's gross negligence as well.",
+    "note": "opener x causation, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0023",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_causation",
+    "dimensions": [
+      "causation"
+    ],
+    "text": "The parties shall indemnify one another for claims traceable to its own conduct; Territory Holder is on the hook only where the claim stems from Territory Holder's gross negligence, whereas Brand Licensor is on the hook whenever the claim stems from Brand Licensor's ordinary carelessness.",
+    "note": "opener x causation, asymmetric",
+    "expected_material_dimensions": [
+      "causation"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0024",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_causation",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another for claims traceable to its own conduct; Anchor Tenant is on the hook only where the claim stems from Anchor Tenant's gross negligence, and Property Manager is on the hook only where the claim stems from Property Manager's gross negligence as well.",
+    "note": "opener x causation, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0025",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Syndication Partner alone decides litigation strategy for any claim against Media Network, whereas Media Network has no input at all into strategy for any claim against Syndication Partner.",
+    "note": "opener x defense_control, asymmetric",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0026",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Cross-Border Agent controls the defense of any claim brought against it, and Local Distributor likewise controls the defense of any claim brought against it.",
+    "note": "opener x defense_control, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0027",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Both parties shall indemnify the other for third-party claims; Wholesale Buyer alone decides litigation strategy for any claim against Retail Reseller, whereas Retail Reseller has no input at all into strategy for any claim against Wholesale Buyer.",
+    "note": "opener x defense_control, asymmetric",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0028",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_defense_control",
+    "dimensions": [],
+    "text": "Both parties shall indemnify the other for third-party claims; Pipeline Operator controls the defense of any claim brought against it, and Shipper Client likewise controls the defense of any claim brought against it.",
+    "note": "opener x defense_control, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0029",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "The parties shall indemnify one another for third-party claims; Benefit Plan Trustee alone decides litigation strategy for any claim against Contributing Employer, whereas Contributing Employer has no input at all into strategy for any claim against Benefit Plan Trustee.",
+    "note": "opener x defense_control, asymmetric",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0030",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_defense_control",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another for third-party claims; Cloud Host controls the defense of any claim brought against it, and Managed Service Client likewise controls the defense of any claim brought against it.",
+    "note": "opener x defense_control, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0031",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Territory Holder's duty covers claims alleging fraud, whereas Brand Licensor's duty covers claims alleging data breach only, with no overlap between the two categories.",
+    "note": "opener x claim_category, asymmetric",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0032",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_claim_category",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Anchor Tenant's duty covers claims alleging fraud, and Property Manager's duty covers that same category of claims alleging fraud.",
+    "note": "opener x claim_category, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0033",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Both parties shall indemnify the other for claims traceable to its own conduct; Syndication Partner's duty covers claims alleging fraud, whereas Media Network's duty covers claims alleging data breach only, with no overlap between the two categories.",
+    "note": "opener x claim_category, asymmetric",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0034",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_claim_category",
+    "dimensions": [],
+    "text": "Both parties shall indemnify the other for claims traceable to its own conduct; Cross-Border Agent's duty covers claims alleging fraud, and Local Distributor's duty covers that same category of claims alleging fraud.",
+    "note": "opener x claim_category, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0035",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "The parties shall indemnify one another for claims traceable to its own conduct; Wholesale Buyer's duty covers claims alleging fraud, whereas Retail Reseller's duty covers claims alleging data breach only, with no overlap between the two categories.",
+    "note": "opener x claim_category, asymmetric",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0036",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_claim_category",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another for claims traceable to its own conduct; Pipeline Operator's duty covers claims alleging fraud, and Shipper Client's duty covers that same category of claims alleging fraud.",
+    "note": "opener x claim_category, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0037",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_proviso",
+    "dimensions": [
+      "proviso"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Benefit Plan Trustee's duty excludes any claim traceable to Contributing Employer's own modification of the deliverable, an exclusion Contributing Employer's duty toward Benefit Plan Trustee does not mirror.",
+    "note": "opener x proviso, asymmetric",
+    "expected_material_dimensions": [
+      "proviso"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0038",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_proviso",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that each party's duty excludes any claim traceable to the other's own modification of the deliverable, an exclusion applying identically to both.",
+    "note": "opener x proviso, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0039",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_proviso",
+    "dimensions": [
+      "proviso"
+    ],
+    "text": "Both parties shall indemnify the other for claims arising under this Agreement, save that Territory Holder's duty excludes any claim traceable to Brand Licensor's own modification of the deliverable, an exclusion Brand Licensor's duty toward Territory Holder does not mirror.",
+    "note": "opener x proviso, asymmetric",
+    "expected_material_dimensions": [
+      "proviso"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0040",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_proviso",
+    "dimensions": [],
+    "text": "Both parties shall indemnify the other for claims arising under this Agreement, save that each party's duty excludes any claim traceable to the other's own modification of the deliverable, an exclusion applying identically to both.",
+    "note": "opener x proviso, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0041",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_proviso",
+    "dimensions": [
+      "proviso"
+    ],
+    "text": "The parties shall indemnify one another for claims arising under this Agreement, save that Syndication Partner's duty excludes any claim traceable to Media Network's own modification of the deliverable, an exclusion Media Network's duty toward Syndication Partner does not mirror.",
+    "note": "opener x proviso, asymmetric",
+    "expected_material_dimensions": [
+      "proviso"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0042",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_proviso",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another for claims arising under this Agreement, save that each party's duty excludes any claim traceable to the other's own modification of the deliverable, an exclusion applying identically to both.",
+    "note": "opener x proviso, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0043",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_cross_reference",
+    "dimensions": [
+      "cross_reference"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Wholesale Buyer is set out in Schedule A, and the figure binding Retail Reseller, set out separately in Schedule B, is a different figure than Schedule A states.",
+    "note": "opener x cross_reference, asymmetric",
+    "expected_material_dimensions": [
+      "cross_reference"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0044",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_cross_reference",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Pipeline Operator is set out in Schedule A, and the figure binding Shipper Client is that same figure set out in Schedule A.",
+    "note": "opener x cross_reference, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0045",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_cross_reference",
+    "dimensions": [
+      "cross_reference"
+    ],
+    "text": "Both parties shall indemnify the other for claims arising under this Agreement; the figure binding Benefit Plan Trustee is set out in Schedule A, and the figure binding Contributing Employer, set out separately in Schedule B, is a different figure than Schedule A states.",
+    "note": "opener x cross_reference, asymmetric",
+    "expected_material_dimensions": [
+      "cross_reference"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0046",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_cross_reference",
+    "dimensions": [],
+    "text": "Both parties shall indemnify the other for claims arising under this Agreement; the figure binding Cloud Host is set out in Schedule A, and the figure binding Managed Service Client is that same figure set out in Schedule A.",
+    "note": "opener x cross_reference, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0047",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "opener_x_cross_reference",
+    "dimensions": [
+      "cross_reference"
+    ],
+    "text": "The parties shall indemnify one another for claims arising under this Agreement; the figure binding Territory Holder is set out in Schedule A, and the figure binding Brand Licensor, set out separately in Schedule B, is a different figure than Schedule A states.",
+    "note": "opener x cross_reference, asymmetric",
+    "expected_material_dimensions": [
+      "cross_reference"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0048",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "opener_x_cross_reference",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another for claims arising under this Agreement; the figure binding Anchor Tenant is set out in Schedule A, and the figure binding Property Manager is that same figure set out in Schedule A.",
+    "note": "opener x cross_reference, symmetric",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0049",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims traceable to its own performance of this Agreement.",
+    "note": "non-canonical opener regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0050",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Either party shall indemnify and hold harmless the other for claims arising from that party's own breach of this Agreement.",
+    "note": "non-canonical opener regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0051",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Both parties shall indemnify and hold harmless the other for claims arising under this Agreement.",
+    "note": "non-canonical opener regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0052",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another for claims traceable to their own respective negligent acts under this Agreement.",
+    "note": "non-canonical opener regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0053",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims traceable to its own performance of this Agreement.",
+    "note": "non-canonical opener regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0054",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Either party shall indemnify and hold harmless the other for claims arising from that party's own breach of this Agreement.",
+    "note": "non-canonical opener regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0055",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Both parties shall indemnify and hold harmless the other for claims arising under this Agreement.",
+    "note": "non-canonical opener regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0056",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another for claims traceable to their own respective negligent acts under this Agreement.",
+    "note": "non-canonical opener regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0057",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims traceable to its own performance of this Agreement.",
+    "note": "non-canonical opener regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0058",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Either party shall indemnify and hold harmless the other for claims arising from that party's own breach of this Agreement.",
+    "note": "non-canonical opener regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0059",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "Both parties shall indemnify and hold harmless the other for claims arising under this Agreement.",
+    "note": "non-canonical opener regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0060",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_generic",
+    "dimensions": [],
+    "text": "The parties shall indemnify one another for claims traceable to their own respective negligent acts under this Agreement.",
+    "note": "non-canonical opener regression, no named roles",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0061",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_nominalized",
+    "dimensions": [],
+    "text": "Each party's indemnification duty under this Agreement binds both sides identically.",
+    "note": "nominalized-duty opener regression",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0062",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_nominalized",
+    "dimensions": [],
+    "text": "Either party's indemnification obligation under this Agreement applies to both sides on the same footing.",
+    "note": "nominalized-duty opener regression",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0063",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_nominalized",
+    "dimensions": [],
+    "text": "Each party's indemnification duty under this Agreement binds both sides identically.",
+    "note": "nominalized-duty opener regression",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0064",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_nominalized",
+    "dimensions": [],
+    "text": "Either party's indemnification obligation under this Agreement applies to both sides on the same footing.",
+    "note": "nominalized-duty opener regression",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0065",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_nominalized",
+    "dimensions": [],
+    "text": "Each party's indemnification duty under this Agreement binds both sides identically.",
+    "note": "nominalized-duty opener regression",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0066",
+    "tier": "1",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_nominalized",
+    "dimensions": [],
+    "text": "Either party's indemnification obligation under this Agreement applies to both sides on the same footing.",
+    "note": "nominalized-duty opener regression",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0067",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Wholesale Buyer fronts the response to any claim brought against it, and Retail Reseller likewise fronts the response to any claim brought against it.",
+    "note": "defense-control paraphrase, regression confirmation",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0068",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Pipeline Operator fronts the response to any claim brought against it, and Shipper Client likewise fronts the response to any claim brought against it.",
+    "note": "defense-control paraphrase, regression confirmation",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0069",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Benefit Plan Trustee fronts the response to any claim brought against it, and Contributing Employer likewise fronts the response to any claim brought against it.",
+    "note": "defense-control paraphrase, regression confirmation",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0070",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Cloud Host fronts the response to any claim brought against it, and Managed Service Client likewise fronts the response to any claim brought against it.",
+    "note": "defense-control paraphrase, regression confirmation",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0071",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Territory Holder fronts the response to any claim brought against it, and Brand Licensor likewise fronts the response to any claim brought against it.",
+    "note": "defense-control paraphrase, regression confirmation",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0072",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_defense_control",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for third-party claims; Anchor Tenant fronts the response to any claim brought against it, and Property Manager likewise fronts the response to any claim brought against it.",
+    "note": "defense-control paraphrase, regression confirmation",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0073",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 5 applies equally to Syndication Partner and Media Network.",
+    "note": "explicit drafter statement of equivalence, must survive opener masking",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0074",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Cross-Border Agent and Local Distributor alike.",
+    "note": "explicit drafter statement of equivalence, must survive opener masking",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0075",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 5 applies equally to Wholesale Buyer and Retail Reseller.",
+    "note": "explicit drafter statement of equivalence, must survive opener masking",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0076",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Pipeline Operator and Shipper Client alike.",
+    "note": "explicit drafter statement of equivalence, must survive opener masking",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0077",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 5 applies equally to Benefit Plan Trustee and Contributing Employer.",
+    "note": "explicit drafter statement of equivalence, must survive opener masking",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0078",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Cloud Host and Managed Service Client alike.",
+    "note": "explicit drafter statement of equivalence, must survive opener masking",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0079",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 5 applies equally to Territory Holder and Brand Licensor.",
+    "note": "explicit drafter statement of equivalence, must survive opener masking",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0080",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Anchor Tenant and Property Manager alike.",
+    "note": "explicit drafter statement of equivalence, must survive opener masking",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0081",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the ceiling in Schedule 5 applies equally to Syndication Partner and Media Network.",
+    "note": "explicit drafter statement of equivalence, must survive opener masking",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0082",
+    "tier": "2",
+    "label": "SYMMETRIC",
+    "family": "genuinely_symmetric_cue",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, on the same terms for Cross-Border Agent and Local Distributor alike.",
+    "note": "explicit drafter statement of equivalence, must survive opener masking",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0083",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Anchor Tenant is on the hook only where the claim stems from Anchor Tenant's intentional misconduct, whereas Property Manager is on the hook whenever the claim stems from Property Manager's simple inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0084",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Syndication Partner is on the hook only where the claim stems from Syndication Partner's intentional misconduct, whereas Media Network is on the hook whenever the claim stems from Media Network's simple inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0085",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Cross-Border Agent is on the hook only where the claim stems from Cross-Border Agent's intentional misconduct, whereas Local Distributor is on the hook whenever the claim stems from Local Distributor's simple inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0086",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Wholesale Buyer is on the hook only where the claim stems from Wholesale Buyer's intentional misconduct, whereas Retail Reseller is on the hook whenever the claim stems from Retail Reseller's simple inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0087",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Pipeline Operator is on the hook only where the claim stems from Pipeline Operator's intentional misconduct, whereas Shipper Client is on the hook whenever the claim stems from Shipper Client's simple inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0088",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Benefit Plan Trustee is on the hook only where the claim stems from Benefit Plan Trustee's intentional misconduct, whereas Contributing Employer is on the hook whenever the claim stems from Contributing Employer's simple inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0089",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Cloud Host is on the hook only where the claim stems from Cloud Host's intentional misconduct, whereas Managed Service Client is on the hook whenever the claim stems from Managed Service Client's simple inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0090",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "causation_standard",
+    "dimensions": [
+      "causation_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Territory Holder is on the hook only where the claim stems from Territory Holder's intentional misconduct, whereas Brand Licensor is on the hook whenever the claim stems from Brand Licensor's simple inattention.",
+    "note": "asymmetric: causation_standard",
+    "expected_material_dimensions": [
+      "causation_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0091",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Tenant's duty is confined to claims alleging patent infringement, whereas Property Manager's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0092",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndication Partner's duty is confined to claims alleging patent infringement, whereas Media Network's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0093",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cross-Border Agent's duty is confined to claims alleging patent infringement, whereas Local Distributor's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0094",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Wholesale Buyer's duty is confined to claims alleging patent infringement, whereas Retail Reseller's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0095",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Pipeline Operator's duty is confined to claims alleging patent infringement, whereas Shipper Client's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0096",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefit Plan Trustee's duty is confined to claims alleging patent infringement, whereas Contributing Employer's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0097",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cloud Host's duty is confined to claims alleging patent infringement, whereas Managed Service Client's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0098",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "claim_category",
+    "dimensions": [
+      "claim_category"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Territory Holder's duty is confined to claims alleging patent infringement, whereas Brand Licensor's duty reaches claims of any description whatsoever.",
+    "note": "asymmetric: claim_category",
+    "expected_material_dimensions": [
+      "claim_category"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0099",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Anchor Tenant alone directs litigation strategy for any claim against Property Manager, whereas Property Manager has no input at all into strategy for any claim against Anchor Tenant.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0100",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Syndication Partner alone directs litigation strategy for any claim against Media Network, whereas Media Network has no input at all into strategy for any claim against Syndication Partner.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0101",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Cross-Border Agent alone directs litigation strategy for any claim against Local Distributor, whereas Local Distributor has no input at all into strategy for any claim against Cross-Border Agent.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0102",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Wholesale Buyer alone directs litigation strategy for any claim against Retail Reseller, whereas Retail Reseller has no input at all into strategy for any claim against Wholesale Buyer.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0103",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Pipeline Operator alone directs litigation strategy for any claim against Shipper Client, whereas Shipper Client has no input at all into strategy for any claim against Pipeline Operator.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0104",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Benefit Plan Trustee alone directs litigation strategy for any claim against Contributing Employer, whereas Contributing Employer has no input at all into strategy for any claim against Benefit Plan Trustee.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0105",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Cloud Host alone directs litigation strategy for any claim against Managed Service Client, whereas Managed Service Client has no input at all into strategy for any claim against Cloud Host.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0106",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "defense_control",
+    "dimensions": [
+      "defense_control"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Territory Holder alone directs litigation strategy for any claim against Brand Licensor, whereas Brand Licensor has no input at all into strategy for any claim against Territory Holder.",
+    "note": "asymmetric: defense_control",
+    "expected_material_dimensions": [
+      "defense_control"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0107",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Tenant's liability tops out at five months' worth of fees, whereas Property Manager faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0108",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndication Partner's liability tops out at five months' worth of fees, whereas Media Network faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0109",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cross-Border Agent's liability tops out at five months' worth of fees, whereas Local Distributor faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0110",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Wholesale Buyer's liability tops out at five months' worth of fees, whereas Retail Reseller faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0111",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Pipeline Operator's liability tops out at five months' worth of fees, whereas Shipper Client faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0112",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefit Plan Trustee's liability tops out at five months' worth of fees, whereas Contributing Employer faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0113",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cloud Host's liability tops out at five months' worth of fees, whereas Managed Service Client faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0114",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "monetary_treatment",
+    "dimensions": [
+      "monetary_treatment"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Territory Holder's liability tops out at five months' worth of fees, whereas Brand Licensor faces liability with no ceiling of any kind.",
+    "note": "asymmetric: monetary_treatment",
+    "expected_material_dimensions": [
+      "monetary_treatment"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0115",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Anchor Tenant's duty excludes any claim traceable to Property Manager's own unauthorized use of the deliverable, an exclusion Property Manager's duty toward Anchor Tenant does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0116",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Syndication Partner's duty excludes any claim traceable to Media Network's own unauthorized use of the deliverable, an exclusion Media Network's duty toward Syndication Partner does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0117",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Cross-Border Agent's duty excludes any claim traceable to Local Distributor's own unauthorized use of the deliverable, an exclusion Local Distributor's duty toward Cross-Border Agent does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0118",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Wholesale Buyer's duty excludes any claim traceable to Retail Reseller's own unauthorized use of the deliverable, an exclusion Retail Reseller's duty toward Wholesale Buyer does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0119",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Pipeline Operator's duty excludes any claim traceable to Shipper Client's own unauthorized use of the deliverable, an exclusion Shipper Client's duty toward Pipeline Operator does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0120",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Benefit Plan Trustee's duty excludes any claim traceable to Contributing Employer's own unauthorized use of the deliverable, an exclusion Contributing Employer's duty toward Benefit Plan Trustee does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0121",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Cloud Host's duty excludes any claim traceable to Managed Service Client's own unauthorized use of the deliverable, an exclusion Managed Service Client's duty toward Cloud Host does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0122",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "proviso_exception",
+    "dimensions": [
+      "proviso_exception"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, save that Territory Holder's duty excludes any claim traceable to Brand Licensor's own unauthorized use of the deliverable, an exclusion Brand Licensor's duty toward Territory Holder does not mirror.",
+    "note": "asymmetric: proviso_exception",
+    "expected_material_dimensions": [
+      "proviso_exception"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0123",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Tenant's duty does not attach unless Property Manager first exhausts the notice procedure in Section 6, a precondition Property Manager's duty toward Anchor Tenant does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0124",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndication Partner's duty does not attach unless Media Network first exhausts the notice procedure in Section 6, a precondition Media Network's duty toward Syndication Partner does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0125",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cross-Border Agent's duty does not attach unless Local Distributor first exhausts the notice procedure in Section 6, a precondition Local Distributor's duty toward Cross-Border Agent does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0126",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Wholesale Buyer's duty does not attach unless Retail Reseller first exhausts the notice procedure in Section 6, a precondition Retail Reseller's duty toward Wholesale Buyer does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0127",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Pipeline Operator's duty does not attach unless Shipper Client first exhausts the notice procedure in Section 6, a precondition Shipper Client's duty toward Pipeline Operator does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0128",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefit Plan Trustee's duty does not attach unless Contributing Employer first exhausts the notice procedure in Section 6, a precondition Contributing Employer's duty toward Benefit Plan Trustee does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0129",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cloud Host's duty does not attach unless Managed Service Client first exhausts the notice procedure in Section 6, a precondition Managed Service Client's duty toward Cloud Host does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0130",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "conditional_applicability",
+    "dimensions": [
+      "conditional_applicability"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Territory Holder's duty does not attach unless Brand Licensor first exhausts the notice procedure in Section 6, a precondition Brand Licensor's duty toward Territory Holder does not carry.",
+    "note": "asymmetric: conditional_applicability",
+    "expected_material_dimensions": [
+      "conditional_applicability"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0131",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Tenant's duty reaches Property Manager's own internal losses in addition to outside claims, whereas Property Manager's duty reaches only outside claims brought against Anchor Tenant.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0132",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndication Partner's duty reaches Media Network's own internal losses in addition to outside claims, whereas Media Network's duty reaches only outside claims brought against Syndication Partner.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0133",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cross-Border Agent's duty reaches Local Distributor's own internal losses in addition to outside claims, whereas Local Distributor's duty reaches only outside claims brought against Cross-Border Agent.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0134",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Wholesale Buyer's duty reaches Retail Reseller's own internal losses in addition to outside claims, whereas Retail Reseller's duty reaches only outside claims brought against Wholesale Buyer.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0135",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Pipeline Operator's duty reaches Shipper Client's own internal losses in addition to outside claims, whereas Shipper Client's duty reaches only outside claims brought against Pipeline Operator.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0136",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefit Plan Trustee's duty reaches Contributing Employer's own internal losses in addition to outside claims, whereas Contributing Employer's duty reaches only outside claims brought against Benefit Plan Trustee.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0137",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cloud Host's duty reaches Managed Service Client's own internal losses in addition to outside claims, whereas Managed Service Client's duty reaches only outside claims brought against Cloud Host.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0138",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "first_third_party",
+    "dimensions": [
+      "first_third_party"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Territory Holder's duty reaches Brand Licensor's own internal losses in addition to outside claims, whereas Brand Licensor's duty reaches only outside claims brought against Territory Holder.",
+    "note": "asymmetric: first_third_party",
+    "expected_material_dimensions": [
+      "first_third_party"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0139",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Anchor Tenant owes this duty even absent any fault on Anchor Tenant's part, whereas Property Manager owes it only once Property Manager's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0140",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Syndication Partner owes this duty even absent any fault on Syndication Partner's part, whereas Media Network owes it only once Media Network's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0141",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Cross-Border Agent owes this duty even absent any fault on Cross-Border Agent's part, whereas Local Distributor owes it only once Local Distributor's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0142",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Wholesale Buyer owes this duty even absent any fault on Wholesale Buyer's part, whereas Retail Reseller owes it only once Retail Reseller's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0143",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Pipeline Operator owes this duty even absent any fault on Pipeline Operator's part, whereas Shipper Client owes it only once Shipper Client's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0144",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Benefit Plan Trustee owes this duty even absent any fault on Benefit Plan Trustee's part, whereas Contributing Employer owes it only once Contributing Employer's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0145",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Cloud Host owes this duty even absent any fault on Cloud Host's part, whereas Managed Service Client owes it only once Managed Service Client's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0146",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "negligence_fault_standard",
+    "dimensions": [
+      "negligence_fault_standard"
+    ],
+    "text": "Each party shall indemnify the other for claims traceable to its own conduct; Territory Holder owes this duty even absent any fault on Territory Holder's part, whereas Brand Licensor owes it only once Brand Licensor's own fault is shown.",
+    "note": "asymmetric: negligence_fault_standard",
+    "expected_material_dimensions": [
+      "negligence_fault_standard"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0147",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Tenant's duty follows claims arising anywhere on the globe, whereas Property Manager's duty is confined to claims arising within Brazil.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0148",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndication Partner's duty follows claims arising anywhere on the globe, whereas Media Network's duty is confined to claims arising within Brazil.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0149",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cross-Border Agent's duty follows claims arising anywhere on the globe, whereas Local Distributor's duty is confined to claims arising within Brazil.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0150",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Wholesale Buyer's duty follows claims arising anywhere on the globe, whereas Retail Reseller's duty is confined to claims arising within Brazil.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0151",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Pipeline Operator's duty follows claims arising anywhere on the globe, whereas Shipper Client's duty is confined to claims arising within Brazil.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0152",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefit Plan Trustee's duty follows claims arising anywhere on the globe, whereas Contributing Employer's duty is confined to claims arising within Brazil.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0153",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cloud Host's duty follows claims arising anywhere on the globe, whereas Managed Service Client's duty is confined to claims arising within Brazil.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0154",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "scope_geographic",
+    "dimensions": [
+      "scope_geographic"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Territory Holder's duty follows claims arising anywhere on the globe, whereas Brand Licensor's duty is confined to claims arising within Brazil.",
+    "note": "asymmetric: scope_geographic",
+    "expected_material_dimensions": [
+      "scope_geographic"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0155",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Anchor Tenant is set out in Exhibit 1, and the figure binding Property Manager, set out separately in Exhibit 2, is a different figure than Exhibit 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0156",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Syndication Partner is set out in Exhibit 1, and the figure binding Media Network, set out separately in Exhibit 2, is a different figure than Exhibit 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0157",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Cross-Border Agent is set out in Exhibit 1, and the figure binding Local Distributor, set out separately in Exhibit 2, is a different figure than Exhibit 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0158",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Wholesale Buyer is set out in Exhibit 1, and the figure binding Retail Reseller, set out separately in Exhibit 2, is a different figure than Exhibit 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0159",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Pipeline Operator is set out in Exhibit 1, and the figure binding Shipper Client, set out separately in Exhibit 2, is a different figure than Exhibit 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0160",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Benefit Plan Trustee is set out in Exhibit 1, and the figure binding Contributing Employer, set out separately in Exhibit 2, is a different figure than Exhibit 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0161",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Cloud Host is set out in Exhibit 1, and the figure binding Managed Service Client, set out separately in Exhibit 2, is a different figure than Exhibit 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0162",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "cross_reference_schedule",
+    "dimensions": [
+      "cross_reference_schedule"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; the figure binding Territory Holder is set out in Exhibit 1, and the figure binding Brand Licensor, set out separately in Exhibit 2, is a different figure than Exhibit 1 states.",
+    "note": "asymmetric: cross_reference_schedule",
+    "expected_material_dimensions": [
+      "cross_reference_schedule"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0163",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Tenant's duty carries on with no end date once this Agreement winds down, whereas Property Manager's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0164",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndication Partner's duty carries on with no end date once this Agreement winds down, whereas Media Network's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0165",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cross-Border Agent's duty carries on with no end date once this Agreement winds down, whereas Local Distributor's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0166",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Wholesale Buyer's duty carries on with no end date once this Agreement winds down, whereas Retail Reseller's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0167",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Pipeline Operator's duty carries on with no end date once this Agreement winds down, whereas Shipper Client's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0168",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefit Plan Trustee's duty carries on with no end date once this Agreement winds down, whereas Contributing Employer's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0169",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cloud Host's duty carries on with no end date once this Agreement winds down, whereas Managed Service Client's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0170",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "temporal_survival",
+    "dimensions": [
+      "temporal_survival"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Territory Holder's duty carries on with no end date once this Agreement winds down, whereas Brand Licensor's duty ends the moment this Agreement winds down.",
+    "note": "asymmetric: temporal_survival",
+    "expected_material_dimensions": [
+      "temporal_survival"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0171",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Tenant's duty is capped at $500,000, reaches only trade-secret claims, and applies strictly, whereas Property Manager's duty carries no cap, reaches claims of any kind, and applies only where Property Manager is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0172",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndication Partner's duty is capped at $500,000, reaches only trade-secret claims, and applies strictly, whereas Media Network's duty carries no cap, reaches claims of any kind, and applies only where Media Network is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0173",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cross-Border Agent's duty is capped at $500,000, reaches only trade-secret claims, and applies strictly, whereas Local Distributor's duty carries no cap, reaches claims of any kind, and applies only where Local Distributor is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0174",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Wholesale Buyer's duty is capped at $500,000, reaches only trade-secret claims, and applies strictly, whereas Retail Reseller's duty carries no cap, reaches claims of any kind, and applies only where Retail Reseller is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0175",
+    "tier": "1",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Pipeline Operator's duty is capped at $500,000, reaches only trade-secret claims, and applies strictly, whereas Shipper Client's duty carries no cap, reaches claims of any kind, and applies only where Shipper Client is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0176",
+    "tier": "2",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefit Plan Trustee's duty is capped at $500,000, reaches only trade-secret claims, and applies strictly, whereas Contributing Employer's duty carries no cap, reaches claims of any kind, and applies only where Contributing Employer is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0177",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cloud Host's duty is capped at $500,000, reaches only trade-secret claims, and applies strictly, whereas Managed Service Client's duty carries no cap, reaches claims of any kind, and applies only where Managed Service Client is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0178",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound_multi_dimension",
+    "dimensions": [
+      "compound_multi_dimension"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Territory Holder's duty is capped at $500,000, reaches only trade-secret claims, and applies strictly, whereas Brand Licensor's duty carries no cap, reaches claims of any kind, and applies only where Brand Licensor is at fault.",
+    "note": "asymmetric: compound_multi_dimension",
+    "expected_material_dimensions": [
+      "compound_multi_dimension"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0179",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Wholesale Buyer keeps its own standalone insurance covering this exposure, while Retail Reseller's duty is additionally capped at $80,000, a limit Wholesale Buyer's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0180",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 3; that ceiling excludes claims caused by Pipeline Operator's intentional misconduct but excludes no category of claim caused by Shipper Client.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0181",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Benefit Plan Trustee's duty to front defense costs as incurred runs alongside its main duty, but Contributing Employer carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0182",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cloud Host relinquishes any right of contribution against Managed Service Client, but Managed Service Client retains its full right of contribution against Cloud Host.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0183",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Territory Holder keeps its own standalone insurance covering this exposure, while Brand Licensor's duty is additionally capped at $80,000, a limit Territory Holder's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0184",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 3; that ceiling excludes claims caused by Anchor Tenant's intentional misconduct but excludes no category of claim caused by Property Manager.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0185",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Syndication Partner's duty to front defense costs as incurred runs alongside its main duty, but Media Network carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0186",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cross-Border Agent relinquishes any right of contribution against Local Distributor, but Local Distributor retains its full right of contribution against Cross-Border Agent.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0187",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Wholesale Buyer keeps its own standalone insurance covering this exposure, while Retail Reseller's duty is additionally capped at $80,000, a limit Wholesale Buyer's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0188",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 3; that ceiling excludes claims caused by Pipeline Operator's intentional misconduct but excludes no category of claim caused by Shipper Client.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0189",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Benefit Plan Trustee's duty to front defense costs as incurred runs alongside its main duty, but Contributing Employer carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0190",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cloud Host relinquishes any right of contribution against Managed Service Client, but Managed Service Client retains its full right of contribution against Cloud Host.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0191",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Territory Holder keeps its own standalone insurance covering this exposure, while Brand Licensor's duty is additionally capped at $80,000, a limit Territory Holder's duty does not carry.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0192",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement, subject to the ceiling in Section 3; that ceiling excludes claims caused by Anchor Tenant's intentional misconduct but excludes no category of claim caused by Property Manager.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0193",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for third-party claims; Syndication Partner's duty to front defense costs as incurred runs alongside its main duty, but Media Network carries no separate cost-fronting duty, only the main duty.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0194",
+    "tier": "3",
+    "label": "ASYMMETRIC",
+    "family": "compound",
+    "dimensions": [
+      "compound"
+    ],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cross-Border Agent relinquishes any right of contribution against Local Distributor, but Local Distributor retains its full right of contribution against Cross-Border Agent.",
+    "note": "compound multi-provision asymmetry",
+    "expected_material_dimensions": [
+      "compound"
+    ],
+    "severity_if_false_symmetry": "S4"
+  },
+  {
+    "id": "FRESH108-0195",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Wholesale Buyer's ceiling matches Retail Reseller's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0196",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Either party shall indemnify the other for claims arising under this Agreement, on terms the parties have agreed to negotiate further before this Agreement is signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0197",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Benefit Plan Trustee's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0198",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Cloud Host's ceiling matches Managed Service Client's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0199",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Either party shall indemnify the other for claims arising under this Agreement, on terms the parties have agreed to negotiate further before this Agreement is signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0200",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Anchor Tenant's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0201",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Syndication Partner's ceiling matches Media Network's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0202",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Either party shall indemnify the other for claims arising under this Agreement, on terms the parties have agreed to negotiate further before this Agreement is signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0203",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Wholesale Buyer's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0204",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Pipeline Operator's ceiling matches Shipper Client's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0205",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Either party shall indemnify the other for claims arising under this Agreement, on terms the parties have agreed to negotiate further before this Agreement is signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0206",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Cloud Host's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0207",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Territory Holder's ceiling matches Brand Licensor's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0208",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Either party shall indemnify the other for claims arising under this Agreement, on terms the parties have agreed to negotiate further before this Agreement is signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0209",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Syndication Partner's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0210",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; whether Cross-Border Agent's ceiling matches Local Distributor's ceiling is left for a side letter the parties have not yet signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0211",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Either party shall indemnify the other for claims arising under this Agreement, on terms the parties have agreed to negotiate further before this Agreement is signed.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  },
+  {
+    "id": "FRESH108-0212",
+    "tier": "2",
+    "label": "AMBIGUOUS",
+    "family": "ambiguous",
+    "dimensions": [],
+    "text": "Each party shall indemnify the other for claims arising under this Agreement; Pipeline Operator's duty is subject to conditions to be set out in an exhibit not yet attached to this Agreement.",
+    "note": "genuinely unresolved, should route to review",
+    "expected_material_dimensions": [],
+    "severity_if_false_symmetry": "N/A"
+  }
+]

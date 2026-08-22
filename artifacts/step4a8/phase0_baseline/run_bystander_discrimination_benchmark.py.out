@@ -1,0 +1,10 @@
+Corpus size: 47 (22 positive, 25 negative)
+
+| NEG-BD-09 | negative | side=None reason="the document's own definition of 'Landlord' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Landlord''s conventional classification still applies" | MISS | subcontracted property-manager bystander mention
+| NEG-BD-11 | negative | side=sell_side reason=None | MISS | Carrier's own unrelated third-party customer bystander mention
+| NEG-BD-19 | negative | side=None reason="the document's own definition of 'Grower' uses both purchasing/receiving language and providing/selling language — cannot determine which transactional side 'Grower' actually occupies" | MISS | Processor's own unrelated third-party purchase is a bystander clause about Processor, not Grower
+
+Recall (genuine evidence correctly resolved): 100.0% (22/22)
+Precision: 88.0% (22/25)
+False-negative rate: 0.0% (0/22)
+False-positive rate (bystander wrongly escalated/misresolved): 12.0% (3/25)

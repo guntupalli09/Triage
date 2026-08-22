@@ -1,0 +1,28 @@
+=== OVERALL ===
+{'CS': 47, 'CR': 11, 'FA': 5, 'CA': 120, 'FS': 4, 'WC': 13}
+
+=== BY TIER (asymmetric+symmetric only) ===
+Tier 1 (n=96): {'CS': 32, 'CR': 4, 'CA': 60}
+Tier 2 (n=40): {'FA': 5, 'CS': 15, 'CA': 16, 'FS': 4}
+Tier 3 (n=44): {'CA': 44}
+
+=== BY DIMENSION FAMILY (asymmetric only) ===
+  causation_standard (n=8): {'CA': 8}
+  claim_category (n=8): {'CA': 8}
+  defense_control (n=8): {'CA': 8}
+  monetary_treatment (n=16): {'CA': 12, 'FS': 4}
+  proviso_exception (n=8): {'CA': 8}
+  conditional_applicability (n=8): {'CA': 8}
+  first_third_party (n=8): {'CA': 8}
+  negligence_fault_standard (n=8): {'CA': 8}
+  scope_geographic (n=8): {'CA': 8}
+  cross_reference_schedule (n=8): {'CA': 8}
+  temporal_survival (n=8): {'CA': 8}
+  compound_multi_dimension (n=8): {'CA': 8}
+  compound (n=20): {'CA': 20}
+
+FS (dangerous) total: 4
+  FRESH107-0154 [['monetary_treatment']] tier=2: Both parties shall indemnify the other for claims arising under this Agreement; Content Licensor's d
+  FRESH107-0156 [['monetary_treatment']] tier=2: Both parties shall indemnify the other for claims arising under this Agreement; Staffing Agency's du
+  FRESH107-0158 [['monetary_treatment']] tier=2: Both parties shall indemnify the other for claims arising under this Agreement; Origination Partner'
+  FRESH107-0160 [['monetary_treatment']] tier=2: Both parties shall indemnify the other for claims arising under this Agreement; Cold Storage Operato

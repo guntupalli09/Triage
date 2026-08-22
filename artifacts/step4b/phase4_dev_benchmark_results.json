@@ -1,0 +1,2148 @@
+{
+  "rows": [
+    {
+      "id": "dev-r1-00",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "both-acceptable-1",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-01",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "both-acceptable-2",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-02",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "liability-violation-only",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-03",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "indemnification-violation-only",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-04",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "both-violations-independent",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-05",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "problematic-together-1",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-06",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "problematic-together-2",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-07",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "problematic-together-negotiate-states",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-08",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "one-unresolved-liability",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-09",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "one-unresolved-indemnification",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-10",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "one-error-liability",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-11",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "liability-not-applicable",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": false,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-12",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "indemnification-not-applicable",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": false,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-13",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "multiple-provisions-amendment-resolved",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-14",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "multiple-provisions-unreconciled",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-15",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "amendment-resolved-clean",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-16",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "compound-multiple-categories-present",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-extra-0-0",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "compound-noise-category",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "extra co-present category must not suppress or alter the ip_infringement fire"
+    },
+    {
+      "id": "dev-r1-extra-0-1",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "compound-noise-category",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "extra co-present category must not suppress or alter the ip_infringement fire"
+    },
+    {
+      "id": "dev-r1-extra-1-0",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "compound-noise-category",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "extra co-present category must not suppress or alter the ip_infringement fire"
+    },
+    {
+      "id": "dev-r1-extra-1-1",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "compound-noise-category",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "extra co-present category must not suppress or alter the ip_infringement fire"
+    },
+    {
+      "id": "dev-r1-extra-2-0",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "compound-noise-category",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "extra co-present category must not suppress or alter the ip_infringement fire"
+    },
+    {
+      "id": "dev-r1-extra-2-1",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "compound-noise-category",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "extra co-present category must not suppress or alter the ip_infringement fire"
+    },
+    {
+      "id": "dev-r1-extra-3-0",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "compound-noise-category",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "extra co-present category must not suppress or alter the ip_infringement fire"
+    },
+    {
+      "id": "dev-r1-extra-3-1",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "compound-noise-category",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "extra co-present category must not suppress or alter the ip_infringement fire"
+    },
+    {
+      "id": "dev-r2-single-0",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "single-category-fires",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-single-supercap-0",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "single-category-fires-supercap",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-single-noFire-0",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "single-category-benign",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-single-1",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "single-category-fires",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-single-supercap-1",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "single-category-fires-supercap",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-single-noFire-1",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "single-category-benign",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-single-2",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "single-category-fires",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-single-supercap-2",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "single-category-fires-supercap",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-single-noFire-2",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "single-category-benign",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-single-3",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "single-category-fires",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-single-supercap-3",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "single-category-fires-supercap",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-single-noFire-3",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "single-category-benign",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-multi-2cat",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "compound-two-categories",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-multi-4cat",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "compound-all-four-categories",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-review",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "one-unresolved",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-na",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "not-applicable",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": false,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-error",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "evaluation-error",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-amendment",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "amendment-resolved",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-unreconciled",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "unreconciled-blocks",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-both-negotiate",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "both-negotiate-states",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-both-mustredline",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "both-must-redline",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-missing",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "missing-participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-both-clean",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "both-acceptable",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-within-0",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "dependency-fires-within-cap",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-notaddressed-0",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "dependency-fires-not-addressed",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-nofire-uncapped-0",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "no-fire-uncapped-not-within-cap",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "uncapped is out of this rule's scope, not merely benign"
+    },
+    {
+      "id": "dev-r3-nofire-notcovered-0",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "no-fire-indemnity-excluded",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-within-1",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "dependency-fires-within-cap",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-notaddressed-1",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "dependency-fires-not-addressed",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-nofire-uncapped-1",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "no-fire-uncapped-not-within-cap",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "uncapped is out of this rule's scope, not merely benign"
+    },
+    {
+      "id": "dev-r3-nofire-notcovered-1",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "no-fire-indemnity-excluded",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-within-2",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "dependency-fires-within-cap",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-notaddressed-2",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "dependency-fires-not-addressed",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-nofire-uncapped-2",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "no-fire-uncapped-not-within-cap",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "uncapped is out of this rule's scope, not merely benign"
+    },
+    {
+      "id": "dev-r3-nofire-notcovered-2",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "no-fire-indemnity-excluded",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-within-3",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "dependency-fires-within-cap",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-notaddressed-3",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "dependency-fires-not-addressed",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-nofire-uncapped-3",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "no-fire-uncapped-not-within-cap",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "uncapped is out of this rule's scope, not merely benign"
+    },
+    {
+      "id": "dev-r3-nofire-notcovered-3",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "no-fire-indemnity-excluded",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-within-4",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "dependency-fires-within-cap",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-notaddressed-4",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "dependency-fires-not-addressed",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-nofire-uncapped-4",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "no-fire-uncapped-not-within-cap",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "uncapped is out of this rule's scope, not merely benign"
+    },
+    {
+      "id": "dev-r3-nofire-notcovered-4",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "no-fire-indemnity-excluded",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-multi-category",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "compound-multiple-categories",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-mixed-scope",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "compound-only-some-categories-in-scope",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "this case is evaluated against Rule 3 only; ip_infringement (within_general_cap+covered) matches Rule 3's condition even though the co-present data_breach (uncapped+covered) would separately fire Rule 2's ESCALATE if evaluated against that rule -- rules are evaluated independently, not merged"
+    },
+    {
+      "id": "dev-r3-review",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "one-unresolved",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-na",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "not-applicable",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": false,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-missing",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "missing-participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-amendment",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "amendment-resolved",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-clean-no-overlap",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "both-acceptable",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-liability-unresolved-0",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "conflicting-definitions-liability-side",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-indemnity-unresolved-0",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "conflicting-definitions-indemnity-side",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-nofire-resolved-0",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "no-fire-both-resolved",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-liability-unresolved-1",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "conflicting-definitions-liability-side",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-indemnity-unresolved-1",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "conflicting-definitions-indemnity-side",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-nofire-resolved-1",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "no-fire-both-resolved",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-liability-unresolved-2",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "conflicting-definitions-liability-side",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-indemnity-unresolved-2",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "conflicting-definitions-indemnity-side",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-nofire-resolved-2",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "no-fire-both-resolved",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-liability-unresolved-3",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "conflicting-definitions-liability-side",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-indemnity-unresolved-3",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "conflicting-definitions-indemnity-side",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-nofire-resolved-3",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "no-fire-both-resolved",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-liability-unresolved-4",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "conflicting-definitions-liability-side",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-indemnity-unresolved-4",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "conflicting-definitions-indemnity-side",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-nofire-resolved-4",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "no-fire-both-resolved",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-both-unresolved-same-cat",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "conflicting-definitions-both-sides",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-multi-category-ambiguous",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "compound-multiple-ambiguous-categories",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-decision-level-review-not-category",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "decision-review-but-no-category-ambiguity",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "whole-decision REQUIRES_REVIEW is gated generically before Rule 4's own predicate ever runs"
+    },
+    {
+      "id": "dev-r4-na",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "not-applicable",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": false,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-missing",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "missing-participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-amendment",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "amendment-resolved",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-clean",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "both-acceptable",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-00",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "fires-uncapped",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-01",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "fires-supercap",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-02",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "nofire-insurance-established",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-03",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "nofire-liability-within-cap",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-04",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "nofire-other-category-only",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "ip_infringement has no insurance mapping by design -- must not generalize"
+    },
+    {
+      "id": "dev-r5-05",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "nofire-no-data-breach-treatment",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-06",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "one-unresolved-liability",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-07",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "one-unresolved-insurance",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-08",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "insurance-not-applicable",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": false,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-09",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "liability-not-applicable",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": false,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-10",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "evaluation-error",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-11",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "amendment-resolved",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-12",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "both-negotiate-states",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-missing",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "missing-participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-compound-with-r1",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "compound-interaction",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "co-present ip_infringement uncapped fires Rule 1 separately (indemnification not a Rule 5 participant); Rule 5 fires independently on data_breach/insurance"
+    },
+    {
+      "id": "dev-r5-established-variants-0",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "no-fire-established-variant",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-established-variants-1",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "no-fire-established-variant",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-00",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "fires-clean",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-01",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "nofire-cure-period",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-02",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "nofire-not-withholdable",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-03",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "nofire-withholdable-unestablished",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "unestablished (absent key, None) must not be treated as True"
+    },
+    {
+      "id": "dev-r6-04",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "nofire-no-nonpayment-category",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-05",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "role-reversal-our-right-not-theirs",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "no non_payment category_treatments entry at all -- our-side-only rights are never surfaced into category_treatments per adapter's their_rights construction, so this represents the role-reversed scenario correctly resolving to no-fire"
+    },
+    {
+      "id": "dev-r6-06",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "one-unresolved-termination",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-07",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "one-unresolved-payment",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-08",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "termination-not-applicable",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": false,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-09",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "payment-not-applicable",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": false,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-10",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "evaluation-error",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-11",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "amendment-resolved",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-12",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "both-negotiate-states",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-13",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "conditional-notice-then-immediate",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "conditional-applicability family: immediate right conditioned elsewhere in the clause on a threshold, but adapter has already resolved category_treatments to immediate -- interaction layer trusts the upstream resolved fact"
+    },
+    {
+      "id": "dev-r6-missing",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "missing-participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-duplicate-category",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "duplicate-evidence-non_payment",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "duplicated category key -- last dict entry wins per _by_category's dict comprehension, so cure_period (not immediate) governs; documented, not a defect -- verified against the real _by_category mechanism before predeclaring, per the mb-r1-06 lesson"
+    },
+    {
+      "id": "dev-r6-noise-category-0",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "compound-noise-category",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "unrelated co-present termination category must not suppress the fire"
+    },
+    {
+      "id": "dev-r6-noise-category-1",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "compound-noise-category",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "unrelated co-present termination category must not suppress the fire"
+    },
+    {
+      "id": "dev-r6-compound-with-r1",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "compound-interaction",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-non-operative-recital",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "non-operative-text",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "operative-vs-non-operative classification is an upstream Step 4A adapter responsibility; interaction layer trusts the already-resolved category_treatments regardless of the evidence excerpt's own textual framing"
+    },
+    {
+      "id": "dev-r7-00",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "fires-both-present",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-01",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "nofire-sla-only",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-02",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "nofire-payment-only",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-03",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "nofire-neither",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-04",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "nofire-sla-unestablished-key-absent",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "unestablished (absent key) must not be treated as True"
+    },
+    {
+      "id": "dev-r7-05",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "one-unresolved-sla",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-06",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "one-unresolved-payment",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-07",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "sla-not-applicable",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": false,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-08",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "payment-not-applicable",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": false,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-09",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "evaluation-error",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-10",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "amendment-resolved",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-11",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "both-negotiate-states",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-missing",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "missing-participant",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-cross-reference",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "cross-reference",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "cross-reference resolution is an upstream adapter responsibility; interaction layer trusts the already-resolved interaction_facts regardless of the evidence excerpt referencing an exhibit"
+    },
+    {
+      "id": "dev-r7-duplicate-evidence",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "duplicate-evidence",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-conditional-applicability",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "conditional-applicability",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "conditional carve-out already resolved upstream by the adapter into a flat uncapped treatment -- interaction layer trusts the resolved fact, does not re-parse the condition"
+    },
+    {
+      "id": "dev-r1-non-operative-text",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "non-operative-text",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "operative/non-operative classification is upstream adapter responsibility; interaction layer trusts the resolved category_treatments regardless of evidence excerpt framing"
+    },
+    {
+      "id": "dev-r1-wrong-participant-key",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "wrong-participant-key",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "decisions dict keyed 'indemnity' instead of 'indemnification' -- indemnification participant effectively missing"
+    },
+    {
+      "id": "dev-r1-topup-state-0",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "problematic-together-state-variety",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r1-topup-state-1",
+      "interaction_id": "IX_IP_UNCAPPED_LIABILITY_WITH_INDEMNITY",
+      "family": "problematic-together-state-variety",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-conditional-applicability",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "conditional-applicability",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-non-operative-text",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "non-operative-text",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-wrong-participant-key",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "wrong-participant-key",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-role-reversal-not-applicable",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "role-reversal",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "categories must match on BOTH sides for the same category -- liability's willful_misconduct and indemnification's data_breach do not overlap"
+    },
+    {
+      "id": "dev-r2-topup-mustredline-negotiate-mix",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "mixed-violation-states",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-non-operative-text",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "non-operative-text",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-wrong-participant-key",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "wrong-participant-key",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r3-conditional-applicability",
+      "interaction_id": "IX_INDEMNITY_WITHIN_GENERAL_CAP",
+      "family": "conditional-applicability",
+      "expected_state": "ACCEPT_WITH_NOTE",
+      "actual_state": "ACCEPT_WITH_NOTE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-non-operative-text",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "non-operative-text",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-wrong-participant-key",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "wrong-participant-key",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-conditional-applicability",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "conditional-applicability",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-non-operative-text",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "non-operative-text",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-wrong-participant-key",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "wrong-participant-key",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-conditional-applicability",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "conditional-applicability",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-duplicate-category",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "duplicate-evidence",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "duplicated data_breach category -- last entry (within_general_cap) wins, does not satisfy uncapped/super_cap"
+    },
+    {
+      "id": "dev-r6-wrong-participant-key",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "wrong-participant-key",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-direction-reversal-explicit",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "direction-reversal",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "non_payment present but treatment is neither 'immediate' nor absent -- distinct value must not be conflated with the trigger value"
+    },
+    {
+      "id": "dev-r6-topup-treatment-0",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "no-fire-other-treatment-values",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-topup-treatment-1",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "no-fire-other-treatment-values",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-wrong-participant-key",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "wrong-participant-key",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-non-operative-text",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "non-operative-text",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-conditional-applicability",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "conditional-applicability",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "credit presence already resolved upstream regardless of any triggering condition text"
+    },
+    {
+      "id": "dev-r7-topup-state-0",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "violation-state-variety",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-topup-state-1",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "violation-state-variety",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-multi-3cat",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "compound-three-categories",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r2-duplicate-category",
+      "interaction_id": "IX_SHARED_CATEGORY_INDEMNITY_LIABILITY_MISMATCH",
+      "family": "duplicate-evidence",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "duplicated data_breach category -- last entry wins (within_general_cap), not uncapped/super_cap"
+    },
+    {
+      "id": "dev-r4-duplicate-category",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "duplicate-evidence",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "duplicated data_breach category -- last entry (within_general_cap) wins, not unresolved"
+    },
+    {
+      "id": "dev-r4-multiple-provisions-unreconciled",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "multiple-provisions",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-role-reversal-mismatched-category",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "role-reversal",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "ambiguity check is per-category-independent: any ambiguous category on either side fires, even without cross-category overlap -- both ip_infringement and data_breach independently contribute to the ambiguous set"
+    },
+    {
+      "id": "dev-r5-multiple-provisions-unreconciled",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "multiple-provisions",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-both-mustredline",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "both-must-redline",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-role-reversal-not-cyber",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "role-reversal",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "insurance established a DIFFERENT coverage type (general_liability); cyber_liability key itself is absent, so the predicate's it lookup is None"
+    },
+    {
+      "id": "dev-r6-multiple-provisions-unreconciled",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "multiple-provisions",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-both-mustredline",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "both-must-redline",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-both-error",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "compound-both-error",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-conflicting-definitions",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "conflicting-definitions",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "'unresolved' is not the trigger value 'immediate' -- Rule 6 has no separate ambiguity-escalation mechanism like Rule 4's; an ambiguous non_payment treatment simply does not satisfy the equality check"
+    },
+    {
+      "id": "dev-r6-cross-reference",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "cross-reference",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-multiple-provisions-unreconciled",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "multiple-provisions",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-both-mustredline",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "both-must-redline",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-both-error",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "compound-both-error",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-role-reversal-not-sla-credit",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "role-reversal",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "sla's interaction_facts has a different key present ('other_remedy_present'); 'service_credit_present' itself is absent (None), so no fire"
+    },
+    {
+      "id": "dev-r4-amendment-unreconciled",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "amendments",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r4-compound-with-r1",
+      "interaction_id": "IX_LIABILITY_INDEMNITY_CATEGORY_AMBIGUITY",
+      "family": "compound-interaction",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "co-present ip_infringement uncapped fires Rule 1 separately; Rule 4 independently fires on the unresolved confidentiality category"
+    },
+    {
+      "id": "dev-r5-amendment-superseded",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "amendments",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-cross-reference",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "cross-reference",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-amendment-superseded",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "amendments",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-amendment-superseded",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "amendments",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-compound-with-r3",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "compound-interaction",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-payment-not-established-explicit-false",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "no-fire-explicit-false",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-both-negotiate-mixed-with-review",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "one-established-one-negotiate",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-payment-not-established-explicit-false",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "no-fire-explicit-false",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-one-established-one-review",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "one-established-one-unresolved",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r6-multiple-provisions-payment",
+      "interaction_id": "IX_NONPAYMENT_TERMINATION_VS_DISPUTE_WITHHOLDING",
+      "family": "multiple-provisions",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-one-established-one-error",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "one-established-one-error",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r7-both-must-redline-with-review-facts",
+      "interaction_id": "IX_SLA_PAYMENT_CREDIT_DEPENDENCY",
+      "family": "compound-noise",
+      "expected_state": "REQUIRES_REVIEW",
+      "actual_state": "REQUIRES_REVIEW",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "extra co-present interaction_facts key on sla must not suppress the fire"
+    },
+    {
+      "id": "dev-r5-both-negotiate-mixed-with-review",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "one-established-one-unresolved",
+      "expected_state": "INSUFFICIENT_FACTS",
+      "actual_state": "INSUFFICIENT_FACTS",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    },
+    {
+      "id": "dev-r5-compound-noise-category",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "compound-noise-category",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "unrelated co-present confidentiality/general_liability entries must not suppress the data_breach/cyber_liability fire"
+    },
+    {
+      "id": "dev-r5-role-reversal-established-different-key",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "role-reversal",
+      "expected_state": "NOT_TRIGGERED",
+      "actual_state": "NOT_TRIGGERED",
+      "correct": true,
+      "evidence_present": true,
+      "notes": "cyber_liability IS established here (just with a different treatment label) -- established flag alone controls the gate, not the treatment string"
+    },
+    {
+      "id": "dev-r5-multiple-provisions-insurance-amendment",
+      "interaction_id": "IX_UNCAPPED_LIABILITY_NO_CYBER_INSURANCE",
+      "family": "multiple-provisions",
+      "expected_state": "ESCALATE",
+      "actual_state": "ESCALATE",
+      "correct": true,
+      "evidence_present": true,
+      "notes": ""
+    }
+  ],
+  "metrics": {
+    "false_interaction": [],
+    "missed_interaction": [],
+    "false_authoritative_interaction": [],
+    "uncertainty_laundering": [],
+    "wrong_direction": [],
+    "wrong_ownership": [],
+    "wrong_participant": [],
+    "evidence_provenance_failure": [],
+    "duplicate_interaction": [],
+    "suppressed_interaction": [],
+    "wrong_state_other_mismatch": []
+  },
+  "total_unique_cases": 213
+}

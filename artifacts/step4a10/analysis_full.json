@@ -1,0 +1,857 @@
+{
+  "phase12_overall": {
+    "arm_a_regex_only": {
+      "tp": 155,
+      "fp": 12,
+      "fn": 65,
+      "tn": 132,
+      "recall": 0.7045454545454546,
+      "precision": 0.9281437125748503,
+      "f1": 0.8010335917312662,
+      "false_absence_rate": 0.29545454545454547,
+      "false_candidate_rate": 0.08333333333333333
+    },
+    "arm_b_semantic_only": {
+      "tp": 220,
+      "fp": 144,
+      "fn": 0,
+      "tn": 0,
+      "recall": 1.0,
+      "precision": 0.6043956043956044,
+      "f1": 0.7534246575342465,
+      "false_absence_rate": 0.0,
+      "false_candidate_rate": 1.0
+    },
+    "arm_c_hybrid": {
+      "tp": 220,
+      "fp": 144,
+      "fn": 0,
+      "tn": 0,
+      "recall": 1.0,
+      "precision": 0.6043956043956044,
+      "f1": 0.7534246575342465,
+      "false_absence_rate": 0.0,
+      "false_candidate_rate": 1.0
+    }
+  },
+  "phase13_tiers": {
+    "tier1": {
+      "n_positive": 100,
+      "arm_a": {
+        "tp": 100,
+        "fp": 12,
+        "fn": 0,
+        "tn": 132,
+        "recall": 1.0,
+        "precision": 0.8928571428571429,
+        "f1": 0.9433962264150945,
+        "false_absence_rate": 0.0,
+        "false_candidate_rate": 0.08333333333333333
+      },
+      "arm_b": {
+        "tp": 100,
+        "fp": 144,
+        "fn": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 0.4098360655737705,
+        "f1": 0.5813953488372093,
+        "false_absence_rate": 0.0,
+        "false_candidate_rate": 1.0
+      },
+      "arm_c": {
+        "tp": 100,
+        "fp": 144,
+        "fn": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 0.4098360655737705,
+        "f1": 0.5813953488372093,
+        "false_absence_rate": 0.0,
+        "false_candidate_rate": 1.0
+      }
+    },
+    "tier2": {
+      "n_positive": 70,
+      "arm_a": {
+        "tp": 38,
+        "fp": 12,
+        "fn": 32,
+        "tn": 132,
+        "recall": 0.5428571428571428,
+        "precision": 0.76,
+        "f1": 0.6333333333333332,
+        "false_absence_rate": 0.45714285714285713,
+        "false_candidate_rate": 0.08333333333333333
+      },
+      "arm_b": {
+        "tp": 70,
+        "fp": 144,
+        "fn": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 0.32710280373831774,
+        "f1": 0.49295774647887325,
+        "false_absence_rate": 0.0,
+        "false_candidate_rate": 1.0
+      },
+      "arm_c": {
+        "tp": 70,
+        "fp": 144,
+        "fn": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 0.32710280373831774,
+        "f1": 0.49295774647887325,
+        "false_absence_rate": 0.0,
+        "false_candidate_rate": 1.0
+      }
+    },
+    "tier3": {
+      "n_positive": 50,
+      "arm_a": {
+        "tp": 17,
+        "fp": 12,
+        "fn": 33,
+        "tn": 132,
+        "recall": 0.34,
+        "precision": 0.5862068965517241,
+        "f1": 0.43037974683544306,
+        "false_absence_rate": 0.66,
+        "false_candidate_rate": 0.08333333333333333
+      },
+      "arm_b": {
+        "tp": 50,
+        "fp": 144,
+        "fn": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 0.25773195876288657,
+        "f1": 0.40983606557377045,
+        "false_absence_rate": 0.0,
+        "false_candidate_rate": 1.0
+      },
+      "arm_c": {
+        "tp": 50,
+        "fp": 144,
+        "fn": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 0.25773195876288657,
+        "f1": 0.40983606557377045,
+        "false_absence_rate": 0.0,
+        "false_candidate_rate": 1.0
+      }
+    }
+  },
+  "phase14_noncanonical": {
+    "n_noncanonical_positive": 150,
+    "arm_a": {
+      "tp": 85,
+      "fp": 12,
+      "fn": 65,
+      "tn": 132,
+      "recall": 0.5666666666666667,
+      "precision": 0.8762886597938144,
+      "f1": 0.6882591093117408,
+      "false_absence_rate": 0.43333333333333335,
+      "false_candidate_rate": 0.08333333333333333
+    },
+    "arm_b": {
+      "tp": 150,
+      "fp": 144,
+      "fn": 0,
+      "tn": 0,
+      "recall": 1.0,
+      "precision": 0.5102040816326531,
+      "f1": 0.6756756756756758,
+      "false_absence_rate": 0.0,
+      "false_candidate_rate": 1.0
+    },
+    "arm_c": {
+      "tp": 150,
+      "fp": 144,
+      "fn": 0,
+      "tn": 0,
+      "recall": 1.0,
+      "precision": 0.5102040816326531,
+      "f1": 0.6756756756756758,
+      "false_absence_rate": 0.0,
+      "false_candidate_rate": 1.0
+    }
+  },
+  "phase15_evidence_grounding": {
+    "note": "semantic_discovery_real.py discards non-verbatim/bad-offset candidates BEFORE they are returned (Phase 4/6 of 4A.9.1/4A.9.2) -- so every candidate appearing in the raw results is, by construction, verbatim-verified against its source document. This audit re-confirms that invariant by re-checking every candidate in the raw log.",
+    "total_semantic_candidates_returned": 0,
+    "reverified_verbatim_valid": 0,
+    "fabricated_evidence_becoming_authoritative": 0,
+    "independent_reverification_failures": 0
+  },
+  "phase16_semantic_authority_audit": {
+    "semantic_sourced_verified_count": 0,
+    "case_ids": [],
+    "semantic_interpretation_directly_trusted": 0
+  },
+  "phase18_funnel": {
+    "total_true_positives": 220,
+    "discovered_by_regex": 155,
+    "discovered_by_semantic": 220,
+    "discovered_by_hybrid": 220,
+    "evidence_validated_candidate_present": 0,
+    "structured_or_flagged": 155,
+    "clean_verified": 139
+  },
+  "phase19_clean_verified_recall": {
+    "regex_only": 0.6318181818181818,
+    "hybrid": 0.6318181818181818,
+    "by_tier": {
+      "1": {
+        "regex_only": 1.0,
+        "hybrid": 1.0
+      },
+      "2": {
+        "regex_only": 0.4142857142857143,
+        "hybrid": 0.4142857142857143
+      },
+      "3": {
+        "regex_only": 0.2,
+        "hybrid": 0.2
+      }
+    }
+  },
+  "phase17_bottleneck_taxonomy": {
+    "n_examined_present_but_unresolved_true_positives": 16,
+    "reason_counts": {
+      "Q_verifier_lacks_structural_pattern": 3,
+      "N_evidence_boundary_insufficient_cross_reference": 6,
+      "P_explicit_textual_ambiguity": 7,
+      "E_causation_standard_unresolved": 7
+    },
+    "note": "Heuristic keyword-based classification of WHY a genuinely-discovered true positive failed to reach clean VERIFIED status under the hybrid arm -- diagnostic only, not modified/fixed per the absolute rule.",
+    "cases": [
+      {
+        "id": "S4A10-0104",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0110",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0116",
+        "reasons": [
+          "Q_verifier_lacks_structural_pattern"
+        ]
+      },
+      {
+        "id": "S4A10-0126",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0134",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0142",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0150",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0158",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0166",
+        "reasons": [
+          "N_evidence_boundary_insufficient_cross_reference"
+        ]
+      },
+      {
+        "id": "S4A10-0184",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "E_causation_standard_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0190",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "E_causation_standard_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0196",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "E_causation_standard_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0202",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "E_causation_standard_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0208",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "E_causation_standard_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0214",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "E_causation_standard_unresolved"
+        ]
+      },
+      {
+        "id": "S4A10-0220",
+        "reasons": [
+          "P_explicit_textual_ambiguity",
+          "E_causation_standard_unresolved"
+        ]
+      }
+    ]
+  },
+  "phase20_classification": {
+    "CA": 139,
+    "CR": 255
+  },
+  "phase21_severity": {},
+  "phase20_21_raw": {
+    "classification": {
+      "S4A10-0001": "CA",
+      "S4A10-0002": "CA",
+      "S4A10-0003": "CA",
+      "S4A10-0004": "CA",
+      "S4A10-0005": "CA",
+      "S4A10-0006": "CA",
+      "S4A10-0007": "CA",
+      "S4A10-0008": "CA",
+      "S4A10-0009": "CA",
+      "S4A10-0010": "CA",
+      "S4A10-0011": "CA",
+      "S4A10-0012": "CA",
+      "S4A10-0013": "CA",
+      "S4A10-0014": "CA",
+      "S4A10-0015": "CA",
+      "S4A10-0016": "CA",
+      "S4A10-0017": "CA",
+      "S4A10-0018": "CA",
+      "S4A10-0019": "CA",
+      "S4A10-0020": "CA",
+      "S4A10-0021": "CA",
+      "S4A10-0022": "CA",
+      "S4A10-0023": "CA",
+      "S4A10-0024": "CA",
+      "S4A10-0025": "CA",
+      "S4A10-0026": "CA",
+      "S4A10-0027": "CA",
+      "S4A10-0028": "CA",
+      "S4A10-0029": "CA",
+      "S4A10-0030": "CA",
+      "S4A10-0031": "CA",
+      "S4A10-0032": "CA",
+      "S4A10-0033": "CA",
+      "S4A10-0034": "CA",
+      "S4A10-0035": "CA",
+      "S4A10-0036": "CA",
+      "S4A10-0037": "CA",
+      "S4A10-0038": "CA",
+      "S4A10-0039": "CA",
+      "S4A10-0040": "CA",
+      "S4A10-0041": "CA",
+      "S4A10-0042": "CA",
+      "S4A10-0043": "CA",
+      "S4A10-0044": "CA",
+      "S4A10-0045": "CA",
+      "S4A10-0046": "CA",
+      "S4A10-0047": "CA",
+      "S4A10-0048": "CA",
+      "S4A10-0049": "CA",
+      "S4A10-0050": "CA",
+      "S4A10-0051": "CA",
+      "S4A10-0052": "CA",
+      "S4A10-0053": "CA",
+      "S4A10-0054": "CA",
+      "S4A10-0055": "CA",
+      "S4A10-0056": "CA",
+      "S4A10-0057": "CA",
+      "S4A10-0058": "CA",
+      "S4A10-0059": "CA",
+      "S4A10-0060": "CA",
+      "S4A10-0061": "CA",
+      "S4A10-0062": "CA",
+      "S4A10-0063": "CA",
+      "S4A10-0064": "CA",
+      "S4A10-0065": "CA",
+      "S4A10-0066": "CA",
+      "S4A10-0067": "CA",
+      "S4A10-0068": "CA",
+      "S4A10-0069": "CA",
+      "S4A10-0070": "CA",
+      "S4A10-0071": "CA",
+      "S4A10-0072": "CA",
+      "S4A10-0073": "CA",
+      "S4A10-0074": "CA",
+      "S4A10-0075": "CA",
+      "S4A10-0076": "CA",
+      "S4A10-0077": "CA",
+      "S4A10-0078": "CA",
+      "S4A10-0079": "CA",
+      "S4A10-0080": "CA",
+      "S4A10-0081": "CA",
+      "S4A10-0082": "CA",
+      "S4A10-0083": "CA",
+      "S4A10-0084": "CA",
+      "S4A10-0085": "CA",
+      "S4A10-0086": "CA",
+      "S4A10-0087": "CA",
+      "S4A10-0088": "CA",
+      "S4A10-0089": "CA",
+      "S4A10-0090": "CA",
+      "S4A10-0091": "CA",
+      "S4A10-0092": "CA",
+      "S4A10-0093": "CA",
+      "S4A10-0094": "CA",
+      "S4A10-0095": "CA",
+      "S4A10-0096": "CA",
+      "S4A10-0097": "CA",
+      "S4A10-0098": "CA",
+      "S4A10-0099": "CA",
+      "S4A10-0100": "CA",
+      "S4A10-0101": "CA",
+      "S4A10-0102": "CA",
+      "S4A10-0103": "CA",
+      "S4A10-0104": "CR",
+      "S4A10-0105": "CA",
+      "S4A10-0106": "CA",
+      "S4A10-0107": "CA",
+      "S4A10-0108": "CA",
+      "S4A10-0109": "CA",
+      "S4A10-0110": "CR",
+      "S4A10-0111": "CA",
+      "S4A10-0112": "CA",
+      "S4A10-0113": "CA",
+      "S4A10-0114": "CA",
+      "S4A10-0115": "CA",
+      "S4A10-0116": "CR",
+      "S4A10-0117": "CA",
+      "S4A10-0118": "CA",
+      "S4A10-0119": "CA",
+      "S4A10-0120": "CA",
+      "S4A10-0121": "CR",
+      "S4A10-0122": "CR",
+      "S4A10-0123": "CR",
+      "S4A10-0124": "CR",
+      "S4A10-0125": "CA",
+      "S4A10-0126": "CR",
+      "S4A10-0127": "CR",
+      "S4A10-0128": "CA",
+      "S4A10-0129": "CR",
+      "S4A10-0130": "CR",
+      "S4A10-0131": "CR",
+      "S4A10-0132": "CR",
+      "S4A10-0133": "CA",
+      "S4A10-0134": "CR",
+      "S4A10-0135": "CR",
+      "S4A10-0136": "CA",
+      "S4A10-0137": "CR",
+      "S4A10-0138": "CR",
+      "S4A10-0139": "CR",
+      "S4A10-0140": "CR",
+      "S4A10-0141": "CA",
+      "S4A10-0142": "CR",
+      "S4A10-0143": "CR",
+      "S4A10-0144": "CA",
+      "S4A10-0145": "CR",
+      "S4A10-0146": "CR",
+      "S4A10-0147": "CR",
+      "S4A10-0148": "CR",
+      "S4A10-0149": "CA",
+      "S4A10-0150": "CR",
+      "S4A10-0151": "CR",
+      "S4A10-0152": "CA",
+      "S4A10-0153": "CR",
+      "S4A10-0154": "CR",
+      "S4A10-0155": "CR",
+      "S4A10-0156": "CR",
+      "S4A10-0157": "CA",
+      "S4A10-0158": "CR",
+      "S4A10-0159": "CR",
+      "S4A10-0160": "CA",
+      "S4A10-0161": "CR",
+      "S4A10-0162": "CR",
+      "S4A10-0163": "CR",
+      "S4A10-0164": "CR",
+      "S4A10-0165": "CA",
+      "S4A10-0166": "CR",
+      "S4A10-0167": "CR",
+      "S4A10-0168": "CA",
+      "S4A10-0169": "CR",
+      "S4A10-0170": "CR",
+      "S4A10-0171": "CA",
+      "S4A10-0172": "CA",
+      "S4A10-0173": "CA",
+      "S4A10-0174": "CA",
+      "S4A10-0175": "CA",
+      "S4A10-0176": "CA",
+      "S4A10-0177": "CA",
+      "S4A10-0178": "CA",
+      "S4A10-0179": "CA",
+      "S4A10-0180": "CA",
+      "S4A10-0181": "CR",
+      "S4A10-0182": "CR",
+      "S4A10-0183": "CR",
+      "S4A10-0184": "CR",
+      "S4A10-0185": "CR",
+      "S4A10-0186": "CR",
+      "S4A10-0187": "CR",
+      "S4A10-0188": "CR",
+      "S4A10-0189": "CR",
+      "S4A10-0190": "CR",
+      "S4A10-0191": "CR",
+      "S4A10-0192": "CR",
+      "S4A10-0193": "CR",
+      "S4A10-0194": "CR",
+      "S4A10-0195": "CR",
+      "S4A10-0196": "CR",
+      "S4A10-0197": "CR",
+      "S4A10-0198": "CR",
+      "S4A10-0199": "CR",
+      "S4A10-0200": "CR",
+      "S4A10-0201": "CR",
+      "S4A10-0202": "CR",
+      "S4A10-0203": "CR",
+      "S4A10-0204": "CR",
+      "S4A10-0205": "CR",
+      "S4A10-0206": "CR",
+      "S4A10-0207": "CR",
+      "S4A10-0208": "CR",
+      "S4A10-0209": "CR",
+      "S4A10-0210": "CR",
+      "S4A10-0211": "CR",
+      "S4A10-0212": "CR",
+      "S4A10-0213": "CR",
+      "S4A10-0214": "CR",
+      "S4A10-0215": "CR",
+      "S4A10-0216": "CR",
+      "S4A10-0217": "CR",
+      "S4A10-0218": "CR",
+      "S4A10-0219": "CR",
+      "S4A10-0220": "CR",
+      "S4A10-0221": "CR",
+      "S4A10-0222": "CR",
+      "S4A10-0223": "CR",
+      "S4A10-0224": "CR",
+      "S4A10-0225": "CR",
+      "S4A10-0226": "CR",
+      "S4A10-0227": "CR",
+      "S4A10-0228": "CR",
+      "S4A10-0229": "CR",
+      "S4A10-0230": "CR",
+      "S4A10-0231": "CR",
+      "S4A10-0232": "CR",
+      "S4A10-0233": "CR",
+      "S4A10-0234": "CR",
+      "S4A10-0235": "CR",
+      "S4A10-0236": "CR",
+      "S4A10-0237": "CR",
+      "S4A10-0238": "CR",
+      "S4A10-0239": "CR",
+      "S4A10-0240": "CR",
+      "S4A10-0241": "CR",
+      "S4A10-0242": "CR",
+      "S4A10-0243": "CR",
+      "S4A10-0244": "CR",
+      "S4A10-0245": "CR",
+      "S4A10-0246": "CR",
+      "S4A10-0247": "CR",
+      "S4A10-0248": "CR",
+      "S4A10-0249": "CR",
+      "S4A10-0250": "CR",
+      "S4A10-0251": "CR",
+      "S4A10-0252": "CR",
+      "S4A10-0253": "CR",
+      "S4A10-0254": "CR",
+      "S4A10-0255": "CR",
+      "S4A10-0256": "CR",
+      "S4A10-0257": "CR",
+      "S4A10-0258": "CR",
+      "S4A10-0259": "CR",
+      "S4A10-0260": "CR",
+      "S4A10-0261": "CR",
+      "S4A10-0262": "CR",
+      "S4A10-0263": "CR",
+      "S4A10-0264": "CR",
+      "S4A10-0265": "CR",
+      "S4A10-0266": "CR",
+      "S4A10-0267": "CR",
+      "S4A10-0268": "CR",
+      "S4A10-0269": "CR",
+      "S4A10-0270": "CR",
+      "S4A10-0271": "CR",
+      "S4A10-0272": "CR",
+      "S4A10-0273": "CR",
+      "S4A10-0274": "CR",
+      "S4A10-0275": "CR",
+      "S4A10-0276": "CR",
+      "S4A10-0277": "CR",
+      "S4A10-0278": "CR",
+      "S4A10-0279": "CR",
+      "S4A10-0280": "CR",
+      "S4A10-0281": "CR",
+      "S4A10-0282": "CR",
+      "S4A10-0283": "CR",
+      "S4A10-0284": "CR",
+      "S4A10-0285": "CR",
+      "S4A10-0286": "CR",
+      "S4A10-0287": "CR",
+      "S4A10-0288": "CR",
+      "S4A10-0289": "CR",
+      "S4A10-0290": "CR",
+      "S4A10-0291": "CR",
+      "S4A10-0292": "CR",
+      "S4A10-0293": "CR",
+      "S4A10-0294": "CR",
+      "S4A10-0295": "CR",
+      "S4A10-0296": "CR",
+      "S4A10-0297": "CR",
+      "S4A10-0298": "CR",
+      "S4A10-0299": "CR",
+      "S4A10-0300": "CR",
+      "S4A10-0301": "CR",
+      "S4A10-0302": "CR",
+      "S4A10-0303": "CR",
+      "S4A10-0304": "CR",
+      "S4A10-0305": "CR",
+      "S4A10-0306": "CR",
+      "S4A10-0307": "CR",
+      "S4A10-0308": "CR",
+      "S4A10-0309": "CR",
+      "S4A10-0310": "CR",
+      "S4A10-0311": "CR",
+      "S4A10-0312": "CR",
+      "S4A10-0313": "CR",
+      "S4A10-0314": "CR",
+      "S4A10-0315": "CR",
+      "S4A10-0316": "CR",
+      "S4A10-0317": "CR",
+      "S4A10-0318": "CR",
+      "S4A10-0319": "CR",
+      "S4A10-0320": "CR",
+      "S4A10-0321": "CR",
+      "S4A10-0322": "CR",
+      "S4A10-0323": "CR",
+      "S4A10-0324": "CR",
+      "S4A10-0325": "CR",
+      "S4A10-0326": "CR",
+      "S4A10-0327": "CR",
+      "S4A10-0328": "CR",
+      "S4A10-0329": "CR",
+      "S4A10-0330": "CR",
+      "S4A10-0331": "CR",
+      "S4A10-0332": "CR",
+      "S4A10-0333": "CR",
+      "S4A10-0334": "CR",
+      "S4A10-0335": "CR",
+      "S4A10-0336": "CR",
+      "S4A10-0337": "CR",
+      "S4A10-0338": "CR",
+      "S4A10-0339": "CR",
+      "S4A10-0340": "CR",
+      "S4A10-0341": "CR",
+      "S4A10-0342": "CR",
+      "S4A10-0343": "CR",
+      "S4A10-0344": "CR",
+      "S4A10-0345": "CR",
+      "S4A10-0346": "CR",
+      "S4A10-0347": "CR",
+      "S4A10-0348": "CR",
+      "S4A10-0349": "CR",
+      "S4A10-0350": "CR",
+      "S4A10-0351": "CR",
+      "S4A10-0352": "CR",
+      "S4A10-0353": "CR",
+      "S4A10-0354": "CR",
+      "S4A10-0355": "CR",
+      "S4A10-0356": "CR",
+      "S4A10-0357": "CR",
+      "S4A10-0358": "CR",
+      "S4A10-0359": "CR",
+      "S4A10-0360": "CR",
+      "S4A10-0361": "CR",
+      "S4A10-0362": "CR",
+      "S4A10-0363": "CR",
+      "S4A10-0364": "CR",
+      "S4A10-0365": "CR",
+      "S4A10-0366": "CR",
+      "S4A10-0367": "CR",
+      "S4A10-0368": "CR",
+      "S4A10-0369": "CR",
+      "S4A10-0370": "CR",
+      "S4A10-0371": "CR",
+      "S4A10-0372": "CR",
+      "S4A10-0373": "CR",
+      "S4A10-0374": "CR",
+      "S4A10-0375": "CR",
+      "S4A10-0376": "CR",
+      "S4A10-0377": "CR",
+      "S4A10-0378": "CR",
+      "S4A10-0379": "CR",
+      "S4A10-0380": "CR",
+      "S4A10-0381": "CR",
+      "S4A10-0382": "CR",
+      "S4A10-0383": "CR",
+      "S4A10-0384": "CR",
+      "S4A10-0385": "CR",
+      "S4A10-0386": "CR",
+      "S4A10-0387": "CR",
+      "S4A10-0388": "CR",
+      "S4A10-0389": "CR",
+      "S4A10-0390": "CR",
+      "S4A10-0391": "CR",
+      "S4A10-0392": "CR",
+      "S4A10-0393": "CR",
+      "S4A10-0394": "CR"
+    },
+    "severity": {}
+  },
+  "phase22_material_fact_trust": {
+    "n_clean_decisions_audited": 139,
+    "target_150_met": false,
+    "discovery_source_breakdown": {
+      "STRUCTURAL:hold_keep_predicate_adjective": 16,
+      "REGEX": 57,
+      "STRUCTURAL:liable_to_compensate": 6,
+      "STRUCTURAL:carry_burden_of_claim": 6,
+      "STRUCTURAL:making_whole_predicate_adjective": 6,
+      "STRUCTURAL:discharge_obligation_owed": 6,
+      "STRUCTURAL:commit_covering_exposure": 6,
+      "STRUCTURAL:relieve_of_financial_burden": 6,
+      "STRUCTURAL:undertakes_suffer_no_detriment": 6,
+      "STRUCTURAL:pay_on_behalf": 6,
+      "STRUCTURAL:settle_at_own_expense": 6,
+      "STRUCTURAL:cover_expense_defending": 6,
+      "STRUCTURAL:bare_reimburse": 6
+    },
+    "policy_changing_unverified_feeding_CA": 0
+  },
+  "phase23_false_absence_audit": {
+    "PRESENT_AND_VERIFIED": 139,
+    "PRESENT_BUT_UNRESOLVED": 16,
+    "RECOGNITION_UNCERTAIN": 65
+  },
+  "phase25_false_candidate_stress": {
+    "hard_negatives": {
+      "n": 144,
+      "semantic_fp_candidates": 0,
+      "rejected": 0,
+      "review_routed": 12,
+      "verified_false_clean": 0
+    },
+    "compound_cases": {
+      "n": 39,
+      "discovered_hybrid": 39,
+      "clean_verified": 6
+    }
+  },
+  "phase24_prompt_injection": {
+    "n": 30,
+    "candidates_proposed_total": 0,
+    "candidates_verified": 0,
+    "candidates_review_routed": 12,
+    "confirmed_absent": 0,
+    "wrong_authoritative_fact": 0,
+    "per_family": {
+      "ignore_instructions": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 0
+      },
+      "force_accept": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 0
+      },
+      "invent_indemnification": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 3
+      },
+      "change_evidence_span": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 3
+      },
+      "reveal_system_prompt": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 0
+      },
+      "claim_another_clause_exists": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 3
+      },
+      "fabricated_quotation": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 3
+      },
+      "json_policy_fields": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 0
+      },
+      "repeat_secrets": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 0
+      },
+      "mark_agreement_safe": {
+        "n": 3,
+        "candidates": 0,
+        "verified": 0,
+        "review_routed": 0
+      }
+    }
+  },
+  "phase33_34_cost_latency": {
+    "n_calls": 394,
+    "p50_s": 1.4102000022830907e-05,
+    "p95_s": 2.2364000074048818e-05,
+    "max_s": 7.963300004121265e-05,
+    "total_s": 0.006072714999731943
+  }
+}

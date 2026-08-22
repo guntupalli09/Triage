@@ -1,0 +1,1787 @@
+# Step 4A.4 Held-Out Run — 172 semantic + 20 formatting mutation cases
+
+=== A4-A-01 [liability/A] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "2 times the annual fees paid". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+EXPECTED: side=buy_side, value=2x annual fees
+REASON: Long corporate-identifier preamble (name, entity type, state, city) is irrelevant descriptive filler; the operative directional clause ('purchases logistics capacity from Carrier') is unambiguous buy-side and is the only relational statement about Consignee's own conduct.
+
+=== A4-A-02 [liability/A] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "1 times the annual fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+EXPECTED: side=sell_side, value=1x annual fees
+REASON: Embedded subordinate clause ('having entered into...counsel') is pure narrative filler between the predicate and the directional verb; 'licenses...to' is recognized sell-side evidence, unambiguous.
+
+=== A4-A-03 [indemnification/A] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Agency' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Agency''s conventional classification still applies"]
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "personnel at Client's facilities.
+
+8. Indemnification. Staffing Agency shall indemnify, defend, and hold harmless Client from and against third-party claims arising from Staffing Agency's". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document's own definition of 'Agency' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Agency''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: protection: Client(us); exposure: n/a
+REASON: Role description (company name) is separated from the transactional relationship, which appears in a second, later sentence ('Client engages and pays Staffing Agency') — 'engages...pays' is recognized buy-side evidence for Client, unambiguous once both sentences are read.
+
+=== A4-A-04 [liability/A] label=AUTOMATABLE ===
+STATE: NEGOTIATE
+extracted_summary: '3x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "3 times the annual fees paid". Extracted value: 3x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: NEGOTIATE.
+EXPECTED: side=sell_side, value=3x annual fees
+REASON: 'Grower retains title to farm equipment' is a bystander clause about an unrelated topic (equipment ownership), not directional evidence; 'sells and delivers...to Processor' is clean, unambiguous sell-side evidence appearing earlier in the same sentence.
+
+=== A4-A-05 [indemnification/A] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Contractor' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Contractor''s conventional classification still applies"]
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "necessary to complete the Project for Owner.
+
+8. Indemnification. Contractor shall indemnify, defend, and hold harmless Owner from and against third-party claims arising from Contractor's". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document's own definition of 'Contractor' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Contractor''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: protection: Owner(us)
+REASON: Both parties are mentioned multiple times across two sentences; 'furnish(es)' (recognized sell-side, Contractor's own conduct) and 'Owner shall pay Contractor' both independently and consistently signal Contractor=sell-side, Owner=buy-side — no genuine ambiguity despite the repetition.
+
+=== A4-A-06 [liability/A] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["directional liability position (the document's own definition of 'Subscriber' uses both purchasing/receiving language and providing/selling language — cannot determine which transactional side 'Subscriber' actually occupies)"]
+our_position: None
+explanation: Contract language: "1 times the annual fees paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: directional liability position (the document's own definition of 'Subscriber' uses both purchasing/receiving language and providing/selling language — cannot determine which transactional side 'Subscriber' actually occupies). Result: REQUIRES_REVIEW.
+EXPECTED: side=buy_side, value=1x annual fees
+REASON: 'having provided the data...to Platform Operator' (data-delivery language) is a bystander clause about a different topic (account verification), not a service-purchase direction; 'subscribes to' is the operative, recognized buy-side verb.
+
+=== A4-A-07 [indemnification/A] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Reinsurer indemnifies Underwriting" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "capacity from Reinsurer on behalf of Insurer.
+
+8. Indemnification. Reinsurer shall indemnify, defend, and hold harmless Underwriting Agent from and against third-party claims arising from Reinsurer's". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Reinsurer indemnifies Underwriting" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+EXPECTED: protection: Underwriting Agent(us)
+REASON: 'procures...from' is recognized buy-side evidence appearing after two intervening prepositional-phrase qualifiers (binding authority, underwriting guidelines) — those qualifiers are irrelevant descriptive language, not directional evidence.
+
+=== A4-A-08 [liability/A] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "2 times the annual fees paid". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+EXPECTED: side=sell_side, value=2x annual fees
+REASON: 'furnishes...to Charterer' is recognized sell-side evidence for Charter Operator; 'freight payable by Charterer' independently confirms the same direction without conflicting.
+
+=== A4-A-09 [indemnification/A] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Facility indemnifies Tenant" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "housing of Tenant Operator's servers.
+
+8. Indemnification. Host Facility shall indemnify, defend, and hold harmless Tenant Operator from and against third-party claims arising from Host". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Facility indemnifies Tenant" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+EXPECTED: protection: Tenant Operator(us)
+REASON: 'provides...to Tenant Operator' is recognized sell-side evidence for Host Facility; the 'in exchange for the colocation fees' clause is a payment reference, not itself directional, and does not conflict.
+
+=== A4-A-10 [liability/A] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "1 times the annual fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+EXPECTED: side=buy_side, value=1x annual fees
+REASON: 'Generator being the owner of the generating facility' is a trailing bystander clause describing Generator, not Energy Purchaser; 'acquires...from Generator' is the clean, unambiguous buy-side statement.
+
+=== A4-A-11 [indemnification/A] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Producer' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Producer''s conventional classification still applies"]
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "rate card attached as Exhibit F.
+
+8. Indemnification. Event Producer shall indemnify, defend, and hold harmless Venue Owner from and against third-party claims arising from Event". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document's own definition of 'Producer' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Producer''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: protection: Venue Owner(us)
+REASON: 'compensates' is recognized buy-side evidence for Event Producer, appearing in a second sentence after the license-grant sentence — both sentences are consistent (Event Producer receives, Venue Owner provides/grants).
+
+=== A4-A-12 [liability/A] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "2 times the annual fees paid". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+EXPECTED: side=sell_side, value=2x annual fees
+REASON: 'raw materials supplied by Brand Owner' is a bystander clause naming the OTHER party's conduct (passive voice, 'by Brand Owner'), not Toll Manufacturer's own; 'manufactures...and delivers...to Brand Owner' is Toll Manufacturer's own conduct, clean sell-side.
+
+=== A4-A-13 [indemnification/A] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Agency' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Agency''s conventional classification still applies"]
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "accordance with the fee schedule.
+
+8. Indemnification. Home Health Agency shall indemnify, defend, and hold harmless Patient Referral Source from and against third-party claims arising". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document's own definition of 'Agency' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Agency''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: protection: Patient Referral Source(us)
+REASON: Both parties mentioned multiple times; 'renders...services to' is recognized sell-side evidence for Home Health Agency, consistent throughout — no conflicting signal despite the repetition.
+
+=== A4-A-14 [liability/A] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "1 times the annual fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+EXPECTED: side=buy_side, value=1x annual fees
+REASON: 'Carrier Wholesaler having no direct relationship with such subscribers' is a trailing bystander clause about Carrier Wholesaler, not about Telecom Reseller's own conduct; 'purchases...from Carrier Wholesaler' is the clean directional statement.
+
+=== A4-A-15 [indemnification/A] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Broker' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Broker''s conventional classification still applies"]
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "Broker upon completion of each entry.
+
+8. Indemnification. Import Broker shall indemnify, defend, and hold harmless Importer of Record from and against third-party claims arising from Import". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document's own definition of 'Broker' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Broker''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: protection: Importer of Record(us)
+REASON: 'remits...to Import Broker' is recognized buy-side evidence for Importer of Record (payer=buyer), appearing in a third sentence after two sentences of role description — consistent, unambiguous once read fully.
+
+=== A4-B-01 [liability/B] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "2 times the annual fees paid". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+EXPECTED: side=sell_side (generic), value=2x annual fees
+REASON: Definition states only corporate identity (name, state of incorporation) with no transactional-direction override — generic mapping (Vendor=sell_side) controls.
+
+=== A4-B-02 [payment_terms/B] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Net 30; Trigger: invoice'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Customer' means Northwind Traders, LLC, a limited liability company organized under the laws of the State of Texas, with its principal office located at 500 Commerce Street, Houston, Texas.
+
+6. Payment Terms. Customer shall pay all invoices within Net 30 days of the invoice date.". No policy gaps found. Result: ACCEPT.
+EXPECTED: Net 30
+REASON: Definition is pure corporate-identity boilerplate (name, entity type, state, address) — no directional override; generic mapping (Customer=buy_side) controls and matches config.
+
+=== A4-B-03 [indemnification/B] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Licensor' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Licensor''s conventional classification still applies"]
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "qualified to do business in California.
+
+8. Indemnification. Licensor shall indemnify, defend, and hold harmless Licensee from and against third-party claims arising from Licensor's". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document's own definition of 'Licensor' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Licensor''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: protection: Licensee(us)
+REASON: Definition is corporate-identity boilerplate only — generic mapping (Licensor=sell_side, Licensee=buy_side) applies without override.
+
+=== A4-B-04 [liability/B] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["directional liability position (the document's own definition of 'Supplier' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Supplier''s conventional classification still applies)"]
+our_position: None
+explanation: Contract language: "1 times the annual fees paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: directional liability position (the document's own definition of 'Supplier' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Supplier''s conventional classification still applies). Result: REQUIRES_REVIEW.
+EXPECTED: side=sell_side (generic), value=1x annual fees
+REASON: Entity-type/successors-and-assigns boilerplate only — no transactional-direction override; generic mapping controls.
+
+=== A4-B-05 [payment_terms/B] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Vendor' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Vendor''s conventional classification still applies"]
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Vendor' means Solstice Analytics Corp., formerly known as DataPeak Inc., a corporation organized under the laws of Delaware.
+
+7. Taxes. Vendor shall be responsible for all sales and use taxes arising from this Agreement.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document's own definition of 'Vendor' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Vendor''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: counterparty bears tax (policy satisfied)
+REASON: Prior-name/incorporation boilerplate only — generic mapping (Vendor=sell_side=counterparty) controls; tax on counterparty satisfies policy.
+
+=== A4-B-06 [indemnification/B] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Reseller' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Reseller''s conventional classification still applies"]
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "which Reseller may be merged or converted.
+
+8. Indemnification. Provider shall indemnify, defend, and hold harmless Reseller from and against third-party claims arising from Provider's". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document's own definition of 'Reseller' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Reseller''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: protection: Reseller(us)
+REASON: Merger/conversion-successor boilerplate only — no transactional-direction content at all; generic mapping (Reseller=buy_side) controls.
+
+=== A4-B-07 [liability/B] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["directional liability position (the document's own definition of 'Client' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Client''s conventional classification still applies)"]
+our_position: None
+explanation: Contract language: "3 times the annual fees paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: directional liability position (the document's own definition of 'Client' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Client''s conventional classification still applies). Result: REQUIRES_REVIEW.
+EXPECTED: side=buy_side (generic), value=3x annual fees
+REASON: Definition merely cross-references the signature page and states the legal name — no directional content; generic mapping controls.
+
+=== A4-B-08 [payment_terms/B] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Net 45'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Vendor' means the entity identified as 'Vendor' in the Order Form, currently Trailhead Robotics, Inc., a Delaware corporation.
+
+6. Payment Terms. Vendor shall invoice Customer monthly in arrears, and Customer shall pay each invoice within Net 45 days.". No policy gaps found. Result: ACCEPT.
+EXPECTED: Net 45
+REASON: Definition cross-references the Order Form and states corporate identity only — no directional override; generic mapping controls and matches config.
+
+=== A4-B-09 [indemnification/B] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Buyer' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Buyer''s conventional classification still applies"]
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "member-owners acting in their capacity as such.
+
+8. Indemnification. Seller shall indemnify, defend, and hold harmless Buyer from and against third-party claims arising from Seller's gross". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document's own definition of 'Buyer' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Buyer''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: protection: Buyer(us)
+REASON: Cooperative-structure/member-owner boilerplate only — no directional override; generic mapping (Buyer=buy_side) controls.
+
+=== A4-B-10 [liability/B] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["directional liability position (the document's own definition of 'Provider' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Provider''s conventional classification still applies)"]
+our_position: None
+explanation: Contract language: "2 times the annual fees paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: directional liability position (the document's own definition of 'Provider' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Provider''s conventional classification still applies). Result: REQUIRES_REVIEW.
+EXPECTED: side=sell_side (generic), value=2x annual fees
+REASON: Subsidiary/Affiliate-inclusion boilerplate only — no directional override; generic mapping controls and matches config.
+
+=== A4-B-11 [payment_terms/B] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Customer' means the party executing this Agreement as 'Customer,' which the parties acknowledge is Fieldstone Retail Holdings, Inc., a publicly traded corporation.
+
+7. Taxes. Customer shall be responsible for all applicable value-added and sales taxes.". No policy gaps found. Result: ACCEPT.
+EXPECTED: tax on us (Customer=buy_side, policy satisfied since counterparty responsibility not required)
+REASON: Signature-page cross-reference plus public-company boilerplate only — no directional content; generic mapping controls.
+
+=== A4-C-01 [liability/C] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$1,000,000.00 fixed'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "shall not exceed $1,000,000". Extracted value: $1,000,000.00 fixed. Policy is defined as a multiplier of annual fees, so this cannot be compared automatically. Result: ESCALATE.
+EXPECTED: $1,000,000
+REASON: Insurance distractor ($5M) explicitly disclaimed as separate/independent; genuine cap ($1M) is unambiguous.
+
+=== A4-C-02 [liability/C] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (multiple distinct cap values found for the general clause; cannot determine which governs)']
+our_position: None
+explanation: Contract language: "of Liability. Provider's aggregate liability shall not exceed 2 times the annual fees paid, exclusive of any service credits payable under the SLA, which". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (multiple distinct cap values found for the general clause; cannot determine which governs). Result: REQUIRES_REVIEW.
+EXPECTED: 2 times the annual fees paid
+REASON: SLA service-credit distractor ($40,000) is a different sub-clause, explicitly 'exclusive of'; the genuine cap is stated first and unambiguous.
+
+=== A4-C-03 [liability/C] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$2,000,000.00 fixed'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "shall not exceed $2,000,000". Extracted value: $2,000,000.00 fixed. Policy is defined as a multiplier of annual fees, so this cannot be compared automatically. Result: ESCALATE.
+EXPECTED: $2,000,000
+REASON: Indemnification-threshold distractor is in a different clause, explicitly disclaimed as unrelated; the genuine cap is unambiguous.
+
+=== A4-C-04 [liability/C] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "1 times the annual fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+EXPECTED: 1 times the annual fees paid
+REASON: Total-contract-value distractor is not itself a liability concept; the genuine cap is clearly marked with 'however' as the operative liability provision.
+
+=== A4-C-05 [liability/C] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$900,000.00 fixed'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "shall not exceed $900,000". Extracted value: $900,000.00 fixed. Policy is defined as a multiplier of annual fees, so this cannot be compared automatically. Result: ESCALATE.
+EXPECTED: $900,000
+REASON: Termination-fee distractor is a different clause (Section 12), explicitly separated; the genuine cap is unambiguous.
+
+=== A4-C-06 [liability/C] label=AUTOMATABLE ===
+STATE: NEGOTIATE
+extracted_summary: '3x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "Provider's aggregate liability to Customer shall not exceed 3 times the annual fees paid.". Extracted value: 3x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: NEGOTIATE.
+EXPECTED: 3 times the annual fees paid
+REASON: Deductible distractor explicitly disclaimed as independent; the genuine cap is unambiguous.
+
+=== A4-C-07 [liability/C] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$1,500,000.00 fixed'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "shall not exceed $1,500,000". Extracted value: $1,500,000.00 fixed. Policy is defined as a multiplier of annual fees, so this cannot be compared automatically. Result: ESCALATE.
+EXPECTED: $1,500,000
+REASON: Security-deposit distractor explicitly disclaimed as not limiting the cap; the genuine cap is unambiguous.
+
+=== A4-C-08 [liability/C] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "2 times the annual fees paid". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+EXPECTED: 2 times the annual fees paid
+REASON: Notice-period distractor (a time period, not a monetary distractor per se, but a numeric distraction) is explicitly disclaimed as non-monetary; the genuine cap is unambiguous.
+
+=== A4-C-09 [liability/C] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$600,000.00 fixed'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "shall not exceed $600,000". Extracted value: $600,000.00 fixed. Policy is defined as a multiplier of annual fees, so this cannot be compared automatically. Result: ESCALATE.
+EXPECTED: $600,000
+REASON: Price-increase-percentage distractor is explicitly disclaimed as having no bearing on the cap; the genuine cap is unambiguous.
+
+=== A4-C-10 [liability/C] label=AUTOMATABLE ===
+STATE: MUST_REDLINE
+extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "9. Limitation of Liability. 'Liability Cap' is defined in Schedule H as $2,250,000. Provider's aggregate liability shall not exceed the Liability Cap. Provider shall separately maintain professional liability insurance of $5,000,000, which shall not be construed to". A limitation-of-liability clause exists but states no enforceable numeric general cap. Company policy requires a stated cap. Result: MUST_REDLINE.
+EXPECTED: $2,250,000
+REASON: Insurance distractor explicitly disclaimed as not altering the defined cap term; the defined-term value is unambiguous.
+
+=== A4-C-11 [liability/C] label=AUTOMATABLE ===
+STATE: MUST_REDLINE
+extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "9. Limitation of Liability. Carrier's aggregate liability, including without limitation any accessorial charges of $8,000 described in the tariff, shall in no event exceed $1,200,000 under this Agreement.". A limitation-of-liability clause exists but states no enforceable numeric general cap. Company policy requires a stated cap. Result: MUST_REDLINE.
+EXPECTED: $1,200,000
+REASON: Accessorial-charges sub-component is explicitly included WITHIN the same governing figure ('including without limitation...shall in no event exceed'), analogous to the SLA-credit-within-aggregate-cap pattern already validated in the candidate-ownership benchmark — the governing figure is $1,200,000.
+
+=== A4-C-12 [liability/C] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "1 times the annual fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+EXPECTED: 1 times the annual fees paid
+REASON: Cyber-insurance distractor explicitly disclaimed via 'insurance proceeds do not limit...contractual liability'; the genuine cap is unambiguous.
+
+=== A4-C-13 [liability/C] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$2,000,000.00 fixed'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "shall not exceed $2,000,000,". Extracted value: $2,000,000.00 fixed. Policy is defined as a multiplier of annual fees, so this cannot be compared automatically. Result: ESCALATE.
+EXPECTED: $2,000,000
+REASON: Contract-value and deposit distractors both appear AFTER 'notwithstanding that', clearly subordinate to the operative cap stated first; the genuine cap is unambiguous.
+
+=== A4-C-14 [liability/C] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "2 times the annual fees paid". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+EXPECTED: 2 times the annual fees paid
+REASON: Indemnification-basket distractor explicitly disclaimed as independent; the genuine cap is unambiguous.
+
+=== A4-C-15 [liability/C] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$1,750,000.00 fixed'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "shall not exceed $1,750,000". Extracted value: $1,750,000.00 fixed. Policy is defined as a multiplier of annual fees, so this cannot be compared automatically. Result: ESCALATE.
+EXPECTED: $1,750,000
+REASON: Two insurance distractors, both explicitly disclaimed; the genuine cap is stated first and unambiguous.
+
+=== A4-C-16 [liability/C] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "1 times the annual fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+EXPECTED: 1 times the annual fees paid
+REASON: Two distractors (late fee reserve, minimum-order penalty) both explicitly disclaimed as separate; the genuine cap is unambiguous.
+
+=== A4-C-17 [liability/C] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$2,500,000.00 fixed'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "In no event shall Distributor's aggregate liability under this Agreement exceed $2,500,000,". Extracted value: $2,500,000.00 fixed. Policy is defined as a multiplier of annual fees, so this cannot be compared automatically. Result: ESCALATE.
+EXPECTED: $2,500,000
+REASON: Insurance distractor explicitly disclaimed via 'exclusive of and in addition to'; the genuine cap is unambiguous (same validated pattern as the liability-ownership benchmark's own-24).
+
+=== A4-C-18 [liability/C] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "2 times the annual fees paid". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+EXPECTED: 2 times the annual fees paid
+REASON: Labeled schedule with three distractor line items (purchase order minimum, insurance requirement, freight allowance); item (c) is unambiguously labeled 'Liability cap'.
+
+=== A4-C-19 [liability/C] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (delegates to "Exhibit K" — referenced provision "Exhibit K" was not found elsewhere in the extracted document text)']
+our_position: None
+explanation: Contract language: "Limitation of Liability. Operator's liability shall be governed by Exhibit K.
+
+Exhibit K: Financial Terms.
+(a) Security deposit: $40,000.
+(b)". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (delegates to "Exhibit K" — referenced provision "Exhibit K" was not found elsewhere in the extracted document text). Result: REQUIRES_REVIEW.
+EXPECTED: $875,000
+REASON: Labeled schedule with two distractor line items (security deposit, late payment penalty); item (b) is unambiguously labeled 'Liability Cap Amount'.
+
+=== A4-C-20 [liability/C] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$1,100,000.00 fixed'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "shall not exceed $1,100,000,". Extracted value: $1,100,000.00 fixed. Policy is defined as a multiplier of annual fees, so this cannot be compared automatically. Result: ESCALATE.
+EXPECTED: $1,100,000
+REASON: Two distractors (price escalator, expedite fee) explicitly disclaimed as independent; the genuine cap is unambiguous.
+
+=== A4-C-21 [liability/C] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "2 times the annual fees paid". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+EXPECTED: 2 times the annual fees paid
+REASON: Two distractors explicitly disclaimed via 'in addition to and not limited by'; the genuine cap is unambiguous.
+
+=== A4-D-01 [liability/D] label=AUTOMATABLE ===
+STATE: MUST_REDLINE
+extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "9. Limitation of Liability. Landlord's aggregate liability to Tenant shall not exceed 2 times the annual base rent paid under this Lease.". A limitation-of-liability clause exists but states no enforceable numeric general cap. Company policy requires a stated cap. Result: MUST_REDLINE.
+EXPECTED: 2 times the annual base rent paid
+REASON: Rent-based multiplier cap, straightforward single-value clause.
+
+=== A4-D-02 [liability/D] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (cap is expressed as a multiplier of Other, not fees — policy thresholds are defined as a multiplier of annual fees and this cannot be compared without additional information)']
+our_position: None
+explanation: Contract language: "1 times the annual royalties paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (cap is expressed as a multiplier of Other, not fees — policy thresholds are defined as a multiplier of annual fees and this cannot be compared without additional information). Result: REQUIRES_REVIEW.
+EXPECTED: 1 times the annual royalties paid
+REASON: Royalty-based multiplier cap, straightforward single-value clause.
+
+=== A4-D-03 [liability/D] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (cap is expressed as a multiplier of Other, not fees — policy thresholds are defined as a multiplier of annual fees and this cannot be compared without additional information)']
+our_position: None
+explanation: Contract language: "3 times the annual premium paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (cap is expressed as a multiplier of Other, not fees — policy thresholds are defined as a multiplier of annual fees and this cannot be compared without additional information). Result: REQUIRES_REVIEW.
+EXPECTED: 3 times the annual premium paid
+REASON: Premium-based multiplier cap, straightforward single-value clause.
+
+=== A4-D-04 [liability/D] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["general liability cap (a 'greater of' structure was signaled but its component values could not both be extracted)"]
+our_position: None
+explanation: Contract language: "ggregate liability shall not exceed the greater of $500,000 or 2 times the annual fees paid.". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (a 'greater of' structure was signaled but its component values could not both be extracted). Result: REQUIRES_REVIEW.
+EXPECTED: greater of $500,000 / 2x annual fees
+REASON: Greater-of structure with two clearly stated component values, unambiguous.
+
+=== A4-D-05 [liability/D] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["general liability cap (a 'lesser of' structure was signaled but its component values could not both be extracted)"]
+our_position: None
+explanation: Contract language: "ggregate liability shall not exceed the lesser of $2,000,000 or 3 times the annual fees paid.". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (a 'lesser of' structure was signaled but its component values could not both be extracted). Result: REQUIRES_REVIEW.
+EXPECTED: lesser of $2,000,000 / 3x annual fees
+REASON: Lesser-of structure with two clearly stated component values, unambiguous.
+
+=== A4-D-06 [liability/D] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (clause distinguishes per-claim and aggregate caps with different values; policy threshold scope (per-claim vs. aggregate) is not specified)']
+our_position: None
+explanation: Contract language: "Limitation of Liability. Provider's liability per claim shall not exceed $500,000, and Provider's aggregate liability across all claims in any twelve (12) month period shall not exceed $2,000,000.". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (clause distinguishes per-claim and aggregate caps with different values; policy threshold scope (per-claim vs. aggregate) is not specified). Result: REQUIRES_REVIEW.
+EXPECTED: per-claim $500,000 / aggregate $2,000,000
+REASON: Clearly labeled per-claim vs. aggregate distinction, two distinct unambiguous values.
+
+=== A4-D-07 [liability/D] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (conflicting unlimited and numeric cap language for the general cap)']
+our_position: None
+explanation: Contract language: "Except for claims arising from breach of confidentiality, which shall be uncapped, Vendor's aggregate liability shall not exceed 1 times the annual". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (conflicting unlimited and numeric cap language for the general cap). Result: REQUIRES_REVIEW.
+EXPECTED: 1 times the annual fees paid (general); confidentiality carve-out uncapped
+REASON: Carve-out stated before the general cap; the general cap's own value is unambiguous once the carve-out clause is read as an exception, not a competing value.
+
+=== A4-D-08 [liability/D] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (conflicting unlimited and numeric cap language for the general cap)']
+our_position: None
+explanation: Contract language: "of Liability. Vendor's aggregate liability shall not exceed 2 times the annual fees paid, except for claims arising from Vendor's fraud or willful misconduct,". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (conflicting unlimited and numeric cap language for the general cap). Result: REQUIRES_REVIEW.
+EXPECTED: 2 times the annual fees paid (general); fraud/willful misconduct uncapped
+REASON: Carve-out stated after the general cap; the general cap's value is unambiguous.
+
+=== A4-D-09 [liability/D] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "2 times the annual fees paid". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+EXPECTED: 2 times the annual fees paid
+REASON: A full amendment-and-restatement with only the current value stated (no superseded figure narratively present to conflict with) — a single, clean value to extract.
+
+=== A4-D-10 [liability/D] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$1,800,000.00 fixed'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "Cap Amount, which the parties agree is $1,800,000". Extracted value: $1,800,000.00 fixed. Policy is defined as a multiplier of annual fees, so this cannot be compared automatically. Result: ESCALATE.
+EXPECTED: $1,800,000
+REASON: Self-defined term whose value is stated in a trailing clause — the value is unambiguous.
+
+=== A4-D-11 [liability/D] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "1 times the annual fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+EXPECTED: 1 times the annual fees paid
+REASON: Table represented as normalized text with a clearly labeled 'General aggregate cap' row among two distractor rows — the labeled row is unambiguous.
+
+=== A4-D-12 [liability/D] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$1,500,000.00 fixed'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "shall not exceed $1,500,000,". Extracted value: $1,500,000.00 fixed. Policy is defined as a multiplier of annual fees, so this cannot be compared automatically. Result: ESCALATE.
+EXPECTED: $1,500,000
+REASON: Clause has already been fully restated with only the current value present as the operative figure — the superseded $750,000 is mentioned narratively, not as a second operative cap.
+
+=== A4-D-13 [liability/D] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "2 times the annual fees paid". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+EXPECTED: 2 times the annual fees paid (general); data breach carve-out at 4x
+REASON: A carve-out with its OWN differentiated cap value, clearly scoped to a specific claim category (data breach) rather than competing with the general cap — the general cap's own value is unambiguous.
+
+=== A4-D-14 [liability/D] label=AUTOMATABLE ===
+STATE: MUST_REDLINE
+extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "9. Limitation of Liability. Grower's aggregate liability shall not exceed 1 times the annual crop-purchase price paid under this Agreement.". A limitation-of-liability clause exists but states no enforceable numeric general cap. Company policy requires a stated cap. Result: MUST_REDLINE.
+EXPECTED: 1 times the annual crop-purchase price paid
+REASON: Domain-specific basis word ('crop-purchase price') for a multiplier cap — unambiguous single-value clause; tests whether the fees-only-plus-added-basis-words vocabulary generalizes to a wholly new compound basis phrase.
+
+=== A4-D-15 [liability/D] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["general liability cap (a 'greater of' structure was signaled but its component values could not both be extracted)"]
+our_position: None
+explanation: Contract language: "ggregate liability shall not exceed the greater of 2 times the annual fees paid or $1,000,000.". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (a 'greater of' structure was signaled but its component values could not both be extracted). Result: REQUIRES_REVIEW.
+EXPECTED: greater of 2x annual fees / $1,000,000
+REASON: Greater-of structure with the multiplier stated first (reverse order from A4-D-04) — tests order-independence.
+
+=== A4-E-01 [indemnification/E] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: 'Exposure: 2x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify, defend, and hold harmless the other party from and against any and all third-party claims, damages, losses,". exposure cap 2x annual fees exceeds preferred position. Result: ACCEPT_WITH_NOTE.
+EXPECTED: symmetric 2x fees, no asymmetry
+REASON: Long, elaborate reciprocal clause with extensive boilerplate ('damages, losses, and expenses...attorneys' fees') but no differentiated per-party terms — genuinely symmetric despite complexity.
+
+=== A4-E-02 [indemnification/E] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Customer', 'protection': 'Customer'}
+explanation: Contract language: "breach of this Agreement, up to a cap of 1 times the fees paid. Customer shall indemnify, defend, and hold harmless Vendor from and against third-party claims arising from Customer's". No policy gaps found. Result: ACCEPT.
+EXPECTED: symmetric 1x fees each direction, no asymmetry
+REASON: Separate sentences for each named party, but mirrored terms (same trigger, same cap) — genuinely symmetric, using named roles rather than 'each party'.
+
+=== A4-E-03 [indemnification/E] label=AUTOMATABLE ===
+STATE: MUST_REDLINE
+extracted_summary: 'Exposure: unspecified; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims, except that neither party shall be". exposure obligation states no monetary treatment at all. Result: MUST_REDLINE.
+EXPECTED: symmetric, mirrored exception, no asymmetry
+REASON: Exception explicitly stated to 'apply equally to both parties' — mirrored, not differentiated.
+
+=== A4-E-04 [indemnification/E] label=AUTOMATABLE ===
+STATE: NEGOTIATE
+extracted_summary: 'Exposure: 3x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from infringement of intellectual". exposure cap 3x annual fees exceeds preferred position. Result: NEGOTIATE.
+EXPECTED: symmetric IP treatment, no asymmetry
+REASON: Explicitly stated to be 'identical in scope and amount for both' named parties — mirrored IP treatment.
+
+=== A4-E-05 [indemnification/E] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+our_position: {'exposure': None, 'protection': None}
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+EXPECTED: symmetric gross negligence treatment, no asymmetry
+REASON: Uses defined-term shorthand ('Indemnifying Party'/'Indemnified Party') with an explicit no-distinction clause — genuinely symmetric despite the added defined-term structure.
+
+=== A4-E-06 [indemnification/E] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Landlord indemnifies Tenant" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "8. Indemnification. Landlord shall indemnify Tenant, and Tenant shall indemnify Landlord, in each case from and". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Landlord indemnifies Tenant" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+EXPECTED: symmetric 1x annual rent, no asymmetry
+REASON: Named parties used ('Landlord'/'Tenant') with an explicit identical-cap clause — genuinely symmetric.
+
+=== A4-E-07 [indemnification/E] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: 'Exposure: 2x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. The parties shall mutually indemnify each other from and against third-party claims arising from breach of confidentiality,". exposure cap 2x annual fees exceeds preferred position. Result: ACCEPT_WITH_NOTE.
+EXPECTED: symmetric confidentiality treatment, no asymmetry
+REASON: Explicit same-for-both clause naming both parties — mirrored, not differentiated.
+
+=== A4-E-08 [indemnification/E] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from its own negligence, up". No policy gaps found. Result: ACCEPT.
+EXPECTED: symmetric 1x fees, no asymmetry
+REASON: Explicit 'applies equally' clause naming both parties — genuinely symmetric.
+
+=== A4-E-09 [indemnification/E] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: 'Exposure: 2x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify, defend, and hold harmless the other party and its officers, directors, and employees from and against". exposure cap 2x annual fees exceeds preferred position. Result: ACCEPT_WITH_NOTE.
+EXPECTED: symmetric 2x fees, no asymmetry
+REASON: Broad-beneficiary language ('officers, directors, and employees') is present for BOTH parties symmetrically via 'the other party and its...' — not differentiated.
+
+=== A4-E-10 [indemnification/E] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from breach of this Agreement,". No policy gaps found. Result: ACCEPT.
+EXPECTED: symmetric, mirrored defense control, no asymmetry
+REASON: Defense-control language applies symmetrically ('each party shall control...against it') — mirrored, not differentiated.
+
+=== A4-E-11 [indemnification/E] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Underwriter indemnifies Reinsured" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "8. Indemnification. Underwriter shall indemnify Reinsured, and Reinsured shall indemnify Underwriter, from and against". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Underwriter indemnifies Reinsured" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+EXPECTED: symmetric 2x annual premium, no asymmetry
+REASON: Named-party structure with explicit mutual-intent clause and identical caps — genuinely symmetric.
+
+=== A4-E-12 [indemnification/E] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from its breach of applicable". No policy gaps found. Result: ACCEPT.
+EXPECTED: symmetric, mirrored survival period, no asymmetry
+REASON: Survival period explicitly stated to be 'identical for both parties' — mirrored, not differentiated.
+
+=== A4-E-13 [indemnification/E] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Facility indemnifies Tenant" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)', 'obligation "Operator indemnifies Host" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "8. Indemnification. Host Facility shall indemnify Tenant Operator, and Tenant Operator shall indemnify Host Facility,". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Facility indemnifies Tenant" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s); obligation "Operator indemnifies Host" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+EXPECTED: symmetric 2x fees, no asymmetry
+REASON: Explicit 'fully reciprocal manner' construction clause with identical caps stated for both named parties — genuinely symmetric.
+
+=== A4-E-14 [indemnification/E] label=AUTOMATABLE ===
+STATE: NEGOTIATE
+extracted_summary: 'Exposure: 3x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from its own gross negligence". exposure cap 3x annual fees exceeds preferred position. Result: NEGOTIATE.
+EXPECTED: symmetric 3x fees, no asymmetry
+REASON: Explicit no-different-obligations clause — genuinely symmetric despite the elaborate closing sentence.
+
+=== A4-E-15 [indemnification/E] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Grower indemnifies Processor" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "8. Indemnification. Grower shall indemnify Processor, and Processor shall indemnify Grower, in each case from third-party". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Grower indemnifies Processor" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+EXPECTED: symmetric 1x annual crop-purchase price, no asymmetry
+REASON: Named-party structure, identical caps, explicit 'applied identically' clause, domain-specific basis word — genuinely symmetric.
+
+=== A4-F-01 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "7. Taxes. Carrier shall be responsible for all sales, use, and gross receipts taxes arising from the transportation services provided under this Agreement.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: taxes
+REASON: Ordinary tax-responsibility clause, new domain vocabulary (gross receipts, transportation services).
+
+=== A4-F-02 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "7. Taxes. Any amounts payable under this Agreement shall be paid free and clear of, and without deduction for, any withholding taxes, except as required by applicable law.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: withholding
+REASON: Withholding-tax clause phrased as 'free and clear of...without deduction for' rather than 'shall be responsible for'.
+
+=== A4-F-03 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "7. Taxes. All fees payable hereunder are exclusive of value-added tax, goods and services tax, and any similar consumption tax, which shall be added to each invoice as required by law.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: VAT/GST
+REASON: VAT/GST clause with 'goods and services tax' spelled out rather than abbreviated 'GST'.
+
+=== A4-F-04 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "6. Payment Terms. Amounts that are not the subject of a good-faith dispute shall remain due and payable notwithstanding the pendency of any dispute as to other amounts invoiced.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: undisputed amounts
+REASON: Undisputed-payable clause phrased without the word 'undisputed' itself — 'amounts that are not the subject of a good-faith dispute'.
+
+=== A4-F-05 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "6. Payment Terms. Landlord shall have the right to apply any security deposit held hereunder against amounts owed by Tenant, and Tenant shall have no right to apply rent owed against amounts Landlord owes Tenant under any other agreement.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: set-off (prohibited for Tenant)
+REASON: Set-off/offset concept phrased as 'apply...against amounts owed' without using the word 'offset' or 'set-off' for Tenant's own obligation.
+
+=== A4-F-06 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Currency: JPY'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "6. Payment Terms. All amounts payable under this Agreement shall be denominated and paid in Japanese Yen (JPY).". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: currency (JPY)
+REASON: Currency clause using a currency not previously exercised in any prior corpus (JPY).
+
+=== A4-F-07 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "6. Payment Terms. Broadcaster shall remit license fees to Affiliate within forty-five (45) days following the end of each calendar quarter.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: payment timing (Net 45, quarterly)
+REASON: Payment-timing clause with quarterly cadence and 'remit' rather than 'pay', new domain (media licensing).
+
+=== A4-F-08 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "6. Payment Terms. Host Facility shall render an invoice to Tenant Operator on the first business day of each month, and Tenant Operator shall satisfy such invoice within thirty (30) days of receipt.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: invoice obligation, Net 30
+REASON: Invoice-obligation clause phrased with 'render an invoice' and 'satisfy such invoice' rather than the common 'submit invoice'/'pay invoice' phrasing.
+
+=== A4-F-09 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Trigger: invoice'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "6. Payment Terms. In the event Client disputes any portion of an invoice, Client shall notify Staffing Agency of the basis for the dispute within fifteen (15) days of the invoice date, and Client may withhold payment of the disputed portion pending resolution.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: disputed amounts, dispute notice period
+REASON: Dispute-notice and disputed-withholding clause in a new domain (staffing).
+
+=== A4-F-10 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "6. Payment Terms. Overdue amounts under this Agreement shall accrue interest at a rate of 1% per month from the due date until paid in full, compounding monthly.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: late fee (1%/month)
+REASON: Late-fee/interest clause with 'compounding monthly' elaboration not present in prior corpora.
+
+=== A4-F-11 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "6. Payment Terms. Owner shall reimburse Contractor for the cost of materials procured for the Project, provided that Contractor first obtains Owner's written approval for any single purchase exceeding $5,000.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: reimbursement with pre-approval threshold
+REASON: Reimbursement clause with a dollar-threshold pre-approval requirement (new structural variant), construction domain.
+
+=== A4-F-12 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "7. Taxes. Each party shall bear responsibility for taxes imposed on its own net income arising from this Agreement, and neither party shall be responsible for the other's income taxes.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: taxes (each party responsible for own income tax)
+REASON: Mutual/symmetric tax-responsibility clause, a structural variant not present in the recognition benchmark.
+
+=== A4-F-13 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "6. Payment Terms. Underwriter shall pay the ceding commission to Reinsured within sixty (60) days of the effective date of each treaty year.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: Net 60, payment timing
+REASON: Payment-timing clause in the reinsurance domain, using 'ceding commission' as the payment subject rather than 'invoice' or 'fees'.
+
+=== A4-F-14 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "6. Payment Terms. Franchisee shall remit royalties to Franchisor on a monthly basis, calculated as a percentage of Franchisee's gross sales for the preceding month, due no later than the tenth day of the following month.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: payment timing, invoice/remittance obligation
+REASON: Payment-timing clause tied to a percentage-of-sales calculation rather than a fixed fee, franchise domain.
+
+=== A4-F-15 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "6. Payment Terms. Grower shall be paid for the harvested crop within ten (10) business days of delivery and acceptance by Processor.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: payment timing (Net 10 business days)
+REASON: Payment-timing clause tied to a delivery-and-acceptance trigger rather than an invoice date, agriculture domain.
+
+=== A4-F-16 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': 'us', 'tax_side': None}
+explanation: Contract language: "6. Payment Terms. Energy Purchaser shall pay Generator for capacity and energy delivered in accordance with the settlement statement issued monthly by the Independent System Operator, with payment due within twenty (20) days of the statement date.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: payment timing (Net 20)
+REASON: Payment-timing clause tied to a third-party settlement statement, energy domain.
+
+=== A4-F-17 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "6. Payment Terms. Import Broker's brokerage fees shall be remitted by Importer of Record within five (5) business days of the completion of each customs entry, together with any duties and taxes advanced by Import Broker on Importer of Record's behalf.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: payment timing, reimbursement (duties/taxes advanced)
+REASON: Combined payment-timing and reimbursement clause, customs-brokerage domain.
+
+=== A4-F-18 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "6. Payment Terms. Event Producer shall pay the venue rental fee in two installments: fifty percent (50%) upon execution of this Agreement and the remaining fifty percent (50%) no later than fourteen (14) days prior to the Event date.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: payment timing (installment structure)
+REASON: Installment-based payment-timing clause, events domain, structurally distinct from Net-N-days phrasing.
+
+=== A4-F-19 [payment_terms/F] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "6. Payment Terms. Home Health Agency shall submit claims to Patient Referral Source's billing system within thirty (30) days of the date services are rendered, and payment shall be made within forty-five (45) days of a clean claim submission.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: invoice/claim submission, Net 45
+REASON: Healthcare-services billing clause using 'claims'/'clean claim submission' terminology rather than 'invoice'.
+
+=== A4-F-20 [payment_terms/F] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No payment terms clause found'
+unresolved_facts: []
+our_position: None
+explanation: No payment terms clause was found in this contract, so the policy has nothing to evaluate against.
+EXPECTED: engage: taxes (telecom-specific)
+REASON: Tax-responsibility clause listing telecom-specific tax/fee categories not present in the recognition benchmark's tax vocabulary.
+
+=== A4-G-01 [liability/G] label=SHOULD_REVIEW ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "2 times the annual fees paid". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+EXPECTED: None
+REASON: Contradictory buy/sell evidence for the same role ('purchases...from' AND 'resells...to') — genuinely mixed, cannot be safely resolved either way.
+
+=== A4-G-02 [indemnification/G] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Agency' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Agency''s conventional classification still applies"]
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "Agreement referenced in the Recitals.
+
+8. Indemnification. Staffing Agency shall indemnify, defend, and hold harmless Client from and against third-party claims arising from Staffing Agency's". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document's own definition of 'Agency' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Agency''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Indirect definition pointing to a term ('Placement Firm') defined in an EXTERNAL document not present in the extracted text — the one-hop resolver cannot follow a reference outside the document, and no directional evidence about Staffing Agency exists directly.
+
+=== A4-G-03 [liability/G] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "1 times the annual fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+EXPECTED: None
+REASON: Two conflicting definitions of the same role appear in the document (general definition = sell-side, Section-14-scoped definition = buy-side) — genuinely ambiguous which governs Section 9.
+
+=== A4-G-04 [indemnification/G] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Reinsurer indemnifies Underwriting" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "yet determined as of the Effective Date.
+
+8. Indemnification. Reinsurer shall indemnify, defend, and hold harmless Underwriting Agent from and against third-party claims arising from Reinsurer's". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Reinsurer indemnifies Underwriting" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Definition is explicitly open-ended/deferred ('not yet determined') with no directional content at all and no external document to resolve against — genuinely unresolvable, though this specific obligation (Reinsurer->Underwriting Agent) is separately determinable; included to test whether an unresolvable OTHER definition in the document improperly contaminates an unrelated resolvable obligation, or correctly leaves it alone. Expected: REQUIRES_REVIEW is acceptable if the system is conservative about the open-ended definition; a correct resolution of the Reinsurer->Underwriting Agent obligation is ALSO acceptable since Underwriting Agent's own side is not actually needed to resolve this specific obligation. Scored generously (CA or CR both acceptable).
+
+=== A4-G-05 [payment_terms/G] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document appears to define or recharacterize the role of 'Operator' using language this system does not confidently recognize — cannot safely confirm whether 'Operator''s conventional classification still applies"]
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Charter Operator' is deemed to mean, as the context requires, either the party furnishing the vessel or the party chartering the vessel, as applicable.
+
+7. Taxes. Charter Operator shall be responsible for all sales and use taxes arising from this Agreement.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document appears to define or recharacterize the role of 'Operator' using language this system does not confidently recognize — cannot safely confirm whether 'Operator''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Definition explicitly states the role could mean EITHER side depending on context ('as the context requires') — a textbook irreducible ambiguity.
+
+=== A4-G-06 [liability/G] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["directional liability position (the document's own definition of 'Manufacturer' uses both purchasing/receiving language and providing/selling language — cannot determine which transactional side 'Manufacturer' actually occupies)"]
+our_position: None
+explanation: Contract language: "2 times the annual fees paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: directional liability position (the document's own definition of 'Manufacturer' uses both purchasing/receiving language and providing/selling language — cannot determine which transactional side 'Manufacturer' actually occupies). Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Both a sell-side statement (manufactures) and a buy-side statement (purchases) appear about Toll Manufacturer's OWN conduct in the same sentence — even though the buy-side part is described as unrelated to this Agreement, the sentence-level mixed-vocabulary detection cannot safely distinguish 'unrelated business' framing from a genuine reversal; conservative escalation is the safe outcome.
+
+=== A4-G-07 [indemnification/G] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Facility' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Facility''s conventional classification still applies"]
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "party other than Tenant Operator.
+
+8. Indemnification. Host Facility shall indemnify, defend, and hold harmless Tenant Operator from and against third-party claims arising from Host". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document's own definition of 'Facility' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Facility''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Definition is conditionally self-referential (depends on an external Order Form not present in the text, with a fallback that could make Host Facility EITHER Tenant Operator or its counterparty) — genuinely unresolvable from the text alone.
+
+=== A4-G-08 [liability/G] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["directional liability position (the document's own definition of 'Purchaser' uses both purchasing/receiving language and providing/selling language — cannot determine which transactional side 'Purchaser' actually occupies)"]
+our_position: None
+explanation: Contract language: "1 times the annual fees paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: directional liability position (the document's own definition of 'Purchaser' uses both purchasing/receiving language and providing/selling language — cannot determine which transactional side 'Purchaser' actually occupies). Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Definition changes conditionally upon a future, undeterminable event (Change of Control) — the document cannot establish which direction currently governs without external facts.
+
+=== A4-G-09 [indemnification/G] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Broker' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Broker''s conventional classification still applies"]
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "the execution of this Agreement.
+
+8. Indemnification. Import Broker shall indemnify, defend, and hold harmless Importer of Record from and against third-party claims arising from Import". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document's own definition of 'Broker' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Broker''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: 'engaged by Importer of Record' would ordinarily be clean buy-side evidence for Importer of Record, but the trailing clause ('not yet finalized which entity will serve') casts doubt on whether the described relationship is even currently operative — genuinely ambiguous whether the definition reflects the actual current arrangement.
+
+=== A4-G-10 [payment_terms/G] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position']
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Telecom Reseller' shall, for the purposes of this Agreement, carry the meaning customarily ascribed to such term in the telecommunications industry, as reasonably determined by Carrier Wholesaler.
+
+7. Taxes. Telecom Reseller shall be responsible for all applicable telecommunications taxes.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: 'as reasonably determined by Carrier Wholesaler' means the definition is not fixed by the document text at all but delegated to one party's discretion — no stable, document-establishable meaning exists.
+
+=== A4-H-01 [liability/H] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (multiple distinct cap values found for the general clause; cannot determine which governs)']
+our_position: None
+explanation: Contract language: "Limitation of Liability. Carrier's aggregate liability shall not exceed $1,000,000. Carrier's aggregate liability shall not exceed $2,500,000.". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (multiple distinct cap values found for the general clause; cannot determine which governs). Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Two plausible liability caps stated for the same party with no reconciling language — genuinely ambiguous which governs.
+
+=== A4-H-02 [liability/H] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (multiple distinct cap values found for the general clause; cannot determine which governs)']
+our_position: None
+explanation: Contract language: "governed by Schedule L.
+
+Schedule L: Provider's aggregate liability shall not exceed $900,000.
+
+9.1 Notwithstanding Schedule L, Provider's aggregate liability". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (multiple distinct cap values found for the general clause; cannot determine which governs). Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Body clause (9.1) purports to override the schedule with 'notwithstanding', but both values remain stated without a clear precedence rule (the schedule is cross-referenced from the body, then separately overridden) — a human would need to check which drafting convention this document actually follows; genuinely ambiguous.
+
+=== A4-H-03 [liability/H] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (multiple distinct cap values found for the general clause; cannot determine which governs)']
+our_position: None
+explanation: Contract language: "of Liability. Vendor's aggregate liability shall not exceed 2 times the annual fees paid. Vendor's aggregate liability shall not exceed 1 times the annual". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (multiple distinct cap values found for the general clause; cannot determine which governs). Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Two equally-well-formed candidate values (2x and 1x), same party, no amendment/restatement language distinguishing them — genuinely ambiguous, equally strong ownership for both.
+
+=== A4-H-04 [liability/H] label=SHOULD_REVIEW ===
+STATE: ESCALATE
+extracted_summary: '$1,200,000.00 fixed'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "shall not exceed $1,200,000". Extracted value: $1,200,000.00 fixed. Policy is defined as a multiplier of annual fees, so this cannot be compared automatically. Result: ESCALATE.
+EXPECTED: None
+REASON: Amendment explicitly signals a change is intended but does not state a new figure — genuinely unresolvable whether the original $1,200,000 still governs or is suspended pending agreement.
+
+=== A4-H-05 [liability/H] label=SHOULD_REVIEW ===
+STATE: ESCALATE
+extracted_summary: '$500,000.00 fixed'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "capped at $500,000,". Extracted value: $500,000.00 fixed. Policy is defined as a multiplier of annual fees, so this cannot be compared automatically. Result: ESCALATE.
+EXPECTED: None
+REASON: The carve-out's cap and the general cap happen to be numerically identical ($500,000) but it is genuinely ambiguous whether this is a coincidence (two independent $500,000 figures) or the carve-out is simply restating/confirming the general cap applies to it too — an ownership-attribution ambiguity, not a value dispute.
+
+=== A4-H-06 [liability/H] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "1 times the annual fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+EXPECTED: None
+REASON: The basis for the multiplier itself is ambiguous (current Order Form vs. cumulative across all Order Forms) — even though the multiplier (1x) and the general structure are clear, the underlying VALUE the multiplier applies to is genuinely undetermined from the text.
+
+=== A4-H-07 [liability/H] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (delegates to "Exhibit M" — referenced provision "Exhibit M" was not found elsewhere in the extracted document text)']
+our_position: None
+explanation: Contract language: "Limitation of Liability. Operator's liability shall be as set forth in Exhibit M.
+
+Exhibit M: Risk Allocation.
+(a) Liability Cap (Scenario 1". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (delegates to "Exhibit M" — referenced provision "Exhibit M" was not found elsewhere in the extracted document text). Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Two labeled 'Liability Cap' line items exist for two different service scenarios, with no indication in the extracted text of which scenario applies to this Agreement — genuinely ambiguous which value governs.
+
+=== A4-H-08 [liability/H] label=SHOULD_REVIEW ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "2 times the annual fees paid". Extracted value: 2x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT_WITH_NOTE.
+EXPECTED: None
+REASON: The document itself flags the ambiguity ('unclear whether...the same cap...or two independent caps that would stack') — an explicit, self-acknowledged ownership/stacking ambiguity.
+
+=== A4-H-09 [liability/H] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (cap is expressed as a multiplier of Other, not fees — policy thresholds are defined as a multiplier of annual fees and this cannot be compared without additional information)']
+our_position: None
+explanation: Contract language: "2 times the annual royalties paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (cap is expressed as a multiplier of Other, not fees — policy thresholds are defined as a multiplier of annual fees and this cannot be compared without additional information). Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: The self-defined term 'Royalty Cap Amount' is given two conflicting definitions in two different sections — genuinely ambiguous which governs.
+
+=== A4-H-10 [liability/H] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['directional liability position (contract defines asymmetric liability positions by party, but this playbook is configured for a mutual position — cannot determine which cap applies to us)', 'general liability cap (multiple distinct cap values found for the general clause; cannot determine which governs)']
+our_position: None
+explanation: Contract language: "Limitation of Liability. Underwriter's aggregate liability shall not exceed $2,000,000 under this treaty; Reinsured's aggregate liability shall not". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: directional liability position (contract defines asymmetric liability positions by party, but this playbook is configured for a mutual position — cannot determine which cap applies to us); general liability cap (multiple distinct cap values found for the general clause; cannot determine which governs). Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Two candidate caps exist, belonging to two DIFFERENT named parties, and a cross-reference elsewhere ambiguously points to 'the general aggregate cap' without specifying which party's figure that is — genuine candidate-ownership ambiguity, not merely a value conflict.
+
+=== A4-I-01 [payment_terms/I] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position']
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Consignee' means the entity that purchases logistics capacity from Carrier.
+
+7. Taxes. Consignee shall be responsible for all sales and use taxes arising from this Agreement.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position. Result: REQUIRES_REVIEW.
+EXPECTED: tax on us (Consignee=buy_side) — policy VIOLATED
+REASON: Consignee is not in the generic vocabulary; the document's own directional evidence ('purchases...from') is unambiguous and safely used since there is nothing to conflict against.
+
+=== A4-I-02 [payment_terms/I] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document appears to define or recharacterize the role of 'Broadcaster' using language this system does not confidently recognize — cannot safely confirm whether 'Broadcaster''s conventional classification still applies"]
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. References to 'Broadcaster' are references to the entity that licenses the Programming to Affiliate.
+
+7. Withholding. Broadcaster shall be responsible for any withholding taxes imposed on payments under this Agreement.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document appears to define or recharacterize the role of 'Broadcaster' using language this system does not confidently recognize — cannot safely confirm whether 'Broadcaster''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: 'References to X are references to' is deliberately outside the narrow interpretable predicate list — must escalate regardless of whether the trailing text agrees with generic mapping (same architectural invariant validated in Step 4A.3).
+
+=== A4-I-03 [payment_terms/I] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document appears to define or recharacterize the role of 'Grower' using language this system does not confidently recognize — cannot safely confirm whether 'Grower''s conventional classification still applies"]
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Grower' is understood to mean the entity that sells and delivers the harvested crop to Processor.
+
+7. Taxes. Grower shall be responsible for all sales and use taxes arising from this Agreement.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document appears to define or recharacterize the role of 'Grower' using language this system does not confidently recognize — cannot safely confirm whether 'Grower''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: 'is understood to mean' is the same unrecognized broad-signal predicate family as PAY-A2-02 — must escalate regardless of whether the trailing text happens to agree with generic mapping.
+
+=== A4-I-04 [payment_terms/I] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Net 30; Trigger: invoice'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Toll Manufacturer' means the entity that manufactures finished goods using materials supplied by Brand Owner.
+
+6. Payment Terms. Brand Owner shall reimburse Toll Manufacturer for conversion costs within Net 30 days of invoice.". No policy gaps found. Result: ACCEPT.
+EXPECTED: Net 30, reimbursement
+REASON: Reimbursement/payment-timing field is non-directional (applies regardless of which party is which) — should resolve correctly automatically.
+
+=== A4-I-05 [payment_terms/I] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position']
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Underwriting Agent' retains Reinsurer's binding authority to procure reinsurance capacity on Insurer's behalf.
+
+7. Taxes. Underwriting Agent shall be responsible for all applicable premium taxes.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: 'retains' as a bare verb relating Underwriting Agent to Reinsurer is unrecognized relational content (same family as the LOL-B2-02/PAY-B2-02 possessive-gerund-adjacent 'retains' gap) — genuinely unclear direction, must escalate.
+
+=== A4-I-06 [payment_terms/I] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position']
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Host Facility' provides rack space and power to Tenant Operator.
+
+7. Taxes. Host Facility shall be responsible for property taxes assessed on the data center facility.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position. Result: REQUIRES_REVIEW.
+EXPECTED: tax on counterparty (Host Facility=sell_side) — policy satisfied
+REASON: 'provides...to' is recognized sell-side evidence, consistent with generic mapping if Host Facility were mapped (it is not, but the document's own evidence is unambiguous and controls safely) — tax on Host Facility=counterparty satisfies the policy.
+
+=== A4-I-07 [payment_terms/I] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Producer' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Producer''s conventional classification still applies"]
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "entity that, having been engaged pursuant to a competitive bid process described at length in Recital C, organizes and stages the conference for Venue Owner, Venue Owner having selected Event Producer following review of three competing proposals.
+
+7. Taxes. Event Producer shall be responsible for all sales and use taxes arising from this Agreement.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document's own definition of 'Producer' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Producer''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: No recognized directional verb describes Event Producer's own conduct toward Venue Owner at all ('organizes and stages...for' is not in the recognized vocabulary) — genuinely unrecognized relational content naming another party, despite the extensive narrative; must escalate.
+
+=== A4-I-08 [payment_terms/I] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Net 45'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Home Health Agency' renders skilled nursing services to Patient Referral Source's referred patients.
+
+6. Payment Terms. Patient Referral Source shall pay Home Health Agency's claims within Net 45 days of a clean claim submission, and undisputed amounts shall remain payable notwithstanding a good-faith dispute as to other amounts.". No policy gaps found. Result: ACCEPT.
+EXPECTED: Net 45; undisputed amounts payable
+REASON: Both fields (payment timing, undisputed-payable) are non-directional and stated plainly — should resolve automatically regardless of Home Health Agency's side classification.
+
+=== A4-I-09 [payment_terms/I] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Net 15'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Import Broker' means the entity retained to prepare and file customs entries; Importer of Record compensates Import Broker for such services under the fee schedule in Exhibit F.
+
+7. Taxes. Import Broker shall be responsible for any duties and taxes advanced on Importer of Record's behalf, which Importer of Record shall reimburse within Net 15 days.". No policy gaps found. Result: ACCEPT.
+EXPECTED: reimbursement obligation, Net 15
+REASON: 'compensates' is recognized buy-side evidence for Importer of Record, and the tax/reimbursement structure is explicit and non-ambiguous regardless — should resolve automatically.
+
+=== A4-I-10 [payment_terms/I] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document appears to define or recharacterize the role of 'Operator' using language this system does not confidently recognize — cannot safely confirm whether 'Operator''s conventional classification still applies"]
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Charter Operator' shall carry the meaning given to 'Vessel Owner' in the Charter Party attached as Exhibit A.
+
+7. Taxes. Charter Operator shall be responsible for all applicable taxes.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document appears to define or recharacterize the role of 'Operator' using language this system does not confidently recognize — cannot safely confirm whether 'Operator''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Indirect definition pointing to 'Vessel Owner' which is defined only in an EXTERNAL attachment (Charter Party, Exhibit A) not present in the extracted text — the one-hop resolver cannot follow this reference; genuinely unresolvable.
+
+=== A4-I-11 [payment_terms/I] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position']
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Telecom Reseller' has the meaning given to 'Wholesale Purchaser' in Schedule B. 'Wholesale Purchaser' means the entity that purchases wholesale minutes and bandwidth from Carrier Wholesaler.
+
+7. Taxes. Telecom Reseller shall be responsible for all applicable telecommunications taxes.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position. Result: REQUIRES_REVIEW.
+EXPECTED: tax on us (Telecom Reseller=buy_side) — policy VIOLATED
+REASON: One-hop indirect resolution: 'Wholesale Purchaser' IS defined within the document with clean buy-side evidence ('purchases...from') — the resolver should follow the hop and correctly flag the policy violation.
+
+=== A4-I-12 [payment_terms/I] label=AUTOMATABLE ===
+STATE: MUST_REDLINE
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Contractor' furnishes labor and materials to Owner for the Project.
+
+6. Payment Terms. Owner shall have the right to offset any amounts owed to Contractor against liquidated damages assessed for schedule delays.". clause permits set-off, prohibited by policy. Result: MUST_REDLINE.
+EXPECTED: MUST_REDLINE (set-off present, prohibited by policy)
+REASON: Set-off detection is non-directional in the current architecture (applies regardless of which party holds the right) — should flag correctly regardless of Contractor/Owner side resolution.
+
+=== A4-I-13 [payment_terms/I] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Franchisee' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Franchisee''s conventional classification still applies"]
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Franchisee' means the entity that both pays ongoing royalties to Franchisor and, under a separate side letter referenced in Recital D, occasionally receives marketing-development funds from Franchisor for approved local campaigns.
+
+7. Taxes. Franchisee shall be responsible for all applicable sales taxes.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document's own definition of 'Franchisee' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Franchisee''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Mixed signal: 'pays...to' (buy-side, Franchisee's own conduct) and 'receives...from' (sell-side-shaped, also Franchisee's own conduct, funds flowing the other way) both describe Franchisee's own transactions with the same counterparty — genuinely mixed evidence, not a bystander-noun false positive.
+
+=== A4-I-14 [payment_terms/I] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Energy Purchaser' acquires capacity and energy from Generator.
+
+6. Payment Terms. Generator may increase the capacity price by up to 8% annually upon 30 days' notice to Energy Purchaser.". No policy gaps found. Result: ACCEPT.
+EXPECTED: MUST_REDLINE or NEGOTIATE (8%>5%, 30<60 days — both violations)
+REASON: Price-increase-right detection is non-directional (applies to the stated terms regardless of role resolution) — should flag both violations correctly and automatically.
+
+=== A4-I-15 [payment_terms/I] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document's own definition of 'Agent' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Agent''s conventional classification still applies"]
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Underwriting Agent' means the entity described as such in the binding authority agreement dated as of the Effective Date, a copy of which is not attached hereto but is available upon request.
+
+7. Taxes. Underwriting Agent shall be responsible for all applicable premium taxes.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document's own definition of 'Agent' relates it to another party through language this system does not confidently classify as buy-side or sell-side — cannot safely confirm whether 'Agent''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Definition explicitly cross-references an external document ('binding authority agreement...not attached hereto') with zero directional content in the extracted text itself — genuinely unresolvable from the document.
+
+=== A4-J-01 [indemnification/J] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the general terms and Underwriter state different monetary terms (1x annual fees vs 5x annual fees)) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone"]
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from its own negligence, up". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the general terms and Underwriter state different monetary terms (1x annual fees vs 5x annual fees)) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Reciprocal opener qualified by a single named-party exception with a differentiated cap — the opener's symmetry claim cannot be trusted; must escalate.
+
+=== A4-J-02 [indemnification/J] label=SHOULD_REVIEW ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: 'Exposure: 2x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. The parties shall mutually indemnify each other from third-party claims, up to a cap of 2 times the fees paid,". exposure cap 2x annual fees exceeds preferred position. Result: ACCEPT_WITH_NOTE.
+EXPECTED: None
+REASON: Reciprocal opener with a differentiated monetary cap for one named party and a specific claim category — must escalate.
+
+=== A4-J-03 [indemnification/J] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the general terms and Broadcaster cover different trigger sets) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone"]
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other from third-party claims arising from breach of confidentiality,". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the general terms and Broadcaster cover different trigger sets) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Reciprocal opener with a differentiated claim category added for one named party (IP infringement, not mirrored for Affiliate) — must escalate.
+
+=== A4-J-04 [indemnification/J] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the general terms and Licensor state different monetary terms (2x annual fees vs Uncapped)) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone"]
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from IP infringement, up to". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the general terms and Licensor state different monetary terms (2x annual fees vs Uncapped)) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Reciprocal opener with a differentiated (uncapped) treatment carved out for one named party — must escalate.
+
+=== A4-J-05 [indemnification/J] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from its own negligence, up". No policy gaps found. Result: ACCEPT.
+EXPECTED: None
+REASON: Reciprocal opener with defense-control explicitly granted to only ONE named party ('Contractor (but not Owner)') — a differentiated, non-mirrored term; must escalate.
+
+=== A4-J-06 [indemnification/J] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. The parties shall mutually indemnify each other from third-party claims arising from breach of this Agreement,". No policy gaps found. Result: ACCEPT.
+EXPECTED: None
+REASON: Reciprocal opener with explicitly different survival periods stated for each named party (5 years vs. 3 years) — a deterministically detectable, differentiated term; must escalate.
+
+=== A4-J-07 [indemnification/J] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: 'Exposure: 2x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from gross negligence, up to". exposure cap 2x annual fees exceeds preferred position. Result: ACCEPT_WITH_NOTE.
+EXPECTED: symmetric, no asymmetry
+REASON: Reciprocal, mirrored defense-control language plus an explicit 'applies identically...in all respects' clause naming both parties — genuinely symmetric despite the elaborate closing sentence; a trap testing whether complexity alone triggers a false asymmetry flag.
+
+=== A4-J-08 [indemnification/J] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from its breach of this Agreement,". No policy gaps found. Result: ACCEPT.
+EXPECTED: symmetric, no asymmetry
+REASON: Explicit 'coextensive and identical' clause naming both parties — genuinely symmetric, a trap testing whether naming both parties (rather than using 'each party' throughout) alone triggers a false asymmetry flag.
+
+=== A4-J-09 [indemnification/J] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: 'Exposure: 2x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims, up to a cap of 2 times the fees paid,". exposure cap 2x annual fees exceeds preferred position. Result: ACCEPT_WITH_NOTE.
+EXPECTED: symmetric 2x fees, no asymmetry (insurance requirement is a separate, non-indemnification term)
+REASON: The named-party proviso concerns an UNRELATED topic (insurance maintenance), not a differentiated indemnification term, and is explicitly disclaimed as not modifying the cap — a trap testing whether the exception-detector over-triggers on any 'except that ROLE's...' pattern regardless of subject matter.
+
+=== A4-J-10 [indemnification/J] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Landlord indemnifies Tenant" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "8. Indemnification. Landlord shall indemnify Tenant, and Tenant shall indemnify Landlord, from third-party claims". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Landlord indemnifies Tenant" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+EXPECTED: symmetric 1x annual rent, no asymmetry
+REASON: Named-party (not 'each party') structure with an explicit no-difference clause — genuinely symmetric.
+
+=== A4-J-11 [indemnification/J] label=SHOULD_REVIEW ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: 'Exposure: 2x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from gross negligence or willful". exposure cap 2x annual fees exceeds preferred position. Result: ACCEPT_WITH_NOTE.
+EXPECTED: None
+REASON: Two DIFFERENT time-scoping exceptions for the two named parties (before Effective Date vs. after Termination Date) — a genuinely differentiated, deterministically-detectable asymmetry even though each party gets SOME exception; must escalate.
+
+=== A4-J-12 [indemnification/J] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from breach of confidentiality,". No policy gaps found. Result: ACCEPT.
+EXPECTED: None
+REASON: Reciprocal opener with a differentiated cap and claim category for one named party — must escalate.
+
+=== A4-J-13 [indemnification/J] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Indemnification referenced but no directional obligation could be parsed'
+unresolved_facts: ['indemnification obligation structure could not be parsed']
+our_position: {'exposure': None, 'protection': None}
+explanation: The document references indemnification but no parseable 'X shall indemnify Y' or mutual reciprocal structure was found — the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.
+EXPECTED: symmetric, no asymmetry
+REASON: Explicit no-difference-based-on-role clause — genuinely symmetric despite the elaborate defined-term rotation language, a trap testing whether structural complexity alone triggers a false asymmetry flag.
+
+=== A4-J-14 [indemnification/J] label=SHOULD_REVIEW ===
+STATE: ACCEPT
+extracted_summary: 'Exposure: 1x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from its own gross negligence,". No policy gaps found. Result: ACCEPT.
+EXPECTED: None
+REASON: Reciprocal opener with a differentiated procedural precondition (notice requirement) applying to only one named party, explicitly stated not to apply to the other — a deterministically detectable asymmetry even though it's procedural rather than monetary; must escalate.
+
+=== A4-J-15 [indemnification/J] label=SHOULD_REVIEW ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: 'Exposure: 2x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "8. Indemnification. Each party shall indemnify the other party from third-party claims arising from breach of applicable law,". exposure cap 2x annual fees exceeds preferred position. Result: ACCEPT_WITH_NOTE.
+EXPECTED: None
+REASON: Reciprocal opener with a conditional, differentiated cap-reduction for one named party — must escalate.
+
+=== A4-K-01 [payment_terms/K] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Trigger: invoice'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "Carrier's charges for the transportation services shall be invoiced monthly and are due and payable within thirty (30) days of the invoice date.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: Net 30
+REASON: No section heading at all ('6. Payment Terms.' omitted) — tests whether recognition depends on heading presence rather than content.
+
+=== A4-K-02 [liability/K] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "1 times the annual fees paid". Extracted value: 1x annual fees. Policy — preferred: 1x annual fees, acceptable up to: 2x annual fees, negotiable up to: 3x annual fees. Result: ACCEPT.
+EXPECTED: 1 times the annual fees paid
+REASON: No 'Limitation of Liability' heading at all, and unusual phrasing ('however characterized') — tests recognition against commercially standard but unheaded cap drafting (the same class of gap the liability corpus's unheaded-NN cases target).
+
+=== A4-K-03 [indemnification/K] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No indemnification clause found'
+unresolved_facts: []
+our_position: None
+explanation: No indemnification clause was found in this contract, so the policy has nothing to evaluate against.
+EXPECTED: protection: Owner(us)
+REASON: No 'Indemnification' heading, and the anchor phrase is reordered ('hold...harmless from and defend...against' rather than 'indemnify, defend, and hold harmless') — tests recognition against a non-canonical obligation-verb ordering.
+
+=== A4-K-04 [payment_terms/K] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No payment terms clause found'
+unresolved_facts: []
+our_position: None
+explanation: No payment terms clause was found in this contract, so the policy has nothing to evaluate against.
+EXPECTED: engage: taxes
+REASON: Tax-responsibility concept phrased with 'bear the cost of' rather than 'be responsible for' — tests vocabulary generalization for the tax-topic detector.
+
+=== A4-K-05 [liability/K] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No limitation-of-liability clause found'
+unresolved_facts: []
+our_position: None
+explanation: No limitation-of-liability clause was found in this contract, so the policy has nothing to evaluate against.
+EXPECTED: 2 times the annual royalties paid
+REASON: Section heading is 'Damages' (not 'Limitation of Liability'), and the operative language uses 'exposure...restricted to' rather than 'liability...shall not exceed' — tests recognition against an atypical heading and phrasing combination.
+
+=== A4-K-06 [indemnification/K] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No indemnification clause found'
+unresolved_facts: []
+our_position: None
+explanation: No indemnification clause was found in this contract, so the policy has nothing to evaluate against.
+EXPECTED: protection: Patient Referral Source(us)
+REASON: Section heading is 'Risk Allocation' (not 'Indemnification'), and uses 'protect, defend, and reimburse' rather than the canonical 'indemnify, defend, and hold harmless' — tests recognition against synonym substitution in the anchor verb phrase.
+
+=== A4-K-07 [payment_terms/K] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No payment terms clause found'
+unresolved_facts: []
+our_position: None
+explanation: No payment terms clause was found in this contract, so the policy has nothing to evaluate against.
+EXPECTED: MUST_REDLINE (set-off present, prohibited)
+REASON: Set-off concept phrased entirely without the words 'set-off' or 'offset' — 'withhold...an amount equal to any sums...owes' — tests vocabulary generalization for set-off recognition.
+
+=== A4-K-08 [liability/K] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No limitation-of-liability clause found'
+unresolved_facts: []
+our_position: None
+explanation: No limitation-of-liability clause was found in this contract, so the policy has nothing to evaluate against.
+EXPECTED: $1,750,000
+REASON: No heading, and the operative phrase 'is fixed at...and shall not be exceeded' is a non-canonical construction distinct from 'shall not exceed'.
+
+=== A4-K-09 [payment_terms/K] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "Prices under this Agreement are stated net of value-added tax; VAT, where applicable, shall be charged in addition and remitted by Broadcaster to the appropriate taxing authority.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: VAT
+REASON: VAT clause phrased as 'stated net of...charged in addition' rather than 'exclusive of' — tests recognition against an alternate standard phrasing for the same concept.
+
+=== A4-K-10 [indemnification/K] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No indemnification clause found'
+unresolved_facts: []
+our_position: None
+explanation: No indemnification clause was found in this contract, so the policy has nothing to evaluate against.
+EXPECTED: protection: Reinsured(us)
+REASON: No heading, and 'undertakes to make...whole for, and to assume the defense of' is a non-canonical rephrasing of indemnify/defend/hold-harmless — tests vocabulary generalization for the obligation-anchor regex.
+
+=== A4-K-11 [payment_terms/K] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No payment terms clause found'
+unresolved_facts: []
+our_position: None
+explanation: No payment terms clause was found in this contract, so the policy has nothing to evaluate against.
+EXPECTED: engage: payment timing (Net 10)
+REASON: Payment-timing clause using 'disbursed by' rather than 'paid by' or 'due within' — tests vocabulary generalization.
+
+=== A4-K-12 [liability/K] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No limitation-of-liability clause found'
+unresolved_facts: []
+our_position: None
+explanation: No limitation-of-liability clause was found in this contract, so the policy has nothing to evaluate against.
+EXPECTED: 1 times the annual fees paid
+REASON: No heading, 'any recovery against...is limited to a sum not to exceed' rather than 'liability shall not exceed' — tests recognition against a recovery-focused (rather than liability-focused) phrasing convention.
+
+=== A4-K-13 [payment_terms/K] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "Should Import Broker and Importer of Record disagree as to any charge reflected on an entry summary, Importer of Record shall continue remitting all amounts not subject to such disagreement pending resolution.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: undisputed amounts payable
+REASON: Disputed/undisputed-amounts concept phrased with 'disagree'/'disagreement' rather than 'dispute' — tests vocabulary generalization.
+
+=== A4-K-14 [indemnification/K] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No indemnification clause found'
+unresolved_facts: []
+our_position: None
+explanation: No indemnification clause was found in this contract, so the policy has nothing to evaluate against.
+EXPECTED: protection: Generator(us)
+REASON: Section heading is 'Loss Sharing', and the obligation is phrased as a conditional ('should a third party assert...') rather than a direct promise — tests recognition against a conditional-clause construction.
+
+=== A4-K-15 [liability/K] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No limitation-of-liability clause found'
+unresolved_facts: []
+our_position: None
+explanation: No limitation-of-liability clause was found in this contract, so the policy has nothing to evaluate against.
+EXPECTED: 2 times the annual fees paid
+REASON: Field:value normalized-text structure with no prose sentence and no 'Limitation of Liability' heading at all — tests recognition against a fully tabular presentation.
+
+=== A4-COMP-01 [liability/compound] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (cap is expressed as a multiplier of Other, not fees — policy thresholds are defined as a multiplier of annual fees and this cannot be compared without additional information)']
+our_position: None
+explanation: Contract language: "2 times the annual premium paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (cap is expressed as a multiplier of Other, not fees — policy thresholds are defined as a multiplier of annual fees and this cannot be compared without additional information). Result: REQUIRES_REVIEW.
+EXPECTED: 2 times the annual premium paid
+REASON: Liability + insurance combination; insurance figure explicitly disclaimed as separate, genuine cap unambiguous — evaluated on the liability adapter alone.
+
+=== A4-COMP-02 [indemnification/compound] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['obligation "Contractor indemnifies Owner" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s)']
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "8. Indemnification. Contractor shall indemnify, defend, and hold harmless Owner from and against third-party claims arising from Contractor's". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: obligation "Contractor indemnifies Owner" could not be mapped to our configured contract side (buy_side) — unrecognized party name(s). Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Liability + indemnification combination; the indemnification obligation's own monetary term is stated only by cross-reference to a DIFFERENT clause (Section 9) — same architecture as the disqualifier fixed in Step 4A.3 (INDEM-I2-02) — the indemnification adapter alone should not silently adopt the liability section's figure; must not resolve confidently on the indemnification side alone.
+
+=== A4-COMP-03 [payment_terms/compound] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position']
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Consignee' means the entity that purchases logistics capacity from Carrier.
+
+7. Taxes. Consignee shall be responsible for all applicable taxes.
+
+6. Payment Terms. Consignee shall have the right to offset amounts owed to Carrier against loss-and-damage claims.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position. Result: REQUIRES_REVIEW.
+EXPECTED: tax on us (violated) AND set-off present (prohibited) — MUST_REDLINE (multiple violations)
+REASON: Payment + tax + set-off combination in one document; Consignee's side is clean (unmapped role, unambiguous document evidence), and both the tax and set-off checks are independently correct — evaluated on the payment_terms adapter.
+
+=== A4-COMP-04 [liability/compound] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (cap is expressed as a multiplier of Other, not fees — policy thresholds are defined as a multiplier of annual fees and this cannot be compared without additional information)']
+our_position: None
+explanation: Contract language: "2 times the annual royalties paid". This clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: general liability cap (cap is expressed as a multiplier of Other, not fees — policy thresholds are defined as a multiplier of annual fees and this cannot be compared without additional information). Result: REQUIRES_REVIEW.
+EXPECTED: 2 times the annual royalties paid
+REASON: Liability + indemnification in one document, each with its OWN distinct, unambiguous cap in its own clause — the liability adapter should extract only its own $/multiplier, not import indemnification's 1x figure.
+
+=== A4-COMP-05 [liability/compound] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$1,400,000.00 fixed'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "shall not exceed $1,400,000". Extracted value: $1,400,000.00 fixed. Policy is defined as a multiplier of annual fees, so this cannot be compared automatically. Result: ESCALATE.
+EXPECTED: $1,400,000
+REASON: SLA + insurance + liability combination, two distractors both explicitly disclaimed as separate — genuine cap unambiguous.
+
+=== A4-COMP-06 [indemnification/compound] label=SHOULD_REVIEW ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: 'Exposure: 2x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+explanation: Contract language: "furnishes the vessel and crew to Charterer.
+
+8. Indemnification. Each party shall indemnify the other party from third-party claims arising from its own negligence, up". exposure cap 2x annual fees exceeds preferred position. Result: ACCEPT_WITH_NOTE.
+EXPECTED: None
+REASON: Role reversal test + asymmetry combination: Charter Operator's side is clean (sell_side, consistent with generic), but the reciprocal opener is qualified by a differentiated named-party exception — must escalate on the asymmetry ground independent of the (already-clean) role resolution.
+
+=== A4-COMP-07 [payment_terms/compound] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["the document appears to define or recharacterize the role of 'Agent' using language this system does not confidently recognize — cannot safely confirm whether 'Agent''s conventional classification still applies"]
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Underwriting Agent' is understood to mean the entity that procures reinsurance capacity from Reinsurer on Insurer's behalf.
+
+7. Taxes. Underwriting Agent shall be responsible for all applicable premium taxes.". This payment terms clause could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: the document appears to define or recharacterize the role of 'Agent' using language this system does not confidently recognize — cannot safely confirm whether 'Agent''s conventional classification still applies. Result: REQUIRES_REVIEW.
+EXPECTED: None
+REASON: Role reversal + broad-unrecognized-predicate combination ('is understood to mean') — must escalate regardless of whether the trailing text happens to agree with generic mapping, same invariant as PAY-A2-02.
+
+=== A4-COMP-08 [liability/compound] label=AUTOMATABLE ===
+STATE: MUST_REDLINE
+extracted_summary: 'Limitation-of-liability clause present but no numeric general cap stated'
+unresolved_facts: []
+our_position: None
+explanation: Contract language: "from a third-party cooperative unrelated to this Agreement.
+
+9. Limitation of Liability. Grower's aggregate liability shall not exceed 1 times the annual crop-purchase price paid.". A limitation-of-liability clause exists but states no enforceable numeric general cap. Company policy requires a stated cap. Result: MUST_REDLINE.
+EXPECTED: side=sell_side, value=1x annual crop-purchase price
+REASON: Bystander-noun + domain-specific-basis-word combination: 'Processor being the party that purchases...from a third-party cooperative' describes Processor's unrelated conduct with a THIRD party, not Grower's own conduct — correctly a bystander clause, not directional evidence about Grower.
+
+=== A4-COMP-09 [indemnification/compound] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['contract states directional (non-mutual) indemnification obligations, but this playbook is configured for a mutual position — cannot determine which obligation is ours']
+our_position: {'exposure': None, 'protection': None}
+explanation: Contract language: "liability shall not exceed $2,000,000.
+
+8. Indemnification. Reinsured shall indemnify, defend, and hold harmless Underwriter from and against third-party claims arising from Reinsured's". This indemnification structure could not be evaluated deterministically — the following fact(s) required for a policy decision could not be reliably established: contract states directional (non-mutual) indemnification obligations, but this playbook is configured for a mutual position — cannot determine which obligation is ours. Result: REQUIRES_REVIEW.
+EXPECTED: exposure: 3x annual premium (indemnification's own figure, not liability's $2,000,000)
+REASON: Liability + indemnification cross-clause-leakage test: each adapter should extract only its own clause's figure — the indemnification adapter's exposure value should be 3x, not $2,000,000.
+
+=== A4-COMP-10 [payment_terms/compound] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+explanation: Contract language: "1. Definitions. 'Import Broker' means the entity retained to prepare customs entries; Importer of Record compensates Import Broker under Exhibit F.
+
+9. Limitation of Liability. Import Broker's aggregate liability shall not exceed $500,000.
+
+7. Taxes. Import Broker shall be responsible for any duties and taxes advanced on Importer of Record's behalf.". No policy gaps found. Result: ACCEPT.
+EXPECTED: engage: reimbursement/tax topic (payment adapter should not import the $500,000 liability figure)
+REASON: Liability + payment cross-clause-leakage test: the payment_terms adapter should recognize and evaluate its own tax/reimbursement clause without importing the unrelated liability figure.
+
+=== A4-A-01-FMT-caps [base=A4-A-01] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+EXPECTED: side=buy_side, value=2x annual fees
+
+=== A4-A-02-FMT-no-heading [base=A4-A-02] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+EXPECTED: side=sell_side, value=1x annual fees
+
+=== A4-C-01-FMT-linebreaks [base=A4-C-01] label=AUTOMATABLE ===
+STATE: ESCALATE
+extracted_summary: '$1,000,000.00 fixed'
+unresolved_facts: []
+our_position: None
+EXPECTED: $1,000,000
+
+=== A4-C-02-FMT-compressed [base=A4-C-02] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (multiple distinct cap values found for the general clause; cannot determine which governs)']
+our_position: None
+EXPECTED: 2 times the annual fees paid
+
+=== A4-D-06-FMT-semicolons [base=A4-D-06] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (clause distinguishes per-claim and aggregate caps with different values; policy threshold scope (per-claim vs. aggregate) is not specified)']
+our_position: None
+EXPECTED: per-claim $500,000 / aggregate $2,000,000
+
+=== A4-C-18-FMT-numbered-list [base=A4-C-18] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+EXPECTED: 2 times the annual fees paid
+
+=== A4-C-19-FMT-bullets [base=A4-C-19] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (delegates to "Exhibit K" — referenced provision "Exhibit K" was not found elsewhere in the extracted document text)']
+our_position: None
+EXPECTED: $875,000
+
+=== A4-A-01-FMT-unquoted [base=A4-A-01] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+EXPECTED: side=buy_side, value=2x annual fees
+
+=== A4-D-11-FMT-table-normalized [base=A4-D-11] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: '1x annual fees'
+unresolved_facts: []
+our_position: None
+EXPECTED: 1 times the annual fees paid
+
+=== A4-B-01-FMT-whitespace [base=A4-B-01] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+EXPECTED: side=sell_side (generic), value=2x annual fees
+
+=== A4-F-05-FMT-caps [base=A4-F-05] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Payment terms clause found; limited structured detail extractable'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+EXPECTED: engage: set-off (prohibited for Tenant)
+
+=== A4-E-01-FMT-linebreaks [base=A4-E-01] label=AUTOMATABLE ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: 'Exposure: 2x annual fees; Protection: present'
+unresolved_facts: []
+our_position: {'exposure': 'Each Party', 'protection': 'the Other Party'}
+EXPECTED: symmetric 2x fees, no asymmetry
+
+=== A4-J-01-FMT-semicolons [base=A4-J-01] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["clause opens with reciprocal ('each party'/'mutual') language, but states materially different terms per named party (the general terms and Underwriter state different monetary terms (1x annual fees vs 5x annual fees)) — cannot confirm the clause is actually symmetric, so which named party's terms are ours cannot be determined from this opener alone"]
+our_position: {'exposure': None, 'protection': None}
+EXPECTED: None
+
+=== A4-G-01-FMT-no-heading [base=A4-G-01] label=SHOULD_REVIEW ===
+STATE: ACCEPT_WITH_NOTE
+extracted_summary: '2x annual fees'
+unresolved_facts: []
+our_position: None
+EXPECTED: None
+
+=== A4-H-01-FMT-compressed [base=A4-H-01] label=SHOULD_REVIEW ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (multiple distinct cap values found for the general clause; cannot determine which governs)']
+our_position: None
+EXPECTED: None
+
+=== A4-F-06-FMT-caps [base=A4-F-06] label=AUTOMATABLE ===
+STATE: ACCEPT
+extracted_summary: 'Currency: JPY'
+unresolved_facts: []
+our_position: {'payor_side': None, 'tax_side': None}
+EXPECTED: engage: currency (JPY)
+
+=== A4-K-15-FMT-whitespace [base=A4-K-15] label=AUTOMATABLE ===
+STATE: NOT_APPLICABLE
+extracted_summary: 'No limitation-of-liability clause found'
+unresolved_facts: []
+our_position: None
+EXPECTED: 2 times the annual fees paid
+
+=== A4-COMP-01-FMT-linebreaks [base=A4-COMP-01] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['general liability cap (cap is expressed as a multiplier of Other, not fees — policy thresholds are defined as a multiplier of annual fees and this cannot be compared without additional information)']
+our_position: None
+EXPECTED: 2 times the annual premium paid
+
+=== A4-D-04-FMT-numbered [base=A4-D-04] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ["general liability cap (a 'greater of' structure was signaled but its component values could not both be extracted)"]
+our_position: None
+EXPECTED: greater of $500,000 / 2x annual fees
+
+=== A4-I-11-FMT-caps-quoted [base=A4-I-11] label=AUTOMATABLE ===
+STATE: REQUIRES_REVIEW
+extracted_summary: 'Could not be reliably established'
+unresolved_facts: ['tax responsibility is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position']
+our_position: {'payor_side': None, 'tax_side': None}
+EXPECTED: tax on us (Telecom Reseller=buy_side) — policy VIOLATED
+

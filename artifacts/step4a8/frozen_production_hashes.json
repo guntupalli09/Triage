@@ -1,0 +1,12 @@
+{
+  "frozen_sha": "8ce89f87362778032ddbaea11b54b1f829d8b7c6",
+  "recorded_at_step": "4A.8 Phase 0",
+  "hash_algorithm": "sha256",
+  "files": {
+    "policy_engine_core.py": "7685ee4bc1bbc757b6157878ba4d26e67c84df81ed812517011d200215e4339f",
+    "liability_policy_engine.py": "a6ee11a552882cbf5e3106cca7619d1ec837cae24772c730b270f55899bf2b20",
+    "indemnification_policy_engine.py": "0e1779eb9a2d7b703cdc5fdf56f16549cb9a1aa226173c5231fa7cc31ac198af",
+    "payment_terms_policy_engine.py": "60cacfe41a61c16d4362f3ed305d05671981f8ebba8a560cf7547bd4e4122d33"
+  },
+  "note": "These are the only production modules involved in extraction/policy evaluation for the three adapters under test (verified by inspecting benchmarks/run_step4a4_heldout.py's imports, the shared execution harness used throughout Steps 4A.4-4A.7.4). liability_policy_engine.py, indemnification_policy_engine.py, and payment_terms_policy_engine.py each import shared primitives from policy_engine_core.py; no other production module is reachable from the adapter entry points (extract_*_facts / evaluate_*_policy)."
+}

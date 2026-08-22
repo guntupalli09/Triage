@@ -1,0 +1,1162 @@
+{
+  "cases": [
+    {
+      "id": "segG-001-single-exact-match-0",
+      "family": "single-exact-match",
+      "passed": true,
+      "notes": "picked=2 expected=2"
+    },
+    {
+      "id": "segG-002-single-exact-match-1",
+      "family": "single-exact-match",
+      "passed": true,
+      "notes": "picked=4 expected=4"
+    },
+    {
+      "id": "segG-003-single-exact-match-2",
+      "family": "single-exact-match",
+      "passed": true,
+      "notes": "picked=6 expected=6"
+    },
+    {
+      "id": "segG-004-single-exact-match-3",
+      "family": "single-exact-match",
+      "passed": true,
+      "notes": "picked=8 expected=8"
+    },
+    {
+      "id": "segG-005-single-exact-match-4",
+      "family": "single-exact-match",
+      "passed": true,
+      "notes": "picked=10 expected=10"
+    },
+    {
+      "id": "segG-006-single-exact-match-5",
+      "family": "single-exact-match",
+      "passed": true,
+      "notes": "picked=12 expected=12"
+    },
+    {
+      "id": "segG-007-single-exact-match-6",
+      "family": "single-exact-match",
+      "passed": true,
+      "notes": "picked=14 expected=14"
+    },
+    {
+      "id": "segG-008-single-exact-match-7",
+      "family": "single-exact-match",
+      "passed": true,
+      "notes": "picked=16 expected=16"
+    },
+    {
+      "id": "segG-009-single-exact-match-8",
+      "family": "single-exact-match",
+      "passed": true,
+      "notes": "picked=18 expected=18"
+    },
+    {
+      "id": "segG-010-single-exact-match-9",
+      "family": "single-exact-match",
+      "passed": true,
+      "notes": "picked=20 expected=20"
+    },
+    {
+      "id": "segG-011-fallback-to-global-0",
+      "family": "fallback-default",
+      "passed": true,
+      "notes": "picked=21 expected_global=21"
+    },
+    {
+      "id": "segG-012-fallback-to-global-1",
+      "family": "fallback-default",
+      "passed": true,
+      "notes": "picked=23 expected_global=23"
+    },
+    {
+      "id": "segG-013-fallback-to-global-2",
+      "family": "fallback-default",
+      "passed": true,
+      "notes": "picked=25 expected_global=25"
+    },
+    {
+      "id": "segG-014-fallback-to-global-3",
+      "family": "fallback-default",
+      "passed": true,
+      "notes": "picked=27 expected_global=27"
+    },
+    {
+      "id": "segG-015-fallback-to-global-4",
+      "family": "fallback-default",
+      "passed": true,
+      "notes": "picked=29 expected_global=29"
+    },
+    {
+      "id": "segG-016-fallback-to-global-5",
+      "family": "fallback-default",
+      "passed": true,
+      "notes": "picked=31 expected_global=31"
+    },
+    {
+      "id": "segG-017-fallback-to-global-6",
+      "family": "fallback-default",
+      "passed": true,
+      "notes": "picked=33 expected_global=33"
+    },
+    {
+      "id": "segG-018-fallback-to-global-7",
+      "family": "fallback-default",
+      "passed": true,
+      "notes": "picked=35 expected_global=35"
+    },
+    {
+      "id": "segG-019-fallback-to-global-8",
+      "family": "fallback-default",
+      "passed": true,
+      "notes": "picked=37 expected_global=37"
+    },
+    {
+      "id": "segG-020-fallback-to-global-9",
+      "family": "fallback-default",
+      "passed": true,
+      "notes": "picked=39 expected_global=39"
+    },
+    {
+      "id": "segG-021-no-match-no-fallback-0",
+      "family": "no-match-skipped-not-guessed",
+      "passed": true,
+      "notes": "snap={} -- no GLOBAL fallback exists, must skip not guess"
+    },
+    {
+      "id": "segG-022-no-match-no-fallback-1",
+      "family": "no-match-skipped-not-guessed",
+      "passed": true,
+      "notes": "snap={} -- no GLOBAL fallback exists, must skip not guess"
+    },
+    {
+      "id": "segG-023-no-match-no-fallback-2",
+      "family": "no-match-skipped-not-guessed",
+      "passed": true,
+      "notes": "snap={} -- no GLOBAL fallback exists, must skip not guess"
+    },
+    {
+      "id": "segG-024-no-match-no-fallback-3",
+      "family": "no-match-skipped-not-guessed",
+      "passed": true,
+      "notes": "snap={} -- no GLOBAL fallback exists, must skip not guess"
+    },
+    {
+      "id": "segG-025-no-match-no-fallback-4",
+      "family": "no-match-skipped-not-guessed",
+      "passed": true,
+      "notes": "snap={} -- no GLOBAL fallback exists, must skip not guess"
+    },
+    {
+      "id": "segG-026-no-match-no-fallback-5",
+      "family": "no-match-skipped-not-guessed",
+      "passed": true,
+      "notes": "snap={} -- no GLOBAL fallback exists, must skip not guess"
+    },
+    {
+      "id": "segG-027-no-match-no-fallback-6",
+      "family": "no-match-skipped-not-guessed",
+      "passed": true,
+      "notes": "snap={} -- no GLOBAL fallback exists, must skip not guess"
+    },
+    {
+      "id": "segG-028-no-match-no-fallback-7",
+      "family": "no-match-skipped-not-guessed",
+      "passed": true,
+      "notes": "snap={} -- no GLOBAL fallback exists, must skip not guess"
+    },
+    {
+      "id": "segG-029-no-match-no-fallback-8",
+      "family": "no-match-skipped-not-guessed",
+      "passed": true,
+      "notes": "snap={} -- no GLOBAL fallback exists, must skip not guess"
+    },
+    {
+      "id": "segG-030-no-match-no-fallback-9",
+      "family": "no-match-skipped-not-guessed",
+      "passed": true,
+      "notes": "snap={} -- no GLOBAL fallback exists, must skip not guess"
+    },
+    {
+      "id": "segG-031-lower-boundary-inclusive-0",
+      "family": "deal-value-lower-boundary",
+      "passed": true,
+      "notes": "exact_boundary=52 below=51"
+    },
+    {
+      "id": "segG-032-lower-boundary-inclusive-1",
+      "family": "deal-value-lower-boundary",
+      "passed": true,
+      "notes": "exact_boundary=54 below=53"
+    },
+    {
+      "id": "segG-033-lower-boundary-inclusive-2",
+      "family": "deal-value-lower-boundary",
+      "passed": true,
+      "notes": "exact_boundary=56 below=55"
+    },
+    {
+      "id": "segG-034-lower-boundary-inclusive-3",
+      "family": "deal-value-lower-boundary",
+      "passed": true,
+      "notes": "exact_boundary=58 below=57"
+    },
+    {
+      "id": "segG-035-lower-boundary-inclusive-4",
+      "family": "deal-value-lower-boundary",
+      "passed": true,
+      "notes": "exact_boundary=60 below=59"
+    },
+    {
+      "id": "segG-036-lower-boundary-inclusive-5",
+      "family": "deal-value-lower-boundary",
+      "passed": true,
+      "notes": "exact_boundary=62 below=61"
+    },
+    {
+      "id": "segG-037-lower-boundary-inclusive-6",
+      "family": "deal-value-lower-boundary",
+      "passed": true,
+      "notes": "exact_boundary=64 below=63"
+    },
+    {
+      "id": "segG-038-lower-boundary-inclusive-7",
+      "family": "deal-value-lower-boundary",
+      "passed": true,
+      "notes": "exact_boundary=66 below=65"
+    },
+    {
+      "id": "segG-039-lower-boundary-inclusive-8",
+      "family": "deal-value-lower-boundary",
+      "passed": true,
+      "notes": "exact_boundary=68 below=67"
+    },
+    {
+      "id": "segG-040-lower-boundary-inclusive-9",
+      "family": "deal-value-lower-boundary",
+      "passed": true,
+      "notes": "exact_boundary=70 below=69"
+    },
+    {
+      "id": "segG-041-upper-boundary-inclusive-0",
+      "family": "deal-value-upper-boundary",
+      "passed": true,
+      "notes": "exact_boundary=72 above=71"
+    },
+    {
+      "id": "segG-042-upper-boundary-inclusive-1",
+      "family": "deal-value-upper-boundary",
+      "passed": true,
+      "notes": "exact_boundary=74 above=73"
+    },
+    {
+      "id": "segG-043-upper-boundary-inclusive-2",
+      "family": "deal-value-upper-boundary",
+      "passed": true,
+      "notes": "exact_boundary=76 above=75"
+    },
+    {
+      "id": "segG-044-upper-boundary-inclusive-3",
+      "family": "deal-value-upper-boundary",
+      "passed": true,
+      "notes": "exact_boundary=78 above=77"
+    },
+    {
+      "id": "segG-045-upper-boundary-inclusive-4",
+      "family": "deal-value-upper-boundary",
+      "passed": true,
+      "notes": "exact_boundary=80 above=79"
+    },
+    {
+      "id": "segG-046-upper-boundary-inclusive-5",
+      "family": "deal-value-upper-boundary",
+      "passed": true,
+      "notes": "exact_boundary=82 above=81"
+    },
+    {
+      "id": "segG-047-upper-boundary-inclusive-6",
+      "family": "deal-value-upper-boundary",
+      "passed": true,
+      "notes": "exact_boundary=84 above=83"
+    },
+    {
+      "id": "segG-048-upper-boundary-inclusive-7",
+      "family": "deal-value-upper-boundary",
+      "passed": true,
+      "notes": "exact_boundary=86 above=85"
+    },
+    {
+      "id": "segG-049-upper-boundary-inclusive-8",
+      "family": "deal-value-upper-boundary",
+      "passed": true,
+      "notes": "exact_boundary=88 above=87"
+    },
+    {
+      "id": "segG-050-upper-boundary-inclusive-9",
+      "family": "deal-value-upper-boundary",
+      "passed": true,
+      "notes": "exact_boundary=90 above=89"
+    },
+    {
+      "id": "segG-051-overlapping-ranges-0",
+      "family": "overlapping-ranges-broad-and-narrow",
+      "passed": true,
+      "notes": "picked=92 expected_lowest_id=92 (equal specificity=2 for both broad and narrow -- range width does not affect specificity, only field count; deterministic id tie-break applies, disclosed as a limitation)"
+    },
+    {
+      "id": "segG-052-overlapping-ranges-1",
+      "family": "overlapping-ranges-broad-and-narrow",
+      "passed": true,
+      "notes": "picked=95 expected_lowest_id=95 (equal specificity=2 for both broad and narrow -- range width does not affect specificity, only field count; deterministic id tie-break applies, disclosed as a limitation)"
+    },
+    {
+      "id": "segG-053-overlapping-ranges-2",
+      "family": "overlapping-ranges-broad-and-narrow",
+      "passed": true,
+      "notes": "picked=98 expected_lowest_id=98 (equal specificity=2 for both broad and narrow -- range width does not affect specificity, only field count; deterministic id tie-break applies, disclosed as a limitation)"
+    },
+    {
+      "id": "segG-054-overlapping-ranges-3",
+      "family": "overlapping-ranges-broad-and-narrow",
+      "passed": true,
+      "notes": "picked=101 expected_lowest_id=101 (equal specificity=2 for both broad and narrow -- range width does not affect specificity, only field count; deterministic id tie-break applies, disclosed as a limitation)"
+    },
+    {
+      "id": "segG-055-overlapping-ranges-4",
+      "family": "overlapping-ranges-broad-and-narrow",
+      "passed": true,
+      "notes": "picked=104 expected_lowest_id=104 (equal specificity=2 for both broad and narrow -- range width does not affect specificity, only field count; deterministic id tie-break applies, disclosed as a limitation)"
+    },
+    {
+      "id": "segG-056-overlapping-ranges-5",
+      "family": "overlapping-ranges-broad-and-narrow",
+      "passed": true,
+      "notes": "picked=107 expected_lowest_id=107 (equal specificity=2 for both broad and narrow -- range width does not affect specificity, only field count; deterministic id tie-break applies, disclosed as a limitation)"
+    },
+    {
+      "id": "segG-057-overlapping-ranges-6",
+      "family": "overlapping-ranges-broad-and-narrow",
+      "passed": true,
+      "notes": "picked=110 expected_lowest_id=110 (equal specificity=2 for both broad and narrow -- range width does not affect specificity, only field count; deterministic id tie-break applies, disclosed as a limitation)"
+    },
+    {
+      "id": "segG-058-overlapping-ranges-7",
+      "family": "overlapping-ranges-broad-and-narrow",
+      "passed": true,
+      "notes": "picked=113 expected_lowest_id=113 (equal specificity=2 for both broad and narrow -- range width does not affect specificity, only field count; deterministic id tie-break applies, disclosed as a limitation)"
+    },
+    {
+      "id": "segG-059-overlapping-ranges-8",
+      "family": "overlapping-ranges-broad-and-narrow",
+      "passed": true,
+      "notes": "picked=116 expected_lowest_id=116 (equal specificity=2 for both broad and narrow -- range width does not affect specificity, only field count; deterministic id tie-break applies, disclosed as a limitation)"
+    },
+    {
+      "id": "segG-060-overlapping-ranges-9",
+      "family": "overlapping-ranges-broad-and-narrow",
+      "passed": true,
+      "notes": "picked=119 expected_lowest_id=119 (equal specificity=2 for both broad and narrow -- range width does not affect specificity, only field count; deterministic id tie-break applies, disclosed as a limitation)"
+    },
+    {
+      "id": "segG-061-missing-metadata-0",
+      "family": "missing-metadata-fails-closed-to-global",
+      "passed": true,
+      "notes": "missing deal_value context -- picked=121 expected_global=121"
+    },
+    {
+      "id": "segG-062-missing-metadata-1",
+      "family": "missing-metadata-fails-closed-to-global",
+      "passed": true,
+      "notes": "missing deal_value context -- picked=123 expected_global=123"
+    },
+    {
+      "id": "segG-063-missing-metadata-2",
+      "family": "missing-metadata-fails-closed-to-global",
+      "passed": true,
+      "notes": "missing deal_value context -- picked=125 expected_global=125"
+    },
+    {
+      "id": "segG-064-missing-metadata-3",
+      "family": "missing-metadata-fails-closed-to-global",
+      "passed": true,
+      "notes": "missing deal_value context -- picked=127 expected_global=127"
+    },
+    {
+      "id": "segG-065-missing-metadata-4",
+      "family": "missing-metadata-fails-closed-to-global",
+      "passed": true,
+      "notes": "missing deal_value context -- picked=129 expected_global=129"
+    },
+    {
+      "id": "segG-066-missing-metadata-5",
+      "family": "missing-metadata-fails-closed-to-global",
+      "passed": true,
+      "notes": "missing deal_value context -- picked=131 expected_global=131"
+    },
+    {
+      "id": "segG-067-missing-metadata-6",
+      "family": "missing-metadata-fails-closed-to-global",
+      "passed": true,
+      "notes": "missing deal_value context -- picked=133 expected_global=133"
+    },
+    {
+      "id": "segG-068-missing-metadata-7",
+      "family": "missing-metadata-fails-closed-to-global",
+      "passed": true,
+      "notes": "missing deal_value context -- picked=135 expected_global=135"
+    },
+    {
+      "id": "segG-069-missing-metadata-8",
+      "family": "missing-metadata-fails-closed-to-global",
+      "passed": true,
+      "notes": "missing deal_value context -- picked=137 expected_global=137"
+    },
+    {
+      "id": "segG-070-missing-metadata-9",
+      "family": "missing-metadata-fails-closed-to-global",
+      "passed": true,
+      "notes": "missing deal_value context -- picked=139 expected_global=139"
+    },
+    {
+      "id": "segG-071-malformed-metadata-70",
+      "family": "malformed-metadata",
+      "passed": true,
+      "notes": "malformed deal_value=None picked=141 (must not silently satisfy the tier bound)"
+    },
+    {
+      "id": "segG-072-malformed-metadata-71",
+      "family": "malformed-metadata",
+      "passed": true,
+      "notes": "malformed deal_value='not-a-number' picked=143 (must not silently satisfy the tier bound)"
+    },
+    {
+      "id": "segG-073-malformed-metadata-72",
+      "family": "malformed-metadata",
+      "passed": true,
+      "notes": "malformed deal_value=nan picked=145 (must not silently satisfy the tier bound)"
+    },
+    {
+      "id": "segG-074-malformed-metadata-73",
+      "family": "malformed-metadata",
+      "passed": true,
+      "notes": "malformed deal_value=-1 picked=147 (must not silently satisfy the tier bound)"
+    },
+    {
+      "id": "segG-075-malformed-metadata-74",
+      "family": "malformed-metadata",
+      "passed": true,
+      "notes": "malformed deal_value='1000000' picked=149 (must not silently satisfy the tier bound)"
+    },
+    {
+      "id": "segG-076-wrong-business-unit-0",
+      "family": "wrong-business-unit",
+      "passed": true,
+      "notes": "wrong business_unit -- picked=151 expected_global=151"
+    },
+    {
+      "id": "segG-077-wrong-business-unit-1",
+      "family": "wrong-business-unit",
+      "passed": true,
+      "notes": "wrong business_unit -- picked=153 expected_global=153"
+    },
+    {
+      "id": "segG-078-wrong-business-unit-2",
+      "family": "wrong-business-unit",
+      "passed": true,
+      "notes": "wrong business_unit -- picked=155 expected_global=155"
+    },
+    {
+      "id": "segG-079-wrong-business-unit-3",
+      "family": "wrong-business-unit",
+      "passed": true,
+      "notes": "wrong business_unit -- picked=157 expected_global=157"
+    },
+    {
+      "id": "segG-080-wrong-business-unit-4",
+      "family": "wrong-business-unit",
+      "passed": true,
+      "notes": "wrong business_unit -- picked=159 expected_global=159"
+    },
+    {
+      "id": "segG-081-wrong-business-unit-5",
+      "family": "wrong-business-unit",
+      "passed": true,
+      "notes": "wrong business_unit -- picked=161 expected_global=161"
+    },
+    {
+      "id": "segG-082-wrong-business-unit-6",
+      "family": "wrong-business-unit",
+      "passed": true,
+      "notes": "wrong business_unit -- picked=163 expected_global=163"
+    },
+    {
+      "id": "segG-083-wrong-business-unit-7",
+      "family": "wrong-business-unit",
+      "passed": true,
+      "notes": "wrong business_unit -- picked=165 expected_global=165"
+    },
+    {
+      "id": "segG-084-wrong-business-unit-8",
+      "family": "wrong-business-unit",
+      "passed": true,
+      "notes": "wrong business_unit -- picked=167 expected_global=167"
+    },
+    {
+      "id": "segG-085-wrong-business-unit-9",
+      "family": "wrong-business-unit",
+      "passed": true,
+      "notes": "wrong business_unit -- picked=169 expected_global=169"
+    },
+    {
+      "id": "segG-086-wrong-customer-type-0",
+      "family": "wrong-customer-type",
+      "passed": true,
+      "notes": "wrong customer_type -- picked=171 expected_global=171"
+    },
+    {
+      "id": "segG-087-wrong-customer-type-1",
+      "family": "wrong-customer-type",
+      "passed": true,
+      "notes": "wrong customer_type -- picked=173 expected_global=173"
+    },
+    {
+      "id": "segG-088-wrong-customer-type-2",
+      "family": "wrong-customer-type",
+      "passed": true,
+      "notes": "wrong customer_type -- picked=175 expected_global=175"
+    },
+    {
+      "id": "segG-089-wrong-customer-type-3",
+      "family": "wrong-customer-type",
+      "passed": true,
+      "notes": "wrong customer_type -- picked=177 expected_global=177"
+    },
+    {
+      "id": "segG-090-wrong-customer-type-4",
+      "family": "wrong-customer-type",
+      "passed": true,
+      "notes": "wrong customer_type -- picked=179 expected_global=179"
+    },
+    {
+      "id": "segG-091-wrong-customer-type-5",
+      "family": "wrong-customer-type",
+      "passed": true,
+      "notes": "wrong customer_type -- picked=181 expected_global=181"
+    },
+    {
+      "id": "segG-092-wrong-customer-type-6",
+      "family": "wrong-customer-type",
+      "passed": true,
+      "notes": "wrong customer_type -- picked=183 expected_global=183"
+    },
+    {
+      "id": "segG-093-wrong-customer-type-7",
+      "family": "wrong-customer-type",
+      "passed": true,
+      "notes": "wrong customer_type -- picked=185 expected_global=185"
+    },
+    {
+      "id": "segG-094-wrong-customer-type-8",
+      "family": "wrong-customer-type",
+      "passed": true,
+      "notes": "wrong customer_type -- picked=187 expected_global=187"
+    },
+    {
+      "id": "segG-095-wrong-customer-type-9",
+      "family": "wrong-customer-type",
+      "passed": true,
+      "notes": "wrong customer_type -- picked=189 expected_global=189"
+    },
+    {
+      "id": "segG-096-conflicting-metadata-0",
+      "family": "conflicting-metadata-partial-match-rejected",
+      "passed": true,
+      "notes": "partial/conflicting metadata -- picked=191 expected_global=191 (position requiring BOTH must not match on partial agreement)"
+    },
+    {
+      "id": "segG-097-conflicting-metadata-1",
+      "family": "conflicting-metadata-partial-match-rejected",
+      "passed": true,
+      "notes": "partial/conflicting metadata -- picked=193 expected_global=193 (position requiring BOTH must not match on partial agreement)"
+    },
+    {
+      "id": "segG-098-conflicting-metadata-2",
+      "family": "conflicting-metadata-partial-match-rejected",
+      "passed": true,
+      "notes": "partial/conflicting metadata -- picked=195 expected_global=195 (position requiring BOTH must not match on partial agreement)"
+    },
+    {
+      "id": "segG-099-conflicting-metadata-3",
+      "family": "conflicting-metadata-partial-match-rejected",
+      "passed": true,
+      "notes": "partial/conflicting metadata -- picked=197 expected_global=197 (position requiring BOTH must not match on partial agreement)"
+    },
+    {
+      "id": "segG-100-conflicting-metadata-4",
+      "family": "conflicting-metadata-partial-match-rejected",
+      "passed": true,
+      "notes": "partial/conflicting metadata -- picked=199 expected_global=199 (position requiring BOTH must not match on partial agreement)"
+    },
+    {
+      "id": "segG-101-conflicting-metadata-5",
+      "family": "conflicting-metadata-partial-match-rejected",
+      "passed": true,
+      "notes": "partial/conflicting metadata -- picked=201 expected_global=201 (position requiring BOTH must not match on partial agreement)"
+    },
+    {
+      "id": "segG-102-conflicting-metadata-6",
+      "family": "conflicting-metadata-partial-match-rejected",
+      "passed": true,
+      "notes": "partial/conflicting metadata -- picked=203 expected_global=203 (position requiring BOTH must not match on partial agreement)"
+    },
+    {
+      "id": "segG-103-conflicting-metadata-7",
+      "family": "conflicting-metadata-partial-match-rejected",
+      "passed": true,
+      "notes": "partial/conflicting metadata -- picked=205 expected_global=205 (position requiring BOTH must not match on partial agreement)"
+    },
+    {
+      "id": "segG-104-archived-segment-not-governing-0",
+      "family": "disabled-superseded-segment",
+      "passed": true,
+      "notes": "archived segment must not govern -- picked=207 expected_global=207"
+    },
+    {
+      "id": "segG-105-archived-segment-not-governing-1",
+      "family": "disabled-superseded-segment",
+      "passed": true,
+      "notes": "archived segment must not govern -- picked=209 expected_global=209"
+    },
+    {
+      "id": "segG-106-archived-segment-not-governing-2",
+      "family": "disabled-superseded-segment",
+      "passed": true,
+      "notes": "archived segment must not govern -- picked=211 expected_global=211"
+    },
+    {
+      "id": "segG-107-archived-segment-not-governing-3",
+      "family": "disabled-superseded-segment",
+      "passed": true,
+      "notes": "archived segment must not govern -- picked=213 expected_global=213"
+    },
+    {
+      "id": "segG-108-archived-segment-not-governing-4",
+      "family": "disabled-superseded-segment",
+      "passed": true,
+      "notes": "archived segment must not govern -- picked=215 expected_global=215"
+    },
+    {
+      "id": "segG-109-archived-segment-not-governing-5",
+      "family": "disabled-superseded-segment",
+      "passed": true,
+      "notes": "archived segment must not govern -- picked=217 expected_global=217"
+    },
+    {
+      "id": "segG-110-archived-segment-not-governing-6",
+      "family": "disabled-superseded-segment",
+      "passed": true,
+      "notes": "archived segment must not govern -- picked=219 expected_global=219"
+    },
+    {
+      "id": "segG-111-archived-segment-not-governing-7",
+      "family": "disabled-superseded-segment",
+      "passed": true,
+      "notes": "archived segment must not govern -- picked=221 expected_global=221"
+    },
+    {
+      "id": "segG-112-segment-revision-mismatch-0",
+      "family": "segment-revision-mismatch",
+      "passed": true,
+      "notes": "segment revision mismatch -- picked=224 expected_new=224"
+    },
+    {
+      "id": "segG-113-segment-revision-mismatch-1",
+      "family": "segment-revision-mismatch",
+      "passed": true,
+      "notes": "segment revision mismatch -- picked=226 expected_new=226"
+    },
+    {
+      "id": "segG-114-segment-revision-mismatch-2",
+      "family": "segment-revision-mismatch",
+      "passed": true,
+      "notes": "segment revision mismatch -- picked=228 expected_new=228"
+    },
+    {
+      "id": "segG-115-segment-revision-mismatch-3",
+      "family": "segment-revision-mismatch",
+      "passed": true,
+      "notes": "segment revision mismatch -- picked=230 expected_new=230"
+    },
+    {
+      "id": "segG-116-segment-revision-mismatch-4",
+      "family": "segment-revision-mismatch",
+      "passed": true,
+      "notes": "segment revision mismatch -- picked=232 expected_new=232"
+    },
+    {
+      "id": "segG-117-segment-revision-mismatch-5",
+      "family": "segment-revision-mismatch",
+      "passed": true,
+      "notes": "segment revision mismatch -- picked=234 expected_new=234"
+    },
+    {
+      "id": "segG-118-two-equal-specificity-tiebreak-0",
+      "family": "two-equally-specific-segments",
+      "passed": true,
+      "notes": "two equally-specific (specificity=1) segments both match -- picked=235 expected_lowest_id=235"
+    },
+    {
+      "id": "segG-119-two-equal-specificity-tiebreak-1",
+      "family": "two-equally-specific-segments",
+      "passed": true,
+      "notes": "two equally-specific (specificity=1) segments both match -- picked=237 expected_lowest_id=237"
+    },
+    {
+      "id": "segG-120-two-equal-specificity-tiebreak-2",
+      "family": "two-equally-specific-segments",
+      "passed": true,
+      "notes": "two equally-specific (specificity=1) segments both match -- picked=239 expected_lowest_id=239"
+    },
+    {
+      "id": "segG-121-two-equal-specificity-tiebreak-3",
+      "family": "two-equally-specific-segments",
+      "passed": true,
+      "notes": "two equally-specific (specificity=1) segments both match -- picked=241 expected_lowest_id=241"
+    },
+    {
+      "id": "segG-122-two-equal-specificity-tiebreak-4",
+      "family": "two-equally-specific-segments",
+      "passed": true,
+      "notes": "two equally-specific (specificity=1) segments both match -- picked=243 expected_lowest_id=243"
+    },
+    {
+      "id": "segG-123-two-equal-specificity-tiebreak-5",
+      "family": "two-equally-specific-segments",
+      "passed": true,
+      "notes": "two equally-specific (specificity=1) segments both match -- picked=245 expected_lowest_id=245"
+    },
+    {
+      "id": "segG-124-two-equal-specificity-tiebreak-6",
+      "family": "two-equally-specific-segments",
+      "passed": true,
+      "notes": "two equally-specific (specificity=1) segments both match -- picked=247 expected_lowest_id=247"
+    },
+    {
+      "id": "segG-125-two-equal-specificity-tiebreak-7",
+      "family": "two-equally-specific-segments",
+      "passed": true,
+      "notes": "two equally-specific (specificity=1) segments both match -- picked=249 expected_lowest_id=249"
+    },
+    {
+      "id": "segG-126-broad-plus-narrow-0",
+      "family": "broad-plus-narrow-segment",
+      "passed": true,
+      "notes": "picked=252 expected_narrow=252"
+    },
+    {
+      "id": "segG-127-broad-plus-narrow-1",
+      "family": "broad-plus-narrow-segment",
+      "passed": true,
+      "notes": "picked=254 expected_narrow=254"
+    },
+    {
+      "id": "segG-128-broad-plus-narrow-2",
+      "family": "broad-plus-narrow-segment",
+      "passed": true,
+      "notes": "picked=256 expected_narrow=256"
+    },
+    {
+      "id": "segG-129-broad-plus-narrow-3",
+      "family": "broad-plus-narrow-segment",
+      "passed": true,
+      "notes": "picked=258 expected_narrow=258"
+    },
+    {
+      "id": "segG-130-broad-plus-narrow-4",
+      "family": "broad-plus-narrow-segment",
+      "passed": true,
+      "notes": "picked=260 expected_narrow=260"
+    },
+    {
+      "id": "segG-131-broad-plus-narrow-5",
+      "family": "broad-plus-narrow-segment",
+      "passed": true,
+      "notes": "picked=262 expected_narrow=262"
+    },
+    {
+      "id": "segG-132-broad-plus-narrow-6",
+      "family": "broad-plus-narrow-segment",
+      "passed": true,
+      "notes": "picked=264 expected_narrow=264"
+    },
+    {
+      "id": "segG-133-broad-plus-narrow-7",
+      "family": "broad-plus-narrow-segment",
+      "passed": true,
+      "notes": "picked=266 expected_narrow=266"
+    },
+    {
+      "id": "segG-134-same-metadata-diff-playbook-revision-0",
+      "family": "same-metadata-different-playbook-revision",
+      "passed": true,
+      "notes": "old_review_pin=267 (expect 267), current_governing=268 (expect 268)"
+    },
+    {
+      "id": "segG-135-same-metadata-diff-playbook-revision-1",
+      "family": "same-metadata-different-playbook-revision",
+      "passed": true,
+      "notes": "old_review_pin=269 (expect 269), current_governing=270 (expect 270)"
+    },
+    {
+      "id": "segG-136-same-metadata-diff-playbook-revision-2",
+      "family": "same-metadata-different-playbook-revision",
+      "passed": true,
+      "notes": "old_review_pin=271 (expect 271), current_governing=272 (expect 272)"
+    },
+    {
+      "id": "segG-137-same-metadata-diff-playbook-revision-3",
+      "family": "same-metadata-different-playbook-revision",
+      "passed": true,
+      "notes": "old_review_pin=273 (expect 273), current_governing=274 (expect 274)"
+    },
+    {
+      "id": "segG-138-same-metadata-diff-playbook-revision-4",
+      "family": "same-metadata-different-playbook-revision",
+      "passed": true,
+      "notes": "old_review_pin=275 (expect 275), current_governing=276 (expect 276)"
+    },
+    {
+      "id": "segG-139-same-metadata-diff-playbook-revision-5",
+      "family": "same-metadata-different-playbook-revision",
+      "passed": true,
+      "notes": "old_review_pin=277 (expect 277), current_governing=278 (expect 278)"
+    },
+    {
+      "id": "segG-140-same-metadata-diff-playbook-revision-6",
+      "family": "same-metadata-different-playbook-revision",
+      "passed": true,
+      "notes": "old_review_pin=279 (expect 279), current_governing=280 (expect 280)"
+    },
+    {
+      "id": "segG-141-same-metadata-diff-playbook-revision-7",
+      "family": "same-metadata-different-playbook-revision",
+      "passed": true,
+      "notes": "old_review_pin=281 (expect 281), current_governing=282 (expect 282)"
+    },
+    {
+      "id": "segG-142-gxs-old-revision-old-segment-0",
+      "family": "governance-x-segment-old-old",
+      "passed": true,
+      "notes": "old playbook revision + old segment -- pin=283 expected=283"
+    },
+    {
+      "id": "segG-143-gxs-old-revision-old-segment-1",
+      "family": "governance-x-segment-old-old",
+      "passed": true,
+      "notes": "old playbook revision + old segment -- pin=284 expected=284"
+    },
+    {
+      "id": "segG-144-gxs-old-revision-old-segment-2",
+      "family": "governance-x-segment-old-old",
+      "passed": true,
+      "notes": "old playbook revision + old segment -- pin=285 expected=285"
+    },
+    {
+      "id": "segG-145-gxs-old-revision-old-segment-3",
+      "family": "governance-x-segment-old-old",
+      "passed": true,
+      "notes": "old playbook revision + old segment -- pin=286 expected=286"
+    },
+    {
+      "id": "segG-146-gxs-old-revision-old-segment-4",
+      "family": "governance-x-segment-old-old",
+      "passed": true,
+      "notes": "old playbook revision + old segment -- pin=287 expected=287"
+    },
+    {
+      "id": "segG-147-gxs-old-revision-old-segment-5",
+      "family": "governance-x-segment-old-old",
+      "passed": true,
+      "notes": "old playbook revision + old segment -- pin=288 expected=288"
+    },
+    {
+      "id": "segG-148-gxs-old-revision-old-segment-6",
+      "family": "governance-x-segment-old-old",
+      "passed": true,
+      "notes": "old playbook revision + old segment -- pin=289 expected=289"
+    },
+    {
+      "id": "segG-149-gxs-old-revision-old-segment-7",
+      "family": "governance-x-segment-old-old",
+      "passed": true,
+      "notes": "old playbook revision + old segment -- pin=290 expected=290"
+    },
+    {
+      "id": "segG-150-gxs-old-revision-old-segment-8",
+      "family": "governance-x-segment-old-old",
+      "passed": true,
+      "notes": "old playbook revision + old segment -- pin=291 expected=291"
+    },
+    {
+      "id": "segG-151-gxs-old-revision-old-segment-9",
+      "family": "governance-x-segment-old-old",
+      "passed": true,
+      "notes": "old playbook revision + old segment -- pin=292 expected=292"
+    },
+    {
+      "id": "segG-152-gxs-new-revision-changed-segment-0",
+      "family": "governance-x-segment-new-new",
+      "passed": true,
+      "notes": "new revision + changed segment -- picked=294 expected=294"
+    },
+    {
+      "id": "segG-153-gxs-new-revision-changed-segment-1",
+      "family": "governance-x-segment-new-new",
+      "passed": true,
+      "notes": "new revision + changed segment -- picked=296 expected=296"
+    },
+    {
+      "id": "segG-154-gxs-new-revision-changed-segment-2",
+      "family": "governance-x-segment-new-new",
+      "passed": true,
+      "notes": "new revision + changed segment -- picked=298 expected=298"
+    },
+    {
+      "id": "segG-155-gxs-new-revision-changed-segment-3",
+      "family": "governance-x-segment-new-new",
+      "passed": true,
+      "notes": "new revision + changed segment -- picked=300 expected=300"
+    },
+    {
+      "id": "segG-156-gxs-new-revision-changed-segment-4",
+      "family": "governance-x-segment-new-new",
+      "passed": true,
+      "notes": "new revision + changed segment -- picked=302 expected=302"
+    },
+    {
+      "id": "segG-157-gxs-new-revision-changed-segment-5",
+      "family": "governance-x-segment-new-new",
+      "passed": true,
+      "notes": "new revision + changed segment -- picked=304 expected=304"
+    },
+    {
+      "id": "segG-158-gxs-new-revision-changed-segment-6",
+      "family": "governance-x-segment-new-new",
+      "passed": true,
+      "notes": "new revision + changed segment -- picked=306 expected=306"
+    },
+    {
+      "id": "segG-159-gxs-new-revision-changed-segment-7",
+      "family": "governance-x-segment-new-new",
+      "passed": true,
+      "notes": "new revision + changed segment -- picked=308 expected=308"
+    },
+    {
+      "id": "segG-160-gxs-new-revision-changed-segment-8",
+      "family": "governance-x-segment-new-new",
+      "passed": true,
+      "notes": "new revision + changed segment -- picked=310 expected=310"
+    },
+    {
+      "id": "segG-161-gxs-new-revision-changed-segment-9",
+      "family": "governance-x-segment-new-new",
+      "passed": true,
+      "notes": "new revision + changed segment -- picked=312 expected=312"
+    },
+    {
+      "id": "segG-162-gxs-active-multi-segment-candidates-0",
+      "family": "governance-x-segment-multi-candidate",
+      "passed": true,
+      "notes": "active revision with multiple segment candidates -- picked=314 expected=314"
+    },
+    {
+      "id": "segG-163-gxs-active-multi-segment-candidates-1",
+      "family": "governance-x-segment-multi-candidate",
+      "passed": true,
+      "notes": "active revision with multiple segment candidates -- picked=317 expected=317"
+    },
+    {
+      "id": "segG-164-gxs-active-multi-segment-candidates-2",
+      "family": "governance-x-segment-multi-candidate",
+      "passed": true,
+      "notes": "active revision with multiple segment candidates -- picked=320 expected=320"
+    },
+    {
+      "id": "segG-165-gxs-active-multi-segment-candidates-3",
+      "family": "governance-x-segment-multi-candidate",
+      "passed": true,
+      "notes": "active revision with multiple segment candidates -- picked=323 expected=323"
+    },
+    {
+      "id": "segG-166-gxs-active-multi-segment-candidates-4",
+      "family": "governance-x-segment-multi-candidate",
+      "passed": true,
+      "notes": "active revision with multiple segment candidates -- picked=326 expected=326"
+    },
+    {
+      "id": "segG-167-gxs-active-multi-segment-candidates-5",
+      "family": "governance-x-segment-multi-candidate",
+      "passed": true,
+      "notes": "active revision with multiple segment candidates -- picked=329 expected=329"
+    },
+    {
+      "id": "segG-168-gxs-active-multi-segment-candidates-6",
+      "family": "governance-x-segment-multi-candidate",
+      "passed": true,
+      "notes": "active revision with multiple segment candidates -- picked=332 expected=332"
+    },
+    {
+      "id": "segG-169-gxs-active-multi-segment-candidates-7",
+      "family": "governance-x-segment-multi-candidate",
+      "passed": true,
+      "notes": "active revision with multiple segment candidates -- picked=335 expected=335"
+    },
+    {
+      "id": "segG-170-gxs-active-multi-segment-candidates-8",
+      "family": "governance-x-segment-multi-candidate",
+      "passed": true,
+      "notes": "active revision with multiple segment candidates -- picked=338 expected=338"
+    },
+    {
+      "id": "segG-171-gxs-active-multi-segment-candidates-9",
+      "family": "governance-x-segment-multi-candidate",
+      "passed": true,
+      "notes": "active revision with multiple segment candidates -- picked=341 expected=341"
+    },
+    {
+      "id": "segG-172-gxs-inactive-revision-matching-segment-0",
+      "family": "governance-x-segment-inactive-matching",
+      "passed": true,
+      "notes": "APPROVED-but-inactive matching segment must not govern -- picked=343 expected_global=343"
+    },
+    {
+      "id": "segG-173-gxs-inactive-revision-matching-segment-1",
+      "family": "governance-x-segment-inactive-matching",
+      "passed": true,
+      "notes": "APPROVED-but-inactive matching segment must not govern -- picked=345 expected_global=345"
+    },
+    {
+      "id": "segG-174-gxs-inactive-revision-matching-segment-2",
+      "family": "governance-x-segment-inactive-matching",
+      "passed": true,
+      "notes": "APPROVED-but-inactive matching segment must not govern -- picked=347 expected_global=347"
+    },
+    {
+      "id": "segG-175-gxs-inactive-revision-matching-segment-3",
+      "family": "governance-x-segment-inactive-matching",
+      "passed": true,
+      "notes": "APPROVED-but-inactive matching segment must not govern -- picked=349 expected_global=349"
+    },
+    {
+      "id": "segG-176-gxs-inactive-revision-matching-segment-4",
+      "family": "governance-x-segment-inactive-matching",
+      "passed": true,
+      "notes": "APPROVED-but-inactive matching segment must not govern -- picked=351 expected_global=351"
+    },
+    {
+      "id": "segG-177-gxs-inactive-revision-matching-segment-5",
+      "family": "governance-x-segment-inactive-matching",
+      "passed": true,
+      "notes": "APPROVED-but-inactive matching segment must not govern -- picked=353 expected_global=353"
+    },
+    {
+      "id": "segG-178-gxs-inactive-revision-matching-segment-6",
+      "family": "governance-x-segment-inactive-matching",
+      "passed": true,
+      "notes": "APPROVED-but-inactive matching segment must not govern -- picked=355 expected_global=355"
+    },
+    {
+      "id": "segG-179-gxs-inactive-revision-matching-segment-7",
+      "family": "governance-x-segment-inactive-matching",
+      "passed": true,
+      "notes": "APPROVED-but-inactive matching segment must not govern -- picked=357 expected_global=357"
+    },
+    {
+      "id": "segG-180-gxs-inactive-revision-matching-segment-8",
+      "family": "governance-x-segment-inactive-matching",
+      "passed": true,
+      "notes": "APPROVED-but-inactive matching segment must not govern -- picked=359 expected_global=359"
+    },
+    {
+      "id": "segG-181-gxs-inactive-revision-matching-segment-9",
+      "family": "governance-x-segment-inactive-matching",
+      "passed": true,
+      "notes": "APPROVED-but-inactive matching segment must not govern -- picked=361 expected_global=361"
+    },
+    {
+      "id": "segG-182-gxs-active-no-matching-segment-0",
+      "family": "governance-x-segment-no-match",
+      "passed": true,
+      "notes": "active revision with no matching segment -- must skip, not guess. snap={}"
+    },
+    {
+      "id": "segG-183-gxs-active-no-matching-segment-1",
+      "family": "governance-x-segment-no-match",
+      "passed": true,
+      "notes": "active revision with no matching segment -- must skip, not guess. snap={}"
+    },
+    {
+      "id": "segG-184-gxs-active-no-matching-segment-2",
+      "family": "governance-x-segment-no-match",
+      "passed": true,
+      "notes": "active revision with no matching segment -- must skip, not guess. snap={}"
+    },
+    {
+      "id": "segG-185-gxs-active-no-matching-segment-3",
+      "family": "governance-x-segment-no-match",
+      "passed": true,
+      "notes": "active revision with no matching segment -- must skip, not guess. snap={}"
+    },
+    {
+      "id": "segG-186-gxs-active-no-matching-segment-4",
+      "family": "governance-x-segment-no-match",
+      "passed": true,
+      "notes": "active revision with no matching segment -- must skip, not guess. snap={}"
+    },
+    {
+      "id": "segG-187-gxs-active-no-matching-segment-5",
+      "family": "governance-x-segment-no-match",
+      "passed": true,
+      "notes": "active revision with no matching segment -- must skip, not guess. snap={}"
+    },
+    {
+      "id": "segG-188-gxs-active-no-matching-segment-6",
+      "family": "governance-x-segment-no-match",
+      "passed": true,
+      "notes": "active revision with no matching segment -- must skip, not guess. snap={}"
+    },
+    {
+      "id": "segG-189-gxs-active-no-matching-segment-7",
+      "family": "governance-x-segment-no-match",
+      "passed": true,
+      "notes": "active revision with no matching segment -- must skip, not guess. snap={}"
+    },
+    {
+      "id": "segG-190-gxs-active-no-matching-segment-8",
+      "family": "governance-x-segment-no-match",
+      "passed": true,
+      "notes": "active revision with no matching segment -- must skip, not guess. snap={}"
+    },
+    {
+      "id": "segG-191-gxs-active-no-matching-segment-9",
+      "family": "governance-x-segment-no-match",
+      "passed": true,
+      "notes": "active revision with no matching segment -- must skip, not guess. snap={}"
+    }
+  ],
+  "metrics": {
+    "wrong_segment": [],
+    "arbitrary_segment": [],
+    "ambiguous_segment_clean": [],
+    "missing_metadata_clean": [],
+    "wrong_revision_via_segment": [],
+    "wrong_policy_via_segment": [],
+    "false_clean_from_segment": [],
+    "historical_segment_mutation": []
+  },
+  "total": 191,
+  "passed": 191
+}
