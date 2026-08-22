@@ -434,6 +434,20 @@ def build_enhanced_issues(findings_dict: List[Dict], llm_result: Dict) -> List[D
         if llm_issue:
             enhanced = llm_issue.copy()
             enhanced["severity"] = finding.get("severity", llm_issue.get("severity", "low"))
+            # The displayed title is the headline conclusion statement
+            # (results.html renders it as the finding's <h3>) -- it must
+            # always be the deterministic finding's own title, never the
+            # LLM's rephrasing. _verify_output_maps_to_findings only checks
+            # a fuzzy substring match between the two titles (needed
+            # because the LLM naturally paraphrases), so an LLM title that
+            # passes that check could still diverge in framing/conclusion
+            # from the actual deterministic finding -- e.g. reframing an
+            # "Uncapped Liability Found" finding's headline into something
+            # that reads as reassuring. Found via Step 4B Phase I. The
+            # LLM's own free-text narrative (why_it_matters, etc.) is left
+            # untouched -- only the declarative title is forced back to
+            # the deterministic value.
+            enhanced["title"] = finding.get("title", "")
         else:
             # No LLM explanation for this finding — surface only the
             # deterministic rationale rather than repeating canned filler text
