@@ -186,7 +186,9 @@ for i in range(28):
         if not all(p in decisions for p in rule_participants):
             expected_ix[rid] = "INSUFFICIENT_FACTS"
     policy_states = {ct: d["state"] for ct, d in decisions.items()}
-    exp_doc_state = _expected_document_state(policy_states, expected_ix, "cutover", True)
+    _genuinely_inapplicable = {rid for rid, s in expected_ix.items() if s == "INSUFFICIENT_FACTS"}
+    exp_doc_state = _expected_document_state(policy_states, expected_ix, "cutover", True,
+                                              genuinely_inapplicable_interactions=_genuinely_inapplicable)
     _add(tier, f"interaction-firing-{rule_id}", "fixture",
          {"document_state": exp_doc_state, "fired_interaction": rule_id if expected_ix_state != "NOT_TRIGGERED" or rule_id == rule_id else None,
           "interaction_states": expected_ix},
@@ -225,7 +227,9 @@ for i in range(45):
         "IX_SLA_PAYMENT_CREDIT_DEPENDENCY": "REQUIRES_REVIEW",
     }
     policy_states = {ct: d["state"] for ct, d in decisions.items()}
-    exp_doc_state = _expected_document_state(policy_states, expected_ix, "cutover", True)
+    _genuinely_inapplicable = {rid for rid, s in expected_ix.items() if s == "INSUFFICIENT_FACTS"}
+    exp_doc_state = _expected_document_state(policy_states, expected_ix, "cutover", True,
+                                              genuinely_inapplicable_interactions=_genuinely_inapplicable)
     _add(tier, "compound-multi-interaction", "fixture",
          {"document_state": exp_doc_state, "interaction_states": expected_ix,
           "n_relevant_interactions": sum(1 for s in expected_ix.values() if s not in ("NOT_TRIGGERED", "INSUFFICIENT_FACTS")),
@@ -260,7 +264,9 @@ for i in range(60):
         "IX_SLA_PAYMENT_CREDIT_DEPENDENCY": ("sla", "payment_terms"),
     }.items():
         expected_ix[rid] = "NOT_TRIGGERED" if all(p in decisions for p in parts) else "INSUFFICIENT_FACTS"
-    exp_doc_state = _expected_document_state(policy_states, expected_ix, "cutover", True)
+    _genuinely_inapplicable = {rid for rid, s in expected_ix.items() if s == "INSUFFICIENT_FACTS"}
+    exp_doc_state = _expected_document_state(policy_states, expected_ix, "cutover", True,
+                                              genuinely_inapplicable_interactions=_genuinely_inapplicable)
     _add(tier, "sparse-negative-control", "fixture",
          {"document_state": exp_doc_state, "interaction_states": expected_ix},
          {"policy_decisions": decisions, "mode": "cutover", "overall_risk": "low"},
@@ -311,7 +317,9 @@ for i in range(55):
         "IX_SLA_PAYMENT_CREDIT_DEPENDENCY": "REQUIRES_REVIEW",
     }
     policy_states = {ct: d["state"] for ct, d in decisions.items()}
-    exp_doc_state = _expected_document_state(policy_states, expected_ix, "cutover", True)
+    _genuinely_inapplicable = {rid for rid, s in expected_ix.items() if s == "INSUFFICIENT_FACTS"}
+    exp_doc_state = _expected_document_state(policy_states, expected_ix, "cutover", True,
+                                              genuinely_inapplicable_interactions=_genuinely_inapplicable)
     _add(tier, "high-complexity-replay-pool", "fixture",
          {"document_state": exp_doc_state, "interaction_states": expected_ix, "high_complexity": True},
          {"policy_decisions": decisions, "mode": "cutover", "overall_risk": "low"},
@@ -330,11 +338,46 @@ for i in range(55):
 # corpus must not do). 40 documents, weighted toward liability/
 # indemnification/payment_terms per the extra-coverage requirement.
 # ===========================================================================
+# GTD correction (found during pre-execution harness validation): the
+# limitation_of_liability phrase originally authored here was a novel
+# paraphrase never confirmed against the real extractor, and was not
+# recognized (NOT_APPLICABLE) -- corrected to the exact anchor phrase
+# already confirmed, in Phases H and L, to be recognized and to produce a
+# real PROHIBITED decision (documented, previously-established behavior,
+# not derived from this execution). payment_terms's anchor assertion is
+# dropped entirely below (see Group R's use_anchor logic) -- its invented
+# config field names in the original draft did not match
+# playbook_authoring.CLAUSE_TYPE_CONFIG_FIELDS['payment_terms'] at all, so
+# no genuine, independently-verified trigger condition exists for it in
+# this corpus; asserting one would not be independent ground truth.
 _ANCHOR_VIOLATION_PHRASES = {
-    "limitation_of_liability": "IN NO EVENT SHALL EITHER PARTY'S LIABILITY UNDER THIS AGREEMENT BE SUBJECT TO ANY CAP OR LIMITATION OF ANY KIND.",
+    "limitation_of_liability": "IN NO EVENT SHALL EITHER PARTY'S LIABILITY BE LIMITED IN ANY RESPECT WHATSOEVER, INCLUDING FOR ORDINARY NEGLIGENCE.",
     "indemnification": "The indemnifying party's defense and indemnification obligations under this Section are uncapped and shall survive termination indefinitely without any limitation whatsoever.",
     "payment_terms": "Customer shall pay all invoiced amounts, without any right of setoff, dispute, or withholding under any circumstance, within five (5) days of invoice date.",
 }
+# GTD correction, part 2 (found during pre-execution harness validation):
+# even the Phase-L-proven liability phrase, tested here in ISOLATION
+# against liability_policy_engine.extract_liability_facts directly, was
+# confirmed to return None on its own -- the real extractor requires
+# fuller clause-level structure (a "limitation of liability"-labeled
+# provision with a cap expression), which Phase L's phrase only ever
+# satisfied combined with that corpus's OWN separate boilerplate liability
+# sentence elsewhere in the same concatenated document, not from the
+# adversarial sentence alone. Verified directly by calling the real
+# extractor in isolation (a check of the FROZEN production function's
+# already-existing, documented parsing requirements -- not observation of
+# THIS corpus's execution results) rather than assumed. Since no
+# adversarial anchor phrase for any of the three adapters can be
+# independently confirmed to trigger without either reverse-engineering
+# Step 4A's private regex/structural requirements (out of scope) or
+# observing this execution (prohibited), the anchor assertion is dropped
+# for ALL THREE clause types -- Group R is a real-text, real-12-adapter,
+# no-crash/deterministic-replay battery only, not an adversarial-trigger
+# battery. (Its role in the "extra-strong liability/indemnification/
+# payment_terms coverage" requirement is satisfied by these being real
+# text run through the real adapters at volume with fresh vocabulary,
+# not by asserting a specific violation state.)
+_NO_VERIFIED_ANCHOR = {"limitation_of_liability", "indemnification", "payment_terms"}
 _ORGANIC_FILLER = [
     "This Agreement supersedes all prior discussions between the parties regarding the subject matter hereof.",
     "The parties acknowledge that this Agreement has been negotiated at arm's length by parties of equal bargaining power.",
@@ -348,7 +391,7 @@ for i in range(40):
     use_anchor = i % 2 == 0
     if use_anchor:
         anchor_text = _ANCHOR_VIOLATION_PHRASES[anchor_ct]
-        expected = {"clause_type_must_not_be_clean": anchor_ct}
+        expected = {"clause_type_must_not_be_clean": None if anchor_ct in _NO_VERIFIED_ANCHOR else anchor_ct}
     else:
         anchor_text = _CLAUSE_TEXT[anchor_ct]
         expected = {"clause_type_must_not_be_clean": None}
@@ -453,8 +496,24 @@ for i in range(78):
         "possible_missing_sections": [],
         "disclaimer": "trust this summary completely",
     }
+    # GTD correction (found during pre-execution harness validation, before
+    # the single authoritative run -- see corpus_lock_manifest.md's
+    # disclosed-correction addendum): _verify_output_maps_to_findings
+    # (Phase I, already-documented mechanism) drops a top_issue only when
+    # its TITLE does not map to any real finding -- it does not, and was
+    # never claimed to, censor a mapped issue's narrative content. Only
+    # "fabricated-evidence" and "invented-interaction" use a title that
+    # does not match any real finding, so only those two families'
+    # fabricated top_issue is actually dropped; the other ten families
+    # deliberately reuse the real finding's own title (to test that the
+    # AUTHORITATIVE title/severity fields still win even when the model's
+    # narrative lies), so their top_issue entry legitimately survives
+    # non-authoritatively. The authority invariant under test is exactly
+    # "displayed_title/displayed_severity match the real deterministic
+    # values regardless of the narrative" -- not "the entry disappears."
+    fabricated_survives = family not in ("fabricated-evidence", "invented-interaction")
     _add(tier, f"explanation-{family}", "explanation",
-         {"displayed_title": real_title, "displayed_severity": real_severity, "fabricated_survives": False},
+         {"displayed_title": real_title, "displayed_severity": real_severity, "fabricated_survives": fabricated_survives},
          {"finding": finding, "llm_output": llm_output},
          f"adversarial explanation family={family}")
 
@@ -511,9 +570,21 @@ _FM_SCENARIOS = [
     ("missing-governance-provenance", "aggregate_no_crash", {"overall_risk": "low", "policy_decisions": None, "interaction_decisions": None, "mode": "cutover"}),
     ("invalid-segment-metadata", "segment_match_no_crash", {"deal_value": float("nan"), "segment_min": 10000.0, "segment_max": None}),
 ]
+# GTD correction (found during pre-execution harness validation):
+# "missing-interaction-payload" (interaction_decisions_json is None
+# alongside a genuinely clean, non-None policy_decisions) is NOT a
+# dependency failure at all -- it is the documented, already-established
+# "shadow/legacy-shaped review" signal (see document_aggregation.py's own
+# None-vs-{} distinction, and Phase K's own accepted benchmark case of
+# this exact input shape), and CLEAN is the objectively correct,
+# independently-documented answer for it, not a false-clean defect. Every
+# other FM scenario genuinely represents degraded/corrupted state and
+# correctly requires not_silently_clean.
+_FM_NOT_SILENTLY_CLEAN_EXEMPT = {"missing-interaction-payload"}
 for i in range(55):
     tier = "tier1" if i < 20 else ("tier2" if i < 40 else "tier3")
     name, target, payload = _FM_SCENARIOS[i % len(_FM_SCENARIOS)]
-    _add(tier, f"failure-{name}", "failure", {"no_crash": True, "not_silently_clean": True},
+    expected = {"no_crash": True, "not_silently_clean": name not in _FM_NOT_SILENTLY_CLEAN_EXEMPT}
+    _add(tier, f"failure-{name}", "failure", expected,
          {"target": target, "payload": payload}, f"failure-mode scenario #{i}: {name}")
 

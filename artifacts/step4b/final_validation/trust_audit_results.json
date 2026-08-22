@@ -1,0 +1,1480 @@
+{
+  "rows": [
+    {
+      "doc": 1,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 2,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 2,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 3,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 3,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 5,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 5,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 6,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 8,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 9,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 9,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 11,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 11,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 12,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 12,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 13,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 14,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 14,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 17,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 18,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 19,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 20,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 20,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 21,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 21,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 22,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 22,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 23,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 25,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 26,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 27,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 28,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 28,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 29,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 32,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 33,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 35,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 35,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 36,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 36,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 37,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 38,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 40,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 40,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 41,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 41,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 42,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 42,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 43,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 43,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 44,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 44,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 45,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 47,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 48,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 48,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 49,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 49,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 50,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 50,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 51,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 51,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 52,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 52,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 53,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 53,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 54,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 54,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 55,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 55,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 56,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 56,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 57,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 58,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 59,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 59,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 61,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 61,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 62,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 62,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 63,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 63,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 64,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 64,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 65,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 65,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 66,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 66,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 67,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 67,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 68,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 68,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 69,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 69,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 72,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 72,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 73,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 73,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 74,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 74,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 75,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 75,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 76,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 76,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 77,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 77,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 78,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 78,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 79,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 79,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 80,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 80,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 81,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 83,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 83,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 84,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 84,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 85,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 86,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 86,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 87,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 87,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 88,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 88,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 89,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 89,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 90,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 90,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 91,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 91,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 92,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 92,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 93,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 94,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 94,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 96,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 97,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 97,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 98,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 98,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 99,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 99,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 100,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 100,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 101,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 101,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 102,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 102,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 103,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 103,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 104,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 104,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 105,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 107,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 108,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 108,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 109,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 109,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 110,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 110,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 111,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 111,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 112,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 112,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 113,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 113,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 114,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 114,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 115,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 115,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 116,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 116,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 117,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 118,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 119,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 119,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 121,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 121,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 122,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 122,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 123,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 123,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 124,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 124,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 125,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 125,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 126,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 126,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 127,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 127,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 128,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 128,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 129,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 129,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 132,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 132,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 133,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 133,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 134,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 134,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 135,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 135,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 136,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 136,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 137,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 137,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 138,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 138,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 139,
+      "clause_type": "insurance",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    },
+    {
+      "doc": 139,
+      "clause_type": "payment_terms",
+      "state": "ACCEPT",
+      "classification": "WEAKLY_ESTABLISHED",
+      "governance_traceable": true
+    }
+  ],
+  "total": 210,
+  "by_classification": {
+    "WEAKLY_ESTABLISHED": 210
+  },
+  "unverified_feeding_clean": 0,
+  "ungoverned": 0
+}
