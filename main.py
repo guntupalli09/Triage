@@ -3029,6 +3029,24 @@ async def playbook_delete(
     playbook = db.query(Playbook).filter(Playbook.id == playbook_id, Playbook.user_id == user.id).first()
     if not playbook:
         raise HTTPException(status_code=404, detail="Playbook not found")
+    # Step 4B Phase F: a playbook delete cascades to its PolicyPosition
+    # rows (Playbook.policy_positions has cascade="all, delete-orphan" --
+    # models.py), which would hard-delete the exact rows any historical
+    # Contract.policy_revision_metadata_json.policy_position_id points to,
+    # permanently destroying that review's governing-revision provenance
+    # (verify_policy_finding would then report "no longer exists" instead
+    # of being able to replay it) -- reproduced directly against a real DB
+    # before adding this guard. A playbook with any reviewed contract must
+    # be archived by the reviewer (stop using it for new reviews), never
+    # deleted, exactly as an ACTIVE PolicyPosition is archived rather than
+    # mutated/deleted elsewhere in this same lifecycle model.
+    if db.query(Contract.id).filter(Contract.playbook_id == playbook_id).first() is not None:
+        raise HTTPException(
+            status_code=409,
+            detail="This playbook has been used for one or more contract reviews and cannot be deleted "
+                   "(doing so would destroy those reviews' governing policy record). Stop using it for new "
+                   "reviews instead.",
+        )
     playbook_name = playbook.name
     db.delete(playbook)
     db.commit()

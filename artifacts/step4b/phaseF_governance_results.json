@@ -1,0 +1,1065 @@
+{
+  "cases": [
+    {
+      "id": "govF-001-draft-only-0",
+      "family": "draft-only-never-governs",
+      "passed": true,
+      "notes": "DRAFT position present=False"
+    },
+    {
+      "id": "govF-002-draft-only-1",
+      "family": "draft-only-never-governs",
+      "passed": true,
+      "notes": "DRAFT position present=False"
+    },
+    {
+      "id": "govF-003-draft-only-2",
+      "family": "draft-only-never-governs",
+      "passed": true,
+      "notes": "DRAFT position present=False"
+    },
+    {
+      "id": "govF-004-draft-only-3",
+      "family": "draft-only-never-governs",
+      "passed": true,
+      "notes": "DRAFT position present=False"
+    },
+    {
+      "id": "govF-005-draft-only-4",
+      "family": "draft-only-never-governs",
+      "passed": true,
+      "notes": "DRAFT position present=False"
+    },
+    {
+      "id": "govF-006-draft-only-5",
+      "family": "draft-only-never-governs",
+      "passed": true,
+      "notes": "DRAFT position present=False"
+    },
+    {
+      "id": "govF-007-draft-only-6",
+      "family": "draft-only-never-governs",
+      "passed": true,
+      "notes": "DRAFT position present=False"
+    },
+    {
+      "id": "govF-008-draft-only-7",
+      "family": "draft-only-never-governs",
+      "passed": true,
+      "notes": "DRAFT position present=False"
+    },
+    {
+      "id": "govF-009-draft-only-8",
+      "family": "draft-only-never-governs",
+      "passed": true,
+      "notes": "DRAFT position present=False"
+    },
+    {
+      "id": "govF-010-draft-only-9",
+      "family": "draft-only-never-governs",
+      "passed": true,
+      "notes": "DRAFT position present=False"
+    },
+    {
+      "id": "govF-011-needs-review-only-0",
+      "family": "needs-review-only-never-governs",
+      "passed": true,
+      "notes": "NEEDS_REVIEW position present=False"
+    },
+    {
+      "id": "govF-012-needs-review-only-1",
+      "family": "needs-review-only-never-governs",
+      "passed": true,
+      "notes": "NEEDS_REVIEW position present=False"
+    },
+    {
+      "id": "govF-013-needs-review-only-2",
+      "family": "needs-review-only-never-governs",
+      "passed": true,
+      "notes": "NEEDS_REVIEW position present=False"
+    },
+    {
+      "id": "govF-014-needs-review-only-3",
+      "family": "needs-review-only-never-governs",
+      "passed": true,
+      "notes": "NEEDS_REVIEW position present=False"
+    },
+    {
+      "id": "govF-015-needs-review-only-4",
+      "family": "needs-review-only-never-governs",
+      "passed": true,
+      "notes": "NEEDS_REVIEW position present=False"
+    },
+    {
+      "id": "govF-016-needs-review-only-5",
+      "family": "needs-review-only-never-governs",
+      "passed": true,
+      "notes": "NEEDS_REVIEW position present=False"
+    },
+    {
+      "id": "govF-017-needs-review-only-6",
+      "family": "needs-review-only-never-governs",
+      "passed": true,
+      "notes": "NEEDS_REVIEW position present=False"
+    },
+    {
+      "id": "govF-018-needs-review-only-7",
+      "family": "needs-review-only-never-governs",
+      "passed": true,
+      "notes": "NEEDS_REVIEW position present=False"
+    },
+    {
+      "id": "govF-019-needs-review-only-8",
+      "family": "needs-review-only-never-governs",
+      "passed": true,
+      "notes": "NEEDS_REVIEW position present=False"
+    },
+    {
+      "id": "govF-020-needs-review-only-9",
+      "family": "needs-review-only-never-governs",
+      "passed": true,
+      "notes": "NEEDS_REVIEW position present=False"
+    },
+    {
+      "id": "govF-021-approved-inactive-0",
+      "family": "approved-inactive-never-governs",
+      "passed": true,
+      "notes": "APPROVED-inactive position present=False"
+    },
+    {
+      "id": "govF-022-approved-inactive-1",
+      "family": "approved-inactive-never-governs",
+      "passed": true,
+      "notes": "APPROVED-inactive position present=False"
+    },
+    {
+      "id": "govF-023-approved-inactive-2",
+      "family": "approved-inactive-never-governs",
+      "passed": true,
+      "notes": "APPROVED-inactive position present=False"
+    },
+    {
+      "id": "govF-024-approved-inactive-3",
+      "family": "approved-inactive-never-governs",
+      "passed": true,
+      "notes": "APPROVED-inactive position present=False"
+    },
+    {
+      "id": "govF-025-approved-inactive-4",
+      "family": "approved-inactive-never-governs",
+      "passed": true,
+      "notes": "APPROVED-inactive position present=False"
+    },
+    {
+      "id": "govF-026-approved-inactive-5",
+      "family": "approved-inactive-never-governs",
+      "passed": true,
+      "notes": "APPROVED-inactive position present=False"
+    },
+    {
+      "id": "govF-027-approved-inactive-6",
+      "family": "approved-inactive-never-governs",
+      "passed": true,
+      "notes": "APPROVED-inactive position present=False"
+    },
+    {
+      "id": "govF-028-approved-inactive-7",
+      "family": "approved-inactive-never-governs",
+      "passed": true,
+      "notes": "APPROVED-inactive position present=False"
+    },
+    {
+      "id": "govF-029-approved-inactive-8",
+      "family": "approved-inactive-never-governs",
+      "passed": true,
+      "notes": "APPROVED-inactive position present=False"
+    },
+    {
+      "id": "govF-030-approved-inactive-9",
+      "family": "approved-inactive-never-governs",
+      "passed": true,
+      "notes": "APPROVED-inactive position present=False"
+    },
+    {
+      "id": "govF-031-active-governs-0",
+      "family": "active-governs",
+      "passed": true,
+      "notes": "active position governs: <models.PolicyPosition object at 0x7f284a2c0a90>"
+    },
+    {
+      "id": "govF-032-active-governs-1",
+      "family": "active-governs",
+      "passed": true,
+      "notes": "active position governs: <models.PolicyPosition object at 0x7f284a2af550>"
+    },
+    {
+      "id": "govF-033-active-governs-2",
+      "family": "active-governs",
+      "passed": true,
+      "notes": "active position governs: <models.PolicyPosition object at 0x7f284a2af2d0>"
+    },
+    {
+      "id": "govF-034-active-governs-3",
+      "family": "active-governs",
+      "passed": true,
+      "notes": "active position governs: <models.PolicyPosition object at 0x7f284a2510d0>"
+    },
+    {
+      "id": "govF-035-active-governs-4",
+      "family": "active-governs",
+      "passed": true,
+      "notes": "active position governs: <models.PolicyPosition object at 0x7f284a23c550>"
+    },
+    {
+      "id": "govF-036-active-governs-5",
+      "family": "active-governs",
+      "passed": true,
+      "notes": "active position governs: <models.PolicyPosition object at 0x7f284a2d6790>"
+    },
+    {
+      "id": "govF-037-active-governs-6",
+      "family": "active-governs",
+      "passed": true,
+      "notes": "active position governs: <models.PolicyPosition object at 0x7f284a2d6850>"
+    },
+    {
+      "id": "govF-038-active-governs-7",
+      "family": "active-governs",
+      "passed": true,
+      "notes": "active position governs: <models.PolicyPosition object at 0x7f284a31eed0>"
+    },
+    {
+      "id": "govF-039-active-governs-8",
+      "family": "active-governs",
+      "passed": true,
+      "notes": "active position governs: <models.PolicyPosition object at 0x7f284a2d7ed0>"
+    },
+    {
+      "id": "govF-040-active-governs-9",
+      "family": "active-governs",
+      "passed": true,
+      "notes": "active position governs: <models.PolicyPosition object at 0x7f284a2cfc10>"
+    },
+    {
+      "id": "govF-041-illegal-draft-to-active-0",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected DRAFT->ACTIVE"
+    },
+    {
+      "id": "govF-042-illegal-draft-to-active-1",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected DRAFT->ACTIVE"
+    },
+    {
+      "id": "govF-043-illegal-draft-to-active-2",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected DRAFT->ACTIVE"
+    },
+    {
+      "id": "govF-044-illegal-draft-to-active-3",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected DRAFT->ACTIVE"
+    },
+    {
+      "id": "govF-045-illegal-draft-to-active-4",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected DRAFT->ACTIVE"
+    },
+    {
+      "id": "govF-046-illegal-draft-to-active-5",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected DRAFT->ACTIVE"
+    },
+    {
+      "id": "govF-047-illegal-draft-to-active-6",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected DRAFT->ACTIVE"
+    },
+    {
+      "id": "govF-048-illegal-draft-to-active-7",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected DRAFT->ACTIVE"
+    },
+    {
+      "id": "govF-049-illegal-needsreview-to-active-0",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected NEEDS_REVIEW->ACTIVE"
+    },
+    {
+      "id": "govF-050-illegal-needsreview-to-active-1",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected NEEDS_REVIEW->ACTIVE"
+    },
+    {
+      "id": "govF-051-illegal-needsreview-to-active-2",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected NEEDS_REVIEW->ACTIVE"
+    },
+    {
+      "id": "govF-052-illegal-needsreview-to-active-3",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected NEEDS_REVIEW->ACTIVE"
+    },
+    {
+      "id": "govF-053-illegal-needsreview-to-active-4",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected NEEDS_REVIEW->ACTIVE"
+    },
+    {
+      "id": "govF-054-illegal-needsreview-to-active-5",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected NEEDS_REVIEW->ACTIVE"
+    },
+    {
+      "id": "govF-055-illegal-needsreview-to-active-6",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected NEEDS_REVIEW->ACTIVE"
+    },
+    {
+      "id": "govF-056-illegal-needsreview-to-active-7",
+      "family": "illegal-transition-rejected",
+      "passed": true,
+      "notes": "correctly rejected NEEDS_REVIEW->ACTIVE"
+    },
+    {
+      "id": "govF-057-edit-active-creates-new-draft-0",
+      "family": "edit-active-creates-new-revision",
+      "passed": true,
+      "notes": "is_new=True new_id=58 active_id=57 active_status=ACTIVE"
+    },
+    {
+      "id": "govF-058-edit-active-creates-new-draft-1",
+      "family": "edit-active-creates-new-revision",
+      "passed": true,
+      "notes": "is_new=True new_id=60 active_id=59 active_status=ACTIVE"
+    },
+    {
+      "id": "govF-059-edit-active-creates-new-draft-2",
+      "family": "edit-active-creates-new-revision",
+      "passed": true,
+      "notes": "is_new=True new_id=62 active_id=61 active_status=ACTIVE"
+    },
+    {
+      "id": "govF-060-edit-active-creates-new-draft-3",
+      "family": "edit-active-creates-new-revision",
+      "passed": true,
+      "notes": "is_new=True new_id=64 active_id=63 active_status=ACTIVE"
+    },
+    {
+      "id": "govF-061-edit-active-creates-new-draft-4",
+      "family": "edit-active-creates-new-revision",
+      "passed": true,
+      "notes": "is_new=True new_id=66 active_id=65 active_status=ACTIVE"
+    },
+    {
+      "id": "govF-062-edit-active-creates-new-draft-5",
+      "family": "edit-active-creates-new-revision",
+      "passed": true,
+      "notes": "is_new=True new_id=68 active_id=67 active_status=ACTIVE"
+    },
+    {
+      "id": "govF-063-edit-active-creates-new-draft-6",
+      "family": "edit-active-creates-new-revision",
+      "passed": true,
+      "notes": "is_new=True new_id=70 active_id=69 active_status=ACTIVE"
+    },
+    {
+      "id": "govF-064-edit-active-creates-new-draft-7",
+      "family": "edit-active-creates-new-revision",
+      "passed": true,
+      "notes": "is_new=True new_id=72 active_id=71 active_status=ACTIVE"
+    },
+    {
+      "id": "govF-065-edit-active-creates-new-draft-8",
+      "family": "edit-active-creates-new-revision",
+      "passed": true,
+      "notes": "is_new=True new_id=74 active_id=73 active_status=ACTIVE"
+    },
+    {
+      "id": "govF-066-edit-active-creates-new-draft-9",
+      "family": "edit-active-creates-new-revision",
+      "passed": true,
+      "notes": "is_new=True new_id=76 active_id=75 active_status=ACTIVE"
+    },
+    {
+      "id": "govF-067-apply-update-refuses-active-0",
+      "family": "edit-active-defense-in-depth",
+      "passed": true,
+      "notes": "correctly refused to write to ACTIVE row"
+    },
+    {
+      "id": "govF-068-apply-update-refuses-active-1",
+      "family": "edit-active-defense-in-depth",
+      "passed": true,
+      "notes": "correctly refused to write to ACTIVE row"
+    },
+    {
+      "id": "govF-069-apply-update-refuses-active-2",
+      "family": "edit-active-defense-in-depth",
+      "passed": true,
+      "notes": "correctly refused to write to ACTIVE row"
+    },
+    {
+      "id": "govF-070-apply-update-refuses-active-3",
+      "family": "edit-active-defense-in-depth",
+      "passed": true,
+      "notes": "correctly refused to write to ACTIVE row"
+    },
+    {
+      "id": "govF-071-apply-update-refuses-active-4",
+      "family": "edit-active-defense-in-depth",
+      "passed": true,
+      "notes": "correctly refused to write to ACTIVE row"
+    },
+    {
+      "id": "govF-072-apply-update-refuses-active-5",
+      "family": "edit-active-defense-in-depth",
+      "passed": true,
+      "notes": "correctly refused to write to ACTIVE row"
+    },
+    {
+      "id": "govF-073-old-active-to-new-active-0",
+      "family": "old-active-to-new-active-transition",
+      "passed": true,
+      "notes": "old_status=ARCHIVED governing_id=84 new_id=84"
+    },
+    {
+      "id": "govF-074-old-active-to-new-active-1",
+      "family": "old-active-to-new-active-transition",
+      "passed": true,
+      "notes": "old_status=ARCHIVED governing_id=86 new_id=86"
+    },
+    {
+      "id": "govF-075-old-active-to-new-active-2",
+      "family": "old-active-to-new-active-transition",
+      "passed": true,
+      "notes": "old_status=ARCHIVED governing_id=88 new_id=88"
+    },
+    {
+      "id": "govF-076-old-active-to-new-active-3",
+      "family": "old-active-to-new-active-transition",
+      "passed": true,
+      "notes": "old_status=ARCHIVED governing_id=90 new_id=90"
+    },
+    {
+      "id": "govF-077-old-active-to-new-active-4",
+      "family": "old-active-to-new-active-transition",
+      "passed": true,
+      "notes": "old_status=ARCHIVED governing_id=92 new_id=92"
+    },
+    {
+      "id": "govF-078-old-active-to-new-active-5",
+      "family": "old-active-to-new-active-transition",
+      "passed": true,
+      "notes": "old_status=ARCHIVED governing_id=94 new_id=94"
+    },
+    {
+      "id": "govF-079-old-active-to-new-active-6",
+      "family": "old-active-to-new-active-transition",
+      "passed": true,
+      "notes": "old_status=ARCHIVED governing_id=96 new_id=96"
+    },
+    {
+      "id": "govF-080-old-active-to-new-active-7",
+      "family": "old-active-to-new-active-transition",
+      "passed": true,
+      "notes": "old_status=ARCHIVED governing_id=98 new_id=98"
+    },
+    {
+      "id": "govF-081-old-active-to-new-active-8",
+      "family": "old-active-to-new-active-transition",
+      "passed": true,
+      "notes": "old_status=ARCHIVED governing_id=100 new_id=100"
+    },
+    {
+      "id": "govF-082-old-active-to-new-active-9",
+      "family": "old-active-to-new-active-transition",
+      "passed": true,
+      "notes": "old_status=ARCHIVED governing_id=102 new_id=102"
+    },
+    {
+      "id": "govF-083-archived-revision-preserved-0",
+      "family": "archived-revision-preserved-not-deleted",
+      "passed": true,
+      "notes": "superseded row still present, status=ARCHIVED"
+    },
+    {
+      "id": "govF-084-archived-revision-preserved-1",
+      "family": "archived-revision-preserved-not-deleted",
+      "passed": true,
+      "notes": "superseded row still present, status=ARCHIVED"
+    },
+    {
+      "id": "govF-085-archived-revision-preserved-2",
+      "family": "archived-revision-preserved-not-deleted",
+      "passed": true,
+      "notes": "superseded row still present, status=ARCHIVED"
+    },
+    {
+      "id": "govF-086-archived-revision-preserved-3",
+      "family": "archived-revision-preserved-not-deleted",
+      "passed": true,
+      "notes": "superseded row still present, status=ARCHIVED"
+    },
+    {
+      "id": "govF-087-archived-revision-preserved-4",
+      "family": "archived-revision-preserved-not-deleted",
+      "passed": true,
+      "notes": "superseded row still present, status=ARCHIVED"
+    },
+    {
+      "id": "govF-088-archived-revision-preserved-5",
+      "family": "archived-revision-preserved-not-deleted",
+      "passed": true,
+      "notes": "superseded row still present, status=ARCHIVED"
+    },
+    {
+      "id": "govF-089-historical-review-pinned-0",
+      "family": "historical-review-identifies-exact-revision",
+      "passed": true,
+      "notes": "pinned_id=115 old_active.id=115"
+    },
+    {
+      "id": "govF-090-historical-review-pinned-1",
+      "family": "historical-review-identifies-exact-revision",
+      "passed": true,
+      "notes": "pinned_id=116 old_active.id=116"
+    },
+    {
+      "id": "govF-091-historical-review-pinned-2",
+      "family": "historical-review-identifies-exact-revision",
+      "passed": true,
+      "notes": "pinned_id=117 old_active.id=117"
+    },
+    {
+      "id": "govF-092-historical-review-pinned-3",
+      "family": "historical-review-identifies-exact-revision",
+      "passed": true,
+      "notes": "pinned_id=118 old_active.id=118"
+    },
+    {
+      "id": "govF-093-historical-review-pinned-4",
+      "family": "historical-review-identifies-exact-revision",
+      "passed": true,
+      "notes": "pinned_id=119 old_active.id=119"
+    },
+    {
+      "id": "govF-094-historical-review-pinned-5",
+      "family": "historical-review-identifies-exact-revision",
+      "passed": true,
+      "notes": "pinned_id=120 old_active.id=120"
+    },
+    {
+      "id": "govF-095-historical-review-pinned-6",
+      "family": "historical-review-identifies-exact-revision",
+      "passed": true,
+      "notes": "pinned_id=121 old_active.id=121"
+    },
+    {
+      "id": "govF-096-historical-review-pinned-7",
+      "family": "historical-review-identifies-exact-revision",
+      "passed": true,
+      "notes": "pinned_id=122 old_active.id=122"
+    },
+    {
+      "id": "govF-097-historical-review-pinned-8",
+      "family": "historical-review-identifies-exact-revision",
+      "passed": true,
+      "notes": "pinned_id=123 old_active.id=123"
+    },
+    {
+      "id": "govF-098-historical-review-pinned-9",
+      "family": "historical-review-identifies-exact-revision",
+      "passed": true,
+      "notes": "pinned_id=124 old_active.id=124"
+    },
+    {
+      "id": "govF-099-same-contract-two-revisions-0",
+      "family": "same-contract-reviewed-under-revision-n-and-n1",
+      "passed": true,
+      "notes": "pin_a=125 rev_a.id=125 pin_b=126 rev_b.id=126"
+    },
+    {
+      "id": "govF-100-same-contract-two-revisions-1",
+      "family": "same-contract-reviewed-under-revision-n-and-n1",
+      "passed": true,
+      "notes": "pin_a=127 rev_a.id=127 pin_b=128 rev_b.id=128"
+    },
+    {
+      "id": "govF-101-same-contract-two-revisions-2",
+      "family": "same-contract-reviewed-under-revision-n-and-n1",
+      "passed": true,
+      "notes": "pin_a=129 rev_a.id=129 pin_b=130 rev_b.id=130"
+    },
+    {
+      "id": "govF-102-same-contract-two-revisions-3",
+      "family": "same-contract-reviewed-under-revision-n-and-n1",
+      "passed": true,
+      "notes": "pin_a=131 rev_a.id=131 pin_b=132 rev_b.id=132"
+    },
+    {
+      "id": "govF-103-same-contract-two-revisions-4",
+      "family": "same-contract-reviewed-under-revision-n-and-n1",
+      "passed": true,
+      "notes": "pin_a=133 rev_a.id=133 pin_b=134 rev_b.id=134"
+    },
+    {
+      "id": "govF-104-same-contract-two-revisions-5",
+      "family": "same-contract-reviewed-under-revision-n-and-n1",
+      "passed": true,
+      "notes": "pin_a=135 rev_a.id=135 pin_b=136 rev_b.id=136"
+    },
+    {
+      "id": "govF-105-same-contract-two-revisions-6",
+      "family": "same-contract-reviewed-under-revision-n-and-n1",
+      "passed": true,
+      "notes": "pin_a=137 rev_a.id=137 pin_b=138 rev_b.id=138"
+    },
+    {
+      "id": "govF-106-same-contract-two-revisions-7",
+      "family": "same-contract-reviewed-under-revision-n-and-n1",
+      "passed": true,
+      "notes": "pin_a=139 rev_a.id=139 pin_b=140 rev_b.id=140"
+    },
+    {
+      "id": "govF-107-same-contract-two-revisions-8",
+      "family": "same-contract-reviewed-under-revision-n-and-n1",
+      "passed": true,
+      "notes": "pin_a=141 rev_a.id=141 pin_b=142 rev_b.id=142"
+    },
+    {
+      "id": "govF-108-same-contract-two-revisions-9",
+      "family": "same-contract-reviewed-under-revision-n-and-n1",
+      "passed": true,
+      "notes": "pin_a=143 rev_a.id=143 pin_b=144 rev_b.id=144"
+    },
+    {
+      "id": "govF-109-no-active-revision-0",
+      "family": "no-active-revision-skipped",
+      "passed": true,
+      "notes": "snapshot with zero ACTIVE positions = {}"
+    },
+    {
+      "id": "govF-110-no-active-revision-1",
+      "family": "no-active-revision-skipped",
+      "passed": true,
+      "notes": "snapshot with zero ACTIVE positions = {}"
+    },
+    {
+      "id": "govF-111-no-active-revision-2",
+      "family": "no-active-revision-skipped",
+      "passed": true,
+      "notes": "snapshot with zero ACTIVE positions = {}"
+    },
+    {
+      "id": "govF-112-no-active-revision-3",
+      "family": "no-active-revision-skipped",
+      "passed": true,
+      "notes": "snapshot with zero ACTIVE positions = {}"
+    },
+    {
+      "id": "govF-113-no-active-revision-4",
+      "family": "no-active-revision-skipped",
+      "passed": true,
+      "notes": "snapshot with zero ACTIVE positions = {}"
+    },
+    {
+      "id": "govF-114-no-active-revision-5",
+      "family": "no-active-revision-skipped",
+      "passed": true,
+      "notes": "snapshot with zero ACTIVE positions = {}"
+    },
+    {
+      "id": "govF-115-no-active-revision-6",
+      "family": "no-active-revision-skipped",
+      "passed": true,
+      "notes": "snapshot with zero ACTIVE positions = {}"
+    },
+    {
+      "id": "govF-116-no-active-revision-7",
+      "family": "no-active-revision-skipped",
+      "passed": true,
+      "notes": "snapshot with zero ACTIVE positions = {}"
+    },
+    {
+      "id": "govF-117-multi-segment-deterministic-0",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "enterprise_ctx=146 smb_ctx=145 no_ctx=145"
+    },
+    {
+      "id": "govF-118-multi-segment-deterministic-1",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "enterprise_ctx=148 smb_ctx=147 no_ctx=147"
+    },
+    {
+      "id": "govF-119-multi-segment-deterministic-2",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "enterprise_ctx=150 smb_ctx=149 no_ctx=149"
+    },
+    {
+      "id": "govF-120-multi-segment-deterministic-3",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "enterprise_ctx=152 smb_ctx=151 no_ctx=151"
+    },
+    {
+      "id": "govF-121-multi-segment-deterministic-4",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "enterprise_ctx=154 smb_ctx=153 no_ctx=153"
+    },
+    {
+      "id": "govF-122-multi-segment-deterministic-5",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "enterprise_ctx=156 smb_ctx=155 no_ctx=155"
+    },
+    {
+      "id": "govF-123-multi-segment-deterministic-6",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "enterprise_ctx=158 smb_ctx=157 no_ctx=157"
+    },
+    {
+      "id": "govF-124-multi-segment-deterministic-7",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "enterprise_ctx=160 smb_ctx=159 no_ctx=159"
+    },
+    {
+      "id": "govF-125-multi-segment-deterministic-8",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "enterprise_ctx=162 smb_ctx=161 no_ctx=161"
+    },
+    {
+      "id": "govF-126-multi-segment-deterministic-9",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "enterprise_ctx=164 smb_ctx=163 no_ctx=163"
+    },
+    {
+      "id": "govF-127-segment-resolution-determinism-0",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "repeated resolution ids={166}"
+    },
+    {
+      "id": "govF-128-segment-resolution-determinism-1",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "repeated resolution ids={168}"
+    },
+    {
+      "id": "govF-129-segment-resolution-determinism-2",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "repeated resolution ids={170}"
+    },
+    {
+      "id": "govF-130-segment-resolution-determinism-3",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "repeated resolution ids={172}"
+    },
+    {
+      "id": "govF-131-segment-resolution-determinism-4",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "repeated resolution ids={174}"
+    },
+    {
+      "id": "govF-132-segment-resolution-determinism-5",
+      "family": "multiple-active-candidates-deterministic-resolution",
+      "passed": true,
+      "notes": "repeated resolution ids={176}"
+    },
+    {
+      "id": "govF-133-missing-revision-reference-0",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on missing revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'PROHIBITED', 'reason': 'The exact policy revision that produced this decision no longer exists.'}"
+    },
+    {
+      "id": "govF-134-missing-revision-reference-1",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on missing revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'PROHIBITED', 'reason': 'The exact policy revision that produced this decision no longer exists.'}"
+    },
+    {
+      "id": "govF-135-missing-revision-reference-2",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on missing revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'PROHIBITED', 'reason': 'The exact policy revision that produced this decision no longer exists.'}"
+    },
+    {
+      "id": "govF-136-missing-revision-reference-3",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on missing revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'PROHIBITED', 'reason': 'The exact policy revision that produced this decision no longer exists.'}"
+    },
+    {
+      "id": "govF-137-missing-revision-reference-4",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on missing revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'PROHIBITED', 'reason': 'The exact policy revision that produced this decision no longer exists.'}"
+    },
+    {
+      "id": "govF-138-missing-revision-reference-5",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on missing revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'PROHIBITED', 'reason': 'The exact policy revision that produced this decision no longer exists.'}"
+    },
+    {
+      "id": "govF-139-missing-revision-reference-6",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on missing revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'PROHIBITED', 'reason': 'The exact policy revision that produced this decision no longer exists.'}"
+    },
+    {
+      "id": "govF-140-missing-revision-reference-7",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on missing revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'PROHIBITED', 'reason': 'The exact policy revision that produced this decision no longer exists.'}"
+    },
+    {
+      "id": "govF-141-corrupt-revision-reference-0",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on hash-mismatched revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'ACCEPT', 'reason': \"The pinned policy revision's content does not match what was recorded at review time.\"}"
+    },
+    {
+      "id": "govF-142-corrupt-revision-reference-1",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on hash-mismatched revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'ACCEPT', 'reason': \"The pinned policy revision's content does not match what was recorded at review time.\"}"
+    },
+    {
+      "id": "govF-143-corrupt-revision-reference-2",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on hash-mismatched revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'ACCEPT', 'reason': \"The pinned policy revision's content does not match what was recorded at review time.\"}"
+    },
+    {
+      "id": "govF-144-corrupt-revision-reference-3",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on hash-mismatched revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'ACCEPT', 'reason': \"The pinned policy revision's content does not match what was recorded at review time.\"}"
+    },
+    {
+      "id": "govF-145-corrupt-revision-reference-4",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on hash-mismatched revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'ACCEPT', 'reason': \"The pinned policy revision's content does not match what was recorded at review time.\"}"
+    },
+    {
+      "id": "govF-146-corrupt-revision-reference-5",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on hash-mismatched revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'ACCEPT', 'reason': \"The pinned policy revision's content does not match what was recorded at review time.\"}"
+    },
+    {
+      "id": "govF-147-corrupt-revision-reference-6",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on hash-mismatched revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'ACCEPT', 'reason': \"The pinned policy revision's content does not match what was recorded at review time.\"}"
+    },
+    {
+      "id": "govF-148-corrupt-revision-reference-7",
+      "family": "missing-corrupt-revision-reference-fails-clean",
+      "passed": true,
+      "notes": "verify_policy_finding on hash-mismatched revision = {'policy_verification': True, 'verified': False, 'replayed_state': None, 'original_state': 'ACCEPT', 'reason': \"The pinned policy revision's content does not match what was recorded at review time.\"}"
+    },
+    {
+      "id": "govF-149-playbook-delete-guard-0",
+      "family": "deleted-governing-object-now-blocked",
+      "passed": true,
+      "notes": "playbook with a historical contract reference correctly detected -- production route now refuses deletion (see main.py:playbook_delete)"
+    },
+    {
+      "id": "govF-150-playbook-delete-guard-1",
+      "family": "deleted-governing-object-now-blocked",
+      "passed": true,
+      "notes": "playbook with a historical contract reference correctly detected -- production route now refuses deletion (see main.py:playbook_delete)"
+    },
+    {
+      "id": "govF-151-playbook-delete-guard-2",
+      "family": "deleted-governing-object-now-blocked",
+      "passed": true,
+      "notes": "playbook with a historical contract reference correctly detected -- production route now refuses deletion (see main.py:playbook_delete)"
+    },
+    {
+      "id": "govF-152-playbook-delete-guard-3",
+      "family": "deleted-governing-object-now-blocked",
+      "passed": true,
+      "notes": "playbook with a historical contract reference correctly detected -- production route now refuses deletion (see main.py:playbook_delete)"
+    },
+    {
+      "id": "govF-153-playbook-delete-guard-4",
+      "family": "deleted-governing-object-now-blocked",
+      "passed": true,
+      "notes": "playbook with a historical contract reference correctly detected -- production route now refuses deletion (see main.py:playbook_delete)"
+    },
+    {
+      "id": "govF-154-playbook-delete-guard-5",
+      "family": "deleted-governing-object-now-blocked",
+      "passed": true,
+      "notes": "playbook with a historical contract reference correctly detected -- production route now refuses deletion (see main.py:playbook_delete)"
+    },
+    {
+      "id": "govF-155-playbook-delete-guard-6",
+      "family": "deleted-governing-object-now-blocked",
+      "passed": true,
+      "notes": "playbook with a historical contract reference correctly detected -- production route now refuses deletion (see main.py:playbook_delete)"
+    },
+    {
+      "id": "govF-156-playbook-delete-guard-7",
+      "family": "deleted-governing-object-now-blocked",
+      "passed": true,
+      "notes": "playbook with a historical contract reference correctly detected -- production route now refuses deletion (see main.py:playbook_delete)"
+    },
+    {
+      "id": "govF-157-playbook-delete-guard-8",
+      "family": "deleted-governing-object-now-blocked",
+      "passed": true,
+      "notes": "playbook with a historical contract reference correctly detected -- production route now refuses deletion (see main.py:playbook_delete)"
+    },
+    {
+      "id": "govF-158-playbook-delete-guard-9",
+      "family": "deleted-governing-object-now-blocked",
+      "passed": true,
+      "notes": "playbook with a historical contract reference correctly detected -- production route now refuses deletion (see main.py:playbook_delete)"
+    },
+    {
+      "id": "govF-159-playbook-delete-allowed-when-unused-0",
+      "family": "deletion-still-allowed-for-unused-playbook",
+      "passed": true,
+      "notes": "no historical contract -- deletion correctly still allowed for an unused playbook"
+    },
+    {
+      "id": "govF-160-playbook-delete-allowed-when-unused-1",
+      "family": "deletion-still-allowed-for-unused-playbook",
+      "passed": true,
+      "notes": "no historical contract -- deletion correctly still allowed for an unused playbook"
+    },
+    {
+      "id": "govF-161-playbook-delete-allowed-when-unused-2",
+      "family": "deletion-still-allowed-for-unused-playbook",
+      "passed": true,
+      "notes": "no historical contract -- deletion correctly still allowed for an unused playbook"
+    },
+    {
+      "id": "govF-162-playbook-delete-allowed-when-unused-3",
+      "family": "deletion-still-allowed-for-unused-playbook",
+      "passed": true,
+      "notes": "no historical contract -- deletion correctly still allowed for an unused playbook"
+    },
+    {
+      "id": "govF-163-playbook-delete-allowed-when-unused-4",
+      "family": "deletion-still-allowed-for-unused-playbook",
+      "passed": true,
+      "notes": "no historical contract -- deletion correctly still allowed for an unused playbook"
+    },
+    {
+      "id": "govF-164-playbook-delete-allowed-when-unused-5",
+      "family": "deletion-still-allowed-for-unused-playbook",
+      "passed": true,
+      "notes": "no historical contract -- deletion correctly still allowed for an unused playbook"
+    },
+    {
+      "id": "govF-165-policy-changed-after-review-0",
+      "family": "policy-position-changed-after-review-old-review-unaffected",
+      "passed": true,
+      "notes": "old review's persisted decision unchanged after new activation: True"
+    },
+    {
+      "id": "govF-166-policy-changed-after-review-1",
+      "family": "policy-position-changed-after-review-old-review-unaffected",
+      "passed": true,
+      "notes": "old review's persisted decision unchanged after new activation: True"
+    },
+    {
+      "id": "govF-167-policy-changed-after-review-2",
+      "family": "policy-position-changed-after-review-old-review-unaffected",
+      "passed": true,
+      "notes": "old review's persisted decision unchanged after new activation: True"
+    },
+    {
+      "id": "govF-168-policy-changed-after-review-3",
+      "family": "policy-position-changed-after-review-old-review-unaffected",
+      "passed": true,
+      "notes": "old review's persisted decision unchanged after new activation: True"
+    },
+    {
+      "id": "govF-169-policy-changed-after-review-4",
+      "family": "policy-position-changed-after-review-old-review-unaffected",
+      "passed": true,
+      "notes": "old review's persisted decision unchanged after new activation: True"
+    },
+    {
+      "id": "govF-170-policy-changed-after-review-5",
+      "family": "policy-position-changed-after-review-old-review-unaffected",
+      "passed": true,
+      "notes": "old review's persisted decision unchanged after new activation: True"
+    },
+    {
+      "id": "govF-171-policy-changed-after-review-6",
+      "family": "policy-position-changed-after-review-old-review-unaffected",
+      "passed": true,
+      "notes": "old review's persisted decision unchanged after new activation: True"
+    },
+    {
+      "id": "govF-172-policy-changed-after-review-7",
+      "family": "policy-position-changed-after-review-old-review-unaffected",
+      "passed": true,
+      "notes": "old review's persisted decision unchanged after new activation: True"
+    },
+    {
+      "id": "govF-173-policy-changed-after-review-8",
+      "family": "policy-position-changed-after-review-old-review-unaffected",
+      "passed": true,
+      "notes": "old review's persisted decision unchanged after new activation: True"
+    },
+    {
+      "id": "govF-174-policy-changed-after-review-9",
+      "family": "policy-position-changed-after-review-old-review-unaffected",
+      "passed": true,
+      "notes": "old review's persisted decision unchanged after new activation: True"
+    }
+  ],
+  "metrics": {
+    "draft_authority": [],
+    "needs_review_authority": [],
+    "inactive_authority": [],
+    "wrong_revision_authority": [],
+    "ambiguous_governing_revision": [],
+    "historical_revision_mutation": [],
+    "historical_policy_mutation": [],
+    "untraceable_governing_revision": [],
+    "dynamic_current_state_dependency": [],
+    "wrong_playbook": [],
+    "wrong_policy_position": [],
+    "false_clean_from_missing_governance": [],
+    "arbitrary_candidate_selection": []
+  },
+  "total": 174,
+  "passed": 174
+}
