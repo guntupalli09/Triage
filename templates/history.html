@@ -59,6 +59,7 @@
             </form>
             <div class="flex flex-wrap gap-2 mt-4">
                 <a href="/history" class="filter-pill {{ 'active' if not active_filter or active_filter == 'all' else '' }}">All</a>
+                <a href="/history?risk=attention" class="filter-pill {{ 'active' if active_filter == 'attention' else '' }}">Needs Attention</a>
                 <a href="/history?risk=high" class="filter-pill {{ 'active' if active_filter == 'high' else '' }}">High Risk</a>
                 <a href="/history?risk=medium" class="filter-pill {{ 'active' if active_filter == 'medium' else '' }}">Medium Risk</a>
                 <a href="/history?risk=low" class="filter-pill {{ 'active' if active_filter == 'low' else '' }}">Low Risk</a>
@@ -80,7 +81,8 @@
                     </thead>
                     <tbody>
                         {% for contract in contracts %}
-                        <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
+                        {% set doc_state = document_states.get(contract.id, '') %}
+                        <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors" data-contract-id="{{ contract.id }}" data-document-state="{{ doc_state }}">
                             <td class="py-3.5 px-5 font-medium text-[#0F172A]">{{ contract.filename }}</td>
                             <td class="py-3.5 px-5 text-gray-500">{{ contract.created_at.strftime('%b %d, %Y at %I:%M %p') }}</td>
                             <td class="py-3.5 px-5">
@@ -90,6 +92,9 @@
                                 <span class="badge-medium inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold">Medium</span>
                                 {% else %}
                                 <span class="badge-low inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold">Low</span>
+                                {% endif %}
+                                {% if doc_state in ('HAS_CRITICAL_INTERACTION', 'HAS_POLICY_VIOLATION', 'REQUIRES_REVIEW', 'CONFIGURATION_UNRESOLVED') and contract.overall_risk != 'high' %}
+                                <span class="badge-high inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold" title="Deterministic policy/interaction review found a material issue not reflected in the risk level above">Needs Attention</span>
                                 {% endif %}
                             </td>
                             <td class="py-3.5 px-5 text-right">

@@ -87,6 +87,7 @@ import playbook_workbench
 import playbook_authoring as pa
 import policy_enforcement
 import review_queue
+import document_aggregation
 from analytics_middleware import AnalyticsMiddleware
 from channel_classifier import CHANNELS as ACQUISITION_CHANNELS
 
@@ -1187,6 +1188,59 @@ async def delete_account(request: Request, db: DBSession = Depends(get_db), _csr
 
 
 # ============================================================
+# DOCUMENT-LEVEL AGGREGATION (Step 4B) -- attention-queue safety
+# ============================================================
+#
+# Contract.overall_risk (legacy pattern-match risk, computed before the
+# policy/interaction layers ever run -- see
+# artifacts/step4b/document_aggregation_spec.md) is not sufficient, on its
+# own, to decide whether a contract needs a lawyer's attention: a contract
+# can have overall_risk == "low" while the deterministic policy layer (in
+# cutover mode) finds a PROHIBITED clause, or the Interaction Engine finds
+# a critical cross-policy conflict. document_aggregation.aggregate_document_state
+# is the single aggregation authority for that richer signal -- this
+# module never recomputes policy truth itself, only reads what the policy
+# and interaction layers already decided and persisted.
+#
+# `policy_decisions_json`/`interaction_decisions_json` are EncryptedJSON
+# columns (see encryption.py) -- their content cannot be filtered or
+# aggregated in SQL, so this is computed here, in Python, per already-
+# fetched row, not as a query. See the consumer map/mode-contract doc
+# (artifacts/step4b/consumer_map_and_mode_contract.md §4) for why no
+# schema migration or persisted summary column was added for this.
+_DOCUMENT_MATERIAL_STATES = frozenset({
+    document_aggregation.DOC_HAS_CRITICAL_INTERACTION,
+    document_aggregation.DOC_HAS_POLICY_VIOLATION,
+    document_aggregation.DOC_REQUIRES_REVIEW,
+    document_aggregation.DOC_CONFIGURATION_UNRESOLVED,
+})
+
+
+def _document_state_for_contract(contract: "Contract") -> str:
+    """Read-time-only aggregation (no write, no recomputation of policy
+    truth) -- see module note above. `interaction_decisions_json is not
+    None` is used as a positive signal that this contract's review ran
+    under cutover mode (only the cutover branch of
+    policy_enforcement.apply_policies_for_review ever populates it, even
+    with every rule NOT_TRIGGERED); this is an approximation, not a stored
+    fact (no per-contract enforcement-mode column exists), and is
+    deliberately conservative: an ambiguous legacy/shadow-shaped contract
+    (interaction_decisions_json is None) is never escalated to
+    CONFIGURATION_UNRESOLVED by this approximation, only ever a real
+    cutover-shaped one. See consumer_map_and_mode_contract.md §2 mode
+    contract for the full reasoning."""
+    effective_mode = "cutover" if contract.interaction_decisions_json is not None else "shadow"
+    result = document_aggregation.aggregate_document_state(
+        contract.overall_risk, contract.policy_decisions_json, contract.interaction_decisions_json, effective_mode,
+    )
+    return result["document_state"]
+
+
+def _needs_attention(contract: "Contract") -> bool:
+    return _document_state_for_contract(contract) in _DOCUMENT_MATERIAL_STATES
+
+
+# ============================================================
 # DASHBOARD
 # ============================================================
 
@@ -1202,16 +1256,27 @@ async def dashboard(request: Request, db: DBSession = Depends(get_db)):
     high_count = db.query(Contract).filter(
         Contract.user_id == user.id, Contract.overall_risk == "high", Contract.analysis_completed == True
     ).count()
+    # Attention count -- must include contracts a bare overall_risk=="high"
+    # filter would miss (see _document_state_for_contract above). Computed
+    # in Python (EncryptedJSON columns cannot be filtered in SQL), scoped
+    # to this user only, same bound the pre-existing total/high_count
+    # queries already use.
+    all_user_contracts = db.query(Contract).filter(
+        Contract.user_id == user.id, Contract.analysis_completed == True
+    ).all()
+    attention_count = sum(1 for c in all_user_contracts if _needs_attention(c))
 
     stats = {
         "total_contracts": total,
         "high_risk_count": high_count,
+        "attention_count": attention_count,
         "contracts_this_month": user.contracts_this_month,
     }
+    document_states = {c.id: _document_state_for_contract(c) for c in contracts}
 
     return templates.TemplateResponse("dashboard.html", {
         "request": request, "user": user, "contracts": contracts,
-        "stats": stats, "current_year": datetime.now().year,
+        "stats": stats, "document_states": document_states, "current_year": datetime.now().year,
     })
 
 
@@ -1230,15 +1295,30 @@ async def history(request: Request, q: str = "", risk: str = "", page: int = 1, 
     if risk in ("high", "medium", "low"):
         query = query.filter(Contract.overall_risk == risk)
 
-    total = query.count()
-    total_pages = max(1, (total + per_page - 1) // per_page)
-    page = max(1, min(page, total_pages))
-    contracts = query.order_by(Contract.created_at.desc()).offset((page - 1) * per_page).limit(per_page).all()
+    if risk == "attention":
+        # Cannot be expressed as a SQL WHERE (EncryptedJSON content is not
+        # filterable at the DB layer -- see _document_state_for_contract
+        # module note). Fetch this user's matching rows and filter/paginate
+        # in Python instead of the DB-level offset/limit used by every
+        # other filter value.
+        all_matching = query.order_by(Contract.created_at.desc()).all()
+        attention_matching = [c for c in all_matching if _needs_attention(c)]
+        total = len(attention_matching)
+        total_pages = max(1, (total + per_page - 1) // per_page)
+        page = max(1, min(page, total_pages))
+        contracts = attention_matching[(page - 1) * per_page: page * per_page]
+    else:
+        total = query.count()
+        total_pages = max(1, (total + per_page - 1) // per_page)
+        page = max(1, min(page, total_pages))
+        contracts = query.order_by(Contract.created_at.desc()).offset((page - 1) * per_page).limit(per_page).all()
+
+    document_states = {c.id: _document_state_for_contract(c) for c in contracts}
 
     return templates.TemplateResponse("history.html", {
         "request": request, "user": user, "contracts": contracts,
         "q": q, "active_filter": risk or "all", "page": page, "total_pages": total_pages,
-        "current_year": datetime.now().year,
+        "document_states": document_states, "current_year": datetime.now().year,
     })
 
 

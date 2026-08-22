@@ -26,7 +26,7 @@
 
 {% block content %}
         <!-- Stats Row -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 fade-in">
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-8 fade-in">
             <div class="premium-card p-5 stat-card">
                 <div class="stat-value">{{ stats.total_contracts }}</div>
                 <div class="stat-label">Total Contracts</div>
@@ -34,6 +34,10 @@
             <div class="premium-card p-5 stat-card">
                 <div class="stat-value text-red-600">{{ stats.high_risk_count }}</div>
                 <div class="stat-label">High Risk</div>
+            </div>
+            <div class="premium-card p-5 stat-card">
+                <div class="stat-value text-amber-600"><span id="stat-attention-count">{{ stats.attention_count }}</span></div>
+                <div class="stat-label">Needs Attention</div>
             </div>
             <div class="premium-card p-5 stat-card">
                 <div class="stat-value">{{ stats.contracts_this_month }}<span class="text-base font-medium text-gray-400">/{{ user.monthly_limit }}</span></div>
@@ -75,7 +79,8 @@
                     </thead>
                     <tbody class="divide-y divide-gray-100">
                         {% for c in contracts[:20] %}
-                        <tr class="hover:bg-gray-50/50 transition-colors">
+                        {% set doc_state = document_states.get(c.id, '') %}
+                        <tr class="hover:bg-gray-50/50 transition-colors" data-contract-id="{{ c.id }}" data-document-state="{{ doc_state }}">
                             <td class="py-3 px-2 font-medium text-[#0F172A] max-w-[200px] truncate">{{ c.filename }}</td>
                             <td class="py-3 px-2 text-gray-500">{{ c.created_at.strftime('%b %d, %Y') if c.created_at else '' }}</td>
                             <td class="py-3 px-2">
@@ -85,6 +90,9 @@
                                 <span class="px-2.5 py-1 text-xs font-semibold rounded-full risk-badge-medium">Medium</span>
                                 {% else %}
                                 <span class="px-2.5 py-1 text-xs font-semibold rounded-full risk-badge-low">Low</span>
+                                {% endif %}
+                                {% if doc_state in ('HAS_CRITICAL_INTERACTION', 'HAS_POLICY_VIOLATION', 'REQUIRES_REVIEW', 'CONFIGURATION_UNRESOLVED') and c.overall_risk != 'high' %}
+                                <span class="px-2.5 py-1 text-xs font-semibold rounded-full risk-badge-high" title="Deterministic policy/interaction review found a material issue not reflected in the risk level above">Needs Attention</span>
                                 {% endif %}
                             </td>
                             <td class="py-3 px-2 text-gray-500">{{ c.playbook.name if c.playbook else '—' }}</td>
