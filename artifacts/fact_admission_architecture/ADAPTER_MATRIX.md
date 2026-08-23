@@ -19,7 +19,7 @@ The previous session's summary conflated two different things under
 | 3 | confidentiality | No | **YES** | No (`CONFIDENTIALITY_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 36/36 pass |
 | 4 | payment_terms | No | pending this session | — | — | — |
 | 5 | ip_ownership | No | **YES** | No (`IP_OWNERSHIP_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 4/4 pass |
-| 6 | insurance | No | pending this session | — | — | — |
+| 6 | insurance | No | **YES** | No (`INSURANCE_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 11/11 pass |
 | 7 | data_security | No | **YES** | No (`DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 4/4 pass |
 | 8 | governing_law | No | pending this session | — | — | — |
 | 9 | termination | No | pending this session | — | — | — |

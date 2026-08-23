@@ -198,6 +198,13 @@ class InsuranceFacts:
     evidence_before_commencement: Optional[bool] = None
     schedule_cross_reference: bool = False
 
+    # Fact-admission architecture — mirrors data_security_policy_engine.
+    # DataSecurityFacts.absence_state exactly, for the same reason: this
+    # adapter's per-dimension evaluate logic can resolve an all-None facts
+    # object to ACCEPT when a playbook requires no specific coverage.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+
 
 class InsurancePolicyRuleLike(Protocol):
     contract_side: str
@@ -305,25 +312,72 @@ def _resolve_coverage_amounts(cov: CoverageRequirement, qualified: List[Tuple[fl
             cov.basis_ambiguous = True
 
 
-def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
-    matches = list(_ANCHOR_RE.finditer(text))
-    if not matches:
-        return None
+# Off by default — same rollout discipline as every other adapter this
+# session integrated.
+INSURANCE_SEMANTIC_DISCOVERY_ENABLED = False
 
+_INSURANCE_SEMANTIC_FOCUS = (
+    "one party being required to maintain, provide evidence of, or name the other party as "
+    "an additional insured under, an insurance policy -- even if the wording is unusual and "
+    "does not use standard terms like 'insurance' or 'coverage'"
+)
+_INSURANCE_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that establishes an "
+    "insurance-coverage obligation (required coverage, limits, additional insured status, "
+    "certificate/evidence of insurance, or a related insurance requirement)."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly."""
+    if not INSURANCE_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "insurance", _INSURANCE_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], f"{type(exc).__name__}: {exc}"
+
+    admitted = []
+    for candidate in raw_candidates:
+        verified = _fa.verify_and_ground(candidate, text, _INSURANCE_SEMANTIC_PROPOSITION)
+        if verified.admission_status == _fa.ADMITTED:
+            admitted.append(verified)
+    return admitted, None
+
+
+def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
+    """Returns None only when no anchor exists at all AND semantic
+    discovery also ran successfully and found nothing — a provider
+    outage/error becomes RECOGNITION_UNCERTAIN instead (see
+    absence_state)."""
+    matches = list(_ANCHOR_RE.finditer(text))
+    semantic_error: Optional[str] = None
+    admitted_semantic: List = []
+    if not matches:
+        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        if semantic_error is not None:
+            return InsuranceFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+        if not admitted_semantic:
+            return None
+
+    anchor_spans = sorted(
+        [(m.start(), m.end()) for m in matches] + [(c.start_offset, c.end_offset) for c in admitted_semantic]
+    )
     windows: List[Tuple[int, int]] = []
-    for m in matches:
-        s = max(0, m.start() - 200)
-        e = min(len(text), m.end() + _PROVISION_WINDOW_CHARS)
+    for (m_start, m_end) in anchor_spans:
+        s = max(0, m_start - 200)
+        e = min(len(text), m_end + _PROVISION_WINDOW_CHARS)
         if windows and s - windows[-1][1] < 200:
             windows[-1] = (windows[-1][0], max(windows[-1][1], e))
         else:
             windows.append((s, e))
 
-    first_match = matches[0]
-    start_index = max(0, first_match.start() - 200)
-    end_index = min(len(text), first_match.end() + 400)
+    first_start, first_end = anchor_spans[0]
+    start_index = max(0, first_start - 200)
+    end_index = min(len(text), first_end + 400)
     raw_excerpt = excerpt(text, start_index, end_index)
-    section_label = section_label_before(text, first_match.start())
+    section_label = section_label_before(text, first_start)
 
     facts = InsuranceFacts(clause_found=True, raw_excerpt=raw_excerpt, start_index=start_index,
                             end_index=end_index, section_label=section_label)
@@ -484,6 +538,21 @@ def evaluate_insurance_policy(
             required_action="None — this contract does not address insurance",
             explanation="No insurance clause was found in this contract, so the policy has nothing to evaluate against.",
             negotiation_ladder=_build_ladder(policy, NOT_APPLICABLE), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None,
+        )
+
+    if facts.absence_state == "RECOGNITION_UNCERTAIN":
+        return PolicyDecision(
+            **common, state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="Could not determine whether an insurance clause is present",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — automated recognition was unavailable for this document.",
+            explanation=(
+                "Deterministic pattern matching found no insurance clause, and semantic verification could "
+                f"not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). This is not "
+                "the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
             start_index=None, end_index=None,
         )
 
