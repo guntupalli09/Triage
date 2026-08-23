@@ -352,6 +352,15 @@ class SLAFacts:
 
     schedule_cross_reference: bool = False
 
+    # Fact-admission architecture — mirrors warranties_policy_engine.
+    # WarrantiesFacts.absence_state. This adapter's "anchor fired but
+    # nothing structured" gate also returns None/NOT_APPLICABLE (see
+    # `if not found_anything: return None`), so RECOGNITION_UNCERTAIN on
+    # the NO-anchor path needs its own explicit branch in
+    # evaluate_sla_policy.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+
 
 class SLAPolicyRuleLike(Protocol):
     contract_side: str
@@ -400,25 +409,68 @@ _SEVERITY_POLICY_FIELD_MAP = {
 }
 
 
+# Off by default — same rollout discipline as every other adapter this
+# session integrated.
+SLA_SEMANTIC_DISCOVERY_ENABLED = False
+
+_SLA_SEMANTIC_FOCUS = (
+    "a service-level commitment -- an uptime/availability target, a severity-based response "
+    "or restoration time, or a service-credit remedy for failing to meet a commitment -- even "
+    "if the wording is unusual and does not use standard terms like 'SLA' or 'uptime'"
+)
+_SLA_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that establishes a "
+    "service-level commitment (an availability target, a response/restoration time "
+    "commitment, or a service-credit remedy)."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly."""
+    if not SLA_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "sla", _SLA_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], f"{type(exc).__name__}: {exc}"
+
+    admitted = []
+    for candidate in raw_candidates:
+        verified = _fa.verify_and_ground(candidate, text, _SLA_SEMANTIC_PROPOSITION)
+        if verified.admission_status == _fa.ADMITTED:
+            admitted.append(verified)
+    return admitted, None
+
+
 def extract_sla_facts(text: str) -> Optional[SLAFacts]:
     anchors = list(_ANCHOR_RE.finditer(text))
+    semantic_error: Optional[str] = None
+    admitted_semantic: List = []
     if not anchors:
-        return None
+        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        if semantic_error is not None:
+            return SLAFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+        if not admitted_semantic:
+            return None
 
+    anchor_spans = sorted(
+        [(m.start(), m.end()) for m in anchors] + [(c.start_offset, c.end_offset) for c in admitted_semantic]
+    )
     windows: List[Tuple[int, int]] = []
-    for m in anchors:
-        s = max(0, m.start() - 200)
-        e = min(len(text), m.end() + _PROVISION_WINDOW_CHARS)
+    for (m_start, m_end) in anchor_spans:
+        s = max(0, m_start - 200)
+        e = min(len(text), m_end + _PROVISION_WINDOW_CHARS)
         if windows and s - windows[-1][1] < 200:
             windows[-1] = (windows[-1][0], max(windows[-1][1], e))
         else:
             windows.append((s, e))
 
-    first_match = anchors[0]
-    start_index = max(0, first_match.start() - 200)
-    end_index = min(len(text), first_match.end() + 400)
+    first_start, first_end = anchor_spans[0]
+    start_index = max(0, first_start - 200)
+    end_index = min(len(text), first_end + 400)
     raw_excerpt = _excerpt(text, start_index, end_index)
-    section_label = _section_label_before(text, first_match.start())
+    section_label = _section_label_before(text, first_start)
 
     facts = SLAFacts(clause_found=True, raw_excerpt=raw_excerpt, start_index=start_index,
                       end_index=end_index, section_label=section_label)
@@ -685,6 +737,23 @@ def evaluate_sla_policy(
             required_action="None — this contract does not address service levels",
             explanation="No SLA/service-level clause was found in this contract, so the policy has nothing to evaluate against.",
             negotiation_ladder=_build_ladder(policy, NOT_APPLICABLE), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None, source=source, summary_label="SLA treatment",
+            our_position_label="Our SLA commitments", counterparty_position_label="Counterparty's SLA commitments",
+            interaction_facts={"service_credit_present": None},
+        )
+
+    if facts.absence_state == "RECOGNITION_UNCERTAIN":
+        return PolicyDecision(
+            rule_id=RULE_ID, clause_type="sla", state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="Could not determine whether an SLA/service-level clause is present",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — automated recognition was unavailable for this document.",
+            explanation=(
+                "Deterministic pattern matching found no SLA/service-level clause, and semantic "
+                f"verification could not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). "
+                "This is not the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
             start_index=None, end_index=None, source=source, summary_label="SLA treatment",
             our_position_label="Our SLA commitments", counterparty_position_label="Counterparty's SLA commitments",
             interaction_facts={"service_credit_present": None},
