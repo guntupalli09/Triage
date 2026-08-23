@@ -147,6 +147,48 @@ def enforce_extracted_text_limit(text: str) -> str:
     return text
 
 
+# --- Extraction-quality gate (fact-admission architecture, Step 12) -------
+#
+# main.py's fully-empty check (`not contract_text.strip()`) catches a
+# purely scanned PDF where extract_text() returns nothing at all for every
+# page. It does NOT catch a NEAR-empty extraction — a scanned PDF where a
+# stray watermark, page number, or header/footer fragment survives on each
+# page while the actual body text does not. Before this gate, that
+# document would pass the fully-empty check and proceed through every
+# downstream clause adapter exactly as if it were a normal, fully-readable
+# contract -- indistinguishable, at the fact layer, from a well-extracted
+# document that genuinely lacks a given clause (see
+# artifacts/fact_admission_architecture/PRE_IMPLEMENTATION_MAP.md §10/§12).
+#
+# This is a length/density heuristic, not OCR -- no OCR dependency exists
+# in this codebase and the mission driving this change explicitly calls
+# for not introducing one without justification (Step 12). A genuinely
+# short but real one-page order form is not penalized: the floor is a
+# character-per-page average, so a short document with few pages still
+# passes; only a document whose average page contributes almost nothing
+# extractable text is rejected.
+MIN_CHARS_PER_PAGE = 40
+
+
+def assess_pdf_text_density(text: str, page_count: int) -> None:
+    """Raises UploadRejected when a PDF's extracted text is too sparse,
+    relative to its page count, to reliably represent the document's real
+    content -- the "we failed to obtain enough text" case, distinct from
+    "the contract contains no relevant language" (which downstream clause
+    adapters are responsible for distinguishing once text quality is no
+    longer in question). page_count of 0 is defensively treated as 1 to
+    avoid a division by zero without masking a genuinely empty document."""
+    if page_count <= 0:
+        page_count = 1
+    density = len(text.strip()) / page_count
+    if density < MIN_CHARS_PER_PAGE:
+        raise UploadRejected(
+            "We couldn’t extract enough readable text from that document to review it reliably "
+            "(it may be a scanned PDF with only a small amount of embedded text, such as a "
+            "watermark or page numbers). If it’s a scanned PDF, run OCR first and re-upload."
+        )
+
+
 # --- Malware scanning interface ---
 #
 # Pluggable so a real scanner can be wired in per deployment without

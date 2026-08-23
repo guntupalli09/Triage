@@ -299,8 +299,10 @@ def extract_text_from_file(file_bytes: bytes, filename: str) -> str:
             return file_bytes.decode("latin-1", errors="ignore")
     if ext == ".pdf":
         reader = PdfReader(io.BytesIO(file_bytes))
-        upload_security.validate_pdf_page_count(len(reader.pages))
+        page_count = len(reader.pages)
+        upload_security.validate_pdf_page_count(page_count)
         text = "\n".join(p.extract_text() or "" for p in reader.pages)
+        upload_security.assess_pdf_text_density(text, page_count)
         return upload_security.enforce_extracted_text_limit(text)
     if ext == ".docx":
         upload_security.validate_docx_zip_safety(file_bytes)
