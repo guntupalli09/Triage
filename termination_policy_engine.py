@@ -267,6 +267,14 @@ class TerminationFacts:
     fee: TerminationFee = field(default_factory=lambda: TerminationFee(kind="not_mentioned"))
     transition_assistance: bool = False
 
+    # Fact-admission architecture — mirrors confidentiality_policy_engine.
+    # ConfidentialityFacts.absence_state. evaluate_termination_policy's
+    # existing `if not facts.rights` branch already routes empty rights to
+    # REQUIRES_REVIEW regardless of the reason, so RECOGNITION_UNCERTAIN
+    # never needs its own separate branch there (same as confidentiality).
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+
 
 class TerminationPolicyRuleLike(Protocol):
     contract_side: str
@@ -385,14 +393,60 @@ def _detect_right_asymmetry(window: str) -> List[str]:
     )
 
 
+# Off by default — same rollout discipline as every other adapter this
+# session integrated.
+TERMINATION_SEMANTIC_DISCOVERY_ENABLED = False
+
+_TERMINATION_SEMANTIC_FOCUS = (
+    "one party's right to end this agreement -- for convenience, for cause, upon insolvency, "
+    "or otherwise -- even if the wording is unusual and does not use the word 'terminate' at all"
+)
+_TERMINATION_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that establishes a "
+    "party's right to end this agreement."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly."""
+    if not TERMINATION_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "termination", _TERMINATION_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], f"{type(exc).__name__}: {exc}"
+
+    admitted = []
+    for candidate in raw_candidates:
+        verified = _fa.verify_and_ground(candidate, text, _TERMINATION_SEMANTIC_PROPOSITION)
+        if verified.admission_status == _fa.ADMITTED:
+            admitted.append(verified)
+    return admitted, None
+
+
 def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
     """Finds every termination right stated in the full document. Like
     Indemnification's obligations, rights are NOT reconciled into one
     controlling provision — a contract legitimately states several
-    independently-true rights (convenience, cause, insolvency, ...)."""
+    independently-true rights (convenience, cause, insolvency, ...).
+    Returns None only when no anchor exists at all AND semantic discovery
+    also ran successfully and found nothing — a provider outage/error
+    becomes RECOGNITION_UNCERTAIN instead (see absence_state)."""
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
     if not anchors:
-        return None
+        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        if semantic_error is not None:
+            return TerminationFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+        if not admitted_semantic:
+            return None
+        # A semantically-admitted candidate does not itself become a
+        # right — it only earns this document a shot at the SAME
+        # deterministic NAMED_RIGHT_RE/MUTUAL_RIGHT_RE structuring below
+        # (which already scans the full document unconditionally, not
+        # gated on `anchors`). If that structuring still can't parse a
+        # right, this falls through to the existing "rights=[]"
+        # REQUIRES_REVIEW path a few lines down — never a fabricated right.
 
     rights: List[TerminationRight] = []
     seen_spans: List[Tuple[int, int]] = []

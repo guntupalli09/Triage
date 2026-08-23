@@ -22,7 +22,7 @@ The previous session's summary conflated two different things under
 | 6 | insurance | No | **YES** | No (`INSURANCE_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 11/11 pass |
 | 7 | data_security | No | **YES** | No (`DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 4/4 pass |
 | 8 | governing_law | No | pending this session | — | — | — |
-| 9 | termination | No | pending this session | — | — | — |
+| 9 | termination | No | **YES** | No (`TERMINATION_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 50/50 pass |
 | 10 | warranties | No | pending this session | — | — | — |
 | 11 | sla | No | pending this session | — | — | — |
 | 12 | assignment | No | pending this session | — | — | — |
