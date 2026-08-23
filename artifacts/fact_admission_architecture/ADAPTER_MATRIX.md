@@ -1,5 +1,40 @@
 # ADAPTER_MATRIX
 
+## Reconciliation (12/12, resolving the "1/12 vs 10/12" ambiguity)
+
+The previous session's summary conflated two different things under
+"integrated." This table separates them:
+
+- **Architecturally protected** = has SOME absence-state-aware,
+  fail-closed-on-uncertainty protection today (whether via the new shared
+  `fact_admission.py` or indemnification's own pre-existing, separately
+  frozen equivalent).
+- **Integrated with shared framework** = specifically uses
+  `fact_admission.py`'s discover/verify/ground/admit functions.
+
+| # | Adapter | Architecturally protected before this branch | Shared `fact_admission.py` integration | Production enabled | Targeted tests | Regression |
+|---|---|---|---|---|---|---|
+| 1 | limitation_of_liability | No | **YES** (prior session) | No (`LIABILITY_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 85/85 pass |
+| 2 | indemnification | **YES** — own pre-existing `semantic_discovery_real.py` + 4-way `absence_state`, frozen/validated Step 4B | Not migrated (deliberate — see ARCHITECTURE.md) | Partial (`SEMANTIC_PROVIDER` hardcoded `SIMULATED`) | pre-existing suite | pre-existing suite passes |
+| 3 | confidentiality | No | pending this session | — | — | — |
+| 4 | payment_terms | No | pending this session | — | — | — |
+| 5 | ip_ownership | No | pending this session | — | — | — |
+| 6 | insurance | No | pending this session | — | — | — |
+| 7 | data_security | No | pending this session | — | — | — |
+| 8 | governing_law | No | pending this session | — | — | — |
+| 9 | termination | No | pending this session | — | — | — |
+| 10 | warranties | No | pending this session | — | — | — |
+| 11 | sla | No | pending this session | — | — | — |
+| 12 | assignment | No | pending this session | — | — | — |
+
+Accounting for all 12: **1 integrated with the shared framework
+(liability)**, **1 architecturally protected by a separate, pre-existing
+mechanism (indemnification)**, **10 with no semantic protection at all
+before this session** (rows 3-12, being closed in this session below,
+one at a time, updating this table after each).
+
+
+
 Integration status of the shared `fact_admission.py` framework across all
 12 production adapters (confirmed list, see PRE_IMPLEMENTATION_MAP.md §1).
 

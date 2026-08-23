@@ -122,6 +122,14 @@ class ConfidentialityObligation:
 class ConfidentialityFacts:
     clause_found: bool
     obligations: List[ConfidentialityObligation] = field(default_factory=list)
+    # Fact-admission architecture — mirrors liability_policy_engine.
+    # LiabilityFacts.absence_state exactly. Diagnostic; evaluate_
+    # confidentiality_policy already routes empty `obligations` to
+    # REQUIRES_REVIEW regardless of the reason (see the `if not facts.
+    # obligations` branch below), so RECOGNITION_UNCERTAIN never needs its
+    # own separate branch there the way liability's did.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
 
 
 class ConfidentialityPolicyRuleLike(Protocol):
@@ -206,10 +214,72 @@ def _detect_confidentiality_asymmetry(window: str) -> List[str]:
     )
 
 
+# Off by default — same rollout discipline as
+# liability_policy_engine.LIABILITY_SEMANTIC_DISCOVERY_ENABLED. With this
+# off, extraction behaves byte-identically to before this integration.
+CONFIDENTIALITY_SEMANTIC_DISCOVERY_ENABLED = False
+
+_CONFIDENTIALITY_SEMANTIC_FOCUS = (
+    "one party being obligated to protect another party's confidential, proprietary, "
+    "or trade-secret information from disclosure or use — a confidentiality/non-"
+    "disclosure concept — even if the wording is unusual and does not use the word "
+    "'confidential' at all (e.g. 'proprietary information', 'trade secrets', "
+    "'non-public information')"
+)
+_CONFIDENTIALITY_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that obligates "
+    "one party to protect another party's confidential, proprietary, or non-public "
+    "information from disclosure or misuse."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
+    """Additive semantic discovery for confidentiality language the
+    deterministic anchor (`_ANCHOR_RE`, a broad "confidential\\w*" match)
+    did not find at all. Mirrors liability_policy_engine._run_semantic_
+    discovery exactly. Returns (admitted_candidates, error)."""
+    if not CONFIDENTIALITY_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "confidentiality", _CONFIDENTIALITY_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], f"{type(exc).__name__}: {exc}"
+
+    admitted = []
+    for candidate in raw_candidates:
+        verified = _fa.verify_and_ground(candidate, text, _CONFIDENTIALITY_SEMANTIC_PROPOSITION)
+        if verified.admission_status == _fa.ADMITTED:
+            admitted.append(verified)
+    return admitted, None
+
+
 def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
+    """Returns None only when no confidentiality-protection language
+    exists at all AND semantic discovery (see _run_semantic_discovery)
+    also ran successfully and found nothing. A semantic-discovery
+    provider outage/error never collapses into "no clause" — see
+    RECOGNITION_UNCERTAIN below, which the existing `if not facts.
+    obligations` REQUIRES_REVIEW branch in evaluate_confidentiality_policy
+    already safely absorbs (see ConfidentialityFacts.absence_state)."""
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
     if not anchors:
-        return None
+        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        if semantic_error is not None:
+            return ConfidentialityFacts(
+                clause_found=True, obligations=[], absence_state="RECOGNITION_UNCERTAIN",
+                semantic_discovery_error=semantic_error,
+            )
+        if not admitted_semantic:
+            return None
+        # A semantically-admitted candidate does not itself become an
+        # obligation — it only earns this document a shot at the SAME
+        # deterministic NAMED_OBLIGATION_RE/MUTUAL_OBLIGATION_RE
+        # structuring below (which already scans the full document
+        # unconditionally, not gated on `anchors`). If that structuring
+        # still can't parse a directional obligation, this correctly
+        # falls through to the existing "obligations=[]" REQUIRES_REVIEW
+        # path a few lines down — never a fabricated obligation.
 
     obligations: List[ConfidentialityObligation] = []
     seen_spans: List[Tuple[int, int]] = []
