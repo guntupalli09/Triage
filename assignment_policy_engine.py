@@ -102,6 +102,15 @@ class AssignmentFacts:
     restrictions: List[AssignmentRestriction] = field(default_factory=list)
     unrestricted_assignment: bool = False
 
+    # Fact-admission architecture — mirrors confidentiality_policy_engine.
+    # ConfidentialityFacts.absence_state. evaluate_assignment_policy's
+    # existing `if not facts.restrictions and not facts.
+    # unrestricted_assignment` branch already routes to REQUIRES_REVIEW
+    # regardless of the reason, so RECOGNITION_UNCERTAIN never needs its
+    # own separate branch there.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+
 
 class AssignmentPolicyRuleLike(Protocol):
     contract_side: str
@@ -169,10 +178,59 @@ def _detect_restriction_asymmetry(window: str) -> List[str]:
     )
 
 
+# Off by default — same rollout discipline as every other adapter this
+# session integrated.
+ASSIGNMENT_SEMANTIC_DISCOVERY_ENABLED = False
+
+_ASSIGNMENT_SEMANTIC_FOCUS = (
+    "a restriction on one party's ability to assign, transfer, or delegate this agreement to "
+    "another entity -- or a statement that assignment is unrestricted -- even if the wording is "
+    "unusual and does not use the word 'assign' at all"
+)
+_ASSIGNMENT_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that restricts, "
+    "conditions, or permits a party's ability to assign, transfer, or delegate this agreement."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly."""
+    if not ASSIGNMENT_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "assignment", _ASSIGNMENT_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], f"{type(exc).__name__}: {exc}"
+
+    admitted = []
+    for candidate in raw_candidates:
+        verified = _fa.verify_and_ground(candidate, text, _ASSIGNMENT_SEMANTIC_PROPOSITION)
+        if verified.admission_status == _fa.ADMITTED:
+            admitted.append(verified)
+    return admitted, None
+
+
 def extract_assignment_facts(text: str) -> Optional[AssignmentFacts]:
+    """Returns None only when no anchor exists at all AND semantic
+    discovery also ran successfully and found nothing — a provider
+    outage/error becomes RECOGNITION_UNCERTAIN instead (see
+    absence_state)."""
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
     if not anchors:
-        return None
+        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        if semantic_error is not None:
+            return AssignmentFacts(clause_found=True, restrictions=[], unrestricted_assignment=False, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+        if not admitted_semantic:
+            return None
+        # A semantically-admitted candidate does not itself become a
+        # restriction — it only earns this document a shot at the SAME
+        # deterministic NAMED_RESTRICTION_RE/MUTUAL_RESTRICTION_RE
+        # structuring below (which already scans the full document
+        # unconditionally, not gated on `anchors`). If that structuring
+        # still can't parse a restriction, this falls through to the
+        # existing "restrictions=[]" REQUIRES_REVIEW path a few lines
+        # down — never a fabricated restriction.
 
     restrictions: List[AssignmentRestriction] = []
     seen_spans: List[Tuple[int, int]] = []

@@ -25,7 +25,7 @@ The previous session's summary conflated two different things under
 | 9 | termination | No | **YES** | No (`TERMINATION_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 50/50 pass |
 | 10 | warranties | No | **YES** | No (`WARRANTIES_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 4/4 pass |
 | 11 | sla | No | **YES** | No (`SLA_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 4/4 pass (test_sla_activation_hook_no_effect_on_existing_adapters.py requires fastapi, environment-blocked in this sandbox — not run) |
-| 12 | assignment | No | pending this session | — | — | — |
+| 12 | assignment | No | **YES** | No (`ASSIGNMENT_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 26/26 pass |
 
 Accounting for all 12: **1 integrated with the shared framework
 (liability)**, **1 architecturally protected by a separate, pre-existing
