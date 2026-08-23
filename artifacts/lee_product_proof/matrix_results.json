@@ -1,0 +1,422 @@
+{
+  "limitation_of_liability::A_compliant": {
+    "slug": "limitation_of_liability",
+    "test_id": "A_compliant",
+    "input": "Limitation of Liability. IN NO EVENT SHALL EITHER PARTY'S TOTAL AGGREGATE LIABILITY EXCEED THE FEES PAID IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM, EXCEPT THAT THIS CAP SHALL NOT APPLY TO BREACHES OF CONFIDENTIALITY, FRAUD, GROSS NEGLIGENCE, OR WILLFUL MISCONDUCT. Neither party shall be liable for any indirect, incidental, or consequential damages, except with respect to breaches of confidentiality, fraud, gross negligence, or willful misconduct.",
+    "result_text": "Preview result\nMUST REDLINE\nWHAT WAS FOUND\nLimitation-of-liability clause present but no numeric general cap stated\nWHY\nContract language: \"Limitation of Liability. IN NO EVENT SHALL EITHER PARTY'S TOTAL AGGREGATE LIABILITY EXCEED THE FEES PAID IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM, EXCEPT THAT THIS CAP SHALL NOT APPLY TO BREACHES OF CONFIDENTIALITY, FRAUD, GROSS NEGLIGENCE, OR WILLFUL MISCONDUCT.\". A limitation-of-liability clause exists but states no enforceable numeric general cap. Company policy requires a stated cap. Result: MUST_REDLINE.\nREQUIRED ACTION\nRedline \u2014 insert the approved cap language\nMATCHED LANGUAGE\nLimitation of Liability. IN NO EVENT SHALL EITHER PARTY'S TOTAL AGGREGATE LIABILITY EXCEED THE FEES PAID IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM, EXCEPT THAT THIS CAP SHALL NOT APPLY TO BREACHES OF CONFIDENTIALITY, FRAUD, GROSS NEGLIGENCE, OR WILLFUL MISCONDUCT.\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_limitation_of_liability_A_compliant.png"
+  },
+  "limitation_of_liability::B_noncompliant": {
+    "slug": "limitation_of_liability",
+    "test_id": "B_noncompliant",
+    "input": "Limitation of Liability. There shall be no limit on either party's liability arising out of or related to this Agreement.",
+    "result_text": "Preview result\nPROHIBITED\nWHAT WAS FOUND\nUnlimited liability\nWHY\nContract language: \"There shall be no limit\". Extracted value: Unlimited. Company policy: unlimited liability is prohibited. Result: PROHIBITED.\nREQUIRED ACTION\nReplace clause \u2014 apply the approved fallback cap\nMATCHED LANGUAGE\nThere shall be no limit\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_limitation_of_liability_B_noncompliant.png"
+  },
+  "limitation_of_liability::C_absent": {
+    "slug": "limitation_of_liability",
+    "test_id": "C_absent",
+    "input": "Term. This Agreement shall commence on the Effective Date and continue for one (1) year.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo limitation-of-liability clause found\nWHY\nNo limitation-of-liability clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address liability caps\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_limitation_of_liability_C_absent.png"
+  },
+  "limitation_of_liability::D_unusual": {
+    "slug": "limitation_of_liability",
+    "test_id": "D_unusual",
+    "input": "Neither of us will owe the other more, in total, across everything that could go wrong here, than what actually changed hands in payments over the year before whatever happened happened.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo limitation-of-liability clause found\nWHY\nNo limitation-of-liability clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address liability caps\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_limitation_of_liability_D_unusual.png"
+  },
+  "limitation_of_liability::E_ambiguous": {
+    "slug": "limitation_of_liability",
+    "test_id": "E_ambiguous",
+    "input": "Limitation of Liability. Liability under this Agreement is limited as set forth in Exhibit C, except as otherwise provided herein.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nCould not be reliably established\nWHY\nContract language: \"ion of Liability. Liability under this Agreement is limited as set forth in Exhibit C, except as otherwise provided herein.\". This clause could not be evaluated deterministically \u2014 the following fact(s) required for a policy decision could not be reliably established: general liability cap (delegates to \"Exhibit C\" \u2014 referenced provision \"Exhibit C\" was not found elsewhere in the extracted document text). Result: REQUIRES_REVIEW.\nREQUIRED ACTION\nManual review required \u2014 general liability cap (delegates to \"Exhibit C\" \u2014 referenced provision \"Exhibit C\" was not found elsewhere in the extracted document text)\nMATCHED LANGUAGE\nion of Liability. Liability under this Agreement is limited as set forth in Exhibit C, except as otherwise provided herein.\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_limitation_of_liability_E_ambiguous.png"
+  },
+  "indemnification::A_compliant": {
+    "slug": "indemnification",
+    "test_id": "A_compliant",
+    "input": "Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and against any and all third-party claims, damages, losses, and expenses arising from Vendor's IP infringement, data breach, breach of confidentiality, or negligence.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nCould not be reliably established\nWHY\nContract language: \"Indemnification. Vendor shall indemnify, defend, and hold harmless Customer from and against any and all third-party claims, damages, losses,\". This indemnification structure could not be evaluated deterministically \u2014 the following fact(s) required for a policy decision could not be reliably established: contract states directional (non-mutual) indemnification obligations, but this playbook is configured for a mutual position \u2014 cannot determine which obligation is ours. Result: REQUIRES_REVIEW.\nREQUIRED ACTION\nManual review required \u2014 contract states directional (non-mutual) indemnification obligations, but this playbook is configured for a mutual position \u2014 cannot determine which obligation is ours\nMATCHED LANGUAGE\nIndemnification. Vendor shall indemnify, defend, and hold harmless Customer from and against any and all third-party claims, damages, losses,\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_indemnification_A_compliant.png"
+  },
+  "indemnification::B_noncompliant": {
+    "slug": "indemnification",
+    "test_id": "B_noncompliant",
+    "input": "Indemnification. Vendor shall indemnify Customer solely for claims arising from Vendor's willful fraud, and for no other cause whatsoever.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nCould not be reliably established\nWHY\nContract language: \"Indemnification. Vendor shall indemnify Customer solely for claims arising from Vendor's willful fraud, and for\". This indemnification structure could not be evaluated deterministically \u2014 the following fact(s) required for a policy decision could not be reliably established: contract states directional (non-mutual) indemnification obligations, but this playbook is configured for a mutual position \u2014 cannot determine which obligation is ours. Result: REQUIRES_REVIEW.\nREQUIRED ACTION\nManual review required \u2014 contract states directional (non-mutual) indemnification obligations, but this playbook is configured for a mutual position \u2014 cannot determine which obligation is ours\nMATCHED LANGUAGE\nIndemnification. Vendor shall indemnify Customer solely for claims arising from Vendor's willful fraud, and for\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_indemnification_B_noncompliant.png"
+  },
+  "indemnification::C_absent": {
+    "slug": "indemnification",
+    "test_id": "C_absent",
+    "input": "Payment Terms. Customer shall pay all undisputed invoices within thirty (30) days of receipt.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo indemnification clause found\nWHY\nNo indemnification clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address indemnification\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_indemnification_C_absent.png"
+  },
+  "indemnification::D_unusual": {
+    "slug": "indemnification",
+    "test_id": "D_unusual",
+    "input": "Making Each Other Whole. Should a claim arise from someone outside this Agreement because of a party's own product, that party will step in and cover the resulting costs.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo indemnification clause found\nWHY\nNo indemnification clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address indemnification\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_indemnification_D_unusual.png"
+  },
+  "indemnification::E_ambiguous": {
+    "slug": "indemnification",
+    "test_id": "E_ambiguous",
+    "input": "Indemnification. Each party shall indemnify the other for losses arising from the indemnifying party's material breach, except that this obligation shall not apply where the loss results from the other party's own negligence, unless such negligence was contributed to by the indemnifying party, in which case indemnification shall apply in proportion to fault as reasonably determined by the parties.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nCould not be reliably established\nWHY\nContract language: \"Indemnification. Each party shall indemnify the other for losses arising from the indemnifying party's material breach,\". This indemnification structure could not be evaluated deterministically \u2014 the following fact(s) required for a policy decision could not be reliably established: protection obligation is conditionally applicable (unless: \"unless such negligence was contributed to by the indemnifying party\") \u2014 this evaluation does not determine whether the stated condition is satisfied; exposure obligation is conditionally applicable (unless: \"unless such negligence was contributed to by the indemnifying party\") \u2014 this evaluation does not determine whether the stated condition is satisfied. Result: REQUIRES_REVIEW.\nREQUIRED ACTION\nManual review required \u2014 protection obligation is conditionally applicable (unless: \"unless such negligence was contributed to by the indemnifying party\") \u2014 this evaluation does not determine whether the stated condition is satisfied; exposure obligation is conditionally applicable (unless: \"unless such negligence was contributed to by the indemnifying party\") \u2014 this evaluation does not determine whether the stated condition is satisfied\nMATCHED LANGUAGE\nIndemnification. Each party shall indemnify the other for losses arising from the indemnifying",
+    "screenshot": "matrix_indemnification_E_ambiguous.png"
+  },
+  "confidentiality::A_compliant": {
+    "slug": "confidentiality",
+    "test_id": "A_compliant",
+    "input": "Confidentiality. Each party shall hold the other party's Confidential Information in strict confidence and shall not disclose it to any third party. This obligation is mutual and shall survive termination for a period of five (5) years.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nConfidentiality referenced but no directional obligation could be parsed\nWHY\nThe document references confidentiality but no parseable directional or mutual structure was found \u2014 the clause may be malformed or drafted in a form this extractor doesn't recognize.\nREQUIRED ACTION\nManual review required \u2014 confidentiality language present but structure unclear\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_confidentiality_A_compliant.png"
+  },
+  "confidentiality::B_noncompliant": {
+    "slug": "confidentiality",
+    "test_id": "B_noncompliant",
+    "input": "Confidentiality. Customer shall keep Vendor's Confidential Information secret. Vendor has no reciprocal obligation with respect to Customer's information.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nConfidentiality referenced but no directional obligation could be parsed\nWHY\nThe document references confidentiality but no parseable directional or mutual structure was found \u2014 the clause may be malformed or drafted in a form this extractor doesn't recognize.\nREQUIRED ACTION\nManual review required \u2014 confidentiality language present but structure unclear\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_confidentiality_B_noncompliant.png"
+  },
+  "confidentiality::C_absent": {
+    "slug": "confidentiality",
+    "test_id": "C_absent",
+    "input": "Assignment. Neither party may assign this Agreement without the other's prior written consent.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo confidentiality clause found\nWHY\nNo confidentiality clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address confidentiality\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_confidentiality_C_absent.png"
+  },
+  "confidentiality::D_unusual": {
+    "slug": "confidentiality",
+    "test_id": "D_unusual",
+    "input": "Keeping Things Private. Neither of us will let the other's business secrets leak out to anyone outside this relationship, and we'll treat what we learn about each other the same way we'd want our own information treated, both now and after we're done working together.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo confidentiality clause found\nWHY\nNo confidentiality clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address confidentiality\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_confidentiality_D_unusual.png"
+  },
+  "confidentiality::E_ambiguous": {
+    "slug": "confidentiality",
+    "test_id": "E_ambiguous",
+    "input": "Confidentiality. Confidential Information shall be protected for a reasonable period following disclosure.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nConfidentiality referenced but no directional obligation could be parsed\nWHY\nThe document references confidentiality but no parseable directional or mutual structure was found \u2014 the clause may be malformed or drafted in a form this extractor doesn't recognize.\nREQUIRED ACTION\nManual review required \u2014 confidentiality language present but structure unclear\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_confidentiality_E_ambiguous.png"
+  },
+  "payment_terms::A_compliant": {
+    "slug": "payment_terms",
+    "test_id": "A_compliant",
+    "input": "Payment Terms. Customer shall be the payor of all fees under this Agreement, due within thirty (30) days of invoice. Undisputed amounts shall remain payable during any dispute. Customer shall pre-approve any reimbursable expenses. Customer shall bear responsibility for all applicable taxes. Vendor shall provide refunds for undelivered services.",
+    "result_text": "Preview result\nNEGOTIATE\nWHAT WAS FOUND\nTrigger: invoice\nWHY\nContract language: \"Payment Terms. Customer shall be the payor of all fees under this Agreement, due within thirty (30) days of invoice. Undisputed amounts shall remain payable during any dispute. Customer shall pre-approve any reimbursable expenses. Customer shall bear responsibility for all applicable taxes. Vendor shall provide refunds for undelivered services.\". policy requires the counterparty to be the payor, but no payor/payee statement was found; policy requires a stated payment period within the acceptable maximum, but none was found; policy requires undisputed amounts to remain payable during a dispute, but no such commitment was found; policy requires a minimum dispute-notice period, but none was found; policy configures a maximum late-payment rate, but no late fee/interest provision was found at all; policy requires the counterparty to bear tax responsibility, but no tax-responsibility statement was found. Result: NEGOTIATE.\nREQUIRED ACTION\nNegotiate \u2014 policy requires the counterparty to be the payor, but no payor/payee statement was found; policy requires a stated payment period within the acceptable maximum, but none was found; policy requires undisputed amounts to remain payable during a dispute, but no such commitment was found; policy requires a minimum dispute-notice period, but none was found; polic",
+    "screenshot": "matrix_payment_terms_A_compliant.png"
+  },
+  "payment_terms::B_noncompliant": {
+    "slug": "payment_terms",
+    "test_id": "B_noncompliant",
+    "input": "Payment Terms. Vendor shall be the payor of all amounts under this Agreement. Customer may withhold any amount it disputes in good faith, including undisputed portions, pending resolution.",
+    "result_text": "Preview result\nNEGOTIATE\nWHAT WAS FOUND\nPayment terms clause found; limited structured detail extractable\nWHY\nContract language: \"Payment Terms. Vendor shall be the payor of all amounts under this Agreement. Customer may withhold any amount it disputes in good faith, including undisputed portions, pending resolution.\". policy requires the counterparty to be the payor, but no payor/payee statement was found; policy requires a stated payment period within the acceptable maximum, but none was found; policy requires undisputed amounts to remain payable during a dispute, but no such commitment was found; policy requires a minimum dispute-notice period, but none was found; policy configures a maximum late-payment rate, but no late fee/interest provision was found at all; policy requires expense pre-approval, but no such requirement was found; policy requires the counterparty to bear tax responsibility, but no tax-responsibility statement was found; policy requires a refund entitlement, but none was found. Result: NEGOTIATE.\nREQUIRED ACTION\nNegotiate \u2014 policy requires the counterparty to be the payor, but no payor/payee statement was found; policy requires a stated payment period within the acceptable maximum, but none was found; policy requires undisputed amounts to remain payable during a dispute, but no such commitment was found; policy requires a minimum dispute-notice period, but",
+    "screenshot": "matrix_payment_terms_B_noncompliant.png"
+  },
+  "payment_terms::C_absent": {
+    "slug": "payment_terms",
+    "test_id": "C_absent",
+    "input": "Governing Law. This Agreement shall be governed by the laws of the State of Texas.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo payment terms clause found\nWHY\nNo payment terms clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address payment terms\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_payment_terms_C_absent.png"
+  },
+  "payment_terms::D_unusual": {
+    "slug": "payment_terms",
+    "test_id": "D_unusual",
+    "input": "Settling Up. Whoever's on the receiving end of our services covers the bill within a month of getting the invoice, and doesn't get to hold back money just because part of it is in dispute.",
+    "result_text": "Preview result\nNEGOTIATE\nWHAT WAS FOUND\nPayment terms clause found; limited structured detail extractable\nWHY\nContract language: \"Settling Up. Whoever's on the receiving end of our services covers the bill within a month of getting the invoice, and doesn't get to hold back money just because part of it is in dispute.\". policy requires the counterparty to be the payor, but no payor/payee statement was found; policy requires a stated payment period within the acceptable maximum, but none was found; policy requires undisputed amounts to remain payable during a dispute, but no such commitment was found; policy requires a minimum dispute-notice period, but none was found; policy configures a maximum late-payment rate, but no late fee/interest provision was found at all; policy requires expense pre-approval, but no such requirement was found; policy requires the counterparty to bear tax responsibility, but no tax-responsibility statement was found; policy requires a refund entitlement, but none was found. Result: NEGOTIATE.\nREQUIRED ACTION\nNegotiate \u2014 policy requires the counterparty to be the payor, but no payor/payee statement was found; policy requires a stated payment period within the acceptable maximum, but none was found; policy requires undisputed amounts to remain payable during a dispute, but no such commitment was found; policy requires a minimum dispute-notice period, but",
+    "screenshot": "matrix_payment_terms_D_unusual.png"
+  },
+  "payment_terms::E_ambiguous": {
+    "slug": "payment_terms",
+    "test_id": "E_ambiguous",
+    "input": "Payment Terms. Fees shall be paid in accordance with the schedule set forth in Exhibit B, subject to adjustment as the parties may agree.",
+    "result_text": "Preview result\nNEGOTIATE\nWHAT WAS FOUND\nPayment terms clause found; limited structured detail extractable\nWHY\nContract language: \"Payment Terms. Fees shall be paid in accordance with the schedule set forth in Exhibit B, subject to adjustment as the parties may agree.\". policy requires the counterparty to be the payor, but no payor/payee statement was found; policy requires a stated payment period within the acceptable maximum, but none was found; policy requires undisputed amounts to remain payable during a dispute, but no such commitment was found; policy requires a minimum dispute-notice period, but none was found; policy configures a maximum late-payment rate, but no late fee/interest provision was found at all; policy requires expense pre-approval, but no such requirement was found; policy requires the counterparty to bear tax responsibility, but no tax-responsibility statement was found; policy requires a refund entitlement, but none was found. Result: NEGOTIATE.\nREQUIRED ACTION\nNegotiate \u2014 policy requires the counterparty to be the payor, but no payor/payee statement was found; policy requires a stated payment period within the acceptable maximum, but none was found; policy requires undisputed amounts to remain payable during a dispute, but no such commitment was found; policy requires a minimum dispute-notice period, but none was found; policy configures a maximum late-p",
+    "screenshot": "matrix_payment_terms_E_ambiguous.png"
+  },
+  "ip_ownership::A_compliant": {
+    "slug": "ip_ownership",
+    "test_id": "A_compliant",
+    "input": "Intellectual Property. Vendor retains all right, title, and interest in its pre-existing background IP. Customer owns all custom work product and deliverables created specifically for Customer, with a worldwide, perpetual, sublicensable license to any background IP embedded therein.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nCould not be reliably established\nWHY\nContract language: \"Intellectual Property. Vendor retains all right, title, and interest in its pre-existing background IP. Customer owns all custom work product and deliverables created specifically for Customer, with a worldwide, perpetual, sublicensable license to any background IP embedded therein.\". This IP ownership / licensing clause could not be evaluated deterministically \u2014 the following fact(s) required for a policy decision could not be reliably established: background IP ownership is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position \u2014 cannot determine ownership; work product ownership is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position \u2014 cannot determine ownership. Result: REQUIRES_REVIEW.\nREQUIRED ACTION\nManual review required \u2014 background IP ownership is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position \u2014 cannot determine ownership; work product ownership is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position \u2014 ca",
+    "screenshot": "matrix_ip_ownership_A_compliant.png"
+  },
+  "ip_ownership::B_noncompliant": {
+    "slug": "ip_ownership",
+    "test_id": "B_noncompliant",
+    "input": "Intellectual Property. Vendor retains all right, title, and interest in all deliverables and work product, including anything created specifically for Customer. Customer receives no license of any kind.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nCould not be reliably established\nWHY\nContract language: \"Intellectual Property. Vendor retains all right, title, and interest in all deliverables and work product, including anything created specifically for Customer. Customer receives no license of any kind.\". This IP ownership / licensing clause could not be evaluated deterministically \u2014 the following fact(s) required for a policy decision could not be reliably established: work product ownership is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position \u2014 cannot determine ownership. Result: REQUIRES_REVIEW.\nREQUIRED ACTION\nManual review required \u2014 work product ownership is stated by named party but could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position \u2014 cannot determine ownership\nMATCHED LANGUAGE\nIntellectual Property. Vendor retains all right, title, and interest in all deliverables and work product, including anything created specifically for Customer. Customer receives no license of any kind.\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitut",
+    "screenshot": "matrix_ip_ownership_B_noncompliant.png"
+  },
+  "ip_ownership::C_absent": {
+    "slug": "ip_ownership",
+    "test_id": "C_absent",
+    "input": "Warranties. Vendor warrants that services will be performed in a professional and workmanlike manner.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo IP ownership / licensing clause found\nWHY\nNo IP ownership or licensing clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address IP ownership or licensing\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_ip_ownership_C_absent.png"
+  },
+  "ip_ownership::D_unusual": {
+    "slug": "ip_ownership",
+    "test_id": "D_unusual",
+    "input": "Who Owns What. We keep the rights to anything we already had before this deal, and you get to keep whatever we build custom just for you, along with permission to use any of our existing building blocks that end up inside it.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo IP ownership / licensing clause found\nWHY\nNo IP ownership or licensing clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address IP ownership or licensing\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_ip_ownership_D_unusual.png"
+  },
+  "ip_ownership::E_ambiguous": {
+    "slug": "ip_ownership",
+    "test_id": "E_ambiguous",
+    "input": "Intellectual Property. Ownership of work product shall be as set forth in the applicable Statement of Work.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nCould not be reliably established\nWHY\nContract language: \"Intellectual Property. Ownership of work product shall be as set forth in the applicable Statement of Work.\". This IP ownership / licensing clause could not be evaluated deterministically \u2014 the following fact(s) required for a policy decision could not be reliably established: material IP ownership/license terms are delegated to a referenced Statement of Work/Schedule/Exhibit not included in this text. Result: REQUIRES_REVIEW.\nREQUIRED ACTION\nManual review required \u2014 material IP ownership/license terms are delegated to a referenced Statement of Work/Schedule/Exhibit not included in this text\nMATCHED LANGUAGE\nIntellectual Property. Ownership of work product shall be as set forth in the applicable Statement of Work.\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_ip_ownership_E_ambiguous.png"
+  },
+  "insurance::A_compliant": {
+    "slug": "insurance",
+    "test_id": "A_compliant",
+    "input": "Insurance. Vendor shall maintain Commercial General Liability insurance with minimum coverage of $1,000,000 per occurrence and $2,000,000 aggregate, naming Customer as an additional insured, with a waiver of subrogation, primary and non-contributory coverage, and shall provide a certificate of insurance evidencing such coverage prior to commencement of services, maintained throughout the term, with thirty (30) days advance notice of cancellation.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nCould not be reliably established\nWHY\nContract language: \"Insurance. Vendor shall maintain Commercial General Liability insurance with minimum coverage of $1,000,000 per occurrence and $2,000,000 aggregate, naming Customer as an additional insured, with a waiver of subrogation, primary and non-contributory coverage, and shall provide a certificate of insurance evidencing such coverage prior to commencement of services, maintained throughout the term, with thirty (30) days advance notice of cancellation.\". This insurance clause could not be evaluated deterministically \u2014 the following fact(s) required for a policy decision could not be reliably established: Commercial General Liability: the obligated party could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position \u2014 cannot determine who must carry it. Result: REQUIRES_REVIEW.\nREQUIRED ACTION\nManual review required \u2014 Commercial General Liability: the obligated party could not be confidently mapped to our configured contract side, or this playbook is configured for a mutual position \u2014 cannot determine who must carry it\nMATCHED LANGUAGE\nInsurance. Vendor shall maintain Commercial General Liability insurance with minimum coverage of $1,000,000 per occurrence and $2,000,000 aggregate, naming Customer as an additional insured, with ",
+    "screenshot": "matrix_insurance_A_compliant.png"
+  },
+  "insurance::B_noncompliant": {
+    "slug": "insurance",
+    "test_id": "B_noncompliant",
+    "input": "Insurance. Vendor may, at its sole discretion, maintain insurance it deems appropriate. No specific coverage, limits, or additional insured status is required.",
+    "result_text": "Preview result\nMUST REDLINE\nWHAT WAS FOUND\nInsurance clause found; limited structured detail extractable\nWHY\nContract language: \"Insurance. Vendor may, at its sole discretion, maintain insurance it deems appropriate. No specific coverage, limits, or additional insured status is required.\". policy requires Commercial General Liability coverage, but the clause does not address it; policy requires Professional Liability / E&O coverage, but the clause does not address it; policy requires Cyber Liability coverage, but the clause does not address it; policy requires Workers' Compensation coverage, but the clause does not address it; policy requires Employer's Liability coverage, but the clause does not address it; policy requires Automobile Liability coverage, but the clause does not address it; policy requires a waiver of subrogation, but none was found; policy requires primary and non-contributory language, but none was found; policy requires a certificate of insurance, but none was found; policy requires a minimum insurer rating (e.g. A.M. Best), but none was found; policy requires advance notice of cancellation, but no notice period was found; policy requires insurance to be maintained throughout the term, but no such commitment was found; policy requires extended-reporting/tail coverage for claims-made policies, but none was found; policy requires subcontractors to carry equival",
+    "screenshot": "matrix_insurance_B_noncompliant.png"
+  },
+  "insurance::C_absent": {
+    "slug": "insurance",
+    "test_id": "C_absent",
+    "input": "Termination. Either party may terminate this Agreement upon thirty (30) days written notice.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo insurance clause found\nWHY\nNo insurance clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address insurance\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_insurance_C_absent.png"
+  },
+  "insurance::D_unusual": {
+    "slug": "insurance",
+    "test_id": "D_unusual",
+    "input": "Coverage. We'll carry the standard business insurance a company our size typically carries, at whatever level makes sense, and we'll let you know if something changes.",
+    "result_text": "Preview result\nMUST REDLINE\nWHAT WAS FOUND\nInsurance clause found; limited structured detail extractable\nWHY\nContract language: \"Coverage. We'll carry the standard business insurance a company our size typically carries, at whatever level makes sense, and we'll let you know if something changes.\". policy requires Commercial General Liability coverage, but the clause does not address it; policy requires Professional Liability / E&O coverage, but the clause does not address it; policy requires Cyber Liability coverage, but the clause does not address it; policy requires Workers' Compensation coverage, but the clause does not address it; policy requires Employer's Liability coverage, but the clause does not address it; policy requires Automobile Liability coverage, but the clause does not address it; policy requires additional insured status, but none was found; policy requires a waiver of subrogation, but none was found; policy requires primary and non-contributory language, but none was found; policy requires a certificate of insurance, but none was found; policy requires a minimum insurer rating (e.g. A.M. Best), but none was found; policy requires advance notice of cancellation, but no notice period was found; policy requires insurance to be maintained throughout the term, but no such commitment was found; policy requires extended-reporting/tail coverage for claims-made polici",
+    "screenshot": "matrix_insurance_D_unusual.png"
+  },
+  "insurance::E_ambiguous": {
+    "slug": "insurance",
+    "test_id": "E_ambiguous",
+    "input": "Insurance. Vendor's insurance and bonding obligations are as set forth in Schedule 2 (Insurance Requirements) attached to this Agreement.",
+    "result_text": "Preview result\nMUST REDLINE\nWHAT WAS FOUND\nInsurance clause found; limited structured detail extractable\nWHY\nContract language: \"Insurance. Vendor's insurance and bonding obligations are as set forth in Schedule 2 (Insurance Requirements) attached to this Agreement.\". policy requires Commercial General Liability coverage, but the clause does not address it; policy requires Professional Liability / E&O coverage, but the clause does not address it; policy requires Cyber Liability coverage, but the clause does not address it; policy requires Workers' Compensation coverage, but the clause does not address it; policy requires Employer's Liability coverage, but the clause does not address it; policy requires Automobile Liability coverage, but the clause does not address it; policy requires additional insured status, but none was found; policy requires a waiver of subrogation, but none was found; policy requires primary and non-contributory language, but none was found; policy requires a certificate of insurance, but none was found; policy requires a minimum insurer rating (e.g. A.M. Best), but none was found; policy requires advance notice of cancellation, but no notice period was found; policy requires insurance to be maintained throughout the term, but no such commitment was found; policy requires extended-reporting/tail coverage for claims-made policies, but none was found; policy",
+    "screenshot": "matrix_insurance_E_ambiguous.png"
+  },
+  "data_security::A_compliant": {
+    "slug": "data_security",
+    "test_id": "A_compliant",
+    "input": "Data Security. Vendor shall implement and maintain reasonable administrative, technical, and physical safeguards designed to protect Customer Data against unauthorized access, use, or disclosure, and shall notify Customer within seventy-two (72) hours of discovering any security incident affecting Customer Data.",
+    "result_text": "Preview result\nNEGOTIATE\nWHAT WAS FOUND\nData protection clause found; limited structured detail extractable\nWHY\nContract language: \"Data Security. Vendor shall implement and maintain reasonable administrative, technical, and physical safeguards designed to protect Customer Data against unauthorized access, use, or disclosure, and shall notify Customer within seventy-two (72) hours of discovering any security incident affecting Customer Data.\". policy requires us to be identified as Processor, but no role statement was found in the clause; no breach/security-incident notification timing is stated in the clause, but policy requires one; policy requires a stated data-residency commitment, but none was found in the clause; policy requires deletion or return of personal data on termination, but no such commitment was found; policy requires audit rights, but none are stated in the clause; policy requires a named security certification, but no security-standard commitment was found; policy requires cooperation with data-subject requests and regulatory inquiries, but no such commitment was found; policy requires an explicit confidentiality commitment for personal data, but none was found. Result: NEGOTIATE.\nREQUIRED ACTION\nNegotiate \u2014 policy requires us to be identified as Processor, but no role statement was found in the clause; no breach/security-incident notification timing is state",
+    "screenshot": "matrix_data_security_A_compliant.png"
+  },
+  "data_security::B_noncompliant": {
+    "slug": "data_security",
+    "test_id": "B_noncompliant",
+    "input": "Data Security. Vendor makes no representation or warranty regarding the security of any Customer Data and shall have no obligation to notify Customer of any security incident.",
+    "result_text": "Preview result\nNEGOTIATE\nWHAT WAS FOUND\nData protection clause found; limited structured detail extractable\nWHY\nContract language: \"Data Security. Vendor makes no representation or warranty regarding the security of any Customer Data and shall have no obligation to notify Customer of any security incident.\". policy requires us to be identified as Processor, but no role statement was found in the clause; no breach/security-incident notification timing is stated in the clause, but policy requires one; policy requires a stated data-residency commitment, but none was found in the clause; policy requires deletion or return of personal data on termination, but no such commitment was found; policy requires audit rights, but none are stated in the clause; policy requires a named security certification, but no security-standard commitment was found; policy requires cooperation with data-subject requests and regulatory inquiries, but no such commitment was found; policy requires an explicit confidentiality commitment for personal data, but none was found. Result: NEGOTIATE.\nREQUIRED ACTION\nNegotiate \u2014 policy requires us to be identified as Processor, but no role statement was found in the clause; no breach/security-incident notification timing is stated in the clause, but policy requires one; policy requires a stated data-residency commitment, but none was found in the clause; policy req",
+    "screenshot": "matrix_data_security_B_noncompliant.png"
+  },
+  "data_security::C_absent": {
+    "slug": "data_security",
+    "test_id": "C_absent",
+    "input": "Term. This Agreement continues for two (2) years from the Effective Date.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo data protection / security clause found\nWHY\nNo data protection or security clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address data protection or security\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_data_security_C_absent.png"
+  },
+  "data_security::D_unusual": {
+    "slug": "data_security",
+    "test_id": "D_unusual",
+    "input": "Keeping Data Safe. We'll take reasonable steps to keep your information locked down and away from people who shouldn't see it, and we'll tell you quickly if something ever goes wrong on our end.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo data protection / security clause found\nWHY\nNo data protection or security clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address data protection or security\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_data_security_D_unusual.png"
+  },
+  "data_security::E_ambiguous": {
+    "slug": "data_security",
+    "test_id": "E_ambiguous",
+    "input": "Data Security. Vendor shall maintain appropriate security measures for Customer Data as further described in Exhibit D.",
+    "result_text": "Preview result\nNEGOTIATE\nWHAT WAS FOUND\nData protection clause found; limited structured detail extractable\nWHY\nContract language: \"Data Security. Vendor shall maintain appropriate security measures for Customer Data as further described in Exhibit D.\". policy requires us to be identified as Processor, but no role statement was found in the clause; no breach/security-incident notification timing is stated in the clause, but policy requires one; policy requires a stated data-residency commitment, but none was found in the clause; policy requires deletion or return of personal data on termination, but no such commitment was found; policy requires audit rights, but none are stated in the clause; policy requires a named security certification, but no security-standard commitment was found; policy requires cooperation with data-subject requests and regulatory inquiries, but no such commitment was found; policy requires an explicit confidentiality commitment for personal data, but none was found. Result: NEGOTIATE.\nREQUIRED ACTION\nNegotiate \u2014 policy requires us to be identified as Processor, but no role statement was found in the clause; no breach/security-incident notification timing is stated in the clause, but policy requires one; policy requires a stated data-residency commitment, but none was found in the clause; policy requires deletion or return of personal data on termination",
+    "screenshot": "matrix_data_security_E_ambiguous.png"
+  },
+  "governing_law::A_compliant": {
+    "slug": "governing_law",
+    "test_id": "A_compliant",
+    "input": "Governing Law. This Agreement shall be governed by the laws of the State of Delaware, and any dispute shall be resolved through binding arbitration, with each party waiving its right to a jury trial.",
+    "result_text": "Preview result\nACCEPT\nWHAT WAS FOUND\nJurisdiction: Delaware; Dispute resolution: arbitration\nWHY\nContract language: \"Governing Law. This Agreement shall be governed by the laws of the State of Delaware, and any dispute shall be resolved through binding arbitration,\". No policy gaps found. Result: ACCEPT.\nREQUIRED ACTION\nNone \u2014 governing law terms meet policy\nMATCHED LANGUAGE\nGoverning Law. This Agreement shall be governed by the laws of the State of Delaware, and any dispute shall be resolved through binding arbitration,\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_governing_law_A_compliant.png"
+  },
+  "governing_law::B_noncompliant": {
+    "slug": "governing_law",
+    "test_id": "B_noncompliant",
+    "input": "Governing Law. This Agreement shall be governed by the laws of a jurisdiction to be determined by Vendor at the time any dispute arises.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nGoverning law referenced but no jurisdiction could be parsed\nWHY\nThe document references governing law but no parseable jurisdiction was found \u2014 the clause may be malformed or drafted in a form this extractor doesn't recognize.\nREQUIRED ACTION\nManual review required \u2014 governing law language present but jurisdiction unclear\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_governing_law_B_noncompliant.png"
+  },
+  "governing_law::C_absent": {
+    "slug": "governing_law",
+    "test_id": "C_absent",
+    "input": "Warranties. Vendor warrants that services will conform to the specifications in Exhibit A.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo governing law clause found\nWHY\nNo governing law clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address governing law\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_governing_law_C_absent.png"
+  },
+  "governing_law::D_unusual": {
+    "slug": "governing_law",
+    "test_id": "D_unusual",
+    "input": "Whose Rules Apply. If we ever end up in a disagreement, we'll sort it out under Delaware law, and we're both giving up any right to have a jury decide it.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo governing law clause found\nWHY\nNo governing law clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address governing law\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_governing_law_D_unusual.png"
+  },
+  "governing_law::E_ambiguous": {
+    "slug": "governing_law",
+    "test_id": "E_ambiguous",
+    "input": "Governing Law. This Agreement shall be governed by the laws of the jurisdiction set forth in the cover sheet, if any.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nGoverning law referenced but no jurisdiction could be parsed\nWHY\nThe document references governing law but no parseable jurisdiction was found \u2014 the clause may be malformed or drafted in a form this extractor doesn't recognize.\nREQUIRED ACTION\nManual review required \u2014 governing law language present but jurisdiction unclear\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_governing_law_E_ambiguous.png"
+  },
+  "termination::A_compliant": {
+    "slug": "termination",
+    "test_id": "A_compliant",
+    "input": "Termination. Either party may terminate this Agreement for convenience upon thirty (30) days written notice, or immediately upon the other party's uncured material breach following fifteen (15) days written notice and opportunity to cure.",
+    "result_text": "Preview result\nMUST REDLINE\nWHAT WAS FOUND\nOur rights: 1; Counterparty rights against us: 1; Fee: No termination fee\nWHY\nContract language: \"Termination. Either party may terminate this Agreement for convenience upon thirty (30) days written notice, or immediately\". counterparty's convenience-termination right states no notice period at all. Result: MUST_REDLINE.\nREQUIRED ACTION\nNone \u2014 within acceptable range, note for the file: counterparty's convenience-termination right states no notice period at all\nMATCHED LANGUAGE\nTermination. Either party may terminate this Agreement for convenience upon thirty (30) days written notice, or immediately\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_termination_A_compliant.png"
+  },
+  "termination::B_noncompliant": {
+    "slug": "termination",
+    "test_id": "B_noncompliant",
+    "input": "Termination. Vendor may terminate this Agreement at any time, for any reason or no reason, without notice. Customer may not terminate this Agreement under any circumstances during the initial term.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nCould not be reliably established\nWHY\nContract language: \"Termination. Vendor may terminate this Agreement at any time, for any reason or no reason, without notice. Customer\". This termination structure could not be evaluated deterministically \u2014 the following fact(s) required for a policy decision could not be reliably established: contract states directional (non-mutual) termination rights, but this playbook is configured for a mutual position \u2014 cannot determine which right is ours. Result: REQUIRES_REVIEW.\nREQUIRED ACTION\nManual review required \u2014 contract states directional (non-mutual) termination rights, but this playbook is configured for a mutual position \u2014 cannot determine which right is ours\nMATCHED LANGUAGE\nTermination. Vendor may terminate this Agreement at any time, for any reason or no reason, without notice. Customer\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_termination_B_noncompliant.png"
+  },
+  "termination::C_absent": {
+    "slug": "termination",
+    "test_id": "C_absent",
+    "input": "Confidentiality. Each party shall protect the other's Confidential Information with reasonable care.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo termination clause found\nWHY\nNo termination clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address termination\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_termination_C_absent.png"
+  },
+  "termination::D_unusual": {
+    "slug": "termination",
+    "test_id": "D_unusual",
+    "input": "Calling It Off. Either of us can walk away from this deal with a month's heads-up, or right away if the other side messes up badly and doesn't fix it after we point it out.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo termination clause found\nWHY\nNo termination clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address termination\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_termination_D_unusual.png"
+  },
+  "termination::E_ambiguous": {
+    "slug": "termination",
+    "test_id": "E_ambiguous",
+    "input": "Termination. This Agreement may be terminated as set forth in the applicable Statement of Work.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nTermination referenced but no right could be parsed\nWHY\nThe document references termination but no parseable 'X may terminate this Agreement' or reciprocal structure was found \u2014 the clause may be malformed, cross-referenced elsewhere, or drafted in a form this extractor doesn't recognize.\nREQUIRED ACTION\nManual review required \u2014 termination language present but structure unclear\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_termination_E_ambiguous.png"
+  },
+  "warranties::A_compliant": {
+    "slug": "warranties",
+    "test_id": "A_compliant",
+    "input": "Warranties. Vendor warrants that (a) services will be performed in a professional and workmanlike manner consistent with industry standards, (b) deliverables will not infringe any third party's intellectual property rights, (c) Vendor will comply with all applicable laws, and (d) deliverables will be free of malware. These warranties survive termination.",
+    "result_text": "Preview result\nNEGOTIATE\nWHAT WAS FOUND\ncompliance_with_law: sell_side; professional_workmanlike: sell_side; non_infringement: sell_side; malware_free: sell_side\nWHY\nWarranty categories established: compliance_with_law: sell_side; professional_workmanlike: sell_side; non_infringement: sell_side; malware_free: sell_side. Result: NEGOTIATE. Notes: policy requires mutual warranty language, but no mutual ('each party') opener was found; policy requires a minimum warranty duration, but no duration was stated; policy requires a title warranty from the counterparty, but none was established\nREQUIRED ACTION\nNegotiate \u2014 policy requires mutual warranty language, but no mutual ('each party') opener was found; policy requires a minimum warranty duration, but no duration was stated; policy requires a title warranty from the counterparty, but none was established\nMATCHED LANGUAGE\nWarranties. Vendor warrants that (a) services will be performed in a professional and workmanlike manner consistent with industry standards, (b) deliverables will not infringe any third party's intellectual property rights, (c) Vendor will comply with all applicable laws, and (d) deliverables will be free of malware. These warranties survive termination.\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis",
+    "screenshot": "matrix_warranties_A_compliant.png"
+  },
+  "warranties::B_noncompliant": {
+    "slug": "warranties",
+    "test_id": "B_noncompliant",
+    "input": "Warranties. THE SERVICES AND DELIVERABLES ARE PROVIDED \"AS IS\" WITHOUT ANY WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING ANY WARRANTY OF MERCHANTABILITY, NON-INFRINGEMENT, OR FITNESS FOR A PARTICULAR PURPOSE.",
+    "result_text": "Preview result\nESCALATE\nWHAT WAS FOUND\nNo warranty categories established\nWHY\nWarranty categories established: No warranty categories established. Result: ESCALATE. Notes: required warranty category 'professional_workmanlike' was not established as given by the counterparty; policy requires mutual warranty language, but no mutual ('each party') opener was found; policy requires a minimum warranty duration, but no duration was stated; an \"AS IS\" disclaimer was found, which policy prohibits; policy requires a non-infringement warranty from the counterparty, but none was established; policy requires a compliance-with-law warranty from the counterparty, but none was established; policy requires a professional/workmanlike standard warranty from the counterparty, but none was established; policy requires a malware/malicious-code-free warranty from the counterparty, but none was established; policy requires a title warranty from the counterparty, but none was established; policy requires the warranty to expressly survive termination, but no survival language was found\nREQUIRED ACTION\nEscalate \u2014 required warranty category 'professional_workmanlike' was not established as given by the counterparty; policy requires mutual warranty language, but no mutual ('each party') opener was found; policy requires a minimum warranty duration, but no duration was stated; an \"AS IS\" disclaimer was fou",
+    "screenshot": "matrix_warranties_B_noncompliant.png"
+  },
+  "warranties::C_absent": {
+    "slug": "warranties",
+    "test_id": "C_absent",
+    "input": "SLA. Vendor shall use commercially reasonable efforts to maintain 99.5% uptime.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo warranties clause found\nWHY\nNo warranties clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address warranties\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_warranties_C_absent.png"
+  },
+  "warranties::D_unusual": {
+    "slug": "warranties",
+    "test_id": "D_unusual",
+    "input": "What We Promise. We'll do the work the way a competent professional in our field would, we won't hand you anything that steps on someone else's rights, we'll follow the law, and we won't slip you anything with malware in it.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo warranties clause found\nWHY\nNo warranties clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address warranties\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_warranties_D_unusual.png"
+  },
+  "warranties::E_ambiguous": {
+    "slug": "warranties",
+    "test_id": "E_ambiguous",
+    "input": "Warranties. Vendor provides the warranties customary for engagements of this type.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo warranties clause found\nWHY\nNo warranties clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address warranties\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_warranties_E_ambiguous.png"
+  },
+  "sla::A_compliant": {
+    "slug": "sla",
+    "test_id": "A_compliant",
+    "input": "Service Level Agreement. Vendor shall maintain a minimum of 99.5% uptime, measured monthly, with severity-tiered response and restoration commitments, and shall provide service credits for any failure to meet this commitment.",
+    "result_text": "Preview result\nNEGOTIATE\nWHAT WAS FOUND\nuptime 99.5%\nWHY\nSLA commitments: uptime 99.5%. Result: NEGOTIATE. Notes: policy requires severity-tiered response/restoration commitments, but none were found; policy configures a maximum P1_CRITICAL response time, but no P1_CRITICAL response commitment was found; policy configures a maximum P1_CRITICAL restoration time, but no P1_CRITICAL restoration commitment was found; policy configures a maximum P2_HIGH response time, but no P2_HIGH response commitment was found; policy configures a maximum P2_HIGH restoration time, but no P2_HIGH restoration commitment was found; policy configures a maximum P3_MEDIUM response time, but no P3_MEDIUM response commitment was found; policy configures a maximum P3_MEDIUM restoration time, but no P3_MEDIUM restoration commitment was found; policy configures a maximum P4_LOW response time, but no P4_LOW response commitment was found; policy configures a maximum P4_LOW restoration time, but no P4_LOW restoration commitment was found; required support hours (24x7) not confirmed \u2014 contract states no support-hours commitment; policy configures a minimum service-credit percentage, but no credit percentage was stated; policy configures a minimum service-credit cap, but no cap was stated; policy requires a chronic/repeated-failure remedy, but none was found; policy requires a termination right tied to chronic SL",
+    "screenshot": "matrix_sla_A_compliant.png"
+  },
+  "sla::B_noncompliant": {
+    "slug": "sla",
+    "test_id": "B_noncompliant",
+    "input": "Service Level Agreement. Vendor does not guarantee any particular level of uptime or availability and shall have no liability for any service interruption.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo SLA/service-level clause found\nWHY\nNo SLA/service-level clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address service levels\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_sla_B_noncompliant.png"
+  },
+  "sla::C_absent": {
+    "slug": "sla",
+    "test_id": "C_absent",
+    "input": "Assignment. Neither party may assign this Agreement without prior written consent, except in connection with a merger or acquisition.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo SLA/service-level clause found\nWHY\nNo SLA/service-level clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address service levels\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_sla_C_absent.png"
+  },
+  "sla::D_unusual": {
+    "slug": "sla",
+    "test_id": "D_unusual",
+    "input": "Staying Up and Running. We aim to keep things running smoothly at least 99.5% of the time each month, and if we fall short, we'll make it right with a credit toward your account.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo SLA/service-level clause found\nWHY\nNo SLA/service-level clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address service levels\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_sla_D_unusual.png"
+  },
+  "sla::E_ambiguous": {
+    "slug": "sla",
+    "test_id": "E_ambiguous",
+    "input": "Service Level Agreement. Vendor shall use commercially reasonable efforts to maintain service availability consistent with industry norms.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo SLA/service-level clause found\nWHY\nNo SLA/service-level clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address service levels\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_sla_E_ambiguous.png"
+  },
+  "assignment::A_compliant": {
+    "slug": "assignment",
+    "test_id": "A_compliant",
+    "input": "Assignment. Neither party may assign this Agreement without the prior written consent of the other party, which shall not be unreasonably withheld, except that either party may assign this Agreement without consent in connection with a merger, acquisition, or sale of substantially all of its assets, provided the assignee agrees in writing to be bound by this Agreement.",
+    "result_text": "Preview result\nACCEPT\nWHAT WAS FOUND\nOur restriction: present; Counterparty restriction: present\nWHY\nContract language: \"Assignment. Neither party may assign this Agreement without the prior written consent of the other party, which\". No policy gaps found. Result: ACCEPT.\nREQUIRED ACTION\nNone \u2014 assignment terms meet policy\nMATCHED LANGUAGE\nAssignment. Neither party may assign this Agreement without the prior written consent of the other party, which\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_assignment_A_compliant.png"
+  },
+  "assignment::B_noncompliant": {
+    "slug": "assignment",
+    "test_id": "B_noncompliant",
+    "input": "Assignment. Vendor may assign this Agreement, in whole or in part, to any third party at any time without notice to or consent from Customer.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nAssignment referenced but no restriction could be parsed\nWHY\nThe document references assignment but no parseable restriction or unrestricted-assignment structure was found.\nREQUIRED ACTION\nManual review required \u2014 assignment language present but structure unclear\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_assignment_B_noncompliant.png"
+  },
+  "assignment::C_absent": {
+    "slug": "assignment",
+    "test_id": "C_absent",
+    "input": "Data Security. Vendor shall maintain reasonable safeguards to protect Customer Data.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo assignment clause found\nWHY\nNo assignment clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address assignment\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_assignment_C_absent.png"
+  },
+  "assignment::D_unusual": {
+    "slug": "assignment",
+    "test_id": "D_unusual",
+    "input": "Passing This Along. Neither of us can hand this deal off to someone else without asking first, unless one of us gets bought out or merges with another company, in which case that's fine.",
+    "result_text": "Preview result\nNOT APPLICABLE\nWHAT WAS FOUND\nNo assignment clause found\nWHY\nNo assignment clause was found in this contract, so the policy has nothing to evaluate against.\nREQUIRED ACTION\nNone \u2014 this contract does not address assignment\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_assignment_D_unusual.png"
+  },
+  "assignment::E_ambiguous": {
+    "slug": "assignment",
+    "test_id": "E_ambiguous",
+    "input": "Assignment. This Agreement may be assigned as the parties may mutually agree from time to time.",
+    "result_text": "Preview result\nREQUIRES REVIEW\nWHAT WAS FOUND\nAssignment referenced but no restriction could be parsed\nWHY\nThe document references assignment but no parseable restriction or unrestricted-assignment structure was found.\nREQUIRED ACTION\nManual review required \u2014 assignment language present but structure unclear\n\u2190 Back to editing\n\u2190 Back to Workbench\n256-bit TLS Encryption\nYour Documents Stay Private\nDeterministic Rule Engine\n\n\u00a9 2026 TriageCounsel. All rights reserved.\n\nThis tool provides informational contract analysis only and does not constitute legal advice. Consult a qualified attorney for legal guidance.",
+    "screenshot": "matrix_assignment_E_ambiguous.png"
+  }
+}

@@ -1,0 +1,482 @@
+[
+  {
+    "slug": "assignment",
+    "test": "A_compliant",
+    "state": "ACCEPT",
+    "verdict": "PASS",
+    "reason": "Correctly accepted a clean, policy-satisfying clause.",
+    "screenshot": "matrix_assignment_A_compliant.png"
+  },
+  {
+    "slug": "assignment",
+    "test": "B_noncompliant",
+    "state": "REQUIRES REVIEW",
+    "verdict": "PASS",
+    "reason": "Non-compliant clause correctly routed to a review/enforcement state, not silently accepted.",
+    "screenshot": "matrix_assignment_B_noncompliant.png"
+  },
+  {
+    "slug": "assignment",
+    "test": "C_absent",
+    "state": "NOT APPLICABLE",
+    "verdict": "PASS",
+    "reason": "Genuine absence correctly identified as NOT_APPLICABLE.",
+    "screenshot": "matrix_assignment_C_absent.png"
+  },
+  {
+    "slug": "assignment",
+    "test": "D_unusual",
+    "state": "NOT APPLICABLE",
+    "verdict": "UNSAFE FAILURE",
+    "reason": "A present-but-unusually-phrased clause was collapsed into the identical state as genuine absence -- exactly the failure Lee's Question 3 warns about: nothing distinguishes 'not recognized' from 'not there'.",
+    "screenshot": "matrix_assignment_D_unusual.png"
+  },
+  {
+    "slug": "assignment",
+    "test": "E_ambiguous",
+    "state": "REQUIRES REVIEW",
+    "verdict": "PASS",
+    "reason": "Genuine ambiguity/insufficiency correctly routed to an uncertainty state rather than a confident answer.",
+    "screenshot": "matrix_assignment_E_ambiguous.png"
+  },
+  {
+    "slug": "confidentiality",
+    "test": "A_compliant",
+    "state": "REQUIRES REVIEW",
+    "verdict": "SAFE FAILURE",
+    "reason": "Did not confidently ACCEPT, but did not confidently misjudge either -- routed to a review/negotiate state (rationale cited a specific unmet structural requirement, not a fabricated defect).",
+    "screenshot": "matrix_confidentiality_A_compliant.png"
+  },
+  {
+    "slug": "confidentiality",
+    "test": "B_noncompliant",
+    "state": "REQUIRES REVIEW",
+    "verdict": "PASS",
+    "reason": "Non-compliant clause correctly routed to a review/enforcement state, not silently accepted.",
+    "screenshot": "matrix_confidentiality_B_noncompliant.png"
+  },
+  {
+    "slug": "confidentiality",
+    "test": "C_absent",
+    "state": "NOT APPLICABLE",
+    "verdict": "PASS",
+    "reason": "Genuine absence correctly identified as NOT_APPLICABLE.",
+    "screenshot": "matrix_confidentiality_C_absent.png"
+  },
+  {
+    "slug": "confidentiality",
+    "test": "D_unusual",
+    "state": "NOT APPLICABLE",
+    "verdict": "UNSAFE FAILURE",
+    "reason": "A present-but-unusually-phrased clause was collapsed into the identical state as genuine absence -- exactly the failure Lee's Question 3 warns about: nothing distinguishes 'not recognized' from 'not there'.",
+    "screenshot": "matrix_confidentiality_D_unusual.png"
+  },
+  {
+    "slug": "confidentiality",
+    "test": "E_ambiguous",
+    "state": "REQUIRES REVIEW",
+    "verdict": "PASS",
+    "reason": "Genuine ambiguity/insufficiency correctly routed to an uncertainty state rather than a confident answer.",
+    "screenshot": "matrix_confidentiality_E_ambiguous.png"
+  },
+  {
+    "slug": "data_security",
+    "test": "A_compliant",
+    "state": "NEGOTIATE",
+    "verdict": "SAFE FAILURE",
+    "reason": "Did not confidently ACCEPT, but did not confidently misjudge either -- routed to a review/negotiate state (rationale cited a specific unmet structural requirement, not a fabricated defect).",
+    "screenshot": "matrix_data_security_A_compliant.png"
+  },
+  {
+    "slug": "data_security",
+    "test": "B_noncompliant",
+    "state": "NEGOTIATE",
+    "verdict": "PASS",
+    "reason": "Non-compliant clause correctly routed to a review/enforcement state, not silently accepted.",
+    "screenshot": "matrix_data_security_B_noncompliant.png"
+  },
+  {
+    "slug": "data_security",
+    "test": "C_absent",
+    "state": "NOT APPLICABLE",
+    "verdict": "PASS",
+    "reason": "Genuine absence correctly identified as NOT_APPLICABLE.",
+    "screenshot": "matrix_data_security_C_absent.png"
+  },
+  {
+    "slug": "data_security",
+    "test": "D_unusual",
+    "state": "NOT APPLICABLE",
+    "verdict": "UNSAFE FAILURE",
+    "reason": "A present-but-unusually-phrased clause was collapsed into the identical state as genuine absence -- exactly the failure Lee's Question 3 warns about: nothing distinguishes 'not recognized' from 'not there'.",
+    "screenshot": "matrix_data_security_D_unusual.png"
+  },
+  {
+    "slug": "data_security",
+    "test": "E_ambiguous",
+    "state": "NEGOTIATE",
+    "verdict": "PASS",
+    "reason": "Genuine ambiguity/insufficiency correctly routed to an uncertainty state rather than a confident answer.",
+    "screenshot": "matrix_data_security_E_ambiguous.png"
+  },
+  {
+    "slug": "governing_law",
+    "test": "A_compliant",
+    "state": "ACCEPT",
+    "verdict": "PASS",
+    "reason": "Correctly accepted a clean, policy-satisfying clause.",
+    "screenshot": "matrix_governing_law_A_compliant.png"
+  },
+  {
+    "slug": "governing_law",
+    "test": "B_noncompliant",
+    "state": "REQUIRES REVIEW",
+    "verdict": "PASS",
+    "reason": "Non-compliant clause correctly routed to a review/enforcement state, not silently accepted.",
+    "screenshot": "matrix_governing_law_B_noncompliant.png"
+  },
+  {
+    "slug": "governing_law",
+    "test": "C_absent",
+    "state": "NOT APPLICABLE",
+    "verdict": "PASS",
+    "reason": "Genuine absence correctly identified as NOT_APPLICABLE.",
+    "screenshot": "matrix_governing_law_C_absent.png"
+  },
+  {
+    "slug": "governing_law",
+    "test": "D_unusual",
+    "state": "NOT APPLICABLE",
+    "verdict": "UNSAFE FAILURE",
+    "reason": "A present-but-unusually-phrased clause was collapsed into the identical state as genuine absence -- exactly the failure Lee's Question 3 warns about: nothing distinguishes 'not recognized' from 'not there'.",
+    "screenshot": "matrix_governing_law_D_unusual.png"
+  },
+  {
+    "slug": "governing_law",
+    "test": "E_ambiguous",
+    "state": "REQUIRES REVIEW",
+    "verdict": "PASS",
+    "reason": "Genuine ambiguity/insufficiency correctly routed to an uncertainty state rather than a confident answer.",
+    "screenshot": "matrix_governing_law_E_ambiguous.png"
+  },
+  {
+    "slug": "indemnification",
+    "test": "A_compliant",
+    "state": "REQUIRES REVIEW",
+    "verdict": "SAFE FAILURE",
+    "reason": "Did not confidently ACCEPT, but did not confidently misjudge either -- routed to a review/negotiate state (rationale cited a specific unmet structural requirement, not a fabricated defect).",
+    "screenshot": "matrix_indemnification_A_compliant.png"
+  },
+  {
+    "slug": "indemnification",
+    "test": "B_noncompliant",
+    "state": "REQUIRES REVIEW",
+    "verdict": "PASS",
+    "reason": "Non-compliant clause correctly routed to a review/enforcement state, not silently accepted.",
+    "screenshot": "matrix_indemnification_B_noncompliant.png"
+  },
+  {
+    "slug": "indemnification",
+    "test": "C_absent",
+    "state": "NOT APPLICABLE",
+    "verdict": "PASS",
+    "reason": "Genuine absence correctly identified as NOT_APPLICABLE.",
+    "screenshot": "matrix_indemnification_C_absent.png"
+  },
+  {
+    "slug": "indemnification",
+    "test": "D_unusual",
+    "state": "NOT APPLICABLE",
+    "verdict": "UNSAFE FAILURE",
+    "reason": "A present-but-unusually-phrased clause was collapsed into the identical state as genuine absence -- exactly the failure Lee's Question 3 warns about: nothing distinguishes 'not recognized' from 'not there'.",
+    "screenshot": "matrix_indemnification_D_unusual.png"
+  },
+  {
+    "slug": "indemnification",
+    "test": "E_ambiguous",
+    "state": "REQUIRES REVIEW",
+    "verdict": "PASS",
+    "reason": "Genuine ambiguity/insufficiency correctly routed to an uncertainty state rather than a confident answer.",
+    "screenshot": "matrix_indemnification_E_ambiguous.png"
+  },
+  {
+    "slug": "insurance",
+    "test": "A_compliant",
+    "state": "REQUIRES REVIEW",
+    "verdict": "SAFE FAILURE",
+    "reason": "Did not confidently ACCEPT, but did not confidently misjudge either -- routed to a review/negotiate state (rationale cited a specific unmet structural requirement, not a fabricated defect).",
+    "screenshot": "matrix_insurance_A_compliant.png"
+  },
+  {
+    "slug": "insurance",
+    "test": "B_noncompliant",
+    "state": "MUST REDLINE",
+    "verdict": "PASS",
+    "reason": "Non-compliant clause correctly routed to a review/enforcement state, not silently accepted.",
+    "screenshot": "matrix_insurance_B_noncompliant.png"
+  },
+  {
+    "slug": "insurance",
+    "test": "C_absent",
+    "state": "NOT APPLICABLE",
+    "verdict": "PASS",
+    "reason": "Genuine absence correctly identified as NOT_APPLICABLE.",
+    "screenshot": "matrix_insurance_C_absent.png"
+  },
+  {
+    "slug": "insurance",
+    "test": "D_unusual",
+    "state": "MUST REDLINE",
+    "verdict": "PASS",
+    "reason": "Partial recognition correctly triggered a distinct, non-absence uncertainty state ('clause found; limited structured detail extractable').",
+    "screenshot": "matrix_insurance_D_unusual.png"
+  },
+  {
+    "slug": "insurance",
+    "test": "E_ambiguous",
+    "state": "MUST REDLINE",
+    "verdict": "PASS",
+    "reason": "Genuine ambiguity/insufficiency correctly routed to an uncertainty state rather than a confident answer.",
+    "screenshot": "matrix_insurance_E_ambiguous.png"
+  },
+  {
+    "slug": "ip_ownership",
+    "test": "A_compliant",
+    "state": "REQUIRES REVIEW",
+    "verdict": "SAFE FAILURE",
+    "reason": "Did not confidently ACCEPT, but did not confidently misjudge either -- routed to a review/negotiate state (rationale cited a specific unmet structural requirement, not a fabricated defect).",
+    "screenshot": "matrix_ip_ownership_A_compliant.png"
+  },
+  {
+    "slug": "ip_ownership",
+    "test": "B_noncompliant",
+    "state": "REQUIRES REVIEW",
+    "verdict": "PASS",
+    "reason": "Non-compliant clause correctly routed to a review/enforcement state, not silently accepted.",
+    "screenshot": "matrix_ip_ownership_B_noncompliant.png"
+  },
+  {
+    "slug": "ip_ownership",
+    "test": "C_absent",
+    "state": "NOT APPLICABLE",
+    "verdict": "PASS",
+    "reason": "Genuine absence correctly identified as NOT_APPLICABLE.",
+    "screenshot": "matrix_ip_ownership_C_absent.png"
+  },
+  {
+    "slug": "ip_ownership",
+    "test": "D_unusual",
+    "state": "NOT APPLICABLE",
+    "verdict": "UNSAFE FAILURE",
+    "reason": "A present-but-unusually-phrased clause was collapsed into the identical state as genuine absence -- exactly the failure Lee's Question 3 warns about: nothing distinguishes 'not recognized' from 'not there'.",
+    "screenshot": "matrix_ip_ownership_D_unusual.png"
+  },
+  {
+    "slug": "ip_ownership",
+    "test": "E_ambiguous",
+    "state": "REQUIRES REVIEW",
+    "verdict": "PASS",
+    "reason": "Genuine ambiguity/insufficiency correctly routed to an uncertainty state rather than a confident answer.",
+    "screenshot": "matrix_ip_ownership_E_ambiguous.png"
+  },
+  {
+    "slug": "limitation_of_liability",
+    "test": "A_compliant",
+    "state": "MUST REDLINE",
+    "verdict": "SAFE FAILURE",
+    "reason": "Did not confidently ACCEPT, but did not confidently misjudge either -- routed to a review/negotiate state (rationale cited a specific unmet structural requirement, not a fabricated defect).",
+    "screenshot": "matrix_limitation_of_liability_A_compliant.png"
+  },
+  {
+    "slug": "limitation_of_liability",
+    "test": "B_noncompliant",
+    "state": "PROHIBITED",
+    "verdict": "PASS",
+    "reason": "Non-compliant clause correctly routed to a review/enforcement state, not silently accepted.",
+    "screenshot": "matrix_limitation_of_liability_B_noncompliant.png"
+  },
+  {
+    "slug": "limitation_of_liability",
+    "test": "C_absent",
+    "state": "NOT APPLICABLE",
+    "verdict": "PASS",
+    "reason": "Genuine absence correctly identified as NOT_APPLICABLE.",
+    "screenshot": "matrix_limitation_of_liability_C_absent.png"
+  },
+  {
+    "slug": "limitation_of_liability",
+    "test": "D_unusual",
+    "state": "NOT APPLICABLE",
+    "verdict": "UNSAFE FAILURE",
+    "reason": "A present-but-unusually-phrased clause was collapsed into the identical state as genuine absence -- exactly the failure Lee's Question 3 warns about: nothing distinguishes 'not recognized' from 'not there'.",
+    "screenshot": "matrix_limitation_of_liability_D_unusual.png"
+  },
+  {
+    "slug": "limitation_of_liability",
+    "test": "E_ambiguous",
+    "state": "REQUIRES REVIEW",
+    "verdict": "PASS",
+    "reason": "Genuine ambiguity/insufficiency correctly routed to an uncertainty state rather than a confident answer.",
+    "screenshot": "matrix_limitation_of_liability_E_ambiguous.png"
+  },
+  {
+    "slug": "payment_terms",
+    "test": "A_compliant",
+    "state": "NEGOTIATE",
+    "verdict": "SAFE FAILURE",
+    "reason": "Did not confidently ACCEPT, but did not confidently misjudge either -- routed to a review/negotiate state (rationale cited a specific unmet structural requirement, not a fabricated defect).",
+    "screenshot": "matrix_payment_terms_A_compliant.png"
+  },
+  {
+    "slug": "payment_terms",
+    "test": "B_noncompliant",
+    "state": "NEGOTIATE",
+    "verdict": "PASS",
+    "reason": "Non-compliant clause correctly routed to a review/enforcement state, not silently accepted.",
+    "screenshot": "matrix_payment_terms_B_noncompliant.png"
+  },
+  {
+    "slug": "payment_terms",
+    "test": "C_absent",
+    "state": "NOT APPLICABLE",
+    "verdict": "PASS",
+    "reason": "Genuine absence correctly identified as NOT_APPLICABLE.",
+    "screenshot": "matrix_payment_terms_C_absent.png"
+  },
+  {
+    "slug": "payment_terms",
+    "test": "D_unusual",
+    "state": "NEGOTIATE",
+    "verdict": "PASS",
+    "reason": "Partial recognition correctly triggered a distinct, non-absence uncertainty state ('clause found; limited structured detail extractable').",
+    "screenshot": "matrix_payment_terms_D_unusual.png"
+  },
+  {
+    "slug": "payment_terms",
+    "test": "E_ambiguous",
+    "state": "NEGOTIATE",
+    "verdict": "PASS",
+    "reason": "Genuine ambiguity/insufficiency correctly routed to an uncertainty state rather than a confident answer.",
+    "screenshot": "matrix_payment_terms_E_ambiguous.png"
+  },
+  {
+    "slug": "sla",
+    "test": "A_compliant",
+    "state": "NEGOTIATE",
+    "verdict": "SAFE FAILURE",
+    "reason": "Did not confidently ACCEPT, but did not confidently misjudge either -- routed to a review/negotiate state (rationale cited a specific unmet structural requirement, not a fabricated defect).",
+    "screenshot": "matrix_sla_A_compliant.png"
+  },
+  {
+    "slug": "sla",
+    "test": "B_noncompliant",
+    "state": "NOT APPLICABLE",
+    "verdict": "UNSAFE FAILURE",
+    "reason": "A clearly non-compliant, present clause was treated as if no clause existed (or accepted) -- a materially wrong signal reaches the user.",
+    "screenshot": "matrix_sla_B_noncompliant.png"
+  },
+  {
+    "slug": "sla",
+    "test": "C_absent",
+    "state": "NOT APPLICABLE",
+    "verdict": "PASS",
+    "reason": "Genuine absence correctly identified as NOT_APPLICABLE.",
+    "screenshot": "matrix_sla_C_absent.png"
+  },
+  {
+    "slug": "sla",
+    "test": "D_unusual",
+    "state": "NOT APPLICABLE",
+    "verdict": "UNSAFE FAILURE",
+    "reason": "A present-but-unusually-phrased clause was collapsed into the identical state as genuine absence -- exactly the failure Lee's Question 3 warns about: nothing distinguishes 'not recognized' from 'not there'.",
+    "screenshot": "matrix_sla_D_unusual.png"
+  },
+  {
+    "slug": "sla",
+    "test": "E_ambiguous",
+    "state": "NOT APPLICABLE",
+    "verdict": "UNSAFE FAILURE",
+    "reason": "An ambiguous-but-present clause was collapsed into the identical state as genuine absence.",
+    "screenshot": "matrix_sla_E_ambiguous.png"
+  },
+  {
+    "slug": "termination",
+    "test": "A_compliant",
+    "state": "MUST REDLINE",
+    "verdict": "SAFE FAILURE",
+    "reason": "Did not confidently ACCEPT, but did not confidently misjudge either -- routed to a review/negotiate state (rationale cited a specific unmet structural requirement, not a fabricated defect).",
+    "screenshot": "matrix_termination_A_compliant.png"
+  },
+  {
+    "slug": "termination",
+    "test": "B_noncompliant",
+    "state": "REQUIRES REVIEW",
+    "verdict": "PASS",
+    "reason": "Non-compliant clause correctly routed to a review/enforcement state, not silently accepted.",
+    "screenshot": "matrix_termination_B_noncompliant.png"
+  },
+  {
+    "slug": "termination",
+    "test": "C_absent",
+    "state": "NOT APPLICABLE",
+    "verdict": "PASS",
+    "reason": "Genuine absence correctly identified as NOT_APPLICABLE.",
+    "screenshot": "matrix_termination_C_absent.png"
+  },
+  {
+    "slug": "termination",
+    "test": "D_unusual",
+    "state": "NOT APPLICABLE",
+    "verdict": "UNSAFE FAILURE",
+    "reason": "A present-but-unusually-phrased clause was collapsed into the identical state as genuine absence -- exactly the failure Lee's Question 3 warns about: nothing distinguishes 'not recognized' from 'not there'.",
+    "screenshot": "matrix_termination_D_unusual.png"
+  },
+  {
+    "slug": "termination",
+    "test": "E_ambiguous",
+    "state": "REQUIRES REVIEW",
+    "verdict": "PASS",
+    "reason": "Genuine ambiguity/insufficiency correctly routed to an uncertainty state rather than a confident answer.",
+    "screenshot": "matrix_termination_E_ambiguous.png"
+  },
+  {
+    "slug": "warranties",
+    "test": "A_compliant",
+    "state": "NEGOTIATE",
+    "verdict": "SAFE FAILURE",
+    "reason": "Did not confidently ACCEPT, but did not confidently misjudge either -- routed to a review/negotiate state (rationale cited a specific unmet structural requirement, not a fabricated defect).",
+    "screenshot": "matrix_warranties_A_compliant.png"
+  },
+  {
+    "slug": "warranties",
+    "test": "B_noncompliant",
+    "state": "ESCALATE",
+    "verdict": "PASS",
+    "reason": "Non-compliant clause correctly routed to a review/enforcement state, not silently accepted.",
+    "screenshot": "matrix_warranties_B_noncompliant.png"
+  },
+  {
+    "slug": "warranties",
+    "test": "C_absent",
+    "state": "NOT APPLICABLE",
+    "verdict": "PASS",
+    "reason": "Genuine absence correctly identified as NOT_APPLICABLE.",
+    "screenshot": "matrix_warranties_C_absent.png"
+  },
+  {
+    "slug": "warranties",
+    "test": "D_unusual",
+    "state": "NOT APPLICABLE",
+    "verdict": "UNSAFE FAILURE",
+    "reason": "A present-but-unusually-phrased clause was collapsed into the identical state as genuine absence -- exactly the failure Lee's Question 3 warns about: nothing distinguishes 'not recognized' from 'not there'.",
+    "screenshot": "matrix_warranties_D_unusual.png"
+  },
+  {
+    "slug": "warranties",
+    "test": "E_ambiguous",
+    "state": "NOT APPLICABLE",
+    "verdict": "UNSAFE FAILURE",
+    "reason": "An ambiguous-but-present clause was collapsed into the identical state as genuine absence.",
+    "screenshot": "matrix_warranties_E_ambiguous.png"
+  }
+]
