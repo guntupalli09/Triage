@@ -82,6 +82,14 @@ class GoverningLawFacts:
     end_index: Optional[int] = None
     section_label: Optional[str] = None
 
+    # Fact-admission architecture — mirrors confidentiality_policy_engine.
+    # ConfidentialityFacts.absence_state. evaluate_governing_law_policy's
+    # existing `if facts.jurisdiction is None` branch already routes to
+    # REQUIRES_REVIEW regardless of the reason, so RECOGNITION_UNCERTAIN
+    # never needs its own separate branch there.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+
 
 class GoverningLawPolicyRuleLike(Protocol):
     contract_side: str
@@ -118,10 +126,60 @@ def _classify_dispute_resolution(text: str) -> str:
     return "not_stated"
 
 
+# Off by default — same rollout discipline as every other adapter this
+# session integrated.
+GOVERNING_LAW_SEMANTIC_DISCOVERY_ENABLED = False
+
+_GOVERNING_LAW_SEMANTIC_FOCUS = (
+    "which jurisdiction's law governs this agreement, or where disputes must be brought -- "
+    "even if the wording is unusual and does not use standard terms like 'governing law' or "
+    "'governed by'"
+)
+_GOVERNING_LAW_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that establishes which "
+    "jurisdiction's law governs this agreement, or the venue/forum for disputes."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly."""
+    if not GOVERNING_LAW_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "governing_law", _GOVERNING_LAW_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], f"{type(exc).__name__}: {exc}"
+
+    admitted = []
+    for candidate in raw_candidates:
+        verified = _fa.verify_and_ground(candidate, text, _GOVERNING_LAW_SEMANTIC_PROPOSITION)
+        if verified.admission_status == _fa.ADMITTED:
+            admitted.append(verified)
+    return admitted, None
+
+
 def extract_governing_law_facts(text: str) -> Optional[GoverningLawFacts]:
+    """Returns None only when no anchor exists at all AND semantic
+    discovery also ran successfully and found nothing — a provider
+    outage/error becomes RECOGNITION_UNCERTAIN instead (see
+    absence_state), which the existing `if facts.jurisdiction is None`
+    REQUIRES_REVIEW branch in evaluate_governing_law_policy already
+    safely absorbs."""
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
     if not anchors:
-        return None
+        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        if semantic_error is not None:
+            return GoverningLawFacts(clause_found=True, jurisdiction=None, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+        if not admitted_semantic:
+            return None
+        # A semantically-admitted candidate does not itself establish a
+        # jurisdiction — it only earns this document a shot at the SAME
+        # deterministic _JURISDICTION_RE parsing below (which already
+        # scans the full document unconditionally, not gated on
+        # `anchors`). If that parsing still can't find a jurisdiction,
+        # this falls through to the existing "jurisdiction=None"
+        # REQUIRES_REVIEW path — never a fabricated jurisdiction.
 
     m = _JURISDICTION_RE.search(text)
     if not m:

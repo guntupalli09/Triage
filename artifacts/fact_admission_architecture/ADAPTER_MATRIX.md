@@ -21,7 +21,7 @@ The previous session's summary conflated two different things under
 | 5 | ip_ownership | No | **YES** | No (`IP_OWNERSHIP_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 4/4 pass |
 | 6 | insurance | No | **YES** | No (`INSURANCE_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 11/11 pass |
 | 7 | data_security | No | **YES** | No (`DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 4/4 pass |
-| 8 | governing_law | No | pending this session | — | — | — |
+| 8 | governing_law | No | **YES** | No (`GOVERNING_LAW_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 25/25 pass |
 | 9 | termination | No | **YES** | No (`TERMINATION_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 50/50 pass |
 | 10 | warranties | No | **YES** | No (`WARRANTIES_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 4/4 pass |
 | 11 | sla | No | **YES** | No (`SLA_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 4/4 pass (test_sla_activation_hook_no_effect_on_existing_adapters.py requires fastapi, environment-blocked in this sandbox — not run) |
