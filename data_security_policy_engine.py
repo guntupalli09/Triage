@@ -282,6 +282,17 @@ class DataSecurityFacts:
     dpa_cross_reference: bool = False
     liability_cross_reference: bool = False
 
+    # Fact-admission architecture — mirrors liability_policy_engine.
+    # LiabilityFacts.absence_state. Unlike confidentiality (whose existing
+    # `if not obligations` branch already absorbs RECOGNITION_UNCERTAIN
+    # safely), this adapter's per-dimension evaluate logic can reach
+    # ACCEPT on an all-None facts object when a playbook requires nothing
+    # specific — so evaluate_data_security_policy checks this field
+    # explicitly and early, the same way liability's evaluate function
+    # does, rather than relying on side effects of the unresolved-facts list.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+
 
 class DataSecurityPolicyRuleLike(Protocol):
     contract_side: str
@@ -422,6 +433,41 @@ def _classify_security_standard(window: str) -> Optional[str]:
     return None
 
 
+# Off by default — same rollout discipline as liability/confidentiality.
+DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED = False
+
+_DATA_SECURITY_SEMANTIC_FOCUS = (
+    "one party being obligated to protect personal or customer data, notify the "
+    "other party of a security incident or data breach, restrict subprocessors, "
+    "or otherwise address data protection/security under this agreement -- even if "
+    "the wording is unusual and does not use standard terms like 'data breach' or "
+    "'security incident'"
+)
+_DATA_SECURITY_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that "
+    "establishes a data-protection or security obligation (e.g. safeguarding data, "
+    "breach notification, subprocessor restrictions, or data handling standards)."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly."""
+    if not DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "data_security", _DATA_SECURITY_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], f"{type(exc).__name__}: {exc}"
+
+    admitted = []
+    for candidate in raw_candidates:
+        verified = _fa.verify_and_ground(candidate, text, _DATA_SECURITY_SEMANTIC_PROPOSITION)
+        if verified.admission_status == _fa.ADMITTED:
+            admitted.append(verified)
+    return admitted, None
+
+
 def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
     """Deterministic, single-provision extraction (data-protection clauses
     in real SaaS/DPA drafting are typically one consolidated section or
@@ -430,20 +476,32 @@ def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
     reconciliation, this adapter takes the FIRST anchored window as the
     controlling provision and reports a conflict, never a silent pick,
     whenever two DIFFERENT windows in the document disagree on the same
-    dimension)."""
+    dimension). Returns None only when no anchor exists at all AND
+    semantic discovery (see _run_semantic_discovery) also ran successfully
+    and found nothing — a provider outage/error becomes
+    RECOGNITION_UNCERTAIN instead (see absence_state)."""
     anchors = list(_ANCHOR_RE.finditer(text))
+    semantic_error: Optional[str] = None
+    admitted_semantic: List = []
     if not anchors:
-        return None
+        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        if semantic_error is not None:
+            return DataSecurityFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+        if not admitted_semantic:
+            return None
 
     # Use every anchored window (deduplicated by proximity) so a genuine
     # cross-provision conflict (e.g. Section 9 says 72 hours, Section 14
     # says 24 hours) is detected rather than only ever seeing the first.
+    # A semantically-admitted candidate contributes a window exactly like
+    # a regex anchor does — it never bypasses the classification functions
+    # below, it only earns a shot at them (see AUTHORITY_BOUNDARY.md §3).
+    candidate_starts = [m.start() for m in anchors] + [c.start_offset for c in admitted_semantic]
     windows: List[Tuple[int, int, str]] = []
     seen_starts: List[int] = []
-    for m in anchors:
-        if any(abs(m.start() - s) < 200 for s in seen_starts):
+    for start in candidate_starts:
+        if any(abs(start - s) < 200 for s in seen_starts):
             continue
-        start = m.start()
         end = min(len(text), start + _PROVISION_WINDOW_CHARS)
         windows.append((start, end, text[start:end]))
         seen_starts.append(start)
@@ -619,6 +677,28 @@ def evaluate_data_security_policy(
             required_action="None — this contract does not address data protection or security",
             explanation="No data protection or security clause was found in this contract, so the policy has nothing to evaluate against.",
             negotiation_ladder=_build_ladder(policy, NOT_APPLICABLE), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None,
+        )
+
+    if facts.absence_state == "RECOGNITION_UNCERTAIN":
+        # Fact-admission architecture (Step 5/6): a semantic-discovery
+        # provider outage/error must never be reported as "this contract
+        # does not address data protection" (NOT_APPLICABLE) NOR silently
+        # evaluated as an all-None facts object, which this adapter's
+        # per-dimension logic could otherwise resolve to ACCEPT for a
+        # playbook that doesn't require any specific dimension. Escalate
+        # explicitly instead.
+        return PolicyDecision(
+            **common, state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="Could not determine whether a data protection / security clause is present",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — automated recognition was unavailable for this document.",
+            explanation=(
+                "Deterministic pattern matching found no data protection / security clause, and semantic "
+                f"verification could not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). "
+                "This is not the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
             start_index=None, end_index=None,
         )
 
