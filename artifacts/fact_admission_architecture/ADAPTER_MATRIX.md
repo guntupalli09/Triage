@@ -16,11 +16,11 @@ The previous session's summary conflated two different things under
 |---|---|---|---|---|---|---|
 | 1 | limitation_of_liability | No | **YES** (prior session) | No (`LIABILITY_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 85/85 pass |
 | 2 | indemnification | **YES** — own pre-existing `semantic_discovery_real.py` + 4-way `absence_state`, frozen/validated Step 4B | Not migrated (deliberate — see ARCHITECTURE.md) | Partial (`SEMANTIC_PROVIDER` hardcoded `SIMULATED`) | pre-existing suite | pre-existing suite passes |
-| 3 | confidentiality | No | pending this session | — | — | — |
+| 3 | confidentiality | No | **YES** | No (`CONFIDENTIALITY_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 36/36 pass |
 | 4 | payment_terms | No | pending this session | — | — | — |
 | 5 | ip_ownership | No | pending this session | — | — | — |
 | 6 | insurance | No | pending this session | — | — | — |
-| 7 | data_security | No | pending this session | — | — | — |
+| 7 | data_security | No | **YES** | No (`DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 4/4 pass |
 | 8 | governing_law | No | pending this session | — | — | — |
 | 9 | termination | No | pending this session | — | — | — |
 | 10 | warranties | No | pending this session | — | — | — |
