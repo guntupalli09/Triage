@@ -310,6 +310,17 @@ class WarrantiesFacts:
     warranty_survival_present: Optional[bool] = None
     schedule_cross_reference: bool = False
 
+    # Fact-admission architecture — mirrors data_security_policy_engine.
+    # DataSecurityFacts.absence_state. This adapter's "anchor fired but
+    # nothing structured" gate deliberately returns None/NOT_APPLICABLE
+    # (see the module docstring's negative-control discipline) rather
+    # than REQUIRES_REVIEW the way confidentiality/termination do — so a
+    # provider outage on the NO-anchor path needs its own explicit
+    # RECOGNITION_UNCERTAIN branch in evaluate_warranties_policy, it
+    # cannot rely on falling through to an existing safe branch.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+
 
 class WarrantiesPolicyRuleLike(Protocol):
     contract_side: str
@@ -382,6 +393,41 @@ def _detect_warranty_asymmetry(window: str) -> List[str]:
     )
 
 
+# Off by default — same rollout discipline as every other adapter this
+# session integrated.
+WARRANTIES_SEMANTIC_DISCOVERY_ENABLED = False
+
+_WARRANTIES_SEMANTIC_FOCUS = (
+    "one party making an express commitment/representation about the quality, performance, "
+    "legality, or non-infringement of goods or services under this agreement -- a warranty "
+    "concept -- even if the wording is unusual and does not use any 'warrant'-root word at all "
+    "(e.g. 'represents and confirms', 'commits that', 'assures')"
+)
+_WARRANTIES_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that establishes an "
+    "express warranty or representation about the quality, performance, legality, or "
+    "non-infringement of goods or services under this agreement."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly."""
+    if not WARRANTIES_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "warranties", _WARRANTIES_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], f"{type(exc).__name__}: {exc}"
+
+    admitted = []
+    for candidate in raw_candidates:
+        verified = _fa.verify_and_ground(candidate, text, _WARRANTIES_SEMANTIC_PROPOSITION)
+        if verified.admission_status == _fa.ADMITTED:
+            admitted.append(verified)
+    return admitted, None
+
+
 def extract_warranties_facts(text: str) -> Optional[WarrantiesFacts]:
     # Unlike other adapters' anchor pre-filters, a "no " lookback is
     # deliberately NOT applied here: "Vendor makes no warranty of X" is
@@ -392,23 +438,35 @@ def extract_warranties_facts(text: str) -> Optional[WarrantiesFacts]:
     # against a bare, meaningless "warrant" mention is still provided
     # downstream by the found_anything gate.
     anchors = list(_ANCHOR_RE.finditer(text))
+    semantic_error: Optional[str] = None
+    admitted_semantic: List = []
     if not anchors:
-        return None
+        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        if semantic_error is not None:
+            facts = WarrantiesFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+            for cat in WARRANTY_CATEGORIES:
+                facts.categories[cat] = WarrantyCategoryFacts()
+            return facts
+        if not admitted_semantic:
+            return None
 
+    anchor_spans = sorted(
+        [(m.start(), m.end()) for m in anchors] + [(c.start_offset, c.end_offset) for c in admitted_semantic]
+    )
     windows: List[Tuple[int, int]] = []
-    for m in anchors:
-        s = max(0, m.start() - 200)
-        e = min(len(text), m.end() + _PROVISION_WINDOW_CHARS)
+    for (m_start, m_end) in anchor_spans:
+        s = max(0, m_start - 200)
+        e = min(len(text), m_end + _PROVISION_WINDOW_CHARS)
         if windows and s - windows[-1][1] < 200:
             windows[-1] = (windows[-1][0], max(windows[-1][1], e))
         else:
             windows.append((s, e))
 
-    first_match = anchors[0]
-    start_index = max(0, first_match.start() - 200)
-    end_index = min(len(text), first_match.end() + 400)
+    first_start, first_end = anchor_spans[0]
+    start_index = max(0, first_start - 200)
+    end_index = min(len(text), first_end + 400)
     raw_excerpt = _excerpt(text, start_index, end_index)
-    section_label = _section_label_before(text, first_match.start())
+    section_label = _section_label_before(text, first_start)
 
     facts = WarrantiesFacts(clause_found=True, raw_excerpt=raw_excerpt, start_index=start_index,
                              end_index=end_index, section_label=section_label)
@@ -573,6 +631,27 @@ def evaluate_warranties_policy(
             required_action="None — this contract does not address warranties",
             explanation="No warranties clause was found in this contract, so the policy has nothing to evaluate against.",
             negotiation_ladder=_build_ladder(policy, NOT_APPLICABLE), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None, source=source, summary_label="Warranties treatment",
+            our_position_label="Our warranties", counterparty_position_label="Counterparty's warranties",
+        )
+
+    if facts.absence_state == "RECOGNITION_UNCERTAIN":
+        # Fact-admission architecture (Step 5/6): unlike the "anchor
+        # fired but nothing structured" case (deliberately NOT_APPLICABLE
+        # per this module's negative-control discipline), a provider
+        # outage/error on the NO-anchor path must never be reported as
+        # "this contract does not address warranties" — it must escalate.
+        return PolicyDecision(
+            rule_id=RULE_ID, clause_type="warranties", state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="Could not determine whether a warranties clause is present",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — automated recognition was unavailable for this document.",
+            explanation=(
+                "Deterministic pattern matching found no warranties clause, and semantic verification could "
+                f"not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). This is not "
+                "the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
             start_index=None, end_index=None, source=source, summary_label="Warranties treatment",
             our_position_label="Our warranties", counterparty_position_label="Counterparty's warranties",
         )
