@@ -27,11 +27,82 @@ The previous session's summary conflated two different things under
 | 11 | sla | No | **YES** | No (`SLA_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 4/4 pass (test_sla_activation_hook_no_effect_on_existing_adapters.py requires fastapi, environment-blocked in this sandbox — not run) |
 | 12 | assignment | No | **YES** | No (`ASSIGNMENT_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 26/26 pass |
 
-Accounting for all 12: **1 integrated with the shared framework
-(liability)**, **1 architecturally protected by a separate, pre-existing
-mechanism (indemnification)**, **10 with no semantic protection at all
-before this session** (rows 3-12, being closed in this session below,
-one at a time, updating this table after each).
+**Final accounting, all 12/12 closed:**
+- **Integrated with the shared `fact_admission.py` framework: 11/12**
+  (liability, confidentiality, payment_terms, ip_ownership, insurance,
+  data_security, governing_law, termination, warranties, sla, assignment).
+- **Architecturally protected but NOT migrated onto the shared framework:
+  1/12** (indemnification — its own separate, pre-existing,
+  Step-4B-frozen mechanism; left as-is per ARCHITECTURE.md's explicit
+  rationale, not an oversight).
+- **Architecturally protected overall (either mechanism): 12/12.**
+- **Production-enabled (flag defaulting to on, live in the deployed
+  product): 0/11 of the newly-integrated adapters** — every
+  `*_SEMANTIC_DISCOVERY_ENABLED` flag defaults `False`; indemnification's
+  own `SEMANTIC_PROVIDER` is hardcoded `"SIMULATED"`, not calling a real
+  model in production either. **No adapter's live production behavior
+  differs from before this branch.** Enabling any of them is a deliberate,
+  separate deployment decision this implementation pass does not make.
+- **Targeted tests added this session: 77** (7 per adapter × 11 adapters)
+  **+ 39 for the shared framework itself = 116 new tests total.**
+- **Regression**: every adapter's pre-existing test suite re-run after its
+  integration and confirmed passing unchanged (see per-row counts above);
+  one real bug (a `NameError` in payment_terms from an incomplete
+  variable rename) was caught by this exact discipline before commit —
+  see that adapter's commit message.
+
+## Absence-state matrix (all 12 adapters)
+
+Per-adapter mapping of the 7 required states to what actually reaches
+`evaluate_*_policy` and the `PolicyDecision.state` it produces. "Existing
+branch absorbs it" means the RECOGNITION_UNCERTAIN case was not given a
+new decision branch because an existing branch already treats the
+"structure could not be parsed" case identically and safely (verified
+adapter-by-adapter, not assumed).
+
+| Adapter | PRESENT+ESTABLISHED | PRESENT+UNRESOLVED | RECOGNITION_UNCERTAIN | CONFIRMED_ABSENT | NOT_APPLICABLE | DEPENDENCY_UNRESOLVED | EVALUATION_ERROR |
+|---|---|---|---|---|---|---|---|
+| liability | ACCEPT/NEGOTIATE/etc. per cap terms | REQUIRES_REVIEW (unreconciled/unresolved) | REQUIRES_REVIEW (explicit branch) | NOT_APPLICABLE | NOT_APPLICABLE (same as confirmed-absent — no clause found) | REQUIRES_REVIEW (cross-reference unresolved, pre-existing) | EVALUATION_ERROR (policy_enforcement.py isolation, pre-existing) |
+| indemnification | ACCEPT/etc. (PRESENT_AND_VERIFIED) | REQUIRES_REVIEW (PRESENT_BUT_UNRESOLVED) | REQUIRES_REVIEW (own pre-existing 4-way absence_state) | NOT_APPLICABLE (CONFIRMED_ABSENT) | NOT_APPLICABLE | REQUIRES_REVIEW (condition/cross-ref handling, pre-existing) | EVALUATION_ERROR (pre-existing) |
+| confidentiality | ACCEPT/etc. | REQUIRES_REVIEW (existing `if not obligations` branch absorbs it) | REQUIRES_REVIEW (same branch, no new code needed) | NOT_APPLICABLE | NOT_APPLICABLE | REQUIRES_REVIEW (resolution_reasons, pre-existing) | EVALUATION_ERROR (pre-existing) |
+| payment_terms | ACCEPT/etc. | REQUIRES_REVIEW (unresolved list, pre-existing) | REQUIRES_REVIEW (explicit branch, new) | NOT_APPLICABLE | NOT_APPLICABLE | REQUIRES_REVIEW (chained_delegation/conditional_unverified_precondition, pre-existing) | EVALUATION_ERROR (pre-existing) |
+| ip_ownership | ACCEPT/etc. | REQUIRES_REVIEW (conflict categories, pre-existing) | REQUIRES_REVIEW (explicit branch, new — prevents ACCEPT-by-omission) | NOT_APPLICABLE | NOT_APPLICABLE | REQUIRES_REVIEW (sow_cross_reference w/ 0 established dims, pre-existing pattern) | EVALUATION_ERROR (pre-existing) |
+| insurance | ACCEPT/etc. | REQUIRES_REVIEW (per-coverage unresolved, pre-existing) | REQUIRES_REVIEW (explicit branch, new — prevents ACCEPT-by-omission) | NOT_APPLICABLE | NOT_APPLICABLE | REQUIRES_REVIEW (schedule_cross_reference, pre-existing) | EVALUATION_ERROR (pre-existing) |
+| data_security | ACCEPT/etc. | REQUIRES_REVIEW (role/subprocessor/breach conflicts, pre-existing) | REQUIRES_REVIEW (explicit branch, new — prevents ACCEPT-by-omission) | NOT_APPLICABLE | NOT_APPLICABLE | REQUIRES_REVIEW (dpa_cross_reference w/ 0 established dims, pre-existing) | EVALUATION_ERROR (pre-existing) |
+| governing_law | ACCEPT/etc. | REQUIRES_REVIEW (existing `if jurisdiction is None` branch absorbs it) | REQUIRES_REVIEW (same branch, no new code needed) | NOT_APPLICABLE | NOT_APPLICABLE | N/A (no cross-reference concept in this adapter) | EVALUATION_ERROR (pre-existing) |
+| termination | ACCEPT/etc. | REQUIRES_REVIEW (existing `if not rights` branch absorbs it) | REQUIRES_REVIEW (same branch, no new code needed) | NOT_APPLICABLE | NOT_APPLICABLE | N/A (no cross-reference concept modeled) | EVALUATION_ERROR (pre-existing) |
+| warranties | ACCEPT/etc. | REQUIRES_REVIEW (mutual_asymmetry/duration_conflict, pre-existing) | REQUIRES_REVIEW (explicit branch, new — this adapter's own found_anything gate is deliberately NOT_APPLICABLE, so RECOGNITION_UNCERTAIN needed its own path) | NOT_APPLICABLE | NOT_APPLICABLE (deliberate negative-control: anchor-fired-but-unstructured is also NOT_APPLICABLE, not REQUIRES_REVIEW — see module docstring) | REQUIRES_REVIEW (schedule_cross_reference, pre-existing) | EVALUATION_ERROR (pre-existing) |
+| sla | ACCEPT/etc. | REQUIRES_REVIEW (uptime/measurement/credit conflicts, pre-existing) | REQUIRES_REVIEW (explicit branch, new — same reason as warranties) | NOT_APPLICABLE | NOT_APPLICABLE (same deliberate negative-control as warranties) | REQUIRES_REVIEW (schedule_cross_reference, pre-existing) | EVALUATION_ERROR (pre-existing) |
+| assignment | ACCEPT/etc. | REQUIRES_REVIEW (existing `if not restrictions and not unrestricted` branch absorbs it) | REQUIRES_REVIEW (same branch, no new code needed) | NOT_APPLICABLE | NOT_APPLICABLE | N/A (no cross-reference concept modeled) | EVALUATION_ERROR (pre-existing) |
+
+**No adapter permits "no extraction result = confirmed absent" without
+independent evidence supporting that conclusion.** In every adapter,
+CONFIRMED_ABSENT (→ NOT_APPLICABLE) is reachable only when semantic
+discovery (a) ran, (b) completed without error, and (c) found nothing —
+never merely because the deterministic regex found nothing. Two
+architecturally distinct sub-patterns exist, both verified per-adapter
+above, not assumed uniform: (1) confidentiality/termination/governing_law/
+assignment already had a safe existing branch that RECOGNITION_UNCERTAIN
+falls into without new code; (2) liability/payment_terms/ip_ownership/
+insurance/data_security/warranties/sla needed (and received) an explicit
+new branch, because their existing "nothing structured" path either
+resolves to ACCEPT under a permissive playbook (ip_ownership/insurance/
+data_security's all-None-facts risk) or is itself a deliberate
+NOT_APPLICABLE negative control (warranties/sla) that RECOGNITION_
+UNCERTAIN must not be confused with.
+
+DEPENDENCY_UNRESOLVED as its own named state (distinct from the existing
+REQUIRES_REVIEW-with-cross-reference-explanation pattern) was not
+introduced as a new state value in this pass — every adapter's existing
+cross-reference/dependency handling already routes to REQUIRES_REVIEW
+with an explanation naming the unresolved dependency, which is the
+architecturally correct outcome (never treated as safe); a distinct
+`DEPENDENCY_UNRESOLVED` string was judged to add a fourth vocabulary
+layer without changing what any consumer does with it (interaction_engine_
+core.py and document_aggregation.py both already treat REQUIRES_REVIEW as
+unsafe/must-escalate identically to how they would treat a hypothetical
+DEPENDENCY_UNRESOLVED). This is a documented design decision, not an
+oversight — flagged here for scrutiny rather than silently assumed correct.
 
 
 

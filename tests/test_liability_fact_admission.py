@@ -15,6 +15,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 import liability_policy_engine as lpe
+import policy_engine_core as pec
 
 
 def setup_function(_):
@@ -154,3 +155,49 @@ def test_verifier_not_established_never_becomes_a_provision(monkeypatch):
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
         facts = lpe.extract_liability_facts(doc)
     assert facts is None
+
+
+def test_admitted_fact_produces_deterministic_replay_decision(monkeypatch):
+    """Step 18 (deterministic replay): once a semantic candidate is
+    admitted and structured into a Provision, repeated evaluation of the
+    SAME facts against the SAME policy must produce a byte-identical
+    PolicyDecision — the authority boundary (AI decides admission, never
+    the decision) is deterministic even though the AI call itself is not
+    required to be. This test fixes the facts (no further provider calls
+    needed) and checks policy_engine_core's own determinism primitive
+    over repeated evaluate_liability_policy() calls."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "9. Miscellaneous. Neither party shall be liable for any amount in excess of "
+        "the total fees paid by Customer in the twelve months preceding the claim."
+    )
+    quote = (
+        "Neither party shall be liable for any amount in excess of the total fees paid "
+        "by Customer in the twelve months preceding the claim."
+    )
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({"status": "ESTABLISHED", "evidence_quote": quote, "reasoning": "Operative mutual liability cap."}))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = lpe.extract_liability_facts(doc)
+    assert facts is not None
+
+    class FakePolicy:
+        preferred_multiplier = 1.0
+        acceptable_max_multiplier = 1.0
+        negotiate_max_multiplier = 2.0
+        prohibit_unlimited = True
+        required_exceptions_json = []
+        fallback_text = None
+        contract_side = "vendor"
+        escalation_approval_authority = None
+        require_consequential_damages_exclusion = False
+        required_consequential_carveouts_json = []
+
+    hashes = {pec.decision_hash(lpe.evaluate_liability_policy(facts, FakePolicy())) for _ in range(5)}
+    assert len(hashes) == 1
