@@ -720,6 +720,17 @@ class LiabilityFacts:
     controlling_provision: Optional[Provision] = None
     reconciliation: str = "single"  # "single" | "amendment_resolved" | "consistent_duplicate" | "unreconciled"
     reconciliation_explanation: str = ""
+    # Fact-admission architecture (see fact_admission.py and
+    # indemnification_policy_engine.py's absence_state, which this mirrors).
+    # Diagnostic by default — evaluate_liability_policy branches on
+    # clause_found/absence_state together (see the NOT_APPLICABLE branch),
+    # never on this string alone, matching indemnification's own discipline.
+    # CONFIRMED_ABSENT: regex found nothing AND semantic discovery ran
+    #   successfully and also found/admitted nothing.
+    # RECOGNITION_UNCERTAIN: regex found nothing AND semantic discovery was
+    #   unavailable/errored — must never collapse into CONFIRMED_ABSENT.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
 
 
 class PolicyRuleLike(Protocol):
@@ -1600,17 +1611,88 @@ def _discover_anchors(text: str) -> List[Tuple[int, bool]]:
     return accepted
 
 
+# Off by default — mirrors indemnification_policy_engine.HYBRID_DISCOVERY_
+# ENABLED's rollout discipline (a module-level switch a deployer/test flips
+# explicitly, never inferred from whether ANTHROPIC_API_KEY happens to be
+# set). With this off, extract_liability_facts behaves byte-identically to
+# before this integration: regex-only discovery, CONFIRMED_ABSENT ->
+# NOT_APPLICABLE when nothing is found. This keeps the existing 78-case
+# regression suite (see tests/test_liability_policy_engine.py) passing
+# unchanged in any environment without a configured provider, and lets
+# Step 1's single-adapter rollout be enabled independently of whether a
+# provider key exists in a given deployment/test environment.
+LIABILITY_SEMANTIC_DISCOVERY_ENABLED = False
+
+_LIABILITY_SEMANTIC_FOCUS = (
+    "one party's exposure to damages, losses, or claims under this agreement being "
+    "limited, capped, excluded, or expressly stated to be unlimited — a limitation-"
+    "of-liability concept — even if the wording is unusual or does not use standard "
+    "terms like 'limitation of liability' or 'cap'"
+)
+_LIABILITY_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that limits, "
+    "caps, excludes, or expressly leaves unlimited a party's liability, damages, or "
+    "losses arising under this agreement."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
+    """Additive semantic discovery for liability-cap language the
+    deterministic anchors above did not recognize. Mirrors
+    indemnification_policy_engine._run_semantic_discovery exactly, using
+    the shared fact_admission framework instead of a bespoke
+    implementation. Returns (admitted_candidates, error); error is None
+    when discovery ran successfully (even if it found nothing — see
+    absence_state in extract_liability_facts)."""
+    if not LIABILITY_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "limitation_of_liability", _LIABILITY_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], f"{type(exc).__name__}: {exc}"
+
+    admitted = []
+    for candidate in raw_candidates:
+        verified = _fa.verify_and_ground(candidate, text, _LIABILITY_SEMANTIC_PROPOSITION)
+        if verified.admission_status == _fa.ADMITTED:
+            admitted.append(verified)
+    return admitted, None
+
+
 def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
     """Discovers every liability-limitation provision in the full document
     (not just the first) and reconciles them. Returns None only when no such
-    provision exists at all anywhere in the document.
+    provision exists at all anywhere in the document AND semantic discovery
+    (see _run_semantic_discovery) also ran successfully and found nothing —
+    a semantic-discovery provider outage/error never collapses into "no
+    clause," it becomes RECOGNITION_UNCERTAIN instead (see absence_state).
 
     Discovery is two-layered — an explicitly labelled provision, or ordinary
     commercial cap drafting with no heading at all. See _ANCHOR_RE /
-    _SECONDARY_ANCHOR_RE."""
+    _SECONDARY_ANCHOR_RE. A third, additive layer (semantic discovery) runs
+    only when the first two find nothing, proposing candidate spans that
+    must independently pass adversarial semantic verification AND
+    deterministic grounding before they can seed a provision window — see
+    fact_admission.py. A semantically-admitted candidate is treated exactly
+    like any other anchor: it still has to survive the same deterministic
+    _extract_provision structuring any regex-found anchor does, so it can
+    reach PRESENT_AND_VERIFIED-equivalent status but never bypasses
+    structural verification the way a raw LLM classification would."""
     accepted_anchors = _discover_anchors(text)
+    semantic_error: Optional[str] = None
     if not accepted_anchors:
-        return None
+        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        if admitted_semantic:
+            accepted_anchors = [(c.start_offset, False) for c in admitted_semantic]
+        elif semantic_error is not None:
+            return LiabilityFacts(
+                clause_found=True, provisions=[], absence_state="RECOGNITION_UNCERTAIN",
+                semantic_discovery_error=semantic_error,
+                reconciliation="single", reconciliation_explanation="",
+            )
+        else:
+            return None
 
     provisions = [_extract_provision(text, start, i) for i, (start, _) in enumerate(accepted_anchors)]
 
@@ -1745,6 +1827,27 @@ def evaluate_liability_policy(
     (unreconciled provisions, a compound cap that doesn't reduce to one
     comparable value, an unmappable directional structure, ambiguous
     category carve-out language). No confidence score at any branch."""
+    if facts is not None and not facts.provisions and facts.absence_state == "RECOGNITION_UNCERTAIN":
+        # Fact-admission architecture (Step 5/6): a semantic-discovery
+        # provider outage/error must never be reported as "this contract
+        # does not address liability caps" (NOT_APPLICABLE, which
+        # document_aggregation.py and interaction_engine_core.py both
+        # treat as safely excludable). It must escalate instead — see
+        # fact_admission.py and _run_semantic_discovery above.
+        return PolicyDecision(
+            rule_id=RULE_ID, clause_type="limitation_of_liability", state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="Could not determine whether a limitation-of-liability clause is present",
+            policy_limit_summary=_fmt_multiplier(policy.preferred_multiplier),
+            required_action="Manual review required — automated recognition was unavailable for this document.",
+            explanation=(
+                "Deterministic pattern matching found no limitation-of-liability clause, and semantic "
+                f"verification could not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). "
+                "This is not the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None, source=source,
+        )
+
     if facts is None or not facts.clause_found:
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="limitation_of_liability", state=NOT_APPLICABLE,
