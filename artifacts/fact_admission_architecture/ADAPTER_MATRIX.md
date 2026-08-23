@@ -17,7 +17,7 @@ The previous session's summary conflated two different things under
 | 1 | limitation_of_liability | No | **YES** (prior session) | No (`LIABILITY_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 85/85 pass |
 | 2 | indemnification | **YES** — own pre-existing `semantic_discovery_real.py` + 4-way `absence_state`, frozen/validated Step 4B | Not migrated (deliberate — see ARCHITECTURE.md) | Partial (`SEMANTIC_PROVIDER` hardcoded `SIMULATED`) | pre-existing suite | pre-existing suite passes |
 | 3 | confidentiality | No | **YES** | No (`CONFIDENTIALITY_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 36/36 pass |
-| 4 | payment_terms | No | pending this session | — | — | — |
+| 4 | payment_terms | No | **YES** | No (`PAYMENT_TERMS_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 8/8 pass |
 | 5 | ip_ownership | No | **YES** | No (`IP_OWNERSHIP_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 4/4 pass |
 | 6 | insurance | No | **YES** | No (`INSURANCE_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 11/11 pass |
 | 7 | data_security | No | **YES** | No (`DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED=False`) | 7 | 4/4 pass |

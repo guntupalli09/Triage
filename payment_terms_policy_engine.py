@@ -567,6 +567,15 @@ class PaymentFacts:
     # is conditioned (see policy_engine_core.ConditionEvidence).
     condition: Optional[ConditionEvidence] = None
 
+    # Fact-admission architecture — mirrors data_security_policy_engine.
+    # DataSecurityFacts.absence_state. This adapter already decomposed its
+    # engagement gate into multiple concept-specific regexes (Step 4A.3,
+    # see extract_payment_facts's docstring) rather than one monolithic
+    # anchor — the semantic layer is the open-ended complement to that
+    # finite concept list, not a replacement for it.
+    absence_state: str = "CONFIRMED_ABSENT"
+    semantic_discovery_error: Optional[str] = None
+
 
 class PaymentPolicyRuleLike(Protocol):
     contract_side: str
@@ -634,6 +643,44 @@ _CONCEPT_ENGAGEMENT_RES = [
 ]
 
 
+# Off by default — same rollout discipline as every other adapter this
+# session integrated.
+PAYMENT_TERMS_SEMANTIC_DISCOVERY_ENABLED = False
+
+_PAYMENT_TERMS_SEMANTIC_FOCUS = (
+    "a payment obligation between the parties -- payment timing, disputed-amount handling, "
+    "set-off/offset rights, tax responsibility, late fees/interest, or a price-increase "
+    "condition -- even if the wording is unusual and does not use standard payment-clause "
+    "terminology"
+)
+_PAYMENT_TERMS_SEMANTIC_PROPOSITION = (
+    "This sentence or clause is operative language of this agreement that establishes a "
+    "payment-related obligation or right between the parties under this agreement."
+)
+
+
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly.
+    This is the open-ended complement to _CONCEPT_ENGAGEMENT_RES's finite
+    concept list (Step 4A.3), not a replacement for it — see
+    extract_payment_facts's docstring and the mission's own "no regex
+    whack-a-mole" instruction."""
+    if not PAYMENT_TERMS_SEMANTIC_DISCOVERY_ENABLED:
+        return [], None
+    import fact_admission as _fa
+    try:
+        raw_candidates = _fa.discover_candidate_spans(text, "payment_terms", _PAYMENT_TERMS_SEMANTIC_FOCUS)
+    except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
+        return [], f"{type(exc).__name__}: {exc}"
+
+    admitted = []
+    for candidate in raw_candidates:
+        verified = _fa.verify_and_ground(candidate, text, _PAYMENT_TERMS_SEMANTIC_PROPOSITION)
+        if verified.admission_status == _fa.ADMITTED:
+            admitted.append(verified)
+    return admitted, None
+
+
 def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
     # Step 4A.3 — Failure Family 2 hardening. Step 4A.2's held-out corpus
     # found that engagement for the ENTIRE adapter depended on one
@@ -664,23 +711,32 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
         concept_matches.extend(concept_re.finditer(text))
     matches = sorted(list(_ANCHOR_RE.finditer(text)) + concept_matches, key=lambda m: m.start())
     matches = [m for m in matches if not _is_deposit_only_context(text, m.start())]
+    semantic_error: Optional[str] = None
+    admitted_semantic: List = []
     if not matches:
-        return None
+        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        if semantic_error is not None:
+            return PaymentFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
+        if not admitted_semantic:
+            return None
 
+    anchor_spans = sorted(
+        [(m.start(), m.end()) for m in matches] + [(c.start_offset, c.end_offset) for c in admitted_semantic]
+    )
     windows: List[Tuple[int, int]] = []
-    for m in matches:
-        s = max(0, m.start() - 200)
-        e = min(len(text), m.end() + _PROVISION_WINDOW_CHARS)
+    for (m_start, m_end) in anchor_spans:
+        s = max(0, m_start - 200)
+        e = min(len(text), m_end + _PROVISION_WINDOW_CHARS)
         if windows and s - windows[-1][1] < 200:
             windows[-1] = (windows[-1][0], max(windows[-1][1], e))
         else:
             windows.append((s, e))
 
-    first_match = matches[0]
-    start_index = max(0, first_match.start() - 200)
-    end_index = min(len(text), first_match.end() + 400)
+    first_start, first_end = anchor_spans[0]
+    start_index = max(0, first_start - 200)
+    end_index = min(len(text), first_end + 400)
     raw_excerpt = excerpt(text, start_index, end_index)
-    section_label = section_label_before(text, first_match.start())
+    section_label = section_label_before(text, first_start)
 
     facts = PaymentFacts(clause_found=True, raw_excerpt=raw_excerpt, start_index=start_index,
                           end_index=end_index, section_label=section_label)
@@ -704,7 +760,7 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
         r"shall(?:\s+\w+){0,3}\s+pay\b|obligation\s+to\s+pay|payable|remit(?:tance)?|remunerat\w*", re.I,
     )
     payment_verb_match = _payment_obligation_anchor_re.search(text, start_index, end_index)
-    payment_anchor_span = payment_verb_match.span() if payment_verb_match else (first_match.start(), first_match.end())
+    payment_anchor_span = payment_verb_match.span() if payment_verb_match else (first_start, first_end)
     facts.condition = _core_detect_condition_in_span(text, payment_anchor_span[0], payment_anchor_span[1])
     if section_label:
         conflict = _core_detect_conflicting_backward_conditions(text, "Section", section_label)
@@ -1007,6 +1063,22 @@ def evaluate_payment_policy(
             required_action="None — this contract does not address payment terms",
             explanation="No payment terms clause was found in this contract, so the policy has nothing to evaluate against.",
             negotiation_ladder=_build_ladder(policy, NOT_APPLICABLE), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None,
+            interaction_facts={"disputed_amounts_withholdable": None, "service_credit_present": None},
+        )
+
+    if facts.absence_state == "RECOGNITION_UNCERTAIN":
+        return PolicyDecision(
+            **common, state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="Could not determine whether a payment terms clause is present",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — automated recognition was unavailable for this document.",
+            explanation=(
+                "Deterministic pattern matching found no payment terms clause, and semantic verification "
+                f"could not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). This is "
+                "not the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
             start_index=None, end_index=None,
             interaction_facts={"disputed_amounts_withholdable": None, "service_credit_present": None},
         )
