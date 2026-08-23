@@ -2384,6 +2384,15 @@ async def review_contract(request: Request, contract_id: int, db: DBSession = De
     return templates.TemplateResponse("review.html", {
         "request": request, "user": user, "contract_id": contract.id,
         "filename": contract.filename, "overall_risk": contract.overall_risk,
+        # Step 10 (fact-admission architecture) -- the single-contract
+        # review page previously showed only the legacy overall_risk badge
+        # (see templates/review.html), the same false-clean surface
+        # dashboard.html/history.html already closed in Step 4B (commit
+        # d6f4875). document_state is the authoritative aggregation
+        # (document_aggregation.aggregate_document_state, via the same
+        # _document_state_for_contract helper the dashboard/history routes
+        # use) -- rendered alongside, never in place of, the legacy badge.
+        "document_state": _document_state_for_contract(contract),
         "rule_engine_version": contract.rule_engine_version or "2.0.0",
         "contract_text": contract.contract_text,
         "findings": findings, "decisions": decisions, "progress": progress.as_dict(),

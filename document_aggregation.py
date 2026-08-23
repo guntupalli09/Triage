@@ -13,11 +13,13 @@ unresolved/missing input into a clean one -- an input that is absent
 (policy_decisions is None, e.g. cutover with no resolvable playbook) is
 itself a signal (CONFIGURATION_UNRESOLVED), never silently skipped.
 
-This module is intentionally NOT wired into main.py's dashboard/listing
-queries in this increment -- see the spec's Non-Goals section. It is a
-pure function over already-computed data, safe to call read-only against
-existing rows without any schema change, and is exercised here only by its
-own development benchmark.
+Wired into main.py's dashboard, history, and single-contract review routes
+(see main.py's _document_state_for_contract/_needs_attention, added in
+commit d6f4875 "Step 4B: wire document aggregation into dashboard/history
+attention queue", and extended to the review page in the fact-admission
+architecture work) -- a pure function over already-computed data, called
+read-only against existing rows with no schema change, layered alongside
+(never replacing) the legacy overall_risk badge everywhere it is shown.
 """
 from __future__ import annotations
 

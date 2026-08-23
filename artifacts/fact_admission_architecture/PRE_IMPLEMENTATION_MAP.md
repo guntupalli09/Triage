@@ -279,9 +279,24 @@ subtlety STEP 6/9 warn against getting wrong, and it is already handled.
 
 ---
 
-## 8. Document-level aggregation (STEP 10) — the real gap
+## 8. Document-level aggregation (STEP 10) — CORRECTED after implementation began
 
-`document_aggregation.py` is a complete, already-correct implementation of
+**Correction, recorded rather than silently fixed**: this section
+originally claimed `document_aggregation.py` was not wired into `main.py`,
+based on that module's own docstring (which said so explicitly at the time
+of the Step 0 investigation). That claim was **wrong for current HEAD** —
+`git log -- main.py` shows commit `d6f4875` ("Step 4B: wire document
+aggregation into dashboard/history attention queue") already wired
+`aggregate_document_state` into the `/dashboard` and `/history` routes
+(`main.py:1232-1322`, `_document_state_for_contract`/`_needs_attention`),
+rendering a "Needs Attention" badge in `templates/dashboard.html:94-96`
+whenever the aggregated state is material and the legacy `overall_risk`
+alone would have missed it. The module's docstring was simply never
+updated after that wiring landed — both this map's original Step 0 pass
+and an independent second research pass (§15a) were misled by the same
+stale comment, which is now corrected in `document_aggregation.py` itself.
+
+`document_aggregation.py` remains a complete, correct implementation of
 the mission's STEP 10 requirement:
 - 6-state model: `HAS_CRITICAL_INTERACTION` > `HAS_POLICY_VIOLATION` >
   `REQUIRES_REVIEW` > `CONFIGURATION_UNRESOLVED` > `CLEAN` /
@@ -294,21 +309,17 @@ the mission's STEP 10 requirement:
   `CLEAN_LEGACY_ATTENTION`, a visibly distinct state, never plain `CLEAN`
   (lines 192-196).
 
-**But it is explicitly not wired into main.py** (module docstring, lines
-16-20: "intentionally NOT wired into main.py's dashboard/listing queries in
-this increment ... exercised here only by its own development benchmark").
-This means the actual product today has no single authoritative
-document-state field reaching the UI — `main.py`'s review/dashboard routes
-render `overall_risk`, `findings_json`, `policy_decisions_json`, and
-`interaction_decisions_json` as separate signals. **This is the most
-concrete, highest-leverage gap for STEP 10/STEP 21 (live product
-validation)**: without wiring, no screenshot of triagecounsel.com can show
-"document cannot display authoritative CLEAN while material state
-unresolved," because there is no single authoritative CLEAN badge yet to
-falsify. Closing this gap is in scope for this mission and does not
-conflict with any invariant — it is additive, and `document_aggregation.py`
-was seemingly built and frozen exactly in anticipation of this kind of
-follow-on wiring.
+**The one real gap found once this was checked properly**: the *single*-
+contract review page (`main.py`'s `review_contract` route,
+`templates/review.html`) rendered only the legacy `overall_risk` badge —
+dashboard/history had the "Needs Attention" badge, but a lawyer looking at
+one specific contract's own review screen did not. This has been closed as
+part of this same implementation pass: `review_contract` now also computes
+`_document_state_for_contract(contract)` and `templates/review.html`
+renders the identical "Needs Attention" badge, alongside (never replacing)
+the legacy risk badge, using the exact same condition
+`dashboard.html` already uses. All three user-facing surfaces
+(dashboard, history, single-contract review) are now consistent.
 
 ---
 

@@ -289,6 +289,9 @@
         <div class="topbar-info">
             <div class="text-sm font-semibold text-[#0F172A]">{{ filename }}</div>
             <span class="text-xs font-bold uppercase tracking-wide {% if overall_risk == 'high' %}text-red-600{% elif overall_risk == 'medium' %}text-amber-600{% else %}text-emerald-600{% endif %}">{{ overall_risk|upper }} RISK</span>
+            {% if document_state in ('HAS_CRITICAL_INTERACTION', 'HAS_POLICY_VIOLATION', 'REQUIRES_REVIEW', 'CONFIGURATION_UNRESOLVED') and overall_risk != 'high' %}
+            <span class="text-xs font-bold uppercase tracking-wide text-red-600" title="Deterministic policy/interaction review found a material issue not reflected in the risk level above">NEEDS ATTENTION</span>
+            {% endif %}
             <div class="status-chip {% if progress.is_complete %}complete{% endif %}" id="status-chip"></div>
         </div>
         <div class="topbar-actions">
