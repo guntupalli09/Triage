@@ -718,8 +718,11 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
     semantic_error: Optional[str] = None
     admitted_semantic: List = []
     unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
     if not matches:
-        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
             return PaymentFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
         if not admitted_semantic and not unresolved_dependency_note:
@@ -731,6 +734,8 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
             # could not be resolved -- never a fabricated payment
             # obligation, but must not collapse into CONFIRMED_ABSENT.
             return PaymentFacts(clause_found=True, absence_state="DEPENDENCY_UNRESOLVED", semantic_discovery_error=unresolved_dependency_note)
+    elif semantic_error is not None:
+        admitted_semantic = []
 
     anchor_spans = sorted(
         [(m.start(), m.end()) for m in matches] + [(c.start_offset, c.end_offset) for c in admitted_semantic]
@@ -1018,6 +1023,25 @@ def extract_payment_facts(text: str) -> Optional[PaymentFacts]:
         if conflict_reason:
             facts.role_side_conflicts[name] = conflict_reason
 
+    # Candidate 3 remediation (Root Cause 1): an admitted AI candidate
+    # exists but no primary payment-terms dimension could be
+    # deterministically structured from it -- never let this silently
+    # reach a policy-required-but-absent NEGOTIATE/MUST_REDLINE (or a
+    # bare ACCEPT under a permissive policy) merely because nothing was
+    # established. See CANONICAL_PRIMARY_FACT_SCHEMA.md.
+    if admitted_semantic and facts.absence_state == "CONFIRMED_ABSENT":
+        _any_established = any(v is not None for v in (
+            facts.net_days, facts.payment_trigger, facts.prepayment_required, facts.milestone_payment_present,
+            facts.dispute_right_present, facts.dispute_notice_days, facts.undisputed_amounts_still_payable,
+            facts.disputed_amounts_withholdable, facts.late_fee_rate_percent, facts.grace_period_days,
+            facts.setoff_permitted, facts.unilateral_deduction_permitted, facts.pricing_fixed,
+            facts.price_increase_right, facts.price_increase_percent, facts.expenses_reimbursable,
+            facts.withholding_tax_addressed, facts.currency, facts.refund_entitlement_present,
+            facts.service_credit_present,
+        )) or bool(facts.payment_direction_attributions) or bool(facts.tax_responsibility_attributions)
+        if not _any_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+
     return facts
 
 
@@ -1136,6 +1160,23 @@ def evaluate_payment_policy(
                 f"Contextual analysis identified language that may establish a payment obligation, but "
                 f"{facts.semantic_discovery_error}. This evaluation does not determine what the obligation "
                 "actually means without that dependency resolved."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None,
+            interaction_facts={"disputed_amounts_withholdable": None, "service_credit_present": None},
+        )
+
+    if facts.absence_state == "PRESENT_BUT_UNRESOLVED":
+        return PolicyDecision(
+            **common, state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="A payment-terms-relevant clause was found and verified, but no specific payment dimension could be structured from it",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — a candidate clause was discovered and verified but could not be deterministically structured into a specific payment term.",
+            explanation=(
+                "Contextual discovery identified and verified payment-terms-relevant language in this contract, "
+                "but deterministic extraction could not structure it into a specific payment dimension (net days, "
+                "trigger, late fee, etc.). This is not the same as confirming no payment terms exist, and must "
+                "not be treated as a clean result."
             ),
             negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
             start_index=None, end_index=None,

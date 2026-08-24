@@ -226,8 +226,11 @@ def extract_assignment_facts(text: str) -> Optional[AssignmentFacts]:
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
     admitted_semantic: List = []
     unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
     if not anchors:
-        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
             return AssignmentFacts(clause_found=True, restrictions=[], unrestricted_assignment=False, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
         if not admitted_semantic and not unresolved_dependency_note:
@@ -240,6 +243,8 @@ def extract_assignment_facts(text: str) -> Optional[AssignmentFacts]:
         # still can't parse a restriction, this falls through to the
         # existing "restrictions=[]" REQUIRES_REVIEW path a few lines
         # down — never a fabricated restriction.
+    elif semantic_error is not None:
+        admitted_semantic = []
 
     restrictions: List[AssignmentRestriction] = []
     seen_spans: List[Tuple[int, int]] = []

@@ -456,8 +456,11 @@ def extract_sla_facts(text: str) -> Optional[SLAFacts]:
     semantic_error: Optional[str] = None
     admitted_semantic: List = []
     unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
     if not anchors:
-        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
             return SLAFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
         if not admitted_semantic and not unresolved_dependency_note:
@@ -468,6 +471,8 @@ def extract_sla_facts(text: str) -> Optional[SLAFacts]:
             # definition/cross-reference) but never resolved to something
             # admissible -- never the same as "nothing here at all."
             return SLAFacts(clause_found=True, ai_identified_definition_or_reference=unresolved_dependency_note)
+    elif semantic_error is not None:
+        admitted_semantic = []
 
     anchor_spans = sorted(
         [(m.start(), m.end()) for m in anchors] + [(c.start_offset, c.end_offset) for c in admitted_semantic]
@@ -737,6 +742,18 @@ def extract_sla_facts(text: str) -> Optional[SLAFacts]:
         facts.claim_deadline_conflict = True
 
     if not found_anything:
+        # Candidate 3 remediation (Root Cause 1): an admitted AI candidate
+        # exists but no SLA dimension could be deterministically
+        # structured from it -- never silently discard as "nothing here
+        # at all" (see warranties_policy_engine.py's identical fix).
+        if admitted_semantic:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+            import fact_admission as _fa
+            for candidate in admitted_semantic:
+                facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
+                facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
+            facts.ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic)
+            return facts
         return None
 
     # Final trust architecture (Phase 5/6) — reached only when
@@ -792,6 +809,24 @@ def evaluate_sla_policy(
                 "Deterministic pattern matching found no SLA/service-level clause, and semantic "
                 f"verification could not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). "
                 "This is not the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None, source=source, summary_label="SLA treatment",
+            our_position_label="Our SLA commitments", counterparty_position_label="Counterparty's SLA commitments",
+            interaction_facts={"service_credit_present": None},
+        )
+
+    if facts.absence_state == "PRESENT_BUT_UNRESOLVED":
+        return PolicyDecision(
+            rule_id=RULE_ID, clause_type="sla", state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="An SLA-relevant clause was found and verified, but no specific service-level dimension could be structured from it",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — a candidate clause was discovered and verified but could not be deterministically structured into a specific SLA term.",
+            explanation=(
+                "Contextual discovery identified and verified SLA-relevant language in this contract, but "
+                "deterministic extraction could not structure it into a specific uptime/response/credit term. "
+                "This is not the same as confirming no SLA provision exists, and must not be treated as a clean "
+                "result."
             ),
             negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
             start_index=None, end_index=None, source=source, summary_label="SLA treatment",

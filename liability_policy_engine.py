@@ -1700,8 +1700,16 @@ def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
     semantic_error: Optional[str] = None
     semantic_qualifiers_by_start: Dict[int, Any] = {}
     unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    # Root Cause 1 does not apply to this adapter: an admitted-but-
+    # unparseable candidate already becomes a Provision with
+    # general_cap=None, which evaluate_liability_policy already routes to
+    # MUST_REDLINE ("clause present but no numeric general cap stated") —
+    # never a silent ACCEPT/NOT_APPLICABLE. See PRE_IMPLEMENTATION_MAP.md.
+    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
     if not accepted_anchors:
-        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if admitted_semantic:
             accepted_anchors = [(c.start_offset, False) for c in admitted_semantic]
             # Final trust architecture (Phase 5) — keep each admitted
@@ -1734,6 +1742,16 @@ def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
             )
         else:
             return None
+    # Note: when accepted_anchors is already non-empty (deterministic
+    # anchors exist), any ADDITIONALLY admitted semantic candidate is
+    # currently not merged into the provisions list -- this adapter's
+    # qualifier-composition loop below matches admitted candidates to
+    # provisions strictly by shared anchor offset (accepted_anchors), and
+    # a corroborating-but-not-identical AI candidate's own offset would
+    # not line up with a provision it didn't seed. This is a known,
+    # narrower scope than the other 11 adapters' "always add AI's
+    # qualifiers regardless of which channel found the anchor" behavior;
+    # recorded as a residual risk rather than silently left unstated.
 
     provisions = [_extract_provision(text, start, i) for i, (start, _) in enumerate(accepted_anchors)]
 

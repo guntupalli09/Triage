@@ -300,8 +300,16 @@ def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
     admitted_semantic: List = []
     unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches." It now always runs (when enabled), so it can also
+    # corroborate/contextualize an ALREADY-anchored clause -- e.g.
+    # surfacing a competing reading/contradiction the deterministic
+    # NAMED_OBLIGATION_RE/MUTUAL_OBLIGATION_RE scan (below, which already
+    # runs unconditionally over the full document) has no mechanism to
+    # detect on its own.
+    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
     if not anchors:
-        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
             return ConfidentialityFacts(
                 clause_found=True, obligations=[], absence_state="RECOGNITION_UNCERTAIN",
@@ -317,6 +325,13 @@ def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
         # still can't parse a directional obligation, this correctly
         # falls through to the existing "obligations=[]" REQUIRES_REVIEW
         # path a few lines down — never a fabricated obligation.
+    elif semantic_error is not None:
+        # Deterministic anchors already exist; the AI channel independently
+        # errored. Best-effort proceed with deterministic structuring —
+        # never silently drop this into a fabricated clean result, but
+        # also never abort extraction over an AI-channel-only failure when
+        # the deterministic side has real anchors to work with.
+        admitted_semantic = []
 
     obligations: List[ConfidentialityObligation] = []
     seen_spans: List[Tuple[int, int]] = []

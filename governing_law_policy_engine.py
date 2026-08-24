@@ -176,8 +176,11 @@ def extract_governing_law_facts(text: str) -> Optional[GoverningLawFacts]:
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
     admitted_semantic: List = []
     unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
     if not anchors:
-        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
             return GoverningLawFacts(clause_found=True, jurisdiction=None, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
         if not admitted_semantic and not unresolved_dependency_note:
@@ -189,6 +192,8 @@ def extract_governing_law_facts(text: str) -> Optional[GoverningLawFacts]:
         # `anchors`). If that parsing still can't find a jurisdiction,
         # this falls through to the existing "jurisdiction=None"
         # REQUIRES_REVIEW path — never a fabricated jurisdiction.
+    elif semantic_error is not None:
+        admitted_semantic = []
 
     # Final trust architecture (Phase 5/6) — see confidentiality_policy_
     # engine.py's identical composition for the full rationale.

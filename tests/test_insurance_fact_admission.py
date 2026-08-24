@@ -156,10 +156,21 @@ def test_verifier_not_established_descriptive_language_never_admitted(monkeypatc
 def test_decision_sensitivity_ai_identified_condition_forces_review(monkeypatch):
     """Paired decision-sensitivity test: document A (no modifier) reaches
     ACCEPT under a permissive playbook; document B adds a material
-    condition -- it must not reach the same clean ACCEPT."""
+    condition -- it must not reach the same clean ACCEPT.
+
+    Candidate 3 remediation note: `cap_text` names a specific, deterministically
+    structurable coverage type (Commercial General Liability) so document A is
+    a genuine positive control that reaches ACCEPT via deterministic
+    structuring -- NOT via an admitted-but-unstructured AI candidate silently
+    falling through to "no policy gaps found" (that exact prior behavior was
+    the Root Cause 1 defect this remediation fixes; see
+    artifacts/candidate3_remediation/CANONICAL_PRIMARY_FACT_SCHEMA.md). A
+    colloquial, non-coverage-type-matching candidate now correctly forces
+    REQUIRES_REVIEW via the new PRESENT_BUT_UNRESOLVED path -- see
+    test_admitted_but_unstructured_candidate_forces_review below."""
     monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     cap_text = (
-        "Vendor shall maintain a risk-transfer policy with a reputable underwriter covering "
+        "Vendor shall maintain Commercial General Liability insurance covering "
         "third-party bodily injury claims arising from its operations."
     )
     condition_text = "in the event Vendor's underwriter downgrades its rating, this requirement shall not apply"

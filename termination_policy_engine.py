@@ -452,8 +452,11 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
     admitted_semantic: List = []
     unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
     if not anchors:
-        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
             return TerminationFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
         if not admitted_semantic and not unresolved_dependency_note:
@@ -465,6 +468,8 @@ def extract_termination_facts(text: str) -> Optional[TerminationFacts]:
         # gated on `anchors`). If that structuring still can't parse a
         # right, this falls through to the existing "rights=[]"
         # REQUIRES_REVIEW path a few lines down — never a fabricated right.
+    elif semantic_error is not None:
+        admitted_semantic = []
 
     rights: List[TerminationRight] = []
     seen_spans: List[Tuple[int, int]] = []

@@ -577,14 +577,19 @@ def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
     semantic_error: Optional[str] = None
     admitted_semantic: List = []
     unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
     if not anchors:
-        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
             return DataSecurityFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
         if not admitted_semantic and not unresolved_dependency_note:
             return None
         if not admitted_semantic:
             return DataSecurityFacts(clause_found=True, ai_identified_definition_or_reference=unresolved_dependency_note)
+    elif semantic_error is not None:
+        admitted_semantic = []
 
     # Use every anchored window (deduplicated by proximity) so a genuine
     # cross-provision conflict (e.g. Section 9 says 72 hours, Section 14
@@ -716,6 +721,22 @@ def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
         facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
         facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
     facts.ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic)
+
+    # Candidate 3 remediation (Root Cause 1): an admitted AI candidate
+    # exists but no data-security dimension could be deterministically
+    # structured from it -- never let this silently reach ACCEPT merely
+    # because nothing was established. See CANONICAL_PRIMARY_FACT_SCHEMA.md.
+    if admitted_semantic and facts.absence_state == "CONFIRMED_ABSENT":
+        _any_established = any(v is not None and v is not False for v in (
+            facts.breach_notification_hours, facts.transfer_mechanism, facts.data_residency_region,
+            facts.security_standard, facts.subprocessor_treatment, facts.deletion_or_return_required,
+            facts.retention_days, facts.audit_rights, facts.cooperation_obligation,
+            facts.confidentiality_of_personal_data,
+        )) or bool(facts.role_attributions) or facts.breach_notification_explicitly_disclaimed \
+            or facts.breach_notification_ambiguous_unit or facts.breach_without_undue_delay \
+            or facts.retention_indefinite or facts.dpa_cross_reference or facts.liability_cross_reference
+        if not _any_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
 
     return facts
 
@@ -872,6 +893,19 @@ def evaluate_data_security_policy(
     ) if v is not None) + (1 if facts.breach_without_undue_delay else 0)
     if facts.dpa_cross_reference and established_dimension_count == 0:
         unresolved.append("material data-protection obligations are delegated to a referenced DPA/Schedule/Exhibit not included in this text")
+
+    # Candidate 3 remediation (Root Cause 1): an admitted AI candidate
+    # exists but no data-security dimension could be deterministically
+    # structured from it -- never let this silently reach ACCEPT merely
+    # because no policy field happened to require anything. See
+    # CANONICAL_PRIMARY_FACT_SCHEMA.md.
+    if (facts.absence_state == "PRESENT_BUT_UNRESOLVED" and established_dimension_count == 0
+            and not facts.dpa_cross_reference):
+        unresolved.append(
+            "contextual discovery identified and verified data-security-relevant language in this contract, but "
+            "deterministic extraction could not structure it into a specific requirement — this is not the same "
+            "as confirming no data security provision exists"
+        )
 
     if unresolved:
         explanation = requires_review_explanation("data protection / security clause", facts.raw_excerpt, unresolved)

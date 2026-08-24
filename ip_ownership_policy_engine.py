@@ -511,8 +511,11 @@ def extract_ip_facts(text: str) -> Optional[IPFacts]:
     semantic_error: Optional[str] = None
     admitted_semantic: List = []
     unresolved_dependency_note: Optional[str] = None
+    # Candidate 3 remediation (Root Cause 2): contextual discovery is no
+    # longer gated behind "deterministic anchor discovery found zero
+    # matches" -- see confidentiality_policy_engine.py's identical fix.
+    admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
     if not matches:
-        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
             return IPFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
         if not admitted_semantic and not unresolved_dependency_note:
@@ -523,6 +526,8 @@ def extract_ip_facts(text: str) -> Optional[IPFacts]:
             # from — preserve the failure directly rather than falling
             # through to anchor_spans[0] below (zero-silent-loss, Step H).
             return IPFacts(clause_found=True, ai_identified_definition_or_reference=unresolved_dependency_note)
+    elif semantic_error is not None:
+        admitted_semantic = []
 
     # A semantically-admitted candidate contributes an (start, end) span
     # exactly like a regex anchor match does — it never bypasses the
@@ -614,6 +619,26 @@ def extract_ip_facts(text: str) -> Optional[IPFacts]:
         facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
     facts.ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic)
 
+    # Candidate 3 remediation (Root Cause 1): an admitted AI candidate
+    # exists but no ownership attribution (or any other IP dimension)
+    # could be deterministically structured from it -- this is the exact
+    # mechanism behind the confirmed ip_ownership-099 non-determinism
+    # (the same colloquial "belongs to Customer, lock, stock, and barrel"
+    # input flipping between NOT_APPLICABLE and ACCEPT across identical
+    # real-provider runs). Never let this silently reach ACCEPT ("no
+    # policy gaps found") merely because nothing was established. See
+    # CANONICAL_PRIMARY_FACT_SCHEMA.md.
+    if admitted_semantic and not facts.ownership_attributions:
+        _any_other_established = any(v is not None for v in (
+            facts.exclusivity, facts.royalty, facts.duration, facts.license_term_years, facts.revocability,
+            facts.sublicensable, facts.transferable, facts.territory, facts.purpose_limited,
+            facts.derivative_works_permitted, facts.feedback_treatment, facts.residual_knowledge_rights,
+            facts.open_source_obligations_present, facts.infringement_remedy_referenced,
+            facts.post_termination_survival, facts.embedded_background_ip_license_present,
+        )) or facts.sow_cross_reference
+        if not _any_other_established:
+            facts.absence_state = "PRESENT_BUT_UNRESOLVED"
+
     return facts
 
 
@@ -695,6 +720,22 @@ def evaluate_ip_policy(
                 "Deterministic pattern matching found no IP ownership / licensing clause, and semantic "
                 f"verification could not confirm its absence ({facts.semantic_discovery_error or 'unavailable'}). "
                 "This is not the same as confirming the contract has no such clause."
+            ),
+            negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
+            start_index=None, end_index=None,
+        )
+
+    if facts.absence_state == "PRESENT_BUT_UNRESOLVED":
+        return PolicyDecision(
+            **common, state=REQUIRES_REVIEW,
+            contract_language="", extracted_summary="An IP-ownership-relevant clause was found and verified, but no specific ownership/licensing dimension could be structured from it",
+            policy_limit_summary="N/A",
+            required_action="Manual review required — a candidate clause was discovered and verified but could not be deterministically structured into a specific ownership or licensing term.",
+            explanation=(
+                "Contextual discovery identified and verified IP-ownership-relevant language in this contract, "
+                "but deterministic extraction could not structure it into a specific ownership attribution or "
+                "licensing term. This is not the same as confirming no IP ownership provision exists, and must "
+                "not be treated as a clean result."
             ),
             negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[], unresolved_facts=[],
             start_index=None, end_index=None,
