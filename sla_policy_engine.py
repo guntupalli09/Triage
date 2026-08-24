@@ -360,6 +360,8 @@ class SLAFacts:
     # evaluate_sla_policy.
     absence_state: str = "CONFIRMED_ABSENT"
     semantic_discovery_error: Optional[str] = None
+    ai_identified_condition: Optional[str] = None
+    ai_identified_exception: Optional[str] = None
 
 
 class SLAPolicyRuleLike(Protocol):
@@ -713,6 +715,15 @@ def extract_sla_facts(text: str) -> Optional[SLAFacts]:
     if not found_anything:
         return None
 
+    # Final trust architecture (Phase 5/6) — reached only when
+    # found_anything is True (the base SLA structure DID resolve
+    # deterministically, so this candidate already passed the negative-
+    # control gate above). See confidentiality_policy_engine.py's
+    # identical composition for the full rationale.
+    for candidate in admitted_semantic:
+        facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
+        facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
+
     return facts
 
 
@@ -763,6 +774,20 @@ def evaluate_sla_policy(
         )
 
     unresolved_facts: List[str] = []
+
+    # Final trust architecture (Phase 4 hard gate) — a material condition/
+    # exception the AI/context layer identified and grounded must not be
+    # silently dropped merely because the SLA otherwise resolved cleanly.
+    if facts.ai_identified_condition:
+        unresolved_facts.append(
+            f"a material condition was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_condition}\")"
+        )
+    if facts.ai_identified_exception:
+        unresolved_facts.append(
+            f"a material exception was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_exception}\")"
+        )
 
     if facts.uptime_conflict:
         unresolved_facts.append("multiple, conflicting uptime/availability percentages stated")
