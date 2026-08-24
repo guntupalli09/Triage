@@ -129,3 +129,32 @@ def test_verifier_not_established_descriptive_language_never_admitted(monkeypatc
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
         facts = gpe.extract_governing_law_facts(doc)
     assert facts is None
+
+
+def test_decision_sensitivity_ai_identified_condition_forces_review_even_with_jurisdiction_found():
+    """Final trust architecture Phase 8: this adapter's own _JURISDICTION_RE
+    always implies _ANCHOR_RE matched too (both require "governed by"),
+    so extract_governing_law_facts's semantic-only path can never itself
+    produce a jurisdiction-found-plus-AI-qualifier combination in
+    practice -- but evaluate_governing_law_policy must still handle it
+    correctly if it ever occurs (e.g. a future adapter change that lets
+    semantic discovery run alongside a successful deterministic parse).
+    Tested directly at the Facts level, the same established pattern
+    other adapters' RECOGNITION_UNCERTAIN tests already use."""
+    condition_text = "in the event of a change of control of either party, this choice of law shall not apply"
+
+    facts_clean = gpe.GoverningLawFacts(
+        clause_found=True, jurisdiction="Delaware", raw_excerpt="governed by the laws of Delaware.",
+        start_index=0, end_index=30,
+    )
+    facts_conditioned = gpe.GoverningLawFacts(
+        clause_found=True, jurisdiction="Delaware", raw_excerpt="governed by the laws of Delaware.",
+        start_index=0, end_index=30, ai_identified_condition=condition_text,
+    )
+
+    decision_clean = gpe.evaluate_governing_law_policy(facts_clean, FakePolicy())
+    decision_conditioned = gpe.evaluate_governing_law_policy(facts_conditioned, FakePolicy())
+
+    assert decision_clean.state != gpe.REQUIRES_REVIEW
+    assert decision_conditioned.state == gpe.REQUIRES_REVIEW
+    assert condition_text in "; ".join(decision_conditioned.unresolved_facts)
