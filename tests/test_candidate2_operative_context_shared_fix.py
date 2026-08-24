@@ -114,6 +114,23 @@ def test_sla_descriptive_background_never_establishes_uptime():
     assert facts is None or (facts.uptime_percent is None and facts.service_credit_present is not True)
 
 
+def test_insurance_operative_but_underspecified_clause_is_not_discarded_as_nothing_found():
+    """Direct proof of the found_anything gate's own sub-defect found
+    while replaying the frozen corpus against this fix: a genuinely
+    OPERATIVE anchor match that never resolves to one of the specific
+    named coverage types (e.g. delegated to an external, unincluded
+    exhibit) must NOT be discarded as "nothing found at all" -- it is a
+    real, present-but-unresolved obligation that downstream policy
+    evaluation is specifically built to flag, not descriptive background
+    with nothing established."""
+    facts = ine.extract_insurance_facts(
+        "10. Insurance. Vendor shall maintain insurance coverage as set forth in Exhibit D "
+        "(Insurance Requirements) attached hereto."
+    )
+    assert facts is not None
+    assert facts.clause_found is True
+
+
 def test_sla_operative_clause_still_establishes_uptime():
     facts = sle.extract_sla_facts(
         "14. Service Level. The Service shall maintain 99.9% uptime measured monthly, and Vendor shall "

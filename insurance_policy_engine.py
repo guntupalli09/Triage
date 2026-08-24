@@ -403,6 +403,32 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
     accumulated_qualified: Dict[str, List[Tuple[float, str]]] = {ct: [] for ct in COVERAGE_TYPES}
     accumulated_unqualified: Dict[str, List[float]] = {ct: [] for ct in COVERAGE_TYPES}
 
+    # Root-cause fix (Candidate 2, false-operative -> clean): the
+    # is_operative_context wiring above stops a purely descriptive/
+    # background coverage mention from being marked `established`, but
+    # extract_insurance_facts still unconditionally returned a
+    # clause_found=True InsuranceFacts even when NOTHING was structurally
+    # established -- evaluate_insurance_policy only treats
+    # `facts is None or not facts.clause_found` as NOT_APPLICABLE, so a
+    # wholly non-operative clause (nothing established, no ancillary term
+    # found) fell through to ACCEPT ("no policy gaps found") instead of
+    # NOT_APPLICABLE. Mirrors the same found_anything negative-control
+    # gate warranties/sla already use for exactly this reason. An AI-
+    # discovered candidate that already survived verify_and_ground (i.e.
+    # is in admitted_semantic) is itself a real, grounded finding -- not
+    # subject to this deterministic-regex gate, exactly like sla's
+    # identical composition. Also true when ANY top-level anchor match is
+    # itself operative, even if it never resolves to one of the specific
+    # NAMED coverage types below (e.g. "Vendor shall maintain insurance
+    # coverage as set forth in Exhibit D" -- a real, operative, but
+    # underspecified obligation that the existing schedule_cross_reference/
+    # "policy requires X but clause doesn't address it" machinery further
+    # down is specifically designed to catch as MUST_REDLINE/REQUIRES_
+    # REVIEW, not silently discard as "nothing here at all").
+    found_anything = bool(admitted_semantic) or any(
+        _core_is_operative_context(text, m.start(), m.end()) for m in matches
+    )
+
     for (ws, we) in windows:
         window = text[ws:we]
 
@@ -435,6 +461,7 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
                     continue
                 pos = m.start()
                 cov.established = True
+                found_anything = True
                 other_positions = [p for p in all_positions_flat if p != pos]
                 local = _local_window(window, pos, other_positions)
                 qualified, unqualified = _extract_dollar_amounts(local)
@@ -456,36 +483,50 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
         if _DEDUCTIBLE_RE.search(window):
             dm = _DEDUCTIBLE_RE.search(window)
             facts.deductible_or_sir = _parse_dollar(dm.group(1), dm.group(2))
+            found_anything = True
         if _ADDITIONAL_INSURED_RE.search(window) and not _ADDITIONAL_INSURED_NEGATION_RE.search(window):
             facts.additional_insured_required = True
+            found_anything = True
         if _WAIVER_SUBROGATION_RE.search(window) and not _WAIVER_SUBROGATION_NEGATION_RE.search(window):
             facts.waiver_of_subrogation_required = True
+            found_anything = True
         if _PRIMARY_NONCONTRIB_RE.search(window):
             facts.primary_non_contributory = True
+            found_anything = True
         if _COI_RE.search(window) and not _COI_NEGATION_RE.search(window):
             facts.certificate_of_insurance_required = True
+            found_anything = True
         if _RATING_RE.search(window):
             facts.insurer_rating_stated = True
+            found_anything = True
         if _MAINTENANCE_RE.search(window):
             facts.policy_maintenance_required = True
+            found_anything = True
         if _TAIL_RE.search(window):
             facts.claims_made_tail_required = True
+            found_anything = True
         if _SUBCONTRACTOR_RE.search(window) and not _SUBCONTRACTOR_NEGATION_RE.search(window):
             facts.subcontractor_coverage_required = True
+            found_anything = True
         if _EVIDENCE_BEFORE_RE.search(window):
             facts.evidence_before_commencement = True
+            found_anything = True
         if _SCHEDULE_CROSSREF_RE.search(window):
             facts.schedule_cross_reference = True
+            found_anything = True
 
         if _CLAIMS_MADE_RE.search(window):
             claims_basis_tokens.add("claims_made")
+            found_anything = True
         if _OCCURRENCE_BASIS_RE.search(window):
             claims_basis_tokens.add("occurrence")
+            found_anything = True
 
         for m in _CANCELLATION_DAYS_RE.finditer(window):
             raw = m.group(1) or m.group(2)
             if raw:
                 cancellation_days_values.add(int(raw))
+                found_anything = True
 
     if len(cancellation_days_values) == 1:
         facts.notice_of_cancellation_days = float(next(iter(cancellation_days_values)))
@@ -500,8 +541,14 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
     for ct in COVERAGE_TYPES:
         _resolve_coverage_amounts(facts.coverages[ct], accumulated_qualified[ct], accumulated_unqualified[ct])
 
-    # Final trust architecture (Phase 5/6) — see confidentiality_policy_
-    # engine.py's identical composition for the full rationale.
+    if not found_anything:
+        return None
+
+    # Final trust architecture (Phase 5/6) — reached only when
+    # found_anything is True (the base insurance structure DID resolve
+    # deterministically, so this candidate already passed the negative-
+    # control gate above). See confidentiality_policy_engine.py's
+    # identical composition for the full rationale.
     import fact_admission as _fa
     for candidate in admitted_semantic:
         facts.ai_identified_condition = facts.ai_identified_condition or candidate.condition
