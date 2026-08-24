@@ -117,6 +117,38 @@ NOT_ADMITTED = "NOT_ADMITTED"
 
 
 # ---------------------------------------------------------------------------
+# Environment-driven enablement (Phase 12 of the final trust architecture —
+# see artifacts/final_architecture/PRE_IMPLEMENTATION_MAP.md's "no
+# FACT_ADMISSION_MODE env var exists" finding). Every adapter's own
+# `<ADAPTER>_SEMANTIC_DISCOVERY_ENABLED` module constant is initialized
+# from this function at import time, so a deployer can turn a specific
+# adapter's semantic pathway on/off via an environment variable, or turn
+# every adapter on at once via FACT_ADMISSION_MODE=enforced, without a
+# code change. Read once at import time (like indemnification_policy_
+# engine.HYBRID_DISCOVERY_ENABLED's own module-constant convention), not
+# hot-reloaded per call — a deployer flips this and restarts the process,
+# exactly like POLICY_ENFORCEMENT_MODE's own rollback discipline expects
+# an operator to do for a deliberate mode change.
+# ---------------------------------------------------------------------------
+
+def semantic_discovery_enabled(adapter_env_var: str) -> bool:
+    """`adapter_env_var` is the adapter's own constant name (e.g.
+    "LIABILITY_SEMANTIC_DISCOVERY_ENABLED"), read as an environment
+    variable of the same name. If that specific variable is set (to
+    anything, including an explicit falsy value), it wins outright — an
+    operator can enable everything globally via FACT_ADMISSION_MODE
+    except one adapter they are not ready to turn on, or vice versa.
+    Only when the adapter-specific variable is entirely unset does the
+    global FACT_ADMISSION_MODE=enforced switch apply. Both default to
+    disabled — an environment with neither variable set behaves exactly
+    as before this function existed."""
+    specific = os.environ.get(adapter_env_var)
+    if specific is not None:
+        return specific.strip().lower() in ("1", "true", "yes", "on")
+    return os.environ.get("FACT_ADMISSION_MODE", "").strip().lower() == "enforced"
+
+
+# ---------------------------------------------------------------------------
 # Candidate material fact — the shared schema every adapter's semantic
 # pathway populates. Adapter-specific fields that don't apply to a given
 # fact_type are simply left None/empty; nothing here is required to be

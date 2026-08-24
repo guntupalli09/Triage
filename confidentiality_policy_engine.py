@@ -217,7 +217,10 @@ def _detect_confidentiality_asymmetry(window: str) -> List[str]:
 # Off by default — same rollout discipline as
 # liability_policy_engine.LIABILITY_SEMANTIC_DISCOVERY_ENABLED. With this
 # off, extraction behaves byte-identically to before this integration.
-CONFIDENTIALITY_SEMANTIC_DISCOVERY_ENABLED = False
+CONFIDENTIALITY_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+CONFIDENTIALITY_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("CONFIDENTIALITY_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
 
 _CONFIDENTIALITY_SEMANTIC_FOCUS = (
     "one party being obligated to protect another party's confidential, proprietary, "

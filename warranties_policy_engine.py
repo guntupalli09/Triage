@@ -395,7 +395,10 @@ def _detect_warranty_asymmetry(window: str) -> List[str]:
 
 # Off by default — same rollout discipline as every other adapter this
 # session integrated.
-WARRANTIES_SEMANTIC_DISCOVERY_ENABLED = False
+WARRANTIES_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+WARRANTIES_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("WARRANTIES_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
 
 _WARRANTIES_SEMANTIC_FOCUS = (
     "one party making an express commitment/representation about the quality, performance, "

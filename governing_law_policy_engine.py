@@ -128,7 +128,10 @@ def _classify_dispute_resolution(text: str) -> str:
 
 # Off by default — same rollout discipline as every other adapter this
 # session integrated.
-GOVERNING_LAW_SEMANTIC_DISCOVERY_ENABLED = False
+GOVERNING_LAW_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+GOVERNING_LAW_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("GOVERNING_LAW_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
 
 _GOVERNING_LAW_SEMANTIC_FOCUS = (
     "which jurisdiction's law governs this agreement, or where disputes must be brought -- "

@@ -453,7 +453,10 @@ def _collect(all_found: set) -> Tuple[Optional[str], bool]:
 
 # Off by default — same rollout discipline as every other adapter this
 # session integrated.
-IP_OWNERSHIP_SEMANTIC_DISCOVERY_ENABLED = False
+IP_OWNERSHIP_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+IP_OWNERSHIP_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("IP_OWNERSHIP_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
 
 _IP_OWNERSHIP_SEMANTIC_FOCUS = (
     "who owns intellectual property under this agreement -- background IP, work "

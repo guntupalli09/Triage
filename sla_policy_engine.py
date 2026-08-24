@@ -411,7 +411,10 @@ _SEVERITY_POLICY_FIELD_MAP = {
 
 # Off by default — same rollout discipline as every other adapter this
 # session integrated.
-SLA_SEMANTIC_DISCOVERY_ENABLED = False
+SLA_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+SLA_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("SLA_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
 
 _SLA_SEMANTIC_FOCUS = (
     "a service-level commitment -- an uptime/availability target, a severity-based response "

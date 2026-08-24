@@ -314,7 +314,10 @@ def _resolve_coverage_amounts(cov: CoverageRequirement, qualified: List[Tuple[fl
 
 # Off by default — same rollout discipline as every other adapter this
 # session integrated.
-INSURANCE_SEMANTIC_DISCOVERY_ENABLED = False
+INSURANCE_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+INSURANCE_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("INSURANCE_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
 
 _INSURANCE_SEMANTIC_FOCUS = (
     "one party being required to maintain, provide evidence of, or name the other party as "

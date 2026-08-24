@@ -434,7 +434,10 @@ def _classify_security_standard(window: str) -> Optional[str]:
 
 
 # Off by default — same rollout discipline as liability/confidentiality.
-DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED = False
+DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
 
 _DATA_SECURITY_SEMANTIC_FOCUS = (
     "one party being obligated to protect personal or customer data, notify the "

@@ -645,7 +645,10 @@ _CONCEPT_ENGAGEMENT_RES = [
 
 # Off by default — same rollout discipline as every other adapter this
 # session integrated.
-PAYMENT_TERMS_SEMANTIC_DISCOVERY_ENABLED = False
+PAYMENT_TERMS_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+PAYMENT_TERMS_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("PAYMENT_TERMS_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
 
 _PAYMENT_TERMS_SEMANTIC_FOCUS = (
     "a payment obligation between the parties -- payment timing, disputed-amount handling, "

@@ -180,7 +180,10 @@ def _detect_restriction_asymmetry(window: str) -> List[str]:
 
 # Off by default — same rollout discipline as every other adapter this
 # session integrated.
-ASSIGNMENT_SEMANTIC_DISCOVERY_ENABLED = False
+ASSIGNMENT_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+ASSIGNMENT_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("ASSIGNMENT_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
 
 _ASSIGNMENT_SEMANTIC_FOCUS = (
     "a restriction on one party's ability to assign, transfer, or delegate this agreement to "

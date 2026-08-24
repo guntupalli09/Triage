@@ -395,7 +395,10 @@ def _detect_right_asymmetry(window: str) -> List[str]:
 
 # Off by default — same rollout discipline as every other adapter this
 # session integrated.
-TERMINATION_SEMANTIC_DISCOVERY_ENABLED = False
+TERMINATION_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+TERMINATION_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("TERMINATION_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
 
 _TERMINATION_SEMANTIC_FOCUS = (
     "one party's right to end this agreement -- for convenience, for cause, upon insolvency, "

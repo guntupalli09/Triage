@@ -1621,7 +1621,10 @@ def _discover_anchors(text: str) -> List[Tuple[int, bool]]:
 # unchanged in any environment without a configured provider, and lets
 # Step 1's single-adapter rollout be enabled independently of whether a
 # provider key exists in a given deployment/test environment.
-LIABILITY_SEMANTIC_DISCOVERY_ENABLED = False
+LIABILITY_SEMANTIC_DISCOVERY_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+LIABILITY_SEMANTIC_DISCOVERY_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("LIABILITY_SEMANTIC_DISCOVERY_ENABLED")
+del _fact_admission_env_check
 
 _LIABILITY_SEMANTIC_FOCUS = (
     "one party's exposure to damages, losses, or claims under this agreement being "
