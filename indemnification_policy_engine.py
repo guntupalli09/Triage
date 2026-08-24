@@ -88,6 +88,87 @@ HYBRID_DISCOVERY_ENABLED = True
 SEMANTIC_PROVIDER = "SIMULATED"
 
 
+# Final trust architecture (gap-closure pass) — a SECOND, independent
+# safety channel, additive to HYBRID_DISCOVERY_ENABLED/SEMANTIC_PROVIDER
+# above (which control obligation DISCOVERY). This one controls
+# RECONCILIATION: after obligations are found and structured by this
+# module's own deterministic machinery (unchanged), the shared
+# fact_admission framework separately checks each obligation's own
+# window for a condition/exception/definition-dependency/cross-reference/
+# competing-reading the deterministic detectors' regex vocabulary missed
+# — mirroring the same rollout discipline (off by default in production,
+# module-level flag) already used by all 11 other adapters. With this
+# off, extract_indemnification_facts/evaluate_indemnification_policy are
+# byte-identical to before this pass.
+INDEMNIFICATION_RECONCILIATION_ENABLED = False  # module-load-time default; immediately overridden below
+import fact_admission as _fact_admission_env_check
+INDEMNIFICATION_RECONCILIATION_ENABLED = _fact_admission_env_check.semantic_discovery_enabled("INDEMNIFICATION_RECONCILIATION_ENABLED")
+del _fact_admission_env_check
+
+_INDEMNIFICATION_RECONCILIATION_PROPOSITION = (
+    "This text establishes a directional obligation for one party to indemnify, defend, or hold "
+    "harmless another party against third-party claims, losses, or damages under this agreement."
+)
+
+
+def _reconcile_obligation_with_contextual_analysis(text: str, obligation: "IndemnityObligation") -> None:
+    """Mutates `obligation.ai_identified_unreconciled_context` in place.
+    Runs the shared fact_admission pipeline over this SAME obligation's
+    own window (never a different, wider, or narrower span) and
+    reconciles against what this module's own deterministic detectors
+    already found for it — never replaces, overrides, or is trusted in
+    place of the deterministic condition/exception/monetary/scope
+    fields, which are computed identically whether this is on or off.
+
+    Sets the field (forcing REQUIRES_REVIEW, see evaluate_indemnification_
+    policy) when, and only when:
+      - the AI found a grounded condition/exception this obligation's own
+        deterministic detection left UNCONDITIONAL/None, or
+      - the AI's proposition depended on a definition/cross-reference
+        that could not be deterministically resolved, or resolved to
+        material text the deterministic detectors have no way to read, or
+      - two materially different, independently-grounded competing
+        readings of this obligation's own text were identified.
+    Never touches the field when the AI found nothing beyond what
+    deterministic detection already captured (agreement — no signal)."""
+    if not INDEMNIFICATION_RECONCILIATION_ENABLED:
+        return
+    import fact_admission as _fa
+    # obligation.raw_excerpt is a short DISPLAY excerpt (see _excerpt),
+    # often truncated well before the obligation's own sentence ends --
+    # never wide enough to ground a condition/exception/cross-reference
+    # that appears later in the same clause. Use the same full extraction
+    # window this module's own deterministic detectors were run against
+    # (obligation.start_index onward, _PROVISION_WINDOW_CHARS wide).
+    window = text[obligation.start_index:min(len(text), obligation.start_index + _PROVISION_WINDOW_CHARS)]
+    if not window:
+        return
+    candidate = _fa.CandidateMaterialFact(clause_type="indemnification", fact_type="obligation")
+    verified = _fa.verify_and_ground(candidate, window, _INDEMNIFICATION_RECONCILIATION_PROPOSITION)
+
+    if verified.admission_status == _fa.ADMITTED:
+        qualifier_text = verified.condition or verified.exception
+        if qualifier_text is None:
+            dr, xr = verified.definition_resolution, verified.cross_reference_resolution
+            if dr is not None and dr.status == "RESOLVED":
+                qualifier_text = f'depends on the defined term "{dr.term}": {dr.definition_evidence}'
+            elif xr is not None and xr.status == "RESOLVED":
+                qualifier_text = f'depends on the cross-referenced "{xr.label}": {xr.target_evidence}'
+        if qualifier_text is not None:
+            # Reconcile: only escalate when the deterministic detector
+            # genuinely missed this (UNCONDITIONAL/None) -- if it already
+            # found ITS OWN condition/exception, that is surfaced through
+            # the existing obligation.condition field/unresolved-facts
+            # branch regardless of this channel, so no duplicate note.
+            already_captured = obligation.condition is not None and obligation.condition.status not in (None, "UNCONDITIONAL")
+            if not already_captured:
+                obligation.ai_identified_unreconciled_context = qualifier_text
+    else:
+        note = _fa.first_unresolved_dependency_note([verified])
+        if note is not None:
+            obligation.ai_identified_unreconciled_context = note
+
+
 def _discover_candidate_spans(text: str, concept: str):
     if SEMANTIC_PROVIDER == "REAL":
         from semantic_discovery_real import discover_candidate_spans_real
@@ -1700,6 +1781,25 @@ class IndemnityObligation:
     # None-when-not-attempted convention) -- every top-level obligation
     # extraction call site populates this.
     condition: Optional[ConditionEvidence] = None
+    # Final trust architecture (gap-closure pass) — a SECOND, additive
+    # safety channel alongside this module's own deterministic
+    # condition/exception detectors (_detect_obligation_condition,
+    # _find_exception_clause_named_roles): AI contextual analysis run
+    # over this SAME obligation's window, reconciled against what the
+    # deterministic detectors already found. Populated ONLY when:
+    #   (a) the AI identified a grounded condition/exception/definition-
+    #       dependency/cross-reference this obligation's own deterministic
+    #       detection did NOT already capture (never overwrites or
+    #       replaces existing deterministic condition/exception fields —
+    #       it is a distinct field, surfaced as its own unresolved-facts
+    #       entry), OR
+    #   (b) the AI's claim could not be independently grounded/resolved
+    #       but is material, OR
+    #   (c) two materially different, independently-grounded readings of
+    #       this obligation survived (competing interpretation).
+    # In every case this forces REQUIRES_REVIEW — the AI never
+    # establishes, overrides, or silently confirms the obligation itself.
+    ai_identified_unreconciled_context: Optional[str] = None
 
     def label(self) -> str:
         prefix = f"Section {self.section_label} — " if self.section_label else ""
@@ -3033,6 +3133,15 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
         if conflict is not None:
             ob.condition = _merge_condition_evidence(ob.condition, conflict)
 
+    # Final trust architecture (gap-closure pass) — SECOND, additive
+    # safety channel: reconcile each already-structured obligation
+    # against the shared fact_admission framework's own contextual
+    # analysis of that SAME window. No-op (byte-identical behavior) when
+    # INDEMNIFICATION_RECONCILIATION_ENABLED is off (the production
+    # default, matching every other adapter's rollout discipline).
+    for ob in obligations:
+        _reconcile_obligation_with_contextual_analysis(text, ob)
+
     obligations.sort(key=lambda o: o.start_index)
     return IndemnificationFacts(clause_found=True, obligations=obligations, absence_state="PRESENT_AND_VERIFIED")
 
@@ -3340,6 +3449,11 @@ def evaluate_indemnification_policy(
             unresolved_facts.append(
                 f"protection obligation's applicability ({protection.condition.note})"
             )
+        if protection.ai_identified_unreconciled_context:
+            unresolved_facts.append(
+                f"protection obligation (contextual analysis identified material context this obligation's "
+                f"own deterministic detection did not capture: {protection.ai_identified_unreconciled_context})"
+            )
 
     # --- Exposure-side unresolved facts ---
     exposure_monetary_value = None
@@ -3389,6 +3503,11 @@ def evaluate_indemnification_policy(
         elif exposure.condition is not None and exposure.condition.status == "CONFLICTING":
             unresolved_facts.append(
                 f"exposure obligation's applicability ({exposure.condition.note})"
+            )
+        if exposure.ai_identified_unreconciled_context:
+            unresolved_facts.append(
+                f"exposure obligation (contextual analysis identified material context this obligation's "
+                f"own deterministic detection did not capture: {exposure.ai_identified_unreconciled_context})"
             )
 
     if unresolved_facts:
