@@ -959,17 +959,28 @@ def evaluate_data_security_policy(
         # NON-COMPLIANT fact (the obligation was considered and denied),
         # never conflated with the obligation simply never being
         # mentioned -- forces the same MUST_REDLINE severity as any other
-        # deterministically-confirmed policy violation in this adapter
-        # whenever the policy expects a notification commitment to exist
-        # at all.
-        if (
-            policy.preferred_breach_notification_hours is not None
-            or policy.acceptable_max_breach_notification_hours is not None
-            or policy.negotiate_max_breach_notification_hours is not None
-            or policy.require_fixed_breach_notification_period
-        ):
-            _note("the document explicitly disclaims any breach/security-incident notification obligation, "
-                  "which policy requires", MUST_REDLINE)
+        # deterministically-confirmed policy violation in this adapter.
+        #
+        # Candidate 3 final gap-closure fix: this was previously gated
+        # behind at least one specific breach-notification-hours field
+        # being configured, using that as a proxy for "does this policy
+        # care about breach notification at all." Found via burned-corpus
+        # re-verification (data_security-130) to let a policy
+        # configuration with no notification-hours field set at all
+        # silently reach a clean ACCEPT despite an explicit, deterministically-
+        # confirmed disclaimer of the obligation -- independently confirmed
+        # as the correct fix (not a fixture-specific patch) by an
+        # already-existing, differently-configured regression test
+        # (test_negation_shall_have_no_obligation in
+        # tests/test_candidate2_data_security_time_and_negation.py) that
+        # already expects MUST_REDLINE for this exact clause text, and
+        # only passed previously because ITS policy fixture happened to
+        # set a notification-hours field. An explicit denial of any
+        # notification duty is inherently adverse to a policy that uses
+        # this adapter at all, independent of which specific numeric
+        # threshold happens to be configured.
+        _note("the document explicitly disclaims any breach/security-incident notification obligation",
+              MUST_REDLINE)
     elif facts.breach_notification_hours is not None:
         state = classify_by_threshold(
             float(facts.breach_notification_hours),
