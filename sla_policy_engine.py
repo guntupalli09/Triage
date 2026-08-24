@@ -532,6 +532,16 @@ def extract_sla_facts(text: str) -> Optional[SLAFacts]:
                 found_anything = True
 
         for m in _MEASUREMENT_PERIOD_RE.finditer(window):
+            # Candidate 3 final gap-closure fix (Root Cause A, sla-202):
+            # this match was never gated by is_operative_context at all --
+            # a hypothetical/illustrative sentence ("if a vendor committed
+            # to an SLA, ... with monthly measurement would be typical")
+            # could still establish a real measurement-period fact via
+            # THIS regex even after the uptime-percent match immediately
+            # above was correctly suppressed, letting the decision reach a
+            # clean ACCEPT anyway. Same shared primitive, same gate.
+            if not _core_is_operative_context(text, ws + m.start(), ws + m.end()):
+                continue
             token = m.group(1).lower()
             normalized = _MEASUREMENT_PERIOD_NORMALIZE.get(token)
             if normalized:

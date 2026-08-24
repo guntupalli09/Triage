@@ -79,6 +79,21 @@ class TestOperativeContextClassification:
         state = self._classify(text, "$1,000,000")
         assert state == pec.CONFLICTING_CONTEXT
 
+    def test_hypothetical_measurement_period_match_also_gated_end_to_end(self):
+        # Direct end-to-end regression for a gap this mission's own
+        # re-verification found: the uptime-percent match was gated by
+        # is_operative_context, but a SEPARATE, ungated regex
+        # (_MEASUREMENT_PERIOD_RE) in the same sla extraction function
+        # could still establish "monthly measurement" as a real fact from
+        # the exact same hypothetical sentence, letting the decision
+        # reach a clean ACCEPT anyway even after the uptime fix.
+        text = ("For example, if a vendor committed to an SLA, 99.9% uptime with monthly "
+                "measurement would be a typical target -- illustrating common service-level structures.")
+        facts = slae.extract_sla_facts(text)
+        pol = _SLAPolicy(contract_side="sell_side")
+        dec = slae.evaluate_sla_policy(facts, pol)
+        assert dec.state != "ACCEPT"
+
     def test_plain_operative_clause_unaffected(self):
         # Regression control: a plain, unambiguous operative clause with
         # none of the new signals must remain OPERATIVE_CONFIRMED.
