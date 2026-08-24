@@ -79,12 +79,28 @@ from policy_engine_core import (
     document_wide_conflict_detected as _document_wide_conflict_detected,
     unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
     cross_section_carveout_referencing as _cross_section_carveout_referencing,
+    detect_condition_in_span as _core_detect_condition_in_span,
 )
 
 RULE_ID = "POLICY_IP_OWNERSHIP"
 _PROVISION_WINDOW_CHARS = 2200
 
 _GENERIC_WORDS = {"each", "the", "any", "such", "this", "that", "both", "either", "party", "parties", "all", "it"}
+
+# Candidate 3 zero-silent-loss mission — "except for X, which Y retains"
+# is a real exception attached to an ownership statement ("Work product
+# shall be owned by Customer, except for Vendor's pre-existing background
+# IP..."). Deliberately LOCAL to this adapter rather than broadening the
+# shared policy_engine_core._MIDCLAUSE_EXCEPT_RE (which liability/
+# insurance/warranties also use): for liability specifically, "except for
+# claims arising from X" names a REQUIRED, already-correctly-handled
+# category carve-out, not a genuine unresolved condition -- broadening
+# the shared regex to include "except for" caused confirmed regressions
+# there. Ownership's "except for X, which Y retains" shape is
+# structurally different: it reassigns a PORTION of ownership to a
+# different party, which is exactly the kind of qualifier this adapter's
+# own category-attribution logic doesn't yet resolve automatically.
+_OWNERSHIP_EXCEPT_FOR_RE = re.compile(r"\bexcept\s+for\b", re.I)
 
 # --- Anchor -------------------------------------------------------------
 _ANCHOR_RE = re.compile(
@@ -389,6 +405,34 @@ def _attribute_owner(facts: IPFacts, category: str, name: str) -> None:
 
 
 def _scan_ownership(window: str, facts: IPFacts) -> None:
+    # Candidate 3 zero-silent-loss mission — a deterministically-detected
+    # same-SENTENCE condition/exception attached to the specific ownership
+    # match (using detect_condition_in_span, scoped to just that match's
+    # own sentence via sentence_bounds -- NOT the whole window, which
+    # previously caused false positives on ip_ownership's common "To the
+    # extent any Deliverables do not qualify as a work made for hire,
+    # Vendor hereby assigns..." assign-or-fallback idiom living in a
+    # DIFFERENT sentence of the same window).
+    def _check_condition(m_start: int, m_end: int) -> None:
+        if facts.deterministic_condition_established:
+            return
+        cond = _core_detect_condition_in_span(window, m_start, m_end)
+        if cond.status == "ESTABLISHED":
+            facts.deterministic_condition_established = True
+            facts.deterministic_condition_excerpt = cond.evidence_span
+            return
+        # "except for" local check (see _OWNERSHIP_EXCEPT_FOR_RE) -- scoped
+        # to the same sentence as the ownership match, mirroring
+        # detect_condition_in_span's own scoping discipline.
+        sent_start = window.rfind(".", 0, m_start) + 1
+        sent_end_dot = window.find(".", m_end)
+        sent_end = sent_end_dot + 1 if sent_end_dot != -1 else len(window)
+        sentence = window[sent_start:sent_end]
+        ex_m = _OWNERSHIP_EXCEPT_FOR_RE.search(sentence)
+        if ex_m:
+            facts.deterministic_condition_established = True
+            facts.deterministic_condition_excerpt = sentence[ex_m.start():min(len(sentence), ex_m.start() + 100)].strip()
+
     for m in _OWNERSHIP_ACTIVE_RE.finditer(window):
         name = m.group(1)
         if name.lower() in _GENERIC_WORDS:
@@ -397,6 +441,7 @@ def _scan_ownership(window: str, facts: IPFacts) -> None:
         if cat is None:
             continue
         _attribute_owner(facts, cat, name)
+        _check_condition(m.start(), m.end())
 
     for m in _OWNERSHIP_PASSIVE_RE.finditer(window):
         name = m.group(1) or m.group(2)
@@ -406,6 +451,7 @@ def _scan_ownership(window: str, facts: IPFacts) -> None:
         if cat is None:
             continue
         _attribute_owner(facts, cat, name)
+        _check_condition(m.start(), m.end())
 
     for m in _IP_ASSIGNMENT_RE.finditer(window):
         assignee = m.group(2)
