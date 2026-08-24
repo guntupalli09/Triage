@@ -35,13 +35,13 @@
         "in no event shall either party's aggregate liability arising out of this Agreement exceed the total fees paid in the twelve (12) months preceding the claim."
       ],
       [
-        "in no event shall either party's aggregate liability arising out of this Agreement exceed the total fees paid in the twelve (12) months preceding the claim."
+        "Except for breaches of Section 9 (Confidentiality), in no event shall either party's aggregate liability arising out of this Agreement exceed the total fees paid in the twelve (12) months preceding the claim."
       ],
       [
         "in no event shall either party's aggregate liability arising out of this Agreement exceed the total fees paid in the twelve (12) months preceding the claim."
       ]
     ],
-    "candidate_set_varied": false,
+    "candidate_set_varied": true,
     "canonical_fact_varied": false,
     "policy_decision_varied": false,
     "unsafe_clean_transition": false
@@ -65,24 +65,22 @@
       "CONFIRMED_ABSENT"
     ],
     "run_candidate_counts": [
-      0,
-      1,
       1,
       0,
-      1
+      1,
+      0,
+      0
     ],
     "run_candidate_spans": [
-      [],
       [
-        "cap aggregate liability at one times annual fees"
-      ],
-      [
-        "cap aggregate liability at one times annual fees"
+        "Technology services agreements commonly cap aggregate liability at one times annual fees, reflecting standard industry risk allocation for engagements of this size."
       ],
       [],
       [
-        "commonly cap aggregate liability at one times annual fees"
-      ]
+        "Technology services agreements commonly cap aggregate liability at one times annual fees, reflecting standard industry risk allocation for engagements of this size."
+      ],
+      [],
+      []
     ],
     "candidate_set_varied": true,
     "canonical_fact_varied": false,
@@ -125,13 +123,13 @@
         "Vendor's aggregate liability shall not exceed two times the fees paid in the prior twelve months, provided that Customer has given Vendor written notice of the claim within ninety (90) days of discovering the underlying event."
       ],
       [
-        "Vendor's aggregate liability shall not exceed two times the fees paid in the prior twelve months,"
+        "Vendor's aggregate liability shall not exceed two times the fees paid in the prior twelve months, provided that Customer has given Vendor written notice of the claim within ninety (90) days of discovering the underlying event."
       ],
       [
         "Vendor's aggregate liability shall not exceed two times the fees paid in the prior twelve months, provided that Customer has given Vendor written notice of the claim within ninety (90) days of discovering the underlying event."
       ]
     ],
-    "candidate_set_varied": true,
+    "candidate_set_varied": false,
     "canonical_fact_varied": false,
     "policy_decision_varied": false,
     "unsafe_clean_transition": false
@@ -405,22 +403,22 @@
     ],
     "run_candidate_spans": [
       [
-        "each party to protect the other's proprietary information."
+        "each party to protect the other's proprietary information"
       ],
       [
-        "each party to protect the other's proprietary information."
+        "each party to protect the other's proprietary information"
       ],
       [
-        "each party to protect the other's proprietary information."
+        "each party to protect the other's proprietary information"
       ],
       [
-        "each party to protect the other's proprietary information."
+        "each party to protect the other's proprietary information"
       ],
       [
         "each party to protect the other's proprietary information."
       ]
     ],
-    "candidate_set_varied": false,
+    "candidate_set_varied": true,
     "canonical_fact_varied": false,
     "policy_decision_varied": false,
     "unsafe_clean_transition": false
@@ -662,11 +660,11 @@
       "REQUIRES_REVIEW"
     ],
     "run_absence_states": [
-      "CONFIRMED_ABSENT",
-      "CONFIRMED_ABSENT",
-      "CONFIRMED_ABSENT",
-      "CONFIRMED_ABSENT",
-      "CONFIRMED_ABSENT"
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED",
+      "PRESENT_BUT_UNRESOLVED"
     ],
     "run_candidate_counts": [
       2,
@@ -710,7 +708,7 @@
       "REQUIRES_REVIEW",
       "REQUIRES_REVIEW",
       "REQUIRES_REVIEW",
-      "REQUIRES_REVIEW",
+      "ACCEPT",
       "REQUIRES_REVIEW"
     ],
     "run_absence_states": [
@@ -746,8 +744,8 @@
     ],
     "candidate_set_varied": false,
     "canonical_fact_varied": false,
-    "policy_decision_varied": false,
-    "unsafe_clean_transition": false
+    "policy_decision_varied": true,
+    "unsafe_clean_transition": true
   },
   {
     "case_id": "ip_ownership-099",
@@ -757,14 +755,14 @@
       "REQUIRES_REVIEW",
       "REQUIRES_REVIEW",
       "NOT_APPLICABLE",
-      "NOT_APPLICABLE",
+      "REQUIRES_REVIEW",
       "REQUIRES_REVIEW"
     ],
     "run_absence_states": [
       "PRESENT_BUT_UNRESOLVED",
       "PRESENT_BUT_UNRESOLVED",
       "NONE",
-      "NONE",
+      "PRESENT_BUT_UNRESOLVED",
       "PRESENT_BUT_UNRESOLVED"
     ],
     "run_candidate_counts": [
@@ -776,7 +774,7 @@
     ],
     "run_candidate_spans": [
       [
-        "Once Customer's checks clear, anything Vendor builds specifically for this project belongs to Customer, lock, stock, and barrel."
+        "anything Vendor builds specifically for this project belongs to Customer, lock, stock, and barrel."
       ],
       [
         "anything Vendor builds specifically for this project belongs to Customer, lock, stock, and barrel."
@@ -791,7 +789,7 @@
         "anything Vendor builds specifically for this project belongs to Customer, lock, stock, and barrel."
       ]
     ],
-    "candidate_set_varied": true,
+    "candidate_set_varied": false,
     "canonical_fact_varied": true,
     "policy_decision_varied": true,
     "unsafe_clean_transition": false
@@ -835,10 +833,10 @@
         "Custom software development agreements commonly assign work-product ownership to the paying customer upon completion of payment."
       ],
       [
-        "work-product ownership to the paying customer upon completion of payment"
+        "Custom software development agreements commonly assign work-product ownership to the paying customer upon completion of payment."
       ]
     ],
-    "candidate_set_varied": true,
+    "candidate_set_varied": false,
     "canonical_fact_varied": false,
     "policy_decision_varied": false,
     "unsafe_clean_transition": false
@@ -1115,13 +1113,13 @@
         "Vendors in this industry usually notify customers of a personal data breach within 72 hours, reflecting common data-protection practice."
       ],
       [
+        "Vendors in this industry usually notify customers of a personal data breach within 72 hours, reflecting common data-protection practice."
+      ],
+      [
+        "Vendors in this industry usually notify customers of a personal data breach within 72 hours, reflecting common data-protection practice."
+      ],
+      [
         "notify customers of a personal data breach within 72 hours, reflecting common data-protection practice."
-      ],
-      [
-        "Vendors in this industry usually notify customers of a personal data breach within 72 hours, reflecting common data-protection practice."
-      ],
-      [
-        "Vendors in this industry usually notify customers of a personal data breach within 72 hours, reflecting common data-protection practice."
       ],
       [
         "Vendors in this industry usually notify customers of a personal data breach within 72 hours, reflecting common data-protection practice."
@@ -1159,7 +1157,7 @@
     ],
     "run_candidate_spans": [
       [
-        "Vendor will let Customer know within two days, tops."
+        "Should Vendor discover that someone got into personal data they shouldn't have, Vendor will let Customer know within two days, tops."
       ],
       [
         "Should Vendor discover that someone got into personal data they shouldn't have, Vendor will let Customer know within two days, tops."
@@ -1174,7 +1172,7 @@
         "Should Vendor discover that someone got into personal data they shouldn't have, Vendor will let Customer know within two days, tops."
       ]
     ],
-    "candidate_set_varied": true,
+    "candidate_set_varied": false,
     "canonical_fact_varied": false,
     "policy_decision_varied": false,
     "unsafe_clean_transition": false
@@ -1293,21 +1291,27 @@
     ],
     "run_candidate_counts": [
       1,
-      0,
       1,
-      0,
-      0
+      1,
+      1,
+      1
     ],
     "run_candidate_spans": [
       [
         "Technology agreements between companies headquartered in different states commonly select Delaware law due to its well-developed body of commercial case law."
       ],
-      [],
       [
-        "Delaware law due to its well-developed body of commercial case law."
+        "select Delaware law due to its well-developed body of commercial case law."
       ],
-      [],
-      []
+      [
+        "select Delaware law due to its well-developed body of commercial case law."
+      ],
+      [
+        "commonly select Delaware law due to its well-developed body of commercial case law."
+      ],
+      [
+        "Technology agreements between companies headquartered in different states commonly select Delaware law due to its well-developed body of commercial case law."
+      ]
     ],
     "candidate_set_varied": true,
     "canonical_fact_varied": false,
@@ -1393,22 +1397,22 @@
     ],
     "run_candidate_spans": [
       [
-        "Delaware's rules are the ones that'll apply, not wherever either of us happens to be sitting."
-      ],
-      [
         "Delaware's rules are the ones that'll apply"
       ],
       [
         "Delaware's rules are the ones that'll apply"
       ],
       [
-        "Delaware's rules are the ones that'll apply, not wherever either of us happens to be sitting."
+        "Delaware's rules are the ones that'll apply"
+      ],
+      [
+        "Delaware's rules are the ones that'll apply"
       ],
       [
         "Delaware's rules are the ones that'll apply"
       ]
     ],
-    "candidate_set_varied": true,
+    "candidate_set_varied": false,
     "canonical_fact_varied": false,
     "policy_decision_varied": false,
     "unsafe_clean_transition": false
@@ -1563,23 +1567,13 @@
       "CONFIRMED_ABSENT"
     ],
     "run_candidate_counts": [
-      1,
+      2,
+      3,
       1,
       2,
-      2,
-      3
+      2
     ],
     "run_candidate_spans": [
-      [
-        "Either party may terminate 'as provided in the Order Form.' One Order Form provision allows termination on 30 days' notice; a separate cover sheet says termination requires 12 months' notice, without reconciling the two."
-      ],
-      [
-        "Either party may terminate 'as provided in the Order Form.' One Order Form provision allows termination on 30 days' notice; a separate cover sheet says termination requires 12 months' notice, without reconciling the two."
-      ],
-      [
-        "Either party may terminate 'as provided in the Order Form.'",
-        "One Order Form provision allows termination on 30 days' notice; a separate cover sheet says termination requires 12 months' notice, without reconciling the two."
-      ],
       [
         "Either party may terminate 'as provided in the Order Form.'",
         "One Order Form provision allows termination on 30 days' notice; a separate cover sheet says termination requires 12 months' notice, without reconciling the two."
@@ -1587,7 +1581,18 @@
       [
         "Either party may terminate 'as provided in the Order Form.'",
         "One Order Form provision allows termination on 30 days' notice;",
-        "a separate cover sheet says termination requires 12 months' notice,"
+        "termination requires 12 months' notice,"
+      ],
+      [
+        "Either party may terminate 'as provided in the Order Form.' One Order Form provision allows termination on 30 days' notice; a separate cover sheet says termination requires 12 months' notice, without reconciling the two."
+      ],
+      [
+        "Either party may terminate 'as provided in the Order Form.'",
+        "One Order Form provision allows termination on 30 days' notice; a separate cover sheet says termination requires 12 months' notice, without reconciling the two."
+      ],
+      [
+        "Either party may terminate 'as provided in the Order Form.'",
+        "One Order Form provision allows termination on 30 days' notice; a separate cover sheet says termination requires 12 months' notice, without reconciling the two."
       ]
     ],
     "candidate_set_varied": true,
@@ -1647,18 +1652,18 @@
     "adapter": "warranties",
     "expected": "YES_OPERATIVE",
     "run_states": [
-      "NOT_APPLICABLE",
-      "NOT_APPLICABLE",
       "REQUIRES_REVIEW",
       "NOT_APPLICABLE",
-      "REQUIRES_REVIEW"
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE",
+      "NOT_APPLICABLE"
     ],
     "run_absence_states": [
-      "NONE",
-      "NONE",
       "CONFIRMED_ABSENT",
       "NONE",
-      "CONFIRMED_ABSENT"
+      "NONE",
+      "NONE",
+      "NONE"
     ],
     "run_candidate_counts": [
       1,
@@ -1695,32 +1700,30 @@
     "expected": "NO_NOT_OPERATIVE",
     "run_states": [
       "REQUIRES_REVIEW",
-      "REQUIRES_REVIEW",
+      "NOT_APPLICABLE",
       "REQUIRES_REVIEW",
       "REQUIRES_REVIEW",
       "REQUIRES_REVIEW"
     ],
     "run_absence_states": [
       "PRESENT_BUT_UNRESOLVED",
-      "PRESENT_BUT_UNRESOLVED",
+      "NONE",
       "PRESENT_BUT_UNRESOLVED",
       "PRESENT_BUT_UNRESOLVED",
       "PRESENT_BUT_UNRESOLVED"
     ],
     "run_candidate_counts": [
       1,
-      1,
+      0,
       1,
       1,
       1
     ],
     "run_candidate_spans": [
       [
-        "warranty that the vendor will perform in a professional and workmanlike manner."
+        "the vendor will perform in a professional and workmanlike manner."
       ],
-      [
-        "that the vendor will perform in a professional and workmanlike manner."
-      ],
+      [],
       [
         "a warranty that the vendor will perform in a professional and workmanlike manner."
       ],
@@ -1728,12 +1731,12 @@
         "a warranty that the vendor will perform in a professional and workmanlike manner."
       ],
       [
-        "a warranty that the vendor will perform in a professional and workmanlike manner."
+        "a warranty that the vendor will perform in a professional and workmanlike manner"
       ]
     ],
     "candidate_set_varied": true,
-    "canonical_fact_varied": false,
-    "policy_decision_varied": false,
+    "canonical_fact_varied": true,
+    "policy_decision_varied": true,
     "unsafe_clean_transition": false
   },
   {
@@ -1756,7 +1759,7 @@
     ],
     "run_candidate_counts": [
       1,
-      1,
+      0,
       1,
       1,
       1
@@ -1765,17 +1768,15 @@
       [
         "Vendor warrants that the Services will conform to the specifications in the Statement of Work"
       ],
+      [],
       [
         "Vendor warrants that the Services will conform to the specifications in the Statement of Work"
       ],
       [
-        "Vendor warrants that the Services will conform to the specifications in the Statement of Work, provided that Customer has not materially altered the specifications after execution."
-      ],
-      [
         "Vendor warrants that the Services will conform to the specifications in the Statement of Work"
       ],
       [
-        "Vendor warrants that the Services will conform to the specifications in the Statement of Work, provided that Customer has not materially altered the specifications after execution."
+        "Vendor warrants that the Services will conform to the specifications in the Statement of Work,"
       ]
     ],
     "candidate_set_varied": true,
@@ -2088,10 +2089,10 @@
         "we need the other side's okay first, in writing, and they can't be unreasonable about giving it."
       ],
       [
-        "we need the other side's okay first, in writing, and they can't be unreasonable about giving it."
+        "If either of us wants to hand this contract off to someone else, we need the other side's okay first, in writing, and they can't be unreasonable about giving it."
       ],
       [
-        "If either of us wants to hand this contract off to someone else, we need the other side's okay first, in writing, and they can't be unreasonable about giving it."
+        "we need the other side's okay first, in writing, and they can't be unreasonable about giving it."
       ],
       [
         "If either of us wants to hand this contract off to someone else, we need the other side's okay first, in writing, and they can't be unreasonable about giving it."
@@ -2124,8 +2125,8 @@
       2,
       2,
       2,
-      2,
-      2
+      1,
+      1
     ],
     "run_candidate_spans": [
       [
@@ -2141,12 +2142,10 @@
         "a separate cover page requires consent for all assignments without exception"
       ],
       [
-        "Assignment requires consent 'except as otherwise permitted in the Order Form.'",
-        "a separate cover page requires consent for all assignments without exception"
+        "Assignment requires consent 'except as otherwise permitted in the Order Form.'"
       ],
       [
-        "Assignment requires consent 'except as otherwise permitted in the Order Form.'",
-        "a separate cover page requires consent for all assignments without exception, without reconciling the two."
+        "Assignment requires consent 'except as otherwise permitted in the Order Form.'"
       ]
     ],
     "candidate_set_varied": true,
@@ -2289,6 +2288,43 @@
       [
         "All work product shall be owned by Client, except for Contractor's proprietary tools and libraries used in its creation, which Contractor retains."
       ]
+    ],
+    "candidate_set_varied": false,
+    "canonical_fact_varied": false,
+    "policy_decision_varied": false,
+    "unsafe_clean_transition": false
+  },
+  {
+    "case_id": "dev-indemnification-006-class-01",
+    "adapter": "indemnification",
+    "expected": "YES_BUT_EXCEPTION",
+    "run_states": [
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW",
+      "REQUIRES_REVIEW"
+    ],
+    "run_absence_states": [
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED",
+      "PRESENT_AND_VERIFIED"
+    ],
+    "run_candidate_counts": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "run_candidate_spans": [
+      null,
+      null,
+      null,
+      null,
+      null
     ],
     "candidate_set_varied": false,
     "canonical_fact_varied": false,
