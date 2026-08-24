@@ -79,14 +79,44 @@ _core_word_number_alternation = _core_word_number_alternation_fn()
 # exactly by flipping one flag, without maintaining two code paths.
 HYBRID_DISCOVERY_ENABLED = True
 
-# Step 4A.9.2 — provider selection. "SIMULATED" (default, preserves every
-# 4A.9.1 result byte-for-byte) or "REAL" (routes to semantic_discovery_
-# real.discover_candidate_spans_real — an actual LLM call). This is the
-# ONLY change 4A.9.2 makes to this file's control flow: which function
+# Step 4A.9.2 — provider selection. "SIMULATED" (preserves every 4A.9.1
+# result byte-for-byte) or "REAL" (routes to semantic_discovery_real.
+# discover_candidate_spans_real — an actual LLM call). This is the ONLY
+# change 4A.9.2 makes to this file's control flow: which function
 # _run_semantic_discovery calls. Candidate schema, evidence-span
 # verification, structuring/verification, and absence-state logic are
 # byte-identical to 4A.9.1 regardless of this setting.
-SEMANTIC_PROVIDER = "SIMULATED"
+#
+# Candidate 3 final pre-freeze blocker remediation (Blocker 4) --
+# SEMANTIC_PROVIDER was previously a bare hardcoded "SIMULATED" literal
+# with NO environment override anywhere in this file, unlike every other
+# adapter's own `<ADAPTER>_SEMANTIC_DISCOVERY_ENABLED` flag (all routed
+# through fact_admission.semantic_discovery_enabled, which respects the
+# adapter-specific env var first and falls back to the global
+# FACT_ADMISSION_MODE=enforced switch). That meant setting
+# FACT_ADMISSION_MODE=enforced activated real OpenAI discovery for 11 of
+# 12 adapters but had ZERO effect on this one -- there was no
+# configuration-only way to bring indemnification onto the same real
+# provider path the rest of the architecture uses; only a source-code
+# edit could do it. Fixed by reusing the EXACT SAME configuration
+# abstraction (fact_admission.semantic_discovery_enabled), under the same
+# naming convention (INDEMNIFICATION_SEMANTIC_DISCOVERY_ENABLED), so this
+# adapter now has ONE production semantic-provider configuration path in
+# common with the other 11: unset (or explicitly falsy) stays SIMULATED
+# -- byte-identical to every existing indemnification benchmark/test
+# result, preserving the zero-regression guarantee -- and either the
+# adapter-specific env var or the global FACT_ADMISSION_MODE=enforced
+# switch turns on the real provider, exactly like every other adapter.
+# SIMULATED remains available (and is still the default) specifically so
+# tests/CI and the deterministic-only benchmark comparison arm keep
+# working without requiring network access or an API key -- it must never
+# again be the SILENT, non-configurable production default once
+# FACT_ADMISSION_MODE=enforced is set.
+import fact_admission as _indemnification_semantic_provider_check
+SEMANTIC_PROVIDER = "REAL" if _indemnification_semantic_provider_check.semantic_discovery_enabled(
+    "INDEMNIFICATION_SEMANTIC_DISCOVERY_ENABLED"
+) else "SIMULATED"
+del _indemnification_semantic_provider_check
 
 
 # Final trust architecture (gap-closure pass) — a SECOND, independent
