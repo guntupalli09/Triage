@@ -59,6 +59,7 @@ from policy_engine_core import (
     excerpt, section_label_before,
     requires_review_explanation, requires_review_required_action,
     PolicyDecision,
+    is_operative_context as _core_is_operative_context,
 )
 
 RULE_ID = "POLICY_INSURANCE"
@@ -412,12 +413,27 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
         # conflicting mention of the same coverage type — anywhere in the
         # document — is detected as a conflict rather than silently
         # overwriting the first.
-        anchor_positions: Dict[str, List[int]] = {ct: [m.start() for m in rx.finditer(window)] for ct, rx in _COVERAGE_RES.items()}
-        all_positions_flat = [p for positions in anchor_positions.values() for p in positions]
+        # Root-cause fix (Candidate 2, false-operative -> clean): a
+        # coverage-type mention inside descriptive/background/recital
+        # prose ("It is common practice for a services vendor to carry
+        # Commercial General Liability insurance, though the specific
+        # coverage requirements ... remain to be negotiated") was
+        # previously marked `established=True` purely because the
+        # anchor phrase appeared anywhere in the window, with no check
+        # that this is actually THIS document's own operative
+        # commitment. Reuses the SAME shared `is_operative_context`
+        # primitive liability/indemnification/payment_terms already
+        # trust for this exact class of defect, rather than a new,
+        # adapter-local descriptive-language blacklist.
+        anchor_matches: Dict[str, List["re.Match"]] = {ct: list(rx.finditer(window)) for ct, rx in _COVERAGE_RES.items()}
+        all_positions_flat = [m.start() for matches in anchor_matches.values() for m in matches]
 
-        for ct, positions in anchor_positions.items():
+        for ct, matches in anchor_matches.items():
             cov = facts.coverages[ct]
-            for pos in positions:
+            for m in matches:
+                if not _core_is_operative_context(text, ws + m.start(), ws + m.end()):
+                    continue
+                pos = m.start()
                 cov.established = True
                 other_positions = [p for p in all_positions_flat if p != pos]
                 local = _local_window(window, pos, other_positions)
@@ -431,7 +447,7 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
         # established within this window.
         obligated_names = {m.group(1) for m in _OBLIGATED_PARTY_RE.finditer(window) if m.group(1).lower() not in _GENERIC_WORDS}
         if obligated_names:
-            covered_here = [ct for ct, positions in anchor_positions.items() if positions]
+            covered_here = [ct for ct, matches in anchor_matches.items() if matches]
             for ct in covered_here:
                 cov = facts.coverages[ct]
                 for name in obligated_names:

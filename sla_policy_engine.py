@@ -85,6 +85,7 @@ from policy_engine_core import (
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
     PolicyDecision,
+    is_operative_context as _core_is_operative_context,
 )
 
 RULE_ID = "POLICY_SLA"
@@ -508,6 +509,18 @@ def extract_sla_facts(text: str) -> Optional[SLAFacts]:
         for m in _UPTIME_WITH_PERCENT_RE.finditer(window):
             if _UPTIME_NEGATION_RE.search(window[max(0, m.start() - 20):m.start() + 20]):
                 continue
+            # Root-cause fix (Candidate 2, false-operative -> clean): the
+            # SAME shared-primitive gap found in insurance_policy_engine
+            # -- a percentage figure inside descriptive/background prose
+            # ("SaaS agreements typically commit to 99.9% uptime ...
+            # although the parties have not yet negotiated specific
+            # service levels") was previously admitted as this
+            # Agreement's own established commitment. Reuses the shared
+            # is_operative_context primitive (now covering this
+            # industry-norm-plus-not-yet-agreed pattern at the source),
+            # not an adapter-local blacklist.
+            if not _core_is_operative_context(text, ws + m.start(), ws + m.end()):
+                continue
             raw = m.group(1) or m.group(2)
             if raw:
                 uptime_values.add(float(raw))
@@ -622,6 +635,8 @@ def extract_sla_facts(text: str) -> Optional[SLAFacts]:
         # --- Remedy -------------------------------------------------------------------------------
         for m in _CREDIT_ANCHOR_RE.finditer(window):
             if re.search(r"\bno\s+(?:service\s+)?$", window[max(0, m.start() - 25):m.start()], re.I):
+                continue
+            if not _core_is_operative_context(text, ws + m.start(), ws + m.end()):
                 continue
             facts.service_credit_present = True
             found_anything = True

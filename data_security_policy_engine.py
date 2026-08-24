@@ -67,6 +67,7 @@ from policy_engine_core import (
     escalate_to_for_state, fallback_text_for_state,
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
+    word_number_alternation as _word_number_alternation, parse_multiplier_token as _parse_number_token,
 )
 
 RULE_ID = "POLICY_DATA_SECURITY"
@@ -114,14 +115,67 @@ _SUBPROCESSOR_UNRESTRICTED_RE = re.compile(
 
 # --- Breach / security-incident notification --------------------------------
 _BREACH_ANCHOR_RE = re.compile(r"security\s+incident|personal\s+data\s+breach|data\s+breach", re.I)
+# A bare digit run OR a spelled-out number word (the shared, closed
+# word-number vocabulary every duration/multiplier regex in this
+# codebase already uses -- see policy_engine_core.WORD_NUMBERS) --
+# "thirty days" must be recognized exactly like "30 days", not only the
+# digit form, per Candidate 2's "prove the class, not the fixture"
+# requirement.
+_NUM = r"(?:\d{1,3}|" + _word_number_alternation() + r")"
 _BREACH_HOURS_RE = re.compile(
-    r"(?:notify|notification|notice)[^.]{0,80}?within\s+(\d{1,3})\s+hours"
-    r"|within\s+(\d{1,3})\s+hours\s+(?:of|after)\s+(?:becoming\s+aware|discovery|discovering|learning)"
-    r"|(?:no\s+(?:later|event\s+later)\s+than|not\s+later\s+than)\s+(\d{1,3})\s+hours\s+(?:after|of|following)"
+    r"(?:notify|notification|notice)[^.]{0,80}?within\s+(" + _NUM + r")\s+hours"
+    r"|within\s+(" + _NUM + r")\s+hours\s+(?:of|after)\s+(?:becoming\s+aware|discovery|discovering|learning)"
+    r"|(?:no\s+(?:later|event\s+later)\s+than|not\s+later\s+than)\s+(" + _NUM + r")\s+hours\s+(?:after|of|following)"
     r"\s+(?:becoming\s+aware|discovery|discovering|learning)",
     re.I,
 )
+# Root-cause fix (Candidate 2, time normalization): calendar-day phrasing
+# is CANONICALIZED to hours (days * 24) so it participates in the SAME
+# comparable hour_values set _BREACH_HOURS_RE already populates -- a
+# 30-day commitment must be comparable against a 72-hour policy maximum,
+# not silently invisible to it. "business days" is a DIFFERENT, narrower
+# pattern checked separately below and is deliberately never matched
+# here (the literal word "business" between the digit and "days" means
+# this pattern's `(?:calendar\s+)?days` alternative never lines up), and
+# is never converted to hours -- a business day's wall-clock length is
+# not well-defined enough to canonicalize without manufacturing false
+# precision (mission's explicit instruction).
+_BREACH_CALENDAR_DAYS_RE = re.compile(
+    r"(?:notify|notification|notice)[^.]{0,80}?within\s+(" + _NUM + r")\s+(?:calendar\s+)?days\b"
+    r"|within\s+(" + _NUM + r")\s+(?:calendar\s+)?days\s+(?:of|after)\s+(?:becoming\s+aware|discovery|discovering|learning)"
+    r"|(?:no\s+(?:later|event\s+later)\s+than|not\s+later\s+than)\s+(" + _NUM + r")\s+(?:calendar\s+)?days\s+(?:after|of|following)"
+    r"\s+(?:becoming\s+aware|discovery|discovering|learning)",
+    re.I,
+)
+# Business-day phrasing is recognized but NEVER converted to a comparable
+# hour figure -- deliberately ambiguous (a business day's length depends
+# on the recipient's business calendar, which this deterministic engine
+# has no way to know), so its presence forces REQUIRES_REVIEW (see
+# `_classify_breach_notification`'s ambiguous_unit return) rather than
+# failing silently in either direction.
+_BREACH_BUSINESS_DAYS_RE = re.compile(
+    r"(?:notify|notification|notice)[^.]{0,80}?within\s+" + _NUM + r"\s+business\s+days"
+    r"|within\s+" + _NUM + r"\s+business\s+days\s+(?:of|after)\s+(?:becoming\s+aware|discovery|discovering|learning)",
+    re.I,
+)
 _BREACH_UNDUE_DELAY_RE = re.compile(r"without\s+undue\s+delay", re.I)
+_HOURS_PER_CALENDAR_DAY = 24
+# Root-cause fix (Candidate 2, negated obligation): an EXPLICIT denial
+# that any breach-notification obligation exists at all must never be
+# treated identically to the obligation simply never being mentioned --
+# "Vendor shall have no obligation to notify..." is a confidently-
+# observed NON-COMPLIANT fact (the obligation was considered and
+# rejected), not an absence. A closed, generalized set of negation verb
+# phrases (mirrors the polarity vocabulary warranties_policy_engine's
+# own _CATEGORY_NEGATION_RE already established for this exact class of
+# defect), not a single literal sentence match.
+_BREACH_NOTIFICATION_NEGATION_RE = re.compile(
+    r"(?:shall\s+have\s+no\s+obligation\s+to\s+notify|shall\s+not\s+be\s+(?:obligated|required)\s+to\s+notify"
+    r"|(?:is|are)\s+under\s+no\s+obligation\s+to\s+notify|no\s+obligation\s+to\s+notify"
+    r"|shall\s+not\s+(?:be\s+required\s+to\s+)?notify|will\s+not\s+notify|need\s+not\s+notify)"
+    r"\b.{0,100}?(?:of\s+any\s+)?(?:data\s+breach(?:es)?|security\s+incident|personal\s+data\s+breach)",
+    re.I,
+)
 
 # --- International transfers -------------------------------------------------
 _TRANSFER_ANCHOR_RE = re.compile(
@@ -248,6 +302,17 @@ class DataSecurityFacts:
     # Breach notification
     breach_notification_hours: Optional[int] = None
     breach_notification_conflict: bool = False
+    # Root-cause fix (Candidate 2, time normalization) -- a business-day
+    # notification commitment was found that cannot be safely
+    # canonicalized to a comparable hour figure (see
+    # _classify_breach_notification). Never silently treated as
+    # "notification timing not addressed."
+    breach_notification_ambiguous_unit: bool = False
+    # Root-cause fix (Candidate 2, negation) -- an EXPLICIT denial that any
+    # notification obligation exists ("Vendor shall have no obligation to
+    # notify..."). NEGATED, never conflated with POSITIVE evidence nor
+    # with the obligation simply never being mentioned.
+    breach_notification_explicitly_disclaimed: bool = False
     breach_without_undue_delay: bool = False
 
     # International transfers: "scc" | "adequacy" | "prohibited" | "unaddressed_transfer" | None
@@ -354,20 +419,41 @@ def _classify_subprocessors(window: str) -> Tuple[Optional[str], bool]:
     return next(iter(found)), False
 
 
-def _classify_breach_notification(window: str) -> Tuple[Optional[int], bool, bool]:
-    """Returns (hours, conflict, without_undue_delay)."""
+def _classify_breach_notification(window: str, negation_scan_text: Optional[str] = None) -> Tuple[Optional[int], bool, bool, bool, bool]:
+    """Returns (hours, conflict, without_undue_delay, ambiguous_unit, explicitly_disclaimed).
+
+    ambiguous_unit=True means a business-day commitment was found that
+    cannot be safely canonicalized to hours -- callers must treat this
+    the same as a conflict (fail closed to REQUIRES_REVIEW), never
+    silently drop it or treat the notification dimension as unaddressed.
+
+    explicitly_disclaimed=True means the document affirmatively denies
+    any notification obligation exists -- NEGATED, never treated as
+    POSITIVE evidence nor as mere absence. Checked against
+    `negation_scan_text` (a backward-widened slice) when given, since
+    the negation verb phrase commonly precedes the anchor word that
+    `window` itself starts at."""
+    if _BREACH_NOTIFICATION_NEGATION_RE.search(negation_scan_text if negation_scan_text is not None else window):
+        return None, False, False, False, True
     if not _BREACH_ANCHOR_RE.search(window):
-        return None, False, False
+        return None, False, False, False, False
     hour_values = set()
     for m in _BREACH_HOURS_RE.finditer(window):
         raw = m.group(1) or m.group(2) or m.group(3)
-        if raw:
-            hour_values.add(int(raw))
+        value = _parse_number_token(raw) if raw else None
+        if value is not None:
+            hour_values.add(int(value))
+    for m in _BREACH_CALENDAR_DAYS_RE.finditer(window):
+        raw = m.group(1) or m.group(2) or m.group(3)
+        value = _parse_number_token(raw) if raw else None
+        if value is not None:
+            hour_values.add(int(value) * _HOURS_PER_CALENDAR_DAY)
+    ambiguous_unit = bool(_BREACH_BUSINESS_DAYS_RE.search(window))
     undue_delay = bool(_BREACH_UNDUE_DELAY_RE.search(window))
     if len(hour_values) > 1:
-        return None, True, undue_delay
+        return None, True, undue_delay, ambiguous_unit, False
     hours = next(iter(hour_values)) if hour_values else None
-    return hours, False, undue_delay
+    return hours, False, undue_delay, ambiguous_unit, False
 
 
 def _classify_transfer(window: str) -> Optional[str]:
@@ -530,7 +616,7 @@ def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
     role_results, subprocessor_results, breach_results, transfer_results = [], [], [], []
     residency_results, security_results = [], []
 
-    for _, _, window in windows:
+    for _win_start, _win_end, window in windows:
         if _JOINT_CONTROLLER_RE.search(window):
             facts.joint_controllers = True
         attributions, role_conflict = _role_attributions(window)
@@ -546,11 +632,26 @@ def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
             subprocessor_results.append(subp)
         if subp_conflict:
             facts.subprocessor_conflict = True
-        hours, hr_conflict, undue = _classify_breach_notification(window)
+        # Root-cause fix (Candidate 2, negation): the anchor-forward
+        # `window` starts AT the anchor match itself (e.g. "personal
+        # data breach..."), which discards any negation verb phrase
+        # that PRECEDES the anchor in the natural sentence order
+        # ("Vendor shall have no obligation to notify Customer of any
+        # personal data breach...") -- the negation was previously
+        # invisible to this classifier for exactly that reason, not
+        # because the pattern itself was wrong. Widen the scan used
+        # for polarity detection specifically to include a backward
+        # margin, without changing any other classifier's window.
+        _negation_scan = text[max(0, _win_start - 200):_win_end]
+        hours, hr_conflict, undue, ambiguous_unit, disclaimed = _classify_breach_notification(window, _negation_scan)
         if hours is not None:
             breach_results.append(hours)
         if hr_conflict:
             facts.breach_notification_conflict = True
+        if ambiguous_unit:
+            facts.breach_notification_ambiguous_unit = True
+        if disclaimed:
+            facts.breach_notification_explicitly_disclaimed = True
         if undue:
             facts.breach_without_undue_delay = True
         transfer = _classify_transfer(window)
@@ -751,6 +852,12 @@ def evaluate_data_security_policy(
         unresolved.append("subprocessor treatment is stated inconsistently across the document")
     if facts.breach_notification_conflict:
         unresolved.append("breach/security-incident notification timing is stated inconsistently across the document")
+    if facts.breach_notification_ambiguous_unit:
+        unresolved.append(
+            "breach/security-incident notification timing is stated in business days, which cannot be "
+            "reliably compared to policy's hour-based threshold without knowing the recipient's business "
+            "calendar — this evaluation does not manufacture a conversion"
+        )
 
     # Material obligation delegated to an unresolved external DPA/Schedule
     # AND essentially nothing else in this document independently
@@ -811,7 +918,23 @@ def evaluate_data_security_policy(
     category_treatments.append({"category": "subprocessors", "treatment": facts.subprocessor_treatment or "not_addressed", "cap_summary": None, "raw_excerpt": "", "established": facts.subprocessor_treatment is not None})
 
     # --- Breach notification ----------------------------------------------
-    if facts.breach_notification_hours is not None:
+    if facts.breach_notification_explicitly_disclaimed:
+        # Root-cause fix (Candidate 2, negation): a confidently-observed
+        # NON-COMPLIANT fact (the obligation was considered and denied),
+        # never conflated with the obligation simply never being
+        # mentioned -- forces the same MUST_REDLINE severity as any other
+        # deterministically-confirmed policy violation in this adapter
+        # whenever the policy expects a notification commitment to exist
+        # at all.
+        if (
+            policy.preferred_breach_notification_hours is not None
+            or policy.acceptable_max_breach_notification_hours is not None
+            or policy.negotiate_max_breach_notification_hours is not None
+            or policy.require_fixed_breach_notification_period
+        ):
+            _note("the document explicitly disclaims any breach/security-incident notification obligation, "
+                  "which policy requires", MUST_REDLINE)
+    elif facts.breach_notification_hours is not None:
         state = classify_by_threshold(
             float(facts.breach_notification_hours),
             policy.preferred_breach_notification_hours,

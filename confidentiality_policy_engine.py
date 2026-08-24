@@ -321,13 +321,35 @@ def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
     obligations: List[ConfidentialityObligation] = []
     seen_spans: List[Tuple[int, int]] = []
 
+    # Root-cause fix (Candidate 2): a fixed 1200-char forward window per
+    # obligation is wide enough to swallow a SECOND, separately-stated
+    # directional obligation's own language -- e.g. "...for five years...
+    # Customer shall protect Vendor's Confidential Information
+    # indefinitely..." previously bled "indefinitely" into the FIRST
+    # obligation's own duration classification, making two obligations
+    # with genuinely different terms both classify as perpetual and
+    # masking any asymmetry between them. Bound every obligation's
+    # window at the START of the next obligation anchor (of either
+    # pattern), not just the fixed cap, so classification never reads
+    # past where the next obligation's own language begins.
+    _next_anchor_starts = sorted(
+        m.start() for m in list(_NAMED_OBLIGATION_RE.finditer(text)) + list(_MUTUAL_OBLIGATION_RE.finditer(text))
+    )
+
+    def _bounded_window_end(start: int) -> int:
+        cap = min(len(text), start + _PROVISION_WINDOW_CHARS)
+        for other_start in _next_anchor_starts:
+            if other_start > start:
+                return min(cap, other_start)
+        return cap
+
     for m in _NAMED_OBLIGATION_RE.finditer(text):
         if any(abs(m.start() - s) < 30 for s, _ in seen_spans):
             continue
         protecting_role, protected_role = m.group(1), m.group(2)
         if protecting_role.lower() == protected_role.lower():
             continue
-        window = text[m.start():min(len(text), m.start() + _PROVISION_WINDOW_CHARS)]
+        window = text[m.start():_bounded_window_end(m.start())]
         duration_years, perpetual = _classify_duration(window)
         obligations.append(ConfidentialityObligation(
             protecting_role=protecting_role, protecting_side=side_for_role(protecting_role),
@@ -346,7 +368,7 @@ def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
     for m in _MUTUAL_OBLIGATION_RE.finditer(text):
         if any(abs(m.start() - s) < 30 for s, _ in seen_spans):
             continue
-        window = text[m.start():min(len(text), m.start() + _PROVISION_WINDOW_CHARS)]
+        window = text[m.start():_bounded_window_end(m.start())]
         duration_years, perpetual = _classify_duration(window)
         obligations.append(ConfidentialityObligation(
             protecting_role="Each Party", protecting_side=None,
@@ -601,6 +623,35 @@ def evaluate_confidentiality_policy(
     if policy.require_mutual_confidentiality and protection is None and exposure is not None:
         notes.append("we are obligated to protect the counterparty's information, but no reciprocal obligation runs the other way")
         worst_state = _worse(worst_state, NEGOTIATE)
+    elif policy.require_mutual_confidentiality and protection is not None and exposure is not None and exposure is not protection:
+        # Root-cause fix (Candidate 2): a reciprocal relationship stated as
+        # TWO SEPARATE directional sentences (rather than one "each party"
+        # mutual opener) previously bypassed asymmetry detection entirely
+        # -- _detect_confidentiality_asymmetry only ever ran on the single
+        # local window around a _MUTUAL_OBLIGATION_RE match. `exposure` and
+        # `protection` are independently-resolved ConfidentialityObligation
+        # objects with their own already-parsed duration/care fields
+        # regardless of how the document phrased the two directions -- so
+        # compare THEM directly, using the same comparison function the
+        # mutual-opener path already trusts, instead of re-deriving a
+        # snapshot from raw text. `exposure is not protection` guards the
+        # genuinely-mutual (`mutual and not named`) case above, where both
+        # names are bound to the very same object and comparing it to
+        # itself would be meaningless.
+        asymmetry_reasons = _compare_confidentiality_attribution(
+            "our exposure obligation",
+            {"duration_years": exposure.duration_years, "perpetual": exposure.duration_perpetual, "care": exposure.standard_of_care},
+            "the counterparty's protection obligation",
+            {"duration_years": protection.duration_years, "perpetual": protection.duration_perpetual, "care": protection.standard_of_care},
+        )
+        if asymmetry_reasons:
+            notes.append(
+                "the two directions of this confidentiality obligation state materially different terms (" +
+                "; ".join(asymmetry_reasons) +
+                ") — policy requires mutual/symmetric confidentiality, and this evaluation cannot confirm the "
+                "obligation is actually symmetric"
+            )
+            worst_state = _worse(worst_state, NEGOTIATE)
 
     controlling = exposure or protection or facts.obligations[0]
     extracted_summary = (

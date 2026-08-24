@@ -1695,6 +1695,35 @@ _META_INSTRUCTIONAL_RE = re.compile(
     re.I,
 )
 
+# Candidate 2 root-cause fix (shared primitive gap): the existing
+# structural cue families above catch a quoted example, a drafting
+# instruction, a narrow set of "language stating that..." descriptive
+# phrasings, and WHEREAS-recital intent -- but NOT the extremely common
+# real-world pattern of industry-norm commentary ("It is common practice
+# for a vendor to carry X", "SaaS agreements typically commit to Y")
+# combined with an explicit statement that THIS agreement's own terms
+# are not yet settled ("remains to be negotiated", "have not yet agreed").
+# Found via two independent adapters (insurance, sla) both extracting an
+# "established" fact from exactly this shape of sentence -- reported as
+# a shared-primitive defect, not two adapter-local bugs, and fixed once
+# here so every caller of is_operative_context benefits.
+_INDUSTRY_NORM_DESCRIPTIVE_RE = re.compile(
+    r"\bit\s+is\s+(?:common|typical|standard)\s+(?:practice\s+)?(?:for\b|to\b)"
+    r"|\b(?:commonly|typically|usually|generally)\s+(?:commits?\s+to|requires?|includes?|provides?|"
+    r"carr(?:y|ies)|specif(?:y|ies)|states?)\b"
+    r"|\bagreements?\s+of\s+this\s+(?:type|kind)\s+(?:typically|commonly|usually|generally)\b"
+    r"|\bin\s+(?:this\s+)?(?:industry|line\s+of\s+business)\b.{0,40}?\b(?:typically|commonly|usually)\b",
+    re.I,
+)
+_NOT_YET_AGREED_RE = re.compile(
+    r"remains?\s+to\s+be\s+(?:negotiated|agreed|finalized|determined|settled)"
+    r"|(?:have|has)\s+not\s+(?:yet\s+)?(?:agreed|negotiated|finalized|settled\s+on|addressed|decided)"
+    r"|(?:is|are)\s+(?:yet\s+)?to\s+be\s+(?:agreed|negotiated|finalized|determined)"
+    r"|subject\s+to\s+(?:future|further)\s+negotiation"
+    r"|not\s+(?:yet\s+)?(?:finalized|final(?:i[sz]ed)?)\b",
+    re.I,
+)
+
 _DESCRIPTIVE_ABOUT_CLAUSE_RE = re.compile(
     r"\ba\s+(?:supplier|vendor|party|contractor|licensee|licensor|customer|"
     r"client)\s+(?:might|could|may|would)\s+agree\s+that\b"
@@ -1806,6 +1835,16 @@ def is_operative_context(text: str, match_start: int, match_end: int,
     if _DESCRIPTIVE_ABOUT_CLAUSE_RE.search(window_before):
         return False
     if _RECITAL_INTENT_RE.search(window_before):
+        return False
+    # Candidate 2 root-cause fix: industry-norm descriptive framing
+    # ("It is common practice for...", "SaaS agreements typically...")
+    # combined with an explicit statement that THIS agreement's own
+    # terms are not yet settled ("remains to be negotiated") is a
+    # reliable, structural signal of non-operative commentary --
+    # requiring BOTH signals (rather than either alone) avoids
+    # suppressing a genuinely operative clause that merely opens with a
+    # benign industry-context lead-in before stating real terms.
+    if _INDUSTRY_NORM_DESCRIPTIVE_RE.search(local_window) and _NOT_YET_AGREED_RE.search(local_window):
         return False
     return True
 
