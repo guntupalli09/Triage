@@ -238,7 +238,7 @@ _REFUND_CREDIT_RE = re.compile(
 # --- Survival / cross-reference -----------------------------------------------------------------
 _SURVIVAL_RE = re.compile(r"warrant(?:y|ies)\s+shall\s+survive|survives?\s+(?:the\s+)?(?:termination|expiration)", re.I)
 _SCHEDULE_CROSSREF_RE = re.compile(
-    r"as\s+(?:set\s+forth|described|specified)\s+in\s+the\s+(?:applicable\s+)?"
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?"
     r"(?:Statement\s+of\s+Work|SOW|Schedule|Exhibit)"
     r"|warrant(?:y|ies)\s+(?:set\s+forth|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:SOW|Statement\s+of\s+Work|Schedule)",
     re.I,

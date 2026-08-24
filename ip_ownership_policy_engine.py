@@ -75,6 +75,7 @@ from policy_engine_core import (
     excerpt, section_label_before,
     requires_review_explanation, requires_review_required_action,
     PolicyDecision,
+    EXTERNAL_DEFINITION_NOT_ATTACHED_RE as _EXTERNAL_DEFINITION_NOT_ATTACHED_RE,
 )
 
 RULE_ID = "POLICY_IP_OWNERSHIP"
@@ -98,7 +99,20 @@ _OWNERSHIP_ACTIVE_RE = re.compile(
 )
 _OWNERSHIP_PASSIVE_RE = re.compile(
     r"shall\s+(?:remain|be)\s+(?:the\s+)?(?:sole\s+and\s+exclusive|sole|exclusive)?\s*property\s+of\s+([A-Z][A-Za-z]{2,30})"
-    r"|shall\s+be\s+(?:solely\s+)?owned\s+by\s+([A-Z][A-Za-z]{2,30})",
+    r"|shall\s+be\s+(?:solely\s+)?owned\s+(?:solely\s+|exclusively\s+)?by\s+([A-Z][A-Za-z]{2,30})",
+    re.I,
+)
+# Candidate 3 final gap-closure fix (Root Cause C) -- a subordinate
+# qualifier phrase ("including any pre-existing intellectual property
+# embodied therein", "other than X") names a DIFFERENT category than the
+# sentence's actual grammatical subject, but sits textually closer to the
+# ownership verb. Without this exclusion, _nearest_category's raw-
+# distance heuristic picks the subordinate mention over the true subject
+# (see PROVIDER_VARIANCE_ROOT_CAUSE.md). Matches the qualifier phrase up
+# to its closing comma/parenthesis so category words strictly inside it
+# can be deprioritized as non-governing.
+_SUBORDINATE_QUALIFIER_SPAN_RE = re.compile(
+    r"\b(?:including|except(?:ing)?|other\s+than|excluding)\b[^,.;]{0,120}[,;]?",
     re.I,
 )
 _IP_ASSIGNMENT_RE = re.compile(
@@ -184,7 +198,7 @@ _EMBEDDED_LICENSE_RE = re.compile(
 )
 
 _SOW_CROSSREF_RE = re.compile(
-    r"as\s+(?:set\s+forth|described|specified)\s+in\s+the\s+(?:applicable\s+)?(?:Statement\s+of\s+Work|SOW|Schedule|Exhibit|Order\s+Form)"
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:Statement\s+of\s+Work|SOW|Schedule|Exhibit|Order\s+Form)"
     r"|governed\s+by\s+(?:the\s+)?(?:applicable\s+)?(?:SOW|Statement\s+of\s+Work)", re.I,
 )
 
@@ -240,6 +254,17 @@ class IPFacts:
     embedded_background_ip_license_present: Optional[bool] = None
 
     sow_cross_reference: bool = False
+    # Candidate 3 final gap-closure fix (Root Cause B) -- distinct from
+    # sow_cross_reference: a NAMED DEFINED TERM used in an already-
+    # established ownership/license statement is itself defined by an
+    # external, explicitly-not-attached document (e.g. "Vendor retains
+    # all rights to 'Pre-Existing Materials.' That term is defined in the
+    # Statement of Work, which is not attached."). This changes the SCOPE
+    # of an established fact rather than substituting for a missing one,
+    # so it must surface even when established_dimension_count > 0 --
+    # unlike sow_cross_reference, which is suppressed once something else
+    # is established (see evaluate_ip_policy).
+    definition_dependency_unresolved: bool = False
 
     # Fact-admission architecture — mirrors data_security_policy_engine.
     # DataSecurityFacts.absence_state exactly, for the same reason: this
@@ -282,19 +307,38 @@ class IPPolicyRuleLike(Protocol):
 
 
 def _nearest_category(ctx: str, anchor_mid: float) -> Optional[str]:
-    best_category: Optional[str] = None
-    best_dist: Optional[float] = None
-    for name, regex in (
-        ("background_ip", _CAT_BACKGROUND_RE), ("work_product", _CAT_WORK_PRODUCT_RE),
-        ("customer_materials", _CAT_CUSTOMER_MATERIALS_RE), ("vendor_technology", _CAT_VENDOR_TECH_RE),
-    ):
-        for m in regex.finditer(ctx):
-            mid = (m.start() + m.end()) / 2
-            dist = abs(mid - anchor_mid)
-            if best_dist is None or dist < best_dist:
-                best_dist = dist
-                best_category = name
-    return best_category
+    # Candidate 3 final gap-closure fix (Root Cause C) -- a category word
+    # sitting inside a subordinate qualifier phrase ("including any
+    # pre-existing intellectual property embodied therein") names an
+    # exception/inclusion, not the sentence's governing subject, even
+    # when it happens to be the textually nearest mention. Two passes:
+    # first excluding any match inside such a span, falling back to the
+    # raw nearest-distance search only if nothing survives that
+    # exclusion (so a category word that legitimately IS the closest,
+    # non-subordinate mention still wins as before).
+    subordinate_spans = [(m.start(), m.end()) for m in _SUBORDINATE_QUALIFIER_SPAN_RE.finditer(ctx)]
+
+    def _inside_subordinate_span(pos: int) -> bool:
+        return any(lo <= pos < hi for lo, hi in subordinate_spans)
+
+    for exclude_subordinate in (True, False):
+        best_category: Optional[str] = None
+        best_dist: Optional[float] = None
+        for name, regex in (
+            ("background_ip", _CAT_BACKGROUND_RE), ("work_product", _CAT_WORK_PRODUCT_RE),
+            ("customer_materials", _CAT_CUSTOMER_MATERIALS_RE), ("vendor_technology", _CAT_VENDOR_TECH_RE),
+        ):
+            for m in regex.finditer(ctx):
+                if exclude_subordinate and _inside_subordinate_span(m.start()):
+                    continue
+                mid = (m.start() + m.end()) / 2
+                dist = abs(mid - anchor_mid)
+                if best_dist is None or dist < best_dist:
+                    best_dist = dist
+                    best_category = name
+        if best_category is not None:
+            return best_category
+    return None
 
 
 def _categorize(window: str, pos_start: int, pos_end: int, forward_radius: int = 250, backward_radius: int = 200) -> Optional[str]:
@@ -596,6 +640,8 @@ def extract_ip_facts(text: str) -> Optional[IPFacts]:
             facts.embedded_background_ip_license_present = True
         if _SOW_CROSSREF_RE.search(window):
             facts.sow_cross_reference = True
+        if _EXTERNAL_DEFINITION_NOT_ATTACHED_RE.search(window):
+            facts.definition_dependency_unresolved = True
 
     facts.exclusivity, facts.exclusivity_conflict = _collect(excl_all)
     facts.royalty, facts.royalty_conflict = _collect(roy_all)
@@ -808,6 +854,9 @@ def evaluate_ip_policy(
     if facts.sow_cross_reference and established_dimension_count == 0:
         unresolved.append("material IP ownership/license terms are delegated to a referenced Statement of "
                            "Work/Schedule/Exhibit not included in this text")
+    if facts.definition_dependency_unresolved:
+        unresolved.append("a defined term used in this clause is itself defined by an external document that "
+                           "is explicitly stated as not attached, so the clause's actual scope cannot be confirmed")
 
     if unresolved:
         explanation = requires_review_explanation("IP ownership / licensing clause", facts.raw_excerpt, unresolved)

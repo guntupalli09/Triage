@@ -264,7 +264,7 @@ _SLA_EXCLUSIVE_REMEDY_RE = re.compile(
 )
 
 _SCHEDULE_CROSSREF_RE = re.compile(
-    r"as\s+(?:set\s+forth|described|specified)\s+in\s+the\s+(?:applicable\s+)?"
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?"
     r"(?:Service\s+Level\s+)?(?:Schedule|Exhibit|SLA\s+Exhibit|Statement\s+of\s+Work|SOW)"
     r"|service\s+levels?\s+(?:set\s+forth|specified)\s+in\s+(?:the\s+)?(?:applicable\s+)?(?:Schedule|Exhibit)", re.I,
 )

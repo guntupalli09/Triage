@@ -68,6 +68,7 @@ from policy_engine_core import (
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
     word_number_alternation as _word_number_alternation, parse_multiplier_token as _parse_number_token,
+    EXTERNAL_DEFINITION_NOT_ATTACHED_RE as _EXTERNAL_DEFINITION_NOT_ATTACHED_RE,
 )
 
 RULE_ID = "POLICY_DATA_SECURITY"
@@ -253,9 +254,10 @@ _PD_CONFIDENTIALITY_RE = re.compile(
 
 # --- Delegation to an external DPA/Schedule/Exhibit -------------------------
 _DPA_CROSSREF_RE = re.compile(
-    r"as\s+(?:set\s+forth|described|specified)\s+in\s+the\s+(?:attached\s+)?(?:Data\s+Processing\s+Agreement|DPA|Schedule|Exhibit|Annex)"
-    r"|subject\s+to\s+the\s+terms\s+of\s+the\s+(?:attached\s+)?(?:DPA|Data\s+Processing\s+Agreement)"
-    r"|governed\s+by\s+(?:the\s+)?(?:attached\s+)?(?:DPA|Data\s+Processing\s+Agreement)",
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:attached\s+)?"
+    r"(?:Data\s+Processing\s+(?:Agreement|Addendum)|DPA|Schedule|Exhibit|Annex)"
+    r"|subject\s+to\s+(?:the\s+)?terms\s+of\s+(?:the\s+)?(?:attached\s+)?(?:DPA|Data\s+Processing\s+(?:Agreement|Addendum))"
+    r"|governed\s+by\s+(?:the\s+)?(?:attached\s+)?(?:DPA|Data\s+Processing\s+(?:Agreement|Addendum))",
     re.I,
 )
 
@@ -682,7 +684,7 @@ def extract_data_security_facts(text: str) -> Optional[DataSecurityFacts]:
             facts.cooperation_obligation = True
         if _PD_CONFIDENTIALITY_RE.search(window):
             facts.confidentiality_of_personal_data = True
-        if _DPA_CROSSREF_RE.search(window):
+        if _DPA_CROSSREF_RE.search(window) or _EXTERNAL_DEFINITION_NOT_ATTACHED_RE.search(window):
             facts.dpa_cross_reference = True
         if _LIABILITY_CROSSREF_RE.search(window):
             facts.liability_cross_reference = True

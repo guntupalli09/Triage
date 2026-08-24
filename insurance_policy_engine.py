@@ -60,6 +60,7 @@ from policy_engine_core import (
     requires_review_explanation, requires_review_required_action,
     PolicyDecision,
     is_operative_context as _core_is_operative_context,
+    EXTERNAL_DEFINITION_NOT_ATTACHED_RE as _EXTERNAL_DEFINITION_NOT_ATTACHED_RE,
 )
 
 RULE_ID = "POLICY_INSURANCE"
@@ -149,7 +150,7 @@ _EVIDENCE_BEFORE_RE = re.compile(
     r"|evidence\s+of\s+(?:such\s+)?insurance\s+(?:shall\s+be\s+)?(?:provided|furnished)\s+prior\s+to", re.I,
 )
 _SCHEDULE_CROSSREF_RE = re.compile(
-    r"as\s+(?:set\s+forth|described|specified)\s+in\s+the\s+(?:attached\s+)?(?:Schedule|Exhibit|Insurance\s+Schedule|Annex)"
+    r"as\s+(?:set\s+forth|described|specified)\s+in\s+(?:the\s+)?(?:attached\s+)?(?:Schedule|Exhibit|Insurance\s+Schedule|Annex)"
     r"|governed\s+by\s+(?:the\s+)?(?:attached\s+)?(?:Schedule|Exhibit)", re.I,
 )
 
@@ -550,7 +551,7 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
             facts.evidence_before_commencement = True
             found_anything = True
             deterministic_value_found = True
-        if _SCHEDULE_CROSSREF_RE.search(window):
+        if _SCHEDULE_CROSSREF_RE.search(window) or _EXTERNAL_DEFINITION_NOT_ATTACHED_RE.search(window):
             facts.schedule_cross_reference = True
             found_anything = True
             deterministic_value_found = True
