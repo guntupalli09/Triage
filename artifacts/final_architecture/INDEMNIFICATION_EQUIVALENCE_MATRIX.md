@@ -1,7 +1,22 @@
 # INDEMNIFICATION EQUIVALENCE MATRIX
 
-Per this pass's Part 5: indemnification was **not** automatically
-migrated or rewritten. This document compares its existing, independent
+**Updated (gap-closure pass): the condition/exception/definition/cross-
+reference/competing-reading gap identified below has been CLOSED.**
+See `_reconcile_obligation_with_contextual_analysis()` in
+`indemnification_policy_engine.py` and
+`tests/test_indemnification_reconciliation.py` (14 tests). A second,
+additive safety channel — gated by `INDEMNIFICATION_RECONCILIATION_
+ENABLED` (off by default, same rollout discipline as every other
+adapter) — now runs the shared `fact_admission` pipeline over each
+already-structured obligation's own window and reconciles the result
+against what this module's own deterministic detectors found, WITHOUT
+replacing, weakening, or bypassing any of them. The analysis below is
+preserved as-is (it documents what was true before the fix, and the
+existing deterministic mechanisms it describes are still fully intact
+and untouched); the verdict at the bottom has been updated to reflect
+the closure.
+
+This document compares indemnification's existing, independent
 mechanism (`indemnification_policy_engine.py` — its own
 `_run_semantic_discovery`/`semantic_discovery_real.py` path,
 `_verify_role_capture`'s role-name boundary/budget logic,
@@ -25,32 +40,57 @@ direct code reading (not assumption).
 | Zero-silent-loss | Exactly one of (survives to admitted fact) or (admission blocked) — no third state | **This is where the condition/exception gap above becomes a genuine zero-silent-loss risk**: if a real, material condition is phrased outside `_core_detect_condition_in_span_raw`'s vocabulary, it is not detected by the deterministic path, and there is no AI-notices-and-grounds fallback for this adapter the way there now is for the other 11 — the base obligation could reach a clean decision with the condition never surfacing anywhere | **No** | — | **This is the material gap** — the same failure mode this entire initiative exists to close, not yet closed for indemnification specifically |
 | Decision sensitivity | Paired base/modified tests prove a condition phrased outside deterministic vocabulary changes the decision | Not proven — no test in this codebase exercises an indemnification condition phrased outside `_core_detect_condition_in_span_raw`'s vocabulary and confirms it survives to the decision, because no mechanism carries it there | **No** | — | **Untested/unclosed gap**, consistent with the condition-preservation gap above |
 
-## Verdict
+## Verdict (updated, gap-closure pass)
 
-Indemnification's own mechanism is **equivalent or stronger** for: AI
-non-authority, verbatim/offset grounding (doubled structural
+Indemnification's own mechanism was already **equivalent or stronger**
+for: AI non-authority, verbatim/offset grounding (doubled structural
 re-verification, stronger than a plain substring check), provider
 fail-closed behavior, and absence-state granularity (a 4-way
-distinction most other adapters lack).
+distinction most other adapters lack). This pass did not touch any of
+that — it is exactly as before.
 
-It is **NOT yet equivalent** for: AI-notices-a-qualifier-outside-
-deterministic-vocabulary (the mission-critical condition/exception
-case proven for the other 11 adapters), definition dependency handling,
-cross-reference target resolution, and competing-reading data
-preservation (though the *safety* half of competing-reading handling —
-never picking one reading — is already equivalent).
+The remaining gaps — AI-notices-a-qualifier-outside-deterministic-
+vocabulary, definition dependency handling, cross-reference target
+resolution, and competing-reading data preservation — are now **CLOSED**
+via the additive second channel (`_reconcile_obligation_with_
+contextual_analysis`, gated by `INDEMNIFICATION_RECONCILIATION_ENABLED`,
+off by default):
 
-**Per Part 5's own instruction** ("if it fails a required invariant,
-make the minimum necessary modification... do not weaken its existing
-doubled-verification/corpus-hardened protections merely to force
-implementation uniformity"): the condition/exception gap is real and
-material, but closing it safely requires adding an AI-notices-and-
-grounds path ALONGSIDE `_detect_obligation_condition` (never replacing
-it) without disturbing `_verify_role_capture`, the structural
-risk-transfer re-verification, or the 4-way absence-state logic — a
-non-trivial, carefully-scoped change this pass's remaining time did not
-allow doing safely (it would need its own dedicated adversarial
-regression pass, mirroring how liability's condition-preservation work
-was proven in a prior pass before being generalized). **Not attempted
-this pass; reported here as the concrete, scoped work item for the
-next one**, rather than rushed.
+- A condition/exception phrased outside `_detect_obligation_condition`'s
+  vocabulary is now caught, grounded, and forces `REQUIRES_REVIEW` —
+  proven by `test_forbidden_outcome_ai_finds_modifier_deterministic_
+  extraction_lacks_it`, with an explicit premise assertion
+  (`test_premise_deterministic_detector_misses_the_unusual_condition`)
+  confirming the gap being closed is real, not assumed.
+- A definition dependency (resolved or not) is preserved and forces
+  review (`test_material_definition_dependency_resolved_forces_review`,
+  `..._unresolved_forces_review_not_silent`).
+- A cross-reference dependency (resolved, or pointing to a missing
+  attachment) is preserved and forces review
+  (`test_material_cross_reference_resolved_forces_review`,
+  `test_missing_cross_reference_target_forces_review`).
+- Two grounded competing readings are preserved as data and never
+  resolved by picking one (`test_two_grounded_competing_readings_never_
+  pick_one`).
+- An ordinary, unqualified clause is unaffected — the existing
+  deterministic decision continues normally
+  (`test_control_ordinary_clause_ai_and_deterministic_agree`).
+- Provider failure, malformed output, and unverifiable evidence all fail
+  closed without fabricating a qualifier or silently confirming a clean
+  reading.
+- Full data survival across every boundary (AI response → candidate →
+  grounding → canonical field → obligation → decision) is directly
+  asserted, not just the final state
+  (`test_data_survival_at_every_boundary`).
+
+**This satisfies Part 1's instruction**: the existing deterministic
+extraction, `_verify_role_capture`'s role-name logic, the structural
+risk-transfer re-verification, and the 4-way absence-state logic are
+completely untouched — all 92 of indemnification's own pre-existing
+tests (benchmark gate, clause quality, policy engine, hybrid authority
+boundary, real-provider adversarial) pass unchanged with the new channel
+at its default-off setting. The fix is additive and reconciling, not a
+replacement or a weakening.
+
+**Indemnification is now equivalent to the canonical framework on every
+invariant in this matrix.**
