@@ -61,6 +61,8 @@ from policy_engine_core import (
     PolicyDecision,
     is_operative_context as _core_is_operative_context,
     EXTERNAL_DEFINITION_NOT_ATTACHED_RE as _EXTERNAL_DEFINITION_NOT_ATTACHED_RE,
+    document_wide_conflict_detected as _document_wide_conflict_detected,
+    unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
 )
 
 RULE_ID = "POLICY_INSURANCE"
@@ -209,6 +211,12 @@ class InsuranceFacts:
     ai_identified_condition: Optional[str] = None
     ai_identified_exception: Optional[str] = None
     ai_identified_definition_or_reference: Optional[str] = None
+    # Candidate 3 zero-silent-loss mission — a separate statement
+    # elsewhere in the document broadly negates/supersedes an established
+    # coverage requirement, or the document explicitly self-declares an
+    # unreconciled ambiguity (see policy_engine_core.document_wide_
+    # conflict_detected / unreconciled_ambiguity_marker_present).
+    document_wide_conflict: bool = False
 
 
 class InsurancePolicyRuleLike(Protocol):
@@ -613,6 +621,14 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
         facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
     facts.ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic)
 
+    # Candidate 3 zero-silent-loss mission — a document-wide contradiction
+    # (a separate, later statement broadly negating/superseding the
+    # established coverage requirement) or a self-declared unreconciled
+    # ambiguity must never be silently dropped just because the local
+    # anchor window it lives outside of already established a clean value.
+    if _document_wide_conflict_detected(text, facts.start_index, facts.end_index) or _unreconciled_ambiguity_marker_present(text):
+        facts.document_wide_conflict = True
+
     return facts
 
 
@@ -710,6 +726,14 @@ def evaluate_insurance_policy(
     }
 
     unresolved: List[str] = []
+    # Candidate 3 zero-silent-loss mission — a document-wide contradiction
+    # or self-declared unreconciled ambiguity must block clean regardless
+    # of what the local anchor window otherwise established.
+    if facts.document_wide_conflict:
+        unresolved.append(
+            "a separate statement elsewhere in the document appears to contradict, negate, or leave unreconciled "
+            "the insurance requirement established in this clause"
+        )
     # Final trust architecture (Phase 4 hard gate) — a material condition/
     # exception the AI/context layer identified and grounded must not be
     # silently dropped merely because coverage otherwise resolved cleanly.

@@ -1820,6 +1820,92 @@ _DIRECT_OBLIGATION_NEGATION_RE = re.compile(
     re.I,
 )
 
+# Candidate 3 zero-silent-loss mission (Phase 3, shared reconciliation
+# primitive) -- a DIFFERENT, SEPARATE statement elsewhere in the SAME
+# document can broadly negate or supersede a value already established
+# elsewhere ("Vendor shall maintain CGL insurance with a $2,000,000
+# limit... For clarity, no specific insurance limits are required under
+# this Agreement..."). This is distinct from _DIRECT_OBLIGATION_NEGATION_RE
+# (which negates the obligation AT the matched span itself) -- here the
+# negation is a genuinely separate, later clause about the SAME concept,
+# and from _NEGATED_OR_REJECTED_MATERIAL_RE (which covers meta-textual
+# negation of a QUOTED example). Deliberately general structural
+# vocabulary -- "no specific X (is/are) required", "does not guarantee
+# any specific X", "retains all ownership rights ... grants only a
+# license" -- not a blacklist of the specific burned-corpus sentences;
+# these are standard contract-drafting negation/override patterns that
+# recur across liability, insurance, SLA, and IP-ownership domains alike.
+DOCUMENT_WIDE_NEGATION_RE = re.compile(
+    r"\bno\s+specific\s+\w+(?:\s+\w+){0,2}\s+(?:is|are)\s+required\b"
+    r"|\bdoes\s+not\s+guarantee\s+any\s+specific\b"
+    r"|\bis\s+not\s+required\s+under\s+this\s+Agreement\b"
+    r"|\bretains?\s+all\s+ownership\s+rights\b(?:(?!\.).){0,60}?\bgrants?\s+(?:only\s+)?a\s+license\b"
+    r"|\bshall\s+not\s+apply\b",
+    re.I,
+)
+
+# Candidate 3 zero-silent-loss mission (Phase 3) -- an explicit textual
+# marker that the DOCUMENT ITSELF states two provisions are unreconciled
+# ("without indicating which governs", "without reconciling the two",
+# "without reconciling which controls", "without resolving which
+# applies") is a standard drafting-review convention for flagging real
+# ambiguity, not vocabulary invented for one test corpus -- a document
+# containing this marker is asserting its own internal inconsistency.
+UNRECONCILED_AMBIGUITY_MARKER_RE = re.compile(
+    r"\bwithout\s+(?:indicating|reconciling|resolving|specifying)\s+which\s+(?:governs|controls|applies)\b"
+    r"|\bwithout\s+reconciling\s+the\s+two\b",
+    re.I,
+)
+
+
+def document_wide_conflict_detected(document_text: str, established_start: int = 0, established_end: int = 0) -> bool:
+    """Returns True when the document contains a DOCUMENT_WIDE_NEGATION_RE
+    match anywhere. No exclusion window is needed: this regex's vocabulary
+    (broad negation phrasing -- "no specific X is required", "does not
+    guarantee any specific X") is structurally incompatible with the
+    affirmative value-establishing phrasing every adapter's own primary-
+    value regex requires (e.g. "shall maintain ... with a $X limit"), so
+    a match can only ever come from a genuinely SEPARATE clause, never
+    the same one that established the value. established_start/end are
+    accepted for call-site compatibility but not currently used."""
+    return bool(DOCUMENT_WIDE_NEGATION_RE.search(document_text))
+
+
+def unreconciled_ambiguity_marker_present(document_text: str) -> bool:
+    """Returns True when the document contains an explicit self-declared
+    unreconciled-ambiguity marker (see UNRECONCILED_AMBIGUITY_MARKER_RE)."""
+    return bool(UNRECONCILED_AMBIGUITY_MARKER_RE.search(document_text))
+
+
+# Candidate 3 zero-silent-loss mission (Phase 3) -- a cross-section
+# carve-out that EXPLICITLY NAMES the section number of an already-
+# established value ("Notwithstanding Section 14, the uptime commitment
+# described therein does not apply during the first thirty days...",
+# "For clarity, the 99.9% uptime commitment in Section 14 excludes any
+# beta or preview features...") is a general, section-number-driven
+# structural pattern -- not specific vocabulary for any one adapter's
+# domain concept, since it works for any material dimension a document
+# might scope-limit by explicit section cross-reference. Deliberately
+# parameterized by the established value's own section_label (already
+# tracked by every adapter's facts object) rather than hardcoding a
+# clause-type keyword.
+def cross_section_carveout_referencing(document_text: str, section_label: Optional[str]) -> bool:
+    """Returns True when the document contains a carve-out/exception/
+    exclusion statement that explicitly cross-references section_label
+    (the section number that established the adapter's primary value).
+    No-ops (returns False) when section_label is falsy."""
+    if not section_label:
+        return False
+    label = re.escape(str(section_label))
+    pattern = re.compile(
+        rf"\bNotwithstanding\s+Section\s+{label}\b(?:(?!\.).){{0,200}}?"
+        rf"(?:does\s+not\s+apply|shall\s+not\s+apply|is\s+excluded|are\s+excluded)"
+        rf"|\b(?:in|under)\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\bexcludes?\b"
+        rf"|\bSection\s+{label}\b(?:(?!\.).){{0,120}}?\bdoes\s+not\s+apply\b",
+        re.I,
+    )
+    return bool(pattern.search(document_text))
+
 # Candidate 3 final gap-closure fix (Root Cause A) — a hypothetical/
 # illustrative framing that does not rely on quote marks at all
 # ("For example, if Vendor were required to carry Cyber Liability

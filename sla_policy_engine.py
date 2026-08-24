@@ -86,6 +86,9 @@ from policy_engine_core import (
     requires_review_explanation, requires_review_required_action,
     PolicyDecision,
     is_operative_context as _core_is_operative_context,
+    document_wide_conflict_detected as _document_wide_conflict_detected,
+    unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
+    cross_section_carveout_referencing as _cross_section_carveout_referencing,
 )
 
 RULE_ID = "POLICY_SLA"
@@ -364,6 +367,7 @@ class SLAFacts:
     ai_identified_condition: Optional[str] = None
     ai_identified_exception: Optional[str] = None
     ai_identified_definition_or_reference: Optional[str] = None
+    document_wide_conflict: bool = False
 
 
 class SLAPolicyRuleLike(Protocol):
@@ -777,6 +781,10 @@ def extract_sla_facts(text: str) -> Optional[SLAFacts]:
         facts.ai_identified_exception = facts.ai_identified_exception or candidate.exception
     facts.ai_identified_definition_or_reference = _fa.first_resolved_dependency_note(admitted_semantic)
 
+    if (_document_wide_conflict_detected(text) or _unreconciled_ambiguity_marker_present(text)
+            or _cross_section_carveout_referencing(text, facts.section_label)):
+        facts.document_wide_conflict = True
+
     return facts
 
 
@@ -845,6 +853,15 @@ def evaluate_sla_policy(
         )
 
     unresolved_facts: List[str] = []
+
+    # Candidate 3 zero-silent-loss mission — a document-wide contradiction
+    # or self-declared unreconciled ambiguity must block clean regardless
+    # of what the local anchor window otherwise established.
+    if facts.document_wide_conflict:
+        unresolved_facts.append(
+            "a separate statement elsewhere in the document appears to contradict, negate, or leave unreconciled "
+            "the service-level commitment established in this clause"
+        )
 
     # Final trust architecture (Phase 4 hard gate) — a material condition/
     # exception the AI/context layer identified and grounded must not be
