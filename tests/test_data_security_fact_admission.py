@@ -238,3 +238,78 @@ def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypa
     decision = dse.evaluate_data_security_policy(facts, FakePolicy())
     assert decision.state == dse.REQUIRES_REVIEW
     assert "Reportable Event" in "; ".join(decision.unresolved_facts)
+
+
+def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
+    """Adapter-level cross-reference proof (Part 4)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "9. Miscellaneous. Vendor shall notify Customer within 48 hours of becoming aware of any "
+        "Reportable Event affecting Customer's data, subject to Section 9.4.\n\n"
+        "Section 9.4 Notification Procedures. Notice shall be delivered to the security contact "
+        "designated in the order form and confirmed by phone within one business day."
+    )
+    quote = (
+        "Vendor shall notify Customer within 48 hours of becoming aware of any Reportable Event "
+        "affecting Customer's data, subject to Section 9.4."
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None,
+            "cross_reference_text": "Section 9.4",
+            "reasoning": "Operative breach-notification obligation, scoped by a cross-referenced section.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = dse.extract_data_security_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+    assert "Notification Procedures" in facts.ai_identified_definition_or_reference
+
+    decision = dse.evaluate_data_security_policy(facts, FakePolicy())
+    assert decision.state == dse.REQUIRES_REVIEW
+
+
+def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch):
+    """Adapter-level competing-reading proof (Part 5)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "Vendor's notification obligation is addressed in this section; one reading requires notice "
+        "within 48 hours, another treats notice timing as discretionary."
+    )
+    quote = doc
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "AMBIGUOUS", "evidence_quote": None,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "competing_reading_a": {
+                "proposition": "Notice is required within 48 hours.",
+                "evidence_quote": "one reading requires notice within 48 hours",
+            },
+            "competing_reading_b": {
+                "proposition": "Notice timing is discretionary.",
+                "evidence_quote": "another treats notice timing as discretionary",
+            },
+            "reasoning": "Two materially different readings of the same sentence.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = dse.extract_data_security_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+
+    decision = dse.evaluate_data_security_policy(facts, FakePolicy())
+    assert decision.state == dse.REQUIRES_REVIEW

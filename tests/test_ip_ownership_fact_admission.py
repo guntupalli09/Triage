@@ -262,3 +262,78 @@ def test_ai_identified_unresolvable_definition_never_disappears(monkeypatch):
     assert facts.ai_identified_definition_or_reference is not None
     decision = ipoe.evaluate_ip_policy(facts, FakePolicy())
     assert decision.state == ipoe.REQUIRES_REVIEW
+
+
+def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
+    """Adapter-level cross-reference proof (Part 4)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "2. Miscellaneous. All Deliverables created by Vendor under this Agreement shall be solely "
+        "owned by Customer, subject to Section 9.4.\n\n"
+        "Section 9.4 Pre-Existing Materials. Materials created by Vendor before the effective date "
+        "of this Agreement remain excluded from this ownership assignment."
+    )
+    quote = (
+        "All Deliverables created by Vendor under this Agreement shall be solely owned by Customer, "
+        "subject to Section 9.4."
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None,
+            "cross_reference_text": "Section 9.4",
+            "reasoning": "Operative ownership assignment, scoped by a cross-referenced section.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = ipoe.extract_ip_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+    assert "Pre-Existing Materials" in facts.ai_identified_definition_or_reference
+
+    decision = ipoe.evaluate_ip_policy(facts, FakePolicy())
+    assert decision.state == ipoe.REQUIRES_REVIEW
+
+
+def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch):
+    """Adapter-level competing-reading proof (Part 5)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "Ownership of the Deliverables is addressed in this section; one reading assigns them "
+        "entirely to Customer, another treats them as jointly owned by both parties."
+    )
+    quote = doc
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "AMBIGUOUS", "evidence_quote": None,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "competing_reading_a": {
+                "proposition": "Deliverables are owned entirely by Customer.",
+                "evidence_quote": "one reading assigns them entirely to Customer",
+            },
+            "competing_reading_b": {
+                "proposition": "Deliverables are jointly owned.",
+                "evidence_quote": "another treats them as jointly owned by both parties",
+            },
+            "reasoning": "Two materially different readings of the same sentence.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = ipoe.extract_ip_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+
+    decision = ipoe.evaluate_ip_policy(facts, FakePolicy())
+    assert decision.state == ipoe.REQUIRES_REVIEW

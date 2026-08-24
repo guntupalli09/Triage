@@ -416,22 +416,30 @@ _WARRANTIES_SEMANTIC_PROPOSITION = (
 )
 
 
-def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str]]:
-    """Mirrors liability_policy_engine._run_semantic_discovery exactly."""
+def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[str]]:
+    """Mirrors liability_policy_engine._run_semantic_discovery exactly.
+    Returns (admitted_candidates, unresolved_dependency_note, error)."""
     if not WARRANTIES_SEMANTIC_DISCOVERY_ENABLED:
-        return [], None
+        return [], None, None
     import fact_admission as _fa
     try:
         raw_candidates = _fa.discover_candidate_spans(text, "warranties", _WARRANTIES_SEMANTIC_FOCUS)
     except Exception as exc:  # noqa: BLE001 — provider unavailable, never "confirmed absent"
-        return [], f"{type(exc).__name__}: {exc}"
+        return [], None, f"{type(exc).__name__}: {exc}"
 
-    admitted = []
-    for candidate in raw_candidates:
-        verified = _fa.verify_and_ground(candidate, text, _WARRANTIES_SEMANTIC_PROPOSITION)
-        if verified.admission_status == _fa.ADMITTED:
-            admitted.append(verified)
-    return admitted, None
+    verified_candidates = [
+        _fa.verify_and_ground(candidate, text, _WARRANTIES_SEMANTIC_PROPOSITION) for candidate in raw_candidates
+    ]
+    admitted = [c for c in verified_candidates if c.admission_status == _fa.ADMITTED]
+    # Zero-silent-loss (gap-closure pass): this adapter's own negative-
+    # control discipline (found_anything gate, below) is meant to guard
+    # against an anchor firing on stray noise with nothing structured --
+    # it was never meant to also swallow a genuine competing-reading
+    # candidate the AI actually found and grounded. A candidate blocked
+    # ONLY for that reason (or an unresolved definition/cross-reference)
+    # must still surface, not silently collapse into NOT_APPLICABLE.
+    unresolved_dependency_note = _fa.first_unresolved_dependency_note(verified_candidates)
+    return admitted, unresolved_dependency_note, None
 
 
 def extract_warranties_facts(text: str) -> Optional[WarrantiesFacts]:
@@ -446,15 +454,25 @@ def extract_warranties_facts(text: str) -> Optional[WarrantiesFacts]:
     anchors = list(_ANCHOR_RE.finditer(text))
     semantic_error: Optional[str] = None
     admitted_semantic: List = []
+    unresolved_dependency_note: Optional[str] = None
     if not anchors:
-        admitted_semantic, semantic_error = _run_semantic_discovery(text)
+        admitted_semantic, unresolved_dependency_note, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
             facts = WarrantiesFacts(clause_found=True, absence_state="RECOGNITION_UNCERTAIN", semantic_discovery_error=semantic_error)
             for cat in WARRANTY_CATEGORIES:
                 facts.categories[cat] = WarrantyCategoryFacts()
             return facts
-        if not admitted_semantic:
+        if not admitted_semantic and not unresolved_dependency_note:
             return None
+        if not admitted_semantic:
+            # A genuine candidate was found (competing readings, or an
+            # unresolved definition/cross-reference), just never resolved
+            # to something admissible -- never the same as "nothing here
+            # at all" (found_anything's own negative-control case).
+            facts = WarrantiesFacts(clause_found=True, ai_identified_definition_or_reference=unresolved_dependency_note)
+            for cat in WARRANTY_CATEGORIES:
+                facts.categories[cat] = WarrantyCategoryFacts()
+            return facts
 
     anchor_spans = sorted(
         [(m.start(), m.end()) for m in anchors] + [(c.start_offset, c.end_offset) for c in admitted_semantic]

@@ -201,3 +201,83 @@ def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypa
     decision = ape.evaluate_assignment_policy(facts, FakePolicy())
     assert decision.state == ape.REQUIRES_REVIEW
     assert "Change of Control" in "; ".join(decision.unresolved_facts)
+
+
+def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
+    """Adapter-level cross-reference proof (Part 4): the restriction is
+    scoped by a cross-referenced section; resolved deterministically,
+    must force review, never disappear because the restriction otherwise
+    reads clean (or unstructured)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "2. Miscellaneous. Vendor may not hand this Agreement off to a third party without "
+        "Customer's prior written approval, subject to Section 8.3.\n\n"
+        "Section 8.3 Permitted Transferees. Notice must be delivered to Customer at least 30 days "
+        "before any transfer contemplated by this section takes effect."
+    )
+    quote = (
+        "Vendor may not hand this Agreement off to a third party without Customer's prior written "
+        "approval, subject to Section 8.3."
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None,
+            "cross_reference_text": "Section 8.3",
+            "reasoning": "Operative consent-required transfer restriction, scoped by a cross-referenced section.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = ape.extract_assignment_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+    assert "Permitted Transferees" in facts.ai_identified_definition_or_reference
+
+    decision = ape.evaluate_assignment_policy(facts, FakePolicy())
+    assert decision.state == ape.REQUIRES_REVIEW
+
+
+def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch):
+    """Adapter-level competing-reading proof (Part 5)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "The parties' transfer rights are addressed in this section; one reading requires prior "
+        "written approval for any transfer, another treats transfers as freely permitted."
+    )
+    quote = doc
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "AMBIGUOUS", "evidence_quote": None,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "competing_reading_a": {
+                "proposition": "Transfers require prior written approval.",
+                "evidence_quote": "one reading requires prior written approval for any transfer",
+            },
+            "competing_reading_b": {
+                "proposition": "Transfers are freely permitted.",
+                "evidence_quote": "another treats transfers as freely permitted",
+            },
+            "reasoning": "Two materially different readings of the same sentence.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = ape.extract_assignment_facts(doc)
+    assert facts is not None
+    assert facts.restrictions == []
+    assert facts.unrestricted_assignment is False
+    assert facts.ai_identified_definition_or_reference is not None
+
+    decision = ape.evaluate_assignment_policy(facts, FakePolicy())
+    assert decision.state == ape.REQUIRES_REVIEW

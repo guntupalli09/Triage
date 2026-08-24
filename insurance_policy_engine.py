@@ -369,7 +369,10 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
         if not admitted_semantic and not unresolved_dependency_note:
             return None
         if not admitted_semantic:
-            return InsuranceFacts(clause_found=True, ai_identified_definition_or_reference=unresolved_dependency_note)
+            dependency_only_facts = InsuranceFacts(clause_found=True, ai_identified_definition_or_reference=unresolved_dependency_note)
+            for ct in COVERAGE_TYPES:
+                dependency_only_facts.coverages[ct] = CoverageRequirement()
+            return dependency_only_facts
 
     anchor_spans = sorted(
         [(m.start(), m.end()) for m in matches] + [(c.start_offset, c.end_offset) for c in admitted_semantic]

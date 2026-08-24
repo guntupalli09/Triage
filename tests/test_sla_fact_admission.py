@@ -251,3 +251,81 @@ def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypa
     decision = sle.evaluate_sla_policy(facts, FakePolicy())
     assert decision.state == sle.REQUIRES_REVIEW
     assert "Scheduled Maintenance" in "; ".join(decision.unresolved_facts)
+
+
+def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
+    """Adapter-level cross-reference proof (Part 4)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    cap_text = (
+        "The system shall be operational and reachable 99.9% of the time each calendar month, "
+        "measured over rolling 24-hour periods"
+    )
+    doc = (
+        f"9. Miscellaneous. {cap_text}, subject to Section 9.4.\n\n"
+        "Section 9.4 Measurement Methodology. Downtime attributable to a force majeure event is "
+        "excluded from the availability calculation described in this section."
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": f"{cap_text}, subject to Section 9.4."}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": f"{cap_text}, subject to Section 9.4.",
+            "condition_quote": None, "exception_quote": None,
+            "cross_reference_text": "Section 9.4",
+            "reasoning": "Operative availability commitment, scoped by a cross-referenced section.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = sle.extract_sla_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+    assert "Measurement Methodology" in facts.ai_identified_definition_or_reference
+
+    decision = sle.evaluate_sla_policy(facts, FakePolicy())
+    assert decision.state == sle.REQUIRES_REVIEW
+
+
+def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch):
+    """Adapter-level competing-reading proof (Part 5)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "9. Miscellaneous. The system's operational reachability commitment is addressed in this "
+        "section; one reading applies it to the production environment only, another treats it as "
+        "covering all environments."
+    )
+    quote = (
+        "The system's operational reachability commitment is addressed in this section; one reading "
+        "applies it to the production environment only, another treats it as covering all environments."
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "AMBIGUOUS", "evidence_quote": None,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "competing_reading_a": {
+                "proposition": "The commitment applies to production only.",
+                "evidence_quote": "one reading applies it to the production environment only",
+            },
+            "competing_reading_b": {
+                "proposition": "The commitment covers all environments.",
+                "evidence_quote": "another treats it as covering all environments",
+            },
+            "reasoning": "Two materially different readings of the same sentence.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = sle.extract_sla_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+
+    decision = sle.evaluate_sla_policy(facts, FakePolicy())
+    assert decision.state == sle.REQUIRES_REVIEW

@@ -230,3 +230,85 @@ def test_ai_identified_unresolvable_definition_never_disappears(monkeypatch):
     assert facts.ai_identified_definition_or_reference is not None
     decision = tpe.evaluate_termination_policy(facts, FakePolicy())
     assert decision.state == tpe.REQUIRES_REVIEW
+
+
+def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
+    """Adapter-level cross-reference proof (Part 4): the right to walk
+    away is scoped by a cross-referenced section; resolved
+    deterministically, must force review, never disappear because the
+    right otherwise reads clean."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "2. Miscellaneous. Customer may walk away from this Agreement at any time upon 30 days' "
+        "written notice, subject to Section 8.2.\n\n"
+        "Section 8.2 Notice Procedures. Notice must be delivered via certified mail and is not "
+        "effective until actually received by the other party."
+    )
+    quote = (
+        "Customer may walk away from this Agreement at any time upon 30 days' written notice, "
+        "subject to Section 8.2."
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None,
+            "cross_reference_text": "Section 8.2",
+            "reasoning": "Operative right to end the agreement, scoped by a cross-referenced section.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = tpe.extract_termination_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+    assert "Notice Procedures" in facts.ai_identified_definition_or_reference
+
+    decision = tpe.evaluate_termination_policy(facts, FakePolicy())
+    assert decision.state == tpe.REQUIRES_REVIEW
+
+
+def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch):
+    """Adapter-level competing-reading proof (Part 5): two materially
+    different, independently-grounded readings must never be resolved by
+    picking one -- the document must not silently collapse to
+    CONFIRMED_ABSENT even though a real candidate was discovered."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "Customer's rights are addressed in this section; one reading permits Customer to walk away "
+        "at any time, another treats the right as available only after a material breach."
+    )
+    quote = doc
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "AMBIGUOUS", "evidence_quote": None,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "competing_reading_a": {
+                "proposition": "Customer may walk away at any time.",
+                "evidence_quote": "one reading permits Customer to walk away at any time",
+            },
+            "competing_reading_b": {
+                "proposition": "Customer may walk away only after a material breach.",
+                "evidence_quote": "another treats the right as available only after a material breach",
+            },
+            "reasoning": "Two materially different readings of the same sentence.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = tpe.extract_termination_facts(doc)
+    assert facts is not None
+    assert facts.rights == []
+    assert facts.ai_identified_definition_or_reference is not None
+
+    decision = tpe.evaluate_termination_policy(facts, FakePolicy())
+    assert decision.state == tpe.REQUIRES_REVIEW

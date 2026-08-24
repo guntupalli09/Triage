@@ -231,3 +231,77 @@ def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypa
     decision = we.evaluate_warranties_policy(facts, FakePolicy())
     assert decision.state == we.REQUIRES_REVIEW
     assert "Specification" in "; ".join(decision.unresolved_facts)
+
+
+def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
+    """Adapter-level cross-reference proof (Part 4)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    cap_text = "Vendor represents that the Software conforms to the Documentation for a period of ninety days"
+    doc = (
+        f"9. Miscellaneous. {cap_text}, subject to Section 9.4.\n\n"
+        "Section 9.4 Remedy Procedures. Customer's sole remedy for a breach of this representation "
+        "is re-performance of the nonconforming service at no additional charge."
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": f"{cap_text}, subject to Section 9.4."}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": f"{cap_text}, subject to Section 9.4.",
+            "condition_quote": None, "exception_quote": None,
+            "cross_reference_text": "Section 9.4",
+            "reasoning": "Operative performance representation, scoped by a cross-referenced section.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = we.extract_warranties_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+    assert "Remedy Procedures" in facts.ai_identified_definition_or_reference
+
+    decision = we.evaluate_warranties_policy(facts, FakePolicy())
+    assert decision.state == we.REQUIRES_REVIEW
+
+
+def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch):
+    """Adapter-level competing-reading proof (Part 5)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "9. Miscellaneous. Vendor's performance representation is addressed in this section; one "
+        "reading covers all Software functionality, another treats it as limited to core features only."
+    )
+    quote = (
+        "Vendor's performance representation is addressed in this section; one reading covers all "
+        "Software functionality, another treats it as limited to core features only."
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "AMBIGUOUS", "evidence_quote": None,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "competing_reading_a": {
+                "proposition": "The representation covers all Software functionality.",
+                "evidence_quote": "one reading covers all Software functionality",
+            },
+            "competing_reading_b": {
+                "proposition": "The representation is limited to core features.",
+                "evidence_quote": "another treats it as limited to core features only",
+            },
+            "reasoning": "Two materially different readings of the same sentence.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = we.extract_warranties_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+
+    decision = we.evaluate_warranties_policy(facts, FakePolicy())
+    assert decision.state == we.REQUIRES_REVIEW

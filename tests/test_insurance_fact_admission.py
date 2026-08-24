@@ -242,3 +242,78 @@ def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypa
     decision = ine.evaluate_insurance_policy(facts, FakePolicy())
     assert decision.state == ine.REQUIRES_REVIEW
     assert "Named Underwriter" in "; ".join(decision.unresolved_facts)
+
+
+def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
+    """Adapter-level cross-reference proof (Part 4)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "9. Miscellaneous. Vendor shall maintain a risk-transfer policy with a reputable underwriter "
+        "covering third-party bodily injury claims arising from its operations, subject to Section 9.4.\n\n"
+        "Section 9.4 Evidence of Coverage. Vendor shall furnish a certificate confirming the policy "
+        "remains in force within ten days of Customer's request."
+    )
+    quote = (
+        "Vendor shall maintain a risk-transfer policy with a reputable underwriter covering "
+        "third-party bodily injury claims arising from its operations, subject to Section 9.4."
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": None, "exception_quote": None,
+            "cross_reference_text": "Section 9.4",
+            "reasoning": "Operative insurance-maintenance obligation, scoped by a cross-referenced section.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = ine.extract_insurance_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+    assert "Evidence of Coverage" in facts.ai_identified_definition_or_reference
+
+    decision = ine.evaluate_insurance_policy(facts, FakePolicy())
+    assert decision.state == ine.REQUIRES_REVIEW
+
+
+def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch):
+    """Adapter-level competing-reading proof (Part 5)."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "Vendor's risk-transfer obligation is addressed in this section; one reading requires "
+        "coverage of third-party claims, another treats coverage as optional at Vendor's discretion."
+    )
+    quote = doc
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "AMBIGUOUS", "evidence_quote": None,
+            "condition_quote": None, "exception_quote": None, "cross_reference_text": None,
+            "competing_reading_a": {
+                "proposition": "Coverage of third-party claims is required.",
+                "evidence_quote": "one reading requires coverage of third-party claims",
+            },
+            "competing_reading_b": {
+                "proposition": "Coverage is optional.",
+                "evidence_quote": "another treats coverage as optional at Vendor's discretion",
+            },
+            "reasoning": "Two materially different readings of the same sentence.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = ine.extract_insurance_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_definition_or_reference is not None
+
+    decision = ine.evaluate_insurance_policy(facts, FakePolicy())
+    assert decision.state == ine.REQUIRES_REVIEW
