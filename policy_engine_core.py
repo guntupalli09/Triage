@@ -1774,7 +1774,7 @@ _INDUSTRY_NORM_DESCRIPTIVE_RE = re.compile(
 )
 _NOT_YET_AGREED_RE = re.compile(
     r"remains?\s+to\s+be\s+(?:negotiated|agreed|finalized|determined|settled)"
-    r"|(?:have|has)\s+not\s+(?:yet\s+)?(?:agreed|negotiated|finalized|settled\s+on|addressed|decided)"
+    r"|(?:have|has)\s+not\s+(?:yet\s+)?(?:been\s+)?(?:agreed|negotiated|finalized|settled\s+on|addressed|decided)"
     r"|(?:is|are)\s+(?:yet\s+)?to\s+be\s+(?:agreed|negotiated|finalized|determined)"
     r"|subject\s+to\s+(?:future|further)\s+negotiation"
     r"|not\s+(?:yet\s+)?(?:finalized|final(?:i[sz]ed)?)\b",
