@@ -1919,7 +1919,7 @@ def cross_section_carveout_referencing(document_text: str, section_label: Option
         rf"|\bSection\s+{label}\b(?:(?!\.).){{0,120}}?\bdoes\s+not\s+apply\b"
         rf"|\brequired\s+by\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\b(?:must|shall)\b"
         rf"|\bcoverage\s+required\s+by\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\b(?:must|shall)\b"
-        rf"|\bSubject\s+to\s+Section\s+{label}\.\d+\b"
+        rf"|\bSubject\s+to\s+(?:the\s+\w+(?:\s+\w+){{0,2}}\s+in\s+)?Section\s+{label}\.\d+\b"
         rf"|\bpermitted\s+under\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\b(?:does\s+not\s+relieve|remains?\s+liable|shall\s+not\s+relieve)\b",
         re.I,
     )

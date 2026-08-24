@@ -303,7 +303,19 @@ def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
     facts = _extract_confidentiality_facts_inner(text)
     if facts is not None:
         for o in facts.obligations:
-            if _cross_section_carveout_referencing(text, o.section_label):
+            label = o.section_label
+            # o.section_label sometimes resolves to the NEAREST preceding
+            # numbered heading rather than the obligation's own top-level
+            # section (e.g. "8.5" from a forward-referenced sub-section
+            # heading that textually precedes where the extractor looks,
+            # even though the obligation itself is under "8"). Also try
+            # the integer-only prefix so a forward reference phrased
+            # against the parent section number ("Section 8.5") is still
+            # matched.
+            candidates = {label}
+            if label and "." in str(label):
+                candidates.add(str(label).split(".")[0])
+            if any(_cross_section_carveout_referencing(text, c) for c in candidates if c):
                 facts.document_wide_conflict = True
                 break
     return facts
