@@ -19,8 +19,8 @@ def teardown_function(_):
 
 def _fake_response(content_text: str):
     body = json.dumps({
-        "content": [{"type": "text", "text": content_text}],
-        "usage": {"input_tokens": 10, "output_tokens": 10},
+        "choices": [{"message": {"role": "assistant", "content": content_text}}],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 10},
     }).encode("utf-8")
     cm = MagicMock()
     cm.__enter__.return_value.read.return_value = body
@@ -46,13 +46,13 @@ class FakePolicy:
 
 def test_disabled_by_default_is_confirmed_absent(monkeypatch):
     pte.PAYMENT_TERMS_SEMANTIC_DISCOVERY_ENABLED = False
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = pte.extract_payment_facts("This Agreement shall be governed by the laws of Delaware.")
     assert facts is None
 
 
 def test_provider_unavailable_is_recognition_uncertain(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = pte.extract_payment_facts("This Agreement shall be governed by the laws of Delaware.")
     assert facts is not None
     assert facts.absence_state == "RECOGNITION_UNCERTAIN"
@@ -60,14 +60,14 @@ def test_provider_unavailable_is_recognition_uncertain(monkeypatch):
 
 
 def test_recognition_uncertain_routes_to_requires_review_never_accept(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = pte.extract_payment_facts("This Agreement shall be governed by the laws of Delaware.")
     decision = pte.evaluate_payment_policy(facts, FakePolicy())
     assert decision.state == pte.REQUIRES_REVIEW
 
 
 def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({"candidates": []}))
     with patch("urllib.request.urlopen", return_value=fake):
         facts = pte.extract_payment_facts("This Agreement shall be governed by the laws of Delaware.")
@@ -75,7 +75,7 @@ def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
 
 
 def test_hallucinated_candidate_never_becomes_a_window(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "This Agreement shall be governed by the laws of Delaware."
     fake = _fake_response(json.dumps({"candidates": [{"quote": "This text is not in the document at all."}]}))
     with patch("urllib.request.urlopen", return_value=fake):
@@ -89,7 +89,7 @@ def test_verified_semantic_candidate_seeds_a_window(monkeypatch):
     deterministic engagement gate genuinely finds nothing and the semantic
     path is exercised -- this is the general, open-ended complement Step
     4A.3's finite concept list cannot by itself exhaust."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "9. Miscellaneous. Customer shall settle each statement of account within thirty days "
         "of its issuance."
@@ -117,7 +117,7 @@ def test_verifier_not_established_descriptive_language_never_admitted(monkeypatc
     """The known-failure-class regression, applied to payment terms:
     'as is standard in the industry'-shaped descriptive language must not
     be admitted, even when the sentence is obligation-shaped."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "Background. As is standard in the industry, customers generally settle statements of "
         "account within thirty days, although this Agreement does not itself impose such a term."
@@ -147,7 +147,7 @@ def test_decision_sensitivity_ai_identified_condition_forces_review(monkeypatch)
     policy_engine_core's regex vocabulary) must not silently reach the
     same clean state -- it must force REQUIRES_REVIEW-equivalent
     unresolved-condition handling."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     cap_text = "Customer shall settle each statement of account within thirty days of its issuance"
     condition_text = "in the event Customer's designated payment method lapses, this timeline shall not apply"
 
@@ -207,7 +207,7 @@ def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypa
     """Adapter-completion pass: the payment obligation depends on a
     defined term ("Statement Date"); the resolved definition must force
     review, never disappear because the base obligation reads clean."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         '1. Definitions. "Statement Date" means the date Vendor issues a statement of account. '
         "9. Miscellaneous. Customer shall settle each statement of account within thirty days "
@@ -265,7 +265,7 @@ def test_ai_identified_unresolvable_cross_reference_forces_review_not_absent(mon
     candidate never becomes a structured obligation -- but this must
     force REQUIRES_REVIEW (DEPENDENCY_UNRESOLVED), never fall back to
     CONFIRMED_ABSENT."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "Customer shall settle each statement of account per the rates set forth in Schedule D."
     quote = doc
 
@@ -297,7 +297,7 @@ def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch
     must never be resolved by picking one -- the document must not
     silently collapse to CONFIRMED_ABSENT even though a real candidate
     was discovered."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "Customer's settlement obligation is addressed in this section; one reading requires "
         "settlement within thirty days of the statement date, another treats the timing as "

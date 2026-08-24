@@ -2,7 +2,7 @@
 (fact_admission.py). Mirrors the mocking pattern already used in
 tests/test_step4a9_2_real_provider_adversarial.py for the indemnification
 adapter's real-provider integration. No live API calls — every test here
-is mocked or purely deterministic, so it runs without ANTHROPIC_API_KEY.
+is mocked or purely deterministic, so it runs without OPENAI_API_KEY.
 
 Covers:
   - the authority-boundary guard (no policy field can ever land on
@@ -27,8 +27,8 @@ import fact_admission as fa
 
 def _fake_response(content_text: str, input_tokens=10, output_tokens=10):
     body = json.dumps({
-        "content": [{"type": "text", "text": content_text}],
-        "usage": {"input_tokens": input_tokens, "output_tokens": output_tokens},
+        "choices": [{"message": {"role": "assistant", "content": content_text}}],
+        "usage": {"prompt_tokens": input_tokens, "completion_tokens": output_tokens},
     }).encode("utf-8")
     cm = MagicMock()
     cm.__enter__.return_value.read.return_value = body
@@ -54,13 +54,13 @@ def test_verification_result_rejects_unknown_status():
 # ---------------------------------------------------------------------------
 
 def test_discovery_missing_api_key_raises(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     with pytest.raises(fa.ProviderUnavailable):
         fa.discover_candidate_spans("some document text", "liability", "a limitation of liability provision")
 
 
 def test_discovery_hallucinated_quote_discarded(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({"candidates": [{"quote": "this text is not in the document"}]}))
     with patch("urllib.request.urlopen", return_value=fake):
         result = fa.discover_candidate_spans("The Vendor performs services.", "liability", "a liability cap")
@@ -68,7 +68,7 @@ def test_discovery_hallucinated_quote_discarded(monkeypatch):
 
 
 def test_discovery_verbatim_quote_grounds_offsets(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "Section 1. Vendor's liability shall not exceed fees paid in the prior 12 months."
     quote = "Vendor's liability shall not exceed fees paid in the prior 12 months."
     fake = _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
@@ -83,7 +83,7 @@ def test_discovery_verbatim_quote_grounds_offsets(monkeypatch):
 
 
 def test_discovery_malformed_json_raises(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response("this is not json at all {{{")
     with patch("urllib.request.urlopen", return_value=fake):
         with pytest.raises(fa.ProviderUnavailable):
@@ -91,14 +91,14 @@ def test_discovery_malformed_json_raises(monkeypatch):
 
 
 def test_discovery_network_error_raises(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     with patch("urllib.request.urlopen", side_effect=urllib.error.URLError("connection refused")):
         with pytest.raises(fa.ProviderUnavailable):
             fa.discover_candidate_spans("Some document.", "liability", "a liability cap")
 
 
 def test_discovery_empty_candidates_list_is_not_an_error(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({"candidates": []}))
     with patch("urllib.request.urlopen", return_value=fake):
         result = fa.discover_candidate_spans("Some document.", "liability", "a liability cap")
@@ -110,20 +110,20 @@ def test_discovery_empty_candidates_list_is_not_an_error(monkeypatch):
 # ---------------------------------------------------------------------------
 
 def test_verify_missing_api_key_is_verification_error(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     result = fa.verify_candidate_proposition("some document text", "This agreement caps liability at 1x fees.")
     assert result.status == fa.VERIFICATION_ERROR
 
 
 def test_verify_network_error_is_verification_error(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     with patch("urllib.request.urlopen", side_effect=urllib.error.URLError("timeout")):
         result = fa.verify_candidate_proposition("doc text", "proposition text")
     assert result.status == fa.VERIFICATION_ERROR
 
 
 def test_verify_malformed_json_is_verification_error(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response("not json {{{")
     with patch("urllib.request.urlopen", return_value=fake):
         result = fa.verify_candidate_proposition("doc text", "proposition text")
@@ -131,7 +131,7 @@ def test_verify_malformed_json_is_verification_error(monkeypatch):
 
 
 def test_verify_empty_response_is_verification_error(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({}))
     with patch("urllib.request.urlopen", return_value=fake):
         result = fa.verify_candidate_proposition("doc text", "proposition text")
@@ -139,7 +139,7 @@ def test_verify_empty_response_is_verification_error(monkeypatch):
 
 
 def test_verify_invalid_enum_status_is_verification_error(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({"status": "TOTALLY_MADE_UP_STATUS", "evidence_quote": "x"}))
     with patch("urllib.request.urlopen", return_value=fake):
         result = fa.verify_candidate_proposition("doc text", "proposition text")
@@ -149,7 +149,7 @@ def test_verify_invalid_enum_status_is_verification_error(monkeypatch):
 def test_verify_established_without_evidence_quote_is_contradictory(monkeypatch):
     """A verifier claiming ESTABLISHED but citing no evidence is
     contradictory output, not a trustworthy ESTABLISHED verdict."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({"status": "ESTABLISHED", "evidence_quote": None, "reasoning": "..."}))
     with patch("urllib.request.urlopen", return_value=fake):
         result = fa.verify_candidate_proposition("doc text", "proposition text")
@@ -157,7 +157,7 @@ def test_verify_established_without_evidence_quote_is_contradictory(monkeypatch)
 
 
 def test_verify_established_with_evidence_quote_succeeds(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({
         "status": "ESTABLISHED", "evidence_quote": "Vendor's liability is capped at 1x fees.",
         "reasoning": "Operative capping language, no conditions found.",
@@ -172,7 +172,7 @@ def test_verify_not_established_descriptive_language(monkeypatch):
     """The core known-failure-class regression: descriptive/background
     obligation-shaped language must be classified NOT_ESTABLISHED, not
     ESTABLISHED, by the adversarial verifier."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({
         "status": "NOT_ESTABLISHED", "evidence_quote": None,
         "reasoning": "This is a recital describing industry practice, not an operative obligation of this agreement.",
@@ -184,7 +184,7 @@ def test_verify_not_established_descriptive_language(monkeypatch):
 
 @pytest.mark.parametrize("status", ["AMBIGUOUS", "INSUFFICIENT_CONTEXT", "CONFLICTING", "DEPENDENCY_UNRESOLVED"])
 def test_verify_every_non_established_status_passes_through(monkeypatch, status):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({"status": status, "evidence_quote": None, "reasoning": "..."}))
     with patch("urllib.request.urlopen", return_value=fake):
         result = fa.verify_candidate_proposition("doc text", "proposition text")
@@ -293,7 +293,7 @@ def test_admission_defensive_unknown_status_is_not_admitted():
 # ---------------------------------------------------------------------------
 
 def test_verify_and_ground_end_to_end_admitted(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "Vendor's total liability under this Agreement shall not exceed the fees paid in the prior 12 months."
     quote = "Vendor's total liability under this Agreement shall not exceed the fees paid in the prior 12 months."
     fake = _fake_response(json.dumps({"status": "ESTABLISHED", "evidence_quote": quote, "reasoning": "Operative cap."}))
@@ -307,7 +307,7 @@ def test_verify_and_ground_end_to_end_fabricated_evidence_not_admitted(monkeypat
     """The verifier claims ESTABLISHED and cites a quote that does not
     actually appear in the document — grounding must catch this
     independent of what the verifier claimed."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "Vendor's total liability under this Agreement shall not exceed the fees paid."
     fake = _fake_response(json.dumps({
         "status": "ESTABLISHED", "evidence_quote": "This sentence was never in the document.",
@@ -321,7 +321,7 @@ def test_verify_and_ground_end_to_end_fabricated_evidence_not_admitted(monkeypat
 
 
 def test_verify_and_ground_provider_failure_never_admits(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     candidate = fa.CandidateMaterialFact(clause_type="liability", fact_type="cap_provision")
     result = fa.verify_and_ground(candidate, "doc text", "proposition text")
     assert result.admission_status == fa.NOT_ADMITTED
@@ -344,7 +344,7 @@ def test_verification_result_carries_qualifier_fields_by_default_none():
 
 
 def test_verify_candidate_proposition_parses_qualifier_quotes(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({
         "status": "ESTABLISHED", "evidence_quote": "Vendor shall indemnify Customer.",
         "condition_quote": "provided Customer gives prompt written notice",
@@ -436,7 +436,7 @@ def test_verify_and_ground_end_to_end_preserves_grounded_condition(monkeypatch):
     """Full pipeline: the mission's own worked example (indemnification
     with a notice condition and a negligence exception) -- both survive
     from AI verification through grounding to the admitted fact."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "Vendor shall indemnify Customer against third-party intellectual-property claims, "
         "provided Customer gives prompt written notice, except to the extent caused by "
@@ -467,7 +467,7 @@ def test_verify_and_ground_end_to_end_blocks_on_fabricated_exception(monkeypatch
     the document, the whole candidate is blocked, not just the exception
     field -- proving the hard gate operates through the full pipeline,
     not only the unit-level evaluate_admission call."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "Vendor shall indemnify Customer against third-party intellectual-property claims."
     fake = _fake_response(json.dumps({
         "status": "ESTABLISHED",
@@ -662,7 +662,7 @@ def test_verify_and_ground_end_to_end_resolves_definition_dependency(monkeypatch
     definition_term) -> deterministic resolve_definition locates the
     actual clause -> the resolution (not the AI's claim) lands on the
     admitted fact."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         '1. Definitions. "Confidential Information" means any non-public technical or '
         "business information disclosed by either party. "
@@ -692,7 +692,7 @@ def test_verify_and_ground_end_to_end_blocks_on_unresolvable_definition(monkeypa
     document never actually defines -- must block admission rather than
     silently evaluate the obligation as though the dependency didn't
     exist."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "Recipient shall not disclose Confidential Information to any third party."
     fake = _fake_response(json.dumps({
         "status": "ESTABLISHED",
@@ -712,7 +712,7 @@ def test_verify_and_ground_end_to_end_blocks_on_unresolvable_definition(monkeypa
 
 
 def test_verify_and_ground_end_to_end_resolves_cross_reference_target(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "1. Liability. Vendor's total liability is limited as set forth in Section 9.3.\n\n"
         "Section 9.3 Liability Cap. Vendor's total liability shall not exceed fees paid in "
@@ -741,7 +741,7 @@ def test_verify_and_ground_end_to_end_blocks_on_missing_attachment(monkeypatch):
     actually attached -- must route to review with the explicit
     MISSING_ATTACHMENT state, never silently drop the reference and
     evaluate only the local sentence."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "Deliverables shall conform to the specifications in Schedule A."
     fake = _fake_response(json.dumps({
         "status": "ESTABLISHED",
@@ -765,7 +765,7 @@ def test_verify_and_ground_end_to_end_preserves_competing_readings_as_data(monke
     readings -- admission is blocked (existing safety property) AND both
     readings are preserved as grounded data on the candidate, not
     discarded (the previously-missing half of Step 6)."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "The Fee is due on delivery. In some readings, the Fee is due on final acceptance."
     fake = _fake_response(json.dumps({
         "status": "AMBIGUOUS",
@@ -789,7 +789,7 @@ def test_zero_silent_loss_invariant_definition_dependency_never_disappears(monke
     (admission blocked) happens -- there is no third state where the
     definition dependency vanishes and the base proposition is still
     ADMITTED."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "Recipient shall not disclose Confidential Information to any third party."
     fake = _fake_response(json.dumps({
         "status": "ESTABLISHED",

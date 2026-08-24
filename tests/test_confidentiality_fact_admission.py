@@ -19,8 +19,8 @@ def teardown_function(_):
 
 def _fake_response(content_text: str):
     body = json.dumps({
-        "content": [{"type": "text", "text": content_text}],
-        "usage": {"input_tokens": 10, "output_tokens": 10},
+        "choices": [{"message": {"role": "assistant", "content": content_text}}],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 10},
     }).encode("utf-8")
     cm = MagicMock()
     cm.__enter__.return_value.read.return_value = body
@@ -30,13 +30,13 @@ def _fake_response(content_text: str):
 
 def test_disabled_by_default_is_confirmed_absent(monkeypatch):
     cpe.CONFIDENTIALITY_SEMANTIC_DISCOVERY_ENABLED = False
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = cpe.extract_confidentiality_facts("This Agreement shall be governed by the laws of Delaware.")
     assert facts is None
 
 
 def test_provider_unavailable_is_recognition_uncertain(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = cpe.extract_confidentiality_facts("This Agreement shall be governed by the laws of Delaware.")
     assert facts is not None
     assert facts.absence_state == "RECOGNITION_UNCERTAIN"
@@ -44,7 +44,7 @@ def test_provider_unavailable_is_recognition_uncertain(monkeypatch):
 
 
 def test_recognition_uncertain_routes_to_requires_review(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
 
     class FakePolicy:
         contract_side = "vendor"
@@ -61,7 +61,7 @@ def test_recognition_uncertain_routes_to_requires_review(monkeypatch):
 
 
 def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({"candidates": []}))
     with patch("urllib.request.urlopen", return_value=fake):
         facts = cpe.extract_confidentiality_facts("This Agreement shall be governed by the laws of Delaware.")
@@ -69,7 +69,7 @@ def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
 
 
 def test_hallucinated_candidate_never_becomes_an_obligation(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "This Agreement shall be governed by the laws of Delaware."
     fake = _fake_response(json.dumps({"candidates": [{"quote": "This text is not in the document at all."}]}))
     with patch("urllib.request.urlopen", return_value=fake):
@@ -83,7 +83,7 @@ def test_admitted_candidate_still_requires_deterministic_structuring(monkeypatch
     regexes still can't parse must land as REQUIRES_REVIEW, never a
     fabricated obligation -- the AI never structures protecting/protected
     roles itself."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "Vendor shall treat Customer's proprietary information as strictly private and shall not disclose it."
     quote = "Vendor shall treat Customer's proprietary information as strictly private and shall not disclose it."
 
@@ -111,7 +111,7 @@ def test_admitted_candidate_still_requires_deterministic_structuring(monkeypatch
 def test_verifier_not_established_descriptive_language_never_admitted(monkeypatch):
     """The known-failure-class regression, applied to confidentiality:
     industry-standard/background language must not become an obligation."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "Background. As is standard in the industry, vendors often agree to protect "
         "client proprietary information, although this Agreement does not itself state such a term."
@@ -145,7 +145,7 @@ def test_ai_identified_condition_survives_into_the_decision(monkeypatch):
     what must differ, and is asserted here, is that the material
     condition's TEXT survives all the way into the final decision object
     rather than disappearing."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "Vendor shall treat Customer's proprietary information as strictly private, in the event "
         "Vendor's data-handling certification lapses this obligation shall not apply."
@@ -191,7 +191,7 @@ def test_definition_dependency_resolved_forces_review_not_silently_incorporated(
     evaluate what that definition text actually means -- so the resolved
     dependency is preserved and forces REQUIRES_REVIEW, never silently
     incorporated into a clean decision."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         '1. Definitions. "Proprietary Data" means any technical or business information '
         "disclosed by either party. 2. Obligations. Recipient shall not disclose Proprietary Data "
@@ -239,7 +239,7 @@ def test_definition_dependency_unresolved_never_disappears(monkeypatch):
     vanish -- the document must not fall back to CONFIRMED_ABSENT or a
     clean decision, it must force REQUIRES_REVIEW with the failure
     preserved (zero-silent-loss, Step H)."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "Recipient shall not disclose Proprietary Data to any third party."
     quote = "Recipient shall not disclose Proprietary Data to any third party."
 
@@ -283,7 +283,7 @@ def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch
     candidate is blocked at the shared framework level, and this adapter
     must not silently fall back to CONFIRMED_ABSENT (a real candidate WAS
     discovered)."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "Recipient shall treat Vendor's proprietary data appropriately; one reading requires "
         "full non-disclosure protection, another treats it as freely shareable internal data."
@@ -334,7 +334,7 @@ def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
     obligation is scoped by a cross-referenced section; resolved
     deterministically, must force review, never disappear because the
     obligation otherwise reads clean."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "2. Miscellaneous. Recipient shall not disclose Vendor's proprietary data to any third "
         "party, subject to Section 9.4.\n\n"

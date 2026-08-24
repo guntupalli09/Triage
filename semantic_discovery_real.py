@@ -1,7 +1,7 @@
 """Step 4A.9.2 — REAL semantic/LLM candidate proposer.
 
 Replaces ONLY the simulated heuristic in semantic_discovery.py with an
-actual call to a real model (Anthropic Messages API). Everything
+actual call to a real model (OpenAI Chat Completions API). Everything
 downstream — DiscoveryCandidate's schema, evidence-span verification,
 deterministic structuring/verification, absence-state logic, policy
 evaluation — is completely unchanged from Step 4A.9.1 and lives in
@@ -47,8 +47,8 @@ from semantic_discovery import DiscoveryCandidate, assert_authority_boundary_int
 CALL_LOG: List[dict] = []
 _CALL_LOG_LOCK = threading.Lock()
 
-_API_URL = "https://api.anthropic.com/v1/messages"
-_MODEL = "claude-haiku-4-5-20251001"
+_API_URL = "https://api.openai.com/v1/chat/completions"
+_MODEL = "gpt-4o-mini"
 _TIMEOUT_SECONDS = 30
 
 _SYSTEM_PROMPT = (
@@ -86,24 +86,26 @@ def discover_candidate_spans_real(document_text: str, concept: str, *, api_key: 
     if concept != "indemnification":
         return []
 
-    key = api_key or os.environ.get("ANTHROPIC_API_KEY")
+    key = api_key or os.environ.get("OPENAI_API_KEY")
     if not key:
         _log_call(0, None, None, "no_api_key")
-        raise RuntimeError("ANTHROPIC_API_KEY not set — real semantic provider unavailable")
+        raise RuntimeError("OPENAI_API_KEY not set — real semantic provider unavailable")
 
     user_prompt = f"<document>\n{document_text}\n</document>"
     body = json.dumps({
         "model": _MODEL,
         "max_tokens": 1024,
-        "system": _SYSTEM_PROMPT,
-        "messages": [{"role": "user", "content": user_prompt}],
+        "messages": [
+            {"role": "system", "content": _SYSTEM_PROMPT},
+            {"role": "user", "content": user_prompt},
+        ],
+        "response_format": {"type": "json_object"},
     }).encode("utf-8")
 
     req = urllib.request.Request(
         _API_URL, data=body, method="POST",
         headers={
-            "x-api-key": key,
-            "anthropic-version": "2023-06-01",
+            "Authorization": f"Bearer {key}",
             "content-type": "application/json",
         },
     )
@@ -116,10 +118,13 @@ def discover_candidate_spans_real(document_text: str, concept: str, *, api_key: 
         raise RuntimeError(f"real semantic provider request failed: {exc}") from exc
     elapsed = time.perf_counter() - t0
     usage = payload.get("usage", {})
-    _log_call(elapsed, usage.get("input_tokens"), usage.get("output_tokens"), "ok")
+    _log_call(elapsed, usage.get("prompt_tokens"), usage.get("completion_tokens"), "ok")
 
-    text_blocks = [b.get("text", "") for b in payload.get("content", []) if b.get("type") == "text"]
-    raw_text = "".join(text_blocks)
+    choices = payload.get("choices")
+    message = choices[0].get("message") if isinstance(choices, list) and choices and isinstance(choices[0], dict) else None
+    raw_text = message.get("content") if isinstance(message, dict) else None
+    if not isinstance(raw_text, str):
+        return None  # malformed response — caller treats this as "unavailable," never "absent"
     try:
         parsed = _extract_json(raw_text)
     except (json.JSONDecodeError, ValueError):
@@ -148,7 +153,7 @@ def discover_candidate_spans_real(document_text: str, concept: str, *, api_key: 
             start_offset=start,
             end_offset=end,
             source="SEMANTIC_REAL",
-            discovery_metadata={"provider": "anthropic", "model": _MODEL},
+            discovery_metadata={"provider": "openai", "model": _MODEL},
         ))
     return candidates
 

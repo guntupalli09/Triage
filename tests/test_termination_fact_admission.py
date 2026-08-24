@@ -19,8 +19,8 @@ def teardown_function(_):
 
 def _fake_response(content_text: str):
     body = json.dumps({
-        "content": [{"type": "text", "text": content_text}],
-        "usage": {"input_tokens": 10, "output_tokens": 10},
+        "choices": [{"message": {"role": "assistant", "content": content_text}}],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 10},
     }).encode("utf-8")
     cm = MagicMock()
     cm.__enter__.return_value.read.return_value = body
@@ -44,13 +44,13 @@ class FakePolicy:
 
 def test_disabled_by_default_is_confirmed_absent(monkeypatch):
     tpe.TERMINATION_SEMANTIC_DISCOVERY_ENABLED = False
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = tpe.extract_termination_facts("This Agreement shall be governed by the laws of Delaware.")
     assert facts is None
 
 
 def test_provider_unavailable_is_recognition_uncertain(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = tpe.extract_termination_facts("This Agreement shall be governed by the laws of Delaware.")
     assert facts is not None
     assert facts.absence_state == "RECOGNITION_UNCERTAIN"
@@ -58,14 +58,14 @@ def test_provider_unavailable_is_recognition_uncertain(monkeypatch):
 
 
 def test_recognition_uncertain_routes_to_requires_review(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = tpe.extract_termination_facts("This Agreement shall be governed by the laws of Delaware.")
     decision = tpe.evaluate_termination_policy(facts, FakePolicy())
     assert decision.state == tpe.REQUIRES_REVIEW
 
 
 def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({"candidates": []}))
     with patch("urllib.request.urlopen", return_value=fake):
         facts = tpe.extract_termination_facts("This Agreement shall be governed by the laws of Delaware.")
@@ -73,7 +73,7 @@ def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
 
 
 def test_hallucinated_candidate_never_becomes_a_right(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "This Agreement shall be governed by the laws of Delaware."
     fake = _fake_response(json.dumps({"candidates": [{"quote": "This text is not in the document at all."}]}))
     with patch("urllib.request.urlopen", return_value=fake):
@@ -85,7 +85,7 @@ def test_admitted_candidate_still_requires_deterministic_structuring(monkeypatch
     """A semantically-admitted candidate (unusual phrasing, no word
     'terminate') that the deterministic NAMED/MUTUAL right regexes still
     can't parse must land as REQUIRES_REVIEW, never a fabricated right."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "Customer may walk away from this Agreement at any time upon 30 days' written notice."
     quote = "Customer may walk away from this Agreement at any time upon 30 days' written notice."
 
@@ -110,7 +110,7 @@ def test_admitted_candidate_still_requires_deterministic_structuring(monkeypatch
 
 
 def test_verifier_not_established_descriptive_language_never_admitted(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "Background. Companies typically allow either party to walk away from this type of "
         "agreement on notice, although this Agreement does not itself state such a term."
@@ -139,7 +139,7 @@ def test_ai_identified_condition_survives_into_the_decision(monkeypatch):
     away from" phrasing, so the qualified case also lands on rights=[] --
     what must differ, and is asserted here, is that the condition text
     survives into the final decision rather than disappearing."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     condition_text = "in the event Customer's designated signatory changes, this right shall not apply"
     doc = f"Customer may walk away from this Agreement at any time upon 30 days' written notice, {condition_text}."
     quote = f"Customer may walk away from this Agreement at any time upon 30 days' written notice, {condition_text}"
@@ -172,7 +172,7 @@ def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypa
     deterministically resolves the definition, and it must survive into
     the final decision (forcing review), never disappear because the
     right otherwise reads clean."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         '1. Definitions. "Cause" means a material, uncured breach of this Agreement. '
         "2. Miscellaneous. Customer may walk away from this Agreement upon the occurrence of Cause."
@@ -206,7 +206,7 @@ def test_ai_identified_unresolvable_definition_never_disappears(monkeypatch):
     """The document never actually defines "Cause" -- the candidate is
     correctly NOT_ADMITTED, but the failure must not vanish into
     CONFIRMED_ABSENT."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "Customer may walk away from this Agreement upon the occurrence of Cause."
     quote = doc
 
@@ -237,7 +237,7 @@ def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
     away is scoped by a cross-referenced section; resolved
     deterministically, must force review, never disappear because the
     right otherwise reads clean."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "2. Miscellaneous. Customer may walk away from this Agreement at any time upon 30 days' "
         "written notice, subject to Section 8.2.\n\n"
@@ -277,7 +277,7 @@ def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch
     different, independently-grounded readings must never be resolved by
     picking one -- the document must not silently collapse to
     CONFIRMED_ABSENT even though a real candidate was discovered."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "Customer's rights are addressed in this section; one reading permits Customer to walk away "
         "at any time, another treats the right as available only after a material breach."

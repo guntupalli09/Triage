@@ -47,8 +47,8 @@ def teardown_function(_):
 
 def _fake_response(content_text: str):
     body = json.dumps({
-        "content": [{"type": "text", "text": content_text}],
-        "usage": {"input_tokens": 10, "output_tokens": 10},
+        "choices": [{"message": {"role": "assistant", "content": content_text}}],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 10},
     }).encode("utf-8")
     cm = MagicMock()
     cm.__enter__.return_value.read.return_value = body
@@ -87,7 +87,7 @@ def test_disabled_by_default_is_byte_identical(monkeypatch):
     """With the flag off (the default), behavior is unchanged: no
     reconciliation call, existing deterministic decision stands."""
     ie.INDEMNIFICATION_RECONCILIATION_ENABLED = False
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     doc = f"{_BASE_CLAUSE} {_UNUSUAL_CONDITION}."
     facts = ie.extract_indemnification_facts(doc)
     decision = ie.evaluate_indemnification_policy(facts, FakePolicy(), source="Test")
@@ -101,7 +101,7 @@ def test_forbidden_outcome_ai_finds_modifier_deterministic_extraction_lacks_it(m
     the premise test above) must survive via the reconciliation channel
     and force REQUIRES_REVIEW -- never silently reach the same clean
     ACCEPT the base clause alone would produce."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = f"{_BASE_CLAUSE} {_UNUSUAL_CONDITION}."
 
     # Build the verify-stage response directly (one call per obligation --
@@ -133,7 +133,7 @@ def test_control_ordinary_clause_ai_and_deterministic_agree(monkeypatch):
     extraction already established -- the existing deterministic
     decision continues normally, unaffected by the reconciliation
     channel."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = _BASE_CLAUSE
     verify_json = json.dumps({
         "status": "ESTABLISHED",
@@ -154,7 +154,7 @@ def test_material_definition_dependency_resolved_forces_review(monkeypatch):
     """The obligation depends on a defined term ("Losses"); resolved
     deterministically, must still force review since this adapter has no
     code path that reads what the resolved definition text says."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         '1. Definitions. "Losses" means direct damages excluding lost profits. '
         f"{_BASE_CLAUSE}"
@@ -181,7 +181,7 @@ def test_material_definition_dependency_unresolved_forces_review_not_silent(monk
     """The AI claims a dependency on a defined term this document never
     actually defines -- the candidate is correctly NOT_ADMITTED, but the
     failure must not vanish; it must still force review."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = _BASE_CLAUSE
     verify_json = json.dumps({
         "status": "ESTABLISHED",
@@ -204,7 +204,7 @@ def test_material_definition_dependency_unresolved_forces_review_not_silent(monk
 def test_material_cross_reference_resolved_forces_review(monkeypatch):
     """The obligation's cap is cross-referenced to another section;
     resolved deterministically, must still force review."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         f"{_BASE_CLAUSE} The cap amount is further addressed in Section 14.2.\n\n"
         "Section 14.2 Supplemental Terms. Notwithstanding the foregoing, the cap escalates to 3 "
@@ -232,7 +232,7 @@ def test_missing_cross_reference_target_forces_review(monkeypatch):
     """The obligation cross-references a Schedule never actually
     attached -- must force review with the dependency preserved, not
     silently ignored."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = f"{_BASE_CLAUSE} Exclusions are set forth in Schedule F."
     verify_json = json.dumps({
         "status": "ESTABLISHED",
@@ -256,7 +256,7 @@ def test_two_grounded_competing_readings_never_pick_one(monkeypatch):
     """Two materially different, independently-grounded readings of the
     same obligation must never be resolved by picking one -- both
     preserved as data, decision forced to review."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "12. Indemnification. Vendor's obligation is addressed in this section; one reading treats "
         "it as a full indemnity, another treats it as a mere best-efforts cooperation duty."
@@ -303,7 +303,7 @@ def test_provider_timeout_never_silently_confirms_clean(monkeypatch):
     additive, so a failure here simply means it contributes no signal
     (the existing deterministic decision, unaffected, still stands) --
     it must never itself manufacture a false-clean confirmation."""
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     doc = _BASE_CLAUSE
     facts = ie.extract_indemnification_facts(doc)
     decision = ie.evaluate_indemnification_policy(facts, FakePolicy(), source="Test")
@@ -318,7 +318,7 @@ def test_malformed_ai_output_never_silently_confirms_clean(monkeypatch):
     """A malformed/unparseable provider response must fail closed
     (VERIFICATION_ERROR under the hood), never silently confirm a clean
     reading."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = _BASE_CLAUSE
     with patch("urllib.request.urlopen", return_value=_fake_response("not valid json at all")):
         facts = ie.extract_indemnification_facts(doc)
@@ -332,7 +332,7 @@ def test_unverifiable_evidence_never_becomes_authoritative(monkeypatch):
     """The AI claims a condition but cites a quote that isn't actually in
     the document -- must fail closed (grounding failure), never
     contribute a fabricated condition to the reconciliation."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = _BASE_CLAUSE
     verify_json = json.dumps({
         "status": "ESTABLISHED",
@@ -353,7 +353,7 @@ def test_genuine_clause_absence_unaffected_by_reconciliation_channel(monkeypatch
     """A document with no indemnification language at all is unaffected
     by this channel (it never runs -- there are no obligations to
     reconcile)."""
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     doc = "9. Governing Law. This Agreement is governed by Delaware law."
     facts = ie.extract_indemnification_facts(doc)
     decision = ie.evaluate_indemnification_policy(facts, FakePolicy(), source="Test")
@@ -366,7 +366,7 @@ def test_data_survival_at_every_boundary(monkeypatch):
     result, the candidate, the grounding result, and the canonical
     obligation field must all be inspectable and consistent at every
     boundary, not just the final decision."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = f"{_BASE_CLAUSE} {_UNUSUAL_CONDITION}."
     verify_json = json.dumps({
         "status": "ESTABLISHED",

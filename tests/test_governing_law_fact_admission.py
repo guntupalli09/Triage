@@ -19,8 +19,8 @@ def teardown_function(_):
 
 def _fake_response(content_text: str):
     body = json.dumps({
-        "content": [{"type": "text", "text": content_text}],
-        "usage": {"input_tokens": 10, "output_tokens": 10},
+        "choices": [{"message": {"role": "assistant", "content": content_text}}],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 10},
     }).encode("utf-8")
     cm = MagicMock()
     cm.__enter__.return_value.read.return_value = body
@@ -41,13 +41,13 @@ class FakePolicy:
 
 def test_disabled_by_default_is_confirmed_absent(monkeypatch):
     gpe.GOVERNING_LAW_SEMANTIC_DISCOVERY_ENABLED = False
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = gpe.extract_governing_law_facts("This Agreement covers the sale of widgets.")
     assert facts is None
 
 
 def test_provider_unavailable_is_recognition_uncertain(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = gpe.extract_governing_law_facts("This Agreement covers the sale of widgets.")
     assert facts is not None
     assert facts.absence_state == "RECOGNITION_UNCERTAIN"
@@ -55,14 +55,14 @@ def test_provider_unavailable_is_recognition_uncertain(monkeypatch):
 
 
 def test_recognition_uncertain_routes_to_requires_review(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = gpe.extract_governing_law_facts("This Agreement covers the sale of widgets.")
     decision = gpe.evaluate_governing_law_policy(facts, FakePolicy())
     assert decision.state == gpe.REQUIRES_REVIEW
 
 
 def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({"candidates": []}))
     with patch("urllib.request.urlopen", return_value=fake):
         facts = gpe.extract_governing_law_facts("This Agreement covers the sale of widgets.")
@@ -70,7 +70,7 @@ def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
 
 
 def test_hallucinated_candidate_never_becomes_a_jurisdiction(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "This Agreement covers the sale of widgets."
     fake = _fake_response(json.dumps({"candidates": [{"quote": "This text is not in the document at all."}]}))
     with patch("urllib.request.urlopen", return_value=fake):
@@ -83,7 +83,7 @@ def test_admitted_candidate_still_requires_deterministic_structuring(monkeypatch
     'governing law'/'governed by' words) that _JURISDICTION_RE still
     can't parse must land as REQUIRES_REVIEW, never a fabricated
     jurisdiction."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "The parties agree that Delaware's substantive rules shall control interpretation of this Agreement."
     quote = "The parties agree that Delaware's substantive rules shall control interpretation of this Agreement."
 
@@ -108,7 +108,7 @@ def test_admitted_candidate_still_requires_deterministic_structuring(monkeypatch
 
 
 def test_verifier_not_established_descriptive_language_never_admitted(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "Background. Agreements of this type commonly designate Delaware's substantive rules "
         "as controlling, although this Agreement does not itself state such a term."
@@ -192,7 +192,7 @@ def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch
     law applies must never be resolved by picking one -- the document
     must not silently collapse to CONFIRMED_ABSENT even though a real
     candidate was discovered."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "This dispute-resolution clause is ambiguous about jurisdiction; one reading applies the "
         "law of the state where Vendor's headquarters is located, another applies the law of the "

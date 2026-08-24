@@ -19,8 +19,8 @@ def teardown_function(_):
 
 def _fake_response(content_text: str):
     body = json.dumps({
-        "content": [{"type": "text", "text": content_text}],
-        "usage": {"input_tokens": 10, "output_tokens": 10},
+        "choices": [{"message": {"role": "assistant", "content": content_text}}],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 10},
     }).encode("utf-8")
     cm = MagicMock()
     cm.__enter__.return_value.read.return_value = body
@@ -55,13 +55,13 @@ class FakePolicy:
 
 def test_disabled_by_default_is_confirmed_absent(monkeypatch):
     dse.DATA_SECURITY_SEMANTIC_DISCOVERY_ENABLED = False
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = dse.extract_data_security_facts("This Agreement shall be governed by the laws of Delaware.")
     assert facts is None
 
 
 def test_provider_unavailable_is_recognition_uncertain(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = dse.extract_data_security_facts("This Agreement shall be governed by the laws of Delaware.")
     assert facts is not None
     assert facts.absence_state == "RECOGNITION_UNCERTAIN"
@@ -73,14 +73,14 @@ def test_recognition_uncertain_routes_to_requires_review_never_accept(monkeypatc
     with clause_found=True could otherwise resolve to ACCEPT under a
     permissive playbook (no dimension required) -- the explicit
     absence_state check must intercept before that dimension logic runs."""
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = dse.extract_data_security_facts("This Agreement shall be governed by the laws of Delaware.")
     decision = dse.evaluate_data_security_policy(facts, FakePolicy())
     assert decision.state == dse.REQUIRES_REVIEW
 
 
 def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({"candidates": []}))
     with patch("urllib.request.urlopen", return_value=fake):
         facts = dse.extract_data_security_facts("This Agreement shall be governed by the laws of Delaware.")
@@ -88,7 +88,7 @@ def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
 
 
 def test_hallucinated_candidate_never_becomes_a_window(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "This Agreement shall be governed by the laws of Delaware."
     fake = _fake_response(json.dumps({"candidates": [{"quote": "This text is not in the document at all."}]}))
     with patch("urllib.request.urlopen", return_value=fake):
@@ -97,7 +97,7 @@ def test_hallucinated_candidate_never_becomes_a_window(monkeypatch):
 
 
 def test_verified_semantic_candidate_seeds_a_window_and_is_classified(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "9. Miscellaneous. Vendor shall notify Customer within 48 hours of becoming aware of any "
         "data breach affecting Customer's data."
@@ -123,7 +123,7 @@ def test_verified_semantic_candidate_seeds_a_window_and_is_classified(monkeypatc
 
 
 def test_verifier_not_established_descriptive_language_never_admitted(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "Background. Companies generally notify customers of data breaches within a reasonable time, "
         "although this Agreement does not itself impose such a requirement."
@@ -151,7 +151,7 @@ def test_decision_sensitivity_ai_identified_condition_forces_review(monkeypatch)
     notification obligation cleanly; document B adds a material condition
     outside the deterministic vocabulary and must not reach the same
     clean outcome."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     cap_text = (
         "Vendor shall notify Customer within 48 hours of becoming aware of any data breach "
         "affecting Customer's data"
@@ -205,7 +205,7 @@ def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypa
     defined term ("Reportable Event"); the resolved definition must
     force review, never disappear because the base obligation reads
     clean."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         '1. Definitions. "Reportable Event" means unauthorized access to Customer\'s data. '
         "9. Miscellaneous. Vendor shall notify Customer within 48 hours of becoming aware of "
@@ -242,7 +242,7 @@ def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypa
 
 def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
     """Adapter-level cross-reference proof (Part 4)."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "9. Miscellaneous. Vendor shall notify Customer within 48 hours of becoming aware of any "
         "Reportable Event affecting Customer's data, subject to Section 9.4.\n\n"
@@ -279,7 +279,7 @@ def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
 
 def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch):
     """Adapter-level competing-reading proof (Part 5)."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "Vendor's notification obligation is addressed in this section; one reading requires notice "
         "within 48 hours, another treats notice timing as discretionary."

@@ -28,8 +28,8 @@ def teardown_function(_):
 
 def _fake_response(content_text: str):
     body = json.dumps({
-        "content": [{"type": "text", "text": content_text}],
-        "usage": {"input_tokens": 10, "output_tokens": 10},
+        "choices": [{"message": {"role": "assistant", "content": content_text}}],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 10},
     }).encode("utf-8")
     cm = MagicMock()
     cm.__enter__.return_value.read.return_value = body
@@ -42,7 +42,7 @@ def test_semantic_discovery_disabled_by_default_is_confirmed_absent(monkeypatch)
     before this integration existed: no API key required, no network call
     made, plain regex-only NOT_APPLICABLE."""
     lpe.LIABILITY_SEMANTIC_DISCOVERY_ENABLED = False
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = lpe.extract_liability_facts("This Agreement shall be governed by the laws of Delaware.")
     assert facts is None
 
@@ -50,7 +50,7 @@ def test_semantic_discovery_disabled_by_default_is_confirmed_absent(monkeypatch)
 def test_provider_unavailable_is_recognition_uncertain_not_confirmed_absent(monkeypatch):
     """Core Step 5/16 invariant: a provider outage must never silently
     become 'confirmed absent'."""
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = lpe.extract_liability_facts("This Agreement shall be governed by the laws of Delaware.")
     assert facts is not None
     assert facts.clause_found is True
@@ -60,7 +60,7 @@ def test_provider_unavailable_is_recognition_uncertain_not_confirmed_absent(monk
 
 
 def test_recognition_uncertain_routes_to_requires_review_not_not_applicable(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
 
     class FakePolicy:
         preferred_multiplier = 1.0
@@ -81,7 +81,7 @@ def test_recognition_uncertain_routes_to_requires_review_not_not_applicable(monk
 
 
 def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({"candidates": []}))
     with patch("urllib.request.urlopen", return_value=fake):
         facts = lpe.extract_liability_facts("This Agreement shall be governed by the laws of Delaware.")
@@ -91,7 +91,7 @@ def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
 def test_hallucinated_semantic_candidate_never_becomes_a_provision(monkeypatch):
     """The discovery-stage exact-substring check must discard a fabricated
     quote before it can ever reach verification/admission."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "This Agreement shall be governed by the laws of Delaware."
     fake = _fake_response(json.dumps({"candidates": [{"quote": "This text is not in the document at all."}]}))
     with patch("urllib.request.urlopen", return_value=fake):
@@ -104,7 +104,7 @@ def test_verified_semantic_candidate_becomes_a_provision(monkeypatch):
     ESTABLISHED, and whose evidence quote grounds, is admitted and treated
     as a real anchor — feeding the same deterministic _extract_provision
     structuring any regex-found anchor would go through."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "9. Miscellaneous. Neither party shall be liable for any amount in excess of "
         "the total fees paid by Customer in the twelve months preceding the claim."
@@ -136,7 +136,7 @@ def test_verifier_not_established_never_becomes_a_provision(monkeypatch):
     """The known-failure-class regression, applied to liability: a
     plausible-looking candidate span that the adversarial verifier
     classifies as descriptive/non-operative must not become a provision."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "Background. Industry practice often limits vendor liability to fees paid, "
         "although this Agreement does not itself adopt that approach."
@@ -183,7 +183,7 @@ def test_ai_identified_condition_survives_to_forced_review_the_mission_critical_
     The forbidden outcome this test rules out: AI identifies the
     condition -> condition disappears -> simplified (unconditioned) fact
     becomes ESTABLISHED -> deterministic adapter issues a clean ACCEPT."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     condition_text = (
         "in the event Vendor's SOC 2 certification lapses during the term, this limitation shall not apply"
     )
@@ -258,7 +258,7 @@ def test_admitted_fact_produces_deterministic_replay_decision(monkeypatch):
     required to be. This test fixes the facts (no further provider calls
     needed) and checks policy_engine_core's own determinism primitive
     over repeated evaluate_liability_policy() calls."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "9. Miscellaneous. Neither party shall be liable for any amount in excess of "
         "the total fees paid by Customer in the twelve months preceding the claim."
@@ -304,7 +304,7 @@ def test_ai_identified_cross_reference_target_resolves_and_forces_review(monkeyp
     is preserved onto the provision's condition field (forcing review),
     never silently dropped just because the base cap language reads
     clean."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "9. Miscellaneous. Vendor's liability shall be limited as set forth in Section 9.3.\n\n"
         "Section 9.3 Fee-Based Damages Allocation. The parties agree that any damages "
@@ -357,7 +357,7 @@ def test_ai_identified_cross_reference_to_missing_attachment_forces_review_not_a
     all, so the candidate never becomes a provision -- but this must
     force REQUIRES_REVIEW (DEPENDENCY_UNRESOLVED), never fall back to
     CONFIRMED_ABSENT (no liability clause found)."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "Vendor's liability shall be limited as set forth in Schedule C."
     quote = "Vendor's liability shall be limited as set forth in Schedule C."
 
@@ -404,7 +404,7 @@ def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch
     (fact_admission.evaluate_admission), and no accepted anchor is ever
     produced from this candidate, so the document must not silently fall
     back to CONFIRMED_ABSENT either (a real candidate WAS found)."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "9. Miscellaneous. Vendor's exposure is addressed in this section; one reading treats "
         "it as capped, another treats it as excluded entirely."

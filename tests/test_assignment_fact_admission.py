@@ -19,8 +19,8 @@ def teardown_function(_):
 
 def _fake_response(content_text: str):
     body = json.dumps({
-        "content": [{"type": "text", "text": content_text}],
-        "usage": {"input_tokens": 10, "output_tokens": 10},
+        "choices": [{"message": {"role": "assistant", "content": content_text}}],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 10},
     }).encode("utf-8")
     cm = MagicMock()
     cm.__enter__.return_value.read.return_value = body
@@ -39,13 +39,13 @@ class FakePolicy:
 
 def test_disabled_by_default_is_confirmed_absent(monkeypatch):
     ape.ASSIGNMENT_SEMANTIC_DISCOVERY_ENABLED = False
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = ape.extract_assignment_facts("This Agreement shall be governed by the laws of Delaware.")
     assert facts is None
 
 
 def test_provider_unavailable_is_recognition_uncertain(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = ape.extract_assignment_facts("This Agreement shall be governed by the laws of Delaware.")
     assert facts is not None
     assert facts.absence_state == "RECOGNITION_UNCERTAIN"
@@ -53,14 +53,14 @@ def test_provider_unavailable_is_recognition_uncertain(monkeypatch):
 
 
 def test_recognition_uncertain_routes_to_requires_review(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = ape.extract_assignment_facts("This Agreement shall be governed by the laws of Delaware.")
     decision = ape.evaluate_assignment_policy(facts, FakePolicy())
     assert decision.state == ape.REQUIRES_REVIEW
 
 
 def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({"candidates": []}))
     with patch("urllib.request.urlopen", return_value=fake):
         facts = ape.extract_assignment_facts("This Agreement shall be governed by the laws of Delaware.")
@@ -68,7 +68,7 @@ def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
 
 
 def test_hallucinated_candidate_never_becomes_a_restriction(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "This Agreement shall be governed by the laws of Delaware."
     fake = _fake_response(json.dumps({"candidates": [{"quote": "This text is not in the document at all."}]}))
     with patch("urllib.request.urlopen", return_value=fake):
@@ -81,7 +81,7 @@ def test_admitted_candidate_still_requires_deterministic_structuring(monkeypatch
     'assign') that the deterministic NAMED/MUTUAL restriction regexes
     still can't parse must land as REQUIRES_REVIEW, never a fabricated
     restriction."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "Vendor may not hand this Agreement off to a third party without Customer's prior written approval."
     quote = "Vendor may not hand this Agreement off to a third party without Customer's prior written approval."
 
@@ -107,7 +107,7 @@ def test_admitted_candidate_still_requires_deterministic_structuring(monkeypatch
 
 
 def test_verifier_not_established_descriptive_language_never_admitted(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "Background. Vendors commonly require consent before handing an agreement off to a "
         "third party, although this Agreement does not itself state such a term."
@@ -136,7 +136,7 @@ def test_ai_identified_condition_survives_into_the_decision(monkeypatch):
     phrasing, so restrictions stay empty in both the qualified and
     unqualified case -- what must differ is that the condition text
     survives into the final decision."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     condition_text = "in the event Vendor's ownership changes, this restriction shall not apply"
     doc = f"Vendor may not hand this Agreement off to a third party without Customer's prior written approval, {condition_text}."
     quote = f"Vendor may not hand this Agreement off to a third party without Customer's prior written approval, {condition_text}"
@@ -168,7 +168,7 @@ def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypa
     term ("Change of Control"); the resolved definition must survive
     into the decision, forcing review, never disappear because the
     restriction otherwise reads clean (or unstructured)."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         '1. Definitions. "Change of Control" means the acquisition of more than fifty percent '
         "of Vendor's voting equity. 2. Miscellaneous. Vendor may not hand this Agreement off to "
@@ -208,7 +208,7 @@ def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
     scoped by a cross-referenced section; resolved deterministically,
     must force review, never disappear because the restriction otherwise
     reads clean (or unstructured)."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "2. Miscellaneous. Vendor may not hand this Agreement off to a third party without "
         "Customer's prior written approval, subject to Section 8.3.\n\n"
@@ -245,7 +245,7 @@ def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
 
 def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch):
     """Adapter-level competing-reading proof (Part 5)."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "The parties' transfer rights are addressed in this section; one reading requires prior "
         "written approval for any transfer, another treats transfers as freely permitted."

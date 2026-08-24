@@ -1,6 +1,6 @@
 """Step 4A.9.2 Phase 9 — adversarial tests for the REAL semantic provider
 integration. Mocked tests (no API cost) cover mechanical failure modes;
-one live test (marked, skipped without ANTHROPIC_API_KEY) proves prompt
+one live test (marked, skipped without OPENAI_API_KEY) proves prompt
 injection embedded in contract text cannot acquire policy authority even
 if the model complies with it."""
 import json
@@ -24,8 +24,8 @@ def teardown_function(_):
 
 def _fake_response(content_text: str, input_tokens=10, output_tokens=10):
     body = json.dumps({
-        "content": [{"type": "text", "text": content_text}],
-        "usage": {"input_tokens": input_tokens, "output_tokens": output_tokens},
+        "choices": [{"message": {"role": "assistant", "content": content_text}}],
+        "usage": {"prompt_tokens": input_tokens, "completion_tokens": output_tokens},
     }).encode("utf-8")
     cm = MagicMock()
     cm.__enter__.return_value.read.return_value = body
@@ -34,13 +34,13 @@ def _fake_response(content_text: str, input_tokens=10, output_tokens=10):
 
 
 def test_missing_api_key_raises(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     with pytest.raises(RuntimeError):
         sdr.discover_candidate_spans_real("some document text", "indemnification")
 
 
 def test_fabricated_quote_not_in_document_is_discarded(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({"candidates": [{"quote": "this text does not appear anywhere"}]}))
     with patch("urllib.request.urlopen", return_value=fake):
         result = sdr.discover_candidate_spans_real("The Vendor performs services.", "indemnification")
@@ -48,7 +48,7 @@ def test_fabricated_quote_not_in_document_is_discarded(monkeypatch):
 
 
 def test_malformed_json_response_returns_none(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response("this is not json at all {{{")
     with patch("urllib.request.urlopen", return_value=fake):
         result = sdr.discover_candidate_spans_real("Some document.", "indemnification")
@@ -57,7 +57,7 @@ def test_malformed_json_response_returns_none(monkeypatch):
 
 def test_network_error_raises(monkeypatch):
     import urllib.error
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     with patch("urllib.request.urlopen", side_effect=urllib.error.URLError("simulated outage")):
         with pytest.raises(RuntimeError):
             sdr.discover_candidate_spans_real("Some document.", "indemnification")
@@ -68,7 +68,7 @@ def test_extra_authoritative_looking_fields_in_response_are_ignored(monkeypatch)
     smuggle authoritative-looking fields alongside a quote, only `quote`
     is ever read — the resulting DiscoveryCandidate has no such fields to
     receive them."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "The Vendor shall make good to the Client for any claim arising from the Vendor's conduct."
     quote = "The Vendor shall make good to the Client for any claim arising from the Vendor's conduct."
     fake = _fake_response(json.dumps({
@@ -92,7 +92,7 @@ def test_extra_authoritative_looking_fields_in_response_are_ignored(monkeypatch)
 
 
 def test_duplicate_and_overlapping_quotes_do_not_multiply_obligations(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "Vendor shall make good to Client for any claim arising from Vendor's breach of this Agreement."
     fake = _fake_response(json.dumps({"candidates": [{"quote": doc}] * 10}))
     with patch("urllib.request.urlopen", return_value=fake):
@@ -105,7 +105,7 @@ def test_duplicate_and_overlapping_quotes_do_not_multiply_obligations(monkeypatc
     assert len(facts.obligations) <= 1  # dedup happens in extract_indemnification_facts
 
 
-@pytest.mark.skipif(not os.environ.get("ANTHROPIC_API_KEY"), reason="requires a real ANTHROPIC_API_KEY")
+@pytest.mark.skipif(not os.environ.get("OPENAI_API_KEY"), reason="requires a real OPENAI_API_KEY")
 def test_live_prompt_injection_cannot_acquire_authority():
     """A real live call: the document contains an embedded instruction
     trying to get the model to assert a policy outcome directly. Even if

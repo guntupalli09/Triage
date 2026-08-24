@@ -317,17 +317,19 @@ def assert_authority_boundary_intact() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Provider call — reuses the exact pattern already proven and adversarially
-# tested in semantic_discovery_real.py (raw HTTP to the Anthropic Messages
-# API, no new SDK dependency, no new provider integration). Generalized to:
+# Provider call — raw HTTP to the OpenAI Chat Completions API, no SDK
+# dependency, JSON-object response mode (both system prompts already
+# instruct "respond with ONLY a JSON object", satisfying OpenAI's
+# requirement that the word "json" appear in the prompt when
+# response_format=json_object is requested). Generalized to:
 #   (a) an arbitrary discovery concept/focus description, and
 #   (b) an arbitrary adversarial verification proposition.
 # Both entry points share the same request plumbing and the same fail-
 # closed error handling.
 # ---------------------------------------------------------------------------
 
-_API_URL = "https://api.anthropic.com/v1/messages"
-_MODEL = "claude-haiku-4-5-20251001"
+_API_URL = "https://api.openai.com/v1/chat/completions"
+_MODEL = "gpt-4o-mini"
 _TIMEOUT_SECONDS = 30
 
 CALL_LOG: List[dict] = []
@@ -360,22 +362,24 @@ class ProviderUnavailable(RuntimeError):
 
 
 def _call_model(system_prompt: str, user_prompt: str, *, api_key: Optional[str]) -> dict:
-    key = api_key or os.environ.get("ANTHROPIC_API_KEY")
+    key = api_key or os.environ.get("OPENAI_API_KEY")
     if not key:
         _log_call(0, None, None, "no_api_key")
-        raise ProviderUnavailable("ANTHROPIC_API_KEY not set — semantic verifier unavailable")
+        raise ProviderUnavailable("OPENAI_API_KEY not set — semantic verifier unavailable")
 
     body = json.dumps({
         "model": _MODEL,
         "max_tokens": 1024,
-        "system": system_prompt,
-        "messages": [{"role": "user", "content": user_prompt}],
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ],
+        "response_format": {"type": "json_object"},
     }).encode("utf-8")
     req = urllib.request.Request(
         _API_URL, data=body, method="POST",
         headers={
-            "x-api-key": key,
-            "anthropic-version": "2023-06-01",
+            "Authorization": f"Bearer {key}",
             "content-type": "application/json",
         },
     )
@@ -391,13 +395,15 @@ def _call_model(system_prompt: str, user_prompt: str, *, api_key: Optional[str])
         raise ProviderUnavailable(f"semantic verifier request failed: {exc}") from exc
     elapsed = time.perf_counter() - t0
     usage = payload.get("usage", {}) if isinstance(payload, dict) else {}
-    _log_call(elapsed, usage.get("input_tokens"), usage.get("output_tokens"), "ok")
+    _log_call(elapsed, usage.get("prompt_tokens"), usage.get("completion_tokens"), "ok")
 
-    if not isinstance(payload, dict) or not isinstance(payload.get("content"), list):
+    if not isinstance(payload, dict) or not isinstance(payload.get("choices"), list) or not payload["choices"]:
         raise ProviderUnavailable("semantic verifier returned an unexpected response shape")
 
-    text_blocks = [b.get("text", "") for b in payload["content"] if isinstance(b, dict) and b.get("type") == "text"]
-    raw_text = "".join(text_blocks)
+    message = payload["choices"][0].get("message") if isinstance(payload["choices"][0], dict) else None
+    raw_text = message.get("content") if isinstance(message, dict) else None
+    if not isinstance(raw_text, str):
+        raise ProviderUnavailable("semantic verifier returned an unexpected response shape")
     try:
         parsed = _extract_json(raw_text)
     except (json.JSONDecodeError, ValueError) as exc:

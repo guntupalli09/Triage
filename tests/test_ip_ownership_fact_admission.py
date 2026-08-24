@@ -19,8 +19,8 @@ def teardown_function(_):
 
 def _fake_response(content_text: str):
     body = json.dumps({
-        "content": [{"type": "text", "text": content_text}],
-        "usage": {"input_tokens": 10, "output_tokens": 10},
+        "choices": [{"message": {"role": "assistant", "content": content_text}}],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 10},
     }).encode("utf-8")
     cm = MagicMock()
     cm.__enter__.return_value.read.return_value = body
@@ -59,13 +59,13 @@ class FakePolicy:
 
 def test_disabled_by_default_is_confirmed_absent(monkeypatch):
     ipoe.IP_OWNERSHIP_SEMANTIC_DISCOVERY_ENABLED = False
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = ipoe.extract_ip_facts("This Agreement shall be governed by the laws of Delaware.")
     assert facts is None
 
 
 def test_provider_unavailable_is_recognition_uncertain(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = ipoe.extract_ip_facts("This Agreement shall be governed by the laws of Delaware.")
     assert facts is not None
     assert facts.absence_state == "RECOGNITION_UNCERTAIN"
@@ -73,14 +73,14 @@ def test_provider_unavailable_is_recognition_uncertain(monkeypatch):
 
 
 def test_recognition_uncertain_routes_to_requires_review_never_accept(monkeypatch):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     facts = ipoe.extract_ip_facts("This Agreement shall be governed by the laws of Delaware.")
     decision = ipoe.evaluate_ip_policy(facts, FakePolicy())
     assert decision.state == ipoe.REQUIRES_REVIEW
 
 
 def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     fake = _fake_response(json.dumps({"candidates": []}))
     with patch("urllib.request.urlopen", return_value=fake):
         facts = ipoe.extract_ip_facts("This Agreement shall be governed by the laws of Delaware.")
@@ -88,7 +88,7 @@ def test_confirmed_absent_when_discovery_runs_and_finds_nothing(monkeypatch):
 
 
 def test_hallucinated_candidate_never_becomes_a_window(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "This Agreement shall be governed by the laws of Delaware."
     fake = _fake_response(json.dumps({"candidates": [{"quote": "This text is not in the document at all."}]}))
     with patch("urllib.request.urlopen", return_value=fake):
@@ -97,7 +97,7 @@ def test_hallucinated_candidate_never_becomes_a_window(monkeypatch):
 
 
 def test_verified_semantic_candidate_seeds_a_window_and_is_classified(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "9. Miscellaneous. All deliverables created by Vendor under this Agreement shall be "
         "solely owned by Customer."
@@ -123,7 +123,7 @@ def test_verified_semantic_candidate_seeds_a_window_and_is_classified(monkeypatc
 
 
 def test_verifier_not_established_descriptive_language_never_admitted(monkeypatch):
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "Background. In this type of agreement, vendors typically retain ownership of pre-existing "
         "inventions while assigning newly created deliverables, although this Agreement does not "
@@ -152,7 +152,7 @@ def test_decision_sensitivity_ai_identified_condition_forces_review(monkeypatch)
     cleanly via the deterministic ownership regexes; document B adds a
     material condition phrased outside the deterministic condition
     vocabulary. A and B must not resolve to the same clean outcome."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     cap_text = "All deliverables created by Vendor under this Agreement shall be solely owned by Customer"
     condition_text = "in the event Vendor's engagement terminates early, this assignment shall not apply"
 
@@ -202,7 +202,7 @@ def test_ai_identified_definition_dependency_survives_into_the_decision(monkeypa
     """Adapter-completion pass: ownership depends on a defined term
     ("Deliverables"); the resolved definition must force review, never
     disappear because the ownership statement otherwise reads clean."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         '1. Definitions. "Deliverables" means any materials Vendor creates specifically for '
         "Customer under a statement of work. 2. Miscellaneous. All Deliverables created by "
@@ -238,7 +238,7 @@ def test_ai_identified_unresolvable_definition_never_disappears(monkeypatch):
     """The document never actually defines "Deliverables" -- the
     candidate is correctly NOT_ADMITTED, but must not fall back to
     CONFIRMED_ABSENT."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = "All Deliverables created by Vendor under this Agreement shall be solely owned by Customer."
     quote = doc
 
@@ -266,7 +266,7 @@ def test_ai_identified_unresolvable_definition_never_disappears(monkeypatch):
 
 def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
     """Adapter-level cross-reference proof (Part 4)."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "2. Miscellaneous. All Deliverables created by Vendor under this Agreement shall be solely "
         "owned by Customer, subject to Section 9.4.\n\n"
@@ -303,7 +303,7 @@ def test_ai_identified_cross_reference_resolved_forces_review(monkeypatch):
 
 def test_competing_readings_never_reach_the_adapter_as_authoritative(monkeypatch):
     """Adapter-level competing-reading proof (Part 5)."""
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    monkeypatch.setenv("OPENAI_API_KEY", "fake-key-for-mock-test")
     doc = (
         "Ownership of the Deliverables is addressed in this section; one reading assigns them "
         "entirely to Customer, another treats them as jointly owned by both parties."

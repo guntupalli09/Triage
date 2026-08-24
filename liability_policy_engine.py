@@ -1613,7 +1613,7 @@ def _discover_anchors(text: str) -> List[Tuple[int, bool]]:
 
 # Off by default — mirrors indemnification_policy_engine.HYBRID_DISCOVERY_
 # ENABLED's rollout discipline (a module-level switch a deployer/test flips
-# explicitly, never inferred from whether ANTHROPIC_API_KEY happens to be
+# explicitly, never inferred from whether OPENAI_API_KEY happens to be
 # set). With this off, extract_liability_facts behaves byte-identically to
 # before this integration: regex-only discovery, CONFIRMED_ABSENT ->
 # NOT_APPLICABLE when nothing is found. This keeps the existing 78-case
