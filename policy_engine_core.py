@@ -1896,9 +1896,12 @@ def unreconciled_ambiguity_marker_present(document_text: str) -> bool:
 # clause-type keyword.
 def cross_section_carveout_referencing(document_text: str, section_label: Optional[str]) -> bool:
     """Returns True when the document contains a carve-out/exception/
-    exclusion statement that explicitly cross-references section_label
-    (the section number that established the adapter's primary value).
-    No-ops (returns False) when section_label is falsy."""
+    exclusion/additional-requirement statement that explicitly cross-
+    references section_label (the section number that established the
+    adapter's primary value) -- either narrowing it (an exclusion) or
+    supplementing it (an additional condition), since both shapes mean
+    the primary value alone no longer fully describes the document's
+    actual position. No-ops (returns False) when section_label is falsy."""
     if not section_label:
         return False
     label = re.escape(str(section_label))
@@ -1906,7 +1909,9 @@ def cross_section_carveout_referencing(document_text: str, section_label: Option
         rf"\bNotwithstanding\s+Section\s+{label}\b(?:(?!\.).){{0,200}}?"
         rf"(?:does\s+not\s+apply|shall\s+not\s+apply|is\s+excluded|are\s+excluded)"
         rf"|\b(?:in|under)\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\bexcludes?\b"
-        rf"|\bSection\s+{label}\b(?:(?!\.).){{0,120}}?\bdoes\s+not\s+apply\b",
+        rf"|\bSection\s+{label}\b(?:(?!\.).){{0,120}}?\bdoes\s+not\s+apply\b"
+        rf"|\brequired\s+by\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\b(?:must|shall)\b"
+        rf"|\bcoverage\s+required\s+by\s+Section\s+{label}\b(?:(?!\.).){{0,120}}?\b(?:must|shall)\b",
         re.I,
     )
     return bool(pattern.search(document_text))

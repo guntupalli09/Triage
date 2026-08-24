@@ -64,6 +64,7 @@ from policy_engine_core import (
     document_wide_conflict_detected as _document_wide_conflict_detected,
     unreconciled_ambiguity_marker_present as _unreconciled_ambiguity_marker_present,
     detect_condition_in_text as _core_detect_condition_in_text,
+    cross_section_carveout_referencing as _cross_section_carveout_referencing,
 )
 
 RULE_ID = "POLICY_INSURANCE"
@@ -635,7 +636,9 @@ def extract_insurance_facts(text: str) -> Optional[InsuranceFacts]:
     # established coverage requirement) or a self-declared unreconciled
     # ambiguity must never be silently dropped just because the local
     # anchor window it lives outside of already established a clean value.
-    if _document_wide_conflict_detected(text, facts.start_index, facts.end_index) or _unreconciled_ambiguity_marker_present(text):
+    if (_document_wide_conflict_detected(text, facts.start_index, facts.end_index)
+            or _unreconciled_ambiguity_marker_present(text)
+            or _cross_section_carveout_referencing(text, facts.section_label)):
         facts.document_wide_conflict = True
 
     if deterministic_value_found:
