@@ -1684,10 +1684,20 @@ def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
     structural verification the way a raw LLM classification would."""
     accepted_anchors = _discover_anchors(text)
     semantic_error: Optional[str] = None
+    semantic_qualifiers_by_start: Dict[int, Any] = {}
     if not accepted_anchors:
         admitted_semantic, semantic_error = _run_semantic_discovery(text)
         if admitted_semantic:
             accepted_anchors = [(c.start_offset, False) for c in admitted_semantic]
+            # Final trust architecture (Phase 5) — keep each admitted
+            # candidate's own grounded condition/exception (see
+            # fact_admission.evaluate_admission's qualifier-grounding gate)
+            # so it can be forced into review below if the deterministic
+            # structuring below doesn't independently already capture it.
+            # A candidate reaching here already passed grounding for any
+            # qualifier it claimed, so .condition/.exception are either
+            # None or a real, grounded quote — never a dropped/fabricated one.
+            semantic_qualifiers_by_start = {c.start_offset: c for c in admitted_semantic}
         elif semantic_error is not None:
             return LiabilityFacts(
                 clause_found=True, provisions=[], absence_state="RECOGNITION_UNCERTAIN",
@@ -1698,6 +1708,48 @@ def extract_liability_facts(text: str) -> Optional[LiabilityFacts]:
             return None
 
     provisions = [_extract_provision(text, start, i) for i, (start, _) in enumerate(accepted_anchors)]
+
+    # Final trust architecture (Phase 5) — the AI/context layer may notice
+    # a material condition or exception that the deterministic regex-based
+    # condition detector (_core_detect_condition_in_span, run inside
+    # _extract_provision above) missed entirely, since it only recognizes
+    # a finite set of conditional-clause patterns. If the AI found and
+    # GROUNDED one, and the deterministic pass found none, this is
+    # EXACTLY the "AI notices what regex misses" case the shared
+    # discovery layer already exists for elsewhere — it must not be
+    # silently dropped merely because it arrived from the semantic path.
+    # Composing it into the SAME provision.condition field
+    # evaluate_liability_policy already reads (see the `if provision.
+    # condition is not None` block there) means no new decision branch is
+    # needed: any non-None condition, regardless of source, already
+    # forces this provision into REQUIRES_REVIEW rather than a clean
+    # decision -- the mission's Phase 4 fail-closed rule for an
+    # unresolved qualifier is satisfied by construction, not by a new
+    # special case.
+    # Matched by POSITION in accepted_anchors, not by provision.start_index
+    # -- _extract_provision may re-anchor start_index to the cap
+    # expression's own offset within the window (see its two branches
+    # above), which can differ from the original anchor offset the
+    # candidate was keyed by. List order is preserved 1:1 by the
+    # comprehension that built `provisions` from `accepted_anchors` above.
+    for provision, (anchor_start, _) in zip(provisions, accepted_anchors):
+        candidate = semantic_qualifiers_by_start.get(anchor_start)
+        if candidate is None:
+            continue
+        # The deterministic detector's "nothing found" sentinel is a real
+        # ConditionEvidence(status="UNCONDITIONAL"), not None — only skip
+        # when the deterministic pass already independently established,
+        # rejected, or flagged a conflicting condition of its own.
+        if provision.condition is not None and provision.condition.status != "UNCONDITIONAL":
+            continue
+        qualifier_text = candidate.condition or candidate.exception
+        if qualifier_text is None:
+            continue
+        provision.condition = ConditionEvidence(
+            status="ESTABLISHED", condition_type="ai_identified",
+            evidence_span=qualifier_text,
+            note="identified by contextual AI analysis and independently grounded against the source document",
+        )
 
     if len(provisions) == 1:
         return LiabilityFacts(clause_found=True, provisions=provisions, controlling_provision=provisions[0],

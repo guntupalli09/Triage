@@ -157,6 +157,94 @@ def test_verifier_not_established_never_becomes_a_provision(monkeypatch):
     assert facts is None
 
 
+def test_ai_identified_condition_survives_to_forced_review_the_mission_critical_case(monkeypatch):
+    """THE critical adversarial case (final trust architecture, Phase 6):
+    the base obligation looks clean (an ordinary, fully-comparable fee-
+    multiplier cap), but a material condition — phrased using "in the
+    event ... lapses" rather than any of policy_engine_core's regex
+    vocabulary (if/when/unless/provided that/except/so long as/etc, see
+    _LEADING_CONDITION_RE / _TRAILING_PROVISO_RE) — changes what the
+    clause actually establishes. The deterministic condition detector
+    genuinely cannot see this phrasing; only the AI verifier's own
+    contextual read notices it. Proves the complete chain end to end:
+
+      1. AI/context layer notices the material modifier (mocked verifier
+         response includes condition_quote)
+      2. Candidate schema preserves it (VerificationResult.condition_quote)
+      3. Deterministic grounding verifies it (ground_qualifiers, exact
+         substring match against the untouched source text)
+      4. Admitted fact preserves it (CandidateMaterialFact.condition)
+      5. Adapter receives it (Provision.condition, via the position-
+         matched wiring in extract_liability_facts)
+      6. Policy result reflects it (REQUIRES_REVIEW, never a clean ACCEPT)
+
+    The forbidden outcome this test rules out: AI identifies the
+    condition -> condition disappears -> simplified (unconditioned) fact
+    becomes ESTABLISHED -> deterministic adapter issues a clean ACCEPT."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    condition_text = (
+        "in the event Vendor's SOC 2 certification lapses during the term, this limitation shall not apply"
+    )
+    cap_text = (
+        "Neither party shall be liable for any amount in excess of the total fees paid by Customer in the "
+        "twelve months preceding the claim"
+    )
+    doc = f"9. Miscellaneous. {cap_text}, {condition_text}."
+
+    # Confirm, as part of this test's own premise, that the deterministic
+    # condition detector genuinely does not see this phrasing on its own —
+    # otherwise this test would not actually be exercising the AI path.
+    from policy_engine_core import detect_condition_in_span
+    deterministic_check = detect_condition_in_span(doc, doc.index(cap_text), doc.index(cap_text) + len(cap_text) + len(condition_text) + 2)
+    assert deterministic_check.status == "UNCONDITIONAL", (
+        "test premise violated: the deterministic detector already sees this condition, "
+        "so it no longer exercises the AI-only path this test is for"
+    )
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": cap_text}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": cap_text,
+            "condition_quote": condition_text, "exception_quote": None, "cross_reference_text": None,
+            "reasoning": "Operative cap, but conditioned on continued SOC 2 certification.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = lpe.extract_liability_facts(doc)
+
+    # Steps 1-5: the condition survived from AI verification through
+    # grounding to the adapter's own Provision object.
+    assert facts is not None
+    assert len(facts.provisions) == 1
+    provision = facts.provisions[0]
+    assert provision.condition is not None
+    assert provision.condition.status == "ESTABLISHED"
+    assert provision.condition.evidence_span == condition_text
+
+    # Step 6: the policy decision reflects it -- REQUIRES_REVIEW, never a
+    # clean ACCEPT, even though the base cap is a perfectly ordinary,
+    # fully-comparable fee-multiplier that would otherwise resolve cleanly.
+    class FakePolicy:
+        preferred_multiplier = 1.0
+        acceptable_max_multiplier = 1.0
+        negotiate_max_multiplier = 2.0
+        prohibit_unlimited = True
+        required_exceptions_json = []
+        fallback_text = None
+        contract_side = "vendor"
+        escalation_approval_authority = None
+        require_consequential_damages_exclusion = False
+        required_consequential_carveouts_json = []
+
+    decision = lpe.evaluate_liability_policy(facts, FakePolicy())
+    assert decision.state == lpe.REQUIRES_REVIEW
+    assert condition_text in "; ".join(decision.unresolved_facts)
+
+
 def test_admitted_fact_produces_deterministic_replay_decision(monkeypatch):
     """Step 18 (deterministic replay): once a semantic candidate is
     admitted and structured into a Provision, repeated evaluation of the
