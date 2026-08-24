@@ -743,12 +743,16 @@ class TestStep4ACarveOutBoundary:
             f"cap — got state={d.state} unresolved_facts={d.unresolved_facts} "
             f"extracted_summary={d.extracted_summary!r}"
         )
-        # Acceptable outcomes: correctly resolve to 1x fees (ACCEPT under
-        # the default 1.0/2.0/3.0 policy), or escalate with a reason.
+        # Acceptable outcomes: correctly resolve to 1x fees (ACCEPT or
+        # ACCEPT_WITH_NOTE under the default 1.0/2.0/3.0 policy -- Candidate
+        # 3 final gap-closure fix: an established, uncapped carve-out for a
+        # category the policy doesn't explicitly require now surfaces as
+        # ACCEPT_WITH_NOTE rather than disappearing into a bare ACCEPT, per
+        # the zero-silent-loss requirement), or escalate with a reason.
         if d.state == lpe.REQUIRES_REVIEW:
             assert d.unresolved_facts
         else:
-            assert d.state == lpe.ACCEPT
+            assert d.state in (lpe.ACCEPT, lpe.ACCEPT_WITH_NOTE)
             assert "1x" in d.extracted_summary or "1 " in d.extracted_summary
 
     def test_carve_out_boundary_scales_with_two_categories(self):
@@ -759,7 +763,11 @@ class TestStep4ACarveOutBoundary:
             "months preceding the claim."
         )
         d = evaluate(text)
-        assert d.state == lpe.ACCEPT
+        # Candidate 3 final gap-closure fix: an uncapped fraud/gross-
+        # negligence carve-out not named in required_exceptions_json now
+        # surfaces as ACCEPT_WITH_NOTE (visible, non-blocking) instead of a
+        # bare ACCEPT that silently drops the carve-out from the decision.
+        assert d.state == lpe.ACCEPT_WITH_NOTE
         assert d.unresolved_facts == []
 
     def test_carve_out_boundary_scales_with_six_categories(self):

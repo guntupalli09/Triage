@@ -383,7 +383,7 @@ CASES += [
          "annual fees paid. Notwithstanding the foregoing, liability arising from a data breach "
          "shall not exceed 2 times the total annual fees paid, and the foregoing limitation shall "
          "not apply to claims arising from intellectual property infringement.",
-         "ACCEPT", {"kind": "fee_multiplier", "multiplier": 1.0},
+         "ACCEPT_WITH_NOTE", {"kind": "fee_multiplier", "multiplier": 1.0},
          {"data_breach": "super_cap", "ip_infringement": "uncapped"}),
     case("multisupercap-02", ["multiple_super_caps"],
          "12. Limitation of Liability. Liability shall not exceed 2 times the total annual fees "
@@ -547,7 +547,7 @@ CASES += [
          "12. Limitation of Liability. In no event shall either party be liable for consequential "
          "damages, except that this exclusion shall not apply to a breach of confidentiality "
          "obligations. Aggregate liability shall not exceed 1 times the total annual fees paid.",
-         "ACCEPT", {"kind": "fee_multiplier", "multiplier": 1.0},
+         "ACCEPT_WITH_NOTE", {"kind": "fee_multiplier", "multiplier": 1.0},
          expected_consequential_excluded=True,
          notes="Consequential-damages exclusion carved back out for confidentiality — engine records carveouts list but this fact isn't wired into the decision at all yet."),
     case("conseq-carveout-02", ["consequential_carveout"],
@@ -560,7 +560,7 @@ CASES += [
          "12. Limitation of Liability. Consequential damages are excluded, excluding breaches of "
          "fraud or willful misconduct. Aggregate liability shall not exceed 1 times the total "
          "annual fees paid.",
-         "ACCEPT", {"kind": "fee_multiplier", "multiplier": 1.0},
+         "ACCEPT_WITH_NOTE", {"kind": "fee_multiplier", "multiplier": 1.0},
          expected_consequential_excluded=True),
 ]
 

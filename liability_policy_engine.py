@@ -2118,6 +2118,33 @@ def evaluate_liability_policy(
         if provision.category_treatments.get(cat) is not None
         and provision.category_treatments[cat].treatment not in ("uncapped", "super_cap")
     ]
+    # Candidate 3 final gap-closure fix (Section 9, zero-silent-loss): a
+    # deterministically-established carve-out (uncapped/super_cap
+    # treatment) for a category the CURRENT policy doesn't happen to name
+    # in required_exceptions_json was previously completely invisible in
+    # the final decision -- present in provision.category_treatments
+    # internally, but never surfaced in the explanation/notes, and never
+    # distinguished a plain ACCEPT from an ACCEPT with a carve-out
+    # present. This is exactly the "grounded + preserved internally, but
+    # silently dropped from the decision surface" gap the burned corpus's
+    # YES_BUT_EXCEPTION family exposed (e.g. limitation_of_liability-006,
+    # -015). A carve-out for gross negligence/willful misconduct/
+    # indemnification etc. is not inherently a policy violation (many
+    # playbooks expect exactly such a carve-out), so this does not force
+    # an escalation -- it surfaces as ACCEPT_WITH_NOTE rather than a bare
+    # ACCEPT whenever the cap itself is otherwise compliant, so the fact
+    # remains visible to a reviewer instead of disappearing into an
+    # undifferentiated clean decision.
+    # Only "uncapped" (a genuinely unlimited exposure for that category) is
+    # treated as a silently-lost material fact -- "super_cap" is already a
+    # fully quantified, distinct value that surfaces via category_treatments
+    # in the decision output regardless (see
+    # test_data_breach_super_cap_is_captured_distinctly_from_general_cap),
+    # so nothing is actually lost for that treatment kind.
+    other_established_exceptions = [
+        cat for cat, t in provision.category_treatments.items()
+        if t.established and t.treatment == "uncapped" and cat not in required_exceptions
+    ]
     missing_consequential = (
         policy.require_consequential_damages_exclusion
         and provision.consequential_damages_excluded is not True
@@ -2163,6 +2190,8 @@ def evaluate_liability_policy(
 
         if state in (ACCEPT, ACCEPT_WITH_NOTE) and (missing_exceptions or missing_consequential or missing_consequential_carveouts):
             state = NEGOTIATE
+        elif state == ACCEPT and other_established_exceptions:
+            state = ACCEPT_WITH_NOTE
 
         notes = []
         if missing_exceptions:
@@ -2171,6 +2200,8 @@ def evaluate_liability_policy(
             notes.append("policy requires a consequential-damages exclusion, which was not found")
         if missing_consequential_carveouts:
             notes.append(f"consequential-damages exclusion missing required carve-out(s): {', '.join(missing_consequential_carveouts)}")
+        if other_established_exceptions:
+            notes.append(f"cap does not apply to: {', '.join(other_established_exceptions)}")
 
         if state == ACCEPT:
             required_action = "None — clause meets preferred position"
@@ -2188,7 +2219,7 @@ def evaluate_liability_policy(
             f"negotiable up to: {_fmt_multiplier(policy.negotiate_max_multiplier)}. "
             f"Result: {state}."
         )
-        if notes and state == NEGOTIATE:
+        if notes and state in (NEGOTIATE, ACCEPT_WITH_NOTE):
             explanation += " " + "; ".join(notes).capitalize() + "."
 
     return PolicyDecision(
