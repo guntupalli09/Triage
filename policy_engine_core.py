@@ -1368,6 +1368,63 @@ _BACKWARD_CONDITION_ON_SECTION_RE = re.compile(
 )
 _TEMPORAL_ANTONYM_PAIRS = (("after", "before"), ("until", "after"))
 
+# Candidate 2 root-cause fix (indemnification material-context silent
+# loss): _BACKWARD_CONDITION_ON_SECTION_RE above requires the qualifying
+# clause to open with "<the obligation> under/in Section N ...", i.e.
+# the section reference comes BEFORE the "shall apply only" language.
+# Real drafting very commonly inverts this with a leading "Notwithstanding
+# Section N, ..." construct instead -- a materially different surface
+# form of the exact same backward cross-reference concept, not covered
+# by the existing pattern at all.
+_NOTWITHSTANDING_SECTION_QUALIFIER_RE = re.compile(
+    r"notwithstanding\s+(?:the\s+foregoing\s+in\s+|anything\s+(?:to\s+the\s+contrary\s+)?(?:contained\s+)?in\s+)?"
+    r"(" + _DIVISION_KIND_ALTERNATION + r")\s+(" + _DIVISION_IDENTIFIER_FRAGMENT + r")\b"
+    r"(?:(?!\.).){1,220}?\b(?:shall\s+apply\s+only|applies\s+only|shall\s+not\s+apply|shall\s+not\s+exceed"
+    r"|is\s+limited\s+to|shall\s+be\s+limited\s+to)\b(?:(?!\.).){0,220}",
+    re.I,
+)
+
+
+def detect_backward_referenced_qualifier(full_text: str, source_kind: str, source_identifier: str) -> Optional[ConditionEvidence]:
+    """Generalizes `detect_conflicting_backward_conditions` (below) to the
+    SINGLE-reference case. That function only ever returns non-None when
+    TWO backward-references to the same division conflict -- a genuine,
+    material qualifier stated via exactly ONE such reference ("Notwithstanding
+    Section 12, Vendor's indemnification obligation applies only to
+    claims filed within ninety days...") was previously invisible to
+    both this codebase's regex vocabulary (the leading-"notwithstanding"
+    surface form) AND the "needs 2+ to fire at all" gate -- silently
+    discarding a real modifier rather than surfacing it. Returns
+    ESTABLISHED (an unresolved, but real, qualifier exists) the first
+    time ANY matching backward-reference is found, or CONFLICTING when
+    2+ disagree (reusing the same temporal-antonym check the sibling
+    function already trusts), never silently None once a qualifying
+    reference exists."""
+    matches = [
+        m for m in _NOTWITHSTANDING_SECTION_QUALIFIER_RE.finditer(full_text)
+        if m.group(1).lower() == source_kind.lower() and m.group(2).upper() == source_identifier.upper()
+    ] + [
+        m for m in _BACKWARD_CONDITION_ON_SECTION_RE.finditer(full_text)
+        if m.group(1).lower() == source_kind.lower() and m.group(2).upper() == source_identifier.upper()
+    ]
+    if not matches:
+        return None
+    tails = [m.group(0).lower() for m in matches]
+    for a, b in _TEMPORAL_ANTONYM_PAIRS:
+        if any(a in t for t in tails) and any(b in t for t in tails):
+            return ConditionEvidence(
+                status="CONFLICTING", condition_type="temporal",
+                evidence_span=" | ".join(m.group(0).strip() for m in matches),
+                note=f"{len(matches)} separately operative provisions impose incompatible temporal "
+                     f"conditions on {source_kind} {source_identifier} -- cannot be deterministically reconciled",
+            )
+    return ConditionEvidence(
+        status="ESTABLISHED", condition_type="backward_reference",
+        evidence_span=matches[0].group(0).strip(),
+        note=f"a separately-stated provision imposes a qualifier on {source_kind} {source_identifier} via a "
+             f"backward cross-reference -- this evaluation does not determine whether it applies or its full scope",
+    )
+
 
 def detect_conflicting_backward_conditions(full_text: str, source_kind: str, source_identifier: str) -> Optional[ConditionEvidence]:
     """Scans `full_text` for 2+ provisions that each backward-reference

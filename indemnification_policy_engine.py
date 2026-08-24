@@ -67,6 +67,7 @@ from policy_engine_core import (
     detect_condition_in_span as _core_detect_condition_in_span_raw,
     detect_condition_in_text as _core_detect_condition_in_text,
     detect_conflicting_backward_conditions as _core_detect_conflicting_backward_conditions,
+    detect_backward_referenced_qualifier as _core_detect_backward_referenced_qualifier,
     unconditional as _core_unconditional,
 )
 from semantic_discovery import discover_candidate_spans as _discover_candidate_spans_simulated
@@ -3129,9 +3130,17 @@ def extract_indemnification_facts(text: str) -> Optional[IndemnificationFacts]:
             ob.condition = _core_unconditional()
         if not ob.section_label:
             continue
-        conflict = _core_detect_conflicting_backward_conditions(text, "Section", ob.section_label)
-        if conflict is not None:
-            ob.condition = _merge_condition_evidence(ob.condition, conflict)
+        # Root-cause fix (Candidate 2, material-context silent loss):
+        # uses the generalized single-OR-conflicting-reference detector
+        # (see policy_engine_core.detect_backward_referenced_qualifier)
+        # instead of the conflict-only sibling -- a single, unopposed
+        # "Notwithstanding Section N, ..." qualifier is now surfaced as
+        # an ESTABLISHED (unresolved) condition, forcing REQUIRES_REVIEW,
+        # rather than silently disappearing because there was no SECOND
+        # conflicting reference to compare it against.
+        backward_qualifier = _core_detect_backward_referenced_qualifier(text, "Section", ob.section_label)
+        if backward_qualifier is not None:
+            ob.condition = _merge_condition_evidence(ob.condition, backward_qualifier)
 
     # Final trust architecture (gap-closure pass) — SECOND, additive
     # safety channel: reconcile each already-structured obligation
