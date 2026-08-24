@@ -37,6 +37,7 @@ from policy_engine_core import (
     excerpt as _excerpt, section_label_before as _section_label_before,
     requires_review_explanation, requires_review_required_action,
     detect_role_attributed_asymmetry,
+    cross_section_carveout_referencing as _cross_section_carveout_referencing,
 )
 
 RULE_ID = "POLICY_CONFIDENTIALITY"
@@ -148,6 +149,11 @@ class ConfidentialityFacts:
     # exception — never silently evaluated as though the dependency
     # didn't exist).
     ai_identified_definition_dependency: Optional[str] = None
+    # Candidate 3 zero-silent-loss mission — a carve-out/exclusion
+    # statement elsewhere in the document explicitly cross-references
+    # this obligation's own section number ("Notwithstanding Section 8,
+    # information that becomes publicly available ... is excluded").
+    document_wide_conflict: bool = False
 
 
 class ConfidentialityPolicyRuleLike(Protocol):
@@ -290,6 +296,20 @@ def _run_semantic_discovery(text: str) -> Tuple[List, Optional[str], Optional[st
 
 
 def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
+    """Thin wrapper over _extract_confidentiality_facts_inner that
+    additionally flags a cross-section carve-out explicitly referencing
+    one of the discovered obligations' own section number (Candidate 3
+    zero-silent-loss mission, Phase 3)."""
+    facts = _extract_confidentiality_facts_inner(text)
+    if facts is not None:
+        for o in facts.obligations:
+            if _cross_section_carveout_referencing(text, o.section_label):
+                facts.document_wide_conflict = True
+                break
+    return facts
+
+
+def _extract_confidentiality_facts_inner(text: str) -> Optional[ConfidentialityFacts]:
     """Returns None only when no confidentiality-protection language
     exists at all AND semantic discovery (see _run_semantic_discovery)
     also ran successfully and found nothing. A semantic-discovery
@@ -556,6 +576,15 @@ def evaluate_confidentiality_policy(
 
     exposure, protection, resolution_reasons = _resolve_obligations_for_side(facts.obligations, policy.contract_side)
     unresolved_facts = list(resolution_reasons)
+
+    # Candidate 3 zero-silent-loss mission — a cross-section carve-out
+    # explicitly naming this obligation's own section number must not be
+    # silently dropped merely because the base obligation parsed cleanly.
+    if facts.document_wide_conflict:
+        unresolved_facts.append(
+            "a separate statement elsewhere in the document, explicitly cross-referencing this clause's own "
+            "section number, appears to carve out or narrow the confidentiality obligation established here"
+        )
 
     # Final trust architecture (Phase 4 hard gate) — a material condition
     # or exception the AI/context layer identified and grounded, but that
