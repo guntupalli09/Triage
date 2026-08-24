@@ -130,6 +130,14 @@ class ConfidentialityFacts:
     # own separate branch there the way liability's did.
     absence_state: str = "CONFIRMED_ABSENT"
     semantic_discovery_error: Optional[str] = None
+    # Final trust architecture (Phase 1-6) — a material condition/
+    # exception the AI/contextual layer identified and that independently
+    # passed deterministic grounding (fact_admission.ground_qualifiers).
+    # Never populated from an ungrounded claim. evaluate_confidentiality_
+    # policy forces REQUIRES_REVIEW whenever either is set, since neither
+    # obligation regex has vocabulary to structure a qualifier.
+    ai_identified_condition: Optional[str] = None
+    ai_identified_exception: Optional[str] = None
 
 
 class ConfidentialityPolicyRuleLike(Protocol):
@@ -266,6 +274,7 @@ def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
     obligations` REQUIRES_REVIEW branch in evaluate_confidentiality_policy
     already safely absorbs (see ConfidentialityFacts.absence_state)."""
     anchors = [m for m in _ANCHOR_RE.finditer(text) if not re.search(r"\bno\s+$", text[max(0, m.start() - 15):m.start()], re.I)]
+    admitted_semantic: List = []
     if not anchors:
         admitted_semantic, semantic_error = _run_semantic_discovery(text)
         if semantic_error is not None:
@@ -330,11 +339,32 @@ def extract_confidentiality_facts(text: str) -> Optional[ConfidentialityFacts]:
         ))
         seen_spans.append((m.start(), m.end()))
 
+    # Final trust architecture (Phase 5/6) — an admitted semantic
+    # candidate (only ever populated when deterministic anchoring found
+    # nothing at all, see above) may carry a GROUNDED condition/exception
+    # the deterministic obligation regexes have no vocabulary to express
+    # (they structure WHO protects WHOM, not conditions on that
+    # protection). Never silently dropped: preserved onto dedicated
+    # fields and forced into REQUIRES_REVIEW by evaluate_confidentiality_
+    # policy's explicit check, regardless of whether obligations were
+    # otherwise successfully structured.
+    ai_identified_condition = None
+    ai_identified_exception = None
+    for candidate in admitted_semantic:
+        ai_identified_condition = ai_identified_condition or candidate.condition
+        ai_identified_exception = ai_identified_exception or candidate.exception
+
     if not obligations:
-        return ConfidentialityFacts(clause_found=True, obligations=[])
+        return ConfidentialityFacts(
+            clause_found=True, obligations=[],
+            ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+        )
 
     obligations.sort(key=lambda o: o.start_index)
-    return ConfidentialityFacts(clause_found=True, obligations=obligations)
+    return ConfidentialityFacts(
+        clause_found=True, obligations=obligations,
+        ai_identified_condition=ai_identified_condition, ai_identified_exception=ai_identified_exception,
+    )
 
 
 def _build_ladder(policy: ConfidentialityPolicyRuleLike, state: str) -> List[LadderStep]:
@@ -419,6 +449,21 @@ def evaluate_confidentiality_policy(
         )
 
     if not facts.obligations:
+        no_structure_unresolved = ["confidentiality obligation structure could not be parsed"]
+        # Final trust architecture (Phase 4 hard gate) — even when the
+        # base obligation itself never structured, a material condition/
+        # exception the AI/context layer identified and grounded must
+        # still surface in the decision, never disappear silently.
+        if facts.ai_identified_condition:
+            no_structure_unresolved.append(
+                f"a material condition was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_condition}\")"
+            )
+        if facts.ai_identified_exception:
+            no_structure_unresolved.append(
+                f"a material exception was identified by contextual analysis and grounded against the "
+                f"source document (\"{facts.ai_identified_exception}\")"
+            )
         return PolicyDecision(
             rule_id=RULE_ID, clause_type="confidentiality", state=REQUIRES_REVIEW,
             contract_language="", extracted_summary="Confidentiality referenced but no directional obligation could be parsed",
@@ -428,13 +473,30 @@ def evaluate_confidentiality_policy(
                         "structure was found — the clause may be malformed or drafted in a form this "
                         "extractor doesn't recognize.",
             negotiation_ladder=_build_ladder(policy, REQUIRES_REVIEW), category_treatments=[],
-            unresolved_facts=["confidentiality obligation structure could not be parsed"],
+            unresolved_facts=no_structure_unresolved,
             start_index=None, end_index=None, source=source, summary_label="Confidentiality treatment",
             our_position_label="Our confidentiality exposure", counterparty_position_label="Counterparty's protection of our information",
         )
 
     exposure, protection, resolution_reasons = _resolve_obligations_for_side(facts.obligations, policy.contract_side)
     unresolved_facts = list(resolution_reasons)
+
+    # Final trust architecture (Phase 4 hard gate) — a material condition
+    # or exception the AI/context layer identified and grounded, but that
+    # neither obligation regex has any vocabulary to structure, must not
+    # be silently dropped merely because the base obligation itself
+    # parsed cleanly.
+    if facts.ai_identified_condition:
+        unresolved_facts.append(
+            f"a material condition was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_condition}\") — this evaluation does not determine whether "
+            f"the stated condition is satisfied"
+        )
+    if facts.ai_identified_exception:
+        unresolved_facts.append(
+            f"a material exception was identified by contextual analysis and grounded against the source "
+            f"document (\"{facts.ai_identified_exception}\")"
+        )
 
     if unresolved_facts:
         controlling = exposure or protection or facts.obligations[0]

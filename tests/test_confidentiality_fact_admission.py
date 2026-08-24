@@ -132,3 +132,53 @@ def test_verifier_not_established_descriptive_language_never_admitted(monkeypatc
     with patch("urllib.request.urlopen", side_effect=fake_urlopen):
         facts = cpe.extract_confidentiality_facts(doc)
     assert facts is None
+
+
+def test_ai_identified_condition_survives_into_the_decision(monkeypatch):
+    """Final trust architecture Phase 6/8: this adapter's deterministic
+    obligation regexes require the literal phrase "Confidential
+    Information" -- which itself always triggers _ANCHOR_RE, so a purely
+    semantic-discovery document can never reach a structured obligation
+    here (confirmed by test_admitted_candidate_still_requires_
+    deterministic_structuring above). Both the unqualified and the
+    qualified case therefore resolve to REQUIRES_REVIEW regardless --
+    what must differ, and is asserted here, is that the material
+    condition's TEXT survives all the way into the final decision object
+    rather than disappearing."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "Vendor shall treat Customer's proprietary information as strictly private, in the event "
+        "Vendor's data-handling certification lapses this obligation shall not apply."
+    )
+    quote = doc.rstrip(".")
+    condition_text = "in the event Vendor's data-handling certification lapses this obligation shall not apply"
+
+    call_count = {"n": 0}
+
+    def fake_urlopen(*args, **kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 1:
+            return _fake_response(json.dumps({"candidates": [{"quote": quote}]}))
+        return _fake_response(json.dumps({
+            "status": "ESTABLISHED", "evidence_quote": quote,
+            "condition_quote": condition_text, "exception_quote": None, "cross_reference_text": None,
+            "reasoning": "Operative non-disclosure obligation, conditioned on certification.",
+        }))
+
+    with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        facts = cpe.extract_confidentiality_facts(doc)
+    assert facts is not None
+    assert facts.ai_identified_condition == condition_text
+
+    class FakePolicy:
+        contract_side = "vendor"
+        escalation_approval_authority = None
+        fallback_text = None
+        required_exclusions_json = []
+        min_protection_duration_years = None
+        max_exposure_duration_years = None
+        require_mutual_confidentiality = False
+
+    decision = cpe.evaluate_confidentiality_policy(facts, FakePolicy())
+    assert decision.state == cpe.REQUIRES_REVIEW
+    assert condition_text in "; ".join(decision.unresolved_facts)
