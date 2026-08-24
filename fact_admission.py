@@ -194,6 +194,17 @@ class VerificationResult:
     reasoning: str = ""
     evidence_quote: Optional[str] = None
     provider_error: Optional[str] = None
+    # Canonical-fact-fidelity fields (final trust architecture, Phase 1-3):
+    # the verifier is asked not only WHETHER the proposition is established
+    # but WHAT qualifies it — a material condition, exception, or
+    # cross-reference the verifier itself noticed while trying to disprove
+    # the proposition (see _VERIFY_SYSTEM_PROMPT). Each is either None (the
+    # verifier found no such qualifier) or a claimed VERBATIM quote from the
+    # document — never trusted directly; ground_qualifier() re-verifies each
+    # one exactly like evidence_quote before it can reach an admitted fact.
+    condition_quote: Optional[str] = None
+    exception_quote: Optional[str] = None
+    cross_reference_text: Optional[str] = None
 
     def __post_init__(self) -> None:
         if self.status not in _VERIFICATION_STATES:
@@ -405,12 +416,27 @@ _VERIFY_SYSTEM_PROMPT = (
     "- the surrounding context is insufficient to establish the proposition either way\n\n"
     "Only if you cannot find a genuine reason to doubt the proposition after actively "
     "looking should you conclude it is established.\n\n"
+    "Separately from your status verdict, report any material qualifier you noticed while "
+    "looking for reasons to doubt the proposition — a condition that must be satisfied, an "
+    "exception or carve-out that narrows it, or a cross-reference to another section/"
+    "schedule/exhibit/definition that affects its meaning. Report each ONLY as a verbatim "
+    "quote copied character-for-character from the document — never paraphrase, never "
+    "invent one merely because the proposition asked about it. If you found none of a given "
+    "kind, its field is null. Do not force ESTABLISHED to false merely because a qualifier "
+    "exists; a qualifier can coexist with ESTABLISHED (e.g. an obligation that IS "
+    "established, subject to a condition you also report) — record both.\n\n"
     "Respond with ONLY a JSON object of this exact shape, nothing else — no prose, no "
     "markdown fences:\n"
     '{"status": "ESTABLISHED" | "NOT_ESTABLISHED" | "AMBIGUOUS" | "INSUFFICIENT_CONTEXT" '
     '| "CONFLICTING" | "DEPENDENCY_UNRESOLVED", '
     '"evidence_quote": "<verbatim quote from the document that supports your conclusion, '
     'or null>", '
+    '"condition_quote": "<verbatim quote stating a material condition that must be '
+    'satisfied, or null>", '
+    '"exception_quote": "<verbatim quote stating a material exception/carve-out that '
+    'narrows the proposition, or null>", '
+    '"cross_reference_text": "<verbatim quote naming another section/schedule/exhibit/'
+    'definition that materially affects the proposition, or null>", '
     '"reasoning": "<one or two concise sentences>"}\n\n'
     "status meanings:\n"
     "ESTABLISHED — the proposition is operative language of this agreement and is "
@@ -462,6 +488,14 @@ def verify_candidate_proposition(
     if not isinstance(evidence_quote, str) or not evidence_quote:
         evidence_quote = None
 
+    def _optional_quote(key: str) -> Optional[str]:
+        value = parsed.get(key)
+        return value if isinstance(value, str) and value else None
+
+    condition_quote = _optional_quote("condition_quote")
+    exception_quote = _optional_quote("exception_quote")
+    cross_reference_text = _optional_quote("cross_reference_text")
+
     # A verifier claiming ESTABLISHED with no evidence quote at all is
     # contradictory output — fail closed rather than trust an unsupported
     # ESTABLISHED verdict.
@@ -471,7 +505,11 @@ def verify_candidate_proposition(
             provider_error="contradictory_output",
         )
 
-    return VerificationResult(status=status, reasoning=reasoning, evidence_quote=evidence_quote)
+    return VerificationResult(
+        status=status, reasoning=reasoning, evidence_quote=evidence_quote,
+        condition_quote=condition_quote, exception_quote=exception_quote,
+        cross_reference_text=cross_reference_text,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -510,11 +548,40 @@ _NOT_ADMITTED_REASON = {
 }
 
 
+# ---------------------------------------------------------------------------
+# Qualifier grounding (final trust architecture, Phase 3-4). A material
+# qualifier the verifier claims to have found (a condition, exception, or
+# cross-reference) is NOT dropped merely because grounding it is extra
+# work — it must independently pass the SAME exact-substring grounding
+# check as the main evidence_quote. This is the mechanical enforcement of
+# the mission's hard rule: "if a material field cannot be grounded, DO
+# NOT DROP IT — set UNCERTAIN/CONFLICTING and route to review," never
+# "drop qualifier -> evaluate simplified obligation -> clean decision."
+# ---------------------------------------------------------------------------
+
+QUALIFIER_FIELDS = ("condition_quote", "exception_quote", "cross_reference_text")
+
+
+def ground_qualifiers(document_text: str, verification: "VerificationResult") -> Dict[str, GroundingResult]:
+    """Grounds every non-null qualifier quote the verifier claimed to have
+    found, independent of whether the main proposition grounded. Returns
+    one GroundingResult per qualifier field present in QUALIFIER_FIELDS —
+    a field the verifier reported as null is simply absent from the
+    returned dict (there is nothing to ground, and nothing to fail)."""
+    results: Dict[str, GroundingResult] = {}
+    for field_name in QUALIFIER_FIELDS:
+        quote = getattr(verification, field_name, None)
+        if quote is not None:
+            results[field_name] = ground_evidence_quote(document_text, quote)
+    return results
+
+
 def evaluate_admission(
     candidate: CandidateMaterialFact,
     *,
     has_unresolved_dependency: bool = False,
     has_unresolved_conflict: bool = False,
+    qualifier_grounding: Optional[Dict[str, GroundingResult]] = None,
 ) -> CandidateMaterialFact:
     """Mutates and returns `candidate` with admission_status/
     non_admission_reason set, using its already-populated
@@ -525,6 +592,12 @@ def evaluate_admission(
       AND deterministic_grounding_result.passed
       AND not has_unresolved_dependency
       AND not has_unresolved_conflict
+      AND every qualifier the verifier claimed to have found (condition/
+          exception/cross-reference) independently passed grounding
+          (Phase 4 hard gate — see ground_qualifiers docstring: a
+          material qualifier that fails grounding blocks admission
+          outright, it is never silently dropped so the base
+          proposition can still reach a clean ESTABLISHED)
     Every other combination is NOT_ADMITTED — this is the asymmetric
     clean-safety rule (Step 6): admission requires strictly all gates to
     pass, never a majority or a best-effort combination."""
@@ -562,6 +635,29 @@ def evaluate_admission(
         candidate.non_admission_reason = "unresolved competing interpretation"
         return candidate
 
+    qualifier_grounding = qualifier_grounding or {}
+    ungrounded_qualifiers = [
+        field_name for field_name, result in qualifier_grounding.items() if not result.passed
+    ]
+    if ungrounded_qualifiers:
+        candidate.admission_status = NOT_ADMITTED
+        candidate.non_admission_reason = (
+            "verifier reported a material qualifier (" + ", ".join(ungrounded_qualifiers) + ") that could not "
+            "be grounded against the source document — never dropped to reach a simplified clean fact"
+        )
+        return candidate
+
+    # Every claimed qualifier passed grounding — preserve its verbatim
+    # text onto the admitted fact (Phase 1's canonical schema fields).
+    # Only ever set from a GROUNDED quote, never from the verifier's raw
+    # claim directly.
+    if "condition_quote" in qualifier_grounding:
+        candidate.condition = verification.condition_quote
+    if "exception_quote" in qualifier_grounding:
+        candidate.exception = verification.exception_quote
+    if "cross_reference_text" in qualifier_grounding:
+        candidate.cross_reference = verification.cross_reference_text
+
     candidate.admission_status = ADMITTED
     candidate.non_admission_reason = None
     return candidate
@@ -571,10 +667,12 @@ def verify_and_ground(
     candidate: CandidateMaterialFact, document_text: str, proposition: str, *, api_key: Optional[str] = None,
 ) -> CandidateMaterialFact:
     """Convenience composition of stages 2-4 for one candidate: verify,
-    ground the verifier's own evidence citation, then admit. Does not
-    perform discovery (stage 1) — callers pass in an already-discovered
-    candidate (regex- or semantic-sourced)."""
+    ground the verifier's own evidence citation AND every qualifier it
+    claimed to have found, then admit. Does not perform discovery
+    (stage 1) — callers pass in an already-discovered candidate (regex-
+    or semantic-sourced)."""
     verification = verify_candidate_proposition(document_text, proposition, api_key=api_key)
     candidate.semantic_verification_result = verification
     candidate.deterministic_grounding_result = ground_evidence_quote(document_text, verification.evidence_quote)
-    return evaluate_admission(candidate)
+    qualifier_grounding = ground_qualifiers(document_text, verification)
+    return evaluate_admission(candidate, qualifier_grounding=qualifier_grounding)

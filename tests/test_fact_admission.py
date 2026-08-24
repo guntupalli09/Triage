@@ -326,3 +326,159 @@ def test_verify_and_ground_provider_failure_never_admits(monkeypatch):
     result = fa.verify_and_ground(candidate, "doc text", "proposition text")
     assert result.admission_status == fa.NOT_ADMITTED
     assert result.semantic_verification_result.status == fa.VERIFICATION_ERROR
+
+
+# ---------------------------------------------------------------------------
+# Qualifier grounding (final trust architecture, Phase 1-4): a material
+# condition/exception/cross-reference the verifier claims to have found
+# must be preserved onto the admitted fact, or block admission outright if
+# it cannot be grounded -- never silently dropped so a simplified fact can
+# still reach a clean ESTABLISHED.
+# ---------------------------------------------------------------------------
+
+def test_verification_result_carries_qualifier_fields_by_default_none():
+    vr = fa.VerificationResult(status=fa.ESTABLISHED, evidence_quote="x")
+    assert vr.condition_quote is None
+    assert vr.exception_quote is None
+    assert vr.cross_reference_text is None
+
+
+def test_verify_candidate_proposition_parses_qualifier_quotes(monkeypatch):
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    fake = _fake_response(json.dumps({
+        "status": "ESTABLISHED", "evidence_quote": "Vendor shall indemnify Customer.",
+        "condition_quote": "provided Customer gives prompt written notice",
+        "exception_quote": "except to the extent caused by Customer's negligence",
+        "cross_reference_text": None,
+        "reasoning": "Operative, conditioned, with an exception.",
+    }))
+    with patch("urllib.request.urlopen", return_value=fake):
+        result = fa.verify_candidate_proposition("doc text", "proposition text")
+    assert result.status == fa.ESTABLISHED
+    assert result.condition_quote == "provided Customer gives prompt written notice"
+    assert result.exception_quote == "except to the extent caused by Customer's negligence"
+    assert result.cross_reference_text is None
+
+
+def test_ground_qualifiers_grounds_each_present_field():
+    doc = "Vendor shall indemnify Customer, provided Customer gives prompt written notice, except for Customer's own negligence."
+    vr = fa.VerificationResult(
+        status=fa.ESTABLISHED, evidence_quote="Vendor shall indemnify Customer",
+        condition_quote="provided Customer gives prompt written notice",
+        exception_quote="except for Customer's own negligence",
+    )
+    results = fa.ground_qualifiers(doc, vr)
+    assert set(results.keys()) == {"condition_quote", "exception_quote"}
+    assert results["condition_quote"].passed
+    assert results["exception_quote"].passed
+
+
+def test_ground_qualifiers_fails_on_fabricated_condition():
+    doc = "Vendor shall indemnify Customer for third-party IP claims."
+    vr = fa.VerificationResult(
+        status=fa.ESTABLISHED, evidence_quote="Vendor shall indemnify Customer",
+        condition_quote="this exact condition text is not in the document",
+    )
+    results = fa.ground_qualifiers(doc, vr)
+    assert not results["condition_quote"].passed
+
+
+def test_admission_blocked_when_claimed_condition_fails_grounding():
+    """The hard gate: a material condition the verifier claims to have
+    found, but which cannot be grounded, must block admission outright --
+    never silently dropped so the base obligation still reaches ADMITTED."""
+    candidate = fa.CandidateMaterialFact(clause_type="indemnification", fact_type="obligation")
+    candidate.semantic_verification_result = fa.VerificationResult(
+        status=fa.ESTABLISHED, evidence_quote="grounded evidence",
+        condition_quote="a condition that will fail to ground",
+    )
+    candidate.deterministic_grounding_result = fa.GroundingResult(passed=True)
+    qualifier_grounding = {"condition_quote": fa.GroundingResult(passed=False, reasons=["not found"])}
+    result = fa.evaluate_admission(candidate, qualifier_grounding=qualifier_grounding)
+    assert result.admission_status == fa.NOT_ADMITTED
+    assert "condition_quote" in result.non_admission_reason
+    # Never dropped: the base fact must not be ADMITTED merely because
+    # the ungrounded qualifier was excluded.
+    assert candidate.condition is None
+
+
+def test_admission_preserves_grounded_condition_and_exception_onto_candidate():
+    candidate = fa.CandidateMaterialFact(clause_type="indemnification", fact_type="obligation")
+    candidate.semantic_verification_result = fa.VerificationResult(
+        status=fa.ESTABLISHED, evidence_quote="grounded evidence",
+        condition_quote="prompt written notice", exception_quote="Customer's own negligence",
+    )
+    candidate.deterministic_grounding_result = fa.GroundingResult(passed=True)
+    qualifier_grounding = {
+        "condition_quote": fa.GroundingResult(passed=True),
+        "exception_quote": fa.GroundingResult(passed=True),
+    }
+    result = fa.evaluate_admission(candidate, qualifier_grounding=qualifier_grounding)
+    assert result.admission_status == fa.ADMITTED
+    assert result.condition == "prompt written notice"
+    assert result.exception == "Customer's own negligence"
+
+
+def test_admission_with_no_qualifiers_claimed_is_unaffected():
+    """A candidate where the verifier found no qualifiers at all (the
+    common case) is unaffected by the new gate -- backward compatible."""
+    candidate = fa.CandidateMaterialFact(clause_type="liability", fact_type="cap_provision")
+    candidate.semantic_verification_result = fa.VerificationResult(status=fa.ESTABLISHED, evidence_quote="x")
+    candidate.deterministic_grounding_result = fa.GroundingResult(passed=True)
+    result = fa.evaluate_admission(candidate)
+    assert result.admission_status == fa.ADMITTED
+    assert result.condition is None
+    assert result.exception is None
+    assert result.cross_reference is None
+
+
+def test_verify_and_ground_end_to_end_preserves_grounded_condition(monkeypatch):
+    """Full pipeline: the mission's own worked example (indemnification
+    with a notice condition and a negligence exception) -- both survive
+    from AI verification through grounding to the admitted fact."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = (
+        "Vendor shall indemnify Customer against third-party intellectual-property claims, "
+        "provided Customer gives prompt written notice, except to the extent caused by "
+        "Customer's negligence."
+    )
+    fake = _fake_response(json.dumps({
+        "status": "ESTABLISHED",
+        "evidence_quote": "Vendor shall indemnify Customer against third-party intellectual-property claims",
+        "condition_quote": "provided Customer gives prompt written notice",
+        "exception_quote": "except to the extent caused by Customer's negligence",
+        "cross_reference_text": None,
+        "reasoning": "Operative indemnification, conditioned on notice, subject to a negligence exception.",
+    }))
+    with patch("urllib.request.urlopen", return_value=fake):
+        candidate = fa.CandidateMaterialFact(clause_type="indemnification", fact_type="obligation")
+        result = fa.verify_and_ground(
+            candidate, doc,
+            "Vendor is obligated to indemnify Customer against third-party IP claims.",
+        )
+    assert result.admission_status == fa.ADMITTED
+    assert result.condition == "provided Customer gives prompt written notice"
+    assert result.exception == "except to the extent caused by Customer's negligence"
+    assert result.cross_reference is None
+
+
+def test_verify_and_ground_end_to_end_blocks_on_fabricated_exception(monkeypatch):
+    """If the verifier hallucinates an exception that isn't actually in
+    the document, the whole candidate is blocked, not just the exception
+    field -- proving the hard gate operates through the full pipeline,
+    not only the unit-level evaluate_admission call."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "fake-key-for-mock-test")
+    doc = "Vendor shall indemnify Customer against third-party intellectual-property claims."
+    fake = _fake_response(json.dumps({
+        "status": "ESTABLISHED",
+        "evidence_quote": "Vendor shall indemnify Customer against third-party intellectual-property claims",
+        "condition_quote": None,
+        "exception_quote": "except to the extent caused by Customer's own gross negligence or willful misconduct",
+        "cross_reference_text": None,
+        "reasoning": "...",
+    }))
+    with patch("urllib.request.urlopen", return_value=fake):
+        candidate = fa.CandidateMaterialFact(clause_type="indemnification", fact_type="obligation")
+        result = fa.verify_and_ground(candidate, doc, "Vendor is obligated to indemnify Customer.")
+    assert result.admission_status == fa.NOT_ADMITTED
+    assert candidate.exception is None
